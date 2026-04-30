@@ -56,7 +56,7 @@ jobs:
       - name: Build documented projects (Release)
         run: |
           dotnet build src/BlazOrbit.Core/BlazOrbit.Core.csproj -c Release --no-restore
-          dotnet build src/BlazOrbit/BlazOrbit.csproj -c Release --no-restore
+          dotnet build src/BlazOrbit/BlazOrbit.csproj -c Release --no-restore -p:BlazOrbitBuildEnabled=false
           dotnet build src/BlazOrbit.SyntaxHighlight/BlazOrbit.SyntaxHighlight.csproj -c Release --no-restore
           dotnet build src/BlazOrbit.Localization.Shared/BlazOrbit.Localization.Shared.csproj -c Release --no-restore
           dotnet build src/BlazOrbit.Localization.Server/BlazOrbit.Localization.Server.csproj -c Release --no-restore

@@ -132,7 +132,8 @@
 
 	<!-- Ensure BuildTools is compiled -->
 	<Target Name="EnsureBuildToolsCompiled"
-			BeforeTargets="BuildBlazOrbitAssets">
+			BeforeTargets="BuildBlazOrbitAssets"
+			Condition="'$(BlazOrbitBuildEnabled)' == 'true'">
 
 		<Message Text="Ensuring BuildTools is compiled..." Importance="normal" />
 
