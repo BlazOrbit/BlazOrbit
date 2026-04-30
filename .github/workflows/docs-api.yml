@@ -42,8 +42,16 @@ jobs:
           cache: true
           cache-dependency-path: '**/*.csproj'
 
-      - name: Restore
-        run: dotnet restore BlazOrbit.slnx
+      - name: Restore documented projects
+        run: |
+          dotnet restore src/BlazOrbit.Core/BlazOrbit.Core.csproj
+          dotnet restore src/BlazOrbit/BlazOrbit.csproj
+          dotnet restore src/BlazOrbit.SyntaxHighlight/BlazOrbit.SyntaxHighlight.csproj
+          dotnet restore src/BlazOrbit.Localization.Shared/BlazOrbit.Localization.Shared.csproj
+          dotnet restore src/BlazOrbit.Localization.Server/BlazOrbit.Localization.Server.csproj
+          dotnet restore src/BlazOrbit.Localization.Wasm/BlazOrbit.Localization.Wasm.csproj
+          dotnet restore src/BlazOrbit.Translations/BlazOrbit.Translations.csproj
+          dotnet restore src/BlazOrbit.FluentValidation/BlazOrbit.FormsFluentValidation.csproj
 
       - name: Build documented projects (Release)
         run: |
