@@ -1,0 +1,36 @@
+﻿@using BlazOrbit.Components
+@using BlazOrbit.Components.Forms
+
+<div class="test-number-consumer">
+    <BOBInputNumber TValue="int?"
+                    @bind-Value="Value"
+                    Label="@Label"
+                    Min="@Min"
+                    Max="@Max"
+                    Step="@Step"
+                    Disabled="@Disabled"
+                    ReadOnly="@ReadOnly"
+                    ShowStepButtons="@ShowStepButtons"
+                    OnIncrement="HandleIncrement"
+                    OnDecrement="HandleDecrement" />
+    <div class="current-value">@Value</div>
+    <div class="last-increment">@_lastIncrement</div>
+    <div class="last-decrement">@_lastDecrement</div>
+</div>
+
+@code {
+    private int? _lastIncrement;
+    private int? _lastDecrement;
+
+    [Parameter] public int? Value { get; set; }
+    [Parameter] public int? Min { get; set; }
+    [Parameter] public int? Max { get; set; }
+    [Parameter] public decimal Step { get; set; } = 1m;
+    [Parameter] public string? Label { get; set; }
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public bool ReadOnly { get; set; }
+    [Parameter] public bool ShowStepButtons { get; set; } = true;
+
+    private void HandleIncrement(int? v) => _lastIncrement = v;
+    private void HandleDecrement(int? v) => _lastDecrement = v;
+}

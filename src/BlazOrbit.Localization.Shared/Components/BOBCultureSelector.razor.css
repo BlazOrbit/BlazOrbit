@@ -1,0 +1,75 @@
+﻿[data-bob-component="culture-selector"] {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* === Dropdown variant: option content layout === */
+
+[data-bob-component="culture-selector"] .bob-culture-selector__option {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(0.5rem * var(--bob-size-multiplier, 1));
+    line-height: 1;
+}
+
+[data-bob-component="culture-selector"] .bob-culture-selector__flag {
+    font-size: 1.15em;
+    line-height: 1;
+}
+
+[data-bob-component="culture-selector"] .bob-culture-selector__name {
+    font-weight: 500;
+    font-size: 0.9375em;
+}
+
+/* === Flags variant === */
+
+[data-bob-component="culture-selector"] .bob-culture-selector__flag-list {
+    display: inline-flex;
+    gap: calc(0.5rem * var(--bob-size-multiplier, 1));
+}
+
+[data-bob-component="culture-selector"] .bob-culture-selector__flag-button {
+    --_culture-flag-bg: transparent;
+    --_culture-flag-border: transparent;
+
+    display: inline-flex;
+    align-items: center;
+    gap: calc(0.25rem * var(--bob-size-multiplier, 1));
+    padding: calc(0.25rem * var(--bob-size-multiplier, 1)) calc(0.5rem * var(--bob-size-multiplier, 1));
+    background: var(--_culture-flag-bg);
+    border: 2px solid var(--_culture-flag-border);
+    border-radius: 4px;
+    color: var(--palette-surface-contrast);
+    cursor: pointer;
+    transition: background-color 150ms ease, border-color 150ms ease;
+}
+
+[data-bob-component="culture-selector"] .bob-culture-selector__flag-button:hover:not([disabled]) {
+    --_culture-flag-bg: color-mix(in srgb, var(--palette-primary) 10%, transparent);
+}
+
+[data-bob-component="culture-selector"] .bob-culture-selector__flag-button.active {
+    --_culture-flag-bg: color-mix(in srgb, var(--palette-primary) 12%, transparent);
+    --_culture-flag-border: var(--palette-primary);
+}
+
+[data-bob-component="culture-selector"] .bob-culture-selector__flag-button:focus-visible {
+    outline: var(--bob-highlight-outline);
+    outline-offset: var(--bob-highlight-outline-offset);
+}
+
+[data-bob-component="culture-selector"] .bob-culture-selector__flag-label {
+    font-weight: 500;
+    font-size: 0.875em;
+}
+
+/* === Size multiplier passthrough === */
+
+[data-bob-component="culture-selector"][data-bob-size="small"] {
+    font-size: 0.875rem;
+}
+
+[data-bob-component="culture-selector"][data-bob-size="large"] {
+    font-size: 1.125rem;
+}

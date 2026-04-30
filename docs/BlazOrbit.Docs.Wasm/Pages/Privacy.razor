@@ -1,0 +1,24 @@
+﻿@page "/privacy"
+@layout MainLayout
+
+<PageTitle>Privacy — BlazOrbit</PageTitle>
+
+<div class="doc-content">
+    <h1>Privacy</h1>
+
+    <p>
+        This documentation site is intentionally analytics-free.
+    </p>
+
+    <ul>
+        <li>No Google Analytics, Plausible, Fathom, Cloudflare Web Analytics, or any other tracker.</li>
+        <li>No cookies set by the site itself. The only cookie that may exist is the BlazOrbit culture cookie set by the <code>BOBCultureSelector</code> on the Server-hosted variant — a same-origin, <code>HttpOnly</code> functional cookie that records your language preference. No analytics are derived from it.</li>
+        <li>No third-party scripts are loaded. Every JavaScript and CSS asset ships from the same origin as this page (<code>self</code> in CSP terms).</li>
+        <li>No remote fonts. Typography is bundled.</li>
+        <li>No telemetry beacons from the BlazOrbit runtime. The library never phones home; the only outbound surface in any consumer app is the optional <code>/BlazOrbit/Culture/Set</code> endpoint when Server localization is opted in.</li>
+    </ul>
+
+    <p>
+        This policy is intentional and not subject to change without an explicit announcement on the GitHub repository. If you are integrating BlazOrbit in a regulated environment, the recommended Content-Security-Policy directives in the <code>AGENTS.md</code> §Security section let you enforce this from the consumer side too.
+    </p>
+</div>

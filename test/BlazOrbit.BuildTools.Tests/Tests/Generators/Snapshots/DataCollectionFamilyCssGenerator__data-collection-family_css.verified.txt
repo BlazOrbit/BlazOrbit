@@ -1,0 +1,141 @@
+﻿/* ========================================
+   Data Collection Family Styles
+   Auto-generated - Do not edit manually
+   ======================================== */
+
+bob-component[data-bob-data-collection] {
+    --_dc-padding-x: 1rem;
+    --_dc-padding-y: 0.75rem;
+    --_dc-header-bg: color-mix(in oklab, var(--palette-surface) 95%, var(--palette-primary));
+    --_dc-hover-bg: color-mix(in oklab, var(--_dc-background) 90%, var(--palette-hover-tint) 10%);
+    --_dc-selected-bg: color-mix(in oklab, var(--_dc-background) 80%, var(--palette-primary) 20%);
+    --_dc-background: var(--bob-inline-background, var(--palette-surface));
+    --_dc-border-radius: var(--bob-inline-border-radius, var(--bob-border-radius));
+    --_dc-border: var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border));
+    --_dc-border-top: var(--bob-inline-border-top, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+    --_dc-border-right: var(--bob-inline-border-right, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+    --_dc-border-bottom: var(--bob-inline-border-bottom, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+    --_dc-border-left: var(--bob-inline-border-left, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+
+    display: block;
+    width: 100%;
+    background-color: var(--_dc-background);
+    border: var(--_dc-border);
+    border-top: var(--_dc-border-top);
+    border-right: var(--_dc-border-right);
+    border-bottom: var(--_dc-border-bottom);
+    border-left: var(--_dc-border-left);
+    border-radius: var(--_dc-border-radius);
+}
+
+/* === TOOLBAR === */
+bob-component[data-bob-data-collection] .bob-dc__toolbar {
+    display: flex;
+    align-items: center;
+    gap: calc(1rem * var(--bob-density-multiplier, 1));
+    padding: var(--_dc-padding-y) var(--_dc-padding-x);
+    background: var(--_dc-header-bg);
+    border-bottom: 1px solid var(--palette-border);
+}
+
+bob-component[data-bob-data-collection] .bob-dc__toolbar-spacer {
+    flex: 1;
+}
+
+/* === FILTER === */
+bob-component[data-bob-data-collection] .bob-dc__filter {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: calc(0.5rem * var(--bob-density-multiplier, 1));
+    flex: 0 1 300px;
+}
+
+/* === SELECTION INFO === */
+bob-component[data-bob-data-collection] .bob-dc__selection-info {
+    display: flex;
+    align-items: center;
+    gap: calc(0.5rem * var(--bob-density-multiplier, 1));
+    font-size: 0.875rem;
+    color: var(--palette-primary);
+}
+
+/* === PAGE SIZE SELECTOR === */
+bob-component[data-bob-data-collection] .bob-dc__page-size {
+    display: flex;
+    align-items: center;
+    gap: calc(0.5rem * var(--bob-density-multiplier, 1));
+    font-size: 0.875rem;
+}
+
+/* === PAGINATION === */
+bob-component[data-bob-data-collection] .bob-dc__pagination {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--_dc-padding-y) var(--_dc-padding-x);
+    border-top: 1px solid var(--palette-border);
+    background: var(--_dc-header-bg);
+}
+
+bob-component[data-bob-data-collection] .bob-dc__pagination-info {
+    font-size: 0.875rem;
+    color: var(--palette-surface-contrast);
+    opacity: 0.8;
+}
+
+bob-component[data-bob-data-collection] .bob-dc__pagination-controls {
+    display: flex;
+    align-items: center;
+    gap: calc(0.25rem * var(--bob-density-multiplier, 1));
+}
+
+/* === CHECKBOX (shared) === */
+bob-component[data-bob-data-collection] .bob-dc__checkbox {
+    cursor: pointer;
+    width: 1.125rem;
+    height: 1.125rem;
+    accent-color: var(--palette-primary);
+}
+
+/* === EMPTY STATE === */
+bob-component[data-bob-data-collection] .bob-dc__empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: calc(0.5rem * var(--bob-density-multiplier, 1));
+    padding: calc(var(--_dc-padding-y) * 4) var(--_dc-padding-x);
+    color: var(--palette-surface-contrast);
+    opacity: 0.6;
+    text-align: center;
+}
+
+bob-component[data-bob-data-collection] .bob-dc__empty-icon {
+    font-size: 3rem;
+    opacity: 0.5;
+}
+
+bob-component[data-bob-data-collection] .bob-dc__empty-text {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* === LOADING STATE === */
+bob-component[data-bob-data-collection] .bob-dc__loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: calc(var(--_dc-padding-y) * 4) var(--_dc-padding-x);
+}
+
+/* === DENSITY: Padding overrides === */
+bob-component[data-bob-data-collection][data-bob-density="compact"] {
+    --_dc-padding-x: 0.5rem;
+    --_dc-padding-y: 0.375rem;
+}
+
+bob-component[data-bob-data-collection][data-bob-density="comfortable"] {
+    --_dc-padding-x: 1.5rem;
+    --_dc-padding-y: 1rem;
+}

@@ -1,0 +1,40 @@
+﻿@page "/components/loading"
+
+@inject IStringLocalizer<LoadingPage> Loc
+
+<PageTitle>BlazOrbit - BOBLoadingIndicator</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBLoadingIndicator"]"
+         Lede="@Loc["Six animation variants for progress, activity, and waiting states. Size- and color-aware."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBLoadingIndicator)">
+
+    <DocDemo Key="Variants" Title="@Loc["Variants"]" Description="@Loc["Six built-in animations covering every common case."]">
+                <BOBLoadingIndicator Variant="BOBLoadingIndicatorVariant.Spinner" />
+                <BOBLoadingIndicator Variant="BOBLoadingIndicatorVariant.CircularProgress" />
+                <BOBLoadingIndicator Variant="BOBLoadingIndicatorVariant.Ring" />
+                <BOBLoadingIndicator Variant="BOBLoadingIndicatorVariant.Dots" />
+                <BOBLoadingIndicator Variant="BOBLoadingIndicatorVariant.Bars" />
+                <BOBLoadingIndicator Variant="BOBLoadingIndicatorVariant.LinearIndeterminate" />
+    </DocDemo>
+
+    <DocDemo Key="Sizes" Title="@Loc["Sizes"]">
+                <BOBLoadingIndicator Size="BOBSize.Small" />
+                <BOBLoadingIndicator Size="BOBSize.Medium" />
+                <BOBLoadingIndicator Size="BOBSize.Large" />
+    </DocDemo>
+
+    <DocDemo Key="Colors" Title="@Loc["Colors"]">
+                <BOBLoadingIndicator Color="@PaletteColor.Primary" />
+                <BOBLoadingIndicator Color="@PaletteColor.Secondary" />
+                <BOBLoadingIndicator Color="@PaletteColor.Error" />
+                <BOBLoadingIndicator Color="@PaletteColor.Success" />
+                <BOBLoadingIndicator Color="@PaletteColor.Warning" />
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBLoadingIndicatorComponentInfo.Parameters" />
+    </section>
+
+</DocPage>

@@ -1,0 +1,148 @@
+﻿@using System.Text.RegularExpressions
+@using BlazOrbit.Components.Utils
+@using BlazOrbit.SyntaxHighlight
+@using Microsoft.Extensions.Logging
+
+@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+
+@inherits BOBComponentBase
+@implements IHasSize
+@implements IHasBorder
+@implements IHasBackgroundColor
+
+@inject IClipboardJsInterop Clipboard
+@inject ILogger<BOBCodeBlock> Logger
+
+<bob-component @attributes="ComputedAttributes">
+    <div class="bob-code-block__header">
+        <span class="bob-code-block__title">
+            @(Title ?? Language.ToString().ToUpperInvariant())
+        </span>
+
+        <BOBTooltip AutoCloseAfterMs="1500" Trigger="TooltipTrigger.Click"
+                    Placement="TooltipPlacement.Top"
+                    Text="Copied!">
+            <_BOBBtn Disabled="@_copied"
+                     AriaLabel="Copy code"
+                     OnClick="CopyClicked">
+                <span>Copy</span>
+            </_BOBBtn>
+        </BOBTooltip>
+    </div>
+
+    <div class="bob-code-block__content">
+        @_highlightedCode
+    </div>
+</bob-component>
+
+@code {
+    [Parameter, EditorRequired] public string Code { get; set; } = string.Empty;
+    /// <summary>Language.</summary>
+    [Parameter] public SyntaxHighlightLanguage Language { get; set; } = SyntaxHighlightLanguage.CSharp;
+    /// <summary>Tooltip text displayed on hover.</summary>
+    [Parameter] public string? Title { get; set; }
+
+    // IHasSize
+    /// <summary>Visual size of the code block.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+
+    // IHasBorder
+    /// <summary>Border style applied to the code block edge.</summary>
+    [Parameter] public BorderStyle? Border { get; set; }
+
+    // IHasBackgroundColor
+    /// <summary>Background color of the code block. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? BackgroundColor { get; set; }
+
+    private bool _copied;
+    private Highlighter _highlighter = new Highlighter();
+    private CancellationTokenSource _disposeCts = new();
+
+    private MarkupString _highlightedCode;
+    private string? _lastCode;
+    private SyntaxHighlightLanguage _lastLanguage;
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (Code != _lastCode || Language != _lastLanguage)
+        {
+            _highlightedCode = ComputeHighlight();
+            _lastCode = Code;
+            _lastLanguage = Language;
+        }
+    }
+
+    private MarkupString ComputeHighlight()
+    {
+        if (Code == null) return (MarkupString)string.Empty;
+
+        string normalized = NormalizeIndentation(Code);
+        try
+        {
+            return (MarkupString)_highlighter.Highlight(Language.ToString(), normalized);
+        }
+        catch (Exception ex) when (
+            ex is ArgumentException
+                or FormatException
+                or InvalidOperationException
+                or RegexMatchTimeoutException)
+        {
+            // Highlighter contract: ArgumentException for unknown languages,
+            // RegexMatchTimeoutException for catastrophic backtracking. Anything
+            // outside this set is a bug we want to surface, not swallow.
+            Logger.LogWarning(
+                ex,
+                "BOBCodeBlock highlighter failed for language {Language}; falling back to escaped plain text. Code prefix: {Prefix}",
+                Language,
+                normalized.Length > 128 ? normalized[..128] : normalized);
+            return (MarkupString)System.Web.HttpUtility.HtmlEncode(normalized);
+        }
+    }
+
+    private async Task CopyClicked(MouseEventArgs e) => await CopyAsync();
+    private async Task CopyAsync()
+    {
+        await Clipboard.CopyTextAsync(NormalizeIndentation(Code));
+        _copied = true;
+
+        try
+        {
+            await Task.Delay(1500, _disposeCts.Token);
+        }
+        catch (TaskCanceledException)
+        {
+            return;
+        }
+
+        _copied = false;
+        StateHasChanged();
+    }
+
+    public override async ValueTask DisposeAsync()
+    {
+        _disposeCts.Cancel();
+        _disposeCts.Dispose();
+        await base.DisposeAsync();
+    }
+
+    private static string NormalizeIndentation(string code)
+    {
+        if (string.IsNullOrWhiteSpace(code)) return string.Empty;
+
+        string[] lines = code.Split('\n');
+
+        int minIndent = lines
+            .Where(l => !string.IsNullOrWhiteSpace(l))
+            .Select(l => l.TakeWhile(char.IsWhiteSpace).Count())
+            .DefaultIfEmpty(0)
+            .Min();
+
+        return string.Join(
+            "\n",
+            lines.Select(l => l.Length >= minIndent ? l[minIndent..] : l)
+        ).Trim();
+    }
+}

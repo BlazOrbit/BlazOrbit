@@ -1,0 +1,113 @@
+﻿@page "/concepts/js-interop"
+
+<PageTitle>JS Interop — BlazOrbit</PageTitle>
+
+<DocPage Eyebrow="Concept"
+         Title="JS Interop"
+         Lede="How BlazOrbit splits JavaScript into per-feature interop services, and how components opt into behaviors through IJsBehavior interfaces.">
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Topic-specific interop services</h2>
+        <p class="doc-section__description">
+            Rather than a single monolithic JS module, interop is split by feature. Each interface
+            lives in <code>BlazOrbit.Services.JsInterop</code> and has a matching TypeScript
+            module bundled by Vite into <code>wwwroot/js/</code>.
+        </p>
+        <ul>
+            <li><code>IThemeJsInterop</code> — reads / writes <code>data-theme</code> on <code>&lt;html&gt;</code> and persists to <code>localStorage</code>.</li>
+            <li><code>IBehaviorJsInterop</code> — applies lightweight DOM behaviors (e.g. ripples).</li>
+            <li><code>IPatternJsInterop</code> — date / time / number input patterns.</li>
+            <li><code>IDropdownJsInterop</code> — positioning + outside-click handling for dropdowns and tooltips.</li>
+            <li><code>IClipboardJsInterop</code> — copy-to-clipboard.</li>
+            <li><code>ITextAreaJsInterop</code> — auto-grow textarea sizing.</li>
+            <li><code>IDraggableJsInterop</code> — pointer capture for <code>BOBDraggable</code>.</li>
+            <li><code>IColorPickerJsInterop</code> — color picker interactions.</li>
+            <li><code>IModalJsInterop</code> — scroll lock + focus trap for dialogs and drawers.</li>
+        </ul>
+        <p class="doc-section__description" style="margin-top: 1rem;">
+            All of them are registered as <code>Scoped</code> by <code>AddBlazOrbit()</code> —
+            you don't need to touch them unless you're building a custom component that reuses one.
+        </p>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">The IHas*Behavior pipeline</h2>
+        <p class="doc-section__description">
+            Some capabilities go beyond CSS — a ripple effect, say, needs a click-time DOM tweak.
+            Those are expressed as interfaces deriving from <code>IJsBehavior</code>:
+            <code>IHasRipple</code>, <code>IHasAutoGrow</code>, and so on.
+        </p>
+        <p class="doc-section__description">
+            During <code>OnAfterRenderAsync(firstRender)</code>, <code>BOBComponentBase</code> walks
+            the implemented behavior interfaces and runs <code>BOBComponentJsBehaviorBuilder</code> to
+            invoke the matching JS hook on the rendered element. You get automatic cleanup on dispose.
+        </p>
+        <BOBCodeBlock Title="Opting into ripple"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="@_ripple" />
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Directly calling an interop from a component</h2>
+        <p class="doc-section__description">
+            If you need imperative JS (e.g. to copy to clipboard, focus an input, or toggle a theme),
+            inject the relevant interop:
+        </p>
+        <BOBCodeBlock Title="MyComponent.razor"
+                      Language="SyntaxHighlightLanguage.Razor"
+                      Code="@_injectExample" />
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Where the JS lives</h2>
+        <p class="doc-section__description">
+            TypeScript sources live in <code>src/BlazOrbit/Types/&lt;Feature&gt;/</code> and are
+            bundled per feature into <code>wwwroot/js/Types/&lt;Feature&gt;/&lt;Feature&gt;Interop.min.js</code>
+            by the build pipeline (see the <a href="/getting-started">Getting started</a> page for how
+            that is wired up). The generated JS is referenced by each interop C# class via
+            <code>IJSRuntime.InvokeAsync</code>.
+        </p>
+        <p class="doc-section__description">
+            You don't ship the JS bundles yourself — they're part of the <code>BlazOrbit</code>
+            NuGet's static web assets and are served under <code>_content/BlazOrbit/js/…</code>.
+        </p>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Building a custom component with JS</h2>
+        <ol>
+            <li>Write a TypeScript module and arrange for it to ship with your app (or a feature package).</li>
+            <li>Expose an interop service with an interface + <code>InvokeAsync</code>-based implementation, and register it as scoped.</li>
+            <li>Inject the service into your component and call it from <code>OnAfterRenderAsync</code> / event handlers.</li>
+            <li>If the behavior should auto-wire to a marker interface, derive an interface from <code>IJsBehavior</code> and wire it into <code>BOBComponentJsBehaviorBuilder</code>.</li>
+        </ol>
+    </section>
+
+</DocPage>
+
+@code {
+    private const string _ripple = @"public partial class MyCustom : BOBComponentBase, IHasRipple
+{
+    [Parameter] public bool DisableRipple { get; set; }
+    [Parameter] public string? RippleColor { get; set; }
+    [Parameter] public int? RippleDuration { get; set; }
+}
+
+// Renders: --bob-inline-ripple-color / --bob-inline-ripple-duration.
+// BOBComponentJsBehaviorBuilder reads IHasRipple state directly and wires up
+// the pointer listener — no DOM data-attribute is needed.";
+
+    private const string _injectExample = @"@inject IClipboardJsInterop Clipboard
+@inject IThemeJsInterop Themes
+
+<BOBButton Text=""Copy"" OnClick=""OnCopy"" />
+<BOBButton Text=""Toggle theme"" OnClick=""OnToggle"" />
+
+@code {
+    private Task OnCopy() =>
+        Clipboard.CopyTextAsync(""Copied from a custom component!"");
+
+    private Task<string> OnToggle() =>
+        Themes.ToggleThemeAsync(new[] { ""light"", ""dark"" });
+}";
+}

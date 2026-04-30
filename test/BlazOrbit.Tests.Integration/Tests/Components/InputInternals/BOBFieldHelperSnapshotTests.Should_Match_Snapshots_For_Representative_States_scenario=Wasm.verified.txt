@@ -1,0 +1,18 @@
+﻿[
+  {
+    Name: Empty,
+    Html: 
+  },
+  {
+    Name: HelperOnly,
+    Html: <div id="helper-1" class="bob-field-helper" aria-live="polite" b-<SCOPE>>As it appears on your ID.</div>
+  },
+  {
+    Name: ValidationOnly,
+    Html: <div class="bob-field-helper bob-field-helper--error" role="alert" b-<SCOPE>></div>
+  },
+  {
+    Name: HelperAndValidation,
+    Html: <div class="bob-field-helper bob-field-helper--error" role="alert" b-<SCOPE>></div><div class="bob-field-helper" aria-live="polite" b-<SCOPE>>Required field</div>
+  }
+]

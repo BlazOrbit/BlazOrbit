@@ -1,0 +1,180 @@
+﻿/* ── Layout del bob-component ── */
+
+[data-bob-component="select"] {
+    flex-direction: column;
+    gap: 0.25rem;
+    /* Tokens internos */
+    --_select-px: 1rem;
+    --_select-h: calc(2.5rem * var(--bob-size-multiplier, 1));
+    --_select-radius: 4px;
+    --_select-border-w: 1px;
+    --_select-transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --_select-border-color: var(--palette-border);
+    --_select-focus-color: var(--palette-highlight);
+    --_select-bg: var(--bob-inline-background, transparent);
+    --_select-color: var(--bob-inline-color, inherit);
+    --_select-label-color: var(--palette-surface-contrast);
+
+    color: var(--_select-color);
+    background-color: var(--_select-bg);
+}
+
+    /* ── Label ── */
+
+    [data-bob-component="select"] .bob-select__label {
+        font-size: 0.8125rem;
+        font-weight: 500;
+        color: var(--_select-label-color);
+        transition: color var(--_select-transition);
+        user-select: none;
+    }
+
+    [data-bob-component="select"]:focus-within .bob-select__label {
+        color: var(--_select-focus-color);
+    }
+
+    /*
+ * .bob-field__required → definida en _base.css (GetUtilities)
+ * No se duplica aquí.
+ */
+
+    /* ── Control (select + arrow) ── */
+
+    [data-bob-component="select"] .bob-select__control {
+        position: relative;
+        display: flex;
+        align-items: center;
+    }
+
+    /* ── Native select reset ── */
+
+    [data-bob-component="select"] .bob-select__native {
+        width: 100%;
+        height: var(--_select-h);
+        padding-inline: var(--_select-px);
+        padding-inline-end: calc(var(--_select-px) * 2.5); /* room for arrow */
+        border-radius: var(--_select-radius);
+        background: var(--_select-bg);
+        color: var(--_select-color);
+        font: inherit;
+        cursor: pointer;
+        /* Suppress the UA's default focus ring; the variant rules below paint
+           a border-color change for focus and the :focus-visible block restores
+           the high-contrast outline for keyboard navigation. */
+        outline: none;
+        transition: border-color var(--_select-transition), box-shadow var(--_select-transition);
+        /* Reset native appearance */
+        appearance: none;
+        -webkit-appearance: none;
+    }
+
+    /* WCAG 2.4.7 — keyboard-only focus restores the design-system outline. */
+    [data-bob-component="select"] .bob-select__native:focus-visible {
+        outline: var(--bob-highlight-outline);
+        outline-offset: var(--bob-highlight-outline-offset);
+    }
+
+    /* ── Arrow icon ── */
+
+    [data-bob-component="select"] .bob-select__arrow {
+        position: absolute;
+        inset-inline-end: var(--_select-px);
+        display: flex;
+        align-items: center;
+        pointer-events: none;
+        color: var(--_select-label-color);
+        transition: transform var(--_select-transition), color var(--_select-transition);
+    }
+
+        [data-bob-component="select"] .bob-select__arrow svg {
+            width: 1em;
+            height: 1em;
+        }
+
+    [data-bob-component="select"]:focus-within .bob-select__arrow {
+        color: var(--_select-focus-color);
+        transform: rotate(180deg);
+    }
+
+    /*
+ * .bob-field__helper → definida en _base.css (GetUtilities)
+ * No se duplica aquí.
+ */
+
+    /* ════════════════════════════════════════
+   VARIANTE: OUTLINED
+   ════════════════════════════════════════ */
+
+    [data-bob-component="select"][data-bob-variant="outlined"] .bob-select__native {
+        border: var(--_select-border-w) solid var(--_select-border-color);
+    }
+
+        [data-bob-component="select"][data-bob-variant="outlined"] .bob-select__native:focus {
+            border-color: var(--_select-focus-color);
+            border-width: 2px;
+            padding-inline-start: calc(var(--_select-px) - 1px); /* compensate width delta */
+        }
+
+    /* ════════════════════════════════════════
+   VARIANTE: FILLED
+   ════════════════════════════════════════ */
+
+    [data-bob-component="select"][data-bob-variant="filled"] {
+        --_select-bg: color-mix(in srgb, var(--palette-surface-contrast) 6%, transparent);
+    }
+
+        [data-bob-component="select"][data-bob-variant="filled"] .bob-select__native {
+            border: none;
+            border-bottom: var(--_select-border-w) solid var(--_select-border-color);
+            border-radius: var(--_select-radius) var(--_select-radius) 0 0;
+        }
+
+            [data-bob-component="select"][data-bob-variant="filled"] .bob-select__native:focus {
+                border-bottom-color: var(--_select-focus-color);
+                border-bottom-width: 2px;
+            }
+
+    /* ════════════════════════════════════════
+   VARIANTE: STANDARD
+   ════════════════════════════════════════ */
+
+    [data-bob-component="select"][data-bob-variant="standard"] .bob-select__native {
+        border: none;
+        border-bottom: var(--_select-border-w) solid var(--_select-border-color);
+        border-radius: 0;
+        padding-inline: 0;
+        padding-inline-end: calc(var(--_select-px) * 1.5);
+    }
+
+        [data-bob-component="select"][data-bob-variant="standard"] .bob-select__native:focus {
+            border-bottom-color: var(--_select-focus-color);
+            border-bottom-width: 2px;
+        }
+
+    [data-bob-component="select"][data-bob-variant="standard"] .bob-select__arrow {
+        inset-inline-end: 0;
+    }
+
+    /* ════════════════════════════════════════
+   VARIANTE: FLAT
+   ════════════════════════════════════════ */
+
+    [data-bob-component="select"][data-bob-variant="flat"] .bob-select__native {
+        border: none;
+        border-radius: 0;
+        padding-inline: 0;
+        padding-inline-end: calc(var(--_select-px) * 1.5);
+    }
+
+    [data-bob-component="select"][data-bob-variant="flat"] .bob-select__arrow {
+        inset-inline-end: 0;
+    }
+
+    /* ════════════════════════════════════════
+   ESTADO: READONLY
+   ════════════════════════════════════════ */
+
+    [data-bob-component="select"][data-bob-readonly] .bob-select__native {
+        pointer-events: none;
+        opacity: 0.8;
+    }

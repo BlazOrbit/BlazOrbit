@@ -1,0 +1,112 @@
+﻿[data-bob-component="tree-selector"] {
+    --_tree-selector-bg: var(--palette-surface);
+    --_tree-selector-border: 1px solid var(--palette-border);
+    --_tree-selector-border-radius: 8px;
+    --_tree-selector-node-height: calc(2.5rem * var(--bob-size-multiplier, 1));
+    --_tree-selector-node-gap: 2px;
+    --_tree-selector-hover-bg: color-mix(in srgb, var(--palette-surface-contrast) 8%, transparent);
+    --_tree-selector-selected-bg: color-mix(in srgb, var(--palette-primary) 15%, transparent);
+    --_tree-selector-transition: 150ms ease;
+    display: flex;
+    flex-direction: column;
+    gap: var(--_tree-selector-node-gap);
+    padding: 0.5rem;
+    background: var(--_tree-selector-bg);
+    border: var(--_tree-selector-border);
+    border-radius: var(--_tree-selector-border-radius);
+}
+
+    [data-bob-component="tree-selector"] .bob-tree-selector__node {
+        display: flex;
+        flex-direction: column;
+    }
+
+    [data-bob-component="tree-selector"] .bob-tree-selector__node-content {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        min-height: var(--_tree-selector-node-height);
+        border-radius: var(--_tree-selector-border-radius);
+        cursor: pointer;
+        transition: background-color var(--_tree-selector-transition);
+        user-select: none;
+    }
+
+        [data-bob-component="tree-selector"] .bob-tree-selector__node-content:hover {
+            background-color: var(--_tree-selector-hover-bg);
+        }
+
+    [data-bob-component="tree-selector"] .bob-tree-selector__node--selected > .bob-tree-selector__node-content {
+        background-color: var(--_tree-selector-selected-bg);
+    }
+
+    [data-bob-component="tree-selector"] .bob-tree-selector__node--disabled .bob-tree-selector__node-content {
+        opacity: 0.5;
+        cursor: not-allowed;
+        pointer-events: none;
+    }
+
+    [data-bob-component="tree-selector"] .bob-tree-selector__expander-placeholder {
+        width: calc(2rem * var(--bob-size-multiplier, 1));
+        height: calc(2rem * var(--bob-size-multiplier, 1));
+        flex-shrink: 0;
+    }
+
+    [data-bob-component="tree-selector"] .bob-tree-selector__node-label {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex: 1;
+        min-width: 0;
+        overflow: hidden;
+    }
+
+    [data-bob-component="tree-selector"] .bob-tree-selector__node-icon {
+        flex-shrink: 0;
+        opacity: 0.8;
+    }
+
+    [data-bob-component="tree-selector"] .bob-tree-selector__node-text {
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    [data-bob-component="tree-selector"] .bob-tree-selector__children {
+        display: flex;
+        flex-direction: column;
+        gap: var(--_tree-selector-node-gap);
+        padding-left: 0;
+        margin: 0;
+        overflow: hidden;
+    }
+
+    [data-bob-component="tree-selector"] .bob-tree-selector__children--animated {
+        animation: bob-tree-selector-expand var(--_tree-selector-transition);
+    }
+
+@keyframes bob-tree-selector-expand {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+[data-bob-component="tree-selector"] .bob-tree-selector__node-content:focus-visible {
+    outline: var(--bob-highlight-outline);
+    outline-offset: var(--bob-highlight-outline-offset);
+}
+
+/* CSS-OPT-02 block B.7: surface SelectionMode in scoped CSS so consumers can
+   override the leading checkbox slot per mode. The value is set by
+   BOBTreeSelector.BuildComponentDataAttributes. */
+[data-bob-component="tree-selector"][data-bob-selection-mode="multiple"] .bob-tree-selector__node-content {
+    --_tree-selector-multi-gap: 0.5rem;
+    column-gap: var(--_tree-selector-multi-gap);
+}

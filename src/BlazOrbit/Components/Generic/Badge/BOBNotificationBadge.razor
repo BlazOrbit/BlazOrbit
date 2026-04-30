@@ -1,0 +1,63 @@
+﻿@using BlazOrbit.Abstractions
+@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+
+@inherits BOBVariantComponentBase<BOBNotificationBadge, BOBBadgeVariant>
+@implements IHasSize
+@implements IHasColor
+@implements IHasBackgroundColor
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code {
+    /// <summary>Content rendered inside the component.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    /// <summary>BadgeContent.</summary>
+    [Parameter] public RenderFragment? BadgeContent { get; set; }
+    /// <summary>Position.</summary>
+    [Parameter] public BadgePosition Position { get; set; } = BadgePosition.TopRight;
+    /// <summary>Circular.</summary>
+    [Parameter] public bool Circular { get; set; } = true;
+    /// <summary>Visual size of the component.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Small;
+    /// <summary>Text or foreground color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? Color { get; set; }
+    /// <summary>Background color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? BackgroundColor { get; set; }
+    /// <summary>Border style applied to the component.</summary>
+    [Parameter] public BorderStyle? Border { get; set; }
+    /// <summary>Shadow style applied to the component.</summary>
+    [Parameter] public ShadowStyle? Shadow { get; set; }
+
+    public override BOBBadgeVariant DefaultVariant => BOBBadgeVariant.Default;
+
+    protected override Dictionary<BOBBadgeVariant, Func<BOBNotificationBadge, RenderFragment>> BuiltInTemplates { get; } = new()
+    {
+        [BOBBadgeVariant.Default] = b => b.RenderNotificationBadge(),
+    };
+
+    public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    {
+        dataAttributes[FeatureDefinitions.DataAttributes.Position] = Position.ToString().ToLowerInvariant();
+    }
+
+    private RenderFragment RenderNotificationBadge() => __builder =>
+    {
+        <bob-component @attributes="ComputedAttributes">
+            @ChildContent
+            <div class="bob-notification-badge__indicator">
+                <BOBBadge Variant="@Variant"
+                          Circular="@Circular"
+                          Size="@Size"
+                          Color="@Color"
+                          BackgroundColor="@BackgroundColor"
+                          Border="@Border"
+                          Shadow="@Shadow"
+                          ChildContent="@BadgeContent">
+                </BOBBadge>
+            </div>
+        </bob-component>
+    };
+}

@@ -1,0 +1,118 @@
+﻿@page "/components/datetime"
+
+@inject IStringLocalizer<DateTimePage> Loc
+
+<PageTitle>BlazOrbit - BOBInputDateTime</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBInputDateTime"]"
+         Lede="@Loc["Generic input for DateOnly, TimeOnly, DateTime, and DateTimeOffset. Culture-aware parsing and validation, plus standalone pickers."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBInputDateTime<>)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+        <BOBInputDateTime TValue="DateTime ?" @bind-Value="_dateBasic" Label="@Loc["Basic"]" HelperText="@Loc["Select date and time"]" />
+    </DocDemo>
+
+    <DocDemo Key="DateInput" Title="@Loc["Date Input"]" Description="@("""Use <code>TValue="DateOnly"</code> for date-only input.""")">
+        <BOBInputDateTime TValue="DateOnly ?" @bind-Value="_date" Label="@Loc["Only Date"]" />
+    </DocDemo>
+
+    <DocDemo Key="TimeInput" Title="@Loc["Time Input"]" Description="@("""Use <code>TValue="TimeOnly"</code> for time-only input.""")">
+        <BOBInputDateTime TValue="TimeOnly ?" @bind-Value="_time" Label="@Loc["Only time"]" />
+    </DocDemo>
+
+    <DocDemo Key="Variants" Title="@Loc["Variants"]">
+        <BOBInputDateTime @bind-Value="_outlinedValue" Label="@Loc["Outlined"]" Variant="BOBInputVariant.Outlined" />
+        <BOBInputDateTime @bind-Value="_filledValue" Label="@Loc["Filled"]" Variant="BOBInputVariant.Filled" />
+        <BOBInputDateTime @bind-Value="_standardValue" Label="@Loc["Standard"]" Variant="BOBInputVariant.Standard" />
+    </DocDemo>
+
+    <DocDemo Key="Sizes" Title="@Loc["Sizes"]">
+        <BOBInputDateTime @bind-Value="_smallValue" Label="@Loc["Small"]" Size="BOBSize.Small" />
+        <BOBInputDateTime @bind-Value="_mediumValue" Label="@Loc["Medium (Default)"]" Size="BOBSize.Medium" />
+        <BOBInputDateTime @bind-Value="_largeValue" Label="@Loc["Large"]" Size="BOBSize.Large" />
+    </DocDemo>
+
+    <DocDemo Key="ColorAndBackground" Title="@Loc["Color & Background"]">
+        <BOBInputDateTime @bind-Value="_colorValue" Label="@Loc["Custom Color & Background"]" Color="@PaletteColor.Secondary" BackgroundColor="@PaletteColor.SecondaryContrast" />
+    </DocDemo>
+
+    <DocDemo Key="PrefixSuffix" Title="@Loc["Prefix & Suffix"]">
+        <BOBInputDateTime @bind-Value="_prefixValue" Label="@Loc["With Prefix Icon"]"
+                          PrefixIcon="@BOBIconKeys.MaterialIconsOutlined.i_palette" PrefixBackgroundColor="white" PrefixColor="black" />
+        <BOBInputDateTime @bind-Value="_suffixValue" Label="@Loc["With Prefix Icon"]"
+                          SuffixIcon="@BOBIconKeys.MaterialIconsOutlined.i_palette" SuffixBackgroundColor="white" SuffixColor="black" />
+    </DocDemo>
+
+    <DocDemo Key="ShadowAndBorder" Title="@Loc["Shadow"]">
+        <BOBInputDateTime @bind-Value="_shadowValue" Variant="BOBInputVariant.Outlined" Label="@Loc["Elevation Shadow"]" Shadow="@BOBShadowPresets.Elevation(2)" />
+        <BOBInputDateTime @bind-Value="_shadowValue" Variant="BOBInputVariant.Outlined" Label="@Loc["Custom Shadow"]" Shadow="@(ShadowStyle.Create(5, 10, 0.14f, color: "purple"))" />
+    </DocDemo>
+
+    <DocDemo Key="States" Title="@Loc["States"]">
+        <BOBInputDateTime @bind-Value="_requiredValue" Label="@Loc["Required"]" Required="true" HelperText="@Loc["Required"]" />
+        <BOBInputDateTime @bind-Value="_disabledValue" Label="@Loc["Disabled"]" Disabled="true" HelperText="@Loc["Disabled"]" />
+        <BOBInputDateTime @bind-Value="_readOnlyValue" Label="@Loc["Read Only"]" ReadOnly="true" HelperText="@Loc["ReadOnly"]" />
+    </DocDemo>
+
+    <DocDemo Key="DatePicker" Title="@Loc["Date Picker"]" Description="@_datePickerDesc">
+        <BOBDatePicker Density="BOBDensity.Compact" @bind-Value="_pickerDate" />
+        <BOBDatePicker Density="BOBDensity.Standard" @bind-Value="_pickerDate" />
+        <BOBDatePicker Density="BOBDensity.Comfortable" @bind-Value="_pickerDate" />
+    </DocDemo>
+
+    <DocDemo Key="TimePicker" Title="@Loc["Time Picker"]" Description="@_timePickerDesc">
+        <BOBTimePicker Density="BOBDensity.Compact" @bind-Value="_pickerTime" />
+        <BOBTimePicker Density="BOBDensity.Standard" @bind-Value="_pickerTime" />
+        <BOBTimePicker Density="BOBDensity.Comfortable" @bind-Value="_pickerTime" />
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBInputDateTimeComponentInfo.Parameters" />
+    </section>
+
+</DocPage>
+
+@code {
+    private DateTime? _dateBasic = DateTime.Today;
+    private DateOnly? _date = DateOnly.FromDateTime(DateTime.Today);
+    private TimeOnly? _time = new(14, 30);
+    private DateTime? _outlinedValue = DateTime.Now;
+    private DateTime? _filledValue = DateTime.Now;
+    private DateTime? _standardValue = DateTime.Now;
+    private DateTime? _smallValue = DateTime.Now;
+    private DateTime? _mediumValue = DateTime.Now;
+    private DateTime? _largeValue = DateTime.Now;
+    private DateTime? _colorValue = DateTime.Now;
+    private DateTime? _backgroundValue = DateTime.Now;
+    private DateTime? _prefixValue = DateTime.Now;
+    private DateTime? _suffixValue = DateTime.Now;
+    private DateTime? _requiredValue = DateTime.Now;
+    private DateTime? _disabledValue = DateTime.Now;
+    private DateTime? _readOnlyValue = DateTime.Now;
+    private DateOnly? _pickerDate = DateOnly.FromDateTime(DateTime.Today);
+    private TimeOnly? _pickerTime = new(9, 0);
+    private DateTime? _shadowValue = DateTime.Now;
+    private DateTime? _pillValue = DateTime.Now;
+    private DateTime? _roundedValue = DateTime.Now;
+
+    private string _datePickerDesc = string.Empty;
+    private string _timePickerDesc = string.Empty;
+
+    override protected void OnInitialized()
+    {
+        base.OnInitialized();
+        _datePickerDesc = Loc[
+            """
+            <p class="doc-section__description"><code>BOBDatePicker</code> is a calendar-only component (no input).</p>
+            <p class="doc-section__description"><code>Density</code> parameter affects datepicker spacing</p>
+            """];
+        _timePickerDesc = Loc[
+            """
+            <p class="doc-section__description"><code>BOBTimePicker</code> is a clock-only component (no input).</p>
+            """];
+    }
+
+
+}

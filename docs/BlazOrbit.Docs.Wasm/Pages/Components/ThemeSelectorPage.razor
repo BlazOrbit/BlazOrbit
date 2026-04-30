@@ -1,0 +1,39 @@
+﻿@page "/components/themeselector"
+
+@inject IStringLocalizer<ThemeSelectorPage> Loc
+
+<PageTitle>BlazOrbit - BOBThemeSelector</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBThemeSelector"]"
+         Lede="@Loc["Toggle between light, dark, and any custom theme you register. Persists the choice to localStorage and flips the data-theme attribute on html."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBThemeSelector)">
+
+    <DocDemo Key="Default" Title="@Loc["Default variant"]" Description="@Loc["A labeled button with an icon that reflects the current theme."]">
+        <BOBThemeSelector />
+    </DocDemo>
+
+    <DocDemo Key="SunMoon" Title="@Loc["Sun / Moon variant"]" Description="@Loc["The compact switch used in the docs header: a BOBSwitch with sun and moon icons."]">
+        <BOBThemeSelector Variant="BOBThemeSelectorVariant.SunMoon" />
+    </DocDemo>
+
+    <DocDemo Key="CustomThemes" Title="@Loc["Custom themes list"]" Description="@Loc["Cycle through a custom list — not limited to light / dark."]">
+        <BOBThemeSelector AvailableThemes="@(new[] { "light", "dark" })" />
+    </DocDemo>
+
+    <DocDemo Key="Event" Title="@Loc["Hook onto change events"]">
+            <BOBThemeSelector Variant="BOBThemeSelectorVariant.SunMoon"
+                              OnThemeChanged="@(t => { _lastTheme = t; StateHasChanged(); })" />
+            <span>@Loc["Last change"]: <code>@_lastTheme</code></span>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBThemeSelectorComponentInfo.Parameters" />
+    </section>
+
+</DocPage>
+
+@code {
+    private string _lastTheme = "(unchanged)";
+}

@@ -1,0 +1,79 @@
+name: Bug report
+description: Report behavior that diverges from the documented contract.
+title: "[bug] "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to file a bug. Please search closed issues first — most regressions have a recurring cause.
+
+  - type: input
+    id: package_version
+    attributes:
+      label: BlazorBit package version
+      description: e.g. `1.0.0-preview.42`. Run `dotnet list package` if unsure.
+      placeholder: "1.0.0-preview.42"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: hosting
+    attributes:
+      label: Hosting model
+      options:
+        - Blazor Server
+        - Blazor WebAssembly
+        - Both
+        - Other / not sure
+    validations:
+      required: true
+
+  - type: input
+    id: dotnet_version
+    attributes:
+      label: .NET SDK version
+      description: Output of `dotnet --version`.
+      placeholder: "10.0.100"
+    validations:
+      required: true
+
+  - type: input
+    id: browser
+    attributes:
+      label: Browser (when relevant)
+      description: e.g. "Firefox 124", "Chrome 130", "Safari 17". Skip for non-UI bugs.
+      placeholder: "Chrome 130"
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen? Cite the AGENTS.md / docs section that promises this behavior, if applicable.
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What happened instead? Include error messages, stack traces, or screenshots.
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Minimal reproduction
+      description: |
+        Either: (a) a minimal `.razor` snippet plus the rendered DOM you observe, or (b) a link to a public repo / gist with a reproducing project.
+        "Doesn't work" reports without a repro will be closed with a request to fill this in.
+      render: razor
+    validations:
+      required: true
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: Workarounds you tried, theories about the cause, links to related issues.

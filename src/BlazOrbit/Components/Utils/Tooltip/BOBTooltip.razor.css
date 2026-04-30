@@ -1,0 +1,262 @@
+﻿[data-bob-component="tooltip"] {
+    position: relative;
+    display: inline-flex;
+    --bob-tooltip-max-width: 300px;
+}
+
+[data-bob-component="tooltip"] .bob-tooltip {
+    position: absolute;
+    z-index: var(--bob-z-tooltip);
+    pointer-events: auto;
+    animation: bob-tooltip-fade-in 150ms ease-out;
+    --bob-tooltip-offset: 8px;
+}
+
+[data-bob-component="tooltip"] .bob-tooltip__content {
+    --_tooltip-radius: 4px;
+    --_tooltip-background: color-mix(in srgb, var(--palette-shadow) 80%, var(--palette-surface-contrast) 20%);
+    --_tooltip-shadow: var(--bob-inline-shadow, 0 2px 8px color-mix(in srgb, var(--palette-shadow) 15%, transparent));
+    display: flex;
+    align-items: center;
+    background-color: var(--_tooltip-background);
+    color: var(--palette-surface);
+    padding: 0.5rem 0.75rem;
+    border-radius: var(--_tooltip-radius);
+    font-size: 0.875rem;
+    line-height: 1.4;
+    box-shadow: var(--_tooltip-shadow);
+    width: max-content;
+    max-width: var(--bob-tooltip-max-width, 300px);
+    word-wrap: break-word;
+    white-space:break-spaces;
+}
+
+/* Tooltip note: the default tooltip background is already a high-contrast color-mix of
+   shadow + surface-contrast. Layering a surface-tint on elevation gives diminishing returns,
+   so IHasElevation on a tooltip only swaps the shadow (via --bob-inline-shadow). The
+   data-bob-elevation attribute and --bob-inline-elevation-tint are still emitted for
+   consumers that want to override the background in their own CSS. */
+
+[data-bob-component="tooltip"] .bob-tooltip__arrow {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background-color: color-mix(in srgb, var(--palette-shadow) 80%, var(--palette-surface-contrast) 20%);
+    transform: rotate(45deg);
+}
+
+/* ========== Dark theme ========== */
+[data-bob-theme="dark"] [data-bob-component="tooltip"] .bob-tooltip__content,
+[data-bob-theme="dark"] [data-bob-component="tooltip"] .bob-tooltip__arrow {
+    background-color: color-mix(in srgb, var(--palette-surface) 80%, var(--palette-surface-contrast) 20%);
+}
+
+[data-bob-theme="dark"] [data-bob-component="tooltip"] .bob-tooltip__content {
+    color: var(--palette-surface-contrast);
+}
+
+/* ========== Placement: Top ========== */
+[data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="top"] {
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: var(--bob-tooltip-offset);
+}
+
+    [data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="top"][data-bob-arrow="true"] .bob-tooltip__arrow {
+        bottom: -4px;
+        left: 50%;
+        transform: translateX(-50%) rotate(45deg);
+    }
+
+[data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="topstart"] {
+    bottom: 100%;
+    left: 0;
+    margin-bottom: var(--bob-tooltip-offset);
+}
+
+    [data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="topstart"][data-bob-arrow="true"] .bob-tooltip__arrow {
+        bottom: -4px;
+        left: 12px;
+    }
+
+[data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="topend"] {
+    bottom: 100%;
+    right: 0;
+    margin-bottom: var(--bob-tooltip-offset);
+}
+
+    [data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="topend"][data-bob-arrow="true"] .bob-tooltip__arrow {
+        bottom: -4px;
+        right: 12px;
+    }
+
+/* ========== Placement: Bottom ========== */
+[data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="bottom"] {
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-top: var(--bob-tooltip-offset);
+}
+
+    [data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="bottom"][data-bob-arrow="true"] .bob-tooltip__arrow {
+        top: -4px;
+        left: 50%;
+        transform: translateX(-50%) rotate(45deg);
+    }
+
+[data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="bottomstart"] {
+    top: 100%;
+    left: 0;
+    margin-top: var(--bob-tooltip-offset);
+}
+
+    [data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="bottomstart"][data-bob-arrow="true"] .bob-tooltip__arrow {
+        top: -4px;
+        left: 12px;
+    }
+
+[data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="bottomend"] {
+    top: 100%;
+    right: 0;
+    margin-top: var(--bob-tooltip-offset);
+}
+
+    [data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="bottomend"][data-bob-arrow="true"] .bob-tooltip__arrow {
+        top: -4px;
+        right: 12px;
+    }
+
+/* ========== Placement: Left ========== */
+[data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="left"] {
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: var(--bob-tooltip-offset);
+}
+
+    [data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="left"][data-bob-arrow="true"] .bob-tooltip__arrow {
+        right: -4px;
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
+    }
+
+[data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="leftstart"] {
+    right: 100%;
+    top: 0;
+    margin-right: var(--bob-tooltip-offset);
+}
+
+    [data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="leftstart"][data-bob-arrow="true"] .bob-tooltip__arrow {
+        right: -4px;
+        top: 12px;
+    }
+
+[data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="leftend"] {
+    right: 100%;
+    bottom: 0;
+    margin-right: var(--bob-tooltip-offset);
+}
+
+    [data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="leftend"][data-bob-arrow="true"] .bob-tooltip__arrow {
+        right: -4px;
+        bottom: 12px;
+    }
+
+/* ========== Placement: Right ========== */
+[data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="right"] {
+    left: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-left: var(--bob-tooltip-offset);
+}
+
+    [data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="right"][data-bob-arrow="true"] .bob-tooltip__arrow {
+        left: -4px;
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
+    }
+
+[data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="rightstart"] {
+    left: 100%;
+    top: 0;
+    margin-left: var(--bob-tooltip-offset);
+}
+
+    [data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="rightstart"][data-bob-arrow="true"] .bob-tooltip__arrow {
+        left: -4px;
+        top: 12px;
+    }
+
+[data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="rightend"] {
+    left: 100%;
+    bottom: 0;
+    margin-left: var(--bob-tooltip-offset);
+}
+
+    [data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="rightend"][data-bob-arrow="true"] .bob-tooltip__arrow {
+        left: -4px;
+        bottom: 12px;
+    }
+
+/* ========== Animation ========== */
+@keyframes bob-tooltip-fade-in {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+/* Fix animation for non-centered placements */
+[data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="topstart"],
+[data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="topend"],
+[data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="bottomstart"],
+[data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="bottomend"],
+[data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="left"],
+[data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="leftstart"],
+[data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="leftend"],
+[data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="right"],
+[data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="rightstart"],
+[data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="rightend"] {
+    animation: bob-tooltip-fade-in-simple 150ms ease-out;
+}
+
+@keyframes bob-tooltip-fade-in-simple {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Vertical centered placements need different animation */
+[data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="left"],
+[data-bob-component="tooltip"] .bob-tooltip[data-bob-placement="right"] {
+    animation: bob-tooltip-fade-in-vertical 150ms ease-out;
+}
+
+@keyframes bob-tooltip-fade-in-vertical {
+    from {
+        opacity: 0;
+        transform: translateY(-50%) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(-50%) scale(1);
+    }
+}
+
+/* Adjust content padding when close button is present */
+[data-bob-component="tooltip"] .bob-tooltip[data-bob-permanent="true"] [data-bob-component="tooltip"] .bob-tooltip__content {
+    padding-right: 1.75rem;
+}

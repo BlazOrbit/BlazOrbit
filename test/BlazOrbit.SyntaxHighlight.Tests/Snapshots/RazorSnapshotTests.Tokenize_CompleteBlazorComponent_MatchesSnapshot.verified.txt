@@ -1,0 +1,3965 @@
+﻿[
+  {
+    Type: Directive,
+    Value: @page
+  },
+  {
+    Value:  
+  },
+  {
+    Type: String,
+    Value: "/customers/{CustomerId:int}"
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Directive,
+    Value: @using
+  },
+  {
+    Value:  Microsoft
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: AspNetCore
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value:
+Authorization
+
+  },
+  {
+    Type: Directive,
+    Value: @using
+  },
+  {
+    Value:  MyApp
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value:
+Services
+
+  },
+  {
+    Type: Directive,
+    Value: @inject
+  },
+  {
+    Value:
+ ICustomerService CustomerService
+
+  },
+  {
+    Type: Directive,
+    Value: @inject
+  },
+  {
+    Value:
+ NavigationManager Navigation
+
+  },
+  {
+    Type: Directive,
+    Value: @attribute
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: [
+  },
+  {
+    Value: Authorize
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: Roles 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: String,
+    Value: "Admin,Manager"
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ]
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Directive,
+    Value: @rendermode
+  },
+  {
+    Value:
+ InteractiveServer
+
+
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: PageTitle
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value: Customer Details 
+  },
+  {
+    Type: Operator,
+    Value: -
+  },
+  {
+    Value:  
+  },
+  {
+    Type: RazorExpression,
+    Value: @customer?.Name
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: PageTitle
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: ControlKeyword,
+    Value: @if
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: isLoading
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: div
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: class
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "spinner-container"
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: LoadingSpinner
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: Size
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "SpinnerSize.Large"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: div
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: ControlKeyword,
+    Value: else
+  },
+  {
+    Value:  
+  },
+  {
+    Type: ControlKeyword,
+    Value: if
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: customer is 
+  },
+  {
+    Type: Keyword,
+    Value: null
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: Alert
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: Type
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "AlertType.Warning"
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: AlertTitle
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value: Not Found
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: AlertTitle
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: AlertContent
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value: Customer with ID 
+  },
+  {
+    Type: RazorExpression,
+    Value: @CustomerId
+  },
+  {
+    Value:  was not found
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: AlertContent
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: Alert
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: ControlKeyword,
+    Value: else
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: div
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: class
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "customer-details"
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: header
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: h1
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Type: RazorExpression,
+    Value: @customer.Name
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: h1
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: Badge
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: Color
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "@GetStatusColor(customer.Status)"
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Type: RazorExpression,
+    Value: @customer.Status
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: Badge
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: header
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+
+        
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: EditForm
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: Model
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "@editModel"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: OnValidSubmit
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "@HandleSubmit"
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: DataAnnotationsValidator
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: ValidationSummary
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+
+            
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: div
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: class
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "form-group"
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: label
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: for
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "name"
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value: Name
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: label
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: InputText
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: id
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "name"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: @bind-Value
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "editModel.Name"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: class
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "form-control"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: ValidationMessage
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: For
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "@(() => editModel.Name)"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: div
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+
+            
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: div
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: class
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "form-group"
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: label
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: for
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "email"
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value: Email
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: label
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: InputText
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: id
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "email"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: @bind-Value
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "editModel.Email"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: type
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "email"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: div
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+
+            
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: div
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: class
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "form-group"
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: label
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: for
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "tier"
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value: Tier
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: label
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: InputSelect
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: @bind-Value
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "editModel.Tier"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: TValue
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "CustomerTier"
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                    
+  },
+  {
+    Type: ControlKeyword,
+    Value: @foreach
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Keyword,
+    Value: var
+  },
+  {
+    Value:  tier 
+  },
+  {
+    Type: ControlKeyword,
+    Value: in
+  },
+  {
+    Value:  Enum
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: GetValues
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: CustomerTier
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+                    
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+                        
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: option
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: value
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "@tier"
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Type: RazorExpression,
+    Value: @tier.GetDisplayName
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: option
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+                
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: InputSelect
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: div
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+
+            
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: div
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: class
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "button-group"
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: Button
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: Type
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "ButtonType.Submit"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: Variant
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "Primary"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: Disabled
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "@isSaving"
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                    
+  },
+  {
+    Type: ControlKeyword,
+    Value: @if
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: isSaving
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+                    
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+                        
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: span
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: class
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "spinner-border spinner-border-sm"
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: span
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                        
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: span
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value: Saving
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: span
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+                    
+  },
+  {
+    Type: ControlKeyword,
+    Value: else
+  },
+  {
+    Value:
+                    
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+                        
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: span
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value: Save Changes
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: span
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+                
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: Button
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: Button
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: Type
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "ButtonType.Button"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: Variant
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "Secondary"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: OnClick
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "@Cancel"
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                    Cancel
+                
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: Button
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: div
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: EditForm
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+
+        
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: section
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: class
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "orders-section"
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: h2
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value: Recent Orders
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: h2
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: DataGrid
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: TItem
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "Order"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: Items
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "@customer.Orders"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: Pageable
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "true"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: PageSize
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "10"
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: Columns
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                    
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: Column
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: TItem
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "Order"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: Field
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "@(o => o.Id)"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: Title
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "Order #"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                    
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: Column
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: TItem
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "Order"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: Field
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "@(o => o.Date)"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: Title
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "Date"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: Format
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "d"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                    
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: Column
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: TItem
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "Order"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: Field
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "@(o => o.Total)"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: Title
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "Total"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: Format
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "C"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                    
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: Column
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: TItem
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "Order"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: Title
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "Actions"
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                        
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: Template
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: Context
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "order"
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                            
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: a
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: href
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "/orders/@order.Id"
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value: View
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: a
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                        
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: Template
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                    
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: Column
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+                
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: Columns
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: DataGrid
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: section
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: div
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Comment,
+    Value: @* Modal for confirmation *@
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: Modal
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: @bind-IsVisible
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "showConfirmModal"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: Title
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "Confirm Changes"
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: BodyContent
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: p
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value: Are you sure you want to save these changes
+  },
+  {
+    Type: Operator,
+    Value: ?
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: p
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: BodyContent
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: FooterContent
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: Button
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: OnClick
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "@(() => showConfirmModal = false)"
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value: Cancel
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: Button
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: Button
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: Variant
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "Primary"
+  },
+  {
+    Value:  
+  },
+  {
+    Type: AttributeName,
+    Value: OnClick
+  },
+  {
+    Type: Punctuation,
+    Value: =
+  },
+  {
+    Type: AttributeValue,
+    Value: "@ConfirmSave"
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value: Confirm
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: Button
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: FooterContent
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: Punctuation,
+    Value: /
+  },
+  {
+    Type: TagName,
+    Value: Modal
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: RazorCodeBlock,
+    Value: @code
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: [
+  },
+  {
+    Value: Parameter
+  },
+  {
+    Type: Punctuation,
+    Value: ]
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Keyword,
+    Value: public
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: int
+  },
+  {
+    Value:  CustomerId 
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: get
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: set
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: Punctuation,
+    Value: [
+  },
+  {
+    Value: CascadingParameter
+  },
+  {
+    Type: Punctuation,
+    Value: ]
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Keyword,
+    Value: public
+  },
+  {
+    Value:  Task
+  },
+  {
+    Type: Punctuation,
+    Value: <
+  },
+  {
+    Type: TagName,
+    Value: AuthenticationState
+  },
+  {
+    Type: Punctuation,
+    Value: >
+  },
+  {
+    Type: Operator,
+    Value: ?
+  },
+  {
+    Value:  AuthState 
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: get
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: set
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: Keyword,
+    Value: private
+  },
+  {
+    Value:  Customer
+  },
+  {
+    Type: Operator,
+    Value: ?
+  },
+  {
+    Value:  customer
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Keyword,
+    Value: private
+  },
+  {
+    Value:  CustomerEditModel editModel 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: new
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Keyword,
+    Value: private
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: bool
+  },
+  {
+    Value:  isLoading 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: true
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Keyword,
+    Value: private
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: bool
+  },
+  {
+    Value:  isSaving
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Keyword,
+    Value: private
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: bool
+  },
+  {
+    Value:  showConfirmModal
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: Keyword,
+    Value: protected
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: override
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: async
+  },
+  {
+    Value:  Task OnInitializedAsync
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: try
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+            customer 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: await
+  },
+  {
+    Value:  CustomerService
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: GetByIdAsync
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: CustomerId
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: ControlKeyword,
+    Value: if
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: customer is not 
+  },
+  {
+    Type: Keyword,
+    Value: null
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+                editModel 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: new
+  },
+  {
+    Value:
+ CustomerEditModel
+                
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+                    Name 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  customer
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Name
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+                    Email 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  customer
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Email
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+                    Tier 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  customer
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value:
+Tier
+                
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: finally
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+            isLoading 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: false
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: Keyword,
+    Value: private
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: async
+  },
+  {
+    Value:  Task HandleSubmit
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        showConfirmModal 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: true
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: Keyword,
+    Value: private
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: async
+  },
+  {
+    Value:  Task ConfirmSave
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        isSaving 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: true
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        showConfirmModal 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: false
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: try
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Keyword,
+    Value: await
+  },
+  {
+    Value:  CustomerService
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: UpdateAsync
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: CustomerId
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  editModel
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+            Navigation
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: NavigateTo
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: String,
+    Value: "/customers"
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  forceLoad
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: false
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: catch
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: Exception ex
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Comment,
+    Value: // Handle error
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: finally
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+            isSaving 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: false
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: Keyword,
+    Value: private
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: void
+  },
+  {
+    Value:  Cancel
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  Navigation
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: NavigateTo
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: String,
+    Value: "/customers"
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: Keyword,
+    Value: private
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: static
+  },
+  {
+    Value:  Color GetStatusColor
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: CustomerStatus status
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  status 
+  },
+  {
+    Type: ControlKeyword,
+    Value: switch
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        CustomerStatus
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Active 
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  Color
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Success
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+        CustomerStatus
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Inactive 
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  Color
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Warning
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+        CustomerStatus
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Suspended 
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  Color
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Danger
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+        _ 
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  Color
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value:
+Secondary
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  }
+]

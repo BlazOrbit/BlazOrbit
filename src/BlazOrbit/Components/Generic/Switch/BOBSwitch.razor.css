@@ -1,0 +1,158 @@
+﻿/* ============================================
+ * COMPONENT CONTAINER
+ * ============================================ */
+
+[data-bob-component="switch"] {
+    --_switch-scale: var(--bob-size-multiplier, 1);
+    --_switch-track-w: calc(3rem * var(--_switch-scale));
+    --_switch-track-h: calc(1.5rem * var(--_switch-scale));
+    --_switch-thumb-size: calc(1.25rem * var(--_switch-scale));
+    --_switch-thumb-translate: calc(1.5rem * var(--_switch-scale));
+    --_switch-track-inactive-bg: var(--bob-inline-track-inactive-bg, var(--palette-border));
+    --_switch-track-active-bg: var(--bob-inline-track-active-bg, var(--palette-primary));
+    --_switch-thumb-inactive-bg: var(--bob-inline-thumb-inactive-bg, var(--palette-surface));
+    --_switch-thumb-active-bg: var(--bob-inline-thumb-active-bg, var(--palette-surface));
+    --_switch-thumb-inactive-color: var(--bob-inline-thumb-inactive-color, var(--palette-surface-contrast));
+    --_switch-thumb-active-color: var(--bob-inline-thumb-active-color, var(--palette-surface-contrast));
+    display: inline-flex;
+    flex-direction: column;
+    gap: calc(0.25rem * var(--_switch-scale));
+}
+
+    /* ============================================
+ * CLICKABLE CONTAINER
+ * ============================================ */
+
+    [data-bob-component="switch"] .bob-switch {
+        display: inline-flex;
+        align-items: center;
+        gap: calc(0.5rem * var(--bob-density-multiplier));
+        cursor: pointer;
+        user-select: none;
+    }
+
+    /* ============================================
+ * HIDDEN NATIVE INPUT
+ * ============================================ */
+
+    [data-bob-component="switch"] .bob-switch__input {
+        position: absolute;
+        opacity: 0;
+        width: 0;
+        height: 0;
+        pointer-events: none;
+    }
+
+    /* ============================================
+ * TRACK
+ * ============================================ */
+
+    [data-bob-component="switch"] .bob-switch__track {
+        position: relative;
+        width: var(--_switch-track-w);
+        height: var(--_switch-track-h);
+        padding: 0.125rem;
+        border-radius: var(--_switch-track-h);
+        background: var(--_switch-track-inactive-bg);
+        transition: background 0.2s ease;
+    }
+
+    /* Track checked state */
+    [data-bob-component="switch"][data-bob-active="true"] .bob-switch__track {
+        background: var(--_switch-track-active-bg);
+    }
+
+    /* ============================================
+ * THUMB
+ * ============================================ */
+
+    [data-bob-component="switch"] .bob-switch__thumb {
+        position: absolute;
+        top: 50%;
+        left: 0.125rem;
+        transform: translateY(-50%);
+        width: var(--_switch-thumb-size);
+        height: var(--_switch-thumb-size);
+        border-radius: 50%;
+        background: var(--_switch-thumb-inactive-bg);
+        box-shadow: 0 1px 3px color-mix(in srgb, var(--palette-shadow) 20%, transparent);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease;
+    }
+
+    /* Thumb checked state */
+    [data-bob-component="switch"][data-bob-active="true"] .bob-switch__thumb {
+        transform: translateY(-50%) translateX(var(--_switch-thumb-translate));
+        background: var(--_switch-thumb-active-bg);
+    }
+
+    /* ============================================
+ * ICON
+ * ============================================ */
+
+    [data-bob-component="switch"] .bob-switch__icon {
+        font-size: calc(0.75rem * var(--_switch-scale));
+        line-height: 1;
+        color: var(--_switch-thumb-inactive-color);
+        animation: bob-switch-icon-in 0.2s ease-out;
+    }
+
+    [data-bob-component="switch"][data-bob-active="true"] .bob-switch__icon {
+        color: var(--_switch-thumb-active-color);
+    }
+
+    /* ============================================
+ * LABEL
+ * ============================================ */
+
+    [data-bob-component="switch"] .bob-switch__label {
+        font-size: calc(1rem * var(--_switch-scale));
+        line-height: 1.4;
+        color: var(--palette-surface-contrast);
+    }
+
+    /* ============================================
+ * HOVER STATE
+ * ============================================ */
+
+    [data-bob-component="switch"]:not([data-bob-disabled="true"]) .bob-switch:hover .bob-switch__thumb {
+        box-shadow: 0 2px 6px color-mix(in srgb, var(--palette-shadow) 25%, transparent);
+    }
+
+    /* ============================================
+ * FOCUS STATE
+ * ============================================ */
+
+    [data-bob-component="switch"] .bob-switch__input:focus-visible + .bob-switch__track {
+        outline: var(--bob-highlight-outline);
+        outline-offset: var(--bob-highlight-outline-offset);
+    }
+
+    /* ============================================
+ * HELPER TEXT
+ * ============================================ */
+
+    [data-bob-component="switch"] .bob-field__helper {
+        font-size: 0.875em;
+        color: var(--palette-surface-contrast);
+        opacity: 0.7;
+        padding-left: calc(var(--_switch-track-w));
+    }
+
+/* ============================================
+ * ANIMATIONS
+ * ============================================ */
+
+@keyframes bob-switch-icon-in {
+    from {
+        transform: rotate(-180deg) scale(0.5);
+        opacity: 0;
+    }
+
+    to {
+        transform: rotate(0) scale(1);
+        opacity: 1;
+    }
+}

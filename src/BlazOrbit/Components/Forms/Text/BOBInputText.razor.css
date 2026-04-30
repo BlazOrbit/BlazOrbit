@@ -1,0 +1,4 @@
+﻿[data-bob-component="input-text"] {
+    /* Intentionally minimal — BOBInputText relies on _input-family.css
+       for bob-input__wrapper, bob-input__field, etc. */
+}

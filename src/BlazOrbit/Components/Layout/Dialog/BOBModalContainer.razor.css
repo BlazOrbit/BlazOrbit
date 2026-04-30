@@ -1,0 +1,286 @@
+﻿.bob-modal-container {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.bob-modal-container--visible {
+    /* Local stacking inside the modal host — visible/hidden alternation
+       within the host's stacking context, not the global scale. */
+    z-index: 1;
+}
+
+.bob-modal-container--hidden {
+    z-index: 0;
+    visibility: hidden;
+}
+
+/* Dialog */
+.bob-modal-dialog {
+    --_modal-dialog-background: var(--bob-inline-background, var(--palette-surface));
+    --_modal-dialog-shadow: var(--bob-inline-shadow, 0 8px 32px color-mix(in srgb, var(--palette-shadow) 20%, transparent));
+    background: var(--_modal-dialog-background);
+    border-radius: 8px;
+    box-shadow: var(--_modal-dialog-shadow);
+    pointer-events: auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Elevation surface-tint in dark mode (dialog) */
+[data-bob-theme="dark"] .bob-modal-dialog[style*="--bob-inline-elevation-tint"] {
+    --_modal-dialog-background: var(--bob-inline-background,
+        color-mix(in oklab,
+            var(--palette-surface),
+            var(--palette-surface-contrast) var(--bob-inline-elevation-tint, 0%)));
+}
+
+.bob-modal-container--opening .bob-modal-dialog {
+    animation: bob-dialog-in 200ms ease-out forwards;
+}
+
+.bob-modal-container--closing .bob-modal-dialog {
+    animation: bob-dialog-out 150ms ease-in forwards;
+}
+
+.bob-modal-dialog__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--palette-border) 10%, transparent);
+}
+
+[data-bob-theme="dark"] .bob-modal-dialog__header {
+    border-bottom-color: color-mix(in srgb, var(--palette-border) 10%, transparent);
+}
+
+.bob-modal-dialog__header--close-only {
+    justify-content: flex-end;
+    padding: 0.5rem;
+    border-bottom: none;
+}
+
+.bob-modal-dialog__title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.bob-modal-dialog__content {
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+}
+
+/* Drawer */
+.bob-modal-drawer {
+    --_modal-drawer-background: var(--bob-inline-background, var(--palette-surface));
+    --_modal-drawer-shadow: var(--bob-inline-shadow, 0 0 24px color-mix(in srgb, var(--palette-shadow) 20%, transparent));
+    position: fixed;
+    background: var(--_modal-drawer-background);
+    box-shadow: var(--_modal-drawer-shadow);
+    pointer-events: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Elevation surface-tint in dark mode (drawer) */
+[data-bob-theme="dark"] .bob-modal-drawer[style*="--bob-inline-elevation-tint"] {
+    --_modal-drawer-background: var(--bob-inline-background,
+        color-mix(in oklab,
+            var(--palette-surface),
+            var(--palette-surface-contrast) var(--bob-inline-elevation-tint, 0%)));
+}
+
+.bob-modal-drawer--left {
+    left: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.bob-modal-drawer--right {
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.bob-modal-drawer--top {
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.bob-modal-drawer--bottom {
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.bob-modal-drawer__header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.5rem;
+}
+
+.bob-modal-drawer__content {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+/* Drawer animations */
+.bob-modal-container--opening .bob-modal-drawer--left {
+    animation: bob-drawer-left-in 250ms ease-out forwards;
+}
+
+.bob-modal-container--closing .bob-modal-drawer--left {
+    animation: bob-drawer-left-out 200ms ease-in forwards;
+}
+
+.bob-modal-container--opening .bob-modal-drawer--right {
+    animation: bob-drawer-right-in 250ms ease-out forwards;
+}
+
+.bob-modal-container--closing .bob-modal-drawer--right {
+    animation: bob-drawer-right-out 200ms ease-in forwards;
+}
+
+.bob-modal-container--opening .bob-modal-drawer--top {
+    animation: bob-drawer-top-in 250ms ease-out forwards;
+}
+
+.bob-modal-container--closing .bob-modal-drawer--top {
+    animation: bob-drawer-top-out 200ms ease-in forwards;
+}
+
+.bob-modal-container--opening .bob-modal-drawer--bottom {
+    animation: bob-drawer-bottom-in 250ms ease-out forwards;
+}
+
+.bob-modal-container--closing .bob-modal-drawer--bottom {
+    animation: bob-drawer-bottom-out 200ms ease-in forwards;
+}
+
+/* Hidden state */
+.bob-modal-container--hidden .bob-modal-dialog,
+.bob-modal-container--hidden .bob-modal-drawer {
+    transform: scale(0.95);
+    opacity: 0.3;
+    filter: blur(2px);
+    /* Only animate the three properties the rule actually mutates; spelling
+       them out keeps the GPU-friendly transform/opacity/filter combo and
+       avoids the layout-invalidation cost of `transition: all`. */
+    transition: transform 200ms ease,
+                opacity 200ms ease,
+                filter 200ms ease;
+}
+
+/* Keyframes */
+@keyframes bob-dialog-in {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes bob-dialog-out {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}
+
+@keyframes bob-drawer-left-in {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes bob-drawer-left-out {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes bob-drawer-right-in {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes bob-drawer-right-out {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes bob-drawer-top-in {
+    from {
+        transform: translateY(-100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes bob-drawer-top-out {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes bob-drawer-bottom-in {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes bob-drawer-bottom-out {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(100%);
+    }
+}

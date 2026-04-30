@@ -1,0 +1,18 @@
+﻿[
+  {
+    Name: Default,
+    Html: <bob-component data-bob-component="grid" b-<SCOPE>>content</bob-component>
+  },
+  {
+    Name: With3Columns,
+    Html: <bob-component data-bob-component="grid" style="--columns: 3; --gap: 1rem" b-<SCOPE>></bob-component>
+  },
+  {
+    Name: ColumnDirection,
+    Html: <bob-component data-dir="column" data-bob-component="grid" style="--gap: 8px" b-<SCOPE>></bob-component>
+  },
+  {
+    Name: WithMaxWidth,
+    Html: <bob-component data-contained="true" data-bob-component="grid" style="--columns: 12; --max-w: 1200px" b-<SCOPE>></bob-component>
+  }
+]

@@ -1,0 +1,21 @@
+﻿<Project>
+	<!--
+		Consumer-facing targets file. Shipped inside the NuGet package under `build/` and
+		imported automatically by MSBuild on restore.
+
+		By design (F1 decision D-03) this file does NOTHING: the CSS bundle and JS files
+		are pre-bundled by the maintainer, ship as StaticWebAssets under `staticwebassets/`
+		in the `.nupkg`, and are served to the consumer's app by the Razor SDK without any
+		build-time generation. Consumers therefore do not need Node, npm, Vite, or the
+		`BlazOrbit.BuildTools` tool installed.
+
+		The monorepo's own build pipeline (that regenerates the CSS bundle) lives in
+		`BlazOrbit.Dev.targets`, which is only imported locally and is NOT shipped
+		in the package.
+	-->
+	<PropertyGroup>
+		<!-- Back-compat: if a consumer inherited an earlier targets version that
+		     set BlazOrbitBuildEnabled, treat it as a no-op here. -->
+		<BlazOrbitBuildEnabled Condition="'$(BlazOrbitBuildEnabled)' == ''">false</BlazOrbitBuildEnabled>
+	</PropertyGroup>
+</Project>

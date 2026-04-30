@@ -1,0 +1,72 @@
+﻿@namespace BlazOrbit.Components.Layout
+@using BlazOrbit.Themes
+@using Microsoft.JSInterop
+
+@implements IDisposable
+
+@inject IThemeJsInterop ThemeInterop
+
+<HeadContent>
+    @* Anti-flash bootstrap shipped as a StaticWebAsset. Synchronous <script src> in
+       <head> blocks body parse so `data-theme` is set before any element renders.
+       External-file form is CSP-safe under `script-src 'self'`, avoiding the
+       inline-script exception that the previous implementation required. *@
+    <script src="_content/BlazOrbit/anti-flash.js"></script>
+</HeadContent>
+
+@if (_palette is not null)
+{
+    <CascadingValue Value="_palette" IsFixed="false">
+        @ChildContent
+    </CascadingValue>
+}
+
+@code{
+
+    /// <summary>Content rendered inside the component.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    /// <summary>DefaultTheme.</summary>
+    [Parameter] public string DefaultTheme { get; set; } = "dark";
+
+    private BOBPalette? _palette;
+
+    protected override void OnInitialized()
+    {
+        ThemeInterop.OnThemeChanged += HandleThemeChanged;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender) return;
+
+        await ThemeInterop.InitializeAsync(DefaultTheme);
+        await LoadPaletteAsync();
+        StateHasChanged();
+    }
+
+    private void HandleThemeChanged(string theme) => _ = HandleThemeChangedSafeAsync();
+
+    private async Task HandleThemeChangedSafeAsync()
+    {
+        try
+        {
+            await LoadPaletteAsync();
+            await InvokeAsync(StateHasChanged);
+        }
+        catch (JSDisconnectedException) { }
+        catch (ObjectDisposedException) { }
+        catch (InvalidOperationException) { }
+        catch (TaskCanceledException) { }
+    }
+
+    private async Task LoadPaletteAsync()
+    {
+        Dictionary<string, string> colors = await ThemeInterop.GetPaletteAsync();
+        _palette = new BOBPalette(colors);
+    }
+
+    public void Dispose()
+    {
+        ThemeInterop.OnThemeChanged -= HandleThemeChanged;
+    }
+}

@@ -1,0 +1,52 @@
+﻿@page "/components/codeblock"
+
+@inject IStringLocalizer<CodeBlockPage> Loc
+
+<PageTitle>BlazOrbit - BOBCodeBlock</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBCodeBlock"]"
+         Lede="@Loc["Syntax-highlighted code with a title, language label, and one-click copy. Auto-dedents, auto-formats."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBCodeBlock)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+        <BOBCodeBlock Language="SyntaxHighlightLanguage.CSharp"
+                      Code="@("var name = \"BlazOrbit\";\nConsole.WriteLine($\"Hello {name}!\");")" />
+    </DocDemo>
+
+    <DocDemo Key="Languages" Title="@Loc["Languages"]" Description="@Loc["Pick from any SyntaxHighlightLanguage — CSharp, Razor, TypeScript, Css, Json."]">
+            <BOBCodeBlock Language="SyntaxHighlightLanguage.Razor" Code="@("<BOBButton Text=\"Save\" />")" />
+            <BOBCodeBlock Language="SyntaxHighlightLanguage.Css" Code="@(".bob-demo { color: var(--palette-primary); }")" />
+            <BOBCodeBlock Language="SyntaxHighlightLanguage.Json" Code="@("{\n  \"name\": \"BlazOrbit\",\n  \"version\": \"1.0.0\"\n}")" />
+    </DocDemo>
+
+    <DocDemo Key="Title" Title="@Loc["Custom title"]" Description="@Loc["Set Title to override the language badge with a filename or custom label."]">
+        <BOBCodeBlock Title="Program.cs"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="@("builder.Services.AddBlazOrbit();\nawait builder.Build().RunAsync();")" />
+    </DocDemo>
+
+    <DocDemo Key="Sizes" Title="@Loc["Sizes"]">
+            <BOBCodeBlock Size="BOBSize.Small" Language="SyntaxHighlightLanguage.Razor" Code='@("<BOBButton Text=\"Small\" />")' />
+            <BOBCodeBlock Size="BOBSize.Medium" Language="SyntaxHighlightLanguage.Razor" Code='@("<BOBButton Text=\"Medium\" />")' />
+            <BOBCodeBlock Size="BOBSize.Large" Language="SyntaxHighlightLanguage.Razor" Code='@("<BOBButton Text=\"Large\" />")' />
+    </DocDemo>
+
+    <DocDemo Key="Border" Title="@Loc["Border"]">
+            <BOBCodeBlock Language="SyntaxHighlightLanguage.CSharp"
+                          Code="@("// Rounded large")"
+                          Border="@BOBBorderPresets.RoundedLarge" />
+            <BOBCodeBlock Language="SyntaxHighlightLanguage.CSharp"
+                          Code="@("// Primary border")"
+                          Border="@BOBBorderPresets.Primary" />
+            <BOBCodeBlock Language="SyntaxHighlightLanguage.CSharp"
+                          Code="@("// Dotted border")"
+                          Border="@BOBBorderPresets.Dotted" />
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBCodeBlockComponentInfo.Parameters" />
+    </section>
+
+</DocPage>

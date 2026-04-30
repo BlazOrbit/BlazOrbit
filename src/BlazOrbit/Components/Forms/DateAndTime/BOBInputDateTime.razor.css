@@ -1,0 +1,5 @@
+﻿[data-bob-component="input-date-time"] .bob-input-datetime__picker-content {
+    display: flex;
+    flex-direction: column;
+    gap: calc(0.5rem * var(--bob-density-multiplier));
+}

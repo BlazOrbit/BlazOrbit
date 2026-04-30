@@ -1,0 +1,243 @@
+﻿/* === Feedback/Toast/BOBToast.razor.css === */
+
+[data-bob-component="toast"] {
+    --_toast-background: var(--palette-surface);
+    --_toast-shadow: var(--bob-inline-shadow, 0 4px 12px color-mix(in srgb, var(--palette-shadow) 15%, transparent));
+    --bob-toast-animation-duration: 300ms;
+    --bob-toast-animation-easing: ease-out;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 1rem;
+    padding-bottom: 1.25rem;
+    background: var(--_toast-background);
+    border-radius: 8px;
+    box-shadow: var(--_toast-shadow);
+    overflow: hidden;
+    pointer-events: auto;
+    cursor: default;
+    max-width: 400px;
+    min-width: 280px;
+}
+
+[data-bob-theme="dark"] [data-bob-component="toast"] {
+    --_toast-shadow: var(--bob-inline-shadow, 0 4px 12px color-mix(in srgb, var(--palette-shadow) 40%, transparent));
+}
+
+/* IHasElevation in dark theme: lift the toast surface via tint overlay. */
+[data-bob-theme="dark"] [data-bob-component="toast"][data-bob-elevation] {
+    --_toast-background: color-mix(in oklab,
+        var(--palette-surface),
+        var(--palette-surface-contrast) var(--bob-inline-elevation-tint, 0%));
+}
+
+/* Content */
+[data-bob-component="toast"] .bob-toast__content {
+    flex: 1;
+    min-width: 0;
+    word-wrap: break-word;
+}
+
+/* Progress bar */
+[data-bob-component="toast"] .bob-toast__progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: color-mix(in srgb, var(--palette-shadow) 10%, transparent);
+}
+
+[data-bob-theme="dark"] [data-bob-component="toast"] .bob-toast__progress {
+    background: color-mix(in srgb, var(--palette-surface-contrast) 10%, transparent);
+}
+
+[data-bob-component="toast"] .bob-toast__progress-bar {
+    height: 100%;
+    background: var(--palette-primary);
+    transition: width 50ms linear;
+}
+
+[data-bob-component="toast"][data-bob-paused="true"] .bob-toast__progress-bar {
+    transition: none;
+}
+
+/* ========== Animation: None ========== */
+[data-bob-component="toast"][data-bob-animation="none"] {
+    animation: none;
+}
+
+    [data-bob-component="toast"][data-bob-animation="none"][data-bob-closing="true"] {
+        display: none;
+    }
+
+/* ========== Animation: Fade ========== */
+[data-bob-component="toast"][data-bob-animation="fade"] {
+    animation: bob-toast-fade-in var(--bob-toast-animation-duration, 300ms) var(--bob-toast-animation-easing, ease-out) forwards;
+}
+
+    [data-bob-component="toast"][data-bob-animation="fade"][data-bob-closing="true"] {
+        animation: bob-toast-fade-out var(--bob-toast-animation-duration, 300ms) var(--bob-toast-animation-easing, ease-in) forwards;
+    }
+
+/* ========== Animation: Slide - Top positions ========== */
+[data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="top-left"],
+[data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="top-center"],
+[data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="top-right"] {
+    animation: bob-toast-slide-in-top var(--bob-toast-animation-duration, 300ms) var(--bob-toast-animation-easing, ease-out) forwards;
+}
+
+    [data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="top-left"][data-bob-closing="true"],
+    [data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="top-center"][data-bob-closing="true"],
+    [data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="top-right"][data-bob-closing="true"] {
+        animation: bob-toast-slide-out-top var(--bob-toast-animation-duration, 300ms) var(--bob-toast-animation-easing, ease-in) forwards;
+    }
+
+/* ========== Animation: Slide - Bottom positions ========== */
+[data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="bottom-left"],
+[data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="bottom-center"],
+[data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="bottom-right"] {
+    animation: bob-toast-slide-in-bottom var(--bob-toast-animation-duration, 300ms) var(--bob-toast-animation-easing, ease-out) forwards;
+}
+
+    [data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="bottom-left"][data-bob-closing="true"],
+    [data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="bottom-center"][data-bob-closing="true"],
+    [data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="bottom-right"][data-bob-closing="true"] {
+        animation: bob-toast-slide-out-bottom var(--bob-toast-animation-duration, 300ms) var(--bob-toast-animation-easing, ease-in) forwards;
+    }
+
+/* ========== Animation: SlideAndFade - Top positions ========== */
+[data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="top-left"],
+[data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="top-center"],
+[data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="top-right"] {
+    animation: bob-toast-slide-fade-in-top var(--bob-toast-animation-duration, 300ms) var(--bob-toast-animation-easing, ease-out) forwards;
+}
+
+    [data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="top-left"][data-bob-closing="true"],
+    [data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="top-center"][data-bob-closing="true"],
+    [data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="top-right"][data-bob-closing="true"] {
+        animation: bob-toast-slide-fade-out-top var(--bob-toast-animation-duration, 300ms) var(--bob-toast-animation-easing, ease-in) forwards;
+    }
+
+/* ========== Animation: SlideAndFade - Bottom positions ========== */
+[data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="bottom-left"],
+[data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="bottom-center"],
+[data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="bottom-right"] {
+    animation: bob-toast-slide-fade-in-bottom var(--bob-toast-animation-duration, 300ms) var(--bob-toast-animation-easing, ease-out) forwards;
+}
+
+    [data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="bottom-left"][data-bob-closing="true"],
+    [data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="bottom-center"][data-bob-closing="true"],
+    [data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="bottom-right"][data-bob-closing="true"] {
+        animation: bob-toast-slide-fade-out-bottom var(--bob-toast-animation-duration, 300ms) var(--bob-toast-animation-easing, ease-in) forwards;
+    }
+
+/* ========== Keyframes ========== */
+@keyframes bob-toast-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes bob-toast-fade-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes bob-toast-slide-in-top {
+    from {
+        transform: translateY(-100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes bob-toast-slide-out-top {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes bob-toast-slide-in-bottom {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes bob-toast-slide-out-bottom {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(100%);
+    }
+}
+
+@keyframes bob-toast-slide-fade-in-top {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bob-toast-slide-fade-out-top {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes bob-toast-slide-fade-in-bottom {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes bob-toast-slide-fade-out-bottom {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}

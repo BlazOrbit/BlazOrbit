@@ -1,0 +1,5 @@
+﻿<div class="bob-theme-editor"><div class="bob-theme-editor__category"><h4 class="bob-theme-editor__category-title">Surface</h4>
+            <bob-component data-bob-component="grid" style="--columns: 12; --gap: 0.75rem" b-<SCOPE>></bob-component></div><div class="bob-theme-editor__category"><h4 class="bob-theme-editor__category-title">Main</h4>
+            <bob-component data-bob-component="grid" style="--columns: 12; --gap: 0.75rem" b-<SCOPE>></bob-component></div><div class="bob-theme-editor__category"><h4 class="bob-theme-editor__category-title">Status</h4>
+            <bob-component data-bob-component="grid" style="--columns: 12; --gap: 0.75rem" b-<SCOPE>></bob-component></div><div class="bob-theme-editor__category"><h4 class="bob-theme-editor__category-title">Utility</h4>
+            <bob-component data-bob-component="grid" style="--columns: 12; --gap: 0.75rem" b-<SCOPE>></bob-component></div></div>

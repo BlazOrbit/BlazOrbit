@@ -1,0 +1,131 @@
+﻿@namespace BlazOrbit.Components.Layout
+@attribute [GenerateComponentInfo]
+@inherits BOBComponentBase
+@implements IHasFullWidth
+@implements IHasBackgroundColor
+@implements IHasBorder
+@implements IHasShadow
+@implements IHasColor
+
+<bob-component @attributes="ComputedAttributes">
+    @ChildContent
+</bob-component>
+
+@code {
+    /// <summary>Content rendered inside the component.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>Direction.</summary>
+    [Parameter] public FlexStackDirection Direction { get; set; } = FlexStackDirection.Row;
+    /// <summary>Wrap.</summary>
+    [Parameter] public FlexStackWrap Wrap { get; set; } = FlexStackWrap.Wrap;
+    /// <summary>JustifyContent.</summary>
+    [Parameter] public FlexStackJustifyContent JustifyContent { get; set; } = FlexStackJustifyContent.Start;
+    /// <summary>AlignItems.</summary>
+    [Parameter] public FlexStackAlignItems AlignItems { get; set; } = FlexStackAlignItems.Stretch;
+    /// <summary>AlignContent.</summary>
+    [Parameter] public FlexStackAlignContent AlignContent { get; set; } = FlexStackAlignContent.Stretch;
+
+    /// <summary>Gap.</summary>
+    [Parameter] public string? Gap { get; set; }
+    /// <summary>RowGap.</summary>
+    [Parameter] public string? RowGap { get; set; }
+    /// <summary>ColumnGap.</summary>
+    [Parameter] public string? ColumnGap { get; set; }
+
+    /// <summary>P.</summary>
+    [Parameter] public string? P { get; set; }
+    /// <summary>Pt.</summary>
+    [Parameter] public string? Pt { get; set; }
+    /// <summary>Pr.</summary>
+    [Parameter] public string? Pr { get; set; }
+    /// <summary>Pb.</summary>
+    [Parameter] public string? Pb { get; set; }
+    /// <summary>Pl.</summary>
+    [Parameter] public string? Pl { get; set; }
+    /// <summary>Px.</summary>
+    [Parameter] public string? Px { get; set; }
+    /// <summary>Py.</summary>
+    [Parameter] public string? Py { get; set; }
+
+    /// <summary>M.</summary>
+    [Parameter] public string? M { get; set; }
+    /// <summary>Mt.</summary>
+    [Parameter] public string? Mt { get; set; }
+    /// <summary>Mr.</summary>
+    [Parameter] public string? Mr { get; set; }
+    /// <summary>Mb.</summary>
+    [Parameter] public string? Mb { get; set; }
+    /// <summary>Ml.</summary>
+    [Parameter] public string? Ml { get; set; }
+    /// <summary>Mx.</summary>
+    [Parameter] public string? Mx { get; set; }
+    /// <summary>My.</summary>
+    [Parameter] public string? My { get; set; }
+
+    /// <summary>When <see langword="true" />, the component spans the full width of its container.</summary>
+    [Parameter] public bool FullWidth { get; set; }
+
+    // IHasBackgroundColor
+    /// <summary>Background color of the stack. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? BackgroundColor { get; set; }
+
+    // IHasBorder
+    /// <summary>Border style applied to the stack edge.</summary>
+    [Parameter] public BorderStyle? Border { get; set; }
+
+    // IHasShadow
+    /// <summary>Shadow style applied to the stack surface.</summary>
+    [Parameter] public ShadowStyle? Shadow { get; set; }
+
+    // IHasColor
+    /// <summary>Text color of the stack. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? Color { get; set; }
+
+    public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    {
+        if (Direction != FlexStackDirection.Row)
+            dataAttributes["data-dir"] = ToKebab(Direction);
+        if (Wrap != FlexStackWrap.Wrap)
+            dataAttributes["data-wrap"] = ToKebab(Wrap);
+        if (JustifyContent != FlexStackJustifyContent.Start)
+            dataAttributes["data-justify"] = ToKebab(JustifyContent);
+        if (AlignItems != FlexStackAlignItems.Stretch)
+            dataAttributes["data-align"] = ToKebab(AlignItems);
+        if (AlignContent != FlexStackAlignContent.Stretch)
+            dataAttributes["data-align-content"] = ToKebab(AlignContent);
+    }
+
+    public override void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    {
+        if (Gap != null)
+            cssVariables["--gap"] = Gap;
+        if (RowGap != null)
+            cssVariables["--row-gap"] = RowGap;
+        if (ColumnGap != null)
+            cssVariables["--col-gap"] = ColumnGap;
+
+        BuildSpacing(cssVariables, P, Pt, Pr, Pb, Pl, Px, Py, "p");
+        BuildSpacing(cssVariables, M, Mt, Mr, Mb, Ml, Mx, My, "m");
+    }
+
+    private static void BuildSpacing(Dictionary<string, string> css,
+        string? all, string? t, string? r, string? b, string? l, string? x, string? y, string prefix)
+    {
+        if (all != null) { css[$"--{prefix}"] = all; return; }
+
+        string? top = t ?? y;
+        string? right = r ?? x;
+        string? bottom = b ?? y;
+        string? left = l ?? x;
+
+        if (top != null) css[$"--{prefix}t"] = top;
+        if (right != null) css[$"--{prefix}r"] = right;
+        if (bottom != null) css[$"--{prefix}b"] = bottom;
+        if (left != null) css[$"--{prefix}l"] = left;
+    }
+
+    private static string ToKebab(Enum value) =>
+        string.Concat(value.ToString().Select((c, i) =>
+            i > 0 && char.IsUpper(c) ? $"-{char.ToLower(c)}" : char.ToLower(c).ToString()));
+}

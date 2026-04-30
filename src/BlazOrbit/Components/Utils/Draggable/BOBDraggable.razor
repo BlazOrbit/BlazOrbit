@@ -1,0 +1,73 @@
+﻿@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+
+@inherits BOBComponentBase
+@implements IDraggableJsCallback
+@implements IAsyncDisposable
+
+<bob-component @attributes="ComputedAttributes">
+    <div @ref="_elementRef"
+         class="bob-draggable"
+         @onmousedown="HandleMouseDown"
+         @onmousedown:preventDefault="PreventDefault">
+        @ChildContent
+    </div>
+</bob-component>
+
+@code {
+    private readonly string _componentId = $"bob-draggable-{Guid.NewGuid():N}";
+    private ElementReference _elementRef;
+    private DraggableCallbacksRelay? _callbacksRelay;
+    private bool _isDragging;
+
+    [Inject] private IDraggableJsInterop JsInterop { get; set; } = default!;
+
+    /// <summary>Content rendered inside the component.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    /// <summary>Raised when the DragStart event occurs.</summary>
+    [Parameter] public EventCallback<DragEventArgs> OnDragStart { get; set; }
+    /// <summary>Raised when the Drag event occurs.</summary>
+    [Parameter] public EventCallback<DragEventArgs> OnDrag { get; set; }
+    /// <summary>Raised when the DragEnd event occurs.</summary>
+    [Parameter] public EventCallback<DragEventArgs> OnDragEnd { get; set; }
+    /// <summary>PreventDefault.</summary>
+    [Parameter] public bool PreventDefault { get; set; } = true;
+    /// <summary>When <see langword="true" />, the component is non-interactive.</summary>
+    [Parameter] public bool Disabled { get; set; }
+
+    private async Task HandleMouseDown(MouseEventArgs e)
+    {
+        if (Disabled) return;
+
+        _isDragging = true;
+        _callbacksRelay ??= new DraggableCallbacksRelay(this);
+
+        await JsInterop.StartDragAsync(_elementRef, _callbacksRelay.DotNetReference, _componentId);
+        await OnDragStart.InvokeAsync(new DragEventArgs { ClientX = e.ClientX, ClientY = e.ClientY });
+    }
+
+    async Task IDraggableJsCallback.OnMouseMove(double clientX, double clientY)
+    {
+        if (!_isDragging) return;
+        await OnDrag.InvokeAsync(new DragEventArgs { ClientX = clientX, ClientY = clientY });
+    }
+
+    async Task IDraggableJsCallback.OnMouseUp(double clientX, double clientY)
+    {
+        if (!_isDragging) return;
+
+        _isDragging = false;
+        await JsInterop.StopDragAsync(_componentId);
+        await OnDragEnd.InvokeAsync(new DragEventArgs { ClientX = clientX, ClientY = clientY });
+    }
+
+    public override async ValueTask DisposeAsync()
+    {
+        if (_isDragging)
+        {
+            await JsInterop.StopDragAsync(_componentId);
+        }
+        _callbacksRelay?.Dispose();
+        await base.DisposeAsync();
+    }
+}

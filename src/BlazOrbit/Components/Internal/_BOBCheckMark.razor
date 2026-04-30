@@ -1,0 +1,68 @@
+﻿@namespace BlazOrbit.Components.Internal
+
+@*
+    CSS-OPT-02 block B.2: state lives on data-bob-* attributes (checked,
+    indeterminate, disabled), not on BEM class modifiers. The scoped CSS
+    selects on `._bob-checkmark[data-bob-checked="true"]` etc. The
+    `_bob-checkmark` class stays as the identification anchor.
+*@
+<span class="_bob-checkmark"
+      data-bob-checked="@(IsChecked ? "true" : "false")"
+      data-bob-indeterminate="@(IsIndeterminate ? "true" : "false")"
+      data-bob-disabled="@(Disabled ? "true" : "false")"
+      role="@(Mode == CheckMarkMode.Radio ? "radio" : "checkbox")"
+      aria-checked="@AriaChecked"
+      aria-readonly="@ReadOnly.ToString().ToLowerInvariant()"
+      aria-disabled="@Disabled.ToString().ToLowerInvariant()">
+    <BOBSvgIcon Icon="@CurrentIcon" Size="Size" />
+</span>
+
+@code {
+    /// <summary>Checked.</summary>
+    [Parameter] public bool? Checked { get; set; }
+    /// <summary>Mode.</summary>
+    [Parameter] public CheckMarkMode Mode { get; set; } = CheckMarkMode.Checkbox;
+    /// <summary>Visual size of the component.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    /// <summary>When <see langword="true" />, the component is non-interactive.</summary>
+    [Parameter] public bool Disabled { get; set; }
+    /// <summary>When <see langword="true" />, the value cannot be changed.</summary>
+    [Parameter] public bool ReadOnly { get; set; }
+    /// <summary>Closed-catalog icon key for the checked state.</summary>
+    [Parameter] public IconKey? CheckedIcon { get; set; }
+    /// <summary>Closed-catalog icon key for the unchecked state.</summary>
+    [Parameter] public IconKey? UncheckedIcon { get; set; }
+    /// <summary>Closed-catalog icon key for the indeterminate state.</summary>
+    [Parameter] public IconKey? IndeterminateIcon { get; set; }
+
+    private bool IsChecked => Checked == true;
+    private bool IsIndeterminate => Checked == null && Mode == CheckMarkMode.Checkbox;
+
+    private string AriaChecked => IsIndeterminate ? "mixed" : Checked?.ToString().ToLowerInvariant() ?? "false";
+
+    private IconKey CurrentIcon
+    {
+        get
+        {
+            if (IsIndeterminate)
+                return IndeterminateIcon ?? BOBIconKeys.MaterialIconsOutlined.i_indeterminate_check_box;
+
+            if (IsChecked)
+            {
+                return Mode == CheckMarkMode.Radio
+                    ? (CheckedIcon ?? BOBIconKeys.MaterialIconsOutlined.i_radio_button_checked)
+                    : (CheckedIcon ?? BOBIconKeys.MaterialIconsRound.i_check_box);
+            }
+
+            return Mode == CheckMarkMode.Radio
+                ? (UncheckedIcon ?? BOBIconKeys.MaterialIconsOutlined.i_radio_button_unchecked)
+                : (UncheckedIcon ?? BOBIconKeys.MaterialIconsRound.i_check_box_outline_blank);
+        }
+    }
+
+    public enum CheckMarkMode
+    {
+        Checkbox,
+        Radio
+    }
+}

@@ -1,0 +1,67 @@
+﻿@page "/components/switch"
+
+@inject IStringLocalizer<SwitchPage> Loc
+
+<PageTitle>BlazOrbit - BOBInputSwitch</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBInputSwitch"]"
+         Lede="@Loc["Toggle-style boolean input with optional icons in the thumb and custom track colors."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBInputSwitch)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+        <BOBInputSwitch @bind-Value="_basic" Label="@Loc["Enable notifications"]" HelperText="@Loc["Receive updates about account activity."]" />
+    </DocDemo>
+
+    <DocDemo Key="Sizes" Title="@Loc["Sizes"]">
+            <BOBInputSwitch @bind-Value="_small" Size="BOBSize.Small" Label="@Loc["Small"]" />
+            <BOBInputSwitch @bind-Value="_medium" Size="BOBSize.Medium" Label="@Loc["Medium"]" />
+            <BOBInputSwitch @bind-Value="_large" Size="BOBSize.Large" Label="@Loc["Large"]" />
+    </DocDemo>
+
+    <DocDemo Key="Colors" Title="@Loc["Colors"]">
+            <BOBInputSwitch @bind-Value="_colorPrimary" TrackColorActive="@PaletteColor.Primary" Label="@Loc["Primary"]" />
+            <BOBInputSwitch @bind-Value="_colorSuccess" TrackColorActive="@PaletteColor.Success" Label="@Loc["Success"]" />
+            <BOBInputSwitch @bind-Value="_colorError" TrackColorActive="@PaletteColor.Error" Label="@Loc["Error"]" />
+    </DocDemo>
+
+    <DocDemo Key="Icons" Title="@Loc["With icons"]">
+            <BOBInputSwitch @bind-Value="_wifi"
+                            IconActive="@BOBIconKeys.MaterialIconsOutlined.i_wifi"
+                            IconInactive="@BOBIconKeys.MaterialIconsOutlined.i_wifi_off"
+                            Label="@Loc["Wi-Fi"]" />
+            <BOBInputSwitch @bind-Value="_bluetooth"
+                            IconActive="@BOBIconKeys.MaterialIconsOutlined.i_bluetooth"
+                            IconInactive="@BOBIconKeys.MaterialIconsOutlined.i_bluetooth_disabled"
+                            Label="@Loc["Bluetooth"]" />
+    </DocDemo>
+
+    <DocDemo Key="States" Title="@Loc["States"]">
+            <BOBInputSwitch @bind-Value="_required" Label="@Loc["Required"]" Required="true" />
+            <BOBInputSwitch @bind-Value="_readonly" Label="@Loc["ReadOnly"]" ReadOnly="true" />
+            <BOBInputSwitch @bind-Value="_disabledOn" Disabled="true" Label="@Loc["Disabled (on)"]" />
+            <BOBInputSwitch @bind-Value="_disabledOff" Disabled="true" Label="@Loc["Disabled (off)"]" />
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBInputSwitchComponentInfo.Parameters" />
+    </section>
+
+</DocPage>
+
+@code {
+    private bool _basic = true;
+    private bool _small = true;
+    private bool _medium = true;
+    private bool _large = true;
+    private bool _colorPrimary = true;
+    private bool _colorSuccess;
+    private bool _colorError = true;
+    private bool _wifi = true;
+    private bool _bluetooth;
+    private bool _required;
+    private bool _readonly = true;
+    private bool _disabledOn = true;
+    private bool _disabledOff;
+}

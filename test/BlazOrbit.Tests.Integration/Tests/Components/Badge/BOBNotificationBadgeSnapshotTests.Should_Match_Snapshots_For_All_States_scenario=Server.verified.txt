@@ -1,0 +1,44 @@
+﻿[
+  {
+    Name: Default_Dot_TopRight,
+    Html:
+<bob-component data-bob-position="topright" data-bob-component="notification-badge" data-bob-variant="default" data-bob-size="small" b-<SCOPE>>
+            <div class="bob-<SCOPE>on-badge__indicator" b-<SCOPE>><bob-component data-bob-dot="true" data-bob-circular="true" data-bob-component="badge" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><span class="bob-badge" b-<SCOPE>></span></bob-component></div></bob-component>
+  },
+  {
+    Name: With_Count_3_TopRight,
+    Html:
+<bob-component data-bob-position="topright" data-bob-component="notification-badge" data-bob-variant="default" data-bob-size="small" b-<SCOPE>>
+            <div class="bob-<SCOPE>on-badge__indicator" b-<SCOPE>><bob-component data-bob-circular="true" data-bob-component="badge" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><span class="bob-badge" b-<SCOPE>>3</span></bob-component></div></bob-component>
+  },
+  {
+    Name: With_Count_99_Plus,
+    Html:
+<bob-component data-bob-position="topright" data-bob-component="notification-badge" data-bob-variant="default" data-bob-size="small" b-<SCOPE>>
+            <div class="bob-<SCOPE>on-badge__indicator" b-<SCOPE>><bob-component data-bob-circular="true" data-bob-component="badge" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><span class="bob-badge" b-<SCOPE>>99+</span></bob-component></div></bob-component>
+  },
+  {
+    Name: BottomLeft_Position,
+    Html:
+<bob-component data-bob-position="bottomleft" data-bob-component="notification-badge" data-bob-variant="default" data-bob-size="small" b-<SCOPE>>
+            <div class="bob-<SCOPE>on-badge__indicator" b-<SCOPE>><bob-component data-bob-circular="true" data-bob-component="badge" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><span class="bob-badge" b-<SCOPE>>1</span></bob-component></div></bob-component>
+  },
+  {
+    Name: Large_Size,
+    Html:
+<bob-component data-bob-position="topright" data-bob-component="notification-badge" data-bob-variant="default" data-bob-size="large" b-<SCOPE>>
+            <div class="bob-<SCOPE>on-badge__indicator" b-<SCOPE>><bob-component data-bob-circular="true" data-bob-component="badge" data-bob-variant="default" data-bob-size="large" b-<SCOPE>><span class="bob-badge" b-<SCOPE>>5</span></bob-component></div></bob-component>
+  },
+  {
+    Name: Non_Circular,
+    Html:
+<bob-component data-bob-position="topright" data-bob-component="notification-badge" data-bob-variant="default" data-bob-size="small" b-<SCOPE>>
+            <div class="bob-<SCOPE>on-badge__indicator" b-<SCOPE>><bob-component data-bob-component="badge" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><span class="bob-badge" b-<SCOPE>>New</span></bob-component></div></bob-component>
+  },
+  {
+    Name: With_Host_Button,
+    Html:
+<bob-component data-bob-position="topright" data-bob-component="notification-badge" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><button type="button">Inbox</button>
+            <div class="bob-<SCOPE>on-badge__indicator" b-<SCOPE>><bob-component data-bob-circular="true" data-bob-component="badge" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><span class="bob-badge" b-<SCOPE>>3</span></bob-component></div></bob-component>
+  }
+]

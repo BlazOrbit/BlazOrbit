@@ -1,0 +1,62 @@
+﻿@using BlazOrbit.Abstractions
+@using BlazOrbit.Components
+@using BlazOrbit.Localization
+@using BlazOrbit.Localization.Wasm
+@using BlazOrbit.Localization.Shared
+@using Microsoft.AspNetCore.Components
+@using System.Globalization
+
+@namespace BlazOrbit.Components.Wasm
+
+@inherits BlazOrbit.Localization.Shared.BOBCultureSelector
+
+@inject NavigationManager Navigation
+@inject ILocalizationPersistence LocalizationPersistence
+@inject WasmLocalizationSettings WasmSettings
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code {
+    /// <summary>When <see langword="true" />, switching cultures hard-reloads the page. Otherwise the culture is updated in place via <see cref="CultureInfo.CurrentCulture"/>.</summary>
+    [Parameter] public override bool ForceReload { get; set; }
+
+    protected override async Task SetCultureAsync(string cultureName)
+    {
+        if (string.IsNullOrEmpty(cultureName) || cultureName == _currentCulture.Name)
+            return;
+
+        CultureInfo? newCulture = WasmSettings.SupportedCultures
+            .FirstOrDefault(c => c.Name == cultureName);
+
+        if (newCulture == null)
+            return;
+
+        try
+        {
+            await LocalizationPersistence.SetStoredCultureAsync(cultureName);
+
+            if (ForceReload)
+            {
+                Navigation.NavigateTo(Navigation.Uri, forceLoad: true);
+            }
+            else
+            {
+                CultureInfo.DefaultThreadCurrentCulture = newCulture;
+                CultureInfo.DefaultThreadCurrentUICulture = newCulture;
+                CultureInfo.CurrentCulture = newCulture;
+                CultureInfo.CurrentUICulture = newCulture;
+                _currentCulture = newCulture;
+                StateHasChanged();
+            }
+
+            if (OnCultureChanged.HasDelegate)
+                await OnCultureChanged.InvokeAsync(newCulture);
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Error setting culture: {ex.Message}");
+        }
+    }
+}

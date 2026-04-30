@@ -1,0 +1,338 @@
+﻿@using BlazOrbit.Abstractions
+
+@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+
+@inherits BOBComponentBase
+@implements IHasElevation
+
+<bob-component @attributes="ComputedAttributes"
+     aria-describedby="@(_isVisible ? _tooltipId : null)"
+     @onmouseenter="HandleMouseEnter"
+     @onmouseleave="HandleMouseLeave"
+     @onfocusin="HandleFocusIn"
+     @onfocusout="HandleFocusOut"
+     @onclick="HandleClick">
+
+    @ChildContent
+
+    @if (_isVisible)
+    {
+        <div class="bob-tooltip"
+             id="@_tooltipId"
+             data-bob-placement="@Placement.ToString().ToLowerInvariant()"
+             data-bob-arrow="@Arrow.ToString().ToLowerInvariant()"
+             data-bob-permanent="@(Trigger == TooltipTrigger.Permanent ? "true" : "false")"
+             style="@GetTooltipStyle()"
+             role="tooltip"
+             @onmouseenter="HandleTooltipMouseEnter"
+             @onmouseleave="HandleTooltipMouseLeave">
+            <div class="bob-tooltip__content">
+                @if (TooltipContent != null)
+                {
+                    @TooltipContent
+                }
+                else
+                {
+                    @Text
+                }
+                @if (Trigger == TooltipTrigger.Permanent)
+                {
+                    <_BOBBtn Icon="@BOBIconKeys.UI.Close"
+                             AriaLabel="Close tooltip"
+                             OnClick="HandleCloseClicked"
+                             OnClickStopPropagation="true"
+                             Size="BOBSize.Small" />
+                }
+            </div>
+
+            @if (Arrow)
+            {
+                <div class="bob-tooltip__arrow"></div>
+            }
+        </div>
+    }
+</bob-component>
+
+@code {
+    // Per-instance id so the trigger wrapper's aria-describedby and the
+    // tooltip's id stay paired across re-renders (WCAG 4.1.2 association).
+    private readonly string _tooltipId = $"tooltip-{Guid.NewGuid():N}";
+    private bool _isVisible;
+    private bool _isTooltipHovered;
+    private CancellationTokenSource? _delayTokenSource;
+    private CancellationTokenSource? _autoCloseTokenSource;
+
+    /// <summary>Content rendered inside the component.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>Material Design elevation level (0–24) applied to the tooltip surface. Sets a derived
+    /// shadow and lifts the surface in dark mode via a tint overlay. <see langword="null"/> (default)
+    /// keeps the component-default shadow defined in CSS.</summary>
+    [Parameter] public int? Elevation { get; set; }
+    /// <summary>TooltipContent.</summary>
+    [Parameter] public RenderFragment? TooltipContent { get; set; }
+    /// <summary>Text displayed as the .</summary>
+    [Parameter] public string? Text { get; set; }
+    /// <summary>Placement.</summary>
+    [Parameter] public TooltipPlacement Placement { get; set; } = TooltipPlacement.Top;
+    /// <summary>Trigger.</summary>
+    [Parameter] public TooltipTrigger Trigger { get; set; } = TooltipTrigger.Hover;
+    /// <summary>When <see langword="true" />, the Delay is shown.</summary>
+    [Parameter] public int? ShowDelay { get; set; }
+    /// <summary>LeaveDelay.</summary>
+    [Parameter] public int? LeaveDelay { get; set; }
+    /// <summary>AutoCloseAfterMs.</summary>
+    [Parameter] public int? AutoCloseAfterMs { get; set; }
+    /// <summary>Arrow.</summary>
+    [Parameter] public bool Arrow { get; set; } = true;
+    /// <summary>Interactive.</summary>
+    [Parameter] public bool Interactive { get; set; } = true;
+    /// <summary>MaxWidth.</summary>
+    [Parameter] public int? MaxWidth { get; set; }
+    /// <summary>Offset.</summary>
+    [Parameter] public int Offset { get; set; } = 8;
+
+    private int EffectiveShowDelay => ShowDelay ?? GetDefaultShowDelay();
+    private int EffectiveLeaveDelay => LeaveDelay ?? GetDefaultLeaveDelay();
+
+    private int GetDefaultShowDelay() => Trigger switch
+    {
+        TooltipTrigger.Hover or TooltipTrigger.Focus or TooltipTrigger.HoverAndFocus => 200,
+        TooltipTrigger.Click => 0,
+        TooltipTrigger.Permanent => 0,
+        _ => 200
+    };
+
+    private int GetDefaultLeaveDelay() => Trigger switch
+    {
+        TooltipTrigger.Hover or TooltipTrigger.Focus or TooltipTrigger.HoverAndFocus => 150,
+        TooltipTrigger.Click => 0,
+        TooltipTrigger.Permanent => 0,
+        _ => 150
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        if (Trigger == TooltipTrigger.Permanent)
+        {
+            _isVisible = true;
+        }
+    }
+
+    private string GetTooltipStyle()
+    {
+        List<string> styles = [];
+
+        if (MaxWidth.HasValue)
+        {
+            styles.Add($"--bob-tooltip-max-width: {MaxWidth}px");
+        }
+
+        if (Offset != 8)
+        {
+            styles.Add($"--bob-tooltip-offset: {Offset}px");
+        }
+
+        return string.Join("; ", styles);
+    }
+
+    private async Task HandleMouseEnter()
+    {
+        if (Trigger is not (TooltipTrigger.Hover or TooltipTrigger.HoverAndFocus))
+            return;
+
+        await ShowWithDelay();
+    }
+
+    private async Task HandleMouseLeave()
+    {
+        if (Trigger is not (TooltipTrigger.Hover or TooltipTrigger.HoverAndFocus))
+            return;
+
+        await HideWithDelay();
+    }
+
+    private async Task HandleFocusIn()
+    {
+        if (Trigger is not (TooltipTrigger.Focus or TooltipTrigger.HoverAndFocus))
+            return;
+
+        CancelDelay();
+        await Show();
+    }
+
+    private async Task HandleFocusOut()
+    {
+        if (Trigger is not (TooltipTrigger.Focus or TooltipTrigger.HoverAndFocus))
+            return;
+
+        await HideWithDelay();
+    }
+
+    private async Task HandleClick()
+    {
+        if (Trigger != TooltipTrigger.Click)
+            return;
+
+        if (_isVisible)
+        {
+            Hide();
+        }
+        else
+        {
+            await Show();
+        }
+    }
+
+    private void HandleTooltipMouseEnter()
+    {
+        if (!Interactive || Trigger == TooltipTrigger.Permanent)
+            return;
+
+        _isTooltipHovered = true;
+        CancelDelay();
+        CancelAutoClose();
+    }
+
+    private async Task HandleTooltipMouseLeave()
+    {
+        if (!Interactive || Trigger == TooltipTrigger.Permanent)
+            return;
+
+        _isTooltipHovered = false;
+
+        if (Trigger == TooltipTrigger.Click)
+        {
+            StartAutoClose();
+        }
+        else
+        {
+            await HideWithDelay();
+        }
+    }
+
+    private void HandleCloseClicked(MouseEventArgs e) => Hide();
+
+    private async Task Show()
+    {
+        _isVisible = true;
+        StartAutoClose();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private void Hide()
+    {
+        CancelDelay();
+        CancelAutoClose();
+        _isVisible = false;
+    }
+
+    private async Task ShowWithDelay()
+    {
+        CancelDelay();
+
+        int delay = EffectiveShowDelay;
+        if (delay <= 0)
+        {
+            await Show();
+            return;
+        }
+
+        CancellationTokenSource cts = new();
+        _delayTokenSource = cts;
+        CancellationToken token = cts.Token;
+
+        try
+        {
+            await Task.Delay(delay, token);
+            if (IsDisposed) return;
+            await Show();
+        }
+        catch (TaskCanceledException) { }
+        catch (ObjectDisposedException) { }
+    }
+
+    private async Task HideWithDelay()
+    {
+        CancelDelay();
+
+        int delay = EffectiveLeaveDelay;
+        if (delay <= 0)
+        {
+            if (!_isTooltipHovered)
+            {
+                Hide();
+            }
+            return;
+        }
+
+        CancellationTokenSource cts = new();
+        _delayTokenSource = cts;
+        CancellationToken token = cts.Token;
+
+        try
+        {
+            await Task.Delay(delay, token);
+            if (IsDisposed) return;
+            if (!_isTooltipHovered)
+            {
+                Hide();
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+        catch (TaskCanceledException) { }
+        catch (ObjectDisposedException) { }
+    }
+
+    private void StartAutoClose()
+    {
+        if (!AutoCloseAfterMs.HasValue)
+            return;
+
+        CancelAutoClose();
+        CancellationTokenSource cts = new();
+        _autoCloseTokenSource = cts;
+
+        BOBAsyncHelper.SafeFireAndForget(() => AutoCloseAsync(cts.Token));
+    }
+
+    private async Task AutoCloseAsync(CancellationToken token)
+    {
+        try
+        {
+            await Task.Delay(AutoCloseAfterMs!.Value, token);
+            if (IsDisposed) return;
+            if (!_isTooltipHovered)
+            {
+                Hide();
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+        catch (TaskCanceledException) { }
+        catch (ObjectDisposedException) { }
+    }
+
+    private void CancelDelay()
+    {
+        _delayTokenSource?.Cancel();
+        _delayTokenSource?.Dispose();
+        _delayTokenSource = null;
+    }
+
+    private void CancelAutoClose()
+    {
+        _autoCloseTokenSource?.Cancel();
+        _autoCloseTokenSource?.Dispose();
+        _autoCloseTokenSource = null;
+    }
+
+    public override async ValueTask DisposeAsync()
+    {
+        CancelDelay();
+        CancelAutoClose();
+        await base.DisposeAsync();
+    }
+}

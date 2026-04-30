@@ -1,0 +1,38 @@
+﻿@using BlazOrbit.Components.Forms
+@using Microsoft.AspNetCore.Components.Forms
+@using System.ComponentModel.DataAnnotations
+
+<div class="test-checkbox-consumer">
+    <EditForm EditContext="_editContext" OnValidSubmit="HandleValid" OnInvalidSubmit="HandleInvalid">
+        <DataAnnotationsValidator />
+
+        <BOBInputCheckbox @bind-Value="_model.Accepted"
+                          Label="Accept terms"
+                          HelperText="You must accept to continue." />
+
+        <button type="submit" class="submit-btn">Submit</button>
+    </EditForm>
+    <div class="submit-result">@_submitResult</div>
+</div>
+
+@code {
+    public class CheckboxModel
+    {
+        [Range(typeof(bool), "true", "true", ErrorMessage = "You must accept the terms")]
+        public bool Accepted { get; set; }
+    }
+
+    private CheckboxModel _model = new();
+    private EditContext? _editContext;
+    private string _submitResult = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        _editContext = new EditContext(_model);
+    }
+
+    public CheckboxModel BoundModel => _model;
+
+    private void HandleValid() => _submitResult = "valid";
+    private void HandleInvalid() => _submitResult = "invalid";
+}

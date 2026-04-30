@@ -1,0 +1,71 @@
+﻿@page "/components/button"
+
+@inject IStringLocalizer<ButtonPage> Loc
+
+<PageTitle>BlazOrbit - BOBButton</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBButton"]"
+         Lede="@Loc["The workhorse of any UI. Multiple variants, sizes, loading states, icons, and colors — all driven by parameters."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBButton)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+        <BOBButton Text="@Loc["Click me"]" OnClick="@(() => { })" />
+    </DocDemo>
+
+    <DocDemo Key="Sizes" Title="@Loc["Sizes"]">
+            <BOBButton Text="@Loc["Small"]" Size="BOBSize.Small" />
+            <BOBButton Text="@Loc["Medium"]" Size="BOBSize.Medium" />
+            <BOBButton Text="@Loc["Large"]" Size="BOBSize.Large" />
+    </DocDemo>
+
+    <DocDemo Key="Icons" Title="@Loc["Icons"]" Description="@Loc["Icons can be placed before or after the text."]">
+            <BOBButton Text="@Loc["Add"]" LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_add" />
+            <BOBButton Text="@Loc["Next"]" TrailingIcon="@BOBIconKeys.MaterialIconsOutlined.i_arrow_forward" />
+            <BOBButton Text="@Loc["Save"]" LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_save"
+                       TrailingIcon="@BOBIconKeys.MaterialIconsOutlined.i_check" />
+    </DocDemo>
+
+    <DocDemo Key="Colors" Title="@Loc["Colors"]" Description="@Loc["Use semantic PaletteColor values, or any CSS color string."]">
+            <BOBButton Text="@Loc["Primary"]" BackgroundColor="@PaletteColor.Primary" Color="@PaletteColor.PrimaryContrast" />
+            <BOBButton Text="@Loc["Success"]" BackgroundColor="@PaletteColor.Success" Color="@PaletteColor.SuccessContrast" />
+            <BOBButton Text="@Loc["Warning"]" BackgroundColor="@PaletteColor.Warning" Color="@PaletteColor.WarningContrast" />
+            <BOBButton Text="@Loc["Error"]" BackgroundColor="@PaletteColor.Error" Color="@PaletteColor.ErrorContrast" />
+    </DocDemo>
+
+    <DocDemo Key="Loading" Title="@Loc["Loading state"]" Description="@Loc["While Loading is true, the button is disabled and shows an indicator."]">
+            <BOBButton Text="@Loc["Submitting"]" Loading="true" />
+            <BOBButton Text="@Loc["Ring"]" Loading="true" LoadingIndicatorVariant="BOBLoadingIndicatorVariant.Ring" />
+            <BOBButton Text="@Loc["Dots"]" Loading="true" LoadingIndicatorVariant="BOBLoadingIndicatorVariant.Dots" />
+            <BOBButton Text="@Loc["Bars"]" Loading="true" LoadingIndicatorVariant="BOBLoadingIndicatorVariant.Bars" />
+    </DocDemo>
+
+    <DocDemo Key="Disabled" Title="@Loc["Disabled"]">
+        <BOBButton Text="@Loc["Disabled"]" Disabled="true" />
+    </DocDemo>
+
+    <DocDemo Key="FullWidth" Title="@Loc["Full width"]">
+        <div style="width: 100%;">
+            <BOBButton Text="@Loc["Full-width button"]" FullWidth="true" />
+        </div>
+    </DocDemo>
+
+    <DocDemo Key="ShadowAndBorder" Title="@Loc["Shadow & Border"]">
+            <BOBButton Text="@Loc["Elevated"]" Shadow="@BOBShadowPresets.Elevation(3)" />
+            <BOBButton Text="@Loc["Pill"]" Border="@BOBBorderPresets.Pill" />
+            <BOBButton Text="@Loc["Rounded"]" Border="@BOBBorderPresets.RoundedLarge" />
+            <BOBButton Text="@Loc["Strong"]" Border="@BOBBorderPresets.Strong" />
+    </DocDemo>
+
+    <DocDemo Key="Transitions" Title="@Loc["Transitions"]" Description="@Loc["Built-in transition presets for hover/click feedback."]">
+            <BOBButton Text="@Loc["Hover scale"]" Transitions="@BOBTransitionPresets.HoverScale" />
+            <BOBButton Text="@Loc["Hover lift"]" Transitions="@BOBTransitionPresets.HoverLift" />
+            <BOBButton Text="@Loc["Material"]" Transitions="@BOBTransitionPresets.MaterialButton" />
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBButtonComponentInfo.Parameters" />
+    </section>
+
+</DocPage>

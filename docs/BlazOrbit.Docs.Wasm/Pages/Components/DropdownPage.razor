@@ -1,0 +1,234 @@
+﻿@page "/components/dropdown"
+
+@inject IStringLocalizer<DropdownPage> Loc
+
+<PageTitle>BlazOrbit - BOBInputDropdown</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBInputDropdown"]"
+         Lede="@Loc["Single and multiple select list with keyboard navigation, search, and strongly-typed values. Options are declared as children."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBInputDropdown<>)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+        <BOBInputDropdown @bind-Value="_basicSingle" Label="@Loc["Single"]" HelperText="@Loc["Single selection"]">
+            <DropdownOption TOption="int" Value="1">@Loc["Option 1"]</DropdownOption>
+            <DropdownOption TOption="int" Value="2">@Loc["Option 2"]</DropdownOption>
+            <DropdownOption TOption="int" Value="3">@Loc["Option 3"]</DropdownOption>
+            <DropdownOption TOption="int" Value="4">@Loc["Option 4"]</DropdownOption>
+        </BOBInputDropdown>
+
+        <BOBInputDropdown @bind-Value="_basicMulti" Label="@Loc["Multi"]" HelperText="@Loc["Multiple selection"]">
+            <DropdownOption TOption="int" Value="1">@Loc["Option 1"]</DropdownOption>
+            <DropdownOption TOption="int" Value="2">@Loc["Option 2"]</DropdownOption>
+            <DropdownOption TOption="int" Value="3">@Loc["Option 3"]</DropdownOption>
+            <DropdownOption TOption="int" Value="4">@Loc["Option 4"]</DropdownOption>
+        </BOBInputDropdown>
+    </DocDemo>
+
+    <DocDemo Key="Variants" Title="@Loc["Variants"]">
+        <BOBInputDropdown @bind-Value="_outlinedValue"
+                          Label="@Loc["Outlined"]"
+                          Variant="BOBInputVariant.Outlined">
+            @foreach (string option in _optionsStrings)
+            {
+                <DropdownOption Value="@option" Text="@option" />
+            }
+        </BOBInputDropdown>
+        <BOBInputDropdown @bind-Value="_filledValue"
+                          Label="@Loc["Filled"]"
+                          Variant="BOBInputVariant.Filled">
+            @foreach (var option in _optionsStrings)
+            {
+                <DropdownOption Value="@option" Text="@option" />
+            }
+        </BOBInputDropdown>
+        <BOBInputDropdown @bind-Value="_standardValue"
+                          Label="@Loc["Standard"]"
+                          Variant="BOBInputVariant.Standard">
+            @foreach (var option in _optionsStrings)
+            {
+                <DropdownOption Value="@option" Text="@option" />
+            }
+        </BOBInputDropdown>
+    </DocDemo>
+
+    <DocDemo Key="Sizes" Title="@Loc["Sizes"]">
+        <BOBInputDropdown @bind-Value="_smallValue" Label="@Loc["Small"]" Size="BOBSize.Small">
+            @foreach (var option in _optionsStrings)
+            {
+                <DropdownOption Value="@option" Text="@option" />
+            }
+        </BOBInputDropdown>
+        <BOBInputDropdown @bind-Value="_mediumValue" Label="@Loc["Medium (Default)"]" Size="BOBSize.Medium">
+            @foreach (var option in _optionsStrings)
+            {
+                <DropdownOption Value="@option" Text="@option" />
+            }
+        </BOBInputDropdown>
+        <BOBInputDropdown @bind-Value="_largeValue" Label="@Loc["Large"]" Size="BOBSize.Large">
+            @foreach (var option in _optionsStrings)
+            {
+                <DropdownOption Value="@option" Text="@option" />
+            }
+        </BOBInputDropdown>
+    </DocDemo>
+
+    <DocDemo Key="ColorAndBackground" Title="@Loc["Color & Background"]">
+        <BOBInputDropdown @bind-Value="_colorValue" Label="@Loc["Custom Color & Background"]" Color="@PaletteColor.Secondary" BackgroundColor="@PaletteColor.SecondaryContrast">
+            @foreach (var option in _optionsStrings)
+            {
+                <DropdownOption Value="@option" Text="@option" />
+            }
+        </BOBInputDropdown>
+    </DocDemo>
+
+    <DocDemo Key="BoxPlacement" Title="@Loc["Box Placement"]" Description="@_boxPlacementDesc">
+        <BOBInputDropdown @bind-Value="_bottomValue"
+                          Label="@Loc["Bottom Placement (Default)"]"
+                          Placement="DropdownPlacement.Bottom">
+            @foreach (var option in _optionsStrings)
+            {
+                <DropdownOption Value="@option" Text="@option" />
+            }
+        </BOBInputDropdown>
+        <BOBInputDropdown @bind-Value="_topValue"
+                          Label="@Loc["Top Placement"]"
+                          Placement="DropdownPlacement.Top">
+            @foreach (var option in _optionsStrings)
+            {
+                <DropdownOption Value="@option" Text="@option" />
+            }
+        </BOBInputDropdown>
+        <BOBInputDropdown @bind-Value="_autoValue"
+                          Label="@Loc["Auto Placement"]"
+                          Placement="DropdownPlacement.Auto">
+            @foreach (var option in _optionsStrings)
+            {
+                <DropdownOption Value="@option" Text="@option" />
+            }
+        </BOBInputDropdown>
+    </DocDemo>
+
+    <DocDemo Key="Searchable" Title="@Loc["Searchable"]" Description="@_searchableDesc">
+        <BOBInputDropdown TValue="string" @bind-Value="_searchable" Label="@Loc["Country"]" Searchable="true" SearchPlaceholder="@Loc["Type a country..."]">
+            <DropdownOption TOption="string" Value="@("us")">United States</DropdownOption>
+            <DropdownOption TOption="string" Value="@("mx")">Mexico</DropdownOption>
+            <DropdownOption TOption="string" Value="@("ca")">Canada</DropdownOption>
+            <DropdownOption TOption="string" Value="@("br")">Brazil</DropdownOption>
+            <DropdownOption TOption="string" Value="@("ar")">Argentina</DropdownOption>
+            <DropdownOption TOption="string" Value="@("es")">Spain</DropdownOption>
+            <DropdownOption TOption="string" Value="@("fr")">France</DropdownOption>
+            <DropdownOption TOption="string" Value="@("de")">Germany</DropdownOption>
+            <DropdownOption TOption="string" Value="@("uk")">United Kingdom</DropdownOption>
+            <DropdownOption TOption="string" Value="@("jp")">Japan</DropdownOption>
+        </BOBInputDropdown>
+    </DocDemo>
+
+    <DocDemo Key="NoItemsTemplate" Title="@Loc["Custom template when there are not items."]">
+        <BOBInputDropdown TValue="string"
+                          @bind-Value="_noOptionsValue"
+                          Label="@Loc["Empty Dropdown"]">
+            <NoOptionsTemplate>
+                <span>@Loc["No items available"]</span>
+            </NoOptionsTemplate>
+        </BOBInputDropdown>
+    </DocDemo>
+
+    <DocDemo Key="ShadowAndBorder" Title="@Loc["Shadow"]">
+        <BOBInputDropdown @bind-Value="_shadowValue" Variant="BOBInputVariant.Outlined" Label="@Loc["Elevation Shadow"]"
+                          Shadow="@BOBShadowPresets.Elevation(2)">
+            @foreach (string option in _optionsStrings)
+            {
+                <DropdownOption Value="@option" Text="@option" />
+            }
+        </BOBInputDropdown>
+        <BOBInputDropdown @bind-Value="_shadowValue" Variant="BOBInputVariant.Outlined" Label="@Loc["Custom Shadow"]"
+                          Shadow="@(ShadowStyle.Create(5, 10, 0.14f, color: "purple"))">
+            @foreach (string option in _optionsStrings)
+            {
+                <DropdownOption Value="@option" Text="@option" />
+            }
+        </BOBInputDropdown>
+    </DocDemo>
+
+    <DocDemo Key="States" Title="@Loc["States"]">
+        <BOBInputDropdown @bind-Value="_requiredValue" Label="@Loc["Required"]" Required="true" HelperText="@Loc["Required"]">
+            <DropdownOption TOption="int" Value="1">@Loc["Option 1"]</DropdownOption>
+            <DropdownOption TOption="int" Value="2" Disabled="true">@Loc["Option 2"]</DropdownOption>
+            <DropdownOption TOption="int" Value="3" Disabled="true">@Loc["Option 3"]</DropdownOption>
+            <DropdownOption TOption="int" Value="4">@Loc["Option 4"]</DropdownOption>
+        </BOBInputDropdown>
+        <BOBInputDropdown @bind-Value="_disabledValue" Label="@Loc["Disabled"]" Disabled="true" HelperText="@Loc["Disabled"]">
+            <DropdownOption TOption="int" Value="1">@Loc["Option 1"]</DropdownOption>
+            <DropdownOption TOption="int" Value="2" Disabled="true">@Loc["Option 2"]</DropdownOption>
+            <DropdownOption TOption="int" Value="3" Disabled="true">@Loc["Option 3"]</DropdownOption>
+            <DropdownOption TOption="int" Value="4">@Loc["Option 4"]</DropdownOption>
+        </BOBInputDropdown>
+        <BOBInputDropdown @bind-Value="_readOnlyValue" Label="@Loc["Read Only"]" ReadOnly="true" HelperText="@Loc["ReadOnly"]">
+            <DropdownOption TOption="int" Value="1">@Loc["Option 1"]</DropdownOption>
+            <DropdownOption TOption="int" Value="2" Disabled="true">@Loc["Option 2"]</DropdownOption>
+            <DropdownOption TOption="int" Value="3" Disabled="true">@Loc["Option 3"]</DropdownOption>
+            <DropdownOption TOption="int" Value="4">@Loc["Option 4"]</DropdownOption>
+        </BOBInputDropdown>
+    </DocDemo>
+
+    <DocDemo Key="DisabledOptions" Title="@Loc["Disabled options"]">
+        <BOBInputDropdown TValue="int?" @bind-Value="_disabledOptionValue" Label="@Loc["With disabled options"]">
+            <DropdownOption TOption="int" Value="1">@Loc["Option 1"]</DropdownOption>
+            <DropdownOption TOption="int" Value="2" Disabled="true">@Loc["Option 2"]</DropdownOption>
+            <DropdownOption TOption="int" Value="3" Disabled="true">@Loc["Option 3"]</DropdownOption>
+            <DropdownOption TOption="int" Value="4">@Loc["Option 4"]</DropdownOption>
+        </BOBInputDropdown>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBInputDropdownComponentInfo.Parameters" />
+    </section>
+
+</DocPage>
+
+@code {
+    private int? _basicSingle;
+    private IEnumerable<int?>? _basicMulti;
+    private string? _outlinedValue;
+    private string? _filledValue;
+    private string? _standardValue;
+    private string? _smallValue;
+    private string? _mediumValue;
+    private string? _largeValue;
+    private string? _colorValue;
+    private string? _topValue;
+    private string? _autoValue;
+    private string? _bottomValue;
+    private int? _requiredValue;
+    private int? _disabledValue;
+    private int? _readOnlyValue;
+    private string? _searchable = null;
+    private string? _noOptionsValue = null;
+    private int? _disabledOptionValue;
+    private string? _shadowValue;
+
+    private List<string> _optionsStrings = new();
+
+    private string _boxPlacementDesc = string.Empty;
+    private string _searchableDesc = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _optionsStrings = [Loc["Option 1"], Loc["Option 2"], Loc["Option 3"], Loc["Option 4"], Loc["Option 5"]];
+
+        _boxPlacementDesc =
+        """
+        <p class="doc-section__description">Placement supports <code>Top, Bottom, TopStart, TopEnd, BottomStart, BottomEnd or Auto</code></p>
+        <p class="doc-section__description">Auto mode will position the box in the bottom if it has space. Otherwise it will position the box on top.</p>
+        """;
+
+        _searchableDesc =
+        """
+        <p class="doc-section__description">Set <code>Searchable</code> to filter options by typing.</p>
+        """;
+    }
+
+}

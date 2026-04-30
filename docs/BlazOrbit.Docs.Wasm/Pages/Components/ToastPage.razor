@@ -1,0 +1,103 @@
+﻿@page "/components/toast"
+
+@inject IToastService Toast
+@inject IStringLocalizer<ToastPage> Loc
+
+<PageTitle>BlazOrbit - BOBToast</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBToast"]"
+         Lede="@Loc["Transient notifications shown via IToastService. Six positions, configurable duration, animations, custom content."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBToastHost)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+        <BOBButton Text="@Loc["Show toast"]" OnClick="@(() => Toast.ShowAsync(b => b.AddContent(0, Loc["Hello from a toast!"])))" />
+    </DocDemo>
+
+    <DocDemo Key="Positions" Title="@Loc["Positions"]">
+            <BOBButton Text="@Loc["Top Left"]" Size="BOBSize.Small" OnClick="@(() => ShowAt(ToastPosition.TopLeft))" />
+            <BOBButton Text="@Loc["Top Center"]" Size="BOBSize.Small" OnClick="@(() => ShowAt(ToastPosition.TopCenter))" />
+            <BOBButton Text="@Loc["Top Right"]" Size="BOBSize.Small" OnClick="@(() => ShowAt(ToastPosition.TopRight))" />
+            <BOBButton Text="@Loc["Bottom Left"]" Size="BOBSize.Small" OnClick="@(() => ShowAt(ToastPosition.BottomLeft))" />
+            <BOBButton Text="@Loc["Bottom Center"]" Size="BOBSize.Small" OnClick="@(() => ShowAt(ToastPosition.BottomCenter))" />
+            <BOBButton Text="@Loc["Bottom Right"]" Size="BOBSize.Small" OnClick="@(() => ShowAt(ToastPosition.BottomRight))" />
+    </DocDemo>
+
+    <DocDemo Key="Durations" Title="@Loc["Durations"]">
+            <BOBButton Text="@Loc["Quick (2s)"]" OnClick="@(() => Toast.ShowAsync(b => b.AddContent(0, Loc["Quick (2s)"]), ToastOptions.Quick))" />
+            <BOBButton Text="@Loc["Default (4s)"]" OnClick="@(() => Toast.ShowAsync(b => b.AddContent(0, Loc["Default (4s)"]), ToastOptions.Default))" />
+            <BOBButton Text="@Loc["Long (8s)"]" OnClick="@(() => Toast.ShowAsync(b => b.AddContent(0, Loc["Long (8s)"]), ToastOptions.Long))" />
+    </DocDemo>
+
+    <DocDemo Key="Persistent" Title="@Loc["Persistent + closable"]">
+            <BOBButton Text="@Loc["Persistent (no dismiss)"]" OnClick="@(() => Toast.ShowAsync(b => b.AddContent(0, Loc["Stays until closed."]), ToastOptions.Persistent))" />
+            <BOBButton Text="@Loc["Not closable"]" OnClick="@(() => Toast.ShowAsync(b => b.AddContent(0, Loc["No X button — wait it out."]), new ToastOptions { Closable = false }))" />
+    </DocDemo>
+
+    <DocDemo Key="Animations" Title="@Loc["Animations"]">
+            <BOBButton Text="@Loc["Slide & Fade"]" OnClick="@(() => Toast.ShowAsync(b => b.AddContent(0, Loc["Slide & Fade"]), new ToastOptions { Animation = ToastAnimation.SlideAndFade }))" />
+            <BOBButton Text="@Loc["Slide only"]" OnClick="@(() => Toast.ShowAsync(b => b.AddContent(0, Loc["Slide only"]), new ToastOptions { Animation = ToastAnimation.SlideOnly }))" />
+            <BOBButton Text="@Loc["Fade only"]" OnClick="@(() => Toast.ShowAsync(b => b.AddContent(0, Loc["Fade only"]), new ToastOptions { Animation = ToastAnimation.FadeOnly }))" />
+            <BOBButton Text="@Loc["None"]" OnClick="@(() => Toast.ShowAsync(b => b.AddContent(0, Loc["No animation"]), new ToastOptions { Animation = ToastAnimation.None }))" />
+    </DocDemo>
+
+    <DocDemo Key="Types" Title="@Loc["Typed helpers"]" Description="@Loc["Add toast-info / toast-success / toast-warning / toast-error CSS rules in your app, then pass CssClass."]">
+            <BOBButton Text="@Loc["Info"]" BackgroundColor="@PaletteColor.Info" Color="@PaletteColor.InfoContrast"
+                       OnClick="@(() => Toast.ShowAsync(b => b.AddContent(0, Loc["Info toast"]), new ToastOptions { CssClass = "toast-info" }))" />
+            <BOBButton Text="@Loc["Success"]" BackgroundColor="@PaletteColor.Success" Color="@PaletteColor.SuccessContrast"
+                       OnClick="@(() => Toast.ShowAsync(b => b.AddContent(0, Loc["Success!"]), new ToastOptions { CssClass = "toast-success" }))" />
+            <BOBButton Text="@Loc["Warning"]" BackgroundColor="@PaletteColor.Warning" Color="@PaletteColor.WarningContrast"
+                       OnClick="@(() => Toast.ShowAsync(b => b.AddContent(0, Loc["Watch out."]), new ToastOptions { CssClass = "toast-warning" }))" />
+            <BOBButton Text="@Loc["Error"]" BackgroundColor="@PaletteColor.Error" Color="@PaletteColor.ErrorContrast"
+                       OnClick="@(() => Toast.ShowAsync(b => b.AddContent(0, Loc["Something broke."]), new ToastOptions { CssClass = "toast-error" }))" />
+    </DocDemo>
+
+    <DocDemo Key="Manage" Title="@Loc["Manage"]">
+            <BOBButton Text="@Loc["Show 3 toasts"]" OnClick="@ShowThree" />
+            <BOBButton Text="@Loc["Close all"]"
+                       BackgroundColor="@PaletteColor.Error"
+                       Color="@PaletteColor.ErrorContrast"
+                       OnClick="@(() => Toast.CloseAllAsync())" />
+            <BOBButton Text="@($"{Loc["Clicks"]}: {_clicks}")" OnClick="@ShowClickable" />
+    </DocDemo>
+
+    <DocDemo Key="Elevation" Title="@Loc["Elevation"]" Description="@Loc["Material Design elevation level (0–24). Derives shadow and dark-mode surface tint automatically."]">
+            <BOBButton Text="@Loc["Toast Elevation 2"]"
+                       OnClick="@(() => Toast.ShowAsync(b => b.AddContent(0, Loc["Low elevation toast"]), new ToastOptions { Elevation = 2 }))" />
+            <BOBButton Text="@Loc["Toast Elevation 6"]"
+                       OnClick="@(() => Toast.ShowAsync(b => b.AddContent(0, Loc["High elevation toast"]), new ToastOptions { Elevation = 6 }))" />
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+
+        <h3 class="doc-section__subtitle">BOBToast</h3>
+        <PropertyTable Properties="@BOBToastComponentInfo.Parameters" />
+
+        <h3 class="doc-section__subtitle">BOBToastHost</h3>
+        <PropertyTable Properties="@BOBToastHostComponentInfo.Parameters" />
+    </section>
+
+</DocPage>
+
+@code {
+    private int _clicks;
+
+    private Task ShowAt(ToastPosition position) =>
+        Toast.ShowAsync(b => b.AddContent(0, $"Toast at {position}"),
+            new ToastOptions { Position = position });
+
+    private async Task ShowThree()
+    {
+        for (int i = 1; i <= 3; i++)
+        {
+            int idx = i;
+            await Toast.ShowAsync(b => b.AddContent(0, $"Toast #{idx}"),
+                new ToastOptions { Duration = TimeSpan.FromSeconds(10) });
+        }
+    }
+
+    private Task ShowClickable() =>
+        Toast.ShowAsync(b => b.AddContent(0, Loc["Click me to bump counter"].Value),
+            new ToastOptions { OnClick = () => _clicks++, Duration = TimeSpan.FromSeconds(6) });
+}

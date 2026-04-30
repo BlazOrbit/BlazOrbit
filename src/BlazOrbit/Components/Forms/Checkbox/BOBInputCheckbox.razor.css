@@ -1,0 +1,31 @@
+﻿[data-bob-component="input-checkbox"] {
+    --_color: var(--bob-inline-color, var(--palette-primary));
+    --_size: calc(1.25rem * var(--bob-size-multiplier, 1));
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+    [data-bob-component="input-checkbox"] .bob-checkbox {
+        display: inline-flex;
+        align-items: center;
+        gap: calc(0.5rem * var(--bob-density-multiplier));
+        cursor: pointer;
+        user-select: none;
+    }
+
+    [data-bob-component="input-checkbox"] .bob-checkbox__label {
+        line-height: 1.4;
+        color: var(--palette-surface-contrast);
+    }
+
+    [data-bob-component="input-checkbox"][data-bob-disabled="true"] .bob-checkbox {
+        cursor: not-allowed;
+        opacity: var(--bob-opacity-disabled, 0.5);
+    }
+
+    [data-bob-component="input-checkbox"] .bob-checkbox:focus-visible {
+        outline: var(--bob-highlight-outline);
+        outline-offset: var(--bob-highlight-outline-offset);
+        border-radius: 4px;
+    }

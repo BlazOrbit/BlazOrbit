@@ -1,0 +1,99 @@
+﻿@page "/components/card"
+
+@inject IStringLocalizer<CardPage> Loc
+
+<PageTitle>BlazOrbit - BOBCard</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBCard"]"
+         Lede="@Loc["A flexible container for content — header, media, body, and actions in a single component."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBCard)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+        <BOBCard>
+            <ChildContent>
+                <p>@Loc["A simple card with only body content."]</p>
+            </ChildContent>
+        </BOBCard>
+    </DocDemo>
+
+    <DocDemo Key="HeaderActions" Title="@Loc["With header & actions"]">
+        <BOBCard>
+            <Header><h3 style="margin: 0;">@Loc["Invoice #4213"]</h3></Header>
+            <ChildContent>
+                <p>@Loc["Total: $240.00 — due April 30."]</p>
+            </ChildContent>
+            <Actions>
+                <BOBButton Text="@Loc["Decline"]" />
+                <BOBButton Text="@Loc["Pay"]" BackgroundColor="@PaletteColor.Primary" Color="@PaletteColor.PrimaryContrast" />
+            </Actions>
+        </BOBCard>
+    </DocDemo>
+
+    <DocDemo Key="Media" Title="@Loc["With media"]" Description="@Loc["Media can be placed at Top (default), AfterHeader, BeforeActions, or Bottom."]">
+        <BOBCard MediaHeight="160px" Border="@BOBBorderPresets.Rounded">
+            <Media>
+                <div style="background: linear-gradient(135deg, var(--palette-primary), var(--palette-secondary)); width: 100%; height: 100%;"></div>
+            </Media>
+            <Header><h3 style="margin: 0;">@Loc["Featured"]</h3></Header>
+            <ChildContent>
+                <p>@Loc["Media area can contain any RenderFragment — image, gradient, or video."]</p>
+            </ChildContent>
+        </BOBCard>
+    </DocDemo>
+
+    <DocDemo Key="Clickable" Title="@Loc["Clickable"]">
+        <BOBCard Clickable="true" OnClick="@(() => _clicks++)">
+            <Header><h3 style="margin: 0;">@Loc["Clickable card"]</h3></Header>
+            <ChildContent>
+                <p>@Loc["Clicked"] @_clicks @Loc["time(s)."]</p>
+            </ChildContent>
+        </BOBCard>
+    </DocDemo>
+
+    <DocDemo Key="ActionsAlignment" Title="@Loc["Actions alignment"]">
+        <BOBCard ActionsAlignment="CardActionsAlignment.SpaceBetween">
+            <ChildContent><p>@Loc["Space-between actions."]</p></ChildContent>
+            <Actions>
+                <BOBButton Text="@Loc["Cancel"]" />
+                <BOBButton Text="@Loc["Confirm"]" BackgroundColor="@PaletteColor.Primary" Color="@PaletteColor.PrimaryContrast" />
+            </Actions>
+        </BOBCard>
+    </DocDemo>
+
+    <DocDemo Key="Elevation" Title="@Loc["Elevation"]" Description="@Loc["Material Design elevation level (0–24). Derives shadow and dark-mode surface tint automatically."]">
+            <BOBCard Elevation="1">
+                <ChildContent><p>@Loc["Elevation 1 — low emphasis."]</p></ChildContent>
+            </BOBCard>
+            <BOBCard Elevation="4">
+                <ChildContent><p>@Loc["Elevation 4 — medium emphasis."]</p></ChildContent>
+            </BOBCard>
+            <BOBCard Elevation="8">
+                <ChildContent><p>@Loc["Elevation 8 — high emphasis."]</p></ChildContent>
+            </BOBCard>
+    </DocDemo>
+
+    <DocDemo Key="ShadowAndBorder" Title="@Loc["Shadow & Border"]">
+            <BOBCard Shadow="@BOBShadowPresets.Elevation(4)" Border="@BOBBorderPresets.RoundedLarge">
+                <Header><h3 style="margin: 0;">@Loc["Elevated"]</h3></Header>
+                <ChildContent><p>@Loc["Shadow + border combined for a polished look."]</p></ChildContent>
+            </BOBCard>
+            <BOBCard Border="@BOBBorderPresets.Dashed">
+                <Header><h3 style="margin: 0;">@Loc["Dashed"]</h3></Header>
+                <ChildContent><p>@Loc["Border only, no shadow."]</p></ChildContent>
+            </BOBCard>
+            <BOBCard Shadow="@BOBShadowPresets.Elevation(2)" Border="@BOBBorderPresets.Pill">
+                <ChildContent><p>@Loc["Pill shape."]</p></ChildContent>
+            </BOBCard>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBCardComponentInfo.Parameters" />
+    </section>
+
+</DocPage>
+
+@code {
+    private int _clicks;
+}

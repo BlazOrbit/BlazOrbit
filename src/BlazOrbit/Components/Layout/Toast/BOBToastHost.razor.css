@@ -1,0 +1,80 @@
+﻿/* === Feedback/Toast/BOBToastHost.razor.css === */
+
+[data-bob-component="toast-host"] {
+    display: contents;
+}
+
+[data-bob-component="toast-host"] .bob-toast-host__position {
+    position: fixed;
+    z-index: var(--bob-z-toast);
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1rem;
+    pointer-events: none;
+    max-height: 100vh;
+    overflow: hidden;
+}
+
+/* Top positions */
+[data-bob-component="toast-host"] .bob-toast-host__position[data-bob-position="top-left"] {
+    top: 0;
+    left: 0;
+    align-items: flex-start;
+}
+
+[data-bob-component="toast-host"] .bob-toast-host__position[data-bob-position="top-center"] {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+}
+
+[data-bob-component="toast-host"] .bob-toast-host__position[data-bob-position="top-right"] {
+    top: 0;
+    right: 0;
+    align-items: flex-end;
+}
+
+/* Bottom positions */
+[data-bob-component="toast-host"] .bob-toast-host__position[data-bob-position="bottom-left"] {
+    bottom: 0;
+    left: 0;
+    align-items: flex-start;
+    flex-direction: column-reverse;
+}
+
+[data-bob-component="toast-host"] .bob-toast-host__position[data-bob-position="bottom-center"] {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    align-items: center;
+    flex-direction: column-reverse;
+}
+
+[data-bob-component="toast-host"] .bob-toast-host__position[data-bob-position="bottom-right"] {
+    bottom: 0;
+    right: 0;
+    align-items: flex-end;
+    flex-direction: column-reverse;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+    [data-bob-component="toast-host"] .bob-toast-host__position {
+        padding: 0.5rem;
+    }
+
+    [data-bob-component="toast-host"] .bob-toast-host__position[data-bob-position="top-center"],
+    [data-bob-component="toast-host"] .bob-toast-host__position[data-bob-position="bottom-center"] {
+        left: 0;
+        right: 0;
+        transform: none;
+        align-items: stretch;
+    }
+
+    [data-bob-component="toast-host"] .bob-toast-host__position [data-bob-component="toast"] {
+        max-width: none;
+        min-width: 0;
+    }
+}

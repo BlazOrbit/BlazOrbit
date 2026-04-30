@@ -1,0 +1,47 @@
+﻿/* Textarea field adjustments */
+[data-bob-component="input-text-area"] .bob-input__field {
+    min-height: calc(5rem * var(--bob-size-multiplier, 1));
+    line-height: 1.5;
+    resize: vertical;
+}
+
+/* Wrapper needs to align items to start for multiline */
+[data-bob-component="input-text-area"] .bob-input__wrapper {
+    align-items: flex-start;
+}
+
+/* Label positioning for textarea */
+[data-bob-component="input-text-area"] .bob-input__label {
+    top: calc(0.75rem * var(--bob-size-multiplier, 1));
+    transform: none;
+}
+
+[data-bob-component="input-text-area"][data-bob-floated="true"] .bob-input__label {
+    top: 0;
+    transform: translateY(0) scale(var(--_input-scale));
+}
+
+/* Resize options */
+[data-bob-component="input-text-area"][data-bob-resize="none"] .bob-input__field {
+    resize: none;
+}
+
+[data-bob-component="input-text-area"][data-bob-resize="horizontal"] .bob-input__field {
+    resize: horizontal;
+}
+
+[data-bob-component="input-text-area"][data-bob-resize="both"] .bob-input__field {
+    resize: both;
+}
+
+/* Auto-resize */
+[data-bob-component="input-text-area"][data-bob-autoresize="true"] .bob-input__field {
+    resize: none;
+    overflow: hidden;
+}
+
+/* Loading position adjustment */
+[data-bob-component="input-text-area"] .bob-input__loading {
+    top: calc(0.75rem * var(--bob-size-multiplier, 1));
+    transform: none;
+}

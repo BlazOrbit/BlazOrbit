@@ -1,0 +1,345 @@
+﻿@using BlazOrbit.Abstractions
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+
+@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+
+@typeparam TItem
+@inherits BOBDataCollectionBase<TItem, BOBDataGrid<TItem>, DataGridVariant>
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+<CascadingValue Value="@((IDataColumnRegistry<TItem>)ColumnRegistry)" Name="DataColumnRegistry">
+    @Columns
+</CascadingValue>
+
+<bob-component @attributes="ComputedAttributes">
+    @if (ColumnsBuilt)
+    {
+        <div role="status" aria-live="polite" class="sr-only">@LiveRegionMessage</div>
+
+        @if (Filterable || ShowPageSizeSelector)
+        {
+            <div class="bob-dc__toolbar">
+                @if (Filterable)
+                {
+                    <div class="bob-dc__filter">
+                        <_BOBInText Value="@State.FilterText"
+                                    Placeholder="@FilterPlaceholder"
+                                    AriaLabel="@FilterPlaceholder"
+                                    UpdateOnInput="true"
+                                    OnInput="HandleFilterInputChange" />
+                        @if (!string.IsNullOrEmpty(State.FilterText))
+                        {
+                            <_BOBBtn Icon="@BOBIconKeys.UI.Close"
+                                     AriaLabel="Clear filter"
+                                     OnClick="ClearFilterClicked" />
+                        }
+                    </div>
+                }
+
+                <div class="bob-dc__toolbar-spacer"></div>
+
+                @if (SelectionMode != SelectionMode.None && State.SelectedItems.Any())
+                {
+                    <div class="bob-dc__selection-info">
+                        <span>@State.SelectedItems.Count selected</span>
+                        <_BOBBtn OnClick="ClearSelectionClicked">
+                            Clear
+                        </_BOBBtn>
+                    </div>
+                }
+
+                @if (ShowPageSizeSelector)
+                {
+                    <div class="bob-dc__page-size">
+                        <label>Show</label>
+                        <_BOBInSelect Value="@State.PageSize.ToString()"
+                                      AriaLabel="Items per page"
+                                      ValueChanged="HandlePageSizeSelectChange">
+                            @foreach (int size in PageSizeOptions)
+                            {
+                                <option value="@size">@size</option>
+                            }
+                        </_BOBInSelect>
+                    </div>
+                }
+            </div>
+        }
+
+        @if (Loading && LoadingContent != null)
+        {
+            <div class="bob-dc__loading">
+                @LoadingContent
+            </div>
+        }
+        else
+        {
+            <div class="bob-datagrid__container" style="@GetContainerStyle()">
+                <table class="bob-datagrid__table" role="grid" aria-rowcount="@FilteredItems.Count">
+                    <thead class="bob-datagrid__header">
+                        <tr role="row">
+                            @if (SelectionMode != SelectionMode.None)
+                            {
+                                <th class="bob-datagrid__header-cell bob-datagrid__select-cell" role="columnheader" scope="col">
+                                    @if (SelectionMode == SelectionMode.Multiple)
+                                    {
+                                        <_BOBBtn Icon="@GetSelectAllIcon()"
+                                                 Size="BOBSize.Small"
+                                                 AriaLabel="@(IsAllSelected() ? "Deselect all" : "Select all")"
+                                                 OnClick="HandleSelectAllClick" />
+                                    }
+                                </th>
+                            }
+                            @foreach (DataColumnRegistration<TItem> col in VisibleColumns)
+                            {
+                                <th class="bob-datagrid__header-cell @GetAlignClass(col.Align, "bob-datagrid__cell") @col.HeaderClass"
+                                    style="@(col.Width != null ? $"width: {col.Width}" : null)"
+                                    role="columnheader"
+                                    scope="col"
+                                    aria-sort="@GetAriaSort(col)">
+                                    @if (col.Sortable && Sortable)
+                                    {
+                                        <button type="button"
+                                                class="bob-datagrid__sort-btn"
+                                                @onclick="() => HandleSort(col)">
+                                            <span>
+                                                @if (col.HeaderTemplate != null)
+                                                {
+                                                    @col.HeaderTemplate
+                                                }
+                                                else
+                                                {
+                                                    @col.Header
+                                                }
+                                            </span>
+                                            <span class="bob-datagrid__sort-icon" aria-hidden="true">
+                                                @if (State.SortColumn == col.Header)
+                                                {
+                                                    @if (State.SortDirection == SortDirection.Ascending)
+                                                    {
+                                                        <BOBSvgIcon Icon="@BOBIconKeys.UI.ArrowUpward" Size="BOBSize.Small" />
+                                                    }
+                                                    else if (State.SortDirection == SortDirection.Descending)
+                                                    {
+                                                        <BOBSvgIcon Icon="@BOBIconKeys.UI.ArrowDownward" Size="BOBSize.Small" />
+                                                    }
+                                                }
+                                            </span>
+                                        </button>
+                                    }
+                                    else
+                                    {
+                                        @if (col.HeaderTemplate != null)
+                                        {
+                                            @col.HeaderTemplate
+                                        }
+                                        else
+                                        {
+                                            @col.Header
+                                        }
+                                    }
+                                </th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (EnableVirtualization && !string.IsNullOrEmpty(Height))
+                        {
+                            <Virtualize Items="@IndexedItems" Context="indexed">
+                                @RenderRow(indexed.Item, indexed.Index)
+                            </Virtualize>
+                        }
+                        else if (ProcessedItems.Any())
+                        {
+                            int rowIndex = 0;
+                            @foreach (TItem item in ProcessedItems)
+                            {
+                                @RenderRow(item, rowIndex)
+                                rowIndex++;
+                            }
+                        }
+                        else
+                        {
+                            <tr class="bob-datagrid__empty-row" role="row">
+                                <td colspan="@(VisibleColumns.Count + (SelectionMode != SelectionMode.None ? 1 : 0))"
+                                    class="bob-datagrid__empty-cell">
+                                    @if (EmptyContent != null)
+                                    {
+                                        @EmptyContent
+                                    }
+                                    else
+                                    {
+                                        <div class="bob-dc__empty">
+                                            <span class="bob-dc__empty-icon">📋</span>
+                                            <p class="bob-dc__empty-text">No data available</p>
+                                        </div>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                    @if (FooterTemplate != null)
+                    {
+                        <tfoot class="bob-datagrid__footer">
+                            @FooterTemplate
+                        </tfoot>
+                    }
+                </table>
+            </div>
+        }
+
+        @if (PageSize.HasValue && FilteredItems.Any())
+        {
+            <_BOBPagination CurrentPage="@State.CurrentPage"
+                            TotalPages="@TotalPages"
+                            TotalItems="@FilteredItems.Count"
+                            PageSize="@State.PageSize"
+                            OnPageChange="ChangePage" />
+        }
+    }
+</bob-component>
+
+@code {
+    /// <summary>When <see langword="true" />, the header row stays fixed while scrolling.</summary>
+    [Parameter] public bool FixedHeader { get; set; }
+    /// <summary>Custom template for rendering each data row.</summary>
+    [Parameter] public RenderFragment<TItem>? RowTemplate { get; set; }
+    /// <summary>Custom template rendered inside the table footer.</summary>
+    [Parameter] public RenderFragment? FooterTemplate { get; set; }
+
+    /// <summary>Border style applied to individual cells.</summary>
+    [Parameter] public BorderStyle? CellBorder { get; set; }
+    /// <summary>Border style applied to rows.</summary>
+    [Parameter] public BorderStyle? RowBorder { get; set; }
+
+    public override DataGridVariant DefaultVariant => DataGridVariant.Default;
+
+    protected override IReadOnlyDictionary<DataGridVariant, Func<BOBDataGrid<TItem>, RenderFragment>> BuiltInTemplates { get; } =
+        new Dictionary<DataGridVariant, Func<BOBDataGrid<TItem>, RenderFragment>>();
+
+    private List<(TItem Item, int Index)> IndexedItems =>
+        ProcessedItems.Select((item, i) => (item, i)).ToList();
+
+    public override void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    {
+        base.BuildComponentCssVariables(cssVariables);
+
+        if (CellBorder != null)
+        {
+            BorderCssValues values = CellBorder.GetCssValues();
+            if (values.All != null)
+                cssVariables[FeatureDefinitions.InlineVariables.DcCellBorder] = values.All;
+            if (values.Top != null)
+                cssVariables[FeatureDefinitions.InlineVariables.DcCellBorderTop] = values.Top;
+            if (values.Right != null)
+                cssVariables[FeatureDefinitions.InlineVariables.DcCellBorderRight] = values.Right;
+            if (values.Bottom != null)
+                cssVariables[FeatureDefinitions.InlineVariables.DcCellBorderBottom] = values.Bottom;
+            if (values.Left != null)
+                cssVariables[FeatureDefinitions.InlineVariables.DcCellBorderLeft] = values.Left;
+        }
+
+        if (RowBorder != null)
+        {
+            BorderCssValues values = RowBorder.GetCssValues();
+            if (values.All != null)
+                cssVariables[FeatureDefinitions.InlineVariables.DcRowBorder] = values.All;
+            if (values.Top != null)
+                cssVariables[FeatureDefinitions.InlineVariables.DcRowBorderTop] = values.Top;
+            if (values.Right != null)
+                cssVariables[FeatureDefinitions.InlineVariables.DcRowBorderRight] = values.Right;
+            if (values.Bottom != null)
+                cssVariables[FeatureDefinitions.InlineVariables.DcRowBorderBottom] = values.Bottom;
+            if (values.Left != null)
+                cssVariables[FeatureDefinitions.InlineVariables.DcRowBorderLeft] = values.Left;
+        }
+    }
+
+    private RenderFragment RenderRow(TItem item, int index) => __builder =>
+    {
+        bool isSelected = State.IsSelected(item);
+        string? patternStyle = GetItemPatternStyle(index);
+
+        string rowClasses = $"bob-datagrid__row {(isSelected ? "bob-datagrid__row--selected" : "")} {(IsInteractiveRow ? "bob-datagrid__row--interactive" : "")}";
+
+        <tr @key="item"
+            class="@rowClasses"
+            style="@patternStyle"
+            role="row"
+            tabindex="@(IsInteractiveRow ? 0 : -1)"
+            @onclick="() => HandleRowClick(item)"
+            @onkeydown="e => HandleRowKeyDown(e, item)"
+            @onkeydown:preventDefault="PreventRowKeyDown">
+
+            @if (SelectionMode != SelectionMode.None)
+            {
+                <td class="bob-datagrid__select-cell" role="gridcell">
+                    <_BOBCheckMark Checked="@isSelected"
+                                   Mode="@(SelectionMode == SelectionMode.Single ? _BOBCheckMark.CheckMarkMode.Radio : _BOBCheckMark.CheckMarkMode.Checkbox)"
+                                   Size="@Size" />
+                </td>
+            }
+
+            @if (RowTemplate != null)
+            {
+                @RowTemplate(item)
+            }
+            else
+            {
+                @foreach (DataColumnRegistration<TItem> col in VisibleColumns)
+                {
+                    <td class="@GetAlignClass(col.Align, "bob-datagrid__cell") @col.CellClass"
+                        role="gridcell">
+                        @if (col.Template != null)
+                        {
+                            @col.Template(item)
+                        }
+                        else if (col.ValueSelector != null)
+                        {
+                            @FormatValue(col.ValueSelector(item), col.Format)
+                        }
+                    </td>
+                }
+            }
+        </tr>
+    };
+
+    private string GetContainerStyle()
+    {
+        if (EnableVirtualization && !string.IsNullOrEmpty(Height))
+            return $"max-height: {Height}; overflow-y: auto;";
+
+        if (FixedHeader && !string.IsNullOrEmpty(Height))
+            return $"max-height: {Height}; overflow-y: auto;";
+
+        return string.Empty;
+    }
+
+    private IconKey GetSelectAllIcon()
+    {
+        if (!ProcessedItems.Any())
+            return BOBIconKeys.MaterialIconsRound.i_check_box_outline_blank;
+
+        if (IsAllSelected())
+            return BOBIconKeys.MaterialIconsRound.i_check_box;
+
+        if (State.SelectedItems.Any())
+            return BOBIconKeys.MaterialIconsOutlined.i_indeterminate_check_box;
+
+        return BOBIconKeys.MaterialIconsRound.i_check_box_outline_blank;
+    }
+
+    private async Task HandleSelectAllClick(MouseEventArgs e)
+    {
+        if (IsAllSelected())
+            State.ClearSelection();
+        else
+            State.SelectAll(ProcessedItems);
+
+        await NotifySelectionChanged();
+    }
+}

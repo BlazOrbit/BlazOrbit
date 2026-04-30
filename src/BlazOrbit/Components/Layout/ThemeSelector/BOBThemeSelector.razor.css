@@ -1,0 +1,151 @@
+﻿[data-bob-component="theme-selector"] {
+    position: relative;
+    overflow: hidden;
+}
+
+    [data-bob-component="theme-selector"] button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        background: var(--palette-surface);
+        color: var(--palette-background-contrast);
+        cursor: pointer;
+        /* Hover lifts via `transform: translateY(-1px)` and the button reacts
+           to theme changes through `background-color` / `color`. Restrict the
+           transition to those properties to avoid layout invalidation on every
+           paint that `transition: all` would otherwise force. */
+        transition: background-color 0.3s ease,
+                    color 0.3s ease,
+                    border-color 0.3s ease,
+                    transform 0.3s ease;
+    }
+
+        [data-bob-component="theme-selector"] button:hover {
+            transform: translateY(-1px);
+        }
+
+        [data-bob-component="theme-selector"] button:active {
+            transform: translateY(0);
+        }
+
+        [data-bob-component="theme-selector"] button:disabled {
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        [data-bob-component="theme-selector"] button:focus-visible {
+            outline: var(--bob-highlight-outline);
+            outline-offset: var(--bob-highlight-outline-offset);
+        }
+
+    /* Default variant */
+    [data-bob-component="theme-selector"][data-bob-variant="default"] button {
+        border-radius: 0.5rem;
+        min-width: 120px;
+        height: 40px;
+        box-shadow: 0 2px 4px color-mix(in srgb, var(--palette-shadow) 10%, transparent);
+    }
+
+        [data-bob-component="theme-selector"][data-bob-variant="default"] button:hover {
+            box-shadow: 0 4px 8px color-mix(in srgb, var(--palette-shadow) 15%, transparent);
+        }
+
+    [data-bob-component="theme-selector"][data-bob-variant="default"] .bob-theme-switch__content {
+        display: inline-flex;
+        align-items: center;
+        gap: calc(0.5rem * var(--bob-density-multiplier));
+        transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+
+    [data-bob-component="theme-selector"][data-bob-variant="default"][data-bob-transitioning="true"] .bob-theme-switch__content {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+
+    [data-bob-component="theme-selector"][data-bob-variant="default"] .bob-theme-switch__icon {
+        font-size: 1.2rem;
+        line-height: 1;
+    }
+
+    [data-bob-component="theme-selector"][data-bob-variant="default"] .bob-theme-switch__label {
+        font-weight: 500;
+    }
+
+    /* SunMoon variant */
+    [data-bob-component="theme-selector"][data-bob-variant="sunmoon"] button {
+        width: 60px;
+        height: 32px;
+        padding: 0.25rem;
+        border-radius: 2rem;
+        background: linear-gradient(135deg, var(--palette-primary), var(--palette-secondary));
+        min-width: unset;
+        position: relative;
+    }
+
+html[data-bob-theme="light"] [data-bob-component="theme-selector"][data-bob-variant="sunmoon"] button {
+    background: linear-gradient(135deg, var(--palette-info), var(--palette-primary));
+}
+
+[data-bob-component="theme-selector"][data-bob-variant="sunmoon"] .bob-theme-switch__sun-moon-container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+[data-bob-component="theme-selector"][data-bob-variant="sunmoon"] .bob-theme-switch__icon-wrapper {
+    width: 24px;
+    height: 24px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+    box-shadow: 0 2px 4px color-mix(in srgb, var(--palette-shadow) 20%, transparent);
+}
+
+html[data-bob-theme="light"] [data-bob-component="theme-selector"][data-bob-variant="sunmoon"] .bob-theme-switch__icon-wrapper {
+    transform: translateX(0);
+}
+
+html[data-bob-theme="dark"] [data-bob-component="theme-selector"][data-bob-variant="sunmoon"] .bob-theme-switch__icon-wrapper {
+    transform: translateX(28px);
+}
+
+[data-bob-component="theme-selector"][data-bob-variant="sunmoon"] .bob-theme-switch__sun,
+[data-bob-component="theme-selector"][data-bob-variant="sunmoon"] .bob-theme-switch__moon {
+    font-size: 0.875rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+html[data-bob-theme="light"] [data-bob-component="theme-selector"][data-bob-variant="sunmoon"] .bob-theme-switch__sun {
+    animation: bob-theme-rotate-in 0.3s ease-out;
+}
+
+html[data-bob-theme="dark"] [data-bob-component="theme-selector"][data-bob-variant="sunmoon"] .bob-theme-switch__moon {
+    animation: bob-theme-rotate-in 0.3s ease-out;
+}
+
+[data-bob-component="theme-selector"][data-bob-variant="sunmoon"] button:hover .bob-theme-switch__icon-wrapper {
+    box-shadow: 0 3px 6px color-mix(in srgb, var(--palette-shadow) 30%, transparent);
+}
+
+@keyframes bob-theme-rotate-in {
+    from {
+        transform: rotate(-180deg) scale(0.5);
+        opacity: 0;
+    }
+
+    to {
+        transform: rotate(0) scale(1);
+        opacity: 1;
+    }
+}

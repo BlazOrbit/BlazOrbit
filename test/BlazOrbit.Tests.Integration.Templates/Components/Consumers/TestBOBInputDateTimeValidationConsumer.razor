@@ -1,0 +1,39 @@
+﻿@using BlazOrbit.Components.Forms
+@using Microsoft.AspNetCore.Components.Forms
+@using System.ComponentModel.DataAnnotations
+
+<div class="test-datetime-consumer">
+    <EditForm EditContext="_editContext" OnValidSubmit="HandleValid" OnInvalidSubmit="HandleInvalid">
+        <DataAnnotationsValidator />
+        <BOBInputDateTime TValue="DateOnly?" @bind-Value="_model.Date" Label="Date" />
+        <button type="submit" class="submit-btn">Submit</button>
+    </EditForm>
+    <div class="submit-result">@_submitResult</div>
+</div>
+
+@code {
+    public class Model
+    {
+        [Required(ErrorMessage = "Date is required")]
+        public DateOnly? Date { get; set; }
+    }
+
+    private Model _model = new();
+    private EditContext? _editContext;
+    private string _submitResult = string.Empty;
+
+    [Parameter] public DateOnly? InitialDate { get; set; }
+
+    protected override void OnInitialized()
+    {
+        _model.Date = InitialDate;
+        _editContext = new EditContext(_model);
+    }
+
+    public EditContext EditContext => _editContext!;
+    public Model BoundModel => _model;
+    public bool WasSubmitted => _submitResult == "valid";
+
+    private void HandleValid() => _submitResult = "valid";
+    private void HandleInvalid() => _submitResult = "invalid";
+}

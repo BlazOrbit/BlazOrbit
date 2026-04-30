@@ -1,0 +1,107 @@
+﻿@page "/components/treeselector"
+
+@inject IStringLocalizer<TreeSelectorPage> Loc
+
+<PageTitle>BlazOrbit - BOBTreeSelector</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBTreeSelector"]"
+         Lede="@Loc["Hierarchical selection with single/multiple modes, optional checkboxes, cascading, and declarative or data-driven trees."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBTreeSelector<>)">
+
+    <DocDemo Key="Single" Title="@Loc["Single selection"]">
+                <BOBTreeSelector TItem="object"
+                                 SelectedKeys="_single"
+                                 SelectedKeysChanged="@(k => { _single = k; StateHasChanged(); })"
+                                 SelectionMode="TreeSelectionMode.Single"
+                                 ShowCheckboxes="false">
+                    <BOBTreeSelectorItem Text="@Loc["Alpha"]" Key="alpha" />
+                    <BOBTreeSelectorItem Text="@Loc["Beta"]" Key="beta">
+                        <ChildContent>
+                            <BOBTreeSelectorItem Text="@Loc["Beta 1"]" Key="beta.1" />
+                            <BOBTreeSelectorItem Text="@Loc["Beta 2"]" Key="beta.2" />
+                        </ChildContent>
+                    </BOBTreeSelectorItem>
+                    <BOBTreeSelectorItem Text="@Loc["Gamma"]" Key="gamma" />
+                </BOBTreeSelector>
+    </DocDemo>
+
+    <DocDemo Key="Checkboxes" Title="@Loc["Multiple with checkboxes"]">
+                <BOBTreeSelector TItem="object"
+                                 SelectedKeys="_checkbox"
+                                 SelectedKeysChanged="@(k => { _checkbox = k; StateHasChanged(); })"
+                                 SelectionMode="TreeSelectionMode.Multiple"
+                                 ShowCheckboxes="true">
+                    <BOBTreeSelectorItem Text="@Loc["Documents"]" Key="docs">
+                        <ChildContent>
+                            <BOBTreeSelectorItem Text="@Loc["Work"]" Key="work">
+                                <ChildContent>
+                                    <BOBTreeSelectorItem Text="Report.pdf" Key="report" />
+                                    <BOBTreeSelectorItem Text="Slides.pptx" Key="slides" />
+                                </ChildContent>
+                            </BOBTreeSelectorItem>
+                            <BOBTreeSelectorItem Text="@Loc["Personal"]" Key="personal">
+                                <ChildContent>
+                                    <BOBTreeSelectorItem Text="Photo.jpg" Key="photo" />
+                                </ChildContent>
+                            </BOBTreeSelectorItem>
+                        </ChildContent>
+                    </BOBTreeSelectorItem>
+                </BOBTreeSelector>
+    </DocDemo>
+
+    <DocDemo Key="Expanded" Title="@Loc["Fully expanded"]">
+            <BOBTreeSelector TItem="object"
+                             SelectedKeys="_expanded"
+                             SelectedKeysChanged="@(k => { _expanded = k; StateHasChanged(); })"
+                             ExpandAll="true"
+                             ShowCheckboxes="false">
+                <BOBTreeSelectorItem Text="@Loc["Level 1"]" Key="l1">
+                    <ChildContent>
+                        <BOBTreeSelectorItem Text="@Loc["Level 2"]" Key="l2">
+                            <ChildContent>
+                                <BOBTreeSelectorItem Text="@Loc["Level 3"]" Key="l3">
+                                    <ChildContent>
+                                        <BOBTreeSelectorItem Text="@Loc["Level 4"]" Key="l4" />
+                                    </ChildContent>
+                                </BOBTreeSelectorItem>
+                            </ChildContent>
+                        </BOBTreeSelectorItem>
+                    </ChildContent>
+                </BOBTreeSelectorItem>
+            </BOBTreeSelector>
+    </DocDemo>
+
+    <DocDemo Key="Icons" Title="@Loc["With icons"]">
+            <BOBTreeSelector TItem="object"
+                             SelectedKeys="_icons"
+                             SelectedKeysChanged="@(k => { _icons = k; StateHasChanged(); })"
+                             SelectionMode="TreeSelectionMode.Multiple">
+                <BOBTreeSelectorItem Text="@Loc["Navigation"]" Key="nav" Icon="@BOBIconKeys.UI.Home">
+                    <ChildContent>
+                        <BOBTreeSelectorItem Text="@Loc["Search"]" Key="search" Icon="@BOBIconKeys.UI.Search" />
+                        <BOBTreeSelectorItem Text="@Loc["Settings"]" Key="settings" Icon="@BOBIconKeys.UI.Settings" />
+                    </ChildContent>
+                </BOBTreeSelectorItem>
+                <BOBTreeSelectorItem Text="@Loc["Messages"]" Key="mail" Icon="@BOBIconKeys.UI.Email" />
+            </BOBTreeSelector>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+
+        <h3 class="doc-section__subtitle">BOBTreeSelector</h3>
+        <PropertyTable Properties="@BOBTreeSelectorComponentInfo.Parameters" />
+
+        <h3 class="doc-section__subtitle">BOBTreeSelectorItem</h3>
+        <PropertyTable Properties="@BOBTreeSelectorItemComponentInfo.Parameters" />
+    </section>
+
+</DocPage>
+
+@code {
+    private HashSet<string> _single = new();
+    private HashSet<string> _checkbox = new();
+    private HashSet<string> _expanded = new();
+    private HashSet<string> _icons = new();
+}

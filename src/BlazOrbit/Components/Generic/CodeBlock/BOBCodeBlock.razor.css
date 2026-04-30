@@ -1,0 +1,52 @@
+﻿[data-bob-component="code-block"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    --_code-block-background: var(--bob-inline-background, var(--palette-surface));
+    --_code-block-border-radius: var(--bob-inline-border-radius, var(--bob-border-radius));
+    --_code-block-border: var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border));
+    --_code-block-border-top: var(--bob-inline-border-top, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+    --_code-block-border-right: var(--bob-inline-border-right, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+    --_code-block-border-bottom: var(--bob-inline-border-bottom, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+    --_code-block-border-left: var(--bob-inline-border-left, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+}
+
+    [data-bob-component="code-block"] .bob-code-block__header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.25rem 0.5rem;
+        background-color: color-mix(in oklch, var(--_code-block-background) 75%, var(--palette-primary));
+        border-radius: var(--_code-block-border-radius);
+        border: var(--_code-block-border);
+        border-top: var(--_code-block-border-top);
+        border-right: var(--_code-block-border-right);
+        border-bottom: var(--_code-block-border-bottom);
+        border-left: var(--_code-block-border-left);
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+        border-bottom: 1px solid var(--palette-border);
+        width: 100%;
+        user-select: none;
+    }
+
+    [data-bob-component="code-block"] .bob-code-block__title {
+        font-weight: 500;
+        opacity: 0.7;
+    }
+
+    [data-bob-component="code-block"] .bob-code-block__content {
+        padding: 0;
+        width: 100%;
+        overflow-x: auto;
+        font-family: var(--bob-font-mono);
+        background-color: var(--_code-block-background);
+        border-radius: var(--_code-block-border-radius);
+        border: var(--_code-block-border);
+        border-top: var(--_code-block-border-top);
+        border-right: var(--_code-block-border-right);
+        border-bottom: var(--_code-block-border-bottom);
+        border-left: var(--_code-block-border-left);
+        border-top-left-radius: 0;
+        border-top-right-radius: 0;
+    }

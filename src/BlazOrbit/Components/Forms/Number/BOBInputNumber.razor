@@ -1,0 +1,768 @@
+﻿@using System.Globalization
+@using System.Text
+@using System.Diagnostics.CodeAnalysis
+@using BlazOrbit.Abstractions
+
+@namespace BlazOrbit.Components.Forms
+@attribute [GenerateComponentInfo]
+
+@typeparam TValue
+
+@inherits BOBInputComponentBase<TValue, BOBInputNumber<TValue>, BOBInputVariant>
+@implements IHasSize
+@implements IHasLoading
+@implements IHasDensity
+@implements IHasShadow
+@implements IHasColor
+@implements IHasBackgroundColor
+@implements IHasPrefix
+@implements IHasSuffix
+@implements IInputFamilyComponent
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code {
+    private ElementReference _inputRef;
+    private string _inputId = $"bob-number-{Guid.NewGuid():N}";
+    private string _helperTextId = $"bob-helper-{Guid.NewGuid():N}";
+    private CancellationTokenSource? _accelerationCts;
+    private readonly Type _underlyingType;
+    private readonly bool _isNullable;
+    private bool _preventKeyDown = false;
+
+    private string _displayText = string.Empty;
+    private bool _isFocused = false;
+    private bool _isDirty;
+
+    // IHasSize
+    /// <summary>Visual size of the input.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+
+    // IHasLoading
+    /// <summary>When <see langword="true" />, the input shows a loading indicator.</summary>
+    [Parameter] public bool Loading { get; set; }
+    /// <summary>Variant of the loading indicator shown when <see cref="Loading"/> is <see langword="true"/>.</summary>
+    [Parameter] public BOBLoadingIndicatorVariant LoadingIndicatorVariant { get; set; } = BOBLoadingIndicatorVariant.CircularProgress;
+
+    // IHasDensity
+    /// <summary>Vertical density (gap) of the input.</summary>
+    [Parameter] public BOBDensity Density { get; set; } = BOBDensity.Standard;
+
+    // IHasShadow
+    /// <summary>Shadow style applied to the input container.</summary>
+    [Parameter] public ShadowStyle? Shadow { get; set; }
+
+    // IHasBackgroundColor
+    /// <summary>Background color of the input. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? BackgroundColor { get; set; }
+
+    // IHasColor
+    /// <summary>Text color of the input. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? Color { get; set; }
+
+    // IHasPrefix
+    /// <summary>Text displayed before the input value.</summary>
+    [Parameter] public string? PrefixText { get; set; }
+    /// <summary>Material icon name for the Prefix.</summary>
+    [Parameter] public IconKey? PrefixIcon { get; set; }
+    /// <summary>Prefix color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? PrefixColor { get; set; }
+    /// <summary>PrefixBackground color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? PrefixBackgroundColor { get; set; }
+
+    // IHasSuffix
+    /// <summary>Text displayed after the input value.</summary>
+    [Parameter] public string? SuffixText { get; set; }
+    /// <summary>Material icon name for the Suffix.</summary>
+    [Parameter] public IconKey? SuffixIcon { get; set; }
+    /// <summary>Suffix color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? SuffixColor { get; set; }
+    /// <summary>SuffixBackground color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? SuffixBackgroundColor { get; set; }
+
+    // Number-specific parameters
+    /// <summary>Floating label displayed above the input when it has a value or focus.</summary>
+    [Parameter] public string? Label { get; set; }
+    /// <summary>Helper text displayed below the component for additional context.</summary>
+    [Parameter] public string? HelperText { get; set; }
+    /// <summary>Placeholder text shown when the component is empty.</summary>
+    [Parameter] public string? Placeholder { get; set; }
+
+    /// <summary>
+    /// Lower bound for the input, emitted as the <c>min</c> HTML attribute and
+    /// enforced by the step buttons. UI hint only — re-validate on the server.
+    /// </summary>
+    [Parameter] public TValue? Min { get; set; }
+    /// <summary>
+    /// Upper bound for the input, emitted as the <c>max</c> HTML attribute and
+    /// enforced by the step buttons. UI hint only — re-validate on the server.
+    /// </summary>
+    [Parameter] public TValue? Max { get; set; }
+    /// <summary>
+    /// Step size for the increment/decrement buttons and the <c>step</c> HTML
+    /// attribute. UI hint only — re-validate on the server.
+    /// </summary>
+    [Parameter] public decimal Step { get; set; } = 1m;
+
+    /// <summary>Number of decimal places to display. <see langword="null"/> defers to the value type's default formatting.</summary>
+    [Parameter] public int? DecimalPlaces { get; set; }
+    /// <summary>When <see langword="true" />, negative values are accepted; otherwise the input clamps at zero.</summary>
+    [Parameter] public bool AllowNegative { get; set; } = true;
+    /// <summary>When <see langword="true" />, the StepButtons is shown.</summary>
+    [Parameter] public bool ShowStepButtons { get; set; } = true;
+    /// <summary>Placement of the increment/decrement buttons relative to the input field.</summary>
+    [Parameter] public StepButtonPlacement ButtonPlacement { get; set; } = StepButtonPlacement.Right;
+
+    /// <summary>When <see langword="true" />, the displayed value is grouped with the culture's thousands separator.</summary>
+    [Parameter] public bool UseThousandsSeparator { get; set; }
+    /// <summary>Culture used for number formatting and parsing. Defaults to <see cref="CultureInfo.CurrentCulture"/>.</summary>
+    [Parameter] public CultureInfo? Culture { get; set; }
+
+    /// <summary>When <see langword="true" />, MouseWheel is enabled.</summary>
+    [Parameter] public bool EnableMouseWheel { get; set; }
+    /// <summary>When <see langword="true" />, Acceleration is enabled.</summary>
+    [Parameter] public bool EnableAcceleration { get; set; } = true;
+
+    /// <summary>Initial delay (ms) before holding a step button starts accelerating.</summary>
+    [Parameter] public int AccelerationInitialDelay { get; set; } = 400;
+    /// <summary>Minimum delay (ms) between repeats once acceleration has ramped up.</summary>
+    [Parameter] public int AccelerationMinDelay { get; set; } = 50;
+    /// <summary>Decrement (ms) applied to the repeat delay each acceleration tick until <see cref="AccelerationMinDelay"/>.</summary>
+    [Parameter] public int AccelerationStepReduction { get; set; } = 50;
+
+    /// <summary>Raised when the Increment event occurs.</summary>
+    [Parameter] public EventCallback<TValue?> OnIncrement { get; set; }
+    /// <summary>Raised when the Decrement event occurs.</summary>
+    [Parameter] public EventCallback<TValue?> OnDecrement { get; set; }
+
+    public override BOBInputVariant DefaultVariant => BOBInputVariant.Outlined;
+
+    private CultureInfo CurrentCulture => Culture ?? CultureInfo.CurrentCulture;
+    private NumberFormatInfo NumberFormat => CurrentCulture.NumberFormat;
+    private char DecimalSeparator => NumberFormat.NumberDecimalSeparator[0];
+    private char GroupSeparator => NumberFormat.NumberGroupSeparator[0];
+    private string NegativeSign => NumberFormat.NegativeSign;
+    private bool HasValue => CurrentValue != null && !EqualityComparer<TValue>.Default.Equals(CurrentValue, default);
+    private bool IsFloated => _isFocused || HasValue || _isDirty;
+
+    public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    {
+        base.BuildComponentDataAttributes(dataAttributes);
+        dataAttributes[FeatureDefinitions.DataAttributes.ButtonPlacement] = ButtonPlacement.ToString().ToLowerInvariant();
+        dataAttributes[FeatureDefinitions.DataAttributes.Floated] = IsFloated.ToString().ToLowerInvariant();
+    }
+
+    public BOBInputNumber()
+    {
+        _underlyingType = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+        _isNullable = Nullable.GetUnderlyingType(typeof(TValue)) != null;
+
+        if (!IsNumericType(_underlyingType))
+        {
+            throw new InvalidOperationException(
+                $"BOBInputNumber only supports numeric types. Provided type: {typeof(TValue).Name}");
+        }
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (!_isFocused)
+        {
+            _displayText = FormatValueForDisplay(CurrentValue);
+        }
+    }
+
+    protected override IReadOnlyDictionary<BOBInputVariant, Func<BOBInputNumber<TValue>, RenderFragment>> BuiltInTemplates { get; } =
+        new Dictionary<BOBInputVariant, Func<BOBInputNumber<TValue>, RenderFragment>>
+        {
+            [BOBInputVariant.Outlined] = i => i.RenderInput(),
+            [BOBInputVariant.Filled] = i => i.RenderInput(),
+            [BOBInputVariant.Standard] = i => i.RenderInput()
+        };
+
+    private static bool IsNumericType(Type type)
+    {
+        return type == typeof(int) || type == typeof(long) || type == typeof(decimal) ||
+               type == typeof(double) || type == typeof(float) || type == typeof(short) ||
+               type == typeof(byte) || type == typeof(uint) || type == typeof(ulong) ||
+               type == typeof(ushort) || type == typeof(sbyte);
+    }
+
+    private RenderFragment RenderInput() => __builder =>
+{
+    <bob-component @attributes="ComputedAttributes">
+
+        <div class="bob-input__wrapper">
+
+            <BOBInputOutline Label="@Label"
+                             For="@_inputId"
+                             Required="@IsRequired" />
+
+            @if (ShowStepButtons && ButtonPlacement == StepButtonPlacement.Left)
+            {
+                @RenderStepButtons()
+            }
+
+            <BOBInputPrefix PrefixText="@PrefixText" PrefixIcon="@PrefixIcon" Size="@Size" />
+
+            <input @ref="_inputRef"
+                   id="@_inputId"
+                   type="text"
+                   inputmode="decimal"
+                   class="bob-input__field"
+                   value="@_displayText"
+                   @oninput="HandleInput"
+                   @onkeydown="HandleKeyDown"
+                   @onkeydown:preventDefault="_preventKeyDown"
+                   @onwheel="HandleWheel"
+                   @onfocus="HandleFocus"
+                   @onblur="HandleBlur"
+                   aria-label="@(string.IsNullOrWhiteSpace(Label) ? Placeholder : null)"
+                   aria-describedby="@_helperTextId"
+                   aria-invalid="@IsError.ToString().ToLower()"
+                   aria-required="@IsRequired.ToString().ToLower()"
+                   placeholder="@(IsFloated? Placeholder : null)"
+                   disabled="@IsDisabled"
+                   readonly="@IsReadOnly"
+                   required="@IsRequired" />
+
+            @if (ShowStepButtons && ButtonPlacement == StepButtonPlacement.Right)
+            {
+                @RenderStepButtons()
+            }
+
+            <BOBInputSuffix SuffixText="@SuffixText" SuffixIcon="@SuffixIcon" Size="@Size" />
+            <BOBInputLoading Loading="@Loading" LoadingIndicatorVariant="@LoadingIndicatorVariant" Size="@Size" />
+
+        </div>
+
+        <_BOBFieldHelper TValue="TValue"
+                         Id="@_helperTextId"
+                         HelperText="@HelperText"
+                         ShowValidation="@IsError"
+                         EditContext="@EditContext"
+                         For="@ValueExpression" />
+
+    </bob-component>
+};
+
+    private RenderFragment RenderStepButtons() => __builder =>
+    {
+        <div class="bob-input__step-buttons">
+            <_BOBBtn Icon="@BOBIconKeys.UI.ChevronUp"
+                        Disabled="@(Disabled || IsAtMax())"
+                        AriaLabel="Increment"
+                        @onmousedown="StartIncrement"
+                        @onmouseup="StopIncrement"
+                        @onmouseleave="StopIncrement" />
+            <_BOBBtn Icon="@BOBIconKeys.UI.ChevronDown"
+                        Disabled="@(Disabled || IsAtMin())"
+                        AriaLabel="Decrement"
+                        @onmousedown="StartDecrement"
+                        @onmouseup="StopDecrement"
+                        @onmouseleave="StopDecrement" />
+        </div>
+    };
+    private string FormatValueForDisplay(TValue? value)
+    {
+        if (value == null || EqualityComparer<TValue>.Default.Equals(value, default))
+            return string.Empty;
+
+        decimal decimalValue = ConvertToDecimal(value);
+
+        string format;
+        if (DecimalPlaces.HasValue)
+        {
+            format = UseThousandsSeparator
+                ? $"N{DecimalPlaces.Value}"
+                : $"F{DecimalPlaces.Value}";
+        }
+        else
+        {
+            format = UseThousandsSeparator ? "N" : "G";
+        }
+
+        return decimalValue.ToString(format, NumberFormat);
+    }
+
+    private void HandleInput(ChangeEventArgs e)
+    {
+        if (Disabled || ReadOnly) return;
+
+        string? inputValue = e.Value?.ToString() ?? string.Empty;
+        _isDirty = !string.IsNullOrEmpty(inputValue);
+        _displayText = inputValue;
+
+        if (string.IsNullOrWhiteSpace(inputValue))
+        {
+            CurrentValue = default;
+            return;
+        }
+
+        if (TryParseInput(inputValue, out TValue? parsed))
+        {
+            TValue? clamped = ClampValue(parsed);
+            if (!EqualityComparer<TValue>.Default.Equals(CurrentValue, clamped))
+            {
+                CurrentValue = clamped;
+            }
+        }
+    }
+
+    private bool IsValidInputChar(char c, string currentText)
+    {
+        if (char.IsDigit(c)) return true;
+
+        if (c == '.' || c == ',')
+        {
+            return true;
+        }
+
+        if (AllowNegative && (c == '-'))
+        {
+            return string.IsNullOrEmpty(currentText) || !currentText.Contains('-');
+        }
+
+        return false;
+    }
+
+    private async Task HandleKeyDown(KeyboardEventArgs e)
+    {
+        _preventKeyDown = false;
+
+        if (Disabled || ReadOnly) return;
+
+        switch (e.Key)
+        {
+            case "ArrowUp":
+                await IncrementValue();
+                _preventKeyDown = true;
+                return;
+            case "ArrowDown":
+                await DecrementValue();
+                _preventKeyDown = true;
+                return;
+            case "Backspace":
+            case "Delete":
+            case "Tab":
+            case "Enter":
+            case "Escape":
+            case "ArrowLeft":
+            case "ArrowRight":
+            case "Home":
+            case "End":
+                return;
+        }
+
+        if (e.CtrlKey || e.MetaKey)
+        {
+            return;
+        }
+
+        if (e.Key.Length == 1)
+        {
+            char key = e.Key[0];
+
+            if (!IsValidInputChar(key, _displayText))
+            {
+                _preventKeyDown = true;
+            }
+        }
+    }
+
+    private async Task HandleWheel(WheelEventArgs e)
+    {
+        if (!EnableMouseWheel || Disabled || ReadOnly || !_isFocused) return;
+
+        if (e.DeltaY < 0)
+            await IncrementValue();
+        else if (e.DeltaY > 0)
+            await DecrementValue();
+    }
+
+    private void HandleFocus(FocusEventArgs e)
+    {
+        _isFocused = true;
+
+        if (CurrentValue != null && !EqualityComparer<TValue>.Default.Equals(CurrentValue, default))
+        {
+            decimal decimalValue = ConvertToDecimal(CurrentValue);
+
+            string format = DecimalPlaces.HasValue
+                ? $"F{DecimalPlaces.Value}"
+                : "G";
+
+            _displayText = decimalValue.ToString(format, NumberFormat);
+        }
+
+        StateHasChanged();
+    }
+
+    private void HandleBlur(FocusEventArgs e)
+    {
+        _isFocused = false;
+        _isDirty = false;
+
+        if (!string.IsNullOrWhiteSpace(_displayText))
+        {
+            if (TryParseInput(_displayText, out TValue? parsed))
+            {
+                TValue? clamped = ClampValue(parsed);
+                CurrentValue = clamped;
+                _displayText = FormatValueForDisplay(CurrentValue);
+            }
+            else
+            {
+                _displayText = FormatValueForDisplay(CurrentValue);
+            }
+        }
+        else
+        {
+            CurrentValue = default;
+            _displayText = string.Empty;
+        }
+
+        StateHasChanged();
+    }
+
+    private void StartIncrement(MouseEventArgs e)
+    {
+        if (Disabled || IsAtMax()) return;
+
+        _ = IncrementValue();
+
+        if (EnableAcceleration) BeginAcceleration(IncrementValue);
+    }
+
+    private void StopIncrement(MouseEventArgs e) => EndAcceleration();
+
+    private void StartDecrement(MouseEventArgs e)
+    {
+        if (Disabled || IsAtMin()) return;
+
+        _ = DecrementValue();
+
+        if (EnableAcceleration) BeginAcceleration(DecrementValue);
+    }
+
+    private void StopDecrement(MouseEventArgs e) => EndAcceleration();
+
+    private void HandleIncrementKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key != " " && e.Key != "Enter") return;
+
+        if (e.Repeat) return;
+
+        if (Disabled || IsAtMax()) return;
+
+        _ = IncrementValue();
+
+        if (EnableAcceleration) BeginAcceleration(IncrementValue);
+    }
+
+    private void HandleIncrementKeyUp(KeyboardEventArgs e)
+    {
+        if (e.Key != " " && e.Key != "Enter") return;
+
+        EndAcceleration();
+    }
+
+    private void HandleDecrementKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key != " " && e.Key != "Enter") return;
+
+        if (e.Repeat) return;
+
+        if (Disabled || IsAtMin()) return;
+
+        _ = DecrementValue();
+
+        if (EnableAcceleration) BeginAcceleration(DecrementValue);
+    }
+
+    private void HandleDecrementKeyUp(KeyboardEventArgs e)
+    {
+        if (e.Key != " " && e.Key != "Enter") return;
+
+        EndAcceleration();
+    }
+
+    private void BeginAcceleration(Func<Task> action)
+    {
+        EndAcceleration();
+        CancellationTokenSource cts = new();
+        _accelerationCts = cts;
+        _ = RunAcceleratedAction(action, cts.Token);
+    }
+
+    private void EndAcceleration()
+    {
+        CancellationTokenSource? previous = _accelerationCts;
+        _accelerationCts = null;
+        if (previous is null) return;
+        try { previous.Cancel(); } catch (ObjectDisposedException) { }
+        previous.Dispose();
+    }
+
+    private async Task RunAcceleratedAction(Func<Task> action, CancellationToken cancellationToken)
+    {
+        int currentDelay = AccelerationInitialDelay;
+
+        try
+        {
+            while (!cancellationToken.IsCancellationRequested)
+            {
+                await Task.Delay(currentDelay, cancellationToken);
+
+                if (cancellationToken.IsCancellationRequested)
+                    break;
+
+                await InvokeAsync(async () =>
+                {
+                    await action();
+                    StateHasChanged();
+                });
+
+                if (currentDelay > AccelerationMinDelay)
+                {
+                    currentDelay = Math.Max(AccelerationMinDelay, currentDelay - AccelerationStepReduction);
+                }
+            }
+        }
+        catch (TaskCanceledException)
+        {
+        }
+    }
+
+    private async Task IncrementValue()
+    {
+        if (Disabled || IsAtMax()) return;
+
+        decimal current = CurrentValue != null
+            ? ConvertToDecimal(CurrentValue)
+            : 0m;
+
+        decimal newValue = current + Step;
+        TValue? converted = ConvertFromDecimal(newValue);
+        TValue? clamped = ClampValue(converted);
+
+        CurrentValue = clamped;
+        _displayText = FormatValueForDisplay(CurrentValue);
+
+        StateHasChanged();
+
+        if (OnIncrement.HasDelegate)
+            await OnIncrement.InvokeAsync(CurrentValue);
+    }
+
+    private async Task DecrementValue()
+    {
+        if (Disabled || IsAtMin()) return;
+
+        decimal current = CurrentValue != null
+            ? ConvertToDecimal(CurrentValue)
+            : 0m;
+
+        decimal newValue = current - Step;
+        TValue? converted = ConvertFromDecimal(newValue);
+        TValue? clamped = ClampValue(converted);
+
+        CurrentValue = clamped;
+        _displayText = FormatValueForDisplay(CurrentValue);
+
+        StateHasChanged();
+
+        if (OnDecrement.HasDelegate)
+            await OnDecrement.InvokeAsync(CurrentValue);
+    }
+
+    private bool IsAtMin()
+    {
+        if (CurrentValue == null || Min == null) return false;
+        return ConvertToDecimal(CurrentValue) <= ConvertToDecimal(Min);
+    }
+
+    private bool IsAtMax()
+    {
+        if (CurrentValue == null || Max == null) return false;
+        return ConvertToDecimal(CurrentValue) >= ConvertToDecimal(Max);
+    }
+
+    private TValue? ClampValue(TValue? value)
+    {
+        if (value == null) return value;
+
+        decimal decimalValue = ConvertToDecimal(value);
+
+        if (Min != null)
+        {
+            decimal minValue = ConvertToDecimal(Min);
+            if (decimalValue < minValue)
+                return Min;
+        }
+
+        if (Max != null)
+        {
+            decimal maxValue = ConvertToDecimal(Max);
+            if (decimalValue > maxValue)
+                return Max;
+        }
+
+        return value;
+    }
+
+    private decimal ConvertToDecimal(TValue value)
+    {
+        return Convert.ToDecimal(value, CultureInfo.InvariantCulture);
+    }
+
+    private TValue? ConvertFromDecimal(decimal value)
+    {
+        try
+        {
+            if (_underlyingType == typeof(int))
+                return (TValue)(object)(int)Math.Round(value);
+            if (_underlyingType == typeof(long))
+                return (TValue)(object)(long)Math.Round(value);
+            if (_underlyingType == typeof(decimal))
+                return (TValue)(object)value;
+            if (_underlyingType == typeof(double))
+                return (TValue)(object)(double)value;
+            if (_underlyingType == typeof(float))
+                return (TValue)(object)(float)value;
+            if (_underlyingType == typeof(short))
+                return (TValue)(object)(short)Math.Round(value);
+            if (_underlyingType == typeof(byte))
+                return (TValue)(object)(byte)Math.Round(value);
+            if (_underlyingType == typeof(uint))
+                return (TValue)(object)(uint)Math.Round(value);
+            if (_underlyingType == typeof(ulong))
+                return (TValue)(object)(ulong)Math.Round(value);
+            if (_underlyingType == typeof(ushort))
+                return (TValue)(object)(ushort)Math.Round(value);
+            if (_underlyingType == typeof(sbyte))
+                return (TValue)(object)(sbyte)Math.Round(value);
+
+            return default;
+        }
+        catch
+        {
+            return default;
+        }
+    }
+
+    private bool TryParseInput(string input, out TValue? result)
+    {
+        result = default;
+
+        if (string.IsNullOrWhiteSpace(input))
+            return false;
+
+        string normalized = NormalizeNumericInput(input);
+
+        try
+        {
+            if (!decimal.TryParse(normalized, NumberStyles.Number, CultureInfo.InvariantCulture, out decimal decimalValue))
+                return false;
+
+            if (!AllowNegative && decimalValue < 0)
+                return false;
+
+            result = ConvertFromDecimal(decimalValue);
+            return result != null;
+        }
+        catch
+        {
+            return false;
+        }
+    }
+
+    private string NormalizeNumericInput(string input)
+    {
+        if (string.IsNullOrWhiteSpace(input))
+            return string.Empty;
+
+        StringBuilder result = new StringBuilder();
+        List<int> separatorPositions = new List<int>();
+
+        for (int i = 0; i < input.Length; i++)
+        {
+            char c = input[i];
+
+            if (char.IsDigit(c))
+            {
+                result.Append(c);
+            }
+            else if (c == '-' && result.Length == 0)
+            {
+                result.Append(c);
+            }
+            else if (c == '.' || c == ',')
+            {
+                separatorPositions.Add(result.Length);
+                result.Append('.');
+            }
+        }
+
+        if (separatorPositions.Count <= 1)
+        {
+            return result.ToString();
+        }
+
+        string temp = result.ToString();
+        result.Clear();
+
+        int lastSeparatorIndex = separatorPositions[separatorPositions.Count - 1];
+        int dotCount = 0;
+
+        for (int i = 0; i < temp.Length; i++)
+        {
+            if (temp[i] == '.')
+            {
+                dotCount++;
+                if (i == lastSeparatorIndex)
+                {
+                    result.Append('.');
+                }
+            }
+            else
+            {
+                result.Append(temp[i]);
+            }
+        }
+
+        return result.ToString();
+    }
+
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        validationErrorMessage = null;
+
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            result = default!;
+            return true;
+        }
+
+        if (TryParseInput(value, out TValue? parsed))
+        {
+            result = parsed!;
+            return true;
+        }
+
+        result = default!;
+        validationErrorMessage = $"'{value}' is not a valid number.";
+        return false;
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        _accelerationCts?.Cancel();
+        _accelerationCts?.Dispose();
+        base.Dispose(disposing);
+    }
+}

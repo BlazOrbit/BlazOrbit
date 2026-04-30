@@ -1,0 +1,233 @@
+﻿/* ========================================
+   Transition Classes
+   Auto-generated - Do not edit manually
+   ======================================== */
+
+/* === BASE: apply transition shorthand to target element === */
+
+bob-component[data-bob-transitions] .transition-target,
+bob-component[data-bob-transitions].transition-target {
+    transition: var(--bob-t-transition);
+}
+/* === HOVER === */
+
+bob-component[data-bob-transitions~="hover:scale"]:hover:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="hover:scale"].transition-target:hover:not(:disabled) {
+    scale: var(--bob-t-hover-scale);
+}
+bob-component[data-bob-transitions~="hover:rotate"]:hover:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="hover:rotate"].transition-target:hover:not(:disabled) {
+    rotate: var(--bob-t-hover-rotate);
+}
+bob-component[data-bob-transitions~="hover:translate"]:hover:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="hover:translate"].transition-target:hover:not(:disabled) {
+    translate: var(--bob-t-hover-translate);
+}
+bob-component[data-bob-transitions~="hover:opacity"]:hover:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="hover:opacity"].transition-target:hover:not(:disabled) {
+    opacity: var(--bob-t-hover-opacity);
+}
+bob-component[data-bob-transitions~="hover:filter"]:hover:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="hover:filter"].transition-target:hover:not(:disabled) {
+    filter: var(--bob-t-hover-filter);
+}
+bob-component[data-bob-transitions~="hover:backdrop-filter"]:hover:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="hover:backdrop-filter"].transition-target:hover:not(:disabled) {
+    backdrop-filter: var(--bob-t-hover-backdrop-filter);
+}
+bob-component[data-bob-transitions~="hover:box-shadow"]:hover:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="hover:box-shadow"].transition-target:hover:not(:disabled) {
+    box-shadow: var(--bob-t-hover-box-shadow);
+}
+bob-component[data-bob-transitions~="hover:text-shadow"]:hover:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="hover:text-shadow"].transition-target:hover:not(:disabled) {
+    text-shadow: var(--bob-t-hover-text-shadow);
+}
+bob-component[data-bob-transitions~="hover:color"]:hover:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="hover:color"].transition-target:hover:not(:disabled) {
+    color: var(--bob-t-hover-color);
+}
+bob-component[data-bob-transitions~="hover:background-color"]:hover:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="hover:background-color"].transition-target:hover:not(:disabled) {
+    background-color: var(--bob-t-hover-background-color);
+}
+bob-component[data-bob-transitions~="hover:border-color"]:hover:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="hover:border-color"].transition-target:hover:not(:disabled) {
+    border-color: var(--bob-t-hover-border-color);
+}
+bob-component[data-bob-transitions~="hover:outline-color"]:hover:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="hover:outline-color"].transition-target:hover:not(:disabled) {
+    outline-color: var(--bob-t-hover-outline-color);
+}
+bob-component[data-bob-transitions~="hover:background"]:hover:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="hover:background"].transition-target:hover:not(:disabled) {
+    background: var(--bob-t-hover-background);
+}
+bob-component[data-bob-transitions~="hover:border-radius"]:hover:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="hover:border-radius"].transition-target:hover:not(:disabled) {
+    border-radius: var(--bob-t-hover-border-radius);
+}
+bob-component[data-bob-transitions~="hover:outline"]:hover:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="hover:outline"].transition-target:hover:not(:disabled) {
+    outline: var(--bob-t-hover-outline);
+}
+bob-component[data-bob-transitions~="hover:outline-offset"]:hover:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="hover:outline-offset"].transition-target:hover:not(:disabled) {
+    outline-offset: var(--bob-t-hover-outline-offset);
+}
+bob-component[data-bob-transitions~="hover:padding"]:hover:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="hover:padding"].transition-target:hover:not(:disabled) {
+    padding: var(--bob-t-hover-padding);
+}
+bob-component[data-bob-transitions~="hover:gap"]:hover:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="hover:gap"].transition-target:hover:not(:disabled) {
+    gap: var(--bob-t-hover-gap);
+}
+/* === FOCUS === */
+
+bob-component[data-bob-transitions~="focus:scale"]:focus-within .transition-target,
+bob-component[data-bob-transitions~="focus:scale"].transition-target:focus-visible {
+    scale: var(--bob-t-focus-scale);
+}
+bob-component[data-bob-transitions~="focus:rotate"]:focus-within .transition-target,
+bob-component[data-bob-transitions~="focus:rotate"].transition-target:focus-visible {
+    rotate: var(--bob-t-focus-rotate);
+}
+bob-component[data-bob-transitions~="focus:translate"]:focus-within .transition-target,
+bob-component[data-bob-transitions~="focus:translate"].transition-target:focus-visible {
+    translate: var(--bob-t-focus-translate);
+}
+bob-component[data-bob-transitions~="focus:opacity"]:focus-within .transition-target,
+bob-component[data-bob-transitions~="focus:opacity"].transition-target:focus-visible {
+    opacity: var(--bob-t-focus-opacity);
+}
+bob-component[data-bob-transitions~="focus:filter"]:focus-within .transition-target,
+bob-component[data-bob-transitions~="focus:filter"].transition-target:focus-visible {
+    filter: var(--bob-t-focus-filter);
+}
+bob-component[data-bob-transitions~="focus:backdrop-filter"]:focus-within .transition-target,
+bob-component[data-bob-transitions~="focus:backdrop-filter"].transition-target:focus-visible {
+    backdrop-filter: var(--bob-t-focus-backdrop-filter);
+}
+bob-component[data-bob-transitions~="focus:box-shadow"]:focus-within .transition-target,
+bob-component[data-bob-transitions~="focus:box-shadow"].transition-target:focus-visible {
+    box-shadow: var(--bob-t-focus-box-shadow);
+}
+bob-component[data-bob-transitions~="focus:text-shadow"]:focus-within .transition-target,
+bob-component[data-bob-transitions~="focus:text-shadow"].transition-target:focus-visible {
+    text-shadow: var(--bob-t-focus-text-shadow);
+}
+bob-component[data-bob-transitions~="focus:color"]:focus-within .transition-target,
+bob-component[data-bob-transitions~="focus:color"].transition-target:focus-visible {
+    color: var(--bob-t-focus-color);
+}
+bob-component[data-bob-transitions~="focus:background-color"]:focus-within .transition-target,
+bob-component[data-bob-transitions~="focus:background-color"].transition-target:focus-visible {
+    background-color: var(--bob-t-focus-background-color);
+}
+bob-component[data-bob-transitions~="focus:border-color"]:focus-within .transition-target,
+bob-component[data-bob-transitions~="focus:border-color"].transition-target:focus-visible {
+    border-color: var(--bob-t-focus-border-color);
+}
+bob-component[data-bob-transitions~="focus:outline-color"]:focus-within .transition-target,
+bob-component[data-bob-transitions~="focus:outline-color"].transition-target:focus-visible {
+    outline-color: var(--bob-t-focus-outline-color);
+}
+bob-component[data-bob-transitions~="focus:background"]:focus-within .transition-target,
+bob-component[data-bob-transitions~="focus:background"].transition-target:focus-visible {
+    background: var(--bob-t-focus-background);
+}
+bob-component[data-bob-transitions~="focus:border-radius"]:focus-within .transition-target,
+bob-component[data-bob-transitions~="focus:border-radius"].transition-target:focus-visible {
+    border-radius: var(--bob-t-focus-border-radius);
+}
+bob-component[data-bob-transitions~="focus:outline"]:focus-within .transition-target,
+bob-component[data-bob-transitions~="focus:outline"].transition-target:focus-visible {
+    outline: var(--bob-t-focus-outline);
+}
+bob-component[data-bob-transitions~="focus:outline-offset"]:focus-within .transition-target,
+bob-component[data-bob-transitions~="focus:outline-offset"].transition-target:focus-visible {
+    outline-offset: var(--bob-t-focus-outline-offset);
+}
+bob-component[data-bob-transitions~="focus:padding"]:focus-within .transition-target,
+bob-component[data-bob-transitions~="focus:padding"].transition-target:focus-visible {
+    padding: var(--bob-t-focus-padding);
+}
+bob-component[data-bob-transitions~="focus:gap"]:focus-within .transition-target,
+bob-component[data-bob-transitions~="focus:gap"].transition-target:focus-visible {
+    gap: var(--bob-t-focus-gap);
+}
+/* === ACTIVE === */
+
+bob-component[data-bob-transitions~="active:scale"]:active:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="active:scale"].transition-target:active:not(:disabled) {
+    scale: var(--bob-t-active-scale);
+}
+bob-component[data-bob-transitions~="active:rotate"]:active:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="active:rotate"].transition-target:active:not(:disabled) {
+    rotate: var(--bob-t-active-rotate);
+}
+bob-component[data-bob-transitions~="active:translate"]:active:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="active:translate"].transition-target:active:not(:disabled) {
+    translate: var(--bob-t-active-translate);
+}
+bob-component[data-bob-transitions~="active:opacity"]:active:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="active:opacity"].transition-target:active:not(:disabled) {
+    opacity: var(--bob-t-active-opacity);
+}
+bob-component[data-bob-transitions~="active:filter"]:active:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="active:filter"].transition-target:active:not(:disabled) {
+    filter: var(--bob-t-active-filter);
+}
+bob-component[data-bob-transitions~="active:backdrop-filter"]:active:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="active:backdrop-filter"].transition-target:active:not(:disabled) {
+    backdrop-filter: var(--bob-t-active-backdrop-filter);
+}
+bob-component[data-bob-transitions~="active:box-shadow"]:active:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="active:box-shadow"].transition-target:active:not(:disabled) {
+    box-shadow: var(--bob-t-active-box-shadow);
+}
+bob-component[data-bob-transitions~="active:text-shadow"]:active:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="active:text-shadow"].transition-target:active:not(:disabled) {
+    text-shadow: var(--bob-t-active-text-shadow);
+}
+bob-component[data-bob-transitions~="active:color"]:active:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="active:color"].transition-target:active:not(:disabled) {
+    color: var(--bob-t-active-color);
+}
+bob-component[data-bob-transitions~="active:background-color"]:active:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="active:background-color"].transition-target:active:not(:disabled) {
+    background-color: var(--bob-t-active-background-color);
+}
+bob-component[data-bob-transitions~="active:border-color"]:active:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="active:border-color"].transition-target:active:not(:disabled) {
+    border-color: var(--bob-t-active-border-color);
+}
+bob-component[data-bob-transitions~="active:outline-color"]:active:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="active:outline-color"].transition-target:active:not(:disabled) {
+    outline-color: var(--bob-t-active-outline-color);
+}
+bob-component[data-bob-transitions~="active:background"]:active:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="active:background"].transition-target:active:not(:disabled) {
+    background: var(--bob-t-active-background);
+}
+bob-component[data-bob-transitions~="active:border-radius"]:active:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="active:border-radius"].transition-target:active:not(:disabled) {
+    border-radius: var(--bob-t-active-border-radius);
+}
+bob-component[data-bob-transitions~="active:outline"]:active:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="active:outline"].transition-target:active:not(:disabled) {
+    outline: var(--bob-t-active-outline);
+}
+bob-component[data-bob-transitions~="active:outline-offset"]:active:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="active:outline-offset"].transition-target:active:not(:disabled) {
+    outline-offset: var(--bob-t-active-outline-offset);
+}
+bob-component[data-bob-transitions~="active:padding"]:active:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="active:padding"].transition-target:active:not(:disabled) {
+    padding: var(--bob-t-active-padding);
+}
+bob-component[data-bob-transitions~="active:gap"]:active:not(:has(:disabled)) .transition-target,
+bob-component[data-bob-transitions~="active:gap"].transition-target:active:not(:disabled) {
+    gap: var(--bob-t-active-gap);
+}

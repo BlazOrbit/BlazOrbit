@@ -1,0 +1,82 @@
+# .github/workflows/docs-api.yml
+# Builds the DocFX API reference and publishes the static site to gh-pages.
+# The official docs site (Wasm) is published to CloudFlare; this workflow only
+# owns the auto-generated API reference at https://blazorbit.github.io/BlazOrbit.
+
+name: Docs API (DocFX)
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'src/**'
+      - 'docs/api/**'
+      - '.github/workflows/docs-api.yml'
+      - 'Directory.Build.props'
+  workflow_dispatch:
+
+env:
+  DOTNET_VERSION: '10.0.100'
+  DOCFX_VERSION: '2.78.3'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: docs-api
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    name: Build DocFX site and deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: '**/*.csproj'
+
+      - name: Restore
+        run: dotnet restore BlazOrbit.slnx
+
+      - name: Build documented projects (Release)
+        run: |
+          dotnet build src/BlazOrbit.Core/BlazOrbit.Core.csproj -c Release --no-restore
+          dotnet build src/BlazOrbit/BlazOrbit.csproj -c Release --no-restore
+          dotnet build src/BlazOrbit.SyntaxHighlight/BlazOrbit.SyntaxHighlight.csproj -c Release --no-restore
+          dotnet build src/BlazOrbit.Localization.Shared/BlazOrbit.Localization.Shared.csproj -c Release --no-restore
+          dotnet build src/BlazOrbit.Localization.Server/BlazOrbit.Localization.Server.csproj -c Release --no-restore
+          dotnet build src/BlazOrbit.Localization.Wasm/BlazOrbit.Localization.Wasm.csproj -c Release --no-restore
+          dotnet build src/BlazOrbit.Translations/BlazOrbit.Translations.csproj -c Release --no-restore
+          dotnet build src/BlazOrbit.FluentValidation/BlazOrbit.FormsFluentValidation.csproj -c Release --no-restore
+
+      - name: Install DocFX
+        run: dotnet tool install -g docfx --version ${{ env.DOCFX_VERSION }}
+
+      - name: Build DocFX site
+        run: docfx docs/api/docfx.json
+        env:
+          DOTNET_ROLL_FORWARD: LatestMajor
+
+      - name: Verify output
+        run: |
+          test -d docs/api/_site || { echo "::error::DocFX output missing"; exit 1; }
+          test -s docs/api/_site/index.html || { echo "::error::index.html empty or missing"; exit 1; }
+
+      - name: Deploy to gh-pages
+        if: github.event_name != 'pull_request'
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/api/_site
+          publish_branch: gh-pages
+          force_orphan: true
+          commit_message: 'docs(api): publish DocFX site for ${{ github.sha }}'
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'

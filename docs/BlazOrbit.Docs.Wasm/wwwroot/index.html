@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="en" data-bob-scrollbars>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="BlazOrbit — A modern, lightweight and expanded from native Blazor components library for .NET." />
+    <meta name="theme-color" content="#c41236" />
+    <title>BlazOrbit</title>
+    <base href="/" />
+    <link rel="preload" id="webassembly" />
+
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="icon-48.png" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="icon-48.png" />
+
+    <link href="_content/BlazOrbit/css/blazorbit.css" rel="stylesheet" />
+    <link href="BlazOrbit.Docs.Wasm.styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/app.css" />
+    <link rel="stylesheet" href="css/splash.css" />
+    <link rel="stylesheet" href="css/docs.css" />
+    <script type="importmap"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="docs-splash">
+            <div class="docs-splash__logo">
+                <span class="docs-splash__spark"></span>
+            </div>
+            <div class="docs-splash__text">
+                <strong>BlazOrbit</strong>
+                <span>Booting documentation&hellip;</span>
+            </div>
+        </div>
+    </div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="." class="reload">Reload</a>
+        <span class="dismiss">🗙</span>
+    </div>
+    <script src="js/doc-search.js"></script>
+    <script src="js/pwa-install.js" defer></script>
+    <script src="_framework/blazor.webassembly#[.{fingerprint}].js"></script>
+    <script src="js/sw-register.js" defer></script>
+</body>
+
+</html>

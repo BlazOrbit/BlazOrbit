@@ -1,0 +1,175 @@
+﻿@namespace BlazOrbit.Components.Layout
+@attribute [GenerateComponentInfo]
+
+@inherits BOBComponentBase
+@implements IAsyncDisposable
+@implements IHasElevation
+
+@inject IModalJsInterop JsInterop
+@using Microsoft.JSInterop
+
+@if (Open)
+{
+    <bob-component @attributes="ComputedAttributes"
+         @onkeydown="HandleKeyDown"
+         tabindex="-1"
+         @ref="_hostRef">
+
+        <div class="bob-drawer-overlay @(_isClosing ? "bob-drawer-overlay--closing" : "")"
+             @onclick="HandleOverlayClick">
+        </div>
+
+        <div class="bob-drawer bob-drawer--@Position.ToString().ToLowerInvariant() @(_isClosing ? "bob-drawer--closing" : "")"
+             @ref="_drawerRef"
+             @onclick:stopPropagation="true"
+             role="dialog"
+             aria-modal="true"
+             style="@GetDrawerStyle()">
+
+            @if (Header != null || Closable)
+            {
+                <div class="bob-drawer__header">
+                    @if (Header != null)
+                    {
+                        <div class="bob-drawer__header-content">
+                            @Header
+                        </div>
+                    }
+
+                    @if (Closable)
+                    {
+                        <_BOBBtn Icon="@BOBIconKeys.UI.Close"
+                                    AriaLabel="Close"
+                                    OnClick="CloseAsync" />
+                    }
+                </div>
+            }
+
+            <div class="bob-drawer__content">
+                @ChildContent
+            </div>
+
+            @if (Footer != null)
+            {
+                <div class="bob-drawer__footer">
+                    @Footer
+                </div>
+            }
+        </div>
+    </bob-component>
+}
+
+@code {
+    private readonly string _focusTrapId = Guid.NewGuid().ToString("N");
+    private ElementReference _hostRef;
+    private ElementReference _drawerRef;
+    private bool _jsInitialized;
+    private bool _isClosing;
+    private const int CloseAnimationFallbackMs = 400;
+
+    /// <summary>Material Design elevation level (0–24) applied to the drawer surface. Sets a derived
+    /// shadow and lifts the surface in dark mode via a tint overlay. <see langword="null"/> (default)
+    /// keeps the component-default shadow defined in CSS.</summary>
+    [Parameter] public int? Elevation { get; set; }
+
+    /// <summary>Open.</summary>
+    [Parameter] public bool Open { get; set; }
+    /// <summary>OpenChanged.</summary>
+    [Parameter] public EventCallback<bool> OpenChanged { get; set; }
+
+    /// <summary>Header.</summary>
+    [Parameter] public RenderFragment? Header { get; set; }
+    /// <summary>Content rendered inside the component.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    /// <summary>Footer.</summary>
+    [Parameter] public RenderFragment? Footer { get; set; }
+
+    /// <summary>Position.</summary>
+    [Parameter] public DrawerPosition Position { get; set; } = DrawerPosition.Right;
+    /// <summary>Visual size of the component.</summary>
+    [Parameter] public string Size { get; set; } = "300px";
+
+    /// <summary>Closable.</summary>
+    [Parameter] public bool Closable { get; set; } = true;
+    /// <summary>CloseOnOverlayClick.</summary>
+    [Parameter] public bool CloseOnOverlayClick { get; set; } = true;
+    /// <summary>CloseOnEscape.</summary>
+    [Parameter] public bool CloseOnEscape { get; set; } = true;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (Open && !_jsInitialized)
+        {
+            await JsInterop.LockScrollAsync();
+            await JsInterop.TrapFocusAsync(_drawerRef, _focusTrapId);
+            _jsInitialized = true;
+        }
+        else if (!Open && _jsInitialized)
+        {
+            await CleanupAsync();
+        }
+    }
+
+    private string GetDrawerStyle()
+    {
+        return Position switch
+        {
+            DrawerPosition.Left or DrawerPosition.Right => $"width: {Size}",
+            DrawerPosition.Top or DrawerPosition.Bottom => $"height: {Size}",
+            _ => string.Empty
+        };
+    }
+
+    private async Task HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Escape" && CloseOnEscape)
+        {
+            await CloseAsync();
+        }
+    }
+
+    private async Task HandleOverlayClick()
+    {
+        if (CloseOnOverlayClick)
+        {
+            await CloseAsync();
+        }
+    }
+
+    private async Task CloseAsync()
+    {
+        _isClosing = true;
+        StateHasChanged();
+
+        try
+        {
+            await JsInterop.WaitForAnimationEndAsync(_drawerRef, CloseAnimationFallbackMs);
+        }
+        catch (JSDisconnectedException) { }
+        catch (InvalidOperationException) { }
+        catch (TaskCanceledException) { }
+
+        if (IsDisposed) return;
+
+        _isClosing = false;
+        Open = false;
+        await OpenChanged.InvokeAsync(false);
+    }
+
+    private async Task CleanupAsync()
+    {
+        if (_jsInitialized)
+        {
+            await JsInterop.ReleaseFocusAsync(_focusTrapId);
+            await JsInterop.UnlockScrollAsync();
+            _jsInitialized = false;
+        }
+    }
+
+    public override async ValueTask DisposeAsync()
+    {
+        IsDisposed = true;
+        await CleanupAsync();
+        await base.DisposeAsync();
+    }
+}

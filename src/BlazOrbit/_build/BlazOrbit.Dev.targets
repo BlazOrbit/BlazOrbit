@@ -1,0 +1,178 @@
+﻿<Project>
+	<PropertyGroup>
+		<BlazOrbitBuildEnabled Condition="'$(BlazOrbitBuildEnabled)' == ''">true</BlazOrbitBuildEnabled>
+		<BlazOrbitProjectPath Condition="'$(BlazOrbitProjectPath)' == ''">$(MSBuildProjectDirectory)</BlazOrbitProjectPath>
+		<BuildToolsProject>$(MSBuildProjectDirectory)\..\BlazOrbit.BuildTools\BlazOrbit.BuildTools.csproj</BuildToolsProject>
+		<BuildToolsExe>$(MSBuildProjectDirectory)\..\BlazOrbit.BuildTools\bin\$(Configuration)\net10.0\BlazOrbit.BuildTools.exe</BuildToolsExe>
+		<BuildToolsDll>$(MSBuildProjectDirectory)\..\BlazOrbit.BuildTools\bin\$(Configuration)\net10.0\BlazOrbit.BuildTools.dll</BuildToolsDll>
+	</PropertyGroup>
+
+	<!-- Main build target -->
+	<Target Name="BuildBlazOrbitAssets"
+			BeforeTargets="BeforeBuild"
+			DependsOnTargets="EnsureBuildToolsCompiled"
+			Condition="'$(BlazOrbitBuildEnabled)' == 'true'">
+
+		<Message Text="Building BlazOrbit assets..." Importance="high" />
+
+		<!-- Log tool versions (best-effort; do not fail build if a probe command is missing) -->
+		<Exec Command="node --version" ConsoleToMSBuild="true" ContinueOnError="true" IgnoreStandardErrorWarningFormat="true">
+			<Output TaskParameter="ConsoleOutput" PropertyName="_NodeVersion" />
+		</Exec>
+		<Exec Command="npm --version" ConsoleToMSBuild="true" ContinueOnError="true" IgnoreStandardErrorWarningFormat="true">
+			<Output TaskParameter="ConsoleOutput" PropertyName="_NpmVersion" />
+		</Exec>
+		<Message Text="BlazOrbit BuildTools exe=$(BuildToolsExe) dll=$(BuildToolsDll)" Importance="high" />
+		<Message Text="BlazOrbit toolchain: node=$(_NodeVersion) npm=$(_NpmVersion)" Importance="high" />
+
+		<!--
+			Use exe if exists (Windows) or DLL otherwise. Capture ExitCode; do NOT continue on error.
+			BLAZORBIT_BUILD_CONFIG propagates $(Configuration) down to the Vite child process so the
+			JS bundle template (Infrastructure/BuildTemplates.cs · GetViteJsConfigTemplate) can toggle
+			source-map emission and minification per AGENTS.md §Build pipeline policy.
+		-->
+		<Exec Command="&quot;$(BuildToolsExe)&quot; &quot;$(BlazOrbitProjectPath)&quot;"
+			  Condition="Exists('$(BuildToolsExe)')"
+			  EnvironmentVariables="BLAZORBIT_BUILD_CONFIG=$(Configuration)"
+			  ConsoleToMSBuild="true"
+			  ContinueOnError="false"
+			  IgnoreExitCode="false">
+			<Output TaskParameter="ExitCode" PropertyName="_BuildToolsExit" />
+		</Exec>
+
+		<Exec Command="dotnet &quot;$(BuildToolsDll)&quot; &quot;$(BlazOrbitProjectPath)&quot;"
+			  Condition="!Exists('$(BuildToolsExe)') AND Exists('$(BuildToolsDll)')"
+			  EnvironmentVariables="BLAZORBIT_BUILD_CONFIG=$(Configuration)"
+			  ConsoleToMSBuild="true"
+			  ContinueOnError="false"
+			  IgnoreExitCode="false">
+			<Output TaskParameter="ExitCode" PropertyName="_BuildToolsExit" />
+		</Exec>
+
+		<!-- Hard-fail if BuildTools reported a non-zero ExitCode -->
+		<Error Text="BlazOrbit BuildTools failed with exit code $(_BuildToolsExit)."
+			   Condition="'$(_BuildToolsExit)' != '' AND '$(_BuildToolsExit)' != '0'" />
+
+		<!-- Hard-fail if expected artifacts are missing (pipeline ran but produced nothing) -->
+		<Error Text="BlazOrbit BuildTools did not produce '$(BlazOrbitProjectPath)\CssBundle'. Asset generation step failed silently."
+			   Condition="!Exists('$(BlazOrbitProjectPath)\CssBundle')" />
+		<Error Text="BlazOrbit BuildTools did not produce '$(BlazOrbitProjectPath)\wwwroot\css\blazorbit.css'. Vite bundle step failed silently."
+			   Condition="!Exists('$(BlazOrbitProjectPath)\wwwroot\css\blazorbit.css')" />
+
+		<CallTarget Targets="VerifyBlazOrbitAssets" />
+
+		<!-- Include generated files only after all gates passed -->
+		<ItemGroup Condition="'$(_BuildToolsExit)' == '0'">
+			<Content Include="$(BlazOrbitProjectPath)\wwwroot\css\*.css" />
+			<Content Include="$(BlazOrbitProjectPath)\wwwroot\js\**\*.js" />
+		</ItemGroup>
+
+	</Target>
+
+	<!--
+		PKG-06: strip Vite source maps before the Razor SDK promotes wwwroot/** to
+		StaticWebAssets. Keeping them on disk in Debug is still useful for local `dotnet watch`,
+		but shipping them in Release nupkgs doubles the JS payload every consumer's `dotnet
+		publish` has to carry. Deleting from disk is the cleanest override of the auto-manifest.
+	-->
+	<Target Name="StripJsMapsForRelease"
+			AfterTargets="BuildBlazOrbitAssets"
+			BeforeTargets="GetStaticWebAssetsBuildInputs;GenerateStaticWebAssetsManifest"
+			Condition="'$(Configuration)' == 'Release' AND Exists('$(BlazOrbitProjectPath)\wwwroot\js')">
+		<ItemGroup>
+			<_BlazOrbitJsMapFiles Include="$(BlazOrbitProjectPath)\wwwroot\js\**\*.js.map" />
+		</ItemGroup>
+		<Delete Files="@(_BlazOrbitJsMapFiles)" />
+		<Message Text="Stripped @(_BlazOrbitJsMapFiles->Count()) source map(s) from the Release package." Importance="normal" />
+	</Target>
+
+	<!--
+		Verify that every expected artifact exists after BuildTools ran.
+		A generator that silently skips its file would otherwise slip through because
+		the consumer-facing Content globs in BuildBlazOrbitAssets only include what's on disk.
+	-->
+	<Target Name="VerifyBlazOrbitAssets">
+		<ItemGroup>
+			<_ExpectedCssBundleFile Include="_reset.css" />
+			<_ExpectedCssBundleFile Include="_typography.css" />
+			<_ExpectedCssBundleFile Include="_themes.css" />
+			<_ExpectedCssBundleFile Include="_initialize-themes.css" />
+			<_ExpectedCssBundleFile Include="_tokens.css" />
+			<_ExpectedCssBundleFile Include="_base.css" />
+			<_ExpectedCssBundleFile Include="_scrollbar.css" />
+			<_ExpectedCssBundleFile Include="_transition-classes.css" />
+			<_ExpectedCssBundleFile Include="_input-family.css" />
+			<_ExpectedCssBundleFile Include="_picker-family.css" />
+			<_ExpectedCssBundleFile Include="_data-collection-family.css" />
+			<_ExpectedCssBundleFile Include="main.css" />
+
+			<_ExpectedBundleFile Include="$(BlazOrbitProjectPath)\wwwroot\css\blazorbit.css" />
+
+			<_ExpectedJsModule Include="Types/Behaviors/BehaviorInterop.min.js" />
+			<_ExpectedJsModule Include="Types/Clipboard/ClipboardInterop.min.js" />
+			<_ExpectedJsModule Include="Types/ColorPicker/ColorPickerInterop.min.js" />
+			<_ExpectedJsModule Include="Types/Draggable/DraggableInterop.min.js" />
+			<_ExpectedJsModule Include="Types/Dropdown/DropdownInterop.min.js" />
+			<_ExpectedJsModule Include="Types/Modal/ModalInterop.min.js" />
+			<_ExpectedJsModule Include="Types/Pattern/PatternInterop.min.js" />
+			<_ExpectedJsModule Include="Types/Storage/LocalStorageInterop.min.js" />
+			<_ExpectedJsModule Include="Types/TextArea/TextAreaInterop.min.js" />
+			<_ExpectedJsModule Include="Types/Theme/ThemeInterop.min.js" />
+		</ItemGroup>
+
+		<Error Text="BlazOrbit asset verification: missing CssBundle partial '$(BlazOrbitProjectPath)\CssBundle\%(_ExpectedCssBundleFile.Identity)'."
+			   Condition="!Exists('$(BlazOrbitProjectPath)\CssBundle\%(_ExpectedCssBundleFile.Identity)')" />
+		<Error Text="BlazOrbit asset verification: missing bundled file '%(_ExpectedBundleFile.Identity)'."
+			   Condition="!Exists('%(_ExpectedBundleFile.Identity)')" />
+		<Error Text="BlazOrbit asset verification: missing JS interop module '$(BlazOrbitProjectPath)/wwwroot/js/%(_ExpectedJsModule.Identity)'."
+			   Condition="!Exists('$(BlazOrbitProjectPath)/wwwroot/js/%(_ExpectedJsModule.Identity)')" />
+
+		<Message Text="BlazOrbit asset verification passed." Importance="normal" />
+	</Target>
+
+	<!-- Ensure BuildTools is compiled -->
+	<Target Name="EnsureBuildToolsCompiled"
+			BeforeTargets="BuildBlazOrbitAssets">
+
+		<Message Text="Ensuring BuildTools is compiled..." Importance="normal" />
+
+		<MSBuild Projects="$(BuildToolsProject)"
+				 Targets="Build"
+				 Properties="Configuration=$(Configuration)" />
+	</Target>
+	<!--
+		Clean target.
+
+		On Windows, RemoveDir over CssBundle/ and node_modules/ can race against FileSystemWatchers
+		(vite / editor indexers) and fail with MSB3231 "The process cannot access the file". The
+		degraded mode — leaving a stale directory — is harmless: BuildBlazOrbitAssets always
+		regenerates CssBundle contents and `npm install` is idempotent over node_modules. Mark both
+		RemoveDir calls as WarnAndContinue so a transient lock produces a warning instead of breaking
+		`dotnet clean && dotnet build` loops. Linux CI never hits the race; behavior there is
+		unchanged because no locks exist to warn about.
+	-->
+	<Target Name="CleanBlazOrbitAssets" BeforeTargets="Clean">
+		<RemoveDir Directories="$(BlazOrbitProjectPath)\CssBundle" ContinueOnError="WarnAndContinue" />
+		<RemoveDir Directories="$(BlazOrbitProjectPath)\node_modules" ContinueOnError="WarnAndContinue" />
+		<!-- Clean output -->
+		<ItemGroup>
+			<BlazOrbitCssFiles Include="$(BlazOrbitProjectPath)\wwwroot\css\*.css" />
+			<BlazOrbitJsFiles Include="$(BlazOrbitProjectPath)\wwwroot\js\**\*.js" />
+			<BlazOrbitJsMapFiles Include="$(BlazOrbitProjectPath)\wwwroot\js\**\*.js.map" />
+		</ItemGroup>
+
+		<Delete Files="@(BlazOrbitCssFiles)" TreatErrorsAsWarnings="true" />
+		<Delete Files="@(BlazOrbitJsFiles)" TreatErrorsAsWarnings="true" />
+		<Delete Files="@(BlazOrbitJsMapFiles)" TreatErrorsAsWarnings="true" />
+
+		<!-- Clean configuration files -->
+		<Delete Files="$(BlazOrbitProjectPath)\package.json" TreatErrorsAsWarnings="true" />
+		<Delete Files="$(BlazOrbitProjectPath)\package-lock.json" TreatErrorsAsWarnings="true" />
+		<Delete Files="$(BlazOrbitProjectPath)\tsconfig.json" TreatErrorsAsWarnings="true" />
+		<Delete Files="$(BlazOrbitProjectPath)\vite.config.js" TreatErrorsAsWarnings="true" />
+		<Delete Files="$(BlazOrbitProjectPath)\vite.config.css.js" TreatErrorsAsWarnings="true" />
+		<Delete Files="$(BlazOrbitProjectPath)\.npmrc" TreatErrorsAsWarnings="true" />
+
+		<Message Text="BlazOrbit assets cleaned successfully!" Importance="high" />
+	</Target>
+</Project>

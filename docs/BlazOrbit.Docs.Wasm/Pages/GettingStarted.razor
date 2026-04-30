@@ -1,0 +1,169 @@
+﻿@page "/getting-started"
+
+<PageTitle>Getting started — BlazOrbit</PageTitle>
+
+<DocPage Eyebrow="Guide"
+         Title="Getting started"
+         Lede="Install the package, register the services, link the stylesheet, and you're shipping.">
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">1. Install the NuGet package</h2>
+        <p class="doc-section__description">
+            BlazOrbit targets <code>net10.0</code> and runs on both Blazor Server and
+            Blazor WebAssembly. Add the package to your project:
+        </p>
+
+        <BOBCodeBlock Title="Terminal"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="dotnet add package BlazOrbit" />
+
+        <div class="doc-callout">
+            <span class="doc-callout__icon">💡</span>
+            <div>
+                <strong>Optional packages.</strong> Install <code>BlazOrbit.Localization.Server</code>
+                or <code>BlazOrbit.Localization.Wasm</code> if you need multi-culture support.
+            </div>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">2. Register the services</h2>
+        <p class="doc-section__description">
+            Call <code>AddBlazOrbit()</code> in your <code>Program.cs</code>. This wires up the
+            JS interop services, the variant registry, and the modal/toast services.
+        </p>
+
+        <BOBCodeBlock Title="Program.cs"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="@_programCs" />
+
+        <h3 class="doc-section__sub">For WebAssembly localization</h3>
+        <p class="doc-section__description">
+            Before calling <code>host.RunAsync()</code>, await <code>host.UseBlazOrbitLocalizationWasm()</code>
+            to hydrate culture info.
+        </p>
+
+        <BOBCodeBlock Title="Program.cs (WASM, localized)"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="@_programWasm" />
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">3. Link the stylesheet</h2>
+        <p class="doc-section__description">
+            The library ships a pre-built, vendor-prefixed CSS bundle. Add it to your
+            <code>index.html</code> (WASM) or <code>App.razor</code> <code>&lt;head&gt;</code> (Server).
+        </p>
+
+        <BOBCodeBlock Title="wwwroot/index.html"
+                      Language="SyntaxHighlightLanguage.Razor"
+                      Code='<link href="_content/BlazOrbit/css/blazorbit.css" rel="stylesheet" />' />
+
+        <div class="doc-callout doc-callout--info">
+            <span class="doc-callout__icon">ℹ️</span>
+            <div>
+                Since .NET 8, scoped CSS bundles are included automatically — you do not need
+                to link the <code>.bundle.scp.css</code> file.
+            </div>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">4. Import the namespaces</h2>
+        <p class="doc-section__description">
+            Add these to <code>_Imports.razor</code> so you can use components without
+            fully-qualified names:
+        </p>
+
+        <BOBCodeBlock Title="_Imports.razor"
+                      Language="SyntaxHighlightLanguage.Razor"
+                      Code="@_imports" />
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">5. Host Modal + Toast</h2>
+        <p class="doc-section__description">
+            For <code>BOBModalHost</code> and <code>BOBToastHost</code> to render your modals
+            and toasts globally, place them in your <code>MainLayout.razor</code> (outside the
+            <code>@@Body</code> block):
+        </p>
+
+        <BOBCodeBlock Title="Layout/MainLayout.razor"
+                      Language="SyntaxHighlightLanguage.Razor"
+                      Code="@_layoutSnippet" />
+
+        <p style="margin-top: 1rem;">
+            That's it — you're ready to use <a href="/components/button">Button</a>,
+            <a href="/components/card">Card</a>,
+            <a href="/components/text">InputText</a>, and the rest.
+        </p>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Your first component</h2>
+        <p class="doc-section__description">
+            Drop a <code>BOBButton</code> into any page:
+        </p>
+
+        <ComponentDemo Definition="@_firstDemo" />
+    </section>
+
+</DocPage>
+
+@code {
+    private const string _programCs = @"using BlazOrbit;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents();
+
+builder.Services.AddBlazOrbit();
+
+var app = builder.Build();
+app.MapRazorComponents<App>()
+   .AddInteractiveServerRenderMode();
+app.Run();";
+
+    private const string _programWasm = @"using System.Globalization;
+
+var builder = WebAssemblyHostBuilder.CreateDefault(args);
+builder.RootComponents.Add<App>(""#app"");
+builder.RootComponents.Add<HeadOutlet>(""head::after"");
+
+builder.Services.AddBlazOrbit();
+builder.Services.AddBlazOrbitLocalizationWasm(options =>
+{
+    options.SupportedCultures = [new CultureInfo(""en-US""), new CultureInfo(""es-ES"")];
+    options.DefaultCulture = ""en-US"";
+});
+
+var host = builder.Build();
+await host.UseBlazOrbitLocalizationWasm();
+await host.RunAsync();";
+
+    private const string _imports = @"@using BlazOrbit.Components
+@using BlazOrbit.Components.Forms
+@using BlazOrbit.Components.Layout
+@using BlazOrbit.Components";
+
+    private const string _layoutSnippet = @"@inherits LayoutComponentBase
+
+<div class=""app-layout"">
+    @Body
+</div>
+
+<BOBModalHost />
+<BOBToastHost MaxVisiblePerPosition=""5"" />";
+
+    private readonly ComponentDemoDefinition _firstDemo = new()
+    {
+        Code = @"<BOBButton Text=""Hello, BlazOrbit""
+           LeadingIcon=""@BOBIconKeys.MaterialIconsOutlined.i_waving_hand""
+           Size=""BOBSize.Large"" />",
+        CodeTitle = "Pages/Hello.razor",
+        Demo = @<BOBButton Text="Hello, BlazOrbit"
+                          LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_waving_hand"
+                          Size="BOBSize.Large" />
+    };
+}

@@ -1,0 +1,136 @@
+﻿@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+
+@typeparam TValue
+
+@inherits BOBVariantComponentBase<BOBSelect<TValue>, BOBSelectVariant>
+@implements IHasSize
+@implements IHasDisabled
+@implements IHasFullWidth
+@implements IHasColor
+@implements IHasBackgroundColor
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code {
+    /* ── Value binding ── */
+    /// <summary>Currently selected value, two-way bound through <c>@bind-Value</c>.</summary>
+    [Parameter] public TValue? Value { get; set; }
+    /// <summary>Raised when the value changes.</summary>
+    [Parameter] public EventCallback<TValue?> ValueChanged { get; set; }
+
+    /* ── IHasSize ── */
+    /// <summary>Visual size of the select.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+
+    /* ── IHasDisabled ── */
+    /// <summary>When <see langword="true" />, the select is disabled and cannot receive focus or be opened.</summary>
+    [Parameter] public bool Disabled { get; set; }
+    public bool IsDisabled => Disabled;
+
+    /* ── IHasFullWidth ── */
+    /// <summary>When <see langword="true" />, the select stretches to the width of its parent.</summary>
+    [Parameter] public bool FullWidth { get; set; }
+
+    /* ── IHasColor / IHasBackgroundColor ── */
+    /// <summary>Text color of the select. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? Color { get; set; }
+    /// <summary>Background color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? BackgroundColor { get; set; }
+
+    /* ── States ── */
+    /// <summary>When <see langword="true" />, the select is marked as required for validation.</summary>
+    [Parameter] public bool Required { get; set; }
+    /// <summary>When <see langword="true" />, the value cannot be changed.</summary>
+    [Parameter] public bool ReadOnly { get; set; }
+
+    /* ── Labeling ── */
+    /// <summary>Floating label displayed above the select when it has a value or focus.</summary>
+    [Parameter] public string? Label { get; set; }
+    /// <summary>Helper text displayed below the component for additional context.</summary>
+    [Parameter] public string? HelperText { get; set; }
+
+    /* ── Options ── */
+    /// <summary>Markup that emits the option list (typically <c>&lt;option&gt;</c> elements).</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /* ── Variant ── */
+    public override BOBSelectVariant DefaultVariant => BOBSelectVariant.Default;
+
+    protected override IReadOnlyDictionary<BOBSelectVariant, Func<BOBSelect<TValue>, RenderFragment>> BuiltInTemplates { get; } =
+        new Dictionary<BOBSelectVariant, Func<BOBSelect<TValue>, RenderFragment>>
+        {
+            [BOBSelectVariant.Default] = c => c.RenderDefault()
+        };
+
+    /* ── Render ── */
+
+    private RenderFragment RenderDefault() => __builder =>
+    {
+        <bob-component @attributes="ComputedAttributes">
+
+            @if (!string.IsNullOrEmpty(Label))
+            {
+                <label class="bob-select__label">
+                    @Label
+                    @if (Required)
+                    {
+                        <span class="bob-field__required" aria-hidden="true">*</span>
+                    }
+                </label>
+            }
+
+            <div class="bob-select__control">
+                <select class="bob-select__native"
+                        value="@Value"
+                        disabled="@IsDisabled"
+                        required="@Required"
+                        aria-required="@Required.ToString().ToLowerInvariant()"
+                        @onchange="OnChangeAsync">
+                    @ChildContent
+                </select>
+
+                <span class="bob-select__arrow" aria-hidden="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                         fill="none" stroke="currentColor"
+                         stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </span>
+            </div>
+
+            @if (!string.IsNullOrEmpty(HelperText))
+            {
+                <span class="bob-field__helper">@HelperText</span>
+            }
+
+        </bob-component>
+    };
+
+    /* ── Events ── */
+
+    private async Task OnChangeAsync(ChangeEventArgs e)
+    {
+        if (ReadOnly || IsDisabled) return;
+
+        TValue? parsed = ParseValue(e.Value?.ToString());
+        Value = parsed;
+        await ValueChanged.InvokeAsync(parsed);
+    }
+
+    private static TValue? ParseValue(string? raw)
+    {
+        if (string.IsNullOrEmpty(raw)) return default;
+        try
+        {
+            Type target = Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+            return (TValue?)Convert.ChangeType(raw, target);
+        }
+        catch
+        {
+            return default;
+        }
+    }
+}

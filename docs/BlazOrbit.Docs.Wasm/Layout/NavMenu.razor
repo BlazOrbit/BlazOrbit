@@ -1,0 +1,163 @@
+﻿@inject IStringLocalizer<NavMenu> Loc
+@inject NavigationManager NavigationManager
+
+<BOBTreeMenu @ref="_treeMenu"
+             TItem="object"
+             Size="BOBSize.Medium"
+             @bind-ExpandedKeys="_expandedKeys">
+    <BOBTreeMenuItem Key="search">
+        <DocSearch />
+    </BOBTreeMenuItem>
+
+    <BOBTreeMenuItem Text="@Loc["Components"]"
+                     Key="nav-components"
+                     Icon="@BOBIconKeys.MaterialIconsOutlined.i_widgets"
+                     InitiallyExpanded="true">
+        <ChildContent>
+            <BOBTreeMenuItem Text="@Loc["Forms"]"
+                             Key="nav-forms"
+                             Icon="@BOBIconKeys.MaterialIconsOutlined.i_edit_note"
+                             InitiallyExpanded="true"
+                             Href="/components/forms"
+                             OnClick="@NavigateToForms">
+                <ChildContent>
+                    <BOBTreeMenuItem Text="@Loc["Checkbox"]" Href="/components/checkbox" />
+                    <BOBTreeMenuItem Text="@Loc["Color Picker"]" Href="/components/color" />
+                    <BOBTreeMenuItem Text="@Loc["DateTime"]" Href="/components/datetime" />
+                    <BOBTreeMenuItem Text="@Loc["Dropdown"]" Href="/components/dropdown" />
+                    <BOBTreeMenuItem Text="@Loc["Number"]" Href="/components/number" />
+                    <BOBTreeMenuItem Text="@Loc["Radio"]" Href="/components/radio" />
+                    <BOBTreeMenuItem Text="@Loc["Switch"]" Href="/components/switch" />
+                    <BOBTreeMenuItem Text="@Loc["Text"]" Href="/components/text" />
+                    <BOBTreeMenuItem Text="@Loc["TextArea"]" Href="/components/textarea" />
+                </ChildContent>
+            </BOBTreeMenuItem>
+
+            <BOBTreeMenuItem Text="@Loc["Generic"]"
+                             Key="nav-generic"
+                             Icon="@BOBIconKeys.MaterialIconsOutlined.i_category">
+                <ChildContent>
+                    <BOBTreeMenuItem Text="@Loc["Badge"]" Href="/components/badge" />
+                    <BOBTreeMenuItem Text="@Loc["Button"]" Href="/components/button" />
+                    <BOBTreeMenuItem Text="@Loc["Code Block"]" Href="/components/codeblock" />
+                    <BOBTreeMenuItem Text="@Loc["DataCards"]" Href="/components/datacards" />
+                    <BOBTreeMenuItem Text="@Loc["DataGrid"]" Href="/components/datagrid" />
+                    <BOBTreeMenuItem Text="@Loc["Loading"]" Href="/components/loading" />
+                    <BOBTreeMenuItem Text="@Loc["Svg Icon"]" Href="/components/svgicon" />
+                    <BOBTreeMenuItem Text="@Loc["Tabs"]" Href="/components/tabs" />
+                </ChildContent>
+            </BOBTreeMenuItem>
+
+            <BOBTreeMenuItem Text="@Loc["Layout"]"
+                             Key="nav-layout"
+                             Icon="@BOBIconKeys.MaterialIconsOutlined.i_dashboard">
+                <ChildContent>
+                    <BOBTreeMenuItem Text="@Loc["Card"]" Href="/components/card" />
+                    <BOBTreeMenuItem Text="@Loc["Dialog & Drawer"]" Href="/components/modal" />
+                    <BOBTreeMenuItem Text="@Loc["Flex Stack"]" Href="/components/flex-stack" />
+                    <BOBTreeMenuItem Text="@Loc["Grid"]" Href="/components/grid" />
+                    <BOBTreeMenuItem Text="@Loc["Theme Generator"]" Href="/components/themegenerator" />
+                    <BOBTreeMenuItem Text="@Loc["Theme Selector"]" Href="/components/themeselector" />
+                    <BOBTreeMenuItem Text="@Loc["Toast"]" Href="/components/toast" />
+                </ChildContent>
+            </BOBTreeMenuItem>
+
+            <BOBTreeMenuItem Text="@Loc["Tree"]"
+                             Key="nav-tree"
+                             Icon="@BOBIconKeys.MaterialIconsOutlined.i_account_tree">
+                <ChildContent>
+                    <BOBTreeMenuItem Text="@Loc["Tree Menu"]" Href="/components/treemenu" />
+                    <BOBTreeMenuItem Text="@Loc["Tree Selector"]" Href="/components/treeselector" />
+                </ChildContent>
+            </BOBTreeMenuItem>
+
+            <BOBTreeMenuItem Text="@Loc["Utils"]"
+                             Key="nav-utils"
+                             Icon="@BOBIconKeys.MaterialIconsOutlined.i_build">
+                <ChildContent>
+                    <BOBTreeMenuItem Text="@Loc["Draggable"]" Href="/components/draggable" />
+                    <BOBTreeMenuItem Text="@Loc["Tooltip"]" Href="/components/tooltip" />
+                </ChildContent>
+            </BOBTreeMenuItem>
+
+            <BOBTreeMenuItem Text="@Loc["Features"]"
+                             Key="nav-features"
+                             Icon="@BOBIconKeys.MaterialIconsOutlined.i_featured_play_list">
+                <ChildContent>
+                    <BOBTreeMenuItem Text="@Loc["Validation"]" Href="/utilities/validation" />
+                </ChildContent>
+            </BOBTreeMenuItem>
+        </ChildContent>
+    </BOBTreeMenuItem>
+
+    <BOBTreeMenuItem Text="@Loc["Developer"]"
+                     Key="nav-developer"
+                     Icon="@BOBIconKeys.MaterialIconsOutlined.i_code"
+                     InitiallyExpanded="true">
+        <ChildContent>
+            <BOBTreeMenuItem Text="@Loc["Architecture"]" Href="/concepts/architecture" />
+            <BOBTreeMenuItem Text="@Loc["Variants"]" Href="/concepts/variants" />
+            <BOBTreeMenuItem Text="@Loc["Theming"]" Href="/theming" />
+            <BOBTreeMenuItem Text="@Loc["Localization"]" Href="/concepts/localization" />
+            <BOBTreeMenuItem Text="@Loc["JS Interop"]" Href="/concepts/js-interop" />
+            <BOBTreeMenuItem Text="@Loc["Accessibility"]" Href="/concepts/accessibility" />
+        </ChildContent>
+    </BOBTreeMenuItem>
+</BOBTreeMenu>
+
+@code {
+    private BOBTreeMenu<object>? _treeMenu;
+    private HashSet<string> _expandedKeys = new();
+
+    protected override void OnInitialized()
+    {
+        NavigationManager.LocationChanged += OnLocationChanged;
+
+        _expandedKeys = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            "nav-components",
+            "nav-developer",
+            "nav-forms",
+        };
+    }
+
+    public void Dispose()
+    {
+        NavigationManager.LocationChanged -= OnLocationChanged;
+    }
+
+    private void OnLocationChanged(object? sender, LocationChangedEventArgs e)
+    {
+        if (_treeMenu is null)
+            return;
+
+        string route = NavigationManager.ToBaseRelativePath(e.Location);
+        if (string.IsNullOrEmpty(route))
+            route = "/";
+
+        string absoluteRoute = route.StartsWith('/') ? route : "/" + route;
+
+        var node = _treeMenu.GetNode(absoluteRoute);
+        if (node is null)
+            return;
+
+        var current = node;
+        bool changed = false;
+
+        while (current?.ParentNode is not null)
+        {
+            string parentKey = current.ParentNode.Key;
+            if (_expandedKeys.Add(parentKey))
+                changed = true;
+            current = current.ParentNode;
+        }
+
+        if (changed)
+            StateHasChanged();
+    }
+
+    private void NavigateToForms()
+    {
+        NavigationManager.NavigateTo("/components/forms");
+    }
+}

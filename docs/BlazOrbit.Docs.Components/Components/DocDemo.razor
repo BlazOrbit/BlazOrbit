@@ -1,0 +1,31 @@
+﻿@namespace BlazOrbit.Docs.Components
+
+@using BlazOrbit.SyntaxHighlight
+
+<DocSection Title="@Title" Description="@Description">
+    <ComponentDemo Definition="_definition" />
+</DocSection>
+
+@code {
+    [CascadingParameter] public DocDemoContext? Ctx { get; set; }
+
+    [Parameter, EditorRequired] public string Key { get; set; } = default!;
+    [Parameter] public string? Title { get; set; }
+    [Parameter] public string? Description { get; set; }
+    [Parameter] public string? CodeTitle { get; set; }
+    [Parameter] public SyntaxHighlightLanguage Language { get; set; } = SyntaxHighlightLanguage.Razor;
+    [Parameter, EditorRequired] public RenderFragment ChildContent { get; set; } = default!;
+
+    private ComponentDemoDefinition _definition = default!;
+
+    protected override void OnParametersSet()
+    {
+        _definition = new ComponentDemoDefinition
+        {
+            Code = Ctx?.Get(Key),
+            CodeTitle = CodeTitle,
+            Demo = ChildContent,
+            Language = Language
+        };
+    }
+}

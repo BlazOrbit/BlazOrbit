@@ -1,0 +1,273 @@
+﻿@using BlazOrbit.Components.Utils.Patterns.Abstractions
+@using BlazOrbit.Components.Utils.Patterns.DateTimePattern
+
+@using System.ComponentModel
+@using System.Globalization
+@using Microsoft.JSInterop
+@inject IJSRuntime JS
+
+@namespace BlazOrbit.Components.Utils
+
+@inherits BOBBasePattern
+@attribute [EditorBrowsable(EditorBrowsableState.Never)]
+
+<div @ref="_containerBox"
+     id="@Id"
+     class="bob-pattern @ContainerClass"
+     data-bob-pattern-id="@ComponentId"
+     data-has-value="@HasValue.ToString().ToLowerInvariant()"
+     tabindex="@(Disabled ? "-1" : "0")"
+     @onfocus="HandleContainerFocus"
+     @onfocusin="HandleFocusIn"
+     @onfocusout="HandleFocusOut">
+    @if (ShowPattern)
+    {
+        @foreach (SpanState span in _patternState.Spans)
+        {
+            @if (span.IsToggle)
+            {
+                <span @key="@($"span_{ComponentId}_{span.Index}")"
+                      class="bob-pattern__toggle"
+                      data-bob-index="@span.Index"
+                      data-bob-toggle="true"
+                      tabindex="-1">@span.DisplayValue</span>
+            }
+            else if (span.IsEditable)
+            {
+                <span @key="@($"span_{ComponentId}_{span.Index}")"
+                      class="bob-pattern__editable"
+                      contenteditable="@(Editable ? "true" : "false")"
+                      spellcheck="false"
+                      data-bob-index="@span.Index"
+                      tabindex="-1">@span.DisplayValue</span>
+            }
+            else
+            {
+                <span @key="@($"span_{ComponentId}_{span.Index}")"
+                      class="bob-pattern__separator"
+                      data-bob-index="@span.Index">@span.DisplayValue</span>
+            }
+        }
+    }
+</div>
+
+@code {
+    private ParsedDatePattern? _parsedPattern;
+    private bool _hasFocus;
+
+    /// <summary>Unique identifier for the component.</summary>
+    [Parameter] public string? Id { get; set; }
+    /// <summary>CSS class applied to the Container.</summary>
+    [Parameter] public string? ContainerClass { get; set; }
+    /// <summary>When <see langword="true" />, the Pattern is shown.</summary>
+    [Parameter] public bool ShowPattern { get; set; }
+    /// <summary>When <see langword="true" />, the component is non-interactive.</summary>
+    [Parameter] public bool Disabled { get; set; }
+    /// <summary>Raised when the component receives focus.</summary>
+    [Parameter] public EventCallback<FocusEventArgs> OnFocus { get; set; }
+    /// <summary>Raised when the component loses focus.</summary>
+    [Parameter] public EventCallback<FocusEventArgs> OnBlur { get; set; }
+
+    private bool HasValue => _patternState.Spans.Any(s => s.IsEditable && !string.IsNullOrEmpty(s.Value));
+
+    public new async Task FocusAsync()
+    {
+        await base.FocusAsync();
+    }
+
+    private async Task HandleFocusIn(FocusEventArgs e)
+    {
+        if (!_hasFocus)
+        {
+            _hasFocus = true;
+            await OnFocus.InvokeAsync(e);
+        }
+    }
+
+    private async Task HandleFocusOut(FocusEventArgs e)
+    {
+        await Task.Yield();
+
+        bool stillInside = await JS.InvokeAsync<bool>(
+            "eval",
+            $"document.activeElement?.closest('[data-bob-pattern-id=\"{ComponentId}\"]') !== null");
+
+        if (_hasFocus && !stillInside)
+        {
+            _hasFocus = false;
+            await OnBlur.InvokeAsync(e);
+        }
+    }
+    private async Task HandleContainerFocus(FocusEventArgs e)
+    {
+        if (!_hasFocus)
+        {
+            _hasFocus = true;
+            await OnFocus.InvokeAsync(e);
+
+            // HACK: Ensure that the component is fully rendered before focusing the first editable span
+            await Task.Yield();
+            StateHasChanged();
+            await Task.Yield();
+        }
+
+        await FocusAsync();
+    }
+
+    protected override PatternState CreatePatternState()
+    {
+        PatternState state = new();
+        _parsedPattern = DatePatternParser.Parse(Format);
+        int spanIndex = 0;
+
+        foreach (DateComponent component in _parsedPattern.Components)
+        {
+            SpanState span = new()
+            {
+                Index = spanIndex++,
+                IsEditable = component.Type != DateComponentType.Separator,
+                IsToggle = component.Type == DateComponentType.AmPm,
+                AllowedChars = GetAllowedChars(component.Type),
+                MaxLength = component.MaxDigits,
+                Placeholder = component.DefaultValue,
+                Validator = value => ValidateDateComponent(component.Type, value)
+            };
+
+            // Initialize AM/PM toggle with default value "AM"
+            if (component.Type == DateComponentType.AmPm)
+            {
+                span.Value = component.MaxDigits == 1 ? "A" : "AM";
+            }
+
+            state.Spans.Add(span);
+        }
+
+        return state;
+    }
+
+    protected override void InitializeFromText(string? text)
+    {
+        // Reset all editable spans (except AM/PM toggle for now)
+        foreach (SpanState span in _patternState.Spans.Where(s => s.IsEditable && !s.IsToggle))
+        {
+            span.Value = string.Empty;
+        }
+
+        if (string.IsNullOrEmpty(text) || _parsedPattern == null)
+        {
+            // Only initialize AM/PM to default if no text is provided
+            SpanState? amPmSpan = _patternState.Spans.FirstOrDefault(s => s.IsToggle);
+            if (amPmSpan != null)
+            {
+                amPmSpan.Value = amPmSpan.MaxLength == 1 ? "A" : "AM";
+            }
+            return;
+        }
+
+        if (DateTime.TryParseExact(text, Format, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime date))
+        {
+            int spanIndex = 0;
+            foreach (DateComponent component in _parsedPattern.Components)
+            {
+                if (component.Type != DateComponentType.Separator && spanIndex < _patternState.Spans.Count)
+                {
+                    SpanState span = _patternState.Spans[spanIndex];
+                    span.Value = GetComponentValue(component, date);
+                }
+                spanIndex++;
+            }
+        }
+        else
+        {
+            // If parsing fails, reset AM/PM to default
+            SpanState? amPmSpan = _patternState.Spans.FirstOrDefault(s => s.IsToggle);
+            if (amPmSpan != null)
+            {
+                amPmSpan.Value = amPmSpan.MaxLength == 1 ? "A" : "AM";
+            }
+        }
+    }
+
+    protected override bool ValidateComplete(string text)
+    {
+        return DateTime.TryParseExact(
+            text,
+            Format,
+            CultureInfo.InvariantCulture,
+            DateTimeStyles.None,
+            out _);
+    }
+
+    protected override string NormalizeSeparators(string text)
+    {
+        char separator = '/';
+
+        if (Format.Contains('-')) separator = '-';
+        else if (Format.Contains('.')) separator = '.';
+
+        return text
+            .Replace('-', separator)
+            .Replace('.', separator)
+            .Replace(',', separator)
+            .Replace('\\', separator)
+            .Replace(' ', separator);
+    }
+
+    protected override string ToggleValue(string currentValue, string placeholder)
+    {
+        return currentValue.ToUpperInvariant() switch
+        {
+            "AM" or "A" => placeholder.Length == 1 ? "P" : "PM",
+            "PM" or "P" => placeholder.Length == 1 ? "A" : "AM",
+            _ => placeholder.Length == 1 ? "A" : "AM"
+        };
+    }
+
+    private string GetAllowedChars(DateComponentType type)
+    {
+        return type switch
+        {
+            DateComponentType.AmPm => "w",
+            DateComponentType.Separator => "",
+            _ => "d"
+        };
+    }
+
+    private bool ValidateDateComponent(DateComponentType type, string value)
+    {
+        if (string.IsNullOrWhiteSpace(value)) return false;
+
+        return type switch
+        {
+            DateComponentType.Day => int.TryParse(value, out int d) && d >= 1 && d <= 31,
+            DateComponentType.Month => int.TryParse(value, out int m) && m >= 1 && m <= 12,
+            DateComponentType.Year => value.Length == 2 || value.Length == 4,
+            DateComponentType.Hour12 => int.TryParse(value, out int h) && h >= 1 && h <= 12,
+            DateComponentType.Hour24 => int.TryParse(value, out int h) && h >= 0 && h <= 23,
+            DateComponentType.Minute => int.TryParse(value, out int m) && m >= 0 && m <= 59,
+            DateComponentType.Second => int.TryParse(value, out int s) && s >= 0 && s <= 59,
+            DateComponentType.AmPm => value.ToUpperInvariant() is "A" or "P" or "AM" or "PM",
+            _ => true
+        };
+    }
+
+    private string GetComponentValue(DateComponent component, DateTime date)
+    {
+        return component.Type switch
+        {
+            DateComponentType.Day => date.Day.ToString("00"),
+            DateComponentType.Month => date.Month.ToString("00"),
+            DateComponentType.Year => component.MinDigits == 2
+                ? date.Year.ToString("00").Substring(2)
+                : date.Year.ToString("0000"),
+            DateComponentType.Hour12 => (date.Hour % 12 == 0 ? 12 : date.Hour % 12).ToString("00"),
+            DateComponentType.Hour24 => date.Hour.ToString("00"),
+            DateComponentType.Minute => date.Minute.ToString("00"),
+            DateComponentType.Second => date.Second.ToString("00"),
+            DateComponentType.AmPm => date.Hour < 12
+                ? (component.MaxDigits == 1 ? "A" : "AM")
+                : (component.MaxDigits == 1 ? "P" : "PM"),
+            _ => ""
+        };
+    }
+}

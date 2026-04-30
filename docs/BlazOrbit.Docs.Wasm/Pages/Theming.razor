@@ -1,0 +1,167 @@
+﻿@page "/theming"
+
+<PageTitle>Theming — BlazOrbit</PageTitle>
+
+<DocPage Eyebrow="Guide"
+         Title="Theming"
+         Lede="Every visible color in the library is a CSS custom property. Override a single variable to re-skin the whole UI.">
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Palette tokens</h2>
+        <p class="doc-section__description">
+            The theme exposes a semantic palette: <code>primary</code>, <code>secondary</code>,
+            <code>background</code>, <code>surface</code>, <code>error</code>, <code>success</code>,
+            <code>warning</code>, <code>info</code>, each paired with a
+            <code>*contrast</code> color for text. Two extras — <code>border</code>,
+            <code>shadow</code>, <code>highlight</code> — control structural details.
+        </p>
+
+        <BOBCodeBlock Title="Theme tokens"
+                      Language="SyntaxHighlightLanguage.Css"
+                      Code="@_tokens" />
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Switching light / dark</h2>
+        <p class="doc-section__description">
+            The <code>data-theme</code> attribute on a parent element selects the active
+            theme. Drop a <code>BOBThemeSelector</code> anywhere to toggle it interactively:
+        </p>
+
+        <ComponentDemo Definition="@_themeSelectorDemo" />
+
+        <p style="margin-top: 1rem;">
+            Under the hood, the selector writes to <code>localStorage</code> and sets
+            <code>data-theme</code> on <code>&lt;html&gt;</code>. You can also set it yourself:
+        </p>
+
+        <BOBCodeBlock Title="Manual theme switch"
+                      Language="SyntaxHighlightLanguage.Razor"
+                      Code='<html data-theme="dark">' />
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Custom palette</h2>
+        <p class="doc-section__description">
+            The simplest way to re-skin the library is to override the CSS custom properties
+            in your own stylesheet, scoped to <code>:root</code> or a specific
+            <code>data-theme</code>:
+        </p>
+
+        <BOBCodeBlock Title="wwwroot/css/my-theme.css"
+                      Language="SyntaxHighlightLanguage.Css"
+                      Code="@_customTheme" />
+
+        <div class="doc-callout">
+            <span class="doc-callout__icon">🎨</span>
+            <div>
+                <strong>This very site</strong> uses <code>#c41236</code> as its primary
+                color — achieved by overriding <code>--palette-primary</code> and a handful
+                of companion tokens. See
+                <code>wwwroot/css/docs.css</code> in the repository.
+            </div>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Component-level overrides</h2>
+        <p class="doc-section__description">
+            Each component exposes per-instance parameters for <code>Color</code>,
+            <code>BackgroundColor</code>, <code>Border</code>, <code>Shadow</code>, etc.
+            These become <code>--bob-inline-*</code> CSS variables on the element — so a
+            one-off can be set without touching theme files:
+        </p>
+
+        <ComponentDemo Definition="@_overrideDemo" />
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Semantic colors</h2>
+        <p class="doc-section__description">
+            Use <code>PaletteColor</code> to feed theme-aware values into component
+            parameters. It renders to <code>var(--palette-*)</code> so the color follows
+            the active theme:
+        </p>
+
+        <ComponentDemo Definition="@_paletteDemo" />
+    </section>
+
+</DocPage>
+
+@code {
+    private const string _tokens = @":root {
+    --palette-primary: #c41236;
+    --palette-primary-contrast: #ffffff;
+    --palette-secondary: #2f1a1f;
+    --palette-background: #fbf7f6;
+    --palette-background-contrast: #1a0c0e;
+    --palette-surface: #ffffff;
+    --palette-surface-contrast: #1a0c0e;
+    --palette-error: #b42318;
+    --palette-success: #15803d;
+    --palette-warning: #b45309;
+    --palette-info:  #0369a1;
+    --palette-border: #e8ddde;
+    --palette-shadow: #1a0c0e;
+    --palette-highlight: #c41236;
+}";
+
+    private const string _customTheme = @"/* Scoped to the light theme */
+[data-theme=""light""] {
+    --palette-primary: #c41236;       /* dark red */
+    --palette-primary-contrast: #fff;
+    --palette-background: #fbf7f6;
+    --palette-surface: #ffffff;
+}
+
+/* And the dark variant */
+[data-theme=""dark""] {
+    --palette-primary: #ff4d6d;
+    --palette-primary-contrast: #1a0c0e;
+    --palette-background: #120508;
+    --palette-surface: #1e0c10;
+}";
+
+    private readonly ComponentDemoDefinition _themeSelectorDemo = new()
+    {
+        Code = @"<BOBThemeSelector Variant=""BOBThemeSelectorVariant.SunMoon"" />",
+        CodeTitle = "ThemeSelector.razor",
+        Demo = @<BOBThemeSelector Variant="BOBThemeSelectorVariant.SunMoon" />
+    };
+
+    private readonly ComponentDemoDefinition _overrideDemo = new()
+    {
+        Code = @"<BOBButton Text=""Custom""
+           BackgroundColor=""rgba(26,12,14,1)""
+           Color=""rgba(255,255,255,1)"" />",
+        CodeTitle = "InstanceOverride.razor",
+        Demo = @<BOBButton Text="Custom"
+                          BackgroundColor="rgba(26,12,14,1)"
+                          Color="rgba(255,255,255,1)" />
+    };
+
+    private readonly ComponentDemoDefinition _paletteDemo = new()
+    {
+        Code = @"<BOBButton Text=""Primary""
+           BackgroundColor=""@PaletteColor.Primary""
+           Color=""@PaletteColor.PrimaryContrast"" />
+<BOBButton Text=""Success""
+           BackgroundColor=""@PaletteColor.Success""
+           Color=""@PaletteColor.SuccessContrast"" />
+<BOBButton Text=""Warning""
+           BackgroundColor=""@PaletteColor.Warning""
+           Color=""@PaletteColor.WarningContrast"" />",
+        CodeTitle = "PaletteColors.razor",
+        Demo = @<div class="demo-row">
+            <BOBButton Text="Primary"
+                       BackgroundColor="@PaletteColor.Primary"
+                       Color="@PaletteColor.PrimaryContrast" />
+            <BOBButton Text="Success"
+                       BackgroundColor="@PaletteColor.Success"
+                       Color="@PaletteColor.SuccessContrast" />
+            <BOBButton Text="Warning"
+                       BackgroundColor="@PaletteColor.Warning"
+                       Color="@PaletteColor.WarningContrast" />
+        </div>
+    };
+}

@@ -1,0 +1,127 @@
+﻿@page "/components/datagrid"
+
+@inject IStringLocalizer<DataGridPage> Loc
+
+<PageTitle>BlazOrbit - BOBDataGrid</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBDataGrid"]"
+         Lede="@Loc["Strongly-typed tabular data with sorting, filtering, pagination, selection, custom templates, and more — declaratively."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBDataGrid<>)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]" Description="@Loc["Bind Items and declare BOBDataColumn elements inside Columns."]">
+        <BOBDataGrid Items="_people">
+            <Columns>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Id)" Header="ID" />
+                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]" />
+                <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]" />
+                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]" />
+            </Columns>
+        </BOBDataGrid>
+    </DocDemo>
+
+    <DocDemo Key="Sortable" Title="@Loc["Sortable"]" Description="@Loc["Enable Sortable on the grid and on the columns you want clickable."]">
+        <BOBDataGrid Items="_people" Sortable="true">
+            <Columns>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Id)" Header="ID" Sortable="true" />
+                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]" Sortable="true" />
+                <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]" />
+                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]" Sortable="true" />
+            </Columns>
+        </BOBDataGrid>
+    </DocDemo>
+
+    <DocDemo Key="FilterPage" Title="@Loc["Filter + pagination"]">
+        <BOBDataGrid Items="_big"
+                     Filterable="true"
+                     FilterPlaceholder="@Loc["Search..."]"
+                     PageSize="10"
+                     ShowPageSizeSelector="true"
+                     PageSizeOptions="@(new[] { 5, 10, 25 })">
+            <Columns>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Id)" Header="ID" Filterable="true" />
+                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]" Filterable="true" />
+                <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]" Filterable="true" />
+                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]" Filterable="true" />
+            </Columns>
+        </BOBDataGrid>
+    </DocDemo>
+
+    <DocDemo Key="Selection" Title="@Loc["Multiple selection"]">
+            <BOBDataGrid TItem="Person"
+                         Items="_people"
+                         SelectionMode="SelectionMode.Multiple"
+                         SelectedItems="_selected"
+                         SelectedItemsChanged="@(s => { _selected = s; StateHasChanged(); })">
+                <Columns>
+                    <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]" />
+                    <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]" />
+                    <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]" />
+                </Columns>
+            </BOBDataGrid>
+    </DocDemo>
+
+    <DocDemo Key="Template" Title="@Loc["Custom templates"]" Description="@Loc["Use Template with context to render any markup inside a cell."]">
+        <BOBDataGrid Items="_people">
+            <Columns>
+                <BOBDataColumn TItem="Person" Header="@Loc["Person"]">
+                    <Template>
+                        <strong>@context.Name</strong>
+                        <div style="font-size: 0.85em; opacity: 0.7;">@context.Email</div>
+                    </Template>
+                </BOBDataColumn>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]" Align="ColumnAlign.Right" />
+            </Columns>
+        </BOBDataGrid>
+    </DocDemo>
+
+    <DocDemo Key="Align" Title="@Loc["Alignment & width"]">
+        <BOBDataGrid Items="_people">
+            <Columns>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name (left)"]" Align="ColumnAlign.Left" Width="200px" />
+                <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email (center)"]" Align="ColumnAlign.Center" />
+                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age (right)"]" Align="ColumnAlign.Right" Width="80px" />
+            </Columns>
+        </BOBDataGrid>
+    </DocDemo>
+
+    <DocDemo Key="ShadowAndBorder" Title="@Loc["Shadow & Border"]">
+            <BOBDataGrid Items="_people" Shadow="@BOBShadowPresets.Elevation(3)">
+                <Columns>
+                    <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]" />
+                    <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]" />
+                </Columns>
+            </BOBDataGrid>
+            <BOBDataGrid Items="_people" Border="@BOBBorderPresets.RoundedLarge">
+                <Columns>
+                    <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]" />
+                    <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]" />
+                </Columns>
+            </BOBDataGrid>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBDataGridComponentInfo.Parameters" />
+    </section>
+
+</DocPage>
+
+@code {
+    private record Person(int Id, string Name, string Email, int Age);
+
+    private readonly List<Person> _people =
+    [
+        new(1, "Alice Johnson", "alice@example.com", 29),
+        new(2, "Marcus Chen", "marcus@example.com", 34),
+        new(3, "Priya Patel", "priya@example.com", 41),
+        new(4, "Diego Martinez", "diego@example.com", 26),
+        new(5, "Hana Nakamura", "hana@example.com", 38)
+    ];
+
+    private readonly List<Person> _big = Enumerable.Range(1, 35)
+        .Select(i => new Person(i, $"Person {i:D2}", $"person{i}@example.com", 20 + (i % 40)))
+        .ToList();
+
+    private HashSet<Person> _selected = new();
+}

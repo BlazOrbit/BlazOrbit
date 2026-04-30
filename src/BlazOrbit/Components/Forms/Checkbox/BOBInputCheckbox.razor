@@ -1,0 +1,191 @@
+﻿@namespace BlazOrbit.Components.Forms
+@attribute [GenerateComponentInfo]
+@inherits BOBInputComponentBase<TValue, BOBInputCheckbox<TValue>, BOBInputCheckboxVariant>
+@implements IHasSize
+@implements IHasColor
+@implements IHasDensity
+@typeparam TValue
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code {
+
+    /// <summary>Visual size of the component.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    /// <summary>Text or foreground color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? Color { get; set; }
+    /// <summary>Floating label displayed above the component.</summary>
+    [Parameter] public string? Label { get; set; }
+    /// <summary>Helper text displayed below the component for additional context.</summary>
+    [Parameter] public string? HelperText { get; set; }
+    /// <summary>Material icon name for the Checked.</summary>
+    [Parameter] public IconKey? CheckedIcon { get; set; }
+    /// <summary>Material icon name for the Unchecked.</summary>
+    [Parameter] public IconKey? UncheckedIcon { get; set; }
+    /// <summary>Material icon name for the Indeterminate.</summary>
+    [Parameter] public IconKey? IndeterminateIcon { get; set; }
+    /// <summary>Vertical density (gap) of the component.</summary>
+    [Parameter] public BOBDensity Density { get; set; }
+
+    private readonly string _inputId = $"bob-checkbox-{Guid.NewGuid():N}";
+    private string _helperTextId = $"bob-helper-{Guid.NewGuid():N}";
+    private bool _preventKeyDefault;
+
+    private bool IsChecked => GetCheckedState();
+    private bool IsIndeterminate => GetIndeterminateState();
+
+    public override BOBInputCheckboxVariant DefaultVariant => BOBInputCheckboxVariant.Default;
+
+    protected override IReadOnlyDictionary<BOBInputCheckboxVariant, Func<BOBInputCheckbox<TValue>, RenderFragment>> BuiltInTemplates { get; } =
+        new Dictionary<BOBInputCheckboxVariant, Func<BOBInputCheckbox<TValue>, RenderFragment>>
+        {
+            [BOBInputCheckboxVariant.Default] = c => c.RenderDefault(),
+        };
+
+    protected override void OnInitialized()
+    {
+        Type valueType = typeof(TValue);
+        Type underlyingType = Nullable.GetUnderlyingType(valueType) ?? valueType;
+
+        if (underlyingType != typeof(bool))
+            throw new InvalidOperationException(
+                $"BOBInputCheckbox only supports bool and bool? value types. Provided type: {valueType.Name}");
+
+        base.OnInitialized();
+    }
+
+    protected override bool TryParseValueFromString(string? value, out TValue result, out string validationErrorMessage)
+    {
+        validationErrorMessage = string.Empty;
+
+        if (typeof(TValue) == typeof(bool))
+        {
+            if (bool.TryParse(value, out bool boolResult))
+            {
+                result = (TValue)(object)boolResult;
+                return true;
+            }
+            result = default!;
+            validationErrorMessage = $"Unable to parse '{value}' as boolean.";
+            return false;
+        }
+
+        if (typeof(TValue) == typeof(bool?))
+        {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                result = (TValue)(object?)null!;
+                return true;
+            }
+            if (bool.TryParse(value, out bool boolResult))
+            {
+                result = (TValue)(object)(bool?)boolResult;
+                return true;
+            }
+            result = default!;
+            validationErrorMessage = $"Unable to parse '{value}' as nullable boolean.";
+            return false;
+        }
+
+        result = default!;
+        validationErrorMessage = $"Unsupported type {typeof(TValue).Name}.";
+        return false;
+    }
+
+    private bool GetCheckedState()
+    {
+        if (typeof(TValue) == typeof(bool))
+            return CurrentValue is bool b && b;
+        if (typeof(TValue) == typeof(bool?))
+            return CurrentValue is bool nb && nb;
+        return false;
+    }
+
+    private bool GetIndeterminateState() => typeof(TValue) == typeof(bool?) && CurrentValue is null;
+
+    public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    {
+        base.BuildComponentDataAttributes(dataAttributes);
+        dataAttributes[FeatureDefinitions.DataAttributes.Active] = IsChecked.ToString().ToLowerInvariant();
+        if (IsIndeterminate)
+            dataAttributes[FeatureDefinitions.DataAttributes.Indeterminate] = "true";
+    }
+
+    private RenderFragment RenderDefault() => __builder =>
+    {
+        <bob-component @attributes="ComputedAttributes">
+            <div class="bob-checkbox"
+                 role="checkbox"
+                 aria-checked="@(IsIndeterminate ? "mixed" : IsChecked.ToString().ToLowerInvariant())"
+                 aria-disabled="@IsDisabled.ToString().ToLowerInvariant()"
+                 aria-readonly="@IsReadOnly.ToString().ToLowerInvariant()"
+                 aria-labelledby="@(string.IsNullOrWhiteSpace(Label) ? null : $"{_inputId}-label")"
+                 aria-describedby="@_helperTextId"
+                 tabindex="@(IsDisabled ? -1 : 0)"
+                 @onclick="HandleClick"
+                 @onkeydown="HandleKeyDown"
+                 @onkeydown:preventDefault="_preventKeyDefault">
+
+                <_BOBCheckMark Checked="@(IsIndeterminate ? null : IsChecked)"
+                               Size="Size"
+                               Disabled="IsDisabled"
+                               CheckedIcon="@CheckedIcon"
+                               UncheckedIcon="@UncheckedIcon"
+                               IndeterminateIcon="@IndeterminateIcon" />
+
+                @if (!string.IsNullOrWhiteSpace(Label))
+                {
+                    <span id="@($"{_inputId}-label")" class="bob-checkbox__label">
+                        @Label
+                        @if (IsRequired)
+                        {
+                            <span class="bob-field__required">*</span>
+                        }
+                    </span>
+                }
+            </div>
+
+            <_BOBFieldHelper TValue="TValue"
+                             Id="@_helperTextId"
+                             HelperText="@HelperText"
+                             ShowValidation="@IsError"
+                             EditContext="@EditContext"
+                             For="@ValueExpression" />
+
+        </bob-component>
+    };
+
+    private async Task HandleClick(MouseEventArgs e)
+    {
+        if (IsDisabled) return;
+        if (IsReadOnly) return;
+
+        if (typeof(TValue) == typeof(bool))
+        {
+            bool current = CurrentValue is bool b && b;
+            CurrentValue = (TValue)(object)!current;
+        }
+        else if (typeof(TValue) == typeof(bool?))
+        {
+            bool? current = (bool?)(object?)CurrentValue;
+            bool? next = current switch
+            {
+                false => null,
+                null => true,
+                true => false
+            };
+            CurrentValue = (TValue)(object?)next!;
+        }
+    }
+
+    private async Task HandleKeyDown(KeyboardEventArgs e)
+    {
+        _preventKeyDefault = e.Key == " ";
+        if (e.Key == " " || e.Key == "Enter")
+        {
+            await HandleClick(new MouseEventArgs());
+        }
+    }
+}

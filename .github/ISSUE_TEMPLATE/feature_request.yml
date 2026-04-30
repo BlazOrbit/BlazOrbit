@@ -1,0 +1,56 @@
+name: Feature request
+description: Propose a new component, parameter, or behavior.
+title: "[feature] "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before opening a feature request, check if a similar one is already tracked in `TASKS.md` or in the open issues. If you are proposing a breaking change to existing public API, please mention that explicitly — the bar is high before 1.0.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What are you trying to do that the current API does not support? Concrete user story, not "I think it would be nice to have X".
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What should the API look like? A short Razor / C# snippet that uses the new feature is the best format.
+      render: razor
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Workarounds you tried, other shapes of the API you considered, and why they fall short.
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - New component
+        - New parameter on an existing component
+        - New variant
+        - New `IHas*` interface / styling axis
+        - JS interop addition
+        - Theming / palette change
+        - Localization
+        - Build pipeline / generators
+        - Other
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: breaking
+    attributes:
+      label: Breaking change?
+      options:
+        - label: This proposal would change or remove existing public API.

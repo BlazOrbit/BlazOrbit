@@ -1,0 +1,83 @@
+﻿:root {
+    /* ========================================
+       Z-INDEX SCALE
+       ======================================== */
+    --bob-z-dropdown: 1000;
+    --bob-z-sticky: 1100;
+    --bob-z-modal: 1300;
+    --bob-z-tooltip: 1400;
+    --bob-z-toast: 1500;
+
+    /* ========================================
+       OPACITY STATES
+       ======================================== */
+    --bob-opacity-disabled: 0.5;
+    --bob-opacity-placeholder: 0.5;
+
+    /* ========================================
+       OUTLINE HIGHLIGHT
+       ======================================== */
+    --bob-highlight-outline: 2px solid var(--palette-highlight);
+    --bob-highlight-outline-offset: 0px;
+
+    /* ========================================
+       SIZE MULTIPLIERS
+       ======================================== */
+    --bob-size-multiplier: 1;
+    --bob-small-multiplier: 0.75;
+    --bob-medium-multiplier: 1;
+    --bob-large-multiplier: 1.25;
+
+    /* ========================================
+       DENSITY MULTIPLIERS
+       ======================================== */
+    --bob-density-multiplier: 1;
+    --bob-compact-multiplier: 0.75;
+    --bob-standard-multiplier: 1;
+    --bob-comfortable-multiplier: 1.25;
+
+    /* ========================================
+       BORDER DEFAULT
+       ======================================== */
+    --bob-border-width: 0px;
+    --bob-border-style: solid;
+    --bob-border-radius: 2px;
+
+    /* ========================================
+       INPUT FAMILY
+       ======================================== */
+    --bob-input-radius: 4px;
+    --bob-input-transition-duration: 150ms;
+    --bob-input-transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+    --bob-input-floated-scale: 0.75;
+
+    /* ========================================
+       PICKER FAMILY
+       ======================================== */
+    --bob-picker-radius: 8px;
+    --bob-picker-cell-size: 36px;
+    --bob-picker-padding: 0.75rem;
+}
+
+/* ========================================
+   RIPPLE EFFECT
+   CSS-OPT-02 block A.3: per-instance overrides flow through IHasRipple via
+   the FeatureDefinitions.InlineVariables.Ripple* constants. The fallback
+   chain is inline override > global token > rgba/ms literal.
+   ======================================== */
+
+.bob-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background-color: var(--bob-inline-ripple-color, var(--bob-ripple-color, rgba(255, 255, 255, 0.4)));
+    transform: scale(0);
+    animation: bob-ripple-animation var(--bob-inline-ripple-duration, var(--bob-ripple-duration, 600ms)) linear;
+    pointer-events: none;
+}
+
+@keyframes bob-ripple-animation {
+    to {
+        transform: scale(4);
+        opacity: 0;
+    }
+}

@@ -1,0 +1,105 @@
+﻿@using BlazOrbit.Components.Layout.Services
+@using BlazOrbit.Abstractions
+
+@namespace BlazOrbit.Components.Layout
+@attribute [GenerateComponentInfo]
+
+@inherits BOBComponentBase
+
+@inject IToastService ToastService
+
+<CascadingValue Value="_toastService" IsFixed="true">
+    <bob-component @attributes="ComputedAttributes">
+        @foreach (ToastPosition position in _allPositions)
+        {
+            IEnumerable<ToastState> toastsInPosition = GetToastsForPosition(position);
+            @if (toastsInPosition.Any())
+            {
+                <div class="bob-toast-host__position"
+                     data-bob-position="@GetPositionValue(position)">
+                    @foreach (ToastState toast in toastsInPosition)
+                    {
+                        <BOBToast @key="toast.Id"
+                                  State="toast"
+                                  OnCloseAnimationComplete="HandleAnimationComplete" />
+                    }
+                </div>
+            }
+        }
+    </bob-component>
+</CascadingValue>
+
+@code {
+    private static readonly ToastPosition[] _allPositions = Enum.GetValues<ToastPosition>();
+    private ToastService? _toastService;
+    private List<ToastState> _allToasts = [];
+
+    /// <summary>Maximum number of toasts rendered simultaneously per position. Excess toasts queue and surface as older ones close.</summary>
+    [Parameter]
+    public int MaxVisiblePerPosition { get; set; } = 5;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _toastService = ToastService as ToastService;
+        ToastService.OnChangeAsync += HandleToastChangeAsync;
+        // Surface toasts queued before the host mounted (e.g. SSR boot path
+        // where the app fires toasts during DI/initialization).
+        _allToasts = ToastService.ActiveToasts.ToList();
+    }
+
+    private async Task HandleToastChangeAsync()
+    {
+        if (IsDisposed) return;
+        _allToasts = ToastService.ActiveToasts.ToList();
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private IEnumerable<ToastState> GetToastsForPosition(ToastPosition position)
+    {
+        IEnumerable<ToastState> toasts = _allToasts.Where(t => t.Options.Position == position);
+
+        bool isBottomPosition = position is ToastPosition.BottomLeft
+            or ToastPosition.BottomCenter
+            or ToastPosition.BottomRight;
+
+        IEnumerable<ToastState> ordered = isBottomPosition
+            ? toasts.OrderByDescending(t => t.CreatedAt)
+            : toasts.OrderBy(t => t.CreatedAt);
+
+        List<ToastState> visible = ordered
+            .Where(t => !t.IsClosing)
+            .Take(MaxVisiblePerPosition)
+            .ToList();
+
+        IEnumerable<ToastState> closing = ordered.Where(t => t.IsClosing);
+
+        return visible.Concat(closing);
+    }
+
+    private async Task HandleAnimationComplete(Guid toastId)
+    {
+        if (_toastService is not null)
+        {
+            await _toastService.RemoveAsync(toastId);
+        }
+    }
+
+    private string GetPositionValue(ToastPosition position) => position switch
+    {
+        ToastPosition.TopLeft => "top-left",
+        ToastPosition.TopCenter => "top-center",
+        ToastPosition.TopRight => "top-right",
+        ToastPosition.BottomLeft => "bottom-left",
+        ToastPosition.BottomCenter => "bottom-center",
+        ToastPosition.BottomRight => "bottom-right",
+        _ => throw new ArgumentOutOfRangeException(nameof(position), position, null)
+    };
+
+    public override async ValueTask DisposeAsync()
+    {
+        IsDisposed = true;
+        ToastService.OnChangeAsync -= HandleToastChangeAsync;
+        await base.DisposeAsync();
+    }
+}

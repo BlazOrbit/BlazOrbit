@@ -1,0 +1,98 @@
+﻿@page "/components/datacards"
+
+@inject IStringLocalizer<DataCardsPage> Loc
+
+<PageTitle>BlazOrbit - BOBDataCards</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBDataCards"]"
+         Lede="@Loc["The same column-driven data pipeline as DataGrid, rendered as a responsive card grid — sorting, filtering, pagination, selection, custom templates."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBDataCards<>)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]" Description="@Loc["Declare BOBDataColumn entries for the fields to surface. Cards lay out automatically via MinCardWidth."]">
+        <BOBDataCards TItem="Product" Items="_products" MinCardWidth="240px">
+            <Columns>
+                <BOBDataColumn TItem="Product" Header="@Loc["Name"]" Property="@(p => p.Name)" />
+                <BOBDataColumn TItem="Product" Header="@Loc["Category"]" Property="@(p => p.Category)" />
+                <BOBDataColumn TItem="Product" Header="@Loc["Price"]" Property="@(p => p.Price)" Format="C" />
+                <BOBDataColumn TItem="Product" Header="@Loc["Stock"]" Property="@(p => p.Stock)" />
+            </Columns>
+        </BOBDataCards>
+    </DocDemo>
+
+    <DocDemo Key="Template" Title="@Loc["Custom card template"]" Description="@Loc["Provide a CardTemplate to completely own the card layout per item."]">
+        <BOBDataCards TItem="Product" Items="_products" MinCardWidth="220px">
+            <Columns>
+                <BOBDataColumn TItem="Product" Header="@Loc["Name"]" Property="@(p => p.Name)" />
+            </Columns>
+            <CardTemplate Context="p">
+                <div style="padding: 1rem;">
+                    <h4 style="margin: 0 0 .25rem 0;">@p.Name</h4>
+                    <span style="opacity:.7;">@p.Category</span>
+                    <div style="margin-top: .75rem; font-weight: 600;">@p.Price.ToString("C")</div>
+                    <div style="margin-top: .25rem; font-size: .85em; color: var(--palette-@(p.Stock == 0 ? "error" : "success"));">
+                        @(p.Stock == 0 ? Loc["Out of stock"].Value : $"{p.Stock} {Loc["in stock"]}")
+                    </div>
+                </div>
+            </CardTemplate>
+        </BOBDataCards>
+    </DocDemo>
+
+    <DocDemo Key="FilterSort" Title="@Loc["Filtering & sorting"]" Description="@Loc["Enable Filterable and Sortable to get a toolbar with search and sort controls."]">
+        <BOBDataCards TItem="Product" Items="_products" Filterable="true" Sortable="true" PageSize="4" MinCardWidth="220px">
+            <Columns>
+                <BOBDataColumn TItem="Product" Header="@Loc["Name"]" Property="@(p => p.Name)" Sortable="true" />
+                <BOBDataColumn TItem="Product" Header="@Loc["Category"]" Property="@(p => p.Category)" Sortable="true" />
+                <BOBDataColumn TItem="Product" Header="@Loc["Price"]" Property="@(p => p.Price)" Sortable="true" Format="C" />
+            </Columns>
+        </BOBDataCards>
+    </DocDemo>
+
+    <DocDemo Key="Selection" Title="@Loc["Selection"]" Description="@Loc["SelectionMode.Multiple adds a checkbox per card and exposes the set via @bind-SelectedItems."]">
+            <BOBDataCards TItem="Product"
+                          Items="_products"
+                          SelectionMode="SelectionMode.Multiple"
+                          @bind-SelectedItems="_selected"
+                          MinCardWidth="220px">
+                <Columns>
+                    <BOBDataColumn TItem="Product" Header="@Loc["Name"]" Property="@(p => p.Name)" />
+                    <BOBDataColumn TItem="Product" Header="@Loc["Price"]" Property="@(p => p.Price)" Format="C" />
+                </Columns>
+            </BOBDataCards>
+    </DocDemo>
+
+    <DocDemo Key="CardStyling" Title="@Loc["Card styling"]" Description="@Loc["Use CardBorder, CardShadow, and CardBackground for quick tweaks without CSS."]">
+        <BOBDataCards TItem="Product" Items="_products"
+                      CardBorder="@BOBBorderPresets.RoundedLarge"
+                      CardShadow="@BOBShadowPresets.Elevation(2)"
+                      MinCardWidth="220px">
+            <Columns>
+                <BOBDataColumn TItem="Product" Header="@Loc["Name"]" Property="@(p => p.Name)" />
+                <BOBDataColumn TItem="Product" Header="@Loc["Category"]" Property="@(p => p.Category)" />
+                <BOBDataColumn TItem="Product" Header="@Loc["Price"]" Property="@(p => p.Price)" Format="C" />
+            </Columns>
+        </BOBDataCards>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBDataCardsComponentInfo.Parameters" />
+    </section>
+
+</DocPage>
+
+@code {
+    private record Product(int Id, string Name, string Category, decimal Price, int Stock);
+
+    private readonly List<Product> _products =
+    [
+        new(1, "Aurora Lamp", "Lighting", 89.00m, 12),
+        new(2, "Basalt Desk", "Furniture", 349.00m, 4),
+        new(3, "Cobalt Chair", "Furniture", 199.00m, 0),
+        new(4, "Drift Speaker", "Audio", 129.00m, 27),
+        new(5, "Ember Kettle", "Kitchen", 59.00m, 8),
+        new(6, "Fjord Mug", "Kitchen", 18.00m, 60)
+    ];
+
+    private HashSet<Product> _selected = [];
+}

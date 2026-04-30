@@ -1,0 +1,137 @@
+﻿[
+  {
+    Name: Default_Outlined,
+    Html:
+<bob-component data-bob-floated="false" data-bob-component="input-text" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+    <span class="bob-input__outline-notch"><label for="bob-input-<ID>" class="bob-input__label">Name</label></span>
+    <span class="bob-input__outline-trailing"></span></div>
+                
+
+                <input type="text" id="bob-input-<ID>" class="bob-input__field" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" aria-describedby="bob-helper-<ID>" aria-invalid="false" aria-required="false" b-<SCOPE> />
+
+                
+                </div>
+
+            </bob-component>
+  },
+  {
+    Name: Filled_With_Value,
+    Html:
+<bob-component data-bob-floated="true" data-bob-component="input-text" data-bob-variant="filled" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+    <span class="bob-input__outline-notch"><label for="bob-input-<ID>" class="bob-input__label">Name</label></span>
+    <span class="bob-input__outline-trailing"></span></div>
+                
+
+                <input type="text" id="bob-input-<ID>" class="bob-input__field" value="filled value" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" aria-describedby="bob-helper-<ID>" aria-invalid="false" aria-required="false" b-<SCOPE> />
+
+                
+                </div>
+
+            </bob-component>
+  },
+  {
+    Name: Standard_With_Helper,
+    Html:
+<bob-component data-bob-floated="false" data-bob-component="input-text" data-bob-variant="standard" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+    <span class="bob-input__outline-notch"><label for="bob-input-<ID>" class="bob-input__label">Email</label></span>
+    <span class="bob-input__outline-trailing"></span></div>
+                
+
+                <input type="text" id="bob-input-<ID>" class="bob-input__field" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" aria-describedby="bob-helper-<ID>" aria-invalid="false" aria-required="false" b-<SCOPE> />
+
+                
+                </div>
+
+            <div id="bob-helper-<ID>" class="bob-field-helper" aria-live="polite" b-<SCOPE>>Your primary email address.</div></bob-component>
+  },
+  {
+    Name: Required,
+    Html:
+<bob-component data-bob-floated="false" data-bob-component="input-text" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="true" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+    <span class="bob-input__outline-notch"><label for="bob-input-<ID>" class="bob-input__label">Required Field</label></span>
+    <span class="bob-input__outline-trailing"></span></div>
+                
+
+                <input type="text" id="bob-input-<ID>" class="bob-input__field" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" aria-describedby="bob-helper-<ID>" aria-invalid="false" aria-required="true" required b-<SCOPE> />
+
+                
+                </div>
+
+            </bob-component>
+  },
+  {
+    Name: Disabled,
+    Html:
+<bob-component data-bob-floated="false" data-bob-component="input-text" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="true" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+    <span class="bob-input__outline-notch"><label for="bob-input-<ID>" class="bob-input__label">Disabled</label></span>
+    <span class="bob-input__outline-trailing"></span></div>
+                
+
+                <input type="text" id="bob-input-<ID>" class="bob-input__field" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" aria-describedby="bob-helper-<ID>" aria-invalid="false" aria-required="false" disabled b-<SCOPE> />
+
+                
+                </div>
+
+            </bob-component>
+  },
+  {
+    Name: Loading,
+    Html:
+<bob-component data-bob-floated="false" data-bob-component="input-text" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="true" data-bob-error="false" data-bob-disabled="true" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+    <span class="bob-input__outline-notch"><label for="bob-input-<ID>" class="bob-input__label">Loading</label></span>
+    <span class="bob-input__outline-trailing"></span></div>
+                
+
+                <input type="text" id="bob-input-<ID>" class="bob-input__field" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" aria-describedby="bob-helper-<ID>" aria-invalid="false" aria-required="false" disabled b-<SCOPE> />
+
+                
+                <div class="bob-addon" b-<SCOPE>><bob-component data-bob-component="loading-indicator" data-bob-variant="circularprogress" data-bob-size="medium" role="status" aria-live="polite" aria-label="Loading" b-<SCOPE>><svg viewBox="0 0 50 50" role="img" aria-hidden="true" focusable="false" b-<SCOPE>><circle cx="25" cy="25" r="20" b-<SCOPE>></circle></svg></bob-component></div></div>
+
+            </bob-component>
+  },
+  {
+    Name: Error_State,
+    Html:
+<bob-component data-bob-floated="false" data-bob-component="input-text" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="true" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+    <span class="bob-input__outline-notch"><label for="bob-input-<ID>" class="bob-input__label">Error</label></span>
+    <span class="bob-input__outline-trailing"></span></div>
+                
+
+                <input type="text" id="bob-input-<ID>" class="bob-input__field" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" aria-describedby="bob-helper-<ID>" aria-invalid="true" aria-required="false" b-<SCOPE> />
+
+                
+                </div>
+
+            </bob-component>
+  },
+  {
+    Name: With_Prefix_Suffix,
+    Html:
+<bob-component data-bob-floated="false" data-bob-component="input-text" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+    <span class="bob-input__outline-notch"><label for="bob-input-<ID>" class="bob-input__label">Website</label></span>
+    <span class="bob-input__outline-trailing"></span></div>
+                <div class="bob-addon bob-input__addon--prefix" b-<SCOPE>><span>https://</span></div>
+
+                <input type="text" id="bob-input-<ID>" class="bob-input__field" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" aria-describedby="bob-helper-<ID>" aria-invalid="false" aria-required="false" b-<SCOPE> />
+
+                <div class="bob-addon bob-input__addon--suffix" b-<SCOPE>><span>.com</span></div>
+                </div>
+
+            </bob-component>
+  },
+  {
+    Name: Sized_Large_Compact,
+    Html:
+<bob-component data-bob-floated="false" data-bob-component="input-text" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="large" data-bob-density="compact" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+    <span class="bob-input__outline-notch"><label for="bob-input-<ID>" class="bob-input__label">Styled</label></span>
+    <span class="bob-input__outline-trailing"></span></div>
+                
+
+                <input type="text" id="bob-input-<ID>" class="bob-input__field" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" aria-describedby="bob-helper-<ID>" aria-invalid="false" aria-required="false" b-<SCOPE> />
+
+                
+                </div>
+
+            </bob-component>
+  }
+]

@@ -1,0 +1,22 @@
+﻿[
+  {
+    Name: Default,
+    Html: <bob-component data-bob-component="button" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" data-bob-fullwidth="false" data-bob-loading="false" data-bob-disabled="false" b-<SCOPE>><button type="button" blazor:onclick="<EVENT>" class="transition-target" b-<SCOPE> blazor:elementReference="<GUID>"><span class="bob-button__text" b-<SCOPE>>Default Button</span></button></bob-component>
+  },
+  {
+    Name: WithIcon,
+    Html: <bob-component data-bob-component="button" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" data-bob-fullwidth="false" data-bob-loading="false" data-bob-disabled="false" b-<SCOPE>><button type="button" blazor:onclick="<EVENT>" class="transition-target" b-<SCOPE> blazor:elementReference="<GUID>"><bob-component class="bob-button__icon bob-button__icon--leading" data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M0 0h24v24H0V0z" fill="none"/><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></bob-component><span class="bob-button__text" b-<SCOPE>>Icon Button</span></button></bob-component>
+  },
+  {
+    Name: Loading,
+    Html: <bob-component data-bob-component="button" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" data-bob-fullwidth="false" data-bob-loading="true" data-bob-disabled="true" b-<SCOPE>><button type="button" disabled aria-busy="true" aria-live="polite" blazor:onclick="<EVENT>" class="transition-target" b-<SCOPE> blazor:elementReference="<GUID>"><bob-component data-bob-component="loading-indicator" data-bob-variant="spinner" data-bob-size="medium" role="status" aria-live="polite" aria-label="Loading" b-<SCOPE>><svg viewBox="0 0 50 50" role="img" aria-hidden="true" focusable="false" b-<SCOPE>><circle cx="25" cy="25" r="20" b-<SCOPE>></circle></svg></bob-component><span class="bob-button__text" b-<SCOPE>>Loading</span></button></bob-component>
+  },
+  {
+    Name: Disabled,
+    Html: <bob-component data-bob-component="button" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" data-bob-fullwidth="false" data-bob-loading="false" data-bob-disabled="true" b-<SCOPE>><button type="button" disabled blazor:onclick="<EVENT>" class="transition-target" b-<SCOPE> blazor:elementReference="<GUID>"><span class="bob-button__text" b-<SCOPE>>Disabled</span></button></bob-component>
+  },
+  {
+    Name: Elevated,
+    Html: <bob-component data-bob-component="button" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" data-bob-fullwidth="false" data-bob-loading="false" data-bob-disabled="false" data-bob-shadow="true" data-bob-<SCOPE>s="hover:translate hover:box-shadow" style="--bob-inline-shadow: 0px 8px 10px 0px color-mix(in srgb, var(--palette-shadow) 22%, transparent), 0px 6px 12px 0px color-mix(in srgb, var(--palette-shadow) 14%, transparent); --bob-t-hover-translate: 0 -4px; --bob-t-hover-box-shadow: 0px 4px 6px 0px color-mix(in srgb, var(--palette-shadow) 20%, transparent), 0px 4px 5px 0px color-mix(in srgb, var(--palette-shadow) 12%, transparent); --bob-t-transition: translate 200ms ease-in-out, box-shadow 200ms ease-in-out" b-<SCOPE>><button type="button" blazor:onclick="<EVENT>" class="transition-target" b-<SCOPE> blazor:elementReference="<GUID>"><span class="bob-button__text" b-<SCOPE>>Elevated</span></button></bob-component>
+  }
+]

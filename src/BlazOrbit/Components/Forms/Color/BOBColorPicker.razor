@@ -1,0 +1,255 @@
+﻿@namespace BlazOrbit.Components.Forms
+@attribute [GenerateComponentInfo]
+@using Microsoft.JSInterop
+
+@inherits BOBComponentBase
+@implements IPickerFamilyComponent
+@implements IAsyncDisposable
+
+<bob-component @attributes="ComputedAttributes">
+    <BOBDraggable OnDrag="HandleSelectionDrag" OnDragEnd="HandleSelectionDrag">
+        <div @ref="_selectionRef"
+             tabindex="0"
+             class="bob-colorpicker__selection"
+             @onkeydown="HandleSelectionKeyDown"
+             @onkeydown:preventDefault="_preventKeyDown"
+             style="width:@(SelectionWidth)px; height:@(SelectionHeight)px; background-color:@GetHueColor();">
+            <div class="bob-colorpicker__selection-gradient">
+                <span @ref="_handlerRef" class="bob-colorpicker__handler"></span>
+            </div>
+        </div>
+    </BOBDraggable>
+
+    <div class="bob-picker__slider bob-colorpicker__slider--hue"
+         style="--value:@((_hsvColor.Hue / 360.0 * 100).ToString("0.##", System.Globalization.CultureInfo.InvariantCulture))%">
+        <input type="range" min="0" max="360" step="1" value="@_hsvColor.Hue" @oninput="HandleHueChange" />
+    </div>
+
+    <div class="bob-picker__slider bob-colorpicker__slider--alpha"
+         style="--value:@((_alpha / 255.0 * 100).ToString("0.##", System.Globalization.CultureInfo.InvariantCulture))%; --color:@GetOpaqueColor()">
+        <input type="range" min="0" max="255" step="1" value="@_alpha" @oninput="HandleAlphaChange" />
+    </div>
+
+    <div class="bob-picker__row">
+        @switch (OutputFormat)
+        {
+            case ColorOutputFormats.Hex:
+                <input type="text"
+                       class="bob-picker__input bob-colorpicker__hex-input"
+                       value="@GetCurrentColor().ToString(ColorOutputFormats.HexA)"
+                       @onchange="SetHex" />
+                break;
+            default:
+                <_BOBInNumber Value="@GetCurrentColor().R"
+                              Min="0"
+                              Max="255"
+                              AriaLabel="Red"
+                              ValueChanged="v => SetRgbChannel(v, 0)" />
+                <_BOBInNumber Value="@GetCurrentColor().G"
+                              Min="0"
+                              Max="255"
+                              AriaLabel="Green"
+                              ValueChanged="v => SetRgbChannel(v, 1)" />
+                <_BOBInNumber Value="@GetCurrentColor().B"
+                              Min="0"
+                              Max="255"
+                              AriaLabel="Blue"
+                              ValueChanged="v => SetRgbChannel(v, 2)" />
+                <_BOBInNumber Value="@((int)_alpha)"
+                              Min="0"
+                              Max="255"
+                              AriaLabel="Alpha"
+                              ValueChanged="SetAlphaChannel" />
+                break;
+        }
+        <_BOBBtn Icon="@BOBIconKeys.MaterialIconsRound.i_sync" OnClick="CycleFormat" />
+    </div>
+
+    <div class="bob-picker__preview">
+        <div style="background-color:@GetCurrentColor().ToString(ColorOutputFormats.Rgba);"></div>
+    </div>
+
+    @if (ShowActions)
+    {
+        <div class="bob-picker__row bob-colorpicker__footer">
+            <_BOBBtn OnClick="HandleRevert">@RevertText</_BOBBtn>
+        </div>
+    }
+</bob-component>
+
+@code {
+    private ElementReference _selectionRef;
+    private ElementReference _handlerRef;
+    private HsvColor _hsvColor = new(0, 1, 1);
+    private byte _alpha = 255;
+    private bool _isInitialized;
+    private bool _preventKeyDown = false;
+
+    [Inject] private IColorPickerJsInterop JsInterop { get; set; } = default!;
+
+    /// <summary>Current value of the component.</summary>
+    [Parameter] public CssColor? Value { get; set; }
+    /// <summary>Raised when the value changes.</summary>
+    [Parameter] public EventCallback<CssColor?> ValueChanged { get; set; }
+    /// <summary>OutputFormat.</summary>
+    [Parameter] public ColorOutputFormats OutputFormat { get; set; } = ColorOutputFormats.Hex;
+    /// <summary>Raised when the Revert event occurs.</summary>
+    [Parameter] public EventCallback OnRevert { get; set; }
+    /// <summary>When <see langword="true" />, the Actions is shown.</summary>
+    [Parameter] public bool ShowActions { get; set; } = true;
+    /// <summary>Text displayed as the Revert.</summary>
+    [Parameter] public string RevertText { get; set; } = "Revert";
+    /// <summary>SelectionWidth.</summary>
+    [Parameter] public int SelectionWidth { get; set; } = 200;
+    /// <summary>SelectionHeight.</summary>
+    [Parameter] public int SelectionHeight { get; set; } = 150;
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        if (Value != null && !_isInitialized)
+        {
+            _hsvColor = HsvColor.FromCssColor(Value);
+            _alpha = Value.A;
+            _isInitialized = true;
+        }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && Value != null)
+        {
+            try
+            {
+                await UpdateHandlerPosition();
+            }
+            catch (InvalidOperationException) { }
+            catch (JSDisconnectedException) { }
+        }
+    }
+
+    private CssColor GetCurrentColor() => _hsvColor.ToCssColor(_alpha);
+    private string GetHueColor() => new HsvColor(_hsvColor.Hue, 1, 1).ToCssColor().ToString(ColorOutputFormats.Rgb);
+    private string GetOpaqueColor() => _hsvColor.ToCssColor(255).ToString(ColorOutputFormats.Rgb);
+
+    private async Task HandleSelectionDrag(DragEventArgs e)
+    {
+        double[] pos = await JsInterop.GetRelativePositionAsync(_selectionRef, e.ClientX, e.ClientY);
+        _hsvColor = _hsvColor.WithSaturation(pos[0] / SelectionWidth).WithValue(1 - pos[1] / SelectionHeight);
+        await JsInterop.SetHandlerPositionAsync(_handlerRef, pos[0], pos[1]);
+        await NotifyColorChanged();
+    }
+
+    private async Task HandleHueChange(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out int hue))
+        {
+            _hsvColor = _hsvColor.WithHue(hue);
+            await NotifyColorChanged();
+        }
+    }
+
+    private async Task HandleAlphaChange(ChangeEventArgs e)
+    {
+        if (int.TryParse(e.Value?.ToString(), out int alpha))
+        {
+            _alpha = (byte)Math.Clamp(alpha, 0, 255);
+            await NotifyColorChanged();
+        }
+    }
+
+    private async Task SetRgbChannel(int? val, int component)
+    {
+        if (!val.HasValue) return;
+        CssColor c = GetCurrentColor();
+        int r = c.R, g = c.G, b = c.B;
+        int clampedVal = Math.Clamp(val.Value, 0, 255);
+        switch (component)
+        {
+            case 0: r = clampedVal; break;
+            case 1: g = clampedVal; break;
+            case 2: b = clampedVal; break;
+        }
+        _hsvColor = HsvColor.FromCssColor(new CssColor(r, g, b, _alpha));
+        await UpdateHandlerPosition();
+        await NotifyColorChanged();
+    }
+
+    private async Task SetAlphaChannel(int? val)
+    {
+        if (!val.HasValue) return;
+        _alpha = (byte)Math.Clamp(val.Value, 0, 255);
+        await NotifyColorChanged();
+    }
+
+    private async Task SetHex(ChangeEventArgs e)
+    {
+        try
+        {
+            CssColor c = new(e.Value?.ToString() ?? "");
+            _hsvColor = HsvColor.FromCssColor(c);
+            _alpha = c.A;
+            await UpdateHandlerPosition();
+            await NotifyColorChanged();
+        }
+        catch { }
+    }
+
+    private void CycleFormat() => OutputFormat = OutputFormat switch
+    {
+        ColorOutputFormats.Hex => ColorOutputFormats.Rgb,
+        _ => ColorOutputFormats.Hex
+    };
+
+    private async Task HandleRevert() => await OnRevert.InvokeAsync();
+
+    private async Task HandleSelectionKeyDown(KeyboardEventArgs e)
+    {
+        _preventKeyDown = false;
+
+        const double step = 0.02;
+        const double fineStep = 0.005;
+
+        double delta = e.ShiftKey ? fineStep : step;
+        HsvColor newColor = _hsvColor;
+
+        switch (e.Key)
+        {
+            case "ArrowRight":
+                newColor = _hsvColor.WithSaturation(Math.Min(1, _hsvColor.Saturation + delta));
+                _preventKeyDown = true;
+                break;
+            case "ArrowLeft":
+                newColor = _hsvColor.WithSaturation(Math.Max(0, _hsvColor.Saturation - delta));
+                _preventKeyDown = true;
+                break;
+            case "ArrowUp":
+                newColor = _hsvColor.WithValue(Math.Min(1, _hsvColor.Value + delta));
+                _preventKeyDown = true;
+                break;
+            case "ArrowDown":
+                newColor = _hsvColor.WithValue(Math.Max(0, _hsvColor.Value - delta));
+                _preventKeyDown = true;
+                break;
+            default:
+                return;
+        }
+
+        if (newColor != _hsvColor)
+        {
+            _hsvColor = newColor;
+            await UpdateHandlerPosition();
+            await NotifyColorChanged();
+        }
+    }
+
+    private async Task UpdateHandlerPosition()
+    {
+        double x = _hsvColor.Saturation * SelectionWidth;
+        double y = (1 - _hsvColor.Value) * SelectionHeight;
+        await JsInterop.SetHandlerPositionAsync(_handlerRef, x, y);
+    }
+
+    private async Task NotifyColorChanged() => await ValueChanged.InvokeAsync(GetCurrentColor());
+
+}

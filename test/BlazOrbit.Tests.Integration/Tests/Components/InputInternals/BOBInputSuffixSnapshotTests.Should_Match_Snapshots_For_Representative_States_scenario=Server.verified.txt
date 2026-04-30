@@ -1,0 +1,14 @@
+﻿[
+  {
+    Name: TextOnly,
+    Html: <div class="bob-addon bob-input__addon--suffix" b-<SCOPE>><span>kg</span></div>
+  },
+  {
+    Name: IconOnly,
+    Html: <div class="bob-addon bob-input__addon--suffix" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M0 0h24v24H0V0z" fill="none"/><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></bob-component></div>
+  },
+  {
+    Name: TextAndIcon,
+    Html: <div class="bob-addon bob-input__addon--suffix" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M0 0h24v24H0V0z" fill="none"/><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></bob-component><span>EUR</span></div>
+  }
+]

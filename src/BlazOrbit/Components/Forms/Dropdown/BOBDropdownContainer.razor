@@ -1,0 +1,355 @@
+﻿@using BlazOrbit.Abstractions
+
+@namespace BlazOrbit.Components.Forms.Dropdown
+
+@typeparam TValue
+
+@inherits BOBInputComponentBase<TValue, BOBDropdownContainer<TValue>, BOBInputVariant>
+@implements IHasSize
+@implements IHasLoading
+@implements IHasShadow
+@implements IHasElevation
+@implements IHasColor
+@implements IHasBackgroundColor
+@implements IHasPrefix
+@implements IHasSuffix
+@implements IDropdownJsCallback
+@implements IInputFamilyComponent
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code {
+    private readonly string _componentId = $"bob-dropdown-{Guid.NewGuid():N}";
+    private string _helperTextId = $"bob-helper-{Guid.NewGuid():N}";
+
+    private ElementReference _triggerElement;
+    private ElementReference _menuElement;
+    private DropdownCallbacksRelay? _callbacksRelay;
+    private bool _jsInitialized;
+    private DropdownPlacement _computedPlacement;
+    private bool _isFocused;
+
+    [Inject] private IDropdownJsInterop JsInterop { get; set; } = default!;
+
+    // IHasSize
+    /// <summary>Visual size of the dropdown trigger.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+
+    // IHasLoading
+    /// <summary>When <see langword="true" />, the trigger shows a loading indicator and ignores activation.</summary>
+    [Parameter] public bool Loading { get; set; }
+    /// <summary>Variant of the loading indicator shown when <see cref="Loading"/> is <see langword="true"/>.</summary>
+    [Parameter] public BOBLoadingIndicatorVariant LoadingIndicatorVariant { get; set; } = BOBLoadingIndicatorVariant.CircularProgress;
+
+    // IHasShadow
+    /// <summary>Shadow style applied to the trigger container. Wins over <see cref="Elevation"/> when both are set.</summary>
+    [Parameter] public ShadowStyle? Shadow { get; set; }
+
+    // IHasElevation
+    /// <summary>Material Design elevation level (0–24) applied to the menu surface. Sets a derived
+    /// shadow and lifts the surface in dark mode via a tint overlay. Overridden by <see cref="Shadow"/>.</summary>
+    [Parameter] public int? Elevation { get; set; }
+
+    // IHasBackgroundColor
+    /// <summary>Background color of the trigger. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? BackgroundColor { get; set; }
+
+    // IHasColor
+    /// <summary>Text color of the trigger. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? Color { get; set; }
+
+    // IHasPrefix
+    /// <summary>Text displayed before the trigger value.</summary>
+    [Parameter] public string? PrefixText { get; set; }
+    /// <summary>Material icon name for the Prefix.</summary>
+    [Parameter] public IconKey? PrefixIcon { get; set; }
+    /// <summary>Prefix color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? PrefixColor { get; set; }
+    /// <summary>PrefixBackground color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? PrefixBackgroundColor { get; set; }
+
+    // IHasSuffix
+    /// <summary>Text displayed after the trigger value.</summary>
+    [Parameter] public string? SuffixText { get; set; }
+    /// <summary>Material icon name for the Suffix.</summary>
+    [Parameter] public IconKey? SuffixIcon { get; set; }
+    /// <summary>Suffix color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? SuffixColor { get; set; }
+    /// <summary>SuffixBackground color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? SuffixBackgroundColor { get; set; }
+
+    /// <summary>Placeholder text shown when the component is empty.</summary>
+    [Parameter] public string? Placeholder { get; set; }
+    /// <summary>Floating label displayed above the component.</summary>
+    [Parameter] public string? Label { get; set; }
+    /// <summary>Helper text displayed below the component for additional context.</summary>
+    [Parameter] public string? HelperText { get; set; }
+
+    /// <summary>Preferred placement of the popup menu relative to the trigger.</summary>
+    [Parameter] public DropdownPlacement Placement { get; set; } = DropdownPlacement.Auto;
+    /// <summary>Maximum height (px) of the popup menu before it scrolls.</summary>
+    [Parameter] public int MaxMenuHeight { get; set; } = 320;
+
+    [Parameter, EditorRequired] public string DisplayValue { get; set; } = string.Empty;
+    /// <summary>When <see langword="true" />, HasValue is active.</summary>
+    [Parameter] public bool HasValue { get; set; }
+    /// <summary>ARIA role applied to the popup menu (defaults to <c>listbox</c>; use <c>tree</c> or <c>menu</c> for non-list semantics).</summary>
+    [Parameter] public string AriaRole { get; set; } = "listbox";
+    /// <summary>When <see langword="true" />, advertises the menu as multi-selectable to assistive tech.</summary>
+    [Parameter] public bool AriaMultiselectable { get; set; }
+
+    /// <summary>Render fragment that emits the popup menu content (option list, tree, etc.).</summary>
+    [Parameter] public RenderFragment? MenuContent { get; set; }
+    /// <summary>Raised when the Opened event occurs.</summary>
+    [Parameter] public EventCallback OnOpened { get; set; }
+    /// <summary>Raised when the Closed event occurs.</summary>
+    [Parameter] public EventCallback OnClosed { get; set; }
+    /// <summary>Raised when the KeyboardNavigation event occurs.</summary>
+    [Parameter] public EventCallback<DropdownKeyboardEventArgs> OnKeyboardNavigation { get; set; }
+
+    /// <summary>Raised when the ValueChanged event occurs.</summary>
+    [Parameter] public EventCallback<TValue> OnValueChanged { get; set; }
+
+    public bool IsOpen { get; private set; }
+    public string ComponentId => _componentId;
+
+    public override BOBInputVariant DefaultVariant => BOBInputVariant.Outlined;
+
+    protected override IReadOnlyDictionary<BOBInputVariant, Func<BOBDropdownContainer<TValue>, RenderFragment>> BuiltInTemplates { get; } =
+        new Dictionary<BOBInputVariant, Func<BOBDropdownContainer<TValue>, RenderFragment>>
+        {
+            [BOBInputVariant.Outlined] = c => c.RenderDropdown(),
+            [BOBInputVariant.Filled] = c => c.RenderDropdown(),
+            [BOBInputVariant.Standard] = c => c.RenderDropdown(),
+            [BOBInputVariant.Flat] = c => c.RenderDropdown()
+        };
+
+    private bool IsFloated => _isFocused || HasValue || IsOpen;
+
+    public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    {
+        base.BuildComponentDataAttributes(dataAttributes);
+        dataAttributes[FeatureDefinitions.DataAttributes.Floated] = IsFloated.ToString().ToLowerInvariant();
+    }
+
+    private RenderFragment RenderDropdown() => __builder =>
+    {
+        <bob-component @attributes="ComputedAttributes"
+                       data-bob-dropdown-open="@IsOpen.ToString().ToLowerInvariant()"
+                       data-bob-placement="@GetEffectivePlacement().ToString().ToLowerInvariant()">
+
+            <div class="bob-input__wrapper" @ref="_triggerElement">
+
+                <BOBInputOutline Label="@Label" For="@_componentId" Required="@IsRequired" />
+                <BOBInputPrefix PrefixText="@PrefixText" PrefixIcon="@PrefixIcon" Size="@Size" />
+
+                <button id="@_componentId"
+                        type="button"
+                        class="bob-input__field bob-dropdown__trigger"
+                        @onclick="ToggleAsync"
+                        @onfocus="HandleFocus"
+                        @onblur="HandleBlur"
+                        disabled="@IsDisabled"
+                        aria-expanded="@IsOpen.ToString().ToLowerInvariant()"
+                        aria-haspopup="@AriaRole"
+                        aria-describedby="@_helperTextId">
+
+                    <span class="bob-dropdown__value @(HasValue ? "" : "bob-dropdown__placeholder")">
+                        @if (HasValue)
+                        {
+                            @DisplayValue
+                        }
+                        else if ((string.IsNullOrWhiteSpace(Label) || IsFloated) && !string.IsNullOrEmpty(Placeholder))
+                        {
+                            @Placeholder
+                        }
+                    </span>
+
+                    <_BOBAddon Icon="@BOBIconKeys.UI.ExpandMore"
+                               IconRotation="@(IsOpen ? 180 : 0)"
+                               Size="Size" />
+                </button>
+
+                @if (IsOpen)
+                {
+                    <div class="bob-dropdown__menu"
+                         @ref="_menuElement"
+                         role="@AriaRole"
+                         aria-multiselectable="@(AriaMultiselectable ? "true" : null)"
+                         style="max-height: @(MaxMenuHeight)px;">
+                        @MenuContent
+                    </div>
+                }
+
+                <BOBInputSuffix SuffixText="@SuffixText" SuffixIcon="@SuffixIcon" Size="@Size" />
+                <BOBInputLoading Loading="@Loading" LoadingIndicatorVariant="@LoadingIndicatorVariant" Size="@Size" />
+
+            </div>
+
+            <_BOBFieldHelper TValue="TValue"
+                             Id="@_helperTextId"
+                             HelperText="@HelperText"
+                             ShowValidation="@IsError"
+                             EditContext="@EditContext"
+                             For="@ValueExpression" />
+
+        </bob-component>
+    };
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (IsOpen && !_jsInitialized)
+        {
+            _callbacksRelay ??= new DropdownCallbacksRelay(this);
+            await JsInterop.InitializeAsync(_triggerElement, _menuElement, _callbacksRelay.DotNetReference, _componentId);
+            _jsInitialized = true;
+
+            if (Placement == DropdownPlacement.Auto)
+            {
+                await ComputePlacementAsync();
+            }
+        }
+    }
+
+    private async Task ComputePlacementAsync()
+    {
+        DropdownPosition position = await JsInterop.GetPositionAsync(_componentId);
+        double spaceBelow = position.ViewportHeight - position.TriggerTop - position.TriggerHeight;
+        double spaceAbove = position.TriggerTop;
+
+        _computedPlacement = spaceBelow >= MaxMenuHeight || spaceBelow >= spaceAbove
+            ? DropdownPlacement.Bottom
+            : DropdownPlacement.Top;
+
+        StateHasChanged();
+    }
+
+    private DropdownPlacement GetEffectivePlacement()
+        => Placement == DropdownPlacement.Auto ? _computedPlacement : Placement;
+
+    public async Task ToggleAsync()
+    {
+        if (Disabled || Loading) return;
+
+        if (IsOpen)
+            await CloseAsync();
+        else
+            await OpenAsync();
+    }
+
+    public async Task OpenAsync()
+    {
+        if (IsOpen || Disabled || Loading) return;
+
+        IsOpen = true;
+        _computedPlacement = Placement == DropdownPlacement.Auto ? DropdownPlacement.Bottom : Placement;
+        StateHasChanged();
+
+        await OnOpened.InvokeAsync();
+    }
+
+    public async Task CloseAsync()
+    {
+        if (!IsOpen) return;
+
+        IsOpen = false;
+        _jsInitialized = false;
+
+        if (_callbacksRelay != null)
+        {
+            await JsInterop.DisposeAsync(_componentId);
+        }
+
+        StateHasChanged();
+        await OnClosed.InvokeAsync();
+    }
+
+    private void HandleFocus(FocusEventArgs e)
+    {
+        _isFocused = true;
+    }
+
+    private void HandleBlur(FocusEventArgs e)
+    {
+        _isFocused = false;
+    }
+
+    Task IDropdownJsCallback.OnClickOutside() => CloseAsync();
+
+    async Task IDropdownJsCallback.OnKeyDown(string key, bool shiftKey, bool ctrlKey)
+    {
+        DropdownKeyboardEventArgs args = new(key, shiftKey, ctrlKey);
+
+        switch (key)
+        {
+            case "Escape":
+            case "Tab":
+                await CloseAsync();
+                break;
+
+            case "ArrowDown":
+                if (!IsOpen)
+                    await OpenAsync();
+                else
+                    await OnKeyboardNavigation.InvokeAsync(args);
+                break;
+
+            case "ArrowUp":
+            case "Home":
+            case "End":
+                if (IsOpen)
+                    await OnKeyboardNavigation.InvokeAsync(args);
+                break;
+
+            case "Enter":
+            case " ":
+                if (IsOpen)
+                    await OnKeyboardNavigation.InvokeAsync(args);
+                else
+                    await OpenAsync();
+                break;
+
+            case "a":
+                if (IsOpen && ctrlKey)
+                    await OnKeyboardNavigation.InvokeAsync(args);
+                break;
+
+            default:
+                await OnKeyboardNavigation.InvokeAsync(args);
+                break;
+        }
+    }
+
+    async Task<DropdownPosition> IDropdownJsCallback.OnRequestPosition()
+        => await JsInterop.GetPositionAsync(_componentId);
+
+    protected override bool TryParseValueFromString(string? value, out TValue result, out string validationErrorMessage)
+    {
+        validationErrorMessage = string.Empty;
+        result = default!;
+        return true;
+    }
+
+    public async Task FocusSearchInputAsync()
+    {
+        if (_jsInitialized)
+        {
+            await JsInterop.FocusSearchInputAsync(_componentId);
+        }
+    }
+
+    public override async ValueTask DisposeAsync()
+    {
+        if (_jsInitialized)
+        {
+            await JsInterop.DisposeAsync(_componentId);
+        }
+
+        _callbacksRelay?.Dispose();
+        await base.DisposeAsync();
+    }
+}

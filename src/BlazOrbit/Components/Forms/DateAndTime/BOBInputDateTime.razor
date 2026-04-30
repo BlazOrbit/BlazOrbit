@@ -1,0 +1,456 @@
+﻿@using System.Globalization
+@using System.Diagnostics.CodeAnalysis
+@using BlazOrbit.Components.Layout
+@using BlazOrbit.Components.Utils
+
+@namespace BlazOrbit.Components.Forms
+@attribute [GenerateComponentInfo]
+
+@typeparam TValue
+@inherits BOBInputComponentBase<TValue, BOBInputDateTime<TValue>, BOBInputVariant>
+@implements IHasSize
+@implements IHasLoading
+@implements IHasDensity
+@implements IHasShadow
+@implements IHasColor
+@implements IHasBackgroundColor
+@implements IHasPrefix
+@implements IHasSuffix
+@implements IInputFamilyComponent
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code {
+    private string _inputId = $"bob-datetime-{Guid.NewGuid():N}";
+    private string _helperTextId = $"bob-helper-{Guid.NewGuid():N}";
+    private bool _isPickerOpen;
+    private bool ShowDate;
+    private bool ShowTime;
+    private TValue? _initialValue;
+    private BOBDateTimePattern? _patternRef;
+    private bool _isFocused;
+    private bool _isDirty;
+    private string? _patternKey = Guid.NewGuid().ToString("N");
+
+    private DateOnly _tempDateValue;
+    private TimeOnly _tempTimeValue;
+
+    private DateOnly DateValue { get; set; } = DateOnly.FromDateTime(DateTime.Today);
+    private TimeOnly TimeValue { get; set; } = TimeOnly.FromDateTime(DateTime.Now);
+
+    // IHasSize
+    /// <summary>Visual size of the input.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+
+    // IHasLoading
+    /// <summary>When <see langword="true" />, the input shows a loading indicator.</summary>
+    [Parameter] public bool Loading { get; set; }
+    /// <summary>Variant of the loading indicator shown when <see cref="Loading"/> is <see langword="true"/>.</summary>
+    [Parameter] public BOBLoadingIndicatorVariant LoadingIndicatorVariant { get; set; } = BOBLoadingIndicatorVariant.CircularProgress;
+
+    // IHasDensity
+    /// <summary>Vertical density (gap) of the input.</summary>
+    [Parameter] public BOBDensity Density { get; set; } = BOBDensity.Standard;
+
+    // IHasShadow
+    /// <summary>Shadow style applied to the input container.</summary>
+    [Parameter] public ShadowStyle? Shadow { get; set; }
+
+    // IHasBackgroundColor
+    /// <summary>Background color of the input. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? BackgroundColor { get; set; }
+
+    // IHasColor
+    /// <summary>Text color of the input. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? Color { get; set; }
+
+    // IHasPrefix
+    /// <summary>Text displayed before the input value.</summary>
+    [Parameter] public string? PrefixText { get; set; }
+    /// <summary>Material icon name for the Prefix.</summary>
+    [Parameter] public IconKey? PrefixIcon { get; set; }
+    /// <summary>Prefix color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? PrefixColor { get; set; }
+    /// <summary>PrefixBackground color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? PrefixBackgroundColor { get; set; }
+
+    // IHasSuffix
+    /// <summary>Text displayed after the input value.</summary>
+    [Parameter] public string? SuffixText { get; set; }
+    /// <summary>Material icon name for the Suffix.</summary>
+    [Parameter] public IconKey? SuffixIcon { get; set; }
+    /// <summary>Suffix color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? SuffixColor { get; set; }
+    /// <summary>SuffixBackground color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? SuffixBackgroundColor { get; set; }
+
+    // Component-specific
+    /// <summary>Floating label displayed above the input when it has a value or focus.</summary>
+    [Parameter] public string? Label { get; set; }
+    /// <summary>Helper text displayed below the component for additional context.</summary>
+    [Parameter] public string? HelperText { get; set; }
+
+    private Type UnderlyingType => Nullable.GetUnderlyingType(typeof(TValue)) ?? typeof(TValue);
+    private string Format => GetCultureFormatString();
+    private bool HasValue => CurrentValue != null;
+    private bool CanClear => _isDirty;
+    private bool IsFloated => _isFocused || HasValue || _isDirty;
+
+    public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    {
+        base.BuildComponentDataAttributes(dataAttributes);
+        dataAttributes[FeatureDefinitions.DataAttributes.Floated] = IsFloated.ToString().ToLowerInvariant();
+    }
+
+    public override BOBInputVariant DefaultVariant => BOBInputVariant.Outlined;
+
+    protected override IReadOnlyDictionary<BOBInputVariant, Func<BOBInputDateTime<TValue>, RenderFragment>> BuiltInTemplates { get; } =
+        new Dictionary<BOBInputVariant, Func<BOBInputDateTime<TValue>, RenderFragment>>
+        {
+            [BOBInputVariant.Outlined] = i => i.RenderInput(),
+            [BOBInputVariant.Filled] = i => i.RenderInput(),
+            [BOBInputVariant.Standard] = i => i.RenderInput()
+        };
+
+    private RenderFragment RenderInput() => __builder =>
+    {
+        <bob-component @attributes="ComputedAttributes">
+
+            <div class="bob-input__wrapper">
+
+                <BOBInputOutline Label="@Label" For="@_inputId" Required="@IsRequired" />
+                <BOBInputPrefix PrefixText="@PrefixText" PrefixIcon="@PrefixIcon" Size="@Size" />
+
+                <BOBDateTimePattern @key="@_patternKey"
+                                    @ref="_patternRef"
+                                    Id="@_inputId"
+                                    ContainerClass="bob-input__field"
+                                    ShowPattern="@IsFloated"
+                                    @bind-Text="@CurrentValueAsString"
+                                    Format="@Format"
+                                    Editable="@(!IsReadOnly)"
+                                    Disabled="@IsDisabled"
+                                    OnFocus="HandleFocus"
+                                    OnBlur="HandleBlur"
+                                    OnDirtyStateChanged="HandleDirtyChanged" />
+
+                @if (CanClear && !ReadOnly)
+                {
+                    <_BOBBtn Icon="@BOBIconKeys.UI.Close"
+                             AriaLabel="Clear"
+                             OnClick="(e)=> Clear()"
+                             OnClickPreventDefault="true"
+                             OnClickStopPropagation="true" />
+                }
+
+                <_BOBBtn Icon="@BOBIconKeys.MaterialIconsOutlined.i_calendar_today"
+                         Disabled="@(IsDisabled || ReadOnly)"
+                         Loading="@Loading"
+                         LoadingIndicatorVariant="@LoadingIndicatorVariant"
+                         AriaLabel="Open picker"
+                         OnClick="(e)=> OpenPicker()"
+                         OnClickPreventDefault="true"
+                         OnClickStopPropagation="true" />
+
+                <BOBInputSuffix SuffixText="@SuffixText" SuffixIcon="@SuffixIcon" Size="@Size" />
+
+            </div>
+
+            <_BOBFieldHelper TValue="TValue"
+                             Id="@_helperTextId"
+                             HelperText="@HelperText"
+                             ShowValidation="@IsError"
+                             EditContext="@EditContext"
+                             For="@ValueExpression" />
+
+            <BOBDialog @bind-Open="_isPickerOpen"
+                       Title="@GetPickerTitle()"
+                       Closable="true"
+                       CloseOnOverlayClick="true"
+                       CloseOnEscape="true"
+                       MinWidth="auto"
+                       MaxWidth="fit-content">
+                <Content>
+                    <div class="bob-input-datetime__picker-content">
+                        @if (ShowDate)
+                        {
+                            <BOBDatePicker Value="DateValue"
+                                           ValueChanged="OnDateChanged"
+                                           Size="Size"
+                                           Density="Density" />
+                        }
+                        @if (ShowTime)
+                        {
+                            <BOBTimePicker Value="TimeValue"
+                                           ValueChanged="OnTimeChanged"
+                                           Size="Size"
+                                           Density="Density" />
+                        }
+                    </div>
+                </Content>
+                <Footer>
+                    <BOBButton Text="Cancel"
+                               OnClick="() => _isPickerOpen = false"
+                               Variant="BOBButtonVariant.Default" />
+                    <BOBButton Text="Apply"
+                               OnClick="ApplyPickerValue" />
+                </Footer>
+            </BOBDialog>
+        </bob-component>
+    };
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        _initialValue = Value;
+
+        Type type = UnderlyingType;
+
+        ShowDate = type == typeof(DateOnly)
+                || type == typeof(DateTime)
+                || type == typeof(DateTimeOffset);
+
+        ShowTime = type == typeof(TimeOnly)
+                || type == typeof(DateTime)
+                || type == typeof(DateTimeOffset);
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (!HasValue) return;
+
+        SyncPickersFromValue();
+    }
+
+    private void HandleFocus(FocusEventArgs e)
+    {
+        _isFocused = true;
+        StateHasChanged();
+    }
+
+    private void HandleBlur(FocusEventArgs e)
+    {
+        _isFocused = false;
+        StateHasChanged();
+    }
+
+    private void HandleDirtyChanged(bool isDirty)
+    {
+        _isDirty = isDirty;
+    }
+
+    private void SyncPickersFromValue()
+    {
+        if (CurrentValue == null) return;
+
+        Type type = UnderlyingType;
+
+        if (type == typeof(DateOnly))
+        {
+            DateValue = (DateOnly)(object)CurrentValue;
+        }
+        else if (type == typeof(TimeOnly))
+        {
+            TimeValue = (TimeOnly)(object)CurrentValue;
+        }
+        else if (type == typeof(DateTime))
+        {
+            DateTime dt = (DateTime)(object)CurrentValue;
+            DateValue = DateOnly.FromDateTime(dt);
+            TimeValue = TimeOnly.FromDateTime(dt);
+        }
+        else if (type == typeof(DateTimeOffset))
+        {
+            DateTimeOffset dto = (DateTimeOffset)(object)CurrentValue;
+            DateValue = DateOnly.FromDateTime(dto.DateTime);
+            TimeValue = TimeOnly.FromDateTime(dto.DateTime);
+        }
+    }
+
+    private IconKey GetPickerIcon() => UnderlyingType switch
+    {
+        Type t when t == typeof(TimeOnly) => BOBIconKeys.MaterialIconsOutlined.i_schedule,
+        _ => BOBIconKeys.MaterialIconsOutlined.i_calendar_today
+    };
+
+    private void OpenPicker()
+    {
+        if (IsDisabled || ReadOnly) return;
+
+        if (!HasValue)
+        {
+            DateValue = DateOnly.FromDateTime(DateTime.Today);
+            TimeValue = TimeOnly.FromDateTime(DateTime.Now);
+        }
+
+        _tempDateValue = DateValue;
+        _tempTimeValue = TimeValue;
+
+        _isPickerOpen = true;
+    }
+
+    private void Clear()
+    {
+        // Reset the value to initial
+        CurrentValue = _initialValue;
+
+        // Sync pickers with the new value
+        if (HasValue)
+        {
+            SyncPickersFromValue();
+        }
+        else
+        {
+            // Reset to sensible defaults when clearing to null
+            DateValue = DateOnly.FromDateTime(DateTime.Today);
+            TimeValue = TimeOnly.FromDateTime(DateTime.Now);
+        }
+
+        // CRITICAL FIX: Force Pattern to recreate by changing its @key
+        // This ensures the Pattern reinitializes with the new value (or null)
+        // Without this, the Pattern doesn't detect the change from incomplete → initial
+        _patternKey = Guid.NewGuid().ToString("N");
+
+        _isDirty = false;
+
+        StateHasChanged();
+    }
+
+    private Task OnDateChanged(DateOnly? value)
+    {
+        if (value.HasValue)
+        {
+            _tempDateValue = value.Value;
+        }
+        return Task.CompletedTask;
+    }
+
+    private Task OnTimeChanged(TimeOnly? value)
+    {
+        if (value.HasValue)
+        {
+            _tempTimeValue = value.Value;
+        }
+        return Task.CompletedTask;
+    }
+
+    private async Task ApplyPickerValue()
+    {
+        DateValue = _tempDateValue;
+        TimeValue = _tempTimeValue;
+        await UpdateCurrentValue();
+        _isPickerOpen = false;
+    }
+
+    private async Task UpdateCurrentValue()
+    {
+        Type type = UnderlyingType;
+
+        object? newValue = type switch
+        {
+            Type t when t == typeof(DateOnly) => DateValue,
+            Type t when t == typeof(TimeOnly) => TimeValue,
+            Type t when t == typeof(DateTime) => DateValue.ToDateTime(TimeValue),
+            Type t when t == typeof(DateTimeOffset) => new DateTimeOffset(DateValue.ToDateTime(TimeValue)),
+            _ => throw new InvalidOperationException($"Unsupported type: {type}")
+        };
+
+        CurrentValue = (TValue?)newValue;
+        await Task.CompletedTask;
+    }
+
+    private string GetPickerTitle()
+    {
+        if (ShowDate && ShowTime) return "Select Date & Time";
+        if (ShowDate) return "Select Date";
+        return "Select Time";
+    }
+
+    protected override string? FormatValueAsString(TValue? value)
+    {
+        if (value == null) return null;
+
+        Type type = UnderlyingType;
+
+        return type switch
+        {
+            Type t when t == typeof(DateOnly)
+                => ((DateOnly)(object)value).ToString(Format, CultureInfo.CurrentCulture),
+
+            Type t when t == typeof(TimeOnly)
+                => ((TimeOnly)(object)value).ToString(Format, CultureInfo.CurrentCulture),
+
+            Type t when t == typeof(DateTime)
+                => ((DateTime)(object)value).ToString(Format, CultureInfo.CurrentCulture),
+
+            Type t when t == typeof(DateTimeOffset)
+                => ((DateTimeOffset)(object)value).ToString(Format, CultureInfo.CurrentCulture),
+
+            _ => value.ToString()
+        };
+    }
+
+    protected override bool TryParseValueFromString(
+        string? value,
+        [MaybeNullWhen(false)] out TValue result,
+        [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        result = default!;
+        validationErrorMessage = null;
+
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            return true;
+        }
+
+        try
+        {
+            Type type = UnderlyingType;
+
+            object parsed = type switch
+            {
+                Type t when t == typeof(DateOnly)
+                    => DateOnly.ParseExact(value, Format, CultureInfo.CurrentCulture),
+
+                Type t when t == typeof(TimeOnly)
+                    => TimeOnly.ParseExact(value, Format, CultureInfo.CurrentCulture),
+
+                Type t when t == typeof(DateTime)
+                    => DateTime.ParseExact(value, Format, CultureInfo.CurrentCulture),
+
+                Type t when t == typeof(DateTimeOffset)
+                    => DateTimeOffset.ParseExact(value, Format, CultureInfo.CurrentCulture),
+
+                _ => throw new InvalidOperationException($"Unsupported type: {type}")
+            };
+
+            result = (TValue)parsed;
+            return true;
+        }
+        catch (FormatException)
+        {
+            validationErrorMessage = $"The value '{value}' does not match the expected format ({Format}).";
+            return false;
+        }
+    }
+
+    private string GetCultureFormatString()
+    {
+        DateTimeFormatInfo dtfi = CultureInfo.CurrentCulture.DateTimeFormat;
+        Type type = UnderlyingType;
+
+        return type switch
+        {
+            Type t when t == typeof(DateOnly) => dtfi.ShortDatePattern,
+            Type t when t == typeof(TimeOnly) => dtfi.ShortTimePattern,
+            Type t when t == typeof(DateTime) || t == typeof(DateTimeOffset)
+                => $"{dtfi.ShortDatePattern} {dtfi.ShortTimePattern}",
+            _ => string.Empty
+        };
+    }
+}

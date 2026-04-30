@@ -1,0 +1,17 @@
+﻿[data-bob-component="draggable"] {
+    display: contents;
+}
+
+    [data-bob-component="draggable"] .bob-draggable {
+        cursor: grab;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+        [data-bob-component="draggable"] .bob-draggable:active {
+            cursor: grabbing;
+        }
+
+    [data-bob-component="draggable"][data-bob-disabled="true"] .bob-draggable {
+        cursor: not-allowed;
+    }

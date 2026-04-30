@@ -1,0 +1,98 @@
+﻿[
+  {
+    Name: Default_Empty_DateOnly,
+    Html:
+<bob-component data-bob-floated="false" data-bob-component="input-date-time" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+    <span class="bob-input__outline-notch"><label for="bob-datetime-<ID>" class="bob-input__label">Date</label></span>
+    <span class="bob-input__outline-trailing"></span></div>
+                
+
+                <div id="bob-datetime-<ID>" class="bob-pattern bob-input__field" data-bob-pattern-id="<PATTERN_ID>" data-has-value="false" tabindex="0" blazor:onfocus="<EVENT>" blazor:onfocusin="2" blazor:onfocusout="3" b-<SCOPE> blazor:elementReference="<GUID>"></div><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Open picker" blazor:onclick="<EVENT>" blazor:onclick:stopPropagation blazor:onclick:preventDefault b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V10h16v11zm0-13H4V5h16v3z"/></svg></bob-component></button>
+
+                </div>
+
+            
+
+            </bob-component>
+  },
+  {
+    Name: With_DateOnly_Value,
+    Html:
+<bob-component data-bob-floated="true" data-bob-component="input-date-time" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+    <span class="bob-input__outline-notch"><label for="bob-datetime-<ID>" class="bob-input__label">Date</label></span>
+    <span class="bob-input__outline-trailing"></span></div>
+                
+
+                <div id="bob-datetime-<ID>" class="bob-pattern bob-input__field" data-bob-pattern-id="<PATTERN_ID>" data-has-value="true" tabindex="0" blazor:onfocus="<EVENT>" blazor:onfocusin="6" blazor:onfocusout="7" b-<SCOPE> blazor:elementReference="<GUID>"><span class="bob-pattern__editable" contenteditable="true" spellcheck="false" data-bob-index="0" tabindex="-1" b-<SCOPE>>06</span><span class="bob-pattern__separator" data-bob-index="1" b-<SCOPE>>/</span><span class="bob-pattern__editable" contenteditable="true" spellcheck="false" data-bob-index="2" tabindex="-1" b-<SCOPE>>15</span><span class="bob-pattern__separator" data-bob-index="3" b-<SCOPE>>/</span><span class="bob-pattern__editable" contenteditable="true" spellcheck="false" data-bob-index="4" tabindex="-1" b-<SCOPE>>2024</span></div><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Open picker" blazor:onclick="<EVENT>" blazor:onclick:stopPropagation blazor:onclick:preventDefault b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V10h16v11zm0-13H4V5h16v3z"/></svg></bob-component></button>
+
+                </div>
+
+            
+
+            </bob-component>
+  },
+  {
+    Name: Disabled,
+    Html:
+<bob-component data-bob-floated="false" data-bob-component="input-date-time" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="true" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+    <span class="bob-input__outline-notch"><label for="bob-datetime-<ID>" class="bob-input__label">Date</label></span>
+    <span class="bob-input__outline-trailing"></span></div>
+                
+
+                <div id="bob-datetime-<ID>" class="bob-pattern bob-input__field" data-bob-pattern-id="<PATTERN_ID>" data-has-value="false" tabindex="-1" blazor:onfocus="<EVENT>" blazor:onfocusin="10" blazor:onfocusout="11" b-<SCOPE> blazor:elementReference="<GUID>"></div><button type="button" data-bob-size="small" class="bob-btn" disabled tabindex="-1" aria-label="Open picker" blazor:onclick="<EVENT>" blazor:onclick:stopPropagation blazor:onclick:preventDefault b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V10h16v11zm0-13H4V5h16v3z"/></svg></bob-component></button>
+
+                </div>
+
+            
+
+            </bob-component>
+  },
+  {
+    Name: ReadOnly,
+    Html:
+<bob-component data-bob-floated="true" data-bob-component="input-date-time" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="true" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+    <span class="bob-input__outline-notch"><label for="bob-datetime-<ID>" class="bob-input__label">Date</label></span>
+    <span class="bob-input__outline-trailing"></span></div>
+                
+
+                <div id="bob-datetime-<ID>" class="bob-pattern bob-input__field" data-bob-pattern-id="<PATTERN_ID>" data-has-value="true" tabindex="0" blazor:onfocus="<EVENT>" blazor:onfocusin="14" blazor:onfocusout="15" b-<SCOPE> blazor:elementReference="<GUID>"><span class="bob-pattern__editable" contenteditable="false" spellcheck="false" data-bob-index="0" tabindex="-1" b-<SCOPE>>06</span><span class="bob-pattern__separator" data-bob-index="1" b-<SCOPE>>/</span><span class="bob-pattern__editable" contenteditable="false" spellcheck="false" data-bob-index="2" tabindex="-1" b-<SCOPE>>15</span><span class="bob-pattern__separator" data-bob-index="3" b-<SCOPE>>/</span><span class="bob-pattern__editable" contenteditable="false" spellcheck="false" data-bob-index="4" tabindex="-1" b-<SCOPE>>2024</span></div><button type="button" data-bob-size="small" class="bob-btn" disabled tabindex="-1" aria-label="Open picker" blazor:onclick="<EVENT>" blazor:onclick:stopPropagation blazor:onclick:preventDefault b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V10h16v11zm0-13H4V5h16v3z"/></svg></bob-component></button>
+
+                </div>
+
+            
+
+            </bob-component>
+  },
+  {
+    Name: Error_State,
+    Html:
+<bob-component data-bob-floated="false" data-bob-component="input-date-time" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="true" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+    <span class="bob-input__outline-notch"><label for="bob-datetime-<ID>" class="bob-input__label">Date</label></span>
+    <span class="bob-input__outline-trailing"></span></div>
+                
+
+                <div id="bob-datetime-<ID>" class="bob-pattern bob-input__field" data-bob-pattern-id="<PATTERN_ID>" data-has-value="false" tabindex="0" blazor:onfocus="<EVENT>" blazor:onfocusin="18" blazor:onfocusout="19" b-<SCOPE> blazor:elementReference="<GUID>"></div><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Open picker" blazor:onclick="<EVENT>" blazor:onclick:stopPropagation blazor:onclick:preventDefault b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V10h16v11zm0-13H4V5h16v3z"/></svg></bob-component></button>
+
+                </div>
+
+            
+
+            </bob-component>
+  },
+  {
+    Name: With_Helper_Text,
+    Html:
+<bob-component data-bob-floated="false" data-bob-component="input-date-time" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+    <span class="bob-input__outline-notch"><label for="bob-datetime-<ID>" class="bob-input__label">Date</label></span>
+    <span class="bob-input__outline-trailing"></span></div>
+                
+
+                <div id="bob-datetime-<ID>" class="bob-pattern bob-input__field" data-bob-pattern-id="<PATTERN_ID>" data-has-value="false" tabindex="0" blazor:onfocus="<EVENT>" blazor:onfocusin="22" blazor:onfocusout="23" b-<SCOPE> blazor:elementReference="<GUID>"></div><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Open picker" blazor:onclick="<EVENT>" blazor:onclick:stopPropagation blazor:onclick:preventDefault b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 3h-1V1h-2v2H7V1H5v2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 18H4V10h16v11zm0-13H4V5h16v3z"/></svg></bob-component></button>
+
+                </div>
+
+            <div id="bob-helper-<ID>" class="bob-field-helper" aria-live="polite" b-<SCOPE>>Select a date</div>
+
+            </bob-component>
+  }
+]

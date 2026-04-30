@@ -1,0 +1,19 @@
+﻿.demo__preview {
+    padding: 2.25rem;
+    background:
+        linear-gradient(135deg,
+            color-mix(in oklab, var(--palette-primary) 4%, var(--palette-surface)) 0%,
+            var(--palette-surface) 100%);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+    position: relative;
+}
+
+.demo__code {
+    padding-top: 1em;
+}
+

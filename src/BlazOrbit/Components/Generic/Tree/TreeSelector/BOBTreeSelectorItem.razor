@@ -1,0 +1,24 @@
+﻿@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+@inherits BOBTreeNodeBase<TreeSelectionNodeRegistration>
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code {
+    protected override string GenerateDefaultKey()
+        => $"selection-item-{Guid.NewGuid():N}";
+
+    protected override TreeSelectionNodeRegistration CreateRegistration() => new()
+    {
+        Key = ResolvedKey,
+        Text = Text,
+        Icon = Icon,
+        IsDisabled = Disabled,
+        InitiallyExpanded = InitiallyExpanded,
+        Data = Data,
+        NodeContent = NodeContent,
+        ParentKey = ParentNodeKey
+    };
+}

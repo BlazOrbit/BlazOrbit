@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<Nullable>enable</Nullable>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<OverrideHtmlAssetPlaceholders>true</OverrideHtmlAssetPlaceholders>
+		<!--
+			Required for dynamic culture switching in Blazor WASM.
+			`BlazOrbit.Localization.Wasm` sets DefaultThreadCurrentCulture,
+			which Blazor only allows when this flag is true. Adds ~1 MB ICU data.
+			HybridGlobalization still delegates date/number formatting to `Intl`.
+		-->
+		<BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
+		<HybridGlobalization>true</HybridGlobalization>
+		<RunAOTCompilation>true</RunAOTCompilation>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.7" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.7" PrivateAssets="all" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\src\BlazOrbit\BlazOrbit.csproj" />
+		<ProjectReference Include="..\..\src\BlazOrbit.FluentValidation\BlazOrbit.FormsFluentValidation.csproj" />
+		<ProjectReference Include="..\..\src\BlazOrbit.Localization.Wasm\BlazOrbit.Localization.Wasm.csproj" />
+		<ProjectReference Include="..\..\docs\BlazOrbit.Docs.Components\BlazOrbit.Docs.Components.csproj" />
+		<ProjectReference Include="..\..\docs\BlazOrbit.Docs.Translations\BlazOrbit.Docs.Translations.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\BlazOrbit.Docs.CodeGeneration\BlazOrbit.Docs.CodeGeneration.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<AdditionalFiles Include="Pages\**\*.razor" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<CompilerVisibleProperty Include="RootNamespace" />
+		<CompilerVisibleProperty Include="ProjectDir" />
+	</ItemGroup>
+
+</Project>

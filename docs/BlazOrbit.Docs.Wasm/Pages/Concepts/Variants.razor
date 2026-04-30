@@ -1,0 +1,100 @@
+﻿@page "/concepts/variants"
+
+<PageTitle>Variants — BlazOrbit</PageTitle>
+
+<DocPage Eyebrow="Concept"
+         Title="Variants"
+         Lede="Register your own render template for any component — slot it in alongside the built-ins with a strongly typed variant id.">
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">What a variant is</h2>
+        <p class="doc-section__description">
+            A <em>variant</em> is a <code>RenderFragment</code> keyed on a typed id. Built-in variants
+            (e.g. <code>BOBButtonVariant.Default</code>, <code>BOBThemeSelectorVariant.SunMoon</code>)
+            are hard-coded inside the component; custom variants are registered at startup and resolved
+            by the <code>IVariantRegistry</code> singleton at render time.
+        </p>
+        <p class="doc-section__description">
+            Components that support variants derive from
+            <code>BOBVariantComponentBase&lt;TComponent, TVariant&gt;</code>. Inside they expose a
+            dictionary of built-in templates and delegate unknown ids to the registry.
+        </p>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Define a variant type</h2>
+        <p class="doc-section__description">
+            Every variant type inherits <code>Variant</code> and exposes static named instances.
+        </p>
+        <BOBCodeBlock Title="MyButtonVariant.cs"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="@_variantType" />
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Register a template</h2>
+        <p class="doc-section__description">
+            Register in <code>Program.cs</code> via <code>AddBlazOrbitVariants</code>. The builder's
+            <code>ForComponent&lt;T&gt;()</code> scopes registrations to a concrete component type.
+        </p>
+        <BOBCodeBlock Title="Program.cs"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="@_registerSample" />
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Use the variant</h2>
+        <BOBCodeBlock Title="MyPage.razor"
+                      Language="SyntaxHighlightLanguage.Razor"
+                      Code="@_usageSample" />
+        <p class="doc-section__description" style="margin-top: 1rem;">
+            Pass your custom variant through the component's <code>Variant</code> parameter. The framework
+            calls your registered <code>RenderFragment</code> with the live component instance, so you can
+            bind to its parameters, state, and callbacks.
+        </p>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Tips</h2>
+        <ul>
+            <li>Variants always run through <code>BOBComponentAttributesBuilder</code> first — the root <code>&lt;bob-component&gt;</code> gets the usual <code>data-bob-*</code> treatment whether you override the template or not.</li>
+            <li>Variants are <strong>singletons</strong>. Don't close over mutable state; use component parameters instead.</li>
+            <li>For one-off layouts you'd rather inline, use the component's slots (e.g. <code>ChildContent</code>, <code>Header</code>) instead of a registered variant.</li>
+            <li>Create a custom variant via <code>SomeVariant.Custom(&quot;name&quot;)</code> when the type exposes it, or subclass <code>Variant</code> directly.</li>
+        </ul>
+    </section>
+
+</DocPage>
+
+@code {
+    private const string _variantType = @"public sealed class MyButtonVariant : Variant
+{
+    public static readonly MyButtonVariant Gradient = new(""Gradient"");
+    public static readonly MyButtonVariant Ghost    = new(""Ghost"");
+
+    public MyButtonVariant(string name) : base(name) { }
+}";
+
+    private const string _registerSample = @"builder.Services.AddBlazOrbit();
+
+builder.Services.AddBlazOrbitVariants(b =>
+{
+    b.ForComponent<BOBButton>()
+     .AddVariant(MyButtonVariant.Gradient, button => @<bob-component @attributes=""button.ComputedAttributes"">
+         <button class=""my-gradient-btn"" @onclick=""button.HandleClick"">
+             @button.Text
+         </button>
+     </bob-component>)
+     .AddVariant(MyButtonVariant.Ghost, button => @<bob-component @attributes=""button.ComputedAttributes"">
+         <button class=""my-ghost-btn"" @onclick=""button.HandleClick"">@button.Text</button>
+     </bob-component>);
+});";
+
+    private const string _usageSample = @"<BOBButton Text=""Subscribe""
+           Variant=""MyButtonVariant.Gradient""
+           OnClick=""HandleSubscribe"" />
+
+<BOBButton Text=""Skip""
+           Variant=""MyButtonVariant.Ghost""
+           OnClick=""HandleSkip"" />";
+}

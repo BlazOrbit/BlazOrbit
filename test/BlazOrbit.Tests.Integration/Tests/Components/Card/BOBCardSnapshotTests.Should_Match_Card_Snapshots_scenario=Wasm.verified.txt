@@ -1,0 +1,22 @@
+﻿[
+  {
+    Name: Default,
+    Html: <bob-component data-bob-component="card" data-bob-variant="default" data-bob-clickable="false" data-bob-media-position="top" b-<SCOPE>><div class="bob-card" blazor:onclick="<EVENT>" b-<SCOPE>><div class="bob-card__content" b-<SCOPE>>Card body</div></div></bob-component>
+  },
+  {
+    Name: WithHeader,
+    Html: <bob-component data-bob-component="card" data-bob-variant="default" data-bob-clickable="false" data-bob-media-position="top" b-<SCOPE>><div class="bob-card" blazor:onclick="<EVENT>" b-<SCOPE>><div class="bob-card__header" b-<SCOPE>>Title</div><div class="bob-card__content" b-<SCOPE>>Body</div></div></bob-component>
+  },
+  {
+    Name: WithMedia,
+    Html: <bob-component data-bob-component="card" data-bob-variant="default" style="--_card-media-height: 200px" data-bob-clickable="false" data-bob-media-position="top" b-<SCOPE>><div class="bob-card" blazor:onclick="<EVENT>" b-<SCOPE>><div class="bob-card__media" b-<SCOPE>>img</div><div class="bob-card__content" b-<SCOPE>>Body</div></div></bob-component>
+  },
+  {
+    Name: WithShadow,
+    Html: <bob-component data-bob-component="card" data-bob-variant="default" data-bob-shadow="true" style="--bob-inline-shadow: 0px 4px 8px 0px color-mix(in srgb, #000000 20%, transparent)" data-bob-clickable="false" data-bob-media-position="top" b-<SCOPE>><div class="bob-card" blazor:onclick="<EVENT>" b-<SCOPE>><div class="bob-card__content" b-<SCOPE>>Body</div></div></bob-component>
+  },
+  {
+    Name: WithActions,
+    Html: <bob-component data-bob-component="card" data-bob-variant="default" data-bob-clickable="false" data-bob-media-position="top" b-<SCOPE>><div class="bob-card" blazor:onclick="<EVENT>" b-<SCOPE>><div class="bob-card__content" b-<SCOPE>>Body</div><div class="bob-card__actions bob-card__actions--end" b-<SCOPE>>Save</div></div></bob-component>
+  }
+]

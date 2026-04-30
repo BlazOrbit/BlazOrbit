@@ -1,0 +1,206 @@
+﻿@namespace BlazOrbit.Components.Layout
+@attribute [GenerateComponentInfo]
+
+@inherits BOBComponentBase
+@implements IAsyncDisposable
+@implements IHasElevation
+
+@inject IModalJsInterop JsInterop
+@using Microsoft.JSInterop
+
+@if (Open)
+{
+    <bob-component @attributes="ComputedAttributes"
+         @onkeydown="HandleKeyDown"
+         tabindex="-1"
+         @ref="_hostRef">
+        <div class="bob-dialog-overlay @(_isClosing ? "bob-dialog-overlay--closing" : "")"
+             @onclick="HandleOverlayClick">
+        </div>
+
+        <div class="bob-dialog @(_isClosing ? "bob-dialog--closing" : "")"
+             @ref="_dialogRef"
+             @onclick:stopPropagation="true"
+             role="dialog"
+             aria-modal="true"
+             aria-labelledby="@_titleId"
+             style="@GetDialogStyle()">
+
+            @if (Header != null || !string.IsNullOrEmpty(Title) || Closable)
+            {
+                <div class="bob-dialog__header">
+                    @if (Header != null)
+                    {
+                        @Header
+                    }
+                    else if (!string.IsNullOrEmpty(Title))
+                    {
+                        <h2 id="@_titleId" class="bob-dialog__title">@Title</h2>
+                    }
+
+                    @if (Closable)
+                    {
+                        <_BOBBtn Icon="@BOBIconKeys.UI.Close"
+                                    AriaLabel="Close"
+                                    OnClick="CloseAsync" />
+                    }
+                </div>
+            }
+
+            @if (Content != null)
+            {
+                <div class="bob-dialog__content">
+                    @Content
+                </div>
+            }
+
+            @if (Footer != null)
+            {
+                <div class="bob-dialog__footer">
+                    @Footer
+                </div>
+            }
+        </div>
+    </bob-component>
+}
+
+@code {
+    private readonly string _titleId = $"dialog-title-{Guid.NewGuid():N}";
+    private readonly string _focusTrapId = Guid.NewGuid().ToString("N");
+    private ElementReference _hostRef;
+    private ElementReference _dialogRef;
+    private bool _jsInitialized;
+    private bool _isClosing;
+    private const int CloseAnimationFallbackMs = 300;
+
+    /// <summary>Material Design elevation level (0–24) applied to the dialog surface. Sets a derived
+    /// shadow and lifts the surface in dark mode via a tint overlay. <see langword="null"/> (default)
+    /// keeps the component-default shadow defined in CSS.</summary>
+    [Parameter] public int? Elevation { get; set; }
+
+    /// <summary>When <see langword="true" />, the dialog is visible.</summary>
+    [Parameter] public bool Open { get; set; }
+    /// <summary>Raised when the dialog opens or closes.</summary>
+    [Parameter] public EventCallback<bool> OpenChanged { get; set; }
+
+    /// <summary>Text displayed in the dialog header. Ignored when <see cref="Header"/> is provided.</summary>
+    [Parameter] public string? Title { get; set; }
+    /// <summary>Custom header content rendered above the dialog body.</summary>
+    [Parameter] public RenderFragment? Header { get; set; }
+    /// <summary>Content rendered inside the dialog body.</summary>
+    [Parameter] public RenderFragment? Content { get; set; }
+    /// <summary>Content rendered inside the dialog footer, typically action buttons.</summary>
+    [Parameter] public RenderFragment? Footer { get; set; }
+
+    /// <summary>When <see langword="true" /> (default), a close button is shown in the header.</summary>
+    [Parameter] public bool Closable { get; set; } = true;
+    /// <summary>When <see langword="true" /> (default), clicking the overlay closes the dialog.</summary>
+    [Parameter] public bool CloseOnOverlayClick { get; set; } = true;
+    /// <summary>When <see langword="true" /> (default), pressing Escape closes the dialog.</summary>
+    [Parameter] public bool CloseOnEscape { get; set; } = true;
+
+    /// <summary>Minimum width of the dialog. Accepts any valid CSS length.</summary>
+    [Parameter] public string? MinWidth { get; set; } = "300px";
+    /// <summary>Maximum width of the dialog. Accepts any valid CSS length.</summary>
+    [Parameter] public string? MaxWidth { get; set; } = "90vw";
+    /// <summary>Minimum height of the dialog. Accepts any valid CSS length.</summary>
+    [Parameter] public string? MinHeight { get; set; }
+    /// <summary>Maximum height of the dialog. Accepts any valid CSS length.</summary>
+    [Parameter] public string? MaxHeight { get; set; } = "90vh";
+    /// <summary>When <see langword="true" />, the dialog fills the entire viewport.</summary>
+    [Parameter] public bool FullScreen { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (Open && !_jsInitialized)
+        {
+            await JsInterop.LockScrollAsync();
+            await JsInterop.TrapFocusAsync(_dialogRef, _focusTrapId);
+            _jsInitialized = true;
+        }
+        else if (!Open && _jsInitialized)
+        {
+            await CleanupAsync();
+        }
+    }
+
+    private string GetDialogStyle()
+    {
+        List<string> styles = [];
+
+        if (FullScreen)
+        {
+            styles.Add("width: 100vw");
+            styles.Add("height: 100vh");
+            styles.Add("max-width: 100vw");
+            styles.Add("max-height: 100vh");
+            styles.Add("border-radius: 0");
+        }
+        else
+        {
+            if (!string.IsNullOrEmpty(MinWidth))
+                styles.Add($"min-width: {MinWidth}");
+            if (!string.IsNullOrEmpty(MaxWidth))
+                styles.Add($"max-width: {MaxWidth}");
+            if (!string.IsNullOrEmpty(MinHeight))
+                styles.Add($"min-height: {MinHeight}");
+            if (!string.IsNullOrEmpty(MaxHeight))
+                styles.Add($"max-height: {MaxHeight}");
+        }
+
+        return string.Join("; ", styles);
+    }
+
+    private async Task HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Escape" && CloseOnEscape)
+        {
+            await CloseAsync();
+        }
+    }
+
+    private async Task HandleOverlayClick()
+    {
+        if (CloseOnOverlayClick)
+        {
+            await CloseAsync();
+        }
+    }
+
+    private async Task CloseAsync()
+    {
+        _isClosing = true;
+        StateHasChanged();
+
+        try
+        {
+            await JsInterop.WaitForAnimationEndAsync(_dialogRef, CloseAnimationFallbackMs);
+        }
+        catch (JSDisconnectedException) { }
+        catch (InvalidOperationException) { }
+        catch (TaskCanceledException) { }
+
+        if (IsDisposed) return;
+
+        _isClosing = false;
+        Open = false;
+        await OpenChanged.InvokeAsync(false);
+    }
+
+    private async Task CleanupAsync()
+    {
+        if (_jsInitialized)
+        {
+            await JsInterop.ReleaseFocusAsync(_focusTrapId);
+            await JsInterop.UnlockScrollAsync();
+            _jsInitialized = false;
+        }
+    }
+
+    public override async ValueTask DisposeAsync()
+    {
+        IsDisposed = true;
+        await CleanupAsync();
+        await base.DisposeAsync();
+    }
+}

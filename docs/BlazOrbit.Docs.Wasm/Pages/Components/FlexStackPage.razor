@@ -1,0 +1,132 @@
+﻿@page "/components/flex-stack"
+
+@inject IStringLocalizer<FlexStackPage> Loc
+
+<PageTitle>BlazOrbit - BOBFlexStack</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBFlexStack"]"
+         Lede="@Loc["A flexible stack container for horizontal or vertical layouts with alignment, wrapping, spacing, background, border, shadow and inherited text color."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBFlexStack)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]" Description="@Loc["Default row direction with items distributed by gap."]">
+        <BOBFlexStack Gap="1rem">
+            <BOBButton Text="@Loc["First"]" />
+            <BOBButton Text="@Loc["Second"]" />
+            <BOBButton Text="@Loc["Third"]" />
+        </BOBFlexStack>
+    </DocDemo>
+
+    <DocDemo Key="Vertical" Title="@Loc["Vertical stack"]" Description="@Loc["Set Direction to Column for a vertical layout."]">
+        <BOBFlexStack Direction="FlexStackDirection.Column" Gap="0.5rem">
+            <BOBButton Text="@Loc["Item 1"]" />
+            <BOBButton Text="@Loc["Item 2"]" />
+            <BOBButton Text="@Loc["Item 3"]" />
+        </BOBFlexStack>
+    </DocDemo>
+
+    <DocDemo Key="Alignment" Title="@Loc["Alignment"]" Description="@Loc["Combine JustifyContent and AlignItems to position items within the container."]">
+        <BOBFlexStack Direction="FlexStackDirection.Row"
+                      JustifyContent="FlexStackJustifyContent.SpaceBetween"
+                      AlignItems="FlexStackAlignItems.Center"
+                      Gap="0.5rem"
+                      P="1rem"
+                      BackgroundColor="color-mix(in oklab, var(--palette-primary) 6%, transparent)"
+                      style="min-height: 6rem; border-radius: 0.5rem;">
+            <BOBButton Text="@Loc["Start"]" />
+            <BOBButton Text="@Loc["Center"]" />
+            <BOBButton Text="@Loc["End"]" />
+        </BOBFlexStack>
+    </DocDemo>
+
+    <DocDemo Key="BackgroundColor" Title="@Loc["Background color"]" Description="@Loc["Set a theme-aware or custom background color using the BackgroundColor parameter."]">
+        <BOBFlexStack Gap="1rem">
+            <BOBFlexStack Gap="0.5rem"
+                          P="1rem"
+                          BackgroundColor="var(--palette-primary)"
+                          Color="var(--palette-primary-contrast)"
+                          style="border-radius: 0.5rem;">
+                <BOBButton Text="@Loc["Primary"]" />
+                <BOBButton Text="@Loc["Stack"]" />
+            </BOBFlexStack>
+
+            <BOBFlexStack Gap="0.5rem"
+                          P="1rem"
+                          BackgroundColor="var(--palette-secondary)"
+                          Color="var(--palette-secondary-contrast)"
+                          style="border-radius: 0.5rem;">
+                <BOBButton Text="@Loc["Secondary"]" />
+                <BOBButton Text="@Loc["Stack"]" />
+            </BOBFlexStack>
+        </BOBFlexStack>
+    </DocDemo>
+
+    <DocDemo Key="Border" Title="@Loc["Border & radius"]" Description="@Loc["Apply borders and rounded corners with the Border parameter."]">
+        <BOBFlexStack Gap="1rem">
+            <BOBFlexStack Gap="0.5rem"
+                          P="1rem"
+                          BackgroundColor="var(--palette-surface)"
+                          Border="@(BorderStyle.Create().All("1px", BorderStyleType.Solid, "var(--palette-border)").Radius(8))">
+                <BOBButton Text="@Loc["Rounded"]" />
+                <BOBButton Text="@Loc["Border"]" />
+            </BOBFlexStack>
+
+            <BOBFlexStack Gap="0.5rem"
+                          P="1rem"
+                          BackgroundColor="var(--palette-surface)"
+                          Border="@(BorderStyle.Create().Top("3px", BorderStyleType.Solid, "var(--palette-primary)").Radius(4))">
+                <BOBButton Text="@Loc["Top accent"]" />
+                <BOBButton Text="@Loc["Border"]" />
+            </BOBFlexStack>
+        </BOBFlexStack>
+    </DocDemo>
+
+    <DocDemo Key="Shadow" Title="@Loc["Shadow"]" Description="@Loc["Add elevation with the Shadow parameter."]">
+        <BOBFlexStack Gap="1rem">
+            <BOBFlexStack Gap="0.5rem"
+                          P="1rem"
+                          BackgroundColor="var(--palette-surface)"
+                          Border="@(BorderStyle.Create().All("1px", BorderStyleType.Solid, "var(--palette-border)").Radius(8))"
+                          Shadow="@(ShadowStyle.Create(2, 4))">
+                <BOBButton Text="@Loc["Elevation 1"]" />
+                <BOBButton Text="@Loc["Stack"]" />
+            </BOBFlexStack>
+
+            <BOBFlexStack Gap="0.5rem"
+                          P="1rem"
+                          BackgroundColor="var(--palette-surface)"
+                          Border="@(BorderStyle.Create().All("1px", BorderStyleType.Solid, "var(--palette-border)").Radius(8))"
+                          Shadow="@(ShadowStyle.Create(6, 12))">
+                <BOBButton Text="@Loc["Elevation 2"]" />
+                <BOBButton Text="@Loc["Stack"]" />
+            </BOBFlexStack>
+        </BOBFlexStack>
+    </DocDemo>
+
+    <DocDemo Key="Spacing" Title="@Loc["Gaps & spacing"]" Description="@Loc["Control row and column gaps independently, and add padding or margin."]">
+        <BOBFlexStack RowGap="2rem" ColumnGap="0.5rem" P="1rem" BackgroundColor="color-mix(in oklab, var(--palette-primary) 6%, transparent)" style="border-radius: 0.5rem;">
+            <BOBButton Text="A" />
+            <BOBButton Text="B" />
+            <BOBButton Text="C" />
+            <BOBButton Text="D" />
+            <BOBButton Text="E" />
+            <BOBButton Text="F" />
+        </BOBFlexStack>
+    </DocDemo>
+
+    <DocDemo Key="Wrap" Title="@Loc["Wrap behavior"]" Description="@Loc["Control whether items wrap to new lines when they overflow the container."]">
+        <BOBFlexStack Gap="0.5rem" Wrap="FlexStackWrap.NoWrap" style="max-width: 20rem; overflow: auto; background: color-mix(in oklab, var(--palette-primary) 6%, transparent); border-radius: 0.5rem; padding: 0.5rem;">
+            <BOBButton Text="@Loc["NoWrap"]" />
+            <BOBButton Text="@Loc["Item 2"]" />
+            <BOBButton Text="@Loc["Item 3"]" />
+            <BOBButton Text="@Loc["Item 4"]" />
+            <BOBButton Text="@Loc["Item 5"]" />
+        </BOBFlexStack>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBFlexStackComponentInfo.Parameters" />
+    </section>
+
+</DocPage>

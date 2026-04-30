@@ -1,0 +1,117 @@
+﻿/* ========================================
+   Typography System
+   Auto-generated - Do not edit manually
+   ======================================== */
+
+:root {
+    --bob-font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    --bob-font-family-heading: var(--bob-font-family);
+    --bob-font-mono: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace;
+
+    /* Fluid typography: scales from 0.875rem (640px) to 1.125rem (1536px) */
+    --bob-font-size-base: clamp(0.875rem, 0.75rem + 0.25vw, 1.125rem);
+
+    --bob-line-height: 1.5;
+    --bob-line-height-heading: 1.2;
+}
+
+/* ========================================
+   Headings - Scale: 1.25 ratio (Major Third)
+   ======================================== */
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--bob-font-family-heading);
+    font-weight: 700;
+    line-height: var(--bob-line-height-heading);
+}
+
+h1 { font-size: 2.441em; }
+h2 { font-size: 1.953em; }
+h3 { font-size: 1.563em; }
+h4 { font-size: 1.25em; }
+h5 { font-size: 1em; }
+h6 { font-size: 0.875em; }
+
+/* ========================================
+   Paragraph & Inline Text
+   ======================================== */
+
+p { line-height: var(--bob-line-height); }
+small { font-size: 0.875em; }
+strong, b { font-weight: 700; }
+em, i { font-style: italic; }
+
+mark {
+    background-color: var(--palette-highlight);
+    padding-inline: 0.25em;
+    padding-block: 0.125em;
+}
+
+/* ========================================
+   Links
+   ======================================== */
+
+a {
+    color: var(--palette-primary);
+    transition: color 150ms ease;
+}
+
+a:hover { text-decoration: underline; }
+
+a:focus-visible {
+    outline: var(--bob-highlight-outline);
+    outline-offset: var(--bob-highlight-outline-offset);
+}
+
+/* ========================================
+   Code & Preformatted
+   ======================================== */
+
+code, kbd, samp {
+    font-family: var(--bob-font-mono);
+    font-size: calc(0.875em * var(--bob-size-multiplier, 1));
+    padding-inline: 0.375em;
+    padding-block: 0.125em;
+    background-color: var(--palette-surface);
+    font-weight: 500;
+}
+
+pre {
+    font-family: var(--bob-font-mono);
+    font-size: calc(0.875em * var(--bob-size-multiplier, 1));
+    line-height: 1.6;
+    padding: 1em;
+    overflow-x: auto;
+    white-space: pre;
+}
+
+pre code {
+    background-color: transparent;
+    padding: 0;
+}
+
+/* ========================================
+   Blockquote & HR
+   ======================================== */
+
+blockquote {
+    border-inline-start: 4px solid var(--palette-primary);
+    padding-inline-start: 1em;
+    font-style: italic;
+    color: var(--palette-surface-contrast);
+}
+
+hr {
+    border: none;
+    border-block-start: var(--bob-border-width) var(--bob-border-style) var(--palette-border, currentColor);
+    opacity: 0.2;
+}
+
+/* ========================================
+   Selection
+   ======================================== */
+
+::selection {
+    background-color: var(--palette-primary);
+    color: var(--palette-primary-contrast);
+}

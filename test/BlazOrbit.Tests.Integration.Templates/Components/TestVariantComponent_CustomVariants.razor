@@ -1,0 +1,13 @@
+﻿@code {
+
+    public RenderFragment BasicCustomTemplate(TestVariantComponent component) => __builder =>
+    {
+        <bob-component @attributes="component.ComputedAttributes">
+            <button @onclick="component.OnClick"
+                    disabled="@component.Disabled">
+                @component.Text
+            </button>
+        </bob-component>
+    };
+
+}

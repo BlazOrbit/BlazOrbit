@@ -1,0 +1,30 @@
+﻿[
+  {
+    Name: Spinner_Default,
+    Html: <bob-component data-bob-component="loading-indicator" data-bob-variant="spinner" data-bob-size="medium" role="status" aria-live="polite" aria-label="Loading" b-<SCOPE>><svg viewBox="0 0 50 50" role="img" aria-hidden="true" focusable="false" b-<SCOPE>><circle cx="25" cy="25" r="20" b-<SCOPE>></circle></svg></bob-component>
+  },
+  {
+    Name: Dots,
+    Html:
+<bob-component data-bob-component="loading-indicator" data-bob-variant="dots" data-bob-size="medium" role="status" aria-live="polite" aria-label="Loading" b-<SCOPE>><svg viewBox="0 0 40 10" role="img" aria-hidden="true" focusable="false" b-<SCOPE>><circle cx="5" cy="5" r="4" b-<SCOPE>></circle>
+                <circle cx="20" cy="5" r="4" b-<SCOPE>></circle>
+                <circle cx="35" cy="5" r="4" b-<SCOPE>></circle></svg></bob-component>
+  },
+  {
+    Name: Bars,
+    Html:
+<bob-component data-bob-component="loading-indicator" data-bob-variant="bars" data-bob-size="medium" role="status" aria-live="polite" aria-label="Loading" b-<SCOPE>><svg viewBox="0 0 24 30" role="img" aria-hidden="true" focusable="false" b-<SCOPE>><rect x="0" y="0" width="4" height="30" rx="2" b-<SCOPE>></rect>
+                <rect x="10" y="0" width="4" height="30" rx="2" b-<SCOPE>></rect>
+                <rect x="20" y="0" width="4" height="30" rx="2" b-<SCOPE>></rect></svg></bob-component>
+  },
+  {
+    Name: LinearIndeterminate,
+    Html:
+<bob-component data-bob-component="loading-indicator" data-bob-variant="linearindeterminate" data-bob-size="medium" role="progressbar" aria-label="Loading" aria-valuemin="0" aria-valuemax="100" b-<SCOPE>><div class="bob-loading-linear bob-loading-linear--primary" b-<SCOPE>></div>
+            <div class="bob-loading-linear bob-loading-linear--secondary" b-<SCOPE>></div></bob-component>
+  },
+  {
+    Name: Spinner_Large_Custom_Label,
+    Html: <bob-component data-bob-component="loading-indicator" data-bob-variant="spinner" data-bob-size="large" role="status" aria-live="polite" aria-label="Uploading file" b-<SCOPE>><svg viewBox="0 0 50 50" role="img" aria-hidden="true" focusable="false" b-<SCOPE>><circle cx="25" cy="25" r="20" b-<SCOPE>></circle></svg></bob-component>
+  }
+]

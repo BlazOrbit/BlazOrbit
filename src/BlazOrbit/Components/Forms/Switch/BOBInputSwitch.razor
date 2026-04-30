@@ -1,0 +1,96 @@
+﻿@namespace BlazOrbit.Components.Forms
+@attribute [GenerateComponentInfo]
+
+@inherits BOBInputComponentBase<bool, BOBInputSwitch, BOBInputSwitchVariant>
+@implements IHasSize
+@implements IHasDensity
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code {
+    private string _inputId = $"bob-switch-{Guid.NewGuid():N}";
+    private string _helperTextId = $"bob-helper-{Guid.NewGuid():N}";
+
+    /// <summary>Visual size of the component.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    /// <summary>Vertical density (gap) of the component.</summary>
+    [Parameter] public BOBDensity Density { get; set; } = BOBDensity.Standard;
+
+    /// <summary>Floating label displayed above the component.</summary>
+    [Parameter] public string? Label { get; set; }
+    /// <summary>Helper text displayed below the component for additional context.</summary>
+    [Parameter] public string? HelperText { get; set; }
+
+    /// <summary>IconInactive.</summary>
+    [Parameter] public IconKey? IconInactive { get; set; }
+    /// <summary>IconActive.</summary>
+    [Parameter] public IconKey? IconActive { get; set; }
+
+    /// <summary>TrackColorInactive.</summary>
+    [Parameter] public string? TrackColorInactive { get; set; }
+    /// <summary>TrackColorActive.</summary>
+    [Parameter] public string? TrackColorActive { get; set; }
+
+    public override BOBInputSwitchVariant DefaultVariant => BOBInputSwitchVariant.Default;
+
+    protected override IReadOnlyDictionary<BOBInputSwitchVariant, Func<BOBInputSwitch, RenderFragment>> BuiltInTemplates { get; } =
+        new Dictionary<BOBInputSwitchVariant, Func<BOBInputSwitch, RenderFragment>>
+        {
+            [BOBInputSwitchVariant.Default] = c => c.RenderDefault()
+        };
+
+    protected bool IsChecked => CurrentValue;
+
+    protected override bool TryParseValueFromString(string? value, out bool result, out string validationErrorMessage)
+    {
+        validationErrorMessage = string.Empty;
+        if (bool.TryParse(value, out bool boolResult))
+        {
+            result = boolResult;
+            return true;
+        }
+        result = false;
+        validationErrorMessage = $"Unable to parse '{value}' as boolean.";
+        return false;
+    }
+
+    private RenderFragment RenderDefault() => __builder =>
+    {
+        <bob-component @attributes="ComputedAttributes">
+
+            <BOBSwitch TValue="bool"
+                       Value="@CurrentValue"
+                       ValueChanged="@OnSwitchValueChanged"
+                       OptionInactive="@false"
+                       OptionActive="@true"
+                       Disabled="@IsDisabled"
+                       Size="@Size"
+                       Density="@Density"
+                       Label="@Label"
+                       IconInactive="@IconInactive"
+                       IconActive="@IconActive"
+                       TrackColorInactive="@TrackColorInactive"
+                       TrackColorActive="@TrackColorActive"
+                       InputId="@_inputId"
+                       AriaDescribedBy="@_helperTextId" />
+
+            <_BOBFieldHelper TValue="bool"
+                             Id="@_helperTextId"
+                             HelperText="@HelperText"
+                             ShowValidation="@IsError"
+                             EditContext="@EditContext"
+                             For="@ValueExpression" />
+
+        </bob-component>
+    };
+
+    private async Task OnSwitchValueChanged(bool newValue)
+    {
+        if (IsDisabled) return;
+
+        CurrentValue = newValue;
+        await ValueChanged.InvokeAsync(CurrentValue);
+    }
+}

@@ -1,0 +1,143 @@
+﻿@using BlazOrbit.Components.Forms
+
+@namespace BlazOrbit.Components.Layout
+@attribute [GenerateComponentInfo]
+
+@inherits BOBVariantComponentBase<BOBThemeSelector, BOBThemeSelectorVariant>
+
+@inject IThemeJsInterop ThemeInterop
+@inject TimeProvider TimeProvider
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code {
+    /// <summary>AvailableThemes.</summary>
+    [Parameter] public string[] AvailableThemes { get; set; } = new[] { "light", "dark" };
+    /// <summary>Raised when the ThemeChanged event occurs.</summary>
+    [Parameter] public EventCallback<string> OnThemeChanged { get; set; }
+    /// <summary>Material icon name for the Show.</summary>
+    [Parameter] public bool ShowIcon { get; set; } = true;
+    /// <summary>Override map of theme name → Material icon. Falls back to a built-in default when <see langword="null"/>.</summary>
+    [Parameter] public Dictionary<string, string>? ThemeIcons { get; set; }
+
+    private string _currentTheme = "light";
+    private bool _isTransitioning = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            _currentTheme = await ThemeInterop.GetThemeAsync();
+            StateHasChanged();
+        }
+    }
+
+    public override BOBThemeSelectorVariant DefaultVariant
+        => BOBThemeSelectorVariant.Default;
+
+    protected override Dictionary<BOBThemeSelectorVariant, Func<BOBThemeSelector, RenderFragment>> BuiltInTemplates
+        => new()
+        {
+            [BOBThemeSelectorVariant.Default] = b => b.RenderDefault(),
+            [BOBThemeSelectorVariant.SunMoon] = b => b.RenderSunMoon()
+        };
+
+    private RenderFragment RenderDefault() => __builder =>
+    {
+        <bob-component @attributes="ComputedAttributes"
+                       data-bob-transitioning="@(_isTransitioning ? "true" : null)">
+
+            <button @onclick="SwitchTheme"
+                    disabled="@_isTransitioning">
+                <span class="bob-theme-switch__content">
+                    @if (ShowIcon)
+                    {
+                        <span class="bob-theme-switch__icon">@GetThemeIcon(_currentTheme)</span>
+                    }
+                    <span class="bob-theme-switch__label">@GetThemeLabel(_currentTheme)</span>
+                </span>
+            </button>
+        </bob-component>
+    };
+
+    private RenderFragment RenderSunMoon() => __builder =>
+    {
+        <BOBSwitch TValue="string"
+                   @attributes="ComputedAttributes"
+                   OptionInactive="@("light")"
+                   OptionActive="@("dark")"
+                   IconInactive="@BOBIconKeys.MaterialIconsTwoTone.i_light_mode"
+                   IconActive="@BOBIconKeys.MaterialIconsTwoTone.i_dark_mode"
+                   Value="_currentTheme"
+                   ValueChanged="OnSunMoonSwitchChanged" />
+    };
+
+    private async Task SwitchTheme()
+    {
+        _isTransitioning = true;
+        StateHasChanged();
+
+        // Small delay for animation start
+        await Task.Delay(TimeSpan.FromMilliseconds(50), TimeProvider);
+
+        string newTheme = await ThemeInterop.ToggleThemeAsync(AvailableThemes);
+        _currentTheme = newTheme;
+
+        if (OnThemeChanged.HasDelegate)
+        {
+            await OnThemeChanged.InvokeAsync(newTheme);
+        }
+
+        // Keep transition state for animation duration
+        await Task.Delay(TimeSpan.FromMilliseconds(300), TimeProvider);
+        _isTransitioning = false;
+        StateHasChanged();
+    }
+
+    private async Task OnSunMoonSwitchChanged(string requestedTheme)
+    {
+        // Evita doble toggle si por algún motivo llega el mismo valor
+        if (requestedTheme == _currentTheme)
+            return;
+
+        string[] themes = { "light", "dark" };
+
+        string newTheme = await ThemeInterop.ToggleThemeAsync(themes);
+        _currentTheme = newTheme;
+
+        if (OnThemeChanged.HasDelegate)
+        {
+            await OnThemeChanged.InvokeAsync(newTheme);
+        }
+    }
+
+    private string GetThemeIcon(string theme)
+    {
+        if (ThemeIcons?.TryGetValue(theme, out string? icon) == true)
+        {
+            return icon;
+        }
+
+        return theme switch
+        {
+            "light" => "☀️",
+            "dark" => "🌙",
+            _ => "🎨"
+        };
+    }
+
+    private string GetThemeLabel(string theme)
+    {
+        // Capitalize first letter
+        return string.IsNullOrEmpty(theme) ? theme : char.ToUpper(theme[0]) + theme.Substring(1);
+    }
+
+    private string GetOppositeTheme()
+    {
+        return _currentTheme == "light" ? "dark" : "light";
+    }
+}

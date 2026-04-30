@@ -1,0 +1,106 @@
+﻿@using BlazOrbit.Components.Layout.Services
+@using Microsoft.JSInterop
+
+@namespace BlazOrbit.Components.Layout
+
+@implements IAsyncDisposable
+
+@inject IModalService ModalService
+@inject IModalJsInterop JsInterop
+
+@if (_modals.Count > 0)
+{
+    <div class="bob-modal-host"
+         @onkeydown="HandleKeyDown"
+         tabindex="-1"
+         @ref="_hostRef">
+        
+        <div class="bob-modal-overlay @(_isClosing ? "bob-modal-overlay--closing" : "")"
+             @onclick="HandleOverlayClick">
+        </div>
+
+        @foreach (ModalState modal in _modals)
+        {
+            <BOBModalContainer Modal="modal" />
+        }
+    </div>
+}
+
+@code {
+    private ElementReference _hostRef;
+    private List<ModalState> _modals = [];
+    private bool _jsInitialized;
+    private bool _isClosing;
+
+    protected override void OnInitialized()
+    {
+        ModalService.OnChangeAsync += HandleModalChangeAsync;
+    }
+
+    private async Task HandleModalChangeAsync()
+    {
+        try
+        {
+            _modals = ModalService.ActiveModals.ToList();
+            _isClosing = _modals.Any(m => m.IsAnimatingOut);
+
+            if (_modals.Count > 0 && !_jsInitialized)
+            {
+                await JsInterop.LockScrollAsync();
+                _jsInitialized = true;
+            }
+            else if (_modals.Count == 0 && _jsInitialized)
+            {
+                await JsInterop.UnlockScrollAsync();
+                _jsInitialized = false;
+            }
+
+            await InvokeAsync(StateHasChanged);
+        }
+        catch (ObjectDisposedException) { }
+        catch (JSDisconnectedException) { }
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (_modals.Count > 0)
+        {
+            ModalState? current = _modals.LastOrDefault(m => m.IsVisible && !m.IsAnimatingOut);
+            if (current != null)
+            {
+                await _hostRef.FocusAsync();
+            }
+        }
+    }
+
+    private async Task HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Escape")
+        {
+            ModalState? current = _modals.LastOrDefault(m => m.IsVisible && !m.IsAnimatingOut);
+            if (current?.Options.CloseOnEscape == true)
+            {
+                await current.Reference.CloseAsync();
+            }
+        }
+    }
+
+    private async Task HandleOverlayClick()
+    {
+        ModalState? current = _modals.LastOrDefault(m => m.IsVisible && !m.IsAnimatingOut);
+        if (current?.Options.CloseOnOverlayClick == true)
+        {
+            await current.Reference.CloseAsync();
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        ModalService.OnChangeAsync -= HandleModalChangeAsync;
+
+        if (_jsInitialized)
+        {
+            await JsInterop.UnlockScrollAsync();
+        }
+    }
+}

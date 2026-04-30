@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net10.0</TargetFramework>
+		<PackAsTool>true</PackAsTool>
+		<!-- Redundant with PackAsTool=true (the SDK already infers DotnetTool) but
+		     explicit for clarity and so NuGet.org categorization is unambiguous. -->
+		<PackageType>DotnetTool</PackageType>
+		<!-- Owner prefix on the tool command name avoids global-tool name
+		     collisions when a user installs us alongside another `blazorbit-*`
+		     tool (a fork, an unrelated project, or a shell alias). -->
+		<ToolCommandName>cdcsharp-blazorbit-buildtools</ToolCommandName>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<IsPackable>true</IsPackable>
+		<PackageId>BlazOrbit.BuildTools</PackageId>
+		<Description>Build-time tool used by the BlazOrbit `.targets` to generate CSS partials (reset, typography, themes, tokens, base component styles) and the Vite/TypeScript scaffolding into `CssBundle/` and `wwwroot/`. Consumers typically do not install this directly — it is invoked automatically when building a project that references BlazOrbit.</Description>
+		<PackageTags>blazor;blazorbit;build-tools;css;generator;tool</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="CdCSharp.BuildTools" Version="1.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\BlazOrbit.Core\BlazOrbit.Core.csproj" />
+	</ItemGroup>
+
+</Project>

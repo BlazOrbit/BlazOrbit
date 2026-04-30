@@ -1,0 +1,213 @@
+﻿[data-bob-component="drawer"] {
+    position: fixed;
+    inset: 0;
+    z-index: var(--bob-z-modal);
+    /* tabindex="-1" — host is a focus-trap fallback only; visible focus moves
+       to the first interactive descendant. WCAG 2.4.7 satisfied via children. */
+    outline: none;
+}
+
+[data-bob-component="drawer"] .bob-drawer-overlay {
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--palette-shadow) 50%, transparent);
+    backdrop-filter: blur(2px);
+    animation: bob-drawer-overlay-in 200ms ease-out forwards;
+}
+
+[data-bob-component="drawer"] .bob-drawer-overlay--closing {
+    animation: bob-drawer-overlay-out 200ms ease-in forwards;
+}
+
+[data-bob-component="drawer"] .bob-drawer {
+    --_drawer-background: var(--palette-surface);
+    --_drawer-shadow: var(--bob-inline-shadow, 0 0 24px color-mix(in srgb, var(--palette-shadow) 20%, transparent));
+    position: absolute;
+    background: var(--_drawer-background);
+    box-shadow: var(--_drawer-shadow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* IHasElevation in dark theme: lift the drawer surface via tint overlay. */
+[data-bob-theme="dark"] [data-bob-component="drawer"][data-bob-elevation] .bob-drawer {
+    --_drawer-background: color-mix(in oklab,
+        var(--palette-surface),
+        var(--palette-surface-contrast) var(--bob-inline-elevation-tint, 0%));
+}
+
+[data-bob-component="drawer"] .bob-drawer--left {
+    left: 0;
+    top: 0;
+    bottom: 0;
+    animation: bob-drawer-left-in 250ms ease-out forwards;
+}
+
+    [data-bob-component="drawer"] .bob-drawer--left.bob-drawer--closing {
+        animation: bob-drawer-left-out 200ms ease-in forwards;
+    }
+
+[data-bob-component="drawer"] .bob-drawer--right {
+    right: 0;
+    top: 0;
+    bottom: 0;
+    animation: bob-drawer-right-in 250ms ease-out forwards;
+}
+
+    [data-bob-component="drawer"] .bob-drawer--right.bob-drawer--closing {
+        animation: bob-drawer-right-out 200ms ease-in forwards;
+    }
+
+[data-bob-component="drawer"] .bob-drawer--top {
+    top: 0;
+    left: 0;
+    right: 0;
+    animation: bob-drawer-top-in 250ms ease-out forwards;
+}
+
+    [data-bob-component="drawer"] .bob-drawer--top.bob-drawer--closing {
+        animation: bob-drawer-top-out 200ms ease-in forwards;
+    }
+
+[data-bob-component="drawer"] .bob-drawer--bottom {
+    bottom: 0;
+    left: 0;
+    right: 0;
+    animation: bob-drawer-bottom-in 250ms ease-out forwards;
+}
+
+    [data-bob-component="drawer"] .bob-drawer--bottom.bob-drawer--closing {
+        animation: bob-drawer-bottom-out 200ms ease-in forwards;
+    }
+
+[data-bob-component="drawer"] .bob-drawer__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--palette-border) 10%, transparent);
+}
+
+[data-bob-theme="dark"] .bob-drawer__header {
+    border-bottom-color: color-mix(in srgb, var(--palette-border) 10%, transparent);
+}
+
+[data-bob-component="drawer"] .bob-drawer__header-content {
+    flex: 1;
+}
+
+[data-bob-component="drawer"] .bob-drawer__content {
+    flex: 1;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+[data-bob-component="drawer"] .bob-drawer__footer {
+    padding: 1rem;
+    border-top: 1px solid color-mix(in srgb, var(--palette-border) 10%, transparent);
+}
+
+[data-bob-theme="dark"] .bob-drawer__footer {
+    border-top-color: color-mix(in srgb, var(--palette-border) 10%, transparent);
+}
+
+@keyframes bob-drawer-overlay-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes bob-drawer-overlay-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes bob-drawer-left-in {
+    from {
+        transform: translateX(-100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes bob-drawer-left-out {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes bob-drawer-right-in {
+    from {
+        transform: translateX(100%);
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+@keyframes bob-drawer-right-out {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes bob-drawer-top-in {
+    from {
+        transform: translateY(-100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes bob-drawer-top-out {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes bob-drawer-bottom-in {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+@keyframes bob-drawer-bottom-out {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(100%);
+    }
+}

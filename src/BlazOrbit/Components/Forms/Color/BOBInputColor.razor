@@ -1,0 +1,308 @@
+﻿@using BlazOrbit.Components.Layout
+@using BlazOrbit.Components.Utils
+@using BlazOrbit.Abstractions
+
+@namespace BlazOrbit.Components.Forms
+@attribute [GenerateComponentInfo]
+
+@inherits BOBInputComponentBase<CssColor, BOBInputColor, BOBInputVariant>
+
+@implements IHasSize
+@implements IHasLoading
+@implements IHasShadow
+@implements IHasColor
+@implements IHasBackgroundColor
+@implements IHasPrefix
+@implements IHasSuffix
+@implements IInputFamilyComponent
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code {
+    private string _inputId = $"bob-input-color-{Guid.NewGuid():N}";
+    private string _helperTextId = $"bob-helper-{Guid.NewGuid():N}";
+    private bool _isOpen;
+    private bool _isFocused;
+    private bool _isDirty;
+    private CssColor? _initialValue;
+    private CssColor? _valueBeforeOpen;
+
+    [Inject] private IClipboardJsInterop ClipboardJs { get; set; } = default!;
+
+    // IHasSize
+    /// <summary>Visual size of the input.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+
+    // IHasLoading
+    /// <summary>When <see langword="true" />, the input shows a loading indicator.</summary>
+    [Parameter] public bool Loading { get; set; }
+    /// <summary>Variant of the loading indicator shown when <see cref="Loading"/> is <see langword="true"/>.</summary>
+    [Parameter]
+    public BOBLoadingIndicatorVariant LoadingIndicatorVariant { get; set; } =
+BOBLoadingIndicatorVariant.CircularProgress;
+
+    // IHasShadow
+    /// <summary>Shadow style applied to the input container.</summary>
+    [Parameter] public ShadowStyle? Shadow { get; set; }
+
+    // IHasBackgroundColor
+    /// <summary>Background color of the input. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? BackgroundColor { get; set; }
+
+    // IHasColor
+    /// <summary>Text color of the input. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? Color { get; set; }
+
+    // IHasPrefix
+    /// <summary>Text displayed before the input value.</summary>
+    [Parameter] public string? PrefixText { get; set; }
+    /// <summary>Material icon name for the Prefix.</summary>
+    [Parameter] public IconKey? PrefixIcon { get; set; }
+    /// <summary>Prefix color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? PrefixColor { get; set; }
+    /// <summary>PrefixBackground color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? PrefixBackgroundColor { get; set; }
+
+    // IHasSuffix
+    /// <summary>Text displayed after the input value.</summary>
+    [Parameter] public string? SuffixText { get; set; }
+    /// <summary>Material icon name for the Suffix.</summary>
+    [Parameter] public IconKey? SuffixIcon { get; set; }
+    /// <summary>Suffix color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? SuffixColor { get; set; }
+    /// <summary>SuffixBackground color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? SuffixBackgroundColor { get; set; }
+
+    // Component-specific
+    /// <summary>Floating label displayed above the input when it has a value or focus.</summary>
+    [Parameter] public string? Label { get; set; }
+    /// <summary>Helper text displayed below the component for additional context.</summary>
+    [Parameter] public string? HelperText { get; set; }
+    /// <summary>Placeholder text shown when the component is empty.</summary>
+    [Parameter] public string? Placeholder { get; set; } = "#000000";
+    /// <summary>When <see langword="true" />, the CopyButton is shown.</summary>
+    [Parameter] public bool ShowCopyButton { get; set; }
+    /// <summary>When <see langword="true" />, a clear button reverts the value to <see langword="null"/>.</summary>
+    [Parameter] public bool Clearable { get; set; }
+    /// <summary>Layout used to expose the color editor: dropdown, popover, or inline panel.</summary>
+    [Parameter] public ColorPickerDisplayMode DisplayMode { get; set; } = ColorPickerDisplayMode.Dropdown;
+    /// <summary>String format used to serialize the picked color (hex, rgb(a), hsl(a), etc.).</summary>
+    [Parameter] public ColorOutputFormats OutputFormat { get; set; }
+    /// <summary>Text displayed as the Revert.</summary>
+    [Parameter] public string RevertText { get; set; } = "Revert";
+    /// <summary>Width (px) of the color selection canvas inside the picker.</summary>
+    [Parameter] public int SelectionWidth { get; set; } = 200;
+    /// <summary>Height (px) of the color selection canvas inside the picker.</summary>
+    [Parameter] public int SelectionHeight { get; set; } = 150;
+
+    public override BOBInputVariant DefaultVariant => BOBInputVariant.Outlined;
+
+    private bool HasValue => CurrentValue != null;
+    private bool IsFloated => _isFocused || HasValue || _isDirty;
+    private string DisplayValue => CurrentValue?.ToString(OutputFormat) ?? "";
+
+    public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    {
+        base.BuildComponentDataAttributes(dataAttributes);
+        dataAttributes[FeatureDefinitions.DataAttributes.Floated] = IsFloated.ToString().ToLowerInvariant();
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _initialValue = Value;
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        if (!_isFocused && !_isOpen && !EqualityComparer<CssColor>.Default.Equals(Value, CurrentValue))
+        {
+            _initialValue = Value;
+        }
+    }
+
+    protected override IReadOnlyDictionary<BOBInputVariant, Func<BOBInputColor, RenderFragment>> BuiltInTemplates { get; } =
+        new Dictionary<BOBInputVariant, Func<BOBInputColor, RenderFragment>>
+        {
+            [BOBInputVariant.Outlined] = c => c.RenderInput(),
+            [BOBInputVariant.Filled] = c => c.RenderInput(),
+            [BOBInputVariant.Standard] = c => c.RenderInput()
+        };
+
+    private RenderFragment RenderInput() => __builder =>
+    {
+        <bob-component @attributes="ComputedAttributes" @onkeydown="HandleKeyDown">
+
+            <div class="bob-input__wrapper">
+
+                <BOBInputOutline Label="@Label" For="@_inputId" Required="@IsRequired" />
+                <BOBInputPrefix PrefixText="@PrefixText" PrefixIcon="@PrefixIcon" Size="@Size" />
+
+                <input type="text" id="@_inputId" class="bob-input__field" value="@DisplayValue"
+                       placeholder="@(IsFloated? Placeholder : null)" readonly="@IsReadOnly" disabled="@IsDisabled"
+                       @onchange="HandleInputChange" @onfocus="HandleFocus" @onblur="HandleBlur"
+                       aria-label="@(string.IsNullOrWhiteSpace(Label) ? Placeholder : null)" aria-describedby="@_helperTextId"
+                       aria-invalid="@IsError.ToString().ToLowerInvariant()"
+                       aria-required="@IsRequired.ToString().ToLowerInvariant()" />
+
+                @if (ShowCopyButton && HasValue)
+                {
+                    <BOBTooltip AutoCloseAfterMs="1500" Trigger="TooltipTrigger.Click" Placement="TooltipPlacement.Top"
+                                Text="Copied!">
+                        <_BOBBtn Icon="@BOBIconKeys.UI.Copy" AriaLabel="Copy color" OnClick="(e) => CopyToClipboard()"
+                                 OnClickStopPropagation="false" />
+                    </BOBTooltip>
+                }
+
+                @if (Clearable && (HasValue || _isDirty) && !Disabled)
+                {
+                    <_BOBBtn Icon="@BOBIconKeys.UI.Close" AriaLabel="Clear" OnClick="(e) => Clear()" OnClickStopPropagation="true" />
+                }
+
+                <_BOBBtn Icon="@BOBIconKeys.MaterialIconsRound.i_palette" Disabled="@IsDisabled" AriaLabel="Open color picker"
+                         OnClick="(e)=> TogglePicker()">
+                    <div class="bob-input-color__preview-chess">
+                        <div class="bob-input-color__preview-color"
+                             style="background-color: @(CurrentValue?.ToString(ColorOutputFormats.Rgba) ?? "transparent")">
+                        </div>
+                    </div>
+                </_BOBBtn>
+
+                <BOBInputSuffix SuffixText="@SuffixText" SuffixIcon="@SuffixIcon" Size="@Size" />
+                <BOBInputLoading Loading="@Loading" LoadingIndicatorVariant="@LoadingIndicatorVariant" Size="@Size" />
+
+            </div>
+
+            @if (_isOpen)
+            {
+                @if (DisplayMode == ColorPickerDisplayMode.Modal)
+                {
+                    <BOBDialog @bind-Open="_isOpen" Closable="true" CloseOnOverlayClick="true" CloseOnEscape="true" MinWidth="auto"
+                               MaxWidth="fit-content">
+                        <Content>
+                            <BOBColorPicker @bind-Value="CurrentValue" OutputFormat="OutputFormat" SelectionWidth="SelectionWidth"
+                                            SelectionHeight="SelectionHeight" ShowActions="true"
+                                            RevertText="@RevertText" OnRevert="HandleRevert" />
+                        </Content>
+                    </BOBDialog>
+                }
+                else
+                {
+                    <div class="bob-input-color__dropdown-overlay" @onclick="ClosePicker"></div>
+                    <div class="bob-input-color__dropdown" @onclick:stopPropagation="true">
+                        <BOBColorPicker @bind-Value="CurrentValue" OutputFormat="OutputFormat" SelectionWidth="SelectionWidth"
+                                        SelectionHeight="SelectionHeight" ShowActions="true" RevertText="@RevertText"
+                                        OnRevert="HandleRevert" />
+                    </div>
+                }
+            }
+
+            <_BOBFieldHelper TValue="CssColor" Id="@_helperTextId" HelperText="@HelperText" ShowValidation="@IsError"
+                             EditContext="@EditContext" For="@ValueExpression" />
+
+        </bob-component>
+    };
+
+    private void HandleFocus(FocusEventArgs e)
+    {
+        _isFocused = true;
+    }
+
+    private void HandleBlur(FocusEventArgs e)
+    {
+        _isFocused = false;
+        _isDirty = false;
+    }
+
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (_isOpen && e.Key == "Escape")
+        {
+            ClosePicker();
+        }
+    }
+
+    private void HandleInputChange(ChangeEventArgs e)
+    {
+        if (IsReadOnly) return;
+
+        string? value = e.Value?.ToString();
+
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            CurrentValue = null!;
+            _isDirty = false;
+            return;
+        }
+
+        try
+        {
+            CurrentValue = new CssColor(value);
+            _isDirty = false;
+        }
+        catch
+        {
+            _isDirty = true;
+        }
+    }
+
+    private void TogglePicker()
+    {
+        if (IsDisabled || IsReadOnly) return;
+
+        if (!_isOpen)
+        {
+            _valueBeforeOpen = CurrentValue;
+        }
+        _isOpen = !_isOpen;
+    }
+
+    private void ClosePicker() => _isOpen = false;
+
+    private void HandleRevert()
+    {
+        CurrentValue = _valueBeforeOpen!;
+        ClosePicker();
+    }
+
+    private void Clear()
+    {
+        CurrentValue = _initialValue!;
+        _isDirty = false;
+    }
+
+    private async Task CopyToClipboard()
+    {
+        if (CurrentValue != null)
+        {
+            await ClipboardJs.CopyTextAsync(DisplayValue);
+        }
+    }
+
+    protected override bool TryParseValueFromString(string? value, out CssColor result, out string validationErrorMessage)
+    {
+        validationErrorMessage = string.Empty;
+
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            result = null!;
+            return true;
+        }
+
+        try
+        {
+            result = new CssColor(value);
+            return true;
+        }
+        catch
+        {
+            result = null!;
+            validationErrorMessage = $"'{value}' is not a valid color.";
+            return false;
+        }
+    }
+}

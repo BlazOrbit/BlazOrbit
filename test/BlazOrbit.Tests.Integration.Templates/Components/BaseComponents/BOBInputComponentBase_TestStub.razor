@@ -1,0 +1,46 @@
+﻿@using BlazOrbit.Components
+@using BlazOrbit.Abstractions
+@using System.Diagnostics.CodeAnalysis
+@inherits BOBInputComponentBase<string>
+@implements IHasSize
+@implements IHasDensity
+@implements IHasColor
+@implements IHasBackgroundColor
+@implements IHasShadow
+@implements IHasLoading
+@implements IHasFullWidth
+@implements IHasRipple
+@implements IHasBorder
+@implements IJsBehavior
+
+<input @ref="_elementRef"
+       @attributes="ComputedAttributes"
+       value="@CurrentValueAsString"
+       disabled="@IsDisabled"
+       readonly="@IsReadOnly"
+       @onchange="@(e => CurrentValueAsString = e.Value?.ToString())" />
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public BOBSize Size { get; set; }
+    [Parameter] public BOBDensity Density { get; set; }
+    [Parameter] public string? Color { get; set; }
+    [Parameter] public string? BackgroundColor { get; set; }
+    [Parameter] public ShadowStyle? Shadow { get; set; }
+    [Parameter] public bool Loading { get; set; }
+    [Parameter] public bool FullWidth { get; set; }
+    [Parameter] public bool DisableRipple { get; set; }
+    [Parameter] public string? RippleColor { get; set; }
+    [Parameter] public int? RippleDurationMs { get; set; }
+    [Parameter] public BorderStyle? Border { get; set; }
+
+    private ElementReference _elementRef;
+    public ElementReference GetRippleContainer() => _elementRef;
+
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out string result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        result = value ?? string.Empty;
+        validationErrorMessage = null;
+        return true;
+    }
+}

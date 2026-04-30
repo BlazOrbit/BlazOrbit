@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype"><value>text/microsoft-resx</value></resheader>
+  <resheader name="version"><value>2.0</value></resheader>
+  <resheader name="reader"><value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+  <resheader name="writer"><value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value></resheader>
+
+  <data name="Components" xml:space="preserve"><value>Components</value></data>
+  <data name="Developer" xml:space="preserve"><value>Developer</value></data>
+
+  <data name="Forms" xml:space="preserve"><value>Forms</value></data>
+  <data name="Generic" xml:space="preserve"><value>Generic</value></data>
+  <data name="Layout" xml:space="preserve"><value>Layout</value></data>
+  <data name="Tree" xml:space="preserve"><value>Tree</value></data>
+  <data name="Utils" xml:space="preserve"><value>Utils</value></data>
+  <data name="Features" xml:space="preserve"><value>Features</value></data>
+
+  <data name="Checkbox" xml:space="preserve"><value>Checkbox</value></data>
+  <data name="Color Picker" xml:space="preserve"><value>Color Picker</value></data>
+  <data name="DateTime" xml:space="preserve"><value>DateTime</value></data>
+  <data name="Dropdown" xml:space="preserve"><value>Dropdown</value></data>
+  <data name="Number" xml:space="preserve"><value>Number</value></data>
+  <data name="Radio" xml:space="preserve"><value>Radio</value></data>
+  <data name="Switch" xml:space="preserve"><value>Switch</value></data>
+  <data name="Text" xml:space="preserve"><value>Text</value></data>
+  <data name="TextArea" xml:space="preserve"><value>TextArea</value></data>
+
+  <data name="Badge" xml:space="preserve"><value>Badge</value></data>
+  <data name="Button" xml:space="preserve"><value>Button</value></data>
+  <data name="Code Block" xml:space="preserve"><value>Code Block</value></data>
+  <data name="DataCards" xml:space="preserve"><value>DataCards</value></data>
+  <data name="DataGrid" xml:space="preserve"><value>DataGrid</value></data>
+  <data name="Loading" xml:space="preserve"><value>Loading</value></data>
+  <data name="Svg Icon" xml:space="preserve"><value>Svg Icon</value></data>
+  <data name="Tabs" xml:space="preserve"><value>Tabs</value></data>
+
+  <data name="Card" xml:space="preserve"><value>Card</value></data>
+  <data name="Dialog &amp; Drawer" xml:space="preserve"><value>Dialog &amp; Drawer</value></data>
+  <data name="Flex Stack" xml:space="preserve"><value>Flex Stack</value></data>
+  <data name="Grid" xml:space="preserve"><value>Grid</value></data>
+  <data name="Theme Generator" xml:space="preserve"><value>Theme Generator</value></data>
+  <data name="Theme Selector" xml:space="preserve"><value>Theme Selector</value></data>
+  <data name="Toast" xml:space="preserve"><value>Toast</value></data>
+
+  <data name="Tree Menu" xml:space="preserve"><value>Tree Menu</value></data>
+  <data name="Tree Selector" xml:space="preserve"><value>Tree Selector</value></data>
+
+  <data name="Draggable" xml:space="preserve"><value>Draggable</value></data>
+  <data name="Tooltip" xml:space="preserve"><value>Tooltip</value></data>
+
+  <data name="Validation" xml:space="preserve"><value>Validation</value></data>
+
+  <data name="Architecture" xml:space="preserve"><value>Architecture</value></data>
+  <data name="Variants" xml:space="preserve"><value>Variants</value></data>
+  <data name="Theming" xml:space="preserve"><value>Theming</value></data>
+  <data name="Localization" xml:space="preserve"><value>Localization</value></data>
+  <data name="JS Interop" xml:space="preserve"><value>JS Interop</value></data>
+  <data name="Accessibility" xml:space="preserve"><value>Accessibility</value></data>
+</root>

@@ -1,0 +1,15 @@
+apiRules:
+  - exclude:
+      uidRegex: ^System\.
+  - exclude:
+      uidRegex: ^Microsoft\.
+  - exclude:
+      hasAttribute:
+        uid: System.ComponentModel.EditorBrowsableAttribute
+        ctorArguments:
+          - System.ComponentModel.EditorBrowsableState.Never
+  - exclude:
+      hasAttribute:
+        uid: System.Runtime.CompilerServices.CompilerGeneratedAttribute
+  - include:
+      uidRegex: ^BlazOrbit

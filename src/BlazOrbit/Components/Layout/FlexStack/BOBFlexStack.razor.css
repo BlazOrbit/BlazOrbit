@@ -1,0 +1,116 @@
+﻿[data-bob-component="flex-stack"] {
+    --_flex-stack-background: var(--bob-inline-background, transparent);
+    --_flex-stack-color: var(--bob-inline-color, inherit);
+    --_flex-stack-border-radius: var(--bob-inline-border-radius, var(--bob-border-radius));
+    --_flex-stack-border: var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border));
+    --_flex-stack-border-top: var(--bob-inline-border-top, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+    --_flex-stack-border-right: var(--bob-inline-border-right, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+    --_flex-stack-border-bottom: var(--bob-inline-border-bottom, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+    --_flex-stack-border-left: var(--bob-inline-border-left, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+    --gap: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    align-content: stretch;
+    row-gap: var(--row-gap, var(--gap));
+    column-gap: var(--col-gap, var(--gap));
+    width: 100%;
+    box-sizing: border-box;
+    background: var(--_flex-stack-background);
+    color: var(--_flex-stack-color);
+    border-radius: var(--_flex-stack-border-radius);
+    border: var(--_flex-stack-border);
+    border-top: var(--_flex-stack-border-top);
+    border-right: var(--_flex-stack-border-right);
+    border-bottom: var(--_flex-stack-border-bottom);
+    border-left: var(--_flex-stack-border-left);
+    padding: var(--p, var(--pt, 0) var(--pr, 0) var(--pb, 0) var(--pl, 0));
+    margin: var(--m, var(--mt, 0) var(--mr, 0) var(--mb, 0) var(--ml, 0));
+}
+
+    /* Direction */
+    [data-bob-component="flex-stack"][data-dir="row-reverse"] {
+        flex-direction: row-reverse;
+    }
+
+    [data-bob-component="flex-stack"][data-dir="column"] {
+        flex-direction: column;
+    }
+
+    [data-bob-component="flex-stack"][data-dir="column-reverse"] {
+        flex-direction: column-reverse;
+    }
+
+    /* Wrap */
+    [data-bob-component="flex-stack"][data-wrap="no-wrap"] {
+        flex-wrap: nowrap;
+    }
+
+    [data-bob-component="flex-stack"][data-wrap="wrap-reverse"] {
+        flex-wrap: wrap-reverse;
+    }
+
+    /* Justify Content */
+    [data-bob-component="flex-stack"][data-justify="end"] {
+        justify-content: flex-end;
+    }
+
+    [data-bob-component="flex-stack"][data-justify="center"] {
+        justify-content: center;
+    }
+
+    [data-bob-component="flex-stack"][data-justify="space-between"] {
+        justify-content: space-between;
+    }
+
+    [data-bob-component="flex-stack"][data-justify="space-around"] {
+        justify-content: space-around;
+    }
+
+    [data-bob-component="flex-stack"][data-justify="space-evenly"] {
+        justify-content: space-evenly;
+    }
+
+    /* Align Items */
+    [data-bob-component="flex-stack"][data-align="start"] {
+        align-items: flex-start;
+    }
+
+    [data-bob-component="flex-stack"][data-align="end"] {
+        align-items: flex-end;
+    }
+
+    [data-bob-component="flex-stack"][data-align="center"] {
+        align-items: center;
+    }
+
+    [data-bob-component="flex-stack"][data-align="baseline"] {
+        align-items: baseline;
+    }
+
+    /* Align Content */
+    [data-bob-component="flex-stack"][data-align-content="start"] {
+        align-content: flex-start;
+    }
+
+    [data-bob-component="flex-stack"][data-align-content="end"] {
+        align-content: flex-end;
+    }
+
+    [data-bob-component="flex-stack"][data-align-content="center"] {
+        align-content: center;
+    }
+
+    [data-bob-component="flex-stack"][data-align-content="space-between"] {
+        align-content: space-between;
+    }
+
+    [data-bob-component="flex-stack"][data-align-content="space-around"] {
+        align-content: space-around;
+    }
+
+    [data-bob-component="flex-stack"][data-align-content="space-evenly"] {
+        align-content: space-evenly;
+    }

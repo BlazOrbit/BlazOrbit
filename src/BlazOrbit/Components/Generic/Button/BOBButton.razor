@@ -1,0 +1,185 @@
+﻿@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+
+@inherits BOBVariantComponentBase<BOBButton, BOBButtonVariant>
+@implements IHasTransitions
+@implements IHasSize
+@implements IHasFullWidth
+@implements IHasLoading
+@implements IHasShadow
+@implements IHasRipple
+@implements IHasDensity
+@implements IHasBorder
+@implements IHasBackgroundColor
+@implements IHasColor
+@implements IHasDisabled
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code {
+    /* ========= Public API ========= */
+
+    /// <summary>Customizable Button content.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    /// <summary>Text displayed inside the button. Ignored when <see cref="ChildContent"/> is provided.</summary>
+    [Parameter] public string? Text { get; set; }
+    /// <summary>Closed-catalog icon key rendered before the button text.</summary>
+    [Parameter] public IconKey? LeadingIcon { get; set; }
+    /// <summary>Closed-catalog icon key rendered after the button text.</summary>
+    [Parameter] public IconKey? TrailingIcon { get; set; }
+    /// <summary>Raised when the button is clicked and not disabled.</summary>
+    [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    /// <summary>
+    /// Accessible name for the button. Required when the button has no visible text
+    /// (icon-only, <see cref="ChildContent"/>-only without text). Forwarded to the
+    /// inner <c>&lt;button&gt;</c> element. WCAG 4.1.2 Name, Role, Value.
+    /// </summary>
+    [Parameter] public string? AriaLabel { get; set; }
+
+    // IHasTransitions
+    /// <summary>Transition classes applied to the button element.</summary>
+    [Parameter] public BOBTransitions? Transitions { get; set; }
+
+    // IHasSize
+    /// <summary>Visual size of the button.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+
+    // IHasFullWidth
+    /// <summary>When <see langword="true" />, the button spans the full width of its container.</summary>
+    [Parameter] public bool FullWidth { get; set; }
+
+    // IHasLoading
+    /// <summary>When <see langword="true" />, the button shows a loading indicator and is non-interactive.</summary>
+    [Parameter] public bool Loading { get; set; }
+    /// <summary>Variant of the loading indicator shown when <see cref="Loading"/> is <see langword="true"/>.</summary>
+    [Parameter] public BOBLoadingIndicatorVariant? LoadingIndicatorVariant { get; set; }
+
+    // IHasShadow
+    /// <summary>Shadow style applied to the button.</summary>
+    [Parameter] public ShadowStyle? Shadow { get; set; }
+
+    // IHasBorder
+    /// <summary>Border style applied to the button.</summary>
+    [Parameter] public BorderStyle? Border { get; set; }
+
+    // IHasRipple
+    /// <summary>When <see langword="true" />, the ripple effect on click is disabled.</summary>
+    [Parameter] public bool DisableRipple { get; set; }
+    /// <summary>Custom CSS color for the ripple effect.</summary>
+    [Parameter] public string? RippleColor { get; set; }
+    /// <summary>Duration of the ripple animation in milliseconds.</summary>
+    [Parameter] public int? RippleDurationMs { get; set; }
+
+    // IHasDensity
+    /// <summary>Vertical density (gap) of the button.</summary>
+    [Parameter] public BOBDensity Density { get; set; } = BOBDensity.Standard;
+
+    // IHasBackgroundColor
+    /// <summary>Background color of the button. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? BackgroundColor { get; set; }
+
+    // IHasColor
+    /// <summary>Text and icon color of the button. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? Color { get; set; }
+
+    // IHasDisabled
+    /// <summary>When <see langword="true" />, the button is non-interactive.</summary>
+    [Parameter] public bool Disabled { get; set; }
+    /// <summary>Computed disabled state � <see langword="true" /> when either <see cref="Disabled"/> or <see cref="Loading"/> is set.</summary>
+    public bool IsDisabled => Disabled || Loading;
+
+    // IJsBehavior
+    public ElementReference GetRippleContainer() => _buttonElement;
+
+    /* ========= Variant ========= */
+
+    public override BOBButtonVariant DefaultVariant => BOBButtonVariant.Default;
+
+    protected override Dictionary<BOBButtonVariant, Func<BOBButton, RenderFragment>> BuiltInTemplates { get; } = new()
+    {
+        [BOBButtonVariant.Default] = b => b.RenderDefault(),
+    };
+
+    /* ========= Private state ========= */
+
+    private ElementReference _buttonElement;
+
+    /* ========= Render ========= */
+
+    private RenderFragment RenderDefault() => __builder =>
+{
+    string? ariaBusy = Loading ? "true" : null;
+    string? ariaLive = Loading ? "polite" : null;
+    <bob-component @attributes="@ComputedAttributes">
+        <button @ref="_buttonElement"
+                type="button"
+                disabled="@IsDisabled"
+                aria-label="@AriaLabel"
+                aria-busy="@ariaBusy"
+                aria-live="@ariaLive"
+                @onclick="HandleClick"
+                class="transition-target">
+            @if (ChildContent != null)
+            {
+                @ChildContent
+            }
+            else
+            {
+                @if (Loading && LoadingIndicatorVariant != null)
+                {
+                    <BOBLoadingIndicator Variant="@LoadingIndicatorVariant"
+                                         Size="@Size"
+                                         Color="@Color" />
+                }
+                else if (LeadingIcon.HasValue)
+                {
+                    <BOBSvgIcon Icon="@LeadingIcon.Value" class="bob-button__icon bob-button__icon--leading" Size="@Size" />
+                }
+                @if (!string.IsNullOrWhiteSpace(Text))
+                {
+                    <span class="bob-button__text">@Text</span>
+                }
+                @if (TrailingIcon.HasValue && !Loading)
+                {
+                    <BOBSvgIcon Icon="@TrailingIcon.Value" class="bob-button__icon bob-button__icon--trailing" Size="@Size" />
+                }
+            }
+        </button>
+    </bob-component>
+};
+
+    /* ========= Event Handlers ========= */
+
+    private async Task HandleClick(MouseEventArgs args)
+    {
+        if (!IsDisabled)
+        {
+            await OnClick.InvokeAsync(args);
+        }
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        WarnIfMissingAccessibleName();
+    }
+
+    [System.Diagnostics.Conditional("DEBUG")]
+    private void WarnIfMissingAccessibleName()
+    {
+        // Icon-only buttons (no Text, no ChildContent) need an explicit accessible
+        // name. Without one, screen readers announce nothing � WCAG 4.1.2 violation.
+        if (string.IsNullOrWhiteSpace(Text)
+            && ChildContent is null
+            && string.IsNullOrWhiteSpace(AriaLabel)
+            && (LeadingIcon.HasValue || TrailingIcon.HasValue))
+        {
+            System.Diagnostics.Debug.WriteLine(
+                "[BlazOrbit][A11Y] BOBButton rendered icon-only without AriaLabel; " +
+                "screen readers cannot announce its purpose. Set AriaLabel.");
+        }
+    }
+}

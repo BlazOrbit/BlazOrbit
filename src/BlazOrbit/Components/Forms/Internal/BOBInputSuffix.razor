@@ -1,0 +1,21 @@
+﻿@namespace BlazOrbit.Components.Forms
+
+@if (HasSuffix)
+{
+    <_BOBAddon Icon="@SuffixIcon" Size="Size" class="bob-input__addon--suffix">
+        @if (!string.IsNullOrWhiteSpace(SuffixText))
+        {
+            <span>@SuffixText</span>
+        }
+    </_BOBAddon>
+}
+
+@code {
+    private bool HasSuffix => !string.IsNullOrWhiteSpace(SuffixText) || SuffixIcon.HasValue;
+    /// <summary>Text displayed as the Suffix.</summary>
+    [Parameter] public string? SuffixText { get; set; }
+    /// <summary>Closed-catalog icon key for the Suffix.</summary>
+    [Parameter] public IconKey? SuffixIcon { get; set; }
+    /// <summary>Visual size of the component.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+}

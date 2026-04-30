@@ -1,0 +1,508 @@
+﻿@using BlazOrbit.Abstractions
+
+@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+
+@typeparam TItem
+@inherits BOBComponentBase
+@implements IHasSize
+@implements IDisposable
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+<bob-component @attributes="@ComputedAttributes">
+    @if (_isDeclarativeMode)
+    {
+        <CascadingValue Value="@((ITreeNodeRegistry<TreeSelectionNodeRegistration>)_registry)" Name="TreeNodeRegistry">
+            @ChildContent
+        </CascadingValue>
+    }
+
+    @if (_structureBuilt)
+    {
+        <div class="bob-tree-selector__container" role="tree" aria-multiselectable="@(SelectionMode == TreeSelectionMode.Multiple)">
+            @foreach (TreeSelectionNode<TItem> node in _tree.RootNodes)
+            {
+                @RenderNode(node)
+            }
+        </div>
+    }
+</bob-component>
+
+@code {
+    private readonly TreeNodeRegistry<TreeSelectionNodeRegistration> _registry = new();
+    private TreeStructure<TreeSelectionNode<TItem>, TItem> _tree = null!;
+    private readonly HashSet<string> _selectedKeysInternal = [];
+    private bool _isDeclarativeMode;
+    private bool _structureBuilt;
+    private bool _preventKeyDefault;
+
+    /// <summary>Content rendered inside the component.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>Root items the tree renders. May be <see langword="null"/> when items are registered via <c>ChildContent</c> instead.</summary>
+    [Parameter] public IEnumerable<TItem>? Items { get; set; }
+    /// <summary>Returns a stable key for an item. Required for keyboard navigation and lazy loading.</summary>
+    [Parameter] public Func<TItem, string>? KeySelector { get; set; }
+    /// <summary>Returns the children of an item. Use this for in-memory hierarchical data; pair with <see cref="HasChildrenSelector"/> for lazy trees.</summary>
+    [Parameter] public Func<TItem, IEnumerable<TItem>?>? ChildrenSelector { get; set; }
+    /// <summary>Returns whether an item has children without loading them. Enables lazy expansion via <see cref="OnLoadChildren"/>.</summary>
+    [Parameter] public Func<TItem, bool>? HasChildrenSelector { get; set; }
+    /// <summary>Called the first time a node is expanded with no in-memory children. Result is cached on the tree.</summary>
+    [Parameter] public Func<TItem, Task<IEnumerable<TItem>>>? OnLoadChildren { get; set; }
+    /// <summary>Custom template for rendering the Node.</summary>
+    [Parameter] public RenderFragment<TreeSelectionNode<TItem>>? NodeTemplate { get; set; }
+    /// <summary>Returns the visible text for an item. Defaults to <c>item.ToString()</c>.</summary>
+    [Parameter] public Func<TItem, string>? DisplayTextSelector { get; set; }
+    /// <summary>Cache.</summary>
+    [Parameter] public TreeNodeCache<TItem>? Cache { get; set; }
+
+    /// <summary>ExpandedKeys.</summary>
+    [Parameter] public HashSet<string>? ExpandedKeys { get; set; }
+    /// <summary>ExpandedKeysChanged.</summary>
+    [Parameter] public EventCallback<HashSet<string>> ExpandedKeysChanged { get; set; }
+    /// <summary>ExpandAll.</summary>
+    [Parameter] public bool ExpandAll { get; set; }
+
+    /// <summary>SelectedKeys.</summary>
+    [Parameter] public HashSet<string>? SelectedKeys { get; set; }
+    /// <summary>SelectedKeysChanged.</summary>
+    [Parameter] public EventCallback<HashSet<string>> SelectedKeysChanged { get; set; }
+
+    /// <summary>SelectionMode.</summary>
+    [Parameter] public TreeSelectionMode SelectionMode { get; set; } = TreeSelectionMode.Single;
+    /// <summary>Visual size of the component.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    /// <summary>When <see langword="true" />, the Checkboxes is shown.</summary>
+    [Parameter] public bool ShowCheckboxes { get; set; } = true;
+    /// <summary>AnimateExpand.</summary>
+    [Parameter] public bool AnimateExpand { get; set; } = true;
+
+    /// <summary>Material icon name for the Expand.</summary>
+    [Parameter] public IconKey ExpandIcon { get; set; } = BOBIconKeys.UI.ChevronRight;
+    /// <summary>Material icon name for the Collapse.</summary>
+    [Parameter] public IconKey CollapseIcon { get; set; } = BOBIconKeys.UI.ChevronDown;
+
+    /// <summary>Raised when the NodeClick event occurs.</summary>
+    [Parameter] public EventCallback<TreeNodeEventArgs<TreeSelectionNode<TItem>>> OnNodeClick { get; set; }
+    /// <summary>Raised when the NodeExpand event occurs.</summary>
+    [Parameter] public EventCallback<TreeNodeEventArgs<TreeSelectionNode<TItem>>> OnNodeExpand { get; set; }
+    /// <summary>Raised when the NodeCollapse event occurs.</summary>
+    [Parameter] public EventCallback<TreeNodeEventArgs<TreeSelectionNode<TItem>>> OnNodeCollapse { get; set; }
+
+    public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    {
+        // SelectionMode flows through to scoped CSS (block B.7); the @if (ShowCheckboxes)
+        // conditional in Razor is enough — no DOM data-attribute needed (block B.8).
+        dataAttributes[FeatureDefinitions.DataAttributes.SelectionMode] = SelectionMode.ToString().ToLowerInvariant();
+    }
+
+    protected override void OnInitialized()
+    {
+        _tree = new TreeStructure<TreeSelectionNode<TItem>, TItem>(CreateNodeFromContext);
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+
+        _isDeclarativeMode = ChildContent != null && Items == null;
+
+        if (ExpandedKeys != null)
+        {
+            _tree.SetExpandedKeys(ExpandedKeys);
+        }
+
+        if (SelectedKeys != null)
+        {
+            _selectedKeysInternal.Clear();
+            foreach (string key in SelectedKeys)
+            {
+                _selectedKeysInternal.Add(key);
+            }
+        }
+
+        if (!_isDeclarativeMode && Items != null)
+        {
+            _tree.BuildFromItems(Items, KeySelector, ChildrenSelector, HasChildrenSelector, ExpandAll);
+            _structureBuilt = true;
+        }
+    }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        base.OnAfterRender(firstRender);
+
+        if (firstRender && _isDeclarativeMode && !_structureBuilt)
+        {
+            BuildFromDeclarativeRegistrations();
+            _structureBuilt = true;
+            StateHasChanged();
+        }
+    }
+
+    private TreeSelectionNode<TItem> CreateNodeFromContext(TreeNodeBuildContext<TItem> context)
+    {
+        return new TreeSelectionNode<TItem>
+        {
+            Key = context.Key,
+            Item = context.Item,
+            Text = context.Text,
+            Icon = context.Icon,
+            IsDisabled = context.IsDisabled,
+            Depth = context.Depth,
+            ParentNode = context.Parent as TreeSelectionNode<TItem>,
+            CustomContent = context.CustomContent,
+            AdditionalData = context.AdditionalData
+        };
+    }
+
+    private TreeSelectionNode<TItem> CreateNodeFromRegistration(TreeSelectionNodeRegistration reg, TreeSelectionNode<TItem>? parent, int depth)
+    {
+        return new TreeSelectionNode<TItem>
+        {
+            Key = reg.Key,
+            Item = default,
+            Text = reg.Text,
+            Icon = reg.Icon,
+            IsDisabled = reg.IsDisabled,
+            Depth = depth,
+            ParentNode = parent,
+            CustomContent = reg.NodeContent,
+            AdditionalData = reg.Data
+        };
+    }
+
+    private void BuildFromDeclarativeRegistrations()
+    {
+        _tree.Clear();
+
+        IReadOnlyList<TreeSelectionNodeRegistration> registrations = _registry.GetRegistrations();
+        _registry.Clear();
+
+        Dictionary<string, List<TreeSelectionNodeRegistration>> childrenByParent = registrations
+            .GroupBy(r => r.ParentKey ?? string.Empty)
+            .ToDictionary(g => g.Key, g => g.ToList());
+
+        if (childrenByParent.TryGetValue(string.Empty, out List<TreeSelectionNodeRegistration>? roots))
+        {
+            foreach (TreeSelectionNodeRegistration reg in roots)
+            {
+                TreeSelectionNode<TItem> node = BuildNodeFromRegistration(reg, null, 0, childrenByParent);
+                _tree.RootNodes.Add(node);
+            }
+        }
+    }
+
+    private TreeSelectionNode<TItem> BuildNodeFromRegistration(
+        TreeSelectionNodeRegistration reg,
+        TreeSelectionNode<TItem>? parent,
+        int depth,
+        Dictionary<string, List<TreeSelectionNodeRegistration>> childrenByParent)
+    {
+        bool hasChildren = childrenByParent.ContainsKey(reg.Key);
+        TreeSelectionNode<TItem> node = CreateNodeFromRegistration(reg, parent, depth);
+        node.HasChildrenFlag = hasChildren;
+
+        _tree.RegisterNode(node);
+
+        if (reg.InitiallyExpanded || ExpandAll)
+        {
+            _tree.Expand(node.Key);
+        }
+
+        if (reg.IsSelected)
+        {
+            _selectedKeysInternal.Add(node.Key);
+        }
+
+        if (childrenByParent.TryGetValue(reg.Key, out List<TreeSelectionNodeRegistration>? children))
+        {
+            foreach (TreeSelectionNodeRegistration childReg in children)
+            {
+                TreeSelectionNode<TItem> childNode = BuildNodeFromRegistration(childReg, node, depth + 1, childrenByParent);
+                node.ChildrenInternal.Add(childNode);
+            }
+        }
+
+        return node;
+    }
+
+    private RenderFragment RenderNode(TreeSelectionNode<TItem> node) => __builder =>
+    {
+        bool isExpanded = _tree.IsExpanded(node.Key);
+        bool isLoading = _tree.IsLoading(node.Key);
+        bool isSelected = IsSelected(node.Key);
+
+        <div class="bob-tree-selector__node @(node.IsDisabled ? "bob-tree-selector__node--disabled" : "") @(isSelected ? "bob-tree-selector__node--selected" : "")"
+             role="treeitem"
+             aria-expanded="@(node.HasChildren? isExpanded.ToString().ToLowerInvariant() : null)"
+             aria-selected="@isSelected.ToString().ToLowerInvariant()"
+             aria-disabled="@node.IsDisabled.ToString().ToLowerInvariant()"
+             data-depth="@node.Depth"
+             data-key="@node.Key">
+
+            <div class="bob-tree-selector__node-content"
+                 style="padding-left: calc(@(node.Depth) * var(--bob-tree-selector-indent, 1.5rem))"
+                 tabindex="@(node.IsDisabled ? -1 : 0)"
+                 @onclick="() => HandleNodeClickAsync(node)"
+                 @onclick:stopPropagation="true"
+                 @onkeydown="e => HandleNodeKeyDown(e, node)"
+                 @onkeydown:preventDefault="_preventKeyDefault">
+
+                @if (node.HasChildren)
+                {
+                    <_BOBBtn Icon="@ExpandIcon"
+                             IconRotation="@(isExpanded ? 90 : 0)"
+                             Loading="@isLoading"
+                             Disabled="node.IsDisabled"
+                             AriaLabel="@(isExpanded ? "Collapse" : "Expand")"
+                             OnClick="() => ToggleExpandAsync(node)"
+                             OnClickStopPropagation="true"
+                             tabindex="-1"
+                             class="bob-tree-selector__expander" />
+                }
+                else
+                {
+                    <span class="bob-tree-selector__expander-placeholder"></span>
+                }
+
+                @if (ShowCheckboxes)
+                {
+                    <_BOBCheckMark Checked="@isSelected"
+                                   Size="Size"
+                                   Disabled="node.IsDisabled" />
+                }
+
+                <div class="bob-tree-selector__node-label">
+                    @if (_isDeclarativeMode && node.CustomContent != null)
+                    {
+                        @node.CustomContent
+                    }
+                    else if (!_isDeclarativeMode && NodeTemplate != null)
+                    {
+                        @NodeTemplate(node)
+                    }
+                    else
+                    {
+                        @RenderDefaultContent(node)
+                    }
+                </div>
+            </div>
+
+            @if (node.HasChildren && isExpanded)
+            {
+                <div class="bob-tree-selector__children @(AnimateExpand ? "bob-tree-selector__children--animated" : "")"
+                     role="group">
+                    @foreach (TreeSelectionNode<TItem> child in node.ChildrenInternal)
+                    {
+                        @RenderNode(child)
+                    }
+                </div>
+            }
+        </div>
+    };
+
+    private RenderFragment RenderDefaultContent(TreeSelectionNode<TItem> node) => __builder =>
+    {
+        @if (node.Icon.HasValue)
+        {
+            <BOBSvgIcon Icon="@node.Icon.Value" Size="Size" class="bob-tree-selector__node-icon" />
+        }
+        <span class="bob-tree-selector__node-text">@GetNodeDisplayText(node)</span>
+    };
+
+    private string GetNodeDisplayText(TreeSelectionNode<TItem> node)
+    {
+        if (!string.IsNullOrEmpty(node.Text))
+            return node.Text;
+
+        if (node.Item != null && DisplayTextSelector != null)
+            return DisplayTextSelector(node.Item);
+
+        return node.Key;
+    }
+
+    public bool IsSelected(string key) => _selectedKeysInternal.Contains(key);
+
+    private async Task HandleNodeClickAsync(TreeSelectionNode<TItem> node)
+    {
+        if (node.IsDisabled) return;
+
+        await OnNodeClick.InvokeAsync(new TreeNodeEventArgs<TreeSelectionNode<TItem>>
+        {
+            Node = node,
+            Key = node.Key,
+            Depth = node.Depth,
+            IsExpanded = _tree.IsExpanded(node.Key)
+        });
+
+        await ToggleSelectionAsync(node.Key);
+    }
+
+    private async Task HandleNodeKeyDown(KeyboardEventArgs e, TreeSelectionNode<TItem> node)
+    {
+        switch (e.Key)
+        {
+            case " ":
+            case "Enter":
+                _preventKeyDefault = true;
+                if (!node.IsDisabled)
+                {
+                    await ToggleSelectionAsync(node.Key);
+                }
+                break;
+
+            case "ArrowRight":
+                _preventKeyDefault = true;
+                if (node.HasChildren)
+                {
+                    if (!_tree.IsExpanded(node.Key))
+                    {
+                        await ToggleExpandAsync(node);
+                    }
+                }
+                break;
+
+            case "ArrowLeft":
+                _preventKeyDefault = true;
+                if (node.HasChildren && _tree.IsExpanded(node.Key))
+                {
+                    await ToggleExpandAsync(node);
+                }
+                break;
+
+            case "ArrowDown":
+                _preventKeyDefault = true;
+                break;
+
+            case "ArrowUp":
+                _preventKeyDefault = true;
+                break;
+
+            default:
+                _preventKeyDefault = false;
+                break;
+        }
+    }
+
+    private async Task ToggleExpandAsync(TreeSelectionNode<TItem> node)
+    {
+        if (_tree.IsExpanded(node.Key))
+        {
+            _tree.Collapse(node.Key);
+            await OnNodeCollapse.InvokeAsync(CreateEventArgs(node, false));
+        }
+        else
+        {
+            if (OnLoadChildren != null)
+            {
+                await _tree.LoadChildrenAsync(node.Key, OnLoadChildren, KeySelector, ChildrenSelector, HasChildrenSelector, StateHasChanged);
+            }
+            _tree.Expand(node.Key);
+            await OnNodeExpand.InvokeAsync(CreateEventArgs(node, true));
+        }
+
+        await NotifyExpandedKeysChangedAsync();
+        StateHasChanged();
+    }
+
+    private async Task ToggleSelectionAsync(string key)
+    {
+        TreeSelectionNode<TItem>? node = _tree.GetNode(key);
+        if (node?.IsDisabled == true) return;
+
+        if (SelectionMode == TreeSelectionMode.Single)
+        {
+            bool wasSelected = IsSelected(key);
+            _selectedKeysInternal.Clear();
+            if (!wasSelected)
+            {
+                _selectedKeysInternal.Add(key);
+            }
+        }
+        else
+        {
+            if (IsSelected(key))
+            {
+                _selectedKeysInternal.Remove(key);
+            }
+            else
+            {
+                _selectedKeysInternal.Add(key);
+            }
+        }
+
+        await NotifySelectedKeysChangedAsync();
+        StateHasChanged();
+    }
+
+    private TreeNodeEventArgs<TreeSelectionNode<TItem>> CreateEventArgs(TreeSelectionNode<TItem> node, bool isExpanded) => new()
+    {
+        Node = node,
+        Key = node.Key,
+        Depth = node.Depth,
+        IsExpanded = isExpanded
+    };
+
+    private async Task NotifyExpandedKeysChangedAsync()
+    {
+        if (ExpandedKeysChanged.HasDelegate)
+        {
+            await ExpandedKeysChanged.InvokeAsync(new HashSet<string>(_tree.ExpandedKeys));
+        }
+    }
+
+    private async Task NotifySelectedKeysChangedAsync()
+    {
+        if (SelectedKeysChanged.HasDelegate)
+        {
+            await SelectedKeysChanged.InvokeAsync(new HashSet<string>(_selectedKeysInternal));
+        }
+    }
+
+    public void ExpandAllNodes()
+    {
+        _tree.ExpandAll();
+        StateHasChanged();
+    }
+
+    public void CollapseAllNodes()
+    {
+        _tree.CollapseAll();
+        StateHasChanged();
+    }
+
+    public void SelectAll()
+    {
+        if (SelectionMode != TreeSelectionMode.Multiple) return;
+
+        foreach (TreeSelectionNode<TItem> node in _tree.NodeMap.Values.Where(n => !n.IsDisabled))
+        {
+            _selectedKeysInternal.Add(node.Key);
+        }
+        StateHasChanged();
+    }
+
+    public void ClearSelection()
+    {
+        _selectedKeysInternal.Clear();
+        StateHasChanged();
+    }
+
+    public void InvalidateCache(string? key = null) => _tree.InvalidateCache(key);
+
+    public TreeSelectionNode<TItem>? GetNode(string key) => _tree.GetNode(key);
+
+    public IReadOnlyCollection<TreeSelectionNode<TItem>> GetSelectedNodes()
+        => _selectedKeysInternal.Select(k => _tree.GetNode(k)).Where(n => n != null).ToList()!;
+
+    public void Dispose()
+    {
+        _registry.Clear();
+        _tree?.Clear();
+        _selectedKeysInternal.Clear();
+    }
+}

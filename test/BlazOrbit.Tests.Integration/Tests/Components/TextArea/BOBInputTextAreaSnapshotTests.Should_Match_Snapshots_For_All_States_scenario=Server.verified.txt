@@ -1,0 +1,122 @@
+﻿[
+  {
+    Name: Default_Outlined,
+    Html:
+<bob-component data-bob-resize="vertical" data-bob-<SCOPE>="false" data-bob-floated="false" data-bob-component="input-text-area" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+    <span class="bob-input__outline-notch"><label for="bob-textarea-<ID>" class="bob-input__label">Notes</label></span>
+    <span class="bob-input__outline-trailing"></span></div>
+                
+
+                <textarea id="bob-textarea-<ID>" class="bob-input__field" rows="3" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" aria-describedby="bob-helper-<ID>" aria-invalid="false" aria-required="false" b-<SCOPE> blazor:elementReference="<GUID>"></textarea>
+
+                
+                </div>
+
+            </bob-component>
+  },
+  {
+    Name: With_Value,
+    Html:
+<bob-component data-bob-resize="vertical" data-bob-<SCOPE>="false" data-bob-floated="true" data-bob-component="input-text-area" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+    <span class="bob-input__outline-notch"><label for="bob-textarea-<ID>" class="bob-input__label">Notes</label></span>
+    <span class="bob-input__outline-trailing"></span></div>
+                
+
+                <textarea id="bob-textarea-<ID>" class="bob-input__field" value="hello world" rows="3" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" aria-describedby="bob-helper-<ID>" aria-invalid="false" aria-required="false" b-<SCOPE> blazor:elementReference="<GUID>"></textarea>
+
+                
+                </div>
+
+            </bob-component>
+  },
+  {
+    Name: AutoResize_Enabled,
+    Html:
+<bob-component data-bob-resize="vertical" data-bob-<SCOPE>="true" data-bob-floated="false" data-bob-component="input-text-area" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+    <span class="bob-input__outline-notch"><label for="bob-textarea-<ID>" class="bob-input__label">Notes</label></span>
+    <span class="bob-input__outline-trailing"></span></div>
+                
+
+                <textarea id="bob-textarea-<ID>" class="bob-input__field" rows="3" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" aria-describedby="bob-helper-<ID>" aria-invalid="false" aria-required="false" b-<SCOPE> blazor:elementReference="<GUID>"></textarea>
+
+                
+                </div>
+
+            </bob-component>
+  },
+  {
+    Name: Resize_None,
+    Html:
+<bob-component data-bob-resize="none" data-bob-<SCOPE>="false" data-bob-floated="false" data-bob-component="input-text-area" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+    <span class="bob-input__outline-notch"><label for="bob-textarea-<ID>" class="bob-input__label">Notes</label></span>
+    <span class="bob-input__outline-trailing"></span></div>
+                
+
+                <textarea id="bob-textarea-<ID>" class="bob-input__field" rows="3" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" aria-describedby="bob-helper-<ID>" aria-invalid="false" aria-required="false" b-<SCOPE> blazor:elementReference="<GUID>"></textarea>
+
+                
+                </div>
+
+            </bob-component>
+  },
+  {
+    Name: Resize_Both,
+    Html:
+<bob-component data-bob-resize="both" data-bob-<SCOPE>="false" data-bob-floated="false" data-bob-component="input-text-area" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+    <span class="bob-input__outline-notch"><label for="bob-textarea-<ID>" class="bob-input__label">Notes</label></span>
+    <span class="bob-input__outline-trailing"></span></div>
+                
+
+                <textarea id="bob-textarea-<ID>" class="bob-input__field" rows="3" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" aria-describedby="bob-helper-<ID>" aria-invalid="false" aria-required="false" b-<SCOPE> blazor:elementReference="<GUID>"></textarea>
+
+                
+                </div>
+
+            </bob-component>
+  },
+  {
+    Name: Disabled,
+    Html:
+<bob-component data-bob-resize="vertical" data-bob-<SCOPE>="false" data-bob-floated="false" data-bob-component="input-text-area" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="true" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+    <span class="bob-input__outline-notch"><label for="bob-textarea-<ID>" class="bob-input__label">Disabled</label></span>
+    <span class="bob-input__outline-trailing"></span></div>
+                
+
+                <textarea id="bob-textarea-<ID>" class="bob-input__field" rows="3" disabled blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" aria-describedby="bob-helper-<ID>" aria-invalid="false" aria-required="false" b-<SCOPE> blazor:elementReference="<GUID>"></textarea>
+
+                
+                </div>
+
+            </bob-component>
+  },
+  {
+    Name: Error_State,
+    Html:
+<bob-component data-bob-resize="vertical" data-bob-<SCOPE>="false" data-bob-floated="false" data-bob-component="input-text-area" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="true" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+    <span class="bob-input__outline-notch"><label for="bob-textarea-<ID>" class="bob-input__label">Error</label></span>
+    <span class="bob-input__outline-trailing"></span></div>
+                
+
+                <textarea id="bob-textarea-<ID>" class="bob-input__field" rows="3" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" aria-describedby="bob-helper-<ID>" aria-invalid="true" aria-required="false" b-<SCOPE> blazor:elementReference="<GUID>"></textarea>
+
+                
+                </div>
+
+            </bob-component>
+  },
+  {
+    Name: With_Prefix_Suffix,
+    Html:
+<bob-component data-bob-resize="vertical" data-bob-<SCOPE>="false" data-bob-floated="false" data-bob-component="input-text-area" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+    <span class="bob-input__outline-notch"><label for="bob-textarea-<ID>" class="bob-input__label">Notes</label></span>
+    <span class="bob-input__outline-trailing"></span></div>
+                <div class="bob-addon bob-input__addon--prefix" b-<SCOPE>><span>PRE</span></div>
+
+                <textarea id="bob-textarea-<ID>" class="bob-input__field" rows="3" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" aria-describedby="bob-helper-<ID>" aria-invalid="false" aria-required="false" b-<SCOPE> blazor:elementReference="<GUID>"></textarea>
+
+                <div class="bob-addon bob-input__addon--suffix" b-<SCOPE>><span>SUF</span></div>
+                </div>
+
+            </bob-component>
+  }
+]

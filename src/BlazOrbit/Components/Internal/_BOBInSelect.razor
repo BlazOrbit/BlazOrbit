@@ -1,0 +1,32 @@
+﻿@namespace BlazOrbit.Components.Internal
+
+<select class="_bob-simple-select"
+        value="@Value"
+        disabled="@Disabled"
+        aria-label="@AriaLabel"
+        @onchange="HandleChange"
+        @attributes="AdditionalAttributes">
+    @ChildContent
+</select>
+
+@code {
+    /// <summary>Current value of the component.</summary>
+    [Parameter] public string? Value { get; set; }
+    /// <summary>Raised when the value changes.</summary>
+    [Parameter] public EventCallback<string?> ValueChanged { get; set; }
+    /// <summary>When <see langword="true" />, the component is non-interactive.</summary>
+    [Parameter] public bool Disabled { get; set; }
+    /// <summary>Accessible name for the component.</summary>
+    [Parameter] public string? AriaLabel { get; set; }
+    /// <summary>Content rendered inside the component.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private async Task HandleChange(ChangeEventArgs e)
+    {
+        string? newValue = e.Value?.ToString();
+        Value = newValue;
+        await ValueChanged.InvokeAsync(newValue);
+    }
+}

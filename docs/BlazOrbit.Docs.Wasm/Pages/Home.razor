@@ -1,0 +1,95 @@
+﻿@page "/"
+@layout HomeLayout
+@implements IAsyncDisposable
+@inject IJSRuntime _js
+@inject IStringLocalizer<Home> Loc
+
+<PageTitle>BlazOrbit — Modern Blazor components for .NET 10</PageTitle>
+<InstallAppHint />
+
+<section class="hero" @ref="_heroRef">
+    <div class="hero__puzzle">
+        <span class="hero__tile hero__tile--1" aria-hidden="true"></span>
+        <span class="hero__tile hero__tile--2" aria-hidden="true"></span>
+        <span class="hero__tile hero__tile--3" aria-hidden="true"></span>
+        <span class="hero__tile hero__tile--4" aria-hidden="true"></span>
+        <span class="hero__tile hero__tile--5" aria-hidden="true"></span>
+        <span class="hero__tile hero__tile--6" aria-hidden="true"></span>
+        <span class="hero__tile hero__tile--7" aria-hidden="true"></span>
+        <span class="hero__tile hero__tile--icon" aria-hidden="true"></span>
+    </div>
+
+    <div class="hero__content">
+        <span class="hero__badge">
+            <span class="hero__badge-dot"></span>
+            v1.0 · .NET 10
+        </span>
+
+        <h1 class="hero__title">
+            <div class="b-svg" />laz<span class="hero__title-accent-gradient">O</span>rbit
+        </h1>
+
+        <p class="hero__lede">
+            @Loc["A lightweight component library that extends native capabilities and improves your productivity"]<br />
+        </p>
+
+        <div class="hero__ctas">
+            <BOBButton Text="Get started"
+                       Size="BOBSize.Large"
+                       OnClick="@(() => _nav.NavigateTo("/getting-started"))" />
+        </div>
+
+        <div class="hero__snippet" role="figure" aria-label="Install command">
+            <span class="hero__snippet-prompt">$</span>
+            <code>dotnet add package BlazOrbit</code>
+        </div>
+
+        <DocSearch />
+
+    </div>
+</section>
+
+@code {
+    [Inject] private NavigationManager _nav { get; set; } = default!;
+
+    private ElementReference _heroRef;
+    private IJSObjectReference? _parallaxModule;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            try
+            {
+                _parallaxModule = await _js.InvokeAsync<IJSObjectReference>("import", "./js/hero-parallax.js");
+                await _parallaxModule.InvokeVoidAsync("attach", _heroRef);
+            }
+            catch (JSDisconnectedException) { }
+            catch (ObjectDisposedException) { }
+            catch (TaskCanceledException) { }
+            catch (JSException) { /* module load 404 / parse error — fall back to no parallax */ }
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_parallaxModule is not null)
+        {
+            try
+            {
+                await _parallaxModule.InvokeVoidAsync("detach");
+                await _parallaxModule.DisposeAsync();
+            }
+            catch (JSDisconnectedException) { }
+            catch (ObjectDisposedException) { }
+            catch (InvalidOperationException) { }
+            catch (TaskCanceledException) { }
+        }
+    }
+
+    private const string _packageSnippet = @"dotnet add package BlazOrbit";
+
+    private const string _programSnippet = @"builder.Services.AddBlazOrbit();";
+
+    private const string _indexSnippet = @"<link href=""_content/BlazOrbit/css/blazorbit.css"" rel=""stylesheet"" />";
+}

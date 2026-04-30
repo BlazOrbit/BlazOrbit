@@ -1,0 +1,1520 @@
+﻿[
+  {
+    Type: PreprocessorDirective,
+    Value: #nullable
+  },
+  {
+    Value:
+ enable
+
+
+  },
+  {
+    Type: Keyword,
+    Value: using
+  },
+  {
+    Value:  System
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Text
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Json
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Keyword,
+    Value: namespace
+  },
+  {
+    Value:  Demo
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Keyword,
+    Value: public
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: record
+  },
+  {
+    Value:  Person
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Type,
+    Value: string
+  },
+  {
+    Value:  FirstName
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: string
+  },
+  {
+    Value:  LastName
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Keyword,
+    Value: public
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: string
+  },
+  {
+    Value:  FullName 
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  
+  },
+  {
+    Type: InterpolatedString,
+    Value: $"{FirstName} {LastName}"
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Keyword,
+    Value: public
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: static
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: class
+  },
+  {
+    Value:
+ Extensions
+
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Keyword,
+    Value: public
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: static
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: async
+  },
+  {
+    Value:  IAsyncEnumerable
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: T
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Value:  WhereAsync
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: T
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Value:  IAsyncEnumerable
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: T
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Value:  source
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+        Func
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: T
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: bool
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Value:  predicate
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: [
+  },
+  {
+    Value: EnumeratorCancellation
+  },
+  {
+    Type: Punctuation,
+    Value: ]
+  },
+  {
+    Value:  CancellationToken ct 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: ControlKeyword,
+    Value: default
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: await
+  },
+  {
+    Value:  
+  },
+  {
+    Type: ControlKeyword,
+    Value: foreach
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Keyword,
+    Value: var
+  },
+  {
+    Value:  item 
+  },
+  {
+    Type: Keyword,
+    Value: in
+  },
+  {
+    Value:  source
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: WithCancellation
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: ct
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: ControlKeyword,
+    Value: if
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: predicate
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: item
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+                
+  },
+  {
+    Type: ControlKeyword,
+    Value: yield
+  },
+  {
+    Value:  
+  },
+  {
+    Type: ControlKeyword,
+    Value: return
+  },
+  {
+    Value:  item
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: Keyword,
+    Value: public
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: static
+  },
+  {
+    Value:  T
+  },
+  {
+    Type: Operator,
+    Value: ?
+  },
+  {
+    Value:  ParseOrDefault
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: T
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: string
+  },
+  {
+    Type: Operator,
+    Value: ?
+  },
+  {
+    Value:  input
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: ControlKeyword,
+    Value: where
+  },
+  {
+    Value:  T 
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: struct
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: return
+  },
+  {
+    Value:  input 
+  },
+  {
+    Type: ControlKeyword,
+    Value: switch
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Keyword,
+    Value: null
+  },
+  {
+    Value:  or 
+  },
+  {
+    Type: String,
+    Value: ""
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: null
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+            _ 
+  },
+  {
+    Type: ControlKeyword,
+    Value: when
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: typeof
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: T
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: ==
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: typeof
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Type,
+    Value: int
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: T
+  },
+  {
+    Type: Operator,
+    Value: ?
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Type,
+    Value: object
+  },
+  {
+    Type: Operator,
+    Value: ?
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Type,
+    Value: int
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Parse
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: input
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+            _ 
+  },
+  {
+    Type: ControlKeyword,
+    Value: when
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: typeof
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: T
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: ==
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: typeof
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Type,
+    Value: double
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: T
+  },
+  {
+    Type: Operator,
+    Value: ?
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Type,
+    Value: object
+  },
+  {
+    Type: Operator,
+    Value: ?
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Type,
+    Value: double
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Parse
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: input
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+            _ 
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  
+  },
+  {
+    Type: ControlKeyword,
+    Value: throw
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: new
+  },
+  {
+    Value:  NotSupportedException
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: InterpolatedString,
+    Value: $"Type {typeof(T)} is not supported"
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Keyword,
+    Value: public
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: class
+  },
+  {
+    Value:
+ DataProcessor
+
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Keyword,
+    Value: private
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: readonly
+  },
+  {
+    Value:  Dictionary
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Type: Type,
+    Value: string
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: object
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Value:  _cache 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: [
+  },
+  {
+    Type: Punctuation,
+    Value: ]
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: Keyword,
+    Value: public
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: required
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: string
+  },
+  {
+    Value:  Name 
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: get
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: init
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: Keyword,
+    Value: public
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: async
+  },
+  {
+    Value:  Task ProcessAsync
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: ReadOnlyMemory
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Type: Type,
+    Value: byte
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Value:  data
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Keyword,
+    Value: var
+  },
+  {
+    Value:  json 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  JsonSerializer
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Deserialize
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: JsonElement
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: data
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Span
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+        
+  },
+  {
+    Type: Keyword,
+    Value: var
+  },
+  {
+    Value:  result 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  json
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: ValueKind 
+  },
+  {
+    Type: ControlKeyword,
+    Value: switch
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+            JsonValueKind
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Object 
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  ProcessObject
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: json
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+            JsonValueKind
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Array 
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  ProcessArray
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: json
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+            _ 
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  
+  },
+  {
+    Type: ControlKeyword,
+    Value: throw
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: new
+  },
+  {
+    Value:  InvalidOperationException
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: await
+  },
+  {
+    Value:  Task
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: CompletedTask
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: Keyword,
+    Value: private
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: static
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: int
+  },
+  {
+    Value:  ProcessObject
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: JsonElement element
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  element
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: GetPropertyCount
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Keyword,
+    Value: private
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: static
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: int
+  },
+  {
+    Value:  ProcessArray
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: JsonElement element
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  element
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: GetArrayLength
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  }
+]

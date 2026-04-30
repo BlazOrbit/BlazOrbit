@@ -1,0 +1,212 @@
+﻿/* === BASE === */
+[data-bob-component="loading-indicator"] {
+    --_loading-size: 1.5rem;
+    --_loading-color: var(--bob-inline-color, currentColor);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: var(--_loading-size);
+    height: var(--_loading-size);
+    color: var(--_loading-color);
+}
+
+    /* === SIZES === */
+    [data-bob-component="loading-indicator"][data-bob-size="small"] {
+        --_loading-size: 1rem;
+    }
+
+    [data-bob-component="loading-indicator"][data-bob-size="large"] {
+        --_loading-size: 2rem;
+    }
+
+    /* === COMMON SVG === */
+    [data-bob-component="loading-indicator"] svg {
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+    }
+
+/* ============================================================
+   SPINNER — variable-length arc with rotation
+   ============================================================ */
+bob-component[data-bob-variant="spinner"] svg {
+    animation: loading-rotate 2s linear infinite;
+}
+
+bob-component[data-bob-variant="spinner"] circle {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-dasharray: 1, 200;
+    animation: loading-spinner-dash 1.5s ease-in-out infinite;
+}
+
+@keyframes loading-spinner-dash {
+    0% {
+        stroke-dasharray: 1, 200;
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -35px;
+    }
+
+    100% {
+        stroke-dasharray: 89, 200;
+        stroke-dashoffset: -124px;
+    }
+}
+
+/* ============================================================
+   CIRCULAR PROGRESS — constant arc rotating
+   ============================================================ */
+bob-component[data-bob-variant="circularprogress"] svg {
+    animation: loading-rotate 1s linear infinite;
+}
+
+bob-component[data-bob-variant="circularprogress"] circle {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-dasharray: 80, 200;
+}
+
+/* ============================================================
+   RING — 3/4 arc, simple fast rotation (lightest spinner)
+   ============================================================ */
+bob-component[data-bob-variant="ring"] svg {
+    animation: loading-rotate 0.75s linear infinite;
+}
+
+bob-component[data-bob-variant="ring"] circle {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-dasharray: 94, 126;
+}
+
+/* === SHARED ROTATION === */
+@keyframes loading-rotate {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* ============================================================
+   DOTS — 3 circles with staggered scale/opacity
+   ============================================================ */
+bob-component[data-bob-variant="dots"] circle {
+    fill: currentColor;
+    animation: loading-dots 1.4s ease-in-out infinite;
+}
+
+    bob-component[data-bob-variant="dots"] circle:nth-child(1) {
+        animation-delay: -0.32s;
+    }
+
+    bob-component[data-bob-variant="dots"] circle:nth-child(2) {
+        animation-delay: -0.16s;
+    }
+
+    bob-component[data-bob-variant="dots"] circle:nth-child(3) {
+        animation-delay: 0s;
+    }
+
+@keyframes loading-dots {
+    0%, 80%, 100% {
+        opacity: 0.4;
+        transform: scale(0.6);
+    }
+
+    40% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ============================================================
+   BARS — 3 rects with staggered scaleY
+   ============================================================ */
+bob-component[data-bob-variant="bars"] rect {
+    fill: currentColor;
+    transform-origin: center center;
+    animation: loading-bars 1s ease-in-out infinite;
+}
+
+    bob-component[data-bob-variant="bars"] rect:nth-child(1) {
+        animation-delay: -0.2s;
+    }
+
+    bob-component[data-bob-variant="bars"] rect:nth-child(2) {
+        animation-delay: -0.1s;
+    }
+
+    bob-component[data-bob-variant="bars"] rect:nth-child(3) {
+        animation-delay: 0s;
+    }
+
+@keyframes loading-bars {
+    0%, 100% {
+        transform: scaleY(0.4);
+    }
+
+    50% {
+        transform: scaleY(1);
+    }
+}
+
+/* ============================================================
+   LINEAR INDETERMINATE — two-bar material style
+   ============================================================ */
+bob-component[data-bob-variant="linearindeterminate"] {
+    width: 100%;
+    height: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+    bob-component[data-bob-variant="linearindeterminate"] .bob-loading-linear {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        background: currentColor;
+        will-change: left, right;
+    }
+
+    bob-component[data-bob-variant="linearindeterminate"] .bob-loading-linear--primary {
+        animation: loading-linear-primary 2s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+    }
+
+    bob-component[data-bob-variant="linearindeterminate"] .bob-loading-linear--secondary {
+        animation: loading-linear-secondary 2s cubic-bezier(0.165, 0.84, 0.44, 1) 1.15s infinite;
+    }
+
+@keyframes loading-linear-primary {
+    0% {
+        left: -35%;
+        right: 100%;
+    }
+
+    60%, 100% {
+        left: 100%;
+        right: -90%;
+    }
+}
+
+@keyframes loading-linear-secondary {
+    0% {
+        left: -200%;
+        right: 100%;
+    }
+
+    60%, 100% {
+        left: 107%;
+        right: -8%;
+    }
+}

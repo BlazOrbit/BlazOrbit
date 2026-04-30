@@ -1,0 +1,4416 @@
+﻿[
+  {
+    Type: Comment,
+    Value: /* Global Styles */
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: CssPseudo,
+    Value: :root
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: --primary-color
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: #3498db
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: --secondary-color
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: #2ecc71
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: --danger-color
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: #e74c3c
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: --text-color
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: #333333
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: --background-color
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: #ffffff
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: --spacing-unit
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 8px
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: --border-radius
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 4px
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: --transition-duration
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 200ms
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: --font-family
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: String,
+    Value: 'Inter'
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  -apple-system
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  BlinkMacSystemFont
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  sans-serif
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Operator,
+    Value: *
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Operator,
+    Value: *
+  },
+  {
+    Type: CssPseudo,
+    Value: ::before
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Operator,
+    Value: *
+  },
+  {
+    Type: CssPseudo,
+    Value: ::after
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: box-sizing
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  border-box
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: margin
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 0
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: padding
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 0
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: TagName,
+    Value: html
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: font-size
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 16px
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: scroll-behavior
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  smooth
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: TagName,
+    Value: body
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: font-family
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Variable,
+    Value: var(--font-family)
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: color
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Variable,
+    Value: var(--text-color)
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: background-color
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Variable,
+    Value: var(--background-color)
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: TagName,
+    Value: line
+  },
+  {
+    Type: CssProperty,
+    Value: -height
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 1.6
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: -webkit-font-smoothing
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  antialiased
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Comment,
+    Value: /* Typography */
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: TagName,
+    Value: h1
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  
+  },
+  {
+    Type: TagName,
+    Value: h2
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  
+  },
+  {
+    Type: TagName,
+    Value: h3
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  
+  },
+  {
+    Type: TagName,
+    Value: h4
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  
+  },
+  {
+    Type: TagName,
+    Value: h5
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  
+  },
+  {
+    Type: TagName,
+    Value: h6
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: font-weight
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 600
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: TagName,
+    Value: line
+  },
+  {
+    Type: CssProperty,
+    Value: -height
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 1.2
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: margin-bottom
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  calc
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Variable,
+    Value: var(--spacing-unit)
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: *
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 2
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: TagName,
+    Value: h1
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssProperty,
+    Value: font-size
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 2.5rem
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: TagName,
+    Value: h2
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssProperty,
+    Value: font-size
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 2rem
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: TagName,
+    Value: h3
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssProperty,
+    Value: font-size
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 1.75rem
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Comment,
+    Value: /* Layout Components */
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: CssSelector,
+    Value: .container
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: width
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 100%
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: max-width
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 1200px
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: margin
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 0
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: auto
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: padding
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 0
+  },
+  {
+    Value:  calc
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Variable,
+    Value: var(--spacing-unit)
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: *
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 2
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: CssSelector,
+    Value: .grid
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: display
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: grid
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: grid-template-columns
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  repeat
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: CssValue,
+    Value: auto
+  },
+  {
+    Value: -fit
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  minmax
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: CssUnit,
+    Value: 300px
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 1fr
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: gap
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  calc
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Variable,
+    Value: var(--spacing-unit)
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: *
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 3
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: CssSelector,
+    Value: .flex
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: display
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: flex
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: align-items
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: center
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: gap
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Variable,
+    Value: var(--spacing-unit)
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: CssSelector,
+    Value: .flex-column
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: flex-direction
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: column
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: CssSelector,
+    Value: .justify-between
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: justify-content
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  space-between
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Comment,
+    Value: /* Button Component */
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: CssSelector,
+    Value: .btn
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: display
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: inline
+  },
+  {
+    Value: -flex
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: align-items
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: center
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: justify-content
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: center
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: gap
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 8px
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: padding
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 12px
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 24px
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: font-size
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 1rem
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: font-weight
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 500
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: text-decoration
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: none
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: border
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: none
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: border-radius
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Variable,
+    Value: var(--border-radius)
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: cursor
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: pointer
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: transition
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  all 
+  },
+  {
+    Type: Variable,
+    Value: var(--transition-duration)
+  },
+  {
+    Value:  ease-in-out
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: CssSelector,
+    Value: .btn
+  },
+  {
+    Type: CssPseudo,
+    Value: :hover
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: transform
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  translateY
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: -
+  },
+  {
+    Type: CssUnit,
+    Value: 2px
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: box-shadow
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 0
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 4px
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 12px
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: rgba(0, 0, 0, 0.15)
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: CssSelector,
+    Value: .btn
+  },
+  {
+    Type: CssPseudo,
+    Value: :active
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: transform
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  translateY
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Number,
+    Value: 0
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: CssSelector,
+    Value: .btn
+  },
+  {
+    Type: CssPseudo,
+    Value: :disabled
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: opacity
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 0.6
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: cursor
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  not-allowed
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: transform
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: none
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: !important
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: CssSelector,
+    Value: .btn--primary
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: background-color
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Variable,
+    Value: var(--primary-color)
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: color
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: #ffffff
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: CssSelector,
+    Value: .btn--primary
+  },
+  {
+    Type: CssPseudo,
+    Value: :hover
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: background-color
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  color-mix
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: in srgb
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Variable,
+    Value: var(--primary-color)
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 85%
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: black
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: CssSelector,
+    Value: .btn--secondary
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: background-color
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: transparent
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: color
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Variable,
+    Value: var(--primary-color)
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: border
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 2px
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: solid
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Variable,
+    Value: var(--primary-color)
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: CssSelector,
+    Value: .btn--danger
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: background-color
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Variable,
+    Value: var(--danger-color)
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: color
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: #ffffff
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Comment,
+    Value: /* Card Component */
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: CssSelector,
+    Value: .card
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: background
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: #ffffff
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: border-radius
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  calc
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Variable,
+    Value: var(--border-radius)
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: *
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 2
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: box-shadow
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 0
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 2px
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 8px
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: rgba(0, 0, 0, 0.08)
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: overflow
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: hidden
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: transition
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  box-shadow 
+  },
+  {
+    Type: Variable,
+    Value: var(--transition-duration)
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: CssSelector,
+    Value: .card
+  },
+  {
+    Type: CssPseudo,
+    Value: :hover
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: box-shadow
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 0
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 8px
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 24px
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: rgba(0, 0, 0, 0.12)
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: CssSelector,
+    Value: .card__header
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: padding
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  calc
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Variable,
+    Value: var(--spacing-unit)
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: *
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 2
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: border-bottom
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 1px
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: solid
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssSelector,
+    Value: #eee
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: CssSelector,
+    Value: .card__body
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: padding
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  calc
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Variable,
+    Value: var(--spacing-unit)
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: *
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 3
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: CssSelector,
+    Value: .card__footer
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: padding
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  calc
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Variable,
+    Value: var(--spacing-unit)
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: *
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 2
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: background-color
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: #f8f9fa
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Comment,
+    Value: /* Form Elements */
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: CssSelector,
+    Value: .form-group
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: margin-bottom
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  calc
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Variable,
+    Value: var(--spacing-unit)
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: *
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 2
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: CssSelector,
+    Value: .form-label
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: display
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: block
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: margin-bottom
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Variable,
+    Value: var(--spacing-unit)
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: font-weight
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 500
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: CssSelector,
+    Value: .form-input
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: width
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 100%
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: padding
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 12px
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 16px
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: font-size
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 1rem
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: border
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 1px
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: solid
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssSelector,
+    Value: #ddd
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: border-radius
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Variable,
+    Value: var(--border-radius)
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: transition
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  border-color 
+  },
+  {
+    Type: Variable,
+    Value: var(--transition-duration)
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  box-shadow 
+  },
+  {
+    Type: Variable,
+    Value: var(--transition-duration)
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: CssSelector,
+    Value: .form-input
+  },
+  {
+    Type: CssPseudo,
+    Value: :focus
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: outline
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: none
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: border-color
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Variable,
+    Value: var(--primary-color)
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: box-shadow
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 0
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 0
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 0
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 3px
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: rgba(52, 152, 219, 0.2)
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: CssSelector,
+    Value: .form-input
+  },
+  {
+    Type: CssPseudo,
+    Value: ::placeholder
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: color
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: #999
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: CssSelector,
+    Value: .form-input
+  },
+  {
+    Type: CssPseudo,
+    Value: :invalid
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: border-color
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Variable,
+    Value: var(--danger-color)
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Comment,
+    Value: /* Media Queries */
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Directive,
+    Value: @media
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: CssProperty,
+    Value: max-width
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 768px
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: TagName,
+    Value: html
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: CssProperty,
+    Value: font-size
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 14px
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: CssSelector,
+    Value: .container
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: CssProperty,
+    Value: padding
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 0
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Variable,
+    Value: var(--spacing-unit)
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: CssSelector,
+    Value: .grid
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: CssProperty,
+    Value: grid-template-columns
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 1fr
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: CssSelector,
+    Value: .btn
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: CssProperty,
+    Value: width
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 100%
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Directive,
+    Value: @media
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: CssProperty,
+    Value: prefers-color-scheme
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  dark
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssPseudo,
+    Value: :root
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: CssProperty,
+    Value: --text-color
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: #f0f0f0
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: CssProperty,
+    Value: --background-color
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: #1a1a1a
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: CssSelector,
+    Value: .card
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: CssProperty,
+    Value: background
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: #2d2d2d
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: CssSelector,
+    Value: .form-input
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: CssProperty,
+    Value: background
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: #333
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: CssProperty,
+    Value: border-color
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: #444
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: CssProperty,
+    Value: color
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: #f0f0f0
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Comment,
+    Value: /* Animations */
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Directive,
+    Value: @keyframes
+  },
+  {
+    Value:  fadeIn 
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    from 
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: CssProperty,
+    Value: opacity
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 0
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: CssProperty,
+    Value: transform
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  translateY
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: CssUnit,
+    Value: 10px
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+    to 
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: CssProperty,
+    Value: opacity
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 1
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: CssProperty,
+    Value: transform
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  translateY
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Number,
+    Value: 0
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Directive,
+    Value: @keyframes
+  },
+  {
+    Value:  spin 
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    to 
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: CssProperty,
+    Value: transform
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  rotate
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: CssUnit,
+    Value: 360deg
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: CssSelector,
+    Value: .animate-fade-in
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: animation
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  fadeIn 
+  },
+  {
+    Type: CssUnit,
+    Value: 300ms
+  },
+  {
+    Value:  ease-out forwards
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: CssSelector,
+    Value: .spinner
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: width
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 24px
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: height
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 24px
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: border
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 3px
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssValue,
+    Value: solid
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssSelector,
+    Value: #eee
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: border-top-color
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Variable,
+    Value: var(--primary-color)
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: border-radius
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: CssUnit,
+    Value: 50%
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: CssProperty,
+    Value: animation
+  },
+  {
+    Type: Punctuation,
+    Value: :
+  },
+  {
+    Value:  spin 
+  },
+  {
+    Type: CssUnit,
+    Value: 800ms
+  },
+  {
+    Value:  linear infinite
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  }
+]

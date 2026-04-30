@@ -1,0 +1,71 @@
+﻿@page "/components/grid"
+
+@inject IStringLocalizer<GridPage> Loc
+
+<PageTitle>BlazOrbit - BOBGrid</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBGrid"]"
+         Lede="@Loc["A 12-column responsive layout using BOBGrid + BOBGridItem. Breakpoint-aware spans, gaps, directions, offsets, and spacing."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBGrid)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]" Description="@Loc["Use integer Span (out of Columns, default 12) to size each item."]">
+        <BOBGrid Gap="1rem">
+            <BOBGridItem Span="6">@Loc["Span 6"]</BOBGridItem>
+            <BOBGridItem Span="6">@Loc["Span 6"]</BOBGridItem>
+            <BOBGridItem Span="4">@Loc["Span 4"]</BOBGridItem>
+            <BOBGridItem Span="4">@Loc["Span 4"]</BOBGridItem>
+            <BOBGridItem Span="4">@Loc["Span 4"]</BOBGridItem>
+        </BOBGrid>
+    </DocDemo>
+
+    <DocDemo Key="Responsive" Title="@Loc["Responsive spans"]" Description="@Loc["Per-breakpoint spans (Xs, Sm, Md, Lg, Xl) override Span."]">
+        <BOBGrid Gap="1rem">
+            <BOBGridItem Xs="12" Sm="6" Md="4" Lg="3">xs:12 sm:6 md:4 lg:3</BOBGridItem>
+            <BOBGridItem Xs="12" Sm="6" Md="4" Lg="3">xs:12 sm:6 md:4 lg:3</BOBGridItem>
+            <BOBGridItem Xs="12" Sm="6" Md="4" Lg="3">xs:12 sm:6 md:4 lg:3</BOBGridItem>
+            <BOBGridItem Xs="12" Sm="6" Md="12" Lg="3">xs:12 sm:6 md:12 lg:3</BOBGridItem>
+        </BOBGrid>
+    </DocDemo>
+
+    <DocDemo Key="Auto" Title="@Loc["Auto items"]" Description="@Loc["Auto=\"true\" sizes an item to its content."]">
+        <BOBGrid Gap="1rem">
+            <BOBGridItem Auto="true">@Loc["Auto"]</BOBGridItem>
+            <BOBGridItem Auto="true">@Loc["Auto, wider content here"]</BOBGridItem>
+            <BOBGridItem Span="4">@Loc["Span 4 fills rest"]</BOBGridItem>
+        </BOBGrid>
+    </DocDemo>
+
+    <DocDemo Key="Direction" Title="@Loc["Direction & alignment"]">
+        <BOBGrid Direction="GridDirection.Column"
+                 AlignItems="GridAlignItems.Center"
+                 JustifyContent="GridJustifyContent.SpaceBetween"
+                 Gap="0.5rem">
+            <BOBGridItem Auto="true">@Loc["Item A"]</BOBGridItem>
+            <BOBGridItem Auto="true">@Loc["Item B"]</BOBGridItem>
+            <BOBGridItem Auto="true">@Loc["Item C"]</BOBGridItem>
+        </BOBGrid>
+    </DocDemo>
+
+    <DocDemo Key="Gaps" Title="@Loc["Gaps & spacing"]">
+        <BOBGrid RowGap="2rem" ColumnGap="0.5rem" P="1rem" style="background: color-mix(in oklab, var(--palette-primary) 6%, transparent); border-radius: 0.5rem;">
+            <BOBGridItem Span="3">3</BOBGridItem>
+            <BOBGridItem Span="3">3</BOBGridItem>
+            <BOBGridItem Span="3">3</BOBGridItem>
+            <BOBGridItem Span="3">3</BOBGridItem>
+            <BOBGridItem Span="6">6</BOBGridItem>
+            <BOBGridItem Span="6">6</BOBGridItem>
+        </BOBGrid>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+
+        <h3 class="doc-section__subtitle">BOBGrid</h3>
+        <PropertyTable Properties="@BOBGridComponentInfo.Parameters" />
+
+        <h3 class="doc-section__subtitle">BOBGridItem</h3>
+        <PropertyTable Properties="@BOBGridItemComponentInfo.Parameters" />
+    </section>
+
+</DocPage>

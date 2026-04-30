@@ -1,0 +1,113 @@
+﻿@namespace BlazOrbit.Components.Internal
+
+<div class="_bob-pagination">
+    @if (ShowInfo)
+    {
+        <div class="_bob-pagination__info">
+            Showing @PaginationStart to @PaginationEnd of @TotalItems
+        </div>
+    }
+
+    <div class="_bob-pagination__controls">
+        <_BOBBtn Icon="@BOBIconKeys.UI.ChevronLeft"
+                 Disabled="@(CurrentPage == 1)"
+                 AriaLabel="Previous page"
+                 OnClick="HandlePrevious" />
+
+        @foreach (int currentPage in GetVisiblePages())
+        {
+            @if (currentPage == -1)
+            {
+                <span class="_bob-pagination__ellipsis">…</span>
+            }
+            else
+            {
+                <_BOBBtn Active="@(CurrentPage == currentPage)"
+                         AriaLabel="@($"Page {currentPage}")"
+                         OnClick="() => HandlePageClick(currentPage)">
+                    @currentPage
+                </_BOBBtn>
+            }
+        }
+
+        <_BOBBtn Icon="@BOBIconKeys.UI.ChevronRight"
+                 Disabled="@(CurrentPage == TotalPages)"
+                 AriaLabel="Next page"
+                 OnClick="HandleNext" />
+    </div>
+</div>
+
+@code {
+    /// <summary>CurrentPage.</summary>
+    [Parameter] public int CurrentPage { get; set; } = 1;
+    /// <summary>TotalPages.</summary>
+    [Parameter] public int TotalPages { get; set; }
+    /// <summary>TotalItems.</summary>
+    [Parameter] public int TotalItems { get; set; }
+    /// <summary>PageSize.</summary>
+    [Parameter] public int PageSize { get; set; } = 10;
+    /// <summary>When <see langword="true" />, the Info is shown.</summary>
+    [Parameter] public bool ShowInfo { get; set; } = true;
+    /// <summary>MaxVisiblePages.</summary>
+    [Parameter] public int MaxVisiblePages { get; set; } = 5;
+    /// <summary>Raised when the PageChange event occurs.</summary>
+    [Parameter] public EventCallback<int> OnPageChange { get; set; }
+
+    private int PaginationStart => TotalItems == 0 ? 0 : (CurrentPage - 1) * PageSize + 1;
+    private int PaginationEnd => Math.Min(CurrentPage * PageSize, TotalItems);
+
+    private IEnumerable<int> GetVisiblePages()
+    {
+        if (TotalPages <= MaxVisiblePages)
+        {
+            for (int i = 1; i <= TotalPages; i++)
+                yield return i;
+            yield break;
+        }
+
+        int halfVisible = MaxVisiblePages / 2;
+        int startPage = Math.Max(1, CurrentPage - halfVisible);
+        int endPage = Math.Min(TotalPages, startPage + MaxVisiblePages - 1);
+
+        if (endPage - startPage < MaxVisiblePages - 1)
+            startPage = Math.Max(1, endPage - MaxVisiblePages + 1);
+
+        if (startPage > 1)
+        {
+            yield return 1;
+            if (startPage > 2)
+                yield return -1;
+        }
+
+        for (int i = startPage; i <= endPage; i++)
+        {
+            if (i != 1 && i != TotalPages)
+                yield return i;
+        }
+
+        if (endPage < TotalPages)
+        {
+            if (endPage < TotalPages - 1)
+                yield return -1;
+            yield return TotalPages;
+        }
+    }
+
+    private async Task HandlePrevious()
+    {
+        if (CurrentPage > 1)
+            await OnPageChange.InvokeAsync(CurrentPage - 1);
+    }
+
+    private async Task HandleNext()
+    {
+        if (CurrentPage < TotalPages)
+            await OnPageChange.InvokeAsync(CurrentPage + 1);
+    }
+
+    private async Task HandlePageClick(int page)
+    {
+        if (page != CurrentPage)
+            await OnPageChange.InvokeAsync(page);
+    }
+}

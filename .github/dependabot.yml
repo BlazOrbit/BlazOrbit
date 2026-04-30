@@ -1,0 +1,40 @@
+version: 2
+updates:
+  # NuGet dependencies across every csproj under the repo root.
+  - package-ecosystem: "nuget"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "nuget"
+    groups:
+      microsoft-aspnet:
+        patterns:
+          - "Microsoft.AspNetCore.*"
+          - "Microsoft.Extensions.*"
+      microsoft-codeanalysis:
+        patterns:
+          - "Microsoft.CodeAnalysis.*"
+      test-stack:
+        patterns:
+          - "xunit*"
+          - "bUnit*"
+          - "Verify*"
+          - "FluentAssertions*"
+          - "NSubstitute*"
+
+  # GitHub Actions pinned in .github/workflows/*.yml.
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 3
+    labels:
+      - "dependencies"
+      - "ci"
+    groups:
+      actions:
+        patterns:
+          - "*"

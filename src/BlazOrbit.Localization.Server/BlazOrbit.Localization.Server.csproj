@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<IsPackable>true</IsPackable>
+		<PackageType>Dependency</PackageType>
+		<Nullable>enable</Nullable>
+		<PackageId>BlazOrbit.Localization.Server</PackageId>
+		<NoWarn>$(NoWarn);RS0016;RS0017;RS0037</NoWarn>
+		<Description>Server-side localization integration for BlazOrbit. Registers cookie-based `RequestLocalization`, a culture-setting endpoint startup filter, and the `BOBCultureSelector` component so consumer apps can switch UI culture at runtime. Pair with `BlazOrbit.Localization.Wasm` in the WASM host, or use this package alone in Blazor Server.</Description>
+		<PackageTags>blazor;blazor-server;localization;i18n;culture;blazorbit</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="BlazOrbit.Tests.Integration" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\BlazOrbit\BlazOrbit.csproj" />
+		<ProjectReference Include="..\BlazOrbit.Localization.Shared\BlazOrbit.Localization.Shared.csproj" />
+		<ProjectReference Include="..\BlazOrbit.Translations\BlazOrbit.Translations.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="4.14.0" PrivateAssets="all" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<AdditionalFiles Include="PublicAPI.Shipped.txt" />
+		<AdditionalFiles Include="PublicAPI.Unshipped.txt" />
+	</ItemGroup>
+
+</Project>

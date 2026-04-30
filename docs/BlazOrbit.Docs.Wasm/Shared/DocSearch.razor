@@ -1,0 +1,159 @@
+﻿@using BlazOrbit.Docs.Wasm.Models
+@using BlazOrbit.Docs.Wasm.Services
+@using System.Net
+@using System.Text.RegularExpressions
+
+@inject DocSearchService SearchService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JS
+
+<div class="doc-search">
+    <button type="button" class="doc-search-trigger" @onclick="OpenSearch" aria-label="Open search">
+        <span class="doc-search-trigger__icon">
+            <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_search" />
+        </span>
+        <span class="doc-search-trigger__label">Search...</span>
+        <span class="doc-search-trigger__shortcut">Ctrl K</span>
+    </button>
+
+    @if (_isOpen)
+    {
+        <div class="doc-search-overlay" @onclick="CloseSearch">
+            <div class="doc-search-modal" @onclick:stopPropagation @onkeydown="HandleModalKeyDown">
+                <div class="doc-search-modal__input-wrap">
+                    <BOBInputText @bind-Value="_query"
+                                  UpdateOnInput="true"
+                                  OnInput="HandleInput"
+                                  Placeholder="Search..."
+                                  PrefixIcon="@BOBIconKeys.MaterialIconsOutlined.i_search"
+                                  class="doc-search-modal__input"
+                                  @onkeydown="HandleKeyDown" />
+                </div>
+
+                @if (_results.Count > 0)
+                {
+                    <ul class="doc-search-modal__results" role="listbox">
+                        @for (int i = 0; i < _results.Count; i++)
+                        {
+                            int index = i;
+                            DocSearchResult result = _results[i];
+                            <li class="doc-search-modal__item @(index == _selectedIndex ? "doc-search-modal__item--selected" : "")"
+                                role="option"
+                                aria-selected="@(index == _selectedIndex)"
+                                @onclick="() => NavigateTo(result.Item.Route)">
+                                <div class="doc-search-modal__item-title">@((MarkupString)DocSearchService.Highlight(result.Item.Title, _query))</div>
+                                <div class="doc-search-modal__item-breadcrumb">@string.Join(" > ", result.Item.Breadcrumb)</div>
+                            </li>
+                        }
+                    </ul>
+                }
+                else if (!string.IsNullOrWhiteSpace(_query))
+                {
+                    <div class="doc-search-modal__empty">No results found</div>
+                }
+
+                <div class="doc-search-modal__footer">
+                    <span><kbd>↑</kbd> <kbd>↓</kbd> to navigate</span>
+                    <span><kbd>↵</kbd> to select</span>
+                    <span><kbd>esc</kbd> to close</span>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    private string _query = string.Empty;
+    private bool _isOpen;
+    private int _selectedIndex = -1;
+    private List<DocSearchResult> _results = [];
+    private DotNetObjectReference<DocSearch>? _dotNetRef;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _dotNetRef = DotNetObjectReference.Create(this);
+            await JS.InvokeVoidAsync("DocSearchShortcuts.register", _dotNetRef);
+        }
+    }
+
+    [JSInvokable]
+    public async Task OpenSearch()
+    {
+        _isOpen = true;
+        _query = string.Empty;
+        _results = [];
+        _selectedIndex = -1;
+        StateHasChanged();
+        await Task.Yield();
+        await JS.InvokeVoidAsync("DocSearchShortcuts.focusInput", ".doc-search-modal__input input");
+    }
+
+    private void CloseSearch()
+    {
+        _isOpen = false;
+        _selectedIndex = -1;
+    }
+
+    private void HandleModalKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Escape")
+        {
+            CloseSearch();
+        }
+    }
+
+    private void HandleInput(string value)
+    {
+        _query = value;
+        _results = SearchService.Search(_query).ToList();
+        _selectedIndex = _results.Count > 0 ? 0 : -1;
+    }
+
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (_results.Count == 0)
+        {
+            if (e.Key == "Escape")
+            {
+                CloseSearch();
+            }
+            return;
+        }
+
+        switch (e.Key)
+        {
+            case "ArrowDown":
+            case "Down":
+                _selectedIndex = (_selectedIndex + 1) % _results.Count;
+                break;
+            case "ArrowUp":
+            case "Up":
+                _selectedIndex = (_selectedIndex - 1 + _results.Count) % _results.Count;
+                break;
+            case "Enter":
+                if (_selectedIndex >= 0 && _selectedIndex < _results.Count)
+                {
+                    NavigateTo(_results[_selectedIndex].Item.Route);
+                }
+                break;
+            case "Escape":
+                CloseSearch();
+                break;
+        }
+    }
+
+    private void NavigateTo(string route)
+    {
+        _isOpen = false;
+        _selectedIndex = -1;
+        _query = string.Empty;
+        NavigationManager.NavigateTo(route);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        _dotNetRef?.Dispose();
+    }
+}

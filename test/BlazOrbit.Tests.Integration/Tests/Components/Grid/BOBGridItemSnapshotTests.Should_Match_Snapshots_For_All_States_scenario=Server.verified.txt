@@ -1,0 +1,18 @@
+﻿[
+  {
+    Name: Default_Auto,
+    Html: <bob-component data-auto="true" data-bob-component="grid-item" b-<SCOPE>>Auto</bob-component>
+  },
+  {
+    Name: Span_6,
+    Html: <bob-component data-sized="true" data-bob-component="grid-item" style="--span: 6" b-<SCOPE>>Half width</bob-component>
+  },
+  {
+    Name: Responsive_Breakpoints,
+    Html: <bob-component data-sized="true" data-bob-component="grid-item" style="--xs: 12; --md: 6; --lg: 4" b-<SCOPE>>Responsive</bob-component>
+  },
+  {
+    Name: With_Spacing_And_Order,
+    Html: <bob-component data-sized="true" data-align-self="center" data-bob-component="grid-item" style="--span: 4; --order: 2; --p: 1rem" b-<SCOPE>>With spacing</bob-component>
+  }
+]

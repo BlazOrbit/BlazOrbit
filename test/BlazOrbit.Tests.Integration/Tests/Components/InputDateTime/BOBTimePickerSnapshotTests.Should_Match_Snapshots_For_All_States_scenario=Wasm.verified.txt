@@ -1,0 +1,92 @@
+﻿[
+  {
+    Name: Default,
+    Html:
+<bob-component data-bob-component="time-picker" data-bob-picker-base="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div class="bob-picker__row" b-<SCOPE>><button type="button" data-bob-size="medium" class="bob-btn" tabindex="0" blazor:onclick="<EVENT>" b-<SCOPE>>12h</button>
+
+        <div class="bob-picker__row bob-time-picker__fields" b-<SCOPE>><div class="bob-time-picker__column" b-<SCOPE>><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Increment hour" blazor:onclick="<EVENT>" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg></bob-component></button>
+                <input type="text" class="_bob-simple-input" value="12" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" maxlength="2" b-<SCOPE> />
+                <button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Decrement hour" blazor:onclick="<EVENT>" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg></bob-component></button></div>
+
+            <span class="bob-picker__separator" b-<SCOPE>>:</span>
+
+            <div class="bob-time-picker__column" b-<SCOPE>><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Increment minute" blazor:onclick="<EVENT>" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg></bob-component></button>
+                <input type="text" class="_bob-simple-input" value="00" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" maxlength="2" b-<SCOPE> />
+                <button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Decrement minute" blazor:onclick="<EVENT>" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg></bob-component></button></div></div><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" blazor:onclick="<EVENT>" b-<SCOPE>>AM</button></div></bob-component>
+  },
+  {
+    Name: With_Value_14_35,
+    Html:
+<bob-component data-bob-component="time-picker" data-bob-picker-base="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div class="bob-picker__row" b-<SCOPE>><button type="button" data-bob-size="medium" class="bob-btn" tabindex="0" blazor:onclick="<EVENT>" b-<SCOPE>>12h</button>
+
+        <div class="bob-picker__row bob-time-picker__fields" b-<SCOPE>><div class="bob-time-picker__column" b-<SCOPE>><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Increment hour" blazor:onclick="<EVENT>" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg></bob-component></button>
+                <input type="text" class="_bob-simple-input" value="02" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" maxlength="2" b-<SCOPE> />
+                <button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Decrement hour" blazor:onclick="<EVENT>" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg></bob-component></button></div>
+
+            <span class="bob-picker__separator" b-<SCOPE>>:</span>
+
+            <div class="bob-time-picker__column" b-<SCOPE>><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Increment minute" blazor:onclick="<EVENT>" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg></bob-component></button>
+                <input type="text" class="_bob-simple-input" value="35" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" maxlength="2" b-<SCOPE> />
+                <button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Decrement minute" blazor:onclick="<EVENT>" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg></bob-component></button></div></div><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" blazor:onclick="<EVENT>" b-<SCOPE>>PM</button></div></bob-component>
+  },
+  {
+    Name: With_Value_09_05,
+    Html:
+<bob-component data-bob-component="time-picker" data-bob-picker-base="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div class="bob-picker__row" b-<SCOPE>><button type="button" data-bob-size="medium" class="bob-btn" tabindex="0" blazor:onclick="<EVENT>" b-<SCOPE>>12h</button>
+
+        <div class="bob-picker__row bob-time-picker__fields" b-<SCOPE>><div class="bob-time-picker__column" b-<SCOPE>><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Increment hour" blazor:onclick="<EVENT>" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg></bob-component></button>
+                <input type="text" class="_bob-simple-input" value="09" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" maxlength="2" b-<SCOPE> />
+                <button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Decrement hour" blazor:onclick="<EVENT>" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg></bob-component></button></div>
+
+            <span class="bob-picker__separator" b-<SCOPE>>:</span>
+
+            <div class="bob-time-picker__column" b-<SCOPE>><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Increment minute" blazor:onclick="<EVENT>" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg></bob-component></button>
+                <input type="text" class="_bob-simple-input" value="05" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" maxlength="2" b-<SCOPE> />
+                <button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Decrement minute" blazor:onclick="<EVENT>" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg></bob-component></button></div></div><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" blazor:onclick="<EVENT>" b-<SCOPE>>AM</button></div></bob-component>
+  },
+  {
+    Name: Midnight,
+    Html:
+<bob-component data-bob-component="time-picker" data-bob-picker-base="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div class="bob-picker__row" b-<SCOPE>><button type="button" data-bob-size="medium" class="bob-btn" tabindex="0" blazor:onclick="<EVENT>" b-<SCOPE>>12h</button>
+
+        <div class="bob-picker__row bob-time-picker__fields" b-<SCOPE>><div class="bob-time-picker__column" b-<SCOPE>><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Increment hour" blazor:onclick="<EVENT>" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg></bob-component></button>
+                <input type="text" class="_bob-simple-input" value="12" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" maxlength="2" b-<SCOPE> />
+                <button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Decrement hour" blazor:onclick="<EVENT>" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg></bob-component></button></div>
+
+            <span class="bob-picker__separator" b-<SCOPE>>:</span>
+
+            <div class="bob-time-picker__column" b-<SCOPE>><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Increment minute" blazor:onclick="<EVENT>" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg></bob-component></button>
+                <input type="text" class="_bob-simple-input" value="00" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" maxlength="2" b-<SCOPE> />
+                <button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Decrement minute" blazor:onclick="<EVENT>" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg></bob-component></button></div></div><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" blazor:onclick="<EVENT>" b-<SCOPE>>AM</button></div></bob-component>
+  },
+  {
+    Name: Large_Size,
+    Html:
+<bob-component data-bob-component="time-picker" data-bob-picker-base="true" data-bob-size="large" data-bob-density="standard" b-<SCOPE>><div class="bob-picker__row" b-<SCOPE>><button type="button" data-bob-size="large" class="bob-btn" tabindex="0" blazor:onclick="<EVENT>" b-<SCOPE>>12h</button>
+
+        <div class="bob-picker__row bob-time-picker__fields" b-<SCOPE>><div class="bob-time-picker__column" b-<SCOPE>><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Increment hour" blazor:onclick="<EVENT>" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg></bob-component></button>
+                <input type="text" class="_bob-simple-input" value="02" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" maxlength="2" b-<SCOPE> />
+                <button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Decrement hour" blazor:onclick="<EVENT>" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg></bob-component></button></div>
+
+            <span class="bob-picker__separator" b-<SCOPE>>:</span>
+
+            <div class="bob-time-picker__column" b-<SCOPE>><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Increment minute" blazor:onclick="<EVENT>" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg></bob-component></button>
+                <input type="text" class="_bob-simple-input" value="35" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" maxlength="2" b-<SCOPE> />
+                <button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Decrement minute" blazor:onclick="<EVENT>" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg></bob-component></button></div></div><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" blazor:onclick="<EVENT>" b-<SCOPE>>PM</button></div></bob-component>
+  },
+  {
+    Name: Compact_Density,
+    Html:
+<bob-component data-bob-component="time-picker" data-bob-picker-base="true" data-bob-size="medium" data-bob-density="compact" b-<SCOPE>><div class="bob-picker__row" b-<SCOPE>><button type="button" data-bob-size="medium" class="bob-btn" tabindex="0" blazor:onclick="<EVENT>" b-<SCOPE>>12h</button>
+
+        <div class="bob-picker__row bob-time-picker__fields" b-<SCOPE>><div class="bob-time-picker__column" b-<SCOPE>><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Increment hour" blazor:onclick="<EVENT>" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg></bob-component></button>
+                <input type="text" class="_bob-simple-input" value="02" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" maxlength="2" b-<SCOPE> />
+                <button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Decrement hour" blazor:onclick="<EVENT>" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg></bob-component></button></div>
+
+            <span class="bob-picker__separator" b-<SCOPE>>:</span>
+
+            <div class="bob-time-picker__column" b-<SCOPE>><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Increment minute" blazor:onclick="<EVENT>" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg></bob-component></button>
+                <input type="text" class="_bob-simple-input" value="35" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" maxlength="2" b-<SCOPE> />
+                <button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Decrement minute" blazor:onclick="<EVENT>" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg></bob-component></button></div></div><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" blazor:onclick="<EVENT>" b-<SCOPE>>PM</button></div></bob-component>
+  }
+]

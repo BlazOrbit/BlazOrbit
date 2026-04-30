@@ -1,0 +1,58 @@
+﻿[data-bob-component="color-picker"] {
+    /* Color picker specific styles */
+}
+
+/* Selection box */
+.bob-colorpicker__selection {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+    cursor: crosshair;
+}
+
+.bob-colorpicker__selection-gradient {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, #000, transparent), linear-gradient(to right, #fff, transparent);
+}
+
+.bob-colorpicker__handler {
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 0 0 1px #000;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+
+/* Hue slider */
+.bob-colorpicker__slider--hue {
+    background: linear-gradient(to right, hsl(0, 100%, 50%), hsl(60, 100%, 50%), hsl(120, 100%, 50%), hsl(180, 100%, 50%), hsl(240, 100%, 50%), hsl(300, 100%, 50%), hsl(360, 100%, 50%) );
+}
+
+/* Alpha slider */
+.bob-colorpicker__slider--alpha {
+    background-image: linear-gradient(to right, transparent, var(--color)), linear-gradient(45deg, var(--palette-border) 25%, transparent 25%), linear-gradient(-45deg, var(--palette-border) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, var(--palette-border) 75%), linear-gradient(-45deg, transparent 75%, var(--palette-border) 75%);
+    background-size: 100% 100%, 8px 8px, 8px 8px, 8px 8px, 8px 8px;
+    background-position: 0 0, 0 0, 0 4px, 4px -4px, -4px 0;
+    background-color: var(--palette-background);
+}
+
+/* Color canvas selector focus */
+.bob-colorpicker__selection:focus-visible {
+    outline: var(--bob-highlight-outline);
+    outline-offset: var(--bob-highlight-outline-offset);
+}
+
+/* Hex input expands to fill the row alongside the format-cycle button. */
+.bob-colorpicker__hex-input {
+    flex: 1;
+}
+
+/* Footer row holding the revert action: right-aligned with a divider above. */
+.bob-colorpicker__footer {
+    justify-content: flex-end;
+    border-top: 1px solid var(--palette-border);
+}

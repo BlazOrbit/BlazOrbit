@@ -1,0 +1,405 @@
+﻿@using BlazOrbit.Components.Forms.Dropdown
+@using BlazOrbit.Abstractions
+@using System.Linq.Expressions
+
+@namespace BlazOrbit.Components.Forms
+
+@typeparam TItem
+@typeparam TValue
+
+@implements IAsyncDisposable
+
+<BOBDropdownContainer @ref="_container"
+                      TValue="TValue"
+                      Value="@Value"
+                      ValueChanged="@SetValueAsync"
+                      ValueExpression="@ValueExpression"
+                      Variant="@Variant"
+                      Size="@Size"
+                      Disabled="@Disabled"
+                      Loading="@IsLoading"
+                      LoadingIndicatorVariant="@LoadingIndicatorVariant"
+                      Required="@Required"
+                      ReadOnly="@ReadOnly"
+                      Shadow="@Shadow"
+                      Color="@Color"
+                      BackgroundColor="@BackgroundColor"
+                      Label="@Label"
+                      Placeholder="@Placeholder"
+                      HelperText="@HelperText"
+                      Placement="@Placement"
+                      MaxMenuHeight="@MaxMenuHeight"
+                      DisplayValue="@GetDisplayValue()"
+                      HasValue="@(_internalSelectedKeys.Count > 0)"
+                      AriaRole="tree"
+                      AriaMultiselectable="@IsMultiple"
+                      OnOpened="@HandleOpened"
+                      OnClosed="@HandleClosed"
+                      OnKeyboardNavigation="@HandleKeyboardNavigation">
+    <MenuContent>
+        <div class="bob-dropdown__tree-content">
+            <BOBTreeSelector TItem="TItem"
+                             @ref="_treeSelectorRef"
+                             Items="@Items"
+                             KeySelector="@KeySelector"
+                             ChildrenSelector="@ChildrenSelector"
+                             HasChildrenSelector="@HasChildrenSelector"
+                             OnLoadChildren="@OnLoadChildren"
+                             NodeTemplate="@NodeTemplate"
+                             DisplayTextSelector="@DisplayTextSelector"
+                             SelectedKeys="@_internalSelectedKeys"
+                             SelectedKeysChanged="@OnTreeSelectionChangedAsync"
+                             SelectionMode="@(IsMultiple ? TreeSelectionMode.Multiple : TreeSelectionMode.Single)"
+                             Size="@Size"
+                             ShowCheckboxes="@ShowCheckboxes"
+                             ExpandAll="@ExpandAll"
+                             ExpandedKeys="@ExpandedKeys"
+                             ExpandedKeysChanged="@ExpandedKeysChanged"
+                             AnimateExpand="@AnimateExpand" />
+
+            @if (Items == null || !Items.Any())
+            {
+                <div class="bob-dropdown__no-options">
+                    @(NoOptionsTemplate ?? _defaultNoOptionsTemplate)
+                </div>
+            }
+        </div>
+    </MenuContent>
+</BOBDropdownContainer>
+
+@code {
+    private readonly SelectionTypeInfo _typeInfo;
+    private BOBDropdownContainer<TValue>? _container;
+    private BOBTreeSelector<TItem>? _treeSelectorRef;
+    private HashSet<string> _internalSelectedKeys = new();
+
+    private readonly RenderFragment _defaultNoOptionsTemplate;
+
+    /// <summary>Current value of the component.</summary>
+    [Parameter] public TValue? Value { get; set; }
+    /// <summary>Raised when the value changes.</summary>
+    [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
+    /// <summary>ValueExpression.</summary>
+    [Parameter] public Expression<Func<TValue>>? ValueExpression { get; set; }
+
+    /// <summary>Visual variant of the component.</summary>
+    [Parameter] public BOBInputVariant Variant { get; set; } = BOBInputVariant.Outlined;
+    /// <summary>Visual size of the component.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    /// <summary>When <see langword="true" />, the component spans the full width of its container.</summary>
+    [Parameter] public bool FullWidth { get; set; }
+    /// <summary>When <see langword="true" />, the component is non-interactive.</summary>
+    [Parameter] public bool Disabled { get; set; }
+    /// <summary>When <see langword="true" />, IsLoading is active.</summary>
+    [Parameter] public bool IsLoading { get; set; }
+    /// <summary>Variant of the loading indicator shown when <see cref="IsLoading"/> is <see langword="true"/>.</summary>
+    [Parameter] public BOBLoadingIndicatorVariant? LoadingIndicatorVariant { get; set; }
+    /// <summary>When <see langword="true" />, a value must be provided.</summary>
+    [Parameter] public bool Required { get; set; }
+    /// <summary>When <see langword="true" />, the value cannot be changed.</summary>
+    [Parameter] public bool ReadOnly { get; set; }
+    /// <summary>Shadow style applied to the component.</summary>
+    [Parameter] public ShadowStyle? Shadow { get; set; }
+    /// <summary>Text or foreground color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? Color { get; set; }
+    /// <summary>Background color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? BackgroundColor { get; set; }
+
+    /// <summary>Placeholder text shown when the component is empty.</summary>
+    [Parameter] public string? Placeholder { get; set; }
+    /// <summary>Floating label displayed above the component.</summary>
+    [Parameter] public string? Label { get; set; }
+    /// <summary>Helper text displayed below the component for additional context.</summary>
+    [Parameter] public string? HelperText { get; set; }
+
+    /// <summary>Placement.</summary>
+    [Parameter] public DropdownPlacement Placement { get; set; } = DropdownPlacement.Auto;
+    /// <summary>MaxMenuHeight.</summary>
+    [Parameter] public int MaxMenuHeight { get; set; } = 320;
+    /// <summary>CloseOnSelect.</summary>
+    [Parameter] public bool CloseOnSelect { get; set; } = true;
+
+    /// <summary>Root items the tree renders.</summary>
+    [Parameter, EditorRequired] public IEnumerable<TItem>? Items { get; set; }
+    /// <summary>Returns a stable key for an item. Required for keyboard navigation and lazy loading.</summary>
+    [Parameter] public Func<TItem, string>? KeySelector { get; set; }
+    /// <summary>Returns the children of an item.</summary>
+    [Parameter] public Func<TItem, IEnumerable<TItem>?>? ChildrenSelector { get; set; }
+    /// <summary>Returns whether an item has children without loading them. Enables lazy expansion via <see cref="OnLoadChildren"/>.</summary>
+    [Parameter] public Func<TItem, bool>? HasChildrenSelector { get; set; }
+    /// <summary>Called the first time a node is expanded with no in-memory children. Result is cached on the tree.</summary>
+    [Parameter] public Func<TItem, Task<IEnumerable<TItem>>>? OnLoadChildren { get; set; }
+    /// <summary>Custom template for rendering the Node.</summary>
+    [Parameter] public RenderFragment<TreeSelectionNode<TItem>>? NodeTemplate { get; set; }
+    /// <summary>Returns the visible text for an item. Defaults to <c>item.ToString()</c>.</summary>
+    [Parameter] public Func<TItem, string>? DisplayTextSelector { get; set; }
+
+    /// <summary>When <see langword="true" />, the Checkboxes is shown.</summary>
+    [Parameter] public bool ShowCheckboxes { get; set; } = true;
+    /// <summary>ExpandAll.</summary>
+    [Parameter] public bool ExpandAll { get; set; }
+    /// <summary>AnimateExpand.</summary>
+    [Parameter] public bool AnimateExpand { get; set; } = true;
+    /// <summary>ExpandedKeys.</summary>
+    [Parameter] public HashSet<string>? ExpandedKeys { get; set; }
+    /// <summary>ExpandedKeysChanged.</summary>
+    [Parameter] public EventCallback<HashSet<string>> ExpandedKeysChanged { get; set; }
+
+    /// <summary>SelectionCascade.</summary>
+    [Parameter] public TreeSelectionCascade SelectionCascade { get; set; } = TreeSelectionCascade.None;
+
+    /// <summary>DisplayMode.</summary>
+    [Parameter] public TreeDisplayMode DisplayMode { get; set; } = TreeDisplayMode.Single;
+    /// <summary>InheritanceSeparator.</summary>
+    [Parameter] public string InheritanceSeparator { get; set; } = " > ";
+
+    /// <summary>Custom template for rendering the NoOptions.</summary>
+    [Parameter] public RenderFragment? NoOptionsTemplate { get; set; }
+
+    public bool IsMultiple => _typeInfo.IsMultiple;
+
+    public BOBInputDropdownTree()
+    {
+        _typeInfo = new SelectionTypeInfo(typeof(TValue));
+
+        _defaultNoOptionsTemplate = builder =>
+        {
+            builder.AddContent(0, "No options available");
+        };
+    }
+
+    protected override void OnParametersSet()
+    {
+        SyncSelectionFromValue();
+    }
+
+    private void SyncSelectionFromValue()
+    {
+        _internalSelectedKeys.Clear();
+
+        if (Value == null) return;
+
+        IEnumerable<object> values = _typeInfo.ExtractValues(Value);
+
+        foreach (object value in values)
+        {
+            string? key = FindKeyForValue(value);
+            if (key != null)
+                _internalSelectedKeys.Add(key);
+        }
+    }
+
+    private string? FindKeyForValue(object value)
+    {
+        if (Items == null || KeySelector == null) return null;
+        return FindKeyRecursive(Items, value);
+    }
+
+    private string? FindKeyRecursive(IEnumerable<TItem> items, object value)
+    {
+        foreach (TItem item in items)
+        {
+            if (Equals(item, value))
+                return KeySelector!(item);
+
+            if (ChildrenSelector != null)
+            {
+                IEnumerable<TItem>? children = ChildrenSelector(item);
+                if (children != null)
+                {
+                    string? found = FindKeyRecursive(children, value);
+                    if (found != null) return found;
+                }
+            }
+        }
+        return null;
+    }
+
+    private TItem? FindItemByKey(string key)
+    {
+        if (Items == null || KeySelector == null) return default;
+        return FindItemByKeyRecursive(Items, key);
+    }
+
+    private TItem? FindItemByKeyRecursive(IEnumerable<TItem> items, string key)
+    {
+        foreach (TItem item in items)
+        {
+            if (KeySelector!(item) == key)
+                return item;
+
+            if (ChildrenSelector != null)
+            {
+                IEnumerable<TItem>? children = ChildrenSelector(item);
+                if (children != null)
+                {
+                    TItem? found = FindItemByKeyRecursive(children, key);
+                    if (found != null) return found;
+                }
+            }
+        }
+        return default;
+    }
+
+    private string GetDisplayValue()
+    {
+        if (_internalSelectedKeys.Count == 0)
+            return string.Empty;
+
+        if (!IsMultiple || _internalSelectedKeys.Count == 1)
+        {
+            string key = _internalSelectedKeys.First();
+            TItem? item = FindItemByKey(key);
+
+            if (item != null)
+            {
+                if (DisplayMode == TreeDisplayMode.Inheritance)
+                {
+                    return GetInheritancePath(key);
+                }
+
+                return GetItemDisplayText(item, key);
+            }
+            return key;
+        }
+
+        return $"{_internalSelectedKeys.Count} selected";
+    }
+
+    private string GetItemDisplayText(TItem item, string fallbackKey)
+    {
+        if (DisplayTextSelector != null)
+            return DisplayTextSelector(item);
+
+        return item?.ToString() ?? fallbackKey;
+    }
+
+    private string GetInheritancePath(string key)
+    {
+        List<string> path = new();
+        TreeSelectionNode<TItem>? node = _treeSelectorRef?.GetNode(key);
+
+        while (node != null)
+        {
+            string text = node.Item != null
+                ? GetItemDisplayText(node.Item, node.Key)
+                : node.Text ?? node.Key;
+
+            path.Insert(0, text);
+            node = node.ParentNode;
+        }
+
+        return string.Join(InheritanceSeparator, path);
+    }
+
+    private async Task SetValueAsync(TValue? value)
+    {
+        Value = value;
+        SyncSelectionFromValue();
+        await ValueChanged.InvokeAsync(value);
+    }
+
+    private async Task OnTreeSelectionChangedAsync(HashSet<string> selectedKeys)
+    {
+        HashSet<string> newKeys = ApplySelectionCascade(selectedKeys);
+        _internalSelectedKeys = newKeys;
+
+        List<object> selectedValues = new();
+        foreach (string key in _internalSelectedKeys)
+        {
+            TItem? item = FindItemByKey(key);
+            if (item != null)
+                selectedValues.Add(item);
+        }
+
+        TValue newValue = _typeInfo.CreateValue<TValue>(selectedValues);
+        Value = newValue;
+        await ValueChanged.InvokeAsync(newValue);
+
+        if (!IsMultiple && CloseOnSelect && _internalSelectedKeys.Count > 0 && _container != null)
+        {
+            await _container.CloseAsync();
+        }
+    }
+
+    private HashSet<string> ApplySelectionCascade(HashSet<string> selectedKeys)
+    {
+        if (SelectionCascade == TreeSelectionCascade.None)
+            return selectedKeys;
+
+        HashSet<string> result = new(selectedKeys);
+
+        foreach (string key in selectedKeys.ToList())
+        {
+            TreeSelectionNode<TItem>? node = _treeSelectorRef?.GetNode(key);
+            if (node == null) continue;
+
+            if (SelectionCascade == TreeSelectionCascade.Children || SelectionCascade == TreeSelectionCascade.Both)
+            {
+                AddDescendantKeys(node, result);
+            }
+
+            if (SelectionCascade == TreeSelectionCascade.Parents || SelectionCascade == TreeSelectionCascade.Both)
+            {
+                AddAncestorKeys(node, result);
+            }
+        }
+
+        return result;
+    }
+
+    private void AddDescendantKeys(TreeSelectionNode<TItem> node, HashSet<string> keys)
+    {
+        foreach (TreeSelectionNode<TItem> child in node.ChildrenInternal)
+        {
+            if (!child.IsDisabled)
+            {
+                keys.Add(child.Key);
+                AddDescendantKeys(child, keys);
+            }
+        }
+    }
+
+    private void AddAncestorKeys(TreeSelectionNode<TItem> node, HashSet<string> keys)
+    {
+        TreeSelectionNode<TItem>? parent = node.ParentNode;
+        while (parent != null)
+        {
+            if (!parent.IsDisabled)
+                keys.Add(parent.Key);
+            parent = parent.ParentNode;
+        }
+    }
+
+    private void HandleOpened()
+    {
+    }
+
+    private void HandleClosed()
+    {
+    }
+
+    private Task HandleKeyboardNavigation(DropdownKeyboardEventArgs args)
+    {
+        return Task.CompletedTask;
+    }
+
+    public void ExpandAllNodes() => _treeSelectorRef?.ExpandAllNodes();
+    public void CollapseAllNodes() => _treeSelectorRef?.CollapseAllNodes();
+
+    public void ClearSelection()
+    {
+        _internalSelectedKeys.Clear();
+        _treeSelectorRef?.ClearSelection();
+        Value = default;
+        ValueChanged.InvokeAsync(default);
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_container != null)
+        {
+            await _container.DisposeAsync();
+        }
+    }
+}

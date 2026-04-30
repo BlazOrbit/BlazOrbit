@@ -1,0 +1,58 @@
+﻿[data-bob-component="button"] {
+    --_button-height: calc(2.5rem * var(--bob-size-multiplier, 1));
+    --_button-padding-x: 1rem;
+    --_button-padding-y: 0.5rem;
+    --_button-background: var(--bob-inline-background, var(--palette-primary));
+    --_button-color: var(--bob-inline-color, var(--palette-primary-contrast));
+    --_button-border-radius: var(--bob-inline-border-radius, var(--bob-border-radius));
+    --_button-border: var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border));
+    --_button-border-top: var(--bob-inline-border-top, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+    --_button-border-right: var(--bob-inline-border-right, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+    --_button-border-bottom: var(--bob-inline-border-bottom, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+    --_button-border-left: var(--bob-inline-border-left, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+}
+
+    [data-bob-component="button"] button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: calc(0.5rem * var(--bob-density-multiplier));
+        cursor: pointer;
+        padding: var(--_button-padding-y) var(--_button-padding-x);
+        min-height: var(--_button-height);
+        position: relative;
+        overflow: hidden;
+        /* Consume inline overrides with fallback to defaults */
+        background-color: var(--_button-background);
+        color: var(--_button-color);
+        border-radius: var(--_button-border-radius);
+        border: var(--_button-border);
+        border-top: var(--_button-border-top);
+        border-right: var(--_button-border-right);
+        border-bottom: var(--_button-border-bottom);
+        border-left: var(--_button-border-left);
+    }
+
+.bob-button__text {
+    white-space: nowrap;
+}
+
+/* Focus state */
+[data-bob-component="button"] button:focus-visible {
+    outline: var(--bob-highlight-outline);
+    outline-offset: var(--bob-highlight-outline-offset);
+}
+
+/* Press state */
+[data-bob-component="button"] button:active:not(:disabled) {
+    background: color-mix(in oklab, var(--_button-background) 80%, var(--palette-active-tint) 20%);
+}
+
+/* Hover state */
+[data-bob-component="button"] button:hover:not(:active):not(:disabled) {
+    background: color-mix(in oklab, var(--_button-background) 90%, var(--palette-hover-tint) 10%);
+}
+
+[data-bob-component="button"][data-bob-fullwidth="true"] button {
+    width:100%;
+}

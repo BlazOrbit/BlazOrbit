@@ -1,0 +1,235 @@
+﻿[data-bob-component="tree-menu"] {
+    --_tree-menu-item-height: 2.5rem;
+    --_tree-menu-item-padding-x: 1rem;
+    --_tree-menu-item-padding-y: 0.5rem;
+    --_tree-menu-item-gap: 0.5rem;
+    --_tree-menu-indent: 1rem;
+    --_tree-menu-border-radius: 4px;
+    --_tree-menu-transition: 200ms ease;
+    --_tree-menu-bg: transparent;
+    --_tree-menu-hover-bg: color-mix(in srgb, var(--palette-surface-contrast) 4%, transparent);
+    --_tree-menu-active-bg: var(--palette-primary);
+    --_tree-menu-active-color: var(--palette-primary-contrast);
+    --_tree-menu-flyout-bg: var(--palette-surface);
+    --_tree-menu-flyout-shadow: 0 4px 12px color-mix(in srgb, var(--palette-shadow) 15%, transparent);
+    --_tree-menu-flyout-border: 1px solid color-mix(in srgb, var(--palette-border) 8%, transparent);
+    display: block;
+    font-family: inherit;
+    position: relative;
+}
+
+[data-bob-theme="dark"] [data-bob-component="tree-menu"] {
+    --_tree-menu-hover-bg: color-mix(in srgb, var(--palette-surface-contrast) 8%, transparent);
+    --_tree-menu-flyout-shadow: 0 4px 12px color-mix(in srgb, var(--palette-shadow) 30%, transparent);
+    --_tree-menu-flyout-border: 1px solid color-mix(in srgb, var(--palette-border) 10%, transparent);
+}
+
+[data-bob-component="tree-menu"][data-bob-size="small"] {
+    --_tree-menu-item-height: 2rem;
+    --_tree-menu-item-padding-x: 0.75rem;
+    --_tree-menu-item-padding-y: 0.375rem;
+    --_tree-menu-item-gap: 0.375rem;
+    font-size: 0.875rem;
+}
+
+[data-bob-component="tree-menu"][data-bob-size="large"] {
+    --_tree-menu-item-height: 3rem;
+    --_tree-menu-item-padding-x: 1.25rem;
+    --_tree-menu-item-padding-y: 0.75rem;
+    --_tree-menu-item-gap: 0.625rem;
+    font-size: 1.125rem;
+}
+
+[data-bob-component="tree-menu"] .bob-tree-menu__overlay {
+    position: fixed;
+    inset: 0;
+    /* Backdrop sits just below the dropdown so a click outside closes it
+       without ever covering the menu itself. */
+    z-index: calc(var(--bob-z-dropdown) - 1);
+}
+
+[data-bob-component="tree-menu"] .bob-tree-menu__nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    position: relative;
+    z-index: var(--bob-z-dropdown);
+}
+
+[data-bob-component="tree-menu"][data-bob-orientation="horizontal"] .bob-tree-menu__nav {
+    flex-direction: row;
+    align-items: center;
+}
+
+[data-bob-component="tree-menu"] .bob-tree-menu__item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+[data-bob-component="tree-menu"][data-bob-orientation="horizontal"] .bob-tree-menu__item {
+    flex-direction: column;
+}
+
+[data-bob-component="tree-menu"] .bob-tree-menu__link,
+[data-bob-component="tree-menu"] .bob-tree-menu__button {
+    display: flex;
+    align-items: center;
+    gap: var(--_tree-menu-item-gap);
+    min-height: var(--_tree-menu-item-height);
+    padding: var(--_tree-menu-item-padding-y) var(--_tree-menu-item-padding-x);
+    background: var(--_tree-menu-bg);
+    border: none;
+    border-radius: var(--_tree-menu-border-radius);
+    color: inherit;
+    text-decoration: none;
+    font: inherit;
+    cursor: pointer;
+    transition: background-color var(--_tree-menu-transition), color var(--_tree-menu-transition);
+    width: 100%;
+    text-align: left;
+}
+
+    [data-bob-component="tree-menu"] .bob-tree-menu__link:hover,
+    [data-bob-component="tree-menu"] .bob-tree-menu__button:hover {
+        background: var(--_tree-menu-hover-bg);
+    }
+
+[data-bob-component="tree-menu"] .bob-tree-menu__item[data-bob-active="true"] > .bob-tree-menu__link,
+[data-bob-component="tree-menu"] .bob-tree-menu__item[data-bob-active="true"] > .bob-tree-menu__button {
+    background: var(--_tree-menu-active-bg);
+    color: var(--_tree-menu-active-color);
+}
+
+[data-bob-component="tree-menu"] .bob-tree-menu__item[data-bob-disabled="true"] > .bob-tree-menu__link,
+[data-bob-component="tree-menu"] .bob-tree-menu__item[data-bob-disabled="true"] > .bob-tree-menu__button {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+[data-bob-component="tree-menu"] .bob-tree-menu__icon {
+    flex-shrink: 0;
+    opacity: 0.8;
+}
+
+[data-bob-component="tree-menu"] .bob-tree-menu__text {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+[data-bob-component="tree-menu"] .bob-tree-menu__submenu--inline {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding-left: var(--_tree-menu-indent);
+    overflow: hidden;
+    animation: bob-menu-expand-inline var(--_tree-menu-transition);
+}
+
+@keyframes bob-menu-expand-inline {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+[data-bob-component="tree-menu"] .bob-tree-menu__submenu--flyout {
+    position: absolute;
+    min-width: 200px;
+    background: var(--_tree-menu-flyout-bg);
+    border: var(--_tree-menu-flyout-border);
+    border-radius: var(--_tree-menu-border-radius);
+    box-shadow: var(--_tree-menu-flyout-shadow);
+    /* Flyout submenu sits one stacking level above its parent menu. */
+    z-index: calc(var(--bob-z-dropdown) + 1);
+    animation: bob-menu-expand-flyout var(--_tree-menu-transition);
+}
+
+@keyframes bob-menu-expand-flyout {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+[data-bob-component="tree-menu"][data-bob-orientation="vertical"][data-bob-expand-mode="flyout"] .bob-tree-menu__submenu--flyout {
+    left: 100%;
+    top: 0;
+    margin-left: 4px;
+}
+
+[data-bob-component="tree-menu"][data-bob-orientation="horizontal"][data-bob-expand-mode="flyout"] > .bob-tree-menu__nav > .bob-tree-menu__item > .bob-tree-menu__submenu--flyout {
+    left: 0;
+    top: 100%;
+    margin-top: 4px;
+}
+
+[data-bob-component="tree-menu"][data-bob-orientation="horizontal"][data-bob-expand-mode="flyout"] .bob-tree-menu__submenu--flyout .bob-tree-menu__submenu--flyout {
+    left: 100%;
+    top: 0;
+    margin-left: 4px;
+    margin-top: 0;
+}
+
+[data-bob-component="tree-menu"][data-bob-expand-mode="inline"] .bob-tree-menu__item[data-depth="1"] > .bob-tree-menu__link,
+[data-bob-component="tree-menu"][data-bob-expand-mode="inline"] .bob-tree-menu__item[data-depth="1"] > .bob-tree-menu__button {
+    padding-left: calc(var(--_tree-menu-item-padding-x) + var(--_tree-menu-indent));
+}
+
+[data-bob-component="tree-menu"][data-bob-expand-mode="inline"] .bob-tree-menu__item[data-depth="2"] > .bob-tree-menu__link,
+[data-bob-component="tree-menu"][data-bob-expand-mode="inline"] .bob-tree-menu__item[data-depth="2"] > .bob-tree-menu__button {
+    padding-left: calc(var(--_tree-menu-item-padding-x) + var(--_tree-menu-indent) * 2);
+}
+
+[data-bob-component="tree-menu"][data-bob-expand-mode="inline"] .bob-tree-menu__item[data-depth="3"] > .bob-tree-menu__link,
+[data-bob-component="tree-menu"][data-bob-expand-mode="inline"] .bob-tree-menu__item[data-depth="3"] > .bob-tree-menu__button {
+    padding-left: calc(var(--_tree-menu-item-padding-x) + var(--_tree-menu-indent) * 3);
+}
+
+[data-bob-component="tree-menu"] .bob-tree-menu__link:focus-visible,
+[data-bob-component="tree-menu"] .bob-tree-menu__button:focus-visible {
+    outline: var(--bob-highlight-outline);
+    outline-offset: var(--bob-highlight-outline-offset);
+}
+
+[data-bob-component="tree-menu"][data-bob-orientation="horizontal"] .bob-tree-menu__link,
+[data-bob-component="tree-menu"][data-bob-orientation="horizontal"] .bob-tree-menu__button {
+    white-space: nowrap;
+}
+
+/*
+ * Flyout submenus reset depth padding: items inside a flyout still carry
+ * `data-depth` so the inline depth rules above match (specificity 5,1) and
+ * push the link to the right. Match the same specificity here and rely on
+ * source order to win — no !important needed.
+ */
+[data-bob-component="tree-menu"][data-bob-expand-mode="inline"] .bob-tree-menu__submenu--flyout .bob-tree-menu__item[data-depth] > .bob-tree-menu__link,
+[data-bob-component="tree-menu"][data-bob-expand-mode="inline"] .bob-tree-menu__submenu--flyout .bob-tree-menu__item[data-depth] > .bob-tree-menu__button,
+[data-bob-component="tree-menu"][data-bob-expand-mode="flyout"] .bob-tree-menu__submenu--flyout .bob-tree-menu__link,
+[data-bob-component="tree-menu"][data-bob-expand-mode="flyout"] .bob-tree-menu__submenu--flyout .bob-tree-menu__button {
+    padding-left: var(--_tree-menu-item-padding-x);
+}
+
+/* CSS-OPT-02 block B.9: surface the trigger mode in scoped CSS. Hover-driven
+   menus advertise interaction with `cursor: pointer`; click-driven menus get
+   the default cursor. Behavior is wired in JS via IBehaviorJsInterop. */
+[data-bob-component="tree-menu"][data-bob-trigger="hover"] .bob-tree-menu__link,
+[data-bob-component="tree-menu"][data-bob-trigger="hover"] .bob-tree-menu__button {
+    cursor: pointer;
+}

@@ -1,0 +1,29 @@
+﻿/*
+ * CSS-OPT-02 block B.2: state is expressed via data-bob-* attributes on the
+ * root span (._bob-checkmark[data-bob-checked="true"], etc.) instead of BEM
+ * modifier classes. The class is purely an identification anchor.
+ */
+._bob-checkmark {
+    --_checkmark-color: var(--bob-inline-color, var(--palette-primary));
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    flex-shrink: 0;
+    color: var(--palette-surface-contrast);
+}
+
+._bob-checkmark[data-bob-checked="true"],
+._bob-checkmark[data-bob-indeterminate="true"] {
+    color: var(--_checkmark-color);
+}
+
+._bob-checkmark[data-bob-disabled="true"] {
+    opacity: var(--bob-opacity-disabled);
+    cursor: not-allowed;
+}
+
+/* Hover effect when parent is hoverable */
+:hover>._bob-checkmark:not([data-bob-disabled="true"]) {
+    color: color-mix(in oklab, var(--_checkmark-color) 80%, var(--palette-hover-tint) 20%);
+}

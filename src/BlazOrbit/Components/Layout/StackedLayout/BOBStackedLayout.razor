@@ -1,0 +1,106 @@
+﻿@namespace BlazOrbit.Components.Layout
+
+@inherits BOBComponentBase
+
+<bob-component @attributes="ComputedAttributes"
+               data-bob-sticky-header="@StickyHeader.ToString().ToLowerInvariant()"
+               data-bob-sticky-nav="@StickyNav.ToString().ToLowerInvariant()"
+               data-bob-nav-open="@_navOpen.ToString().ToLowerInvariant()">
+
+    <header class="bob-stacked-layout__header">
+        @if (ShowToggle && Nav != null)
+        {
+            <button type="button"
+                    class="bob-stacked-layout__toggle"
+                    aria-label="Toggle navigation"
+                    aria-expanded="@_navOpen.ToString().ToLowerInvariant()"
+                    @onclick="ToggleNav">
+                <span class="bob-stacked-layout__toggle-bar"></span>
+                <span class="bob-stacked-layout__toggle-bar"></span>
+                <span class="bob-stacked-layout__toggle-bar"></span>
+            </button>
+        }
+        @if (Header != null)
+        {
+            <div class="bob-stacked-layout__header-content">
+                @Header
+            </div>
+        }
+    </header>
+
+    @if (Nav != null)
+    {
+        <nav class="bob-stacked-layout__nav">
+            <div class="bob-stacked-layout__nav-inner">
+                @Nav
+            </div>
+        </nav>
+    }
+
+    <main class="bob-stacked-layout__main">
+        <div class="bob-stacked-layout__main-inner">
+            @ChildContent
+        </div>
+    </main>
+</bob-component>
+
+@code {
+    private bool _navOpen;
+
+    /// <summary>Header.</summary>
+    [Parameter] public RenderFragment? Header { get; set; }
+    /// <summary>Nav.</summary>
+    [Parameter] public RenderFragment? Nav { get; set; }
+    /// <summary>Content rendered inside the component.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>HeaderHeight.</summary>
+    [Parameter] public string? HeaderHeight { get; set; }
+    /// <summary>NavMinColumnWidth.</summary>
+    [Parameter] public string? NavMinColumnWidth { get; set; }
+    /// <summary>NavGap.</summary>
+    [Parameter] public string? NavGap { get; set; }
+    /// <summary>ContentMaxWidth.</summary>
+    [Parameter] public string? ContentMaxWidth { get; set; }
+
+    /// <summary>NavColumns.</summary>
+    [Parameter] public int? NavColumns { get; set; }
+    /// <summary>StickyHeader.</summary>
+    [Parameter] public bool StickyHeader { get; set; } = true;
+    /// <summary>StickyNav.</summary>
+    [Parameter] public bool StickyNav { get; set; } = false;
+    /// <summary>When <see langword="true" />, the Toggle is shown.</summary>
+    [Parameter] public bool ShowToggle { get; set; } = true;
+
+    /// <summary>Whether the navigation drawer is open. Two-way bound through <c>@bind-NavOpen</c>.</summary>
+    [Parameter]
+    public bool NavOpen
+    {
+        get => _navOpen;
+        set => _navOpen = value;
+    }
+
+    /// <summary>NavOpenChanged.</summary>
+    [Parameter] public EventCallback<bool> NavOpenChanged { get; set; }
+
+    private async Task ToggleNav()
+    {
+        _navOpen = !_navOpen;
+        if (NavOpenChanged.HasDelegate)
+            await NavOpenChanged.InvokeAsync(_navOpen);
+    }
+
+    public override void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    {
+        if (HeaderHeight != null)
+            cssVariables[FeatureDefinitions.InlineVariables.LayoutHeaderHeight] = HeaderHeight;
+        if (NavMinColumnWidth != null)
+            cssVariables[FeatureDefinitions.InlineVariables.LayoutNavColMin] = NavMinColumnWidth;
+        if (NavGap != null)
+            cssVariables[FeatureDefinitions.InlineVariables.LayoutNavGap] = NavGap;
+        if (ContentMaxWidth != null)
+            cssVariables[FeatureDefinitions.InlineVariables.LayoutContentMaxWidth] = ContentMaxWidth;
+        if (NavColumns.HasValue)
+            cssVariables[FeatureDefinitions.InlineVariables.LayoutNavColumns] = NavColumns.Value.ToString();
+    }
+}

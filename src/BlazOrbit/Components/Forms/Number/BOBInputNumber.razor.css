@@ -1,0 +1,15 @@
+﻿[data-bob-component="input-number"] .bob-input__field {
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: 'tnum';
+}
+
+/* === STEP BUTTONS === */
+
+[data-bob-component="input-number"] .bob-input__step-buttons {
+    display: flex;
+    flex-direction: column;
+}
+
+[data-bob-component="input-number"][data-bob-button-placement="left"] .bob-input__step-buttons {
+    order: -1;
+}

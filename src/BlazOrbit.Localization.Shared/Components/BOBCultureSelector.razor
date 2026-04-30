@@ -1,0 +1,162 @@
+﻿@using BlazOrbit.Abstractions
+@using BlazOrbit.Components
+@using BlazOrbit.Components.Forms
+@using BlazOrbit.Localization
+@using BlazOrbit.Localization.Shared
+@using Microsoft.AspNetCore.Components
+@using Microsoft.Extensions.Localization
+@using System.Globalization
+
+@namespace BlazOrbit.Localization.Shared
+
+@inherits BOBVariantComponentBase<BOBCultureSelector, BOBCultureSelectorVariant>
+@implements IHasSize
+
+@inject NavigationManager Navigation
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code {
+    /// <summary>Visual size of the culture selector.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    /// <summary>When <see langword="true" />, the flag glyph is rendered next to each culture entry.</summary>
+    [Parameter] public bool ShowFlag { get; set; } = true;
+    /// <summary>When <see langword="true" />, the human-readable culture name is rendered next to each entry.</summary>
+    [Parameter] public bool ShowName { get; set; } = true;
+    /// <summary>Raised after the active culture has changed.</summary>
+    [Parameter] public EventCallback<CultureInfo> OnCultureChanged { get; set; }
+    /// <summary>
+    /// Optional override for the flag emoji/glyph shown next to each culture.
+    /// Receives the <see cref="CultureInfo"/> and returns the rendered string;
+    /// when <see langword="null"/>, falls back to <see cref="CultureFlags.GetFlag(CultureInfo)"/>.
+    /// </summary>
+    [Parameter] public Func<CultureInfo, string>? FlagResolver { get; set; }
+    /// <summary>
+    /// When <see langword="true"/>, switching culture triggers a full-page reload
+    /// (<c>Navigation.NavigateTo(forceLoad: true)</c>). When <see langword="false"/>
+    /// (default), the current thread's <see cref="CultureInfo"/> is updated in-place
+    /// and the consumer receives the <see cref="OnCultureChanged"/> event without
+    /// losing form state, modals, or scroll position.
+    /// </summary>
+    /// <remarks>
+    /// In-place switching only re-renders components that read <c>CultureInfo.CurrentUICulture</c>
+    /// during their next render — it does not retroactively re-format already-rendered DOM.
+    /// Set this to <see langword="true"/> if your app caches culture-dependent values eagerly.
+    /// </remarks>
+    [Parameter] public virtual bool ForceReload { get; set; }
+
+    [Inject] protected LocalizationSettings Settings { get; set; } = default!;
+    [Inject] protected IStringLocalizer<BOBCultureSelectorResources> Localizer { get; set; } = default!;
+
+    protected CultureInfo _currentCulture = CultureInfo.CurrentUICulture;
+
+    public override BOBCultureSelectorVariant DefaultVariant => BOBCultureSelectorVariant.Dropdown;
+
+    protected override IReadOnlyDictionary<BOBCultureSelectorVariant, Func<BOBCultureSelector, RenderFragment>> BuiltInTemplates { get; } =
+        new Dictionary<BOBCultureSelectorVariant, Func<BOBCultureSelector, RenderFragment>>
+        {
+            [BOBCultureSelectorVariant.Dropdown] = c => c.RenderDropdown(),
+            [BOBCultureSelectorVariant.Flags] = c => c.RenderFlags()
+        };
+
+    protected virtual RenderFragment RenderDropdown() => __builder =>
+    {
+        <bob-component @attributes="ComputedAttributes"
+                       role="group"
+                       aria-label="@Localizer["SelectLanguage"]">
+            <BOBInputDropdown TValue="string"
+                              Value="@_currentCulture.Name"
+                              ValueChanged="@OnDropdownCultureChanged"
+                              ValueExpression="@(() => _currentCulture.Name)"
+                              Size="@Size">
+                @foreach (CultureInfo culture in Settings.SupportedCultures)
+                {
+                    <DropdownOption TOption="string" Value="@culture.Name" Text="@culture.DisplayName">
+                        <span class="bob-culture-selector__option">
+                            @if (ShowFlag)
+                            {
+                                <span class="bob-culture-selector__flag" aria-hidden="true">@GetFlag(culture)</span>
+                            }
+                            @if (ShowName)
+                            {
+                                <span class="bob-culture-selector__name">@culture.DisplayName</span>
+                            }
+                        </span>
+                    </DropdownOption>
+                }
+            </BOBInputDropdown>
+        </bob-component>
+    };
+
+    protected virtual async Task OnDropdownCultureChanged(string? cultureName)
+    {
+        if (!string.IsNullOrEmpty(cultureName))
+        {
+            await SetCultureAsync(cultureName);
+        }
+    }
+
+    protected virtual RenderFragment RenderFlags() => __builder =>
+    {
+        <bob-component @attributes="ComputedAttributes">
+            <div class="bob-culture-selector__flag-list"
+                 role="radiogroup"
+                 aria-label="@Localizer["SelectLanguage"]">
+                @foreach (CultureInfo culture in Settings.SupportedCultures)
+                {
+                    bool isActive = culture.Name == _currentCulture.Name;
+                    string title = isActive
+                        ? Localizer["CurrentLanguage", culture.DisplayName]
+                        : culture.DisplayName;
+                    <button class="bob-culture-selector__flag-button @(isActive ? "active" : "")"
+                            @onclick="() => SetCultureAsync(culture.Name)"
+                            role="radio"
+                            aria-checked="@(isActive ? "true" : "false")"
+                            title="@title"
+                            disabled="@isActive">
+                        @GetFlag(culture)
+                        @if (ShowName)
+                        {
+                            <span class="bob-culture-selector__flag-label">@culture.DisplayName</span>
+                        }
+                    </button>
+                }
+            </div>
+        </bob-component>
+    };
+
+    protected override async Task OnInitializedAsync()
+    {
+        _currentCulture = CultureInfo.CurrentUICulture;
+        await base.OnInitializedAsync();
+    }
+
+    protected virtual async Task SetCultureAsync(string cultureName)
+    {
+        if (string.IsNullOrEmpty(cultureName) || cultureName == _currentCulture.Name)
+            return;
+
+        CultureInfo? newCulture = Settings.SupportedCultures
+            .FirstOrDefault(c => c.Name == cultureName);
+
+        if (newCulture == null)
+            return;
+
+        try
+        {
+            if (OnCultureChanged.HasDelegate)
+            {
+                await OnCultureChanged.InvokeAsync(newCulture);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Error setting culture: {ex.Message}");
+        }
+    }
+
+    protected string GetFlag(CultureInfo culture) =>
+        FlagResolver?.Invoke(culture) ?? CultureFlags.GetFlag(culture);
+}

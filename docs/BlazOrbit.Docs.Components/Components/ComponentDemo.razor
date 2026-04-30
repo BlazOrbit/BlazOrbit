@@ -1,0 +1,21 @@
+﻿@namespace BlazOrbit.Docs.Components
+
+<div class="demo">
+    <div class="demo__preview">
+        @Definition.Demo
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(Definition.Code))
+    {
+        <div class="demo__code">
+            <BOBCodeBlock Code="@Definition.Code"
+                          Language="@Definition.Language"
+                          Title="@Definition.CodeTitle" />
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public ComponentDemoDefinition Definition { get; set; } = default!;
+}

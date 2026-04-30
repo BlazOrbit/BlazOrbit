@@ -1,0 +1,83 @@
+﻿@page "/components/checkbox"
+
+@inject IStringLocalizer<CheckboxPage> Loc
+
+<PageTitle>BlazOrbit - BOBInputCheckbox</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBInputCheckbox"]"
+         Lede="@Loc["Boolean input checkbox with label, helper text, and custom icons for checked/unchecked states. Optionally tri-state"]"
+         PageInstance="this"
+         ApiType="@typeof(BOBInputCheckbox<>)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+        <BOBInputCheckbox @bind-Value="_basic" Label="@Loc["Accept terms"]" HelperText="@Loc["You must accept to continue."]" />
+    </DocDemo>
+
+    <DocDemo Key="Indeterminate" Title="@Loc["Indeterminate"]">
+        <BOBInputCheckbox TValue="bool?" @bind-Value="_indeterminateValue" Label="@Loc["Tristate Checkbox"]"
+                          HelperText="Nullability activates tri-state" />
+    </DocDemo>
+
+    <DocDemo Key="Sizes" Title="@Loc["Sizes"]">
+        <BOBInputCheckbox @bind-Value="_small" Size="BOBSize.Small" Label="@Loc["Small"]" />
+        <BOBInputCheckbox @bind-Value="_medium" Size="BOBSize.Medium" Label="@Loc["Medium"]" />
+        <BOBInputCheckbox @bind-Value="_large" Size="BOBSize.Large" Label="@Loc["Large"]" />
+    </DocDemo>
+
+    <DocDemo Key="Color" Title="@Loc["Color"]">
+        <BOBInputCheckbox @bind-Value="_primary" Color="@PaletteColor.Primary" Label="@Loc["Primary"]" />
+        <BOBInputCheckbox @bind-Value="_success" Color="@PaletteColor.Success" Label="@Loc["Success"]" />
+        <BOBInputCheckbox @bind-Value="_warning" Color="@PaletteColor.Warning" Label="@Loc["Warning"]" />
+        <BOBInputCheckbox @bind-Value="_custom1" Color="#DDAAAA" Label="@Loc["CustomHEX"]" />
+        <BOBInputCheckbox @bind-Value="_custom2" Color="rgb(25,45,65)" Label="@Loc["CustomRGB"]" />
+    </DocDemo>
+
+    <DocDemo Key="Density" Title="@Loc["Density"]">
+        <BOBInputCheckbox @bind-Value="_compactValue" Label="@Loc["Compact"]" Density="BOBDensity.Compact" />
+        <br>
+        <BOBInputCheckbox @bind-Value="_standardValue" Label="@Loc["Standard"]" Density="BOBDensity.Standard" />
+        <br>
+        <BOBInputCheckbox @bind-Value="_comfortableValue" Label="@Loc["Comfortable"]" Density="BOBDensity.Comfortable" />
+    </DocDemo>
+
+    <DocDemo Key="Icons" Title="@Loc["Custom Icons"]">
+        <BOBInputCheckbox @bind-Value="_heart" CheckedIcon="@BOBIconKeys.MaterialIconsOutlined.i_favorite"
+                          UncheckedIcon="@BOBIconKeys.MaterialIconsOutlined.i_favorite_border" Color="@PaletteColor.Error" Label="Favorite" />
+        <BOBInputCheckbox @bind-Value="_star" CheckedIcon="@BOBIconKeys.MaterialIconsOutlined.i_star"
+                          UncheckedIcon="@BOBIconKeys.MaterialIconsOutlined.i_star_border" Color="@PaletteColor.Warning" Label="Starred" />
+    </DocDemo>
+
+    <DocDemo Key="States" Title="@Loc["States"]">
+        <BOBInputCheckbox @bind-Value="_required" Required="true" Label="@Loc["Required"]" />
+        <BOBInputCheckbox @bind-Value="_readonly" ReadOnly="true" Label="@Loc["ReadOnly"]" />
+        <BOBInputCheckbox @bind-Value="_disabled" Disabled="true" Label="@Loc["Disabled"]" />
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBInputCheckboxComponentInfo.Parameters" />
+    </section>
+
+</DocPage>
+
+@code {
+    private bool _basic = true;
+    private bool _primary = true;
+    private bool _success = true;
+    private bool _warning = true;
+    private bool _custom1 = true;
+    private bool _custom2 = true;
+    private bool _small = true;
+    private bool _medium = true;
+    private bool _large = true;
+    private bool _required = true;
+    private bool _readonly = true;
+    private bool _disabled = true;
+    private bool _heart = true;
+    private bool _star = true;
+    private bool _compactValue = true;
+    private bool _standardValue = true;
+    private bool _comfortableValue = true;
+    private bool? _indeterminateValue = true;
+
+}

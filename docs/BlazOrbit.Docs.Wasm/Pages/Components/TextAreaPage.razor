@@ -1,0 +1,82 @@
+﻿@page "/components/textarea"
+
+@inject IStringLocalizer<TextAreaPage> Loc
+
+<PageTitle>BlazOrbit - BOBInputTextArea</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBInputTextArea"]"
+         Lede="@Loc["Multi-line text input with auto-resize, character limits, and the full InputText API surface."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBInputTextArea)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+        <BOBInputTextArea @bind-Value="_basic" Label="@Loc["Description"]" HelperText="@Loc["Keep it short."]" />
+    </DocDemo>
+
+    <DocDemo Key="Variants" Title="@Loc["Variants"]">
+            <BOBInputTextArea @bind-Value="_outlined" Variant="BOBInputVariant.Outlined" Label="@Loc["Outlined"]" />
+            <BOBInputTextArea @bind-Value="_filled" Variant="BOBInputVariant.Filled" Label="@Loc["Filled"]" />
+            <BOBInputTextArea @bind-Value="_standard" Variant="BOBInputVariant.Standard" Label="@Loc["Standard"]" />
+    </DocDemo>
+
+    <DocDemo Key="Sizes" Title="@Loc["Sizes"]">
+            <BOBInputTextArea @bind-Value="_small" Size="BOBSize.Small" Label="@Loc["Small"]" />
+            <BOBInputTextArea @bind-Value="_medium" Size="BOBSize.Medium" Label="@Loc["Medium (Default)"]" />
+            <BOBInputTextArea @bind-Value="_large" Size="BOBSize.Large" Label="@Loc["Large"]" />
+    </DocDemo>
+
+    <DocDemo Key="ColorAndBackground" Title="@Loc["Color & Background"]">
+        <BOBInputTextArea @bind-Value="_colorValue" Label="@Loc["Custom Color & Background"]" Color="@PaletteColor.Secondary" BackgroundColor="@PaletteColor.SecondaryContrast" />
+    </DocDemo>
+
+    <DocDemo Key="AutoResize" Title="@Loc["Auto-resize"]" Description="@Loc["Grows with its content — no scrollbar until needed."]">
+        <BOBInputTextArea @bind-Value="_auto" Label="@Loc["Notes"]" AutoResize="true" Rows="2" />
+    </DocDemo>
+
+    <DocDemo Key="Rows" Title="@Loc["Rows & max length"]">
+        <BOBInputTextArea @bind-Value="_rows" Label="@Loc["Bio"]" Rows="5" MaxLength="200" HelperText="@($"{_rows.Length}/200")" />
+    </DocDemo>
+
+    <DocDemo Key="Resize" Title="@Loc["Resize behavior"]">
+            <BOBInputTextArea @bind-Value="_resizeNone" Label="@Loc["No resize"]" Resize="TextAreaResize.None" />
+            <BOBInputTextArea @bind-Value="_resizeBoth" Label="@Loc["Both axes"]" Resize="TextAreaResize.Both" />
+    </DocDemo>
+
+    <DocDemo Key="ShadowAndBorder" Title="@Loc["Shadow"]">
+        <BOBInputTextArea @bind-Value="_shadowValue" Variant="BOBInputVariant.Outlined" Label="@Loc["Elevation Shadow"]" Shadow="@BOBShadowPresets.Elevation(2)" />
+        <BOBInputTextArea @bind-Value="_shadowValue" Variant="BOBInputVariant.Outlined" Label="@Loc["Custom Shadow"]" Shadow="@(ShadowStyle.Create(5, 10, 0.14f, color: "purple"))" />
+    </DocDemo>
+
+    <DocDemo Key="States" Title="@Loc["States"]">
+            <BOBInputTextArea @bind-Value="_required" Label="@Loc["Required"]" Required="true" />
+            <BOBInputTextArea @bind-Value="_readonly" Label="@Loc["Read-only"]" ReadOnly="true" />
+            <BOBInputTextArea @bind-Value="_disabled" Label="@Loc["Disabled"]" Disabled="true" />
+            <BOBInputTextArea @bind-Value="_error" Label="@Loc["Error"]" Error="true" HelperText="@Loc["Invalid content"]" />
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBInputTextAreaComponentInfo.Parameters" />
+    </section>
+
+</DocPage>
+
+@code {
+    private string _basic = "";
+    private string _outlined = "";
+    private string _filled = "";
+    private string _standard = "";
+    private string _small = "";
+    private string _medium = "";
+    private string _large = "";
+    private string _colorValue = "";
+    private string _auto = "Type to watch me grow...";
+    private string _rows = "";
+    private string _resizeNone = "";
+    private string _resizeBoth = "";
+    private string _shadowValue = "";
+    private string _disabled = "Disabled value";
+    private string _readonly = "Read-only value";
+    private string _required = "";
+    private string _error = "invalid content";
+}

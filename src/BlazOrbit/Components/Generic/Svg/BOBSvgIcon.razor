@@ -1,0 +1,48 @@
+﻿@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+
+@inherits BOBVariantComponentBase<BOBSvgIcon, BOBSvgIconVariant>
+@implements IHasSize
+@implements IHasColor
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code {
+    /// <summary>Closed-catalog icon key (obtain from <see cref="BOBIconKeys"/>).</summary>
+    [Parameter][EditorRequired] public required IconKey Icon { get; set; }
+    /// <summary>Tooltip text displayed on hover.</summary>
+    [Parameter] public string? Title { get; set; }
+    /// <summary>Visual size of the component.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    /// <summary>Text or foreground color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? Color { get; set; }
+    /// <summary>ViewBox.</summary>
+    [Parameter] public string ViewBox { get; set; } = "0 0 24 24";
+    /// <summary>Raised when the component is clicked.</summary>
+    [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    public override BOBSvgIconVariant DefaultVariant => BOBSvgIconVariant.Default;
+
+    protected override Dictionary<BOBSvgIconVariant, Func<BOBSvgIcon, RenderFragment>> BuiltInTemplates { get; } = new()
+    {
+        [BOBSvgIconVariant.Default] = b => b.RenderDefault(),
+    };
+
+    private RenderFragment RenderDefault() => __builder =>
+    {
+        <bob-component @attributes="@ComputedAttributes"
+                      @onclick="@OnClick">
+            <svg focusable="false"
+                 viewBox="@ViewBox"
+                 aria-hidden="true">
+                @if (Title != null)
+                {
+                    <title>@Title</title>
+                }
+                @((MarkupString)SvgMarkupSanitizer.Sanitize(Icon.SvgContent))
+            </svg>
+        </bob-component>
+    };
+}

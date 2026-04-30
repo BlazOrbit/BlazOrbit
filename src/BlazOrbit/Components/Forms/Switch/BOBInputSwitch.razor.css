@@ -1,0 +1,4 @@
+﻿[data-bob-component="input-switch"] {
+    /* Intentionally minimal — BOBInputSwitch renders BOBSwitch internally;
+       styles come from BOBSwitch.razor.css and _input-family.css. */
+}

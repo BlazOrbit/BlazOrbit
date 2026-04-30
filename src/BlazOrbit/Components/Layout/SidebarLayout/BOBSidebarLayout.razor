@@ -1,0 +1,115 @@
+﻿@namespace BlazOrbit.Components.Layout
+
+@inherits BOBComponentBase
+
+<bob-component @attributes="ComputedAttributes"
+               data-bob-sidebar-side="@SidebarSide.ToString().ToLowerInvariant()"
+               data-bob-sidebar-open="@_sidebarOpen.ToString().ToLowerInvariant()"
+               data-bob-sticky-header="@StickyHeader.ToString().ToLowerInvariant()"
+               data-bob-sticky-sidebar="@StickySidebar.ToString().ToLowerInvariant()">
+
+    <header class="bob-sidebar-layout__header">
+        @if (ShowToggle)
+        {
+            <button type="button"
+                    class="bob-sidebar-layout__toggle"
+                    aria-label="Toggle navigation"
+                    aria-expanded="@_sidebarOpen.ToString().ToLowerInvariant()"
+                    @onclick="ToggleSidebar">
+                <span class="bob-sidebar-layout__toggle-bar"></span>
+                <span class="bob-sidebar-layout__toggle-bar"></span>
+                <span class="bob-sidebar-layout__toggle-bar"></span>
+            </button>
+        }
+        @if (Header != null)
+        {
+            <div class="bob-sidebar-layout__header-content">
+                @Header
+            </div>
+        }
+    </header>
+
+    <div class="bob-sidebar-layout__body">
+        <aside class="bob-sidebar-layout__sidebar">
+            <div class="bob-sidebar-layout__sidebar-inner">
+                @Sidebar
+            </div>
+        </aside>
+
+        @if (_sidebarOpen)
+        {
+            <div class="bob-sidebar-layout__scrim" @onclick="CloseSidebar" aria-hidden="true"></div>
+        }
+
+        <main class="bob-sidebar-layout__main">
+            @ChildContent
+        </main>
+    </div>
+</bob-component>
+
+@code {
+    private bool _sidebarOpen;
+
+    /// <summary>Header.</summary>
+    [Parameter] public RenderFragment? Header { get; set; }
+    /// <summary>Sidebar.</summary>
+    [Parameter] public RenderFragment? Sidebar { get; set; }
+    /// <summary>Content rendered inside the component.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>SidebarWidth.</summary>
+    [Parameter] public string? SidebarWidth { get; set; }
+    /// <summary>HeaderHeight.</summary>
+    [Parameter] public string? HeaderHeight { get; set; }
+    /// <summary>CollapseBreakpoint.</summary>
+    [Parameter] public string? CollapseBreakpoint { get; set; }
+    /// <summary>ContentMaxWidth.</summary>
+    [Parameter] public string? ContentMaxWidth { get; set; }
+
+    /// <summary>SidebarSide.</summary>
+    [Parameter] public SidebarSide SidebarSide { get; set; } = SidebarSide.Start;
+    /// <summary>StickyHeader.</summary>
+    [Parameter] public bool StickyHeader { get; set; } = true;
+    /// <summary>StickySidebar.</summary>
+    [Parameter] public bool StickySidebar { get; set; } = true;
+    /// <summary>When <see langword="true" />, the Toggle is shown.</summary>
+    [Parameter] public bool ShowToggle { get; set; } = true;
+
+    /// <summary>Whether the sidebar is open. Two-way bound through <c>@bind-SidebarOpen</c>.</summary>
+    [Parameter]
+    public bool SidebarOpen
+    {
+        get => _sidebarOpen;
+        set => _sidebarOpen = value;
+    }
+
+    /// <summary>SidebarOpenChanged.</summary>
+    [Parameter] public EventCallback<bool> SidebarOpenChanged { get; set; }
+
+    private async Task ToggleSidebar()
+    {
+        _sidebarOpen = !_sidebarOpen;
+        if (SidebarOpenChanged.HasDelegate)
+            await SidebarOpenChanged.InvokeAsync(_sidebarOpen);
+    }
+
+    private async Task CloseSidebar()
+    {
+        if (!_sidebarOpen) return;
+        _sidebarOpen = false;
+        if (SidebarOpenChanged.HasDelegate)
+            await SidebarOpenChanged.InvokeAsync(_sidebarOpen);
+    }
+
+    public override void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    {
+        if (SidebarWidth != null)
+            cssVariables[FeatureDefinitions.InlineVariables.LayoutSidebarWidth] = SidebarWidth;
+        if (HeaderHeight != null)
+            cssVariables[FeatureDefinitions.InlineVariables.LayoutHeaderHeight] = HeaderHeight;
+        if (CollapseBreakpoint != null)
+            cssVariables[FeatureDefinitions.InlineVariables.LayoutCollapseBreakpoint] = CollapseBreakpoint;
+        if (ContentMaxWidth != null)
+            cssVariables[FeatureDefinitions.InlineVariables.LayoutContentMaxWidth] = ContentMaxWidth;
+    }
+}

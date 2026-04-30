@@ -1,0 +1,76 @@
+﻿@page "/components/text"
+
+@inject IStringLocalizer<InputTextPage> Loc
+
+<PageTitle>BlazOrbit - BOBInputText</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBInputText"]"
+         Lede="@Loc["Single-line text input with outlined, filled, and standard variants. Prefix/suffix slots, validation, and EditForm support built in."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBInputText)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+        <BOBInputText @bind-Value="_basic" Label="@Loc["Your name"]" HelperText="@Loc["As it appears on your ID."]" />
+    </DocDemo>
+
+    <DocDemo Key="Variants" Title="@Loc["Variants"]" Description="@Loc["Three visual styles for every form aesthetic."]">
+            <BOBInputText @bind-Value="_outlined" Variant="BOBInputVariant.Outlined" Label="@Loc["Outlined"]" />
+            <BOBInputText @bind-Value="_filled" Variant="BOBInputVariant.Filled" Label="@Loc["Filled"]" />
+            <BOBInputText @bind-Value="_standard" Variant="BOBInputVariant.Standard" Label="@Loc["Standard"]" />
+    </DocDemo>
+
+    <DocDemo Key="Sizes" Title="@Loc["Sizes"]">
+            <BOBInputText @bind-Value="_small" Size="BOBSize.Small" Label="@Loc["Small"]" />
+            <BOBInputText @bind-Value="_medium" Size="BOBSize.Medium" Label="@Loc["Medium (Default)"]" />
+            <BOBInputText @bind-Value="_large" Size="BOBSize.Large" Label="@Loc["Large"]" />
+    </DocDemo>
+
+    <DocDemo Key="ColorAndBackground" Title="@Loc["Color & Background"]">
+        <BOBInputText @bind-Value="_colorValue" Label="@Loc["Custom Color & Background"]" Color="@PaletteColor.Secondary" BackgroundColor="@PaletteColor.SecondaryContrast" />
+    </DocDemo>
+
+    <DocDemo Key="PrefixSuffix" Title="@Loc["Prefix & Suffix"]" Description="@Loc["Add icons or text to either side of the input."]">
+            <BOBInputText @bind-Value="_url" Label="@Loc["Website"]" PrefixText="https://" />
+            <BOBInputText @bind-Value="_search" Label="@Loc["Search"]" PrefixIcon="@BOBIconKeys.MaterialIconsOutlined.i_search" />
+            <BOBInputText @bind-Value="_domain" Label="@Loc["Domain"]" SuffixText=".com" />
+    </DocDemo>
+
+    <DocDemo Key="ShadowAndBorder" Title="@Loc["Shadow"]">
+        <BOBInputText @bind-Value="_shadowValue" Variant="BOBInputVariant.Outlined" Label="@Loc["Elevation Shadow"]" Shadow="@BOBShadowPresets.Elevation(2)" />
+        <BOBInputText @bind-Value="_shadowValue" Variant="BOBInputVariant.Outlined" Label="@Loc["Custom Shadow"]" Shadow="@(ShadowStyle.Create(5, 10, 0.14f, color: "purple"))" />
+    </DocDemo>
+
+    <DocDemo Key="States" Title="@Loc["States"]">
+            <BOBInputText @bind-Value="_disabled" Label="@Loc["Disabled"]" Disabled="true" />
+            <BOBInputText @bind-Value="_readonly" Label="@Loc["Read-only"]" ReadOnly="true" />
+            <BOBInputText @bind-Value="_required" Label="@Loc["Required"]" Required="true" />
+            <BOBInputText @bind-Value="_error" Label="@Loc["Error"]" Error="true" HelperText="@Loc["Invalid email"]" />
+            <BOBInputText @bind-Value="_loading" Label="@Loc["Loading"]" Loading="true" />
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBInputTextComponentInfo.Parameters" />
+    </section>
+
+</DocPage>
+
+@code {
+    private string _basic = "";
+    private string _outlined = "";
+    private string _filled = "";
+    private string _standard = "";
+    private string _small = "";
+    private string _medium = "";
+    private string _large = "";
+    private string _colorValue = "";
+    private string _url = "https://";
+    private string _search = "";
+    private string _domain = "";
+    private string _shadowValue = "";
+    private string _disabled = "Disabled value";
+    private string _readonly = "Read-only value";
+    private string _required = "";
+    private string _error = "invalid@";
+    private string _loading = "";
+}

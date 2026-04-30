@@ -1,0 +1,32 @@
+﻿@using BlazOrbit.Components
+
+<div class="test-button-consumer">
+    <BOBButton Text="@ButtonText" 
+               OnClick="@HandleClick"
+               Variant="@Variant"
+               Size="@Size"
+               Disabled="@Disabled"
+               IsLoading="@IsLoading"
+               LoadingIndicatorVariant="@LoadingVariant">
+    </BOBButton>
+    
+    <div class="click-count">Clicks: @_clickCount</div>
+</div>
+
+@code {
+    [Parameter] public string ButtonText { get; set; } = "Test Button";
+    [Parameter] public BOBButtonVariant? Variant { get; set; }
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public bool IsLoading { get; set; }
+    [Parameter] public BOBLoadingIndicatorVariant? LoadingVariant { get; set; }
+    [Parameter] public EventCallback<int> OnButtonClicked { get; set; }
+    
+    private int _clickCount = 0;
+    
+    private async Task HandleClick()
+    {
+        _clickCount++;
+        await OnButtonClicked.InvokeAsync(_clickCount);
+    }
+}

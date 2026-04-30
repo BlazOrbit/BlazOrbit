@@ -1,0 +1,34 @@
+﻿._bob-simple-input {
+    display: flex;
+    min-width: calc(3rem * var(--bob-size-multiplier, 1));
+    min-height: calc(2rem * var(--bob-size-multiplier, 1));
+    padding: 0.25rem;
+    border: var(--bob-border-width) var(--bob-border-style) var(--palette-border);
+    border-radius: var(--bob-border-radius);
+    background: var(--palette-surface);
+    color: var(--palette-surface-contrast);
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    text-align: center;
+    outline: none;
+    transition: border-color 150ms ease;
+}
+
+    ._bob-simple-input:focus {
+        border-color: var(--palette-surface-contrast);
+    }
+
+    ._bob-simple-input:focus-visible {
+        outline: var(--bob-highlight-outline);
+        outline-offset: var(--bob-highlight-outline-offset);
+    }
+
+    ._bob-simple-input:disabled {
+        cursor: not-allowed;
+        opacity: var(--bob-opacity-disabled);
+    }
+
+    ._bob-simple-input::placeholder {
+        opacity: var(--bob-opacity-placeholder, 0.5);
+    }

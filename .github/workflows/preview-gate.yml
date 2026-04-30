@@ -1,0 +1,194 @@
+# .github/workflows/preview-gate.yml
+# Quality gates for previews - runs on PRs to develop
+# Verifies build, test and public API before merging to develop
+
+name: Preview Gate
+
+on:
+  pull_request:
+    branches: [develop]
+    types: [opened, synchronize, reopened]
+  
+  workflow_dispatch:
+
+env:
+  DOTNET_VERSION: '10.0.100'
+
+permissions:
+  contents: read
+  pull-requests: write  # Needed to add labels
+
+concurrency:
+  group: preview-gate-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    name: Build and Test
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: '**/*.csproj'
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install WASM workload
+        run: dotnet workload install wasm-tools
+
+      - name: Restore dependencies
+        run: dotnet restore CdCSharp.BlazorBit.slnx
+
+      - name: Build (Release)
+        run: dotnet build CdCSharp.BlazorBit.slnx -c Release --no-restore -p:TreatWarningsAsErrors=true
+
+      - name: Test
+        run: dotnet test CdCSharp.BlazorBit.slnx -c Release --no-build --verbosity normal
+
+  # TEST-02: same gate as release-gate but advisory on develop (continue-on-error).
+  # The hard block fires on PRs to master via release-gate.yml.
+  coverage-check:
+    name: Coverage
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: '**/*.csproj'
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install WASM workload
+        run: dotnet workload install wasm-tools
+
+      - name: Restore dependencies
+        run: dotnet restore CdCSharp.BlazorBit.slnx
+
+      - name: Run coverage gate
+        shell: pwsh
+        run: pwsh -NoProfile -File scripts/Test-Coverage.ps1 -Configuration Release
+
+      - name: Upload coverage artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-cobertura
+          path: coverage-out/**/coverage.cobertura.xml
+          if-no-files-found: ignore
+
+  public-api-check:
+    name: Check Public API
+    runs-on: ubuntu-latest
+    continue-on-error: true  # Warning only, not blocking
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check PublicAPI changes
+        id: check
+        run: |
+          echo "=== Checking PublicAPI changes ==="
+          
+          # Check for changes in PublicAPI.Unshipped.txt (new API additions)
+          UNSHIPPED_CHANGES=$(git diff --name-only origin/develop...HEAD | grep -i "PublicAPI.Unshipped.txt" || true)
+          
+          if [ -n "$UNSHIPPED_CHANGES" ]; then
+            echo "changes_detected=true" >> $GITHUB_OUTPUT
+            echo "⚠️  Public API changes detected"
+            echo "Files modified:"
+            echo "$UNSHIPPED_CHANGES"
+          else
+            echo "changes_detected=false" >> $GITHUB_OUTPUT
+            echo "✅ No Public API changes"
+          fi
+
+      - name: Add label to PR
+        if: steps.check.outputs.changes_detected == 'true' && github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: ['changes/public-api']
+            });
+            console.log('Added label: changes/public-api');
+
+      - name: Public API Summary
+        if: steps.check.outputs.changes_detected == 'true'
+        run: |
+          echo "## ⚠️ Public API Changes Detected" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "This PR modifies the public API surface." >> $GITHUB_STEP_SUMMARY
+          echo "The 'changes/public-api' label has been added." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "This may trigger a MINOR version bump on next release if merged." >> $GITHUB_STEP_SUMMARY
+
+  summary:
+    name: Preview Gate Summary
+    runs-on: ubuntu-latest
+    needs: [build-and-test, coverage-check, public-api-check]
+    if: always()
+    
+    steps:
+      - name: Generate summary
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const jobs = {
+              build: '${{ needs.build-and-test.result }}',
+              coverage: '${{ needs.coverage-check.result }}',
+              publicApi: '${{ needs.public-api-check.result }}'
+            };
+            
+            let allPassed = true;
+            let report = '## Preview Gate Results\n\n';
+            
+            for (const [name, result] of Object.entries(jobs)) {
+              const icon = result === 'success' ? '✅' : result === 'skipped' ? '⏭️' : '❌';
+              report += `- ${icon} **${name}**: ${result}\n`;
+              if (result !== 'success' && result !== 'skipped') {
+                allPassed = false;
+              }
+            }
+            
+            report += '\n';
+            
+            if (allPassed) {
+              report += '### ✅ Preview Gate Passed\n\n';
+              report += 'Ready to merge into develop.';
+            } else {
+              report += '### ❌ Preview Gate Failed\n\n';
+              report += 'There are issues that need to be resolved.';
+            }
+            
+            core.summary.addRaw(report).write();
+            
+            if (!allPassed) {
+              core.setFailed('Preview gate failed');
+            }

@@ -1,0 +1,95 @@
+﻿@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+@inherits BOBVariantComponentBase<BOBLoadingIndicator, BOBLoadingIndicatorVariant>
+@implements IHasSize
+@implements IHasColor
+@{
+    base.BuildRenderTree(__builder);
+}
+@code {
+    private const string DefaultLoadingLabel = "Loading";
+
+    /// <summary>Text or foreground color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? Color { get; set; }
+
+    /// <summary>Accessible name for the component.</summary>
+    [Parameter] public string? AriaLabel { get; set; }
+
+    // IHasSize
+    /// <summary>Visual size of the loading indicator.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+
+    private string ResolvedAriaLabel => AriaLabel ?? DefaultLoadingLabel;
+
+    /* ========= Variant ========= */
+    public override BOBLoadingIndicatorVariant DefaultVariant => BOBLoadingIndicatorVariant.Spinner;
+
+    protected override Dictionary<BOBLoadingIndicatorVariant, Func<BOBLoadingIndicator, RenderFragment>> BuiltInTemplates { get; } = new()
+    {
+        [BOBLoadingIndicatorVariant.Spinner] = i => i.RenderSpinner(),
+        [BOBLoadingIndicatorVariant.CircularProgress] = i => i.RenderCircularProgress(),
+        [BOBLoadingIndicatorVariant.Ring] = i => i.RenderRing(),
+        [BOBLoadingIndicatorVariant.Dots] = i => i.RenderDots(),
+        [BOBLoadingIndicatorVariant.Bars] = i => i.RenderBars(),
+        [BOBLoadingIndicatorVariant.LinearIndeterminate] = i => i.RenderLinear(),
+    };
+
+    /* ========= Render Methods ========= */
+
+    private RenderFragment RenderSpinner() => __builder =>
+    {
+        <bob-component @attributes="ComputedAttributes" role="status" aria-live="polite" aria-label="@ResolvedAriaLabel">
+            <svg viewBox="0 0 50 50" role="img" aria-hidden="true" focusable="false">
+                <circle cx="25" cy="25" r="20"></circle>
+            </svg>
+        </bob-component>
+    };
+
+    private RenderFragment RenderCircularProgress() => __builder =>
+    {
+        <bob-component @attributes="ComputedAttributes" role="status" aria-live="polite" aria-label="@ResolvedAriaLabel">
+            <svg viewBox="0 0 50 50" role="img" aria-hidden="true" focusable="false">
+                <circle cx="25" cy="25" r="20"></circle>
+            </svg>
+        </bob-component>
+    };
+
+    private RenderFragment RenderRing() => __builder =>
+    {
+        <bob-component @attributes="ComputedAttributes" role="status" aria-live="polite" aria-label="@ResolvedAriaLabel">
+            <svg viewBox="0 0 50 50" role="img" aria-hidden="true" focusable="false">
+                <circle cx="25" cy="25" r="20"></circle>
+            </svg>
+        </bob-component>
+    };
+
+    private RenderFragment RenderDots() => __builder =>
+    {
+        <bob-component @attributes="ComputedAttributes" role="status" aria-live="polite" aria-label="@ResolvedAriaLabel">
+            <svg viewBox="0 0 40 10" role="img" aria-hidden="true" focusable="false">
+                <circle cx="5" cy="5" r="4"></circle>
+                <circle cx="20" cy="5" r="4"></circle>
+                <circle cx="35" cy="5" r="4"></circle>
+            </svg>
+        </bob-component>
+    };
+
+    private RenderFragment RenderBars() => __builder =>
+    {
+        <bob-component @attributes="ComputedAttributes" role="status" aria-live="polite" aria-label="@ResolvedAriaLabel">
+            <svg viewBox="0 0 24 30" role="img" aria-hidden="true" focusable="false">
+                <rect x="0" y="0" width="4" height="30" rx="2"></rect>
+                <rect x="10" y="0" width="4" height="30" rx="2"></rect>
+                <rect x="20" y="0" width="4" height="30" rx="2"></rect>
+            </svg>
+        </bob-component>
+    };
+
+    private RenderFragment RenderLinear() => __builder =>
+    {
+        <bob-component @attributes="ComputedAttributes" role="progressbar" aria-label="@ResolvedAriaLabel" aria-valuemin="0" aria-valuemax="100">
+            <div class="bob-loading-linear bob-loading-linear--primary"></div>
+            <div class="bob-loading-linear bob-loading-linear--secondary"></div>
+        </bob-component>
+    };
+}

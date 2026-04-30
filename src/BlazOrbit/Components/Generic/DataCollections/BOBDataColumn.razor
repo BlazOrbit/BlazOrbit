@@ -1,0 +1,104 @@
+﻿@namespace BlazOrbit.Components
+@typeparam TItem
+
+@using System.Linq.Expressions
+
+@code {
+    private bool _registered;
+    private DataColumnRegistration<TItem>? _registration;
+    private Func<TItem, object?>? _compiledSelector;
+    private string? _propertyName;
+
+    /// <summary>Align.</summary>
+    [Parameter] public ColumnAlign Align { get; set; } = ColumnAlign.Left;
+    /// <summary>CSS class applied to the Cell.</summary>
+    [Parameter] public string? CellClass { get; set; }
+    /// <summary>Custom sort comparer for the column. Replaces default value comparison when <see cref="Sortable"/> is on.</summary>
+    [Parameter] public Func<TItem, TItem, int>? CustomComparer { get; set; }
+    /// <summary>Custom filter predicate. Replaces default substring matching when <see cref="Filterable"/> is on.</summary>
+    [Parameter] public Func<TItem, string, bool>? CustomFilter { get; set; }
+    /// <summary>Filterable.</summary>
+    [Parameter] public bool Filterable { get; set; }
+    /// <summary>Format.</summary>
+    [Parameter] public string? Format { get; set; }
+    /// <summary>Header.</summary>
+    [Parameter] public string? Header { get; set; }
+    /// <summary>Custom template for rendering the Header.</summary>
+    [Parameter] public RenderFragment? HeaderTemplate { get; set; }
+    /// <summary>CSS class applied to the Header.</summary>
+    [Parameter] public string? HeaderClass { get; set; }
+    /// <summary>Expression that selects the column's bound property. Used to derive header text, sorting, and filtering.</summary>
+    [Parameter] public Expression<Func<TItem, object?>>? Property { get; set; }
+    /// <summary>Sortable.</summary>
+    [Parameter] public bool Sortable { get; set; }
+    /// <summary>Custom template for rendering the .</summary>
+    [Parameter] public RenderFragment<TItem>? Template { get; set; }
+    /// <summary>Visible.</summary>
+    [Parameter] public bool Visible { get; set; } = true;
+    /// <summary>Width.</summary>
+    [Parameter] public string? Width { get; set; }
+
+    [CascadingParameter(Name = "DataColumnRegistry")]
+    internal IDataColumnRegistry<TItem>? Registry { get; set; }
+
+    protected override void OnParametersSet()
+    {
+        if (Property != null && _compiledSelector == null)
+        {
+            Func<TItem, object?> compiled = Property.Compile();
+            _compiledSelector = compiled;
+
+            if (Property.Body is MemberExpression memberExpr)
+            {
+                _propertyName = memberExpr.Member.Name;
+            }
+            else if (Property.Body is UnaryExpression { Operand: MemberExpression innerMember })
+            {
+                _propertyName = innerMember.Member.Name;
+            }
+        }
+
+        if (Registry != null)
+        {
+            if (!_registered)
+            {
+                _registration = new DataColumnRegistration<TItem>
+                {
+                    Header = Header ?? _propertyName,
+                    HeaderTemplate = HeaderTemplate,
+                    ValueSelector = _compiledSelector,
+                    Template = Template,
+                    Format = Format,
+                    Align = Align,
+                    Width = Width,
+                    HeaderClass = HeaderClass,
+                    CellClass = CellClass,
+                    Visible = Visible,
+                    Sortable = Sortable,
+                    Filterable = Filterable,
+                    CustomComparer = CustomComparer,
+                    CustomFilter = CustomFilter
+                };
+                Registry.RegisterColumn(_registration);
+                _registered = true;
+            }
+            else if (_registration != null)
+            {
+                _registration.Header = Header ?? _propertyName;
+                _registration.HeaderTemplate = HeaderTemplate;
+                _registration.ValueSelector = _compiledSelector;
+                _registration.Template = Template;
+                _registration.Format = Format;
+                _registration.Align = Align;
+                _registration.Width = Width;
+                _registration.HeaderClass = HeaderClass;
+                _registration.CellClass = CellClass;
+                _registration.Visible = Visible;
+                _registration.Sortable = Sortable;
+                _registration.Filterable = Filterable;
+                _registration.CustomComparer = CustomComparer;
+                _registration.CustomFilter = CustomFilter;
+            }
+        }
+    }
+}

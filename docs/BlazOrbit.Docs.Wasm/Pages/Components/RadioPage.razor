@@ -1,0 +1,115 @@
+﻿@page "/components/radio"
+
+@inject IStringLocalizer<NumberPage> Loc
+
+<PageTitle>BlazOrbit - BOBInputRadio</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBInputRadio"]"
+         Lede="@Loc["Single-selection group using RadioOption children. Vertical or horizontal orientation, clearable, strongly-typed values."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBInputRadio<>)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+        <BOBInputRadio @bind-Value="_basic" Label="@Loc["Size"]" HelperText="@Loc["Choose a shirt size."]">
+            <RadioOption Value="@("small")">@Loc["Small"]</RadioOption>
+            <RadioOption Value="@("medium")">@Loc["Medium"]</RadioOption>
+            <RadioOption Value="@("large")">@Loc["Large"]</RadioOption>
+        </BOBInputRadio>
+    </DocDemo>
+
+    <DocDemo Key="Sizes" Title="@Loc["Sizes"]">
+        <BOBInputRadio @bind-Value="_small" Size="BOBSize.Small" Label="@Loc["Small"]" Orientation="RadioOrientation.Horizontal">
+            <RadioOption Value="@("a")">@Loc["Option A"]</RadioOption>
+            <RadioOption Value="@("b")">@Loc["Option B"]</RadioOption>
+        </BOBInputRadio>
+        <BOBInputRadio @bind-Value="_medium" Size="BOBSize.Medium" Label="@Loc["Medium"]" Orientation="RadioOrientation.Horizontal">
+            <RadioOption Value="@("a")">@Loc["Option A"]</RadioOption>
+            <RadioOption Value="@("b")">@Loc["Option B"]</RadioOption>
+        </BOBInputRadio>
+        <BOBInputRadio @bind-Value="_large" Size="BOBSize.Large" Label="@Loc["Large"]" Orientation="RadioOrientation.Horizontal">
+            <RadioOption Value="@("a")">@Loc["Option A"]</RadioOption>
+            <RadioOption Value="@("b")">@Loc["Option B"]</RadioOption>
+        </BOBInputRadio>
+    </DocDemo>
+
+    <DocDemo Key="Color" Title="@Loc["Color"]">
+        <BOBInputRadio @bind-Value="_primary" Color="@PaletteColor.Primary" Label="@Loc["Primary"]" Orientation="RadioOrientation.Horizontal">
+            <RadioOption Value="@("a")">@Loc["Option A"]</RadioOption>
+            <RadioOption Value="@("b")">@Loc["Option B"]</RadioOption>
+        </BOBInputRadio>
+        <BOBInputRadio @bind-Value="_success" Color="@PaletteColor.Success" Label="@Loc["Success"]" Orientation="RadioOrientation.Horizontal">
+            <RadioOption Value="@("a")">@Loc["Option A"]</RadioOption>
+            <RadioOption Value="@("b")">@Loc["Option B"]</RadioOption>
+        </BOBInputRadio>
+        <BOBInputRadio @bind-Value="_warning" Color="@PaletteColor.Warning" Label="@Loc["Warning"]" Orientation="RadioOrientation.Horizontal">
+            <RadioOption Value="@("a")">@Loc["Option A"]</RadioOption>
+            <RadioOption Value="@("b")">@Loc["Option B"]</RadioOption>
+        </BOBInputRadio>
+    </DocDemo>
+
+    <DocDemo Key="Orientation" Title="@Loc["Orientation"]">
+        <BOBInputRadio @bind-Value="_horizontal" Orientation="RadioOrientation.Horizontal" Label="@Loc["Horizontal"]">
+            <RadioOption Value="@("a")">@Loc["Option A"]</RadioOption>
+            <RadioOption Value="@("b")">@Loc["Option B"]</RadioOption>
+        </BOBInputRadio>
+        <BOBInputRadio @bind-Value="_vertical" Orientation="RadioOrientation.Vertical" Label="@Loc["Vertical"]">
+            <RadioOption Value="@("a")">@Loc["Option A"]</RadioOption>
+            <RadioOption Value="@("b")">@Loc["Option B"]</RadioOption>
+        </BOBInputRadio>
+    </DocDemo>
+
+    <DocDemo Key="Clearable" Title="@Loc["Clearable"]" Description="@Loc["""<p class="doc-section__description">Allow users to clear the selection with a reset action.</p>"""]">
+        <BOBInputRadio @bind-Value="_clearable" Clearable="true" ClearText="@Loc["Clear"]" Label="@Loc["Clearable"]">
+            <RadioOption Value="@("a")">@Loc["Option A"]</RadioOption>
+            <RadioOption Value="@("b")">@Loc["Option B"]</RadioOption>
+        </BOBInputRadio>
+    </DocDemo>
+
+    <DocDemo Key="CustomIcons" Title="@Loc["Custom Icons"]">
+        <BOBInputRadio @bind-Value="_icon"
+                       CheckedIcon="@BOBIconKeys.MaterialIconsOutlined.i_favorite"
+                       UncheckedIcon="@BOBIconKeys.MaterialIconsOutlined.i_favorite_border"
+                       Color="@PaletteColor.Error">
+            <RadioOption Value="@("heart")">@Loc["Heart"]</RadioOption>
+            <RadioOption Value="@("star")">@Loc["Star"]</RadioOption>
+        </BOBInputRadio>
+    </DocDemo>
+
+    <DocDemo Key="States" Title="@Loc["States"]">
+        <BOBInputRadio @bind-Value="_required" Required="true" Label="@Loc["Required"]">
+            <RadioOption Value="@("a")">@Loc["Option A"]</RadioOption>
+            <RadioOption Value="@("b")">@Loc["Option B"]</RadioOption>
+        </BOBInputRadio>
+        <BOBInputRadio @bind-Value="_readonly" ReadOnly="true" Label="@Loc["ReadOnly"]">
+            <RadioOption Value="@("a")">@Loc["Option A"]</RadioOption>
+            <RadioOption Value="@("b")">@Loc["Option B"]</RadioOption>
+        </BOBInputRadio>
+        <BOBInputRadio @bind-Value="_disabled" Disabled="true" Label="@Loc["Disabled"]">
+            <RadioOption Value="@("a")">@Loc["Option A"]</RadioOption>
+            <RadioOption Value="@("b")">@Loc["Option B"]</RadioOption>
+        </BOBInputRadio>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Properties</h2>
+        <PropertyTable Properties="@BOBInputRadioComponentInfo.Parameters" />
+    </section>
+
+</DocPage>
+
+@code {
+    private string? _basic = "medium";
+    private string? _primary = "a";
+    private string? _success = "a";
+    private string? _warning;
+    private string? _small = "a";
+    private string? _medium = "a";
+    private string? _large = "a";
+    private string? _horizontal = "a";
+    private string? _vertical = "a";
+    private string? _clearable = "a";
+    private string? _icon = "heart";
+    private string? _required = "a";
+    private string? _readonly = "a";
+    private string? _disabled = "a";
+}

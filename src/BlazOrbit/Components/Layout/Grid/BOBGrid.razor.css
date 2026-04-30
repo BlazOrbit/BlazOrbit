@@ -1,0 +1,176 @@
+﻿[data-bob-component="grid"] {
+    --columns: 12;
+    --gap: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: var(--row-gap, var(--gap));
+    column-gap: var(--col-gap, var(--gap));
+    width: 100%;
+    box-sizing: border-box;
+    padding: var(--p, var(--pt, 0) var(--pr, 0) var(--pb, 0) var(--pl, 0));
+    margin: var(--m, var(--mt, 0) var(--mr, 0) var(--mb, 0) var(--ml, 0));
+}
+
+    /* Contained */
+    [data-bob-component="grid"][data-contained] {
+        max-width: var(--max-w);
+        margin-inline: auto;
+        padding-inline: var(--col-gap, var(--gap));
+    }
+
+    /* Direction */
+    [data-bob-component="grid"][data-dir="row-reverse"] {
+        flex-direction: row-reverse;
+    }
+
+    [data-bob-component="grid"][data-dir="column"] {
+        flex-direction: column;
+    }
+
+    [data-bob-component="grid"][data-dir="column-reverse"] {
+        flex-direction: column-reverse;
+    }
+
+    /* Justify Content */
+    [data-bob-component="grid"][data-justify="end"] {
+        justify-content: flex-end;
+    }
+
+    [data-bob-component="grid"][data-justify="center"] {
+        justify-content: center;
+    }
+
+    [data-bob-component="grid"][data-justify="space-between"] {
+        justify-content: space-between;
+    }
+
+    [data-bob-component="grid"][data-justify="space-around"] {
+        justify-content: space-around;
+    }
+
+    [data-bob-component="grid"][data-justify="space-evenly"] {
+        justify-content: space-evenly;
+    }
+
+    /* Align Items */
+    [data-bob-component="grid"][data-align="start"] {
+        align-items: flex-start;
+    }
+
+    [data-bob-component="grid"][data-align="end"] {
+        align-items: flex-end;
+    }
+
+    [data-bob-component="grid"][data-align="center"] {
+        align-items: center;
+    }
+
+    [data-bob-component="grid"][data-align="baseline"] {
+        align-items: baseline;
+    }
+
+    /* Wrap */
+    [data-bob-component="grid"][data-wrap="no-wrap"] {
+        flex-wrap: nowrap;
+    }
+
+    [data-bob-component="grid"][data-wrap="wrap-reverse"] {
+        flex-wrap: wrap-reverse;
+    }
+
+/* ========================================
+   RESPONSIVE GAPS
+   ======================================== */
+@media (max-width: 639px) {
+    [data-bob-component="grid"] {
+        --gap: var(--gap-xs, 1rem);
+    }
+
+        [data-bob-component="grid"][data-dir-xs="row"] {
+            flex-direction: row;
+        }
+
+        [data-bob-component="grid"][data-dir-xs="row-reverse"] {
+            flex-direction: row-reverse;
+        }
+
+        [data-bob-component="grid"][data-dir-xs="column"] {
+            flex-direction: column;
+        }
+
+        [data-bob-component="grid"][data-dir-xs="column-reverse"] {
+            flex-direction: column-reverse;
+        }
+}
+
+@media (min-width: 640px) {
+    [data-bob-component="grid"][data-dir-sm="row"] {
+        flex-direction: row;
+    }
+
+    [data-bob-component="grid"][data-dir-sm="row-reverse"] {
+        flex-direction: row-reverse;
+    }
+
+    [data-bob-component="grid"][data-dir-sm="column"] {
+        flex-direction: column;
+    }
+
+    [data-bob-component="grid"][data-dir-sm="column-reverse"] {
+        flex-direction: column-reverse;
+    }
+}
+
+@media (min-width: 768px) {
+    [data-bob-component="grid"][data-dir-md="row"] {
+        flex-direction: row;
+    }
+
+    [data-bob-component="grid"][data-dir-md="row-reverse"] {
+        flex-direction: row-reverse;
+    }
+
+    [data-bob-component="grid"][data-dir-md="column"] {
+        flex-direction: column;
+    }
+
+    [data-bob-component="grid"][data-dir-md="column-reverse"] {
+        flex-direction: column-reverse;
+    }
+}
+
+@media (min-width: 1024px) {
+    [data-bob-component="grid"][data-dir-lg="row"] {
+        flex-direction: row;
+    }
+
+    [data-bob-component="grid"][data-dir-lg="row-reverse"] {
+        flex-direction: row-reverse;
+    }
+
+    [data-bob-component="grid"][data-dir-lg="column"] {
+        flex-direction: column;
+    }
+
+    [data-bob-component="grid"][data-dir-lg="column-reverse"] {
+        flex-direction: column-reverse;
+    }
+}
+
+@media (min-width: 1280px) {
+    [data-bob-component="grid"][data-dir-xl="row"] {
+        flex-direction: row;
+    }
+
+    [data-bob-component="grid"][data-dir-xl="row-reverse"] {
+        flex-direction: row-reverse;
+    }
+
+    [data-bob-component="grid"][data-dir-xl="column"] {
+        flex-direction: column;
+    }
+
+    [data-bob-component="grid"][data-dir-xl="column-reverse"] {
+        flex-direction: column-reverse;
+    }
+}

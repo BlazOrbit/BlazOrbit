@@ -1,0 +1,49 @@
+<Solution>
+  <Folder Name="/docs/">
+    <Project Path="docs/BlazOrbit.Docs.CodeGeneration/BlazOrbit.Docs.CodeGeneration.csproj" Id="30d05c9e-4dee-4cc0-a7d4-4cd32e938466" />
+    <Project Path="docs/BlazOrbit.Docs.Components/BlazOrbit.Docs.Components.csproj" Id="218fa721-c163-4f2f-b1c7-4571dd7f742a" />
+    <Project Path="docs/BlazOrbit.Docs.Translations/BlazOrbit.Docs.Translations.csproj" />
+    <Project Path="docs/BlazOrbit.Docs.Wasm/BlazOrbit.Docs.Wasm.csproj" Id="7a2e7f75-7eda-4b3d-8713-23ea7d782850" />
+  </Folder>
+  <Folder Name="/test/">
+    <Project Path="test/BlazOrbit.BuildTools.Tests/BlazOrbit.BuildTools.Tests.csproj" Id="f7c8d9e0-1234-5678-9abc-def012345678" />
+    <Project Path="test/BlazOrbit.CodeGeneration.Tests/BlazOrbit.CodeGeneration.Tests.csproj" Id="a5aa3c1e-8ee3-4288-8168-703abe7433d0" />
+    <Project Path="test/BlazOrbit.Core.CodeGeneration.Tests/BlazOrbit.Core.CodeGeneration.Tests.csproj" Id="4a42929d-fb4f-467e-b175-d220206f122a" />
+    <Project Path="test/BlazOrbit.Docs.CodeGeneration.Tests/BlazOrbit.Docs.CodeGeneration.Tests.csproj" Id="bc5dec00-a3ce-4348-b5b0-d7901af29c65" />
+    <Project Path="test/BlazOrbit.SyntaxHighlight.Tests/BlazOrbit.SyntaxHighlight.Tests.csproj" Id="15dbd024-6662-408e-a091-75d50b191b54" />
+    <Project Path="test/BlazOrbit.Tests.Integration.Templates/BlazOrbit.Tests.Integration.Templates.csproj" Id="5dc784c4-634b-4043-b718-1fd61d48d14b" />
+    <Project Path="test/BlazOrbit.Tests.Integration/BlazOrbit.Tests.Integration.csproj" Id="adba42f4-5632-4ee9-8656-917fa72c6c0a" />
+  </Folder>
+  <Folder Name="/tools/">
+    <Project Path="tools/BlazOrbit.Tools.MaterialIconsScrapper/BlazOrbit.Tools.MaterialIconsScrapper.csproj" Id="73368505-fddd-4ba4-8b73-723fccc1eec5" />
+  </Folder>
+  <Folder Name="/_meta/">
+    <File Path="CODE_OF_CONDUCT.md" />
+    <File Path="LICENSE.txt" />
+    <File Path="README.md" />
+    <File Path="SECURITY.md" />
+    <File Path="VERSIONING.md" />
+  </Folder>
+  <Folder Name="/_publish/">
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
+  </Folder>
+  <Folder Name="/_root/">
+    <File Path=".editorconfig" />
+    <File Path="CLAUDE.md" />
+    <File Path="Directory.Build.props" />
+    <File Path="global.json" />
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="src/BlazOrbit.BuildTools/BlazOrbit.BuildTools.csproj" Id="a67069d5-56c2-49fa-adec-656079117b53" />
+  <Project Path="src/BlazOrbit.CodeGeneration/BlazOrbit.CodeGeneration.csproj" Id="96bbc2e4-007e-4f7d-973b-8c83686462df" />
+  <Project Path="src/BlazOrbit.Core.CodeGeneration/BlazOrbit.Core.CodeGeneration.csproj" Id="6ba20f9a-6292-42d8-a0d8-b45440bef1ea" />
+  <Project Path="src/BlazOrbit.Core/BlazOrbit.Core.csproj" Id="4d42e187-5c5c-441e-a3bf-59ecb330e6e6" />
+  <Project Path="src/BlazOrbit.FluentValidation/BlazOrbit.FormsFluentValidation.csproj" Id="928cbff9-8c5b-4315-b75f-ee13ea436e6f" />
+  <Project Path="src/BlazOrbit.Localization.Server/BlazOrbit.Localization.Server.csproj" Id="cc099920-bfe2-4cbb-ad43-85f57c86d3a4" />
+  <Project Path="src/BlazOrbit.Localization.Shared/BlazOrbit.Localization.Shared.csproj" />
+  <Project Path="src/BlazOrbit.Localization.Wasm/BlazOrbit.Localization.Wasm.csproj" Id="7203c218-f90d-4664-8e5f-d21641df712e" />
+  <Project Path="src/BlazOrbit.SyntaxHighlight/BlazOrbit.SyntaxHighlight.csproj" Id="93e5c0b8-4936-420e-8549-56b3f8260af0" />
+  <Project Path="src/BlazOrbit.Translations/BlazOrbit.Translations.csproj" />
+  <Project Path="src/BlazOrbit/BlazOrbit.csproj" Id="0d8c8742-e505-402a-b5b9-362440826191" />
+</Solution>

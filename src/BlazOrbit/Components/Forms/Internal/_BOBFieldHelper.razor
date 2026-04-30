@@ -1,0 +1,36 @@
+﻿@namespace BlazOrbit.Components.Internal
+
+@using Microsoft.AspNetCore.Components.Forms
+@using System.Linq.Expressions
+
+@typeparam TValue
+
+@* WCAG 4.1.3 — validation errors must interrupt the screen reader so users
+   notice the form failed before they navigate away. role="alert" implies
+   aria-live="assertive" + aria-atomic="true" per the ARIA spec. *@
+@if (ShowValidation && EditContext != null && For != null)
+{
+    <div class="bob-field-helper bob-field-helper--error" role="alert">
+        <ValidationMessage For="For" />
+    </div>
+}
+
+@* Informational helper text. aria-live="polite" announces updates without
+   interrupting; in the static case it is a no-op. *@
+@if (!string.IsNullOrWhiteSpace(HelperText))
+{
+    <div id="@Id" class="bob-field-helper" aria-live="polite">@HelperText</div>
+}
+
+@code {
+    /// <summary>Unique identifier for the component.</summary>
+    [Parameter] public string? Id { get; set; }
+    /// <summary>Helper text displayed below the component for additional context.</summary>
+    [Parameter] public string? HelperText { get; set; }
+    /// <summary>When <see langword="true" />, the Validation is shown.</summary>
+    [Parameter] public bool ShowValidation { get; set; }
+    /// <summary>EditContext.</summary>
+    [Parameter] public EditContext? EditContext { get; set; }
+    /// <summary>For.</summary>
+    [Parameter] public Expression<Func<TValue>>? For { get; set; }
+}

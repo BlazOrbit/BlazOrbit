@@ -1,0 +1,88 @@
+﻿/* === TRIGGER BUTTON === */
+
+[data-bob-component="dropdown-container"] .bob-dropdown__trigger {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    text-align: start;
+}
+
+[data-bob-component="dropdown-container"][data-bob-disabled="true"] .bob-dropdown__trigger {
+    cursor: not-allowed;
+}
+
+/* === VALUE DISPLAY === */
+
+[data-bob-component="dropdown-container"] .bob-dropdown__value {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
+}
+
+[data-bob-component="dropdown-container"] .bob-dropdown__placeholder {
+    opacity: var(--bob-opacity-placeholder);
+}
+
+/* === MENU PANEL === */
+
+[data-bob-component="dropdown-container"] .bob-input__wrapper .bob-dropdown__menu {
+    --_dropdown-menu-background: var(--bob-inline-background, var(--palette-surface));
+    --_dropdown-menu-border: var(--bob-inline-border, 1px solid var(--palette-border));
+    --_dropdown-menu-shadow: var(--bob-inline-shadow, 0 4px 12px color-mix(in srgb, var(--palette-shadow) 15%, transparent));
+}
+
+/* IHasElevation in dark theme: lift the menu panel via surface-tint overlay. Inline background
+   (BackgroundColor=) still wins via the var() fallback chain. */
+[data-bob-theme="dark"] [data-bob-component="dropdown-container"][data-bob-elevation] .bob-input__wrapper .bob-dropdown__menu {
+    --_dropdown-menu-background: var(--bob-inline-background,
+        color-mix(in oklab,
+            var(--palette-surface),
+            var(--palette-surface-contrast) var(--bob-inline-elevation-tint, 0%)));
+}
+
+[data-bob-component="dropdown-container"] .bob-input__wrapper .bob-dropdown__menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 4px;
+    background-color: var(--_dropdown-menu-background);
+    border: var(--_dropdown-menu-border);
+    border-radius: 4px;
+    box-shadow: var(--_dropdown-menu-shadow);
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: var(--bob-z-dropdown);
+    min-width: 100%;
+}
+
+/* === PLACEMENT VARIANTS === */
+
+[data-bob-component="dropdown-container"][data-bob-placement="bottom"] .bob-dropdown__menu,
+[data-bob-component="dropdown-container"][data-bob-placement="bottomstart"] .bob-dropdown__menu,
+[data-bob-component="dropdown-container"][data-bob-placement="bottomend"] .bob-dropdown__menu {
+    top: 100%;
+    bottom: auto;
+    margin-top: 4px;
+    margin-bottom: 0;
+}
+
+[data-bob-component="dropdown-container"][data-bob-placement="top"] .bob-dropdown__menu,
+[data-bob-component="dropdown-container"][data-bob-placement="topstart"] .bob-dropdown__menu,
+[data-bob-component="dropdown-container"][data-bob-placement="topend"] .bob-dropdown__menu {
+    top: auto;
+    bottom: 100%;
+    margin-top: 0;
+    margin-bottom: 4px;
+}
+
+/* === NO OPTIONS STATE === */
+
+[data-bob-component="dropdown-container"] .bob-dropdown__no-options {
+    padding: calc(0.75rem * var(--bob-size-multiplier, 1));
+    text-align: center;
+    opacity: 0.6;
+}

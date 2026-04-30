@@ -1,0 +1,195 @@
+﻿@page "/utilities/validation"
+
+@using System.ComponentModel.DataAnnotations
+@using BlazOrbit.FormsFluentValidation
+@using FluentValidation
+
+@inject IStringLocalizer<ValidationPage> Loc
+
+<PageTitle>BlazorUI - Validation</PageTitle>
+
+<DocPage Eyebrow="@Loc["Utilities"]" Title="@Loc["Validation"]"
+         Lede="@_lede"
+         PageInstance="this">
+
+    <DocSection Title="@Loc["Data Annotations"]">
+        <p>@((MarkupString)Loc["The easiest way to validate forms is using <strong>Data Annotations</strong>. Define rules directly on your model with attributes like <code>[Required]</code>, <code>[MinLength]</code>, or <code>[EmailAddress]</code>."].ToString())</p>
+        <p>@((MarkupString)Loc["Wrap your inputs in an <code>EditForm</code>, add the <code>DataAnnotationsValidator</code> component, and use <code>ValidationMessage</code> to display field errors."].ToString())</p>
+        <p>@((MarkupString)Loc["""Learn more in <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/forms/validation" target="_blank">Microsoft Docs — Blazor Form Validation</a>."""].ToString())</p>
+        <br />
+
+        <DocDemo Key="DataAnnotations" Title="@Loc["Data Annotations in action"]">
+            <EditForm Model="@_modelAnnotations" OnValidSubmit="HandleValidSubmitAnnotations">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
+                <br />
+
+                <BOBInputText @bind-Value="_modelAnnotations.Name"
+                              Label="@Loc["Name"]"
+                              Variant="BOBInputVariant.Outlined" />
+                <ValidationMessage For="@(() => _modelAnnotations.Name)" />
+
+                <BOBInputDropdown @bind-Value="_modelAnnotations.Role"
+                                  Label="@Loc["Role"]"
+                                  Searchable="true"
+                                  Variant="BOBInputVariant.Outlined">
+                    <DropdownOption Value="@Role.Admin" Text="@Loc["Admin"]" />
+                    <DropdownOption Value="@Role.Editor" Text="@Loc["Editor"]" />
+                    <DropdownOption Value="@Role.Viewer" Text="@Loc["Viewer"]" />
+                    <DropdownOption Value="@Role.Guest" Text="@Loc["Guest"]" />
+                </BOBInputDropdown>
+                <ValidationMessage For="@(() => _modelAnnotations.Role)" />
+
+                <br /><br />
+                <button type="submit">@Loc["Submit"]</button>
+                <button type="button" @onclick="ResetAnnotations">@Loc["Reset"]</button>
+            </EditForm>
+
+            @if (_sentDataAnotations)
+            {
+                <div class="bui-mt-4">
+                    <p><strong>@Loc["Name"]:</strong> @_modelAnnotations.Name</p>
+                    <p><strong>@Loc["Role"]:</strong> @_modelAnnotations.Role</p>
+                </div>
+            }
+        </DocDemo>
+    </DocSection>
+
+    <DocSection Title="@Loc["FluentValidation"]">
+        <p>@((MarkupString)Loc["For more complex scenarios, you can use <strong>FluentValidation</strong>. It allows you to define validation rules in dedicated validator classes with full support for dependency injection, conditional rules, and reusable logic."].ToString())</p>
+        <p>@((MarkupString)Loc["BlazorUI form components work seamlessly with FluentValidation because they read validation state directly from the <code>EditContext</code> — no component changes are required."].ToString())</p>
+        <br />
+
+        <h4>@Loc["1. Configure Services"]</h4>
+        <p>@Loc["Register FluentValidation validators in your dependency injection container (usually in Program.cs):"]</p>
+
+        <BOBCodeBlock Language="SyntaxHighlightLanguage.CSharp" Code="@_fluentValidationRegisterCode1" />
+        <p>@Loc["or use this to register validators from executing Assembly"]</p>
+        <BOBCodeBlock Language="SyntaxHighlightLanguage.CSharp" Code="@_fluentValidationRegisterCode2" />
+        <br />
+
+        <h4>@Loc["2. Use the Validator"]</h4>
+        <p>@Loc["Add DataAnnotationsValidator with BOBFluentValidator inside your EditForm:"]</p>
+        <br />
+        <DocDemo Key="FluentValidation" Title="@Loc["FluentValidation in action"]">
+            <EditForm Model="@_modelFluent" OnValidSubmit="HandleValidSubmitFluent">
+                <BOBFluentValidator />
+                <ValidationSummary />
+                <br />
+
+                <BOBInputText @bind-Value="_modelFluent.Name"
+                              Label="@Loc["Name"]"
+                              Variant="BOBInputVariant.Outlined" />
+                <ValidationMessage For="@(() => _modelFluent.Name)" />
+
+                <BOBInputDropdown @bind-Value="_modelFluent.Role"
+                                  Label="@Loc["Role"]"
+                                  Searchable="true"
+                                  Variant="BOBInputVariant.Outlined">
+                    <DropdownOption Value="@Role.Admin" Text="@Loc["Admin"]" />
+                    <DropdownOption Value="@Role.Editor" Text="@Loc["Editor"]" />
+                    <DropdownOption Value="@Role.Viewer" Text="@Loc["Viewer"]" />
+                    <DropdownOption Value="@Role.Guest" Text="@Loc["Guest"]" />
+                </BOBInputDropdown>
+                <ValidationMessage For="@(() => _modelFluent.Role)" />
+
+                <br /><br />
+                <button type="submit">@Loc["Submit"]</button>
+                <button type="button" @onclick="ResetFluent">@Loc["Reset"]</button>
+            </EditForm>
+        </DocDemo>
+        @if (_sentFluent)
+        {
+            <div class="bui-mt-4">
+                <p><strong>@Loc["Name"]:</strong> @_modelFluent.Name</p>
+                <p><strong>@Loc["Role"]:</strong> @_modelFluent.Role</p>
+            </div>
+        }
+
+        <br />
+        <p>@((MarkupString)Loc["""Learn more at <a href="https://docs.fluentvalidation.net/" target="_blank">FluentValidation Docs</a>."""].ToString())</p>
+    </DocSection>
+
+</DocPage>
+
+@code {
+    private AnnotationFormModel _modelAnnotations = new();
+    private bool _sentDataAnotations;
+
+    private string _lede = string.Empty;
+
+    private string _fluentValidationRegisterCode1 =
+    """
+    builder.Services.AddBOBFluentValidation<Program>();
+    """;
+    private string _fluentValidationRegisterCode2 =
+    """
+    builder.Services.AddBOBFluentValidation();
+    """;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _lede = Loc[
+                """
+                BlazorUI form components inherit from InputBase, Blazor's native form component. Therefore, validation can be performed in the same way as EditForm.
+                Furthermore, BlazorUI allows the use of FluentValidation by adding a reference to CdCSharp.BlazorUI.FormsFluentValidation.
+                """];
+    }
+
+    private void HandleValidSubmitAnnotations()
+    {
+        _sentDataAnotations = true;
+    }
+
+    private void ResetAnnotations()
+    {
+        _modelAnnotations = new();
+        _sentDataAnotations = false;
+    }
+
+    private class AnnotationFormModel
+    {
+        [Required(ErrorMessage = "Name is required")]
+        [MinLength(2, ErrorMessage = "Name must have at least 2 characters")]
+        public string? Name { get; set; }
+
+        [Required(ErrorMessage = "Role is required")]
+        public Role? Role { get; set; }
+    }
+
+    private FluentFormModel _modelFluent = new();
+    private bool _sentFluent;
+
+    private void HandleValidSubmitFluent()
+    {
+        _sentFluent = true;
+    }
+
+    private void ResetFluent()
+    {
+        _modelFluent = new();
+        _sentFluent = false;
+    }
+
+    public class FluentFormModel
+    {
+        public string? Name { get; set; }
+        public Role? Role { get; set; }
+    }
+
+    public class FluentFormModelValidator : AbstractValidator<FluentFormModel>
+    {
+        public FluentFormModelValidator(IStringLocalizer<ValidationPage> loc)
+        {
+            RuleFor(x => x.Name)
+                .NotEmpty().WithMessage(loc["Name is required"])
+                .MinimumLength(2).WithMessage(loc["Name must have at least 2 characters"]);
+
+            RuleFor(x => x.Role)
+                .NotNull().WithMessage(loc["Role is required"]);
+        }
+    }
+
+    public enum Role { Admin, Editor, Viewer, Guest }
+}

@@ -1,0 +1,56 @@
+﻿@page "/concepts/accessibility"
+
+<PageTitle>Accessibility — BlazOrbit</PageTitle>
+
+<DocPage Eyebrow="Concept"
+         Title="Accessibility"
+         Lede="What BlazOrbit does for you out of the box — keyboard navigation, focus management, ARIA roles, contrast tokens — and where you still need to help.">
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">What you get automatically</h2>
+        <ul>
+            <li><strong>Native semantics.</strong> Inputs render actual <code>&lt;input&gt;</code> / <code>&lt;select&gt;</code> / <code>&lt;textarea&gt;</code> elements — not divs with handlers. Buttons are real <code>&lt;button&gt;</code> elements.</li>
+            <li><strong>Label association.</strong> Every input exposes a <code>Label</code> parameter which renders as a proper <code>&lt;label&gt;</code> with <code>for</code> linked to the input's id.</li>
+            <li><strong>ARIA where appropriate.</strong> <code>BOBDialog</code> and <code>BOBDrawer</code> set <code>role=&quot;dialog&quot;</code> + <code>aria-modal=&quot;true&quot;</code> and trap focus. <code>BOBTooltip</code> uses <code>aria-describedby</code>. Data collections emit <code>role=&quot;option&quot;</code> and <code>aria-selected</code> on selectable rows.</li>
+            <li><strong>Keyboard navigation.</strong> Tooltips can be triggered by focus. Modals close on Escape. Data cards and rows respond to Enter and Space.</li>
+            <li><strong>Disabled / required / readonly as real attributes.</strong> These are exposed through <code>IHasDisabled</code> / <code>IHasRequired</code> / <code>IHasReadOnly</code> and emitted as native HTML attributes on the underlying form element — screen readers announce them without extra work.</li>
+            <li><strong>Focus-visible styling.</strong> The library uses <code>:focus-visible</code> everywhere, so mouse users don't see ring outlines while keyboard users still get a clear focus indicator.</li>
+            <li><strong>Color contrast tokens.</strong> The palette pairs every semantic color with a <code>*contrast</code> token, so text-on-background pairings are always chosen deliberately — never accidentally.</li>
+        </ul>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Keyboard shortcuts by component</h2>
+        <ul>
+            <li><strong>Dialog / Drawer:</strong> <code>Esc</code> closes, Tab cycles within the modal (focus is trapped).</li>
+            <li><strong>Tooltip:</strong> focus shows when <code>Trigger=Focus</code> or <code>HoverAndFocus</code>; <code>Esc</code> hides click-triggered tooltips.</li>
+            <li><strong>DataGrid / DataCards:</strong> <code>Enter</code> / <code>Space</code> activates a row (click handler + selection). <code>Tab</code> moves between rows when interactive.</li>
+            <li><strong>Dropdown:</strong> open with Space / Enter / ArrowDown, navigate options with arrows, select with Enter, close with Escape.</li>
+            <li><strong>Switch / Checkbox / Radio:</strong> Space toggles — standard browser behavior.</li>
+            <li><strong>DatePicker:</strong> arrow keys navigate days, Enter commits, Escape cancels.</li>
+        </ul>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Where you still need to help</h2>
+        <ul>
+            <li><strong>Meaningful labels.</strong> Every interactive control needs a <code>Label</code> or <code>aria-label</code>. Icon-only buttons (e.g. close, menu, delete) need an explicit <code>AriaLabel</code>.</li>
+            <li><strong>Alt text on icons.</strong> <code>BOBSvgIcon</code> is decorative by default. If an icon conveys meaning that isn't duplicated in text, set <code>aria-label</code> on the parent element or wrap it with screen-reader-only text.</li>
+            <li><strong>Landmarks.</strong> Use <code>&lt;main&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;aside&gt;</code> — BlazOrbit doesn't impose a layout; you wire those yourself.</li>
+            <li><strong>Validation messages.</strong> When an input has an error, surface the message in text (via the <code>ErrorText</code> parameter) so screen readers announce it, not just color.</li>
+            <li><strong>Don't defeat contrast.</strong> When you override a semantic color, override its <em>contrast</em> pair too. Otherwise you'll end up with low-contrast text.</li>
+            <li><strong>Motion.</strong> Transitions are defined with keyframes. Honor <code>prefers-reduced-motion</code> in any custom transitions you add.</li>
+        </ul>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Testing tips</h2>
+        <ul>
+            <li>Navigate your entire page with Tab / Shift+Tab — every interactive element should be reachable and show a focus indicator.</li>
+            <li>Zoom to 200% — no clipping, no horizontal scroll.</li>
+            <li>Try it with Windows Narrator, macOS VoiceOver, or NVDA at least once. Landmark navigation and form labels show up quickly.</li>
+            <li>Check both themes — light and dark palettes have independent contrast.</li>
+        </ul>
+    </section>
+
+</DocPage>

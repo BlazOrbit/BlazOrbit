@@ -1,0 +1,153 @@
+﻿/* Base Card Styles */
+[data-bob-component="card"] {
+    display: block;
+    width: 100%;
+    /* CSS Variables */
+    --_card-background: var(--bob-inline-background, var(--palette-surface));
+    --_card-color: var(--bob-inline-color, var(--palette-surface-contrast));
+    --_card-border-radius: var(--bob-inline-border-radius, var(--bob-border-radius));
+    --_card-border: var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border));
+    --_card-border-top: var(--bob-inline-border-top, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+    --_card-border-right: var(--bob-inline-border-right, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+    --_card-border-bottom: var(--bob-inline-border-bottom, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+    --_card-border-left: var(--bob-inline-border-left, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+    --_card-padding: 1rem;
+    --_card-header-padding: 1rem;
+    --_card-content-padding: 1rem;
+    --_card-actions-padding: 0.5rem 1rem;
+    --_card-media-height: 200px;
+}
+
+/* IHasElevation in dark theme: overlay surface-tint percentage on top of the surface.
+   Light mode keeps the plain surface (the M3 curve treats elevation as dark-only). The
+   inline background (BackgroundColor=) still wins via the var() fallback chain. */
+[data-bob-theme="dark"] [data-bob-component="card"][data-bob-elevation] {
+    --_card-background: var(--bob-inline-background,
+        color-mix(in oklab,
+            var(--palette-surface),
+            var(--palette-surface-contrast) var(--bob-inline-elevation-tint, 0%)));
+}
+
+    /* Card Container */
+    [data-bob-component="card"] .bob-card {
+        display: flex;
+        flex-direction: column;
+        background: var(--_card-background);
+        color: var(--_card-color);
+        border-radius: var(--_card-border-radius);
+        border: var(--_card-border);
+        border-top: var(--_card-border-top);
+        border-right: var(--_card-border-right);
+        border-bottom: var(--_card-border-bottom);
+        border-left: var(--_card-border-left);
+        overflow: hidden;
+        /* Animate the properties the hover/active/clickable states actually change.
+           `transition: all` would force layout-invalidating evaluation of every
+           property on each repaint. */
+        transition: background-color 0.3s cubic-bezier(0.4, 0.0, 0.2, 1),
+                    color 0.3s cubic-bezier(0.4, 0.0, 0.2, 1),
+                    border-color 0.3s cubic-bezier(0.4, 0.0, 0.2, 1),
+                    box-shadow 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
+        position: relative;
+    }
+
+    /* Header */
+    [data-bob-component="card"] .bob-card__header {
+        padding: var(--_card-header-padding);
+    }
+
+    [data-bob-component="card"] .bob-card__title {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 500;
+        line-height: 1.4;
+    }
+
+    [data-bob-component="card"] .bob-card__subtitle {
+        margin: 0.25rem 0 0 0;
+        font-size: 0.875rem;
+        opacity: 0.7;
+        line-height: 1.5;
+    }
+
+    /* Media */
+    [data-bob-component="card"] .bob-card__media {
+        width: 100%;
+        height: var(--_card-media-height);
+        overflow: hidden;
+        position: relative;
+        background: color-mix(in srgb, var(--palette-shadow) 4%, transparent);
+    }
+
+        [data-bob-component="card"] .bob-card__media > * {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    /* Content */
+    [data-bob-component="card"] .bob-card__content {
+        padding: var(--_card-content-padding);
+        flex: 1;
+    }
+
+    /* Actions */
+    [data-bob-component="card"] .bob-card__actions {
+        padding: var(--_card-actions-padding);
+        display: flex;
+        align-items: center;
+        gap: calc(0.5rem * var(--bob-density-multiplier));
+    }
+
+    [data-bob-component="card"] .bob-card__actions--start {
+        justify-content: flex-start;
+    }
+
+    [data-bob-component="card"] .bob-card__actions--center {
+        justify-content: center;
+    }
+
+    [data-bob-component="card"] .bob-card__actions--end {
+        justify-content: flex-end;
+    }
+
+    [data-bob-component="card"] .bob-card__actions--space-between {
+        justify-content: space-between;
+    }
+
+    /* Media Position Variants */
+    [data-bob-component="card"][data-bob-media-position="top"] .bob-card__media {
+        order: -3;
+    }
+
+    [data-bob-component="card"][data-bob-media-position="afterheader"] .bob-card__media {
+        order: -1;
+    }
+
+    [data-bob-component="card"][data-bob-media-position="beforeactions"] .bob-card__media {
+        order: 1;
+    }
+
+    [data-bob-component="card"][data-bob-media-position="bottom"] .bob-card__media {
+        order: 2;
+    }
+
+    /* Clickable State */
+    [data-bob-component="card"][data-bob-clickable="true"] .bob-card {
+        cursor: pointer;
+    }
+
+        /* Accessibility */
+        [data-bob-component="card"][data-bob-clickable="true"] .bob-card:focus-visible {
+            outline: var(--bob-highlight-outline);
+            outline-offset: var(--bob-highlight-outline-offset);
+        }
+
+        /* Press state */
+        [data-bob-component="card"][data-bob-clickable="true"] .bob-card:active:not(:disabled) {
+            background: color-mix(in oklab, var(--_card-background) 80%, var(--palette-active-tint) 20%);
+        }
+        /* Hover state */
+        [data-bob-component="card"][data-bob-clickable="true"] .bob-card:hover:not(:active):not(:disabled) {
+            background: color-mix(in oklab, var(--_card-background) 90%, var(--palette-hover-tint) 10%);
+        }

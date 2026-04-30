@@ -1,0 +1,99 @@
+﻿@page "/components/tabs"
+
+@inject IStringLocalizer<TabsPage> Loc
+
+<PageTitle>BlazOrbit - BOBTabs</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBTabs"]"
+         Lede="@Loc["Tab panels with three visual variants. Declare tabs as children — the active one renders automatically."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBTabs)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+        <BOBTabs @bind-ActiveTab="_basic">
+            <BOBTab Id="overview" Label="@Loc["Overview"]">
+                @Loc["Overview content — the first tab is active by default."]
+            </BOBTab>
+            <BOBTab Id="details" Label="@Loc["Details"]">
+                @Loc["Details content."]
+            </BOBTab>
+            <BOBTab Id="reviews" Label="@Loc["Reviews"]">
+                @Loc["Reviews content."]
+            </BOBTab>
+        </BOBTabs>
+    </DocDemo>
+
+    <DocDemo Key="Variants" Title="@Loc["Variants"]" Description="@Loc["Underline (default), Pills, and Enclosed."]">
+        <div class="demo-stack">
+            <BOBTabs Variant="BOBTabsVariant.Pills" @bind-ActiveTab="_pills">
+                <BOBTab Id="account" Label="@Loc["Account"]">
+                    @Loc["Account settings."]
+                </BOBTab>
+                <BOBTab Id="billing" Label="@Loc["Billing"]">
+                    @Loc["Billing details."]
+                </BOBTab>
+                <BOBTab Id="team" Label="@Loc["Team"]">
+                    @Loc["Team members."]
+                </BOBTab>
+            </BOBTabs>
+            <BOBTabs Variant="BOBTabsVariant.Enclosed" @bind-ActiveTab="_enclosed">
+                <BOBTab Id="profile" Label="@Loc["Profile"]">
+                    @Loc["Profile tab."]
+                </BOBTab>
+                <BOBTab Id="notifications" Label="@Loc["Notifications"]">
+                    @Loc["Notifications tab."]
+                </BOBTab>
+                <BOBTab Id="security" Label="@Loc["Security"]">
+                    @Loc["Security tab."]
+                </BOBTab>
+            </BOBTabs>
+        </div>
+    </DocDemo>
+
+    <DocDemo Key="FullWidth" Title="@Loc["Full width"]">
+        <BOBTabs FullWidth="true" @bind-ActiveTab="_full">
+            <BOBTab Id="inbox" Label="@Loc["Inbox"]">
+                @Loc["Inbox."]
+            </BOBTab>
+            <BOBTab Id="sent" Label="@Loc["Sent"]">
+                @Loc["Sent messages."]
+            </BOBTab>
+            <BOBTab Id="archive" Label="@Loc["Archive"]">
+                @Loc["Archive."]
+            </BOBTab>
+        </BOBTabs>
+    </DocDemo>
+
+    <DocDemo Key="Disabled" Title="@Loc["Disabled tab"]">
+        <BOBTabs @bind-ActiveTab="_disabled">
+            <BOBTab Id="general" Label="@Loc["General"]">
+                @Loc["General settings."]
+            </BOBTab>
+            <BOBTab Id="pro" Label="@Loc["Pro features"]" Disabled="true">
+                @Loc["Unreachable content."]
+            </BOBTab>
+            <BOBTab Id="about" Label="@Loc["About"]">
+                @Loc["About page."]
+            </BOBTab>
+        </BOBTabs>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+
+        <h3 class="doc-section__subtitle">BOBTabs</h3>
+        <PropertyTable Properties="@BOBTabsComponentInfo.Parameters" />
+
+        <h3 class="doc-section__subtitle">BOBTab</h3>
+        <PropertyTable Properties="@BOBTabComponentInfo.Parameters" />
+    </section>
+
+</DocPage>
+
+@code {
+    private string? _basic = "overview";
+    private string? _pills = "billing";
+    private string? _enclosed = "notifications";
+    private string? _full = "inbox";
+    private string? _disabled = "general";
+}

@@ -1,0 +1,81 @@
+﻿@using BlazOrbit.Abstractions
+@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+
+@inherits BOBVariantComponentBase<BOBBadge, BOBBadgeVariant>
+@implements IHasSize
+@implements IHasColor
+@implements IHasBackgroundColor
+@implements IHasBorder
+@implements IHasShadow
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code {
+    /* ========= Public API ========= */
+
+    /// <summary>Content rendered inside the badge (typically a number or short label).</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    /// <summary>When <see langword="true" />, the badge is forced to a circular shape; otherwise it adapts to its content.</summary>
+    [Parameter] public bool Circular { get; set; }
+
+    //  IHasSize
+    /// <summary>Visual size of the badge.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+
+    // IHasColor
+    /// <summary>Text color of the badge. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? Color { get; set; }
+
+    // IHasBackgroundColor
+    /// <summary>Background color of the badge. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? BackgroundColor { get; set; }
+
+    // IHasBorder
+    /// <summary>Border style applied to the badge.</summary>
+    [Parameter] public BorderStyle? Border { get; set; }
+
+    // IHasShadow
+    /// <summary>Shadow style applied to the badge.</summary>
+    [Parameter] public ShadowStyle? Shadow { get; set; }
+
+    /* ========= Variant ========= */
+
+    public override BOBBadgeVariant DefaultVariant => BOBBadgeVariant.Default;
+
+    protected override Dictionary<BOBBadgeVariant, Func<BOBBadge, RenderFragment>> BuiltInTemplates { get; } = new()
+    {
+        [BOBBadgeVariant.Default] = b => b.RenderBadge(),
+    };
+
+    /* ========= Base additions ========= */
+
+    public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    {
+        if (ChildContent == null)
+        {
+            dataAttributes[FeatureDefinitions.DataAttributes.Dot] = "true";
+        }
+
+        if (Circular)
+        {
+            dataAttributes[FeatureDefinitions.DataAttributes.Circular] = "true";
+        }
+    }
+
+    /* ========= Render ========= */
+
+    private RenderFragment RenderBadge() => __builder =>
+    {
+        <bob-component @attributes="ComputedAttributes">
+            <span class="bob-badge">
+                @if (ChildContent != null)
+                {
+                    @ChildContent
+                }
+            </span>
+        </bob-component>
+    };
+}

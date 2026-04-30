@@ -1,0 +1,24 @@
+﻿[
+  {
+    Name: Dot_Mode,
+    Html: <bob-component data-bob-dot="true" data-bob-component="badge" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><span class="bob-badge" b-<SCOPE>></span></bob-component>
+  },
+  {
+    Name: With_Content,
+    Html: <bob-component data-bob-component="badge" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><span class="bob-badge" b-<SCOPE>>5</span></bob-component>
+  },
+  {
+    Name: Circular_With_Content,
+    Html: <bob-component data-bob-circular="true" data-bob-component="badge" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><span class="bob-badge" b-<SCOPE>>99</span></bob-component>
+  },
+  {
+    Name: Large_Size,
+    Html: <bob-component data-bob-component="badge" data-bob-variant="default" data-bob-size="large" b-<SCOPE>><span class="bob-badge" b-<SCOPE>>New</span></bob-component>
+  },
+  {
+    Name: Notification_Badge_TopRight,
+    Html:
+<bob-component data-bob-position="topright" data-bob-component="notification-badge" data-bob-variant="default" data-bob-size="small" b-<SCOPE>>
+            <div class="bob-<SCOPE>on-badge__indicator" b-<SCOPE>><bob-component data-bob-circular="true" data-bob-component="badge" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><span class="bob-badge" b-<SCOPE>>3</span></bob-component></div></bob-component>
+  }
+]

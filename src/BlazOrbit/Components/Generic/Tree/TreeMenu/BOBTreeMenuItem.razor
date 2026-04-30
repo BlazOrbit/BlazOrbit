@@ -1,0 +1,38 @@
+﻿@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+@using Microsoft.AspNetCore.Components.Routing
+@inherits BOBTreeNodeBase<TreeMenuNodeRegistration>
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code {
+    /// <summary>Href.</summary>
+    [Parameter] public string? Href { get; set; }
+    /// <summary>Target.</summary>
+    [Parameter] public string? Target { get; set; }
+    /// <summary>Match.</summary>
+    [Parameter] public NavLinkMatch Match { get; set; } = NavLinkMatch.Prefix;
+    /// <summary>Raised when the component is clicked.</summary>
+    [Parameter] public EventCallback OnClick { get; set; }
+
+    protected override string GenerateDefaultKey()
+        => Href ?? $"menu-item-{Guid.NewGuid():N}";
+
+    protected override TreeMenuNodeRegistration CreateRegistration() => new()
+    {
+        Key = ResolvedKey,
+        Text = Text,
+        Icon = Icon,
+        IsDisabled = Disabled,
+        InitiallyExpanded = InitiallyExpanded,
+        Data = Data,
+        NodeContent = NodeContent,
+        ParentKey = ParentNodeKey,
+        Href = Href,
+        Target = Target,
+        Match = Match,
+        OnClick = OnClick
+    };
+}

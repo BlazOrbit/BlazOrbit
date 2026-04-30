@@ -1,0 +1,21 @@
+﻿@namespace BlazOrbit.Docs.Components
+
+<section class="doc-section">
+    @if (!string.IsNullOrEmpty(Title))
+    {
+        <h2 class="doc-section__title">@Title</h2>
+    }
+    @if (!string.IsNullOrEmpty(Description))
+    {
+        <p class="doc-section__description">@((MarkupString)Description)</p>
+    }
+    @ChildContent
+</section>
+
+@code {
+
+    [Parameter] public string? Title { get; set; }
+    [Parameter] public string? Description { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+}

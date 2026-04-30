@@ -1,0 +1,32 @@
+﻿@using BlazOrbit.Components
+@using BlazOrbit.Components.Forms
+
+<div class="test-radio-consumer">
+    <BOBInputRadio @bind-Value="SelectedValue"
+                   Label="@Label"
+                   HelperText="@HelperText"
+                   Orientation="@Orientation"
+                   Disabled="@Disabled"
+                   Required="@Required"
+                   Clearable="@Clearable"
+                   Size="@Size"
+                   Error="@Error">
+        <RadioOption Value="@("opt1")">Option 1</RadioOption>
+        <RadioOption Value="@("opt2")">Option 2</RadioOption>
+        <RadioOption Value="@("opt3")" Disabled="@Option3Disabled">Option 3</RadioOption>
+    </BOBInputRadio>
+    <div class="selected-value">@SelectedValue</div>
+</div>
+
+@code {
+    [Parameter] public string? SelectedValue { get; set; }
+    [Parameter] public string? Label { get; set; }
+    [Parameter] public string? HelperText { get; set; }
+    [Parameter] public RadioOrientation Orientation { get; set; } = RadioOrientation.Vertical;
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public bool Required { get; set; }
+    [Parameter] public bool Clearable { get; set; }
+    [Parameter] public bool Error { get; set; }
+    [Parameter] public bool Option3Disabled { get; set; }
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+}

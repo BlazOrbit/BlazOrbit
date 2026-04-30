@@ -1,0 +1,221 @@
+﻿@using BlazOrbit.Components.Layout.Services
+@using BlazOrbit.Abstractions
+@using Microsoft.JSInterop
+
+@namespace BlazOrbit.Components.Layout
+@attribute [GenerateComponentInfo]
+
+@inherits BOBVariantComponentBase<BOBToast, BOBToastVariant>
+@implements IDisposable
+@implements IHasElevation
+@inject TimeProvider TimeProvider
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code {
+    private const int ProgressTickMs = 100;
+    private readonly CancellationTokenSource _disposeCts = new();
+    private volatile bool _progressPaused;
+
+    /// <summary>Toast state (id, content, options, lifecycle flags) supplied by <see cref="BOBToastHost"/>.</summary>
+    [Parameter, EditorRequired]
+    public ToastState State { get; set; } = default!;
+
+    /// <summary>Raised after the close animation finishes so the host can remove the toast from the active list.</summary>
+    [Parameter]
+    public EventCallback<Guid> OnCloseAnimationComplete { get; set; }
+
+    /// <summary>Material Design elevation level (0–24) applied to the toast surface. Sets a derived
+    /// shadow and lifts the surface in dark mode via a tint overlay. <see langword="null"/> (default)
+    /// keeps the component-default shadow defined in CSS.</summary>
+    [Parameter]
+    public int? Elevation { get; set; }
+
+    [CascadingParameter]
+    private ToastService? ToastService { get; set; }
+
+    public override BOBToastVariant DefaultVariant => BOBToastVariant.Default;
+
+    protected override Dictionary<BOBToastVariant, Func<BOBToast, RenderFragment>> BuiltInTemplates { get; } = new()
+    {
+        [BOBToastVariant.Default] = t => t.RenderDefault()
+    };
+
+    public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    {
+        dataAttributes[FeatureDefinitions.DataAttributes.Position] = GetPositionValue();
+        dataAttributes[FeatureDefinitions.DataAttributes.Animation] = GetAnimationValue();
+        dataAttributes[FeatureDefinitions.DataAttributes.Closing] = State.IsClosing.ToString().ToLowerInvariant();
+        dataAttributes[FeatureDefinitions.DataAttributes.Paused] = State.IsPaused.ToString().ToLowerInvariant();
+    }
+
+    public override void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    {
+        cssVariables["--bob-toast-animation-duration"] = $"{State.Options.Animation.Duration.TotalMilliseconds}ms";
+        cssVariables["--bob-toast-animation-easing"] = State.Options.Animation.Easing;
+    }
+
+    protected override void OnParametersSet()
+    {
+        // Service-driven path: when Elevation is not set directly as a [Parameter],
+        // fall back to the value provided in ToastOptions.
+        if (!Elevation.HasValue && State.Options.Elevation is int optElevation)
+        {
+            Elevation = optElevation;
+        }
+
+        base.OnParametersSet();
+    }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+
+        if (State.Options.AutoDismiss)
+        {
+            _ = RunProgressLoopAsync(_disposeCts.Token);
+        }
+    }
+
+    private async Task RunProgressLoopAsync(CancellationToken token)
+    {
+        using PeriodicTimer timer = new(TimeSpan.FromMilliseconds(ProgressTickMs));
+        try
+        {
+            while (await timer.WaitForNextTickAsync(token))
+            {
+                if (_progressPaused) continue;
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+        catch (OperationCanceledException) { }
+        catch (JSDisconnectedException) { }
+        catch (ObjectDisposedException) { }
+        catch (InvalidOperationException) { }
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        await base.OnParametersSetAsync();
+
+        if (State.IsClosing)
+        {
+            _progressPaused = true;
+            try
+            {
+                await Task.Delay(State.Options.Animation.Duration, TimeProvider, _disposeCts.Token);
+            }
+            catch (TaskCanceledException) { return; }
+            catch (ObjectDisposedException) { return; }
+
+            if (_disposeCts.IsCancellationRequested) return;
+            await OnCloseAnimationComplete.InvokeAsync(State.Id);
+        }
+    }
+
+    private RenderFragment RenderDefault() => __builder =>
+    {
+        // Each toast is its own ARIA live region so the host can mix severities
+        // in the same position wrapper without re-mounting (live-region role/
+        // aria-live can't be reliably mutated after first render). aria-atomic
+        // tells screen readers to read the whole toast on change instead of
+        // diffing the descendant text.
+        <bob-component @attributes="ComputedAttributes"
+                       role="@GetAriaRole()"
+                       aria-live="@GetAriaLive()"
+                       aria-atomic="true"
+                       @onmouseenter="HandleMouseEnter"
+                       @onmouseleave="HandleMouseLeave"
+                       @onclick="HandleClick">
+
+            <div class="bob-toast__content">
+                @State.Content
+            </div>
+
+            @if (State.Options.Closable)
+            {
+                <_BOBBtn Icon="@BOBIconKeys.UI.Close"
+                         AriaLabel="Close"
+                         OnClick="HandleClose"
+                         OnClickStopPropagation="true" />
+            }
+
+            @if (State.Options.AutoDismiss)
+            {
+                <div class="bob-toast__progress">
+                    <div class="bob-toast__progress-bar" style="@GetProgressStyle()"></div>
+                </div>
+            }
+        </bob-component>
+    };
+
+    private string GetPositionValue() => State.Options.Position switch
+    {
+        ToastPosition.TopLeft => "top-left",
+        ToastPosition.TopCenter => "top-center",
+        ToastPosition.TopRight => "top-right",
+        ToastPosition.BottomLeft => "bottom-left",
+        ToastPosition.BottomCenter => "bottom-center",
+        ToastPosition.BottomRight => "bottom-right",
+        _ => "top-right"
+    };
+
+    private string GetAnimationValue() => State.Options.Animation.Type switch
+    {
+        ToastAnimationType.Fade => "fade",
+        ToastAnimationType.Slide => "slide",
+        ToastAnimationType.SlideAndFade => "slide-fade",
+        _ => "none"
+    };
+
+    private string GetAriaRole() => State.Options.Severity == ToastSeverity.Error ? "alert" : "status";
+
+    private string GetAriaLive() => State.Options.Severity == ToastSeverity.Error ? "assertive" : "polite";
+
+    private string GetProgressStyle()
+    {
+        if (!State.Options.AutoDismiss) return "width: 0%";
+
+        double progress = State.ProgressPercentage;
+        return $"width: {100 - progress:F1}%";
+    }
+
+    private async Task HandleMouseEnter()
+    {
+        if (State.Options.AutoDismiss && !State.IsClosing && ToastService is not null)
+        {
+            await ToastService.PauseAsync(State.Id);
+            _progressPaused = true;
+        }
+    }
+
+    private async Task HandleMouseLeave()
+    {
+        if (State.Options.AutoDismiss && !State.IsClosing && ToastService is not null)
+        {
+            await ToastService.ResumeAsync(State.Id);
+            _progressPaused = false;
+        }
+    }
+
+    private void HandleClick()
+    {
+        State.Options.OnClick?.Invoke();
+    }
+
+    private async Task HandleClose()
+    {
+        if (ToastService is not null)
+        {
+            await ToastService.CloseAsync(State.Id);
+        }
+    }
+
+    public void Dispose()
+    {
+        try { _disposeCts.Cancel(); } catch (ObjectDisposedException) { }
+        _disposeCts.Dispose();
+    }
+}

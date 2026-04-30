@@ -1,0 +1,36 @@
+﻿[data-bob-component="notification-badge"] {
+    position: relative;
+}
+
+[data-bob-component="notification-badge"] .bob-notification-badge__indicator {
+    position: absolute;
+    pointer-events: none;
+}
+
+/* Position: TopRight (default) */
+[data-bob-component="notification-badge"][data-bob-position="topright"] .bob-notification-badge__indicator {
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+}
+
+/* Position: TopLeft */
+[data-bob-component="notification-badge"][data-bob-position="topleft"] .bob-notification-badge__indicator {
+    top: 0;
+    left: 0;
+    transform: translate(-50%, -50%);
+}
+
+/* Position: BottomRight */
+[data-bob-component="notification-badge"][data-bob-position="bottomright"] .bob-notification-badge__indicator {
+    bottom: 0;
+    right: 0;
+    transform: translate(50%, 50%);
+}
+
+/* Position: BottomLeft */
+[data-bob-component="notification-badge"][data-bob-position="bottomleft"] .bob-notification-badge__indicator {
+    bottom: 0;
+    left: 0;
+    transform: translate(-50%, 50%);
+}

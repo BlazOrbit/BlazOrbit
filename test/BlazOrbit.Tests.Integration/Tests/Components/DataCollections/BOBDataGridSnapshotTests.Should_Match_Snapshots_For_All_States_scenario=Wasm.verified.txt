@@ -1,0 +1,20 @@
+﻿[
+  {
+    Name: Default,
+    Html:
+<bob-component data-bob-hoverable="true" data-bob-component="data-grid" data-bob-variant="default" data-bob-data-collection="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div role="status" aria-live="polite" class="sr-only" b-<SCOPE>>2 rows.</div><div class="bob-datagrid__container" style="" b-<SCOPE>><table class="bob-datagrid__table" role="grid" aria-rowcount="2" b-<SCOPE>><thead class="bob-datagrid__header" b-<SCOPE>><tr role="row" b-<SCOPE>><th class="bob-datagrid__header-cell  " role="columnheader" scope="col" b-<SCOPE>>Name</th><th class="bob-datagrid__header-cell  " role="columnheader" scope="col" b-<SCOPE>>Age</th></tr></thead>
+                    <tbody b-<SCOPE>><tr class="bob-datagrid__row  " role="row" tabindex="-1" blazor:onclick="<EVENT>" blazor:onkeydown="<EVENT>" b-<SCOPE>><td class=" " role="gridcell" b-<SCOPE>>Alice</td><td class=" " role="gridcell" b-<SCOPE>>30</td></tr><tr class="bob-datagrid__row  " role="row" tabindex="-1" blazor:onclick="<EVENT>" blazor:onkeydown="<EVENT>" b-<SCOPE>><td class=" " role="gridcell" b-<SCOPE>>Bob</td><td class=" " role="gridcell" b-<SCOPE>>25</td></tr></tbody></table></div></bob-component>
+  },
+  {
+    Name: Empty_With_Placeholder,
+    Html:
+<bob-component data-bob-hoverable="true" data-bob-component="data-grid" data-bob-variant="default" data-bob-data-collection="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div role="status" aria-live="polite" class="sr-only" b-<SCOPE>>No data available.</div><div class="bob-datagrid__container" style="" b-<SCOPE>><table class="bob-datagrid__table" role="grid" aria-rowcount="0" b-<SCOPE>><thead class="bob-datagrid__header" b-<SCOPE>><tr role="row" b-<SCOPE>><th class="bob-datagrid__header-cell  " role="columnheader" scope="col" b-<SCOPE>>Name</th><th class="bob-datagrid__header-cell  " role="columnheader" scope="col" b-<SCOPE>>Age</th></tr></thead>
+                    <tbody b-<SCOPE>><tr class="bob-datagrid__empty-row" role="row" b-<SCOPE>><td colspan="2" class="bob-datagrid__empty-cell" b-<SCOPE>>No data</td></tr></tbody></table></div></bob-component>
+  },
+  {
+    Name: Single_Row,
+    Html:
+<bob-component data-bob-hoverable="true" data-bob-component="data-grid" data-bob-variant="default" data-bob-data-collection="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div role="status" aria-live="polite" class="sr-only" b-<SCOPE>>1 row.</div><div class="bob-datagrid__container" style="" b-<SCOPE>><table class="bob-datagrid__table" role="grid" aria-rowcount="1" b-<SCOPE>><thead class="bob-datagrid__header" b-<SCOPE>><tr role="row" b-<SCOPE>><th class="bob-datagrid__header-cell  " role="columnheader" scope="col" b-<SCOPE>>Name</th><th class="bob-datagrid__header-cell  " role="columnheader" scope="col" b-<SCOPE>>Age</th></tr></thead>
+                    <tbody b-<SCOPE>><tr class="bob-datagrid__row  " role="row" tabindex="-1" blazor:onclick="<EVENT>" blazor:onkeydown="<EVENT>" b-<SCOPE>><td class=" " role="gridcell" b-<SCOPE>>Alice</td><td class=" " role="gridcell" b-<SCOPE>>30</td></tr></tbody></table></div></bob-component>
+  }
+]

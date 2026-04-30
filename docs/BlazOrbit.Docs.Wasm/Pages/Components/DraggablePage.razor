@@ -1,0 +1,75 @@
+﻿@page "/components/draggable"
+
+@inject IStringLocalizer<DraggablePage> Loc
+
+<PageTitle>BlazOrbit - BOBDraggable</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBDraggable"]"
+         Lede="@Loc["Make any element mouse-draggable with fine-grained events. Renders its child content untouched — positioning is up to you."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBDraggable)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]" Description="@Loc["Wrap anything in BOBDraggable and listen to OnDrag. Client coordinates are reported in DragEventArgs."]">
+        <div style="position: relative; height: 180px; border: 1px dashed var(--palette-border); border-radius: .5rem; overflow: hidden;">
+            <BOBDraggable OnDragStart="HandleBasicStart" OnDrag="HandleBasicDrag">
+                <div style="@BasicBoxStyle">
+                    @Loc["Drag me"]
+                </div>
+            </BOBDraggable>
+        </div>
+    </DocDemo>
+
+    <DocDemo Key="Events" Title="@Loc["Lifecycle events"]" Description="@Loc["Fires OnDragStart on mousedown, OnDrag continuously, and OnDragEnd on release."]">
+        <div>
+            <BOBDraggable OnDragStart="@(_ => { _lastEvent = Loc["start"]; _dragTicks = 0; })"
+                          OnDrag="@(_ => _dragTicks++)"
+                          OnDragEnd="@(_ => _lastEvent = Loc["end"])">
+                <BOBButton Text="@Loc["Drag me and watch the counter"]" />
+            </BOBDraggable>
+            <p style="margin-top: 1rem;">
+                @Loc["Last event"]: <code>@_lastEvent</code> · @Loc["Tick count"]: <code>@_dragTicks</code>
+            </p>
+        </div>
+    </DocDemo>
+
+    <DocDemo Key="Disabled" Title="@Loc["Disabled"]">
+        <BOBDraggable Disabled="true">
+            <BOBButton Text="@Loc["Locked — can't drag"]" />
+        </BOBDraggable>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBDraggableComponentInfo.Parameters" />
+    </section>
+
+</DocPage>
+
+@code {
+    private double _x = 60;
+    private double _y = 20;
+    private double _startX, _startY, _originX, _originY;
+
+    private string _lastEvent = "(none)";
+    private int _dragTicks;
+
+    private string BasicBoxStyle =>
+        $"position: absolute; left: {_x}px; top: {_y}px; user-select: none; " +
+        "padding: .75rem 1rem; border-radius: .5rem; cursor: grab; " +
+        "background: var(--palette-primary); color: var(--palette-primary-contrast); " +
+        "box-shadow: 0 4px 14px rgba(0,0,0,.15);";
+
+    private void HandleBasicStart(DragEventArgs e)
+    {
+        _startX = e.ClientX;
+        _startY = e.ClientY;
+        _originX = _x;
+        _originY = _y;
+    }
+
+    private void HandleBasicDrag(DragEventArgs e)
+    {
+        _x = _originX + (e.ClientX - _startX);
+        _y = _originY + (e.ClientY - _startY);
+    }
+}

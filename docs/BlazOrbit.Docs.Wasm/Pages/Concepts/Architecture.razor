@@ -1,0 +1,128 @@
+﻿@page "/concepts/architecture"
+
+<PageTitle>Architecture — BlazOrbit</PageTitle>
+
+<DocPage Eyebrow="Concept"
+         Title="Architecture"
+         Lede="How BlazOrbit expresses style through data-attributes and CSS custom properties — and why that means no class juggling at runtime.">
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">The IHas* interfaces</h2>
+        <p class="doc-section__description">
+            Components advertise their capabilities by implementing marker / property interfaces from
+            <code>BlazOrbit.Core.Abstractions.Behaviors</code>. A component that has a border
+            parameter implements <code>IHasBorder</code>; one that shows a loading indicator implements
+            <code>IHasLoading</code>. These interfaces are discovered by reflection at render time and
+            transformed into DOM attributes on the <code>&lt;bob-component&gt;</code> root.
+        </p>
+
+        <BOBCodeBlock Title="MyCustom.razor.cs"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="@_interfaceSample" />
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">The data-bob-* attributes</h2>
+        <p class="doc-section__description">
+            State-like capabilities flip <code>data-bob-*</code> attributes on the root. CSS selectors
+            key off those attributes — never class toggles. The result is a DOM you can reason about
+            just by looking at it.
+        </p>
+
+        <BOBCodeBlock Title="Rendered DOM"
+                      Language="SyntaxHighlightLanguage.Razor"
+                      Code="@_domSample" />
+
+        <p class="doc-section__description" style="margin-top: 1rem;">
+            Canonical names live in <code>FeatureDefinitions.DataAttributes</code>. A few of the most common:
+        </p>
+        <ul>
+            <li><code>data-bob-component</code> — kebab name of the component (e.g. <code>button</code>)</li>
+            <li><code>data-bob-variant</code> — the active variant</li>
+            <li><code>data-bob-size</code> — <code>small / medium / large</code></li>
+            <li><code>data-bob-density</code> — <code>compact / standard / comfortable</code></li>
+            <li><code>data-bob-disabled</code>, <code>data-bob-loading</code>, <code>data-bob-error</code>, <code>data-bob-active</code>, <code>data-bob-readonly</code>, <code>data-bob-required</code>, <code>data-bob-fullwidth</code>, <code>data-bob-shadow</code>, <code>data-bob-transitions</code></li>
+        </ul>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">The --bob-inline-* variables</h2>
+        <p class="doc-section__description">
+            Value-carrying capabilities (colors, borders, shadows…) flow as CSS custom properties on
+            the element's <code>style</code> attribute. Component CSS consumes them through a
+            <em>private alias</em> pattern so defaults cascade cleanly.
+        </p>
+
+        <BOBCodeBlock Title="Component CSS"
+                      Language="SyntaxHighlightLanguage.Css"
+                      Code="@_privateVarPattern" />
+
+        <p class="doc-section__description" style="margin-top: 1rem;">
+            That way a consumer can override a single component instance by passing
+            <code>BackgroundColor=&quot;@@PaletteColor.Success&quot;</code>, or re-skin the whole app by
+            setting <code>--palette-primary</code> on <code>:root</code>.
+        </p>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Families</h2>
+        <p class="doc-section__description">
+            Components that share a DOM / CSS contract belong to a <em>family</em>. Membership is a
+            marker interface — the attribute is emitted automatically.
+        </p>
+
+        <ul>
+            <li><code>IInputFamilyComponent</code> → <code>[data-bob-input-base]</code> → <code>_input-family.css</code>. Text, number, dropdown, textarea, color, date, checkbox, radio, switch.</li>
+            <li><code>IPickerFamilyComponent</code> → <code>[data-bob-picker]</code> → <code>_picker-family.css</code>. Color picker, date picker.</li>
+            <li><code>IDataCollectionFamilyComponent</code> → <code>[data-bob-data-collection]</code> → <code>_data-collection-family.css</code>. DataGrid, DataCards.</li>
+        </ul>
+
+        <p class="doc-section__description">
+            Family CSS provides the shared layout scaffolding (e.g. <code>bob-input__wrapper</code> /
+            <code>__field</code> / <code>__label</code> / <code>__outline</code>), so you don't need to
+            restyle every input component separately.
+        </p>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Why this design</h2>
+        <p class="doc-section__description">
+            Three practical consequences fall out of the approach:
+        </p>
+        <ul>
+            <li><strong>Zero runtime styling cost.</strong> No JS needed to toggle classes per interaction — browsers already match on attribute selectors.</li>
+            <li><strong>Debuggable.</strong> The DOM tells you every state a component is in. No hidden refs, no stale class lists.</li>
+            <li><strong>One override surface.</strong> Every visual knob is either a parameter (per-instance) or a CSS custom property (global). No CSS specificity war.</li>
+        </ul>
+    </section>
+
+</DocPage>
+
+@code {
+    private const string _interfaceSample = @"public partial class MyCustom : BOBComponentBase,
+    IHasSize, IHasBorder, IHasLoading
+{
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter] public BorderStyle? Border { get; set; }
+    [Parameter] public bool Loading { get; set; }
+}";
+
+    private const string _domSample = @"<bob-component
+    data-bob-component=""button""
+    data-bob-size=""large""
+    data-bob-loading=""true""
+    data-bob-disabled=""true""
+    style=""--bob-inline-background: var(--palette-success); --bob-inline-color: #fff;"">
+    …
+</bob-component>";
+
+    private const string _privateVarPattern = @"bob-component[data-bob-component=""button""] {
+    --_button-background: var(--bob-inline-background, var(--palette-primary));
+    --_button-color:      var(--bob-inline-color,       var(--palette-primary-contrast));
+}
+
+bob-component[data-bob-component=""button""] button {
+    background-color: var(--_button-background);
+    color:            var(--_button-color);
+}";
+}

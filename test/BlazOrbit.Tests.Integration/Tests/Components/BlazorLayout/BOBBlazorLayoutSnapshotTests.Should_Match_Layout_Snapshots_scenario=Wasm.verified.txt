@@ -1,0 +1,22 @@
+﻿[
+  {
+    Name: EmptyBody,
+    Html: <bob-component data-bob-component="toast-host" b-<SCOPE>></bob-component>
+  },
+  {
+    Name: SimpleBody,
+    Html:
+<main class="app-main">Hello</main>
+
+
+<bob-component data-bob-component="toast-host" b-<SCOPE>></bob-component>
+  },
+  {
+    Name: StructuredBody,
+    Html:
+<header class="app-header">H</header><aside class="app-sidebar">S</aside><main class="app-main">M</main>
+
+
+<bob-component data-bob-component="toast-host" b-<SCOPE>></bob-component>
+  }
+]

@@ -1,0 +1,1298 @@
+﻿/* ── Tokens ──────────────────────────────────────────────────────
+   --palette-* come from the component library.
+   --logo-*    are the brand gradient endpoints.
+   --orb-*     are site-only cosmic tokens.
+   ─────────────────────────────────────────────────────────────── */
+
+:root,
+html[data-theme="dark"],
+html[data-theme="light"] {
+    --palette-primary: #a9234e;
+    --logo-a: #a00a57;
+    --logo-b: #fd693a;
+    /* cosmic palette */
+    --orb-fill-a: color-mix(in oklab, var(--logo-a) 22%, transparent);
+    --orb-fill-b: color-mix(in oklab, var(--logo-b) 16%, transparent);
+    --orb-border-a: color-mix(in oklab, var(--logo-a) 38%, transparent);
+    --orb-border-b: color-mix(in oklab, var(--logo-b) 30%, transparent);
+    --orb-glow-a: color-mix(in oklab, var(--logo-a) 48%, transparent);
+    --orb-glow-b: color-mix(in oklab, var(--logo-b) 42%, transparent);
+    --orb-star: rgba(255, 218, 200, 0.80);
+    --docs-shadow-sm: 0 1px 2px rgba(0,0,0,.4), 0 1px 3px rgba(0,0,0,.5);
+    --docs-shadow-md: 0 4px 14px -2px rgba(0,0,0,.5), 0 2px 6px rgba(0,0,0,.4);
+    --docs-shadow-lg: 0 20px 60px -15px rgba(0,0,0,.7), 0 10px 20px -10px rgba(0,0,0,.5);
+    --docs-shadow-glow: 0 20px 60px -10px color-mix(in oklab, var(--logo-b) 28%, transparent);
+    --docs-links-border-radius: var(--bob-border-radius);
+}
+
+
+/* ── Shared layout ───────────────────────────────────────────────*/
+
+.doc-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+/* ── Header ────────────────────────────────────────────────────── */
+
+.doc-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    background: color-mix(in oklab, var(--palette-surface) 88%, transparent);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border-bottom: 1px solid var(--palette-border);
+}
+
+.doc-header__brand {
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--palette-surface-contrast);
+}
+
+    .doc-header__brand:hover,
+    .doc-header__brand:focus {
+        text-decoration: none;
+        border-bottom: none;
+    }
+
+.doc-header__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.doc-header__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--docs-links-border-radius);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: color-mix(in oklab, var(--palette-surface-contrast) 58%, var(--palette-surface));
+    text-decoration: none;
+    transition: color .15s, background .15s;
+}
+
+    .doc-header__link:hover {
+        color: var(--palette-primary);
+        background: color-mix(in oklab, var(--palette-primary) 10%, var(--palette-surface));
+    }
+
+
+/* ── Doc layout (sidebar + content) ─────────────────────────────*/
+
+.doc-container {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    flex: 1;
+    min-height: 0;
+}
+
+.doc-sidebar {
+    position: sticky;
+    top: 64px;
+    align-self: flex-start;
+    height: calc(100vh - 64px);
+    overflow-y: auto;
+    padding: 1.5rem 0.75rem;
+    border-right: 1px solid var(--palette-border);
+    background: var(--palette-surface);
+}
+
+    .doc-sidebar bob-component[data-bob-component="treemenu"] {
+        --_treemenu-background: transparent;
+    }
+
+.doc-content {
+    min-width: 0;
+    padding: 2.5rem 3rem 5rem;
+    background: var(--palette-background);
+}
+
+.doc-content__wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+
+/* ── Doc page typography ─────────────────────────────────────────*/
+
+.doc-page__header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--palette-border);
+}
+
+.doc-page__eyebrow {
+    display: inline-block;
+    margin-bottom: 0.75rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--palette-primary) 10%, var(--palette-surface));
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--palette-primary);
+}
+
+.doc-page__title {
+    margin: 0 0 0.75rem;
+    font-size: 2.5rem;
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.06;
+    color: var(--palette-surface-contrast);
+}
+
+.doc-page__lede {
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.65;
+    max-width: 64ch;
+    color: color-mix(in oklab, var(--palette-surface-contrast) 60%, var(--palette-surface));
+}
+
+.doc-page__api-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    margin-top: 1rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: var(--bob-border-radius);
+    border: 1px solid var(--palette-primary);
+    background: color-mix(in oklab, var(--palette-primary) 6%, var(--palette-surface));
+    color: var(--palette-primary);
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.doc-page__api-link:hover,
+.doc-page__api-link:focus-visible {
+    background: color-mix(in oklab, var(--palette-primary) 14%, var(--palette-surface));
+    border-color: var(--palette-primary);
+    text-decoration: none;
+}
+
+.doc-section {
+    margin: 3rem 0;
+}
+
+.doc-section__title {
+    margin: 0 0 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--palette-surface-contrast);
+    scroll-margin-top: 96px;
+}
+
+.doc-section__sub {
+    margin: 2rem 0 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--palette-surface-contrast);
+}
+
+.doc-section__description {
+    margin: 0 0 1.5rem;
+    max-width: 68ch;
+    line-height: 1.65;
+    color: color-mix(in oklab, var(--palette-surface-contrast) 60%, var(--palette-surface));
+}
+
+.doc-content__wrapper p {
+    line-height: 1.7;
+    color: var(--palette-surface-contrast);
+}
+
+.doc-content__wrapper ul,
+.doc-content__wrapper ol {
+    padding-left: 1.4rem;
+    line-height: 1.7;
+}
+
+.doc-content__wrapper li {
+    margin: 0.3rem 0;
+}
+
+.doc-content__wrapper a {
+    color: var(--palette-primary);
+    text-decoration: none;
+    transition: border-color .15s;
+}
+
+    .doc-content__wrapper a:hover {
+        border-bottom-color: var(--palette-primary);
+    }
+
+
+/* ── Callouts ────────────────────────────────────────────────────*/
+
+.doc-callout {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.8rem;
+    padding: 1rem 1.2rem;
+    margin: 1.25rem 0;
+    border-left: 3px solid var(--palette-primary);
+    border-radius: 0 8px 8px 0;
+    background: color-mix(in oklab, var(--palette-primary) 10%, var(--palette-surface));
+    font-size: 0.92rem;
+    line-height: 1.55;
+    color: var(--palette-surface-contrast);
+}
+
+.doc-callout--info {
+    border-left-color: var(--palette-info);
+    background: color-mix(in oklab, var(--palette-info) 8%, var(--palette-surface));
+}
+
+.doc-callout--warn {
+    border-left-color: var(--palette-warning);
+    background: color-mix(in oklab, var(--palette-warning) 10%, var(--palette-surface));
+}
+
+.doc-callout__icon {
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.doc-callout strong {
+    font-weight: 700;
+}
+
+
+/* ── Install steps ───────────────────────────────────────────────*/
+
+.install {
+    max-width: 680px;
+    margin-inline: auto;
+    padding: 3rem 0 5rem;
+}
+
+.install__head {
+    margin-bottom: 1.5rem;
+}
+
+.install__title {
+    margin: 0 0 0.3rem;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--palette-surface-contrast);
+}
+
+.install__desc,
+.install__more {
+    margin: 0;
+    font-size: 0.9rem;
+    color: color-mix(in oklab, var(--palette-surface-contrast) 58%, var(--palette-surface));
+}
+
+.install__more {
+    margin-top: 1.25rem;
+}
+
+.install__steps {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+}
+
+.install__step {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 1rem;
+    align-items: start;
+}
+
+.install__step-num {
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 9px;
+    background: color-mix(in oklab, var(--palette-primary) 12%, var(--palette-surface));
+    color: var(--palette-primary);
+    font-weight: 800;
+    font-size: 0.88rem;
+    margin-top: 0.1rem;
+}
+
+.install__step-body {
+    min-width: 0;
+}
+
+.install__step-title {
+    margin: 0 0 0.55rem;
+    font-size: 0.975rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    color: var(--palette-surface-contrast);
+}
+
+/* ================================================================
+   HERO — full-viewport cosmic orbit system (HomeLayout)
+   ================================================================ */
+
+.hero {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    isolation: isolate;
+    height: 100vh;
+    --mx: 0;
+    --my: 0;
+    --sy: 0px;
+}
+
+
+/* ── Scene container ─────────────────────────────────────────────*/
+
+.hero__puzzle {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+}
+
+
+    /* ── Starfield ───────────────────────────────────────────────────
+   Box-shadow projection from a 1×1 seed element.
+   Stars cluster in the periphery, sparse near the center where
+   content lives. Warm white-pink hue echoes the brand gradient.
+   ─────────────────────────────────────────────────────────────── */
+
+    .hero__puzzle::before {
+        content: '';
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        top: 0;
+        left: 0;
+        background: var(--orb-star);
+        z-index: 0;
+        box-shadow:
+        /* ── left zone ── */
+        22px 88px 0 0 rgba(255,210,190,0.75), 68px 210px 0 1px rgba(255,235,220,0.55), 125px 348px 0 0 rgba(255,220,200,0.68), 188px 58px 0 0 rgba(255,245,232,0.80), 235px 490px 0 1px rgba(255,208,185,0.48), 295px 138px 0 0 rgba(255,255,245,0.62), 355px 628px 0 0 rgba(255,218,198,0.58), 412px 288px 0 1px rgba(255,240,225,0.42), 65px 728px 0 0 rgba(255,212,192,0.62), 148px 818px 0 0 rgba(255,238,222,0.52), 282px 772px 0 1px rgba(255,252,240,0.46), 50px 395px 0 0 rgba(255,222,202,0.38), 178px 548px 0 0 rgba(255,248,232,0.56), 328px 445px 0 0 rgba(255,215,195,0.44), 92px 652px 0 1px rgba(255,230,210,0.36),
+        /* ── top strip ── */
+        508px 22px 0 0 rgba(255,232,218,0.72), 622px 14px 0 1px rgba(255,252,242,0.58), 722px 38px 0 0 rgba(255,220,202,0.66), 826px 10px 0 0 rgba(255,240,228,0.52), 938px 28px 0 1px rgba(255,228,212,0.62),
+        /* ── top center scatter ── */
+        490px 148px 0 0 rgba(255,232,215,0.40), 580px 82px 0 1px rgba(255,252,238,0.36), 672px 198px 0 0 rgba(255,222,202,0.42), 750px 122px 0 0 rgba(255,244,228,0.46), 822px 162px 0 1px rgba(255,212,192,0.36),
+        /* ── bottom strip ── */
+        522px 824px 0 0 rgba(255,228,208,0.56), 645px 864px 0 1px rgba(255,242,226,0.46), 758px 844px 0 0 rgba(255,222,202,0.52), 882px 880px 0 0 rgba(255,252,238,0.42),
+        /* ── right zone ── */
+        988px 92px 0 0 rgba(255,212,192,0.68), 1055px 255px 0 1px rgba(255,252,238,0.52), 1122px 438px 0 0 rgba(255,222,204,0.62), 1182px 85px 0 0 rgba(255,242,226,0.78), 1245px 562px 0 1px rgba(255,210,188,0.48), 1315px 198px 0 0 rgba(255,252,242,0.58), 1372px 688px 0 0 rgba(255,226,208,0.52), 1035px 788px 0 1px rgba(255,242,222,0.46), 1155px 875px 0 0 rgba(255,216,196,0.56), 1285px 378px 0 0 rgba(255,252,234,0.42), 1402px 145px 0 0 rgba(255,236,218,0.62), 1092px 548px 0 0 rgba(255,222,202,0.36), 1335px 732px 0 1px rgba(255,246,228,0.52), 1450px 298px 0 0 rgba(255,212,192,0.46), 1485px 478px 0 0 rgba(255,240,222,0.42), 1068px 142px 0 1px rgba(255,228,208,0.58), 1418px 598px 0 0 rgba(255,248,230,0.38);
+        animation: star-field-breathe 18s ease-in-out infinite alternate;
+    }
+
+
+    /* ── Nebula glow — soft background bloom ────────────────────────*/
+
+    .hero__puzzle::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        background: radial-gradient(ellipse 55% 45% at 12% 22%, color-mix(in oklab, var(--logo-a) 8%, transparent), transparent 70%), radial-gradient(ellipse 48% 38% at 88% 72%, color-mix(in oklab, var(--logo-b) 7%, transparent), transparent 70%), radial-gradient(ellipse 32% 28% at 50% 50%, color-mix(in oklab, var(--logo-a) 4%, transparent), transparent 70%);
+        pointer-events: none;
+    }
+
+
+/* ── Hero content ────────────────────────────────────────────────*/
+
+.hero__content {
+    position: relative;
+    z-index: 1;
+    max-width: 640px;
+    padding: 2rem 1.5rem;
+    text-align: center;
+}
+
+
+/* ── Hero copy ───────────────────────────────────────────────────*/
+
+.hero__badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    margin-bottom: 2rem;
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid var(--palette-border);
+    background: var(--palette-surface);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: color-mix(in oklab, var(--palette-surface-contrast) 55%, var(--palette-surface));
+}
+
+.hero__badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--palette-primary);
+    box-shadow: 0 0 6px var(--palette-primary);
+    animation: dot-pulse 2.5s ease-in-out infinite alternate;
+}
+
+.hero__title {
+    margin: 0 0 1.25rem;
+    font-size: clamp(2rem, 1.5rem + 5vw, 7rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    line-height: 0.93;
+    color: var(--palette-surface-contrast);
+}
+
+.b-svg {
+    display: inline-flex;
+    height: 1.04em;
+    margin-bottom: -0.15em;
+    background: linear-gradient(90deg, var(--logo-b), var(--logo-a), var(--logo-b));
+    background-size: 200% auto;
+    animation: shine 3s linear infinite;
+    -webkit-mask-image: url(../icon.svg);
+    mask-image: url(../icon.svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    mask-position: center;
+}
+
+.hero__title .b-svg {
+    width: 1.1em;
+    transform: scale(1.2) translate(0, -3px);
+    transform-origin: center;
+}
+
+.hero__title-accent {
+    color: var(--palette-primary);
+}
+
+.hero__title-accent-gradient {
+    background: linear-gradient(90deg, var(--logo-a), var(--logo-b), var(--logo-a));
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shine 3s linear infinite;
+    font-size: 1.2em;
+    margin-left: 5px;
+}
+
+.hero__lede {
+    margin: 0 auto 2rem;
+    max-width: 42ch;
+    font-size: clamp(1rem, 1.6vw, 1.1rem);
+    line-height: 1.6;
+    color: color-mix(in oklab, var(--palette-surface-contrast) 55%, var(--palette-surface));
+    padding-top: 1rem;
+    font-weight: 700;
+}
+
+.hero__ctas {
+    display: flex;
+    gap: 0.75rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.hero__snippet {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 2rem auto 0;
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    border: 1px solid var(--palette-border);
+    background: var(--palette-surface);
+    font-family: var(--bob-font-mono, ui-monospace, monospace);
+    font-size: 0.82rem;
+    color: var(--palette-surface-contrast);
+}
+
+.hero__snippet-prompt {
+    color: var(--palette-primary);
+    font-weight: 700;
+    user-select: none;
+}
+
+
+/* ================================================================
+   COSMIC TILES
+   Parallax system preserved — --mx, --my, --sy driven by JS.
+   --d    = parallax depth (higher = more movement)
+   --s    = scroll parallax strength
+   --tilt = horizontal tilt multiplier
+
+   Rings (tile--3, tile--7) set --d:0 / --s:0 / --tilt:0 and use
+   margin-based positioning so their @keyframes can animate
+   transform freely without conflicting with the parallax system.
+   ================================================================ */
+
+.hero__tile {
+    --rot: 0deg;
+    --d: 24px;
+    --s: .25;
+    --tilt: 0deg;
+    --ox: 0px;
+    --oy: 0px;
+    position: absolute;
+    display: block;
+    transform: translate3d( calc(var(--ox) + var(--mx) * var(--d)), calc(var(--oy) + var(--my) * var(--d) - var(--sy) * var(--s)), 0 ) rotate(calc(var(--rot) + var(--mx) * var(--tilt)));
+    transition: transform .12s linear;
+    will-change: transform;
+    isolation: isolate;
+}
+
+
+/* ── tile--1 — Primary planet (upper left) ───────────────────────
+   Orbital halo ring via ::after.
+   ─────────────────────────────────────────────────────────────── */
+
+.hero__tile--1 {
+    top: 9%;
+    left: 7%;
+    width: 114px;
+    height: 114px;
+    --d: 44px;
+    --s: .30;
+    border-radius: 50%;
+    background: radial-gradient( circle at 36% 32%, color-mix(in oklab, var(--logo-b) 75%, white) 0%, var(--logo-b) 28%, var(--logo-a) 60%, color-mix(in oklab, var(--logo-a) 52%, black) 100% );
+    box-shadow: 0 0 30px var(--orb-glow-a), 0 0 72px color-mix(in oklab, var(--logo-a) 18%, transparent), inset -20px -20px 34px color-mix(in oklab, var(--logo-a) 48%, black);
+    animation: planet-glow-a 5s ease-in-out infinite alternate;
+}
+
+    .hero__tile--1::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 200px;
+        height: 48px;
+        margin-left: -100px;
+        margin-top: -24px;
+        border-radius: 50%;
+        border: 1px solid var(--orb-border-a);
+        box-shadow: 0 0 6px color-mix(in oklab, var(--logo-a) 15%, transparent);
+        pointer-events: none;
+        opacity: 0.55;
+        animation: halo-breathe 6s ease-in-out infinite alternate;
+    }
+
+
+/* ── tile--2 — Moon (upper right) ───────────────────────────────*/
+
+.hero__tile--2 {
+    top: 16%;
+    right: 9%;
+    width: 58px;
+    height: 58px;
+    --d: 60px;
+    --s: .44;
+    border-radius: 50%;
+    background: radial-gradient( circle at 31% 29%, color-mix(in oklab, var(--logo-b) 65%, white) 0%, color-mix(in oklab, var(--logo-b) 50%, var(--logo-a)) 42%, color-mix(in oklab, var(--logo-a) 42%, black) 100% );
+    box-shadow: 0 0 16px var(--orb-glow-b), 0 0 38px color-mix(in oklab, var(--logo-b) 12%, transparent), inset -10px -10px 20px color-mix(in oklab, var(--logo-a) 32%, black);
+    animation: planet-glow-b 4s ease-in-out infinite alternate;
+}
+
+
+/* ── tile--3 — Large orbital ring (scene-level) ─────────────────
+   No parallax. Positioned via margin. Rotates via @keyframes.
+   Has a travelling node particle on ::before.
+   ─────────────────────────────────────────────────────────────── */
+
+.hero__tile--3 {
+    top: 56%;
+    left: 50%;
+    width: 440px;
+    height: 124px;
+    margin-left: -220px;
+    margin-top: -62px;
+    --d: 0px;
+    --s: 0;
+    --tilt: 0deg;
+    --ox: 0px;
+    --oy: 0px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1px solid var(--orb-border-b);
+    box-shadow: 0 0 10px color-mix(in oklab, var(--logo-b) 10%, transparent), inset 0 0 10px color-mix(in oklab, var(--logo-b) 6%, transparent);
+    animation: ring-spin-cw 90s linear infinite;
+}
+
+    .hero__tile--3::before {
+        content: '';
+        position: absolute;
+        top: -4px;
+        left: 50%;
+        width: 8px;
+        height: 8px;
+        margin-left: -4px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 40% 40%, white, var(--logo-b));
+        box-shadow: 0 0 10px var(--orb-glow-b), 0 0 22px color-mix(in oklab, var(--logo-b) 30%, transparent);
+    }
+
+
+/* ── tile--4 — Saturn-style planet (lower right) ────────────────
+   Two concentric equatorial rings via ::before and ::after.
+   ─────────────────────────────────────────────────────────────── */
+
+.hero__tile--4 {
+    bottom: 8%;
+    right: 7%;
+    width: 102px;
+    height: 102px;
+    --d: 52px;
+    --s: .40;
+    border-radius: 50%;
+    background: radial-gradient( circle at 38% 33%, color-mix(in oklab, var(--logo-b) 88%, white) 0%, var(--logo-b) 26%, color-mix(in oklab, var(--logo-a) 68%, var(--logo-b)) 56%, color-mix(in oklab, var(--logo-a) 48%, black) 100% );
+    box-shadow: 0 0 26px var(--orb-glow-b), 0 0 64px color-mix(in oklab, var(--logo-b) 15%, transparent), inset -17px -17px 30px color-mix(in oklab, var(--logo-a) 38%, black);
+    animation: planet-glow-ab 7s ease-in-out infinite;
+}
+
+    .hero__tile--4::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 188px;
+        height: 44px;
+        margin-left: -94px;
+        margin-top: -22px;
+        border-radius: 50%;
+        border: 2px solid color-mix(in oklab, var(--logo-b) 42%, transparent);
+        pointer-events: none;
+        opacity: 0.60;
+    }
+
+    .hero__tile--4::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 158px;
+        height: 36px;
+        margin-left: -79px;
+        margin-top: -18px;
+        border-radius: 50%;
+        border: 1.5px solid color-mix(in oklab, var(--logo-a) 30%, transparent);
+        pointer-events: none;
+        opacity: 0.45;
+    }
+
+
+/* ── tile--5 — Hot star with ping ring ──────────────────────────*/
+
+.hero__tile--5 {
+    top: 40%;
+    left: 3%;
+    width: 28px;
+    height: 28px;
+    --d: 80px;
+    --s: .60;
+    border-radius: 50%;
+    background: radial-gradient( circle at 38% 38%, rgba(255,255,255,.95) 0%, var(--logo-b) 32%, var(--logo-a) 68% );
+    box-shadow: 0 0 14px var(--orb-glow-b), 0 0 32px color-mix(in oklab, var(--logo-b) 26%, transparent);
+    opacity: 0.78;
+    animation: star-pulse 3.5s ease-in-out infinite alternate;
+}
+
+    .hero__tile--5::after {
+        content: '';
+        position: absolute;
+        inset: -6px;
+        border-radius: 50%;
+        border: 1.5px solid color-mix(in oklab, var(--logo-b) 52%, transparent);
+        animation: ping-ring 3s ease-out infinite;
+    }
+
+
+/* ── tile--6 — Micro star ────────────────────────────────────────*/
+
+.hero__tile--6 {
+    top: 7%;
+    left: 36%;
+    width: 10px;
+    height: 10px;
+    --d: 96px;
+    --s: .72;
+    border-radius: 50%;
+    background: radial-gradient( circle, rgba(255,255,255,.92), color-mix(in oklab, var(--logo-b) 78%, white) );
+    box-shadow: 0 0 8px color-mix(in oklab, var(--logo-b) 62%, transparent);
+    opacity: 0.62;
+    animation: star-twinkle 4.5s ease-in-out infinite;
+}
+
+
+/* ── tile--7 — Dashed orbital ring (small) ──────────────────────
+   No parallax. Rotates counterclockwise. Node particle on ::after.
+   ─────────────────────────────────────────────────────────────── */
+
+.hero__tile--7 {
+    bottom: 28%;
+    right: 19%;
+    width: 148px;
+    height: 44px;
+    --d: 0px;
+    --s: 0;
+    --tilt: 0deg;
+    --ox: 0px;
+    --oy: 0px;
+    border-radius: 50%;
+    background: transparent;
+    border: 1.5px dashed var(--orb-border-a);
+    opacity: 0.52;
+    animation: ring-spin-ccw 55s linear infinite;
+}
+
+    .hero__tile--7::after {
+        content: '';
+        position: absolute;
+        top: -3.5px;
+        left: 50%;
+        width: 7px;
+        height: 7px;
+        margin-left: -3.5px;
+        border-radius: 50%;
+        background: var(--logo-a);
+        box-shadow: 0 0 8px var(--orb-glow-a);
+        opacity: 0.75;
+    }
+
+
+/* ── tile--icon — Brand isotipo silhouette ───────────────────────
+   Large, very transparent. Floats softly behind content.
+   ─────────────────────────────────────────────────────────────── */
+
+.hero__tile--icon {
+    top: 50%;
+    left: 50%;
+    width: 220px;
+    height: 270px;
+    --d: 16px;
+    --s: .10;
+    --ox: -110px;
+    --oy: -135px;
+    background: linear-gradient(135deg, var(--logo-a), var(--logo-b), var(--logo-a));
+    background-size: 200% auto;
+    -webkit-mask-image: url(../icon.svg);
+    mask-image: url(../icon.svg);
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    mask-size: contain;
+    mask-position: center;
+    border: none;
+    border-radius: 0;
+    animation: float-icon 10s ease-in-out infinite, shine 6s linear infinite;
+}
+
+
+/* ================================================================
+   KEYFRAMES
+   ================================================================ */
+
+@keyframes shine {
+    to {
+        background-position: 200% center;
+    }
+}
+
+/* ── Orbital ring rotations ─────────────────────────────────────*/
+
+@keyframes ring-spin-cw {
+    from {
+        transform: translate3d(0, 0, 0) rotate( 0deg);
+    }
+
+    to {
+        transform: translate3d(0, 0, 0) rotate(360deg);
+    }
+}
+
+@keyframes ring-spin-ccw {
+    from {
+        transform: translate3d(0, 0, 0) rotate( 0deg);
+    }
+
+    to {
+        transform: translate3d(0, 0, 0) rotate(-360deg);
+    }
+}
+
+/* ── Planet glow breathing ──────────────────────────────────────
+   Only box-shadow is animated — parallax transform is untouched.
+   ─────────────────────────────────────────────────────────────── */
+
+@keyframes planet-glow-a {
+    from {
+        box-shadow: 0 0 20px color-mix(in oklab, var(--logo-a) 36%, transparent), 0 0 52px color-mix(in oklab, var(--logo-a) 12%, transparent), inset -20px -20px 34px color-mix(in oklab, var(--logo-a) 48%, black);
+    }
+
+    to {
+        box-shadow: 0 0 40px color-mix(in oklab, var(--logo-a) 60%, transparent), 0 0 90px color-mix(in oklab, var(--logo-a) 20%, transparent), inset -20px -20px 34px color-mix(in oklab, var(--logo-a) 48%, black);
+    }
+}
+
+@keyframes planet-glow-b {
+    from {
+        box-shadow: 0 0 14px color-mix(in oklab, var(--logo-b) 36%, transparent), 0 0 38px color-mix(in oklab, var(--logo-b) 12%, transparent), inset -10px -10px 20px color-mix(in oklab, var(--logo-a) 32%, black);
+    }
+
+    to {
+        box-shadow: 0 0 28px color-mix(in oklab, var(--logo-b) 60%, transparent), 0 0 72px color-mix(in oklab, var(--logo-b) 20%, transparent), inset -10px -10px 20px color-mix(in oklab, var(--logo-a) 32%, black);
+    }
+}
+
+@keyframes planet-glow-ab {
+    0%, 100% {
+        box-shadow: 0 0 26px color-mix(in oklab, var(--logo-a) 48%, transparent), 0 0 64px color-mix(in oklab, var(--logo-a) 15%, transparent), inset -17px -17px 30px color-mix(in oklab, var(--logo-a) 38%, black);
+    }
+
+    50% {
+        box-shadow: 0 0 38px color-mix(in oklab, var(--logo-b) 56%, transparent), 0 0 88px color-mix(in oklab, var(--logo-b) 18%, transparent), inset -17px -17px 30px color-mix(in oklab, var(--logo-a) 38%, black);
+    }
+}
+
+/* ── Halo ring breathing ─────────────────────────────────────────*/
+
+@keyframes halo-breathe {
+    from {
+        opacity: 0.40;
+    }
+
+    to {
+        opacity: 0.68;
+    }
+}
+
+/* ── Hot star pulse ──────────────────────────────────────────────*/
+
+@keyframes star-pulse {
+    from {
+        box-shadow: 0 0 10px var(--orb-glow-b), 0 0 22px color-mix(in oklab, var(--logo-b) 20%, transparent);
+        opacity: 0.65;
+    }
+
+    to {
+        box-shadow: 0 0 20px var(--orb-glow-b), 0 0 48px color-mix(in oklab, var(--logo-b) 32%, transparent);
+        opacity: 0.88;
+    }
+}
+
+/* ── Micro star twinkle ──────────────────────────────────────────*/
+
+@keyframes star-twinkle {
+    0%, 100% {
+        opacity: 0.38;
+    }
+
+    45% {
+        opacity: 0.78;
+    }
+
+    60% {
+        opacity: 0.55;
+    }
+}
+
+/* ── Starfield collective breathe ────────────────────────────────*/
+
+@keyframes star-field-breathe {
+    from {
+        opacity: 0.75;
+    }
+
+    to {
+        opacity: 1.00;
+    }
+}
+
+/* ── Outward ping ring ───────────────────────────────────────────*/
+
+@keyframes ping-ring {
+    0% {
+        transform: scale(1);
+        opacity: .72;
+    }
+
+    75% {
+        transform: scale(2.6);
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/* ── Badge dot pulse ─────────────────────────────────────────────*/
+
+@keyframes dot-pulse {
+    from {
+        box-shadow: 0 0 4px var(--palette-primary);
+    }
+
+    to {
+        box-shadow: 0 0 10px var(--palette-primary), 0 0 20px color-mix(in oklab, var(--palette-primary) 30%, transparent);
+    }
+}
+
+/* ── Brand icon float ────────────────────────────────────────────*/
+
+@keyframes float-icon {
+    0%, 100% {
+        opacity: .05;
+        transform: translate3d( calc(var(--ox) + var(--mx) * var(--d)), calc(var(--oy) + var(--my) * var(--d) - var(--sy) * var(--s)), 0 ) rotate(calc(-3deg + var(--mx) * 1deg)) translateY(0px);
+    }
+
+    50% {
+        opacity: .09;
+        transform: translate3d( calc(var(--ox) + var(--mx) * var(--d)), calc(var(--oy) + var(--my) * var(--d) - var(--sy) * var(--s)), 0 ) rotate(calc(-3deg + var(--mx) * 1deg)) translateY(-16px);
+    }
+}
+
+
+/* ── Accessibility — reduced motion ──────────────────────────────*/
+
+@media (prefers-reduced-motion: reduce) {
+    .hero__tile {
+        transition: none;
+        animation: none;
+        box-shadow: none;
+    }
+
+    .hero__tile--3,
+    .hero__tile--7 {
+        animation: none;
+        transform: none;
+    }
+
+    .hero__tile--5::after {
+        animation: none;
+    }
+
+    .hero__tile--icon {
+        animation: none;
+        opacity: 0.05;
+        transform: translate3d(var(--ox), var(--oy), 0) rotate(-3deg);
+    }
+
+    .b-svg,
+    .hero__title-accent-gradient,
+    .hero__badge-dot {
+        animation: none;
+    }
+
+    .hero__puzzle::before {
+        animation: none;
+    }
+}
+
+
+/* ── Responsive ──────────────────────────────────────────────────*/
+
+@media (max-width: 960px) {
+    .doc-container {
+        grid-template-columns: 1fr;
+    }
+
+    .doc-sidebar {
+        position: static;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid var(--palette-border);
+    }
+
+    .doc-content {
+        padding: 2rem 1.5rem 4rem;
+    }
+
+    .doc-header {
+        padding: 0 1rem;
+    }
+}
+
+@media (max-width: 720px) {
+    .hero__tile--3,
+    .hero__tile--5,
+    .hero__tile--6,
+    .hero__tile--7 {
+        display: none;
+    }
+
+    .hero__tile--1 {
+        width: 72px;
+        height: 72px;
+        top: 5%;
+        left: 4%;
+    }
+
+        .hero__tile--1::after {
+            width: 128px;
+            height: 30px;
+            margin-left: -64px;
+            margin-top: -15px;
+        }
+
+    .hero__tile--2 {
+        width: 44px;
+        height: 44px;
+        top: 8%;
+        right: 5%;
+    }
+
+    .hero__tile--4 {
+        width: 80px;
+        height: 80px;
+        bottom: 4%;
+        right: 4%;
+    }
+
+        .hero__tile--4::before {
+            width: 148px;
+            height: 34px;
+            margin-left: -74px;
+            margin-top: -17px;
+        }
+
+        .hero__tile--4::after {
+            width: 124px;
+            height: 28px;
+            margin-left: -62px;
+            margin-top: -14px;
+        }
+
+    .hero__tile--icon {
+        width: 150px;
+        height: 184px;
+        --ox: -75px;
+        --oy: -92px;
+    }
+}
+
+@media (max-width: 520px) {
+    .install__step {
+        grid-template-columns: 1fr;
+    }
+
+    .doc-content {
+        padding: 1.5rem 1rem 3rem;
+    }
+}
+
+/* ── DocSearch ─────────────────────────────────────────────────── */
+
+/* Trigger */
+.bob-tree-menu__item .doc-search-trigger{
+    width:100%;
+}
+
+.hero__content .doc-search {
+    padding-top: 1em;
+}
+
+.doc-search-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--docs-links-border-radius);
+    border: none;
+    background: transparent;
+    color: color-mix(in oklab, var(--palette-surface-contrast) 58%, var(--palette-surface));
+    font-size: 0.875rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background .15s, border-color .15s, color .15s;
+}
+
+    .doc-search-trigger:hover {
+        background: color-mix(in oklab, var(--palette-primary) 8%, var(--palette-surface));
+        border-color: var(--palette-primary);
+        color: var(--palette-primary);
+    }
+
+.doc-search-trigger__icon {
+    display: inline-flex;
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+.doc-search-trigger__label {
+    font-weight: 500;
+}
+
+.doc-search-trigger__shortcut {
+    margin-left: 0.35rem;
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    background: var(--palette-surface);
+    border: 1px solid var(--palette-border);
+    font-size: 0.7rem;
+    font-family: var(--bob-font-mono, ui-monospace, monospace);
+    color: color-mix(in oklab, var(--palette-surface-contrast) 50%, var(--palette-surface));
+}
+
+/* Overlay & Modal */
+.doc-search-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 15vh;
+    animation: doc-search-fade-in .15s ease;
+}
+
+.doc-search-modal {
+    width: 100%;
+    max-width: 640px;
+    margin: 0 1rem;
+    background: var(--palette-surface);
+    border: 1px solid var(--palette-border);
+    border-radius: 16px;
+    box-shadow: var(--docs-shadow-lg);
+    overflow: hidden;
+    animation: doc-search-scale-in .15s ease;
+}
+
+.doc-search-modal__input-wrap {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--palette-border);
+}
+
+.doc-search-modal__input {
+    width: 100%;
+}
+
+/* Results */
+.doc-search-modal__results {
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 0;
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+.doc-search-modal__item {
+    padding: 0.65rem 1.25rem;
+    cursor: pointer;
+    transition: background .12s;
+    border-left: 3px solid transparent;
+}
+
+    .doc-search-modal__item:hover,
+    .doc-search-modal__item--selected {
+        background: color-mix(in oklab, var(--palette-primary) 8%, var(--palette-surface));
+        border-left-color: var(--palette-primary);
+    }
+
+.doc-search-modal__item-title {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--palette-surface-contrast);
+    line-height: 1.35;
+}
+
+    .doc-search-modal__item-title mark {
+        background: color-mix(in oklab, var(--palette-primary) 30%, transparent);
+        color: inherit;
+        border-radius: 3px;
+        padding: 0 2px;
+    }
+
+.doc-search-modal__item-breadcrumb {
+    font-size: 0.78rem;
+    color: color-mix(in oklab, var(--palette-surface-contrast) 55%, var(--palette-surface));
+    margin-top: 0.15rem;
+    line-height: 1.3;
+}
+
+.doc-search-modal__empty {
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: color-mix(in oklab, var(--palette-surface-contrast) 50%, var(--palette-surface));
+}
+
+/* Footer */
+.doc-search-modal__footer {
+    display: flex;
+    gap: 1rem;
+    padding: 0.5rem 1.25rem;
+    border-top: 1px solid var(--palette-border);
+    font-size: 0.72rem;
+    color: color-mix(in oklab, var(--palette-surface-contrast) 45%, var(--palette-surface));
+}
+
+    .doc-search-modal__footer kbd {
+        padding: 0.1rem 0.3rem;
+        border-radius: 4px;
+        background: var(--palette-background);
+        border: 1px solid var(--palette-border);
+        font-family: var(--bob-font-mono, ui-monospace, monospace);
+        font-size: 0.7rem;
+    }
+
+/* Animations */
+@keyframes doc-search-fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes doc-search-scale-in {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+    .doc-search-overlay {
+        padding-top: 10vh;
+    }
+
+    .doc-search-trigger__label,
+    .doc-search-trigger__shortcut {
+        display: none;
+    }
+}

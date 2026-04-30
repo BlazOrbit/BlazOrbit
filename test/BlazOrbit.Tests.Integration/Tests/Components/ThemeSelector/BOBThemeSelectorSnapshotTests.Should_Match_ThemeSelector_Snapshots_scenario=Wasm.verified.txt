@@ -1,0 +1,10 @@
+﻿[
+  {
+    Name: Default_Light,
+    Html: <bob-component data-bob-component="theme-selector" data-bob-variant="default" b-<SCOPE>><button blazor:onclick="<EVENT>" b-<SCOPE>><span class="bob-theme-switch__content" b-<SCOPE>><span class="bob-theme-switch__icon" b-<SCOPE>>☀️</span><span class="bob-theme-switch__label" b-<SCOPE>>Light</span></span></button></bob-component>
+  },
+  {
+    Name: Default_NoIcon,
+    Html: <bob-component data-bob-component="theme-selector" data-bob-variant="default" b-<SCOPE>><button blazor:onclick="<EVENT>" b-<SCOPE>><span class="bob-theme-switch__content" b-<SCOPE>><span class="bob-theme-switch__label" b-<SCOPE>>Light</span></span></button></bob-component>
+  }
+]

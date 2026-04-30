@@ -1,0 +1,21 @@
+﻿@namespace BlazOrbit.Components.Forms
+
+@if (HasPrefix)
+{
+    <_BOBAddon Icon="@PrefixIcon" Size="Size" class="bob-input__addon--prefix">
+        @if (!string.IsNullOrWhiteSpace(PrefixText))
+        {
+            <span>@PrefixText</span>
+        }
+    </_BOBAddon>
+}
+
+@code {
+    private bool HasPrefix => !string.IsNullOrWhiteSpace(PrefixText) || PrefixIcon.HasValue;
+    /// <summary>Text displayed as the Prefix.</summary>
+    [Parameter] public string? PrefixText { get; set; }
+    /// <summary>Closed-catalog icon key for the Prefix.</summary>
+    [Parameter] public IconKey? PrefixIcon { get; set; }
+    /// <summary>Visual size of the component.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+}

@@ -1,0 +1,127 @@
+﻿@page "/components/themegenerator"
+
+<PageTitle>Theme Generator — BlazOrbit</PageTitle>
+
+<DocPage Eyebrow="Component"
+         Title="Theme Generator"
+         Lede="A live editor for both light and dark palettes. Tweak each color, preview on real components, then export to JSON, CSS, or C#."
+         ApiType="@typeof(BOBThemeGenerator)">
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Interactive generator</h2>
+        <p class="doc-section__description">
+            Edit the palette on the left, inspect the preview on the right. The <em>Export</em> actions
+            emit code you can paste into your own stylesheet or theme class — the <em>Import</em> action
+            accepts the same JSON shape back.
+        </p>
+        <BOBThemeGenerator />
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Export formats</h2>
+        <p class="doc-section__description">Three outputs are generated from whatever palette you configure.</p>
+
+        <h3 style="margin-top: 1.5rem;">JSON</h3>
+        <BOBCodeBlock Title="palette.json"
+                      Language="SyntaxHighlightLanguage.Json"
+                      Code="@_jsonSample" />
+
+        <h3 style="margin-top: 1.5rem;">CSS</h3>
+        <BOBCodeBlock Title="palette.css"
+                      Language="SyntaxHighlightLanguage.Css"
+                      Code="@_cssSample" />
+
+        <h3 style="margin-top: 1.5rem;">C#</h3>
+        <BOBCodeBlock Title="CustomTheme.cs"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="@_csharpSample" />
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Building blocks</h2>
+        <p class="doc-section__description">
+            Under the hood, <code>BOBThemeGenerator</code> composes two smaller components you can also use directly.
+        </p>
+
+        <h3><code>BOBThemeEditor</code></h3>
+        <p>Renders a grid of <code>BOBInputColor</code> fields over a <code>Dictionary&lt;string, CssColor&gt;</code>. Raises <code>OnPaletteChanged</code> on every edit.</p>
+        <BOBCodeBlock Title="Editor.razor"
+                      Language="SyntaxHighlightLanguage.Razor"
+                      Code="@_editorCode" />
+
+        <h3 style="margin-top: 1.5rem;"><code>BOBThemePreview</code></h3>
+        <p>Renders a representative gallery of BlazOrbit components. Pair it with a container whose CSS variables are overridden to preview your palette in isolation.</p>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Use in your app</h2>
+        <p class="doc-section__description">
+            The generator is a developer tool — it's intended for a theming page in <em>your</em> app,
+            not as an end-user feature. Drop it inside any page under <code>BOBBlazorLayout</code>:
+        </p>
+        <BOBCodeBlock Title="ThemingPage.razor"
+                      Language="SyntaxHighlightLanguage.Razor"
+                      Code="@_usageCode" />
+    </section>
+
+</DocPage>
+
+@code {
+    private const string _jsonSample = @"{
+  ""dark"": {
+    ""primary"": ""#8ab4f8"",
+    ""primary-contrast"": ""#0b1220"",
+    ""background"": ""#0b1220"",
+    ""surface"": ""#111827""
+  },
+  ""light"": {
+    ""primary"": ""#1a73e8"",
+    ""primary-contrast"": ""#ffffff"",
+    ""background"": ""#ffffff"",
+    ""surface"": ""#f8fafc""
+  }
+}";
+
+    private const string _cssSample = @":root {
+  --palette-primary: #8ab4f8;
+  --palette-primary-contrast: #0b1220;
+  --palette-background: #0b1220;
+  --palette-surface: #111827;
+}
+
+html[data-theme=""light""] {
+  --palette-primary: #1a73e8;
+  --palette-primary-contrast: #ffffff;
+  --palette-background: #ffffff;
+  --palette-surface: #f8fafc;
+}";
+
+    private const string _csharpSample = @"public class CustomDarkTheme : BOBThemePaletteBase
+{
+    public CustomDarkTheme()
+    {
+        Id = ""dark"";
+        Name = ""Dark"";
+        Primary = new CssColor(""#8ab4f8"");
+        PrimaryContrast = new CssColor(""#0b1220"");
+        // …
+    }
+}";
+
+    private const string _editorCode = @"<BOBThemeEditor Palette=""_palette""
+                 OnPaletteChanged=""p => _palette = p"" />
+
+@code {
+    private Dictionary<string, CssColor> _palette = new()
+    {
+        [""Primary""] = new(""#1a73e8""),
+        [""PrimaryContrast""] = new(""#ffffff""),
+        // …
+    };
+}";
+
+    private const string _usageCode = @"@page ""/theming""
+
+<h1>Theme Generator</h1>
+<BOBThemeGenerator />";
+}

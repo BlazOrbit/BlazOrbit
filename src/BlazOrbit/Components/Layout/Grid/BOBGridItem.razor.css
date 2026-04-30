@@ -1,0 +1,196 @@
+﻿/*
+ * Three modes:
+ * 1. Default (no span, no auto): flex: 0 0 auto - fits content naturally
+ * 2. Sized (has span): flex: 0 0 calc(...) - fixed column-based width
+ * 3. Auto: flex: 1 1 0% - expands to fill available space
+ *
+ * Width formula for sized items:
+ * width = (100% + gap) / columns * span - gap
+ */
+
+/* ========================================
+   BASE - Content-fit (default)
+   ======================================== */
+[data-bob-component="grid-item"] {
+    flex: 0 0 auto;
+    order: var(--order, 0);
+    min-width: 0;
+    box-sizing: border-box;
+    padding: var(--p, var(--pt, 0) var(--pr, 0) var(--pb, 0) var(--pl, 0));
+    margin-top: var(--mt, var(--m, 0));
+    margin-right: var(--mr, var(--m, 0));
+    margin-bottom: var(--mb, var(--m, 0));
+    margin-left: var(--ml, var(--m, 0));
+}
+
+    /* ========================================
+   AUTO - Expand to fill space
+   ======================================== */
+    [data-bob-component="grid-item"][data-auto] {
+        flex: 1 1 0%;
+    }
+
+    /* ========================================
+   SIZED - Column-based width
+   ======================================== */
+    [data-bob-component="grid-item"][data-sized] {
+        --_span: var(--span, 12);
+        --_cols: var(--columns, 12);
+        --_gap: var(--col-gap, var(--gap, 1rem));
+        --_offset: var(--offset, 0);
+        flex: 0 0 calc((100% + var(--_gap)) / var(--_cols) * var(--_span) - var(--_gap));
+        margin-left: calc((100% + var(--_gap)) / var(--_cols) * var(--_offset) + var(--ml, var(--m, 0)));
+    }
+
+    /* Align Self */
+    [data-bob-component="grid-item"][data-align-self="start"] {
+        align-self: flex-start;
+    }
+
+    [data-bob-component="grid-item"][data-align-self="end"] {
+        align-self: flex-end;
+    }
+
+    [data-bob-component="grid-item"][data-align-self="center"] {
+        align-self: center;
+    }
+
+    [data-bob-component="grid-item"][data-align-self="stretch"] {
+        align-self: stretch;
+    }
+
+    [data-bob-component="grid-item"][data-align-self="baseline"] {
+        align-self: baseline;
+    }
+
+/*
+ * Hide / show responsive utilities below use `!important` for `display`.
+ * These are utility-class semantics: when a consumer applies `data-hide-md`
+ * to a grid item, they expect the item gone at that breakpoint regardless
+ * of any other `display` value that variants, scoped CSS, or inline styles
+ * might assign. Same as Bootstrap `.d-none`, Tailwind `.hidden`, etc.
+ * Removing `!important` would let an unrelated `display: flex` win and
+ * break the contract. Keep the marker on the visibility utilities only.
+ */
+
+/* ========================================
+   RESPONSIVE - XS (< 640px)
+   ======================================== */
+@media (max-width: 639px) {
+    [data-bob-component="grid-item"][data-sized] {
+        --_span: var(--xs, var(--span, 12));
+        --_offset: var(--offset-xs, var(--offset, 0));
+        order: var(--order-xs, var(--order, 0));
+    }
+
+    [data-bob-component="grid-item"][data-hide-xs] {
+        display: none !important;
+    }
+}
+
+/* ========================================
+   RESPONSIVE - SM (>= 640px)
+   ======================================== */
+@media (min-width: 640px) {
+    [data-bob-component="grid-item"][data-sized] {
+        --_span: var(--sm, var(--xs, var(--span, 12)));
+        --_offset: var(--offset-sm, var(--offset-xs, var(--offset, 0)));
+        order: var(--order-sm, var(--order-xs, var(--order, 0)));
+    }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+    [data-bob-component="grid-item"][data-hide-sm] {
+        display: none !important;
+    }
+}
+
+/* ========================================
+   RESPONSIVE - MD (>= 768px)
+   ======================================== */
+@media (min-width: 768px) {
+    [data-bob-component="grid-item"][data-sized] {
+        --_span: var(--md, var(--sm, var(--xs, var(--span, 12))));
+        --_offset: var(--offset-md, var(--offset-sm, var(--offset-xs, var(--offset, 0))));
+        order: var(--order-md, var(--order-sm, var(--order-xs, var(--order, 0))));
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    [data-bob-component="grid-item"][data-hide-md] {
+        display: none !important;
+    }
+}
+
+/* ========================================
+   RESPONSIVE - LG (>= 1024px)
+   ======================================== */
+@media (min-width: 1024px) {
+    [data-bob-component="grid-item"][data-sized] {
+        --_span: var(--lg, var(--md, var(--sm, var(--xs, var(--span, 12)))));
+        --_offset: var(--offset-lg, var(--offset-md, var(--offset-sm, var(--offset-xs, var(--offset, 0)))));
+        order: var(--order-lg, var(--order-md, var(--order-sm, var(--order-xs, var(--order, 0)))));
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+    [data-bob-component="grid-item"][data-hide-lg] {
+        display: none !important;
+    }
+}
+
+/* ========================================
+   RESPONSIVE - XL (>= 1280px)
+   ======================================== */
+@media (min-width: 1280px) {
+    [data-bob-component="grid-item"][data-sized] {
+        --_span: var(--xl, var(--lg, var(--md, var(--sm, var(--xs, var(--span, 12))))));
+        --_offset: var(--offset-xl, var(--offset-lg, var(--offset-md, var(--offset-sm, var(--offset-xs, var(--offset, 0))))));
+        order: var(--order-xl, var(--order-lg, var(--order-md, var(--order-sm, var(--order-xs, var(--order, 0))))));
+    }
+
+    [data-bob-component="grid-item"][data-hide-xl] {
+        display: none !important;
+    }
+}
+
+/* ========================================
+   SHOW ONLY (hidden by default, visible at breakpoint)
+   ======================================== */
+[data-bob-component="grid-item"][data-show-xs],
+[data-bob-component="grid-item"][data-show-sm],
+[data-bob-component="grid-item"][data-show-md],
+[data-bob-component="grid-item"][data-show-lg],
+[data-bob-component="grid-item"][data-show-xl] {
+    display: none;
+}
+
+@media (max-width: 639px) {
+    [data-bob-component="grid-item"][data-show-xs] {
+        display: block !important;
+    }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+    [data-bob-component="grid-item"][data-show-sm] {
+        display: block !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    [data-bob-component="grid-item"][data-show-md] {
+        display: block !important;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+    [data-bob-component="grid-item"][data-show-lg] {
+        display: block !important;
+    }
+}
+
+@media (min-width: 1280px) {
+    [data-bob-component="grid-item"][data-show-xl] {
+        display: block !important;
+    }
+}

@@ -1,0 +1,13 @@
+﻿#nullable enable
+BlazOrbit.Localization.Wasm.Components._Imports
+BlazOrbit.Localization.Wasm.Components._Imports.Execute() -> void
+BlazOrbit.Localization.Wasm.Components._Imports._Imports() -> void
+BlazOrbit.Localization.Wasm.ILocalizationPersistence
+BlazOrbit.Localization.Wasm.ILocalizationPersistence.GetStoredCultureAsync() -> System.Threading.Tasks.Task<string?>!
+BlazOrbit.Localization.Wasm.ILocalizationPersistence.SetStoredCultureAsync(string! culture) -> System.Threading.Tasks.Task!
+BlazOrbit.Localization.Wasm.WasmLocalizationSettings
+BlazOrbit.Localization.Wasm.WasmLocalizationSettings.WasmLocalizationSettings() -> void
+Microsoft.Extensions.DependencyInjection.WasmLocalizationHostExtensions
+Microsoft.Extensions.DependencyInjection.WasmLocalizationServiceCollectionExtensions
+static Microsoft.Extensions.DependencyInjection.WasmLocalizationHostExtensions.UseBlazOrbitLocalizationWasm(this Microsoft.AspNetCore.Components.WebAssembly.Hosting.WebAssemblyHost! host, string! defaultCulture = "en-US") -> System.Threading.Tasks.Task<Microsoft.AspNetCore.Components.WebAssembly.Hosting.WebAssemblyHost!>!
+static Microsoft.Extensions.DependencyInjection.WasmLocalizationServiceCollectionExtensions.AddBlazOrbitLocalizationWasm(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services, System.Action<BlazOrbit.Localization.Wasm.WasmLocalizationSettings!>? configure = null) -> Microsoft.Extensions.DependencyInjection.IServiceCollection!

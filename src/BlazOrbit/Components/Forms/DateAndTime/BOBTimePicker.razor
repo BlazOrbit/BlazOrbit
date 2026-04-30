@@ -1,0 +1,156 @@
+﻿@namespace BlazOrbit.Components.Forms
+@attribute [GenerateComponentInfo]
+@using System.Globalization
+
+@inherits BOBComponentBase
+@implements IHasSize
+@implements IHasDensity
+@implements IPickerFamilyComponent
+
+<bob-component @attributes="ComputedAttributes">
+    <div class="bob-picker__row">
+        <_BOBBtn Size="Size" OnClick="ToggleFormatClicked">
+            @(Format == "24" ? "24h" : "12h")
+        </_BOBBtn>
+
+        <div class="bob-picker__row bob-time-picker__fields">
+            <div class="bob-time-picker__column">
+                <_BOBBtn Icon="@BOBIconKeys.UI.ChevronUp"
+                                     AriaLabel="Increment hour"
+                                     OnClick="IncrementHourClicked" />
+                <_BOBInText Value="@DisplayHour.ToString("00")"
+                                          ValueChanged="OnHourInputChanged"
+                                          maxlength="2" />
+                <_BOBBtn Icon="@BOBIconKeys.UI.ChevronDown"
+                                     AriaLabel="Decrement hour"
+                                     OnClick="DecrementHourClicked" />
+            </div>
+
+            <span class="bob-picker__separator">:</span>
+
+            <div class="bob-time-picker__column">
+                <_BOBBtn Icon="@BOBIconKeys.UI.ChevronUp"
+                                     AriaLabel="Increment minute"
+                                     OnClick="IncrementMinuteClicked" />
+                <_BOBInText Value="@Minute.ToString("00")"
+                                          ValueChanged="OnMinuteInputChanged"
+                                          maxlength="2" />
+                <_BOBBtn Icon="@BOBIconKeys.UI.ChevronDown"
+                                     AriaLabel="Decrement minute"
+                                     OnClick="DecrementMinuteClicked" />
+            </div>
+        </div>
+
+        @if (Format == "12")
+        {
+            <_BOBBtn OnClick="ToggleAmPmClicked">
+                @AmPm
+            </_BOBBtn>
+        }
+    </div>
+</bob-component>
+
+@code {
+    /// <summary>Current value of the component.</summary>
+    [Parameter] public TimeOnly? Value { get; set; }
+    /// <summary>Raised when the value changes.</summary>
+    [Parameter] public EventCallback<TimeOnly?> ValueChanged { get; set; }
+    /// <summary>Visual size of the component.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    /// <summary>Vertical density (gap) of the component.</summary>
+    [Parameter] public BOBDensity Density { get; set; } = BOBDensity.Standard;
+
+    private int Hour;
+    private int Minute;
+    private string Format = "24";
+    private string AmPm = "AM";
+
+    private int DisplayHour => Format == "24" ? Hour : (Hour % 12 == 0 ? 12 : Hour % 12);
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Format = CultureInfo.CurrentCulture.DateTimeFormat.ShortTimePattern.Contains("tt") ? "12" : "24";
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        if (Value.HasValue)
+        {
+            Hour = Value.Value.Hour;
+            Minute = Value.Value.Minute;
+            AmPm = Hour >= 12 ? "PM" : "AM";
+        }
+    }
+
+    private async Task IncrementHourClicked(MouseEventArgs e) => await UpdateHour((Hour + 1) % 24);
+    private async Task DecrementHourClicked(MouseEventArgs e) => await UpdateHour((Hour + 23) % 24);
+    private async Task IncrementMinuteClicked(MouseEventArgs e) => await UpdateMinute((Minute + 1) % 60);
+    private async Task DecrementMinuteClicked(MouseEventArgs e) => await UpdateMinute((Minute + 59) % 60);
+
+    private async Task OnHourInputChanged(string? value)
+    {
+        if (int.TryParse(value, out int h))
+        {
+            if (Format == "12")
+            {
+                if (h >= 1 && h <= 12)
+                {
+                    int newHour = h == 12 ? 0 : h;
+                    if (AmPm == "PM") newHour += 12;
+                    await UpdateHour(newHour);
+                }
+            }
+            else if (h >= 0 && h < 24)
+            {
+                await UpdateHour(h);
+            }
+        }
+    }
+
+    private async Task OnMinuteInputChanged(string? value)
+    {
+        if (int.TryParse(value, out int m) && m >= 0 && m < 60)
+            await UpdateMinute(m);
+    }
+
+    private async Task UpdateHour(int newHour)
+    {
+        Hour = newHour;
+        AmPm = Hour >= 12 ? "PM" : "AM";
+        await NotifyValueChanged();
+    }
+
+    private async Task UpdateMinute(int newMinute)
+    {
+        Minute = newMinute;
+        await NotifyValueChanged();
+    }
+
+    private async Task NotifyValueChanged()
+    {
+        await ValueChanged.InvokeAsync(new TimeOnly(Hour, Minute));
+    }
+
+    private void ToggleFormatClicked(MouseEventArgs e)
+    {
+        Format = Format == "24" ? "12" : "24";
+    }
+
+    private async Task ToggleAmPmClicked(MouseEventArgs e)
+    {
+        if (AmPm == "AM")
+        {
+            AmPm = "PM";
+            if (Hour < 12) Hour += 12;
+        }
+        else
+        {
+            AmPm = "AM";
+            if (Hour >= 12) Hour -= 12;
+        }
+        await NotifyValueChanged();
+    }
+
+}

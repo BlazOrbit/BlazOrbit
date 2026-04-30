@@ -1,0 +1,10 @@
+﻿[
+  {
+    Name: Idle,
+    Html: 
+  },
+  {
+    Name: Loading,
+    Html: <div class="bob-addon" b-<SCOPE>><bob-component data-bob-component="loading-indicator" data-bob-variant="circularprogress" data-bob-size="medium" role="status" aria-live="polite" aria-label="Loading" b-<SCOPE>><svg viewBox="0 0 50 50" role="img" aria-hidden="true" focusable="false" b-<SCOPE>><circle cx="25" cy="25" r="20" b-<SCOPE>></circle></svg></bob-component></div>
+  }
+]

@@ -1,0 +1,66 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+    <!--
+      BLD-10: silence nullable-reference noise in test code. bUnit query helpers
+      (Find/FindAll) and IElement.GetAttribute return nullable strings that tests
+      treat as required-by-contract; asserting via FluentAssertions is enough
+      coverage without annotating every call. Listed explicitly so future signal
+      (CS8765 overrides, CS0105 duplicate usings, etc.) still surfaces.
+    -->
+    <NoWarn>$(NoWarn);CS8603;CS8620;CS8600;CS8602;CS8669</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Tests\Components\Button\BlazorScenario { Name = Server, CreateContext = System.Func`1[BlazOrbit.Tests.Integration.Infrastructure.Contexts.BlazorTestContextBase] }_Should_Match_Snapshots_For_All_States.received.txt\**" />
+    <Compile Remove="Tests\Components\Button\BlazorScenario { Name = Server, CreateContext = System.Func`1[BlazOrbit.Tests.Integration.Infrastructure.Contexts.BlazorTestContextBase] }_Should_Match_Snapshots_For_All_States.verified.txt\**" />
+    <Compile Remove="Tests\Components\Button\BlazorScenario { Name = Wasm, CreateContext = System.Func`1[BlazOrbit.Tests.Integration.Infrastructure.Contexts.BlazorTestContextBase] }_Should_Match_Snapshots_For_All_States.received.txt\**" />
+    <Compile Remove="Tests\Components\Button\BlazorScenario { Name = Wasm, CreateContext = System.Func`1[BlazOrbit.Tests.Integration.Infrastructure.Contexts.BlazorTestContextBase] }_Should_Match_Snapshots_For_All_States.verified.txt\**" />
+    <EmbeddedResource Remove="Tests\Components\Button\BlazorScenario { Name = Server, CreateContext = System.Func`1[BlazOrbit.Tests.Integration.Infrastructure.Contexts.BlazorTestContextBase] }_Should_Match_Snapshots_For_All_States.received.txt\**" />
+    <EmbeddedResource Remove="Tests\Components\Button\BlazorScenario { Name = Server, CreateContext = System.Func`1[BlazOrbit.Tests.Integration.Infrastructure.Contexts.BlazorTestContextBase] }_Should_Match_Snapshots_For_All_States.verified.txt\**" />
+    <EmbeddedResource Remove="Tests\Components\Button\BlazorScenario { Name = Wasm, CreateContext = System.Func`1[BlazOrbit.Tests.Integration.Infrastructure.Contexts.BlazorTestContextBase] }_Should_Match_Snapshots_For_All_States.received.txt\**" />
+    <EmbeddedResource Remove="Tests\Components\Button\BlazorScenario { Name = Wasm, CreateContext = System.Func`1[BlazOrbit.Tests.Integration.Infrastructure.Contexts.BlazorTestContextBase] }_Should_Match_Snapshots_For_All_States.verified.txt\**" />
+    <None Remove="Tests\Components\Button\BlazorScenario { Name = Server, CreateContext = System.Func`1[BlazOrbit.Tests.Integration.Infrastructure.Contexts.BlazorTestContextBase] }_Should_Match_Snapshots_For_All_States.received.txt\**" />
+    <None Remove="Tests\Components\Button\BlazorScenario { Name = Server, CreateContext = System.Func`1[BlazOrbit.Tests.Integration.Infrastructure.Contexts.BlazorTestContextBase] }_Should_Match_Snapshots_For_All_States.verified.txt\**" />
+    <None Remove="Tests\Components\Button\BlazorScenario { Name = Wasm, CreateContext = System.Func`1[BlazOrbit.Tests.Integration.Infrastructure.Contexts.BlazorTestContextBase] }_Should_Match_Snapshots_For_All_States.received.txt\**" />
+    <None Remove="Tests\Components\Button\BlazorScenario { Name = Wasm, CreateContext = System.Func`1[BlazOrbit.Tests.Integration.Infrastructure.Contexts.BlazorTestContextBase] }_Should_Match_Snapshots_For_All_States.verified.txt\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="bunit" Version="2.7.2" />
+    <PackageReference Include="coverlet.collector" Version="10.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="FluentAssertions" Version="8.9.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.4.0" />
+    <PackageReference Include="NSubstitute" Version="5.3.0" />
+    <PackageReference Include="Verify" Version="31.16.2" />
+    <PackageReference Include="Verify.Blazor" Version="11.0.0" />
+    <PackageReference Include="Verify.DiffPlex" Version="3.1.2" />
+    <PackageReference Include="Verify.XunitV3" Version="31.16.2" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="3.1.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.TimeProvider.Testing" Version="9.4.0" />
+    <PackageReference Include="xunit.v3" Version="3.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\BlazOrbit.Localization.Server\BlazOrbit.Localization.Server.csproj" />
+    <ProjectReference Include="..\..\src\BlazOrbit.Localization.Shared\BlazOrbit.Localization.Shared.csproj" />
+    <ProjectReference Include="..\..\src\BlazOrbit.Localization.Wasm\BlazOrbit.Localization.Wasm.csproj" />
+    <ProjectReference Include="..\..\src\BlazOrbit\BlazOrbit.csproj" />
+    <ProjectReference Include="..\BlazOrbit.Tests.Integration.Templates\BlazOrbit.Tests.Integration.Templates.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+</Project>

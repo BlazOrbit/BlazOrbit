@@ -1,0 +1,2143 @@
+﻿// ==== Colors.g.cs ====
+#nullable enable
+
+using BlazOrbit.Components;
+using System.Diagnostics.CodeAnalysis;
+
+namespace TestNs;
+
+[ExcludeFromCodeCoverage]
+
+public static partial class Colors
+{
+
+    public static class Transparent
+    {
+            public static CssColor Default { get; } = new CssColor(255, 255, 255, 0);
+            public static CssColor Darken1 { get; } = new CssColor(255, 255, 255, 0, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 255, 255, 0, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 255, 255, 0, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 255, 255, 0, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 255, 255, 0, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 255, 255, 0, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 255, 255, 0, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 255, 255, 0, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 255, 255, 0, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 255, 255, 0, CssColorVariant.Lighten(5));
+    }
+
+    public static class AliceBlue
+    {
+            public static CssColor Default { get; } = new CssColor(240, 248, 255, 255);
+            public static CssColor Darken1 { get; } = new CssColor(240, 248, 255, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(240, 248, 255, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(240, 248, 255, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(240, 248, 255, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(240, 248, 255, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(240, 248, 255, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(240, 248, 255, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(240, 248, 255, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(240, 248, 255, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(240, 248, 255, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class AntiqueWhite
+    {
+            public static CssColor Default { get; } = new CssColor(250, 235, 215, 255);
+            public static CssColor Darken1 { get; } = new CssColor(250, 235, 215, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(250, 235, 215, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(250, 235, 215, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(250, 235, 215, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(250, 235, 215, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(250, 235, 215, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(250, 235, 215, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(250, 235, 215, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(250, 235, 215, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(250, 235, 215, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Aqua
+    {
+            public static CssColor Default { get; } = new CssColor(0, 255, 255, 255);
+            public static CssColor Darken1 { get; } = new CssColor(0, 255, 255, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(0, 255, 255, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(0, 255, 255, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(0, 255, 255, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(0, 255, 255, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(0, 255, 255, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(0, 255, 255, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(0, 255, 255, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(0, 255, 255, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(0, 255, 255, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Aquamarine
+    {
+            public static CssColor Default { get; } = new CssColor(127, 255, 212, 255);
+            public static CssColor Darken1 { get; } = new CssColor(127, 255, 212, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(127, 255, 212, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(127, 255, 212, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(127, 255, 212, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(127, 255, 212, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(127, 255, 212, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(127, 255, 212, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(127, 255, 212, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(127, 255, 212, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(127, 255, 212, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Azure
+    {
+            public static CssColor Default { get; } = new CssColor(240, 255, 255, 255);
+            public static CssColor Darken1 { get; } = new CssColor(240, 255, 255, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(240, 255, 255, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(240, 255, 255, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(240, 255, 255, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(240, 255, 255, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(240, 255, 255, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(240, 255, 255, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(240, 255, 255, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(240, 255, 255, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(240, 255, 255, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Beige
+    {
+            public static CssColor Default { get; } = new CssColor(245, 245, 220, 255);
+            public static CssColor Darken1 { get; } = new CssColor(245, 245, 220, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(245, 245, 220, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(245, 245, 220, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(245, 245, 220, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(245, 245, 220, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(245, 245, 220, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(245, 245, 220, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(245, 245, 220, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(245, 245, 220, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(245, 245, 220, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Bisque
+    {
+            public static CssColor Default { get; } = new CssColor(255, 228, 196, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 228, 196, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 228, 196, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 228, 196, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 228, 196, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 228, 196, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 228, 196, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 228, 196, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 228, 196, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 228, 196, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 228, 196, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Black
+    {
+            public static CssColor Default { get; } = new CssColor(0, 0, 0, 255);
+            public static CssColor Darken1 { get; } = new CssColor(0, 0, 0, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(0, 0, 0, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(0, 0, 0, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(0, 0, 0, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(0, 0, 0, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(0, 0, 0, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(0, 0, 0, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(0, 0, 0, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(0, 0, 0, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(0, 0, 0, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class BlanchedAlmond
+    {
+            public static CssColor Default { get; } = new CssColor(255, 235, 205, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 235, 205, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 235, 205, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 235, 205, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 235, 205, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 235, 205, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 235, 205, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 235, 205, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 235, 205, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 235, 205, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 235, 205, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Blue
+    {
+            public static CssColor Default { get; } = new CssColor(0, 0, 255, 255);
+            public static CssColor Darken1 { get; } = new CssColor(0, 0, 255, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(0, 0, 255, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(0, 0, 255, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(0, 0, 255, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(0, 0, 255, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(0, 0, 255, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(0, 0, 255, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(0, 0, 255, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(0, 0, 255, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(0, 0, 255, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class BlueViolet
+    {
+            public static CssColor Default { get; } = new CssColor(138, 43, 226, 255);
+            public static CssColor Darken1 { get; } = new CssColor(138, 43, 226, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(138, 43, 226, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(138, 43, 226, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(138, 43, 226, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(138, 43, 226, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(138, 43, 226, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(138, 43, 226, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(138, 43, 226, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(138, 43, 226, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(138, 43, 226, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Brown
+    {
+            public static CssColor Default { get; } = new CssColor(165, 42, 42, 255);
+            public static CssColor Darken1 { get; } = new CssColor(165, 42, 42, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(165, 42, 42, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(165, 42, 42, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(165, 42, 42, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(165, 42, 42, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(165, 42, 42, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(165, 42, 42, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(165, 42, 42, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(165, 42, 42, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(165, 42, 42, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class BurlyWood
+    {
+            public static CssColor Default { get; } = new CssColor(222, 184, 135, 255);
+            public static CssColor Darken1 { get; } = new CssColor(222, 184, 135, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(222, 184, 135, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(222, 184, 135, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(222, 184, 135, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(222, 184, 135, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(222, 184, 135, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(222, 184, 135, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(222, 184, 135, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(222, 184, 135, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(222, 184, 135, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class CadetBlue
+    {
+            public static CssColor Default { get; } = new CssColor(95, 158, 160, 255);
+            public static CssColor Darken1 { get; } = new CssColor(95, 158, 160, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(95, 158, 160, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(95, 158, 160, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(95, 158, 160, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(95, 158, 160, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(95, 158, 160, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(95, 158, 160, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(95, 158, 160, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(95, 158, 160, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(95, 158, 160, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Chartreuse
+    {
+            public static CssColor Default { get; } = new CssColor(127, 255, 0, 255);
+            public static CssColor Darken1 { get; } = new CssColor(127, 255, 0, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(127, 255, 0, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(127, 255, 0, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(127, 255, 0, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(127, 255, 0, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(127, 255, 0, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(127, 255, 0, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(127, 255, 0, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(127, 255, 0, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(127, 255, 0, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Chocolate
+    {
+            public static CssColor Default { get; } = new CssColor(210, 105, 30, 255);
+            public static CssColor Darken1 { get; } = new CssColor(210, 105, 30, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(210, 105, 30, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(210, 105, 30, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(210, 105, 30, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(210, 105, 30, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(210, 105, 30, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(210, 105, 30, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(210, 105, 30, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(210, 105, 30, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(210, 105, 30, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Coral
+    {
+            public static CssColor Default { get; } = new CssColor(255, 127, 80, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 127, 80, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 127, 80, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 127, 80, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 127, 80, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 127, 80, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 127, 80, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 127, 80, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 127, 80, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 127, 80, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 127, 80, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class CornflowerBlue
+    {
+            public static CssColor Default { get; } = new CssColor(100, 149, 237, 255);
+            public static CssColor Darken1 { get; } = new CssColor(100, 149, 237, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(100, 149, 237, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(100, 149, 237, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(100, 149, 237, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(100, 149, 237, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(100, 149, 237, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(100, 149, 237, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(100, 149, 237, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(100, 149, 237, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(100, 149, 237, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Cornsilk
+    {
+            public static CssColor Default { get; } = new CssColor(255, 248, 220, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 248, 220, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 248, 220, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 248, 220, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 248, 220, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 248, 220, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 248, 220, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 248, 220, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 248, 220, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 248, 220, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 248, 220, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Crimson
+    {
+            public static CssColor Default { get; } = new CssColor(220, 20, 60, 255);
+            public static CssColor Darken1 { get; } = new CssColor(220, 20, 60, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(220, 20, 60, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(220, 20, 60, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(220, 20, 60, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(220, 20, 60, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(220, 20, 60, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(220, 20, 60, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(220, 20, 60, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(220, 20, 60, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(220, 20, 60, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Cyan
+    {
+            public static CssColor Default { get; } = new CssColor(0, 255, 255, 255);
+            public static CssColor Darken1 { get; } = new CssColor(0, 255, 255, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(0, 255, 255, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(0, 255, 255, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(0, 255, 255, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(0, 255, 255, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(0, 255, 255, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(0, 255, 255, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(0, 255, 255, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(0, 255, 255, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(0, 255, 255, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class DarkBlue
+    {
+            public static CssColor Default { get; } = new CssColor(0, 0, 139, 255);
+            public static CssColor Darken1 { get; } = new CssColor(0, 0, 139, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(0, 0, 139, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(0, 0, 139, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(0, 0, 139, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(0, 0, 139, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(0, 0, 139, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(0, 0, 139, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(0, 0, 139, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(0, 0, 139, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(0, 0, 139, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class DarkCyan
+    {
+            public static CssColor Default { get; } = new CssColor(0, 139, 139, 255);
+            public static CssColor Darken1 { get; } = new CssColor(0, 139, 139, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(0, 139, 139, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(0, 139, 139, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(0, 139, 139, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(0, 139, 139, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(0, 139, 139, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(0, 139, 139, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(0, 139, 139, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(0, 139, 139, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(0, 139, 139, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class DarkGoldenrod
+    {
+            public static CssColor Default { get; } = new CssColor(184, 134, 11, 255);
+            public static CssColor Darken1 { get; } = new CssColor(184, 134, 11, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(184, 134, 11, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(184, 134, 11, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(184, 134, 11, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(184, 134, 11, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(184, 134, 11, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(184, 134, 11, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(184, 134, 11, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(184, 134, 11, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(184, 134, 11, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class DarkGray
+    {
+            public static CssColor Default { get; } = new CssColor(169, 169, 169, 255);
+            public static CssColor Darken1 { get; } = new CssColor(169, 169, 169, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(169, 169, 169, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(169, 169, 169, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(169, 169, 169, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(169, 169, 169, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(169, 169, 169, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(169, 169, 169, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(169, 169, 169, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(169, 169, 169, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(169, 169, 169, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class DarkGreen
+    {
+            public static CssColor Default { get; } = new CssColor(0, 100, 0, 255);
+            public static CssColor Darken1 { get; } = new CssColor(0, 100, 0, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(0, 100, 0, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(0, 100, 0, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(0, 100, 0, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(0, 100, 0, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(0, 100, 0, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(0, 100, 0, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(0, 100, 0, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(0, 100, 0, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(0, 100, 0, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class DarkKhaki
+    {
+            public static CssColor Default { get; } = new CssColor(189, 183, 107, 255);
+            public static CssColor Darken1 { get; } = new CssColor(189, 183, 107, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(189, 183, 107, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(189, 183, 107, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(189, 183, 107, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(189, 183, 107, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(189, 183, 107, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(189, 183, 107, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(189, 183, 107, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(189, 183, 107, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(189, 183, 107, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class DarkMagenta
+    {
+            public static CssColor Default { get; } = new CssColor(139, 0, 139, 255);
+            public static CssColor Darken1 { get; } = new CssColor(139, 0, 139, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(139, 0, 139, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(139, 0, 139, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(139, 0, 139, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(139, 0, 139, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(139, 0, 139, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(139, 0, 139, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(139, 0, 139, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(139, 0, 139, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(139, 0, 139, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class DarkOliveGreen
+    {
+            public static CssColor Default { get; } = new CssColor(85, 107, 47, 255);
+            public static CssColor Darken1 { get; } = new CssColor(85, 107, 47, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(85, 107, 47, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(85, 107, 47, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(85, 107, 47, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(85, 107, 47, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(85, 107, 47, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(85, 107, 47, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(85, 107, 47, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(85, 107, 47, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(85, 107, 47, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class DarkOrange
+    {
+            public static CssColor Default { get; } = new CssColor(255, 140, 0, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 140, 0, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 140, 0, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 140, 0, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 140, 0, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 140, 0, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 140, 0, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 140, 0, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 140, 0, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 140, 0, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 140, 0, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class DarkOrchid
+    {
+            public static CssColor Default { get; } = new CssColor(153, 50, 204, 255);
+            public static CssColor Darken1 { get; } = new CssColor(153, 50, 204, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(153, 50, 204, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(153, 50, 204, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(153, 50, 204, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(153, 50, 204, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(153, 50, 204, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(153, 50, 204, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(153, 50, 204, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(153, 50, 204, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(153, 50, 204, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class DarkRed
+    {
+            public static CssColor Default { get; } = new CssColor(139, 0, 0, 255);
+            public static CssColor Darken1 { get; } = new CssColor(139, 0, 0, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(139, 0, 0, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(139, 0, 0, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(139, 0, 0, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(139, 0, 0, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(139, 0, 0, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(139, 0, 0, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(139, 0, 0, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(139, 0, 0, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(139, 0, 0, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class DarkSalmon
+    {
+            public static CssColor Default { get; } = new CssColor(233, 150, 122, 255);
+            public static CssColor Darken1 { get; } = new CssColor(233, 150, 122, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(233, 150, 122, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(233, 150, 122, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(233, 150, 122, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(233, 150, 122, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(233, 150, 122, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(233, 150, 122, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(233, 150, 122, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(233, 150, 122, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(233, 150, 122, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class DarkSeaGreen
+    {
+            public static CssColor Default { get; } = new CssColor(143, 188, 143, 255);
+            public static CssColor Darken1 { get; } = new CssColor(143, 188, 143, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(143, 188, 143, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(143, 188, 143, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(143, 188, 143, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(143, 188, 143, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(143, 188, 143, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(143, 188, 143, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(143, 188, 143, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(143, 188, 143, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(143, 188, 143, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class DarkSlateBlue
+    {
+            public static CssColor Default { get; } = new CssColor(72, 61, 139, 255);
+            public static CssColor Darken1 { get; } = new CssColor(72, 61, 139, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(72, 61, 139, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(72, 61, 139, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(72, 61, 139, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(72, 61, 139, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(72, 61, 139, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(72, 61, 139, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(72, 61, 139, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(72, 61, 139, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(72, 61, 139, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class DarkSlateGray
+    {
+            public static CssColor Default { get; } = new CssColor(47, 79, 79, 255);
+            public static CssColor Darken1 { get; } = new CssColor(47, 79, 79, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(47, 79, 79, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(47, 79, 79, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(47, 79, 79, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(47, 79, 79, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(47, 79, 79, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(47, 79, 79, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(47, 79, 79, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(47, 79, 79, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(47, 79, 79, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class DarkTurquoise
+    {
+            public static CssColor Default { get; } = new CssColor(0, 206, 209, 255);
+            public static CssColor Darken1 { get; } = new CssColor(0, 206, 209, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(0, 206, 209, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(0, 206, 209, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(0, 206, 209, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(0, 206, 209, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(0, 206, 209, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(0, 206, 209, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(0, 206, 209, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(0, 206, 209, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(0, 206, 209, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class DarkViolet
+    {
+            public static CssColor Default { get; } = new CssColor(148, 0, 211, 255);
+            public static CssColor Darken1 { get; } = new CssColor(148, 0, 211, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(148, 0, 211, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(148, 0, 211, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(148, 0, 211, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(148, 0, 211, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(148, 0, 211, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(148, 0, 211, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(148, 0, 211, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(148, 0, 211, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(148, 0, 211, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class DeepPink
+    {
+            public static CssColor Default { get; } = new CssColor(255, 20, 147, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 20, 147, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 20, 147, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 20, 147, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 20, 147, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 20, 147, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 20, 147, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 20, 147, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 20, 147, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 20, 147, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 20, 147, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class DeepSkyBlue
+    {
+            public static CssColor Default { get; } = new CssColor(0, 191, 255, 255);
+            public static CssColor Darken1 { get; } = new CssColor(0, 191, 255, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(0, 191, 255, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(0, 191, 255, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(0, 191, 255, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(0, 191, 255, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(0, 191, 255, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(0, 191, 255, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(0, 191, 255, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(0, 191, 255, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(0, 191, 255, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class DimGray
+    {
+            public static CssColor Default { get; } = new CssColor(105, 105, 105, 255);
+            public static CssColor Darken1 { get; } = new CssColor(105, 105, 105, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(105, 105, 105, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(105, 105, 105, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(105, 105, 105, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(105, 105, 105, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(105, 105, 105, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(105, 105, 105, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(105, 105, 105, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(105, 105, 105, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(105, 105, 105, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class DodgerBlue
+    {
+            public static CssColor Default { get; } = new CssColor(30, 144, 255, 255);
+            public static CssColor Darken1 { get; } = new CssColor(30, 144, 255, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(30, 144, 255, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(30, 144, 255, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(30, 144, 255, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(30, 144, 255, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(30, 144, 255, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(30, 144, 255, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(30, 144, 255, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(30, 144, 255, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(30, 144, 255, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Firebrick
+    {
+            public static CssColor Default { get; } = new CssColor(178, 34, 34, 255);
+            public static CssColor Darken1 { get; } = new CssColor(178, 34, 34, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(178, 34, 34, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(178, 34, 34, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(178, 34, 34, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(178, 34, 34, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(178, 34, 34, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(178, 34, 34, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(178, 34, 34, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(178, 34, 34, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(178, 34, 34, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class FloralWhite
+    {
+            public static CssColor Default { get; } = new CssColor(255, 250, 240, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 250, 240, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 250, 240, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 250, 240, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 250, 240, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 250, 240, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 250, 240, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 250, 240, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 250, 240, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 250, 240, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 250, 240, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class ForestGreen
+    {
+            public static CssColor Default { get; } = new CssColor(34, 139, 34, 255);
+            public static CssColor Darken1 { get; } = new CssColor(34, 139, 34, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(34, 139, 34, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(34, 139, 34, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(34, 139, 34, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(34, 139, 34, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(34, 139, 34, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(34, 139, 34, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(34, 139, 34, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(34, 139, 34, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(34, 139, 34, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Fuchsia
+    {
+            public static CssColor Default { get; } = new CssColor(255, 0, 255, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 0, 255, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 0, 255, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 0, 255, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 0, 255, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 0, 255, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 0, 255, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 0, 255, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 0, 255, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 0, 255, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 0, 255, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Gainsboro
+    {
+            public static CssColor Default { get; } = new CssColor(220, 220, 220, 255);
+            public static CssColor Darken1 { get; } = new CssColor(220, 220, 220, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(220, 220, 220, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(220, 220, 220, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(220, 220, 220, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(220, 220, 220, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(220, 220, 220, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(220, 220, 220, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(220, 220, 220, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(220, 220, 220, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(220, 220, 220, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class GhostWhite
+    {
+            public static CssColor Default { get; } = new CssColor(248, 248, 255, 255);
+            public static CssColor Darken1 { get; } = new CssColor(248, 248, 255, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(248, 248, 255, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(248, 248, 255, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(248, 248, 255, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(248, 248, 255, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(248, 248, 255, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(248, 248, 255, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(248, 248, 255, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(248, 248, 255, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(248, 248, 255, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Gold
+    {
+            public static CssColor Default { get; } = new CssColor(255, 215, 0, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 215, 0, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 215, 0, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 215, 0, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 215, 0, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 215, 0, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 215, 0, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 215, 0, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 215, 0, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 215, 0, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 215, 0, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Goldenrod
+    {
+            public static CssColor Default { get; } = new CssColor(218, 165, 32, 255);
+            public static CssColor Darken1 { get; } = new CssColor(218, 165, 32, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(218, 165, 32, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(218, 165, 32, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(218, 165, 32, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(218, 165, 32, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(218, 165, 32, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(218, 165, 32, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(218, 165, 32, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(218, 165, 32, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(218, 165, 32, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Gray
+    {
+            public static CssColor Default { get; } = new CssColor(128, 128, 128, 255);
+            public static CssColor Darken1 { get; } = new CssColor(128, 128, 128, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(128, 128, 128, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(128, 128, 128, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(128, 128, 128, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(128, 128, 128, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(128, 128, 128, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(128, 128, 128, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(128, 128, 128, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(128, 128, 128, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(128, 128, 128, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Green
+    {
+            public static CssColor Default { get; } = new CssColor(0, 128, 0, 255);
+            public static CssColor Darken1 { get; } = new CssColor(0, 128, 0, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(0, 128, 0, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(0, 128, 0, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(0, 128, 0, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(0, 128, 0, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(0, 128, 0, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(0, 128, 0, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(0, 128, 0, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(0, 128, 0, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(0, 128, 0, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class GreenYellow
+    {
+            public static CssColor Default { get; } = new CssColor(173, 255, 47, 255);
+            public static CssColor Darken1 { get; } = new CssColor(173, 255, 47, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(173, 255, 47, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(173, 255, 47, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(173, 255, 47, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(173, 255, 47, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(173, 255, 47, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(173, 255, 47, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(173, 255, 47, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(173, 255, 47, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(173, 255, 47, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Honeydew
+    {
+            public static CssColor Default { get; } = new CssColor(240, 255, 240, 255);
+            public static CssColor Darken1 { get; } = new CssColor(240, 255, 240, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(240, 255, 240, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(240, 255, 240, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(240, 255, 240, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(240, 255, 240, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(240, 255, 240, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(240, 255, 240, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(240, 255, 240, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(240, 255, 240, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(240, 255, 240, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class HotPink
+    {
+            public static CssColor Default { get; } = new CssColor(255, 105, 180, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 105, 180, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 105, 180, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 105, 180, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 105, 180, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 105, 180, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 105, 180, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 105, 180, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 105, 180, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 105, 180, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 105, 180, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class IndianRed
+    {
+            public static CssColor Default { get; } = new CssColor(205, 92, 92, 255);
+            public static CssColor Darken1 { get; } = new CssColor(205, 92, 92, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(205, 92, 92, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(205, 92, 92, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(205, 92, 92, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(205, 92, 92, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(205, 92, 92, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(205, 92, 92, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(205, 92, 92, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(205, 92, 92, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(205, 92, 92, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Indigo
+    {
+            public static CssColor Default { get; } = new CssColor(75, 0, 130, 255);
+            public static CssColor Darken1 { get; } = new CssColor(75, 0, 130, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(75, 0, 130, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(75, 0, 130, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(75, 0, 130, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(75, 0, 130, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(75, 0, 130, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(75, 0, 130, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(75, 0, 130, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(75, 0, 130, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(75, 0, 130, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Ivory
+    {
+            public static CssColor Default { get; } = new CssColor(255, 255, 240, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 255, 240, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 255, 240, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 255, 240, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 255, 240, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 255, 240, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 255, 240, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 255, 240, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 255, 240, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 255, 240, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 255, 240, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Khaki
+    {
+            public static CssColor Default { get; } = new CssColor(240, 230, 140, 255);
+            public static CssColor Darken1 { get; } = new CssColor(240, 230, 140, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(240, 230, 140, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(240, 230, 140, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(240, 230, 140, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(240, 230, 140, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(240, 230, 140, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(240, 230, 140, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(240, 230, 140, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(240, 230, 140, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(240, 230, 140, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Lavender
+    {
+            public static CssColor Default { get; } = new CssColor(230, 230, 250, 255);
+            public static CssColor Darken1 { get; } = new CssColor(230, 230, 250, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(230, 230, 250, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(230, 230, 250, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(230, 230, 250, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(230, 230, 250, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(230, 230, 250, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(230, 230, 250, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(230, 230, 250, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(230, 230, 250, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(230, 230, 250, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class LavenderBlush
+    {
+            public static CssColor Default { get; } = new CssColor(255, 240, 245, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 240, 245, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 240, 245, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 240, 245, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 240, 245, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 240, 245, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 240, 245, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 240, 245, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 240, 245, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 240, 245, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 240, 245, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class LawnGreen
+    {
+            public static CssColor Default { get; } = new CssColor(124, 252, 0, 255);
+            public static CssColor Darken1 { get; } = new CssColor(124, 252, 0, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(124, 252, 0, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(124, 252, 0, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(124, 252, 0, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(124, 252, 0, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(124, 252, 0, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(124, 252, 0, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(124, 252, 0, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(124, 252, 0, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(124, 252, 0, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class LemonChiffon
+    {
+            public static CssColor Default { get; } = new CssColor(255, 250, 205, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 250, 205, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 250, 205, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 250, 205, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 250, 205, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 250, 205, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 250, 205, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 250, 205, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 250, 205, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 250, 205, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 250, 205, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class LightBlue
+    {
+            public static CssColor Default { get; } = new CssColor(173, 216, 230, 255);
+            public static CssColor Darken1 { get; } = new CssColor(173, 216, 230, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(173, 216, 230, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(173, 216, 230, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(173, 216, 230, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(173, 216, 230, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(173, 216, 230, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(173, 216, 230, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(173, 216, 230, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(173, 216, 230, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(173, 216, 230, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class LightCoral
+    {
+            public static CssColor Default { get; } = new CssColor(240, 128, 128, 255);
+            public static CssColor Darken1 { get; } = new CssColor(240, 128, 128, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(240, 128, 128, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(240, 128, 128, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(240, 128, 128, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(240, 128, 128, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(240, 128, 128, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(240, 128, 128, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(240, 128, 128, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(240, 128, 128, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(240, 128, 128, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class LightCyan
+    {
+            public static CssColor Default { get; } = new CssColor(224, 255, 255, 255);
+            public static CssColor Darken1 { get; } = new CssColor(224, 255, 255, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(224, 255, 255, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(224, 255, 255, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(224, 255, 255, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(224, 255, 255, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(224, 255, 255, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(224, 255, 255, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(224, 255, 255, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(224, 255, 255, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(224, 255, 255, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class LightGoldenrodYellow
+    {
+            public static CssColor Default { get; } = new CssColor(250, 250, 210, 255);
+            public static CssColor Darken1 { get; } = new CssColor(250, 250, 210, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(250, 250, 210, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(250, 250, 210, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(250, 250, 210, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(250, 250, 210, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(250, 250, 210, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(250, 250, 210, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(250, 250, 210, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(250, 250, 210, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(250, 250, 210, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class LightGreen
+    {
+            public static CssColor Default { get; } = new CssColor(144, 238, 144, 255);
+            public static CssColor Darken1 { get; } = new CssColor(144, 238, 144, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(144, 238, 144, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(144, 238, 144, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(144, 238, 144, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(144, 238, 144, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(144, 238, 144, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(144, 238, 144, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(144, 238, 144, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(144, 238, 144, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(144, 238, 144, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class LightGray
+    {
+            public static CssColor Default { get; } = new CssColor(211, 211, 211, 255);
+            public static CssColor Darken1 { get; } = new CssColor(211, 211, 211, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(211, 211, 211, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(211, 211, 211, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(211, 211, 211, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(211, 211, 211, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(211, 211, 211, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(211, 211, 211, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(211, 211, 211, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(211, 211, 211, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(211, 211, 211, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class LightPink
+    {
+            public static CssColor Default { get; } = new CssColor(255, 182, 193, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 182, 193, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 182, 193, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 182, 193, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 182, 193, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 182, 193, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 182, 193, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 182, 193, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 182, 193, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 182, 193, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 182, 193, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class LightSalmon
+    {
+            public static CssColor Default { get; } = new CssColor(255, 160, 122, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 160, 122, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 160, 122, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 160, 122, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 160, 122, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 160, 122, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 160, 122, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 160, 122, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 160, 122, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 160, 122, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 160, 122, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class LightSeaGreen
+    {
+            public static CssColor Default { get; } = new CssColor(32, 178, 170, 255);
+            public static CssColor Darken1 { get; } = new CssColor(32, 178, 170, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(32, 178, 170, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(32, 178, 170, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(32, 178, 170, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(32, 178, 170, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(32, 178, 170, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(32, 178, 170, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(32, 178, 170, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(32, 178, 170, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(32, 178, 170, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class LightSkyBlue
+    {
+            public static CssColor Default { get; } = new CssColor(135, 206, 250, 255);
+            public static CssColor Darken1 { get; } = new CssColor(135, 206, 250, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(135, 206, 250, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(135, 206, 250, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(135, 206, 250, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(135, 206, 250, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(135, 206, 250, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(135, 206, 250, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(135, 206, 250, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(135, 206, 250, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(135, 206, 250, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class LightSlateGray
+    {
+            public static CssColor Default { get; } = new CssColor(119, 136, 153, 255);
+            public static CssColor Darken1 { get; } = new CssColor(119, 136, 153, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(119, 136, 153, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(119, 136, 153, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(119, 136, 153, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(119, 136, 153, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(119, 136, 153, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(119, 136, 153, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(119, 136, 153, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(119, 136, 153, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(119, 136, 153, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class LightSteelBlue
+    {
+            public static CssColor Default { get; } = new CssColor(176, 196, 222, 255);
+            public static CssColor Darken1 { get; } = new CssColor(176, 196, 222, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(176, 196, 222, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(176, 196, 222, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(176, 196, 222, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(176, 196, 222, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(176, 196, 222, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(176, 196, 222, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(176, 196, 222, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(176, 196, 222, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(176, 196, 222, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class LightYellow
+    {
+            public static CssColor Default { get; } = new CssColor(255, 255, 224, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 255, 224, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 255, 224, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 255, 224, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 255, 224, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 255, 224, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 255, 224, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 255, 224, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 255, 224, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 255, 224, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 255, 224, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Lime
+    {
+            public static CssColor Default { get; } = new CssColor(0, 255, 0, 255);
+            public static CssColor Darken1 { get; } = new CssColor(0, 255, 0, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(0, 255, 0, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(0, 255, 0, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(0, 255, 0, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(0, 255, 0, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(0, 255, 0, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(0, 255, 0, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(0, 255, 0, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(0, 255, 0, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(0, 255, 0, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class LimeGreen
+    {
+            public static CssColor Default { get; } = new CssColor(50, 205, 50, 255);
+            public static CssColor Darken1 { get; } = new CssColor(50, 205, 50, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(50, 205, 50, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(50, 205, 50, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(50, 205, 50, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(50, 205, 50, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(50, 205, 50, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(50, 205, 50, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(50, 205, 50, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(50, 205, 50, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(50, 205, 50, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Linen
+    {
+            public static CssColor Default { get; } = new CssColor(250, 240, 230, 255);
+            public static CssColor Darken1 { get; } = new CssColor(250, 240, 230, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(250, 240, 230, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(250, 240, 230, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(250, 240, 230, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(250, 240, 230, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(250, 240, 230, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(250, 240, 230, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(250, 240, 230, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(250, 240, 230, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(250, 240, 230, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Magenta
+    {
+            public static CssColor Default { get; } = new CssColor(255, 0, 255, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 0, 255, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 0, 255, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 0, 255, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 0, 255, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 0, 255, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 0, 255, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 0, 255, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 0, 255, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 0, 255, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 0, 255, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Maroon
+    {
+            public static CssColor Default { get; } = new CssColor(128, 0, 0, 255);
+            public static CssColor Darken1 { get; } = new CssColor(128, 0, 0, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(128, 0, 0, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(128, 0, 0, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(128, 0, 0, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(128, 0, 0, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(128, 0, 0, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(128, 0, 0, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(128, 0, 0, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(128, 0, 0, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(128, 0, 0, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class MediumAquamarine
+    {
+            public static CssColor Default { get; } = new CssColor(102, 205, 170, 255);
+            public static CssColor Darken1 { get; } = new CssColor(102, 205, 170, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(102, 205, 170, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(102, 205, 170, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(102, 205, 170, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(102, 205, 170, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(102, 205, 170, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(102, 205, 170, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(102, 205, 170, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(102, 205, 170, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(102, 205, 170, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class MediumBlue
+    {
+            public static CssColor Default { get; } = new CssColor(0, 0, 205, 255);
+            public static CssColor Darken1 { get; } = new CssColor(0, 0, 205, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(0, 0, 205, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(0, 0, 205, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(0, 0, 205, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(0, 0, 205, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(0, 0, 205, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(0, 0, 205, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(0, 0, 205, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(0, 0, 205, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(0, 0, 205, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class MediumOrchid
+    {
+            public static CssColor Default { get; } = new CssColor(186, 85, 211, 255);
+            public static CssColor Darken1 { get; } = new CssColor(186, 85, 211, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(186, 85, 211, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(186, 85, 211, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(186, 85, 211, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(186, 85, 211, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(186, 85, 211, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(186, 85, 211, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(186, 85, 211, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(186, 85, 211, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(186, 85, 211, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class MediumPurple
+    {
+            public static CssColor Default { get; } = new CssColor(147, 112, 219, 255);
+            public static CssColor Darken1 { get; } = new CssColor(147, 112, 219, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(147, 112, 219, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(147, 112, 219, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(147, 112, 219, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(147, 112, 219, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(147, 112, 219, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(147, 112, 219, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(147, 112, 219, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(147, 112, 219, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(147, 112, 219, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class MediumSeaGreen
+    {
+            public static CssColor Default { get; } = new CssColor(60, 179, 113, 255);
+            public static CssColor Darken1 { get; } = new CssColor(60, 179, 113, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(60, 179, 113, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(60, 179, 113, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(60, 179, 113, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(60, 179, 113, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(60, 179, 113, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(60, 179, 113, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(60, 179, 113, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(60, 179, 113, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(60, 179, 113, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class MediumSlateBlue
+    {
+            public static CssColor Default { get; } = new CssColor(123, 104, 238, 255);
+            public static CssColor Darken1 { get; } = new CssColor(123, 104, 238, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(123, 104, 238, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(123, 104, 238, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(123, 104, 238, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(123, 104, 238, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(123, 104, 238, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(123, 104, 238, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(123, 104, 238, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(123, 104, 238, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(123, 104, 238, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class MediumSpringGreen
+    {
+            public static CssColor Default { get; } = new CssColor(0, 250, 154, 255);
+            public static CssColor Darken1 { get; } = new CssColor(0, 250, 154, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(0, 250, 154, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(0, 250, 154, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(0, 250, 154, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(0, 250, 154, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(0, 250, 154, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(0, 250, 154, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(0, 250, 154, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(0, 250, 154, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(0, 250, 154, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class MediumTurquoise
+    {
+            public static CssColor Default { get; } = new CssColor(72, 209, 204, 255);
+            public static CssColor Darken1 { get; } = new CssColor(72, 209, 204, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(72, 209, 204, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(72, 209, 204, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(72, 209, 204, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(72, 209, 204, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(72, 209, 204, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(72, 209, 204, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(72, 209, 204, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(72, 209, 204, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(72, 209, 204, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class MediumVioletRed
+    {
+            public static CssColor Default { get; } = new CssColor(199, 21, 133, 255);
+            public static CssColor Darken1 { get; } = new CssColor(199, 21, 133, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(199, 21, 133, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(199, 21, 133, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(199, 21, 133, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(199, 21, 133, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(199, 21, 133, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(199, 21, 133, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(199, 21, 133, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(199, 21, 133, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(199, 21, 133, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class MidnightBlue
+    {
+            public static CssColor Default { get; } = new CssColor(25, 25, 112, 255);
+            public static CssColor Darken1 { get; } = new CssColor(25, 25, 112, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(25, 25, 112, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(25, 25, 112, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(25, 25, 112, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(25, 25, 112, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(25, 25, 112, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(25, 25, 112, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(25, 25, 112, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(25, 25, 112, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(25, 25, 112, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class MintCream
+    {
+            public static CssColor Default { get; } = new CssColor(245, 255, 250, 255);
+            public static CssColor Darken1 { get; } = new CssColor(245, 255, 250, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(245, 255, 250, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(245, 255, 250, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(245, 255, 250, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(245, 255, 250, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(245, 255, 250, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(245, 255, 250, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(245, 255, 250, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(245, 255, 250, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(245, 255, 250, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class MistyRose
+    {
+            public static CssColor Default { get; } = new CssColor(255, 228, 225, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 228, 225, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 228, 225, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 228, 225, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 228, 225, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 228, 225, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 228, 225, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 228, 225, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 228, 225, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 228, 225, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 228, 225, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Moccasin
+    {
+            public static CssColor Default { get; } = new CssColor(255, 228, 181, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 228, 181, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 228, 181, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 228, 181, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 228, 181, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 228, 181, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 228, 181, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 228, 181, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 228, 181, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 228, 181, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 228, 181, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class NavajoWhite
+    {
+            public static CssColor Default { get; } = new CssColor(255, 222, 173, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 222, 173, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 222, 173, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 222, 173, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 222, 173, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 222, 173, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 222, 173, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 222, 173, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 222, 173, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 222, 173, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 222, 173, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Navy
+    {
+            public static CssColor Default { get; } = new CssColor(0, 0, 128, 255);
+            public static CssColor Darken1 { get; } = new CssColor(0, 0, 128, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(0, 0, 128, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(0, 0, 128, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(0, 0, 128, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(0, 0, 128, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(0, 0, 128, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(0, 0, 128, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(0, 0, 128, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(0, 0, 128, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(0, 0, 128, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class OldLace
+    {
+            public static CssColor Default { get; } = new CssColor(253, 245, 230, 255);
+            public static CssColor Darken1 { get; } = new CssColor(253, 245, 230, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(253, 245, 230, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(253, 245, 230, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(253, 245, 230, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(253, 245, 230, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(253, 245, 230, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(253, 245, 230, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(253, 245, 230, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(253, 245, 230, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(253, 245, 230, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Olive
+    {
+            public static CssColor Default { get; } = new CssColor(128, 128, 0, 255);
+            public static CssColor Darken1 { get; } = new CssColor(128, 128, 0, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(128, 128, 0, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(128, 128, 0, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(128, 128, 0, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(128, 128, 0, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(128, 128, 0, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(128, 128, 0, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(128, 128, 0, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(128, 128, 0, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(128, 128, 0, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class OliveDrab
+    {
+            public static CssColor Default { get; } = new CssColor(107, 142, 35, 255);
+            public static CssColor Darken1 { get; } = new CssColor(107, 142, 35, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(107, 142, 35, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(107, 142, 35, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(107, 142, 35, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(107, 142, 35, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(107, 142, 35, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(107, 142, 35, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(107, 142, 35, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(107, 142, 35, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(107, 142, 35, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Orange
+    {
+            public static CssColor Default { get; } = new CssColor(255, 165, 0, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 165, 0, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 165, 0, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 165, 0, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 165, 0, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 165, 0, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 165, 0, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 165, 0, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 165, 0, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 165, 0, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 165, 0, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class OrangeRed
+    {
+            public static CssColor Default { get; } = new CssColor(255, 69, 0, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 69, 0, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 69, 0, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 69, 0, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 69, 0, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 69, 0, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 69, 0, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 69, 0, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 69, 0, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 69, 0, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 69, 0, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Orchid
+    {
+            public static CssColor Default { get; } = new CssColor(218, 112, 214, 255);
+            public static CssColor Darken1 { get; } = new CssColor(218, 112, 214, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(218, 112, 214, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(218, 112, 214, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(218, 112, 214, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(218, 112, 214, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(218, 112, 214, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(218, 112, 214, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(218, 112, 214, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(218, 112, 214, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(218, 112, 214, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class PaleGoldenrod
+    {
+            public static CssColor Default { get; } = new CssColor(238, 232, 170, 255);
+            public static CssColor Darken1 { get; } = new CssColor(238, 232, 170, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(238, 232, 170, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(238, 232, 170, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(238, 232, 170, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(238, 232, 170, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(238, 232, 170, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(238, 232, 170, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(238, 232, 170, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(238, 232, 170, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(238, 232, 170, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class PaleGreen
+    {
+            public static CssColor Default { get; } = new CssColor(152, 251, 152, 255);
+            public static CssColor Darken1 { get; } = new CssColor(152, 251, 152, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(152, 251, 152, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(152, 251, 152, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(152, 251, 152, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(152, 251, 152, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(152, 251, 152, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(152, 251, 152, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(152, 251, 152, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(152, 251, 152, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(152, 251, 152, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class PaleTurquoise
+    {
+            public static CssColor Default { get; } = new CssColor(175, 238, 238, 255);
+            public static CssColor Darken1 { get; } = new CssColor(175, 238, 238, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(175, 238, 238, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(175, 238, 238, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(175, 238, 238, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(175, 238, 238, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(175, 238, 238, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(175, 238, 238, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(175, 238, 238, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(175, 238, 238, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(175, 238, 238, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class PaleVioletRed
+    {
+            public static CssColor Default { get; } = new CssColor(219, 112, 147, 255);
+            public static CssColor Darken1 { get; } = new CssColor(219, 112, 147, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(219, 112, 147, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(219, 112, 147, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(219, 112, 147, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(219, 112, 147, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(219, 112, 147, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(219, 112, 147, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(219, 112, 147, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(219, 112, 147, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(219, 112, 147, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class PapayaWhip
+    {
+            public static CssColor Default { get; } = new CssColor(255, 239, 213, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 239, 213, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 239, 213, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 239, 213, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 239, 213, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 239, 213, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 239, 213, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 239, 213, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 239, 213, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 239, 213, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 239, 213, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class PeachPuff
+    {
+            public static CssColor Default { get; } = new CssColor(255, 218, 185, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 218, 185, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 218, 185, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 218, 185, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 218, 185, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 218, 185, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 218, 185, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 218, 185, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 218, 185, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 218, 185, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 218, 185, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Peru
+    {
+            public static CssColor Default { get; } = new CssColor(205, 133, 63, 255);
+            public static CssColor Darken1 { get; } = new CssColor(205, 133, 63, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(205, 133, 63, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(205, 133, 63, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(205, 133, 63, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(205, 133, 63, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(205, 133, 63, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(205, 133, 63, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(205, 133, 63, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(205, 133, 63, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(205, 133, 63, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Pink
+    {
+            public static CssColor Default { get; } = new CssColor(255, 192, 203, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 192, 203, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 192, 203, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 192, 203, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 192, 203, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 192, 203, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 192, 203, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 192, 203, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 192, 203, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 192, 203, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 192, 203, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Plum
+    {
+            public static CssColor Default { get; } = new CssColor(221, 160, 221, 255);
+            public static CssColor Darken1 { get; } = new CssColor(221, 160, 221, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(221, 160, 221, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(221, 160, 221, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(221, 160, 221, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(221, 160, 221, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(221, 160, 221, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(221, 160, 221, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(221, 160, 221, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(221, 160, 221, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(221, 160, 221, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class PowderBlue
+    {
+            public static CssColor Default { get; } = new CssColor(176, 224, 230, 255);
+            public static CssColor Darken1 { get; } = new CssColor(176, 224, 230, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(176, 224, 230, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(176, 224, 230, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(176, 224, 230, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(176, 224, 230, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(176, 224, 230, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(176, 224, 230, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(176, 224, 230, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(176, 224, 230, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(176, 224, 230, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Purple
+    {
+            public static CssColor Default { get; } = new CssColor(128, 0, 128, 255);
+            public static CssColor Darken1 { get; } = new CssColor(128, 0, 128, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(128, 0, 128, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(128, 0, 128, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(128, 0, 128, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(128, 0, 128, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(128, 0, 128, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(128, 0, 128, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(128, 0, 128, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(128, 0, 128, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(128, 0, 128, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class RebeccaPurple
+    {
+            public static CssColor Default { get; } = new CssColor(102, 51, 153, 255);
+            public static CssColor Darken1 { get; } = new CssColor(102, 51, 153, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(102, 51, 153, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(102, 51, 153, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(102, 51, 153, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(102, 51, 153, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(102, 51, 153, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(102, 51, 153, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(102, 51, 153, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(102, 51, 153, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(102, 51, 153, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Red
+    {
+            public static CssColor Default { get; } = new CssColor(255, 0, 0, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 0, 0, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 0, 0, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 0, 0, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 0, 0, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 0, 0, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 0, 0, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 0, 0, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 0, 0, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 0, 0, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 0, 0, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class RosyBrown
+    {
+            public static CssColor Default { get; } = new CssColor(188, 143, 143, 255);
+            public static CssColor Darken1 { get; } = new CssColor(188, 143, 143, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(188, 143, 143, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(188, 143, 143, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(188, 143, 143, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(188, 143, 143, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(188, 143, 143, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(188, 143, 143, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(188, 143, 143, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(188, 143, 143, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(188, 143, 143, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class RoyalBlue
+    {
+            public static CssColor Default { get; } = new CssColor(65, 105, 225, 255);
+            public static CssColor Darken1 { get; } = new CssColor(65, 105, 225, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(65, 105, 225, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(65, 105, 225, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(65, 105, 225, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(65, 105, 225, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(65, 105, 225, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(65, 105, 225, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(65, 105, 225, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(65, 105, 225, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(65, 105, 225, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class SaddleBrown
+    {
+            public static CssColor Default { get; } = new CssColor(139, 69, 19, 255);
+            public static CssColor Darken1 { get; } = new CssColor(139, 69, 19, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(139, 69, 19, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(139, 69, 19, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(139, 69, 19, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(139, 69, 19, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(139, 69, 19, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(139, 69, 19, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(139, 69, 19, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(139, 69, 19, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(139, 69, 19, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Salmon
+    {
+            public static CssColor Default { get; } = new CssColor(250, 128, 114, 255);
+            public static CssColor Darken1 { get; } = new CssColor(250, 128, 114, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(250, 128, 114, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(250, 128, 114, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(250, 128, 114, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(250, 128, 114, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(250, 128, 114, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(250, 128, 114, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(250, 128, 114, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(250, 128, 114, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(250, 128, 114, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class SandyBrown
+    {
+            public static CssColor Default { get; } = new CssColor(244, 164, 96, 255);
+            public static CssColor Darken1 { get; } = new CssColor(244, 164, 96, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(244, 164, 96, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(244, 164, 96, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(244, 164, 96, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(244, 164, 96, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(244, 164, 96, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(244, 164, 96, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(244, 164, 96, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(244, 164, 96, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(244, 164, 96, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class SeaGreen
+    {
+            public static CssColor Default { get; } = new CssColor(46, 139, 87, 255);
+            public static CssColor Darken1 { get; } = new CssColor(46, 139, 87, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(46, 139, 87, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(46, 139, 87, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(46, 139, 87, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(46, 139, 87, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(46, 139, 87, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(46, 139, 87, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(46, 139, 87, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(46, 139, 87, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(46, 139, 87, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class SeaShell
+    {
+            public static CssColor Default { get; } = new CssColor(255, 245, 238, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 245, 238, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 245, 238, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 245, 238, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 245, 238, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 245, 238, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 245, 238, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 245, 238, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 245, 238, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 245, 238, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 245, 238, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Sienna
+    {
+            public static CssColor Default { get; } = new CssColor(160, 82, 45, 255);
+            public static CssColor Darken1 { get; } = new CssColor(160, 82, 45, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(160, 82, 45, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(160, 82, 45, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(160, 82, 45, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(160, 82, 45, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(160, 82, 45, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(160, 82, 45, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(160, 82, 45, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(160, 82, 45, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(160, 82, 45, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Silver
+    {
+            public static CssColor Default { get; } = new CssColor(192, 192, 192, 255);
+            public static CssColor Darken1 { get; } = new CssColor(192, 192, 192, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(192, 192, 192, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(192, 192, 192, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(192, 192, 192, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(192, 192, 192, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(192, 192, 192, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(192, 192, 192, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(192, 192, 192, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(192, 192, 192, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(192, 192, 192, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class SkyBlue
+    {
+            public static CssColor Default { get; } = new CssColor(135, 206, 235, 255);
+            public static CssColor Darken1 { get; } = new CssColor(135, 206, 235, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(135, 206, 235, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(135, 206, 235, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(135, 206, 235, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(135, 206, 235, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(135, 206, 235, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(135, 206, 235, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(135, 206, 235, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(135, 206, 235, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(135, 206, 235, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class SlateBlue
+    {
+            public static CssColor Default { get; } = new CssColor(106, 90, 205, 255);
+            public static CssColor Darken1 { get; } = new CssColor(106, 90, 205, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(106, 90, 205, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(106, 90, 205, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(106, 90, 205, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(106, 90, 205, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(106, 90, 205, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(106, 90, 205, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(106, 90, 205, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(106, 90, 205, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(106, 90, 205, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class SlateGray
+    {
+            public static CssColor Default { get; } = new CssColor(112, 128, 144, 255);
+            public static CssColor Darken1 { get; } = new CssColor(112, 128, 144, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(112, 128, 144, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(112, 128, 144, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(112, 128, 144, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(112, 128, 144, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(112, 128, 144, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(112, 128, 144, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(112, 128, 144, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(112, 128, 144, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(112, 128, 144, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Snow
+    {
+            public static CssColor Default { get; } = new CssColor(255, 250, 250, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 250, 250, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 250, 250, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 250, 250, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 250, 250, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 250, 250, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 250, 250, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 250, 250, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 250, 250, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 250, 250, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 250, 250, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class SpringGreen
+    {
+            public static CssColor Default { get; } = new CssColor(0, 255, 127, 255);
+            public static CssColor Darken1 { get; } = new CssColor(0, 255, 127, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(0, 255, 127, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(0, 255, 127, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(0, 255, 127, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(0, 255, 127, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(0, 255, 127, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(0, 255, 127, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(0, 255, 127, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(0, 255, 127, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(0, 255, 127, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class SteelBlue
+    {
+            public static CssColor Default { get; } = new CssColor(70, 130, 180, 255);
+            public static CssColor Darken1 { get; } = new CssColor(70, 130, 180, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(70, 130, 180, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(70, 130, 180, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(70, 130, 180, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(70, 130, 180, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(70, 130, 180, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(70, 130, 180, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(70, 130, 180, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(70, 130, 180, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(70, 130, 180, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Tan
+    {
+            public static CssColor Default { get; } = new CssColor(210, 180, 140, 255);
+            public static CssColor Darken1 { get; } = new CssColor(210, 180, 140, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(210, 180, 140, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(210, 180, 140, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(210, 180, 140, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(210, 180, 140, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(210, 180, 140, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(210, 180, 140, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(210, 180, 140, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(210, 180, 140, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(210, 180, 140, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Teal
+    {
+            public static CssColor Default { get; } = new CssColor(0, 128, 128, 255);
+            public static CssColor Darken1 { get; } = new CssColor(0, 128, 128, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(0, 128, 128, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(0, 128, 128, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(0, 128, 128, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(0, 128, 128, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(0, 128, 128, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(0, 128, 128, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(0, 128, 128, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(0, 128, 128, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(0, 128, 128, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Thistle
+    {
+            public static CssColor Default { get; } = new CssColor(216, 191, 216, 255);
+            public static CssColor Darken1 { get; } = new CssColor(216, 191, 216, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(216, 191, 216, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(216, 191, 216, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(216, 191, 216, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(216, 191, 216, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(216, 191, 216, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(216, 191, 216, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(216, 191, 216, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(216, 191, 216, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(216, 191, 216, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Tomato
+    {
+            public static CssColor Default { get; } = new CssColor(255, 99, 71, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 99, 71, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 99, 71, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 99, 71, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 99, 71, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 99, 71, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 99, 71, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 99, 71, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 99, 71, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 99, 71, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 99, 71, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Turquoise
+    {
+            public static CssColor Default { get; } = new CssColor(64, 224, 208, 255);
+            public static CssColor Darken1 { get; } = new CssColor(64, 224, 208, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(64, 224, 208, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(64, 224, 208, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(64, 224, 208, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(64, 224, 208, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(64, 224, 208, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(64, 224, 208, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(64, 224, 208, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(64, 224, 208, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(64, 224, 208, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Violet
+    {
+            public static CssColor Default { get; } = new CssColor(238, 130, 238, 255);
+            public static CssColor Darken1 { get; } = new CssColor(238, 130, 238, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(238, 130, 238, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(238, 130, 238, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(238, 130, 238, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(238, 130, 238, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(238, 130, 238, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(238, 130, 238, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(238, 130, 238, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(238, 130, 238, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(238, 130, 238, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Wheat
+    {
+            public static CssColor Default { get; } = new CssColor(245, 222, 179, 255);
+            public static CssColor Darken1 { get; } = new CssColor(245, 222, 179, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(245, 222, 179, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(245, 222, 179, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(245, 222, 179, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(245, 222, 179, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(245, 222, 179, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(245, 222, 179, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(245, 222, 179, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(245, 222, 179, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(245, 222, 179, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class White
+    {
+            public static CssColor Default { get; } = new CssColor(255, 255, 255, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 255, 255, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 255, 255, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 255, 255, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 255, 255, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 255, 255, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 255, 255, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 255, 255, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 255, 255, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 255, 255, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 255, 255, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class WhiteSmoke
+    {
+            public static CssColor Default { get; } = new CssColor(245, 245, 245, 255);
+            public static CssColor Darken1 { get; } = new CssColor(245, 245, 245, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(245, 245, 245, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(245, 245, 245, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(245, 245, 245, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(245, 245, 245, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(245, 245, 245, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(245, 245, 245, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(245, 245, 245, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(245, 245, 245, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(245, 245, 245, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class Yellow
+    {
+            public static CssColor Default { get; } = new CssColor(255, 255, 0, 255);
+            public static CssColor Darken1 { get; } = new CssColor(255, 255, 0, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(255, 255, 0, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(255, 255, 0, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(255, 255, 0, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(255, 255, 0, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(255, 255, 0, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(255, 255, 0, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(255, 255, 0, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(255, 255, 0, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(255, 255, 0, 255, CssColorVariant.Lighten(5));
+    }
+
+    public static class YellowGreen
+    {
+            public static CssColor Default { get; } = new CssColor(154, 205, 50, 255);
+            public static CssColor Darken1 { get; } = new CssColor(154, 205, 50, 255, CssColorVariant.Darken(1));
+            public static CssColor Darken2 { get; } = new CssColor(154, 205, 50, 255, CssColorVariant.Darken(2));
+            public static CssColor Darken3 { get; } = new CssColor(154, 205, 50, 255, CssColorVariant.Darken(3));
+            public static CssColor Darken4 { get; } = new CssColor(154, 205, 50, 255, CssColorVariant.Darken(4));
+            public static CssColor Darken5 { get; } = new CssColor(154, 205, 50, 255, CssColorVariant.Darken(5));
+            public static CssColor Lighten1 { get; } = new CssColor(154, 205, 50, 255, CssColorVariant.Lighten(1));
+            public static CssColor Lighten2 { get; } = new CssColor(154, 205, 50, 255, CssColorVariant.Lighten(2));
+            public static CssColor Lighten3 { get; } = new CssColor(154, 205, 50, 255, CssColorVariant.Lighten(3));
+            public static CssColor Lighten4 { get; } = new CssColor(154, 205, 50, 255, CssColorVariant.Lighten(4));
+            public static CssColor Lighten5 { get; } = new CssColor(154, 205, 50, 255, CssColorVariant.Lighten(5));
+    }
+}

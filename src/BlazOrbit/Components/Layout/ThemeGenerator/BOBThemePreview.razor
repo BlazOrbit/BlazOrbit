@@ -1,0 +1,175 @@
+﻿@namespace BlazOrbit.Components.Layout
+
+@using BlazOrbit.Components.Forms
+@using BlazOrbit.Components.Layout
+@using BlazOrbit.Components.Layout.Services
+@using Microsoft.AspNetCore.Components.Rendering
+
+<div class="bob-theme-preview">
+    <section class="bob-theme-preview__section">
+        <h5>Buttons</h5>
+        <div class="bob-theme-preview__row">
+            <BOBButton Text="Default" />
+            <BOBButton Text="Disabled" Disabled="true" />
+            <BOBButton Text="Loading" Loading="true" />
+            <BOBButton Text="Small" Size="BOBSize.Small" />
+            <BOBButton Text="Large" Size="BOBSize.Large" />
+        </div>
+    </section>
+
+    <section class="bob-theme-preview__section">
+        <h5>Inputs</h5>
+        <div class="bob-theme-preview__row">
+            <BOBInputText @bind-Value="_textValue" Label="Text Input" Placeholder="Enter text..." />
+            <BOBInputText @bind-Value="_textValue" Label="With Helper" HelperText="Helper text here" />
+            <BOBInputText @bind-Value="_textValue" Label="Disabled" Disabled="true" />
+        </div>
+        <div class="bob-theme-preview__row">
+            <BOBInputNumber @bind-Value="_numberValue" Label="Number" />
+            <BOBInputColor @bind-Value="_colorValue" Label="Color" />
+        </div>
+    </section>
+
+    <section class="bob-theme-preview__section">
+        <h5>Selection</h5>
+        <div class="bob-theme-preview__row">
+            <BOBSwitch @bind-Value="_switchValue" OptionActive="true" OptionInactive="false" Label="Switch" />
+            <BOBInputCheckbox @bind-Value="_checkValue" Label="Checkbox" />
+        </div>
+        <div class="bob-theme-preview__row">
+            <BOBInputRadio @bind-Value="_radioValue" Label="Radio Group" Orientation="RadioOrientation.Horizontal">
+                <RadioOption Value="@("option1")">Option 1</RadioOption>
+                <RadioOption Value="@("option2")">Option 2</RadioOption>
+                <RadioOption Value="@("option3")">Option 3</RadioOption>
+            </BOBInputRadio>
+        </div>
+    </section>
+
+    <section class="bob-theme-preview__section">
+        <h5>Card</h5>
+        <BOBCard>
+            <ChildContent>
+                <p>This is the card content. Cards use surface colors for background and contrast.</p>
+            </ChildContent>
+            <Actions>
+                <BOBButton Text="Action" Size="BOBSize.Small" />
+            </Actions>
+        </BOBCard>
+    </section>
+
+    <section class="bob-theme-preview__section">
+        <h5>Badges</h5>
+        <div class="bob-theme-preview__row">
+            <BOBBadge>Default</BOBBadge>
+            <BOBBadge BackgroundColor="var(--palette-primary)" Color="var(--palette-primary-contrast)">Primary</BOBBadge>
+            <BOBBadge BackgroundColor="var(--palette-success)" Color="var(--palette-success-contrast)">Success</BOBBadge>
+            <BOBBadge BackgroundColor="var(--palette-warning)" Color="var(--palette-warning-contrast)">Warning</BOBBadge>
+            <BOBBadge BackgroundColor="var(--palette-error)" Color="var(--palette-error-contrast)">Error</BOBBadge>
+            <BOBBadge BackgroundColor="var(--palette-info)" Color="var(--palette-info-contrast)">Info</BOBBadge>
+        </div>
+    </section>
+
+    <section class="bob-theme-preview__section">
+        <h5>Data Grid</h5>
+        <BOBDataGrid Items="_gridData" Hoverable="true" Density="BOBDensity.Compact">
+            <BOBDataColumn TItem="GridItem" Header="Name" Property="x => x.Name" />
+            <BOBDataColumn TItem="GridItem" Header="Status" Property="x => x.Status" />
+            <BOBDataColumn TItem="GridItem" Header="Value" Property="x => x.Value" />
+        </BOBDataGrid>
+    </section>
+
+    <section class="bob-theme-preview__section">
+        <h5>Code Block</h5>
+        <BOBCodeBlock Language="SyntaxHighlight.SyntaxHighlightLanguage.CSharp" Code="@_codeExample" />
+    </section>
+
+    <section class="bob-theme-preview__section">
+        <h5>Loading Indicators</h5>
+        <div class="bob-theme-preview__row">
+            <BOBLoadingIndicator Variant="BOBLoadingIndicatorVariant.CircularProgress" />
+            <BOBLoadingIndicator Variant="BOBLoadingIndicatorVariant.Dots" />
+            <BOBLoadingIndicator Variant="BOBLoadingIndicatorVariant.Spinner" />
+        </div>
+    </section>
+
+    <section class="bob-theme-preview__section">
+        <h5>Tooltip</h5>
+        <div class="bob-theme-preview__row">
+            <BOBTooltip Text="This is a tooltip">
+                <BOBButton Text="Hover me" />
+            </BOBTooltip>
+        </div>
+    </section>
+
+    <section class="bob-theme-preview__section">
+        <h5>Overlays</h5>
+        <div class="bob-theme-preview__row">
+            <BOBButton Text="Show Dialog" Size="BOBSize.Small" OnClick="() => _dialogOpen = true" />
+            <BOBButton Text="Show Drawer" Size="BOBSize.Small" OnClick="() => _drawerOpen = true" />
+            <BOBButton Text="Show Toast" Size="BOBSize.Small" OnClick="ShowToast" />
+        </div>
+    </section>
+
+    <section class="bob-theme-preview__section">
+        <h5>SVG Icons</h5>
+        <div class="bob-theme-preview__row">
+            <BOBSvgIcon Icon="@BOBIconKeys.UI.Home" Size="BOBSize.Large" />
+            <BOBSvgIcon Icon="@BOBIconKeys.UI.Settings" Size="BOBSize.Large" />
+            <BOBSvgIcon Icon="@BOBIconKeys.UI.Search" Size="BOBSize.Large" />
+            <BOBSvgIcon Icon="@BOBIconKeys.UI.Check" Size="BOBSize.Large" />
+            <BOBSvgIcon Icon="@BOBIconKeys.UI.Close" Size="BOBSize.Large" />
+        </div>
+    </section>
+
+    <BOBDialog @bind-Open="_dialogOpen" Title="Dialog Preview">
+        <Content>
+            <p>This is a dialog. It uses surface and contrast colors from the palette.</p>
+        </Content>
+        <Footer>
+            <BOBButton Text="Close" OnClick="() => _dialogOpen = false" />
+        </Footer>
+    </BOBDialog>
+
+    <BOBDrawer @bind-Open="_drawerOpen" Position="DrawerPosition.Right">
+        <Header>Drawer Preview</Header>
+        <ChildContent>
+            <p>This is a drawer panel. Useful for side navigation or detail views.</p>
+        </ChildContent>
+    </BOBDrawer>
+</div>
+
+@code {
+    [Inject] private IToastService ToastService { get; set; } = default!;
+
+    private string? _textValue = "";
+    private int _numberValue = 42;
+    private CssColor? _colorValue = new("#8AB4F8");
+    private bool _switchValue = true;
+    private bool _checkValue = true;
+    private string _radioValue = "option1";
+    private bool _dialogOpen = false;
+    private bool _drawerOpen = false;
+
+    private List<GridItem> _gridData = new()
+    {
+        new("Item 1", "Active", 100),
+        new("Item 2", "Pending", 250),
+        new("Item 3", "Completed", 75)
+    };
+
+    private string _codeExample = @"public class Example
+{
+    public void HelloWorld()
+    {
+        Console.WriteLine(""Hello!"");
+    }
+}";
+
+    private Task ShowToast() =>
+        ToastService.ShowAsync((RenderTreeBuilder builder) =>
+        {
+            builder.AddContent(0, "This is a toast notification preview");
+        });
+
+    private record GridItem(string Name, string Status, int Value);
+}

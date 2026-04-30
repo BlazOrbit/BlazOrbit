@@ -1,0 +1,106 @@
+﻿@using System.Globalization
+@namespace BlazOrbit.Components.Forms
+@attribute [GenerateComponentInfo]
+
+@inherits BOBComponentBase
+@implements IHasSize
+@implements IHasDensity
+@implements IPickerFamilyComponent
+
+<bob-component @attributes="ComputedAttributes">
+    <div class="bob-picker__row">
+        <_BOBBtn Icon="@BOBIconKeys.UI.ChevronLeft"
+                    AriaLabel="Previous year"
+                    OnClick="PrevYearClicked" />
+        <_BOBBtn Icon="@BOBIconKeys.UI.ChevronLeft"
+                    AriaLabel="Previous month"
+                    OnClick="PrevMonthClicked" />
+        <span class="bob-picker__title">@CurrentMonth.ToString("MMMM yyyy", CultureInfo.CurrentCulture)</span>
+        <_BOBBtn Icon="@BOBIconKeys.UI.ChevronRight"
+                    AriaLabel="Next month"
+                    OnClick="NextMonthClicked" />
+        <_BOBBtn Icon="@BOBIconKeys.UI.ChevronRight"
+                    AriaLabel="Next year"
+                    OnClick="NextYearClicked" />
+    </div>
+
+    <div class="bob-picker__grid">
+        @foreach (string day in WeekDays)
+        {
+            <span class="bob-picker__cell bob-picker__cell--muted">@day[..2]</span>
+        }
+        @foreach (DayCell day in Days)
+        {
+            <_BOBBtn Active="@day.IsSelected"
+                        class="@($"bob-picker__cell {(!day.IsCurrentMonth ? "bob-picker__cell--muted" : "")}")"
+                        OnClick="() => SelectDateClicked(day.Date)">
+                @day.Date.Day
+            </_BOBBtn>
+        }
+    </div>
+</bob-component>
+
+@code {
+    /// <summary>Current value of the component.</summary>
+    [Parameter] public DateOnly? Value { get; set; }
+    /// <summary>Raised when the value changes.</summary>
+    [Parameter] public EventCallback<DateOnly?> ValueChanged { get; set; }
+    /// <summary>Visual size of the component.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    /// <summary>Vertical density (gap) of the component.</summary>
+    [Parameter] public BOBDensity Density { get; set; } = BOBDensity.Standard;
+
+    private DateTime CurrentMonth = DateTime.Today;
+    private DateOnly SelectedDate = DateOnly.FromDateTime(DateTime.Today);
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        if (Value.HasValue)
+        {
+            SelectedDate = Value.Value;
+            CurrentMonth = new DateTime(Value.Value.Year, Value.Value.Month, 1);
+        }
+    }
+
+    private void PrevYearClicked(MouseEventArgs e) => CurrentMonth = CurrentMonth.AddYears(-1);
+    private void NextYearClicked(MouseEventArgs e) => CurrentMonth = CurrentMonth.AddYears(1);
+    private void PrevMonthClicked(MouseEventArgs e) => CurrentMonth = CurrentMonth.AddMonths(-1);
+    private void NextMonthClicked(MouseEventArgs e) => CurrentMonth = CurrentMonth.AddMonths(1);
+
+    private async Task SelectDateClicked(DateTime date)
+    {
+        SelectedDate = DateOnly.FromDateTime(date);
+        CurrentMonth = new DateTime(date.Year, date.Month, 1);
+        await ValueChanged.InvokeAsync(SelectedDate);
+    }
+
+    private IEnumerable<string> WeekDays => CultureInfo.CurrentCulture.DateTimeFormat.AbbreviatedDayNames;
+
+    private IEnumerable<DayCell> Days
+    {
+        get
+        {
+            DateTime firstOfMonth = new(CurrentMonth.Year, CurrentMonth.Month, 1);
+            DateTime start = firstOfMonth.AddDays(-(int)firstOfMonth.DayOfWeek);
+            return Enumerable.Range(0, 42).Select(i =>
+            {
+                DateTime d = start.AddDays(i);
+                return new DayCell
+                {
+                    Date = d,
+                    IsCurrentMonth = d.Month == CurrentMonth.Month,
+                    IsSelected = SelectedDate.DayNumber == DateOnly.FromDateTime(d).DayNumber
+                };
+            });
+        }
+    }
+
+    private sealed class DayCell
+    {
+        public DateTime Date { get; set; }
+        public bool IsCurrentMonth { get; set; }
+        public bool IsSelected { get; set; }
+    }
+
+}

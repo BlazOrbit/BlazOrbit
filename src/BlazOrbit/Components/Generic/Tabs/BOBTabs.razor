@@ -1,0 +1,243 @@
+﻿@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.JSInterop
+@inherits BOBVariantComponentBase<BOBTabs, BOBTabsVariant>
+@implements IHasSize
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code {
+    /* ========= Public API ========= */
+    /// <summary>Markup that emits the tab definitions (typically <c>&lt;BOBTab&gt;</c> children).</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>ActiveTab.</summary>
+    [Parameter] public string? ActiveTab { get; set; }
+
+    /// <summary>ActiveTabChanged.</summary>
+    [Parameter] public EventCallback<string?> ActiveTabChanged { get; set; }
+
+    /// <summary>When <see langword="true" />, the component spans the full width of its container.</summary>
+    [Parameter] public bool FullWidth { get; set; }
+
+    // IHasSize
+    /// <summary>Visual size of the tab bar.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+
+    /* ========= Variant ========= */
+    public override BOBTabsVariant DefaultVariant => BOBTabsVariant.Underline;
+
+    protected override Dictionary<BOBTabsVariant, Func<BOBTabs, RenderFragment>> BuiltInTemplates { get; } = new()
+    {
+        [BOBTabsVariant.Underline] = t => t.RenderDefault(),
+        [BOBTabsVariant.Pills] = t => t.RenderDefault(),
+        [BOBTabsVariant.Enclosed] = t => t.RenderDefault(),
+    };
+
+    /* ========= Private state ========= */
+    private readonly List<BOBTab> _tabs = new();
+    private readonly object _tabsLock = new();
+    private readonly Dictionary<string, ElementReference> _tabRefs = new();
+    private string? _pendingFocusTabId;
+
+    /* ========= Internal API for BOBTab ========= */
+    // Called from BOBTab.OnInitialized / Dispose, which Blazor dispatches on the
+    // renderer's SynchronizationContext. StateHasChanged is therefore safe to call
+    // directly without InvokeAsync.
+    internal void RegisterTab(BOBTab tab)
+    {
+        if (IsDisposed) return;
+
+        bool added;
+        lock (_tabsLock)
+        {
+            if (_tabs.Contains(tab)) return;
+            _tabs.Add(tab);
+            added = true;
+            if (string.IsNullOrEmpty(ActiveTab) && _tabs.Count == 1)
+            {
+                ActiveTab = tab.Id;
+            }
+        }
+
+        if (added)
+        {
+            StateHasChanged();
+        }
+    }
+
+    internal void UnregisterTab(BOBTab tab)
+    {
+        if (IsDisposed) return;
+
+        bool removed;
+        lock (_tabsLock)
+        {
+            removed = _tabs.Remove(tab);
+        }
+
+        if (removed)
+        {
+            StateHasChanged();
+        }
+    }
+
+    private List<BOBTab> SnapshotTabs()
+    {
+        lock (_tabsLock)
+        {
+            return new List<BOBTab>(_tabs);
+        }
+    }
+
+    public override async ValueTask DisposeAsync()
+    {
+        IsDisposed = true;
+        lock (_tabsLock)
+        {
+            _tabs.Clear();
+        }
+        _tabRefs.Clear();
+        await base.DisposeAsync();
+    }
+
+    internal bool IsActiveTab(string? tabId) => ActiveTab == tabId;
+
+    /* ========= Render ========= */
+    private RenderFragment RenderDefault() => __builder =>
+    {
+        List<BOBTab> tabs = SnapshotTabs();
+        <CascadingValue Value="this">
+            <bob-component @attributes="@ComputedAttributes">
+                <div class="bob-tabs__header" role="tablist">
+                    @foreach (BOBTab tab in tabs)
+                    {
+                        string tabId = tab.Id ?? string.Empty;
+                        bool isActive = tab.Id == ActiveTab;
+                        <button type="button"
+                                role="tab"
+                                id="@($"bob-tab-{tabId}")"
+                                class="bob-tabs__tab"
+                                data-bob-active="@(isActive.ToString().ToLowerInvariant())"
+                                aria-selected="@(isActive ? "true" : "false")"
+                                aria-controls="@($"bob-tabpanel-{tabId}")"
+                                tabindex="@(isActive ? 0 : -1)"
+                                disabled="@tab.Disabled"
+                                @ref="_tabRefs[tabId]"
+                                @onclick="() => SelectTab(tab.Id)"
+                                @onkeydown="e => HandleKeyDown(e, tabs, tab.Id)">
+                            @if (tab.Icon != null)
+                            {
+                                <span class="bob-tabs__tab-icon">@tab.Icon</span>
+                            }
+                            <span class="bob-tabs__tab-label">@tab.Label</span>
+                        </button>
+                    }
+                </div>
+                <div class="bob-tabs__content"
+                     role="tabpanel"
+                     id="@($"bob-tabpanel-{ActiveTab}")"
+                     aria-labelledby="@($"bob-tab-{ActiveTab}")"
+                     tabindex="0">
+                    @ChildContent
+                </div>
+            </bob-component>
+        </CascadingValue>
+    };
+
+    /* ========= Event Handlers ========= */
+    private async Task SelectTab(string? tabId)
+    {
+        if (ActiveTab != tabId)
+        {
+            ActiveTab = tabId;
+            await ActiveTabChanged.InvokeAsync(tabId);
+        }
+    }
+
+    private async Task HandleKeyDown(KeyboardEventArgs e, List<BOBTab> tabs, string? currentId)
+    {
+        if (tabs.Count == 0) return;
+
+        int currentIndex = tabs.FindIndex(t => t.Id == currentId);
+        int targetIndex = -1;
+
+        switch (e.Key)
+        {
+            case "ArrowRight":
+                targetIndex = FindNextEnabled(tabs, currentIndex, 1);
+                break;
+            case "ArrowLeft":
+                targetIndex = FindNextEnabled(tabs, currentIndex, -1);
+                break;
+            case "Home":
+                targetIndex = FindFirstEnabled(tabs, 0, 1);
+                break;
+            case "End":
+                targetIndex = FindFirstEnabled(tabs, tabs.Count - 1, -1);
+                break;
+            default:
+                return;
+        }
+
+        if (targetIndex < 0 || targetIndex == currentIndex) return;
+
+        string? targetId = tabs[targetIndex].Id;
+        _pendingFocusTabId = targetId;
+        await SelectTab(targetId);
+    }
+
+    private static int FindNextEnabled(List<BOBTab> tabs, int start, int step)
+    {
+        if (tabs.Count == 0) return -1;
+        int count = tabs.Count;
+        for (int i = 1; i <= count; i++)
+        {
+            int idx = ((start + step * i) % count + count) % count;
+            if (!tabs[idx].Disabled) return idx;
+        }
+        return -1;
+    }
+
+    private static int FindFirstEnabled(List<BOBTab> tabs, int start, int step)
+    {
+        for (int i = start; i >= 0 && i < tabs.Count; i += step)
+        {
+            if (!tabs[i].Disabled) return i;
+        }
+        return -1;
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (_pendingFocusTabId != null &&
+            _tabRefs.TryGetValue(_pendingFocusTabId, out ElementReference er))
+        {
+            _pendingFocusTabId = null;
+            try
+            {
+                await er.FocusAsync();
+            }
+            catch (JSDisconnectedException)
+            {
+            }
+            catch (InvalidOperationException)
+            {
+            }
+        }
+    }
+
+    /* ========= Component Attributes ========= */
+    public override void BuildComponentDataAttributes(Dictionary<string, object> attributes)
+    {
+        if (FullWidth)
+        {
+            attributes[FeatureDefinitions.DataAttributes.FullWidth] = "true";
+        }
+    }
+}

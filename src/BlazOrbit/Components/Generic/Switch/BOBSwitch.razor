@@ -1,0 +1,195 @@
+﻿@typeparam TValue
+
+@namespace BlazOrbit.Components.Forms
+@attribute [GenerateComponentInfo]
+
+@inherits BOBComponentBase
+@implements IHasSize
+@implements IHasDensity
+@implements IHasDisabled
+
+<bob-component @attributes="ComputedAttributes">
+    <label class="bob-switch" for="@ActualInputId" @onclick="HandleClick" @onclick:preventDefault="true">
+        <input type="checkbox"
+               id="@ActualInputId"
+               role="switch"
+               checked="@IsChecked"
+               disabled="@IsDisabled"
+               aria-checked="@(IsChecked ? "true" : "false")"
+               aria-label="@ResolvedAriaLabel"
+               aria-describedby="@AriaDescribedBy"
+               class="bob-switch__input" />
+
+        <span class="bob-switch__track" aria-hidden="true">
+            <span class="bob-switch__thumb">
+                @if (IconActive.HasValue || IconInactive.HasValue)
+                {
+                    @if (IsChecked && IconActive.HasValue)
+                    {
+                        <BOBSvgIcon Size="BOBSize.Small" Icon="@IconActive.Value" class="bob-switch__icon" />
+                    }
+                    else if (!IsChecked && IconInactive.HasValue)
+                    {
+                        <BOBSvgIcon Size="BOBSize.Small" Icon="@IconInactive.Value" class="bob-switch__icon" />
+                    }
+                }
+            </span>
+        </span>
+
+        @if (!string.IsNullOrWhiteSpace(Label))
+        {
+            <span class="bob-switch__label">@Label</span>
+        }
+    </label>
+
+</bob-component>
+
+@code {
+    private string _generatedInputId = $"bob-switch-{Guid.NewGuid():N}";
+
+    /* ===== Design ===== */
+
+    /// <summary>Visual size of the switch.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    /// <summary>Vertical density (gap) of the component.</summary>
+    [Parameter] public BOBDensity Density { get; set; } = BOBDensity.Standard;
+
+    /* ===== State ===== */
+
+    /// <summary>When <see langword="true" />, the switch cannot be toggled and is rendered as inactive.</summary>
+    [Parameter] public bool Disabled { get; set; }
+    public bool IsDisabled => Disabled;
+
+    /* ===== Accesibility ===== */
+    /// <summary>ID of the element that describes the switch (forwarded as <c>aria-describedby</c>).</summary>
+    [Parameter] public string AriaDescribedBy { get; set; } = string.Empty;
+
+    /// <summary>Accessible name for the component.</summary>
+    [Parameter] public string? AriaLabel { get; set; }
+
+    private string? ResolvedAriaLabel =>
+        !string.IsNullOrWhiteSpace(AriaLabel) ? AriaLabel
+        : !string.IsNullOrWhiteSpace(Label) ? null
+        : "Toggle";
+
+    /* ===== Switch behavior ===== */
+
+    /// <summary>
+    /// Current value of the switch
+    /// </summary>
+    [Parameter] public TValue? Value { get; set; }
+
+    /// <summary>
+    /// Callback when value changes
+    /// </summary>
+    [Parameter] public EventCallback<TValue?> ValueChanged { get; set; }
+
+    /// <summary>
+    /// Value when switch is in "off" state (unchecked)
+    /// </summary>
+    [Parameter, EditorRequired]
+    public TValue OptionInactive { get; set; } = default!;
+
+    /// <summary>
+    /// Value when switch is in "on" state (checked)
+    /// </summary>
+    [Parameter, EditorRequired]
+    public TValue OptionActive { get; set; } = default!;
+
+    /* ===== Content ===== */
+
+    /// <summary>
+    /// Label text displayed next to the switch
+    /// </summary>
+    [Parameter] public string? Label { get; set; }
+
+    /// <summary>
+    /// Icon shown when switch is unchecked (Option1)
+    /// </summary>
+    [Parameter] public IconKey? IconInactive { get; set; }
+
+    /// <summary>
+    /// Icon shown when switch is checked (Option2)
+    /// </summary>
+    [Parameter] public IconKey? IconActive { get; set; }
+
+    /// <summary>
+    /// Track background color when unchecked
+    /// </summary>
+    [Parameter] public string? TrackColorInactive { get; set; }
+
+    /// <summary>
+    /// Track background color when checked
+    /// </summary>
+    [Parameter] public string? TrackColorActive { get; set; }
+
+    /// <summary>
+    /// Thumb background color when unchecked
+    /// </summary>
+    [Parameter] public string? ThumbBackgroundColorInactive { get; set; }
+
+    /// <summary>
+    /// Thumb background color when checked
+    /// </summary>
+    [Parameter] public string? ThumbBackgroundColorActive { get; set; }
+
+    /// <summary>
+    /// Thumb color when unchecked
+    /// </summary>
+    [Parameter] public string? ThumbColorInactive { get; set; }
+
+    /// <summary>
+    /// Thumb color when checked
+    /// </summary>
+    [Parameter] public string? ThumbColorActive { get; set; }
+
+    /// <summary>
+    /// Optional custom input ID. If not provided, one will be generated.
+    /// </summary>
+    [Parameter] public string? InputId { get; set; }
+
+    /// <summary>
+    /// Computed input ID (custom or generated)
+    /// </summary>
+    private string ActualInputId => InputId ?? _generatedInputId;
+
+    /// <summary>
+    /// Whether the switch is currently checked (Value == Option2)
+    /// </summary>
+    protected bool IsChecked =>
+        EqualityComparer<TValue>.Default.Equals(Value, OptionActive);
+
+    private async Task HandleClick(MouseEventArgs e)
+    {
+        if (IsDisabled)
+            return;
+
+        TValue newValue =
+            EqualityComparer<TValue>.Default.Equals(Value, OptionInactive)
+                ? OptionActive
+                : OptionInactive;
+
+        Value = newValue;
+        await ValueChanged.InvokeAsync(newValue);
+    }
+
+    public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    {
+        base.BuildComponentDataAttributes(dataAttributes);
+        dataAttributes[FeatureDefinitions.DataAttributes.Active] = IsChecked.ToString().ToLowerInvariant();
+    }
+
+    public override void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    {
+        base.BuildComponentCssVariables(cssVariables);
+
+        if (!string.IsNullOrWhiteSpace(TrackColorInactive)) { cssVariables[FeatureDefinitions.InlineVariables.SwitchTrackInactiveBackground] = TrackColorInactive; }
+        if (!string.IsNullOrWhiteSpace(TrackColorActive)) { cssVariables[FeatureDefinitions.InlineVariables.SwitchTrackActiveBackground] = TrackColorActive; }
+
+        if (!string.IsNullOrWhiteSpace(ThumbBackgroundColorInactive)) { cssVariables[FeatureDefinitions.InlineVariables.SwitchThumbInactiveBackground] = ThumbBackgroundColorInactive; }
+        if (!string.IsNullOrWhiteSpace(ThumbBackgroundColorActive)) { cssVariables[FeatureDefinitions.InlineVariables.SwitchThumbActiveBackground] = ThumbBackgroundColorActive; }
+
+        if (!string.IsNullOrWhiteSpace(ThumbColorInactive)) { cssVariables[FeatureDefinitions.InlineVariables.SwitchThumbInactiveColor] = ThumbColorInactive; }
+        if (!string.IsNullOrWhiteSpace(ThumbColorActive)) { cssVariables[FeatureDefinitions.InlineVariables.SwitchThumbActiveColor] = ThumbColorActive; }
+    }
+}

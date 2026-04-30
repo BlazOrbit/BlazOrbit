@@ -1,0 +1,39 @@
+﻿@using BlazOrbit.Abstractions
+@inherits BOBVariantComponentBase<TestVariantComponent, TestVariant>
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code {
+    [Parameter] public string Text { get; set; } = "Test Variant Component";
+    [Parameter] public bool Disabled { get; set; }
+    [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    public override TestVariant DefaultVariant => TestVariant.Default;
+
+    protected override Dictionary<TestVariant, Func<TestVariantComponent, RenderFragment>> BuiltInTemplates { get; } = new()
+    {
+        [TestVariant.Default] = component => component.RenderDefault(),
+        [TestVariant.Alternative] = component => component.RenderAlternative(),
+    };
+
+    private RenderFragment RenderDefault() => __builder =>
+    {
+        <bob-component @attributes="ComputedAttributes">
+            <button @onclick="OnClick"
+                    disabled="@Disabled">
+                @Text
+            </button>
+        </bob-component>
+    };
+
+    private RenderFragment RenderAlternative() => __builder =>
+    {
+        <bob-component @attributes="ComputedAttributes">
+            <div @onclick="OnClick">
+                <span>Alt: @Text</span>
+            </div>
+        </bob-component>
+    };
+}

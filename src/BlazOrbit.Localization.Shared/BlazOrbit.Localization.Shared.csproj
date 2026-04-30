@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<IsPackable>true</IsPackable>
+		<PackageType>Dependency</PackageType>
+		<Nullable>enable</Nullable>
+		<PackageId>BlazOrbit.Localization.Shared</PackageId>
+		<NoWarn>$(NoWarn);RS0016;RS0017;RS0037</NoWarn>
+		<Description>Shared localization components and resources for BlazOrbit. Contains the common UI markup for BOBCultureSelector used by both Server and WASM hosting integrations.</Description>
+		<PackageTags>blazor;localization;i18n;culture;blazorbit</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="BlazOrbit.Tests.Integration" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\BlazOrbit\BlazOrbit.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="10.0.7" />
+		<PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="4.14.0" PrivateAssets="all" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<AdditionalFiles Include="PublicAPI.Shipped.txt" />
+		<AdditionalFiles Include="PublicAPI.Unshipped.txt" />
+	</ItemGroup>
+
+	<!--
+		Localized .resx files for `BOBCultureSelectorResources` live in
+		`BlazOrbit.Translations`. `IStringLocalizer<BOBCultureSelectorResources>`
+		is rerouted to that assembly by `ReroutedStringLocalizerFactory`, registered
+		from `AddBlazOrbitLocalizationServer` / `AddBlazOrbitLocalizationWasm`.
+		The empty marker class here remains as the type anchor consumers use.
+	-->
+
+</Project>

@@ -1,0 +1,193 @@
+# .github/workflows/public-api-tracker.yml
+# Tracks public API changes and generates reports
+# Runs on PRs to develop and on releases
+
+name: Public API Tracker
+
+on:
+  pull_request:
+    branches: [develop]
+    types: [opened, synchronize, reopened, labeled, unlabeled]
+  
+  push:
+    branches: [master]
+    tags: ['v*']
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  analyze-api-changes:
+    name: Analyze API Changes
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Install PublicApiAnalyzers
+        run: |
+          # Install the analyzer globally to help detect API changes
+          dotnet tool install --global Microsoft.DotNet.ApiCompat.Tool 2>/dev/null || true
+
+      - name: Detect API Changes
+        id: detect
+        run: |
+          echo "=== Detecting Public API Changes ==="
+          
+          # Get changed PublicAPI files
+          if [ "${{ github.event_name }}" == "pull_request" ]; then
+            BASE="origin/${{ github.base_ref }}"
+          else
+            if git describe --tags --abbrev=0 >/dev/null 2>&1; then
+              BASE="$(git describe --tags --abbrev=0)"
+            else
+              BASE="$(git rev-list --max-parents=0 HEAD)"
+            fi
+          fi
+          
+          echo "Base: $BASE"
+          echo "Head: ${{ github.sha }}"
+          
+          # Check for Unshipped changes (new API)
+          UNSHIPPED=$(git diff --name-only $BASE..HEAD | grep -i "PublicAPI.Unshipped.txt" || true)
+          
+          # Check for Shipped changes (shouldn't happen in PRs)
+          SHIPPED=$(git diff --name-only $BASE..HEAD | grep -i "PublicAPI.Shipped.txt" || true)
+          
+          if [ -n "$UNSHIPPED" ]; then
+            echo "has_unshipped=true" >> $GITHUB_OUTPUT
+            
+            # Extract added APIs
+            echo "### New Public APIs Added" > api_changes.md
+            echo "" >> api_changes.md
+            
+            for file in $UNSHIPPED; do
+              if [ -f "$file" ]; then
+                echo "**$file:**" >> api_changes.md
+                echo '```' >> api_changes.md
+                # Get added lines (starting with + but not +++ or +//)
+                git diff $BASE..HEAD -- "$file" | grep "^+" 2>/dev/null | grep -v "^+++" 2>/dev/null | grep -v "^+//" 2>/dev/null | head -50 >> api_changes.md || true
+                echo '```' >> api_changes.md
+                echo "" >> api_changes.md
+              fi
+            done
+          else
+            echo "has_unshipped=false" >> $GITHUB_OUTPUT
+          fi
+          
+          if [ -n "$SHIPPED" ]; then
+            echo "has_shipped=true" >> $GITHUB_OUTPUT
+            echo "⚠️ WARNING: PublicAPI.Shipped.txt was modified" >> api_changes.md
+          else
+            echo "has_shipped=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Upload API Changes Report
+        if: steps.detect.outputs.has_unshipped == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-changes-${{ github.run_id }}
+          path: api_changes.md
+          retention-days: 30
+
+      - name: Comment on PR
+        if: github.event_name == 'pull_request' && steps.detect.outputs.has_unshipped == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let body = '## 📊 Public API Changes Report\n\n';
+            
+            if (fs.existsSync('api_changes.md')) {
+              const content = fs.readFileSync('api_changes.md', 'utf8');
+              body += content;
+            }
+            
+            body += '\n---\n';
+            body += '**Note:** This PR modifies the public API. The `changes/public-api` label has been added.\n';
+            body += 'This will trigger a **MINOR** version bump on the next release.\n';
+            
+            // Find existing comment
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number
+            });
+            
+            const existingComment = comments.find(c => c.body.includes('Public API Changes Report'));
+            
+            if (existingComment) {
+              // Update existing comment
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existingComment.id,
+                body: body
+              });
+            } else {
+              // Create new comment
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: body
+              });
+            }
+
+      - name: Generate Release API Report
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          echo "=== Generating Release API Report ==="
+          
+          if git describe --tags --abbrev=0 --exclude "${{ github.ref_name }}" >/dev/null 2>&1; then
+            LAST_TAG=$(git describe --tags --abbrev=0 --exclude "${{ github.ref_name }}")
+          else
+            LAST_TAG=$(git rev-list --max-parents=0 HEAD)
+          fi
+          echo "Last tag: $LAST_TAG"
+          echo "Current: ${{ github.ref_name }}"
+          
+          # Get all Unshipped changes between tags
+          echo "# Public API Changes in ${{ github.ref_name }}" > release_api_report.md
+          echo "" >> release_api_report.md
+          echo "Comparing with $LAST_TAG" >> release_api_report.md
+          echo "" >> release_api_report.md
+          
+          # Find all PublicAPI.Unshipped.txt files that changed
+          CHANGED_FILES=$(git diff --name-only $LAST_TAG..HEAD | grep "PublicAPI.Unshipped.txt" || true)
+          
+          if [ -n "$CHANGED_FILES" ]; then
+            echo "## New APIs Added" >> release_api_report.md
+            echo "" >> release_api_report.md
+            
+            for file in $CHANGED_FILES; do
+              PROJECT=$(dirname "$file" | xargs basename)
+              echo "### $PROJECT" >> release_api_report.md
+              echo '```csharp' >> release_api_report.md
+              # Get content of Unshipped file at HEAD
+              git show HEAD:"$file" 2>/dev/null | grep -v "^#" | grep -v "^$" | head -100 >> release_api_report.md || true
+              echo '```' >> release_api_report.md
+              echo "" >> release_api_report.md
+            done
+          else
+            echo "No public API changes in this release." >> release_api_report.md
+          fi
+          
+          cat release_api_report.md
+
+      - name: Upload Release API Report
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: actions/upload-artifact@v4
+        with:
+          name: api-report-${{ github.ref_name }}
+          path: release_api_report.md
+          retention-days: 365

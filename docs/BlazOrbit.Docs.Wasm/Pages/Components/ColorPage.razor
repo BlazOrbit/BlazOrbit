@@ -1,0 +1,116 @@
+﻿@page "/components/color"
+
+@inject IStringLocalizer<ColorPage> Loc
+
+<PageTitle>BlazOrbit - BOBInputColor</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBInputColor"]"
+         Lede="@Loc["Full-featured color input with HSL/RGB/Hex output, an inline or dropdown picker, copy and revert actions."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBInputColor)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+        <BOBInputColor @bind-Value="_basic" Label="@Loc["Color"]" HelperText="@Loc["Pick anything, or paste a hex/rgb value."]" />
+    </DocDemo>
+
+    <DocDemo Key="Variants" Title="@Loc["Variants"]">
+        <BOBInputColor @bind-Value="_outlinedValue" Variant="BOBInputVariant.Outlined" Label="@Loc["Outlined"]" />
+        <BOBInputColor @bind-Value="_filledValue" Variant="BOBInputVariant.Filled" Label="@Loc["Filled"]" />
+        <BOBInputColor @bind-Value="_standardValue" Variant="BOBInputVariant.Standard" Label="@Loc["Standard"]" />
+    </DocDemo>
+
+    <DocDemo Key="Sizes" Title="@Loc["Sizes"]">
+        <BOBInputColor @bind-Value="_smallValue" Label="@Loc["Small"]" Size="BOBSize.Small" />
+        <BOBInputColor @bind-Value="_mediumValue" Label="@Loc["Medium (Default)"]" Size="BOBSize.Medium" />
+        <BOBInputColor @bind-Value="_largeValue" Label="@Loc["Large"]" Size="BOBSize.Large" />
+    </DocDemo>
+
+    <DocDemo Key="ColorAndBackground" Title="@Loc["Color & Background"]">
+        <BOBInputColor @bind-Value="_colorValue" Label="@Loc["Custom Color & Background"]" Color="@PaletteColor.Secondary" BackgroundColor="@PaletteColor.SecondaryContrast" />
+    </DocDemo>
+
+    <DocDemo Key="PrefixSuffix" Title="@Loc["Prefix & Suffix"]">
+        <BOBInputColor @bind-Value="_prefixValue" Label="@Loc["With Prefix Icon"]"
+                       PrefixIcon="@BOBIconKeys.MaterialIconsOutlined.i_palette"
+                       PrefixBackgroundColor="white"
+                       PrefixColor="black" />
+        <BOBInputColor @bind-Value="_suffixValue" Label="@Loc["With Suffix Icon"]"
+                       SuffixIcon="@BOBIconKeys.MaterialIconsOutlined.i_palette"
+                       SuffixBackgroundColor="white"
+                       SuffixColor="black" />
+    </DocDemo>
+
+    <DocDemo Key="Format" Title="@Loc["Output formats"]"
+             Description="@Loc["Pick the serialization format that matches your back-end."]">
+        <BOBInputColor @bind-Value="_hex" Label="@Loc["HEX"]" OutputFormat="ColorOutputFormats.Hex" />
+        <BOBInputColor @bind-Value="_hex" Label="@Loc["HEXA"]" OutputFormat="ColorOutputFormats.HexA" />
+        <BOBInputColor @bind-Value="_rgba" Label="@Loc["RGB"]" OutputFormat="ColorOutputFormats.Rgb" />
+        <BOBInputColor @bind-Value="_rgba" Label="@Loc["RGBA"]" OutputFormat="ColorOutputFormats.Rgba" />
+        <BOBInputColor @bind-Value="_rgba" Label="@Loc["Optimized"]" OutputFormat="ColorOutputFormats.Optimized" />
+    </DocDemo>
+
+    <DocDemo Key="DisplayMode" Title="@Loc["Display modes"]">
+        <BOBInputColor @bind-Value="_inline" Label="@Loc["Dropdown"]" DisplayMode="ColorPickerDisplayMode.Dropdown" />
+        <BOBInputColor @bind-Value="_inline" Label="@Loc["Modal"]" DisplayMode="ColorPickerDisplayMode.Modal" />
+    </DocDemo>
+
+    <DocDemo Key="ClearCopy" Title="@Loc["Clearable"]">
+        <BOBInputColor @bind-Value="_clearableNull" HelperText="@Loc["Clear reverts to initial value (nullable)"]"
+                       Label="@Loc["Clearable Nullable"]" Clearable="true" ShowCopyButton="true" />
+        <BOBInputColor @bind-Value="_clearableNotNull" HelperText="@Loc["Clear reverts to initial value (not nullable)"]"
+                       Label="@Loc["Clearable NotNullable"]" Clearable="true" ShowCopyButton="true" />
+    </DocDemo>
+
+    <DocDemo Key="ShadowAndBorder" Title="@Loc["Shadow"]">
+        <BOBInputColor @bind-Value="_shadowValue" Variant="BOBInputVariant.Outlined" Label="@Loc["Elevation Shadow"]" Shadow="@BOBShadowPresets.Elevation(2)" />
+        <BOBInputColor @bind-Value="_shadowValue" Variant="BOBInputVariant.Outlined" Label="@Loc["Custom Shadow"]" Shadow="@(ShadowStyle.Create(5, 10, 0.14f, color: "purple"))" />
+    </DocDemo>
+
+    <DocDemo Key="States" Title="@Loc["States"]">
+        <BOBInputColor @bind-Value="_requiredValue" Label="@Loc["Required"]" Required="true" HelperText="@Loc["Required"]" />
+        <BOBInputColor @bind-Value="_disabledValue" Label="@Loc["Disabled"]" Disabled="true" HelperText="@Loc["Disabled"]" />
+        <BOBInputColor @bind-Value="_readOnlyValue" Label="@Loc["Read Only"]" ReadOnly="true" HelperText="@Loc["ReadOnly"]" />
+    </DocDemo>
+
+    <DocDemo Key="CustomPickerSize" Title="@Loc["Custom Picker Size"]">
+        <BOBInputColor @bind-Value="_customPickerValue" Label="@Loc["Custom Picker Size"]"
+                       SelectionWidth="300" SelectionHeight="200"
+                       HelperText="@Loc["Custom picker size: 300x200"]" />
+    </DocDemo>
+
+    <DocDemo Key="Standalone" Title="@Loc["Standalone picker"]"
+             Description="@Loc["Use BOBColorPicker directly — no input field, just the picker."]">
+        <BOBColorPicker @bind-Value="_standalone" />
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBInputColorComponentInfo.Parameters" />
+    </section>
+
+</DocPage>
+
+@code {
+    private CssColor? _basic = new("#c41236");
+    private CssColor? _outlinedValue = new("#c41236");
+    private CssColor? _filledValue = new("#c41236");
+    private CssColor? _standardValue = new("#c41236");
+    private CssColor? _smallValue;
+    private CssColor? _mediumValue;
+    private CssColor? _largeValue;
+    private CssColor? _colorValue;
+    private CssColor? _prefixValue;
+    private CssColor? _suffixValue;
+    private CssColor? _hex = new("#2a7fff");
+    private CssColor? _rgba = new("rgba(42,127,255,1)");
+    private CssColor? _hsl = new("#ff6b35");
+    private CssColor? _inline = new("#10b981");
+    private CssColor? _clearableNull;
+    private CssColor? _requiredValue;
+    private CssColor? _disabledValue;
+    private CssColor? _readOnlyValue;
+    private CssColor? _customPickerValue;
+    private CssColor _clearableNotNull = new CssColor("#FFFFFF");
+    private CssColor? _standalone = new("#c41236");
+    private CssColor? _shadowValue;
+}

@@ -1,0 +1,33 @@
+﻿._bob-pagination {
+    --_pagination-padding-x: 1rem;
+    --_pagination-padding-y: .75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: var(--_pagination-padding-y) var(--_pagination-padding-x);
+}
+
+._bob-pagination__info {
+    font-size: 0.875rem;
+    color: var(--palette-surface-contrast);
+    opacity: 0.8;
+}
+
+._bob-pagination__controls {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+._bob-pagination__ellipsis {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 2rem;
+    height: 2rem;
+    font-size: 0.875rem;
+    color: var(--palette-surface-contrast);
+    opacity: 0.6;
+}

@@ -1,0 +1,32 @@
+﻿[data-bob-component="svg-icon"] {
+    --_svg-icon-color: var(--bob-inline-color, currentColor);
+    min-width: 1em;
+    min-height: 1em;
+    display: inline-block;
+    flex-shrink: 0;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: var(--_svg-icon-color);
+}
+
+    [data-bob-component="svg-icon"] svg {
+        fill: currentColor;
+    }
+
+    /* Specific size adjutements for icons */
+    [data-bob-component="svg-icon"][data-bob-size="small"] {
+        font-size: calc(1.25rem * var(--bob-size-multiplier));
+    }
+
+    [data-bob-component="svg-icon"][data-bob-size="medium"] {
+        font-size: calc(1.5rem * var(--bob-size-multiplier));
+    }
+
+    [data-bob-component="svg-icon"][data-bob-size="large"] {
+        font-size: calc(2rem * var(--bob-size-multiplier));
+    }

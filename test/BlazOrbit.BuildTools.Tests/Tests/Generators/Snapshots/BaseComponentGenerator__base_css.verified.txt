@@ -1,0 +1,136 @@
+﻿/* ========================================
+   Base Component Styles
+   Auto-generated - Do not edit manually
+   ======================================== */
+
+bob-component {
+    display: inline-flex;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: calc(1rem * var(--bob-size-multiplier, 1));
+    line-height: inherit;
+    gap: calc(0.5rem * var(--bob-density-multiplier, 1));
+}
+
+/* ========================================
+   SIZE SYSTEM
+   Uses CSS variable for consistent scaling.
+   ======================================== */
+
+bob-component[data-bob-size="small"] {
+    --bob-size-multiplier: var(--bob-small-multiplier);
+}
+
+bob-component[data-bob-size="medium"] {
+    --bob-size-multiplier: var(--bob-medium-multiplier);
+}
+
+bob-component[data-bob-size="large"] {
+    --bob-size-multiplier: var(--bob-large-multiplier);
+}
+
+/* ========================================
+   DENSITY SYSTEM
+   ======================================== */
+
+bob-component[data-bob-density="compact"] {
+    --bob-density-multiplier: var(--bob-compact-multiplier, 0.5);
+}
+
+bob-component[data-bob-density="standard"] {
+    --bob-density-multiplier: var(--bob-standard-multiplier, 1);
+}
+
+bob-component[data-bob-density="comfortable"] {
+    --bob-density-multiplier: var(--bob-comfortable-multiplier, 1.5);
+}
+
+/* ========================================
+   STATE STYLES
+   Disabled, loading, error, etc.
+   ======================================== */
+
+bob-component[data-bob-disabled="true"] {
+    opacity: var(--bob-opacity-disabled, 0.5);
+    pointer-events: none;
+    cursor: not-allowed;
+}
+
+/* CSS-OPT-02 block B.3: loading hosts get a wait cursor and stop accepting
+   pointer events. The visual content (spinner / dimming) is still owned by
+   each component's BOBLoadingIndicator child render. */
+bob-component[data-bob-loading="true"] {
+    cursor: wait;
+    pointer-events: none;
+}
+
+bob-component[data-bob-fullwidth="true"] {
+    width: 100%;
+}
+
+/* ========================================
+   FOCUS SYSTEM
+   WCAG 2.4.7 Focus Visible.
+   ======================================== */
+
+bob-component:focus-visible,
+bob-component :focus-visible {
+    outline: var(--bob-highlight-outline);
+    outline-offset: var(--bob-highlight-outline-offset);
+}
+
+/* ========================================
+   SHADOW SYSTEM
+   ======================================== */
+
+bob-component[data-bob-shadow="true"] {
+    box-shadow: var(--bob-inline-shadow);
+}
+
+/* ========================================
+   UTILITY CLASSES
+   ======================================== */
+
+.bob-field__required {
+    color: var(--palette-error, #d32f2f);
+    margin-inline-start: 0.25em;
+}
+
+.bob-field__validation {
+    font-size: 0.75rem;
+    color: var(--palette-error, #d32f2f);
+}
+
+.bob-field__helper {
+    font-size: 0.75rem;
+    color: var(--palette-surface-contrast);
+    opacity: 0.7;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* ========================================
+   REDUCED MOTION
+   WCAG 2.3.3 Animation from Interactions.
+   ======================================== */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}

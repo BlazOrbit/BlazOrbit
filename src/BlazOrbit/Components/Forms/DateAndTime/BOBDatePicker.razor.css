@@ -1,0 +1,4 @@
+﻿[data-bob-component="date-picker"] {
+    /* Intentionally minimal — BOBDatePicker relies on _picker-family.css
+       for bob-picker__row, bob-picker__grid, bob-picker__cell, etc. */
+}

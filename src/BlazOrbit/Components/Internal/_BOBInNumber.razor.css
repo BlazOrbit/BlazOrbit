@@ -1,0 +1,40 @@
+﻿._bob-simple-number {
+    min-width: calc(3rem * var(--bob-size-multiplier, 1));
+    min-height: calc(2rem * var(--bob-size-multiplier, 1));
+    padding: 0.25rem;
+    border: var(--bob-border-width) var(--bob-border-style) var(--palette-border);
+    border-radius: var(--bob-border-radius);
+    background: var(--palette-surface);
+    color: var(--palette-surface-contrast);
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+    outline: none;
+    -moz-appearance: textfield;
+}
+
+    ._bob-simple-number:focus {
+        border-color: var(--palette-surface-contrast);
+    }
+
+    ._bob-simple-number:focus-visible {
+        outline: var(--bob-highlight-outline);
+        outline-offset: var(--bob-highlight-outline-offset);
+    }
+
+    ._bob-simple-number:disabled {
+        cursor: not-allowed;
+        opacity: var(--bob-opacity-disabled);
+    }
+
+    ._bob-simple-number::placeholder {
+        opacity: var(--bob-opacity-placeholder, 0.5);
+    }
+
+    ._bob-simple-number::-webkit-outer-spin-button,
+    ._bob-simple-number::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }

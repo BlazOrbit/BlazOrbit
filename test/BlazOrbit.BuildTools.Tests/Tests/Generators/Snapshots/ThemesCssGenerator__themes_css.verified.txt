@@ -1,0 +1,48 @@
+﻿:root {
+  /* === Base Palette (Default Theme) === */
+  --palette-background: #121417;
+  --palette-background-contrast: #eceff1;
+  --palette-border: #eee;
+  --palette-error: #cf6679;
+  --palette-error-contrast: #121417;
+  --palette-highlight: #ffb74d;
+  --palette-info: #7aa2f7;
+  --palette-info-contrast: #121417;
+  --palette-primary: #8ab4f8;
+  --palette-primary-contrast: #121417;
+  --palette-secondary: #c792ea;
+  --palette-secondary-contrast: #121417;
+  --palette-shadow: rgba(0,0,0,0.5);
+  --palette-success: #4dd4a3;
+  --palette-success-contrast: #121417;
+  --palette-surface: #1e2126;
+  --palette-surface-contrast: #eceff1;
+  --palette-warning: #e6b566;
+  --palette-warning-contrast: #121417;
+  --palette-hover-tint: rgba(255,255,255,0.08);
+  --palette-active-tint: rgba(255,255,255,0.12);
+}
+
+html[data-bob-theme="light"] {
+  --palette-background: #f2f2f0;
+  --palette-background-contrast: #1f2328;
+  --palette-border: #111;
+  --palette-error: #b94a48;
+  --palette-error-contrast: #fff;
+  --palette-highlight: #c62828;
+  --palette-info: #5a6f8a;
+  --palette-info-contrast: #fff;
+  --palette-primary: #2f3e46;
+  --palette-primary-contrast: #fff;
+  --palette-secondary: #6d6875;
+  --palette-secondary-contrast: #fff;
+  --palette-shadow: #000;
+  --palette-success: #4a7c59;
+  --palette-success-contrast: #fff;
+  --palette-surface: #fff;
+  --palette-surface-contrast: #1f2328;
+  --palette-warning: #b5893d;
+  --palette-warning-contrast: #1f2328;
+  --palette-hover-tint: rgba(0,0,0,0.08);
+  --palette-active-tint: rgba(0,0,0,0.12);
+}

@@ -1,0 +1,169 @@
+﻿@namespace BlazOrbit.Components.Layout
+@attribute [GenerateComponentInfo]
+
+@inherits BOBVariantComponentBase<BOBCard, BOBCardVariant>
+@implements IHasShadow
+@implements IHasElevation
+@implements IHasBorder
+@implements IHasBackgroundColor
+@implements IHasColor
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code {
+    /* === Content Parameters === */
+
+    /// <summary>Header content rendered above the card body (typically a title row).</summary>
+    [Parameter] public RenderFragment? Header { get; set; }
+    /// <summary>Media slot rendered as a banner above or below the body, controlled by <see cref="MediaPosition"/>.</summary>
+    [Parameter] public RenderFragment? Media { get; set; }
+    /// <summary>Content rendered inside the component.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    /// <summary>Action row rendered at the bottom of the card (typically buttons).</summary>
+    [Parameter] public RenderFragment? Actions { get; set; }
+
+    /* === Behavior Parameters === */
+
+    /// <summary>When <see langword="true" />, the whole card surfaces a hover/active state and forwards clicks to <see cref="OnClick"/>.</summary>
+    [Parameter] public bool Clickable { get; set; }
+    /// <summary>Raised when the component is clicked.</summary>
+    [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+
+    /// <summary>CSS height applied to the media slot (any valid CSS length, e.g. <c>"160px"</c>).</summary>
+    [Parameter] public string? MediaHeight { get; set; }
+    /// <summary>Whether the media slot renders above or below the card body.</summary>
+    [Parameter] public CardMediaPosition MediaPosition { get; set; } = CardMediaPosition.Top;
+
+    /// <summary>Horizontal alignment of the action row.</summary>
+    [Parameter] public CardActionsAlignment ActionsAlignment { get; set; } = CardActionsAlignment.End;
+
+    // === IHasShadow === //
+    /// <summary>Shadow style applied to the card surface. Wins over <see cref="Elevation"/> when both are set.</summary>
+    [Parameter] public ShadowStyle? Shadow { get; set; }
+
+    /* === IHasElevation === */
+
+    /// <summary>Material Design elevation level (0–24). Sets a derived shadow and lifts the surface
+    /// in dark mode via a tint overlay. Overridden by <see cref="Shadow"/> when both are set.</summary>
+    [Parameter] public int? Elevation { get; set; }
+
+    /* === IHasBorder === */
+
+    /// <summary>Border style applied to the card edge.</summary>
+    [Parameter] public BorderStyle? Border { get; set; }
+
+    /* === IHasBackgroundColor === */
+
+    /// <summary>Background color of the card. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? BackgroundColor { get; set; }
+
+    /* === IHasColor === */
+
+    /// <summary>Text color of the card. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? Color { get; set; }
+
+    /* === Variant === */
+
+    public override BOBCardVariant DefaultVariant => BOBCardVariant.Default;
+
+    protected override Dictionary<BOBCardVariant, Func<BOBCard, RenderFragment>> BuiltInTemplates { get; } = new()
+    {
+        [BOBCardVariant.Default] = c => c.RenderCard(),
+    };
+
+    /* === Render Methods === */
+
+    private RenderFragment RenderCard() => __builder =>
+    {
+        <bob-component @attributes="ComputedAttributes"
+                       data-bob-clickable="@Clickable.ToString().ToLowerInvariant()"
+                       data-bob-media-position="@MediaPosition.ToString().ToLowerInvariant()">
+
+            <div class="bob-card"
+                 @onclick="HandleClick">
+
+                @if (MediaPosition == CardMediaPosition.Top)
+                {
+                    @RenderMedia()
+                }
+
+                @if (Header != null)
+                {
+                    <div class="bob-card__header">
+                        @Header
+                    </div>
+                }
+
+                @if (MediaPosition == CardMediaPosition.AfterHeader)
+                {
+                    @RenderMedia()
+                }
+
+                @if (ChildContent != null)
+                {
+                    <div class="bob-card__content">
+                        @ChildContent
+                    </div>
+                }
+
+                @if (MediaPosition == CardMediaPosition.BeforeActions)
+                {
+                    @RenderMedia()
+                }
+
+                @if (Actions != null)
+                {
+                    <div class="bob-card__actions @GetActionsClass()">
+                        @Actions
+                    </div>
+                }
+
+                @if (MediaPosition == CardMediaPosition.Bottom)
+                {
+                    @RenderMedia()
+                }
+            </div>
+        </bob-component>
+    };
+
+    private RenderFragment RenderMedia() => __builder =>
+    {
+        @if (Media != null)
+        {
+            <div class="bob-card__media">
+                @Media
+            </div>
+        }
+    };
+
+    /* === Helper Methods === */
+
+    private string GetActionsClass()
+    {
+        List<string> classes = new();
+
+        classes.Add($"bob-card__actions--{ActionsAlignment.ToString().ToLowerInvariant()}");
+
+        return string.Join(" ", classes);
+    }
+
+    private async Task HandleClick(MouseEventArgs args)
+    {
+        if (Clickable && OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync(args);
+        }
+    }
+
+    public override void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    {
+        base.BuildComponentCssVariables(cssVariables);
+
+        if (MediaHeight != null)
+        {
+            cssVariables["--_card-media-height"] = MediaHeight;
+        }
+    }
+}

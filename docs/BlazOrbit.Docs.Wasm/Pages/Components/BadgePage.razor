@@ -1,0 +1,79 @@
+﻿@page "/components/badge"
+
+@inject IStringLocalizer<BadgePage> Loc
+
+<PageTitle>BlazOrbit - BOBBadge</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBBadge"]"
+         Lede="@Loc["Compact label for status, counts, or tags. Circular, dot-only, or with content — use it anywhere."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBBadge)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+            <BOBBadge>@Loc["New"]</BOBBadge>
+            <BOBBadge>12</BOBBadge>
+            <BOBBadge>
+                <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_star" Size="BOBSize.Small" />
+                @Loc["Featured"]
+            </BOBBadge>
+    </DocDemo>
+
+    <DocDemo Key="Dot" Title="@Loc["Dot badge"]" Description="@Loc["An empty badge renders as a dot — perfect as an unread indicator."]">
+            <BOBBadge />
+            <BOBBadge BackgroundColor="@PaletteColor.Success" />
+            <BOBBadge BackgroundColor="@PaletteColor.Warning" />
+            <BOBBadge BackgroundColor="@PaletteColor.Error" />
+    </DocDemo>
+
+    <DocDemo Key="Circular" Title="@Loc["Circular"]" Description="@Loc["Use Circular for single-digit or icon badges."]">
+            <BOBBadge Circular="true">1</BOBBadge>
+            <BOBBadge Circular="true" BackgroundColor="@PaletteColor.Success">9</BOBBadge>
+            <BOBBadge Circular="true" BackgroundColor="@PaletteColor.Error">!</BOBBadge>
+    </DocDemo>
+
+    <DocDemo Key="Colors" Title="@Loc["Colors"]">
+            <BOBBadge BackgroundColor="@PaletteColor.Primary" Color="@PaletteColor.PrimaryContrast">@Loc["Primary"]</BOBBadge>
+            <BOBBadge BackgroundColor="@PaletteColor.Success" Color="@PaletteColor.SuccessContrast">@Loc["Success"]</BOBBadge>
+            <BOBBadge BackgroundColor="@PaletteColor.Warning" Color="@PaletteColor.WarningContrast">@Loc["Warning"]</BOBBadge>
+            <BOBBadge BackgroundColor="@PaletteColor.Error" Color="@PaletteColor.ErrorContrast">@Loc["Error"]</BOBBadge>
+            <BOBBadge BackgroundColor="@PaletteColor.Info" Color="@PaletteColor.InfoContrast">@Loc["Info"]</BOBBadge>
+    </DocDemo>
+
+    <DocDemo Key="ShadowAndBorder" Title="@Loc["Shadow & Border"]">
+            <BOBBadge Shadow="@BOBShadowPresets.Elevation(3)">@Loc["Elevated"]</BOBBadge>
+            <BOBBadge Border="@BOBBorderPresets.Pill" BackgroundColor="@PaletteColor.Primary" Color="@PaletteColor.PrimaryContrast">@Loc["Pill"]</BOBBadge>
+            <BOBBadge Border="@BOBBorderPresets.RoundedLarge" BackgroundColor="@PaletteColor.Secondary" Color="@PaletteColor.SecondaryContrast">@Loc["Rounded"]</BOBBadge>
+            <BOBBadge Border="@BOBBorderPresets.Default">@Loc["Bordered"]</BOBBadge>
+    </DocDemo>
+
+    <DocDemo Key="Notification" Title="@Loc["Notification badge"]" Description="@Loc["BOBNotificationBadge overlays a badge onto any child content."]">
+            <BOBNotificationBadge>
+                <ChildContent>
+                    <BOBButton Text="@Loc["Messages"]" LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_mail" />
+                </ChildContent>
+                <BadgeContent>4</BadgeContent>
+            </BOBNotificationBadge>
+            <BOBNotificationBadge>
+                <ChildContent>
+                    <BOBButton Text="@Loc["Inbox"]" LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_inbox" />
+                </ChildContent>
+                <BadgeContent>99+</BadgeContent>
+            </BOBNotificationBadge>
+            <BOBNotificationBadge>
+                <ChildContent>
+                    <BOBButton Text="@Loc["Alerts"]" LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_notifications" />
+                </ChildContent>
+            </BOBNotificationBadge>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+
+        <h3 class="doc-section__subtitle">BOBBadge</h3>
+        <PropertyTable Properties="@BOBBadgeComponentInfo.Parameters" />
+
+        <h3 class="doc-section__subtitle">BOBNotificationBadge</h3>
+        <PropertyTable Properties="@BOBNotificationBadgeComponentInfo.Parameters" />
+    </section>
+
+</DocPage>

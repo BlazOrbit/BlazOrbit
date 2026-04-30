@@ -1,0 +1,53 @@
+﻿[data-bob-component="badge"] {
+    display: inline-flex;
+    vertical-align: middle;
+    --_badge-padding-x: 0.5rem;
+    --_badge-padding-y: 0.25rem;
+    --_badge-font-weight: 600;
+    --_badge-circular-size: 1.5rem;
+    --_badge-background: var(--bob-inline-background, var(--palette-primary));
+    --_badge-color: var(--bob-inline-color, var(--palette-primary-contrast));
+    --_badge-border-radius: var(--bob-inline-border-radius, var(--bob-border-radius));
+    --_badge-border: var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border));
+    --_badge-border-top: var(--bob-inline-border-top, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+    --_badge-border-right: var(--bob-inline-border-right, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+    --_badge-border-bottom: var(--bob-inline-border-bottom, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+    --_badge-border-left: var(--bob-inline-border-left, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+}
+
+    [data-bob-component="badge"] .bob-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: calc(0.5rem * var(--bob-density-multiplier, 1));
+        padding: var(--_badge-padding-y) var(--_badge-padding-x);
+        white-space: nowrap;
+        font-weight: var(--_badge-font-weight);
+        background-color: var(--_badge-background);
+        color: var(--_badge-color);
+        border-radius: var(--_badge-border-radius);
+        border: var(--_badge-border);
+        border-top: var(--_badge-border-top);
+        border-right: var(--_badge-border-right);
+        border-bottom: var(--_badge-border-bottom);
+        border-left: var(--_badge-border-left);
+        user-select: none;
+    }
+
+    /* Empty badge (dot) */
+    [data-bob-component="badge"][data-bob-dot="true"] .bob-badge:empty {
+        padding: var(--_badge-padding-y);
+        border-radius: 50%;
+    }
+
+    /* Circular badge */
+    [data-bob-component="badge"][data-bob-circular="true"]:not([data-bob-dot="true"]) .bob-badge {
+        display: inline-grid;
+        place-items: center;
+        width: var(--_badge-circular-size, 1.5rem);
+        height: var(--_badge-circular-size, 1.5rem);
+        padding: 0;
+        border-radius: 50%;
+        line-height: 1;
+        font-size: 0.75em;
+    }

@@ -1,0 +1,87 @@
+﻿@namespace BlazOrbit.Components.Internal
+
+<button type="button"
+        data-bob-size="@Size.ToString().ToLowerInvariant()"
+        class="@ComputedClass"
+        disabled="@IsDisabled"
+        tabindex="@(IsDisabled ? "-1" : "0")"
+        aria-label="@AriaLabel"
+        aria-busy="@(Loading ? "true" : null)"
+        aria-live="@(Loading ? "polite" : null)"
+        @onclick="OnClick"
+        @onclick:stopPropagation="OnClickStopPropagation"
+        @onclick:preventDefault="OnClickPreventDefault"
+        @attributes="FilteredAttributes">
+    @if (Loading)
+    {
+        <BOBLoadingIndicator Variant="LoadingIndicatorVariant" />
+    }
+    else if (Icon.HasValue)
+    {
+        <BOBSvgIcon Icon="@Icon.Value" Size="Size" style="@IconStyle" />
+    }
+    @ChildContent
+</button>
+
+@code {
+    /// <summary>Closed-catalog icon key (obtain from <see cref="BOBIconKeys"/>).</summary>
+    [Parameter] public IconKey? Icon { get; set; }
+    /// <summary>Content rendered inside the component.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    /// <summary>When <see langword="true" />, the component is non-interactive.</summary>
+    [Parameter] public bool Disabled { get; set; }
+    /// <summary>Active.</summary>
+    [Parameter] public bool Active { get; set; }
+    /// <summary>When <see langword="true" />, the component shows a loading indicator.</summary>
+    [Parameter] public bool Loading { get; set; }
+    /// <summary>Visual size of the component.</summary>
+    [Parameter] public BOBSize Size { get; set; }
+    /// <summary>Variant of the loading indicator shown when <see cref="Loading"/> is <see langword="true"/>.</summary>
+    [Parameter] public BOBLoadingIndicatorVariant LoadingIndicatorVariant { get; set; } = BOBLoadingIndicatorVariant.CircularProgress;
+    /// <summary>IconRotation.</summary>
+    [Parameter] public int IconRotation { get; set; }
+    /// <summary>Accessible name for the component.</summary>
+    [Parameter] public string? AriaLabel { get; set; }
+    /// <summary>Raised when the component is clicked.</summary>
+    [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+    /// <summary>OnClickStopPropagation.</summary>
+    [Parameter] public bool OnClickStopPropagation { get; set; }
+    /// <summary>OnClickPreventDefault.</summary>
+    [Parameter] public bool OnClickPreventDefault { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private bool IsDisabled => Disabled || Loading;
+
+    private string ComputedClass
+    {
+        get
+        {
+            List<string> classes = ["bob-btn"];
+
+            if (Active)
+                classes.Add("bob-btn--active");
+
+            if (AdditionalAttributes?.TryGetValue("class", out object? extraClass) == true)
+                classes.Add(extraClass.ToString() ?? "");
+
+            return string.Join(" ", classes);
+        }
+    }
+
+    private string? IconStyle => IconRotation != 0
+        ? $"transform: rotate({IconRotation}deg); transition: transform 150ms ease;"
+        : null;
+
+    private Dictionary<string, object>? FilteredAttributes
+    {
+        get
+        {
+            if (AdditionalAttributes == null) return null;
+
+            return AdditionalAttributes
+                .Where(kv => kv.Key != "class" && kv.Key != "style")
+                .ToDictionary(kv => kv.Key, kv => kv.Value);
+        }
+    }
+}

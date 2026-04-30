@@ -1,0 +1,54 @@
+﻿.bob-btn {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    justify-content: center;
+    align-self: stretch;
+    flex-shrink: 0;
+    gap: 0.25rem;
+    min-width: calc(2.5rem * var(--bob-size-multiplier, 1));
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    overflow: hidden;
+    font-size: calc(1rem * var(--bob-size-multiplier, 1));
+    color: var(--palette-surface-contrast);
+}
+
+    /* Disabled */
+    .bob-btn:disabled {
+        opacity: var(--bob-opacity-disabled);
+        cursor: not-allowed;
+    }
+
+    /* Focus state */
+    .bob-btn:focus-visible {
+        outline: var(--bob-highlight-outline);
+        outline-offset: var(--bob-highlight-outline-offset);
+    }
+
+    /* Press state */
+    .bob-btn:active:not(:disabled) {
+        /*background: color-mix(in oklab, var(--palette-primary) 80%, var(--palette-active-tint) 20%);*/
+        color: color-mix(in oklab, var(--palette-surface-contrast) 80%, var(--palette-primary) 20%);
+    }
+
+    /* Hover state */
+    .bob-btn:hover:not(:active):not(:disabled) {
+        /*background: color-mix(in oklab, var(--palette-primary) 90%, var(--palette-hover-tint) 10%);*/
+        color: color-mix(in oklab, var(--palette-surface-contrast) 80%, var(--palette-primary) 20%);
+    }
+
+    /* Sizes */
+    .bob-btn[data-bob-size="small"] {
+        --bob-size-multiplier: var(--bob-small-multiplier);
+    }
+
+    .bob-btn[data-bob-size="medium"] {
+        --bob-size-multiplier: var(--bob-medium-multiplier);
+    }
+
+    .bob-btn[data-bob-size="large"] {
+        --bob-size-multiplier: var(--bob-large-multiplier);
+    }

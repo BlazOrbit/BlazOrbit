@@ -1,0 +1,18 @@
+﻿[
+  {
+    Name: Default_Triangle,
+    Html: <bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M12 2L2 22h20L12 2z"/></svg></bob-component>
+  },
+  {
+    Name: Circle_With_Title,
+    Html: <bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><title b-<SCOPE>>Circle icon</title><circle cx="12" cy="12" r="10"/></svg></bob-component>
+  },
+  {
+    Name: Star_Large,
+    Html: <bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="large" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M12 2l3 6 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1z"/></svg></bob-component>
+  },
+  {
+    Name: Custom_ViewBox,
+    Html: <bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><svg focusable="false" viewBox="0 0 48 48" aria-hidden="true" b-<SCOPE>><path d="M12 2L2 22h20L12 2z"/></svg></bob-component>
+  }
+]

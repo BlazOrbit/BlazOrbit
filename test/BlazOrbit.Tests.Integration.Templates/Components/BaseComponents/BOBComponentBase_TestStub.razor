@@ -1,0 +1,48 @@
+﻿@using BlazOrbit.Components
+@using BlazOrbit.Abstractions
+
+@inherits BOBComponentBase
+@implements IHasSize
+@implements IHasDensity
+@implements IHasColor
+@implements IHasBackgroundColor
+@implements IHasShadow
+@implements IHasLoading
+@implements IHasError
+@implements IHasDisabled
+@implements IHasReadOnly
+@implements IHasRequired
+@implements IHasFullWidth
+@implements IHasRipple
+@implements IHasBorder
+@implements IJsBehavior
+
+<div @ref="_elementRef" @attributes="ComputedAttributes">
+    @ChildContent
+</div>
+
+@code {
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public BOBSize Size { get; set; }
+    [Parameter] public BOBDensity Density { get; set; }
+    [Parameter] public string? Color { get; set; }
+    [Parameter] public string? BackgroundColor { get; set; }
+    [Parameter] public ShadowStyle? Shadow { get; set; }
+    [Parameter] public bool Loading { get; set; }
+    [Parameter] public bool Error { get; set; }
+    public bool IsError => Error;
+    [Parameter] public bool Disabled { get; set; }
+    public bool IsDisabled => Disabled || Loading;
+    [Parameter] public bool ReadOnly { get; set; }
+    public bool IsReadOnly => ReadOnly;
+    [Parameter] public bool Required { get; set; }
+    public bool IsRequired => Required;
+    [Parameter] public bool FullWidth { get; set; }
+    [Parameter] public bool DisableRipple { get; set; }
+    [Parameter] public string? RippleColor { get; set; }
+    [Parameter] public int? RippleDurationMs { get; set; }
+    [Parameter] public BorderStyle? Border { get; set; }
+
+    private ElementReference _elementRef;
+    public ElementReference GetRippleContainer() => _elementRef;
+}

@@ -1,0 +1,59 @@
+﻿@using BlazOrbit.Abstractions
+@using BlazOrbit.Localization
+@using BlazOrbit.Localization.Server
+@using BlazOrbit.Localization.Shared
+@using Microsoft.AspNetCore.Components
+@using System.Globalization
+
+@namespace BlazOrbit.Components.Server
+
+@inherits BlazOrbit.Localization.Shared.BOBCultureSelector
+
+@inject NavigationManager Navigation
+@inject ServerLocalizationSettings ServerSettings
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code {
+    protected override async Task SetCultureAsync(string cultureName)
+    {
+        if (string.IsNullOrEmpty(cultureName) || cultureName == _currentCulture.Name)
+            return;
+
+        CultureInfo? newCulture = ServerSettings.SupportedCultures
+            .FirstOrDefault(c => c.Name == cultureName);
+
+        if (newCulture == null)
+            return;
+
+        try
+        {
+            Uri uri = new Uri(Navigation.Uri);
+            string pathAndQuery = uri.GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
+            string cultureEscaped = Uri.EscapeDataString(cultureName);
+            string uriEscaped = Uri.EscapeDataString(pathAndQuery);
+
+            // forceLoad: true is required on Server. The culture is persisted in a
+            // cookie set by `CookieRequestCultureProvider`; that cookie only takes
+            // effect on the *next* request through the localization middleware, so
+            // the current SPA frame must be replaced by a full navigation. Wasm has
+            // a `ForceReload=false` opt-out (in-place CultureInfo update) — Server
+            // does not, by design.
+            string endpoint = ServerSettings.CultureEndpointPath.TrimStart('/');
+            Navigation.NavigateTo(
+                $"{endpoint}?culture={cultureEscaped}&redirectUri={uriEscaped}",
+                forceLoad: true);
+
+            if (OnCultureChanged.HasDelegate)
+            {
+                await OnCultureChanged.InvokeAsync(newCulture);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Error setting culture: {ex.Message}");
+        }
+    }
+}

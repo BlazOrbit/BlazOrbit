@@ -1,0 +1,13 @@
+﻿{
+  "profiles": {
+    "WSL": {
+      "commandName": "WSL2",
+      "distributionName": ""
+    },
+    "BUILD": {
+      "commandName": "Project",
+      "commandLineArgs": "\"V:\\Work\\CdCSharp\\Projects\\BlazOrbit\\src\\BlazOrbit\"",
+      "hotReloadEnabled": false
+    }
+  }
+}

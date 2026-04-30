@@ -1,0 +1,30 @@
+﻿@inherits LayoutComponentBase
+
+<BOBInitializer DefaultTheme="dark">
+    <BOBSidebarLayout HeaderHeight="68px" SidebarWidth="280px">
+        <Header>
+            <a class="doc-header__brand" href="/">
+                <img src="icon-48.png" aria-hidden="true" />
+            </a>
+            <nav class="doc-header__actions">
+                <a class="doc-header__link" href="/getting-started">Get started</a>
+                <a class="doc-header__link" href="https://github.com/BlazOrbit/BlazOrbit" target="_blank" rel="noopener">GitHub</a>
+                <BlazOrbit.Components.Wasm.BOBCultureSelector Size="BOBSize.Small"
+                                                              Variant="BOBCultureSelectorVariant.Dropdown"
+                                                              ForceReload="true" style="--_input-border-color: 0px;" />
+                <BOBThemeSelector Variant="BOBThemeSelectorVariant.SunMoon" />
+            </nav>
+        </Header>
+        <Sidebar>
+            <NavMenu />
+        </Sidebar>
+        <ChildContent>
+            <div class="doc-content__wrapper">
+                @Body
+            </div>
+        </ChildContent>
+    </BOBSidebarLayout>
+</BOBInitializer>
+
+<BOBModalHost />
+<BOBToastHost MaxVisiblePerPosition="5" />

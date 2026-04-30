@@ -1,0 +1,123 @@
+﻿[data-bob-component="dialog"] {
+    position: fixed;
+    inset: 0;
+    z-index: var(--bob-z-modal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* tabindex="-1" — host receives focus only as a programmatic fallback when
+       no focusable child exists (see ModalInterop.trapFocus). The focus trap
+       moves visible focus to the first interactive descendant, so suppressing
+       the host's outline here does not violate WCAG 2.4.7. */
+    outline: none;
+}
+
+[data-bob-component="dialog"] .bob-dialog-overlay {
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--palette-shadow) 50%, transparent);
+    backdrop-filter: blur(2px);
+    animation: bob-dialog-overlay-in 200ms ease-out forwards;
+}
+
+[data-bob-component="dialog"] .bob-dialog-overlay--closing {
+    animation: bob-dialog-overlay-out 150ms ease-in forwards;
+}
+
+[data-bob-component="dialog"] .bob-dialog {
+    --_dialog-radius: 8px;
+    --_dialog-background: var(--palette-surface);
+    --_dialog-shadow: var(--bob-inline-shadow, 0 8px 32px color-mix(in srgb, var(--palette-shadow) 20%, transparent));
+    position: relative;
+    background: var(--_dialog-background);
+    border-radius: var(--_dialog-radius);
+    box-shadow: var(--_dialog-shadow);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: bob-dialog-in 200ms ease-out forwards;
+}
+
+/* IHasElevation in dark theme: lift the dialog surface via tint overlay. */
+[data-bob-theme="dark"] [data-bob-component="dialog"][data-bob-elevation] .bob-dialog {
+    --_dialog-background: color-mix(in oklab,
+        var(--palette-surface),
+        var(--palette-surface-contrast) var(--bob-inline-elevation-tint, 0%));
+}
+
+[data-bob-component="dialog"] .bob-dialog--closing {
+    animation: bob-dialog-out 150ms ease-in forwards;
+}
+
+[data-bob-component="dialog"] .bob-dialog__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--palette-border);
+}
+
+[data-bob-component="dialog"] .bob-dialog__title {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+[data-bob-component="dialog"] .bob-dialog__content {
+    flex: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+}
+
+[data-bob-component="dialog"] .bob-dialog__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    border-top: 1px solid var(--palette-border);
+}
+
+@keyframes bob-dialog-overlay-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes bob-dialog-overlay-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes bob-dialog-in {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes bob-dialog-out {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}

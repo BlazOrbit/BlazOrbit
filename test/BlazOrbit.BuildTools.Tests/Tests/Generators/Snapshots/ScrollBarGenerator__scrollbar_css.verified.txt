@@ -1,0 +1,55 @@
+﻿/* =========================
+   SCROLLBAR (opt-in)
+   Activate by adding data-bob-scrollbars to <html>
+   or the .bob-scrollbars class to any wrapper.
+   ========================= */
+
+:root {
+    --bob-scrollbar-width: 10px;
+    --bob-scrollbar-thumb-radius: 8px;
+    --bob-scrollbar-thumb-border-width: 2px;
+}
+
+/* Firefox */
+[data-bob-scrollbars],
+[data-bob-scrollbars] *,
+.bob-scrollbars,
+.bob-scrollbars * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--palette-primary) var(--palette-surface);
+}
+
+/* WebKit (Chrome, Edge, Safari) */
+[data-bob-scrollbars] ::-webkit-scrollbar,
+.bob-scrollbars ::-webkit-scrollbar {
+    width: var(--bob-scrollbar-width);
+    height: var(--bob-scrollbar-width);
+}
+
+[data-bob-scrollbars] ::-webkit-scrollbar-track,
+.bob-scrollbars ::-webkit-scrollbar-track {
+    background: var(--palette-surface);
+    border-radius: var(--bob-scrollbar-thumb-radius);
+}
+
+[data-bob-scrollbars] ::-webkit-scrollbar-thumb,
+.bob-scrollbars ::-webkit-scrollbar-thumb {
+    background: var(--palette-primary);
+    border-radius: var(--bob-scrollbar-thumb-radius);
+    border: var(--bob-scrollbar-thumb-border-width) solid var(--palette-surface);
+}
+
+[data-bob-scrollbars] ::-webkit-scrollbar-thumb:hover,
+.bob-scrollbars ::-webkit-scrollbar-thumb:hover {
+    background: var(--palette-secondary);
+}
+
+[data-bob-scrollbars] ::-webkit-scrollbar-thumb:active,
+.bob-scrollbars ::-webkit-scrollbar-thumb:active {
+    background: var(--palette-info);
+}
+
+[data-bob-scrollbars] ::-webkit-scrollbar-corner,
+.bob-scrollbars ::-webkit-scrollbar-corner {
+    background: var(--palette-surface);
+}

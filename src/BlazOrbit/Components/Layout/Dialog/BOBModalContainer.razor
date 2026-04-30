@@ -1,0 +1,162 @@
+﻿@namespace BlazOrbit.Components.Layout
+
+<div class="bob-modal-container @GetVisibilityClass() @GetAnimationClass()"
+     @onclick:stopPropagation="true">
+
+    @if (Modal.Type == ModalType.Dialog)
+    {
+        <div class="bob-modal-dialog" style="@GetDialogStyle()">
+            @if (Modal.Options is DialogOptions { Title: not null } dialogOpts)
+            {
+                <div class="bob-modal-dialog__header">
+                    <h2 class="bob-modal-dialog__title">@dialogOpts.Title</h2>
+                    @if (Modal.Options.Closable)
+                    {
+                        <_BOBBtn Icon="@BOBIconKeys.UI.Close"
+                                    AriaLabel="Close"
+                                    OnClick="HandleClose" />
+                    }
+                </div>
+            }
+            else if (Modal.Options.Closable)
+            {
+                <div class="bob-modal-dialog__header bob-modal-dialog__header--close-only">
+                    <_BOBBtn Icon="@BOBIconKeys.UI.Close"
+                                AriaLabel="Close"
+                                OnClick="HandleClose" />
+                </div>
+            }
+
+            <div class="bob-modal-dialog__content">
+                @RenderComponent()
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="bob-modal-drawer @GetDrawerPositionClass()" style="@GetDrawerStyle()">
+            @if (Modal.Options.Closable)
+            {
+                <div class="bob-modal-drawer__header">
+                    <_BOBBtn Icon="@BOBIconKeys.UI.Close"
+                                AriaLabel="Close"
+                                OnClick="HandleClose" />
+                </div>
+            }
+
+            <div class="bob-modal-drawer__content">
+                @RenderComponent()
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public ModalState Modal { get; set; } = default!;
+
+    private string GetVisibilityClass() =>
+        Modal.IsVisible ? "bob-modal-container--visible" : "bob-modal-container--hidden";
+
+    private string GetAnimationClass() =>
+        Modal.IsAnimatingOut ? "bob-modal-container--closing" : "bob-modal-container--opening";
+
+    private string GetDialogStyle()
+    {
+        if (Modal.Options is not DialogOptions options)
+            return string.Empty;
+
+        List<string> styles = [];
+
+        if (options.FullScreen)
+        {
+            styles.Add("width: 100vw");
+            styles.Add("height: 100vh");
+            styles.Add("max-width: 100vw");
+            styles.Add("max-height: 100vh");
+            styles.Add("border-radius: 0");
+        }
+        else
+        {
+            if (!string.IsNullOrEmpty(options.MinWidth))
+                styles.Add($"min-width: {options.MinWidth}");
+            if (!string.IsNullOrEmpty(options.MaxWidth))
+                styles.Add($"max-width: {options.MaxWidth}");
+            if (!string.IsNullOrEmpty(options.MinHeight))
+                styles.Add($"min-height: {options.MinHeight}");
+            if (!string.IsNullOrEmpty(options.MaxHeight))
+                styles.Add($"max-height: {options.MaxHeight}");
+        }
+
+        string elevationStyle = GetElevationStyle(Modal.Options.Elevation);
+        if (!string.IsNullOrEmpty(elevationStyle))
+            styles.Add(elevationStyle);
+
+        return string.Join("; ", styles);
+    }
+
+    private string GetDrawerPositionClass()
+    {
+        if (Modal.Options is not DrawerOptions options)
+            return string.Empty;
+
+        return $"bob-modal-drawer--{options.Position.ToString().ToLowerInvariant()}";
+    }
+
+    private string GetDrawerStyle()
+    {
+        if (Modal.Options is not DrawerOptions options)
+            return string.Empty;
+
+        List<string> styles = [];
+
+        switch (options.Position)
+        {
+            case DrawerPosition.Left or DrawerPosition.Right:
+                styles.Add($"width: {options.Size}");
+                break;
+            case DrawerPosition.Top or DrawerPosition.Bottom:
+                styles.Add($"height: {options.Size}");
+                break;
+        }
+
+        string elevationStyle = GetElevationStyle(Modal.Options.Elevation);
+        if (!string.IsNullOrEmpty(elevationStyle))
+            styles.Add(elevationStyle);
+
+        return string.Join("; ", styles);
+    }
+
+    private static string GetElevationStyle(int? elevation)
+    {
+        if (elevation is not int rawLevel)
+            return string.Empty;
+
+        int level = System.Math.Clamp(rawLevel, 0, 24);
+        int tint = BOBElevationPresets.SurfaceTintPercent(level);
+        string shadow = BOBShadowPresets.Elevation(level).ToCss();
+        return $"--bob-inline-elevation-tint: {tint}%; --bob-inline-shadow: {shadow}";
+    }
+
+    private async Task HandleClose()
+    {
+        await Modal.Reference.CloseAsync();
+    }
+
+    private RenderFragment RenderComponent() => builder =>
+    {
+        builder.OpenComponent(0, Modal.ComponentType);
+        builder.AddAttribute(1, "ModalRef", Modal.Reference);
+
+        if (Modal.Parameters != null)
+        {
+            int seq = 2;
+            foreach (KeyValuePair<string, object?> param in Modal.Parameters)
+            {
+                builder.AddAttribute(seq++, param.Key, param.Value);
+            }
+        }
+
+        builder.CloseComponent();
+    };
+}

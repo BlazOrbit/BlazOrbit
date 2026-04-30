@@ -1,0 +1,5493 @@
+﻿[
+  {
+    Type: Keyword,
+    Value: import
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:  Injectable
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  OnDestroy 
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:  from 
+  },
+  {
+    Type: String,
+    Value: '@angular/core'
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Keyword,
+    Value: import
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:  HttpClient
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  HttpErrorResponse 
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:  from 
+  },
+  {
+    Type: String,
+    Value: '@angular/common/http'
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Keyword,
+    Value: import
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:  BehaviorSubject
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  Observable
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  Subject
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  throwError 
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:  from 
+  },
+  {
+    Type: String,
+    Value: 'rxjs'
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Keyword,
+    Value: import
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:  catchError
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  map
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  retry
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  takeUntil
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  tap 
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:  from 
+  },
+  {
+    Type: String,
+    Value: 'rxjs/operators'
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Comment,
+    Value: // Types and Interfaces
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Keyword,
+    Value: export
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: interface
+  },
+  {
+    Value:  User 
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    id
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: number
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    email
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: string
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    firstName
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: string
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    lastName
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: string
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    role
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  UserRole
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    createdAt
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  Date
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    metadata
+  },
+  {
+    Type: Operator,
+    Value: ?
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: Record
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Type: Type,
+    Value: string
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: unknown
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Keyword,
+    Value: export
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: type
+  },
+  {
+    Value:  UserRole 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: String,
+    Value: 'admin'
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: |
+  },
+  {
+    Value:  
+  },
+  {
+    Type: String,
+    Value: 'user'
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: |
+  },
+  {
+    Value:  
+  },
+  {
+    Type: String,
+    Value: 'guest'
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Keyword,
+    Value: export
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: interface
+  },
+  {
+    Value:  ApiResponse
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: T
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    data
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  T
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    message
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: string
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    timestamp
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: number
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Keyword,
+    Value: export
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: interface
+  },
+  {
+    Value:  PaginatedResponse
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: T
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: extends
+  },
+  {
+    Value:  ApiResponse
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: T
+  },
+  {
+    Type: Punctuation,
+    Value: [
+  },
+  {
+    Type: Punctuation,
+    Value: ]
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    total
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: number
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    page
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: number
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    pageSize
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: number
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    hasMore
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: boolean
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Keyword,
+    Value: type
+  },
+  {
+    Value:  CreateUserDto 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: Omit
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: User
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  
+  },
+  {
+    Type: String,
+    Value: 'id'
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: |
+  },
+  {
+    Value:  
+  },
+  {
+    Type: String,
+    Value: 'createdAt'
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Keyword,
+    Value: type
+  },
+  {
+    Value:  UpdateUserDto 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: Partial
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: CreateUserDto
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Comment,
+    Value: // Constants
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Keyword,
+    Value: const
+  },
+  {
+    Value:  API_BASE_URL 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: String,
+    Value: 'https://api.example.com/v1'
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Keyword,
+    Value: const
+  },
+  {
+    Value:  MAX_RETRIES 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 3
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Keyword,
+    Value: const
+  },
+  {
+    Value:  CACHE_DURATION_MS 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 5
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: *
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 60
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: *
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 1000
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Comment,
+    Value: // 5 minutes
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Comment,
+    Value:
+/**
+ * Service for managing user data with caching and error handling.
+ * @example
+ * ```typescript
+ * const userService = new UserService(httpClient);
+ * const users = await userService.getUsers().toPromise();
+ * ```
+ */
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Attribute,
+    Value: @Injectable
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    providedIn
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: String,
+    Value: 'root'
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Keyword,
+    Value: export
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: class
+  },
+  {
+    Value:  UserService 
+  },
+  {
+    Type: Keyword,
+    Value: implements
+  },
+  {
+    Value:  OnDestroy 
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Keyword,
+    Value: private
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: readonly
+  },
+  {
+    Value:  destroy$ 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: new
+  },
+  {
+    Value:  Subject
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Type: Type,
+    Value: void
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Keyword,
+    Value: private
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: readonly
+  },
+  {
+    Value:  usersCache$ 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: new
+  },
+  {
+    Value:  BehaviorSubject
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: User
+  },
+  {
+    Type: Punctuation,
+    Value: [
+  },
+  {
+    Type: Punctuation,
+    Value: ]
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: |
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: null
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Type,
+    Value: null
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Keyword,
+    Value: private
+  },
+  {
+    Value:  lastFetchTime
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: number
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 0
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: Keyword,
+    Value: constructor
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Keyword,
+    Value: private
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: readonly
+  },
+  {
+    Value:  http
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  HttpClient
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+    ngOnDestroy
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: void
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: destroy$
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: next
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: destroy$
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: complete
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: Comment,
+    Value:
+/**
+     * Retrieves all users with optional caching.
+     * @param forceRefresh - If true, bypasses cache
+     * @returns Observable of user array
+     */
+  },
+  {
+    Value:
+    getUsers
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: forceRefresh 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: false
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  Observable
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: User
+  },
+  {
+    Type: Punctuation,
+    Value: [
+  },
+  {
+    Type: Punctuation,
+    Value: ]
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Keyword,
+    Value: const
+  },
+  {
+    Value:  now 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  Date
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: now
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Keyword,
+    Value: const
+  },
+  {
+    Value:  cacheValid 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  now 
+  },
+  {
+    Type: Operator,
+    Value: -
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: lastFetchTime 
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value:  CACHE_DURATION_MS
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: if
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Operator,
+    Value: !
+  },
+  {
+    Value: forceRefresh 
+  },
+  {
+    Type: Operator,
+    Value: &&
+  },
+  {
+    Value:  cacheValid 
+  },
+  {
+    Type: Operator,
+    Value: &&
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: usersCache$
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: value
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: ControlKeyword,
+    Value: return
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: usersCache$
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: asObservable
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: as
+  },
+  {
+    Value:  Observable
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: User
+  },
+  {
+    Type: Punctuation,
+    Value: [
+  },
+  {
+    Type: Punctuation,
+    Value: ]
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: return
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: http
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Type: Keyword,
+    Value: get
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: ApiResponse
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: User
+  },
+  {
+    Type: Punctuation,
+    Value: [
+  },
+  {
+    Type: Punctuation,
+    Value: ]
+  },
+  {
+    Type: Operator,
+    Value: >>
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: InterpolatedString,
+    Value: `${API_BASE_URL}/users`
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: pipe
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value:
+            retry
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: MAX_RETRIES
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+            map
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: response 
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  response
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: data
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+            tap
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: users 
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+                
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: usersCache$
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: next
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: users
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+                
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: lastFetchTime 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  Date
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: now
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+            catchError
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: handleError
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+            takeUntil
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: destroy$
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: Comment,
+    Value:
+/**
+     * Retrieves a single user by ID.
+     */
+  },
+  {
+    Value:
+    getUserById
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: id
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: number
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  Observable
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: User
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: if
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: id 
+  },
+  {
+    Type: Operator,
+    Value: <=
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 0
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: ControlKeyword,
+    Value: return
+  },
+  {
+    Value:  throwError
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: new
+  },
+  {
+    Value:  Error
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: String,
+    Value: 'Invalid user ID'
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+        
+  },
+  {
+    Type: Comment,
+    Value: // Check cache first
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Keyword,
+    Value: const
+  },
+  {
+    Value:  cachedUser 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: usersCache$
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: value
+  },
+  {
+    Type: Operator,
+    Value: ?.
+  },
+  {
+    Value: find
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: u 
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  u
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: id 
+  },
+  {
+    Type: Operator,
+    Value: ===
+  },
+  {
+    Value:  id
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: if
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: cachedUser
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: ControlKeyword,
+    Value: return
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: new
+  },
+  {
+    Value:  Observable
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: subscriber 
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+                subscriber
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: next
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: cachedUser
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+                subscriber
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: complete
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: return
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: http
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Type: Keyword,
+    Value: get
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: ApiResponse
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: User
+  },
+  {
+    Type: Operator,
+    Value: >>
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: InterpolatedString,
+    Value: `${API_BASE_URL}/users/${id}`
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: pipe
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value:
+            map
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: response 
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  response
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: data
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+            catchError
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: handleError
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: Comment,
+    Value:
+/**
+     * Creates a new user.
+     */
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Keyword,
+    Value: async
+  },
+  {
+    Value:  createUser
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: userData
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  CreateUserDto
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: Promise
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: User
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Keyword,
+    Value: const
+  },
+  {
+    Value:  response 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: ControlKeyword,
+    Value: await
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value:
+http
+            
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: post
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: ApiResponse
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: User
+  },
+  {
+    Type: Operator,
+    Value: >>
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: InterpolatedString,
+    Value: `${API_BASE_URL}/users`
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  userData
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: toPromise
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: if
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Operator,
+    Value: !
+  },
+  {
+    Value: response
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: ControlKeyword,
+    Value: throw
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: new
+  },
+  {
+    Value:  Error
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: String,
+    Value: 'Failed to create user'
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+        
+  },
+  {
+    Type: Comment,
+    Value: // Update cache
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Keyword,
+    Value: const
+  },
+  {
+    Value:  currentUsers 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: usersCache$
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: value 
+  },
+  {
+    Type: Operator,
+    Value: ??
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: [
+  },
+  {
+    Type: Punctuation,
+    Value: ]
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: usersCache$
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: next
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: [
+  },
+  {
+    Type: Operator,
+    Value: ...
+  },
+  {
+    Value: currentUsers
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  response
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: data
+  },
+  {
+    Type: Punctuation,
+    Value: ]
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: return
+  },
+  {
+    Value:  response
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: data
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: Comment,
+    Value:
+/**
+     * Updates an existing user.
+     */
+  },
+  {
+    Value:
+    updateUser
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: id
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: number
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  updates
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  UpdateUserDto
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  Observable
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: User
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: return
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: http
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: patch
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: ApiResponse
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: User
+  },
+  {
+    Type: Operator,
+    Value: >>
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: InterpolatedString,
+    Value: `${API_BASE_URL}/users/${id}`
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  updates
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: pipe
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value:
+            map
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: response 
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  response
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: data
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+            tap
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: updatedUser 
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+                
+  },
+  {
+    Type: Keyword,
+    Value: const
+  },
+  {
+    Value:  users 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: usersCache$
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: value
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+                
+  },
+  {
+    Type: ControlKeyword,
+    Value: if
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: users
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+                    
+  },
+  {
+    Type: Keyword,
+    Value: const
+  },
+  {
+    Value:  index 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  users
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: findIndex
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: u 
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  u
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: id 
+  },
+  {
+    Type: Operator,
+    Value: ===
+  },
+  {
+    Value:  id
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+                    
+  },
+  {
+    Type: ControlKeyword,
+    Value: if
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: index 
+  },
+  {
+    Type: Operator,
+    Value: !==
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: -
+  },
+  {
+    Type: Number,
+    Value: 1
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+                        users
+  },
+  {
+    Type: Punctuation,
+    Value: [
+  },
+  {
+    Value: index
+  },
+  {
+    Type: Punctuation,
+    Value: ]
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  updatedUser
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+                        
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: usersCache$
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: next
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: [
+  },
+  {
+    Type: Operator,
+    Value: ...
+  },
+  {
+    Value: users
+  },
+  {
+    Type: Punctuation,
+    Value: ]
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+                    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+                
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+            catchError
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: handleError
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: Comment,
+    Value:
+/**
+     * Deletes a user by ID.
+     */
+  },
+  {
+    Value:
+    deleteUser
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: id
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: number
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  Observable
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Type: Type,
+    Value: void
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: return
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: http
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Type: Keyword,
+    Value: delete
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Type: Type,
+    Value: void
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: InterpolatedString,
+    Value: `${API_BASE_URL}/users/${id}`
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: pipe
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value:
+            tap
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+                
+  },
+  {
+    Type: Keyword,
+    Value: const
+  },
+  {
+    Value:  users 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: usersCache$
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: value
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+                
+  },
+  {
+    Type: ControlKeyword,
+    Value: if
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: users
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+                    
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: usersCache$
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: next
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: users
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: filter
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: u 
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  u
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: id 
+  },
+  {
+    Type: Operator,
+    Value: !==
+  },
+  {
+    Value:  id
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+                
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+            catchError
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: handleError
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: Comment,
+    Value:
+/**
+     * Searches users by query string.
+     */
+  },
+  {
+    Value:
+    searchUsers
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: query
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: string
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  options
+  },
+  {
+    Type: Operator,
+    Value: ?
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        page
+  },
+  {
+    Type: Operator,
+    Value: ?
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: number
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        pageSize
+  },
+  {
+    Type: Operator,
+    Value: ?
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: number
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        sortBy
+  },
+  {
+    Type: Operator,
+    Value: ?
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: keyof
+  },
+  {
+    Value:  User
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        sortOrder
+  },
+  {
+    Type: Operator,
+    Value: ?
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: String,
+    Value: 'asc'
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: |
+  },
+  {
+    Value:  
+  },
+  {
+    Type: String,
+    Value: 'desc'
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  Observable
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: PaginatedResponse
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: User
+  },
+  {
+    Type: Operator,
+    Value: >>
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Keyword,
+    Value: const
+  },
+  {
+    Value:  params 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: new
+  },
+  {
+    Value:  URLSearchParams
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+            q
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  query
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+            page
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  String
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: options
+  },
+  {
+    Type: Operator,
+    Value: ?.
+  },
+  {
+    Value: page 
+  },
+  {
+    Type: Operator,
+    Value: ??
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 1
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+            pageSize
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  String
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: options
+  },
+  {
+    Type: Operator,
+    Value: ?.
+  },
+  {
+    Value: pageSize 
+  },
+  {
+    Type: Operator,
+    Value: ??
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 20
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Operator,
+    Value: ...
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: options
+  },
+  {
+    Type: Operator,
+    Value: ?.
+  },
+  {
+    Value: sortBy 
+  },
+  {
+    Type: Operator,
+    Value: &&
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:  sortBy
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  options
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: sortBy 
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Operator,
+    Value: ...
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: options
+  },
+  {
+    Type: Operator,
+    Value: ?.
+  },
+  {
+    Value: sortOrder 
+  },
+  {
+    Type: Operator,
+    Value: &&
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:  sortOrder
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  options
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: sortOrder 
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: return
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value:
+http
+            
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Type: Keyword,
+    Value: get
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: PaginatedResponse
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: User
+  },
+  {
+    Type: Operator,
+    Value: >>
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: InterpolatedString,
+    Value: `${API_BASE_URL}/users/search?${params}`
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: pipe
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: catchError
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: handleError
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: Comment,
+    Value:
+/**
+     * Handles HTTP errors.
+     */
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Keyword,
+    Value: private
+  },
+  {
+    Value:  handleError 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: error
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  HttpErrorResponse
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  Observable
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Type: Type,
+    Value: never
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Keyword,
+    Value: let
+  },
+  {
+    Value:  errorMessage
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: string
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: if
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: error
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: error 
+  },
+  {
+    Type: Keyword,
+    Value: instanceof
+  },
+  {
+    Value:  ErrorEvent
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Comment,
+    Value: // Client-side error
+  },
+  {
+    Value:
+            errorMessage 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: InterpolatedString,
+    Value: `Client error: ${error.error.message}`
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:  
+  },
+  {
+    Type: ControlKeyword,
+    Value: else
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Comment,
+    Value: // Server-side error
+  },
+  {
+    Value:
+            errorMessage 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: InterpolatedString,
+    Value: `Server error: ${error.status} - ${error.statusText}`
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+            
+  },
+  {
+    Type: ControlKeyword,
+    Value: switch
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: error
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: status
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+                
+  },
+  {
+    Type: ControlKeyword,
+    Value: case
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 401
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:
+                    errorMessage 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: String,
+    Value: 'Unauthorized. Please log in again.'
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+                    
+  },
+  {
+    Type: ControlKeyword,
+    Value: break
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+                
+  },
+  {
+    Type: ControlKeyword,
+    Value: case
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 403
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:
+                    errorMessage 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: String,
+    Value: 'Access forbidden.'
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+                    
+  },
+  {
+    Type: ControlKeyword,
+    Value: break
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+                
+  },
+  {
+    Type: ControlKeyword,
+    Value: case
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 404
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:
+                    errorMessage 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: String,
+    Value: 'Resource not found.'
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+                    
+  },
+  {
+    Type: ControlKeyword,
+    Value: break
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+                
+  },
+  {
+    Type: ControlKeyword,
+    Value: case
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 500
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:
+                    errorMessage 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: String,
+    Value: 'Internal server error. Please try again later.'
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+                    
+  },
+  {
+    Type: ControlKeyword,
+    Value: break
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+        console
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: error
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: String,
+    Value: 'UserService Error:'
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  errorMessage
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  error
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: return
+  },
+  {
+    Value:  throwError
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: new
+  },
+  {
+    Value:  Error
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: errorMessage
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: Comment,
+    Value:
+/**
+     * Clears the user cache.
+     */
+  },
+  {
+    Value:
+    clearCache
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: void
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: usersCache$
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: next
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Type,
+    Value: null
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Keyword,
+    Value: this
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: lastFetchTime 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 0
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Comment,
+    Value: // Utility functions
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Keyword,
+    Value: export
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: const
+  },
+  {
+    Value:  formatUserName 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: user
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  User
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: string
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: InterpolatedString,
+    Value: `${user.firstName} ${user.lastName}`
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: trim
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Keyword,
+    Value: export
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: const
+  },
+  {
+    Value:  isAdmin 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: user
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  User
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: boolean
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  user
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: role 
+  },
+  {
+    Type: Operator,
+    Value: ===
+  },
+  {
+    Value:  
+  },
+  {
+    Type: String,
+    Value: 'admin'
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Keyword,
+    Value: export
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: const
+  },
+  {
+    Value:  filterActiveUsers 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: T 
+  },
+  {
+    Type: Keyword,
+    Value: extends
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:  active
+  },
+  {
+    Type: Operator,
+    Value: ?
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: boolean
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: users
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  T
+  },
+  {
+    Type: Punctuation,
+    Value: [
+  },
+  {
+    Type: Punctuation,
+    Value: ]
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  T
+  },
+  {
+    Type: Punctuation,
+    Value: [
+  },
+  {
+    Type: Punctuation,
+    Value: ]
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:
+    users
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: filter
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: u 
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  u
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: active 
+  },
+  {
+    Type: Operator,
+    Value: !==
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: false
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  }
+]

@@ -1,0 +1,29 @@
+﻿@namespace BlazOrbit.Docs.Components
+
+<div class="props">
+    <BOBDataGrid Items="@Properties.ToList()" Density="BOBDensity.Compact">
+        <Columns>
+            <BOBDataColumn TItem="ComponentParameterInfo" Property="@(p => p.ParameterName)" Header="Property" Width="180px">
+                <Template Context="prop">
+                    <code>@prop.ParameterName</code>
+                </Template>
+            </BOBDataColumn>
+            <BOBDataColumn TItem="ComponentParameterInfo" Property="@(p => p.ParameterType)" Header="Type" Width="200px">
+                <Template Context="prop">
+                    <code>@prop.ParameterType</code>
+                </Template>
+            </BOBDataColumn>
+            <BOBDataColumn TItem="ComponentParameterInfo" Property="@(p => p.ParameterDefault)" Header="Default" Width="120px">
+                <Template Context="prop">
+                    <code>@prop.ParameterDefault</code>
+                </Template>
+            </BOBDataColumn>
+            <BOBDataColumn TItem="ComponentParameterInfo" Property="@(p => p.ParameterDescription)" Header="Description" />
+        </Columns>
+    </BOBDataGrid>
+</div>
+
+@code {
+    [Parameter, EditorRequired]
+    public ComponentParameterInfo[] Properties { get; set; } = [];
+}

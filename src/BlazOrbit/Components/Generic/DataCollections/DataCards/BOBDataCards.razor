@@ -1,0 +1,324 @@
+﻿@using BlazOrbit.Abstractions
+@using Microsoft.AspNetCore.Components.Web.Virtualization
+
+@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+
+@typeparam TItem
+@inherits BOBDataCollectionBase<TItem, BOBDataCards<TItem>, DataCardsVariant>
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+<CascadingValue Value="@((IDataColumnRegistry<TItem>)ColumnRegistry)" Name="DataColumnRegistry">
+    @Columns
+</CascadingValue>
+
+<bob-component @attributes="ComputedAttributes">
+    @if (ColumnsBuilt)
+    {
+        <div role="status" aria-live="polite" class="sr-only">@LiveRegionMessage</div>
+
+        @if (Filterable || ShowPageSizeSelector || (Sortable && CachedSortableColumns.Any()))
+        {
+            <div class="bob-dc__toolbar">
+                @if (Filterable)
+                {
+                    <div class="bob-dc__filter">
+                        <_BOBInText Value="@State.FilterText"
+                                    Placeholder="@FilterPlaceholder"
+                                    AriaLabel="@FilterPlaceholder"
+                                    UpdateOnInput="true"
+                                    OnInput="HandleFilterInputChange" />
+                        @if (!string.IsNullOrEmpty(State.FilterText))
+                        {
+                            <_BOBBtn Icon="@BOBIconKeys.UI.Close"
+                                     AriaLabel="Clear filter"
+                                     OnClick="ClearFilterClicked" />
+                        }
+                    </div>
+                }
+
+                <div class="bob-dc__toolbar-spacer"></div>
+
+                @if (SelectionMode != SelectionMode.None && State.SelectedItems.Any())
+                {
+                    <div class="bob-dc__selection-info">
+                        <span>@State.SelectedItems.Count selected</span>
+                        <_BOBBtn OnClick="ClearSelectionClicked">
+                            Clear
+                        </_BOBBtn>
+                    </div>
+                }
+
+                @if (Sortable && CachedSortableColumns.Any())
+                {
+                    <div class="bob-datacards__sort">
+                        <label>Sort by</label>
+                        <_BOBInSelect Value="@State.SortColumn"
+                                      AriaLabel="Sort by column"
+                                      ValueChanged="HandleSortSelectChange">
+                            <option value="">None</option>
+                            @foreach (DataColumnRegistration<TItem> col in CachedSortableColumns)
+                            {
+                                <option value="@col.Header">
+                                    @if (col.HeaderTemplate != null)
+                                    {
+                                        @col.HeaderTemplate
+                                    }
+                                    else
+                                    {
+                                        @col.Header
+                                    }
+                                </option>
+                            }
+                        </_BOBInSelect>
+                        @if (!string.IsNullOrEmpty(State.SortColumn))
+                        {
+                            <_BOBBtn Icon="@(State.SortDirection == SortDirection.Ascending ? BOBIconKeys.UI.ArrowUpward : BOBIconKeys.UI.ArrowDownward)"
+                                     AriaLabel="Toggle sort direction"
+                                     OnClick="ToggleSortDirectionClicked" />
+                        }
+                    </div>
+                }
+
+                @if (ShowPageSizeSelector)
+                {
+                    <div class="bob-dc__page-size">
+                        <label>Show</label>
+                        <_BOBInSelect Value="@State.PageSize.ToString()"
+                                      AriaLabel="Items per page"
+                                      ValueChanged="HandlePageSizeSelectChange">
+                            @foreach (int size in PageSizeOptions)
+                            {
+                                <option value="@size">@size</option>
+                            }
+                        </_BOBInSelect>
+                    </div>
+                }
+            </div>
+        }
+
+        @if (Loading && LoadingContent != null)
+        {
+            <div class="bob-dc__loading">
+                @LoadingContent
+            </div>
+        }
+        else if (ProcessedItems.Any())
+        {
+            <div class="bob-datacards__grid"
+                 style="@GetGridStyle()"
+                 role="list">
+                @if (EnableVirtualization && !string.IsNullOrEmpty(Height))
+                {
+                    <Virtualize Items="@IndexedItems" Context="indexed">
+                        @RenderCard(indexed.Item, indexed.Index)
+                    </Virtualize>
+                }
+                else
+                {
+                    int cardIndex = 0;
+                    @foreach (TItem item in ProcessedItems)
+                    {
+                        @RenderCard(item, cardIndex)
+                        cardIndex++;
+                    }
+                }
+            </div>
+        }
+        else
+        {
+            @if (EmptyContent != null)
+            {
+                @EmptyContent
+            }
+            else
+            {
+                <div class="bob-dc__empty">
+                    <span class="bob-dc__empty-icon">📋</span>
+                    <p class="bob-dc__empty-text">No data available</p>
+                </div>
+            }
+        }
+
+        @if (PageSize.HasValue && FilteredItems.Any())
+        {
+            <_BOBPagination CurrentPage="@State.CurrentPage"
+                            TotalPages="@TotalPages"
+                            TotalItems="@FilteredItems.Count"
+                            PageSize="@State.PageSize"
+                            OnPageChange="ChangePage" />
+        }
+    }
+</bob-component>
+
+@code {
+    /// <summary>ColumnsCount.</summary>
+    [Parameter] public int ColumnsCount { get; set; } = 3;
+    /// <summary>Gap.</summary>
+    [Parameter] public string Gap { get; set; } = "1rem";
+    /// <summary>MinCardWidth.</summary>
+    [Parameter] public string? MinCardWidth { get; set; } = "280px";
+    /// <summary>Custom template for rendering the Card.</summary>
+    [Parameter] public RenderFragment<TItem>? CardTemplate { get; set; }
+    /// <summary>Custom template for rendering the CardHeader.</summary>
+    [Parameter] public RenderFragment<TItem>? CardHeaderTemplate { get; set; }
+    /// <summary>Custom template for rendering the CardFooter.</summary>
+    [Parameter] public RenderFragment<TItem>? CardFooterTemplate { get; set; }
+
+    /// <summary>CardBorder.</summary>
+    [Parameter] public BorderStyle? CardBorder { get; set; }
+    /// <summary>CardShadow.</summary>
+    [Parameter] public ShadowStyle? CardShadow { get; set; }
+    /// <summary>CardBackground.</summary>
+    [Parameter] public string? CardBackground { get; set; }
+
+    public override DataCardsVariant DefaultVariant => DataCardsVariant.Default;
+
+    protected override IReadOnlyDictionary<DataCardsVariant, Func<BOBDataCards<TItem>, RenderFragment>> BuiltInTemplates { get; } =
+        new Dictionary<DataCardsVariant, Func<BOBDataCards<TItem>, RenderFragment>>();
+
+    private List<DataColumnRegistration<TItem>> CachedSortableColumns = [];
+
+    private List<(TItem Item, int Index)> IndexedItems =>
+        ProcessedItems.Select((item, i) => (item, i)).ToList();
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        CachedSortableColumns = RegisteredColumns
+            .Where(c => c.Sortable && c.ValueSelector != null)
+            .ToList();
+    }
+
+    public override void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    {
+        base.BuildComponentCssVariables(cssVariables);
+
+        if (CardBorder != null)
+        {
+            BorderCssValues values = CardBorder.GetCssValues();
+            if (values.All != null)
+                cssVariables[FeatureDefinitions.InlineVariables.DcCardBorder] = values.All;
+            if (values.Top != null)
+                cssVariables[FeatureDefinitions.InlineVariables.DcCardBorderTop] = values.Top;
+            if (values.Right != null)
+                cssVariables[FeatureDefinitions.InlineVariables.DcCardBorderRight] = values.Right;
+            if (values.Bottom != null)
+                cssVariables[FeatureDefinitions.InlineVariables.DcCardBorderBottom] = values.Bottom;
+            if (values.Left != null)
+                cssVariables[FeatureDefinitions.InlineVariables.DcCardBorderLeft] = values.Left;
+            if (values.Radius != null)
+                cssVariables[FeatureDefinitions.InlineVariables.DcCardBorderRadius] = values.Radius;
+        }
+
+        if (CardShadow != null)
+        {
+            cssVariables[FeatureDefinitions.InlineVariables.DcCardShadow] = CardShadow.ToCss();
+        }
+
+        if (CardBackground != null)
+        {
+            cssVariables[FeatureDefinitions.InlineVariables.DcCardBackground] = CardBackground;
+        }
+    }
+
+    private RenderFragment RenderCard(TItem item, int index) => __builder =>
+    {
+        bool isSelected = State.IsSelected(item);
+        string? patternStyle = GetItemPatternStyle(index);
+
+        <article @key="item"
+                 class="bob-datacards__card @(isSelected ? "bob-datacards__card--selected" : "") @(IsInteractiveRow ? "bob-datacards__card--interactive" : "")"
+                 style="@patternStyle"
+                 role="@(SelectionMode != SelectionMode.None ? "option" : null)"
+                 aria-selected="@(SelectionMode != SelectionMode.None ? isSelected.ToString().ToLowerInvariant() : null)"
+                 tabindex="@(IsInteractiveRow ? 0 : -1)"
+                 @onclick="() => HandleRowClick(item)"
+                 @onkeydown="e => HandleRowKeyDown(e, item)"
+                 @onkeydown:preventDefault="PreventRowKeyDown">
+
+            @if (SelectionMode != SelectionMode.None)
+            {
+                <div class="bob-datacards__card-select">
+                    <_BOBCheckMark Checked="@isSelected"
+                                   Mode="@(SelectionMode == SelectionMode.Single ? _BOBCheckMark.CheckMarkMode.Radio : _BOBCheckMark.CheckMarkMode.Checkbox)"
+                                   Size="@Size" />
+                </div>
+            }
+
+            @if (CardTemplate != null)
+            {
+                @CardTemplate(item)
+            }
+            else
+            {
+                @if (CardHeaderTemplate != null)
+                {
+                    <header class="bob-datacards__card-header">
+                        @CardHeaderTemplate(item)
+                    </header>
+                }
+
+                <div class="bob-datacards__card-body">
+                    @foreach (DataColumnRegistration<TItem> col in VisibleColumns)
+                    {
+                        <div class="bob-datacards__field">
+                            <span class="bob-datacards__field-label">
+                                @if (col.HeaderTemplate != null)
+                                {
+                                    @col.HeaderTemplate
+                                }
+                                else
+                                {
+                                    @col.Header
+                                }
+                            </span>
+                            <span class="bob-datacards__field-value">
+                                @if (col.Template != null)
+                                {
+                                    @col.Template(item)
+                                }
+                                else if (col.ValueSelector != null)
+                                {
+                                    @FormatValue(col.ValueSelector(item), col.Format)
+                                }
+                            </span>
+                        </div>
+                    }
+                </div>
+
+                @if (CardFooterTemplate != null)
+                {
+                    <footer class="bob-datacards__card-footer">
+                        @CardFooterTemplate(item)
+                    </footer>
+                }
+            }
+        </article>
+    };
+
+    private string GetGridStyle()
+    {
+        List<string> styles = [$"gap: {Gap}"];
+
+        if (!string.IsNullOrEmpty(MinCardWidth))
+        {
+            styles.Add($"grid-template-columns: repeat(auto-fill, minmax({MinCardWidth}, 1fr))");
+        }
+        else
+        {
+            styles.Add($"grid-template-columns: repeat({ColumnsCount}, 1fr)");
+        }
+
+        if (!string.IsNullOrEmpty(Height))
+        {
+            styles.Add($"max-height: {Height}");
+            styles.Add("overflow-y: auto");
+        }
+
+        return string.Join("; ", styles);
+    }
+}

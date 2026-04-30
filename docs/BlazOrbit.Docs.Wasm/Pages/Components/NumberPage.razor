@@ -1,0 +1,89 @@
+﻿@page "/components/number"
+
+@inject IStringLocalizer<NumberPage> Loc
+
+<PageTitle>BlazOrbit - BOBInputNumber</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBInputNumber"]"
+         Lede="@Loc["Strongly-typed numeric input with min/max, stepper buttons, acceleration, and culture-aware formatting."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBInputNumber<>)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+        <BOBInputNumber TValue="int" @bind-Value="_basic" Label="@Loc["Quantity"]" />
+    </DocDemo>
+
+    <DocDemo Key="Variants" Title="@Loc["Variants"]">
+        <BOBInputNumber TValue="int" @bind-Value="_outlinedValue" Label="@Loc["Outlined"]" Variant="BOBInputVariant.Outlined" />
+        <BOBInputNumber TValue="int" @bind-Value="_filledValue" Label="@Loc["Filled"]" Variant="BOBInputVariant.Filled" />
+        <BOBInputNumber TValue="int" @bind-Value="_standardValue" Label="@Loc["Standard"]" Variant="BOBInputVariant.Standard" />
+    </DocDemo>
+
+    <DocDemo Key="Sizes" Title="@Loc["Sizes"]">
+        <BOBInputNumber TValue="int" @bind-Value="_smallValue" Label="@Loc["Small"]" Size="BOBSize.Small" />
+        <BOBInputNumber TValue="int" @bind-Value="_mediumValue" Label="@Loc["Medium (Default)"]" Size="BOBSize.Medium" />
+        <BOBInputNumber TValue="int" @bind-Value="_largeValue" Label="@Loc["Large"]" Size="BOBSize.Large" />
+    </DocDemo>
+
+    <DocDemo Key="ColorAndBackground" Title="@Loc["Color & Background"]">
+        <BOBInputNumber @bind-Value="_colorValue" Label="@Loc["Custom Color & Background"]" Color="@PaletteColor.Secondary" BackgroundColor="@PaletteColor.SecondaryContrast" />
+    </DocDemo>
+
+    <DocDemo Key="PrefixSuffix" Title="@Loc["Prefix & Suffix"]">
+        <BOBInputNumber TValue="decimal" @bind-Value="_price" PrefixText="$" Label="@Loc["Price"]" Step="0.01m" DecimalPlaces="2" />
+        <BOBInputNumber TValue="int" @bind-Value="_percentage" SuffixText="%" Label="@Loc["Discount"]" Min="0" Max="100" />
+    </DocDemo>
+
+    <DocDemo Key="MinMax" Title="@Loc["Min & Max"]">
+        <BOBInputNumber TValue="int" @bind-Value="_minMax" Min="0" Max="100" Label="@Loc["Progress"]" HelperText="@Loc["Clamped between 0 and 100."]" />
+    </DocDemo>
+
+    <DocDemo Key="MinMax" Title="@Loc["Decimals & Step"]">
+        <BOBInputNumber TValue="decimal" @bind-Value="_decimal" Step="0.1m" DecimalPlaces="2" Label="@Loc["Price"]" />
+    </DocDemo>
+
+    <DocDemo Key="StepsPlacement" Title="@Loc["Step Buttons Placement"]">
+        <BOBInputNumber TValue="int" @bind-Value="_leftPlacement" ButtonPlacement="StepButtonPlacement.Left" Label="@Loc["Left"]" />
+        <BOBInputNumber TValue="int" @bind-Value="_splitPlacement" ButtonPlacement="StepButtonPlacement.Right" Label="@Loc["Right (default)"]" />
+    </DocDemo>
+
+    <DocDemo Key="ShadowAndBorder" Title="@Loc["Shadow"]">
+        <BOBInputNumber @bind-Value="_shadowValue" Variant="BOBInputVariant.Outlined" Label="@Loc["Elevation Shadow"]" Shadow="@BOBShadowPresets.Elevation(2)" />
+        <BOBInputNumber @bind-Value="_shadowValue" Variant="BOBInputVariant.Outlined" Label="@Loc["Custom Shadow"]" Shadow="@(ShadowStyle.Create(5, 10, 0.14f, color: "purple"))" />
+    </DocDemo>
+
+    <DocDemo Key="States" Title="@Loc["States"]">
+        <BOBInputNumber TValue="int" @bind-Value="_required" Label="@Loc["Required"]" Required="true" />
+        <BOBInputNumber TValue="int" @bind-Value="_readonly" Label="@Loc["ReadOnly"]" ReadOnly="true" />
+        <BOBInputNumber TValue="int" @bind-Value="_disabled" Label="@Loc["Disabled"]" Disabled="true" />
+        <BOBInputNumber TValue="int" @bind-Value="_errorValue" Label="@Loc["Error"]" Error="true" HelperText="@Loc["Parametrized error"]" />
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Properties</h2>
+        <PropertyTable Properties="@BOBInputNumberComponentInfo.Parameters" />
+    </section>
+
+</DocPage>
+
+@code {
+    private int _basic = 10;
+    private int _outlinedValue;
+    private int _filledValue;
+    private int _standardValue;
+    private int _smallValue;
+    private int _mediumValue;
+    private int _largeValue;
+    private int _colorValue;
+    private int _minMax = 50;
+    private decimal _decimal = 0.5m;
+    private int _leftPlacement;
+    private int _splitPlacement;
+    private decimal _price = 9.99m;
+    private int _percentage = 25;
+    private int _required;
+    private int _readonly = 42;
+    private int _disabled = 42;
+    private int _errorValue = -5;
+    private int _shadowValue;
+}

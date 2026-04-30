@@ -1,0 +1,75 @@
+﻿@page "/components/treemenu"
+
+@inject IStringLocalizer<TreeMenuPage> Loc
+
+<PageTitle>BlazOrbit - BOBTreeMenu</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBTreeMenu"]"
+         Lede="@Loc["Hierarchical navigation with icons, nested groups, vertical or horizontal orientation, and hover or click triggers."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBTreeMenu<>)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]" Description="@Loc["Declare BOBTreeMenuItems — nest them via ChildContent."]">
+            <BOBTreeMenu TItem="object" Size="BOBSize.Medium">
+                <BOBTreeMenuItem Text="@Loc["Dashboard"]" Icon="@BOBIconKeys.UI.Home" />
+                <BOBTreeMenuItem Text="@Loc["Projects"]" Icon="@BOBIconKeys.UI.Folder" InitiallyExpanded="true">
+                    <ChildContent>
+                        <BOBTreeMenuItem Text="@Loc["Active"]" />
+                        <BOBTreeMenuItem Text="@Loc["Archived"]" />
+                        <BOBTreeMenuItem Text="@Loc["Templates"]">
+                            <ChildContent>
+                                <BOBTreeMenuItem Text="@Loc["Blank"]" />
+                                <BOBTreeMenuItem Text="@Loc["Starter"]" />
+                            </ChildContent>
+                        </BOBTreeMenuItem>
+                    </ChildContent>
+                </BOBTreeMenuItem>
+                <BOBTreeMenuItem Text="@Loc["Team"]" Icon="@BOBIconKeys.UI.Settings" />
+            </BOBTreeMenu>
+    </DocDemo>
+
+    <DocDemo Key="Horizontal" Title="@Loc["Horizontal (top bar)"]">
+        <BOBTreeMenu TItem="object"
+                     Orientation="TreeMenuOrientation.Horizontal"
+                     ExpandMode="TreeMenuExpandMode.Flyout"
+                     Trigger="TreeMenuTrigger.Hover">
+            <BOBTreeMenuItem Text="@Loc["File"]">
+                <ChildContent>
+                    <BOBTreeMenuItem Text="@Loc["New"]" />
+                    <BOBTreeMenuItem Text="@Loc["Open"]" />
+                    <BOBTreeMenuItem Text="@Loc["Save"]" />
+                </ChildContent>
+            </BOBTreeMenuItem>
+            <BOBTreeMenuItem Text="@Loc["Edit"]">
+                <ChildContent>
+                    <BOBTreeMenuItem Text="@Loc["Undo"]" />
+                    <BOBTreeMenuItem Text="@Loc["Redo"]" />
+                </ChildContent>
+            </BOBTreeMenuItem>
+            <BOBTreeMenuItem Text="@Loc["Help"]" />
+        </BOBTreeMenu>
+    </DocDemo>
+
+    <DocDemo Key="Hover" Title="@Loc["Hover trigger"]" Description="@Loc["Open submenus on hover instead of click."]">
+            <BOBTreeMenu TItem="object" Trigger="TreeMenuTrigger.Hover" HoverOpenDelay="100">
+                <BOBTreeMenuItem Text="@Loc["Hover me"]" Icon="@BOBIconKeys.UI.Settings">
+                    <ChildContent>
+                        <BOBTreeMenuItem Text="@Loc["Profile"]" />
+                        <BOBTreeMenuItem Text="@Loc["Appearance"]" />
+                        <BOBTreeMenuItem Text="@Loc["Account"]" />
+                    </ChildContent>
+                </BOBTreeMenuItem>
+            </BOBTreeMenu>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+
+        <h3 class="doc-section__subtitle">BOBTreeMenu</h3>
+        <PropertyTable Properties="@BOBTreeMenuComponentInfo.Parameters" />
+
+        <h3 class="doc-section__subtitle">BOBTreeMenuItem</h3>
+        <PropertyTable Properties="@BOBTreeMenuItemComponentInfo.Parameters" />
+    </section>
+
+</DocPage>

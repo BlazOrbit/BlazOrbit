@@ -1,0 +1,420 @@
+﻿@using BlazOrbit.Components.Forms.Dropdown
+@using BlazOrbit.Abstractions
+@using BlazOrbit.Components
+@using System.Linq.Expressions
+
+@namespace BlazOrbit.Components.Forms
+@attribute [GenerateComponentInfo]
+
+@typeparam TValue
+
+@implements IDropdownContainer
+@implements IAsyncDisposable
+
+<CascadingValue Value="(IDropdownContainer)this" IsFixed="true">
+    @ChildContent
+</CascadingValue>
+
+<BOBDropdownContainer @ref="_container"
+                      TValue="TValue"
+                      Value="@Value"
+                      ValueChanged="@SetValueAsync"
+                      ValueExpression="@ValueExpression"
+                      Variant="@Variant"
+                      Size="@Size"
+                      Disabled="@Disabled"
+                      Loading="@IsLoading"
+                      LoadingIndicatorVariant="@LoadingIndicatorVariant"
+                      Required="@Required"
+                      ReadOnly="@ReadOnly"
+                      Shadow="@Shadow"
+                      Color="@Color"
+                      BackgroundColor="@BackgroundColor"
+                      Label="@Label"
+                      Placeholder="@Placeholder"
+                      HelperText="@HelperText"
+                      Placement="@Placement"
+                      MaxMenuHeight="@ComputedMaxMenuHeight"
+                      DisplayValue="@GetDisplayValue()"
+                      HasValue="@(_selectionState.Count > 0)"
+                      AriaRole="listbox"
+                      AriaMultiselectable="@_selectionState.IsMultiple"
+                      OnOpened="@HandleOpenedAsync"
+                      OnClosed="@HandleClosed"
+                      OnKeyboardNavigation="@HandleKeyboardNavigation">
+   <MenuContent>
+    @if (Searchable)
+    {
+        <div class="bob-dropdown__search">
+            <_BOBInText Value="@_searchText"
+                                      Placeholder="@SearchPlaceholder"
+
+                                      UpdateOnInput="true"
+                                      OnInput="OnSearchInputChanged"
+                                      @onclick:stopPropagation="true" />
+        </div>
+    }
+
+    @if (_selectionState.IsMultiple && ShowSelectAll && _options.Count > 0)
+    {
+        <div class="bob-dropdown__select-all">
+            <_BOBBtn OnClick="SelectAllClicked" OnClickStopPropagation="true">
+                @SelectAllText
+            </_BOBBtn>
+            <_BOBBtn OnClick="DeselectAllClicked" OnClickStopPropagation="true">
+                @DeselectAllText
+            </_BOBBtn>
+        </div>
+    }
+
+    <div class="bob-dropdown__items">
+        @{
+            List<ISelectionOption> filteredOptions = GetFilteredOptions();
+        }
+
+        @foreach (ISelectionOption option in filteredOptions)
+        {
+            bool isSelected = _selectionState.IsSelected(option.Value);
+            bool isFocused = _focusedIndex >= 0 && filteredOptions.ElementAtOrDefault(_focusedIndex) == option;
+
+            <div class="bob-dropdown__option @(isSelected ? "bob-dropdown__option--selected" : "") @(isFocused ? "bob-dropdown__option--focused" : "") @(option.IsDisabled ? "bob-dropdown__option--disabled" : "")"
+                 role="option"
+                 aria-selected="@isSelected.ToString().ToLowerInvariant()"
+                 aria-disabled="@(option.IsDisabled ? "true" : null)"
+                 tabindex="@(option.IsDisabled ? -1 : 0)"
+                 @onclick="() => SelectOptionAsync(option)"
+                 @onclick:stopPropagation="true">
+
+                @if (_selectionState.IsMultiple)
+                {
+                    <_BOBCheckMark Checked="@isSelected"
+      
+                                            Disabled="option.IsDisabled" />
+                }
+
+                <span class="bob-dropdown__option-content">
+                    @option.Content
+                </span>
+            </div>
+        }
+
+        @if (filteredOptions.Count == 0)
+        {
+            <div class="bob-dropdown__no-options">
+                @if (string.IsNullOrWhiteSpace(_searchText))
+                {
+                    @(NoOptionsTemplate ?? _defaultNoOptionsTemplate)
+                }
+                else
+                {
+                    @if (NoResultsTemplate != null)
+                    {
+                        @NoResultsTemplate(new NoResultsContext(_searchText, _options.Count))
+                    }
+                    else
+                    {
+                        <span>No results for "@_searchText"</span>
+                    }
+                }
+            </div>
+        }
+    </div>
+</MenuContent>
+</BOBDropdownContainer>
+
+@code {
+    private BOBDropdownContainer<TValue>? _container;
+    private readonly List<ISelectionOption> _options = [];
+    private readonly SelectionState<TValue> _selectionState;
+
+    private string _searchText = string.Empty;
+    private int _focusedIndex = -1;
+
+    private readonly RenderFragment _defaultNoOptionsTemplate;
+
+    /// <summary>Current value of the dropdown.</summary>
+    [Parameter] public TValue? Value { get; set; }
+    /// <summary>Raised when the selected value changes.</summary>
+    [Parameter] public EventCallback<TValue> ValueChanged { get; set; }
+    /// <summary>Expression used to identify the bound value for validation.</summary>
+    [Parameter] public Expression<Func<TValue>>? ValueExpression { get; set; }
+
+    /// <summary>Visual variant of the input field.</summary>
+    [Parameter] public BOBInputVariant Variant { get; set; } = BOBInputVariant.Outlined;
+    /// <summary>Visual size of the dropdown.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    /// <summary>When <see langword="true" />, the dropdown spans the full width of its container.</summary>
+    [Parameter] public bool FullWidth { get; set; }
+    /// <summary>When <see langword="true" />, the dropdown is non-interactive.</summary>
+    [Parameter] public bool Disabled { get; set; }
+    /// <summary>When <see langword="true" />, the dropdown shows a loading indicator.</summary>
+    [Parameter] public bool IsLoading { get; set; }
+    /// <summary>Variant of the loading indicator shown when <see cref="IsLoading"/> is <see langword="true"/>.</summary>
+    [Parameter] public BOBLoadingIndicatorVariant? LoadingIndicatorVariant { get; set; }
+    /// <summary>When <see langword="true" />, a value must be selected.</summary>
+    [Parameter] public bool Required { get; set; }
+    /// <summary>When <see langword="true" />, the value cannot be changed.</summary>
+    [Parameter] public bool ReadOnly { get; set; }
+    /// <summary>Vertical density (gap) of the input.</summary>
+    [Parameter] public BOBDensity Density { get; set; } = BOBDensity.Standard;
+    /// <summary>Shadow style applied to the input container.</summary>
+    [Parameter] public ShadowStyle? Shadow { get; set; }
+    /// <summary>Text color of the dropdown. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? Color { get; set; }
+    /// <summary>Background color of the dropdown. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? BackgroundColor { get; set; }
+
+    /// <summary>Content rendered inside the dropdown, typically <c>&lt;BOBOption&gt;</c> items.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>Placeholder text shown when no option is selected.</summary>
+    [Parameter] public string? Placeholder { get; set; }
+    /// <summary>Floating label displayed above the input when a value is selected or focused.</summary>
+    [Parameter] public string? Label { get; set; }
+    /// <summary>Helper text displayed below the input for additional context.</summary>
+    [Parameter] public string? HelperText { get; set; }
+
+    /// <summary>When <see langword="true" />, the menu closes after selecting an option.</summary>
+    [Parameter] public bool CloseOnSelect { get; set; } = true;
+    /// <summary>Preferred placement of the dropdown menu relative to the input.</summary>
+    [Parameter] public DropdownPlacement Placement { get; set; } = DropdownPlacement.Auto;
+    /// <summary>Maximum number of visible items before scrolling.</summary>
+    [Parameter] public int MaxVisibleItems { get; set; } = 8;
+    /// <summary>Height in pixels of each option row.</summary>
+    [Parameter] public int ItemHeight { get; set; } = 40;
+
+    /// <summary>When <see langword="true" />, a search box is rendered at the top of the menu.</summary>
+    [Parameter] public bool Searchable { get; set; }
+    /// <summary>Placeholder text for the search box.</summary>
+    [Parameter] public string SearchPlaceholder { get; set; } = "Search...";
+    /// <summary>Algorithm used to filter options while searching.</summary>
+    [Parameter] public SearchMode SearchMode { get; set; } = SearchMode.Smart;
+
+    /// <summary>When <see langword="true" /> and in multi-select mode, shows buttons to select or deselect all options.</summary>
+    [Parameter] public bool ShowSelectAll { get; set; } = true;
+    /// <summary>Label of the "Select All" button.</summary>
+    [Parameter] public string SelectAllText { get; set; } = "Select All";
+    /// <summary>Label of the "Deselect All" button.</summary>
+    [Parameter] public string DeselectAllText { get; set; } = "Deselect All";
+
+    /// <summary>Custom template rendered when the dropdown has no options.</summary>
+    [Parameter] public RenderFragment? NoOptionsTemplate { get; set; }
+    /// <summary>Custom template rendered when a search yields no results.</summary>
+    [Parameter] public RenderFragment<NoResultsContext>? NoResultsTemplate { get; set; }
+
+    bool IDropdownContainer.IsMultiple => _selectionState.IsMultiple;
+    Type IDropdownContainer.ElementType => _selectionState.ElementType;
+
+    private int ComputedMaxMenuHeight => Math.Min(_options.Count, MaxVisibleItems) * ItemHeight + 8 +
+        (Searchable ? 48 : 0) +
+        (_selectionState.IsMultiple && ShowSelectAll ? 40 : 0);
+
+    public BOBInputDropdown()
+    {
+        _selectionState = new SelectionState<TValue>();
+
+        _defaultNoOptionsTemplate = builder =>
+        {
+            builder.AddContent(0, "No options available");
+        };
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        _selectionState.SetValue(Value);
+    }
+
+    void IDropdownContainer.RegisterOption(ISelectionOption option)
+    {
+        if (!_options.Contains(option))
+        {
+            _options.Add(option);
+            StateHasChanged();
+        }
+    }
+
+    void IDropdownContainer.UnregisterOption(ISelectionOption option)
+    {
+        if (_options.Remove(option))
+        {
+            StateHasChanged();
+        }
+    }
+
+    private List<ISelectionOption> GetFilteredOptions()
+    {
+        if (string.IsNullOrWhiteSpace(_searchText))
+            return _options.ToList();
+
+        return SearchAlgorithms
+            .Search(_options, _searchText, o => o.DisplayText, SearchMode)
+            .Select(r => r.Item)
+            .ToList();
+    }
+
+    private string GetDisplayValue()
+    {
+        if (_selectionState.Count == 0)
+            return string.Empty;
+
+        if (!_selectionState.IsMultiple)
+        {
+            object? selectedValue = _selectionState.SelectedValues.FirstOrDefault();
+            ISelectionOption? option = _options.FirstOrDefault(o => Equals(o.Value, selectedValue));
+            return option?.DisplayText ?? selectedValue?.ToString() ?? string.Empty;
+        }
+
+        if (_selectionState.Count == 1)
+        {
+            object? selectedValue = _selectionState.SelectedValues.First();
+            ISelectionOption? option = _options.FirstOrDefault(o => Equals(o.Value, selectedValue));
+            return option?.DisplayText ?? selectedValue?.ToString() ?? string.Empty;
+        }
+
+        return $"{_selectionState.Count} selected";
+    }
+
+    private async Task SetValueAsync(TValue? value)
+    {
+        Value = value;
+        _selectionState.SetValue(value);
+        await ValueChanged.InvokeAsync(value);
+    }
+    private async Task OnSearchInputChanged(string? value)
+    {
+        _searchText = value ?? string.Empty;
+        _focusedIndex = -1;
+    }
+
+    private async Task SelectAllClicked(MouseEventArgs e) => await SelectAll();
+    private async Task DeselectAllClicked(MouseEventArgs e) => await DeselectAll();
+
+    private async Task HandleOpenedAsync()
+    {
+        _searchText = string.Empty;
+        _focusedIndex = -1;
+
+        if (Searchable && _container != null)
+        {
+            await Task.Yield();
+            await _container.FocusSearchInputAsync();
+        }
+    }
+
+    private void HandleClosed()
+    {
+        _searchText = string.Empty;
+        _focusedIndex = -1;
+    }
+
+    private async Task HandleKeyboardNavigation(DropdownKeyboardEventArgs args)
+    {
+        List<ISelectionOption> filtered = GetFilteredOptions();
+
+        switch (args.Key)
+        {
+            case "ArrowDown":
+                _focusedIndex = Math.Min(_focusedIndex + 1, filtered.Count - 1);
+                StateHasChanged();
+                break;
+
+            case "ArrowUp":
+                _focusedIndex = Math.Max(_focusedIndex - 1, 0);
+                StateHasChanged();
+                break;
+
+            case " ":
+                if (_focusedIndex >= 0 && _focusedIndex < filtered.Count)
+                {
+                    await SelectOptionAsync(filtered[_focusedIndex]);
+                }
+                break;
+
+            case "Enter":
+                if (_focusedIndex >= 0 && _focusedIndex < filtered.Count)
+                {
+                    await SelectOptionAsync(filtered[_focusedIndex]);
+                }
+                if (_container != null)
+                {
+                    await _container.CloseAsync();
+                }
+                break;
+
+            case "Home":
+                _focusedIndex = 0;
+                StateHasChanged();
+                break;
+
+            case "End":
+                _focusedIndex = filtered.Count - 1;
+                StateHasChanged();
+                break;
+
+            case "a" when args.CtrlKey && _selectionState.IsMultiple:
+                if (args.ShiftKey)
+                    await DeselectAll();
+                else
+                    await SelectAll();
+                break;
+        }
+    }
+
+    private async Task SelectOptionAsync(ISelectionOption option)
+    {
+        if (Disabled || option.IsDisabled) return;
+
+        if (_selectionState.IsMultiple)
+        {
+            _selectionState.Toggle(option.Value);
+        }
+        else
+        {
+            _selectionState.SetSingleValue(option.Value);
+        }
+
+        await SetValueAsync(_selectionState.GetValue());
+
+        if (!_selectionState.IsMultiple && CloseOnSelect && _container != null)
+        {
+            await _container.CloseAsync();
+        }
+    }
+
+    private async Task SelectAll()
+    {
+        if (!_selectionState.IsMultiple || Disabled) return;
+
+        IEnumerable<object?> allValues = GetFilteredOptions()
+            .Where(o => !o.IsDisabled)
+            .Select(o => o.Value);
+
+        _selectionState.SelectAll(allValues);
+        await SetValueAsync(_selectionState.GetValue());
+    }
+
+    private async Task DeselectAll()
+    {
+        if (!_selectionState.IsMultiple || Disabled) return;
+        _selectionState.Clear();
+        await SetValueAsync(_selectionState.GetValue());
+    }
+
+    private void OnSearchInput(ChangeEventArgs e)
+    {
+        _searchText = e.Value?.ToString() ?? string.Empty;
+        _focusedIndex = -1;
+    }
+
+    public ValueTask DisposeAsync()
+    {
+        // Blazor's renderer disposes child components whose lifetime is bound
+        // to this one � including the `<BOBDropdownContainer @ref="_container">`
+        // we render. Calling _container.DisposeAsync() ourselves caused a
+        // double-dispose that fired `JsInterop.DisposeAsync(_componentId)` and
+        // `_callbacksRelay.Dispose()` twice.
+        _options.Clear();
+        return ValueTask.CompletedTask;
+    }
+}

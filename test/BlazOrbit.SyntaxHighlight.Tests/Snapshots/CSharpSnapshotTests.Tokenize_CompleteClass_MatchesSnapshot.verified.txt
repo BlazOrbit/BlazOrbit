@@ -1,0 +1,1694 @@
+﻿[
+  {
+    Type: Keyword,
+    Value: using
+  },
+  {
+    Value:  System
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Keyword,
+    Value: using
+  },
+  {
+    Value:  System
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Collections
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Generic
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Keyword,
+    Value: using
+  },
+  {
+    Value:  System
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Linq
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Keyword,
+    Value: namespace
+  },
+  {
+    Value:  MyApplication
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Services
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+
+  },
+  {
+    Type: Comment,
+    Value: /// <summary>
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Comment,
+    Value: /// Represents a generic repository for data access.
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Comment,
+    Value: /// </summary>
+  },
+  {
+    Value:
+
+  },
+  {
+    Type: Keyword,
+    Value: public
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: class
+  },
+  {
+    Value:  Repository
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: TEntity
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  IRepository
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: TEntity
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Value:  
+  },
+  {
+    Type: ControlKeyword,
+    Value: where
+  },
+  {
+    Value:  TEntity 
+  },
+  {
+    Type: Operator,
+    Value: :
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: class
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+ IEntity
+
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Keyword,
+    Value: private
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: readonly
+  },
+  {
+    Value:  DbContext _context
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Keyword,
+    Value: private
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: readonly
+  },
+  {
+    Value:  ILogger
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: Repository
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: TEntity
+  },
+  {
+    Type: Operator,
+    Value: >>
+  },
+  {
+    Value:  _logger
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: Keyword,
+    Value: public
+  },
+  {
+    Value:  Repository
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: DbContext context
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  ILogger
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: Repository
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: TEntity
+  },
+  {
+    Type: Operator,
+    Value: >>
+  },
+  {
+    Value:  logger
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        _context 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  context 
+  },
+  {
+    Type: Operator,
+    Value: ??
+  },
+  {
+    Value:  
+  },
+  {
+    Type: ControlKeyword,
+    Value: throw
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: new
+  },
+  {
+    Value:  ArgumentNullException
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Keyword,
+    Value: nameof
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: context
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        _logger 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  logger
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: Keyword,
+    Value: public
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: async
+  },
+  {
+    Value:  Task
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: TEntity
+  },
+  {
+    Type: Operator,
+    Value: ?
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Value:  GetByIdAsync
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Type,
+    Value: int
+  },
+  {
+    Value:  id
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  CancellationToken cancellationToken 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: ControlKeyword,
+    Value: default
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: if
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: id 
+  },
+  {
+    Type: Operator,
+    Value: <=
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 0
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: ControlKeyword,
+    Value: throw
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: new
+  },
+  {
+    Value:  ArgumentOutOfRangeException
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Keyword,
+    Value: nameof
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: id
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  
+  },
+  {
+    Type: String,
+    Value: "Id must be positive"
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: try
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: ControlKeyword,
+    Value: return
+  },
+  {
+    Value:  
+  },
+  {
+    Type: ControlKeyword,
+    Value: await
+  },
+  {
+    Value:  _context
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Set
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: TEntity
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+                
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: FirstOrDefaultAsync
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: e 
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  e
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Id 
+  },
+  {
+    Type: Operator,
+    Value: ==
+  },
+  {
+    Value:  id
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  cancellationToken
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: catch
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: Exception ex
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+            _logger
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: LogError
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: ex
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  
+  },
+  {
+    Type: String,
+    Value: "Error retrieving entity with id {Id}"
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  id
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: ControlKeyword,
+    Value: throw
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: Keyword,
+    Value: public
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: async
+  },
+  {
+    Value:  Task
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: IReadOnlyList
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: TEntity
+  },
+  {
+    Type: Operator,
+    Value: >>
+  },
+  {
+    Value:  GetAllAsync
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value:
+        Expression
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: Func
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: TEntity
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: bool
+  },
+  {
+    Type: Operator,
+    Value: >>
+  },
+  {
+    Type: Operator,
+    Value: ?
+  },
+  {
+    Value:  predicate 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: null
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Type,
+    Value: int
+  },
+  {
+    Type: Operator,
+    Value: ?
+  },
+  {
+    Value:  skip 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: null
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Type,
+    Value: int
+  },
+  {
+    Type: Operator,
+    Value: ?
+  },
+  {
+    Value:  take 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: null
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        IQueryable
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: TEntity
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Value:  query 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  _context
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Set
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: TEntity
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: if
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: predicate 
+  },
+  {
+    Type: Keyword,
+    Value: is
+  },
+  {
+    Value:  not 
+  },
+  {
+    Type: Keyword,
+    Value: null
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+            query 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  query
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Where
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: predicate
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: if
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: skip
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: HasValue
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+            query 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  query
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Skip
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: skip
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Value
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: if
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: take
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: HasValue
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+            query 
+  },
+  {
+    Type: Operator,
+    Value: =
+  },
+  {
+    Value:  query
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Take
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: take
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Value
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: return
+  },
+  {
+    Value:  
+  },
+  {
+    Type: ControlKeyword,
+    Value: await
+  },
+  {
+    Value:  query
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: ToListAsync
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: Keyword,
+    Value: public
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: virtual
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: async
+  },
+  {
+    Value:  Task
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: TEntity
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Value:  CreateAsync
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: TEntity entity
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: {
+  },
+  {
+    Value:
+        ArgumentNullException
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: ThrowIfNull
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: entity
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+        _context
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Set
+  },
+  {
+    Type: Operator,
+    Value: <
+  },
+  {
+    Value: TEntity
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Add
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: entity
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: await
+  },
+  {
+    Value:  _context
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: SaveChangesAsync
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+        _logger
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: LogInformation
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Type: String,
+    Value: "Created entity of type {Type} with id {Id}"
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:
+            
+  },
+  {
+    Type: Keyword,
+    Value: typeof
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: TEntity
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Name
+  },
+  {
+    Type: Punctuation,
+    Value: ,
+  },
+  {
+    Value:  entity
+  },
+  {
+    Type: Punctuation,
+    Value: .
+  },
+  {
+    Value: Id
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+        
+  },
+  {
+    Type: ControlKeyword,
+    Value: return
+  },
+  {
+    Value:  entity
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+    
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: PreprocessorDirective,
+    Value: #region
+  },
+  {
+    Value:
+ Private Methods
+
+    
+  },
+  {
+    Type: Keyword,
+    Value: private
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Keyword,
+    Value: static
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Type,
+    Value: bool
+  },
+  {
+    Value:  IsValid
+  },
+  {
+    Type: Punctuation,
+    Value: (
+  },
+  {
+    Value: TEntity entity
+  },
+  {
+    Type: Punctuation,
+    Value: )
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Operator,
+    Value: =>
+  },
+  {
+    Value:  entity
+  },
+  {
+    Type: Operator,
+    Value: ?.
+  },
+  {
+    Value: Id 
+  },
+  {
+    Type: Operator,
+    Value: >
+  },
+  {
+    Value:  
+  },
+  {
+    Type: Number,
+    Value: 0
+  },
+  {
+    Type: Punctuation,
+    Value: ;
+  },
+  {
+    Value:
+
+    
+  },
+  {
+    Type: PreprocessorDirective,
+    Value: #endregion
+  },
+  {
+    Value:
+ Private Methods
+
+  },
+  {
+    Type: Punctuation,
+    Value: }
+  }
+]

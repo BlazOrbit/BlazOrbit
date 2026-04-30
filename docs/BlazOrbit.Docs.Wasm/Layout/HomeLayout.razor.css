@@ -1,0 +1,30 @@
+﻿.home-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: var(--palette-background);
+    color: var(--palette-surface-contrast);
+}
+
+.home-layout__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    height: 68px;
+    padding: 0 clamp(1rem, 4vw, 3rem);
+    background: color-mix(in oklab, var(--palette-surface) 92%, transparent);
+    backdrop-filter: saturate(180%) blur(12px);
+    -webkit-backdrop-filter: saturate(180%) blur(12px);
+    border-bottom: 1px solid var(--palette-border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-sizing: border-box;
+}
+
+.home-layout__main {
+    flex: 1;
+    min-width: 0;
+    box-sizing: border-box;
+}

@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<IsPackable>true</IsPackable>
+		<PackageType>Dependency</PackageType>
+		<PackageId>BlazOrbit.Core</PackageId>
+		<Description>Framework-agnostic primitives shared by the BlazOrbit component library. Provides the base component types (`BOBComponentBase`, `BOBInputComponentBase`), the `IHas*` behavior interfaces, theme/palette types (`CssColor`, `PaletteColor`, `LightTheme`, `DarkTheme`), and the JS-interop service contracts.</Description>
+		<PackageTags>blazor;components;core;abstractions;theming;design-system</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="BlazOrbit" />
+		<InternalsVisibleTo Include="BlazOrbit.BuildTools" />
+		<InternalsVisibleTo Include="BlazOrbit.Tests.Integration" />
+		<InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.AspNetCore.Components" Version="10.0.7" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.7" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Forms" Version="10.0.7" />
+		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="10.0.7" />
+		<PackageReference Include="Microsoft.JSInterop" Version="10.0.7" />
+		<PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="4.14.0" PrivateAssets="all" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<AdditionalFiles Include="PublicAPI.Shipped.txt" />
+		<AdditionalFiles Include="PublicAPI.Unshipped.txt" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\BlazOrbit.Core.CodeGeneration\BlazOrbit.Core.CodeGeneration.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+	</ItemGroup>
+</Project>

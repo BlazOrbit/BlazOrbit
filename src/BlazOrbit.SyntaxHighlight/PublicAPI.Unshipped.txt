@@ -1,0 +1,197 @@
+﻿#nullable enable
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinition
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinition.CaseSensitive.get -> bool
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinition.Name.get -> string!
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinition.Tokenize(string! input) -> System.Collections.Generic.IReadOnlyList<BlazOrbit.SyntaxHighlight.Tokens.Token>!
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder.AddBalanced(BlazOrbit.SyntaxHighlight.Tokens.TokenType tokenType, string! prefix, char open, char close, System.Func<string!, System.Collections.Generic.IReadOnlyList<BlazOrbit.SyntaxHighlight.Tokens.Token>!>? innerTokenizer = null, int? priority = null, int maxDepth = 100) -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder!
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder.AddBlockComment(string! start, string! end, int? priority = null) -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder!
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder.AddContextualKeywords(BlazOrbit.SyntaxHighlight.Tokens.TokenType tokenType, System.Collections.Generic.IEnumerable<string!>! keywords, System.Func<string!, int, bool>! contextPredicate, int? priority = null) -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder!
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder.AddContextualPattern(BlazOrbit.SyntaxHighlight.Tokens.TokenType tokenType, string! pattern, System.Func<string!, int, bool>! contextPredicate, bool requireWordBoundary = false, int? priority = null) -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder!
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder.AddDelimited(BlazOrbit.SyntaxHighlight.Tokens.TokenType tokenType, string! start, string! end, string? escape = null, bool multiline = true, int? priority = null) -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder!
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder.AddKeywords(BlazOrbit.SyntaxHighlight.Tokens.TokenType tokenType, System.Collections.Generic.IEnumerable<string!>! keywords, int? priority = null) -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder!
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder.AddLineComment(string! start, int? priority = null) -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder!
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder.AddMarkup(int? priority = null) -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder!
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder.AddOperators(System.Collections.Generic.IEnumerable<string!>! operators) -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder!
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder.AddOperators(System.Collections.Generic.IEnumerable<string!>! operators, int? priority) -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder!
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder.AddOperators(string! operators) -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder!
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder.AddOperators(string! operators, int? priority) -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder!
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder.AddPattern(BlazOrbit.SyntaxHighlight.Tokens.TokenType tokenType, string! pattern, bool requireWordBoundary = false, int? priority = null) -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder!
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder.AddPunctuation(string! punctuation, int? priority = null) -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder!
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder.AddRule(BlazOrbit.SyntaxHighlight.Rules.ITokenRule! rule) -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder!
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder.AddSequence(BlazOrbit.SyntaxHighlight.Tokens.TokenType tokenType, string! sequence, int? priority = null) -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder!
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder.AddSequences(BlazOrbit.SyntaxHighlight.Tokens.TokenType tokenType, System.Collections.Generic.IEnumerable<string!>! sequences, int? priority = null) -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder!
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder.AddString(string! start, string! end, string? escape = "\\", BlazOrbit.SyntaxHighlight.Tokens.TokenType tokenType = BlazOrbit.SyntaxHighlight.Tokens.TokenType.String, int? priority = null) -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder!
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder.Build() -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinition!
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder.CaseSensitive(bool value = true) -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder!
+BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder.Embed(BlazOrbit.SyntaxHighlight.Builder.LanguageDefinition! other, int priorityOffset = 0) -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder!
+BlazOrbit.SyntaxHighlight.Highlighter
+BlazOrbit.SyntaxHighlight.Highlighter.GetRegisteredLanguages() -> System.Collections.Generic.IEnumerable<string!>!
+BlazOrbit.SyntaxHighlight.Highlighter.HasLanguage(string! name) -> bool
+BlazOrbit.SyntaxHighlight.Highlighter.Highlight(string! language, string! code) -> string!
+BlazOrbit.SyntaxHighlight.Highlighter.Highlighter() -> void
+BlazOrbit.SyntaxHighlight.Highlighter.Highlighter(BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderOptions! options) -> void
+BlazOrbit.SyntaxHighlight.Highlighter.Options.get -> BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderOptions!
+BlazOrbit.SyntaxHighlight.Highlighter.Options.set -> void
+BlazOrbit.SyntaxHighlight.Highlighter.RegisterLanguage(string! name, BlazOrbit.SyntaxHighlight.Builder.LanguageDefinition! definition) -> void
+BlazOrbit.SyntaxHighlight.Highlighter.RegisterLanguage(string![]! aliases, BlazOrbit.SyntaxHighlight.Builder.LanguageDefinition! definition) -> void
+BlazOrbit.SyntaxHighlight.Highlighter.Tokenize(string! language, string! code) -> System.Collections.Generic.IReadOnlyList<BlazOrbit.SyntaxHighlight.Tokens.Token>!
+BlazOrbit.SyntaxHighlight.Languages.CSharpLanguage
+BlazOrbit.SyntaxHighlight.Languages.CssLanguage
+BlazOrbit.SyntaxHighlight.Languages.RazorLanguage
+BlazOrbit.SyntaxHighlight.Languages.TypeScriptLanguage
+BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderOptions
+BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderOptions.BackgroundColor.get -> string!
+BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderOptions.BackgroundColor.init -> void
+BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderOptions.DefaultColor.get -> string!
+BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderOptions.DefaultColor.init -> void
+BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderOptions.FontFamily.get -> string!
+BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderOptions.FontFamily.init -> void
+BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderOptions.FontSize.get -> string!
+BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderOptions.FontSize.init -> void
+BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderOptions.HtmlRenderOptions() -> void
+BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderOptions.IncludeStyles.get -> bool
+BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderOptions.IncludeStyles.init -> void
+BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderOptions.TokenColors.get -> System.Collections.Generic.Dictionary<BlazOrbit.SyntaxHighlight.Tokens.TokenType, string!>!
+BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderOptions.TokenColors.init -> void
+BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderer
+BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderer.HtmlRenderer() -> void
+BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderer.Render(System.Collections.Generic.IReadOnlyList<BlazOrbit.SyntaxHighlight.Tokens.Token>! tokens, BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderOptions? options = null) -> string!
+BlazOrbit.SyntaxHighlight.Rules.BalancedRule
+BlazOrbit.SyntaxHighlight.Rules.BalancedRule.BalancedRule(BlazOrbit.SyntaxHighlight.Tokens.TokenType tokenType, string! prefix, char open, char close, System.Func<string!, System.Collections.Generic.IReadOnlyList<BlazOrbit.SyntaxHighlight.Tokens.Token>!>? innerTokenizer = null, int priority = 0, int maxDepth = 100) -> void
+BlazOrbit.SyntaxHighlight.Rules.BalancedRule.Priority.get -> int
+BlazOrbit.SyntaxHighlight.Rules.BalancedRule.TryMatch(string! input, int position, BlazOrbit.SyntaxHighlight.Rules.TokenizerContext! context) -> BlazOrbit.SyntaxHighlight.Tokens.TokenMatch?
+BlazOrbit.SyntaxHighlight.Rules.ContextualKeywordRule
+BlazOrbit.SyntaxHighlight.Rules.ContextualKeywordRule.ContextualKeywordRule(BlazOrbit.SyntaxHighlight.Tokens.TokenType tokenType, System.Collections.Generic.IEnumerable<string!>! keywords, System.Func<string!, int, bool>! contextPredicate, int priority = 0) -> void
+BlazOrbit.SyntaxHighlight.Rules.ContextualKeywordRule.Priority.get -> int
+BlazOrbit.SyntaxHighlight.Rules.ContextualKeywordRule.TryMatch(string! input, int position, BlazOrbit.SyntaxHighlight.Rules.TokenizerContext! context) -> BlazOrbit.SyntaxHighlight.Tokens.TokenMatch?
+BlazOrbit.SyntaxHighlight.Rules.ContextualRegexRule
+BlazOrbit.SyntaxHighlight.Rules.ContextualRegexRule.ContextualRegexRule(BlazOrbit.SyntaxHighlight.Tokens.TokenType tokenType, string! pattern, System.Func<string!, int, bool>! contextPredicate, bool requireWordBoundary = false, int priority = 0) -> void
+BlazOrbit.SyntaxHighlight.Rules.ContextualRegexRule.Priority.get -> int
+BlazOrbit.SyntaxHighlight.Rules.ContextualRegexRule.TryMatch(string! input, int position, BlazOrbit.SyntaxHighlight.Rules.TokenizerContext! context) -> BlazOrbit.SyntaxHighlight.Tokens.TokenMatch?
+BlazOrbit.SyntaxHighlight.Rules.DelimitedRule
+BlazOrbit.SyntaxHighlight.Rules.DelimitedRule.DelimitedRule(BlazOrbit.SyntaxHighlight.Tokens.TokenType tokenType, string! start, string! end, string? escape = null, bool multiline = true, int priority = 0) -> void
+BlazOrbit.SyntaxHighlight.Rules.DelimitedRule.Priority.get -> int
+BlazOrbit.SyntaxHighlight.Rules.DelimitedRule.TryMatch(string! input, int position, BlazOrbit.SyntaxHighlight.Rules.TokenizerContext! context) -> BlazOrbit.SyntaxHighlight.Tokens.TokenMatch?
+BlazOrbit.SyntaxHighlight.Rules.ITokenRule
+BlazOrbit.SyntaxHighlight.Rules.ITokenRule.Priority.get -> int
+BlazOrbit.SyntaxHighlight.Rules.ITokenRule.TryMatch(string! input, int position, BlazOrbit.SyntaxHighlight.Rules.TokenizerContext! context) -> BlazOrbit.SyntaxHighlight.Tokens.TokenMatch?
+BlazOrbit.SyntaxHighlight.Rules.KeywordRule
+BlazOrbit.SyntaxHighlight.Rules.KeywordRule.KeywordRule(BlazOrbit.SyntaxHighlight.Tokens.TokenType tokenType, System.Collections.Generic.IEnumerable<string!>! keywords, int priority = 0) -> void
+BlazOrbit.SyntaxHighlight.Rules.KeywordRule.Priority.get -> int
+BlazOrbit.SyntaxHighlight.Rules.KeywordRule.TryMatch(string! input, int position, BlazOrbit.SyntaxHighlight.Rules.TokenizerContext! context) -> BlazOrbit.SyntaxHighlight.Tokens.TokenMatch?
+BlazOrbit.SyntaxHighlight.Rules.MarkupRule
+BlazOrbit.SyntaxHighlight.Rules.MarkupRule.MarkupRule(int priority = 0) -> void
+BlazOrbit.SyntaxHighlight.Rules.MarkupRule.Priority.get -> int
+BlazOrbit.SyntaxHighlight.Rules.MarkupRule.TryMatch(string! input, int position, BlazOrbit.SyntaxHighlight.Rules.TokenizerContext! context) -> BlazOrbit.SyntaxHighlight.Tokens.TokenMatch?
+BlazOrbit.SyntaxHighlight.Rules.RegexRule
+BlazOrbit.SyntaxHighlight.Rules.RegexRule.Priority.get -> int
+BlazOrbit.SyntaxHighlight.Rules.RegexRule.RegexRule(BlazOrbit.SyntaxHighlight.Tokens.TokenType tokenType, string! pattern, bool requireWordBoundary = false, int priority = 0) -> void
+BlazOrbit.SyntaxHighlight.Rules.RegexRule.TryMatch(string! input, int position, BlazOrbit.SyntaxHighlight.Rules.TokenizerContext! context) -> BlazOrbit.SyntaxHighlight.Tokens.TokenMatch?
+BlazOrbit.SyntaxHighlight.Rules.SequenceRule
+BlazOrbit.SyntaxHighlight.Rules.SequenceRule.Priority.get -> int
+BlazOrbit.SyntaxHighlight.Rules.SequenceRule.SequenceRule(BlazOrbit.SyntaxHighlight.Tokens.TokenType tokenType, string! sequence, int priority = 0) -> void
+BlazOrbit.SyntaxHighlight.Rules.SequenceRule.TryMatch(string! input, int position, BlazOrbit.SyntaxHighlight.Rules.TokenizerContext! context) -> BlazOrbit.SyntaxHighlight.Tokens.TokenMatch?
+BlazOrbit.SyntaxHighlight.Rules.TokenizerContext
+BlazOrbit.SyntaxHighlight.Rules.TokenizerContext.CaseSensitive.get -> bool
+BlazOrbit.SyntaxHighlight.Rules.TokenizerContext.CaseSensitive.init -> void
+BlazOrbit.SyntaxHighlight.Rules.TokenizerContext.CurrentState.get -> string?
+BlazOrbit.SyntaxHighlight.Rules.TokenizerContext.LanguageName.get -> string!
+BlazOrbit.SyntaxHighlight.Rules.TokenizerContext.LanguageName.init -> void
+BlazOrbit.SyntaxHighlight.Rules.TokenizerContext.PopState() -> void
+BlazOrbit.SyntaxHighlight.Rules.TokenizerContext.PushState(string! state) -> void
+BlazOrbit.SyntaxHighlight.Rules.TokenizerContext.StateStack.get -> System.Collections.Generic.Stack<string!>!
+BlazOrbit.SyntaxHighlight.Rules.TokenizerContext.TokenizerContext() -> void
+BlazOrbit.SyntaxHighlight.SyntaxHighlightLanguage
+BlazOrbit.SyntaxHighlight.SyntaxHighlightLanguage.CSharp = 0 -> BlazOrbit.SyntaxHighlight.SyntaxHighlightLanguage
+BlazOrbit.SyntaxHighlight.SyntaxHighlightLanguage.Css = 3 -> BlazOrbit.SyntaxHighlight.SyntaxHighlightLanguage
+BlazOrbit.SyntaxHighlight.SyntaxHighlightLanguage.Json = 4 -> BlazOrbit.SyntaxHighlight.SyntaxHighlightLanguage
+BlazOrbit.SyntaxHighlight.SyntaxHighlightLanguage.Razor = 1 -> BlazOrbit.SyntaxHighlight.SyntaxHighlightLanguage
+BlazOrbit.SyntaxHighlight.SyntaxHighlightLanguage.TypeScript = 2 -> BlazOrbit.SyntaxHighlight.SyntaxHighlightLanguage
+BlazOrbit.SyntaxHighlight.SyntaxHighlightLanguageExtensions
+BlazOrbit.SyntaxHighlight.Tokenizer.Tokenizer
+BlazOrbit.SyntaxHighlight.Tokenizer.Tokenizer.Tokenize(string! input) -> System.Collections.Generic.IReadOnlyList<BlazOrbit.SyntaxHighlight.Tokens.Token>!
+BlazOrbit.SyntaxHighlight.Tokenizer.Tokenizer.Tokenizer(System.Collections.Generic.IEnumerable<BlazOrbit.SyntaxHighlight.Rules.ITokenRule!>! rules, BlazOrbit.SyntaxHighlight.Rules.TokenizerContext! context) -> void
+BlazOrbit.SyntaxHighlight.Tokens.Token
+BlazOrbit.SyntaxHighlight.Tokens.Token.Deconstruct(out BlazOrbit.SyntaxHighlight.Tokens.TokenType Type, out string! Value, out int StartIndex, out int Length) -> void
+BlazOrbit.SyntaxHighlight.Tokens.Token.EndIndex.get -> int
+BlazOrbit.SyntaxHighlight.Tokens.Token.Equals(BlazOrbit.SyntaxHighlight.Tokens.Token other) -> bool
+BlazOrbit.SyntaxHighlight.Tokens.Token.Length.get -> int
+BlazOrbit.SyntaxHighlight.Tokens.Token.Length.init -> void
+BlazOrbit.SyntaxHighlight.Tokens.Token.StartIndex.get -> int
+BlazOrbit.SyntaxHighlight.Tokens.Token.StartIndex.init -> void
+BlazOrbit.SyntaxHighlight.Tokens.Token.Token() -> void
+BlazOrbit.SyntaxHighlight.Tokens.Token.Token(BlazOrbit.SyntaxHighlight.Tokens.TokenType Type, string! Value, int StartIndex, int Length) -> void
+BlazOrbit.SyntaxHighlight.Tokens.Token.Type.get -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.Token.Type.init -> void
+BlazOrbit.SyntaxHighlight.Tokens.Token.Value.get -> string!
+BlazOrbit.SyntaxHighlight.Tokens.Token.Value.init -> void
+BlazOrbit.SyntaxHighlight.Tokens.TokenMatch
+BlazOrbit.SyntaxHighlight.Tokens.TokenMatch.Deconstruct(out BlazOrbit.SyntaxHighlight.Tokens.TokenType Type, out int StartIndex, out int Length, out System.Collections.Generic.IReadOnlyList<BlazOrbit.SyntaxHighlight.Tokens.Token>? NestedTokens) -> void
+BlazOrbit.SyntaxHighlight.Tokens.TokenMatch.EndIndex.get -> int
+BlazOrbit.SyntaxHighlight.Tokens.TokenMatch.Equals(BlazOrbit.SyntaxHighlight.Tokens.TokenMatch other) -> bool
+BlazOrbit.SyntaxHighlight.Tokens.TokenMatch.HasNestedTokens.get -> bool
+BlazOrbit.SyntaxHighlight.Tokens.TokenMatch.Length.get -> int
+BlazOrbit.SyntaxHighlight.Tokens.TokenMatch.Length.init -> void
+BlazOrbit.SyntaxHighlight.Tokens.TokenMatch.NestedTokens.get -> System.Collections.Generic.IReadOnlyList<BlazOrbit.SyntaxHighlight.Tokens.Token>?
+BlazOrbit.SyntaxHighlight.Tokens.TokenMatch.NestedTokens.init -> void
+BlazOrbit.SyntaxHighlight.Tokens.TokenMatch.StartIndex.get -> int
+BlazOrbit.SyntaxHighlight.Tokens.TokenMatch.StartIndex.init -> void
+BlazOrbit.SyntaxHighlight.Tokens.TokenMatch.TokenMatch() -> void
+BlazOrbit.SyntaxHighlight.Tokens.TokenMatch.TokenMatch(BlazOrbit.SyntaxHighlight.Tokens.TokenType Type, int StartIndex, int Length, System.Collections.Generic.IReadOnlyList<BlazOrbit.SyntaxHighlight.Tokens.Token>? NestedTokens = null) -> void
+BlazOrbit.SyntaxHighlight.Tokens.TokenMatch.Type.get -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenMatch.Type.init -> void
+BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.Attribute = 20 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.AttributeName = 23 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.AttributeValue = 24 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.Char = 7 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.Comment = 9 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.ControlKeyword = 2 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.CssProperty = 26 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.CssPseudo = 29 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.CssSelector = 25 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.CssUnit = 28 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.CssValue = 27 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.Directive = 18 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.Field = 14 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.InterpolatedString = 6 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.Keyword = 1 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.Method = 12 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.Namespace = 17 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.Number = 8 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.Operator = 10 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.Parameter = 15 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.PreprocessorDirective = 19 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.Property = 13 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.Punctuation = 11 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.RazorCodeBlock = 32 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.RazorDelimiter = 30 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.RazorExpression = 31 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.String = 4 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.Tag = 21 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.TagName = 22 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.Text = 0 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.Type = 3 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.Variable = 16 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+BlazOrbit.SyntaxHighlight.Tokens.TokenType.VerbatimString = 5 -> BlazOrbit.SyntaxHighlight.Tokens.TokenType
+override BlazOrbit.SyntaxHighlight.Tokens.Token.GetHashCode() -> int
+override BlazOrbit.SyntaxHighlight.Tokens.TokenMatch.GetHashCode() -> int
+static BlazOrbit.SyntaxHighlight.Builder.LanguageDefinition.Create(string! name) -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinitionBuilder!
+static BlazOrbit.SyntaxHighlight.Languages.CSharpLanguage.Instance.get -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinition!
+static BlazOrbit.SyntaxHighlight.Languages.CssLanguage.Instance.get -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinition!
+static BlazOrbit.SyntaxHighlight.Languages.RazorLanguage.Instance.get -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinition!
+static BlazOrbit.SyntaxHighlight.Languages.TypeScriptLanguage.Instance.get -> BlazOrbit.SyntaxHighlight.Builder.LanguageDefinition!
+static BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderOptions.DarkTheme.get -> BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderOptions!
+static BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderOptions.Default.get -> BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderOptions!
+static BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderOptions.LightTheme.get -> BlazOrbit.SyntaxHighlight.Rendering.HtmlRenderOptions!
+static BlazOrbit.SyntaxHighlight.SyntaxHighlightLanguageExtensions.ToLanguageIdentifier(this BlazOrbit.SyntaxHighlight.SyntaxHighlightLanguage language) -> string!
+static BlazOrbit.SyntaxHighlight.Tokens.Token.Text(string! value, int startIndex) -> BlazOrbit.SyntaxHighlight.Tokens.Token
+static BlazOrbit.SyntaxHighlight.Tokens.Token.operator !=(BlazOrbit.SyntaxHighlight.Tokens.Token left, BlazOrbit.SyntaxHighlight.Tokens.Token right) -> bool
+static BlazOrbit.SyntaxHighlight.Tokens.Token.operator ==(BlazOrbit.SyntaxHighlight.Tokens.Token left, BlazOrbit.SyntaxHighlight.Tokens.Token right) -> bool
+static BlazOrbit.SyntaxHighlight.Tokens.TokenMatch.operator !=(BlazOrbit.SyntaxHighlight.Tokens.TokenMatch left, BlazOrbit.SyntaxHighlight.Tokens.TokenMatch right) -> bool
+static BlazOrbit.SyntaxHighlight.Tokens.TokenMatch.operator ==(BlazOrbit.SyntaxHighlight.Tokens.TokenMatch left, BlazOrbit.SyntaxHighlight.Tokens.TokenMatch right) -> bool
+~override BlazOrbit.SyntaxHighlight.Tokens.Token.Equals(object obj) -> bool
+~override BlazOrbit.SyntaxHighlight.Tokens.Token.ToString() -> string
+~override BlazOrbit.SyntaxHighlight.Tokens.TokenMatch.Equals(object obj) -> bool
+~override BlazOrbit.SyntaxHighlight.Tokens.TokenMatch.ToString() -> string

@@ -1,0 +1,112 @@
+﻿@page "/components/tooltip"
+
+@inject IStringLocalizer<TooltipPage> Loc
+
+<PageTitle>BlazOrbit - BOBTooltip</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBTooltip"]"
+         Lede="@Loc["Context popups with 12 placements, five triggers, interactive content, delays, auto-close, and custom markup."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBTooltip)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+        <BOBTooltip Text="@Loc["This is a basic tooltip"]">
+            <BOBButton Text="@Loc["Hover me"]" OnClick="@(() => { })" />
+        </BOBTooltip>
+    </DocDemo>
+
+    <DocDemo Key="Placements" Title="@Loc["Placements"]" Description="@Loc["Four sides × three alignments (Start, center, End)."]">
+            <BOBTooltip Text="@Loc["Top"]" Placement="TooltipPlacement.Top"><BOBButton Text="@Loc["Top"]" Size="BOBSize.Small" /></BOBTooltip>
+            <BOBTooltip Text="@Loc["Bottom"]" Placement="TooltipPlacement.Bottom"><BOBButton Text="@Loc["Bottom"]" Size="BOBSize.Small" /></BOBTooltip>
+            <BOBTooltip Text="@Loc["Left"]" Placement="TooltipPlacement.Left"><BOBButton Text="@Loc["Left"]" Size="BOBSize.Small" /></BOBTooltip>
+            <BOBTooltip Text="@Loc["Right"]" Placement="TooltipPlacement.Right"><BOBButton Text="@Loc["Right"]" Size="BOBSize.Small" /></BOBTooltip>
+            <BOBTooltip Text="@Loc["TopStart"]" Placement="TooltipPlacement.TopStart"><BOBButton Text="@Loc["TopStart"]" Size="BOBSize.Small" /></BOBTooltip>
+            <BOBTooltip Text="@Loc["TopEnd"]" Placement="TooltipPlacement.TopEnd"><BOBButton Text="@Loc["TopEnd"]" Size="BOBSize.Small" /></BOBTooltip>
+            <BOBTooltip Text="@Loc["BottomStart"]" Placement="TooltipPlacement.BottomStart"><BOBButton Text="@Loc["BottomStart"]" Size="BOBSize.Small" /></BOBTooltip>
+            <BOBTooltip Text="@Loc["BottomEnd"]" Placement="TooltipPlacement.BottomEnd"><BOBButton Text="@Loc["BottomEnd"]" Size="BOBSize.Small" /></BOBTooltip>
+    </DocDemo>
+
+    <DocDemo Key="Triggers" Title="@Loc["Triggers"]">
+            <BOBTooltip Text="@Loc["Hover (default)"]" Trigger="TooltipTrigger.Hover">
+                <BOBButton Text="@Loc["Hover"]" />
+            </BOBTooltip>
+            <BOBTooltip Text="@Loc["Focus via keyboard"]" Trigger="TooltipTrigger.Focus">
+                <BOBButton Text="@Loc["Focus (Tab)"]" />
+            </BOBTooltip>
+            <BOBTooltip Text="@Loc["Click to toggle"]" Trigger="TooltipTrigger.Click">
+                <BOBButton Text="@Loc["Click"]" />
+            </BOBTooltip>
+            <BOBTooltip Text="@Loc["Hover or focus"]" Trigger="TooltipTrigger.HoverAndFocus">
+                <BOBButton Text="@Loc["Hover + Focus"]" />
+            </BOBTooltip>
+    </DocDemo>
+
+    <DocDemo Key="RichContent" Title="@Loc["Rich content"]" Description="@Loc["Use TooltipContent and ChildContent slots."]">
+            <BOBTooltip>
+                <ChildContent>
+                    <BOBButton Text="@Loc["With icon + text"]" />
+                </ChildContent>
+                <TooltipContent>
+                    <div style="text-align: center;">
+                        <BOBSvgIcon Icon="@BOBIconKeys.UI.Info" Color="@PaletteColor.Primary" />
+                        <p style="margin: 0.5rem 0 0;"><strong>@Loc["Information"]</strong></p>
+                        <p style="margin: 0; font-size: 0.85em;">@Loc["Rich tooltip content."]</p>
+                    </div>
+                </TooltipContent>
+            </BOBTooltip>
+            <BOBTooltip Interactive="true">
+                <ChildContent>
+                    <BOBButton Text="@Loc["Keyboard shortcuts"]" />
+                </ChildContent>
+                <TooltipContent>
+                    <div>
+                        <strong>@Loc["Shortcuts"]</strong>
+                        <ul style="margin: 0.5rem 0 0; padding-left: 1.2rem;">
+                            <li>Ctrl+S — @Loc["Save"]</li>
+                            <li>Ctrl+Z — @Loc["Undo"]</li>
+                            <li>Ctrl+Y — @Loc["Redo"]</li>
+                        </ul>
+                    </div>
+                </TooltipContent>
+            </BOBTooltip>
+    </DocDemo>
+
+    <DocDemo Key="Interactive" Title="@Loc["Interactive + auto-close"]">
+            <BOBTooltip Text="@Loc["Closes in 2s"]" AutoCloseAfterMs="2000">
+                <BOBButton Text="@Loc["Auto-close 2s"]" />
+            </BOBTooltip>
+            <BOBTooltip Text="@Loc["Hover into tooltip to keep it open"]" Interactive="true" AutoCloseAfterMs="3000">
+                <BOBButton Text="@Loc["Interactive + auto-close"]" />
+            </BOBTooltip>
+    </DocDemo>
+
+    <DocDemo Key="Delays" Title="@Loc["Delays + offset"]">
+            <BOBTooltip Text="@Loc["Instant show"]" ShowDelay="0">
+                <BOBButton Text="@Loc["No show delay"]" />
+            </BOBTooltip>
+            <BOBTooltip Text="@Loc["500ms leave delay"]" LeaveDelay="500">
+                <BOBButton Text="@Loc["Sticky leave"]" />
+            </BOBTooltip>
+            <BOBTooltip Text="@Loc["20px away from trigger"]" Offset="20">
+                <BOBButton Text="@Loc["20px offset"]" />
+            </BOBTooltip>
+            <BOBTooltip Text="@Loc["No arrow"]" Arrow="false">
+                <BOBButton Text="@Loc["No arrow"]" />
+            </BOBTooltip>
+    </DocDemo>
+
+    <DocDemo Key="Elevation" Title="@Loc["Elevation"]" Description="@Loc["Material Design elevation level (0–24). Derives shadow and dark-mode surface tint automatically."]">
+            <BOBTooltip Text="@Loc["Tooltip with low elevation"]" Elevation="2">
+                <BOBButton Text="@Loc["Elevation 2"]" />
+            </BOBTooltip>
+            <BOBTooltip Text="@Loc["Tooltip with high elevation"]" Elevation="8">
+                <BOBButton Text="@Loc["Elevation 8"]" />
+            </BOBTooltip>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBTooltipComponentInfo.Parameters" />
+    </section>
+
+</DocPage>

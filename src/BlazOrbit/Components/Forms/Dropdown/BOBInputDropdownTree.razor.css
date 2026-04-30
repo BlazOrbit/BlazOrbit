@@ -1,0 +1,9 @@
+﻿.bob-dropdown__tree-content {
+    padding: calc(0.5rem * var(--bob-size-multiplier, 1));
+}
+
+.bob-dropdown__no-options {
+    padding: calc(0.75rem * var(--bob-size-multiplier, 1));
+    text-align: center;
+    opacity: 0.6;
+}

@@ -1,0 +1,262 @@
+﻿@page "/concepts/localization"
+
+<PageTitle>Localization — BlazOrbit</PageTitle>
+
+<DocPage Eyebrow="Concept"
+         Title="Localization"
+         Lede="Built-in culture management for both hosting models — a drop-in service, a culture selector component, and automatic persistence.">
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Which package to install</h2>
+        <ul>
+            <li><code>BlazOrbit.Localization.Wasm</code> — for Blazor WebAssembly apps. Persists the chosen culture in <code>localStorage</code>.</li>
+            <li><code>BlazOrbit.Localization.Server</code> — for Blazor Server apps. Persists via an HTTP cookie and wires up <code>RequestLocalizationOptions</code>.</li>
+        </ul>
+        <p class="doc-section__description">
+            Both packages depend on the standard <code>Microsoft.Extensions.Localization</code> pipeline —
+            you still author <code>.resx</code> files the usual way. The packages only add the
+            persistence layer and a ready-made <code>BOBCultureSelector</code> component.
+        </p>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">WASM setup</h2>
+        <BOBCodeBlock Title="Program.cs"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="@_wasmProgram" />
+        <p class="doc-section__description" style="margin-top: 1rem;">
+            <code>UseBlazOrbitLocalizationWasm</code> reads the persisted culture before any component
+            renders, so the first paint uses the right language.
+        </p>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Server setup</h2>
+        <BOBCodeBlock Title="Program.cs"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="@_serverProgram" />
+        <p class="doc-section__description" style="margin-top: 1rem;">
+            A <code>CookieRequestCultureProvider</code> is inserted at the front of the request
+            localization chain. A startup filter registers a
+            <code>/blazor-ui/culture/{culture}</code> endpoint the selector uses to set the cookie.
+        </p>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">The BOBCultureSelector</h2>
+        <p class="doc-section__description">
+            Ships in both Localization packages. Two built-in variants:
+        </p>
+        <ul>
+            <li><code>BOBCultureSelectorVariant.Dropdown</code> — a styled <code>&lt;select&gt;</code> with flags and culture names.</li>
+            <li><code>BOBCultureSelectorVariant.Flags</code> — one flag button per culture.</li>
+        </ul>
+        <BOBCodeBlock Title="MainLayout.razor"
+                      Language="SyntaxHighlightLanguage.Razor"
+                      Code="@_selectorUsage" />
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Using IStringLocalizer in components</h2>
+        <p class="doc-section__description">
+            Once localization is wired up, the standard ASP.NET approach works everywhere:
+        </p>
+        <BOBCodeBlock Title="Greeting.razor"
+                      Language="SyntaxHighlightLanguage.Razor"
+                      Code="@_usageCode" />
+        <p class="doc-section__description" style="margin-top: 1rem;">
+            Organize the matching <code>.resx</code> files under <code>Resources/Pages/Greeting.resx</code>,
+            <code>Greeting.es.resx</code>, etc. — the <code>ResourcesPath</code> passed to the service
+            options dictates the root folder.
+        </p>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Manually switching culture</h2>
+        <p class="doc-section__description">
+            If you'd rather not use the selector, both persistence services (<code>ILocalizationPersistence</code>)
+            expose a <code>SetStoredCultureAsync</code> you can call from your own UI.
+        </p>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Sidecar translations projects</h2>
+        <p class="doc-section__description">
+            BlazOrbit ships its own strings in a separate package, <code>BlazOrbit.Translations</code>,
+            installed transitively by the localization integrations. You don't have to reference it explicitly —
+            adding <code>BlazOrbit.Localization.Server</code> or <code>.Wasm</code> pulls it in.
+        </p>
+        <p class="doc-section__description">
+            The same pattern is available for your own apps: instead of placing <code>.resx</code> files inside the
+            project that hosts your components, create a sidecar <code>*.Translations</code> class library and
+            register an assembly mapping. <code>IStringLocalizer&lt;T&gt;</code> still works with the original anchor
+            type — only the resource lookup is rerouted to the sidecar assembly.
+        </p>
+
+        <h3 class="doc-section__subtitle">Why split translations</h3>
+        <ul>
+            <li>Strings change on a different cadence than code — translators can ship updates as patch versions of the translations package without touching the host app.</li>
+            <li>The host assembly stays smaller and unaware of localization data.</li>
+            <li>You can publish multiple translations packages (per-language, per-bounded-context) reusing the same anchor types.</li>
+        </ul>
+
+        <h3 class="doc-section__subtitle">Project layout</h3>
+        <BOBCodeBlock Title="MyApp.Translations/MyApp.Translations.csproj"
+                      Language="SyntaxHighlightLanguage.Razor"
+                      Code="@_translationsCsproj" />
+        <p class="doc-section__description" style="margin-top: 1rem;">
+            Place the <code>.resx</code> files under <code>Resources/&lt;path&gt;/&lt;TypeName&gt;.resx</code>, mirroring
+            the namespace path of the anchor type relative to its source assembly. For an anchor
+            <code>MyApp.Pages.HomePage</code> in source assembly <code>MyApp</code>, the neutral resource lives at
+            <code>Resources/Pages/HomePage.resx</code> in the sidecar; the satellite cultures (<code>HomePage.es.resx</code>,
+            <code>HomePage.fr-FR.resx</code>) sit next to it. The .NET SDK packs each culture into its own
+            <code>&lt;culture&gt;/MyApp.Translations.resources.dll</code> automatically.
+        </p>
+
+        <h3 class="doc-section__subtitle">Wiring the assembly map</h3>
+        <BOBCodeBlock Title="Program.cs"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="@_assemblyMapWiring" />
+        <p class="doc-section__description" style="margin-top: 1rem;">
+            <code>TranslationsAssemblies</code> maps source-assembly simple names to translations-assembly simple
+            names. The default map already includes BlazOrbit's own entries; add one line per host assembly that
+            ships a sidecar. Anchor types from unmapped assemblies fall back to the standard
+            <code>ResourceManagerStringLocalizerFactory</code> behavior — they look up resources inside their own
+            assembly, the way <code>Microsoft.Extensions.Localization</code> does by default.
+        </p>
+
+        <h3 class="doc-section__subtitle">How the rerouting works</h3>
+        <p class="doc-section__description">
+            <code>AddBlazOrbitLocalizationServer</code> / <code>AddBlazOrbitLocalizationWasm</code> replace the default
+            <code>IStringLocalizerFactory</code> with <code>ReroutedStringLocalizerFactory</code>. When a component
+            injects <code>IStringLocalizer&lt;HomePage&gt;</code>, the factory:
+        </p>
+        <ol>
+            <li>Reads the assembly that defines <code>HomePage</code> (e.g. <code>MyApp</code>).</li>
+            <li>Looks up the mapped translations assembly (<code>MyApp.Translations</code>).</li>
+            <li>Strips the source-assembly prefix from the type's full name (<code>Pages.HomePage</code>).</li>
+            <li>Calls the inner factory with <code>baseName = "MyApp.Translations.Pages.HomePage"</code> and <code>location = "MyApp.Translations"</code>.</li>
+            <li>The standard <code>ResourceManagerStringLocalizerFactory</code> resolves the manifest at
+                <code>MyApp.Translations.Resources.Pages.HomePage.resources</code> in <code>MyApp.Translations.dll</code>
+                (and the matching satellite for non-neutral cultures).</li>
+        </ol>
+        <p class="doc-section__description">
+            No anchor types need to live in the sidecar — the marker is read from the original source assembly. You
+            can also register your own decorator if you want different rewriting rules; the public
+            <code>ReroutedStringLocalizerFactory</code> ctor takes any inner <code>IStringLocalizerFactory</code> and a
+            <code>IReadOnlyDictionary&lt;string, string&gt;</code> map.
+        </p>
+
+        <h3 class="doc-section__subtitle">Distribution</h3>
+        <p class="doc-section__description">
+            Ship the sidecar as its own NuGet package and reference it as a <code>&lt;PackageReference&gt;</code> from
+            your host package — consumers install only the host and get translations transitively. For non-shipping
+            sidecars (private apps, internal tools, the docs site), set <code>&lt;IsPackable&gt;false&lt;/IsPackable&gt;</code> and use a
+            <code>&lt;ProjectReference&gt;</code> instead. Either way, the runtime surface is identical: the
+            <code>*.Translations.dll</code> just needs to be present beside the host at load time.
+        </p>
+
+        <h3 class="doc-section__subtitle">WASM size optimization</h3>
+        <p class="doc-section__description">
+            On Blazor WebAssembly, satellite assemblies are tree-shaken at publish time according to
+            <code>SatelliteResourceLanguages</code>. If your app only ships English and Spanish, declare it in the WASM
+            host csproj to drop unused cultures from the bundle:
+        </p>
+        <BOBCodeBlock Title="MyApp.Wasm.csproj"
+                      Language="SyntaxHighlightLanguage.Razor"
+                      Code="@_satelliteLanguages" />
+    </section>
+
+</DocPage>
+
+@code {
+    private const string _wasmProgram = @"using System.Globalization;
+using BlazOrbit.Localization.Wasm;
+
+var builder = WebAssemblyHostBuilder.CreateDefault(args);
+
+builder.Services.AddBlazOrbit();
+builder.Services.AddBlazOrbitLocalizationWasm(opts =>
+{
+    opts.SupportedCultures = [
+        new CultureInfo(""en-US""),
+        new CultureInfo(""es-ES""),
+        new CultureInfo(""fr-FR"")
+    ];
+    opts.DefaultCulture = ""en-US"";
+});
+
+var host = builder.Build();
+await host.UseBlazOrbitLocalizationWasm();
+await host.RunAsync();";
+
+    private const string _serverProgram = @"using System.Globalization;
+using BlazOrbit.Localization.Server;
+using Microsoft.AspNetCore.Localization;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddBlazOrbit();
+builder.Services.AddBlazOrbitLocalizationServer(opts =>
+{
+    opts.SupportedCultures = [
+        new CultureInfo(""en-US""),
+        new CultureInfo(""es-ES""),
+        new CultureInfo(""fr-FR"")
+    ];
+    opts.DefaultCulture = ""en-US"";
+});
+
+var app = builder.Build();
+
+app.UseRequestLocalization(
+    app.Services.GetRequiredService<IOptions<RequestLocalizationOptions>>().Value);
+
+app.Run();";
+
+    private const string _selectorUsage = @"@* WASM *@
+@using BlazOrbit.Components.Wasm
+
+<BOBCultureSelector Variant=""BOBCultureSelectorVariant.Dropdown"" />
+
+@* Server — same component, different namespace *@
+@using BlazOrbit.Components.Server
+
+<BOBCultureSelector Variant=""BOBCultureSelectorVariant.Flags"" />";
+
+    private const string _usageCode = @"@inject IStringLocalizer<Greeting> L
+
+<h1>@L[""HelloWorld""]</h1>
+<p>@L[""WelcomeUser"", user.Name]</p>";
+
+    private const string _translationsCsproj = @"<Project Sdk=""Microsoft.NET.Sdk"">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <IsPackable>true</IsPackable>
+    <PackageId>MyApp.Translations</PackageId>
+    <RootNamespace>MyApp.Translations</RootNamespace>
+    <AssemblyName>MyApp.Translations</AssemblyName>
+  </PropertyGroup>
+
+</Project>";
+
+    private const string _assemblyMapWiring = @"using BlazOrbit.Localization.Wasm;
+
+builder.Services.AddBlazOrbitLocalizationWasm(opts =>
+{
+    opts.SupportedCultures = [
+        new CultureInfo(""en-US""),
+        new CultureInfo(""es-ES""),
+        new CultureInfo(""fr-FR"")
+    ];
+    opts.DefaultCulture = ""en-US"";
+
+    // Route IStringLocalizer<T> for types in MyApp to MyApp.Translations.dll.
+    opts.TranslationsAssemblies[""MyApp""] = ""MyApp.Translations"";
+});";
+
+    private const string _satelliteLanguages = @"<PropertyGroup>
+  <SatelliteResourceLanguages>en;es</SatelliteResourceLanguages>
+</PropertyGroup>";
+}

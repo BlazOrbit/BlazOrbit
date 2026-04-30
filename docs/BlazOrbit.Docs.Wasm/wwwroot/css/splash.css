@@ -1,0 +1,285 @@
+﻿.docs-splash {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    /* Dark base matching the hero's space backdrop */
+    background: #0a050f;
+    color: rgba(255, 235, 228, 0.82);
+    font-family: 'Inter', system-ui, sans-serif;
+    z-index: 9999;
+    /* Fade out when Blazor removes the element */
+    animation: splash-enter 0.5s ease-out both;
+}
+
+    /* ── Nebula glow layers ──────────────────────────────────────────*/
+
+    .docs-splash::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse 60% 50% at 18% 20%, rgba(160, 10, 87, 0.10), transparent 70%), radial-gradient(ellipse 50% 42% at 82% 75%, rgba(253, 105, 58, 0.08), transparent 70%), radial-gradient(ellipse 36% 32% at 50% 50%, rgba(160, 10, 87, 0.05), transparent 70%);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    /* ── Starfield — same box-shadow technique as the hero ───────────*/
+
+    .docs-splash::after {
+        content: '';
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        top: 0;
+        left: 0;
+        background: rgba(255, 218, 200, 0.80);
+        pointer-events: none;
+        z-index: 0;
+        box-shadow:
+        /* left zone */
+        48px 120px 0 0 rgba(255, 210, 190, 0.72), 112px 68px 0 1px rgba(255, 235, 220, 0.52), 178px 310px 0 0 rgba(255, 220, 200, 0.64), 228px 48px 0 0 rgba(255, 245, 232, 0.78), 88px 445px 0 0 rgba(255, 208, 185, 0.48), 155px 228px 0 1px rgba(255, 252, 240, 0.42), 310px 178px 0 0 rgba(255, 218, 198, 0.56), 38px 338px 0 0 rgba(255, 240, 225, 0.40), 192px 502px 0 1px rgba(255, 212, 192, 0.58), 72px 568px 0 0 rgba(255, 238, 222, 0.48),
+        /* top strip */
+        428px 18px 0 0 rgba(255, 232, 218, 0.68), 558px 28px 0 1px rgba(255, 252, 242, 0.54), 668px 12px 0 0 rgba(255, 220, 202, 0.62), 778px 34px 0 0 rgba(255, 240, 228, 0.50), 882px 20px 0 1px rgba(255, 228, 212, 0.58),
+        /* center scatter */
+        512px 148px 0 0 rgba(255, 232, 215, 0.36), 618px 88px 0 1px rgba(255, 252, 238, 0.32), 725px 178px 0 0 rgba(255, 222, 202, 0.40), 808px 118px 0 0 rgba(255, 244, 228, 0.42),
+        /* bottom strip */
+        448px 548px 0 0 rgba(255, 228, 208, 0.52), 572px 568px 0 1px rgba(255, 242, 226, 0.44), 688px 558px 0 0 rgba(255, 222, 202, 0.50), 812px 572px 0 0 rgba(255, 252, 238, 0.40),
+        /* right zone */
+        938px 98px 0 0 rgba(255, 212, 192, 0.64), 1012px 268px 0 1px rgba(255, 252, 238, 0.50), 1088px 448px 0 0 rgba(255, 222, 204, 0.58), 1148px 78px 0 0 rgba(255, 242, 226, 0.74), 1218px 338px 0 1px rgba(255, 210, 188, 0.46), 1288px 178px 0 0 rgba(255, 252, 242, 0.54), 1355px 498px 0 0 rgba(255, 226, 208, 0.48), 1058px 388px 0 1px rgba(255, 228, 208, 0.42), 1178px 528px 0 0 rgba(255, 240, 222, 0.50);
+        animation: star-breathe-splash 16s ease-in-out infinite alternate;
+    }
+
+/* ── Logo — planet sphere with orbital ring ──────────────────────
+   The ::before becomes the ring; ::after the specular highlight.
+   ─────────────────────────────────────────────────────────────── */
+
+.docs-splash__logo {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%; /* planet, not rounded-square */
+    background: radial-gradient( circle at 36% 32%, rgba(253, 160, 100, 1) 0%, rgba(253, 105, 58, 1) 26%, rgba(160, 10, 87, 1) 58%, rgba(40, 2, 25, 1) 100% );
+    box-shadow: 0 0 32px rgba(160, 10, 87, 0.55), 0 0 80px rgba(160, 10, 87, 0.18), inset -18px -18px 34px rgba(30, 2, 20, 0.72);
+    display: grid;
+    place-items: center;
+    position: relative;
+    overflow: visible; /* ring must extend beyond the sphere */
+    animation: planet-breathe 5s ease-in-out infinite alternate;
+    z-index: 1;
+}
+
+    /* Orbital ring */
+    .docs-splash__logo::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 180px;
+        height: 44px;
+        margin-left: -90px;
+        margin-top: -22px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(253, 105, 58, 0.38);
+        box-shadow: 0 0 8px rgba(253, 105, 58, 0.12), inset 0 0 6px rgba(253, 105, 58, 0.08);
+        animation: ring-orbit 8s linear infinite;
+        pointer-events: none;
+    }
+
+    /* Travelling node on the ring */
+    .docs-splash__logo::after {
+        content: '';
+        position: absolute;
+        /* sits on the ring's top vertex */
+        top: calc(50% - 22px - 4px);
+        left: 50%;
+        width: 8px;
+        height: 8px;
+        margin-left: -4px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 40% 40%, #fff, #fd693a);
+        box-shadow: 0 0 10px rgba(253, 105, 58, 0.8), 0 0 24px rgba(253, 105, 58, 0.32);
+        animation: ring-orbit 8s linear infinite; /* stays in sync with ring */
+        pointer-events: none;
+    }
+
+/* ── Spark — hot-star core inside the planet ─────────────────────*/
+
+.docs-splash__spark {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: radial-gradient( circle at 38% 38%, rgba(255, 255, 255, 0.96) 0%, rgba(253, 105, 58, 0.90) 40%, rgba(160, 10, 87, 0.80) 80% );
+    box-shadow: 0 0 18px rgba(255, 255, 255, 0.55), 0 0 36px rgba(253, 105, 58, 0.40);
+    position: relative;
+    z-index: 1;
+    animation: spark-pulse 2.2s ease-in-out infinite;
+}
+
+    /* Expanding ping around the spark */
+    .docs-splash__spark::after {
+        content: '';
+        position: absolute;
+        inset: -5px;
+        border-radius: 50%;
+        border: 1.5px solid rgba(253, 105, 58, 0.55);
+        animation: spark-ping 2.8s ease-out infinite;
+    }
+
+/* ── Text ────────────────────────────────────────────────────────*/
+
+.docs-splash__text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    position: relative;
+    z-index: 1;
+}
+
+    .docs-splash__text strong {
+        font-size: 1.35rem;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+        /* gradient text matching hero title */
+        background: linear-gradient(90deg, #a00a57, #fd693a, #a00a57);
+        background-size: 200% auto;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        animation: text-shine 3s linear infinite;
+    }
+
+    .docs-splash__text span {
+        font-size: 0.82rem;
+        font-weight: 400;
+        letter-spacing: 0.01em;
+        color: rgba(255, 220, 205, 0.50);
+    }
+
+    /* ── Loading bar — orbital trail ─────────────────────────────────*/
+
+    .docs-splash__text::after {
+        content: '';
+        display: block;
+        margin-top: 0.6rem;
+        width: 96px;
+        height: 2px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+        overflow: hidden;
+        position: relative;
+    }
+
+    .docs-splash__text::before {
+        content: '';
+        display: block;
+        position: absolute;
+        bottom: 0; /* aligns with ::after bar */
+        left: 50%;
+        transform: translateX(-48px);
+        width: 32px;
+        height: 2px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, transparent, rgba(253, 105, 58, 0.9), transparent);
+        animation: bar-sweep 1.8s ease-in-out infinite;
+    }
+
+/* ================================================================
+   KEYFRAMES
+   ================================================================ */
+
+@keyframes splash-enter {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes planet-breathe {
+    from {
+        box-shadow: 0 0 22px rgba(160, 10, 87, 0.40), 0 0 55px rgba(160, 10, 87, 0.12), inset -18px -18px 34px rgba(30, 2, 20, 0.72);
+    }
+
+    to {
+        box-shadow: 0 0 44px rgba(160, 10, 87, 0.68), 0 0 100px rgba(160, 10, 87, 0.22), inset -18px -18px 34px rgba(30, 2, 20, 0.72);
+    }
+}
+
+@keyframes ring-orbit {
+    from {
+        transform: rotate( 0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spark-pulse {
+    0%, 100% {
+        transform: scale(0.88);
+        opacity: 0.85;
+    }
+
+    50% {
+        transform: scale(1.12);
+        opacity: 1.00;
+    }
+}
+
+@keyframes spark-ping {
+    0% {
+        transform: scale(1);
+        opacity: 0.75;
+    }
+
+    75% {
+        transform: scale(2.8);
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@keyframes text-shine {
+    to {
+        background-position: 200% center;
+    }
+}
+
+@keyframes bar-sweep {
+    0% {
+        transform: translateX(-48px);
+        opacity: 0;
+    }
+
+    20% {
+        opacity: 1;
+    }
+
+    80% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(112px);
+        opacity: 0;
+    }
+}
+
+@keyframes star-breathe-splash {
+    from {
+        opacity: 0.70;
+    }
+
+    to {
+        opacity: 1.00;
+    }
+}

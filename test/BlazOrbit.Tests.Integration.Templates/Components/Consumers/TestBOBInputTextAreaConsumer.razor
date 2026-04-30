@@ -1,0 +1,45 @@
+﻿@using BlazOrbit.Components.Forms
+@using Microsoft.AspNetCore.Components.Forms
+@using System.ComponentModel.DataAnnotations
+
+<div class="test-textarea-consumer">
+    <EditForm EditContext="_editContext" OnValidSubmit="HandleValid" OnInvalidSubmit="HandleInvalid">
+        <DataAnnotationsValidator />
+
+        <BOBInputTextArea @bind-Value="_model.Bio"
+                          Label="Bio"
+                          HelperText="Tell us about yourself." />
+
+        <button type="submit" class="submit-btn">Submit</button>
+    </EditForm>
+    <div class="submit-result">@_submitResult</div>
+</div>
+
+@code {
+    public class Model
+    {
+        [Required(ErrorMessage = "Bio is required")]
+        [StringLength(20, ErrorMessage = "Too long")]
+        public string? Bio { get; set; }
+    }
+
+    private Model _model = new();
+    private EditContext? _editContext;
+    private string _submitResult = string.Empty;
+
+    [Parameter] public string? InitialBio { get; set; }
+
+    protected override void OnInitialized()
+    {
+        _model.Bio = InitialBio;
+        _editContext = new EditContext(_model);
+    }
+
+    public EditContext EditContext => _editContext!;
+    public Model BoundModel => _model;
+
+    public void ForceValidate() => _editContext?.Validate();
+
+    private void HandleValid() => _submitResult = "valid";
+    private void HandleInvalid() => _submitResult = "invalid";
+}

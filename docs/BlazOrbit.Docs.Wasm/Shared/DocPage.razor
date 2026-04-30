@@ -1,0 +1,67 @@
+@using BlazOrbit.Docs.Components
+
+@inject NavigationManager Nav
+
+<CascadingValue Value="_ctx" IsFixed="true">
+    <div class="doc-page">
+        <header class="doc-page__header">
+            @if (!string.IsNullOrEmpty(Eyebrow))
+            {
+                <span class="doc-page__eyebrow">@Eyebrow</span>
+            }
+            <h1 class="doc-page__title">@Title</h1>
+            @if (!string.IsNullOrEmpty(Lede))
+            {
+                <p class="doc-page__lede">@Lede</p>
+            }
+            @if (ApiType is not null)
+            {
+                <a class="doc-page__api-link"
+                   href="@BuildApiRefUrl(ApiType)"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    API reference ↗
+                </a>
+            }
+        </header>
+
+        @ChildContent
+    </div>
+</CascadingValue>
+
+@if (ShowPerformanceDashboard())
+{
+    <BlazOrbit.Components.Diagnostics.BOBPerformanceDashboard />
+}
+
+@code {
+    private const string ApiRefBaseUrl = "https://blazorbit.github.io/BlazOrbit/api/";
+
+    [Parameter] public string? Eyebrow { get; set; }
+    [Parameter, EditorRequired] public string Title { get; set; } = default!;
+    [Parameter] public string? Lede { get; set; }
+    [Parameter] public object? PageInstance { get; set; }
+    [Parameter] public Type? ApiType { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private DocDemoContext? _ctx;
+
+    protected override void OnParametersSet()
+        => _ctx = PageInstance is null ? null : new DocDemoContext(PageInstance);
+
+    private static string BuildApiRefUrl(Type type)
+    {
+        string fullName = type.FullName ?? type.Name;
+        // DocFX UID: backtick generic-arity marker becomes dash (e.g. Foo`1 → Foo-1).
+        return ApiRefBaseUrl + fullName.Replace('`', '-') + ".html";
+    }
+
+    private bool ShowPerformanceDashboard()
+    {
+#if DEBUG
+    return true;
+#else
+        return false;
+#endif
+    }
+}

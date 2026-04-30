@@ -1,0 +1,43 @@
+﻿.bob-modal-host {
+    position: fixed;
+    inset: 0;
+    z-index: var(--bob-z-modal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* tabindex="-1" — host is a focus-trap fallback only; visible focus moves
+       to the first interactive descendant. WCAG 2.4.7 satisfied via children. */
+    outline: none;
+}
+
+.bob-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: color-mix(in srgb, var(--palette-shadow) 50%, transparent);
+    backdrop-filter: blur(2px);
+    animation: bob-modal-overlay-in 200ms ease-out forwards;
+}
+
+.bob-modal-overlay--closing {
+    animation: bob-modal-overlay-out 150ms ease-in forwards;
+}
+
+@keyframes bob-modal-overlay-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes bob-modal-overlay-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}

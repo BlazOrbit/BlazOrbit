@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<IsPackable>true</IsPackable>
+		<PackageType>Dependency</PackageType>
+		<PackageId>BlazOrbit.Translations</PackageId>
+		<RootNamespace>BlazOrbit.Translations</RootNamespace>
+		<AssemblyName>BlazOrbit.Translations</AssemblyName>
+		<Description>Localized resource bundle for BlazOrbit. Ships .resx satellites for every supported culture; loaded automatically by the localization integrations through the rerouted IStringLocalizerFactory.</Description>
+		<PackageTags>blazor;localization;i18n;translations;blazorbit</PackageTags>
+	</PropertyGroup>
+
+</Project>

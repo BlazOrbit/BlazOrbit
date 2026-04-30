@@ -1,0 +1,16 @@
+﻿[
+  {
+    Name: NoLabel,
+    Html:
+<div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+    <span class="bob-input__outline-notch"></span>
+    <span class="bob-input__outline-trailing"></span></div>
+  },
+  {
+    Name: WithLabel,
+    Html:
+<div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+    <span class="bob-input__outline-notch"><label for="input-1" class="bob-input__label">Full Name</label></span>
+    <span class="bob-input__outline-trailing"></span></div>
+  }
+]

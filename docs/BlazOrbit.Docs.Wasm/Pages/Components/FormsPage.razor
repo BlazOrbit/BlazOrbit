@@ -1,0 +1,143 @@
+﻿@page "/components/forms"
+@using System.ComponentModel.DataAnnotations
+@inject IStringLocalizer<FormsPage> Loc
+
+<PageTitle>BlazOrbit - Forms</PageTitle>
+
+<DocPage Eyebrow="@Loc["Components"]" Title="@Loc["Forms"]"
+         Lede="@Loc["Complete form example using EditForm, data annotations, and BlazOrbit input components."]"
+         PageInstance="this">
+
+    <DocDemo Key="CompleteForm" Title="@Loc["Complete form example"]">
+        <EditForm Model="_model" OnValidSubmit="HandleSubmit" OnInvalidSubmit="HandleInvalidSubmit" FormName="demoForm">
+            <DataAnnotationsValidator />
+
+            <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                <BOBInputText @bind-Value="_model.FullName"
+                              Label="@Loc["Full name"]"
+                              HelperText="@Loc["Enter your first and last name."]"
+                              Required="true" />
+
+                <BOBInputText @bind-Value="_model.Email"
+                              Label="@Loc["Email"]"
+                              HelperText="@Loc["A valid email address is required."]"
+                              Required="true" />
+
+                <BOBInputNumber TValue="int" @bind-Value="_model.Age"
+                                Label="@Loc["Age"]"
+                                HelperText="@Loc["Must be between 18 and 120."]"
+                                Min="18"
+                                Max="120"
+                                Required="true" />
+
+                <BOBInputDateTime TValue="DateTime?" @bind-Value="_model.BirthDate"
+                                  Label="@Loc["Birth date"]"
+                                  HelperText="@Loc["Select your date of birth."]"
+                                  Required="true" />
+
+                <BOBInputDropdown @bind-Value="_model.Country"
+                                  Label="@Loc["Country"]"
+                                  HelperText="@Loc["Select your country of residence."]"
+                                  Required="true"
+                                  Searchable="true"
+                                  SearchPlaceholder="@Loc["Search country..."]">
+                    <DropdownOption TOption="string" Value="@("us")">@Loc["United States"]</DropdownOption>
+                    <DropdownOption TOption="string" Value="@("mx")">@Loc["Mexico"]</DropdownOption>
+                    <DropdownOption TOption="string" Value="@("ca")">@Loc["Canada"]</DropdownOption>
+                    <DropdownOption TOption="string" Value="@("es")">@Loc["Spain"]</DropdownOption>
+                    <DropdownOption TOption="string" Value="@("fr")">@Loc["France"]</DropdownOption>
+                    <DropdownOption TOption="string" Value="@("de")">@Loc["Germany"]</DropdownOption>
+                    <DropdownOption TOption="string" Value="@("uk")">@Loc["United Kingdom"]</DropdownOption>
+                    <DropdownOption TOption="string" Value="@("jp")">@Loc["Japan"]</DropdownOption>
+                </BOBInputDropdown>
+
+                <BOBInputRadio @bind-Value="_model.Gender"
+                               Label="@Loc["Gender"]"
+                               HelperText="@Loc["Select your gender."]"
+                               Required="true"
+                               Orientation="RadioOrientation.Horizontal">
+                    <RadioOption Value="@("female")">@Loc["Female"]</RadioOption>
+                    <RadioOption Value="@("male")">@Loc["Male"]</RadioOption>
+                    <RadioOption Value="@("other")">@Loc["Other"]</RadioOption>
+                    <RadioOption Value="@("prefer_not_to_say")">@Loc["Prefer not to say"]</RadioOption>
+                </BOBInputRadio>
+
+                <BOBInputCheckbox @bind-Value="_model.AcceptTerms"
+                                  Label="@Loc["Accept terms and conditions"]"
+                                  HelperText="@Loc["You must accept to continue."]"
+                                  Required="true" />
+
+                <BOBInputSwitch @bind-Value="_model.Newsletter"
+                                Label="@Loc["Subscribe to newsletter"]"
+                                HelperText="@Loc["Receive product updates and news."]" />
+
+                <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                    <BOBButton Text="@Loc["Submit"]" Type="BOBButtonType.Submit"
+                               BackgroundColor="@PaletteColor.Primary"
+                               Color="@PaletteColor.PrimaryContrast" />
+                    <BOBButton Text="@Loc["Reset"]" Type="BOBButtonType.Reset"
+                               OnClick="HandleReset" />
+                </div>
+
+                @if (!string.IsNullOrEmpty(_submitMessage))
+                {
+                    <div style="margin-top: 1rem; padding: 1rem; background-color: var(--palette-success); color: #020202;">
+                        @_submitMessage
+                    </div>
+                }
+            </div>
+        </EditForm>
+    </DocDemo>
+
+</DocPage>
+
+@code {
+    private FormModel _model = new();
+    private string? _submitMessage;
+
+    private void HandleSubmit()
+    {
+        _submitMessage = Loc["Form submitted successfully!"];
+    }
+
+    private void HandleInvalidSubmit()
+    {
+        _submitMessage = null;
+    }
+
+    private void HandleReset()
+    {
+        _model = new FormModel();
+        _submitMessage = null;
+    }
+
+    public class FormModel
+    {
+        [Required(ErrorMessage = "Full name is required.")]
+        [StringLength(100, ErrorMessage = "Name cannot exceed 100 characters.")]
+        public string FullName { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress(ErrorMessage = "Invalid email address.")]
+        public string Email { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Age is required.")]
+        [Range(18, 120, ErrorMessage = "Age must be between 18 and 120.")]
+        public int Age { get; set; }
+
+        [Required(ErrorMessage = "Birth date is required.")]
+        public DateTime? BirthDate { get; set; }
+
+        [Required(ErrorMessage = "Country is required.")]
+        public string? Country { get; set; }
+
+        [Required(ErrorMessage = "Gender is required.")]
+        public string? Gender { get; set; }
+
+        [Required(ErrorMessage = "You must accept the terms and conditions.")]
+        [Range(typeof(bool), "true", "true", ErrorMessage = "You must accept the terms and conditions.")]
+        public bool AcceptTerms { get; set; }
+
+        public bool Newsletter { get; set; }
+    }
+}

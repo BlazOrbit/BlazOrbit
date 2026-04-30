@@ -1,0 +1,17 @@
+﻿{
+  headings: [
+    Buttons,
+    Inputs,
+    Selection,
+    Card,
+    Badges,
+    Data Grid,
+    Code Block,
+    Loading Indicators,
+    Tooltip,
+    Overlays,
+    SVG Icons
+  ],
+  sections: 11,
+  rows: 10
+}

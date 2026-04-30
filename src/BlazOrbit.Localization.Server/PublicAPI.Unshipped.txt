@@ -1,0 +1,15 @@
+﻿#nullable enable
+BlazOrbit.Localization.Server.Components._Imports
+BlazOrbit.Localization.Server.Components._Imports.Execute() -> void
+BlazOrbit.Localization.Server.Components._Imports._Imports() -> void
+BlazOrbit.Localization.Server.CultureEndpointStartupFilter
+BlazOrbit.Localization.Server.CultureEndpointStartupFilter.Configure(System.Action<Microsoft.AspNetCore.Builder.IApplicationBuilder!>! next) -> System.Action<Microsoft.AspNetCore.Builder.IApplicationBuilder!>!
+BlazOrbit.Localization.Server.CultureEndpointStartupFilter.CultureEndpointStartupFilter() -> void
+BlazOrbit.Localization.Server.ServerLocalizationSettings
+BlazOrbit.Localization.Server.ServerLocalizationSettings.CultureCookieName.get -> string!
+BlazOrbit.Localization.Server.ServerLocalizationSettings.CultureCookieName.set -> void
+BlazOrbit.Localization.Server.ServerLocalizationSettings.CultureEndpointPath.get -> string!
+BlazOrbit.Localization.Server.ServerLocalizationSettings.CultureEndpointPath.set -> void
+BlazOrbit.Localization.Server.ServerLocalizationSettings.ServerLocalizationSettings() -> void
+Microsoft.Extensions.DependencyInjection.ServerLocalizationServiceCollectionExtensions
+static Microsoft.Extensions.DependencyInjection.ServerLocalizationServiceCollectionExtensions.AddBlazOrbitLocalizationServer(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services, System.Action<BlazOrbit.Localization.Server.ServerLocalizationSettings!>? configure = null) -> Microsoft.Extensions.DependencyInjection.IServiceCollection!

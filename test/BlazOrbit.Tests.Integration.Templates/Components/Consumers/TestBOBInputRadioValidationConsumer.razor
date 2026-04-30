@@ -1,0 +1,42 @@
+﻿@using BlazOrbit.Components.Forms
+@using Microsoft.AspNetCore.Components.Forms
+@using System.ComponentModel.DataAnnotations
+
+<div class="test-radio-validation-consumer">
+    <EditForm EditContext="_editContext" OnValidSubmit="HandleValid" OnInvalidSubmit="HandleInvalid">
+        <DataAnnotationsValidator />
+
+        <BOBInputRadio @bind-Value="_model.Choice"
+                       Label="Pick one"
+                       HelperText="Selection is required.">
+            <RadioOption Value="@("opt1")">Option 1</RadioOption>
+            <RadioOption Value="@("opt2")">Option 2</RadioOption>
+            <RadioOption Value="@("opt3")">Option 3</RadioOption>
+        </BOBInputRadio>
+
+        <button type="submit" class="submit-btn">Submit</button>
+    </EditForm>
+    <div class="submit-result">@_submitResult</div>
+</div>
+
+@code {
+    public class RadioModel
+    {
+        [Required(ErrorMessage = "You must pick an option")]
+        public string? Choice { get; set; }
+    }
+
+    private RadioModel _model = new();
+    private EditContext? _editContext;
+    private string _submitResult = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        _editContext = new EditContext(_model);
+    }
+
+    public RadioModel BoundModel => _model;
+
+    private void HandleValid() => _submitResult = "valid";
+    private void HandleInvalid() => _submitResult = "invalid";
+}

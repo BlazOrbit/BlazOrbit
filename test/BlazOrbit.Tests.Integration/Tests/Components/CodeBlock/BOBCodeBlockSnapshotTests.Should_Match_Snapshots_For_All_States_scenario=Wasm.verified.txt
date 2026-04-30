@@ -1,0 +1,185 @@
+﻿[
+  {
+    Name: CSharp_Default,
+    Html:
+<bob-component data-bob-component="code-block" data-bob-size="medium" b-<SCOPE>><div class="bob-code-block__header" b-<SCOPE>><span class="bob-code-block__title" b-<SCOPE>>CSHARP</span>
+
+        <bob-component data-bob-component="tooltip" blazor:onmouseenter="1" blazor:onmouseleave="2" blazor:onfocusin="3" blazor:onfocusout="4" blazor:onclick="<EVENT>" b-<SCOPE>><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Copy code" blazor:onclick="<EVENT>" b-<SCOPE>><span b-<SCOPE>>Copy</span></button></bob-component></div>
+
+    <div class="bob-code-block__content" b-<SCOPE>><style>
+.SH-container {
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  font-family: 'Cascadia Code', 'Fira Code', Consolas, 'Courier New', monospace;
+  font-size: 14px;
+  padding: 1em;
+  border-radius: 0px;
+  overflow-x: auto;
+  margin: 0;
+}
+.SH-code {
+  display: block;
+  white-space: pre;
+  margin: 0;
+}
+.SH-kw { color: #569cd6; }
+.SH-ckw { color: #c586c0; }
+.SH-type { color: #4ec9b0; }
+.SH-str { color: #ce9178; }
+.SH-vstr { color: #ce9178; }
+.SH-istr { color: #ce9178; }
+.SH-chr { color: #ce9178; }
+.SH-num { color: #b5cea8; }
+.SH-cmt { color: #6a9955; }
+.SH-op { color: #d4d4d4; }
+.SH-punc { color: #d4d4d4; }
+.SH-mth { color: #dcdcaa; }
+.SH-prop { color: #9cdcfe; }
+.SH-fld { color: #9cdcfe; }
+.SH-param { color: #9cdcfe; }
+.SH-var { color: #9cdcfe; }
+.SH-ns { color: #4ec9b0; }
+.SH-dir { color: #c586c0; }
+.SH-pdir { color: #808080; }
+.SH-attr { color: #4ec9b0; }
+.SH-tname { color: #569cd6; }
+.SH-aname { color: #9cdcfe; }
+.SH-aval { color: #ce9178; }
+.SH-csel { color: #d7ba7d; }
+.SH-cprop { color: #9cdcfe; }
+.SH-cval { color: #ce9178; }
+.SH-cunit { color: #b5cea8; }
+.SH-cpseudo { color: #d7ba7d; }
+.SH-rdel { color: #c586c0; }
+.SH-rexp { color: #c586c0; }
+.SH-rblk { color: #c586c0; }
+</style>
+
+<pre class="SH-container"><code class="SH-code"><span class="SH-kw">var</span> x <span class="SH-op">=</span> <span class="SH-num">1</span><span class="SH-punc">;</span></code></pre></div></bob-component>
+  },
+  {
+    Name: Json_With_Custom_Title,
+    Html:
+<bob-component data-bob-component="code-block" data-bob-size="medium" b-<SCOPE>><div class="bob-code-block__header" b-<SCOPE>><span class="bob-code-block__title" b-<SCOPE>>Config</span>
+
+        <bob-component data-bob-component="tooltip" blazor:onmouseenter="7" blazor:onmouseleave="8" blazor:onfocusin="9" blazor:onfocusout="10" blazor:onclick="<EVENT>" b-<SCOPE>><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Copy code" blazor:onclick="<EVENT>" b-<SCOPE>><span b-<SCOPE>>Copy</span></button></bob-component></div>
+
+    <div class="bob-code-block__content" b-<SCOPE>>{ &quot;key&quot;: &quot;value&quot; }</div></bob-component>
+  },
+  {
+    Name: Large_Size,
+    Html:
+<bob-component data-bob-component="code-block" data-bob-size="large" b-<SCOPE>><div class="bob-code-block__header" b-<SCOPE>><span class="bob-code-block__title" b-<SCOPE>>CSHARP</span>
+
+        <bob-component data-bob-component="tooltip" blazor:onmouseenter="13" blazor:onmouseleave="14" blazor:onfocusin="15" blazor:onfocusout="16" blazor:onclick="<EVENT>" b-<SCOPE>><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Copy code" blazor:onclick="<EVENT>" b-<SCOPE>><span b-<SCOPE>>Copy</span></button></bob-component></div>
+
+    <div class="bob-code-block__content" b-<SCOPE>><style>
+.SH-container {
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  font-family: 'Cascadia Code', 'Fira Code', Consolas, 'Courier New', monospace;
+  font-size: 14px;
+  padding: 1em;
+  border-radius: 0px;
+  overflow-x: auto;
+  margin: 0;
+}
+.SH-code {
+  display: block;
+  white-space: pre;
+  margin: 0;
+}
+.SH-kw { color: #569cd6; }
+.SH-ckw { color: #c586c0; }
+.SH-type { color: #4ec9b0; }
+.SH-str { color: #ce9178; }
+.SH-vstr { color: #ce9178; }
+.SH-istr { color: #ce9178; }
+.SH-chr { color: #ce9178; }
+.SH-num { color: #b5cea8; }
+.SH-cmt { color: #6a9955; }
+.SH-op { color: #d4d4d4; }
+.SH-punc { color: #d4d4d4; }
+.SH-mth { color: #dcdcaa; }
+.SH-prop { color: #9cdcfe; }
+.SH-fld { color: #9cdcfe; }
+.SH-param { color: #9cdcfe; }
+.SH-var { color: #9cdcfe; }
+.SH-ns { color: #4ec9b0; }
+.SH-dir { color: #c586c0; }
+.SH-pdir { color: #808080; }
+.SH-attr { color: #4ec9b0; }
+.SH-tname { color: #569cd6; }
+.SH-aname { color: #9cdcfe; }
+.SH-aval { color: #ce9178; }
+.SH-csel { color: #d7ba7d; }
+.SH-cprop { color: #9cdcfe; }
+.SH-cval { color: #ce9178; }
+.SH-cunit { color: #b5cea8; }
+.SH-cpseudo { color: #d7ba7d; }
+.SH-rdel { color: #c586c0; }
+.SH-rexp { color: #c586c0; }
+.SH-rblk { color: #c586c0; }
+</style>
+
+<pre class="SH-container"><code class="SH-code"><span class="SH-kw">var</span> x <span class="SH-op">=</span> <span class="SH-num">1</span><span class="SH-punc">;</span></code></pre></div></bob-component>
+  },
+  {
+    Name: TypeScript,
+    Html:
+<bob-component data-bob-component="code-block" data-bob-size="medium" b-<SCOPE>><div class="bob-code-block__header" b-<SCOPE>><span class="bob-code-block__title" b-<SCOPE>>TYPESCRIPT</span>
+
+        <bob-component data-bob-component="tooltip" blazor:onmouseenter="19" blazor:onmouseleave="20" blazor:onfocusin="21" blazor:onfocusout="22" blazor:onclick="<EVENT>" b-<SCOPE>><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Copy code" blazor:onclick="<EVENT>" b-<SCOPE>><span b-<SCOPE>>Copy</span></button></bob-component></div>
+
+    <div class="bob-code-block__content" b-<SCOPE>><style>
+.SH-container {
+  background-color: #1e1e1e;
+  color: #d4d4d4;
+  font-family: 'Cascadia Code', 'Fira Code', Consolas, 'Courier New', monospace;
+  font-size: 14px;
+  padding: 1em;
+  border-radius: 0px;
+  overflow-x: auto;
+  margin: 0;
+}
+.SH-code {
+  display: block;
+  white-space: pre;
+  margin: 0;
+}
+.SH-kw { color: #569cd6; }
+.SH-ckw { color: #c586c0; }
+.SH-type { color: #4ec9b0; }
+.SH-str { color: #ce9178; }
+.SH-vstr { color: #ce9178; }
+.SH-istr { color: #ce9178; }
+.SH-chr { color: #ce9178; }
+.SH-num { color: #b5cea8; }
+.SH-cmt { color: #6a9955; }
+.SH-op { color: #d4d4d4; }
+.SH-punc { color: #d4d4d4; }
+.SH-mth { color: #dcdcaa; }
+.SH-prop { color: #9cdcfe; }
+.SH-fld { color: #9cdcfe; }
+.SH-param { color: #9cdcfe; }
+.SH-var { color: #9cdcfe; }
+.SH-ns { color: #4ec9b0; }
+.SH-dir { color: #c586c0; }
+.SH-pdir { color: #808080; }
+.SH-attr { color: #4ec9b0; }
+.SH-tname { color: #569cd6; }
+.SH-aname { color: #9cdcfe; }
+.SH-aval { color: #ce9178; }
+.SH-csel { color: #d7ba7d; }
+.SH-cprop { color: #9cdcfe; }
+.SH-cval { color: #ce9178; }
+.SH-cunit { color: #b5cea8; }
+.SH-cpseudo { color: #d7ba7d; }
+.SH-rdel { color: #c586c0; }
+.SH-rexp { color: #c586c0; }
+.SH-rblk { color: #c586c0; }
+</style>
+
+<pre class="SH-container"><code class="SH-code"><span class="SH-kw">const</span> x<span class="SH-op">:</span> <span class="SH-type">number</span> <span class="SH-op">=</span> <span class="SH-num">1</span><span class="SH-punc">;</span></code></pre></div></bob-component>
+  }
+]

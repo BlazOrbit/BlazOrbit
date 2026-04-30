@@ -1,0 +1,15 @@
+﻿<Project>
+  <!--
+    Inherits root Directory.Build.props and elevates every warning to an error
+    for all test projects. This keeps test code at the same quality bar as
+    shipping code under src/.
+    See TEST-01 in TASKS.md.
+  -->
+  <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
+
+  <PropertyGroup>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <!-- Tests don't ship XML docs; disable to avoid CS1591 noise on test helpers. -->
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+</Project>
