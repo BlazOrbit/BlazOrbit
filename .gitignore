@@ -372,8 +372,8 @@ obj/
 
 # Build outputs
 # wwwroot/{css,js} is regenerated on every build from CssBundle/ + Vite using BuildTools.
-/src/BlazOrbit/wwwroot/css/
-/src/BlazOrbit/wwwroot/js/
+# NOTE: css/ and js/ are checked in so CI can build without npm/node.
+# The maintainer must regenerate them via BuildTools before committing changes.
 /src/BlazOrbit/package.json
 /src/BlazOrbit/package-lock.json
 /src/BlazOrbit/.npmrc
