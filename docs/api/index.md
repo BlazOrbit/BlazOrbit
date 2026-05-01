@@ -1,8 +1,8 @@
 # BlazOrbit API reference
 
-Auto-generated reference for every public type and member in the [BlazOrbit](https://github.com/BlazOrbit/BlazOrbit) .NET 10 component library.
+Auto-generated reference for every public type and member in the [BlazOrbit Source Code](https://github.com/BlazOrbit/BlazOrbit) component library.
 
-For tutorials, live examples, and theming guides, see the official documentation site at [blazorbit.dev](https://blazorbit.dev).
+For tutorials, live examples, and theming guides, see the official documentation site at [blazorbit.com](https://blazorbit.com).
 
 ## Packages covered
 
@@ -18,7 +18,3 @@ For tutorials, live examples, and theming guides, see the official documentation
 | `BlazOrbit.FluentValidation` | FluentValidation adapter for `EditContext`. |
 
 Source generators (`BlazOrbit.CodeGeneration`, `BlazOrbit.Core.CodeGeneration`) and the build-time tool (`BlazOrbit.BuildTools`) are intentionally omitted — consumers do not reference them directly.
-
-## How this site is built
-
-DocFX consumes the `.xml` documentation files emitted by `<GenerateDocumentationFile>true</GenerateDocumentationFile>` in `Directory.Build.props`. The build runs once per push to `master` and publishes to GitHub Pages.
