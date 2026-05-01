@@ -1,2 +1,0 @@
-﻿- El selector de tema no se situa en la opcion al iniciar.
-- 

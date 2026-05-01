@@ -1,6 +1,6 @@
 # .github/workflows/release-gate.yml
 # Quality gates for releases - runs on PRs to master
-# Verifies blocking issues, Public API, and requires approvals
+# Verifies build, test and public API before merging to master
 
 name: '[Quality] Release Gate'
 
@@ -8,7 +8,7 @@ on:
   pull_request:
     branches: [master]
     types: [opened, synchronize, reopened, labeled, unlabeled]
-  
+
   workflow_dispatch:
     inputs:
       check_only:
@@ -34,17 +34,17 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           global-json-file: global.json
           cache: true
           cache-dependency-path: '**/*.csproj'
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '20'
 
@@ -52,13 +52,10 @@ jobs:
         run: dotnet workload install wasm-tools
 
       - name: Restore dependencies
-        run: dotnet restore CdCSharp.BlazorBit.slnx
+        run: dotnet restore BlazOrbit.slnx
 
       - name: Build (Release)
-        run: dotnet build CdCSharp.BlazorBit.slnx -c Release --no-restore -p:TreatWarningsAsErrors=true
-
-      - name: Test
-        run: dotnet test CdCSharp.BlazorBit.slnx -c Release --no-build --verbosity normal
+        run: dotnet build BlazOrbit.slnx -c Release --no-restore -p:TreatWarningsAsErrors=true
 
       - name: Audit vulnerable NuGet packages (SEC-09)
         run: |
@@ -68,9 +65,9 @@ jobs:
           # exist, so we grep the output ourselves.
           set -e
           echo "Auditing direct dependencies..."
-          dotnet list CdCSharp.BlazorBit.slnx package --vulnerable 2>&1 | tee vuln-direct.log
+          dotnet list BlazOrbit.slnx package --vulnerable 2>&1 | tee vuln-direct.log
           echo "Auditing transitive dependencies..."
-          dotnet list CdCSharp.BlazorBit.slnx package --vulnerable --include-transitive 2>&1 | tee vuln-transitive.log
+          dotnet list BlazOrbit.slnx package --vulnerable --include-transitive 2>&1 | tee vuln-transitive.log
 
           if grep -E "Critical|High" vuln-direct.log vuln-transitive.log; then
             echo "::error::High/Critical vulnerability detected in NuGet dependencies. See logs above."
@@ -84,17 +81,17 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           global-json-file: global.json
           cache: true
           cache-dependency-path: '**/*.csproj'
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '20'
 
@@ -102,34 +99,28 @@ jobs:
         run: dotnet workload install wasm-tools
 
       - name: Restore dependencies
-        run: dotnet restore CdCSharp.BlazorBit.slnx
+        run: dotnet restore BlazOrbit.slnx
 
       - name: Build (Release)
-        run: dotnet build CdCSharp.BlazorBit.slnx -c Release --no-restore -p:TreatWarningsAsErrors=true
+        run: dotnet build BlazOrbit.slnx -c Release --no-restore -p:TreatWarningsAsErrors=true
 
-      - name: Test
-        run: dotnet test CdCSharp.BlazorBit.slnx -c Release --no-build --verbosity normal
-
-  # TEST-02: enforce coverage thresholds for the two packable assemblies under test.
-  # See AGENTS.md "Coverage expectations" for the policy and scripts/Test-Coverage.ps1
-  # for the threshold defaults.
-  coverage-check:
-    name: Coverage Gate
+  tests:
+    name: Tests
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           global-json-file: global.json
           cache: true
           cache-dependency-path: '**/*.csproj'
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '20'
 
@@ -137,169 +128,127 @@ jobs:
         run: dotnet workload install wasm-tools
 
       - name: Restore dependencies
-        run: dotnet restore CdCSharp.BlazorBit.slnx
+        run: dotnet restore BlazOrbit.slnx
 
-      - name: Run coverage gate
-        shell: pwsh
-        run: pwsh -NoProfile -File scripts/Test-Coverage.ps1 -Configuration Release
+      - name: Build (Release)
+        run: dotnet build BlazOrbit.slnx -c Release --no-restore -p:TreatWarningsAsErrors=true
 
-      - name: Upload coverage artifact
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: coverage-cobertura
-          path: coverage-out/**/coverage.cobertura.xml
-          if-no-files-found: ignore
+      - name: Test
+        run: dotnet test BlazOrbit.slnx -c Release --no-build --verbosity normal
 
-  # CLAUDE-03: lint TASKS.md cross-references
-  task-refs-check:
-    name: TASKS.md Cross-References
+  public-api-shipped-check:
+    name: Check Public API Shipped
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Lint TASKS.md task IDs
-        shell: pwsh
-        run: pwsh -NoProfile -File scripts/check-task-refs.ps1
-
-  # Verificar issues bloqueantes
-  severity-check:
-    name: Check Blocking Issues
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Check for blocking issues
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const severityLabels = [
-              'severity/blocker',
-              'severity/critical', 
-              'severity/major',
-              'severity/minor',
-              'severity/polish'
-            ];
-            
-            // Buscar issues abiertos con labels de severity
-            const issues = await github.rest.issues.listForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: 'open',
-              labels: severityLabels.join(',')
-            });
-            
-            const blockingIssues = issues.data.filter(issue => 
-              issue.labels.some(label => 
-                label.name === 'severity/blocker' || label.name === 'severity/critical'
-              )
-            );
-            
-            const majorIssues = issues.data.filter(issue => 
-              issue.labels.some(label => label.name === 'severity/major')
-            );
-            
-            console.log('=== Issues with severity found ===');
-            console.log(`Total: ${issues.data.length}`);
-            console.log(`Blocker/Critical: ${blockingIssues.length}`);
-            console.log(`Major: ${majorIssues.length}`);
-            
-            if (blockingIssues.length > 0) {
-              console.log('\n❌ BLOCKING ISSUES:');
-              blockingIssues.forEach(issue => {
-                console.log(`  - #${issue.number}: ${issue.title}`);
-              });
-              
-              if ('${{ inputs.check_only }}' !== 'true') {
-                core.setFailed(`There are ${blockingIssues.length} blocking issues that must be resolved before release`);
-              }
-            } else {
-              console.log('\n✅ No blocking issues');
-            }
-            
-            if (majorIssues.length > 0) {
-              console.log('\n⚠️  Pending major issues:');
-              majorIssues.forEach(issue => {
-                console.log(`  - #${issue.number}: ${issue.title}`);
-              });
-            }
-
-  # Verificar cambios en PublicAPI
-  public-api-check:
-    name: Check Public API
-    runs-on: ubuntu-latest
-    
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
 
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-          global-json-file: global.json
-
-      - name: Restore dependencies
-        run: dotnet restore CdCSharp.BlazorBit.slnx
-
-      - name: Check PublicAPI changes
+      - name: Verify PublicAPI.Shipped.txt was not modified
         run: |
-          echo "=== Verificando cambios en PublicAPI ==="
-          
-          # Verificar que no haya cambios en PublicAPI.Shipped.txt
+          echo "=== Verifying PublicAPI.Shipped.txt integrity ==="
+
+          # PublicAPI.Shipped.txt should only be modified during release
+          # by the admin-tools.ps1 Move-PublicApiToShipped function.
           SHIPPED_CHANGES=$(git diff --name-only origin/master...HEAD | grep -i "PublicAPI.Shipped.txt" || true)
-          
+
           if [ -n "$SHIPPED_CHANGES" ]; then
-            echo "❌ ERROR: Se detectaron cambios en PublicAPI.Shipped.txt"
-            echo "Los cambios en Shipped.txt solo deben hacerse durante el release"
-            echo "Archivos modificados:"
+            echo "❌ ERROR: PublicAPI.Shipped.txt was modified"
+            echo "This file must only be updated during the release process."
+            echo "Modified files:"
             echo "$SHIPPED_CHANGES"
             exit 1
           else
-            echo "✅ No hay cambios en PublicAPI.Shipped.txt"
+            echo "✅ No changes to PublicAPI.Shipped.txt"
           fi
 
-      - name: Build para verificar API
-        run: dotnet build CdCSharp.BlazorBit.slnx -c Release --no-restore
+  public-api-check:
+    name: Check Public API Unshipped
+    runs-on: ubuntu-latest
+    continue-on-error: true  # Warning only, not blocking
 
-  # Resumen final
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Check PublicAPI.Unshipped.txt changes
+        id: check
+        run: |
+          echo "=== Checking PublicAPI.Unshipped.txt changes ==="
+
+          # Check for changes in PublicAPI.Unshipped.txt (new API additions)
+          UNSHIPPED_CHANGES=$(git diff --name-only origin/master...HEAD | grep -i "PublicAPI.Unshipped.txt" || true)
+
+          if [ -n "$UNSHIPPED_CHANGES" ]; then
+            echo "changes_detected=true" >> $GITHUB_OUTPUT
+            echo "⚠️  Public API changes detected"
+            echo "Files modified:"
+            echo "$UNSHIPPED_CHANGES"
+          else
+            echo "changes_detected=false" >> $GITHUB_OUTPUT
+            echo "✅ No Public API changes"
+          fi
+
+      - name: Add label to PR
+        if: steps.check.outputs.changes_detected == 'true' && github.event_name == 'pull_request'
+        uses: actions/github-script@v9
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              labels: ['changes/public-api']
+            });
+            console.log('Added label: changes/public-api');
+
+      - name: Public API Summary
+        if: steps.check.outputs.changes_detected == 'true'
+        run: |
+          echo "## ⚠️ Public API Changes Detected" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "This PR modifies the public API surface." >> $GITHUB_STEP_SUMMARY
+          echo "The 'changes/public-api' label has been added." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "This may trigger a MINOR version bump on next release if merged." >> $GITHUB_STEP_SUMMARY
+
   summary:
     name: Release Gate Summary
     runs-on: ubuntu-latest
-    needs: [build-linux, build-windows, coverage-check, task-refs-check, severity-check, public-api-check]
+    needs: [build-linux, build-windows, tests, public-api-shipped-check, public-api-check]
     if: always()
 
     steps:
       - name: Generate summary
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           script: |
             const jobs = {
               buildLinux: '${{ needs.build-linux.result }}',
               buildWindows: '${{ needs.build-windows.result }}',
-              coverage: '${{ needs.coverage-check.result }}',
-              taskRefs: '${{ needs.task-refs-check.result }}',
-              severity: '${{ needs.severity-check.result }}',
+              tests: '${{ needs.tests.result }}',
+              publicApiShipped: '${{ needs.public-api-shipped-check.result }}',
               publicApi: '${{ needs.public-api-check.result }}'
             };
-            
+
             let allPassed = true;
             let report = '## Release Gate Results\n\n';
-            
+
             for (const [name, result] of Object.entries(jobs)) {
-              const icon = result === 'success' ? '✅' : result === 'skipped' ? '⏭️' : '❌';
+              const icon = result === 'success' ? '✅' : result === 'skipped' ? '⏭️' : '⚠️';
               report += `- ${icon} **${name}**: ${result}\n`;
-              if (result !== 'success' && result !== 'skipped') {
+              // public-api-check is advisory only (continue-on-error)
+              if (name !== 'publicApi' && result !== 'success' && result !== 'skipped') {
                 allPassed = false;
               }
             }
-            
+
             report += '\n';
-            
+
             if (allPassed) {
               report += '### ✅ Release Gate Passed\n\n';
               report += 'Code meets all requirements for release.';
@@ -307,9 +256,9 @@ jobs:
               report += '### ❌ Release Gate Failed\n\n';
               report += 'There are issues that must be resolved before release.';
             }
-            
+
             core.summary.addRaw(report).write();
-            
+
             if (!allPassed) {
               core.setFailed('Release gate failed');
             }

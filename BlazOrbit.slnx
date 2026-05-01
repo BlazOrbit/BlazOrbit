@@ -33,7 +33,6 @@
     <File Path="CLAUDE.md" />
     <File Path="Directory.Build.props" />
     <File Path="global.json" />
-    <File Path="README.md" />
   </Folder>
   <Project Path="src/BlazOrbit.BuildTools/BlazOrbit.BuildTools.csproj" Id="a67069d5-56c2-49fa-adec-656079117b53" />
   <Project Path="src/BlazOrbit.CodeGeneration/BlazOrbit.CodeGeneration.csproj" Id="96bbc2e4-007e-4f7d-973b-8c83686462df" />

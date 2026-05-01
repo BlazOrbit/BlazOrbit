@@ -36,7 +36,7 @@ jobs:
       full_version: ${{ steps.calc.outputs.full_version }}
     steps:
       - name: Checkout with full history
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           fetch-tags: true
@@ -124,10 +124,10 @@ jobs:
     needs: version
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           global-json-file: global.json
@@ -135,7 +135,7 @@ jobs:
           cache-dependency-path: '**/*.csproj'
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '20'
 
@@ -143,13 +143,13 @@ jobs:
         run: dotnet workload install wasm-tools
 
       - name: Restore dependencies
-        run: dotnet restore CdCSharp.BlazorBit.slnx
+        run: dotnet restore BlazOrbit.slnx
 
       - name: Build (Release)
-        run: dotnet build CdCSharp.BlazorBit.slnx -c Release --no-restore -p:TreatWarningsAsErrors=true
+        run: dotnet build BlazOrbit.slnx -c Release --no-restore -p:TreatWarningsAsErrors=true
 
       - name: Test
-        run: dotnet test CdCSharp.BlazorBit.slnx -c Release --no-build --verbosity normal
+        run: dotnet test BlazOrbit.slnx -c Release --no-build --verbosity normal
 
   pack:
     name: Pack NuGet Packages
@@ -157,19 +157,19 @@ jobs:
     needs: [version, build-and-test]
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Restore dependencies
-        run: dotnet restore CdCSharp.BlazorBit.slnx
+        run: dotnet restore BlazOrbit.slnx
 
       - name: Pack packages
         run: |
-          dotnet pack CdCSharp.BlazorBit.slnx \
+          dotnet pack BlazOrbit.slnx \
             -c Release \
             --no-restore \
             -p:Version=${{ needs.version.outputs.version }} \
@@ -180,7 +180,7 @@ jobs:
             -o ./artifacts
 
       - name: Upload packages
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: packages-${{ needs.version.outputs.version }}
           path: ./artifacts/*.nupkg
@@ -193,13 +193,13 @@ jobs:
     environment: preview
     steps:
       - name: Download packages
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: packages-${{ needs.version.outputs.version }}
           path: ./artifacts
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
@@ -211,7 +211,7 @@ jobs:
             --skip-duplicate
 
       - name: Create GitHub Release (Preview)
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: v${{ needs.version.outputs.version }}
           name: Preview ${{ needs.version.outputs.version }}
@@ -221,7 +221,7 @@ jobs:
             Development version automatically built from `develop`.
             
             ```bash
-            dotnet add package CdCSharp.BlazorBit --version ${{ needs.version.outputs.version }}
+            dotnet add package BlazOrbit --version ${{ needs.version.outputs.version }}
             ```
             
             ⚠️ **Unstable - do not use in production**

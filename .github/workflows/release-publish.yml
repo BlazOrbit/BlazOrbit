@@ -29,10 +29,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           global-json-file: global.json
@@ -40,7 +40,7 @@ jobs:
           cache-dependency-path: '**/*.csproj'
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '20'
 
@@ -62,10 +62,10 @@ jobs:
     needs: build-and-test
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
@@ -121,44 +121,44 @@ jobs:
             return $missing
           }
 
-          PKG=./artifacts/CdCSharp.BlazorBit.${{ github.event.inputs.version }}.nupkg
+          PKG=./artifacts/BlazOrbit.${{ github.event.inputs.version }}.nupkg
           assert_in_pkg "$PKG" \
-            "lib/net10.0/CdCSharp.BlazorBit.dll" \
-            "lib/net10.0/CdCSharp.BlazorBit.xml" \
-            "build/CdCSharp.BlazorBit.targets" \
+            "lib/net10.0/BlazOrbit.dll" \
+            "lib/net10.0/BlazOrbit.xml" \
+            "build/BlazOrbit.targets" \
             "staticwebassets/css/blazorbit.css" \
             "README.md" \
             "icon.png"
 
-          PKG=./artifacts/CdCSharp.BlazorBit.Core.${{ github.event.inputs.version }}.nupkg
+          PKG=./artifacts/BlazOrbit.Core.${{ github.event.inputs.version }}.nupkg
           assert_in_pkg "$PKG" \
-            "lib/net10.0/CdCSharp.BlazorBit.Core.dll" \
-            "lib/net10.0/CdCSharp.BlazorBit.Core.xml" \
+            "lib/net10.0/BlazOrbit.Core.dll" \
+            "lib/net10.0/BlazOrbit.Core.xml" \
             "README.md" \
             "icon.png"
 
-          PKG=./artifacts/CdCSharp.BlazorBit.SyntaxHighlight.${{ github.event.inputs.version }}.nupkg
+          PKG=./artifacts/BlazOrbit.SyntaxHighlight.${{ github.event.inputs.version }}.nupkg
           assert_in_pkg "$PKG" \
-            "lib/net10.0/CdCSharp.BlazorBit.SyntaxHighlight.dll" \
+            "lib/net10.0/BlazOrbit.SyntaxHighlight.dll" \
             "README.md" \
             "icon.png"
 
-          PKG=./artifacts/CdCSharp.BlazorBit.Localization.Server.${{ github.event.inputs.version }}.nupkg
+          PKG=./artifacts/BlazOrbit.Localization.Server.${{ github.event.inputs.version }}.nupkg
           assert_in_pkg "$PKG" \
-            "lib/net10.0/CdCSharp.BlazorBit.Localization.Server.dll" \
+            "lib/net10.0/BlazOrbit.Localization.Server.dll" \
             "README.md" \
             "icon.png"
 
-          PKG=./artifacts/CdCSharp.BlazorBit.Localization.Wasm.${{ github.event.inputs.version }}.nupkg
+          PKG=./artifacts/BlazOrbit.Localization.Wasm.${{ github.event.inputs.version }}.nupkg
           assert_in_pkg "$PKG" \
-            "lib/net10.0/CdCSharp.BlazorBit.Localization.Wasm.dll" \
+            "lib/net10.0/BlazOrbit.Localization.Wasm.dll" \
             "README.md" \
             "icon.png"
 
           echo "All packages have the expected structure."
 
       - name: Upload packages
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: packages-${{ github.event.inputs.version }}
           path: ./artifacts/*.nupkg
@@ -171,16 +171,16 @@ jobs:
     environment: production
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: Download packages
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: packages-${{ github.event.inputs.version }}
           path: ./artifacts
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
@@ -223,12 +223,12 @@ jobs:
             echo ''
             echo '### Installation'
             echo '```bash'
-            echo "dotnet add package CdCSharp.BlazorBit --version $VERSION"
+            echo "dotnet add package BlazOrbit --version $VERSION"
             echo '```'
           } >> RELEASE_NOTES.md
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
+        uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ github.ref_name }}
           name: Release ${{ github.event.inputs.version }}
