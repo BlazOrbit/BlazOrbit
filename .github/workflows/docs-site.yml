@@ -28,10 +28,18 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           global-json-file: global.json
 
+      - name: Setup Node.js (required for BuildTools/Vite)
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Install wasm-tools workload (required for AOT)
         run: dotnet workload install wasm-tools
 
-      - name: Restore dependencies
+      - name: Restore BuildTools
+        run: dotnet restore src/BlazOrbit.BuildTools/BlazOrbit.BuildTools.csproj
+
+      - name: Restore Docs.Wasm
         run: dotnet restore docs/BlazOrbit.Docs.Wasm/BlazOrbit.Docs.Wasm.csproj
 
       - name: Publish Docs.Wasm
@@ -41,7 +49,6 @@ jobs:
           -c Release
           -o ./publish
           --no-restore
-          -p:BlazOrbitBuildEnabled=false
           -p:RunAOTCompilation=false
 
       - name: List static assets for debug
