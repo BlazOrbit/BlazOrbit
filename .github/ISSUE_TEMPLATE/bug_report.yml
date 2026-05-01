@@ -49,7 +49,7 @@ body:
     id: expected
     attributes:
       label: Expected behavior
-      description: What did you expect to happen? Cite the AGENTS.md / docs section that promises this behavior, if applicable.
+      description: What did you expect to happen? Cite docs section that promises this behavior, if applicable.
     validations:
       required: true
 

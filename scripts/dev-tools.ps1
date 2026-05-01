@@ -269,7 +269,7 @@ function New-Commit {
     }
     
     # Check conventional commit format
-    if ($Message -notmatch '^(feat|fix|docs|test|refactor|chore|breaking)(\([^)]+\))?:\s.+') {
+    if ($Message -notmatch '^(feat|fix|docs|test|refactor|chore|perf|breaking)(\([^)]+\))?:\s.+') {
         Write-Warning "Message doesn't follow conventional commits"
         Write-Info "Expected format: type(scope): description"
     }

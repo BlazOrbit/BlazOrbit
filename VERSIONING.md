@@ -1,95 +1,93 @@
-﻿# VERSIONING.md — BlazOrbit Versioning Strategy
+# Versioning Strategy
 
-> Simplified workflow with linear history. No "metro lines".
-
----
-
-## 1. Philosophy
-
-- **One integration branch**: `develop`
-- **Linear history**: fast-forward or rebase only
-- **Short PRs**: maximum 1-3 days lifetime
-- **One task = one commit** (squash WIPs before push)
-- **Linked issues**: each commit references an issue
+BlazOrbit follows **Semantic Versioning (SemVer)** with a simplified Git Flow built around two long-lived branches: `master` and `develop`.
 
 ---
 
-## 2. Branch Structure
+## Semantic Versioning
+
+Versions follow the format `MAJOR.MINOR.PATCH`:
+
+| Segment | Change Type | Example |
+|---------|-------------|---------|
+| **MAJOR (X)** | Breaking change that requires consumer action | `1.0.0` → `2.0.0` |
+| **MINOR (Y)** | New functionality, backward-compatible | `1.0.0` → `1.1.0` |
+| **PATCH (Z)** | Bug fix or small improvement, backward-compatible | `1.0.0` → `1.0.1` |
+
+Additional labels:
+
+| Pattern | Meaning | Example |
+|---------|---------|---------|
+| `X.Y.Z-preview.N` | Active development build from `develop` | `1.0.0-preview.42` |
+| `X.Y.Z-rc.N` | Release candidate, feature-complete | `1.0.0-rc.2` |
+
+---
+
+## Branch Structure
 
 ```
-master   ●────●────●────●────●────●────►  (tagged releases)
+master   ●────●────●────●────●────●────►  (tagged stable releases)
          ↑    ↑    ↑    ↑    ↑    ↑
 develop  ●────┬────┬────┬────┬────┬────►  (continuous integration)
               │    │    │    │    │
               ▼    ▼    ▼    ▼    ▼
-             PR   PR   PR   PR   PR    (short, squash merge)
+             PR   PR   PR   PR   PR    (short-lived, squash merged)
 ```
 
-| Branch | Purpose | Protection | Merge |
-|--------|---------|------------|-------|
-| `master` | Stable releases | ✅ Required PR, 1 approval, green CI | Fast-forward only |
-| `develop` | Continuous integration | ✅ Required PR, green CI, squash merge | Squash merge |
-| `feature/*` | Isolated changes | ❌ Not protected | Squash to develop |
+| Branch | Purpose | Protection | Merge Strategy |
+|--------|---------|------------|----------------|
+| `master` | Stable releases | Required PR, 1 approval, green CI | Squash merge via release branch |
+| `develop` | Continuous integration | Required PR, green CI, squash merge | Squash merge |
+| `feature/*` | Isolated changes | Not protected | Squash to `develop` |
+| `fix/*` | Bug fixes | Not protected | Squash to `develop` |
+| `hotfix/*` | Urgent production fixes | Not protected | PR directly to `master` |
 
 ---
 
-## 3. Versioning (SemVer)
+## Development Flow
 
-| Pattern | Meaning | Example |
-|---------|---------|---------|
-| `X.Y.Z-preview.N` | Active development | `1.0.0-preview.42` |
-| `X.Y.Z-rc.N` | Release candidate | `1.0.0-rc.2` |
-| `X.Y.Z` | Stable release | `1.0.0` |
-
-### Bump Rules
-
-| Change | Version | Example |
-|--------|---------|---------|
-| Breaking change | Major | `1.0.0` → `2.0.0` |
-| New feature | Minor | `1.0.0` → `1.1.0` |
-| Bugfix | Patch | `1.0.0` → `1.0.1` |
-
----
-
-## 4. Development Flow
-
-### 4.1 Start Feature
+### 1. Start a Feature
 
 ```powershell
 ./scripts/dev-tools.ps1 feature my-feature
-# Work, commit frequently
-./scripts/dev-tools.ps1 ready  # Squash + rebase + push
-# Create PR on GitHub
+# Work, commit frequently using Conventional Commits
+./scripts/dev-tools.ps1 ready  # Squash + rebase onto develop + push
+# Open Pull Request on GitHub targeting develop
 ```
 
-### 4.2 PR to develop
+### 2. Merge to `develop`
 
-- Must pass: **Preview Gate**
-  - Build and Test
-  - Code Coverage
-  - Check Public API
-- Merge: **Squash and merge**
-- After merge: Preview auto-published
+- Must pass the **Preview Gate** workflow (`preview-gate.yml`):
+  - Build (Debug & Release)
+  - Run all tests
+  - Public API diff check
+- Merge with **Squash and merge**.
+- After merge, the **Preview Publish** workflow (`preview-publish.yml`) automatically publishes a `preview` NuGet version.
 
-### 4.3 PR to master (Release)
+### 3. Prepare a Release
 
-- Must pass: **Release Gate**
-  - Build Check
-  - Check Blocking Issues (no `severity/blocker` or `severity/critical`)
-  - Check Public API
-- Merge: **Squash and merge**
-- After merge: Create tag to trigger release
-
-### 4.4 Create Release
+When `develop` is ready for a stable release:
 
 ```powershell
-./scripts/admin-tools.ps1 release 1.0.0
-# Creates tag v1.0.0 → triggers Release Publish
+./scripts/admin-tools.ps1 rc 1.0.0       # Create release candidate branch
+# OR for a stable release:
+./scripts/admin-tools.ps1 release 1.0.0  # Create release branch and tag
 ```
+
+A Pull Request from the release branch to `master` must pass the **Release Gate** (`release-gate.yml`):
+
+- Build and test
+- Vulnerability audit (no High/Critical NuGet advisories)
+- Blocking issues check (no open issues labeled `severity/blocker` or `severity/critical`)
+- Public API check
+
+Once merged to `master`, create a tag `vX.Y.Z` to trigger the **Release Publish** workflow (`release-publish.yml`), which publishes the stable packages to NuGet.
 
 ---
 
-## 5. Commit Convention
+## Commit Convention
+
+We use [Conventional Commits](https://www.conventionalcommits.org/):
 
 ```
 <type>(<scope>): <description>
@@ -100,93 +98,82 @@ Fixes #<issue-number>
 ```
 
 Types:
-- `feat`: New feature
-- `fix`: Bug fix
-- `docs`: Documentation
-- `test`: Tests
-- `refactor`: Code refactoring
-- `chore`: Maintenance
-- `breaking`: Breaking change
+- `feat` — New feature
+- `fix` — Bug fix
+- `docs` — Documentation
+- `test` — Tests
+- `refactor` — Code refactoring
+- `chore` — Maintenance
+- `perf` — Performance improvement
+- `breaking` — Breaking change
 
 ---
 
-## 6. Scripts
+## Severity Labels
 
-### Developer Scripts (`./scripts/dev-tools.ps1`)
-
-| Command | Description |
-|---------|-------------|
-| `sync` | Update develop from origin |
-| `feature <name>` | Create feature branch from develop |
-| `fix <name>` | Create fix branch from develop |
-| `commit "message"` | Commit with conventional commits |
-| `squash` | Squash all commits into one |
-| `ready` | Prepare PR: squash + rebase + push |
-| `fix-conflict` | After resolving conflicts |
-| `push` | Safe push with force-with-lease |
-| `pr "Title" "Desc"` | Open PR page on GitHub |
-| `cleanup` | Clean merged branches |
-| `status` | Show repository status |
-
-### Admin Scripts (`./scripts/admin-tools.ps1`)
-
-| Command | Description |
-|---------|-------------|
-| `status` | Show branches status |
-| `check-pr <branch>` | Verify PR ready to merge |
-| `rc <version>` | Create release candidate |
-| `release <version>` | Publish stable release |
-| `hotfix <version>` | Create hotfix branch |
-| `changelog` | Show pending changelog |
-| `cleanup` | Clean merged branches |
-
----
-
-## 7. Workflows
-
-| Workflow | Trigger | Purpose |
-|----------|---------|---------|
-| `preview-gate.yml` | PR to `develop` | Quality gates (build, test, coverage, public api) |
-| `preview-publish.yml` | Push to `develop` | Auto-publish preview version |
-| `release-gate.yml` | PR to `master` | Release gates (blocking issues, public api) |
-| `release-publish.yml` | Tag `v*` | Publish stable release |
-| `setup-repository.yml` | Manual | Configure labels and branch protection |
-
----
-
-## 8. Severity Labels
-
-Used to mark issues and block releases:
+Issues are classified by severity. Some labels block releases:
 
 | Label | Meaning | Blocks Release |
 |-------|---------|----------------|
-| `severity/blocker` | Blocks release | ✅ Yes |
-| `severity/critical` | Critical issue | ✅ Yes |
-| `severity/major` | Major issue | ❌ No |
-| `severity/minor` | Minor issue | ❌ No |
-| `severity/polish` | Polish/QOL | ❌ No |
+| `severity/blocker` | Must be fixed before any release | Yes |
+| `severity/critical` | Security or data-loss risk | Yes |
+| `severity/major` | Significant bug or regression | No |
+| `severity/minor` | Small bug or inconvenience | No |
+| `severity/polish` | Quality-of-life improvement | No |
 
 ---
 
-## 9. Hotfixes
+## Hotfixes
 
-For urgent fixes on production:
+For urgent fixes on the current production version:
 
 ```powershell
 ./scripts/admin-tools.ps1 hotfix 1.0.1
 # Fix, commit, push
-# Create PR directly to master
-# Fast-track through release gate
+# Create Pull Request directly to master
+# Fast-track through the release gate
 ./scripts/admin-tools.ps1 release 1.0.1
 ```
+
+After the hotfix is merged to `master`, port the fix back to `develop` with a separate PR or cherry-pick to avoid drift.
+
+---
+
+## Support Policy
+
+- **Latest stable** (`master`) receives bug fixes and security patches.
+- **Previous major version** receives critical security patches for **6 months** after the next major release.
+- **Preview / RC** builds are not supported; they exist for integration testing only.
+
+---
+
+## Changelog
+
+The project maintains a `CHANGELOG.md` file that lists all notable changes per version. The changelog is updated as part of the release preparation. You can view pending changes with:
+
+```powershell
+./scripts/admin-tools.ps1 changelog
+```
+
+---
+
+## CI/CD Workflows
+
+| Workflow | Trigger | Purpose |
+|----------|---------|---------|
+| `preview-gate.yml` | PR to `develop` | Quality gates (build, test, public api) |
+| `preview-publish.yml` | Push to `develop` | Auto-publish preview NuGet packages |
+| `release-gate.yml` | PR to `master` | Release gates (blocking issues, vulnerabilities, public api) |
+| `release-publish.yml` | Tag `v*` | Publish stable release to NuGet |
+| `setup-repository.yml` | Manual | Configure labels and branch protection |
 
 ---
 
 ## Summary
 
-1. **Work on feature branches** from `develop`
-2. **Squash to 1 commit** before PR
-3. **PR to develop** passes Preview Gate
-4. **PR to master** passes Release Gate (no blockers)
-5. **Tag** triggers stable release
-6. **Linear history** maintained throughout
+1. **Work on short-lived branches** from `develop`.
+2. **Squash to 1 commit** before opening a PR.
+3. **PR to `develop`** passes the Preview Gate.
+4. **PR to `master`** passes the Release Gate (no blockers).
+5. **Tag `vX.Y.Z`** triggers the stable release.
+6. **Linear history** is maintained throughout.

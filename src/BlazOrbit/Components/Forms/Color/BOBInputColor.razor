@@ -187,7 +187,7 @@ BOBLoadingIndicatorVariant.CircularProgress;
                     <BOBDialog @bind-Open="_isOpen" Closable="true" CloseOnOverlayClick="true" CloseOnEscape="true" MinWidth="auto"
                                MaxWidth="fit-content">
                         <Content>
-                            <BOBColorPicker @bind-Value="CurrentValue" OutputFormat="OutputFormat" ShowActions="true"
+                            <BOBColorPicker @bind-Value="CurrentValue" ShowActions="true"
                                             RevertText="@RevertText" OnRevert="HandleRevert" />
                         </Content>
                     </BOBDialog>
@@ -196,7 +196,7 @@ BOBLoadingIndicatorVariant.CircularProgress;
                 {
                     <div class="bob-input-color__dropdown-overlay" @onclick="ClosePicker"></div>
                     <div class="bob-input-color__dropdown" @onclick:stopPropagation="true">
-                        <BOBColorPicker @bind-Value="CurrentValue" OutputFormat="OutputFormat" ShowActions="true"
+                        <BOBColorPicker @bind-Value="CurrentValue" ShowActions="true"
                                         RevertText="@RevertText" OnRevert="HandleRevert" />
                     </div>
                 }

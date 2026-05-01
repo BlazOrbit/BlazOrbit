@@ -40,9 +40,12 @@
                     <BOBTreeMenuItem Text="@Loc["Code Block"]" Href="/components/codeblock" />
                     <BOBTreeMenuItem Text="@Loc["DataCards"]" Href="/components/datacards" />
                     <BOBTreeMenuItem Text="@Loc["DataGrid"]" Href="/components/datagrid" />
+                    <BOBTreeMenuItem Text="@Loc["Draggable"]" Href="/components/draggable" />
                     <BOBTreeMenuItem Text="@Loc["Loading"]" Href="/components/loading" />
                     <BOBTreeMenuItem Text="@Loc["Svg Icon"]" Href="/components/svgicon" />
                     <BOBTreeMenuItem Text="@Loc["Tabs"]" Href="/components/tabs" />
+                    <BOBTreeMenuItem Text="@Loc["Tooltip"]" Href="/components/tooltip" />
+                    <BOBTreeMenuItem Text="@Loc["Tree Selector"]" Href="/components/treeselector" />
                 </ChildContent>
             </BOBTreeMenuItem>
 
@@ -54,37 +57,30 @@
                     <BOBTreeMenuItem Text="@Loc["Dialog & Drawer"]" Href="/components/modal" />
                     <BOBTreeMenuItem Text="@Loc["Flex Stack"]" Href="/components/flex-stack" />
                     <BOBTreeMenuItem Text="@Loc["Grid"]" Href="/components/grid" />
-                    <BOBTreeMenuItem Text="@Loc["Theme Generator"]" Href="/components/themegenerator" />
                     <BOBTreeMenuItem Text="@Loc["Theme Selector"]" Href="/components/themeselector" />
                     <BOBTreeMenuItem Text="@Loc["Toast"]" Href="/components/toast" />
-                </ChildContent>
-            </BOBTreeMenuItem>
-
-            <BOBTreeMenuItem Text="@Loc["Tree"]"
-                             Key="nav-tree"
-                             Icon="@BOBIconKeys.MaterialIconsOutlined.i_account_tree">
-                <ChildContent>
                     <BOBTreeMenuItem Text="@Loc["Tree Menu"]" Href="/components/treemenu" />
-                    <BOBTreeMenuItem Text="@Loc["Tree Selector"]" Href="/components/treeselector" />
                 </ChildContent>
             </BOBTreeMenuItem>
 
-            <BOBTreeMenuItem Text="@Loc["Utils"]"
-                             Key="nav-utils"
-                             Icon="@BOBIconKeys.MaterialIconsOutlined.i_build">
-                <ChildContent>
-                    <BOBTreeMenuItem Text="@Loc["Draggable"]" Href="/components/draggable" />
-                    <BOBTreeMenuItem Text="@Loc["Tooltip"]" Href="/components/tooltip" />
-                </ChildContent>
-            </BOBTreeMenuItem>
+        </ChildContent>
+    </BOBTreeMenuItem>
 
-            <BOBTreeMenuItem Text="@Loc["Features"]"
-                             Key="nav-features"
-                             Icon="@BOBIconKeys.MaterialIconsOutlined.i_featured_play_list">
-                <ChildContent>
-                    <BOBTreeMenuItem Text="@Loc["Validation"]" Href="/utilities/validation" />
-                </ChildContent>
-            </BOBTreeMenuItem>
+    <BOBTreeMenuItem Text="@Loc["Features"]"
+                     Key="nav-features"
+                     Icon="@BOBIconKeys.MaterialIconsOutlined.i_featured_play_list">
+        <ChildContent>
+            <BOBTreeMenuItem Text="@Loc["Validation"]" Href="/features/validation" />
+            <BOBTreeMenuItem Text="@Loc["Localization"]" Href="/features/localization" />
+
+        </ChildContent>
+    </BOBTreeMenuItem>
+
+    <BOBTreeMenuItem Text="@Loc["Utils"]"
+                     Key="nav-utils"
+                     Icon="@BOBIconKeys.MaterialIconsOutlined.i_build">
+        <ChildContent>
+            <BOBTreeMenuItem Text="@Loc["Theme Generator"]" Href="/utils/themegenerator" />
         </ChildContent>
     </BOBTreeMenuItem>
 
@@ -95,13 +91,14 @@
         <ChildContent>
             <BOBTreeMenuItem Text="@Loc["Architecture"]" Href="/concepts/architecture" />
             <BOBTreeMenuItem Text="@Loc["Variants"]" Href="/concepts/variants" />
-            <BOBTreeMenuItem Text="@Loc["Theming"]" Href="/theming" />
-            <BOBTreeMenuItem Text="@Loc["Localization"]" Href="/concepts/localization" />
+            <BOBTreeMenuItem Text="@Loc["Theming"]" Href="/concepts/theming" />
             <BOBTreeMenuItem Text="@Loc["JS Interop"]" Href="/concepts/js-interop" />
             <BOBTreeMenuItem Text="@Loc["Accessibility"]" Href="/concepts/accessibility" />
+
         </ChildContent>
     </BOBTreeMenuItem>
 </BOBTreeMenu>
+<DocFooter />
 
 @code {
     private BOBTreeMenu<object>? _treeMenu;

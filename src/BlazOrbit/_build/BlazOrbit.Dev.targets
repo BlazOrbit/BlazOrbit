@@ -33,7 +33,7 @@
 			Use exe if exists (Windows) or DLL otherwise. Capture ExitCode; do NOT continue on error.
 			BLAZORBIT_BUILD_CONFIG propagates $(Configuration) down to the Vite child process so the
 			JS bundle template (Infrastructure/BuildTemplates.cs · GetViteJsConfigTemplate) can toggle
-			source-map emission and minification per AGENTS.md §Build pipeline policy.
+			source-map emission and minification.
 		-->
 		<Exec Command="&quot;$(BuildToolsExe)&quot; &quot;$(BlazOrbitProjectPath)&quot;"
 			  Condition="Exists('$(BuildToolsExe)')"
@@ -74,7 +74,7 @@
 	</Target>
 
 	<!--
-		PKG-06: strip Vite source maps before the Razor SDK promotes wwwroot/** to
+		Strip Vite source maps before the Razor SDK promotes wwwroot/** to
 		StaticWebAssets. Keeping them on disk in Debug is still useful for local `dotnet watch`,
 		but shipping them in Release nupkgs doubles the JS payload every consumer's `dotnet
 		publish` has to carry. Deleting from disk is the cleanest override of the auto-manifest.

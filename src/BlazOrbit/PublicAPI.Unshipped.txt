@@ -666,6 +666,7 @@ BlazOrbit.Components.Forms.BOBColorPicker.Value.get -> BlazOrbit.Components.CssC
 BlazOrbit.Components.Forms.BOBColorPicker.Value.set -> void
 BlazOrbit.Components.Forms.BOBColorPicker.ValueChanged.get -> Microsoft.AspNetCore.Components.EventCallback<BlazOrbit.Components.CssColor?>
 BlazOrbit.Components.Forms.BOBColorPicker.ValueChanged.set -> void
+override BlazOrbit.Components.Forms.BOBColorPicker.DisposeAsync() -> System.Threading.Tasks.ValueTask
 BlazOrbit.Components.Forms.BOBColorPickerComponentInfo
 BlazOrbit.Components.Forms.BOBDatePicker
 BlazOrbit.Components.Forms.BOBDatePicker.BOBDatePicker() -> void

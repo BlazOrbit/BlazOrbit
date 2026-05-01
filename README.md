@@ -4,9 +4,44 @@
 [![Build](https://github.com/BlazOrbit/BlazOrbit/actions/workflows/release-publish.yml/badge.svg)](https://github.com/BlazOrbit/BlazOrbit/actions/workflows/release-publish.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
-Component library for Blazor Server and Blazor WebAssembly on .NET 10. Ships themeable, accessible components driven by a reflective `data-bob-*` + CSS-custom-property pipeline, with variants, design tokens, and JS-behavior interop for features like ripples, transitions, dropdowns, and modals.
+A modern and customizable component library for **Blazor** on **.NET**.
+
+BlazOrbit ships accessible, production-ready components built on a reflective styling pipeline (`data-bob-*` attributes + CSS custom properties).
+It supports design tokens, component variants, theming, customization. 
+It provides optional localization integration.
+
+BlazOrbit is built on several key principles:
+
+- **Efficiency and fluidity**
+
+*It avoids unnecessary boilerplate code, and component rendering is centralized in a process that prioritizes efficiency.*
+
+- **Less JS, more happiness**
+
+*The use of JS is minimized as much as possible. Typescript is used in development with efficient bundling.*
+
+- **Don’t reinvent the wheel**
+ 
+*Everything you do in Blazor works in BlazOrbit. 
+In cases such as form components, it uses InputBase just like native components. But it improves the usability of native components and adds features (Styling, Validation...).*
+
+- **Accessibility**
+
+*Make it easy for users to create accessible applications transparently by following the WCAG 2.2 standard.*
+
+- **Customization**
+
+*In addition to exposing variables to modify the theme, BlazOrbit includes a system that allows you to create registered component variants in the same way you would register a service.*
+
+- **Continuous Development**
+
+*BlazOrbit is not a closed-source project; it is distributed under the MIT license, and contributions are welcome. The goal is continuous improvement and the ongoing addition of new features.*
+
+---
 
 ## Quickstart
+
+Install the main package:
 
 ```bash
 dotnet add package BlazOrbit
@@ -20,17 +55,31 @@ using BlazOrbit;
 builder.Services.AddBlazOrbit();
 ```
 
-Place `<BOBInitializer />` once in the root layout (typically `MainLayout.razor`) so the theme, JS interop, and asset references are wired up:
+Add `<BOBInitializer>` once in your root layout (typically `MainLayout.razor`) as wrapper of the @Body content. This wires up the theme, JS interop, and static assets:
 
 ```razor
-<BOBInitializer />
-
-<main>
-    @Body
-</main>
+<BOBInitializer DefaultTheme="dark">
+    <main>
+        @Body
+    </main>
+</BOBInitializer>
 ```
 
-That's enough to start using any component:
+Optionally add hosts after BOBInitializer:
+* `BOBDialog` and `BOBDrawer` require `<BOBModalHost />` 
+* `BOBToast` require `<BOBToastHost MaxVisiblePerPosition="5" />`
+
+```razor
+<BOBInitializer DefaultTheme="dark">
+    <main>
+        @Body
+    </main>
+</BOBInitializer>
+<BOBModalHost />
+<BOBToastHost MaxVisiblePerPosition="5" />
+```
+
+Now you can use any component:
 
 ```razor
 @using BlazOrbit.Components
@@ -40,50 +89,78 @@ That's enough to start using any component:
 </BOBButton>
 
 <BOBInputText @bind-Value="name" Label="Name" />
+
 <BOBCard Shadow="true">
     <p>Inside a themed card.</p>
 </BOBCard>
 ```
 
+---
+
 ## Packages
 
 | Package | Purpose |
-|---|---|
-| `BlazOrbit` | Component library (components, variants, theming, JS behaviors). |
-| `BlazOrbit.Core` | Framework-agnostic primitives: base component types, `IHas*` behavior interfaces, palette/theme types. |
+| --- | --- |
+| `BlazOrbit` | Component library — components, variants, theming, and JS behaviors. |
+| `BlazOrbit.Core`| Framework-agnostic primitives — base component types, behavior interfaces (`IHas*`), palette and theme types. |
 | `BlazOrbit.SyntaxHighlight` | Dependency-free syntax highlighter used by `BOBCodeBlock`. |
-| `BlazOrbit.Localization.Server` | Cookie-based `RequestLocalization` + culture endpoint + `BOBCultureSelector` for Blazor Server hosts. |
-| `BlazOrbit.Localization.Wasm` | `localStorage`-persisted culture + `BOBCultureSelector` for Blazor WebAssembly hosts. |
-| `BlazOrbit.FluentValidation` | `FluentValidation` integration for BlazOrbit forms. |
-| `BlazOrbit.BuildTools` | `dotnet` tool invoked by the shipped `.targets` to generate the CSS bundle at build time. |
+| `BlazOrbit.Localization.Server` | Cookie-based culture persistence and `BOBCultureSelector` for Blazor Server. |
+| `BlazOrbit.Localization.Wasm` | `localStorage`-based culture persistence and `BOBCultureSelector` for Blazor WebAssembly. |
+| `BlazOrbit.FluentValidation` | Integration with `FluentValidation` for BlazOrbit forms. |
 
 ## Localization: Server vs. WASM
 
-Both localization packages provide the same `BOBCultureSelector` component but persist the user's culture differently:
+Both localization packages expose the same `BOBCultureSelector` component but store the selected culture differently:
 
-- **`BlazOrbit.Localization.Server`** — use when hosting in Blazor Server. Registers `app.UseRequestLocalization(...)` via an `IStartupFilter`, persists the selected culture as an HTTP cookie, and adds a `/Culture/Set` endpoint so non-JS redirects still update the culture.
-- **`BlazOrbit.Localization.Wasm`** — use when hosting in Blazor WebAssembly. Persists the selected culture in `localStorage` via JS interop and configures `CultureInfo.DefaultThreadCurrentCulture` / `DefaultThreadCurrentUICulture` at startup.
+- **`BlazOrbit.Localization.Server`** — for Blazor Server hosts. Sets up `RequestLocalization`, persists culture via HTTP cookie, and exposes a `/Culture/Set` endpoint.
+- **`BlazOrbit.Localization.Wasm`** — for Blazor WebAssembly hosts. Persists culture in `localStorage` and configures `CultureInfo.DefaultThreadCurrentCulture` / `DefaultThreadCurrentUICulture` at startup.
 
-For prerendered WASM (hosted WASM app with a Server prerender), install **both** — Server handles the initial HTTP response culture and WASM takes over after boot.
+For prerendered WASM (hosted WASM with Server prerender), install **both** packages. Server handles the initial HTTP request culture and WASM takes over after boot.
+
+[Read more here about localization integration](https://blazorbit.com/concepts/localization)
+
+---
+
+## Features
+
+- **Theming** — Built-in light and dark themes with CSS custom properties and automatic palette generation.
+- **Variants** — Register custom rendering templates for any component via `AddBlazOrbitVariants(...)`.
+- **Design Tokens** — Unified spacing, sizing, density, elevation, and shadow system across all components.
+- **Accessibility** — ARIA attributes, keyboard navigation, and focus management built in.
+- **Form Integration** — Full `EditContext` / `EditForm` support with validation states. Custom FluentValidation Validator ready to use.
+- **JS Interop** — Modular TypeScript interop for dropdowns, modals, clipboard, color picking, drag-and-drop, and more.
+- **Scoped CSS** — Each component ships scoped `.razor.css` alongside a globally generated CSS bundle.
+- **Localization Ready** — Server and WASM localization packages with culture selector UI.
+
+---
 
 ## Documentation
 
-The component catalog, live demos, and API reference live in the docs site (Blazor WASM). Run locally:
+Documentation, component catalog and live demos can be found and installed from [the website](https://blazorbit.com) 
+
+Autogenerated [API reference]() is generated using DocFX 
+
+Both are included in the codebase so are closely linked to code development. 
+
+You un it locally:
 
 ```bash
 dotnet run --project docs/BlazOrbit.Docs.Wasm
 ```
 
+---
+
 ## Contributing
 
-1. Fork the repository and create a topic branch off `develop`.
-2. Install the pinned SDK — `dotnet --version` must match `global.json` (10.0.203 at time of writing).
-3. Run `dotnet build BlazOrbit.slnx -c Debug` and `dotnet test` before opening a PR.
-4. Follow the conventions in `AGENTS.md` (component architecture, CSS rules, async/JS interop patterns).
-5. Open the PR against `develop`. CI packs and surfaces the `.nupkg` artifacts so reviewers can test-install.
+We welcome contributions. See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the full workflow, branch and commit conventions, and development setup.
+
+Also scripts under the `scripts` folder are done to facilitate contributions to be more friendly to new contributors and avoid endless PRs.
 
 Bug reports and feature requests: [GitHub Issues](https://github.com/BlazOrbit/BlazOrbit/issues).
 
+---
+
 ## License
 
-Released under the [MIT License](LICENSE.txt). © 2026 Samuel Maícas (@cdcsharp).
+Released under the [MIT License](LICENSE.txt).  
+© 2026 BlazOrbit

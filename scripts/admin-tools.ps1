@@ -428,7 +428,7 @@ function Check-PR {
     
     Write-Host "`n--- Summary ---" -ForegroundColor $Colors.Emphasis
     Write-Success "PR is ready to merge"
-    Write-Info "On GitHub: Select 'Rebase and merge' (preserves the commit hash and message)"
+    Write-Info "On GitHub: Select 'Squash and merge'"
 }
 
 function New-ReleaseCandidate {
@@ -550,7 +550,7 @@ function Publish-Release {
         Write-Host "  2. Merge $releaseBranch to $($Config.MainBranch) (squash)"
         Write-Host "  3. Create tag $tag"
         Write-Host "  4. Push to $($Config.Remote)"
-        Write-Host "  5. Rebase $($Config.DevelopBranch) onto $($Config.MainBranch)"
+        Write-Host "  5. Merge $($Config.MainBranch) into $($Config.DevelopBranch)"
         $confirm = Read-Host "`nContinue? (type 'yes' to confirm)"
         if ($confirm -ne "yes") {
             Write-Info "Cancelled"
@@ -615,14 +615,14 @@ function Publish-Release {
     if (-not $result) { exit 1 }
     
     # Merge back to develop
-    Write-Info "Rebasing $($Config.DevelopBranch) onto $($Config.MainBranch)..."
+    Write-Info "Merging $($Config.MainBranch) into $($Config.DevelopBranch)..."
     $result = Invoke-GitCommand -Command "checkout" -Arguments $Config.DevelopBranch
     if (-not $result) { exit 1 }
     
     $result = Invoke-GitCommand -Command "pull" -Arguments @("$($Config.Remote)", "$($Config.DevelopBranch)")
     if (-not $result) { exit 1 }
     
-    $result = Invoke-GitCommand -Command "rebase" -Arguments @("$($Config.MainBranch)")
+    $result = Invoke-GitCommand -Command "merge" -Arguments @("$($Config.MainBranch)", "--no-edit")
     if (-not $result) { exit 1 }
     
     $result = Invoke-GitCommand -Command "push" -Arguments @("$($Config.Remote)", "$($Config.DevelopBranch)")
@@ -704,6 +704,7 @@ function Show-Changelog {
         'test' = @()
         'refactor' = @()
         'chore' = @()
+        'perf' = @()
         'breaking' = @()
         'other' = @()
     }
@@ -728,6 +729,7 @@ function Show-Changelog {
         'test' = '🧪 Tests'
         'refactor' = '♻️ Refactoring'
         'chore' = '🔧 Maintenance'
+        'perf' = '⚡ Performance'
         'breaking' = '⚠️ Breaking Changes'
         'other' = '📝 Other'
     }

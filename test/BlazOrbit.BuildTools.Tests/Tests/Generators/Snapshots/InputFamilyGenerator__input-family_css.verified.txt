@@ -332,7 +332,6 @@ bob-component[data-bob-input-base][data-bob-variant="filled"] .bob-input__addon-
 bob-component[data-bob-input-base][data-bob-variant="standard"] {
     --_wrapper-pt: 0px;
     --_wrapper-radius: 0;
-    --_field-px: 0;
     --_outline-leading-width: var(--_addon-offset);
 }
 
@@ -396,7 +395,6 @@ bob-component[data-bob-input-base][data-bob-variant="standard"] .bob-input__vali
 
 /* ========================================
    VARIANT: FLAT
-   Sin bordes ni fondo. Label flota sobre el campo.
    ======================================== */
 
 bob-component[data-bob-input-base][data-bob-variant="flat"] {
@@ -415,15 +413,6 @@ bob-component[data-bob-input-base][data-bob-variant="flat"] .bob-input__outline-
 bob-component[data-bob-input-base][data-bob-variant="flat"] .bob-input__outline-notch,
 bob-component[data-bob-input-base][data-bob-variant="flat"] .bob-input__outline-trailing {
     border: none;
-}
-
-/* Sin padding lateral en el field (como standard) */
-bob-component[data-bob-input-base][data-bob-variant="flat"] .bob-input__field {
-    padding-inline: 0;
-}
-
-bob-component[data-bob-input-base][data-bob-variant="flat"] .bob-input__label {
-    padding-inline-start: 0;
 }
 
 /* Label: resting state */

@@ -5,7 +5,7 @@
 @implements IPickerFamilyComponent
 
 <bob-component @attributes="ComputedAttributes">
-    <BOBDraggable OnDrag="HandleSelectionDrag" OnDragEnd="HandleSelectionDrag">
+    <BOBDraggable OnDrag="HandleSelectionDrag" OnDragEnd="HandleSelectionDragEnd">
         <div @ref="_selectionRef"
              tabindex="0"
              class="bob-colorpicker__selection"
@@ -29,7 +29,7 @@
     </div>
 
     <div class="bob-picker__row">
-        @switch (OutputFormat)
+        @switch (_outputFormat)
         {
             case ColorOutputFormats.Hex:
                 <input type="text"
@@ -85,6 +85,9 @@
     private byte _alpha = 255;
     private bool _isInitialized;
     private bool _preventKeyDown = false;
+    private ColorOutputFormats _outputFormat;
+    private ColorOutputFormats _lastReceivedOutputFormat = (ColorOutputFormats)(-1);
+    private readonly BOBThrottler<CssColor?> _valueThrottler = new(TimeSpan.FromMilliseconds(50));
 
     [Inject] private IColorPickerJsInterop JsInterop { get; set; } = default!;
 
@@ -92,7 +95,7 @@
     [Parameter] public CssColor? Value { get; set; }
     /// <summary>Raised when the value changes.</summary>
     [Parameter] public EventCallback<CssColor?> ValueChanged { get; set; }
-    /// <summary>OutputFormat.</summary>
+    /// <summary>Initial output format used by the picker's text inputs (Hex or Rgb).</summary>
     [Parameter] public ColorOutputFormats OutputFormat { get; set; } = ColorOutputFormats.Hex;
     /// <summary>Raised when the Revert event occurs.</summary>
     [Parameter] public EventCallback OnRevert { get; set; }
@@ -121,6 +124,11 @@
             _alpha = Value.A;
             _isInitialized = true;
         }
+        if (OutputFormat != _lastReceivedOutputFormat)
+        {
+            _outputFormat = OutputFormat;
+            _lastReceivedOutputFormat = OutputFormat;
+        }
     }
 
     private CssColor GetCurrentColor() => _hsvColor.ToCssColor(_alpha);
@@ -131,7 +139,15 @@
     {
         double[] pos = await JsInterop.GetRelativePositionAsync(_selectionRef, e.ClientX, e.ClientY);
         _hsvColor = _hsvColor.WithSaturation(pos[0]).WithValue(1 - pos[1]);
-        await NotifyColorChanged();
+        await _valueThrottler.InvokeAsync(GetCurrentColor(), async color => await ValueChanged.InvokeAsync(color));
+    }
+
+    private async Task HandleSelectionDragEnd(DragEventArgs e)
+    {
+        double[] pos = await JsInterop.GetRelativePositionAsync(_selectionRef, e.ClientX, e.ClientY);
+        _hsvColor = _hsvColor.WithSaturation(pos[0]).WithValue(1 - pos[1]);
+        _valueThrottler.Cancel();
+        await ValueChanged.InvokeAsync(GetCurrentColor());
     }
 
     private async Task HandleHueChange(ChangeEventArgs e)
@@ -187,7 +203,7 @@
         catch { }
     }
 
-    private void CycleFormat() => OutputFormat = OutputFormat switch
+    private void CycleFormat() => _outputFormat = _outputFormat switch
     {
         ColorOutputFormats.Hex => ColorOutputFormats.Rgb,
         _ => ColorOutputFormats.Hex
@@ -236,4 +252,9 @@
 
     private async Task NotifyColorChanged() => await ValueChanged.InvokeAsync(GetCurrentColor());
 
+    public override async ValueTask DisposeAsync()
+    {
+        _valueThrottler.Dispose();
+        await base.DisposeAsync();
+    }
 }

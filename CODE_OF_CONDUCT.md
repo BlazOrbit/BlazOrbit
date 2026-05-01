@@ -4,7 +4,7 @@ This project adopts the [Contributor Covenant 2.1](https://www.contributor-coven
 
 ## Enforcement
 
-Reports go to `development@blazorbit.com`. The maintainer will review and respond within a reasonable timeframe.
+Reports go to `dev@blazorbit.com`. The maintainer will review and respond within a reasonable timeframe.
 
 All complaints will be reviewed and investigated promptly and fairly. The maintainer is obligated to respect the privacy and security of the reporter.
 

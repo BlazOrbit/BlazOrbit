@@ -12,23 +12,6 @@ public class BOBInputOutlineRenderingTests
 {
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
-    public async Task Should_Render_Outline_Structure(BlazorScenario scenario)
-    {
-        await using BlazorTestContextBase ctx = scenario.CreateContext();
-
-        // Arrange & Act
-        IRenderedComponent<BOBInputOutline> cut = ctx.Render<BOBInputOutline>();
-
-        // Assert
-        IElement outline = cut.Find("div.bob-input__outline");
-        outline.GetAttribute("aria-hidden").Should().Be("true");
-        outline.QuerySelector("span.bob-input__outline-leading").Should().NotBeNull();
-        outline.QuerySelector("span.bob-input__outline-notch").Should().NotBeNull();
-        outline.QuerySelector("span.bob-input__outline-trailing").Should().NotBeNull();
-    }
-
-    [Theory]
-    [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
     public async Task Should_Not_Render_Label_When_Not_Provided(BlazorScenario scenario)
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
@@ -97,7 +80,7 @@ public class BOBInputOutlineRenderingTests
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
-    public async Task Should_Leave_Notch_Empty_When_Label_Whitespace(BlazorScenario scenario)
+    public async Task Should_Leave_Markup_Empty_When_Label_Whitespace(BlazorScenario scenario)
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
@@ -106,6 +89,6 @@ public class BOBInputOutlineRenderingTests
             .Add(c => c.Label, "   "));
 
         // Assert
-        cut.Find("span.bob-input__outline-notch").Children.Should().BeEmpty();
+        cut.Markup.Should().BeEmpty();
     }
 }

@@ -6,7 +6,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Before opening a feature request, check if a similar one is already tracked in `TASKS.md` or in the open issues. If you are proposing a breaking change to existing public API, please mention that explicitly — the bar is high before 1.0.
+        Before opening a feature request, check if a similar one is already tracked in `ISSUES` or in the open issues. If you are proposing a breaking change to existing public API, please mention that explicitly — the bar is high before 1.0.
 
   - type: textarea
     id: problem

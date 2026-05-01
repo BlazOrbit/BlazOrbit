@@ -1285,6 +1285,22 @@ html[data-theme="light"] {
     }
 }
 
+/* ── Site Footer ──────────────────────────────────────────────── */
+
+.doc-footer {
+    padding: 2rem 1.5rem;
+    text-align: center;
+    border-top: 1px solid var(--palette-border);
+    background: var(--palette-surface);
+}
+
+.doc-footer__text {
+    margin: 0;
+    font-size: 0.85rem;
+    color: color-mix(in oklab, var(--palette-surface-contrast) 50%, var(--palette-surface));
+}
+
+
 /* Responsive */
 @media (max-width: 720px) {
     .doc-search-overlay {

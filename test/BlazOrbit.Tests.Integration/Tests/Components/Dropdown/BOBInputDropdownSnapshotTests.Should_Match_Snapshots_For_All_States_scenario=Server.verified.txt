@@ -3,8 +3,8 @@
     Name: Default_Closed,
     Html:
 <bob-component data-bob-floated="false" data-bob-component="dropdown-container" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" data-bob-dropdown-open="false" data-bob-placement="auto" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE> blazor:elementReference=""><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
-    <span class="bob-input__outline-notch"><label for="bob-dropdown-<ID>" class="bob-input__label">Select</label></span>
-    <span class="bob-input__outline-trailing"></span></div>
+        <span class="bob-input__outline-notch"><label for="bob-dropdown-<ID>" class="bob-input__label">Select</label></span>
+        <span class="bob-input__outline-trailing"></span></div>
                 
 
                 <button id="bob-dropdown-<ID>" type="button" class="bob-input__field bob-dropdown__trigger" blazor:onclick="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" aria-expanded="false" aria-haspopup="listbox" aria-describedby="bob-helper-<ID>" b-<SCOPE>><span class="bob-dropdown__value bob-dropdown__placeholder" b-<SCOPE>></span>
@@ -18,8 +18,8 @@
     Name: With_Value,
     Html:
 <bob-component data-bob-floated="true" data-bob-component="dropdown-container" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" data-bob-dropdown-open="false" data-bob-placement="auto" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE> blazor:elementReference=""><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
-    <span class="bob-input__outline-notch"><label for="bob-dropdown-<ID>" class="bob-input__label">Select</label></span>
-    <span class="bob-input__outline-trailing"></span></div>
+        <span class="bob-input__outline-notch"><label for="bob-dropdown-<ID>" class="bob-input__label">Select</label></span>
+        <span class="bob-input__outline-trailing"></span></div>
                 
 
                 <button id="bob-dropdown-<ID>" type="button" class="bob-input__field bob-dropdown__trigger" blazor:onclick="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" aria-expanded="false" aria-haspopup="listbox" aria-describedby="bob-helper-<ID>" b-<SCOPE>><span class="bob-dropdown__value " b-<SCOPE>>Option 1</span>
@@ -33,8 +33,8 @@
     Name: Disabled,
     Html:
 <bob-component data-bob-floated="false" data-bob-component="dropdown-container" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-loading="false" data-bob-error="false" data-bob-disabled="true" data-bob-readonly="false" data-bob-required="false" data-bob-dropdown-open="false" data-bob-placement="auto" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE> blazor:elementReference=""><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
-    <span class="bob-input__outline-notch"><label for="bob-dropdown-<ID>" class="bob-input__label">Select</label></span>
-    <span class="bob-input__outline-trailing"></span></div>
+        <span class="bob-input__outline-notch"><label for="bob-dropdown-<ID>" class="bob-input__label">Select</label></span>
+        <span class="bob-input__outline-trailing"></span></div>
                 
 
                 <button id="bob-dropdown-<ID>" type="button" class="bob-input__field bob-dropdown__trigger" blazor:onclick="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" disabled aria-expanded="false" aria-haspopup="listbox" aria-describedby="bob-helper-<ID>" b-<SCOPE>><span class="bob-dropdown__value bob-dropdown__placeholder" b-<SCOPE>></span>
@@ -48,8 +48,8 @@
     Name: Required,
     Html:
 <bob-component data-bob-floated="false" data-bob-component="dropdown-container" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="true" data-bob-dropdown-open="false" data-bob-placement="auto" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE> blazor:elementReference=""><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
-    <span class="bob-input__outline-notch"><label for="bob-dropdown-<ID>" class="bob-input__label">Select</label></span>
-    <span class="bob-input__outline-trailing"></span></div>
+        <span class="bob-input__outline-notch"><label for="bob-dropdown-<ID>" class="bob-input__label">Select</label></span>
+        <span class="bob-input__outline-trailing"></span></div>
                 
 
                 <button id="bob-dropdown-<ID>" type="button" class="bob-input__field bob-dropdown__trigger" blazor:onclick="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" aria-expanded="false" aria-haspopup="listbox" aria-describedby="bob-helper-<ID>" b-<SCOPE>><span class="bob-dropdown__value bob-dropdown__placeholder" b-<SCOPE>></span>
@@ -63,8 +63,8 @@
     Name: With_Helper,
     Html:
 <bob-component data-bob-floated="false" data-bob-component="dropdown-container" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" data-bob-dropdown-open="false" data-bob-placement="auto" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE> blazor:elementReference=""><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
-    <span class="bob-input__outline-notch"><label for="bob-dropdown-<ID>" class="bob-input__label">Select</label></span>
-    <span class="bob-input__outline-trailing"></span></div>
+        <span class="bob-input__outline-notch"><label for="bob-dropdown-<ID>" class="bob-input__label">Select</label></span>
+        <span class="bob-input__outline-trailing"></span></div>
                 
 
                 <button id="bob-dropdown-<ID>" type="button" class="bob-input__field bob-dropdown__trigger" blazor:onclick="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" aria-expanded="false" aria-haspopup="listbox" aria-describedby="bob-helper-<ID>" b-<SCOPE>><span class="bob-dropdown__value bob-dropdown__placeholder" b-<SCOPE>></span>

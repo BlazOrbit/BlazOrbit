@@ -13,7 +13,7 @@ Security fixes are published for the latest minor of each supported major:
 
 Please report security issues privately — do **not** open a public GitHub issue.
 
-- **Email**: `development@blazorbit.com`
+- **Email**: `dev@blazorbit.com`
 - **GitHub**: use the [Security Advisories](https://github.com/BlazOrbit/BlazOrbit/security/advisories/new) form to open a private report. Preferred channel when possible, since it keeps the disclosure conversation attached to the repo.
 
 Include in your report:

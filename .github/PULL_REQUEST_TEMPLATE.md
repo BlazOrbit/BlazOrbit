@@ -9,7 +9,7 @@ Pick the relevant sections; delete the ones that do not apply.
 
 ## Linked tasks / issues
 
-<!-- e.g. Fixes #42, Closes TASKS.md L10N-07 -->
+<!-- e.g. Fixes #42 -->
 
 ## Type of change
 
@@ -27,9 +27,7 @@ Pick the relevant sections; delete the ones that do not apply.
 - [ ] `dotnet build CdCSharp.BlazorBit.slnx -c Release` is green
 - [ ] `dotnet test` is green
 - [ ] New / modified public types & members are documented (XML doc) and added to `PublicAPI.Unshipped.txt`
-- [ ] Tests added or updated for new behavior (per-component layout in `AGENTS.md` §Testing)
-- [ ] `CHANGELOG.md` entry added under `[Unreleased]`
-- [ ] If this closes a tracked task, `TASKS.md` is updated with `Estado: ✅ Resuelto (commit <hash>)`
+- [ ] Tests added or updated for new behavior
 - [ ] If this is a breaking change, the description below explains the migration path
 
 ## Notes for reviewer

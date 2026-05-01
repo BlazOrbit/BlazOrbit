@@ -19,6 +19,7 @@
   </Folder>
   <Folder Name="/_meta/">
     <File Path="CODE_OF_CONDUCT.md" />
+    <File Path="CONTRIBUTING.md" />
     <File Path="LICENSE.txt" />
     <File Path="README.md" />
     <File Path="SECURITY.md" />
