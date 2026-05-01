@@ -19,8 +19,12 @@
     private readonly string _groupName = $"radio-{Guid.NewGuid():N}";
     private string _helperTextId = $"bob-helper-{Guid.NewGuid():N}";
     private bool _preventKeyDefault;
+    private TValue _initialValue = default!;
 
     private readonly Type _elementType;
+
+    private static readonly bool IsNullableType =
+        !typeof(TValue).IsValueType || Nullable.GetUnderlyingType(typeof(TValue)) != null;
 
     /// <summary>Content rendered inside the component.</summary>
     [Parameter] public RenderFragment? ChildContent { get; set; }
@@ -63,6 +67,12 @@
         _elementType = typeof(TValue);
     }
 
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _initialValue = Value ?? default!;
+    }
+
     public override BOBInputRadioVariant DefaultVariant => BOBInputRadioVariant.Default;
 
     protected override IReadOnlyDictionary<BOBInputRadioVariant, Func<BOBInputRadio<TValue>, RenderFragment>> BuiltInTemplates { get; } =
@@ -88,11 +98,14 @@
     private async Task ClearAsync()
     {
         if (IsDisabled || !Clearable) return;
-        CurrentValue = default!;
+        CurrentValue = IsNullableType ? default! : _initialValue;
         await ValueChanged.InvokeAsync(CurrentValue);
     }
 
-    private bool HasValue => CurrentValue != null && !EqualityComparer<TValue>.Default.Equals(CurrentValue, default);
+    private bool HasValue => IsNullableType
+        ? CurrentValue != null
+        : !EqualityComparer<TValue>.Default.Equals(CurrentValue, _initialValue);
+
     private bool ShowClearButton => Clearable && HasValue && !IsDisabled;
 
     public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)

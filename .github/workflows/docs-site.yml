@@ -2,16 +2,10 @@
 # Builds the BlazOrbit Docs site (Blazor WASM) and publishes it to Cloudflare Pages.
 # Triggered manually (workflow_dispatch) so you control when the public site updates.
 
-name: Docs Site (Cloudflare Pages)
+name: Docs Site (Manual Deploy Cloudflare)
 
 on:
   workflow_dispatch:
-  push:
-    branches: [master]
-    paths:
-      - 'docs/**'
-      - 'src/**'
-      - '.github/workflows/docs-site.yml'
 
 env:
   DOTNET_VERSION: '10.0.100'

@@ -4,17 +4,9 @@
     clientY: number
 ): number[] {
     const rect = element.getBoundingClientRect();
-    const x = Math.max(0, Math.min(rect.width, clientX - rect.left));
-    const y = Math.max(0, Math.min(rect.height, clientY - rect.top));
+    const w = rect.width || 1;
+    const h = rect.height || 1;
+    const x = Math.max(0, Math.min(rect.width, clientX - rect.left)) / w;
+    const y = Math.max(0, Math.min(rect.height, clientY - rect.top)) / h;
     return [x, y];
-}
-
-export function setHandlerPosition(
-    handler: HTMLElement,
-    x: number,
-    y: number
-): void {
-    if (!handler) return;
-    handler.style.left = `${x}px`;
-    handler.style.top = `${y}px`;
 }

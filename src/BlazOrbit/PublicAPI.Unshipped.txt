@@ -1047,6 +1047,7 @@ BlazOrbit.Components.Forms.BOBInputRadio<TValue>.Size.get -> BlazOrbit.Component
 BlazOrbit.Components.Forms.BOBInputRadio<TValue>.Size.set -> void
 BlazOrbit.Components.Forms.BOBInputRadio<TValue>.UncheckedIcon.get -> BlazOrbit.Components.IconKey?
 BlazOrbit.Components.Forms.BOBInputRadio<TValue>.UncheckedIcon.set -> void
+override BlazOrbit.Components.Forms.BOBInputRadio<TValue>.OnInitialized() -> void
 BlazOrbit.Components.Forms.BOBInputRadioComponentInfo
 BlazOrbit.Components.Forms.BOBInputRadioVariant
 BlazOrbit.Components.Forms.BOBInputRadioVariant.BOBInputRadioVariant(string! name) -> void
