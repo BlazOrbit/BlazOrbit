@@ -47,7 +47,7 @@
     "globalMetadata": {
       "_appName": "BlazOrbit API reference",
       "_appTitle": "BlazOrbit API",
-      "_appLogoPath": "images/logo.svg",
+      "_appLogoPath": "images/logo.png",
       "_appFaviconPath": "images/favicon.png",
       "_appFooter": "Generated with <a href=\"https://dotnet.github.io/docfx\">DocFX</a> from <a href=\"https://github.com/BlazOrbit/BlazOrbit\">BlazOrbit/BlazOrbit</a>",
       "_enableSearch": true,
