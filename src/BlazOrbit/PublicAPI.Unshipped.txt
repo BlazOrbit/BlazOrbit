@@ -814,14 +814,10 @@ BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.HelperText.get -> string?
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.HelperText.set -> void
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.IsLoading.get -> bool
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.IsLoading.set -> void
-BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.ItemHeight.get -> int
-BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.ItemHeight.set -> void
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.Label.get -> string?
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.Label.set -> void
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.LoadingIndicatorVariant.get -> BlazOrbit.Components.BOBLoadingIndicatorVariant?
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.LoadingIndicatorVariant.set -> void
-BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.MaxVisibleItems.get -> int
-BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.MaxVisibleItems.set -> void
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.NoOptionsTemplate.get -> Microsoft.AspNetCore.Components.RenderFragment?
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.NoOptionsTemplate.set -> void
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.NoResultsTemplate.get -> Microsoft.AspNetCore.Components.RenderFragment<BlazOrbit.Components.Forms.Dropdown.NoResultsContext>?
@@ -904,8 +900,6 @@ BlazOrbit.Components.Forms.BOBInputDropdownTree<TItem, TValue>.Label.get -> stri
 BlazOrbit.Components.Forms.BOBInputDropdownTree<TItem, TValue>.Label.set -> void
 BlazOrbit.Components.Forms.BOBInputDropdownTree<TItem, TValue>.LoadingIndicatorVariant.get -> BlazOrbit.Components.BOBLoadingIndicatorVariant?
 BlazOrbit.Components.Forms.BOBInputDropdownTree<TItem, TValue>.LoadingIndicatorVariant.set -> void
-BlazOrbit.Components.Forms.BOBInputDropdownTree<TItem, TValue>.MaxMenuHeight.get -> int
-BlazOrbit.Components.Forms.BOBInputDropdownTree<TItem, TValue>.MaxMenuHeight.set -> void
 BlazOrbit.Components.Forms.BOBInputDropdownTree<TItem, TValue>.NoOptionsTemplate.get -> Microsoft.AspNetCore.Components.RenderFragment?
 BlazOrbit.Components.Forms.BOBInputDropdownTree<TItem, TValue>.NoOptionsTemplate.set -> void
 BlazOrbit.Components.Forms.BOBInputDropdownTree<TItem, TValue>.NodeTemplate.get -> Microsoft.AspNetCore.Components.RenderFragment<BlazOrbit.Components.TreeSelectionNode<TItem>!>?
@@ -1267,8 +1261,6 @@ BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer<TValue>.Loading.get -> 
 BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer<TValue>.Loading.set -> void
 BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer<TValue>.LoadingIndicatorVariant.get -> BlazOrbit.Components.BOBLoadingIndicatorVariant!
 BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer<TValue>.LoadingIndicatorVariant.set -> void
-BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer<TValue>.MaxMenuHeight.get -> int
-BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer<TValue>.MaxMenuHeight.set -> void
 BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer<TValue>.MenuContent.get -> Microsoft.AspNetCore.Components.RenderFragment?
 BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer<TValue>.MenuContent.set -> void
 BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer<TValue>.OnClosed.get -> Microsoft.AspNetCore.Components.EventCallback

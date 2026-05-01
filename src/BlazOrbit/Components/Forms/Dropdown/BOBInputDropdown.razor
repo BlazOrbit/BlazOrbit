@@ -34,7 +34,6 @@
                       Placeholder="@Placeholder"
                       HelperText="@HelperText"
                       Placement="@Placement"
-                      MaxMenuHeight="@ComputedMaxMenuHeight"
                       DisplayValue="@GetDisplayValue()"
                       HasValue="@(_selectionState.Count > 0)"
                       AriaRole="listbox"
@@ -178,10 +177,6 @@
     [Parameter] public bool CloseOnSelect { get; set; } = true;
     /// <summary>Preferred placement of the dropdown menu relative to the input.</summary>
     [Parameter] public DropdownPlacement Placement { get; set; } = DropdownPlacement.Auto;
-    /// <summary>Maximum number of visible items before scrolling.</summary>
-    [Parameter] public int MaxVisibleItems { get; set; } = 8;
-    /// <summary>Height in pixels of each option row.</summary>
-    [Parameter] public int ItemHeight { get; set; } = 40;
 
     /// <summary>When <see langword="true" />, a search box is rendered at the top of the menu.</summary>
     [Parameter] public bool Searchable { get; set; }
@@ -204,10 +199,6 @@
 
     bool IDropdownContainer.IsMultiple => _selectionState.IsMultiple;
     Type IDropdownContainer.ElementType => _selectionState.ElementType;
-
-    private int ComputedMaxMenuHeight => Math.Min(_options.Count, MaxVisibleItems) * ItemHeight + 8 +
-        (Searchable ? 48 : 0) +
-        (_selectionState.IsMultiple && ShowSelectAll ? 40 : 0);
 
     public BOBInputDropdown()
     {
@@ -297,7 +288,6 @@
 
         if (Searchable && _container != null)
         {
-            await Task.Yield();
             await _container.FocusSearchInputAsync();
         }
     }

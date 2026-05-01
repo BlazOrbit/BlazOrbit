@@ -57,6 +57,7 @@
     overflow-x: hidden;
     z-index: var(--bob-z-dropdown);
     min-width: 100%;
+    max-height: clamp(160px, 50vh, 400px);
 }
 
 /* === PLACEMENT VARIANTS === */

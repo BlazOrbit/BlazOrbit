@@ -28,7 +28,6 @@
                       Placeholder="@Placeholder"
                       HelperText="@HelperText"
                       Placement="@Placement"
-                      MaxMenuHeight="@MaxMenuHeight"
                       DisplayValue="@GetDisplayValue()"
                       HasValue="@(_internalSelectedKeys.Count > 0)"
                       AriaRole="tree"
@@ -114,8 +113,6 @@
 
     /// <summary>Placement.</summary>
     [Parameter] public DropdownPlacement Placement { get; set; } = DropdownPlacement.Auto;
-    /// <summary>MaxMenuHeight.</summary>
-    [Parameter] public int MaxMenuHeight { get; set; } = 320;
     /// <summary>CloseOnSelect.</summary>
     [Parameter] public bool CloseOnSelect { get; set; } = true;
 

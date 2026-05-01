@@ -1,0 +1,62 @@
+# .github/workflows/docs-site.yml
+# Builds the BlazOrbit Docs site (Blazor WASM) and publishes it to Cloudflare Pages.
+# Triggered manually (workflow_dispatch) so you control when the public site updates.
+
+name: Docs Site (Cloudflare Pages)
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths:
+      - 'docs/**'
+      - 'src/**'
+      - '.github/workflows/docs-site.yml'
+
+env:
+  DOTNET_VERSION: '10.0.100'
+
+concurrency:
+  group: docs-site
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: Build and deploy to Cloudflare Pages
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+          global-json-file: global.json
+
+      - name: Install wasm-tools workload (required for AOT)
+        run: dotnet workload install wasm-tools
+
+      - name: Restore dependencies
+        run: dotnet restore docs/BlazOrbit.Docs.Wasm/BlazOrbit.Docs.Wasm.csproj
+
+      - name: Publish Docs.Wasm
+        run: >
+          dotnet publish
+          docs/BlazOrbit.Docs.Wasm/BlazOrbit.Docs.Wasm.csproj
+          -c Release
+          -o ./publish
+          --no-restore
+          -p:BlazOrbitBuildEnabled=false
+
+      - name: Add SPA redirects for Blazor routing
+        run: echo '/*    /index.html   200' > ./publish/wwwroot/_redirects
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          projectName: blazorbit-docs
+          directory: ./publish/wwwroot
+          gitHubToken: ${{ secrets.GITHUB_TOKEN }}

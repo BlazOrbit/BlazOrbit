@@ -57,6 +57,15 @@ function handleKeyDown(e: KeyboardEvent): void {
         if (!container?.contains(document.activeElement)) continue;
 
         const isOpen = container.getAttribute('data-bob-dropdown-open') === 'true';
+        const active = document.activeElement as HTMLElement | null;
+        const trigger = instance.triggerElement.querySelector('.bob-dropdown__trigger');
+        const isMenuButton = isOpen && active?.tagName === 'BUTTON' && active !== trigger;
+
+        // Enter / Space on menu-internal buttons (Select All, Deselect All, action cells) —
+        // let the native button activation fire instead of routing through OnKeyDown.
+        if (isMenuButton && (e.key === 'Enter' || e.key === ' ')) {
+            return;
+        }
 
         if (e.key === ' ' && isOpen) {
             e.preventDefault();
@@ -135,10 +144,11 @@ export function focusSearchInput(componentId: string): void {
     if (!instance) return;
 
     const container = instance.triggerElement.closest('[data-bob-component="dropdown-container"]');
-    const searchInput = container?.querySelector('.bob-dropdown__search-input') as HTMLInputElement;
+    const searchInput = container?.querySelector('.bob-dropdown__search input') as HTMLInputElement | null;
 
     if (searchInput) {
         searchInput.focus();
+        searchInput.select();
     }
 }
 
