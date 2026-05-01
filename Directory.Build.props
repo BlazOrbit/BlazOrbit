@@ -76,7 +76,7 @@
     PrivateAssets="all" keeps it out of the consumer's transitive graph.
   -->
   <ItemGroup Condition="'$(IsPackable)' == 'true'">
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="10.0.203" PrivateAssets="all" />
   </ItemGroup>
 
 </Project>
