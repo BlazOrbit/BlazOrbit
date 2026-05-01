@@ -6,14 +6,14 @@
         {
           "src": "../../src",
           "files": [
-            "BlazOrbit/BlazOrbit.csproj",
-            "BlazOrbit.Core/BlazOrbit.Core.csproj",
-            "BlazOrbit.SyntaxHighlight/BlazOrbit.SyntaxHighlight.csproj",
-            "BlazOrbit.Localization.Shared/BlazOrbit.Localization.Shared.csproj",
-            "BlazOrbit.Localization.Server/BlazOrbit.Localization.Server.csproj",
-            "BlazOrbit.Localization.Wasm/BlazOrbit.Localization.Wasm.csproj",
-            "BlazOrbit.Translations/BlazOrbit.Translations.csproj",
-            "BlazOrbit.FluentValidation/BlazOrbit.FormsFluentValidation.csproj"
+            "BlazOrbit/bin/Release/net10.0/BlazOrbit.dll",
+            "BlazOrbit.Core/bin/Release/net10.0/BlazOrbit.Core.dll",
+            "BlazOrbit.SyntaxHighlight/bin/Release/net10.0/BlazOrbit.SyntaxHighlight.dll",
+            "BlazOrbit.Localization.Shared/bin/Release/net10.0/BlazOrbit.Localization.Shared.dll",
+            "BlazOrbit.Localization.Server/bin/Release/net10.0/BlazOrbit.Localization.Server.dll",
+            "BlazOrbit.Localization.Wasm/bin/Release/net10.0/BlazOrbit.Localization.Wasm.dll",
+            "BlazOrbit.Translations/bin/Release/net10.0/BlazOrbit.Translations.dll",
+            "BlazOrbit.FluentValidation/bin/Release/net10.0/BlazOrbit.FormsFluentValidation.dll"
           ]
         }
       ],
@@ -26,8 +26,7 @@
       "disableGitFeatures": false,
       "disableDefaultFilter": false,
       "memberLayout": "samePage",
-      "outputFormat": "mref",
-      "noRestore": false
+      "outputFormat": "mref"
     }
   ],
   "build": {
