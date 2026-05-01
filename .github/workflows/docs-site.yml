@@ -42,6 +42,7 @@ jobs:
           -o ./publish
           --no-restore
           -p:BlazOrbitBuildEnabled=false
+          -p:RunAOTCompilation=false
 
       - name: Add SPA redirects for Blazor routing
         run: echo '/*    /index.html   200' > ./publish/wwwroot/_redirects
