@@ -44,8 +44,10 @@ jobs:
           -p:BlazOrbitBuildEnabled=false
           -p:RunAOTCompilation=false
 
-      - name: Add SPA redirects for Blazor routing
-        run: echo '/*    /index.html   200' > ./publish/wwwroot/_redirects
+      - name: List static assets for debug
+        run: |
+          echo "=== Published wwwroot structure ==="
+          find ./publish/wwwroot -type f | sort
 
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
