@@ -97,6 +97,12 @@
 
         </ChildContent>
     </BOBTreeMenuItem>
+    <BOBTreeMenuItem Text="@Loc["Live Development"]"
+                     Key="nav-live-development"
+                     Icon="@BOBIconKeys.MaterialIconsOutlined.i_code"
+                     Href="/live-development"
+                     OnClick="@NavigateToLiveDevelopment">
+    </BOBTreeMenuItem>
 </BOBTreeMenu>
 <DocFooter />
 
@@ -154,5 +160,10 @@
     private void NavigateToForms()
     {
         NavigationManager.NavigateTo("/components/forms");
+    }
+
+    private void NavigateToLiveDevelopment()
+    {
+        NavigationManager.NavigateTo("/live-development");
     }
 }

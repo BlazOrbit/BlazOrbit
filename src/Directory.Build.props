@@ -3,7 +3,6 @@
     Inherits root Directory.Build.props and elevates every warning to an error
     for all shipping code under src/.  Tests, docs, samples and tools live
     outside this folder and are allowed to carry documented warnings.
-    See BLD-03 in TASKS.md.
   -->
   <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))" />
 

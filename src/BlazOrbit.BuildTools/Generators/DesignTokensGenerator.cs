@@ -84,9 +84,9 @@ public class DesignTokensGenerator : IAssetGenerator
     private static string GetRippleStyles() => $$"""
 /* ========================================
    RIPPLE EFFECT
-   CSS-OPT-02 block A.3: per-instance overrides flow through IHasRipple via
-   the FeatureDefinitions.InlineVariables.Ripple* constants. The fallback
-   chain is inline override > global token > rgba/ms literal.
+   Per-instance overrides flow through IHasRipple via the
+   FeatureDefinitions.InlineVariables.Ripple* constants. The fallback chain is
+   inline override > global token > rgba/ms literal.
    ======================================== */
 
 .{{FeatureDefinitions.CssClasses.Ripple}} {

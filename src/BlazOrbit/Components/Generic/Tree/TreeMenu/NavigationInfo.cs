@@ -2,6 +2,7 @@
 
 namespace BlazOrbit.Components;
 
+/// <summary>Navigation metadata for a tree-menu node — href, match strategy, and link target.</summary>
 public sealed class NavigationInfo
 {
     private static readonly HashSet<string> _allowedSchemes = new(StringComparer.OrdinalIgnoreCase)
@@ -9,9 +10,13 @@ public sealed class NavigationInfo
         "http", "https", "mailto", "tel"
     };
 
+    /// <summary><see langword="true"/> when <see cref="Href"/> is set and uses a safe scheme.</summary>
     public bool HasNavigation => IsSafeHref(Href);
+    /// <summary>Anchor href the node navigates to.</summary>
     public string? Href { get; init; }
+    /// <summary>Active-route match strategy used when rendering as a <see cref="Microsoft.AspNetCore.Components.Routing.NavLink"/>.</summary>
     public NavLinkMatch Match { get; init; } = NavLinkMatch.Prefix;
+    /// <summary>Optional anchor target attribute (e.g. <c>_blank</c>).</summary>
     public string? Target { get; init; }
 
     // Untrusted sources (CMS content, API payloads) may set Href to `javascript:alert(1)`

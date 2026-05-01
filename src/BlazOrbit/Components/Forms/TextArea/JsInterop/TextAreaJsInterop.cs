@@ -5,10 +5,13 @@ using Microsoft.JSInterop;
 
 namespace BlazOrbit.Components.Forms;
 
+/// <summary>JS interop contract for the textarea auto-resize module.</summary>
 public interface ITextAreaJsInterop
 {
+    /// <summary>Detaches and disposes the auto-resize behavior previously attached via <see cref="InitializeAutoResizeAsync"/>.</summary>
     ValueTask DisposeAutoResizeAsync(string textareaId);
 
+    /// <summary>Attaches an auto-resize behavior to the given textarea element.</summary>
     ValueTask InitializeAutoResizeAsync(ElementReference textarea, string textareaId);
 }
 

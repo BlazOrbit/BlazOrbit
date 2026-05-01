@@ -1,10 +1,10 @@
 ﻿@namespace BlazOrbit.Components.Internal
 
 @*
-    CSS-OPT-02 block B.2: state lives on data-bob-* attributes (checked,
-    indeterminate, disabled), not on BEM class modifiers. The scoped CSS
-    selects on `._bob-checkmark[data-bob-checked="true"]` etc. The
-    `_bob-checkmark` class stays as the identification anchor.
+    State lives on data-bob-* attributes (checked, indeterminate, disabled),
+    not on BEM class modifiers. The scoped CSS selects on
+    `._bob-checkmark[data-bob-checked="true"]` etc. The `_bob-checkmark`
+    class stays as the identification anchor.
 *@
 <span class="_bob-checkmark"
       data-bob-checked="@(IsChecked ? "true" : "false")"

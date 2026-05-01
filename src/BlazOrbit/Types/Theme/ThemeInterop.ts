@@ -52,7 +52,7 @@ export function toggleTheme(themes: string[]): string {
 }
 
 // Kept in sync with BOBThemePaletteBase. Canonical source lives in C#; if a property is
-// added/removed there, update this list too (see JS-06 for history and automation plan).
+// added/removed there, update this list too.
 const PALETTE_VARS = [
     '--palette-active-tint',
     '--palette-background',

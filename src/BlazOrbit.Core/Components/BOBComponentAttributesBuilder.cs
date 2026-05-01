@@ -299,7 +299,7 @@ internal sealed class BOBComponentAttributesBuilder
     private readonly StringBuilder _styleBuilder = new();
     public Dictionary<string, object> ComputedAttributes { get; } = [];
 
-    // PERF-02: skip the full ComputedAttributes/cssVariables rebuild when none of the
+    // Skip the full ComputedAttributes/cssVariables rebuild when none of the
     // style-affecting inputs changed. `additionalAttributes` is captured by reference
     // identity (the parent typically reuses the same dictionary unless it actually
     // mutates the captured-attributes set); the rest of the inputs are folded into a
@@ -310,7 +310,7 @@ internal sealed class BOBComponentAttributesBuilder
     private IReadOnlyDictionary<string, object>? _lastAdditionalAttributes;
 
     /// <summary>
-    /// PERF-08: signals whether the most recent <see cref="BuildStyles"/> call hit the
+    /// Signals whether the most recent <see cref="BuildStyles"/> call hit the
     /// fingerprint cache and returned without rebuilding. Consumed by
     /// <see cref="BOBInputComponentBase{TValue}"/>'s <c>ShouldRender</c> echo-guard so
     /// the input can suppress redundant render-tree builds when the round-trip from
@@ -514,7 +514,7 @@ internal sealed class BOBComponentAttributesBuilder
         {
             // Ripple state is owned by the JS behavior (BOBComponentJsBehaviorBuilder reads
             // DisableRipple/RippleColor/RippleDurationMs from the IHasRipple instance directly).
-            // No DOM data-attribute needed — see CSS-OPT-02 block B.6.
+            // No DOM data-attribute needed.
             IHasRipple ripple = (IHasRipple)component;
             if (!ripple.DisableRipple)
             {

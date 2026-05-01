@@ -1,44 +1,57 @@
 ﻿namespace BlazOrbit.Components.Layout.Services;
 
+/// <summary>Coordinates dialog and drawer modals — opening, closing, and stack ordering.</summary>
 public interface IModalService
 {
+    /// <summary>Raised whenever the active-modals list changes; awaited sequentially.</summary>
     event Func<Task>? OnChangeAsync;
 
+    /// <summary>Currently open modals, in stacking order (last is topmost).</summary>
     IReadOnlyList<ModalState> ActiveModals { get; }
 
+    /// <summary>Closes every active modal in reverse order.</summary>
     Task CloseAllAsync();
 
+    /// <summary>Closes the topmost modal.</summary>
     Task CloseAsync();
 
+    /// <summary>Opens a dialog and awaits a typed result.</summary>
     Task<TResult?> ShowDialogAsync<TComponent, TResult>(
                 object? parameters = null,
         DialogOptions? options = null)
         where TComponent : IModalContent;
 
+    /// <summary>Opens a dialog without awaiting a result.</summary>
     Task ShowDialogAsync<TComponent>(
         object? parameters = null,
         DialogOptions? options = null)
         where TComponent : IModalContent;
 
+    /// <summary>Opens a drawer and awaits a typed result.</summary>
     Task<TResult?> ShowDrawerAsync<TComponent, TResult>(
         object? parameters = null,
         DrawerOptions? options = null)
         where TComponent : IModalContent;
 
+    /// <summary>Opens a drawer without awaiting a result.</summary>
     Task ShowDrawerAsync<TComponent>(
         object? parameters = null,
         DrawerOptions? options = null)
         where TComponent : IModalContent;
 }
 
+/// <summary>Default <see cref="IModalService"/> implementation registered by <c>AddBlazOrbit()</c>.</summary>
 public sealed class ModalService : IModalService
 {
     private readonly List<ModalState> _modals = [];
 
+    /// <inheritdoc />
     public event Func<Task>? OnChangeAsync;
 
+    /// <inheritdoc />
     public IReadOnlyList<ModalState> ActiveModals => _modals.AsReadOnly();
 
+    /// <inheritdoc />
     public async Task CloseAllAsync()
     {
         while (_modals.Count > 0)
@@ -47,6 +60,7 @@ public sealed class ModalService : IModalService
         }
     }
 
+    /// <inheritdoc />
     public async Task CloseAsync()
     {
         if (_modals.Count == 0)
@@ -58,6 +72,7 @@ public sealed class ModalService : IModalService
         await CloseModalAsync(current);
     }
 
+    /// <inheritdoc />
     public async Task<TResult?> ShowDialogAsync<TComponent, TResult>(
                 object? parameters = null,
         DialogOptions? options = null)
@@ -71,6 +86,7 @@ public sealed class ModalService : IModalService
         return await ShowAndWaitAsync<TResult>(state);
     }
 
+    /// <inheritdoc />
     public Task ShowDialogAsync<TComponent>(
         object? parameters = null,
         DialogOptions? options = null)
@@ -84,6 +100,7 @@ public sealed class ModalService : IModalService
         return ShowAsync(state);
     }
 
+    /// <inheritdoc />
     public async Task<TResult?> ShowDrawerAsync<TComponent, TResult>(
         object? parameters = null,
         DrawerOptions? options = null)
@@ -97,6 +114,7 @@ public sealed class ModalService : IModalService
         return await ShowAndWaitAsync<TResult>(state);
     }
 
+    /// <inheritdoc />
     public Task ShowDrawerAsync<TComponent>(
         object? parameters = null,
         DrawerOptions? options = null)

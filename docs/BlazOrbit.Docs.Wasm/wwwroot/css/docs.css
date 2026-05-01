@@ -1312,3 +1312,11 @@ html[data-theme="light"] {
         display: none;
     }
 }
+
+/* Live Development Page */
+
+.twitch-container {
+    display: flex;
+    gap: 1em;
+    align-items: flex-start;
+}

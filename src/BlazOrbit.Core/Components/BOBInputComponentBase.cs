@@ -24,26 +24,26 @@ public abstract class BOBInputComponentBase<TValue> :
     private FieldIdentifier _fieldIdentifier;
     private EditContext? _previousEditContext;
     private bool _lastValidationError;
-    // BASE-08: cache the synthetic ValueExpression for the no-EditContext path.
-    // The expression captures `this`, so a single instance is valid for the
-    // component's lifetime and re-uses the same Expression<Func<TValue>>
-    // across every SetParametersAsync call instead of rebuilding it.
+    // Cache the synthetic ValueExpression for the no-EditContext path. The expression
+    // captures `this`, so a single instance is valid for the component's lifetime and
+    // re-uses the same Expression<Func<TValue>> across every SetParametersAsync call
+    // instead of rebuilding it.
     private Expression<Func<TValue>>? _valueExpressionFallback;
 
-    // PERF-08 echo-guard. After a parent receives ValueChanged and re-renders, it
-    // pushes the same Value back down. Without intervention every keystroke triggers
-    // a redundant BuildRenderTree on this component (and cascades through the parent
-    // tree). The guard distinguishes parameter-change paths (SetParametersAsync) from
-    // explicit StateHasChanged paths (focus/blur, validation flips, derived-component
-    // private state), and on the parameter path suppresses the render when both the
-    // bound Value matches what was last rendered AND the style fingerprint cache hit
-    // (i.e. no style-affecting parameter changed either).
+    // Echo-guard. After a parent receives ValueChanged and re-renders, it pushes the
+    // same Value back down. Without intervention every keystroke triggers a redundant
+    // BuildRenderTree on this component (and cascades through the parent tree). The
+    // guard distinguishes parameter-change paths (SetParametersAsync) from explicit
+    // StateHasChanged paths (focus/blur, validation flips, derived-component private
+    // state), and on the parameter path suppresses the render when both the bound
+    // Value matches what was last rendered AND the style fingerprint cache hit (i.e.
+    // no style-affecting parameter changed either).
     private TValue? _lastRenderedValue;
     private bool _hasRenderedOnce;
     private bool _isFromParameterChange;
 
-    // Common parameters for all inputs — "force from outside": parent overrides the computed state.
-    // The computed truth lives in IsX below. See CLAUDE.md §"State parameters".
+    // Common parameters for all inputs — "force from outside": parent overrides the
+    // computed state. The computed truth lives in IsX below.
     /// <summary>When <see langword="true" />, the input is disabled. Combined with internal state via <see cref="IsDisabled"/>.</summary>
     [Parameter] public bool Disabled { get; set; }
     /// <summary>When <see langword="true" />, the input is read-only. Combined with internal state via <see cref="IsReadOnly"/>.</summary>
@@ -87,8 +87,8 @@ public abstract class BOBInputComponentBase<TValue> :
 
     public override Task SetParametersAsync(ParameterView parameters)
     {
-        // PERF-08: flag the parameter-change path so ShouldRender can distinguish it
-        // from explicit StateHasChanged calls (focus/blur, validation flip, derived
+        // Flag the parameter-change path so ShouldRender can distinguish it from
+        // explicit StateHasChanged calls (focus/blur, validation flip, derived
         // component private state). Cleared inside ShouldRender after consumption.
         _isFromParameterChange = true;
 
@@ -124,7 +124,7 @@ public abstract class BOBInputComponentBase<TValue> :
     }
 
     /// <summary>
-    /// PERF-08 echo-guard. Suppresses redundant render-tree rebuilds triggered by the
+    /// Echo-guard. Suppresses redundant render-tree rebuilds triggered by the
     /// <c>ValueChanged → parent → SetParametersAsync</c> round-trip when nothing
     /// observable changed. Fires only on the parameter-change path; explicit
     /// <c>StateHasChanged</c> calls (focus/blur, validation flips, derived-component
@@ -216,10 +216,10 @@ public abstract class BOBInputComponentBase<TValue> :
         _pipeline.PatchVolatileAttributes(this);
         base.BuildRenderTree(builder);
 
-        // PERF-08: snapshot the rendered Value so the next parameter-change can
-        // detect a Value echo. Captured *after* base.BuildRenderTree so derived
-        // razors that read `CurrentValue` during render see the same value the
-        // guard will compare against.
+        // Snapshot the rendered Value so the next parameter-change can detect a
+        // Value echo. Captured *after* base.BuildRenderTree so derived razors that
+        // read `CurrentValue` during render see the same value the guard will
+        // compare against.
         _lastRenderedValue = CurrentValue;
         _hasRenderedOnce = true;
 #if DEBUG

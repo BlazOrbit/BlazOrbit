@@ -1,8 +1,10 @@
 ﻿namespace BlazOrbit.Components;
 
+/// <summary>Cascading-parameter contract for tree containers that accept child node registrations.</summary>
 public interface ITreeNodeRegistry<TRegistration>
     where TRegistration : TreeNodeRegistration
 {
+    /// <summary>Registers a child node with the container.</summary>
     void Register(TRegistration registration);
 }
 

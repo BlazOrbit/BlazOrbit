@@ -4,8 +4,10 @@ using Microsoft.JSInterop;
 
 namespace BlazOrbit.Components;
 
+/// <summary>JS interop contract for clipboard operations.</summary>
 public interface IClipboardJsInterop
 {
+    /// <summary>Copies <paramref name="text"/> to the system clipboard.</summary>
     ValueTask CopyTextAsync(string text);
 }
 

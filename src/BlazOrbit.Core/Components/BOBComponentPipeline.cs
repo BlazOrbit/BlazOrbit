@@ -26,7 +26,7 @@ internal sealed class BOBComponentPipeline
     public Dictionary<string, object> ComputedAttributes => _styleBuilder.ComputedAttributes;
 
     /// <summary>
-    /// PERF-08: forwards <see cref="BOBComponentAttributesBuilder.LastBuildSkipped"/> so the
+    /// Forwards <see cref="BOBComponentAttributesBuilder.LastBuildSkipped"/> so the
     /// input echo-guard in <see cref="BOBInputComponentBase{TValue}"/> can suppress redundant
     /// render-tree builds when no style-affecting parameter changed.
     /// </summary>

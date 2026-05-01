@@ -226,9 +226,9 @@
     padding-left: var(--_tree-menu-item-padding-x);
 }
 
-/* CSS-OPT-02 block B.9: surface the trigger mode in scoped CSS. Hover-driven
-   menus advertise interaction with `cursor: pointer`; click-driven menus get
-   the default cursor. Behavior is wired in JS via IBehaviorJsInterop. */
+/* Surface the trigger mode in scoped CSS. Hover-driven menus advertise
+   interaction with `cursor: pointer`; click-driven menus get the default
+   cursor. Behavior is wired in JS via IBehaviorJsInterop. */
 [data-bob-component="tree-menu"][data-bob-trigger="hover"] .bob-tree-menu__link,
 [data-bob-component="tree-menu"][data-bob-trigger="hover"] .bob-tree-menu__button {
     cursor: pointer;

@@ -4,6 +4,13 @@ using Microsoft.AspNetCore.Components.Web;
 
 namespace BlazOrbit.Components;
 
+/// <summary>
+/// Shared base for data-collection components (grid, cards) that own column registration,
+/// sorting, filtering, paging and selection state.
+/// </summary>
+/// <typeparam name="TItem">Row item type.</typeparam>
+/// <typeparam name="TComponent">Concrete derived component type (CRTP).</typeparam>
+/// <typeparam name="TVariant">Variant type owned by the derived component.</typeparam>
 public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
     : BOBVariantComponentBase<TComponent, TVariant>,
       IHasDensity,
@@ -569,6 +576,7 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
             : State.SortDirection == SortDirection.Ascending ? "ascending" : "descending";
     }
 
+    /// <summary>Sorts the collection by the given column header in the requested direction.</summary>
     public void SortBy(string columnName, SortDirection direction)
     {
         State.SortColumn = columnName;
@@ -577,6 +585,7 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         StateHasChanged();
     }
 
+    /// <summary>Applies a free-text filter and resets pagination to page 1.</summary>
     public void Filter(string filterText)
     {
         State.FilterText = filterText;
@@ -585,6 +594,7 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         StateHasChanged();
     }
 
+    /// <summary>Navigates to the given 1-based page index. Out-of-range values are ignored.</summary>
     public void GoToPage(int page)
     {
         if (page >= 1 && page <= TotalPages)
@@ -595,5 +605,6 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         }
     }
 
+    /// <summary>Returns the set of currently selected items.</summary>
     public IReadOnlySet<TItem> GetSelectedItems() => State.SelectedItems;
 }

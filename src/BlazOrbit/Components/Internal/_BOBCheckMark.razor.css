@@ -1,7 +1,7 @@
 ﻿/*
- * CSS-OPT-02 block B.2: state is expressed via data-bob-* attributes on the
- * root span (._bob-checkmark[data-bob-checked="true"], etc.) instead of BEM
- * modifier classes. The class is purely an identification anchor.
+ * State is expressed via data-bob-* attributes on the root span
+ * (._bob-checkmark[data-bob-checked="true"], etc.) instead of BEM modifier
+ * classes. The class is purely an identification anchor.
  */
 ._bob-checkmark {
     --_checkmark-color: var(--bob-inline-color, var(--palette-primary));

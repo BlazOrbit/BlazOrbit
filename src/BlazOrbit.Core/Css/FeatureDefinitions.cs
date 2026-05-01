@@ -630,7 +630,7 @@ internal static class FeatureDefinitions
         public const string CodeFontWeight = "500";
         public const string PreLineHeight = "1.6";
 
-        /// <summary>Anchor/link color transition. Follow-up: migrate to the `--bob-t-*` system once BLD-PIPE-10 defines it.</summary>
+        /// <summary>Anchor/link color transition.</summary>
         public const string LinkTransitionValue = "color 150ms ease";
 
         /// <summary>Horizontal rule visual weight.</summary>

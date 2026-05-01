@@ -37,6 +37,7 @@
 </bob-component>
 
 @code {
+    /// <summary>Source code to render and highlight. Required.</summary>
     [Parameter, EditorRequired] public string Code { get; set; } = string.Empty;
     /// <summary>Language.</summary>
     [Parameter] public SyntaxHighlightLanguage Language { get; set; } = SyntaxHighlightLanguage.CSharp;

@@ -99,9 +99,9 @@ public class BaseComponentGenerator : IAssetGenerator
     cursor: not-allowed;
 }
 
-/* CSS-OPT-02 block B.3: loading hosts get a wait cursor and stop accepting
-   pointer events. The visual content (spinner / dimming) is still owned by
-   each component's BOBLoadingIndicator child render. */
+/* Loading hosts get a wait cursor and stop accepting pointer events. The
+   visual content (spinner / dimming) is still owned by each component's
+   BOBLoadingIndicator child render. */
 {{FeatureDefinitions.Tags.Component}}[{{FeatureDefinitions.DataAttributes.Loading}}="true"] {
     cursor: wait;
     pointer-events: none;

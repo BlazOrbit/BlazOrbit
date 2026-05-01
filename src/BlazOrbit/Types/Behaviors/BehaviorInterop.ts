@@ -66,10 +66,9 @@ class BehaviorManager {
     }
 }
 
-// Renamed from `attachBehaviors` per JS-08 (canonical `initialize`/`dispose`
-// shape across all interop modules). The instance returned still owns its own
-// `dispose()` because behaviors are scoped to the BOB component, not to a
-// global componentId map.
+// Canonical `initialize`/`dispose` shape across all interop modules. The
+// instance returned still owns its own `dispose()` because behaviors are
+// scoped to the BOB component, not to a global componentId map.
 export function initialize(config: BehaviorConfiguration): BehaviorManager {
     return new BehaviorManager(config);
 }

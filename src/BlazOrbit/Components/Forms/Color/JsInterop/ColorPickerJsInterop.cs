@@ -5,8 +5,10 @@ using Microsoft.JSInterop;
 
 namespace BlazOrbit.Components.Forms;
 
+/// <summary>JS interop contract for the color picker module.</summary>
 public interface IColorPickerJsInterop
 {
+    /// <summary>Returns the pointer position relative to the given element as <c>[x, y]</c>.</summary>
     ValueTask<double[]> GetRelativePositionAsync(ElementReference element, double clientX, double clientY);
 }
 

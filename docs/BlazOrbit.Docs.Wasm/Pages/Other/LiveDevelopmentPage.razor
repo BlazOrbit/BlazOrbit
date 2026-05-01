@@ -1,0 +1,52 @@
+﻿@page "/live-development"
+
+@inject IStringLocalizer<LiveDevelopmentPage> Loc
+
+<DocPage Eyebrow="Live"
+         Title="Live Development"
+         Lede="@(Loc["""You can follow live development of BlazOrbit in @cdcsharp twitch channel."""])">
+
+
+    <p>
+        @((MarkupString)Loc[_introText].ToString())
+    </p>
+    <hr />
+
+    <div class="twitch-container">
+        <iframe src="@GetPlayerSource()"
+                height="480"
+                width="720"
+                allowfullscreen>
+        </iframe>
+    
+        <iframe src="@GetChatSource()"
+                height="500"
+                width="350">
+        </iframe>
+    </div>
+
+</DocPage>
+@code {
+    private string _introText =
+    """
+    BlazOrbit originated from another library we developed on streamings in <a href="https://www.twitch.tv/cdcsharp">@cdcsharp's Twitch channel</a> and was later revised, refactored, and optimized to become what it is today. Live development continues from time to time, and you're welcome to join in.
+    """;
+
+    private string GetPlayerSource()
+    {
+#if DEBUG
+            return "https://player.twitch.tv/?channel=cdcsharp&parent=localhost";
+#else
+        return "https://player.twitch.tv/?channel=cdcsharp&parent=blazorbit.com"
+        #endif
+    }
+
+    private string GetChatSource()
+    {
+#if DEBUG
+            return "https://www.twitch.tv/embed/cdcsharp/chat?parent=localhost.com";
+#else
+        return "https://www.twitch.tv/embed/cdcsharp/chat?parent=blazorbit.com"
+        #endif
+    }
+}

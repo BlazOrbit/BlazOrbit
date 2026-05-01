@@ -34,9 +34,8 @@ public class InputFamilyGenerator : IAssetGenerator
         string wrapper = FeatureDefinitions.CssClasses.Input.Wrapper;
         string field = FeatureDefinitions.CssClasses.Input.Field;
         string label = FeatureDefinitions.CssClasses.Input.Label;
-        // CSS-OPT-02 block B.5: the required asterisk no longer uses the
-        // .bob-input__required class — it lives on the label::after pseudo-element
-        // gated by [data-bob-required="true"] (see requiredAttr below).
+        // The required asterisk lives on the label::after pseudo-element gated by
+        // [data-bob-required="true"] (see requiredAttr below) — no .bob-input__required class.
         string helper = FeatureDefinitions.CssClasses.Input.HelperText;
         string validation = FeatureDefinitions.CssClasses.Input.Validation;
         string opacityPlaceholder = FeatureDefinitions.Tokens.Opacity.Placeholder;
@@ -187,10 +186,10 @@ bob-component[{{inputBase}}] .{{label}} {
     transition: font-size var(--_input-transition), transform var(--_input-transition), color var(--_input-transition), padding var(--_input-transition);
 }
 
-/* CSS-OPT-02 block B.5: required asterisk is rendered by the CSS pseudo-element
-   gated on [data-bob-required="true"] instead of a Razor-emitted <span>. The
-   underlying class name is kept in FeatureDefinitions for back-compat with any
-   consumer override that targets it directly. */
+/* Required asterisk is rendered by the CSS pseudo-element gated on
+   [data-bob-required="true"] instead of a Razor-emitted <span>. The underlying
+   class name is kept in FeatureDefinitions for back-compat with any consumer
+   override that targets it directly. */
 bob-component[{{inputBase}}][{{requiredAttr}}="true"] .{{label}}::after {
     content: " *";
     color: var(--_input-error-color);
@@ -221,10 +220,10 @@ bob-component[{{inputBase}}] .{{validation}} {
 }
 
 /* === ADDON PREFIX ===
-   CSS-OPT-02 block A.1: prefix color/background overrides flow through the
-   IHasPrefix interface; the inline custom-properties below mirror the
-   FeatureDefinitions.InlineVariables.Prefix* constants. Consumers (or
-   per-component razor.css) can also override the private vars directly. */
+   Prefix color/background overrides flow through the IHasPrefix interface; the
+   inline custom-properties below mirror the FeatureDefinitions.InlineVariables.Prefix*
+   constants. Consumers (or per-component razor.css) can also override the
+   private vars directly. */
 
 bob-component[{{inputBase}}] .{{addonPrefix}} {
     --_input-prefix-color: {{V(inlinePrefixColor, "currentColor")}};
@@ -241,7 +240,7 @@ bob-component[{{inputBase}}]:has(.{{addonPrefix}}) {
 }
 
 /* === ADDON SUFFIX ===
-   CSS-OPT-02 block A.2: same fallback chain as ADDON PREFIX, but for suffix. */
+   Same fallback chain as ADDON PREFIX, but for suffix. */
 
 bob-component[{{inputBase}}] .{{addonSuffix}} {
     --_input-suffix-color: {{V(inlineSuffixColor, "currentColor")}};

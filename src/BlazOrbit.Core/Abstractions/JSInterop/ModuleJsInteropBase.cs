@@ -40,7 +40,7 @@ public abstract class ModuleJsInteropBase : IAsyncDisposable
     /// Asynchronously disposes of the resources used by the module.
     /// The following exceptions are swallowed intentionally — all four are raised on non-actionable
     /// teardown paths (prerender without a circuit, circuit shutdown, runtime disposal, or cancellation
-    /// during the awaited module dispose). See CLAUDE.md §"Async / JS interop conventions".
+    /// during the awaited module dispose).
     /// </summary>
     /// <returns>
     /// A <see cref="ValueTask" /> representing the asynchronous operation.

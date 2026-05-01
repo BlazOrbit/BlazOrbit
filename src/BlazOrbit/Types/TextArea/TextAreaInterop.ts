@@ -10,7 +10,6 @@ const instances = new Map<string, TextAreaInstance>();
 
 /**
  * Initialize auto-resize behavior for a textarea.
- * Renamed from `initializeAutoResize` per JS-08 (canonical `initialize`/`dispose` shape).
  */
 export function initialize(
     textarea: HTMLTextAreaElement,
@@ -58,7 +57,6 @@ function adjustHeight(textarea: HTMLTextAreaElement): void {
 
 /**
  * Clean up auto-resize for a textarea.
- * Renamed from `disposeAutoResize` per JS-08.
  */
 export function dispose(textareaId: string): void {
     const instance = instances.get(textareaId);

@@ -103,8 +103,8 @@
     outline-offset: var(--bob-highlight-outline-offset);
 }
 
-/* CSS-OPT-02 block B.7: surface SelectionMode in scoped CSS so consumers can
-   override the leading checkbox slot per mode. The value is set by
+/* Surface SelectionMode in scoped CSS so consumers can override the leading
+   checkbox slot per mode. The value is set by
    BOBTreeSelector.BuildComponentDataAttributes. */
 [data-bob-component="tree-selector"][data-bob-selection-mode="multiple"] .bob-tree-selector__node-content {
     --_tree-selector-multi-gap: 0.5rem;

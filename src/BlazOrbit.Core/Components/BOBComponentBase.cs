@@ -22,12 +22,12 @@ public abstract class BOBComponentBase : ComponentBase, IAsyncDisposable, IBuilt
     public Dictionary<string, object> ComputedAttributes => _pipeline.ComputedAttributes;
 
     /// <summary>
-    /// `true` after <see cref="DisposeAsync"/> has started. Derived components that subscribe to
-    /// <c>NavigationManager.LocationChanged</c>, register children through cascading parameters,
-    /// or hold a <c>CancellationTokenSource</c> must gate any post-await continuation on this flag
-    /// before touching component state. See CLAUDE.md §"Async / JS interop conventions". Derived
-    /// classes may set it eagerly at the top of their own override of <c>DisposeAsync</c> so that
-    /// the rest of their teardown sees it as disposed.
+    /// <see langword="true"/> after <see cref="DisposeAsync"/> has started. Derived components
+    /// that subscribe to <c>NavigationManager.LocationChanged</c>, register children through
+    /// cascading parameters, or hold a <c>CancellationTokenSource</c> must gate any post-await
+    /// continuation on this flag before touching component state. Derived classes may set it
+    /// eagerly at the top of their own override of <c>DisposeAsync</c> so that the rest of
+    /// their teardown sees it as disposed.
     /// </summary>
     protected bool IsDisposed { get; set; }
 

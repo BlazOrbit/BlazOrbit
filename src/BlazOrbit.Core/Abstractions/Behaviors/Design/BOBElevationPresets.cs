@@ -13,7 +13,7 @@
 /// </para>
 ///
 /// <para>
-/// Per <c>AGENTS.md §CSS architecture</c>, the tint <i>color</i> is decided by the CSS layer
+/// The tint <i>color</i> is decided by the CSS layer
 /// (default: <c>var(--palette-surface-contrast)</c>); this class owns only the <i>amount</i>.
 /// </para>
 /// </summary>

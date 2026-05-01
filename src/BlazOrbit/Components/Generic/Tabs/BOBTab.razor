@@ -8,13 +8,16 @@
 }
 
 @code {
+    /// <summary>Parent <see cref="BOBTabs"/> container that owns this tab. Cascaded automatically.</summary>
     [CascadingParameter] public BOBTabs? Parent { get; set; }
 
+    /// <summary>Stable identifier for the tab. Used to track activation. Required.</summary>
     [Parameter, EditorRequired] public string? Id { get; set; }
 
+    /// <summary>Visible tab label. Required.</summary>
     [Parameter, EditorRequired] public string? Label { get; set; }
 
-    /// <summary>Material icon name for the .</summary>
+    /// <summary>Optional icon rendered next to the label.</summary>
     [Parameter] public RenderFragment? Icon { get; set; }
 
     /// <summary>Content rendered inside the component.</summary>

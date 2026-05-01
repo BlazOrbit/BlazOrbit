@@ -34,7 +34,7 @@ interface DropdownPosition {
 
 const dropdownInstances = new Map<string, DropdownInstance>();
 
-// JS-10: a single pair of document-level listeners is shared by every active
+// A single pair of document-level listeners is shared by every active
 // dropdown instead of one pair per instance. Installed when the first
 // dropdown initializes, removed when the last one disposes. The handlers
 // dispatch to every registered instance — each one decides whether the

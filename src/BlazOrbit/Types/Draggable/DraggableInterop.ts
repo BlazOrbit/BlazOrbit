@@ -9,11 +9,11 @@ interface DragInstance {
 
 const instances = new Map<string, DragInstance>();
 
-// JS-08: canonical `initialize` / `dispose` shape shared with the other
-// interop modules.
-// JS-10: drag is single-instance by design. Starting a new drag while another
-// is active replaces the previous one (the previous instance's mousemove/mouseup
-// handlers are removed first) so we never accumulate document-level listeners.
+// Canonical `initialize` / `dispose` shape shared with the other interop
+// modules. Drag is single-instance by design. Starting a new drag while
+// another is active replaces the previous one (the previous instance's
+// mousemove/mouseup handlers are removed first) so we never accumulate
+// document-level listeners.
 export function initialize(
     element: HTMLElement,
     dotNetRef: DragCallbacksRelay,

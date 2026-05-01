@@ -24,7 +24,7 @@ public sealed class DocSearchService
         }
 
         string q = query.Trim();
-        List<DocSearchResult> results = new();
+        List<DocSearchResult> results = [];
 
         foreach (DocSearchItem item in _index)
         {
@@ -105,8 +105,7 @@ public sealed class DocSearchService
             // Developer / Concepts
             new(_loc["Architecture"], "/concepts/architecture", [_loc["Developer"]], "architecture component base pipeline abstractions"),
             new(_loc["Variants"], "/concepts/variants", [_loc["Developer"]], "variant template registry customization theme"),
-            new(_loc["Theming"], "/theming", [_loc["Developer"]], "theme light dark palette color css custom property tokens"),
-            new(_loc["Localization"], "/concepts/localization", [_loc["Developer"]], "i18n l10n culture language resx translation globalize"),
+            new(_loc["Theming"], "/concepts/theming", [_loc["Developer"]], "theme light dark palette color css custom property tokens"),
             new(_loc["JS Interop"], "/concepts/js-interop", [_loc["Developer"]], "javascript interop typescript behavior service jsruntime"),
             new(_loc["Accessibility"], "/concepts/accessibility", [_loc["Developer"]], "a11y aria wcag keyboard focus screen reader semantic"),
 
@@ -130,29 +129,31 @@ public sealed class DocSearchService
             new(_loc["Code Block"], "/components/codeblock", [_loc["Components"], _loc["Generic"]], "code syntax highlight snippet preformatted prism"),
             new(_loc["DataCards"], "/components/datacards", [_loc["Components"], _loc["Generic"]], "datacards card list collection template repeater"),
             new(_loc["DataGrid"], "/components/datagrid", [_loc["Components"], _loc["Generic"]], "datagrid table column sort filter pagination rows"),
+            new(_loc["Draggable"], "/components/draggable", [_loc["Components"], _loc["Generic"]], "draggable drag drop reorder sortable move handle"),
             new(_loc["Loading"], "/components/loading", [_loc["Components"], _loc["Generic"]], "loading spinner progress indicator skeleton busy"),
             new(_loc["Svg Icon"], "/components/svgicon", [_loc["Components"], _loc["Generic"]], "svg icon material iconography image vector"),
             new(_loc["Tabs"], "/components/tabs", [_loc["Components"], _loc["Generic"]], "tabs tab panel navigation switch content segmented"),
+            new(_loc["Tooltip"], "/components/tooltip", [_loc["Components"], _loc["Generic"]], "tooltip hint popover description title hover focus"),
+            new(_loc["Tree Selector"], "/components/treeselector", [_loc["Components"], _loc["Generic"]], "tree selector hierarchical checkbox selection pick"),
 
             // Layout
             new(_loc["Card"], "/components/card", [_loc["Components"], _loc["Layout"]], "card container surface content panel elevation"),
             new(_loc["Dialog & Drawer"], "/components/modal", [_loc["Components"], _loc["Layout"]], "dialog drawer modal overlay popup host dismiss"),
             new(_loc["Flex Stack"], "/components/flex-stack", [_loc["Components"], _loc["Layout"]], "flex stack layout alignment gap spacer distribute"),
             new(_loc["Grid"], "/components/grid", [_loc["Components"], _loc["Layout"]], "grid layout column row responsive system container"),
-            new(_loc["Theme Generator"], "/components/themegenerator", [_loc["Components"], _loc["Layout"]], "theme generator custom palette builder creator"),
             new(_loc["Theme Selector"], "/components/themeselector", [_loc["Components"], _loc["Layout"]], "theme selector toggle light dark mode switch"),
             new(_loc["Toast"], "/components/toast", [_loc["Components"], _loc["Layout"]], "toast snackbar notification alert message popup"),
-
-            // Tree
-            new(_loc["Tree Menu"], "/components/treemenu", [_loc["Components"], _loc["Tree"]], "tree menu nested hierarchical navigation expand collapse"),
-            new(_loc["Tree Selector"], "/components/treeselector", [_loc["Components"], _loc["Tree"]], "tree selector hierarchical checkbox selection pick"),
+            new(_loc["Tree Menu"], "/components/treemenu", [_loc["Components"], _loc["Layout"]], "tree menu nested hierarchical navigation expand collapse"),
 
             // Utils
-            new(_loc["Draggable"], "/components/draggable", [_loc["Components"], _loc["Utils"]], "draggable drag drop reorder sortable move handle"),
-            new(_loc["Tooltip"], "/components/tooltip", [_loc["Components"], _loc["Utils"]], "tooltip hint popover description title hover focus"),
+            new(_loc["Theme Generator"], "/utils/themegenerator", [_loc["Utils"]], "theme generator custom palette builder creator"),        
 
             // Features
-            new(_loc["Validation"], "/utilities/validation", [_loc["Components"], _loc["Features"]], "validation fluent editcontext data annotations form rules"),
+            new(_loc["Validation"], "/features/validation", [_loc["Features"]], "validation fluent editcontext data annotations form rules"),
+            new(_loc["Localization"], "/features/localization", [_loc["Features"]], "i18n l10n culture language resx translation globalize"),
+
+            // Live development
+            new(_loc["Live Development"], "/live-development", [_loc["Live Development"]], "live development"),
         ];
     }
 

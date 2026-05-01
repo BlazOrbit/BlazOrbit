@@ -40,8 +40,8 @@ public sealed class BorderStyle
 
     /// <summary>
     /// CssColor-typed overload — <see cref="BOBBorderPresets"/> and consumer fluent code can pass
-    /// <see cref="BOBColor.Gray.Default"/> / <see cref="PaletteColor.Primary"/> directly without an explicit
-    /// cast to string after the implicit operators were tightened (THEME-10).
+    /// <see cref="BOBColor.Gray.Default"/> / <see cref="PaletteColor.Primary"/> directly without an
+    /// explicit cast to string.
     /// </summary>
     public BorderStyle All(string width, BorderStyleType style, CssColor color)
         => All(width, style, color.ToString());
