@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFramework>net10.0</TargetFramework>
+		<TargetFrameworks>net8.0;net10.0</TargetFrameworks>
 		<IsPackable>true</IsPackable>
 		<PackageType>Dependency</PackageType>
 		<PackageId>BlazOrbit.Localization.Wasm</PackageId>
@@ -19,10 +19,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.7" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.7" />
-		<PackageReference Include="Microsoft.Extensions.Localization" Version="10.0.7" />
-		<PackageReference Include="Microsoft.JSInterop" Version="10.0.7" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(BlazOrbitAspNetCoreVersion)" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(BlazOrbitExtensionsVersion)" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="$(BlazOrbitExtensionsVersion)" />
+		<PackageReference Include="Microsoft.JSInterop" Version="$(BlazOrbitJsInteropVersion)" />
 	</ItemGroup>
 
 	<ItemGroup>

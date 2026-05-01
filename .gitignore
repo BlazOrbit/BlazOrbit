@@ -374,6 +374,8 @@ obj/
 # wwwroot/{css,js} is regenerated on every build from CssBundle/ + Vite using BuildTools.
 # NOTE: css/ and js/ are checked in so CI can build without npm/node.
 # The maintainer must regenerate them via BuildTools before committing changes.
+# Source maps are generated in Debug builds but must never be committed (Release ships without them).
+/src/BlazOrbit/wwwroot/js/**/*.map
 /src/BlazOrbit/package.json
 /src/BlazOrbit/package-lock.json
 /src/BlazOrbit/.npmrc

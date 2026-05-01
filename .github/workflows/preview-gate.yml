@@ -12,7 +12,9 @@ on:
   workflow_dispatch:
 
 env:
-  DOTNET_VERSION: '10.0.100'
+  DOTNET_VERSION: |
+    8.0.x
+    10.0.x
 
 permissions:
   contents: read

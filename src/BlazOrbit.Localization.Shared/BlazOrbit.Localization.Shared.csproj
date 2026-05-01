@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFramework>net10.0</TargetFramework>
+		<TargetFrameworks>net8.0;net10.0</TargetFrameworks>
 		<IsPackable>true</IsPackable>
 		<PackageType>Dependency</PackageType>
 		<Nullable>enable</Nullable>
@@ -20,7 +20,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Localization" Version="10.0.7" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="$(BlazOrbitExtensionsVersion)" />
 		<PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="4.14.0" PrivateAssets="all" />
 	</ItemGroup>
 

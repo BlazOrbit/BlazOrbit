@@ -13,7 +13,9 @@ on:
         type: string
 
 env:
-  DOTNET_VERSION: '10.0.100'
+  DOTNET_VERSION: |
+    8.0.x
+    10.0.x
   NUGET_SOURCE: 'https://api.nuget.org/v3/index.json'
 
 permissions:
@@ -121,39 +123,43 @@ jobs:
             return $missing
           }
 
-          PKG=./artifacts/BlazOrbit.${{ github.event.inputs.version }}.nupkg
-          assert_in_pkg "$PKG" \
-            "lib/net10.0/BlazOrbit.dll" \
-            "lib/net10.0/BlazOrbit.xml" \
-            "build/BlazOrbit.targets" \
-            "staticwebassets/css/blazorbit.css" \
-            "README.md" \
-            "icon.png"
+          for tfm in net8.0 net10.0; do
+            echo "=== Validating $tfm ==="
 
-          PKG=./artifacts/BlazOrbit.Core.${{ github.event.inputs.version }}.nupkg
-          assert_in_pkg "$PKG" \
-            "lib/net10.0/BlazOrbit.Core.dll" \
-            "lib/net10.0/BlazOrbit.Core.xml" \
-            "README.md" \
-            "icon.png"
+            PKG=./artifacts/BlazOrbit.${{ github.event.inputs.version }}.nupkg
+            assert_in_pkg "$PKG" \
+              "lib/$tfm/BlazOrbit.dll" \
+              "lib/$tfm/BlazOrbit.xml" \
+              "build/BlazOrbit.targets" \
+              "staticwebassets/css/blazorbit.css" \
+              "README.md" \
+              "icon.png"
 
-          PKG=./artifacts/BlazOrbit.SyntaxHighlight.${{ github.event.inputs.version }}.nupkg
-          assert_in_pkg "$PKG" \
-            "lib/net10.0/BlazOrbit.SyntaxHighlight.dll" \
-            "README.md" \
-            "icon.png"
+            PKG=./artifacts/BlazOrbit.Core.${{ github.event.inputs.version }}.nupkg
+            assert_in_pkg "$PKG" \
+              "lib/$tfm/BlazOrbit.Core.dll" \
+              "lib/$tfm/BlazOrbit.Core.xml" \
+              "README.md" \
+              "icon.png"
 
-          PKG=./artifacts/BlazOrbit.Localization.Server.${{ github.event.inputs.version }}.nupkg
-          assert_in_pkg "$PKG" \
-            "lib/net10.0/BlazOrbit.Localization.Server.dll" \
-            "README.md" \
-            "icon.png"
+            PKG=./artifacts/BlazOrbit.SyntaxHighlight.${{ github.event.inputs.version }}.nupkg
+            assert_in_pkg "$PKG" \
+              "lib/$tfm/BlazOrbit.SyntaxHighlight.dll" \
+              "README.md" \
+              "icon.png"
 
-          PKG=./artifacts/BlazOrbit.Localization.Wasm.${{ github.event.inputs.version }}.nupkg
-          assert_in_pkg "$PKG" \
-            "lib/net10.0/BlazOrbit.Localization.Wasm.dll" \
-            "README.md" \
-            "icon.png"
+            PKG=./artifacts/BlazOrbit.Localization.Server.${{ github.event.inputs.version }}.nupkg
+            assert_in_pkg "$PKG" \
+              "lib/$tfm/BlazOrbit.Localization.Server.dll" \
+              "README.md" \
+              "icon.png"
+
+            PKG=./artifacts/BlazOrbit.Localization.Wasm.${{ github.event.inputs.version }}.nupkg
+            assert_in_pkg "$PKG" \
+              "lib/$tfm/BlazOrbit.Localization.Wasm.dll" \
+              "README.md" \
+              "icon.png"
+          done
 
           echo "All packages have the expected structure."
 

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
 	<PropertyGroup>
-		<TargetFramework>net10.0</TargetFramework>
+		<TargetFrameworks>net8.0;net10.0</TargetFrameworks>
 		<IsPackable>true</IsPackable>
 		<PackageId>BlazOrbit.FluentValidation</PackageId>
 		<Description>FluentValidation integration for BlazOrbit. It adds the ability to validate forms using FluentValidation</Description>
@@ -11,9 +11,9 @@
 	<ItemGroup>
 		<PackageReference Include="FluentValidation" Version="12.1.1" />
 		<PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.1.1" />
-		<PackageReference Include="Microsoft.AspNetCore.Components" Version="10.0.7" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.7" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Forms" Version="10.0.7" />
+		<PackageReference Include="Microsoft.AspNetCore.Components" Version="$(BlazOrbitAspNetCoreVersion)" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(BlazOrbitAspNetCoreVersion)" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Forms" Version="$(BlazOrbitAspNetCoreVersion)" />
 	</ItemGroup>
 
 </Project>

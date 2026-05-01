@@ -24,13 +24,10 @@
     <File Path="SECURITY.md" />
     <File Path="VERSIONING.md" />
   </Folder>
-  <Folder Name="/_publish/">
-    <File Path=".gitattributes" />
-    <File Path=".gitignore" />
-  </Folder>
   <Folder Name="/_root/">
     <File Path=".editorconfig" />
-    <File Path="CLAUDE.md" />
+    <File Path=".gitattributes" />
+    <File Path=".gitignore" />
     <File Path="Directory.Build.props" />
     <File Path="global.json" />
   </Folder>

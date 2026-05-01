@@ -16,7 +16,9 @@ on:
       - '.github/ISSUE_TEMPLATE/**'
 
 env:
-  DOTNET_VERSION: '10.0.100'
+  DOTNET_VERSION: |
+    8.0.x
+    10.0.x
   NUGET_SOURCE: 'https://api.nuget.org/v3/index.json'
 
 permissions:

@@ -15,6 +15,23 @@
     <Nullable>enable</Nullable>
     <LangVersion>latest</LangVersion>
 
+    <!--
+      Multi-targeting defaults: packable assemblies ship for net8.0 and net10.0.
+      Inner builds override these per TFM below.
+    -->
+    <BlazOrbitAspNetCoreVersion>10.0.7</BlazOrbitAspNetCoreVersion>
+    <BlazOrbitExtensionsVersion>10.0.7</BlazOrbitExtensionsVersion>
+    <BlazOrbitJsInteropVersion>10.0.7</BlazOrbitJsInteropVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0'">
+    <BlazOrbitAspNetCoreVersion>8.0.*</BlazOrbitAspNetCoreVersion>
+    <BlazOrbitExtensionsVersion>8.0.*</BlazOrbitExtensionsVersion>
+    <BlazOrbitJsInteropVersion>8.0.*</BlazOrbitJsInteropVersion>
+  </PropertyGroup>
+
+  <PropertyGroup>
+
     <!-- Default version baseline. CI overrides with `-p:Version=X.Y.Z[-preview.N|-rc.N]`. -->
     <VersionPrefix>1.0.0</VersionPrefix>
 

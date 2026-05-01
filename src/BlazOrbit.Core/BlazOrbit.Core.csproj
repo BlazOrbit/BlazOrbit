@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net10.0</TargetFramework>
+		<TargetFrameworks>net8.0;net10.0</TargetFrameworks>
 		<IsPackable>true</IsPackable>
 		<PackageType>Dependency</PackageType>
 		<PackageId>BlazOrbit.Core</PackageId>
@@ -17,11 +17,11 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components" Version="10.0.7" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="10.0.7" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Forms" Version="10.0.7" />
-		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="10.0.7" />
-		<PackageReference Include="Microsoft.JSInterop" Version="10.0.7" />
+		<PackageReference Include="Microsoft.AspNetCore.Components" Version="$(BlazOrbitAspNetCoreVersion)" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(BlazOrbitAspNetCoreVersion)" />
+		<PackageReference Include="Microsoft.AspNetCore.Components.Forms" Version="$(BlazOrbitAspNetCoreVersion)" />
+		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(BlazOrbitExtensionsVersion)" />
+		<PackageReference Include="Microsoft.JSInterop" Version="$(BlazOrbitAspNetCoreVersion)" />
 		<PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="4.14.0" PrivateAssets="all" />
 	</ItemGroup>
 

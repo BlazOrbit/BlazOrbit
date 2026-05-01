@@ -1,14 +1,12 @@
 ﻿@inject IStringLocalizer<NavMenu> Loc
 @inject NavigationManager NavigationManager
 
+<DocSearch />
+
 <BOBTreeMenu @ref="_treeMenu"
              TItem="object"
              Size="BOBSize.Medium"
              @bind-ExpandedKeys="_expandedKeys">
-    <BOBTreeMenuItem Key="search">
-        <DocSearch />
-    </BOBTreeMenuItem>
-
     <BOBTreeMenuItem Text="@Loc["Components"]"
                      Key="nav-components"
                      Icon="@BOBIconKeys.MaterialIconsOutlined.i_widgets"
