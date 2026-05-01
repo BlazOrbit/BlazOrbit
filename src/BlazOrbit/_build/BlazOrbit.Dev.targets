@@ -81,15 +81,8 @@
 			Condition="'$(Configuration)' == 'Release' AND Exists('$(BlazOrbitProjectPath)\wwwroot\js')">
 		<ItemGroup>
 			<_BlazOrbitJsMapFiles Include="$(BlazOrbitProjectPath)\wwwroot\js\**\*.js.map" />
-			<_BlazOrbitJsFiles Include="$(BlazOrbitProjectPath)\wwwroot\js\**\*.min.js" />
 		</ItemGroup>
 		<Delete Files="@(_BlazOrbitJsMapFiles)" />
-		<!--
-			Also strip sourceMappingURL comments from minified JS so the Razor SDK
-			does not look for orphaned .map files during static web asset discovery.
-		-->
-		<Exec Command="powershell -Command &quot;foreach ($f in @( '$(_BlazOrbitJsFiles)' -split ';' )) { (Get-Content $f -Raw) -replace '\r?\n//# sourceMappingURL=.*\.map\r?\n?', [Environment]::NewLine | Set-Content $f -NoNewline }&quot;"
-				  Condition="'@(_BlazOrbitJsFiles)' != ''" />
 		<Message Text="Stripped @(_BlazOrbitJsMapFiles->Count()) source map(s) from the Release package." Importance="normal" />
 	</Target>
 
