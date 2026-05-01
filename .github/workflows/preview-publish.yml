@@ -5,7 +5,7 @@
 #   - Otherwise: X.Y.(Z+1)-preview.N
 # N = commits since last tag on master
 
-name: Preview Publish
+name: '[Release] Preview Publish'
 
 on:
   push:

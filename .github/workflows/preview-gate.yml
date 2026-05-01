@@ -2,7 +2,7 @@
 # Quality gates for previews - runs on PRs to develop
 # Verifies build, test and public API before merging to develop
 
-name: Preview Gate
+name: '[Quality] Preview Gate'
 
 on:
   pull_request:

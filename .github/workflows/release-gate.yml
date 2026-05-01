@@ -2,7 +2,7 @@
 # Quality gates for releases - runs on PRs to master
 # Verifies blocking issues, Public API, and requires approvals
 
-name: Release Gate
+name: '[Quality] Release Gate'
 
 on:
   pull_request:

@@ -3,7 +3,7 @@
 # The official docs site (Wasm) is published to CloudFlare; this workflow only
 # owns the auto-generated API reference at https://blazorbit.github.io/BlazOrbit.
 
-name: Docs API (DocFX)
+name: '[Docs] API Reference (DocFX)'
 
 on:
   push:

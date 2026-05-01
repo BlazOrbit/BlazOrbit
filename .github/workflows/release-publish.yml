@@ -2,7 +2,7 @@
 # Publishes stable releases on tags v*
 # Creates GitHub release and publishes to NuGet
 
-name: Release Publish
+name: '[Release] Stable Publish'
 
 on:
   workflow_dispatch:

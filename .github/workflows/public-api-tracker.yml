@@ -2,7 +2,7 @@
 # Tracks public API changes and generates reports
 # Runs on PRs to develop and on releases
 
-name: Public API Tracker
+name: '[Tracking] Public API'
 
 on:
   pull_request:
