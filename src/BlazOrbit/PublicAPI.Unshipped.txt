@@ -660,10 +660,6 @@ BlazOrbit.Components.Forms.BOBColorPicker.OutputFormat.get -> BlazOrbit.Componen
 BlazOrbit.Components.Forms.BOBColorPicker.OutputFormat.set -> void
 BlazOrbit.Components.Forms.BOBColorPicker.RevertText.get -> string!
 BlazOrbit.Components.Forms.BOBColorPicker.RevertText.set -> void
-BlazOrbit.Components.Forms.BOBColorPicker.SelectionHeight.get -> int
-BlazOrbit.Components.Forms.BOBColorPicker.SelectionHeight.set -> void
-BlazOrbit.Components.Forms.BOBColorPicker.SelectionWidth.get -> int
-BlazOrbit.Components.Forms.BOBColorPicker.SelectionWidth.set -> void
 BlazOrbit.Components.Forms.BOBColorPicker.ShowActions.get -> bool
 BlazOrbit.Components.Forms.BOBColorPicker.ShowActions.set -> void
 BlazOrbit.Components.Forms.BOBColorPicker.Value.get -> BlazOrbit.Components.CssColor?
@@ -735,10 +731,6 @@ BlazOrbit.Components.Forms.BOBInputColor.PrefixText.get -> string?
 BlazOrbit.Components.Forms.BOBInputColor.PrefixText.set -> void
 BlazOrbit.Components.Forms.BOBInputColor.RevertText.get -> string!
 BlazOrbit.Components.Forms.BOBInputColor.RevertText.set -> void
-BlazOrbit.Components.Forms.BOBInputColor.SelectionHeight.get -> int
-BlazOrbit.Components.Forms.BOBInputColor.SelectionHeight.set -> void
-BlazOrbit.Components.Forms.BOBInputColor.SelectionWidth.get -> int
-BlazOrbit.Components.Forms.BOBInputColor.SelectionWidth.set -> void
 BlazOrbit.Components.Forms.BOBInputColor.Shadow.get -> BlazOrbit.Components.ShadowStyle?
 BlazOrbit.Components.Forms.BOBInputColor.Shadow.set -> void
 BlazOrbit.Components.Forms.BOBInputColor.ShowCopyButton.get -> bool
@@ -1368,7 +1360,6 @@ BlazOrbit.Components.Forms.DropdownPosition.ViewportWidth.get -> double
 BlazOrbit.Components.Forms.DropdownPosition.ViewportWidth.set -> void
 BlazOrbit.Components.Forms.IColorPickerJsInterop
 BlazOrbit.Components.Forms.IColorPickerJsInterop.GetRelativePositionAsync(Microsoft.AspNetCore.Components.ElementReference element, double clientX, double clientY) -> System.Threading.Tasks.ValueTask<double[]!>
-BlazOrbit.Components.Forms.IColorPickerJsInterop.SetHandlerPositionAsync(Microsoft.AspNetCore.Components.ElementReference handler, double x, double y) -> System.Threading.Tasks.ValueTask
 BlazOrbit.Components.Forms.IDropdownJsCallback
 BlazOrbit.Components.Forms.IDropdownJsCallback.OnClickOutside() -> System.Threading.Tasks.Task!
 BlazOrbit.Components.Forms.IDropdownJsCallback.OnKeyDown(string! key, bool shiftKey, bool ctrlKey) -> System.Threading.Tasks.Task!
@@ -2620,7 +2611,6 @@ override BlazOrbit.Components.BOBTreeSelector<TItem>.OnParametersSet() -> void
 override BlazOrbit.Components.BOBTreeSelectorItem.CreateRegistration() -> BlazOrbit.Components.TreeSelectionNodeRegistration!
 override BlazOrbit.Components.BOBTreeSelectorItem.GenerateDefaultKey() -> string!
 override BlazOrbit.Components.Diagnostics.BOBPerformanceDashboard.OnInitialized() -> void
-override BlazOrbit.Components.Forms.BOBColorPicker.OnAfterRenderAsync(bool firstRender) -> System.Threading.Tasks.Task!
 override BlazOrbit.Components.Forms.BOBColorPicker.OnParametersSet() -> void
 override BlazOrbit.Components.Forms.BOBDatePicker.OnParametersSet() -> void
 override BlazOrbit.Components.Forms.BOBInputCheckbox<TValue>.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void

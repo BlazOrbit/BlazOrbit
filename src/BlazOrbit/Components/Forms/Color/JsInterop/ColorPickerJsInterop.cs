@@ -8,8 +8,6 @@ namespace BlazOrbit.Components.Forms;
 public interface IColorPickerJsInterop
 {
     ValueTask<double[]> GetRelativePositionAsync(ElementReference element, double clientX, double clientY);
-
-    ValueTask SetHandlerPositionAsync(ElementReference handler, double x, double y);
 }
 
 internal sealed class ColorPickerJsInterop : ModuleJsInteropBase, IColorPickerJsInterop
@@ -23,11 +21,5 @@ internal sealed class ColorPickerJsInterop : ModuleJsInteropBase, IColorPickerJs
     {
         IJSObjectReference module = await ModuleTask.Value;
         return await module.InvokeAsync<double[]>("getRelativePosition", element, clientX, clientY);
-    }
-
-    public async ValueTask SetHandlerPositionAsync(ElementReference handler, double x, double y)
-    {
-        IJSObjectReference module = await ModuleTask.Value;
-        await module.InvokeVoidAsync("setHandlerPosition", handler, x, y);
     }
 }

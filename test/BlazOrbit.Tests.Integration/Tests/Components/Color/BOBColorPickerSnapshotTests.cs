@@ -32,11 +32,7 @@ public class BOBColorPickerSnapshotTests
 
             new { Name = "Custom_Revert_Text", Builder = (Action<ComponentParameterCollectionBuilder<BOBColorPicker>>)(p => p
                 .Add(c => c.ShowActions, true)
-                .Add(c => c.RevertText, "Undo")) },
-
-            new { Name = "Small_Selection", Builder = (Action<ComponentParameterCollectionBuilder<BOBColorPicker>>)(p => p
-                .Add(c => c.SelectionWidth, 100)
-                .Add(c => c.SelectionHeight, 75)) }
+                .Add(c => c.RevertText, "Undo")) }
         };
 
         var results = testCases.Select(testCase =>

@@ -1,10 +1,18 @@
 ﻿[data-bob-component="color-picker"] {
-    /* Color picker specific styles */
+    --_canvas-aspect: 4 / 3;
+    --_canvas-max-width: calc(220px * var(--bob-size-multiplier, 1));
 }
 
-/* Selection box */
+/* Selection box: fills container width up to a size-aware cap. Aspect-ratio
+   keeps the canvas usable when the picker shrinks (e.g. RGB <-> Hex format
+   switch changes the surrounding row width). */
 .bob-colorpicker__selection {
+    --_handler-x: 0%;
+    --_handler-y: 0%;
     position: relative;
+    width: 100%;
+    max-width: var(--_canvas-max-width);
+    aspect-ratio: var(--_canvas-aspect);
     border-radius: 6px;
     overflow: hidden;
     cursor: crosshair;
@@ -16,8 +24,13 @@
     background: linear-gradient(to top, #000, transparent), linear-gradient(to right, #fff, transparent);
 }
 
+/* Handler position is driven by --_handler-x / --_handler-y CSS custom properties
+   set on the selection container. Percentages stay correct under any container
+   size, so resize never desyncs the handle from the underlying HSV state. */
 .bob-colorpicker__handler {
     position: absolute;
+    left: var(--_handler-x, 0%);
+    top: var(--_handler-y, 0%);
     width: 16px;
     height: 16px;
     border: 2px solid #fff;

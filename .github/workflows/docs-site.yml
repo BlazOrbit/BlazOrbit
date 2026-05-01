@@ -47,10 +47,8 @@ jobs:
         run: echo '/*    /index.html   200' > ./publish/wwwroot/_redirects
 
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
+        uses: cloudflare/wrangler-action@v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          projectName: blazorbit-docs
-          directory: ./publish/wwwroot
-          gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          command: pages deploy ./publish/wwwroot --project-name=blazorbit-docs --branch=main

@@ -35,13 +35,16 @@ public class BOBColorPickerStateTests
             .Add(c => c.OutputFormat, ColorOutputFormats.Hex)
             .Add(c => c.ShowActions, false));
 
-        cut.Find(".bob-picker__input").Should().NotBeNull();
+        // Hex format renders a single text input
+        cut.FindAll("input[type='text'].bob-picker__input").Should().HaveCount(1);
+        cut.FindAll("input[type='number'].bob-picker__input").Should().BeEmpty();
 
         // Click the sync/cycle button — last button inside the single inputs row
         cut.FindAll(".bob-picker__row button").Last().Click();
 
-        // After cycling from Hex, format switches to Rgb — RGB num inputs replace the hex input
-        cut.FindAll(".bob-picker__input").Should().BeEmpty();
+        // After cycling from Hex, format switches to Rgb — four numeric inputs (R, G, B, A) appear
+        cut.FindAll("input[type='text'].bob-picker__input").Should().BeEmpty();
+        cut.FindAll("input[type='number'].bob-picker__input").Should().HaveCount(4);
     }
 
     [Theory]

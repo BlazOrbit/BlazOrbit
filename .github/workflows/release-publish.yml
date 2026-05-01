@@ -5,8 +5,12 @@
 name: Release Publish
 
 on:
-  push:
-    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g. 1.0.0)'
+        required: true
+        type: string
 
 env:
   DOTNET_VERSION: '10.0.100'
@@ -20,23 +24,9 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  version:
-    name: Extract Version
-    runs-on: ubuntu-latest
-    outputs:
-      version: ${{ steps.extract.outputs.version }}
-    steps:
-      - name: Extract version from tag
-        id: extract
-        run: |
-          VERSION=${GITHUB_REF#refs/tags/v}
-          echo "version=$VERSION" >> $GITHUB_OUTPUT
-          echo "Release version: $VERSION"
-
   build-and-test:
     name: Build and Test
     runs-on: ubuntu-latest
-    needs: version
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -58,18 +48,18 @@ jobs:
         run: dotnet workload install wasm-tools
 
       - name: Restore dependencies
-        run: dotnet restore CdCSharp.BlazorBit.slnx
+        run: dotnet restore BlazOrbit.slnx
 
       - name: Build (Release)
-        run: dotnet build CdCSharp.BlazorBit.slnx -c Release --no-restore -p:TreatWarningsAsErrors=true
+        run: dotnet build BlazOrbit.slnx -c Release --no-restore -p:TreatWarningsAsErrors=true
 
       - name: Test
-        run: dotnet test CdCSharp.BlazorBit.slnx -c Release --no-build --verbosity normal
+        run: dotnet test BlazOrbit.slnx -c Release --no-build --verbosity normal
 
   pack:
     name: Pack NuGet Packages
     runs-on: ubuntu-latest
-    needs: [version, build-and-test]
+    needs: build-and-test
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -80,7 +70,7 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
       - name: Restore dependencies
-        run: dotnet restore CdCSharp.BlazorBit.slnx
+        run: dotnet restore BlazOrbit.slnx
 
       - name: Pack packages
         run: |
@@ -88,13 +78,13 @@ jobs:
           # Baseline today is clean; any new warning blocks the release until
           # justified or NoWarn'd in csproj with a comment.
           set -o pipefail
-          dotnet pack CdCSharp.BlazorBit.slnx \
+          dotnet pack BlazOrbit.slnx \
             -c Release \
             --no-restore \
-            -p:Version=${{ needs.version.outputs.version }} \
-            -p:AssemblyVersion=${{ needs.version.outputs.version }} \
-            -p:FileVersion=${{ needs.version.outputs.version }} \
-            -p:InformationalVersion=${{ needs.version.outputs.version }} \
+            -p:Version=${{ github.event.inputs.version }} \
+            -p:AssemblyVersion=${{ github.event.inputs.version }} \
+            -p:FileVersion=${{ github.event.inputs.version }} \
+            -p:InformationalVersion=${{ github.event.inputs.version }} \
             -p:ContinuousIntegrationBuild=true \
             -o ./artifacts \
             2>&1 | tee pack.log
@@ -131,7 +121,7 @@ jobs:
             return $missing
           }
 
-          PKG=./artifacts/CdCSharp.BlazorBit.${{ needs.version.outputs.version }}.nupkg
+          PKG=./artifacts/CdCSharp.BlazorBit.${{ github.event.inputs.version }}.nupkg
           assert_in_pkg "$PKG" \
             "lib/net10.0/CdCSharp.BlazorBit.dll" \
             "lib/net10.0/CdCSharp.BlazorBit.xml" \
@@ -140,26 +130,26 @@ jobs:
             "README.md" \
             "icon.png"
 
-          PKG=./artifacts/CdCSharp.BlazorBit.Core.${{ needs.version.outputs.version }}.nupkg
+          PKG=./artifacts/CdCSharp.BlazorBit.Core.${{ github.event.inputs.version }}.nupkg
           assert_in_pkg "$PKG" \
             "lib/net10.0/CdCSharp.BlazorBit.Core.dll" \
             "lib/net10.0/CdCSharp.BlazorBit.Core.xml" \
             "README.md" \
             "icon.png"
 
-          PKG=./artifacts/CdCSharp.BlazorBit.SyntaxHighlight.${{ needs.version.outputs.version }}.nupkg
+          PKG=./artifacts/CdCSharp.BlazorBit.SyntaxHighlight.${{ github.event.inputs.version }}.nupkg
           assert_in_pkg "$PKG" \
             "lib/net10.0/CdCSharp.BlazorBit.SyntaxHighlight.dll" \
             "README.md" \
             "icon.png"
 
-          PKG=./artifacts/CdCSharp.BlazorBit.Localization.Server.${{ needs.version.outputs.version }}.nupkg
+          PKG=./artifacts/CdCSharp.BlazorBit.Localization.Server.${{ github.event.inputs.version }}.nupkg
           assert_in_pkg "$PKG" \
             "lib/net10.0/CdCSharp.BlazorBit.Localization.Server.dll" \
             "README.md" \
             "icon.png"
 
-          PKG=./artifacts/CdCSharp.BlazorBit.Localization.Wasm.${{ needs.version.outputs.version }}.nupkg
+          PKG=./artifacts/CdCSharp.BlazorBit.Localization.Wasm.${{ github.event.inputs.version }}.nupkg
           assert_in_pkg "$PKG" \
             "lib/net10.0/CdCSharp.BlazorBit.Localization.Wasm.dll" \
             "README.md" \
@@ -170,14 +160,14 @@ jobs:
       - name: Upload packages
         uses: actions/upload-artifact@v4
         with:
-          name: packages-${{ needs.version.outputs.version }}
+          name: packages-${{ github.event.inputs.version }}
           path: ./artifacts/*.nupkg
           retention-days: 30
 
   publish:
     name: Publish to NuGet
     runs-on: ubuntu-latest
-    needs: [version, pack]
+    needs: pack
     environment: production
     steps:
       - name: Checkout
@@ -186,7 +176,7 @@ jobs:
       - name: Download packages
         uses: actions/download-artifact@v4
         with:
-          name: packages-${{ needs.version.outputs.version }}
+          name: packages-${{ github.event.inputs.version }}
           path: ./artifacts
 
       - name: Setup .NET
@@ -204,7 +194,7 @@ jobs:
       - name: Extract release notes from CHANGELOG.md
         id: notes
         run: |
-          VERSION='${{ needs.version.outputs.version }}'
+          VERSION='${{ github.event.inputs.version }}'
           # Capture the body of the `## [VERSION]` section: skip the header,
           # stop at the next `## [` heading or the link-reference footer
           # (`---`). Fail loudly if the section is missing so a mistagged
@@ -241,7 +231,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.ref_name }}
-          name: Release ${{ needs.version.outputs.version }}
+          name: Release ${{ github.event.inputs.version }}
           body_path: RELEASE_NOTES.md
           draft: false
           prerelease: false

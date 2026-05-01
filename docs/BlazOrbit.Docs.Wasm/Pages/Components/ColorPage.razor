@@ -72,10 +72,9 @@
         <BOBInputColor @bind-Value="_readOnlyValue" Label="@Loc["Read Only"]" ReadOnly="true" HelperText="@Loc["ReadOnly"]" />
     </DocDemo>
 
-    <DocDemo Key="CustomPickerSize" Title="@Loc["Custom Picker Size"]">
-        <BOBInputColor @bind-Value="_customPickerValue" Label="@Loc["Custom Picker Size"]"
-                       SelectionWidth="300" SelectionHeight="200"
-                       HelperText="@Loc["Custom picker size: 300x200"]" />
+    <DocDemo Key="ResponsivePicker" Title="@Loc["Responsive Picker"]">
+        <BOBInputColor @bind-Value="_customPickerValue" Label="@Loc["Responsive Picker"]"
+                       HelperText="@Loc["Canvas adapts to its container width via CSS aspect-ratio."]" />
     </DocDemo>
 
     <DocDemo Key="Standalone" Title="@Loc["Standalone picker"]"

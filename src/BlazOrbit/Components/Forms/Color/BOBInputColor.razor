@@ -93,10 +93,6 @@ BOBLoadingIndicatorVariant.CircularProgress;
     [Parameter] public ColorOutputFormats OutputFormat { get; set; }
     /// <summary>Text displayed as the Revert.</summary>
     [Parameter] public string RevertText { get; set; } = "Revert";
-    /// <summary>Width (px) of the color selection canvas inside the picker.</summary>
-    [Parameter] public int SelectionWidth { get; set; } = 200;
-    /// <summary>Height (px) of the color selection canvas inside the picker.</summary>
-    [Parameter] public int SelectionHeight { get; set; } = 150;
 
     public override BOBInputVariant DefaultVariant => BOBInputVariant.Outlined;
 
@@ -191,8 +187,7 @@ BOBLoadingIndicatorVariant.CircularProgress;
                     <BOBDialog @bind-Open="_isOpen" Closable="true" CloseOnOverlayClick="true" CloseOnEscape="true" MinWidth="auto"
                                MaxWidth="fit-content">
                         <Content>
-                            <BOBColorPicker @bind-Value="CurrentValue" OutputFormat="OutputFormat" SelectionWidth="SelectionWidth"
-                                            SelectionHeight="SelectionHeight" ShowActions="true"
+                            <BOBColorPicker @bind-Value="CurrentValue" OutputFormat="OutputFormat" ShowActions="true"
                                             RevertText="@RevertText" OnRevert="HandleRevert" />
                         </Content>
                     </BOBDialog>
@@ -201,9 +196,8 @@ BOBLoadingIndicatorVariant.CircularProgress;
                 {
                     <div class="bob-input-color__dropdown-overlay" @onclick="ClosePicker"></div>
                     <div class="bob-input-color__dropdown" @onclick:stopPropagation="true">
-                        <BOBColorPicker @bind-Value="CurrentValue" OutputFormat="OutputFormat" SelectionWidth="SelectionWidth"
-                                        SelectionHeight="SelectionHeight" ShowActions="true" RevertText="@RevertText"
-                                        OnRevert="HandleRevert" />
+                        <BOBColorPicker @bind-Value="CurrentValue" OutputFormat="OutputFormat" ShowActions="true"
+                                        RevertText="@RevertText" OnRevert="HandleRevert" />
                     </div>
                 }
             }

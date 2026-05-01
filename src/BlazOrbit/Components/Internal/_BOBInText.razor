@@ -1,14 +1,14 @@
 ﻿@namespace BlazOrbit.Components.Internal
 
 <input type="text"
-       class="_bob-simple-input"
+       class="@ComputedClass"
        value="@Value"
        placeholder="@Placeholder"
        disabled="@Disabled"
        aria-label="@AriaLabel"
        @onchange="HandleChange"
        @oninput="HandleInput"
-       @attributes="AdditionalAttributes" />
+       @attributes="FilteredAttributes" />
 
 @code {
     /// <summary>Current value of the component.</summary>
@@ -27,6 +27,21 @@
     [Parameter] public EventCallback<string?> OnInput { get; set; }
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
+
+    private string ComputedClass
+    {
+        get
+        {
+            if (AdditionalAttributes?.TryGetValue("class", out object? extra) == true && extra is string s && !string.IsNullOrWhiteSpace(s))
+            {
+                return $"_bob-simple-input {s}";
+            }
+            return "_bob-simple-input";
+        }
+    }
+
+    private Dictionary<string, object>? FilteredAttributes
+        => AdditionalAttributes?.Where(kv => kv.Key != "class").ToDictionary(kv => kv.Key, kv => kv.Value);
 
     private async Task HandleChange(ChangeEventArgs e)
     {

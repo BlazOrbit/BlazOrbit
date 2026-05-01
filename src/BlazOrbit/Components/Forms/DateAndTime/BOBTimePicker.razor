@@ -20,6 +20,7 @@
                                      OnClick="IncrementHourClicked" />
                 <_BOBInText Value="@DisplayHour.ToString("00")"
                                           ValueChanged="OnHourInputChanged"
+                                          class="bob-picker__input"
                                           maxlength="2" />
                 <_BOBBtn Icon="@BOBIconKeys.UI.ChevronDown"
                                      AriaLabel="Decrement hour"
@@ -34,6 +35,7 @@
                                      OnClick="IncrementMinuteClicked" />
                 <_BOBInText Value="@Minute.ToString("00")"
                                           ValueChanged="OnMinuteInputChanged"
+                                          class="bob-picker__input"
                                           maxlength="2" />
                 <_BOBBtn Icon="@BOBIconKeys.UI.ChevronDown"
                                      AriaLabel="Decrement minute"
