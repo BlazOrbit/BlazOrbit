@@ -49,19 +49,19 @@
     <DocDemo Key="Notification" Title="@Loc["Notification badge"]" Description="@Loc["BOBNotificationBadge overlays a badge onto any child content."]">
             <BOBNotificationBadge>
                 <ChildContent>
-                    <BOBButton Text="@Loc["Messages"]" LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_mail" />
+                    <BOBButton BackgroundColor="@PaletteColor.Secondary" Text="@Loc["Messages"]" LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_mail" />
                 </ChildContent>
                 <BadgeContent>4</BadgeContent>
             </BOBNotificationBadge>
             <BOBNotificationBadge>
                 <ChildContent>
-                    <BOBButton Text="@Loc["Inbox"]" LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_inbox" />
+                <BOBButton BackgroundColor="@PaletteColor.Warning" Text="@Loc["Inbox"]" LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_inbox" />
                 </ChildContent>
                 <BadgeContent>99+</BadgeContent>
             </BOBNotificationBadge>
             <BOBNotificationBadge>
                 <ChildContent>
-                    <BOBButton Text="@Loc["Alerts"]" LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_notifications" />
+                <BOBButton BackgroundColor="@BOBColor.Chocolate.Darken2.ToString(ColorOutputFormats.Hex)" Text="@Loc["Alerts"]" LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_notifications" />
                 </ChildContent>
             </BOBNotificationBadge>
     </DocDemo>
