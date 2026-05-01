@@ -1,8 +1,8 @@
 ﻿# BlazOrbit
 
 [![NuGet](https://img.shields.io/nuget/v/BlazOrbit.svg)](https://www.nuget.org/packages/BlazOrbit)
-[![Build](https://github.com/BlazOrbit/BlazOrbit/actions/workflows/publish.yml/badge.svg)](https://github.com/BlazOrbit/BlazOrbit/actions/workflows/publish.yml)
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE.txt)
+[![Build](https://github.com/BlazOrbit/BlazOrbit/actions/workflows/release-publish.yml/badge.svg)](https://github.com/BlazOrbit/BlazOrbit/actions/workflows/release-publish.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 Component library for Blazor Server and Blazor WebAssembly on .NET 10. Ships themeable, accessible components driven by a reflective `data-bob-*` + CSS-custom-property pipeline, with variants, design tokens, and JS-behavior interop for features like ripples, transitions, dropdowns, and modals.
 

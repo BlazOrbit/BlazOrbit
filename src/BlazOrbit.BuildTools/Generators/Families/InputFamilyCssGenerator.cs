@@ -320,8 +320,12 @@ bob-component[{{inputBase}}][{{variant}}="outlined"] .{{addonSuffix}} {
 bob-component[{{inputBase}}][{{variant}}="filled"] {
     --_wrapper-bg: {{V(inlineBg, "color-mix(in srgb, var(--palette-surface-contrast) 6%, transparent)")}};
     --_wrapper-radius: var(--_input-radius) var(--_input-radius) 0 0;
-    --_wrapper-pt: calc(0.75rem * {{V(sizeMult, "1")}});
+    --_wrapper-pt: 0px;
     --_outline-leading-width: calc(var(--_input-px) + var(--_addon-offset));
+}
+
+bob-component[{{inputBase}}][{{variant}}="filled"]:has(.{{label}}) {
+    --_wrapper-pt: calc(0.75rem * {{V(sizeMult, "1")}});
 }
 
 /* Outline: only bottom border */
@@ -378,10 +382,13 @@ bob-component[{{inputBase}}][{{variant}}="filled"] .{{addonSuffix}} {
    ======================================== */
 
 bob-component[{{inputBase}}][{{variant}}="standard"] {
-    --_wrapper-pt: calc(1rem * {{V(sizeMult, "1")}});
+    --_wrapper-pt: 0px;
     --_wrapper-radius: 0;
-    --_field-px: 0;
     --_outline-leading-width: var(--_addon-offset);
+}
+
+bob-component[{{inputBase}}][{{variant}}="standard"]:has(.{{label}}) {
+    --_wrapper-pt: calc(1rem * {{V(sizeMult, "1")}});
 }
 
 /* Outline: only bottom border */
@@ -440,14 +447,17 @@ bob-component[{{inputBase}}][{{variant}}="standard"] .{{validation}} {
 
 /* ========================================
    VARIANT: FLAT
-   Sin bordes ni fondo. Label flota sobre el campo.
    ======================================== */
 
 bob-component[{{inputBase}}][{{variant}}="flat"] {
-    --_wrapper-pt: calc(1rem * {{V(sizeMult, "1")}});
+    --_wrapper-pt: 0px;
     --_wrapper-radius: 0;
     --_wrapper-bg: transparent;
     --_outline-leading-width: var(--_addon-offset);
+}
+
+bob-component[{{inputBase}}][{{variant}}="flat"]:has(.{{label}}) {
+    --_wrapper-pt: calc(1rem * {{V(sizeMult, "1")}});
 }
 
 /* Outline: sin ningún borde */
@@ -455,15 +465,6 @@ bob-component[{{inputBase}}][{{variant}}="flat"] .{{outlineLeading}},
 bob-component[{{inputBase}}][{{variant}}="flat"] .{{outlineNotch}},
 bob-component[{{inputBase}}][{{variant}}="flat"] .{{outlineTrailing}} {
     border: none;
-}
-
-/* Sin padding lateral en el field (como standard) */
-bob-component[{{inputBase}}][{{variant}}="flat"] .{{field}} {
-    padding-inline: 0;
-}
-
-bob-component[{{inputBase}}][{{variant}}="flat"] .{{label}} {
-    padding-inline-start: 0;
 }
 
 /* Label: resting state */

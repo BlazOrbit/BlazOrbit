@@ -11,10 +11,7 @@ public class BuildTemplates
 
     [BuildTemplate("CssBundle/main.css")]
     public static string GetMainCssTemplate() => """
-/* === GLOBAL CSS BUNDLE ===
-   Canonical load order documented in AGENTS.md / CLAUDE.md
-   §CSS architecture → "Global CSS bundle (generated)". Do not reorder
-   without updating that section — components rely on the cascade. */
+/* === GLOBAL CSS BUNDLE === */
 
 /* 1. Reset & Base */
 @import './_reset.css';
@@ -95,7 +92,6 @@ public class BuildTemplates
     public static string GetViteCssConfigTemplate() => """
 // Vite CSS bundle config for BlazOrbit.
 //
-// Policy (see AGENTS.md / CLAUDE.md §CSS architecture):
 //   - Do NOT add PurgeCSS, postcss-purge, or any tree-shaking plugin.
 //     Many BlazOrbit selectors are applied dynamically through variants,
 //     `IHas*` interfaces, and consumer-supplied RenderFragments. A static
@@ -147,7 +143,7 @@ export default defineConfig({
     public static string GetViteJsConfigTemplate() => """
 // Vite JS bundle config for BlazOrbit.
 //
-// Debug/Release toggle (see AGENTS.md / CLAUDE.md §Build pipeline):
+// Debug/Release toggle:
 //   - BLAZORBIT_BUILD_CONFIG is propagated by BlazOrbit.Dev.targets from
 //     MSBuild $(Configuration) ('Debug' | 'Release').
 //   - Release  ⇒ sourcemap: false, minify: 'terser' (small payload, no .map shipped).

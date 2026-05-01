@@ -70,7 +70,8 @@
                               Value="@_currentCulture.Name"
                               ValueChanged="@OnDropdownCultureChanged"
                               ValueExpression="@(() => _currentCulture.Name)"
-                              Size="@Size">
+                              Size="@Size"  
+                              Variant="BOBInputVariant.Flat">
                 @foreach (CultureInfo culture in Settings.SupportedCultures)
                 {
                     <DropdownOption TOption="string" Value="@culture.Name" Text="@culture.DisplayName">

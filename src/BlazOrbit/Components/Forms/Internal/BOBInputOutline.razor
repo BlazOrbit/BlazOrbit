@@ -1,17 +1,18 @@
 ﻿@namespace BlazOrbit.Components.Forms
 
-<div class="bob-input__outline" aria-hidden="true">
-    <span class="bob-input__outline-leading"></span>
-    <span class="bob-input__outline-notch">
-        @if (!string.IsNullOrWhiteSpace(Label))
-        {
+@if (!string.IsNullOrEmpty(Label))
+{
+    <div class="bob-input__outline" aria-hidden="true">
+        <span class="bob-input__outline-leading"></span>
+        <span class="bob-input__outline-notch">
             @* the required asterisk is rendered by CSS via
                [data-bob-required="true"] .bob-input__label::after on the host. *@
-            <label for="@For" class="bob-input__label">@Label</label>
-        }
-    </span>
-    <span class="bob-input__outline-trailing"></span>
-</div>
+            <label for="@For" class="bob-input__label">@Label</label>           
+        </span>
+        <span class="bob-input__outline-trailing"></span>
+    </div>
+}
+
 
 @code {
     /// <summary>Floating label displayed above the component.</summary>
@@ -20,7 +21,7 @@
     [Parameter] public string? For { get; set; }
     /// <summary>
     /// Kept for binary compatibility — the asterisk is now rendered by the
-    /// input-family CSS via <c>[data-bob-required="true"] .bob-input__label::after</c>. 
+    /// input-family CSS via <c>[data-bob-required="true"] .bob-input__label::after</c>.
     /// Consumers can still pass it without effect.
     /// </summary>
     [Parameter] public bool Required { get; set; }
