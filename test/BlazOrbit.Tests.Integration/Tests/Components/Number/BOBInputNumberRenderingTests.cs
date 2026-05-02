@@ -17,7 +17,7 @@ public class BOBInputNumberRenderingTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<BOBInputNumber<int>> cut = ctx.Render<BOBInputNumber<int>>(p => p
+        IRenderedComponent<BOBInputNumber<int?>> cut = ctx.Render<BOBInputNumber<int?>>(p => p
             .Add(c => c.Label, "Quantity"));
 
         IElement root = cut.Find("bob-component");
@@ -123,5 +123,19 @@ public class BOBInputNumberRenderingTests
         root.GetAttribute("data-bob-size").Should().Be("large");
         root.GetAttribute("data-bob-density").Should().Be("compact");
         root.GetAttribute("style").Should().Contain("--bob-inline-color: rgba(10,20,30,1)");
+    }
+
+    [Theory]
+    [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
+    public async Task Should_Not_Disable_Increment_When_No_Max(BlazorScenario scenario)
+    {
+        await using BlazorTestContextBase ctx = scenario.CreateContext();
+
+        IRenderedComponent<BOBInputNumber<int>> cut = ctx.Render<BOBInputNumber<int>>(p => p
+            .Add(c => c.Value, 10));
+
+        // Assert
+        IElement incrementButton = cut.Find(".bob-input__step-buttons button[aria-label='Increment']");
+        incrementButton.HasAttribute("disabled").Should().BeFalse();
     }
 }

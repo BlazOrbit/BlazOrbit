@@ -94,12 +94,12 @@
     /// Lower bound for the input, emitted as the <c>min</c> HTML attribute and
     /// enforced by the step buttons. UI hint only — re-validate on the server.
     /// </summary>
-    [Parameter] public TValue? Min { get; set; }
+    [Parameter] public decimal? Min { get; set; }
     /// <summary>
     /// Upper bound for the input, emitted as the <c>max</c> HTML attribute and
     /// enforced by the step buttons. UI hint only — re-validate on the server.
     /// </summary>
-    [Parameter] public TValue? Max { get; set; }
+    [Parameter] public decimal? Max { get; set; }
     /// <summary>
     /// Step size for the increment/decrement buttons and the <c>step</c> HTML
     /// attribute. UI hint only — re-validate on the server.
@@ -144,7 +144,7 @@
     private char DecimalSeparator => NumberFormat.NumberDecimalSeparator[0];
     private char GroupSeparator => NumberFormat.NumberGroupSeparator[0];
     private string NegativeSign => NumberFormat.NegativeSign;
-    private bool HasValue => CurrentValue != null && !EqualityComparer<TValue>.Default.Equals(CurrentValue, default);
+    private bool HasValue => CurrentValue != null;
     private bool IsFloated => _isFocused || HasValue || _isDirty;
 
     public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
@@ -269,7 +269,7 @@
     };
     private string FormatValueForDisplay(TValue? value)
     {
-        if (value == null || EqualityComparer<TValue>.Default.Equals(value, default))
+        if (value == null)
             return string.Empty;
 
         decimal decimalValue = ConvertToDecimal(value);
@@ -388,7 +388,7 @@
     {
         _isFocused = true;
 
-        if (CurrentValue != null && !EqualityComparer<TValue>.Default.Equals(CurrentValue, default))
+        if (CurrentValue != null)
         {
             decimal decimalValue = ConvertToDecimal(CurrentValue);
 
@@ -582,14 +582,14 @@
 
     private bool IsAtMin()
     {
-        if (CurrentValue == null || Min == null) return false;
-        return ConvertToDecimal(CurrentValue) <= ConvertToDecimal(Min);
+        if (CurrentValue == null || !Min.HasValue) return false;
+        return ConvertToDecimal(CurrentValue) <= Min.Value;
     }
 
     private bool IsAtMax()
     {
-        if (CurrentValue == null || Max == null) return false;
-        return ConvertToDecimal(CurrentValue) >= ConvertToDecimal(Max);
+        if (CurrentValue == null || !Max.HasValue) return false;
+        return ConvertToDecimal(CurrentValue) >= Max.Value;
     }
 
     private TValue? ClampValue(TValue? value)
@@ -598,19 +598,11 @@
 
         decimal decimalValue = ConvertToDecimal(value);
 
-        if (Min != null)
-        {
-            decimal minValue = ConvertToDecimal(Min);
-            if (decimalValue < minValue)
-                return Min;
-        }
+        if (Min.HasValue && decimalValue < Min.Value)
+            return ConvertFromDecimal(Min.Value);
 
-        if (Max != null)
-        {
-            decimal maxValue = ConvertToDecimal(Max);
-            if (decimalValue > maxValue)
-                return Max;
-        }
+        if (Max.HasValue && decimalValue > Max.Value)
+            return ConvertFromDecimal(Max.Value);
 
         return value;
     }

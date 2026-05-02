@@ -114,7 +114,7 @@ public class BOBInputNumberInteractionTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<BOBInputNumber<int>> cut = ctx.Render<BOBInputNumber<int>>(p => p
+        IRenderedComponent<BOBInputNumber<int?>> cut = ctx.Render<BOBInputNumber<int?>>(p => p
             .Add(c => c.Label, "Qty"));
 
         cut.Find("bob-component").GetAttribute("data-bob-floated").Should().Be("false");
@@ -190,5 +190,34 @@ public class BOBInputNumberInteractionTests
 
         // Assert
         cut.Find(".current-value").TextContent.Should().Be("5");
+    }
+
+    [Theory]
+    [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
+    public async Task Should_Display_Zero_For_NonNullable_Int(BlazorScenario scenario)
+    {
+        await using BlazorTestContextBase ctx = scenario.CreateContext();
+
+        IRenderedComponent<BOBInputNumber<int>> cut = ctx.Render<BOBInputNumber<int>>(p => p
+            .Add(c => c.Value, 0));
+
+        // Assert
+        cut.Find("input.bob-input__field").GetAttribute("value").Should().Be("0");
+    }
+
+    [Theory]
+    [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
+    public async Task Should_Not_Clear_Value_When_Decrementing_To_Zero(BlazorScenario scenario)
+    {
+        await using BlazorTestContextBase ctx = scenario.CreateContext();
+
+        IRenderedComponent<BOBInputNumber<int>> cut = ctx.Render<BOBInputNumber<int>>(p => p
+            .Add(c => c.Value, 1));
+
+        // Act
+        cut.Find("input.bob-input__field").KeyDown(key: "ArrowDown");
+
+        // Assert
+        cut.Find("input.bob-input__field").GetAttribute("value").Should().Be("0");
     }
 }
