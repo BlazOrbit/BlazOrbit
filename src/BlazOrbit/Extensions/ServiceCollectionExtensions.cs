@@ -101,7 +101,7 @@ public sealed class VariantBuilder
     /// <returns>A builder for the component variants</returns>
     /// <example>
     /// <code>
-    /// builder.ForComponent&lt;UIButton&gt;()
+    /// builder.ForComponent&lt;BOBButton&gt;()
     ///     .AddVariant(MyCustomVariants.Gradient, button => ...)
     ///     .AddVariant(MyCustomVariants.Ghost, button => ...);
     /// </code>

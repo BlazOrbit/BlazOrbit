@@ -40,6 +40,11 @@
         color: color-mix(in oklab, var(--palette-surface-contrast) 80%, var(--palette-primary) 20%);
     }
 
+    /* Active */
+    .bob-btn.bob-btn--active {
+        background: color-mix(in oklab, var(--palette-primary) 90%, var(--palette-hover-tint) 10%);
+    }
+
     /* Sizes */
     .bob-btn[data-bob-size="small"] {
         --bob-size-multiplier: var(--bob-small-multiplier);
