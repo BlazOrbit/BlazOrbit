@@ -519,6 +519,103 @@ public class BOBComponentAttributesBuilderUnitTests
                 "PatchVolatileAttributes must refresh data-bob-disabled from IHasDisabled and ignore the component override");
     }
 
+    // ---------- Style fingerprint cache ----------
+
+    [Fact]
+    public void BuildStyles_Should_Hit_Fingerprint_Cache_On_Second_Call_With_Identical_Inputs()
+    {
+        BOBComponentAttributesBuilder builder = new();
+        ColoredStub component = new()
+        {
+            Color = "rgba(10,20,30,1)",
+            BackgroundColor = "rgba(40,50,60,1)"
+        };
+
+        // First call: cold cache → must rebuild.
+        builder.BuildStyles(component, null);
+        builder.LastBuildSkipped.Should().BeFalse(
+            "first call cannot hit a cache that is empty");
+
+        // Second call with the same component instance and same inputs: cache must hit.
+        builder.BuildStyles(component, null);
+        builder.LastBuildSkipped.Should().BeTrue(
+            "fingerprint hit + same additionalAttributes reference must short-circuit BuildStyles");
+    }
+
+    [Fact]
+    public void BuildStyles_Should_Hit_Cache_For_Components_That_Do_Not_Implement_IBuiltComponent()
+    {
+        // Regression guard: when BOBComponentBase declared IBuiltComponent directly, every
+        // descendant was flag-Built and the cache never applied. After the marker became opt-in,
+        // a stub that does not declare IBuiltComponent must be cache-eligible.
+        BOBComponentAttributesBuilder builder = new();
+        FullFeaturedStub component = new()
+        {
+            Size = BOBSize.Medium,
+            Density = BOBDensity.Standard
+        };
+
+        builder.BuildStyles(component, null);
+        builder.LastBuildSkipped.Should().BeFalse();
+
+        builder.BuildStyles(component, null);
+        builder.LastBuildSkipped.Should().BeTrue(
+            "FullFeaturedStub does not implement IBuiltComponent, so the cache must apply");
+    }
+
+    [Fact]
+    public void BuildStyles_Should_Bypass_Cache_When_Component_Implements_IBuiltComponent()
+    {
+        // IBuiltComponent is opt-out for the cache: hooks may read state opaque to the
+        // fingerprint (timers, counters), so the builder must rebuild on every call.
+        BOBComponentAttributesBuilder builder = new();
+        BuiltComponentStub component = new();
+
+        builder.BuildStyles(component, null);
+        builder.LastBuildSkipped.Should().BeFalse(
+            "first call: cache cold");
+
+        builder.BuildStyles(component, null);
+        builder.LastBuildSkipped.Should().BeFalse(
+            "second call: IBuiltComponent opts out — no cache hit even when inputs match");
+    }
+
+    [Fact]
+    public void BuildStyles_Should_Invalidate_Cache_When_Style_Affecting_Parameter_Changes()
+    {
+        BOBComponentAttributesBuilder builder = new();
+        ColoredStub component = new() { Color = "rgba(10,20,30,1)" };
+
+        builder.BuildStyles(component, null);
+        builder.LastBuildSkipped.Should().BeFalse();
+
+        // Mutate a fingerprint-relevant input.
+        component.Color = "rgba(99,99,99,1)";
+        builder.BuildStyles(component, null);
+
+        builder.LastBuildSkipped.Should().BeFalse(
+            "fingerprint must diverge when a style-affecting parameter changes");
+        ((string)builder.ComputedAttributes["style"]).Should().Contain("rgba(99,99,99,1)");
+    }
+
+    [Fact]
+    public void BuildStyles_Should_Invalidate_Cache_When_AdditionalAttributes_Reference_Changes()
+    {
+        BOBComponentAttributesBuilder builder = new();
+        ColoredStub component = new() { Color = "rgba(10,20,30,1)" };
+        Dictionary<string, object> first = new() { ["data-x"] = "1" };
+        Dictionary<string, object> secondSameContent = new() { ["data-x"] = "1" };
+
+        builder.BuildStyles(component, first);
+        builder.LastBuildSkipped.Should().BeFalse();
+
+        // Same content, different reference. Cache compares by reference identity (the parent
+        // typically reuses the same dictionary unless it actually mutates the captured set).
+        builder.BuildStyles(component, secondSameContent);
+        builder.LastBuildSkipped.Should().BeFalse(
+            "reference change in additionalAttributes invalidates the cache, even with identical content");
+    }
+
     // ---------- Type info cache (PERF-04) ----------
 
     [Fact]

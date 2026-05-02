@@ -6,6 +6,7 @@
 
 @typeparam TItem
 @inherits BOBComponentBase
+@implements IBuiltComponent
 @implements IHasSize
 @implements IDisposable
 
@@ -94,12 +95,14 @@
     /// <summary>Raised when the Navigate event occurs.</summary>
     [Parameter] public EventCallback<string> OnNavigate { get; set; }
 
-    public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
     {
         dataAttributes[FeatureDefinitions.DataAttributes.Orientation] = Orientation.ToString().ToLowerInvariant();
         dataAttributes[FeatureDefinitions.DataAttributes.Trigger] = Trigger.ToString().ToLowerInvariant();
         dataAttributes[FeatureDefinitions.DataAttributes.ExpandMode] = ExpandMode.ToString().ToLowerInvariant();
     }
+
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables) { }
 
     protected override void OnInitialized()
     {

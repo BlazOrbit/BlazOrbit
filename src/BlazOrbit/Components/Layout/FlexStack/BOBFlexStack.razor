@@ -1,6 +1,7 @@
 ﻿@namespace BlazOrbit.Components.Layout
 @attribute [GenerateComponentInfo]
 @inherits BOBComponentBase
+@implements IBuiltComponent
 @implements IHasFullWidth
 @implements IHasBackgroundColor
 @implements IHasBorder
@@ -82,7 +83,7 @@
     /// <summary>Text color of the stack. Accepts any valid CSS color value.</summary>
     [Parameter] public string? Color { get; set; }
 
-    public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
     {
         if (Direction != FlexStackDirection.Row)
             dataAttributes["data-dir"] = ToKebab(Direction);
@@ -96,7 +97,7 @@
             dataAttributes["data-align-content"] = ToKebab(AlignContent);
     }
 
-    public override void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
     {
         if (Gap != null)
             cssVariables["--gap"] = Gap;

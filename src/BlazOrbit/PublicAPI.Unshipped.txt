@@ -2557,7 +2557,8 @@ abstract BlazOrbit.Components.Utils.Patterns.Abstractions.BOBBasePattern.Validat
 override BlazOrbit.ComponentParameterInfo.Equals(object? obj) -> bool
 override BlazOrbit.ComponentParameterInfo.GetHashCode() -> int
 override BlazOrbit.ComponentParameterInfo.ToString() -> string!
-override BlazOrbit.Components.BOBBadge.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
+BlazOrbit.Components.BOBBadge.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.BOBBadge.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
 override BlazOrbit.Components.BOBBadge.BuiltInTemplates.get -> System.Collections.Generic.Dictionary<BlazOrbit.Components.BOBBadgeVariant!, System.Func<BlazOrbit.Components.BOBBadge!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
 override BlazOrbit.Components.BOBBadge.DefaultVariant.get -> BlazOrbit.Components.BOBBadgeVariant!
 override BlazOrbit.Components.BOBButton.BuiltInTemplates.get -> System.Collections.Generic.Dictionary<BlazOrbit.Components.BOBButtonVariant!, System.Func<BlazOrbit.Components.BOBButton!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
@@ -2569,8 +2570,8 @@ override BlazOrbit.Components.BOBDataCards<TItem>.BuildComponentCssVariables(Sys
 override BlazOrbit.Components.BOBDataCards<TItem>.BuiltInTemplates.get -> System.Collections.Generic.IReadOnlyDictionary<BlazOrbit.Components.DataCardsVariant!, System.Func<BlazOrbit.Components.BOBDataCards<TItem>!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
 override BlazOrbit.Components.BOBDataCards<TItem>.DefaultVariant.get -> BlazOrbit.Components.DataCardsVariant!
 override BlazOrbit.Components.BOBDataCards<TItem>.OnParametersSet() -> void
-override BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
-override BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
+virtual BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+virtual BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
 override BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.OnAfterRender(bool firstRender) -> void
 override BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.OnInitialized() -> void
 override BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.OnParametersSet() -> void
@@ -2581,7 +2582,8 @@ override BlazOrbit.Components.BOBDataGrid<TItem>.DefaultVariant.get -> BlazOrbit
 override BlazOrbit.Components.BOBDraggable.DisposeAsync() -> System.Threading.Tasks.ValueTask
 override BlazOrbit.Components.BOBLoadingIndicator.BuiltInTemplates.get -> System.Collections.Generic.Dictionary<BlazOrbit.Components.BOBLoadingIndicatorVariant!, System.Func<BlazOrbit.Components.BOBLoadingIndicator!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
 override BlazOrbit.Components.BOBLoadingIndicator.DefaultVariant.get -> BlazOrbit.Components.BOBLoadingIndicatorVariant!
-override BlazOrbit.Components.BOBNotificationBadge.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
+BlazOrbit.Components.BOBNotificationBadge.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.BOBNotificationBadge.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
 override BlazOrbit.Components.BOBNotificationBadge.BuiltInTemplates.get -> System.Collections.Generic.Dictionary<BlazOrbit.Components.BOBBadgeVariant!, System.Func<BlazOrbit.Components.BOBNotificationBadge!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
 override BlazOrbit.Components.BOBNotificationBadge.DefaultVariant.get -> BlazOrbit.Components.BOBBadgeVariant!
 override BlazOrbit.Components.BOBSelect<TValue>.BuiltInTemplates.get -> System.Collections.Generic.IReadOnlyDictionary<BlazOrbit.Components.BOBSelectVariant!, System.Func<BlazOrbit.Components.BOBSelect<TValue>!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
@@ -2589,14 +2591,16 @@ override BlazOrbit.Components.BOBSelect<TValue>.DefaultVariant.get -> BlazOrbit.
 override BlazOrbit.Components.BOBSvgIcon.BuiltInTemplates.get -> System.Collections.Generic.Dictionary<BlazOrbit.Components.BOBSvgIconVariant!, System.Func<BlazOrbit.Components.BOBSvgIcon!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
 override BlazOrbit.Components.BOBSvgIcon.DefaultVariant.get -> BlazOrbit.Components.BOBSvgIconVariant!
 override BlazOrbit.Components.BOBTab.OnInitialized() -> void
-override BlazOrbit.Components.BOBTabs.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! attributes) -> void
+BlazOrbit.Components.BOBTabs.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.BOBTabs.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! attributes) -> void
 override BlazOrbit.Components.BOBTabs.BuiltInTemplates.get -> System.Collections.Generic.Dictionary<BlazOrbit.Components.BOBTabsVariant!, System.Func<BlazOrbit.Components.BOBTabs!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
 override BlazOrbit.Components.BOBTabs.DefaultVariant.get -> BlazOrbit.Components.BOBTabsVariant!
 override BlazOrbit.Components.BOBTabs.DisposeAsync() -> System.Threading.Tasks.ValueTask
 override BlazOrbit.Components.BOBTabs.OnAfterRenderAsync(bool firstRender) -> System.Threading.Tasks.Task!
 override BlazOrbit.Components.BOBTooltip.DisposeAsync() -> System.Threading.Tasks.ValueTask
 override BlazOrbit.Components.BOBTooltip.OnInitialized() -> void
-override BlazOrbit.Components.BOBTreeMenu<TItem>.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
+BlazOrbit.Components.BOBTreeMenu<TItem>.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.BOBTreeMenu<TItem>.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
 override BlazOrbit.Components.BOBTreeMenu<TItem>.OnAfterRender(bool firstRender) -> void
 override BlazOrbit.Components.BOBTreeMenu<TItem>.OnInitialized() -> void
 override BlazOrbit.Components.BOBTreeMenu<TItem>.OnParametersSet() -> void
@@ -2605,7 +2609,8 @@ override BlazOrbit.Components.BOBTreeMenuItem.GenerateDefaultKey() -> string!
 override BlazOrbit.Components.BOBTreeNodeBase<TRegistration>.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder! builder) -> void
 override BlazOrbit.Components.BOBTreeNodeBase<TRegistration>.OnInitialized() -> void
 override BlazOrbit.Components.BOBTreeNodeBase<TRegistration>.OnParametersSet() -> void
-override BlazOrbit.Components.BOBTreeSelector<TItem>.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
+BlazOrbit.Components.BOBTreeSelector<TItem>.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.BOBTreeSelector<TItem>.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
 override BlazOrbit.Components.BOBTreeSelector<TItem>.OnAfterRender(bool firstRender) -> void
 override BlazOrbit.Components.BOBTreeSelector<TItem>.OnInitialized() -> void
 override BlazOrbit.Components.BOBTreeSelector<TItem>.OnParametersSet() -> void
@@ -2614,18 +2619,21 @@ override BlazOrbit.Components.BOBTreeSelectorItem.GenerateDefaultKey() -> string
 override BlazOrbit.Components.Diagnostics.BOBPerformanceDashboard.OnInitialized() -> void
 override BlazOrbit.Components.Forms.BOBColorPicker.OnParametersSet() -> void
 override BlazOrbit.Components.Forms.BOBDatePicker.OnParametersSet() -> void
-override BlazOrbit.Components.Forms.BOBInputCheckbox<TValue>.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
+BlazOrbit.Components.Forms.BOBInputCheckbox<TValue>.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.Forms.BOBInputCheckbox<TValue>.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
 override BlazOrbit.Components.Forms.BOBInputCheckbox<TValue>.BuiltInTemplates.get -> System.Collections.Generic.IReadOnlyDictionary<BlazOrbit.Components.Forms.BOBInputCheckboxVariant!, System.Func<BlazOrbit.Components.Forms.BOBInputCheckbox<TValue>!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
 override BlazOrbit.Components.Forms.BOBInputCheckbox<TValue>.DefaultVariant.get -> BlazOrbit.Components.Forms.BOBInputCheckboxVariant!
 override BlazOrbit.Components.Forms.BOBInputCheckbox<TValue>.OnInitialized() -> void
 override BlazOrbit.Components.Forms.BOBInputCheckbox<TValue>.TryParseValueFromString(string? value, out TValue result, out string! validationErrorMessage) -> bool
-override BlazOrbit.Components.Forms.BOBInputColor.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
+BlazOrbit.Components.Forms.BOBInputColor.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.Forms.BOBInputColor.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
 override BlazOrbit.Components.Forms.BOBInputColor.BuiltInTemplates.get -> System.Collections.Generic.IReadOnlyDictionary<BlazOrbit.Components.Forms.BOBInputVariant!, System.Func<BlazOrbit.Components.Forms.BOBInputColor!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
 override BlazOrbit.Components.Forms.BOBInputColor.DefaultVariant.get -> BlazOrbit.Components.Forms.BOBInputVariant!
 override BlazOrbit.Components.Forms.BOBInputColor.OnInitialized() -> void
 override BlazOrbit.Components.Forms.BOBInputColor.OnParametersSet() -> void
 override BlazOrbit.Components.Forms.BOBInputColor.TryParseValueFromString(string? value, out BlazOrbit.Components.CssColor! result, out string! validationErrorMessage) -> bool
-override BlazOrbit.Components.Forms.BOBInputDateTime<TValue>.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
+BlazOrbit.Components.Forms.BOBInputDateTime<TValue>.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.Forms.BOBInputDateTime<TValue>.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
 override BlazOrbit.Components.Forms.BOBInputDateTime<TValue>.BuiltInTemplates.get -> System.Collections.Generic.IReadOnlyDictionary<BlazOrbit.Components.Forms.BOBInputVariant!, System.Func<BlazOrbit.Components.Forms.BOBInputDateTime<TValue>!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
 override BlazOrbit.Components.Forms.BOBInputDateTime<TValue>.DefaultVariant.get -> BlazOrbit.Components.Forms.BOBInputVariant!
 override BlazOrbit.Components.Forms.BOBInputDateTime<TValue>.FormatValueAsString(TValue? value) -> string?
@@ -2634,35 +2642,40 @@ override BlazOrbit.Components.Forms.BOBInputDateTime<TValue>.OnParametersSet() -
 override BlazOrbit.Components.Forms.BOBInputDateTime<TValue>.TryParseValueFromString(string? value, out TValue result, out string? validationErrorMessage) -> bool
 override BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.OnParametersSet() -> void
 override BlazOrbit.Components.Forms.BOBInputDropdownTree<TItem, TValue>.OnParametersSet() -> void
-override BlazOrbit.Components.Forms.BOBInputNumber<TValue>.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
+BlazOrbit.Components.Forms.BOBInputNumber<TValue>.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.Forms.BOBInputNumber<TValue>.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
 override BlazOrbit.Components.Forms.BOBInputNumber<TValue>.BuiltInTemplates.get -> System.Collections.Generic.IReadOnlyDictionary<BlazOrbit.Components.Forms.BOBInputVariant!, System.Func<BlazOrbit.Components.Forms.BOBInputNumber<TValue>!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
 override BlazOrbit.Components.Forms.BOBInputNumber<TValue>.DefaultVariant.get -> BlazOrbit.Components.Forms.BOBInputVariant!
 override BlazOrbit.Components.Forms.BOBInputNumber<TValue>.Dispose(bool disposing) -> void
 override BlazOrbit.Components.Forms.BOBInputNumber<TValue>.OnParametersSet() -> void
 override BlazOrbit.Components.Forms.BOBInputNumber<TValue>.TryParseValueFromString(string? value, out TValue result, out string? validationErrorMessage) -> bool
-override BlazOrbit.Components.Forms.BOBInputRadio<TValue>.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
+BlazOrbit.Components.Forms.BOBInputRadio<TValue>.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.Forms.BOBInputRadio<TValue>.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
 override BlazOrbit.Components.Forms.BOBInputRadio<TValue>.BuiltInTemplates.get -> System.Collections.Generic.IReadOnlyDictionary<BlazOrbit.Components.Forms.BOBInputRadioVariant!, System.Func<BlazOrbit.Components.Forms.BOBInputRadio<TValue>!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
 override BlazOrbit.Components.Forms.BOBInputRadio<TValue>.DefaultVariant.get -> BlazOrbit.Components.Forms.BOBInputRadioVariant!
 override BlazOrbit.Components.Forms.BOBInputRadio<TValue>.TryParseValueFromString(string? value, out TValue result, out string! validationErrorMessage) -> bool
 override BlazOrbit.Components.Forms.BOBInputSwitch.BuiltInTemplates.get -> System.Collections.Generic.IReadOnlyDictionary<BlazOrbit.Components.Forms.BOBInputSwitchVariant!, System.Func<BlazOrbit.Components.Forms.BOBInputSwitch!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
 override BlazOrbit.Components.Forms.BOBInputSwitch.DefaultVariant.get -> BlazOrbit.Components.Forms.BOBInputSwitchVariant!
 override BlazOrbit.Components.Forms.BOBInputSwitch.TryParseValueFromString(string? value, out bool result, out string! validationErrorMessage) -> bool
-override BlazOrbit.Components.Forms.BOBInputText.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
+BlazOrbit.Components.Forms.BOBInputText.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.Forms.BOBInputText.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
 override BlazOrbit.Components.Forms.BOBInputText.BuiltInTemplates.get -> System.Collections.Generic.IReadOnlyDictionary<BlazOrbit.Components.Forms.BOBInputVariant!, System.Func<BlazOrbit.Components.Forms.BOBInputText!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
 override BlazOrbit.Components.Forms.BOBInputText.DefaultVariant.get -> BlazOrbit.Components.Forms.BOBInputVariant!
 override BlazOrbit.Components.Forms.BOBInputText.TryParseValueFromString(string? value, out string! result, out string? validationErrorMessage) -> bool
 override BlazOrbit.Components.Forms.BOBInputText.DisposeAsync() -> System.Threading.Tasks.ValueTask
-override BlazOrbit.Components.Forms.BOBInputTextArea.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
+BlazOrbit.Components.Forms.BOBInputTextArea.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.Forms.BOBInputTextArea.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
 override BlazOrbit.Components.Forms.BOBInputTextArea.BuiltInTemplates.get -> System.Collections.Generic.IReadOnlyDictionary<BlazOrbit.Components.Forms.BOBInputVariant!, System.Func<BlazOrbit.Components.Forms.BOBInputTextArea!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
 override BlazOrbit.Components.Forms.BOBInputTextArea.DefaultVariant.get -> BlazOrbit.Components.Forms.BOBInputVariant!
 override BlazOrbit.Components.Forms.BOBInputTextArea.DisposeAsync() -> System.Threading.Tasks.ValueTask
 override BlazOrbit.Components.Forms.BOBInputTextArea.OnAfterRenderAsync(bool firstRender) -> System.Threading.Tasks.Task!
 override BlazOrbit.Components.Forms.BOBInputTextArea.TryParseValueFromString(string? value, out string! result, out string? validationErrorMessage) -> bool
-override BlazOrbit.Components.Forms.BOBSwitch<TValue>.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
-override BlazOrbit.Components.Forms.BOBSwitch<TValue>.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
+BlazOrbit.Components.Forms.BOBSwitch<TValue>.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.Forms.BOBSwitch<TValue>.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
 override BlazOrbit.Components.Forms.BOBTimePicker.OnInitialized() -> void
 override BlazOrbit.Components.Forms.BOBTimePicker.OnParametersSet() -> void
-override BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer<TValue>.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
+BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer<TValue>.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer<TValue>.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
 override BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer<TValue>.BuiltInTemplates.get -> System.Collections.Generic.IReadOnlyDictionary<BlazOrbit.Components.Forms.BOBInputVariant!, System.Func<BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer<TValue>!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
 override BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer<TValue>.DefaultVariant.get -> BlazOrbit.Components.Forms.BOBInputVariant!
 override BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer<TValue>.DisposeAsync() -> System.Threading.Tasks.ValueTask
@@ -2673,32 +2686,35 @@ override BlazOrbit.Components.Forms.DropdownKeyboardEventArgs.GetHashCode() -> i
 override BlazOrbit.Components.Forms.DropdownOption<TOption>.OnInitialized() -> void
 override BlazOrbit.Components.Forms.DropdownPosition.GetHashCode() -> int
 override BlazOrbit.Components.Forms.RadioOption<TOption>.OnInitialized() -> void
-override BlazOrbit.Components.Layout.BOBCard.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.Layout.BOBCard.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.Layout.BOBCard.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
 override BlazOrbit.Components.Layout.BOBCard.BuiltInTemplates.get -> System.Collections.Generic.Dictionary<BlazOrbit.Components.Layout.BOBCardVariant!, System.Func<BlazOrbit.Components.Layout.BOBCard!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
 override BlazOrbit.Components.Layout.BOBCard.DefaultVariant.get -> BlazOrbit.Components.Layout.BOBCardVariant!
 override BlazOrbit.Components.Layout.BOBDialog.DisposeAsync() -> System.Threading.Tasks.ValueTask
 override BlazOrbit.Components.Layout.BOBDialog.OnAfterRenderAsync(bool firstRender) -> System.Threading.Tasks.Task!
 override BlazOrbit.Components.Layout.BOBDrawer.DisposeAsync() -> System.Threading.Tasks.ValueTask
 override BlazOrbit.Components.Layout.BOBDrawer.OnAfterRenderAsync(bool firstRender) -> System.Threading.Tasks.Task!
-override BlazOrbit.Components.Layout.BOBFlexStack.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
-override BlazOrbit.Components.Layout.BOBFlexStack.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
-override BlazOrbit.Components.Layout.BOBGrid.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
-override BlazOrbit.Components.Layout.BOBGrid.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
-override BlazOrbit.Components.Layout.BOBGridItem.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
-override BlazOrbit.Components.Layout.BOBGridItem.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
+BlazOrbit.Components.Layout.BOBFlexStack.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.Layout.BOBFlexStack.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
+BlazOrbit.Components.Layout.BOBGrid.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.Layout.BOBGrid.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
+BlazOrbit.Components.Layout.BOBGridItem.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.Layout.BOBGridItem.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
 override BlazOrbit.Components.Layout.BOBInitializer.OnAfterRenderAsync(bool firstRender) -> System.Threading.Tasks.Task!
 override BlazOrbit.Components.Layout.BOBInitializer.OnInitialized() -> void
 override BlazOrbit.Components.Layout.BOBModalHost.OnAfterRenderAsync(bool firstRender) -> System.Threading.Tasks.Task!
 override BlazOrbit.Components.Layout.BOBModalHost.OnInitialized() -> void
-override BlazOrbit.Components.Layout.BOBSidebarLayout.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
-override BlazOrbit.Components.Layout.BOBStackedLayout.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.Layout.BOBSidebarLayout.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.Layout.BOBSidebarLayout.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
+BlazOrbit.Components.Layout.BOBStackedLayout.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.Layout.BOBStackedLayout.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
 override BlazOrbit.Components.Layout.BOBThemeEditor.OnParametersSet() -> void
 override BlazOrbit.Components.Layout.BOBThemeGenerator.OnInitialized() -> void
 override BlazOrbit.Components.Layout.BOBThemeSelector.BuiltInTemplates.get -> System.Collections.Generic.Dictionary<BlazOrbit.Components.Layout.BOBThemeSelectorVariant!, System.Func<BlazOrbit.Components.Layout.BOBThemeSelector!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
 override BlazOrbit.Components.Layout.BOBThemeSelector.DefaultVariant.get -> BlazOrbit.Components.Layout.BOBThemeSelectorVariant!
 override BlazOrbit.Components.Layout.BOBThemeSelector.OnAfterRenderAsync(bool firstRender) -> System.Threading.Tasks.Task!
-override BlazOrbit.Components.Layout.BOBToast.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
-override BlazOrbit.Components.Layout.BOBToast.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
+BlazOrbit.Components.Layout.BOBToast.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.Layout.BOBToast.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
 override BlazOrbit.Components.Layout.BOBToast.BuiltInTemplates.get -> System.Collections.Generic.Dictionary<BlazOrbit.Components.Layout.BOBToastVariant!, System.Func<BlazOrbit.Components.Layout.BOBToast!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
 override BlazOrbit.Components.Layout.BOBToast.DefaultVariant.get -> BlazOrbit.Components.Layout.BOBToastVariant!
 override BlazOrbit.Components.Layout.BOBToast.OnInitialized() -> void

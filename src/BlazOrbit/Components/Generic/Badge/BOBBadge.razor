@@ -3,6 +3,7 @@
 @attribute [GenerateComponentInfo]
 
 @inherits BOBVariantComponentBase<BOBBadge, BOBBadgeVariant>
+@implements IBuiltComponent
 @implements IHasSize
 @implements IHasColor
 @implements IHasBackgroundColor
@@ -52,7 +53,7 @@
 
     /* ========= Base additions ========= */
 
-    public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
     {
         if (ChildContent == null)
         {
@@ -64,6 +65,8 @@
             dataAttributes[FeatureDefinitions.DataAttributes.Circular] = "true";
         }
     }
+
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables) { }
 
     /* ========= Render ========= */
 

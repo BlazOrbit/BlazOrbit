@@ -2,6 +2,7 @@
 @attribute [GenerateComponentInfo]
 
 @inherits BOBVariantComponentBase<BOBCard, BOBCardVariant>
+@implements IBuiltComponent
 @implements IHasShadow
 @implements IHasElevation
 @implements IHasBorder
@@ -157,13 +158,13 @@
         }
     }
 
-    public override void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
     {
-        base.BuildComponentCssVariables(cssVariables);
-
         if (MediaHeight != null)
         {
             cssVariables["--_card-media-height"] = MediaHeight;
         }
     }
+
+    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes) { }
 }

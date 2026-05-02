@@ -3,6 +3,7 @@
 @using Microsoft.AspNetCore.Components.Web
 @using Microsoft.JSInterop
 @inherits BOBVariantComponentBase<BOBTabs, BOBTabsVariant>
+@implements IBuiltComponent
 @implements IHasSize
 
 @{
@@ -233,11 +234,13 @@
     }
 
     /* ========= Component Attributes ========= */
-    public override void BuildComponentDataAttributes(Dictionary<string, object> attributes)
+    public void BuildComponentDataAttributes(Dictionary<string, object> attributes)
     {
         if (FullWidth)
         {
             attributes[FeatureDefinitions.DataAttributes.FullWidth] = "true";
         }
     }
+
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables) { }
 }

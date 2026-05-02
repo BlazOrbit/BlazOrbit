@@ -1,7 +1,6 @@
 ﻿using BlazOrbit.Components;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Concurrent;
-using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace BlazOrbit.Abstractions;
@@ -177,17 +176,6 @@ internal sealed class BOBComponentAttributesBuilder
         HashCode hc = new();
         hc.Add(component.GetType());
 
-        // IBuiltComponent contributes via callbacks whose output we can't fingerprint
-        // safely. Fold the component's own identity hash so two different built
-        // components don't collide; correctness still holds because a built component
-        // that mutates its data-attrs in `BuildComponentDataAttributes` would also
-        // mutate one of the underlying parameters → fingerprint diverges. If a consumer
-        // emits time-varying attributes, they must override and bypass this cache.
-        if ((flags & ComponentFeatures.BuiltComponent) != 0)
-        {
-            hc.Add(RuntimeHelpers.GetHashCode(component));
-        }
-
         if ((flags & ComponentFeatures.Variant) != 0)
         {
             hc.Add(((IVariantComponent)component).CurrentVariant);
@@ -322,11 +310,11 @@ internal sealed class BOBComponentAttributesBuilder
         ComponentBase component,
         IReadOnlyDictionary<string, object>? additionalAttributes)
     {
-        // IBuiltComponent components emit their own data-attrs / css-vars from
-        // `BuildComponentDataAttributes` / `BuildComponentCssVariables` callbacks
-        // that read arbitrary component-private state. We can't fingerprint that
-        // safely, so the fast-path cache is disabled for them. Non-built components
-        // (the vast majority — UIButton, UICard, etc.) still benefit.
+        // Components that opt into IBuiltComponent contribute extra data-attrs / css-vars from
+        // `BuildComponentDataAttributes` / `BuildComponentCssVariables` callbacks that may read
+        // state opaque to the fingerprint (timers, counters, etc.). For them the fast-path cache
+        // is disabled and styles rebuild on every call. Components that do not implement the
+        // interface (the typical case — declaring it is opt-in) hit the fingerprint cache.
         ComponentFeatures flags = GetTypeInfo(component.GetType()).Features;
         bool cacheEligible = (flags & ComponentFeatures.BuiltComponent) == 0;
 

@@ -449,6 +449,81 @@ public class BOBInputComponentBaseTests
         cut.Find("input").GetAttribute("data-bob-loading").Should().Be("true");
     }
 
+    // ---- Re-render correctness: parameter changes that bypass the style fingerprint ----
+    //
+    // Regression guard: an earlier ShouldRender echo-guard suppressed re-renders whenever
+    // Value and the style fingerprint were unchanged. That assumption silently dropped
+    // legitimate parent-driven updates to non-IHas* parameters (Label, HelperText,
+    // ChildContent, etc.). The guard was removed; these tests pin the corrected behavior.
+
+    [Theory]
+    [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
+    public async Task Should_Rerender_When_NonStyle_Parameter_Changes(BlazorScenario scenario)
+    {
+        await using BlazorTestContextBase ctx = scenario.CreateContext();
+        TestModel model = new();
+
+        IRenderedComponent<BOBInputComponentBase_TestStub> cut = ctx.Render<BOBInputComponentBase_TestStub>(p => p
+            .Add(c => c.ValueExpression, () => model.Value)
+            .Add(c => c.Label, "Old"));
+
+        cut.Find(".stub-label").TextContent.Should().Be("Old");
+
+        // Mutate only a non-IHas* parameter. Value, EditContext, and every IHas* axis are
+        // unchanged, so the style fingerprint will hit. The component must still re-render.
+        cut.Render(p => p
+            .Add(c => c.ValueExpression, () => model.Value)
+            .Add(c => c.Label, "New"));
+
+        cut.Find(".stub-label").TextContent.Should().Be("New",
+            "non-IHas* parameter changes must re-render the DOM even when the style fingerprint cache hits");
+    }
+
+    [Theory]
+    [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
+    public async Task Should_Rerender_When_Value_Changes_To_Different_Value(BlazorScenario scenario)
+    {
+        await using BlazorTestContextBase ctx = scenario.CreateContext();
+        TestModel model = new();
+
+        IRenderedComponent<BOBInputComponentBase_TestStub> cut = ctx.Render<BOBInputComponentBase_TestStub>(p => p
+            .Add(c => c.Value, "first")
+            .Add(c => c.ValueExpression, () => model.Value));
+
+        cut.Find("input").GetAttribute("value").Should().Be("first");
+
+        // Parent pushes a different Value. Style fingerprint hits (no IHas* axis changed)
+        // but the input must reflect the new Value in the DOM.
+        cut.Render(p => p
+            .Add(c => c.Value, "second")
+            .Add(c => c.ValueExpression, () => model.Value));
+
+        cut.Find("input").GetAttribute("value").Should().Be("second");
+    }
+
+    [Theory]
+    [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
+    public async Task Should_Rerender_When_AdditionalAttributes_Reference_Changes(BlazorScenario scenario)
+    {
+        await using BlazorTestContextBase ctx = scenario.CreateContext();
+        TestModel model = new();
+        Dictionary<string, object> first = new() { ["data-extra"] = "alpha" };
+        Dictionary<string, object> second = new() { ["data-extra"] = "beta" };
+
+        IRenderedComponent<BOBInputComponentBase_TestStub> cut = ctx.Render<BOBInputComponentBase_TestStub>(p => p
+            .Add(c => c.ValueExpression, () => model.Value)
+            .Add(c => c.AdditionalAttributes, first));
+
+        cut.Find("input").GetAttribute("data-extra").Should().Be("alpha");
+
+        // New dictionary reference invalidates the style cache; the splatted attribute must update.
+        cut.Render(p => p
+            .Add(c => c.ValueExpression, () => model.Value)
+            .Add(c => c.AdditionalAttributes, second));
+
+        cut.Find("input").GetAttribute("data-extra").Should().Be("beta");
+    }
+
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
     public async Task PatchVolatileAttributes_Should_Update_FullWidth_On_Rerender(BlazorScenario scenario)

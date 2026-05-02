@@ -1,6 +1,7 @@
 ﻿@namespace BlazOrbit.Components.Layout
 
 @inherits BOBComponentBase
+@implements IBuiltComponent
 
 <bob-component @attributes="ComputedAttributes"
                data-bob-sidebar-side="@SidebarSide.ToString().ToLowerInvariant()"
@@ -101,7 +102,7 @@
             await SidebarOpenChanged.InvokeAsync(_sidebarOpen);
     }
 
-    public override void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
     {
         if (SidebarWidth != null)
             cssVariables[FeatureDefinitions.InlineVariables.LayoutSidebarWidth] = SidebarWidth;
@@ -112,4 +113,6 @@
         if (ContentMaxWidth != null)
             cssVariables[FeatureDefinitions.InlineVariables.LayoutContentMaxWidth] = ContentMaxWidth;
     }
+
+    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes) { }
 }

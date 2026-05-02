@@ -10,7 +10,6 @@ namespace BlazOrbit.Abstractions;
 public abstract class BOBInputComponentBase<TValue> :
     InputBase<TValue>,
     IAsyncDisposable,
-    IBuiltComponent,
     IHasReadOnly,
     IHasDisabled,
     IHasRequired,
@@ -29,18 +28,6 @@ public abstract class BOBInputComponentBase<TValue> :
     // re-uses the same Expression<Func<TValue>> across every SetParametersAsync call
     // instead of rebuilding it.
     private Expression<Func<TValue>>? _valueExpressionFallback;
-
-    // Echo-guard. After a parent receives ValueChanged and re-renders, it pushes the
-    // same Value back down. Without intervention every keystroke triggers a redundant
-    // BuildRenderTree on this component (and cascades through the parent tree). The
-    // guard distinguishes parameter-change paths (SetParametersAsync) from explicit
-    // StateHasChanged paths (focus/blur, validation flips, derived-component private
-    // state), and on the parameter path suppresses the render when both the bound
-    // Value matches what was last rendered AND the style fingerprint cache hit (i.e.
-    // no style-affecting parameter changed either).
-    private TValue? _lastRenderedValue;
-    private bool _hasRenderedOnce;
-    private bool _isFromParameterChange;
 
     // Common parameters for all inputs — "force from outside": parent overrides the
     // computed state. The computed truth lives in IsX below.
@@ -87,11 +74,6 @@ public abstract class BOBInputComponentBase<TValue> :
 
     public override Task SetParametersAsync(ParameterView parameters)
     {
-        // Flag the parameter-change path so ShouldRender can distinguish it from
-        // explicit StateHasChanged calls (focus/blur, validation flip, derived
-        // component private state). Cleared inside ShouldRender after consumption.
-        _isFromParameterChange = true;
-
         bool hasValueExpression = false;
         bool hasEditContext = false;
         foreach (ParameterValue p in parameters)
@@ -122,35 +104,6 @@ public abstract class BOBInputComponentBase<TValue> :
         patched[nameof(ValueExpression)] = _valueExpressionFallback;
         return base.SetParametersAsync(ParameterView.FromDictionary(patched));
     }
-
-    /// <summary>
-    /// Echo-guard. Suppresses redundant render-tree rebuilds triggered by the
-    /// <c>ValueChanged → parent → SetParametersAsync</c> round-trip when nothing
-    /// observable changed. Fires only on the parameter-change path; explicit
-    /// <c>StateHasChanged</c> calls (focus/blur, validation flips, derived-component
-    /// private state, JS-driven updates) always render.
-    /// </summary>
-    protected override bool ShouldRender()
-    {
-        bool wasParameterChange = _isFromParameterChange;
-        _isFromParameterChange = false;
-
-        if (!wasParameterChange || !_hasRenderedOnce)
-        {
-            return true;
-        }
-
-        bool valueUnchanged = EqualityComparer<TValue?>.Default.Equals(CurrentValue, _lastRenderedValue);
-        bool stylesUnchanged = _pipeline.LastBuildSkipped;
-
-        return !(valueUnchanged && stylesUnchanged);
-    }
-
-    public virtual void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
-    { }
-
-    public virtual void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
-    { }
 
     /// <summary>
     /// Async disposal path. Blazor invokes this first when the component is unmounted
@@ -215,13 +168,6 @@ public abstract class BOBInputComponentBase<TValue> :
         _pipeline.BeginRenderTree();
         _pipeline.PatchVolatileAttributes(this);
         base.BuildRenderTree(builder);
-
-        // Snapshot the rendered Value so the next parameter-change can detect a
-        // Value echo. Captured *after* base.BuildRenderTree so derived razors that
-        // read `CurrentValue` during render see the same value the guard will
-        // compare against.
-        _lastRenderedValue = CurrentValue;
-        _hasRenderedOnce = true;
 #if DEBUG
         _pipeline.EndRenderTree(GetType().Name, PerformanceService, TrackPerformanceEnabled);
 #endif

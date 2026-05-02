@@ -13,6 +13,11 @@
 @implements IHasBorder
 @implements IJsBehavior
 
+@if (!string.IsNullOrEmpty(Label))
+{
+    <span class="stub-label">@Label</span>
+}
+
 <input @ref="_elementRef"
        @attributes="ComputedAttributes"
        value="@CurrentValueAsString"
@@ -22,6 +27,7 @@
 
 @code {
     [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public string? Label { get; set; }
     [Parameter] public BOBSize Size { get; set; }
     [Parameter] public BOBDensity Density { get; set; }
     [Parameter] public string? Color { get; set; }

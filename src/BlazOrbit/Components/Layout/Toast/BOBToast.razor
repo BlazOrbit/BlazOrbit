@@ -6,6 +6,7 @@
 @attribute [GenerateComponentInfo]
 
 @inherits BOBVariantComponentBase<BOBToast, BOBToastVariant>
+@implements IBuiltComponent
 @implements IDisposable
 @implements IHasElevation
 @inject TimeProvider TimeProvider
@@ -43,7 +44,7 @@
         [BOBToastVariant.Default] = t => t.RenderDefault()
     };
 
-    public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
     {
         dataAttributes[FeatureDefinitions.DataAttributes.Position] = GetPositionValue();
         dataAttributes[FeatureDefinitions.DataAttributes.Animation] = GetAnimationValue();
@@ -51,7 +52,7 @@
         dataAttributes[FeatureDefinitions.DataAttributes.Paused] = State.IsPaused.ToString().ToLowerInvariant();
     }
 
-    public override void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
     {
         cssVariables["--bob-toast-animation-duration"] = $"{State.Options.Animation.Duration.TotalMilliseconds}ms";
         cssVariables["--bob-toast-animation-easing"] = State.Options.Animation.Easing;

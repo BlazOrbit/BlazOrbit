@@ -4,6 +4,7 @@
 @attribute [GenerateComponentInfo]
 
 @inherits BOBComponentBase
+@implements IBuiltComponent
 @implements IHasSize
 @implements IHasDensity
 @implements IHasDisabled
@@ -173,16 +174,13 @@
         await ValueChanged.InvokeAsync(newValue);
     }
 
-    public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
     {
-        base.BuildComponentDataAttributes(dataAttributes);
         dataAttributes[FeatureDefinitions.DataAttributes.Active] = IsChecked.ToString().ToLowerInvariant();
     }
 
-    public override void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
     {
-        base.BuildComponentCssVariables(cssVariables);
-
         if (!string.IsNullOrWhiteSpace(TrackColorInactive)) { cssVariables[FeatureDefinitions.InlineVariables.SwitchTrackInactiveBackground] = TrackColorInactive; }
         if (!string.IsNullOrWhiteSpace(TrackColorActive)) { cssVariables[FeatureDefinitions.InlineVariables.SwitchTrackActiveBackground] = TrackColorActive; }
 

@@ -3,6 +3,7 @@
 @attribute [GenerateComponentInfo]
 
 @inherits BOBVariantComponentBase<BOBNotificationBadge, BOBBadgeVariant>
+@implements IBuiltComponent
 @implements IHasSize
 @implements IHasColor
 @implements IHasBackgroundColor
@@ -38,10 +39,12 @@
         [BOBBadgeVariant.Default] = b => b.RenderNotificationBadge(),
     };
 
-    public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
     {
         dataAttributes[FeatureDefinitions.DataAttributes.Position] = Position.ToString().ToLowerInvariant();
     }
+
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables) { }
 
     private RenderFragment RenderNotificationBadge() => __builder =>
     {
