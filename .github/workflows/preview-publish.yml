@@ -56,6 +56,7 @@ jobs:
     outputs:
       version: ${{ steps.calc.outputs.version }}
       full_version: ${{ steps.calc.outputs.full_version }}
+      assembly_version: ${{ steps.calc.outputs.assembly_version }}
     steps:
       - name: Checkout with full history
         uses: actions/checkout@v6
@@ -69,12 +70,21 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OVERRIDE_VERSION: ${{ github.event.inputs.override_version }}
         run: |
+          # Helper: extract assembly-friendly version (strip prerelease suffix, ensure 4 parts)
+          extract_assembly_version() {
+            local v="$1"
+            v="${v%%-*}"
+            local parts=(${v//./ })
+            echo "${parts[0]:-0}.${parts[1]:-0}.${parts[2]:-0}.${parts[3]:-0}"
+          }
+
           # If a manual override was provided, use it directly
           if [ -n "$OVERRIDE_VERSION" ]; then
             echo "Using manually specified version: $OVERRIDE_VERSION"
             echo "version=$OVERRIDE_VERSION" >> $GITHUB_OUTPUT
             echo "full_version=${OVERRIDE_VERSION}+${GITHUB_SHA:0:7}" >> $GITHUB_OUTPUT
             echo "bump_type=MANUAL" >> $GITHUB_OUTPUT
+            echo "assembly_version=$(extract_assembly_version "$OVERRIDE_VERSION")" >> $GITHUB_OUTPUT
             exit 0
           fi
 
@@ -147,6 +157,7 @@ jobs:
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "full_version=$FULL_VERSION" >> $GITHUB_OUTPUT
           echo "bump_type=$BUMP_TYPE" >> $GITHUB_OUTPUT
+          echo "assembly_version=${MAJOR}.${NEXT_MINOR}.${NEXT_PATCH}.0" >> $GITHUB_OUTPUT
 
           echo "Calculated version: $VERSION ($BUMP_TYPE bump)"
 
@@ -208,8 +219,8 @@ jobs:
             -c Release \
             --no-restore \
             -p:Version=${{ needs.version.outputs.version }} \
-            -p:AssemblyVersion=${{ needs.version.outputs.version }} \
-            -p:FileVersion=${{ needs.version.outputs.version }} \
+            -p:AssemblyVersion=${{ needs.version.outputs.assembly_version }} \
+            -p:FileVersion=${{ needs.version.outputs.assembly_version }} \
             -p:InformationalVersion=${{ needs.version.outputs.full_version }} \
             -p:ContinuousIntegrationBuild=true \
             -o ./artifacts
