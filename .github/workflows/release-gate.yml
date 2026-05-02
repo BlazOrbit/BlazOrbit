@@ -72,7 +72,7 @@ jobs:
           echo "Auditing transitive dependencies..."
           dotnet list BlazOrbit.slnx package --vulnerable --include-transitive 2>&1 | tee vuln-transitive.log
 
-          if grep -E "Critical|High" vuln-direct.log vuln-transitive.log; then
+          if grep -E "\b(Critical|High)\b" vuln-direct.log vuln-transitive.log; then
             echo "::error::High/Critical vulnerability detected in NuGet dependencies. See logs above."
             exit 1
           fi

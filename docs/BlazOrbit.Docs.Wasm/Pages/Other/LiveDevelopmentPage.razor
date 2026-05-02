@@ -37,8 +37,8 @@
 #if DEBUG
             return "https://player.twitch.tv/?channel=cdcsharp&parent=localhost";
 #else
-        return "https://player.twitch.tv/?channel=cdcsharp&parent=blazorbit.com"
-        #endif
+        return "https://player.twitch.tv/?channel=cdcsharp&parent=blazorbit.com";
+#endif
     }
 
     private string GetChatSource()
@@ -46,7 +46,7 @@
 #if DEBUG
             return "https://www.twitch.tv/embed/cdcsharp/chat?parent=localhost.com";
 #else
-        return "https://www.twitch.tv/embed/cdcsharp/chat?parent=blazorbit.com"
-        #endif
+        return "https://www.twitch.tv/embed/cdcsharp/chat?parent=blazorbit.com";
+#endif
     }
 }
