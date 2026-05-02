@@ -965,9 +965,9 @@ BlazOrbit.Components.Forms.BOBInputNumber<TValue>.Loading.get -> bool
 BlazOrbit.Components.Forms.BOBInputNumber<TValue>.Loading.set -> void
 BlazOrbit.Components.Forms.BOBInputNumber<TValue>.LoadingIndicatorVariant.get -> BlazOrbit.Components.BOBLoadingIndicatorVariant!
 BlazOrbit.Components.Forms.BOBInputNumber<TValue>.LoadingIndicatorVariant.set -> void
-BlazOrbit.Components.Forms.BOBInputNumber<TValue>.Max.get -> TValue?
+BlazOrbit.Components.Forms.BOBInputNumber<TValue>.Max.get -> decimal?
 BlazOrbit.Components.Forms.BOBInputNumber<TValue>.Max.set -> void
-BlazOrbit.Components.Forms.BOBInputNumber<TValue>.Min.get -> TValue?
+BlazOrbit.Components.Forms.BOBInputNumber<TValue>.Min.get -> decimal?
 BlazOrbit.Components.Forms.BOBInputNumber<TValue>.Min.set -> void
 BlazOrbit.Components.Forms.BOBInputNumber<TValue>.OnDecrement.get -> Microsoft.AspNetCore.Components.EventCallback<TValue?>
 BlazOrbit.Components.Forms.BOBInputNumber<TValue>.OnDecrement.set -> void
