@@ -683,17 +683,7 @@ function Show-Changelog {
     
     $lastTag = Get-LastTag
     Write-Info "Last tag: $lastTag"
-    
-    # Show API changes first
-    Write-Host "`n### Public API Changes" -ForegroundColor $Colors.Emphasis
-    $apiScript = Join-Path $PSScriptRoot "api-report.ps1"
-    if (Test-Path $apiScript) {
-        & $apiScript -Tag $lastTag -OutputFormat console
-    }
-    else {
-        Write-Info "api-report.ps1 not found. Run from scripts directory."
-    }
-    
+
     $commits = git log "$lastTag..$($Config.Remote)/$($Config.DevelopBranch)" --pretty=format:"%h %s" --no-merges 2>$null
     
     if (-not $commits) {
