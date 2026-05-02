@@ -15,6 +15,6 @@ For tutorials, live examples, and theming guides, see the official documentation
 | [`BlazOrbit.Localization.Wasm`](xref:BlazOrbit.Localization.Wasm) | WASM `localStorage`-backed localization. |
 | [`BlazOrbit.Localization.Shared`](xref:BlazOrbit.Localization.Shared) | Shared `BOBCultureSelector` UI. |
 | `BlazOrbit.Translations` | Library-shipped translation resources. |
-| `BlazOrbit.FluentValidation` | FluentValidation adapter for `EditContext`. |
+| `BlazOrbit.FormsFluentValidation` | FluentValidation adapter for `EditContext`. |
 
 Source generators (`BlazOrbit.CodeGeneration`, `BlazOrbit.Core.CodeGeneration`) and the build-time tool (`BlazOrbit.BuildTools`) are intentionally omitted — consumers do not reference them directly.

@@ -19,7 +19,7 @@ First public preview of BlazOrbit — a modern, accessible component library for
 - **JS interop modules** — minimal, tree-shaken TypeScript bundles for ripple, dropdowns, modals, color-picker, clipboard, draggable, theme switching, and local-storage.
 - **Accessibility first** — WCAG 2.2 AA compliant focus states, `aria-*` attributes, reduced-motion support, and keyboard navigation built in.
 - **Localization** — Server-side cookie-based and WASM `localStorage`-based culture switching with `BOBCultureSelector`; Spanish and English resources included.
-- **Optional integrations** — `BlazOrbit.FluentValidation` for FluentValidation-powered form validation, and `BlazOrbit.SyntaxHighlight` for zero-dependency code highlighting.
+- **Optional integrations** — `BlazOrbit.FormsFluentValidation` for FluentValidation-powered form validation, and `BlazOrbit.SyntaxHighlight` for zero-dependency code highlighting.
 - **Multi-targeting** — ships for both .NET 8.0 and .NET 10.0.
 
 > ⚠️ This is a pre-release. APIs and CSS variables may change before the stable 1.0.0.

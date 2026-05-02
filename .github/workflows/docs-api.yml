@@ -53,7 +53,7 @@ jobs:
           dotnet restore src/BlazOrbit.Localization.Server/BlazOrbit.Localization.Server.csproj
           dotnet restore src/BlazOrbit.Localization.Wasm/BlazOrbit.Localization.Wasm.csproj
           dotnet restore src/BlazOrbit.Translations/BlazOrbit.Translations.csproj
-          dotnet restore src/BlazOrbit.FluentValidation/BlazOrbit.FormsFluentValidation.csproj
+          dotnet restore src/BlazOrbit.FormsFluentValidation/BlazOrbit.FormsFluentValidation.csproj
 
       - name: Build documented projects (Release)
         run: |
@@ -64,7 +64,7 @@ jobs:
           dotnet build src/BlazOrbit.Localization.Server/BlazOrbit.Localization.Server.csproj -c Release --no-restore -p:BlazOrbitBuildEnabled=false
           dotnet build src/BlazOrbit.Localization.Wasm/BlazOrbit.Localization.Wasm.csproj -c Release --no-restore -p:BlazOrbitBuildEnabled=false
           dotnet build src/BlazOrbit.Translations/BlazOrbit.Translations.csproj -c Release --no-restore -p:BlazOrbitBuildEnabled=false
-          dotnet build src/BlazOrbit.FluentValidation/BlazOrbit.FormsFluentValidation.csproj -c Release --no-restore -p:BlazOrbitBuildEnabled=false
+          dotnet build src/BlazOrbit.FormsFluentValidation/BlazOrbit.FormsFluentValidation.csproj -c Release --no-restore -p:BlazOrbitBuildEnabled=false
 
       - name: Install DocFX
         run: dotnet tool install -g docfx --version ${{ env.DOCFX_VERSION }}

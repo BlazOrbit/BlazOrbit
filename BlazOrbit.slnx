@@ -37,7 +37,7 @@
   <Project Path="src/BlazOrbit.CodeGeneration/BlazOrbit.CodeGeneration.csproj" Id="96bbc2e4-007e-4f7d-973b-8c83686462df" />
   <Project Path="src/BlazOrbit.Core.CodeGeneration/BlazOrbit.Core.CodeGeneration.csproj" Id="6ba20f9a-6292-42d8-a0d8-b45440bef1ea" />
   <Project Path="src/BlazOrbit.Core/BlazOrbit.Core.csproj" Id="4d42e187-5c5c-441e-a3bf-59ecb330e6e6" />
-  <Project Path="src/BlazOrbit.FluentValidation/BlazOrbit.FormsFluentValidation.csproj" Id="928cbff9-8c5b-4315-b75f-ee13ea436e6f" />
+  <Project Path="src/BlazOrbit.FormsFluentValidation/BlazOrbit.FormsFluentValidation.csproj" Id="928cbff9-8c5b-4315-b75f-ee13ea436e6f" />
   <Project Path="src/BlazOrbit.Localization.Server/BlazOrbit.Localization.Server.csproj" Id="cc099920-bfe2-4cbb-ad43-85f57c86d3a4" />
   <Project Path="src/BlazOrbit.Localization.Shared/BlazOrbit.Localization.Shared.csproj" />
   <Project Path="src/BlazOrbit.Localization.Wasm/BlazOrbit.Localization.Wasm.csproj" Id="7203c218-f90d-4664-8e5f-d21641df712e" />

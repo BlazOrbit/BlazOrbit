@@ -13,7 +13,7 @@
             "BlazOrbit.Localization.Server/bin/Release/net10.0/BlazOrbit.Localization.Server.dll",
             "BlazOrbit.Localization.Wasm/bin/Release/net10.0/BlazOrbit.Localization.Wasm.dll",
             "BlazOrbit.Translations/bin/Release/net10.0/BlazOrbit.Translations.dll",
-            "BlazOrbit.FluentValidation/bin/Release/net10.0/BlazOrbit.FormsFluentValidation.dll"
+            "BlazOrbit.FormsFluentValidation/bin/Release/net10.0/BlazOrbit.FormsFluentValidation.dll"
           ]
         }
       ],

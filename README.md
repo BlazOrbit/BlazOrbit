@@ -106,7 +106,7 @@ Now you can use any component:
 | `BlazOrbit.SyntaxHighlight` | Dependency-free syntax highlighter used by `BOBCodeBlock`. |
 | `BlazOrbit.Localization.Server` | Cookie-based culture persistence and `BOBCultureSelector` for Blazor Server. |
 | `BlazOrbit.Localization.Wasm` | `localStorage`-based culture persistence and `BOBCultureSelector` for Blazor WebAssembly. |
-| `BlazOrbit.FluentValidation` | Integration with `FluentValidation` for BlazOrbit forms. |
+| `BlazOrbit.FormsFluentValidation` | Integration with `FluentValidation` for BlazOrbit forms. |
 
 ## Localization: Server vs. WASM
 
