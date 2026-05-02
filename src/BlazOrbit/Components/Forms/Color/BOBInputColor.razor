@@ -7,6 +7,7 @@
 
 @inherits BOBInputComponentBase<CssColor, BOBInputColor, BOBInputVariant>
 
+@implements IBuiltComponent
 @implements IHasSize
 @implements IHasLoading
 @implements IHasShadow
@@ -100,11 +101,12 @@ BOBLoadingIndicatorVariant.CircularProgress;
     private bool IsFloated => _isFocused || HasValue || _isDirty;
     private string DisplayValue => CurrentValue?.ToString(OutputFormat) ?? "";
 
-    public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
     {
-        base.BuildComponentDataAttributes(dataAttributes);
         dataAttributes[FeatureDefinitions.DataAttributes.Floated] = IsFloated.ToString().ToLowerInvariant();
     }
+
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables) { }
 
     protected override void OnInitialized()
     {

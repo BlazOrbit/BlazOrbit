@@ -2,6 +2,7 @@
 @attribute [GenerateComponentInfo]
 
 @inherits BOBComponentBase
+@implements IBuiltComponent
 
 <bob-component @attributes="ComputedAttributes">
     @ChildContent
@@ -83,7 +84,7 @@
     /// <summary>My.</summary>
     [Parameter] public string? My { get; set; }
 
-    public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
     {
         if (Direction != GridDirection.Row)
             dataAttributes["data-dir"] = ToKebab(Direction);
@@ -109,7 +110,7 @@
             dataAttributes["data-contained"] = "true";
     }
 
-    public override void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
     {
         if (Columns.HasValue)
             cssVariables["--columns"] = Columns.Value.ToString();

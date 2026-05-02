@@ -1,6 +1,7 @@
 ﻿@namespace BlazOrbit.Components.Forms
 @attribute [GenerateComponentInfo]
 @inherits BOBInputComponentBase<TValue, BOBInputRadio<TValue>, BOBInputRadioVariant>
+@implements IBuiltComponent
 @implements IRadioContainer
 @implements IHasSize
 @implements IHasColor
@@ -108,11 +109,12 @@
 
     private bool ShowClearButton => Clearable && HasValue && !IsDisabled;
 
-    public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
     {
-        base.BuildComponentDataAttributes(dataAttributes);
         dataAttributes[FeatureDefinitions.DataAttributes.Orientation] = Orientation.ToString().ToLowerInvariant();
     }
+
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables) { }
 
     private RenderFragment RenderDefault() => __builder =>
     {

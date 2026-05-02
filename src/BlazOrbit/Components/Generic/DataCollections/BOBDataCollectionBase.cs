@@ -13,6 +13,7 @@ namespace BlazOrbit.Components;
 /// <typeparam name="TVariant">Variant type owned by the derived component.</typeparam>
 public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
     : BOBVariantComponentBase<TComponent, TVariant>,
+      IBuiltComponent,
       IHasDensity,
       IHasSize,
       IHasShadow,
@@ -111,10 +112,8 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         => ItemPattern != null &&
         (!ItemPattern.IsCssExpressible || (EnableVirtualization && !string.IsNullOrEmpty(Height)));
 
-    public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    public virtual void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
     {
-        base.BuildComponentDataAttributes(dataAttributes);
-
         if (Hoverable)
         {
             dataAttributes[FeatureDefinitions.DataAttributes.Hoverable] = "true";
@@ -130,10 +129,8 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         }
     }
 
-    public override void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    public virtual void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
     {
-        base.BuildComponentCssVariables(cssVariables);
-
         if (ItemPattern != null && !UsePerItemPatternStyles)
         {
             foreach (KeyValuePair<string, string> kv in ItemPattern.GetContainerCssVariables())

@@ -1,6 +1,7 @@
 ﻿@namespace BlazOrbit.Components.Layout
 
 @inherits BOBComponentBase
+@implements IBuiltComponent
 
 <bob-component @attributes="ComputedAttributes"
                data-bob-sticky-header="@StickyHeader.ToString().ToLowerInvariant()"
@@ -90,7 +91,7 @@
             await NavOpenChanged.InvokeAsync(_navOpen);
     }
 
-    public override void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
     {
         if (HeaderHeight != null)
             cssVariables[FeatureDefinitions.InlineVariables.LayoutHeaderHeight] = HeaderHeight;
@@ -103,4 +104,6 @@
         if (NavColumns.HasValue)
             cssVariables[FeatureDefinitions.InlineVariables.LayoutNavColumns] = NavColumns.Value.ToString();
     }
+
+    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes) { }
 }

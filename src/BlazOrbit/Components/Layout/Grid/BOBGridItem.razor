@@ -2,6 +2,7 @@
 @attribute [GenerateComponentInfo]
 
 @inherits BOBComponentBase
+@implements IBuiltComponent
 
 <bob-component @attributes="ComputedAttributes">
     @ChildContent
@@ -110,7 +111,7 @@
 
     private bool HasSpan => Span.HasValue || Xs.HasValue || Sm.HasValue || Md.HasValue || Lg.HasValue || Xl.HasValue;
 
-    public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
     {
         if (Auto)
             dataAttributes["data-auto"] = "true";
@@ -133,7 +134,7 @@
         if (ShowXl) dataAttributes["data-show-xl"] = "true";
     }
 
-    public override void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
     {
         if (Span.HasValue) cssVariables["--span"] = Span.Value.ToString();
         if (Xs.HasValue) cssVariables["--xs"] = Xs.Value.ToString();

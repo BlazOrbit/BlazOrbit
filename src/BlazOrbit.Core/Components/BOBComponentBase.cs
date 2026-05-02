@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace BlazOrbit.Abstractions;
 
-public abstract class BOBComponentBase : ComponentBase, IAsyncDisposable, IBuiltComponent
+public abstract class BOBComponentBase : ComponentBase, IAsyncDisposable
 {
     private readonly BOBComponentPipeline _pipeline = new();
 
@@ -32,28 +32,6 @@ public abstract class BOBComponentBase : ComponentBase, IAsyncDisposable, IBuilt
     protected bool IsDisposed { get; set; }
 
     [Inject] private IBehaviorJsInterop BehaviorJsInterop { get; set; } = default!;
-
-    /// <summary>
-    /// Override this method in derived components to add custom CSS variables. These will be merged
-    /// with the standard behavior CSS variables. This method is called from
-    /// BOBComponentAttributesBuilder during the style building process.
-    /// </summary>
-    /// <param name="cssVariables">
-    /// Dictionary to add CSS variables to
-    /// </param>
-    public virtual void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
-    {
-        // Default implementation does nothing Derived classes can override to add their custom variables
-    }
-
-    /// <summary>
-    /// Override this method to add component-specific data attributes. Called during attribute
-    /// building process.
-    /// </summary>
-    public virtual void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
-    {
-        // Default: no custom data attributes
-    }
 
     protected override void OnInitialized()
     {
