@@ -68,9 +68,9 @@
     private void PrevMonthClicked(MouseEventArgs e) => CurrentMonth = CurrentMonth.AddMonths(-1);
     private void NextMonthClicked(MouseEventArgs e) => CurrentMonth = CurrentMonth.AddMonths(1);
 
-    private async Task SelectDateClicked(DateTime date)
+    private async Task SelectDateClicked(DateOnly date)
     {
-        SelectedDate = DateOnly.FromDateTime(date);
+        SelectedDate = date;
         CurrentMonth = new DateTime(date.Year, date.Month, 1);
         await ValueChanged.InvokeAsync(SelectedDate);
     }
@@ -81,16 +81,19 @@
     {
         get
         {
-            DateTime firstOfMonth = new(CurrentMonth.Year, CurrentMonth.Month, 1);
-            DateTime start = firstOfMonth.AddDays(-(int)firstOfMonth.DayOfWeek);
+            DateOnly firstOfMonth = new(CurrentMonth.Year, CurrentMonth.Month, 1);
+            DateOnly start = firstOfMonth.AddDays(-(int)firstOfMonth.DayOfWeek);
             return Enumerable.Range(0, 42).Select(i =>
             {
-                DateTime d = start.AddDays(i);
+                DateOnly d = start.AddDays(i);
                 return new DayCell
                 {
                     Date = d,
                     IsCurrentMonth = d.Month == CurrentMonth.Month,
-                    IsSelected = SelectedDate.DayNumber == DateOnly.FromDateTime(d).DayNumber
+                    IsSelected = 
+                        SelectedDate.DayNumber == d.DayNumber 
+                        && SelectedDate.Month == d.Month
+                        && SelectedDate.Year == d.Year
                 };
             });
         }
@@ -98,7 +101,7 @@
 
     private sealed class DayCell
     {
-        public DateTime Date { get; set; }
+        public DateOnly Date { get; set; }
         public bool IsCurrentMonth { get; set; }
         public bool IsSelected { get; set; }
     }

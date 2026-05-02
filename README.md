@@ -2,6 +2,7 @@
 
 [![NuGet](https://img.shields.io/nuget/v/BlazOrbit.svg)](https://www.nuget.org/packages/BlazOrbit)
 [![Build](https://github.com/BlazOrbit/BlazOrbit/actions/workflows/release-publish.yml/badge.svg)](https://github.com/BlazOrbit/BlazOrbit/actions/workflows/release-publish.yml)
+[![Build](https://github.com/BlazOrbit/BlazOrbit/actions/workflows/preview-publish.yml/badge.svg)](https://github.com/BlazOrbit/BlazOrbit/actions/workflows/preview-publish.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 A modern and customizable component library for **Blazor** on **.NET**.
