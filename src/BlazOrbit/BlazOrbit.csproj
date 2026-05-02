@@ -45,11 +45,11 @@
 		and is only imported for monorepo builds below.
 	-->
 	<ItemGroup>
-		<None Include="_build\BlazOrbit.targets" Pack="true" PackagePath="build\" />
+		<None Include="_build/BlazOrbit.targets" Pack="true" PackagePath="build/" />
 	</ItemGroup>
 
 	<!-- Dev-only import: regenerates CSS + JS assets for the maintainer build. -->
-	<Import Project="_build\BlazOrbit.Dev.targets" Condition="Exists('_build\BlazOrbit.Dev.targets')" />
+	<Import Project="_build/BlazOrbit.Dev.targets" Condition="Exists('_build/BlazOrbit.Dev.targets')" />
 
 	<ItemGroup>
 		<!-- Feed every .razor to the incremental generator -->
