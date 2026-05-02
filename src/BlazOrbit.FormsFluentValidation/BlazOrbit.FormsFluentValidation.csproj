@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<TargetFrameworks>net8.0;net10.0</TargetFrameworks>
 		<IsPackable>true</IsPackable>
-		<PackageId>BlazOrbit.FluentValidation</PackageId>
+		<PackageId>BlazOrbit.FormsFluentValidation</PackageId>
 		<Description>FluentValidation integration for BlazOrbit. It adds the ability to validate forms using FluentValidation</Description>
 		<PackageTags>blazor;validation;blazorbit</PackageTags>
 	</PropertyGroup>

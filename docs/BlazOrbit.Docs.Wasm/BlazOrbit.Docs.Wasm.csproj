@@ -23,7 +23,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\..\src\BlazOrbit\BlazOrbit.csproj" />
-		<ProjectReference Include="..\..\src\BlazOrbit.FluentValidation\BlazOrbit.FormsFluentValidation.csproj" />
+		<ProjectReference Include="..\..\src\BlazOrbit.FormsFluentValidation\BlazOrbit.FormsFluentValidation.csproj" />
 		<ProjectReference Include="..\..\src\BlazOrbit.Localization.Wasm\BlazOrbit.Localization.Wasm.csproj" />
 		<ProjectReference Include="..\..\docs\BlazOrbit.Docs.Components\BlazOrbit.Docs.Components.csproj" />
 		<ProjectReference Include="..\..\docs\BlazOrbit.Docs.Translations\BlazOrbit.Docs.Translations.csproj" />
