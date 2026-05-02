@@ -50,6 +50,7 @@ jobs:
     needs: guard
     outputs:
       version: ${{ steps.resolve.outputs.version }}
+      assembly_version: ${{ steps.resolve.outputs.assembly_version }}
     steps:
       - name: Resolve version from tag or input
         id: resolve
@@ -65,7 +66,13 @@ jobs:
             VERSION="$INPUT_VERSION"
           fi
 
+          # Extract assembly-friendly version (strip prerelease suffix, ensure 4 parts)
+          ASSEMBLY_VERSION="${VERSION%%-*}"
+          local parts=(${ASSEMBLY_VERSION//./ })
+          ASSEMBLY_VERSION="${parts[0]:-0}.${parts[1]:-0}.${parts[2]:-0}.${parts[3]:-0}"
+
           echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "assembly_version=$ASSEMBLY_VERSION" >> $GITHUB_OUTPUT
           echo "✅ Resolved version: $VERSION"
 
   build-and-test:
@@ -130,8 +137,8 @@ jobs:
             -c Release \
             --no-restore \
             -p:Version=${{ needs.version.outputs.version }} \
-            -p:AssemblyVersion=${{ needs.version.outputs.version }} \
-            -p:FileVersion=${{ needs.version.outputs.version }} \
+            -p:AssemblyVersion=${{ needs.version.outputs.assembly_version }} \
+            -p:FileVersion=${{ needs.version.outputs.assembly_version }} \
             -p:InformationalVersion=${{ needs.version.outputs.version }} \
             -p:ContinuousIntegrationBuild=true \
             -o ./artifacts \
