@@ -201,6 +201,13 @@ function Invoke-GitCommand {
             Write-Error "git $Command failed: $output"
             return $false
         }
+        # Some git commands succeed with empty output (fetch with no new refs,
+        # rebase already up-to-date, etc). Empty output is success here, not failure.
+        # Callers checking truthiness via `if (-not $result)` would otherwise exit
+        # silently because $LASTEXITCODE was 0 so no Write-Error fired.
+        if ([string]::IsNullOrEmpty([string]$output)) {
+            return $true
+        }
         return $output
     }
     catch {
