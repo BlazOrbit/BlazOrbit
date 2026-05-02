@@ -5,7 +5,7 @@
       <DataCollector friendlyName="XPlat code coverage">
         <Configuration>
           <Format>cobertura</Format>
-          <Include>[BlazOrbit]*,[BlazOrbit.Core]*</Include>
+          <Include>[BlazOrbit]*,[BlazOrbit.Core]*,[BlazOrbit.BuildTools]*,[BlazOrbit.CodeGeneration]*,[BlazOrbit.Core.CodeGeneration]*,[BlazOrbit.Docs.CodeGeneration]*,[BlazOrbit.SyntaxHighlight]*,[BlazOrbit.Localization.Server]*,[BlazOrbit.Localization.Shared]*,[BlazOrbit.Localization.Wasm]*</Include>
           <ExcludeByFile>**/*.g.cs,**/*.designer.cs,**/*.razor.g.cs,**/Migrations/*.cs</ExcludeByFile>
           <ExcludeByAttribute>Obsolete,GeneratedCodeAttribute,CompilerGeneratedAttribute</ExcludeByAttribute>
           <SingleHit>false</SingleHit>
