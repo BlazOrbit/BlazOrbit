@@ -12,7 +12,7 @@
 		     tool (a fork, an unrelated project, or a shell alias). -->
 		<ToolCommandName>cdcsharp-blazorbit-buildtools</ToolCommandName>
 		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-		<IsPackable>true</IsPackable>
+		<IsPackable>false</IsPackable>
 		<PackageId>BlazOrbit.BuildTools</PackageId>
 		<Description>Build-time tool used by the BlazOrbit `.targets` to generate CSS partials (reset, typography, themes, tokens, base component styles) and the Vite/TypeScript scaffolding into `CssBundle/` and `wwwroot/`. Consumers typically do not install this directly — it is invoked automatically when building a project that references BlazOrbit.</Description>
 		<PackageTags>blazor;blazorbit;build-tools;css;generator;tool</PackageTags>

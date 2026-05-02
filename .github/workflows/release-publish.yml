@@ -5,6 +5,9 @@
 name: '[Release] Stable Publish'
 
 on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
   workflow_dispatch:
     inputs:
       version:
@@ -26,10 +29,42 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  version:
+    name: Resolve Version
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.resolve.outputs.version }}
+    steps:
+      - name: Validate context and resolve version
+        id: resolve
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ github.ref }}" != "refs/heads/master" ]; then
+            echo "::error::Manual stable release can only be triggered from the master branch. Current: ${{ github.ref }}"
+            exit 1
+          fi
+
+          if [ "${{ github.event_name }}" = "push" ]; then
+            VERSION="${{ github.ref_name }}"
+            VERSION="${VERSION#v}"
+          else
+            VERSION="${{ github.event.inputs.version }}"
+          fi
+
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "✅ Resolved version: $VERSION"
+
   build-and-test:
     name: Build and Test
     runs-on: ubuntu-latest
     steps:
+      - name: Validate trigger context
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ github.ref }}" != "refs/heads/master" ]; then
+            echo "::error::Manual stable release can only be triggered from master."
+            exit 1
+          fi
+          echo "✅ Context validated"
+
       - name: Checkout
         uses: actions/checkout@v6
 
@@ -61,7 +96,7 @@ jobs:
   pack:
     name: Pack NuGet Packages
     runs-on: ubuntu-latest
-    needs: build-and-test
+    needs: [build-and-test, version]
     steps:
       - name: Checkout
         uses: actions/checkout@v6
@@ -83,10 +118,10 @@ jobs:
           dotnet pack BlazOrbit.slnx \
             -c Release \
             --no-restore \
-            -p:Version=${{ github.event.inputs.version }} \
-            -p:AssemblyVersion=${{ github.event.inputs.version }} \
-            -p:FileVersion=${{ github.event.inputs.version }} \
-            -p:InformationalVersion=${{ github.event.inputs.version }} \
+            -p:Version=${{ needs.version.outputs.version }} \
+            -p:AssemblyVersion=${{ needs.version.outputs.version }} \
+            -p:FileVersion=${{ needs.version.outputs.version }} \
+            -p:InformationalVersion=${{ needs.version.outputs.version }} \
             -p:ContinuousIntegrationBuild=true \
             -o ./artifacts \
             2>&1 | tee pack.log
@@ -123,10 +158,12 @@ jobs:
             return $missing
           }
 
+          VERSION="${{ needs.version.outputs.version }}"
+
           for tfm in net8.0 net10.0; do
             echo "=== Validating $tfm ==="
 
-            PKG=./artifacts/BlazOrbit.${{ github.event.inputs.version }}.nupkg
+            PKG=./artifacts/BlazOrbit.${VERSION}.nupkg
             assert_in_pkg "$PKG" \
               "lib/$tfm/BlazOrbit.dll" \
               "lib/$tfm/BlazOrbit.xml" \
@@ -135,26 +172,26 @@ jobs:
               "README.md" \
               "icon.png"
 
-            PKG=./artifacts/BlazOrbit.Core.${{ github.event.inputs.version }}.nupkg
+            PKG=./artifacts/BlazOrbit.Core.${VERSION}.nupkg
             assert_in_pkg "$PKG" \
               "lib/$tfm/BlazOrbit.Core.dll" \
               "lib/$tfm/BlazOrbit.Core.xml" \
               "README.md" \
               "icon.png"
 
-            PKG=./artifacts/BlazOrbit.SyntaxHighlight.${{ github.event.inputs.version }}.nupkg
+            PKG=./artifacts/BlazOrbit.SyntaxHighlight.${VERSION}.nupkg
             assert_in_pkg "$PKG" \
               "lib/$tfm/BlazOrbit.SyntaxHighlight.dll" \
               "README.md" \
               "icon.png"
 
-            PKG=./artifacts/BlazOrbit.Localization.Server.${{ github.event.inputs.version }}.nupkg
+            PKG=./artifacts/BlazOrbit.Localization.Server.${VERSION}.nupkg
             assert_in_pkg "$PKG" \
               "lib/$tfm/BlazOrbit.Localization.Server.dll" \
               "README.md" \
               "icon.png"
 
-            PKG=./artifacts/BlazOrbit.Localization.Wasm.${{ github.event.inputs.version }}.nupkg
+            PKG=./artifacts/BlazOrbit.Localization.Wasm.${VERSION}.nupkg
             assert_in_pkg "$PKG" \
               "lib/$tfm/BlazOrbit.Localization.Wasm.dll" \
               "README.md" \
@@ -166,14 +203,14 @@ jobs:
       - name: Upload packages
         uses: actions/upload-artifact@v7
         with:
-          name: packages-${{ github.event.inputs.version }}
+          name: packages-${{ needs.version.outputs.version }}
           path: ./artifacts/*.nupkg
           retention-days: 30
 
   publish:
     name: Publish to NuGet
     runs-on: ubuntu-latest
-    needs: pack
+    needs: [version, pack]
     environment: production
     steps:
       - name: Checkout
@@ -182,7 +219,7 @@ jobs:
       - name: Download packages
         uses: actions/download-artifact@v8
         with:
-          name: packages-${{ github.event.inputs.version }}
+          name: packages-${{ needs.version.outputs.version }}
           path: ./artifacts
 
       - name: Setup .NET
@@ -200,7 +237,7 @@ jobs:
       - name: Extract release notes from CHANGELOG.md
         id: notes
         run: |
-          VERSION='${{ github.event.inputs.version }}'
+          VERSION="${{ needs.version.outputs.version }}"
           # Capture the body of the `## [VERSION]` section: skip the header,
           # stop at the next `## [` heading or the link-reference footer
           # (`---`). Fail loudly if the section is missing so a mistagged
@@ -236,8 +273,8 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v3
         with:
-          tag_name: ${{ github.ref_name }}
-          name: Release ${{ github.event.inputs.version }}
+          tag_name: ${{ startsWith(github.ref_name, 'v') && github.ref_name || format('v{0}', needs.version.outputs.version) }}
+          name: Release ${{ needs.version.outputs.version }}
           body_path: RELEASE_NOTES.md
           draft: false
           prerelease: false

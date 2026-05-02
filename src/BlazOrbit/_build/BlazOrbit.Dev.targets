@@ -15,7 +15,7 @@
 	<Target Name="BuildBlazOrbitAssets"
 			BeforeTargets="DispatchToInnerBuilds;BeforeBuild"
 			DependsOnTargets="EnsureBuildToolsCompiled"
-			Condition="'$(BlazOrbitBuildEnabled)' == 'true' AND ('$(IsCrossTargetingBuild)' == 'true' OR '$(TargetFramework)' != '')">
+			Condition="'$(BlazOrbitBuildEnabled)' == 'true' AND ('$(IsCrossTargetingBuild)' == 'true' OR '$(TargetFrameworks)' == '')">
 
 		<Message Text="Building BlazOrbit assets..." Importance="high" />
 
