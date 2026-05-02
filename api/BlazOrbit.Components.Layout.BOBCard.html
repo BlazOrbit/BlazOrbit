@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class BOBCard | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class BOBCard | BlazOrbit API ">
+      
+      
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Components.Layout.BOBCard">
+
+
+
+  <h1 id="BlazOrbit_Components_Layout_BOBCard" data-uid="BlazOrbit.Components.Layout.BOBCard" class="text-break">
+Class BOBCard  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Card/BOBCard.razor"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Components.html">Components</a>.<a class="xref" href="BlazOrbit.Components.Layout.html">Layout</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[GenerateComponentInfo]
+public class BOBCard : BOBVariantComponentBase&lt;BOBCard, BOBCardVariant&gt;, IVariantComponent&lt;BOBCardVariant&gt;, IVariantComponent, IHasShadow, IHasElevation, IHasBorder, IHasBackgroundColor, IHasColor</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">ComponentBase</span></div>
+      <div><a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html">BOBComponentBase</a></div>
+      <div><a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBVariantComponentBase.cs">BOBVariantComponentBase</a>&lt;<a class="xref" href="BlazOrbit.Components.Layout.BOBCard.html">BOBCard</a>, <a class="xref" href="BlazOrbit.Components.Layout.BOBCardVariant.html">BOBCardVariant</a>&gt;</div>
+      <div><span class="xref">BOBCard</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/Variants/IVariantComponent.cs">IVariantComponent</a>&lt;<a class="xref" href="BlazOrbit.Components.Layout.BOBCardVariant.html">BOBCardVariant</a>&gt;</div>
+      <div><a class="xref" href="BlazOrbit.Components.IVariantComponent.html">IVariantComponent</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasShadow.html">IHasShadow</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasElevation.html">IHasElevation</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasBorder.html">IHasBorder</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasBackgroundColor.html">IHasBackgroundColor</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasColor.html">IHasColor</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_BuildRenderTree_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder_">BOBVariantComponentBase&lt;BOBCard, BOBCardVariant&gt;.BuildRenderTree(RenderTreeBuilder)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_OnParametersSet">BOBVariantComponentBase&lt;BOBCard, BOBCardVariant&gt;.OnParametersSet()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_CurrentVariant">BOBVariantComponentBase&lt;BOBCard, BOBCardVariant&gt;.CurrentVariant</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_DefaultVariant">BOBVariantComponentBase&lt;BOBCard, BOBCardVariant&gt;.DefaultVariant</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_Variant">BOBVariantComponentBase&lt;BOBCard, BOBCardVariant&gt;.Variant</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_BuiltInTemplates">BOBVariantComponentBase&lt;BOBCard, BOBCardVariant&gt;.BuiltInTemplates</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_BuildComponentDataAttributes_System_Collections_Generic_Dictionary_System_String_System_Object__">BOBComponentBase.BuildComponentDataAttributes(Dictionary&lt;string, object&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_OnInitialized">BOBComponentBase.OnInitialized()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_OnParametersSet">BOBComponentBase.OnParametersSet()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_OnAfterRenderAsync_System_Boolean_">BOBComponentBase.OnAfterRenderAsync(bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_DisposeAsync">BOBComponentBase.DisposeAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_AdditionalAttributes">BOBComponentBase.AdditionalAttributes</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_ComputedAttributes">BOBComponentBase.ComputedAttributes</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_IsDisposed">BOBComponentBase.IsDisposed</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="BlazOrbit_Components_Layout_BOBCard__ctor_" data-uid="BlazOrbit.Components.Layout.BOBCard.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBCard__ctor" data-uid="BlazOrbit.Components.Layout.BOBCard.#ctor">
+  BOBCard()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Card/BOBCard.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BOBCard()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="BlazOrbit_Components_Layout_BOBCard_Actions_" data-uid="BlazOrbit.Components.Layout.BOBCard.Actions*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBCard_Actions" data-uid="BlazOrbit.Components.Layout.BOBCard.Actions">
+  Actions
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Card/BOBCard.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Action row rendered at the bottom of the card (typically buttons).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public RenderFragment? Actions { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">RenderFragment</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBCard_ActionsAlignment_" data-uid="BlazOrbit.Components.Layout.BOBCard.ActionsAlignment*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBCard_ActionsAlignment" data-uid="BlazOrbit.Components.Layout.BOBCard.ActionsAlignment">
+  ActionsAlignment
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Card/BOBCard.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Horizontal alignment of the action row.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public CardActionsAlignment ActionsAlignment { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.Layout.CardActionsAlignment.html">CardActionsAlignment</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBCard_BackgroundColor_" data-uid="BlazOrbit.Components.Layout.BOBCard.BackgroundColor*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBCard_BackgroundColor" data-uid="BlazOrbit.Components.Layout.BOBCard.BackgroundColor">
+  BackgroundColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Card/BOBCard.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Background color of the card. Accepts any valid CSS color value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? BackgroundColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBCard_Border_" data-uid="BlazOrbit.Components.Layout.BOBCard.Border*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBCard_Border" data-uid="BlazOrbit.Components.Layout.BOBCard.Border">
+  Border
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Card/BOBCard.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Border style applied to the card edge.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public BorderStyle? Border { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.BorderStyle.html">BorderStyle</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBCard_BuiltInTemplates_" data-uid="BlazOrbit.Components.Layout.BOBCard.BuiltInTemplates*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBCard_BuiltInTemplates" data-uid="BlazOrbit.Components.Layout.BOBCard.BuiltInTemplates">
+  BuiltInTemplates
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Card/BOBCard.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override Dictionary&lt;BOBCardVariant, Func&lt;BOBCard, RenderFragment&gt;&gt; BuiltInTemplates { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Dictionary</span>&lt;<a class="xref" href="BlazOrbit.Components.Layout.BOBCardVariant.html">BOBCardVariant</a>, <span class="xref">Func</span>&lt;<a class="xref" href="BlazOrbit.Components.Layout.BOBCard.html">BOBCard</a>, <span class="xref">RenderFragment</span>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBCard_ChildContent_" data-uid="BlazOrbit.Components.Layout.BOBCard.ChildContent*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBCard_ChildContent" data-uid="BlazOrbit.Components.Layout.BOBCard.ChildContent">
+  ChildContent
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Card/BOBCard.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Content rendered inside the component.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public RenderFragment? ChildContent { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">RenderFragment</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBCard_Clickable_" data-uid="BlazOrbit.Components.Layout.BOBCard.Clickable*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBCard_Clickable" data-uid="BlazOrbit.Components.Layout.BOBCard.Clickable">
+  Clickable
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Card/BOBCard.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the whole card surfaces a hover/active state and forwards clicks to <a class="xref" href="BlazOrbit.Components.Layout.BOBCard.html#BlazOrbit_Components_Layout_BOBCard_OnClick">OnClick</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool Clickable { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBCard_Color_" data-uid="BlazOrbit.Components.Layout.BOBCard.Color*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBCard_Color" data-uid="BlazOrbit.Components.Layout.BOBCard.Color">
+  Color
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Card/BOBCard.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Text color of the card. Accepts any valid CSS color value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Color { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBCard_DefaultVariant_" data-uid="BlazOrbit.Components.Layout.BOBCard.DefaultVariant*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBCard_DefaultVariant" data-uid="BlazOrbit.Components.Layout.BOBCard.DefaultVariant">
+  DefaultVariant
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Card/BOBCard.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Default variant used when no explicit variant is specified.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override BOBCardVariant DefaultVariant { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.Layout.BOBCardVariant.html">BOBCardVariant</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBCard_Elevation_" data-uid="BlazOrbit.Components.Layout.BOBCard.Elevation*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBCard_Elevation" data-uid="BlazOrbit.Components.Layout.BOBCard.Elevation">
+  Elevation
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Card/BOBCard.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Material Design elevation level (0–24). Sets a derived shadow and lifts the surface
+in dark mode via a tint overlay. Overridden by <a class="xref" href="BlazOrbit.Components.Layout.BOBCard.html#BlazOrbit_Components_Layout_BOBCard_Shadow">Shadow</a> when both are set.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int? Elevation { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBCard_Header_" data-uid="BlazOrbit.Components.Layout.BOBCard.Header*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBCard_Header" data-uid="BlazOrbit.Components.Layout.BOBCard.Header">
+  Header
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Card/BOBCard.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Header content rendered above the card body (typically a title row).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public RenderFragment? Header { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">RenderFragment</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBCard_Media_" data-uid="BlazOrbit.Components.Layout.BOBCard.Media*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBCard_Media" data-uid="BlazOrbit.Components.Layout.BOBCard.Media">
+  Media
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Card/BOBCard.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Media slot rendered as a banner above or below the body, controlled by <a class="xref" href="BlazOrbit.Components.Layout.BOBCard.html#BlazOrbit_Components_Layout_BOBCard_MediaPosition">MediaPosition</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public RenderFragment? Media { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">RenderFragment</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBCard_MediaHeight_" data-uid="BlazOrbit.Components.Layout.BOBCard.MediaHeight*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBCard_MediaHeight" data-uid="BlazOrbit.Components.Layout.BOBCard.MediaHeight">
+  MediaHeight
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Card/BOBCard.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>CSS height applied to the media slot (any valid CSS length, e.g. <code>&quot;160px&quot;</code>).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? MediaHeight { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBCard_MediaPosition_" data-uid="BlazOrbit.Components.Layout.BOBCard.MediaPosition*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBCard_MediaPosition" data-uid="BlazOrbit.Components.Layout.BOBCard.MediaPosition">
+  MediaPosition
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Card/BOBCard.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Whether the media slot renders above or below the card body.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public CardMediaPosition MediaPosition { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.Layout.CardMediaPosition.html">CardMediaPosition</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBCard_OnClick_" data-uid="BlazOrbit.Components.Layout.BOBCard.OnClick*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBCard_OnClick" data-uid="BlazOrbit.Components.Layout.BOBCard.OnClick">
+  OnClick
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Card/BOBCard.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when the component is clicked.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public EventCallback&lt;MouseEventArgs&gt; OnClick { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">EventCallback</span>&lt;<span class="xref">MouseEventArgs</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBCard_Shadow_" data-uid="BlazOrbit.Components.Layout.BOBCard.Shadow*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBCard_Shadow" data-uid="BlazOrbit.Components.Layout.BOBCard.Shadow">
+  Shadow
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Card/BOBCard.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Shadow style applied to the card surface. Wins over <a class="xref" href="BlazOrbit.Components.Layout.BOBCard.html#BlazOrbit_Components_Layout_BOBCard_Elevation">Elevation</a> when both are set.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public ShadowStyle? Shadow { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.ShadowStyle.html">ShadowStyle</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="BlazOrbit_Components_Layout_BOBCard_BuildComponentCssVariables_" data-uid="BlazOrbit.Components.Layout.BOBCard.BuildComponentCssVariables*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBCard_BuildComponentCssVariables_System_Collections_Generic_Dictionary_System_String_System_String__" data-uid="BlazOrbit.Components.Layout.BOBCard.BuildComponentCssVariables(System.Collections.Generic.Dictionary{System.String,System.String})">
+  BuildComponentCssVariables(Dictionary&lt;string, string&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Card/BOBCard.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Override this method in derived components to add custom CSS variables. These will be merged
+with the standard behavior CSS variables. This method is called from
+BOBComponentAttributesBuilder during the style building process.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void BuildComponentCssVariables(Dictionary&lt;string, string&gt; cssVariables)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>cssVariables</code> <span class="xref">Dictionary</span>&lt;<span class="xref">string</span>, <span class="xref">string</span>&gt;</dt>
+    <dd><p>Dictionary to add CSS variables to</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBCard_BuildRenderTree_" data-uid="BlazOrbit.Components.Layout.BOBCard.BuildRenderTree*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBCard_BuildRenderTree_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder_" data-uid="BlazOrbit.Components.Layout.BOBCard.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+  BuildRenderTree(RenderTreeBuilder)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Card/BOBCard.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Renders the component to the supplied <span class="xref">Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void BuildRenderTree(RenderTreeBuilder __builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>__builder</code> <span class="xref">RenderTreeBuilder</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Card/BOBCard.razor" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

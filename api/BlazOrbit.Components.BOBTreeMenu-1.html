@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class BOBTreeMenu&lt;TItem&gt; | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class BOBTreeMenu&lt;TItem&gt; | BlazOrbit API ">
+      
+      
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Components.BOBTreeMenu`1">
+
+
+
+  <h1 id="BlazOrbit_Components_BOBTreeMenu_1" data-uid="BlazOrbit.Components.BOBTreeMenu`1" class="text-break">
+Class BOBTreeMenu&lt;TItem&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Components.html">Components</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[GenerateComponentInfo]
+public class BOBTreeMenu&lt;TItem&gt; : BOBComponentBase, IHasSize</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TItem</code></dt>
+    <dd></dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">ComponentBase</span></div>
+      <div><a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html">BOBComponentBase</a></div>
+      <div><span class="xref">BOBTreeMenu&lt;TItem&gt;</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="BlazOrbit.Components.IHasSize.html">IHasSize</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_BuildComponentCssVariables_System_Collections_Generic_Dictionary_System_String_System_String__">BOBComponentBase.BuildComponentCssVariables(Dictionary&lt;string, string&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_OnAfterRenderAsync_System_Boolean_">BOBComponentBase.OnAfterRenderAsync(bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_DisposeAsync">BOBComponentBase.DisposeAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_AdditionalAttributes">BOBComponentBase.AdditionalAttributes</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_ComputedAttributes">BOBComponentBase.ComputedAttributes</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_IsDisposed">BOBComponentBase.IsDisposed</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1__ctor_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1__ctor" data-uid="BlazOrbit.Components.BOBTreeMenu`1.#ctor">
+  BOBTreeMenu()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BOBTreeMenu()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_Cache_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.Cache*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_Cache" data-uid="BlazOrbit.Components.BOBTreeMenu`1.Cache">
+  Cache
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Cache.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public TreeNodeCache&lt;TItem&gt;? Cache { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TreeNodeCache</span>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_ChildContent_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.ChildContent*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_ChildContent" data-uid="BlazOrbit.Components.BOBTreeMenu`1.ChildContent">
+  ChildContent
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Content rendered inside the component.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public RenderFragment? ChildContent { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">RenderFragment</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_ChildrenSelector_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.ChildrenSelector*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_ChildrenSelector" data-uid="BlazOrbit.Components.BOBTreeMenu`1.ChildrenSelector">
+  ChildrenSelector
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the children of an item.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public Func&lt;TItem, IEnumerable&lt;TItem&gt;?&gt;? ChildrenSelector { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Func</span>&lt;TItem, <span class="xref">IEnumerable</span>&lt;TItem&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_Collapsible_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.Collapsible*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_Collapsible" data-uid="BlazOrbit.Components.BOBTreeMenu`1.Collapsible">
+  Collapsible
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Collapsible.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool Collapsible { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_ExpandAll_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.ExpandAll*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_ExpandAll" data-uid="BlazOrbit.Components.BOBTreeMenu`1.ExpandAll">
+  ExpandAll
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>ExpandAll.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool ExpandAll { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_ExpandMode_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.ExpandMode*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_ExpandMode" data-uid="BlazOrbit.Components.BOBTreeMenu`1.ExpandMode">
+  ExpandMode
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>ExpandMode.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public TreeMenuExpandMode ExpandMode { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.TreeMenuExpandMode.html">TreeMenuExpandMode</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_ExpandedKeys_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.ExpandedKeys*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_ExpandedKeys" data-uid="BlazOrbit.Components.BOBTreeMenu`1.ExpandedKeys">
+  ExpandedKeys
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>ExpandedKeys.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public HashSet&lt;string&gt;? ExpandedKeys { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">HashSet</span>&lt;<span class="xref">string</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_ExpandedKeysChanged_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.ExpandedKeysChanged*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_ExpandedKeysChanged" data-uid="BlazOrbit.Components.BOBTreeMenu`1.ExpandedKeysChanged">
+  ExpandedKeysChanged
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>ExpandedKeysChanged.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public EventCallback&lt;HashSet&lt;string&gt;&gt; ExpandedKeysChanged { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">EventCallback</span>&lt;<span class="xref">HashSet</span>&lt;<span class="xref">string</span>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_HasChildrenSelector_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.HasChildrenSelector*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_HasChildrenSelector" data-uid="BlazOrbit.Components.BOBTreeMenu`1.HasChildrenSelector">
+  HasChildrenSelector
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns whether an item has children without loading them. Enables lazy expansion via <a class="xref" href="BlazOrbit.Components.BOBTreeMenu-1.html#BlazOrbit_Components_BOBTreeMenu_1_OnLoadChildren">OnLoadChildren</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public Func&lt;TItem, bool&gt;? HasChildrenSelector { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Func</span>&lt;TItem, <span class="xref">bool</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_HoverCloseDelay_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.HoverCloseDelay*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_HoverCloseDelay" data-uid="BlazOrbit.Components.BOBTreeMenu`1.HoverCloseDelay">
+  HoverCloseDelay
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>HoverCloseDelay.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int HoverCloseDelay { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_HoverOpenDelay_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.HoverOpenDelay*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_HoverOpenDelay" data-uid="BlazOrbit.Components.BOBTreeMenu`1.HoverOpenDelay">
+  HoverOpenDelay
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>HoverOpenDelay.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int HoverOpenDelay { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_Items_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.Items*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_Items" data-uid="BlazOrbit.Components.BOBTreeMenu`1.Items">
+  Items
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Root items the menu renders.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public IEnumerable&lt;TItem&gt;? Items { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IEnumerable</span>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_KeySelector_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.KeySelector*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_KeySelector" data-uid="BlazOrbit.Components.BOBTreeMenu`1.KeySelector">
+  KeySelector
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns a stable key for an item. Required for keyboard navigation and lazy loading.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public Func&lt;TItem, string&gt;? KeySelector { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Func</span>&lt;TItem, <span class="xref">string</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_NodeTemplate_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.NodeTemplate*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_NodeTemplate" data-uid="BlazOrbit.Components.BOBTreeMenu`1.NodeTemplate">
+  NodeTemplate
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Custom template for rendering the Node.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public RenderFragment&lt;TreeMenuNode&lt;TItem&gt;&gt;? NodeTemplate { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">RenderFragment</span>&lt;<a class="xref" href="BlazOrbit.Components.TreeMenuNode-1.html">TreeMenuNode</a>&lt;TItem&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_OnLoadChildren_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.OnLoadChildren*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_OnLoadChildren" data-uid="BlazOrbit.Components.BOBTreeMenu`1.OnLoadChildren">
+  OnLoadChildren
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Called the first time a node is expanded with no in-memory children. Result is cached on the menu.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public Func&lt;TItem, Task&lt;IEnumerable&lt;TItem&gt;&gt;&gt;? OnLoadChildren { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Func</span>&lt;TItem, <span class="xref">Task</span>&lt;<span class="xref">IEnumerable</span>&lt;TItem&gt;&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_OnNavigate_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.OnNavigate*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_OnNavigate" data-uid="BlazOrbit.Components.BOBTreeMenu`1.OnNavigate">
+  OnNavigate
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when the Navigate event occurs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public EventCallback&lt;string&gt; OnNavigate { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">EventCallback</span>&lt;<span class="xref">string</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_OnNodeClick_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.OnNodeClick*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_OnNodeClick" data-uid="BlazOrbit.Components.BOBTreeMenu`1.OnNodeClick">
+  OnNodeClick
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when the NodeClick event occurs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public EventCallback&lt;TreeNodeEventArgs&lt;TreeMenuNode&lt;TItem&gt;&gt;&gt; OnNodeClick { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">EventCallback</span>&lt;<a class="xref" href="BlazOrbit.Components.TreeNodeEventArgs-1.html">TreeNodeEventArgs</a>&lt;<a class="xref" href="BlazOrbit.Components.TreeMenuNode-1.html">TreeMenuNode</a>&lt;TItem&gt;&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_Orientation_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.Orientation*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_Orientation" data-uid="BlazOrbit.Components.BOBTreeMenu`1.Orientation">
+  Orientation
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Orientation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public TreeMenuOrientation Orientation { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.TreeMenuOrientation.html">TreeMenuOrientation</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_Size_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.Size*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_Size" data-uid="BlazOrbit.Components.BOBTreeMenu`1.Size">
+  Size
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Visual size of the component.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public BOBSize Size { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.BOBSize.html">BOBSize</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_Trigger_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.Trigger*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_Trigger" data-uid="BlazOrbit.Components.BOBTreeMenu`1.Trigger">
+  Trigger
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Trigger.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public TreeMenuTrigger Trigger { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.TreeMenuTrigger.html">TreeMenuTrigger</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_BuildComponentDataAttributes_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.BuildComponentDataAttributes*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_BuildComponentDataAttributes_System_Collections_Generic_Dictionary_System_String_System_Object__" data-uid="BlazOrbit.Components.BOBTreeMenu`1.BuildComponentDataAttributes(System.Collections.Generic.Dictionary{System.String,System.Object})">
+  BuildComponentDataAttributes(Dictionary&lt;string, object&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Override this method to add component-specific data attributes. Called during attribute
+building process.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void BuildComponentDataAttributes(Dictionary&lt;string, object&gt; dataAttributes)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>dataAttributes</code> <span class="xref">Dictionary</span>&lt;<span class="xref">string</span>, <span class="xref">object</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_BuildRenderTree_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.BuildRenderTree*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_BuildRenderTree_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+  BuildRenderTree(RenderTreeBuilder)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Renders the component to the supplied <span class="xref">Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void BuildRenderTree(RenderTreeBuilder __builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>__builder</code> <span class="xref">RenderTreeBuilder</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_CollapseAllNodes_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.CollapseAllNodes*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_CollapseAllNodes" data-uid="BlazOrbit.Components.BOBTreeMenu`1.CollapseAllNodes">
+  CollapseAllNodes()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void CollapseAllNodes()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_Dispose_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.Dispose*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_Dispose" data-uid="BlazOrbit.Components.BOBTreeMenu`1.Dispose">
+  Dispose()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_ExpandAllNodes_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.ExpandAllNodes*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_ExpandAllNodes" data-uid="BlazOrbit.Components.BOBTreeMenu`1.ExpandAllNodes">
+  ExpandAllNodes()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ExpandAllNodes()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_GetNode_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.GetNode*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_GetNode_System_String_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.GetNode(System.String)">
+  GetNode(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TreeMenuNode&lt;TItem&gt;? GetNode(string key)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>key</code> <span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.TreeMenuNode-1.html">TreeMenuNode</a>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_InvalidateCache_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.InvalidateCache*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_InvalidateCache_System_String_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.InvalidateCache(System.String)">
+  InvalidateCache(string?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void InvalidateCache(string? key = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>key</code> <span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_OnAfterRender_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.OnAfterRender*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_OnAfterRender_System_Boolean_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.OnAfterRender(System.Boolean)">
+  OnAfterRender(bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Method invoked after each time the component has rendered interactively and the UI has finished
+updating (for example, after elements have been added to the browser DOM). Any <span class="xref">Microsoft.AspNetCore.Components.ElementReference</span>
+fields will be populated by the time this runs.</p>
+<p>This method is not invoked during prerendering or server-side rendering, because those processes
+are not attached to any live browser DOM and are already complete before the DOM is updated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnAfterRender(bool firstRender)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>firstRender</code> <span class="xref">bool</span></dt>
+    <dd><p>Set to <code>true</code> if this is the first time <span class="xref">Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender(bool)</span> has been invoked
+on this component instance; otherwise <code>false</code>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="BlazOrbit_Components_BOBTreeMenu_1_OnAfterRender_System_Boolean__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>The <span class="xref">Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender(bool)</span> and <span class="xref">Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(bool)</span> lifecycle methods
+are useful for performing interop, or interacting with values received from <code>@ref</code>.
+Use the <code class="paramref">firstRender</code> parameter to ensure that initialization work is only performed
+once.</p>
+</div>
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_OnInitialized_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.OnInitialized*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_OnInitialized" data-uid="BlazOrbit.Components.BOBTreeMenu`1.OnInitialized">
+  OnInitialized()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Method invoked when the component is ready to start, having received its
+initial parameters from its parent in the render tree.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnInitialized()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBTreeMenu_1_OnParametersSet_" data-uid="BlazOrbit.Components.BOBTreeMenu`1.OnParametersSet*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBTreeMenu_1_OnParametersSet" data-uid="BlazOrbit.Components.BOBTreeMenu`1.OnParametersSet">
+  OnParametersSet()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Method invoked when the component has received parameters from its parent in
+the render tree, and the incoming values have been assigned to properties.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnParametersSet()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/TreeMenu/BOBTreeMenu.razor" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

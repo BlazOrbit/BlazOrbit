@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class ToastService | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class ToastService | BlazOrbit API ">
+      
+      <meta name="description" content="Default  implementation registered by AddBlazOrbit().">
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Components.Layout.Services.ToastService">
+
+
+
+  <h1 id="BlazOrbit_Components_Layout_Services_ToastService" data-uid="BlazOrbit.Components.Layout.Services.ToastService" class="text-break">
+Class ToastService  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Toast/Services/ToastService.cs"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Components.html">Components</a>.<a class="xref" href="BlazOrbit.Components.Layout.html">Layout</a>.<a class="xref" href="BlazOrbit.Components.Layout.Services.html">Services</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Default <a class="xref" href="BlazOrbit.Components.Layout.Services.IToastService.html">IToastService</a> implementation registered by <code>AddBlazOrbit()</code>.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class ToastService : IToastService</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">ToastService</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="BlazOrbit.Components.Layout.Services.IToastService.html">IToastService</a></div>
+    </dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="BlazOrbit_Components_Layout_Services_ToastService__ctor_" data-uid="BlazOrbit.Components.Layout.Services.ToastService.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_Services_ToastService__ctor" data-uid="BlazOrbit.Components.Layout.Services.ToastService.#ctor">
+  ToastService()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Toast/Services/ToastService.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ToastService()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="BlazOrbit_Components_Layout_Services_ToastService_ActiveToasts_" data-uid="BlazOrbit.Components.Layout.Services.ToastService.ActiveToasts*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_Services_ToastService_ActiveToasts" data-uid="BlazOrbit.Components.Layout.Services.ToastService.ActiveToasts">
+  ActiveToasts
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Toast/Services/ToastService.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Currently active toasts.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyList&lt;ToastState&gt; ActiveToasts { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IReadOnlyList</span>&lt;<a class="xref" href="BlazOrbit.Components.Layout.Services.ToastState.html">ToastState</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_Services_ToastService_Count_" data-uid="BlazOrbit.Components.Layout.Services.ToastService.Count*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_Services_ToastService_Count" data-uid="BlazOrbit.Components.Layout.Services.ToastService.Count">
+  Count
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Toast/Services/ToastService.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Number of currently active toasts.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Count { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="BlazOrbit_Components_Layout_Services_ToastService_CloseAllAsync_" data-uid="BlazOrbit.Components.Layout.Services.ToastService.CloseAllAsync*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_Services_ToastService_CloseAllAsync" data-uid="BlazOrbit.Components.Layout.Services.ToastService.CloseAllAsync">
+  CloseAllAsync()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Toast/Services/ToastService.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Closes every active toast.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task CloseAllAsync()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_Services_ToastService_CloseAsync_" data-uid="BlazOrbit.Components.Layout.Services.ToastService.CloseAsync*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_Services_ToastService_CloseAsync_System_Guid_" data-uid="BlazOrbit.Components.Layout.Services.ToastService.CloseAsync(System.Guid)">
+  CloseAsync(Guid)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Toast/Services/ToastService.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Closes the toast identified by <code class="paramref">toastId</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task CloseAsync(Guid toastId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>toastId</code> <span class="xref">Guid</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_Services_ToastService_Dispose_" data-uid="BlazOrbit.Components.Layout.Services.ToastService.Dispose*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_Services_ToastService_Dispose" data-uid="BlazOrbit.Components.Layout.Services.ToastService.Dispose">
+  Dispose()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Toast/Services/ToastService.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Cancels every pending dismiss timer and releases bookkeeping.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_Services_ToastService_PauseAsync_" data-uid="BlazOrbit.Components.Layout.Services.ToastService.PauseAsync*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_Services_ToastService_PauseAsync_System_Guid_" data-uid="BlazOrbit.Components.Layout.Services.ToastService.PauseAsync(System.Guid)">
+  PauseAsync(Guid)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Toast/Services/ToastService.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Pauses auto-dismiss for the toast identified by <code class="paramref">toastId</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task PauseAsync(Guid toastId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>toastId</code> <span class="xref">Guid</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_Services_ToastService_ResumeAsync_" data-uid="BlazOrbit.Components.Layout.Services.ToastService.ResumeAsync*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_Services_ToastService_ResumeAsync_System_Guid_" data-uid="BlazOrbit.Components.Layout.Services.ToastService.ResumeAsync(System.Guid)">
+  ResumeAsync(Guid)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Toast/Services/ToastService.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Resumes auto-dismiss for the toast identified by <code class="paramref">toastId</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task ResumeAsync(Guid toastId)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>toastId</code> <span class="xref">Guid</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_Services_ToastService_ShowAsync_" data-uid="BlazOrbit.Components.Layout.Services.ToastService.ShowAsync*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_Services_ToastService_ShowAsync_System_Action_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder__" data-uid="BlazOrbit.Components.Layout.Services.ToastService.ShowAsync(System.Action{Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder})">
+  ShowAsync(Action&lt;RenderTreeBuilder&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Toast/Services/ToastService.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Shows a toast whose body is built by the supplied render-tree builder action.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task ShowAsync(Action&lt;RenderTreeBuilder&gt; builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <span class="xref">Action</span>&lt;<span class="xref">RenderTreeBuilder</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_Services_ToastService_ShowAsync_" data-uid="BlazOrbit.Components.Layout.Services.ToastService.ShowAsync*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_Services_ToastService_ShowAsync_System_Action_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder__BlazOrbit_Components_Layout_ToastOptions_" data-uid="BlazOrbit.Components.Layout.Services.ToastService.ShowAsync(System.Action{Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder},BlazOrbit.Components.Layout.ToastOptions)">
+  ShowAsync(Action&lt;RenderTreeBuilder&gt;, ToastOptions?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Toast/Services/ToastService.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Shows a toast whose body is built by the supplied builder, with explicit options.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task ShowAsync(Action&lt;RenderTreeBuilder&gt; builder, ToastOptions? options)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <span class="xref">Action</span>&lt;<span class="xref">RenderTreeBuilder</span>&gt;</dt>
+    <dd></dd>
+    <dt><code>options</code> <a class="xref" href="BlazOrbit.Components.Layout.ToastOptions.html">ToastOptions</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_Services_ToastService_ShowAsync_" data-uid="BlazOrbit.Components.Layout.Services.ToastService.ShowAsync*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_Services_ToastService_ShowAsync__1" data-uid="BlazOrbit.Components.Layout.Services.ToastService.ShowAsync``1">
+  ShowAsync&lt;TComponent&gt;()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Toast/Services/ToastService.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Shows a toast that renders <code class="typeparamref">TComponent</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task ShowAsync&lt;TComponent&gt;() where TComponent : IComponent</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TComponent</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_Services_ToastService_ShowAsync_" data-uid="BlazOrbit.Components.Layout.Services.ToastService.ShowAsync*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_Services_ToastService_ShowAsync__1_BlazOrbit_Components_Layout_ToastOptions_" data-uid="BlazOrbit.Components.Layout.Services.ToastService.ShowAsync``1(BlazOrbit.Components.Layout.ToastOptions)">
+  ShowAsync&lt;TComponent&gt;(ToastOptions?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Toast/Services/ToastService.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Shows a toast that renders <code class="typeparamref">TComponent</code> with explicit options.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task ShowAsync&lt;TComponent&gt;(ToastOptions? options) where TComponent : IComponent</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>options</code> <a class="xref" href="BlazOrbit.Components.Layout.ToastOptions.html">ToastOptions</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TComponent</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_Services_ToastService_ShowAsync_" data-uid="BlazOrbit.Components.Layout.Services.ToastService.ShowAsync*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_Services_ToastService_ShowAsync__1_System_Collections_Generic_IDictionary_System_String_System_Object__" data-uid="BlazOrbit.Components.Layout.Services.ToastService.ShowAsync``1(System.Collections.Generic.IDictionary{System.String,System.Object})">
+  ShowAsync&lt;TComponent&gt;(IDictionary&lt;string, object?&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Toast/Services/ToastService.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Shows a toast that renders <code class="typeparamref">TComponent</code> with the given parameters.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task ShowAsync&lt;TComponent&gt;(IDictionary&lt;string, object?&gt;? parameters) where TComponent : IComponent</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>parameters</code> <span class="xref">IDictionary</span>&lt;<span class="xref">string</span>, <span class="xref">object</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TComponent</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_Services_ToastService_ShowAsync_" data-uid="BlazOrbit.Components.Layout.Services.ToastService.ShowAsync*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_Services_ToastService_ShowAsync__1_System_Collections_Generic_IDictionary_System_String_System_Object__BlazOrbit_Components_Layout_ToastOptions_" data-uid="BlazOrbit.Components.Layout.Services.ToastService.ShowAsync``1(System.Collections.Generic.IDictionary{System.String,System.Object},BlazOrbit.Components.Layout.ToastOptions)">
+  ShowAsync&lt;TComponent&gt;(IDictionary&lt;string, object?&gt;?, ToastOptions?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Toast/Services/ToastService.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Shows a toast that renders <code class="typeparamref">TComponent</code> with parameters and explicit options.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task ShowAsync&lt;TComponent&gt;(IDictionary&lt;string, object?&gt;? parameters, ToastOptions? options) where TComponent : IComponent</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>parameters</code> <span class="xref">IDictionary</span>&lt;<span class="xref">string</span>, <span class="xref">object</span>&gt;</dt>
+    <dd></dd>
+    <dt><code>options</code> <a class="xref" href="BlazOrbit.Components.Layout.ToastOptions.html">ToastOptions</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TComponent</code></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_Services_ToastService_ShowFragmentAsync_" data-uid="BlazOrbit.Components.Layout.Services.ToastService.ShowFragmentAsync*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_Services_ToastService_ShowFragmentAsync_Microsoft_AspNetCore_Components_RenderFragment_BlazOrbit_Components_Layout_ToastOptions_" data-uid="BlazOrbit.Components.Layout.Services.ToastService.ShowFragmentAsync(Microsoft.AspNetCore.Components.RenderFragment,BlazOrbit.Components.Layout.ToastOptions)">
+  ShowFragmentAsync(RenderFragment, ToastOptions?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Toast/Services/ToastService.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Shows a toast whose body is the supplied <span class="xref">Microsoft.AspNetCore.Components.RenderFragment</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task ShowFragmentAsync(RenderFragment content, ToastOptions? options = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>content</code> <span class="xref">RenderFragment</span></dt>
+    <dd></dd>
+    <dt><code>options</code> <a class="xref" href="BlazOrbit.Components.Layout.ToastOptions.html">ToastOptions</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="events">Events
+</h2>
+
+
+
+  <h3 id="BlazOrbit_Components_Layout_Services_ToastService_OnChangeAsync" data-uid="BlazOrbit.Components.Layout.Services.ToastService.OnChangeAsync">
+  OnChangeAsync
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Toast/Services/ToastService.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised whenever the active-toasts list changes; awaited sequentially.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event Func&lt;Task&gt;? OnChangeAsync</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Func</span>&lt;<span class="xref">Task</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Toast/Services/ToastService.cs" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

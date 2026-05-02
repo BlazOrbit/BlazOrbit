@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class BOBStylingKeys | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class BOBStylingKeys | BlazOrbit API ">
+      
+      <meta name="description" content="Public, stable subset of the BlazOrbit CSS/DOM contract that consumers can reference when writing custom CSS or tests against BOB components.">
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Components.BOBStylingKeys">
+
+
+
+  <h1 id="BlazOrbit_Components_BOBStylingKeys" data-uid="BlazOrbit.Components.BOBStylingKeys" class="text-break">
+Class BOBStylingKeys  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/BOBStylingKeys.cs"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Components.html">Components</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Public, stable subset of the BlazOrbit CSS/DOM contract that consumers can reference
+when writing custom CSS or tests against BOB components.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class BOBStylingKeys</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">BOBStylingKeys</span></div>
+    </dd>
+  </dl>
+
+
+
+
+
+
+
+  <h2 id="BlazOrbit_Components_BOBStylingKeys_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>The internal contract lives in <code>BlazOrbit.Components.FeatureDefinitions</code>
+and may change between minor versions; the keys exposed here are the subset that
+the library commits to keep stable across 1.x.</p>
+</div>
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="BlazOrbit_Components_BOBStylingKeys_Component" data-uid="BlazOrbit.Components.BOBStylingKeys.Component">
+  Component
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/BOBStylingKeys.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p><code>data-bob-component</code> — identifies the component type on the root
+<code>&lt;bob-component&gt;</code> element (e.g. <code>button</code>, <code>input-text</code>).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string Component = &quot;data-bob-component&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="BlazOrbit_Components_BOBStylingKeys_Density" data-uid="BlazOrbit.Components.BOBStylingKeys.Density">
+  Density
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/BOBStylingKeys.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p><code>data-bob-density</code> — compact | standard | comfortable. Drives
+<a class="xref" href="BlazOrbit.Components.BOBStylingKeys.html#BlazOrbit_Components_BOBStylingKeys_InlineDensityMultiplier">InlineDensityMultiplier</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string Density = &quot;data-bob-density&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="BlazOrbit_Components_BOBStylingKeys_InlineBackground" data-uid="BlazOrbit.Components.BOBStylingKeys.InlineBackground">
+  InlineBackground
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/BOBStylingKeys.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p><code>--bob-inline-background</code> — inline background-color override emitted
+from <code>IHasBackgroundColor</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string InlineBackground = &quot;--bob-inline-background&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="BlazOrbit_Components_BOBStylingKeys_InlineColor" data-uid="BlazOrbit.Components.BOBStylingKeys.InlineColor">
+  InlineColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/BOBStylingKeys.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p><code>--bob-inline-color</code> — inline foreground-color override emitted from
+<code>IHasColor</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string InlineColor = &quot;--bob-inline-color&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="BlazOrbit_Components_BOBStylingKeys_InlineDensityMultiplier" data-uid="BlazOrbit.Components.BOBStylingKeys.InlineDensityMultiplier">
+  InlineDensityMultiplier
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/BOBStylingKeys.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p><code>--bob-density-multiplier</code> — scalar multiplier applied to inter-element
+spacing based on <a class="xref" href="BlazOrbit.Components.BOBStylingKeys.html#BlazOrbit_Components_BOBStylingKeys_Density">Density</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string InlineDensityMultiplier = &quot;--bob-density-multiplier&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="BlazOrbit_Components_BOBStylingKeys_InlineSizeMultiplier" data-uid="BlazOrbit.Components.BOBStylingKeys.InlineSizeMultiplier">
+  InlineSizeMultiplier
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/BOBStylingKeys.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p><code>--bob-size-multiplier</code> — scalar multiplier applied to component
+dimensions based on <a class="xref" href="BlazOrbit.Components.BOBStylingKeys.html#BlazOrbit_Components_BOBStylingKeys_Size">Size</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string InlineSizeMultiplier = &quot;--bob-size-multiplier&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="BlazOrbit_Components_BOBStylingKeys_Size" data-uid="BlazOrbit.Components.BOBStylingKeys.Size">
+  Size
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/BOBStylingKeys.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p><code>data-bob-size</code> — small | medium | large. Drives
+<a class="xref" href="BlazOrbit.Components.BOBStylingKeys.html#BlazOrbit_Components_BOBStylingKeys_InlineSizeMultiplier">InlineSizeMultiplier</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string Size = &quot;data-bob-size&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="BlazOrbit_Components_BOBStylingKeys_Variant" data-uid="BlazOrbit.Components.BOBStylingKeys.Variant">
+  Variant
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/BOBStylingKeys.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p><code>data-bob-variant</code> — current variant name (e.g. <code>outlined</code>,
+<code>filled</code>, a custom variant registered via <code>AddBlazOrbitVariants</code>).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const string Variant = &quot;data-bob-variant&quot;</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/BOBStylingKeys.cs" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

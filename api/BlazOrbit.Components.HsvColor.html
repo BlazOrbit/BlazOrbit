@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Struct HsvColor | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Struct HsvColor | BlazOrbit API ">
+      
+      <meta name="description" content="Represents a color in HSV (Hue, Saturation, Value) color space. Used internally by the color picker component.">
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Components.HsvColor">
+
+
+
+  <h1 id="BlazOrbit_Components_HsvColor" data-uid="BlazOrbit.Components.HsvColor" class="text-break">
+Struct HsvColor  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/HsvColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Components.html">Components</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Represents a color in HSV (Hue, Saturation, Value) color space. Used internally by the color
+picker component.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public readonly struct HsvColor</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="BlazOrbit_Components_HsvColor__ctor_" data-uid="BlazOrbit.Components.HsvColor.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Components_HsvColor__ctor_System_Int32_System_Double_System_Double_" data-uid="BlazOrbit.Components.HsvColor.#ctor(System.Int32,System.Double,System.Double)">
+  HsvColor(int, double, double)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/HsvColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HsvColor(int hue, double saturation, double value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>hue</code> <span class="xref">int</span></dt>
+    <dd></dd>
+    <dt><code>saturation</code> <span class="xref">double</span></dt>
+    <dd></dd>
+    <dt><code>value</code> <span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="BlazOrbit_Components_HsvColor_Hue_" data-uid="BlazOrbit.Components.HsvColor.Hue*"></a>
+
+  <h3 id="BlazOrbit_Components_HsvColor_Hue" data-uid="BlazOrbit.Components.HsvColor.Hue">
+  Hue
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/HsvColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Hue { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_HsvColor_Saturation_" data-uid="BlazOrbit.Components.HsvColor.Saturation*"></a>
+
+  <h3 id="BlazOrbit_Components_HsvColor_Saturation" data-uid="BlazOrbit.Components.HsvColor.Saturation">
+  Saturation
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/HsvColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double Saturation { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_HsvColor_Value_" data-uid="BlazOrbit.Components.HsvColor.Value*"></a>
+
+  <h3 id="BlazOrbit_Components_HsvColor_Value" data-uid="BlazOrbit.Components.HsvColor.Value">
+  Value
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/HsvColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double Value { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="BlazOrbit_Components_HsvColor_Equals_" data-uid="BlazOrbit.Components.HsvColor.Equals*"></a>
+
+  <h3 id="BlazOrbit_Components_HsvColor_Equals_BlazOrbit_Components_HsvColor_" data-uid="BlazOrbit.Components.HsvColor.Equals(BlazOrbit.Components.HsvColor)">
+  Equals(HsvColor)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/HsvColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equals(HsvColor other)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>other</code> <a class="xref" href="BlazOrbit.Components.HsvColor.html">HsvColor</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_HsvColor_Equals_" data-uid="BlazOrbit.Components.HsvColor.Equals*"></a>
+
+  <h3 id="BlazOrbit_Components_HsvColor_Equals_System_Object_" data-uid="BlazOrbit.Components.HsvColor.Equals(System.Object)">
+  Equals(object?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/HsvColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object? obj)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>obj</code> <span class="xref">object</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_HsvColor_FromCssColor_" data-uid="BlazOrbit.Components.HsvColor.FromCssColor*"></a>
+
+  <h3 id="BlazOrbit_Components_HsvColor_FromCssColor_BlazOrbit_Components_CssColor_" data-uid="BlazOrbit.Components.HsvColor.FromCssColor(BlazOrbit.Components.CssColor)">
+  FromCssColor(CssColor)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/HsvColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static HsvColor FromCssColor(CssColor color)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>color</code> <a class="xref" href="BlazOrbit.Components.CssColor.html">CssColor</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.HsvColor.html">HsvColor</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_HsvColor_GetHashCode_" data-uid="BlazOrbit.Components.HsvColor.GetHashCode*"></a>
+
+  <h3 id="BlazOrbit_Components_HsvColor_GetHashCode" data-uid="BlazOrbit.Components.HsvColor.GetHashCode">
+  GetHashCode()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/HsvColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_HsvColor_ToCssColor_" data-uid="BlazOrbit.Components.HsvColor.ToCssColor*"></a>
+
+  <h3 id="BlazOrbit_Components_HsvColor_ToCssColor_System_Byte_" data-uid="BlazOrbit.Components.HsvColor.ToCssColor(System.Byte)">
+  ToCssColor(byte)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/HsvColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CssColor ToCssColor(byte alpha = 255)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>alpha</code> <span class="xref">byte</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.CssColor.html">CssColor</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_HsvColor_WithHue_" data-uid="BlazOrbit.Components.HsvColor.WithHue*"></a>
+
+  <h3 id="BlazOrbit_Components_HsvColor_WithHue_System_Int32_" data-uid="BlazOrbit.Components.HsvColor.WithHue(System.Int32)">
+  WithHue(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/HsvColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HsvColor WithHue(int hue)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>hue</code> <span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.HsvColor.html">HsvColor</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_HsvColor_WithSaturation_" data-uid="BlazOrbit.Components.HsvColor.WithSaturation*"></a>
+
+  <h3 id="BlazOrbit_Components_HsvColor_WithSaturation_System_Double_" data-uid="BlazOrbit.Components.HsvColor.WithSaturation(System.Double)">
+  WithSaturation(double)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/HsvColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HsvColor WithSaturation(double saturation)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>saturation</code> <span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.HsvColor.html">HsvColor</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_HsvColor_WithValue_" data-uid="BlazOrbit.Components.HsvColor.WithValue*"></a>
+
+  <h3 id="BlazOrbit_Components_HsvColor_WithValue_System_Double_" data-uid="BlazOrbit.Components.HsvColor.WithValue(System.Double)">
+  WithValue(double)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/HsvColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public HsvColor WithValue(double value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.HsvColor.html">HsvColor</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="operators">Operators
+</h2>
+
+
+  <a id="BlazOrbit_Components_HsvColor_op_Equality_" data-uid="BlazOrbit.Components.HsvColor.op_Equality*"></a>
+
+  <h3 id="BlazOrbit_Components_HsvColor_op_Equality_BlazOrbit_Components_HsvColor_BlazOrbit_Components_HsvColor_" data-uid="BlazOrbit.Components.HsvColor.op_Equality(BlazOrbit.Components.HsvColor,BlazOrbit.Components.HsvColor)">
+  operator ==(HsvColor, HsvColor)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/HsvColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator ==(HsvColor left, HsvColor right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <a class="xref" href="BlazOrbit.Components.HsvColor.html">HsvColor</a></dt>
+    <dd></dd>
+    <dt><code>right</code> <a class="xref" href="BlazOrbit.Components.HsvColor.html">HsvColor</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_HsvColor_op_Inequality_" data-uid="BlazOrbit.Components.HsvColor.op_Inequality*"></a>
+
+  <h3 id="BlazOrbit_Components_HsvColor_op_Inequality_BlazOrbit_Components_HsvColor_BlazOrbit_Components_HsvColor_" data-uid="BlazOrbit.Components.HsvColor.op_Inequality(BlazOrbit.Components.HsvColor,BlazOrbit.Components.HsvColor)">
+  operator !=(HsvColor, HsvColor)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/HsvColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator !=(HsvColor left, HsvColor right)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>left</code> <a class="xref" href="BlazOrbit.Components.HsvColor.html">HsvColor</a></dt>
+    <dd></dd>
+    <dt><code>right</code> <a class="xref" href="BlazOrbit.Components.HsvColor.html">HsvColor</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/HsvColor.cs" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

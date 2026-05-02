@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class BOBThemeSelector | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class BOBThemeSelector | BlazOrbit API ">
+      
+      
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Components.Layout.BOBThemeSelector">
+
+
+
+  <h1 id="BlazOrbit_Components_Layout_BOBThemeSelector" data-uid="BlazOrbit.Components.Layout.BOBThemeSelector" class="text-break">
+Class BOBThemeSelector  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/ThemeSelector/BOBThemeSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Components.html">Components</a>.<a class="xref" href="BlazOrbit.Components.Layout.html">Layout</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[GenerateComponentInfo]
+public class BOBThemeSelector : BOBVariantComponentBase&lt;BOBThemeSelector, BOBThemeSelectorVariant&gt;, IVariantComponent&lt;BOBThemeSelectorVariant&gt;, IVariantComponent</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">ComponentBase</span></div>
+      <div><a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html">BOBComponentBase</a></div>
+      <div><a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBVariantComponentBase.cs">BOBVariantComponentBase</a>&lt;<a class="xref" href="BlazOrbit.Components.Layout.BOBThemeSelector.html">BOBThemeSelector</a>, <a class="xref" href="BlazOrbit.Components.Layout.BOBThemeSelectorVariant.html">BOBThemeSelectorVariant</a>&gt;</div>
+      <div><span class="xref">BOBThemeSelector</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/Variants/IVariantComponent.cs">IVariantComponent</a>&lt;<a class="xref" href="BlazOrbit.Components.Layout.BOBThemeSelectorVariant.html">BOBThemeSelectorVariant</a>&gt;</div>
+      <div><a class="xref" href="BlazOrbit.Components.IVariantComponent.html">IVariantComponent</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_BuildRenderTree_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder_">BOBVariantComponentBase&lt;BOBThemeSelector, BOBThemeSelectorVariant&gt;.BuildRenderTree(RenderTreeBuilder)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_OnParametersSet">BOBVariantComponentBase&lt;BOBThemeSelector, BOBThemeSelectorVariant&gt;.OnParametersSet()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_CurrentVariant">BOBVariantComponentBase&lt;BOBThemeSelector, BOBThemeSelectorVariant&gt;.CurrentVariant</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_DefaultVariant">BOBVariantComponentBase&lt;BOBThemeSelector, BOBThemeSelectorVariant&gt;.DefaultVariant</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_Variant">BOBVariantComponentBase&lt;BOBThemeSelector, BOBThemeSelectorVariant&gt;.Variant</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_BuiltInTemplates">BOBVariantComponentBase&lt;BOBThemeSelector, BOBThemeSelectorVariant&gt;.BuiltInTemplates</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_BuildComponentCssVariables_System_Collections_Generic_Dictionary_System_String_System_String__">BOBComponentBase.BuildComponentCssVariables(Dictionary&lt;string, string&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_BuildComponentDataAttributes_System_Collections_Generic_Dictionary_System_String_System_Object__">BOBComponentBase.BuildComponentDataAttributes(Dictionary&lt;string, object&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_OnInitialized">BOBComponentBase.OnInitialized()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_OnParametersSet">BOBComponentBase.OnParametersSet()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_DisposeAsync">BOBComponentBase.DisposeAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_AdditionalAttributes">BOBComponentBase.AdditionalAttributes</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_ComputedAttributes">BOBComponentBase.ComputedAttributes</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_IsDisposed">BOBComponentBase.IsDisposed</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="BlazOrbit_Components_Layout_BOBThemeSelector__ctor_" data-uid="BlazOrbit.Components.Layout.BOBThemeSelector.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBThemeSelector__ctor" data-uid="BlazOrbit.Components.Layout.BOBThemeSelector.#ctor">
+  BOBThemeSelector()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/ThemeSelector/BOBThemeSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BOBThemeSelector()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="BlazOrbit_Components_Layout_BOBThemeSelector_AvailableThemes_" data-uid="BlazOrbit.Components.Layout.BOBThemeSelector.AvailableThemes*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBThemeSelector_AvailableThemes" data-uid="BlazOrbit.Components.Layout.BOBThemeSelector.AvailableThemes">
+  AvailableThemes
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/ThemeSelector/BOBThemeSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>AvailableThemes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string[] AvailableThemes { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBThemeSelector_BuiltInTemplates_" data-uid="BlazOrbit.Components.Layout.BOBThemeSelector.BuiltInTemplates*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBThemeSelector_BuiltInTemplates" data-uid="BlazOrbit.Components.Layout.BOBThemeSelector.BuiltInTemplates">
+  BuiltInTemplates
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/ThemeSelector/BOBThemeSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override Dictionary&lt;BOBThemeSelectorVariant, Func&lt;BOBThemeSelector, RenderFragment&gt;&gt; BuiltInTemplates { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Dictionary</span>&lt;<a class="xref" href="BlazOrbit.Components.Layout.BOBThemeSelectorVariant.html">BOBThemeSelectorVariant</a>, <span class="xref">Func</span>&lt;<a class="xref" href="BlazOrbit.Components.Layout.BOBThemeSelector.html">BOBThemeSelector</a>, <span class="xref">RenderFragment</span>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBThemeSelector_DefaultVariant_" data-uid="BlazOrbit.Components.Layout.BOBThemeSelector.DefaultVariant*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBThemeSelector_DefaultVariant" data-uid="BlazOrbit.Components.Layout.BOBThemeSelector.DefaultVariant">
+  DefaultVariant
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/ThemeSelector/BOBThemeSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Default variant used when no explicit variant is specified.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override BOBThemeSelectorVariant DefaultVariant { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.Layout.BOBThemeSelectorVariant.html">BOBThemeSelectorVariant</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBThemeSelector_OnThemeChanged_" data-uid="BlazOrbit.Components.Layout.BOBThemeSelector.OnThemeChanged*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBThemeSelector_OnThemeChanged" data-uid="BlazOrbit.Components.Layout.BOBThemeSelector.OnThemeChanged">
+  OnThemeChanged
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/ThemeSelector/BOBThemeSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when the ThemeChanged event occurs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public EventCallback&lt;string&gt; OnThemeChanged { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">EventCallback</span>&lt;<span class="xref">string</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBThemeSelector_ShowIcon_" data-uid="BlazOrbit.Components.Layout.BOBThemeSelector.ShowIcon*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBThemeSelector_ShowIcon" data-uid="BlazOrbit.Components.Layout.BOBThemeSelector.ShowIcon">
+  ShowIcon
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/ThemeSelector/BOBThemeSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Material icon name for the Show.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool ShowIcon { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBThemeSelector_ThemeIcons_" data-uid="BlazOrbit.Components.Layout.BOBThemeSelector.ThemeIcons*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBThemeSelector_ThemeIcons" data-uid="BlazOrbit.Components.Layout.BOBThemeSelector.ThemeIcons">
+  ThemeIcons
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/ThemeSelector/BOBThemeSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Override map of theme name → Material icon. Falls back to a built-in default when <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public Dictionary&lt;string, string&gt;? ThemeIcons { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Dictionary</span>&lt;<span class="xref">string</span>, <span class="xref">string</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="BlazOrbit_Components_Layout_BOBThemeSelector_BuildRenderTree_" data-uid="BlazOrbit.Components.Layout.BOBThemeSelector.BuildRenderTree*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBThemeSelector_BuildRenderTree_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder_" data-uid="BlazOrbit.Components.Layout.BOBThemeSelector.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+  BuildRenderTree(RenderTreeBuilder)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/ThemeSelector/BOBThemeSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Renders the component to the supplied <span class="xref">Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void BuildRenderTree(RenderTreeBuilder __builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>__builder</code> <span class="xref">RenderTreeBuilder</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBThemeSelector_OnAfterRenderAsync_" data-uid="BlazOrbit.Components.Layout.BOBThemeSelector.OnAfterRenderAsync*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBThemeSelector_OnAfterRenderAsync_System_Boolean_" data-uid="BlazOrbit.Components.Layout.BOBThemeSelector.OnAfterRenderAsync(System.Boolean)">
+  OnAfterRenderAsync(bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/ThemeSelector/BOBThemeSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Method invoked after each time the component has been rendered interactively and the UI has finished
+updating (for example, after elements have been added to the browser DOM). Any <span class="xref">Microsoft.AspNetCore.Components.ElementReference</span>
+fields will be populated by the time this runs.</p>
+<p>This method is not invoked during prerendering or server-side rendering, because those processes
+are not attached to any live browser DOM and are already complete before the DOM is updated.</p>
+<p>Note that the component does not automatically re-render after the completion of any returned <span class="xref">System.Threading.Tasks.Task</span>,
+because that would cause an infinite render loop.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override Task OnAfterRenderAsync(bool firstRender)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>firstRender</code> <span class="xref">bool</span></dt>
+    <dd><p>Set to <code>true</code> if this is the first time <span class="xref">Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender(bool)</span> has been invoked
+on this component instance; otherwise <code>false</code>.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd><p>A <span class="xref">System.Threading.Tasks.Task</span> representing any asynchronous operation.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="BlazOrbit_Components_Layout_BOBThemeSelector_OnAfterRenderAsync_System_Boolean__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>The <span class="xref">Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender(bool)</span> and <span class="xref">Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(bool)</span> lifecycle methods
+are useful for performing interop, or interacting with values received from <code>@ref</code>.
+Use the <code class="paramref">firstRender</code> parameter to ensure that initialization work is only performed
+once.</p>
+</div>
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/ThemeSelector/BOBThemeSelector.razor" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class TreeNodeBase&lt;TItem, TSelf&gt; | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class TreeNodeBase&lt;TItem, TSelf&gt; | BlazOrbit API ">
+      
+      <meta name="description" content="Base class for concrete tree-node records that carry a payload of TItem.">
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Components.TreeNodeBase`2">
+
+
+
+  <h1 id="BlazOrbit_Components_TreeNodeBase_2" data-uid="BlazOrbit.Components.TreeNodeBase`2" class="text-break">
+Class TreeNodeBase&lt;TItem, TSelf&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/Abstractions/TreeNodeBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Components.html">Components</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Base class for concrete tree-node records that carry a payload of <code class="typeparamref">TItem</code>.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class TreeNodeBase&lt;TItem, TSelf&gt; : ITreeNode&lt;TItem&gt;, ITreeNode where TSelf : TreeNodeBase&lt;TItem, TSelf&gt;</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TItem</code></dt>
+    <dd></dd>
+    <dt><code>TSelf</code></dt>
+    <dd></dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">TreeNodeBase&lt;TItem, TSelf&gt;</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="BlazOrbit.Components.ITreeNode-1.html">ITreeNode</a>&lt;TItem&gt;</div>
+      <div><a class="xref" href="BlazOrbit.Components.ITreeNode.html">ITreeNode</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="BlazOrbit.Components.TreeMenuNode-1.html">TreeMenuNode&lt;TItem&gt;</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.TreeSelectionNode-1.html">TreeSelectionNode&lt;TItem&gt;</a></div>
+    </dd>
+  </dl>
+
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="BlazOrbit_Components_TreeNodeBase_2__ctor_" data-uid="BlazOrbit.Components.TreeNodeBase`2.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Components_TreeNodeBase_2__ctor" data-uid="BlazOrbit.Components.TreeNodeBase`2.#ctor">
+  TreeNodeBase()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/Abstractions/TreeNodeBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected TreeNodeBase()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="BlazOrbit_Components_TreeNodeBase_2_AdditionalData_" data-uid="BlazOrbit.Components.TreeNodeBase`2.AdditionalData*"></a>
+
+  <h3 id="BlazOrbit_Components_TreeNodeBase_2_AdditionalData" data-uid="BlazOrbit.Components.TreeNodeBase`2.AdditionalData">
+  AdditionalData
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/Abstractions/TreeNodeBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Optional consumer-supplied data bag attached to the node.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object? AdditionalData { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">object</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TreeNodeBase_2_CustomContent_" data-uid="BlazOrbit.Components.TreeNodeBase`2.CustomContent*"></a>
+
+  <h3 id="BlazOrbit_Components_TreeNodeBase_2_CustomContent" data-uid="BlazOrbit.Components.TreeNodeBase`2.CustomContent">
+  CustomContent
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/Abstractions/TreeNodeBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Custom content rendered in place of the default text + icon.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RenderFragment? CustomContent { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">RenderFragment</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TreeNodeBase_2_Depth_" data-uid="BlazOrbit.Components.TreeNodeBase`2.Depth*"></a>
+
+  <h3 id="BlazOrbit_Components_TreeNodeBase_2_Depth" data-uid="BlazOrbit.Components.TreeNodeBase`2.Depth">
+  Depth
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/Abstractions/TreeNodeBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Distance from the root (root nodes have depth 0).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Depth { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TreeNodeBase_2_HasChildren_" data-uid="BlazOrbit.Components.TreeNodeBase`2.HasChildren*"></a>
+
+  <h3 id="BlazOrbit_Components_TreeNodeBase_2_HasChildren" data-uid="BlazOrbit.Components.TreeNodeBase`2.HasChildren">
+  HasChildren
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/Abstractions/TreeNodeBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> when the node has children, including not-yet-loaded ones.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool HasChildren { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TreeNodeBase_2_Icon_" data-uid="BlazOrbit.Components.TreeNodeBase`2.Icon*"></a>
+
+  <h3 id="BlazOrbit_Components_TreeNodeBase_2_Icon" data-uid="BlazOrbit.Components.TreeNodeBase`2.Icon">
+  Icon
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/Abstractions/TreeNodeBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Optional leading icon for the node.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IconKey? Icon { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Media/Icons/IconKey.cs">IconKey</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TreeNodeBase_2_IsDisabled_" data-uid="BlazOrbit.Components.TreeNodeBase`2.IsDisabled*"></a>
+
+  <h3 id="BlazOrbit_Components_TreeNodeBase_2_IsDisabled" data-uid="BlazOrbit.Components.TreeNodeBase`2.IsDisabled">
+  IsDisabled
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/Abstractions/TreeNodeBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> when the node cannot be selected or expanded.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsDisabled { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TreeNodeBase_2_Item_" data-uid="BlazOrbit.Components.TreeNodeBase`2.Item*"></a>
+
+  <h3 id="BlazOrbit_Components_TreeNodeBase_2_Item" data-uid="BlazOrbit.Components.TreeNodeBase`2.Item">
+  Item
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/Abstractions/TreeNodeBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Payload attached to the node.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TItem? Item { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TItem</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TreeNodeBase_2_Key_" data-uid="BlazOrbit.Components.TreeNodeBase`2.Key*"></a>
+
+  <h3 id="BlazOrbit_Components_TreeNodeBase_2_Key" data-uid="BlazOrbit.Components.TreeNodeBase`2.Key">
+  Key
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/Abstractions/TreeNodeBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Stable identifier within the tree.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public required string Key { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TreeNodeBase_2_ParentNode_" data-uid="BlazOrbit.Components.TreeNodeBase`2.ParentNode*"></a>
+
+  <h3 id="BlazOrbit_Components_TreeNodeBase_2_ParentNode" data-uid="BlazOrbit.Components.TreeNodeBase`2.ParentNode">
+  ParentNode
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/Abstractions/TreeNodeBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Strongly-typed parent node, or <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> for roots.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TSelf? ParentNode { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TSelf</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TreeNodeBase_2_Text_" data-uid="BlazOrbit.Components.TreeNodeBase`2.Text*"></a>
+
+  <h3 id="BlazOrbit_Components_TreeNodeBase_2_Text" data-uid="BlazOrbit.Components.TreeNodeBase`2.Text">
+  Text
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/Abstractions/TreeNodeBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Display text rendered next to the icon.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? Text { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/Tree/Abstractions/TreeNodeBase.cs" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

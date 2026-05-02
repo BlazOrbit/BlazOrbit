@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class BOBCultureSelector | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class BOBCultureSelector | BlazOrbit API ">
+      
+      
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector">
+
+
+
+  <h1 id="BlazOrbit_Localization_Shared_BOBCultureSelector" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector" class="text-break">
+Class BOBCultureSelector  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Localization.Shared/Components/BOBCultureSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Localization.html">Localization</a>.<a class="xref" href="BlazOrbit.Localization.Shared.html">Shared</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.Localization.Shared.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class BOBCultureSelector : BOBVariantComponentBase&lt;BOBCultureSelector, BOBCultureSelectorVariant&gt;, IVariantComponent&lt;BOBCultureSelectorVariant&gt;, IVariantComponent, IHasSize</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">ComponentBase</span></div>
+      <div><a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html">BOBComponentBase</a></div>
+      <div><a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBVariantComponentBase.cs">BOBVariantComponentBase</a>&lt;<a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Localization.Shared/Components/BOBCultureSelector.razor">BOBCultureSelector</a>, <a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Localization.Shared/Components/BOBCultureSelectorVariant.cs">BOBCultureSelectorVariant</a>&gt;</div>
+      <div><span class="xref">BOBCultureSelector</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/Variants/IVariantComponent.cs">IVariantComponent</a>&lt;<a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Localization.Shared/Components/BOBCultureSelectorVariant.cs">BOBCultureSelectorVariant</a>&gt;</div>
+      <div><a class="xref" href="BlazOrbit.Components.IVariantComponent.html">IVariantComponent</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasSize.html">IHasSize</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="BlazOrbit.Components.Server.BOBCultureSelector.html">BOBCultureSelector</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.Wasm.BOBCultureSelector.html">BOBCultureSelector</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_BuildRenderTree_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder_">BOBVariantComponentBase&lt;BOBCultureSelector, BOBCultureSelectorVariant&gt;.BuildRenderTree(RenderTreeBuilder)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_OnParametersSet">BOBVariantComponentBase&lt;BOBCultureSelector, BOBCultureSelectorVariant&gt;.OnParametersSet()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_CurrentVariant">BOBVariantComponentBase&lt;BOBCultureSelector, BOBCultureSelectorVariant&gt;.CurrentVariant</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_DefaultVariant">BOBVariantComponentBase&lt;BOBCultureSelector, BOBCultureSelectorVariant&gt;.DefaultVariant</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_Variant">BOBVariantComponentBase&lt;BOBCultureSelector, BOBCultureSelectorVariant&gt;.Variant</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_BuiltInTemplates">BOBVariantComponentBase&lt;BOBCultureSelector, BOBCultureSelectorVariant&gt;.BuiltInTemplates</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_BuildComponentCssVariables_System_Collections_Generic_Dictionary_System_String_System_String__">BOBComponentBase.BuildComponentCssVariables(Dictionary&lt;string, string&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_BuildComponentDataAttributes_System_Collections_Generic_Dictionary_System_String_System_Object__">BOBComponentBase.BuildComponentDataAttributes(Dictionary&lt;string, object&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_OnInitialized">BOBComponentBase.OnInitialized()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_OnParametersSet">BOBComponentBase.OnParametersSet()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_OnAfterRenderAsync_System_Boolean_">BOBComponentBase.OnAfterRenderAsync(bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_DisposeAsync">BOBComponentBase.DisposeAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_AdditionalAttributes">BOBComponentBase.AdditionalAttributes</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_ComputedAttributes">BOBComponentBase.ComputedAttributes</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_IsDisposed">BOBComponentBase.IsDisposed</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="BlazOrbit_Localization_Shared_BOBCultureSelector__ctor_" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Localization_Shared_BOBCultureSelector__ctor" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.#ctor">
+  BOBCultureSelector()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Localization.Shared/Components/BOBCultureSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BOBCultureSelector()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="BlazOrbit_Localization_Shared_BOBCultureSelector__currentCulture" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector._currentCulture">
+  _currentCulture
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Localization.Shared/Components/BOBCultureSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected CultureInfo _currentCulture</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">CultureInfo</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="BlazOrbit_Localization_Shared_BOBCultureSelector_BuiltInTemplates_" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.BuiltInTemplates*"></a>
+
+  <h3 id="BlazOrbit_Localization_Shared_BOBCultureSelector_BuiltInTemplates" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.BuiltInTemplates">
+  BuiltInTemplates
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Localization.Shared/Components/BOBCultureSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override IReadOnlyDictionary&lt;BOBCultureSelectorVariant, Func&lt;BOBCultureSelector, RenderFragment&gt;&gt; BuiltInTemplates { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IReadOnlyDictionary</span>&lt;<a class="xref" href="BlazOrbit.Localization.Shared.BOBCultureSelectorVariant.html">BOBCultureSelectorVariant</a>, <span class="xref">Func</span>&lt;<a class="xref" href="BlazOrbit.Localization.Shared.BOBCultureSelector.html">BOBCultureSelector</a>, <span class="xref">RenderFragment</span>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Localization_Shared_BOBCultureSelector_DefaultVariant_" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.DefaultVariant*"></a>
+
+  <h3 id="BlazOrbit_Localization_Shared_BOBCultureSelector_DefaultVariant" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.DefaultVariant">
+  DefaultVariant
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Localization.Shared/Components/BOBCultureSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Default variant used when no explicit variant is specified.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override BOBCultureSelectorVariant DefaultVariant { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Localization.Shared.BOBCultureSelectorVariant.html">BOBCultureSelectorVariant</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Localization_Shared_BOBCultureSelector_FlagResolver_" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.FlagResolver*"></a>
+
+  <h3 id="BlazOrbit_Localization_Shared_BOBCultureSelector_FlagResolver" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.FlagResolver">
+  FlagResolver
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Localization.Shared/Components/BOBCultureSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Optional override for the flag emoji/glyph shown next to each culture.
+Receives the <span class="xref">System.Globalization.CultureInfo</span> and returns the rendered string;
+when <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>, falls back to <a class="xref" href="BlazOrbit.Localization.CultureFlags.html#BlazOrbit_Localization_CultureFlags_GetFlag_System_Globalization_CultureInfo_">GetFlag(CultureInfo)</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public Func&lt;CultureInfo, string&gt;? FlagResolver { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Func</span>&lt;<span class="xref">CultureInfo</span>, <span class="xref">string</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Localization_Shared_BOBCultureSelector_ForceReload_" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.ForceReload*"></a>
+
+  <h3 id="BlazOrbit_Localization_Shared_BOBCultureSelector_ForceReload" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.ForceReload">
+  ForceReload
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Localization.Shared/Components/BOBCultureSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, switching culture triggers a full-page reload
+(<code>Navigation.NavigateTo(forceLoad: true)</code>). When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>
+(default), the current thread's <span class="xref">System.Globalization.CultureInfo</span> is updated in-place
+and the consumer receives the <a class="xref" href="BlazOrbit.Localization.Shared.BOBCultureSelector.html#BlazOrbit_Localization_Shared_BOBCultureSelector_OnCultureChanged">OnCultureChanged</a> event without
+losing form state, modals, or scroll position.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public virtual bool ForceReload { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+  <h4 class="section" id="BlazOrbit_Localization_Shared_BOBCultureSelector_ForceReload_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>In-place switching only re-renders components that read <code>CultureInfo.CurrentUICulture</code>
+during their next render — it does not retroactively re-format already-rendered DOM.
+Set this to <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if your app caches culture-dependent values eagerly.</p>
+</div>
+
+
+
+
+  <a id="BlazOrbit_Localization_Shared_BOBCultureSelector_Localizer_" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.Localizer*"></a>
+
+  <h3 id="BlazOrbit_Localization_Shared_BOBCultureSelector_Localizer" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.Localizer">
+  Localizer
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Localization.Shared/Components/BOBCultureSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Inject]
+protected IStringLocalizer&lt;BOBCultureSelectorResources&gt; Localizer { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IStringLocalizer</span>&lt;<a class="xref" href="BlazOrbit.Localization.Shared.BOBCultureSelectorResources.html">BOBCultureSelectorResources</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Localization_Shared_BOBCultureSelector_OnCultureChanged_" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.OnCultureChanged*"></a>
+
+  <h3 id="BlazOrbit_Localization_Shared_BOBCultureSelector_OnCultureChanged" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.OnCultureChanged">
+  OnCultureChanged
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Localization.Shared/Components/BOBCultureSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised after the active culture has changed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public EventCallback&lt;CultureInfo&gt; OnCultureChanged { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">EventCallback</span>&lt;<span class="xref">CultureInfo</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Localization_Shared_BOBCultureSelector_Settings_" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.Settings*"></a>
+
+  <h3 id="BlazOrbit_Localization_Shared_BOBCultureSelector_Settings" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.Settings">
+  Settings
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Localization.Shared/Components/BOBCultureSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Inject]
+protected LocalizationSettings Settings { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Localization.LocalizationSettings.html">LocalizationSettings</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Localization_Shared_BOBCultureSelector_ShowFlag_" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.ShowFlag*"></a>
+
+  <h3 id="BlazOrbit_Localization_Shared_BOBCultureSelector_ShowFlag" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.ShowFlag">
+  ShowFlag
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Localization.Shared/Components/BOBCultureSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the flag glyph is rendered next to each culture entry.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool ShowFlag { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Localization_Shared_BOBCultureSelector_ShowName_" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.ShowName*"></a>
+
+  <h3 id="BlazOrbit_Localization_Shared_BOBCultureSelector_ShowName" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.ShowName">
+  ShowName
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Localization.Shared/Components/BOBCultureSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the human-readable culture name is rendered next to each entry.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool ShowName { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Localization_Shared_BOBCultureSelector_Size_" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.Size*"></a>
+
+  <h3 id="BlazOrbit_Localization_Shared_BOBCultureSelector_Size" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.Size">
+  Size
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Localization.Shared/Components/BOBCultureSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Visual size of the culture selector.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public BOBSize Size { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.BOBSize.html">BOBSize</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="BlazOrbit_Localization_Shared_BOBCultureSelector_BuildRenderTree_" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.BuildRenderTree*"></a>
+
+  <h3 id="BlazOrbit_Localization_Shared_BOBCultureSelector_BuildRenderTree_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder_" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+  BuildRenderTree(RenderTreeBuilder)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Localization.Shared/Components/BOBCultureSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Renders the component to the supplied <span class="xref">Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void BuildRenderTree(RenderTreeBuilder __builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>__builder</code> <span class="xref">RenderTreeBuilder</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Localization_Shared_BOBCultureSelector_GetFlag_" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.GetFlag*"></a>
+
+  <h3 id="BlazOrbit_Localization_Shared_BOBCultureSelector_GetFlag_System_Globalization_CultureInfo_" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.GetFlag(System.Globalization.CultureInfo)">
+  GetFlag(CultureInfo)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Localization.Shared/Components/BOBCultureSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected string GetFlag(CultureInfo culture)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>culture</code> <span class="xref">CultureInfo</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Localization_Shared_BOBCultureSelector_OnDropdownCultureChanged_" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.OnDropdownCultureChanged*"></a>
+
+  <h3 id="BlazOrbit_Localization_Shared_BOBCultureSelector_OnDropdownCultureChanged_System_String_" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.OnDropdownCultureChanged(System.String)">
+  OnDropdownCultureChanged(string?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Localization.Shared/Components/BOBCultureSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual Task OnDropdownCultureChanged(string? cultureName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>cultureName</code> <span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Localization_Shared_BOBCultureSelector_OnInitializedAsync_" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.OnInitializedAsync*"></a>
+
+  <h3 id="BlazOrbit_Localization_Shared_BOBCultureSelector_OnInitializedAsync" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.OnInitializedAsync">
+  OnInitializedAsync()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Localization.Shared/Components/BOBCultureSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Method invoked when the component is ready to start, having received its
+initial parameters from its parent in the render tree.</p>
+<p>Override this method if you will perform an asynchronous operation and
+want the component to refresh when that operation is completed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override Task OnInitializedAsync()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd><p>A <span class="xref">System.Threading.Tasks.Task</span> representing any asynchronous operation.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Localization_Shared_BOBCultureSelector_RenderDropdown_" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.RenderDropdown*"></a>
+
+  <h3 id="BlazOrbit_Localization_Shared_BOBCultureSelector_RenderDropdown" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.RenderDropdown">
+  RenderDropdown()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Localization.Shared/Components/BOBCultureSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual RenderFragment RenderDropdown()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">RenderFragment</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Localization_Shared_BOBCultureSelector_RenderFlags_" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.RenderFlags*"></a>
+
+  <h3 id="BlazOrbit_Localization_Shared_BOBCultureSelector_RenderFlags" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.RenderFlags">
+  RenderFlags()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Localization.Shared/Components/BOBCultureSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual RenderFragment RenderFlags()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">RenderFragment</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Localization_Shared_BOBCultureSelector_SetCultureAsync_" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.SetCultureAsync*"></a>
+
+  <h3 id="BlazOrbit_Localization_Shared_BOBCultureSelector_SetCultureAsync_System_String_" data-uid="BlazOrbit.Localization.Shared.BOBCultureSelector.SetCultureAsync(System.String)">
+  SetCultureAsync(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Localization.Shared/Components/BOBCultureSelector.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual Task SetCultureAsync(string cultureName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>cultureName</code> <span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Localization.Shared/Components/BOBCultureSelector.razor" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

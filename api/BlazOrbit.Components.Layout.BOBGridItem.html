@@ -1,0 +1,1802 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class BOBGridItem | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class BOBGridItem | BlazOrbit API ">
+      
+      
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Components.Layout.BOBGridItem">
+
+
+
+  <h1 id="BlazOrbit_Components_Layout_BOBGridItem" data-uid="BlazOrbit.Components.Layout.BOBGridItem" class="text-break">
+Class BOBGridItem  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Components.html">Components</a>.<a class="xref" href="BlazOrbit.Components.Layout.html">Layout</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[GenerateComponentInfo]
+public class BOBGridItem : BOBComponentBase</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">ComponentBase</span></div>
+      <div><a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html">BOBComponentBase</a></div>
+      <div><span class="xref">BOBGridItem</span></div>
+    </dd>
+  </dl>
+
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_OnInitialized">BOBComponentBase.OnInitialized()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_OnParametersSet">BOBComponentBase.OnParametersSet()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_OnAfterRenderAsync_System_Boolean_">BOBComponentBase.OnAfterRenderAsync(bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_DisposeAsync">BOBComponentBase.DisposeAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_AdditionalAttributes">BOBComponentBase.AdditionalAttributes</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_ComputedAttributes">BOBComponentBase.ComputedAttributes</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_IsDisposed">BOBComponentBase.IsDisposed</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem__ctor_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem__ctor" data-uid="BlazOrbit.Components.Layout.BOBGridItem.#ctor">
+  BOBGridItem()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BOBGridItem()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_AlignSelf_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.AlignSelf*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_AlignSelf" data-uid="BlazOrbit.Components.Layout.BOBGridItem.AlignSelf">
+  AlignSelf
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>AlignSelf.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public GridAlignSelf? AlignSelf { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.Layout.GridAlignSelf.html">GridAlignSelf</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_Auto_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Auto*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_Auto" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Auto">
+  Auto
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Auto.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool Auto { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_ChildContent_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.ChildContent*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_ChildContent" data-uid="BlazOrbit.Components.Layout.BOBGridItem.ChildContent">
+  ChildContent
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Content rendered inside the component.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public RenderFragment? ChildContent { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">RenderFragment</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_HideLg_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.HideLg*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_HideLg" data-uid="BlazOrbit.Components.Layout.BOBGridItem.HideLg">
+  HideLg
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the Lg is hidden.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool HideLg { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_HideMd_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.HideMd*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_HideMd" data-uid="BlazOrbit.Components.Layout.BOBGridItem.HideMd">
+  HideMd
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the Md is hidden.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool HideMd { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_HideSm_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.HideSm*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_HideSm" data-uid="BlazOrbit.Components.Layout.BOBGridItem.HideSm">
+  HideSm
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the Sm is hidden.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool HideSm { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_HideXl_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.HideXl*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_HideXl" data-uid="BlazOrbit.Components.Layout.BOBGridItem.HideXl">
+  HideXl
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the Xl is hidden.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool HideXl { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_HideXs_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.HideXs*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_HideXs" data-uid="BlazOrbit.Components.Layout.BOBGridItem.HideXs">
+  HideXs
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the Xs is hidden.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool HideXs { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_Lg_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Lg*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_Lg" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Lg">
+  Lg
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Lg.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int? Lg { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_M_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.M*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_M" data-uid="BlazOrbit.Components.Layout.BOBGridItem.M">
+  M
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>M.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? M { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_Mb_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Mb*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_Mb" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Mb">
+  Mb
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Mb.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Mb { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_Md_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Md*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_Md" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Md">
+  Md
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Md.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int? Md { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_Ml_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Ml*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_Ml" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Ml">
+  Ml
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Ml.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Ml { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_Mr_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Mr*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_Mr" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Mr">
+  Mr
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Mr.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Mr { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_Mt_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Mt*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_Mt" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Mt">
+  Mt
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Mt.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Mt { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_Mx_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Mx*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_Mx" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Mx">
+  Mx
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Mx.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Mx { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_My_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.My*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_My" data-uid="BlazOrbit.Components.Layout.BOBGridItem.My">
+  My
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>My.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? My { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_Offset_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Offset*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_Offset" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Offset">
+  Offset
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Offset.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int? Offset { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_OffsetLg_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.OffsetLg*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_OffsetLg" data-uid="BlazOrbit.Components.Layout.BOBGridItem.OffsetLg">
+  OffsetLg
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>OffsetLg.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int? OffsetLg { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_OffsetMd_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.OffsetMd*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_OffsetMd" data-uid="BlazOrbit.Components.Layout.BOBGridItem.OffsetMd">
+  OffsetMd
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>OffsetMd.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int? OffsetMd { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_OffsetSm_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.OffsetSm*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_OffsetSm" data-uid="BlazOrbit.Components.Layout.BOBGridItem.OffsetSm">
+  OffsetSm
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>OffsetSm.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int? OffsetSm { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_OffsetXl_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.OffsetXl*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_OffsetXl" data-uid="BlazOrbit.Components.Layout.BOBGridItem.OffsetXl">
+  OffsetXl
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>OffsetXl.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int? OffsetXl { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_OffsetXs_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.OffsetXs*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_OffsetXs" data-uid="BlazOrbit.Components.Layout.BOBGridItem.OffsetXs">
+  OffsetXs
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>OffsetXs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int? OffsetXs { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_Order_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Order*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_Order" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Order">
+  Order
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Order.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int? Order { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_OrderLg_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.OrderLg*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_OrderLg" data-uid="BlazOrbit.Components.Layout.BOBGridItem.OrderLg">
+  OrderLg
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>OrderLg.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int? OrderLg { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_OrderMd_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.OrderMd*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_OrderMd" data-uid="BlazOrbit.Components.Layout.BOBGridItem.OrderMd">
+  OrderMd
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>OrderMd.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int? OrderMd { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_OrderSm_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.OrderSm*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_OrderSm" data-uid="BlazOrbit.Components.Layout.BOBGridItem.OrderSm">
+  OrderSm
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>OrderSm.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int? OrderSm { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_OrderXl_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.OrderXl*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_OrderXl" data-uid="BlazOrbit.Components.Layout.BOBGridItem.OrderXl">
+  OrderXl
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>OrderXl.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int? OrderXl { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_OrderXs_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.OrderXs*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_OrderXs" data-uid="BlazOrbit.Components.Layout.BOBGridItem.OrderXs">
+  OrderXs
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>OrderXs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int? OrderXs { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_P_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.P*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_P" data-uid="BlazOrbit.Components.Layout.BOBGridItem.P">
+  P
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>P.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? P { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_Pb_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Pb*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_Pb" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Pb">
+  Pb
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Pb.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Pb { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_Pl_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Pl*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_Pl" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Pl">
+  Pl
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Pl.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Pl { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_Pr_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Pr*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_Pr" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Pr">
+  Pr
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Pr.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Pr { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_Pt_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Pt*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_Pt" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Pt">
+  Pt
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Pt.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Pt { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_Px_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Px*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_Px" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Px">
+  Px
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Px.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Px { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_Py_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Py*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_Py" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Py">
+  Py
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Py.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Py { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_ShowLg_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.ShowLg*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_ShowLg" data-uid="BlazOrbit.Components.Layout.BOBGridItem.ShowLg">
+  ShowLg
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the Lg is shown.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool ShowLg { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_ShowMd_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.ShowMd*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_ShowMd" data-uid="BlazOrbit.Components.Layout.BOBGridItem.ShowMd">
+  ShowMd
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the Md is shown.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool ShowMd { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_ShowSm_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.ShowSm*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_ShowSm" data-uid="BlazOrbit.Components.Layout.BOBGridItem.ShowSm">
+  ShowSm
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the Sm is shown.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool ShowSm { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_ShowXl_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.ShowXl*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_ShowXl" data-uid="BlazOrbit.Components.Layout.BOBGridItem.ShowXl">
+  ShowXl
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the Xl is shown.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool ShowXl { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_ShowXs_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.ShowXs*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_ShowXs" data-uid="BlazOrbit.Components.Layout.BOBGridItem.ShowXs">
+  ShowXs
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the Xs is shown.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool ShowXs { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_Sm_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Sm*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_Sm" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Sm">
+  Sm
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sm.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int? Sm { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_Span_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Span*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_Span" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Span">
+  Span
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Span.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int? Span { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_Xl_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Xl*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_Xl" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Xl">
+  Xl
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Xl.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int? Xl { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_Xs_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Xs*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_Xs" data-uid="BlazOrbit.Components.Layout.BOBGridItem.Xs">
+  Xs
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Xs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int? Xs { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_BuildComponentCssVariables_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.BuildComponentCssVariables*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_BuildComponentCssVariables_System_Collections_Generic_Dictionary_System_String_System_String__" data-uid="BlazOrbit.Components.Layout.BOBGridItem.BuildComponentCssVariables(System.Collections.Generic.Dictionary{System.String,System.String})">
+  BuildComponentCssVariables(Dictionary&lt;string, string&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Override this method in derived components to add custom CSS variables. These will be merged
+with the standard behavior CSS variables. This method is called from
+BOBComponentAttributesBuilder during the style building process.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void BuildComponentCssVariables(Dictionary&lt;string, string&gt; cssVariables)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>cssVariables</code> <span class="xref">Dictionary</span>&lt;<span class="xref">string</span>, <span class="xref">string</span>&gt;</dt>
+    <dd><p>Dictionary to add CSS variables to</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_BuildComponentDataAttributes_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.BuildComponentDataAttributes*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_BuildComponentDataAttributes_System_Collections_Generic_Dictionary_System_String_System_Object__" data-uid="BlazOrbit.Components.Layout.BOBGridItem.BuildComponentDataAttributes(System.Collections.Generic.Dictionary{System.String,System.Object})">
+  BuildComponentDataAttributes(Dictionary&lt;string, object&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Override this method to add component-specific data attributes. Called during attribute
+building process.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void BuildComponentDataAttributes(Dictionary&lt;string, object&gt; dataAttributes)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>dataAttributes</code> <span class="xref">Dictionary</span>&lt;<span class="xref">string</span>, <span class="xref">object</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Layout_BOBGridItem_BuildRenderTree_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.BuildRenderTree*"></a>
+
+  <h3 id="BlazOrbit_Components_Layout_BOBGridItem_BuildRenderTree_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder_" data-uid="BlazOrbit.Components.Layout.BOBGridItem.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+  BuildRenderTree(RenderTreeBuilder)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Renders the component to the supplied <span class="xref">Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void BuildRenderTree(RenderTreeBuilder __builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>__builder</code> <span class="xref">RenderTreeBuilder</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Layout/Grid/BOBGridItem.razor" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

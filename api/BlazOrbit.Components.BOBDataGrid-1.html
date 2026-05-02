@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class BOBDataGrid&lt;TItem&gt; | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class BOBDataGrid&lt;TItem&gt; | BlazOrbit API ">
+      
+      
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Components.BOBDataGrid`1">
+
+
+
+  <h1 id="BlazOrbit_Components_BOBDataGrid_1" data-uid="BlazOrbit.Components.BOBDataGrid`1" class="text-break">
+Class BOBDataGrid&lt;TItem&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/DataCollections/DataGrid/BOBDataGrid.razor"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Components.html">Components</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[GenerateComponentInfo]
+public class BOBDataGrid&lt;TItem&gt; : BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;, IVariantComponent&lt;DataGridVariant&gt;, IVariantComponent, IHasDensity, IHasSize, IHasShadow, IHasBorder, IHasBackgroundColor, IDataCollectionFamilyComponent</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TItem</code></dt>
+    <dd></dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">ComponentBase</span></div>
+      <div><a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html">BOBComponentBase</a></div>
+      <div><a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBVariantComponentBase.cs">BOBVariantComponentBase</a>&lt;<a class="xref" href="BlazOrbit.Components.BOBDataGrid-1.html">BOBDataGrid</a>&lt;TItem&gt;, <a class="xref" href="BlazOrbit.Components.DataGridVariant.html">DataGridVariant</a>&gt;</div>
+      <div><a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html">BOBDataCollectionBase</a>&lt;TItem, <a class="xref" href="BlazOrbit.Components.BOBDataGrid-1.html">BOBDataGrid</a>&lt;TItem&gt;, <a class="xref" href="BlazOrbit.Components.DataGridVariant.html">DataGridVariant</a>&gt;</div>
+      <div><span class="xref">BOBDataGrid&lt;TItem&gt;</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/Variants/IVariantComponent.cs">IVariantComponent</a>&lt;<a class="xref" href="BlazOrbit.Components.DataGridVariant.html">DataGridVariant</a>&gt;</div>
+      <div><a class="xref" href="BlazOrbit.Components.IVariantComponent.html">IVariantComponent</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasDensity.html">IHasDensity</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasSize.html">IHasSize</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasShadow.html">IHasShadow</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasBorder.html">IHasBorder</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasBackgroundColor.html">IHasBackgroundColor</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IDataCollectionFamilyComponent.html">IDataCollectionFamilyComponent</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_ColumnRegistry">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.ColumnRegistry</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_State">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.State</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_RegisteredColumns">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.RegisteredColumns</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_VisibleColumns">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.VisibleColumns</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_FilteredItems">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.FilteredItems</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_ProcessedItems">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.ProcessedItems</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_ColumnsBuilt">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.ColumnsBuilt</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_PreventRowKeyDown">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.PreventRowKeyDown</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_TotalPages">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.TotalPages</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_PaginationStart">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.PaginationStart</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_PaginationEnd">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.PaginationEnd</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_LiveRegionMessage">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.LiveRegionMessage</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_BuildComponentDataAttributes_System_Collections_Generic_Dictionary_System_String_System_Object__">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.BuildComponentDataAttributes(Dictionary&lt;string, object&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_BuildComponentCssVariables_System_Collections_Generic_Dictionary_System_String_System_String__">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.BuildComponentCssVariables(Dictionary&lt;string, string&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_OnInitialized">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.OnInitialized()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_OnParametersSet">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.OnParametersSet()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_OnAfterRender_System_Boolean_">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.OnAfterRender(bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_ProcessData">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.ProcessData()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_UpdateLiveRegionMessage">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.UpdateLiveRegionMessage()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_ApplyFilter_System_Collections_Generic_IEnumerable__0__">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.ApplyFilter(IEnumerable&lt;TItem&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_ApplySort_System_Collections_Generic_IEnumerable__0__">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.ApplySort(IEnumerable&lt;TItem&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_ApplyPagination_System_Collections_Generic_IEnumerable__0__">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.ApplyPagination(IEnumerable&lt;TItem&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_CalculatePaginationInfo">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.CalculatePaginationInfo()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_HandleSort_BlazOrbit_Components_DataColumnRegistration__0__">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.HandleSort(DataColumnRegistration&lt;TItem&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_HandleSortSelectChange_System_String_">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.HandleSortSelectChange(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_ToggleSortDirectionClicked_Microsoft_AspNetCore_Components_Web_MouseEventArgs_">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.ToggleSortDirectionClicked(MouseEventArgs)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_HandleFilterChange_Microsoft_AspNetCore_Components_ChangeEventArgs_">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.HandleFilterChange(ChangeEventArgs)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_HandleFilterInputChange_System_String_">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.HandleFilterInputChange(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_ClearFilterClicked_Microsoft_AspNetCore_Components_Web_MouseEventArgs_">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.ClearFilterClicked(MouseEventArgs)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_ClearFilter">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.ClearFilter()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_HandlePageSizeSelectChange_System_String_">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.HandlePageSizeSelectChange(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_HandleSelectRow__0_">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.HandleSelectRow(TItem)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_HandleSelectAll_Microsoft_AspNetCore_Components_ChangeEventArgs_">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.HandleSelectAll(ChangeEventArgs)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_ClearSelectionClicked_Microsoft_AspNetCore_Components_Web_MouseEventArgs_">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.ClearSelectionClicked(MouseEventArgs)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_ClearSelection">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.ClearSelection()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_IsAllSelected">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.IsAllSelected()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_NotifySelectionChanged">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.NotifySelectionChanged()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_HandleRowClick__0_">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.HandleRowClick(TItem)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_HandleRowKeyDown_Microsoft_AspNetCore_Components_Web_KeyboardEventArgs__0_">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.HandleRowKeyDown(KeyboardEventArgs, TItem)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_ChangePage_System_Int32_">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.ChangePage(int)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_HandlePageSizeChange_Microsoft_AspNetCore_Components_ChangeEventArgs_">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.HandlePageSizeChange(ChangeEventArgs)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_GetItemPatternStyle_System_Int32_">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.GetItemPatternStyle(int)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_GetVisiblePages">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.GetVisiblePages()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_GetAlignClass_BlazOrbit_Components_ColumnAlign_System_String_">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.GetAlignClass(ColumnAlign, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_FormatValue_System_Object_System_String_">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.FormatValue(object, string)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_GetAriaSort_BlazOrbit_Components_DataColumnRegistration__0__">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.GetAriaSort(DataColumnRegistration&lt;TItem&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_SortBy_System_String_BlazOrbit_Components_SortDirection_">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.SortBy(string, SortDirection)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_Filter_System_String_">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.Filter(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_GoToPage_System_Int32_">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.GoToPage(int)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_GetSelectedItems">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.GetSelectedItems()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_Columns">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.Columns</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_Items">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.Items</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_Density">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.Density</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_Size">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.Size</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_Hoverable">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.Hoverable</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_Shadow">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.Shadow</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_SelectionMode">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.SelectionMode</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_SelectedItems">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.SelectedItems</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_SelectedItemsChanged">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.SelectedItemsChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_Sortable">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.Sortable</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_DefaultSortColumn">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.DefaultSortColumn</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_DefaultSortDirection">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.DefaultSortDirection</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_Filterable">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.Filterable</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_FilterPlaceholder">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.FilterPlaceholder</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_CustomFilter">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.CustomFilter</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_PageSize">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.PageSize</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_PageSizeOptions">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.PageSizeOptions</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_ShowPageSizeSelector">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.ShowPageSizeSelector</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_EnableVirtualization">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.EnableVirtualization</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_Height">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.Height</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_EmptyContent">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.EmptyContent</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_LoadingContent">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.LoadingContent</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_Loading">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.Loading</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_Border">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.Border</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_BackgroundColor">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.BackgroundColor</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_ItemPattern">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.ItemPattern</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_OnRowClick">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.OnRowClick</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_OnSort">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.OnSort</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_OnFilter">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.OnFilter</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_OnPageChange">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.OnPageChange</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_IsInteractiveRow">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.IsInteractiveRow</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_UsePerItemPatternStyles">BOBDataCollectionBase&lt;TItem, BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.UsePerItemPatternStyles</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_BuildRenderTree_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder_">BOBVariantComponentBase&lt;BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.BuildRenderTree(RenderTreeBuilder)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_OnParametersSet">BOBVariantComponentBase&lt;BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.OnParametersSet()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_CurrentVariant">BOBVariantComponentBase&lt;BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.CurrentVariant</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_DefaultVariant">BOBVariantComponentBase&lt;BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.DefaultVariant</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_Variant">BOBVariantComponentBase&lt;BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.Variant</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_BuiltInTemplates">BOBVariantComponentBase&lt;BOBDataGrid&lt;TItem&gt;, DataGridVariant&gt;.BuiltInTemplates</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_BuildComponentDataAttributes_System_Collections_Generic_Dictionary_System_String_System_Object__">BOBComponentBase.BuildComponentDataAttributes(Dictionary&lt;string, object&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_OnInitialized">BOBComponentBase.OnInitialized()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_OnParametersSet">BOBComponentBase.OnParametersSet()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_OnAfterRenderAsync_System_Boolean_">BOBComponentBase.OnAfterRenderAsync(bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_DisposeAsync">BOBComponentBase.DisposeAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_AdditionalAttributes">BOBComponentBase.AdditionalAttributes</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_ComputedAttributes">BOBComponentBase.ComputedAttributes</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_IsDisposed">BOBComponentBase.IsDisposed</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="BlazOrbit_Components_BOBDataGrid_1__ctor_" data-uid="BlazOrbit.Components.BOBDataGrid`1.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataGrid_1__ctor" data-uid="BlazOrbit.Components.BOBDataGrid`1.#ctor">
+  BOBDataGrid()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/DataCollections/DataGrid/BOBDataGrid.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BOBDataGrid()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="BlazOrbit_Components_BOBDataGrid_1_BuiltInTemplates_" data-uid="BlazOrbit.Components.BOBDataGrid`1.BuiltInTemplates*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataGrid_1_BuiltInTemplates" data-uid="BlazOrbit.Components.BOBDataGrid`1.BuiltInTemplates">
+  BuiltInTemplates
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/DataCollections/DataGrid/BOBDataGrid.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override IReadOnlyDictionary&lt;DataGridVariant, Func&lt;BOBDataGrid&lt;TItem&gt;, RenderFragment&gt;&gt; BuiltInTemplates { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IReadOnlyDictionary</span>&lt;<a class="xref" href="BlazOrbit.Components.DataGridVariant.html">DataGridVariant</a>, <span class="xref">Func</span>&lt;<a class="xref" href="BlazOrbit.Components.BOBDataGrid-1.html">BOBDataGrid</a>&lt;TItem&gt;, <span class="xref">RenderFragment</span>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataGrid_1_CellBorder_" data-uid="BlazOrbit.Components.BOBDataGrid`1.CellBorder*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataGrid_1_CellBorder" data-uid="BlazOrbit.Components.BOBDataGrid`1.CellBorder">
+  CellBorder
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/DataCollections/DataGrid/BOBDataGrid.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Border style applied to individual cells.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public BorderStyle? CellBorder { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.BorderStyle.html">BorderStyle</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataGrid_1_DefaultVariant_" data-uid="BlazOrbit.Components.BOBDataGrid`1.DefaultVariant*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataGrid_1_DefaultVariant" data-uid="BlazOrbit.Components.BOBDataGrid`1.DefaultVariant">
+  DefaultVariant
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/DataCollections/DataGrid/BOBDataGrid.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Default variant used when no explicit variant is specified.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override DataGridVariant DefaultVariant { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.DataGridVariant.html">DataGridVariant</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataGrid_1_FixedHeader_" data-uid="BlazOrbit.Components.BOBDataGrid`1.FixedHeader*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataGrid_1_FixedHeader" data-uid="BlazOrbit.Components.BOBDataGrid`1.FixedHeader">
+  FixedHeader
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/DataCollections/DataGrid/BOBDataGrid.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the header row stays fixed while scrolling.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool FixedHeader { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataGrid_1_FooterTemplate_" data-uid="BlazOrbit.Components.BOBDataGrid`1.FooterTemplate*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataGrid_1_FooterTemplate" data-uid="BlazOrbit.Components.BOBDataGrid`1.FooterTemplate">
+  FooterTemplate
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/DataCollections/DataGrid/BOBDataGrid.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Custom template rendered inside the table footer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public RenderFragment? FooterTemplate { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">RenderFragment</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataGrid_1_RowBorder_" data-uid="BlazOrbit.Components.BOBDataGrid`1.RowBorder*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataGrid_1_RowBorder" data-uid="BlazOrbit.Components.BOBDataGrid`1.RowBorder">
+  RowBorder
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/DataCollections/DataGrid/BOBDataGrid.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Border style applied to rows.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public BorderStyle? RowBorder { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.BorderStyle.html">BorderStyle</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataGrid_1_RowTemplate_" data-uid="BlazOrbit.Components.BOBDataGrid`1.RowTemplate*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataGrid_1_RowTemplate" data-uid="BlazOrbit.Components.BOBDataGrid`1.RowTemplate">
+  RowTemplate
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/DataCollections/DataGrid/BOBDataGrid.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Custom template for rendering each data row.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public RenderFragment&lt;TItem&gt;? RowTemplate { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">RenderFragment</span>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="BlazOrbit_Components_BOBDataGrid_1_BuildComponentCssVariables_" data-uid="BlazOrbit.Components.BOBDataGrid`1.BuildComponentCssVariables*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataGrid_1_BuildComponentCssVariables_System_Collections_Generic_Dictionary_System_String_System_String__" data-uid="BlazOrbit.Components.BOBDataGrid`1.BuildComponentCssVariables(System.Collections.Generic.Dictionary{System.String,System.String})">
+  BuildComponentCssVariables(Dictionary&lt;string, string&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/DataCollections/DataGrid/BOBDataGrid.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Override this method in derived components to add custom CSS variables. These will be merged
+with the standard behavior CSS variables. This method is called from
+BOBComponentAttributesBuilder during the style building process.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void BuildComponentCssVariables(Dictionary&lt;string, string&gt; cssVariables)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>cssVariables</code> <span class="xref">Dictionary</span>&lt;<span class="xref">string</span>, <span class="xref">string</span>&gt;</dt>
+    <dd><p>Dictionary to add CSS variables to</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataGrid_1_BuildRenderTree_" data-uid="BlazOrbit.Components.BOBDataGrid`1.BuildRenderTree*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataGrid_1_BuildRenderTree_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder_" data-uid="BlazOrbit.Components.BOBDataGrid`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+  BuildRenderTree(RenderTreeBuilder)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/DataCollections/DataGrid/BOBDataGrid.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Renders the component to the supplied <span class="xref">Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void BuildRenderTree(RenderTreeBuilder __builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>__builder</code> <span class="xref">RenderTreeBuilder</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/DataCollections/DataGrid/BOBDataGrid.razor" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

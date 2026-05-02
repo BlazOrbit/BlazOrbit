@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class CssColor | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class CssColor | BlazOrbit API ">
+      
+      <meta name="description" content="The Css color representation.">
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Components.CssColor">
+
+
+
+  <h1 id="BlazOrbit_Components_CssColor" data-uid="BlazOrbit.Components.CssColor" class="text-break">
+Class CssColor  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Components.html">Components</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>The Css color representation.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class CssColor</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">CssColor</span></div>
+    </dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="BlazOrbit_Components_CssColor__ctor_" data-uid="BlazOrbit.Components.CssColor.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor__ctor_System_Byte_System_Byte_System_Byte_System_Byte_" data-uid="BlazOrbit.Components.CssColor.#ctor(System.Byte,System.Byte,System.Byte,System.Byte)">
+  CssColor(byte, byte, byte, byte)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Constructs a CssColor from RGBA bytes</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CssColor(byte r, byte g, byte b, byte a)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>r</code> <span class="xref">byte</span></dt>
+    <dd></dd>
+    <dt><code>g</code> <span class="xref">byte</span></dt>
+    <dd></dd>
+    <dt><code>b</code> <span class="xref">byte</span></dt>
+    <dd></dd>
+    <dt><code>a</code> <span class="xref">byte</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor__ctor_" data-uid="BlazOrbit.Components.CssColor.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor__ctor_System_Byte_System_Byte_System_Byte_System_Byte_BlazOrbit_Components_CssColorVariant_" data-uid="BlazOrbit.Components.CssColor.#ctor(System.Byte,System.Byte,System.Byte,System.Byte,BlazOrbit.Components.CssColorVariant)">
+  CssColor(byte, byte, byte, byte, CssColorVariant?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Constructs a CssColor from RGBA and optional variant</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CssColor(byte r, byte g, byte b, byte a, CssColorVariant? colorVariant = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>r</code> <span class="xref">byte</span></dt>
+    <dd></dd>
+    <dt><code>g</code> <span class="xref">byte</span></dt>
+    <dd></dd>
+    <dt><code>b</code> <span class="xref">byte</span></dt>
+    <dd></dd>
+    <dt><code>a</code> <span class="xref">byte</span></dt>
+    <dd></dd>
+    <dt><code>colorVariant</code> <a class="xref" href="BlazOrbit.Components.CssColorVariant.html">CssColorVariant</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor__ctor_" data-uid="BlazOrbit.Components.CssColor.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor__ctor_System_Double_System_Double_System_Double_System_Double_" data-uid="BlazOrbit.Components.CssColor.#ctor(System.Double,System.Double,System.Double,System.Double)">
+  CssColor(double, double, double, double)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Constructs a CssColor from HSL and alpha values (double alpha)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CssColor(double h, double s, double l, double a)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>h</code> <span class="xref">double</span></dt>
+    <dd></dd>
+    <dt><code>s</code> <span class="xref">double</span></dt>
+    <dd></dd>
+    <dt><code>l</code> <span class="xref">double</span></dt>
+    <dd></dd>
+    <dt><code>a</code> <span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor__ctor_" data-uid="BlazOrbit.Components.CssColor.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor__ctor_System_Double_System_Double_System_Double_System_Int32_" data-uid="BlazOrbit.Components.CssColor.#ctor(System.Double,System.Double,System.Double,System.Int32)">
+  CssColor(double, double, double, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Constructs a CssColor from HSL and alpha values (int alpha)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CssColor(double h, double s, double l, int a)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>h</code> <span class="xref">double</span></dt>
+    <dd></dd>
+    <dt><code>s</code> <span class="xref">double</span></dt>
+    <dd></dd>
+    <dt><code>l</code> <span class="xref">double</span></dt>
+    <dd></dd>
+    <dt><code>a</code> <span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor__ctor_" data-uid="BlazOrbit.Components.CssColor.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor__ctor_System_Int32_System_Int32_System_Int32_System_Double_" data-uid="BlazOrbit.Components.CssColor.#ctor(System.Int32,System.Int32,System.Int32,System.Double)">
+  CssColor(int, int, int, double)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Constructs a CssColor from RGBA integers and double alpha</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CssColor(int r, int g, int b, double alpha)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>r</code> <span class="xref">int</span></dt>
+    <dd></dd>
+    <dt><code>g</code> <span class="xref">int</span></dt>
+    <dd></dd>
+    <dt><code>b</code> <span class="xref">int</span></dt>
+    <dd></dd>
+    <dt><code>alpha</code> <span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor__ctor_" data-uid="BlazOrbit.Components.CssColor.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor__ctor_System_Int32_System_Int32_System_Int32_System_Int32_" data-uid="BlazOrbit.Components.CssColor.#ctor(System.Int32,System.Int32,System.Int32,System.Int32)">
+  CssColor(int, int, int, int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Constructs a CssColor from RGBA integers and int alpha</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CssColor(int r, int g, int b, int alpha)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>r</code> <span class="xref">int</span></dt>
+    <dd></dd>
+    <dt><code>g</code> <span class="xref">int</span></dt>
+    <dd></dd>
+    <dt><code>b</code> <span class="xref">int</span></dt>
+    <dd></dd>
+    <dt><code>alpha</code> <span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor__ctor_" data-uid="BlazOrbit.Components.CssColor.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor__ctor_System_String_" data-uid="BlazOrbit.Components.CssColor.#ctor(System.String)">
+  CssColor(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Constructs a CssColor from string representation (RGB/RGBA/HEX)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CssColor(string value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="BlazOrbit_Components_CssColor_A_" data-uid="BlazOrbit.Components.CssColor.A*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_A" data-uid="BlazOrbit.Components.CssColor.A">
+  A
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The Alpha value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public byte A { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">byte</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor_APercentage_" data-uid="BlazOrbit.Components.CssColor.APercentage*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_APercentage" data-uid="BlazOrbit.Components.CssColor.APercentage">
+  APercentage
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The Alpha value percentage.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double APercentage { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor_B_" data-uid="BlazOrbit.Components.CssColor.B*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_B" data-uid="BlazOrbit.Components.CssColor.B">
+  B
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The Blue value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public byte B { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">byte</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor_G_" data-uid="BlazOrbit.Components.CssColor.G*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_G" data-uid="BlazOrbit.Components.CssColor.G">
+  G
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The Green Value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public byte G { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">byte</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor_H_" data-uid="BlazOrbit.Components.CssColor.H*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_H" data-uid="BlazOrbit.Components.CssColor.H">
+  H
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The Hue Value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double H { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor_L_" data-uid="BlazOrbit.Components.CssColor.L*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_L" data-uid="BlazOrbit.Components.CssColor.L">
+  L
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The Luminosity Value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double L { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor_R_" data-uid="BlazOrbit.Components.CssColor.R*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_R" data-uid="BlazOrbit.Components.CssColor.R">
+  R
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The Red Value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public byte R { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">byte</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor_S_" data-uid="BlazOrbit.Components.CssColor.S*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_S" data-uid="BlazOrbit.Components.CssColor.S">
+  S
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The Saturation Value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double S { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor_Value_" data-uid="BlazOrbit.Components.CssColor.Value*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_Value" data-uid="BlazOrbit.Components.CssColor.Value">
+  Value
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The Color Value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Value { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="BlazOrbit_Components_CssColor_APercentageString_" data-uid="BlazOrbit.Components.CssColor.APercentageString*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_APercentageString_System_Nullable_System_Char__" data-uid="BlazOrbit.Components.CssColor.APercentageString(System.Nullable{System.Char})">
+  APercentageString(char?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Gets the alpha percentage as string.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string APercentageString(char? floatCharacter = &#39;.&#39;)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>floatCharacter</code> <span class="xref">char</span>?</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor_ChangeLightness_" data-uid="BlazOrbit.Components.CssColor.ChangeLightness*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_ChangeLightness_System_Double_" data-uid="BlazOrbit.Components.CssColor.ChangeLightness(System.Double)">
+  ChangeLightness(double)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Modify Lightness value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CssColor ChangeLightness(double amount)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>amount</code> <span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.CssColor.html">CssColor</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor_ColorDarken_" data-uid="BlazOrbit.Components.CssColor.ColorDarken*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_ColorDarken_System_Double_" data-uid="BlazOrbit.Components.CssColor.ColorDarken(System.Double)">
+  ColorDarken(double)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Get darken color from current instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CssColor ColorDarken(double amount)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>amount</code> <span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.CssColor.html">CssColor</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor_ColorLighten_" data-uid="BlazOrbit.Components.CssColor.ColorLighten*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_ColorLighten_System_Double_" data-uid="BlazOrbit.Components.CssColor.ColorLighten(System.Double)">
+  ColorLighten(double)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Get lighten color from current instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CssColor ColorLighten(double amount)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>amount</code> <span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.CssColor.html">CssColor</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor_Equals_" data-uid="BlazOrbit.Components.CssColor.Equals*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_Equals_BlazOrbit_Components_CssColor_" data-uid="BlazOrbit.Components.CssColor.Equals(BlazOrbit.Components.CssColor)">
+  Equals(CssColor?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equals(CssColor? other)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>other</code> <a class="xref" href="BlazOrbit.Components.CssColor.html">CssColor</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor_Equals_" data-uid="BlazOrbit.Components.CssColor.Equals*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_Equals_System_Object_" data-uid="BlazOrbit.Components.CssColor.Equals(System.Object)">
+  Equals(object?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object? obj)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>obj</code> <span class="xref">object</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor_GetBestContrast_" data-uid="BlazOrbit.Components.CssColor.GetBestContrast*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_GetBestContrast_BlazOrbit_Components_CssColor_BlazOrbit_Components_CssColor_" data-uid="BlazOrbit.Components.CssColor.GetBestContrast(BlazOrbit.Components.CssColor,BlazOrbit.Components.CssColor)">
+  GetBestContrast(CssColor, CssColor)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the best contrast color (black or white) for this color. Uses CSS variables with
+fallback if no custom values are set.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CssColor GetBestContrast(CssColor contrastBlack, CssColor contrastWhite)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>contrastBlack</code> <a class="xref" href="BlazOrbit.Components.CssColor.html">CssColor</a></dt>
+    <dd></dd>
+    <dt><code>contrastWhite</code> <a class="xref" href="BlazOrbit.Components.CssColor.html">CssColor</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.CssColor.html">CssColor</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor_GetHashCode_" data-uid="BlazOrbit.Components.CssColor.GetHashCode*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_GetHashCode" data-uid="BlazOrbit.Components.CssColor.GetHashCode">
+  GetHashCode()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor_GetRelativeLuminance_" data-uid="BlazOrbit.Components.CssColor.GetRelativeLuminance*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_GetRelativeLuminance" data-uid="BlazOrbit.Components.CssColor.GetRelativeLuminance">
+  GetRelativeLuminance()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the relative luminance of the current color (0 = dark, 1 = light) using the WCAG 2.1 formula.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double GetRelativeLuminance()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor_Parse_" data-uid="BlazOrbit.Components.CssColor.Parse*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_Parse_System_String_" data-uid="BlazOrbit.Components.CssColor.Parse(System.String)">
+  Parse(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Parses a CSS color string. Throws <span class="xref">System.ArgumentException</span> on malformed input.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static CssColor Parse(string value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.CssColor.html">CssColor</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor_SetAlpha_" data-uid="BlazOrbit.Components.CssColor.SetAlpha*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_SetAlpha_System_Double_" data-uid="BlazOrbit.Components.CssColor.SetAlpha(System.Double)">
+  SetAlpha(double)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets the alpha value for current instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CssColor SetAlpha(double a)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>a</code> <span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.CssColor.html">CssColor</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor_SetAlpha_" data-uid="BlazOrbit.Components.CssColor.SetAlpha*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_SetAlpha_System_Int32_" data-uid="BlazOrbit.Components.CssColor.SetAlpha(System.Int32)">
+  SetAlpha(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets the alpha value for current instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CssColor SetAlpha(int a)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>a</code> <span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.CssColor.html">CssColor</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor_ToString_" data-uid="BlazOrbit.Components.CssColor.ToString*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_ToString" data-uid="BlazOrbit.Components.CssColor.ToString">
+  ToString()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor_ToString_" data-uid="BlazOrbit.Components.CssColor.ToString*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_ToString_BlazOrbit_Components_ColorOutputFormats_" data-uid="BlazOrbit.Components.CssColor.ToString(BlazOrbit.Components.ColorOutputFormats)">
+  ToString(ColorOutputFormats)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ToString(ColorOutputFormats format)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>format</code> <a class="xref" href="BlazOrbit.Components.ColorOutputFormats.html">ColorOutputFormats</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor_TryParse_" data-uid="BlazOrbit.Components.CssColor.TryParse*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_TryParse_System_String_BlazOrbit_Components_CssColor__" data-uid="BlazOrbit.Components.CssColor.TryParse(System.String,BlazOrbit.Components.CssColor@)">
+  TryParse(string?, out CssColor?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Tries to parse a CSS color string. Returns <code>true</code> on success and
+sets <code class="paramref">result</code>; returns <code>false</code> for null / empty
+/ unrecognized formats without throwing.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryParse(string? value, out CssColor? result)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>result</code> <a class="xref" href="BlazOrbit.Components.CssColor.html">CssColor</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="operators">Operators
+</h2>
+
+
+  <a id="BlazOrbit_Components_CssColor_op_Equality_" data-uid="BlazOrbit.Components.CssColor.op_Equality*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_op_Equality_BlazOrbit_Components_CssColor_BlazOrbit_Components_CssColor_" data-uid="BlazOrbit.Components.CssColor.op_Equality(BlazOrbit.Components.CssColor,BlazOrbit.Components.CssColor)">
+  operator ==(CssColor?, CssColor?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator ==(CssColor? lhs, CssColor? rhs)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>lhs</code> <a class="xref" href="BlazOrbit.Components.CssColor.html">CssColor</a></dt>
+    <dd></dd>
+    <dt><code>rhs</code> <a class="xref" href="BlazOrbit.Components.CssColor.html">CssColor</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor_op_Explicit_" data-uid="BlazOrbit.Components.CssColor.op_Explicit*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_op_Explicit_BlazOrbit_Components_CssColor__System_String" data-uid="BlazOrbit.Components.CssColor.op_Explicit(BlazOrbit.Components.CssColor)~System.String">
+  explicit operator string(CssColor?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Renders the color as a CSS string. Explicit because the conversion
+is lossy (the format defaults to <code>#rrggbb</code>) and the implicit
+version would silently absorb <code>null</code> into <span class="xref">string.Empty</span>
+in unexpected contexts. Prefer <a class="xref" href="BlazOrbit.Components.CssColor.html#BlazOrbit_Components_CssColor_ToString">ToString()</a> directly when
+the call site is obvious.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static explicit operator string(CssColor? color)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>color</code> <a class="xref" href="BlazOrbit.Components.CssColor.html">CssColor</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor_op_Explicit_" data-uid="BlazOrbit.Components.CssColor.op_Explicit*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_op_Explicit_System_String__BlazOrbit_Components_CssColor" data-uid="BlazOrbit.Components.CssColor.op_Explicit(System.String)~BlazOrbit.Components.CssColor">
+  explicit operator CssColor(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Parses a CSS color string (hex / rgb / rgba). Explicit because the
+constructor throws on malformed input and the implicit version made
+it easy to feed unvalidated user data straight into a parse. Use
+<a class="xref" href="BlazOrbit.Components.CssColor.html#BlazOrbit_Components_CssColor_TryParse_System_String_BlazOrbit_Components_CssColor__">TryParse(string?, out CssColor?)</a> when the input might fail; use <a class="xref" href="BlazOrbit.Components.CssColor.html#BlazOrbit_Components_CssColor_Parse_System_String_">Parse(string)</a>
+or this cast when you've already validated it.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static explicit operator CssColor(string input)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>input</code> <span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.CssColor.html">CssColor</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_CssColor_op_Inequality_" data-uid="BlazOrbit.Components.CssColor.op_Inequality*"></a>
+
+  <h3 id="BlazOrbit_Components_CssColor_op_Inequality_BlazOrbit_Components_CssColor_BlazOrbit_Components_CssColor_" data-uid="BlazOrbit.Components.CssColor.op_Inequality(BlazOrbit.Components.CssColor,BlazOrbit.Components.CssColor)">
+  operator !=(CssColor?, CssColor?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator !=(CssColor? lhs, CssColor? rhs)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>lhs</code> <a class="xref" href="BlazOrbit.Components.CssColor.html">CssColor</a></dt>
+    <dd></dd>
+    <dt><code>rhs</code> <a class="xref" href="BlazOrbit.Components.CssColor.html">CssColor</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Css/CssColor.cs" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

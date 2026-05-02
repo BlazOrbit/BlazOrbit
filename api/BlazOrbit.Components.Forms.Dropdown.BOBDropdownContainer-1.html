@@ -1,0 +1,1665 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class BOBDropdownContainer&lt;TValue&gt; | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class BOBDropdownContainer&lt;TValue&gt; | BlazOrbit API ">
+      
+      
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1">
+
+
+
+  <h1 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1" class="text-break">
+Class BOBDropdownContainer&lt;TValue&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Components.html">Components</a>.<a class="xref" href="BlazOrbit.Components.Forms.html">Forms</a>.<a class="xref" href="BlazOrbit.Components.Forms.Dropdown.html">Dropdown</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class BOBDropdownContainer&lt;TValue&gt; : BOBInputComponentBase&lt;TValue, BOBDropdownContainer&lt;TValue&gt;, BOBInputVariant&gt;, IHasReadOnly, IHasDisabled, IHasRequired, IHasError, IVariantComponent&lt;BOBInputVariant&gt;, IVariantComponent, IHasSize, IHasLoading, IHasShadow, IHasElevation, IHasColor, IHasBackgroundColor, IHasPrefix, IHasSuffix, IInputFamilyComponent</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TValue</code></dt>
+    <dd></dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">ComponentBase</span></div>
+      <div><span class="xref">InputBase</span>&lt;TValue&gt;</div>
+      <div><a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs">BOBInputComponentBase</a>&lt;TValue&gt;</div>
+      <div><a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs">BOBInputComponentBase</a>&lt;TValue, <a class="xref" href="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer-1.html">BOBDropdownContainer</a>&lt;TValue&gt;, <a class="xref" href="BlazOrbit.Components.Forms.BOBInputVariant.html">BOBInputVariant</a>&gt;</div>
+      <div><span class="xref">BOBDropdownContainer&lt;TValue&gt;</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="BlazOrbit.Components.IHasReadOnly.html">IHasReadOnly</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasDisabled.html">IHasDisabled</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasRequired.html">IHasRequired</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasError.html">IHasError</a></div>
+      <div><a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/Variants/IVariantComponent.cs">IVariantComponent</a>&lt;<a class="xref" href="BlazOrbit.Components.Forms.BOBInputVariant.html">BOBInputVariant</a>&gt;</div>
+      <div><a class="xref" href="BlazOrbit.Components.IVariantComponent.html">IVariantComponent</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasSize.html">IHasSize</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasLoading.html">IHasLoading</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasShadow.html">IHasShadow</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasElevation.html">IHasElevation</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasColor.html">IHasColor</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasBackgroundColor.html">IHasBackgroundColor</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasPrefix.html">IHasPrefix</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasSuffix.html">IHasSuffix</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IInputFamilyComponent.html">IInputFamilyComponent</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-3.html#BlazOrbit_Abstractions_BOBInputComponentBase_3_BuildRenderTree_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder_">BOBInputComponentBase&lt;TValue, BOBDropdownContainer&lt;TValue&gt;, BOBInputVariant&gt;.BuildRenderTree(RenderTreeBuilder)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-3.html#BlazOrbit_Abstractions_BOBInputComponentBase_3_OnParametersSet">BOBInputComponentBase&lt;TValue, BOBDropdownContainer&lt;TValue&gt;, BOBInputVariant&gt;.OnParametersSet()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-3.html#BlazOrbit_Abstractions_BOBInputComponentBase_3_CurrentVariant">BOBInputComponentBase&lt;TValue, BOBDropdownContainer&lt;TValue&gt;, BOBInputVariant&gt;.CurrentVariant</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-3.html#BlazOrbit_Abstractions_BOBInputComponentBase_3_DefaultVariant">BOBInputComponentBase&lt;TValue, BOBDropdownContainer&lt;TValue&gt;, BOBInputVariant&gt;.DefaultVariant</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-3.html#BlazOrbit_Abstractions_BOBInputComponentBase_3_Variant">BOBInputComponentBase&lt;TValue, BOBDropdownContainer&lt;TValue&gt;, BOBInputVariant&gt;.Variant</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-3.html#BlazOrbit_Abstractions_BOBInputComponentBase_3_BuiltInTemplates">BOBInputComponentBase&lt;TValue, BOBDropdownContainer&lt;TValue&gt;, BOBInputVariant&gt;.BuiltInTemplates</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_SetParametersAsync_Microsoft_AspNetCore_Components_ParameterView_">BOBInputComponentBase&lt;TValue&gt;.SetParametersAsync(ParameterView)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_ShouldRender">BOBInputComponentBase&lt;TValue&gt;.ShouldRender()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_BuildComponentCssVariables_System_Collections_Generic_Dictionary_System_String_System_String__">BOBInputComponentBase&lt;TValue&gt;.BuildComponentCssVariables(Dictionary&lt;string, string&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_Dispose_System_Boolean_">BOBInputComponentBase&lt;TValue&gt;.Dispose(bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_OnInitialized">BOBInputComponentBase&lt;TValue&gt;.OnInitialized()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_OnParametersSet">BOBInputComponentBase&lt;TValue&gt;.OnParametersSet()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_Disabled">BOBInputComponentBase&lt;TValue&gt;.Disabled</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_ReadOnly">BOBInputComponentBase&lt;TValue&gt;.ReadOnly</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_Required">BOBInputComponentBase&lt;TValue&gt;.Required</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_Error">BOBInputComponentBase&lt;TValue&gt;.Error</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_IsDisabled">BOBInputComponentBase&lt;TValue&gt;.IsDisabled</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_IsError">BOBInputComponentBase&lt;TValue&gt;.IsError</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_IsReadOnly">BOBInputComponentBase&lt;TValue&gt;.IsReadOnly</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_IsRequired">BOBInputComponentBase&lt;TValue&gt;.IsRequired</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_ComputedAttributes">BOBInputComponentBase&lt;TValue&gt;.ComputedAttributes</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_IsDisposed">BOBInputComponentBase&lt;TValue&gt;.IsDisposed</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1__ctor_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1__ctor" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.#ctor">
+  BOBDropdownContainer()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BOBDropdownContainer()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_AriaMultiselectable_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.AriaMultiselectable*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_AriaMultiselectable" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.AriaMultiselectable">
+  AriaMultiselectable
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, advertises the menu as multi-selectable to assistive tech.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool AriaMultiselectable { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_AriaRole_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.AriaRole*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_AriaRole" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.AriaRole">
+  AriaRole
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>ARIA role applied to the popup menu (defaults to <code>listbox</code>; use <code>tree</code> or <code>menu</code> for non-list semantics).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string AriaRole { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_BackgroundColor_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.BackgroundColor*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_BackgroundColor" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.BackgroundColor">
+  BackgroundColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Background color of the trigger. Accepts any valid CSS color value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? BackgroundColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_BuiltInTemplates_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.BuiltInTemplates*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_BuiltInTemplates" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.BuiltInTemplates">
+  BuiltInTemplates
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override IReadOnlyDictionary&lt;BOBInputVariant, Func&lt;BOBDropdownContainer&lt;TValue&gt;, RenderFragment&gt;&gt; BuiltInTemplates { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IReadOnlyDictionary</span>&lt;<a class="xref" href="BlazOrbit.Components.Forms.BOBInputVariant.html">BOBInputVariant</a>, <span class="xref">Func</span>&lt;<a class="xref" href="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer-1.html">BOBDropdownContainer</a>&lt;TValue&gt;, <span class="xref">RenderFragment</span>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_Color_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.Color*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_Color" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.Color">
+  Color
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Text color of the trigger. Accepts any valid CSS color value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Color { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_ComponentId_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.ComponentId*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_ComponentId" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.ComponentId">
+  ComponentId
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ComponentId { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_DefaultVariant_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.DefaultVariant*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_DefaultVariant" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.DefaultVariant">
+  DefaultVariant
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Default variant used when no explicit variant is specified.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override BOBInputVariant DefaultVariant { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.Forms.BOBInputVariant.html">BOBInputVariant</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_DisplayValue_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.DisplayValue*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_DisplayValue" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.DisplayValue">
+  DisplayValue
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+[EditorRequired]
+public string DisplayValue { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_Elevation_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.Elevation*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_Elevation" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.Elevation">
+  Elevation
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Material Design elevation level (0–24) applied to the menu surface. Sets a derived
+shadow and lifts the surface in dark mode via a tint overlay. Overridden by <a class="xref" href="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer-1.html#BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_Shadow">Shadow</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int? Elevation { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_HasValue_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.HasValue*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_HasValue" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.HasValue">
+  HasValue
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, HasValue is active.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool HasValue { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_HelperText_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.HelperText*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_HelperText" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.HelperText">
+  HelperText
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Helper text displayed below the component for additional context.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? HelperText { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_IsOpen_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.IsOpen*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_IsOpen" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.IsOpen">
+  IsOpen
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsOpen { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_Label_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.Label*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_Label" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.Label">
+  Label
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Floating label displayed above the component.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Label { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_Loading_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.Loading*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_Loading" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.Loading">
+  Loading
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the trigger shows a loading indicator and ignores activation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool Loading { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_LoadingIndicatorVariant_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.LoadingIndicatorVariant*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_LoadingIndicatorVariant" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.LoadingIndicatorVariant">
+  LoadingIndicatorVariant
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Variant of the loading indicator shown when <a class="xref" href="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer-1.html#BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_Loading">Loading</a> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public BOBLoadingIndicatorVariant LoadingIndicatorVariant { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.BOBLoadingIndicatorVariant.html">BOBLoadingIndicatorVariant</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_MenuContent_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.MenuContent*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_MenuContent" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.MenuContent">
+  MenuContent
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Render fragment that emits the popup menu content (option list, tree, etc.).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public RenderFragment? MenuContent { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">RenderFragment</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_OnClosed_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.OnClosed*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_OnClosed" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.OnClosed">
+  OnClosed
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when the Closed event occurs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public EventCallback OnClosed { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">EventCallback</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_OnKeyboardNavigation_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.OnKeyboardNavigation*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_OnKeyboardNavigation" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.OnKeyboardNavigation">
+  OnKeyboardNavigation
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when the KeyboardNavigation event occurs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public EventCallback&lt;DropdownKeyboardEventArgs&gt; OnKeyboardNavigation { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">EventCallback</span>&lt;<a class="xref" href="BlazOrbit.Components.Forms.DropdownKeyboardEventArgs.html">DropdownKeyboardEventArgs</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_OnOpened_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.OnOpened*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_OnOpened" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.OnOpened">
+  OnOpened
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when the Opened event occurs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public EventCallback OnOpened { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">EventCallback</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_OnValueChanged_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.OnValueChanged*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_OnValueChanged" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.OnValueChanged">
+  OnValueChanged
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when the ValueChanged event occurs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public EventCallback&lt;TValue&gt; OnValueChanged { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">EventCallback</span>&lt;TValue&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_Placeholder_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.Placeholder*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_Placeholder" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.Placeholder">
+  Placeholder
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Placeholder text shown when the component is empty.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Placeholder { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_Placement_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.Placement*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_Placement" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.Placement">
+  Placement
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Preferred placement of the popup menu relative to the trigger.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public DropdownPlacement Placement { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.Forms.DropdownPlacement.html">DropdownPlacement</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_PrefixBackgroundColor_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.PrefixBackgroundColor*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_PrefixBackgroundColor" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.PrefixBackgroundColor">
+  PrefixBackgroundColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>PrefixBackground color. Accepts any valid CSS color value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? PrefixBackgroundColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_PrefixColor_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.PrefixColor*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_PrefixColor" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.PrefixColor">
+  PrefixColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Prefix color. Accepts any valid CSS color value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? PrefixColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_PrefixIcon_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.PrefixIcon*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_PrefixIcon" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.PrefixIcon">
+  PrefixIcon
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Material icon name for the Prefix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public IconKey? PrefixIcon { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Media/Icons/IconKey.cs">IconKey</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_PrefixText_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.PrefixText*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_PrefixText" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.PrefixText">
+  PrefixText
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Text displayed before the trigger value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? PrefixText { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_Shadow_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.Shadow*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_Shadow" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.Shadow">
+  Shadow
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Shadow style applied to the trigger container. Wins over <a class="xref" href="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer-1.html#BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_Elevation">Elevation</a> when both are set.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public ShadowStyle? Shadow { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.ShadowStyle.html">ShadowStyle</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_Size_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.Size*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_Size" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.Size">
+  Size
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Visual size of the dropdown trigger.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public BOBSize Size { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.BOBSize.html">BOBSize</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_SuffixBackgroundColor_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.SuffixBackgroundColor*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_SuffixBackgroundColor" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.SuffixBackgroundColor">
+  SuffixBackgroundColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>SuffixBackground color. Accepts any valid CSS color value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? SuffixBackgroundColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_SuffixColor_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.SuffixColor*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_SuffixColor" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.SuffixColor">
+  SuffixColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Suffix color. Accepts any valid CSS color value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? SuffixColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_SuffixIcon_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.SuffixIcon*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_SuffixIcon" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.SuffixIcon">
+  SuffixIcon
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Material icon name for the Suffix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public IconKey? SuffixIcon { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Media/Icons/IconKey.cs">IconKey</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_SuffixText_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.SuffixText*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_SuffixText" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.SuffixText">
+  SuffixText
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Text displayed after the trigger value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? SuffixText { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_BuildComponentDataAttributes_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.BuildComponentDataAttributes*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_BuildComponentDataAttributes_System_Collections_Generic_Dictionary_System_String_System_Object__" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.BuildComponentDataAttributes(System.Collections.Generic.Dictionary{System.String,System.Object})">
+  BuildComponentDataAttributes(Dictionary&lt;string, object&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void BuildComponentDataAttributes(Dictionary&lt;string, object&gt; dataAttributes)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>dataAttributes</code> <span class="xref">Dictionary</span>&lt;<span class="xref">string</span>, <span class="xref">object</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_BuildRenderTree_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.BuildRenderTree*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_BuildRenderTree_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+  BuildRenderTree(RenderTreeBuilder)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Renders the component to the supplied <span class="xref">Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void BuildRenderTree(RenderTreeBuilder __builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>__builder</code> <span class="xref">RenderTreeBuilder</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_CloseAsync_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.CloseAsync*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_CloseAsync" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.CloseAsync">
+  CloseAsync()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task CloseAsync()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_DisposeAsync_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.DisposeAsync*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_DisposeAsync" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.DisposeAsync">
+  DisposeAsync()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Async disposal path. Blazor invokes this first when the component is unmounted
+because the type implements <span class="xref">System.IAsyncDisposable</span>; it tears down the
+JS-side behavior instance via <span class="xref">BlazOrbit.Abstractions.BOBComponentPipeline.DisposeBehaviorAsync()</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override ValueTask DisposeAsync()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">ValueTask</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_DisposeAsync_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Both this method and <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_Dispose_System_Boolean_">Dispose(bool)</a> run on disposal — Blazor calls
+<code>DisposeAsync</code> for the async work and the framework's <span class="xref">System.IDisposable</span>
+contract still invokes <code>Dispose(true)</code> afterward. The split is intentional:
+async work (JS interop teardown) lives here, sync work (event unsubscribe) lives in
+<code>Dispose(true)</code>. Both set <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_IsDisposed">IsDisposed</a> so derived components can
+guard post-await continuations regardless of which path runs first.</p>
+</div>
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_FocusSearchInputAsync_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.FocusSearchInputAsync*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_FocusSearchInputAsync" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.FocusSearchInputAsync">
+  FocusSearchInputAsync()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task FocusSearchInputAsync()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_OnAfterRenderAsync_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.OnAfterRenderAsync*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_OnAfterRenderAsync_System_Boolean_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.OnAfterRenderAsync(System.Boolean)">
+  OnAfterRenderAsync(bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Method invoked after each time the component has been rendered interactively and the UI has finished
+updating (for example, after elements have been added to the browser DOM). Any <span class="xref">Microsoft.AspNetCore.Components.ElementReference</span>
+fields will be populated by the time this runs.</p>
+<p>This method is not invoked during prerendering or server-side rendering, because those processes
+are not attached to any live browser DOM and are already complete before the DOM is updated.</p>
+<p>Note that the component does not automatically re-render after the completion of any returned <span class="xref">System.Threading.Tasks.Task</span>,
+because that would cause an infinite render loop.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override Task OnAfterRenderAsync(bool firstRender)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>firstRender</code> <span class="xref">bool</span></dt>
+    <dd><p>Set to <code>true</code> if this is the first time <span class="xref">Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender(bool)</span> has been invoked
+on this component instance; otherwise <code>false</code>.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd><p>A <span class="xref">System.Threading.Tasks.Task</span> representing any asynchronous operation.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_OnAfterRenderAsync_System_Boolean__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>The <span class="xref">Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender(bool)</span> and <span class="xref">Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(bool)</span> lifecycle methods
+are useful for performing interop, or interacting with values received from <code>@ref</code>.
+Use the <code class="paramref">firstRender</code> parameter to ensure that initialization work is only performed
+once.</p>
+</div>
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_OpenAsync_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.OpenAsync*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_OpenAsync" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.OpenAsync">
+  OpenAsync()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task OpenAsync()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_ToggleAsync_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.ToggleAsync*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_ToggleAsync" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.ToggleAsync">
+  ToggleAsync()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task ToggleAsync()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_TryParseValueFromString_" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.TryParseValueFromString*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_Dropdown_BOBDropdownContainer_1_TryParseValueFromString_System_String__0__System_String__" data-uid="BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.TryParseValueFromString(System.String,`0@,System.String@)">
+  TryParseValueFromString(string?, out TValue, out string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Parses a string to create an instance of <code class="typeparamref">TValue</code>. Derived classes can override this to change how
+<span class="xref">Microsoft.AspNetCore.Components.Forms.InputBase&lt;TValue&gt;.CurrentValueAsString</span> interprets incoming values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool TryParseValueFromString(string? value, out TValue result, out string validationErrorMessage)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">string</span></dt>
+    <dd><p>The string value to be parsed.</p>
+</dd>
+    <dt><code>result</code> <span class="xref">TValue</span></dt>
+    <dd><p>An instance of <code class="typeparamref">TValue</code>.</p>
+</dd>
+    <dt><code>validationErrorMessage</code> <span class="xref">string</span></dt>
+    <dd><p>If the value could not be parsed, provides a validation error message.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd><p>True if the value could be parsed; otherwise false.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Dropdown/BOBDropdownContainer.razor" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

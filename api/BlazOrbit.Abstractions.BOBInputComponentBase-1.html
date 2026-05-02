@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class BOBInputComponentBase&lt;TValue&gt; | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class BOBInputComponentBase&lt;TValue&gt; | BlazOrbit API ">
+      
+      
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1">
+
+
+
+  <h1 id="BlazOrbit_Abstractions_BOBInputComponentBase_1" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1" class="text-break">
+Class BOBInputComponentBase&lt;TValue&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Abstractions.html">Abstractions</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class BOBInputComponentBase&lt;TValue&gt; : InputBase&lt;TValue&gt;, IHasReadOnly, IHasDisabled, IHasRequired, IHasError</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TValue</code></dt>
+    <dd></dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">ComponentBase</span></div>
+      <div><span class="xref">InputBase</span>&lt;TValue&gt;</div>
+      <div><span class="xref">BOBInputComponentBase&lt;TValue&gt;</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="BlazOrbit.Components.IHasReadOnly.html">IHasReadOnly</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasDisabled.html">IHasDisabled</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasRequired.html">IHasRequired</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasError.html">IHasError</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-3.html">BOBInputComponentBase&lt;TValue, TComponent, TVariant&gt;</a></div>
+    </dd>
+  </dl>
+
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="BlazOrbit_Abstractions_BOBInputComponentBase_1__ctor_" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Abstractions_BOBInputComponentBase_1__ctor" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.#ctor">
+  BOBInputComponentBase()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected BOBInputComponentBase()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="BlazOrbit_Abstractions_BOBInputComponentBase_1_ComputedAttributes_" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.ComputedAttributes*"></a>
+
+  <h3 id="BlazOrbit_Abstractions_BOBInputComponentBase_1_ComputedAttributes" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.ComputedAttributes">
+  ComputedAttributes
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Dictionary&lt;string, object&gt; ComputedAttributes { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Dictionary</span>&lt;<span class="xref">string</span>, <span class="xref">object</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Abstractions_BOBInputComponentBase_1_Disabled_" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.Disabled*"></a>
+
+  <h3 id="BlazOrbit_Abstractions_BOBInputComponentBase_1_Disabled" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.Disabled">
+  Disabled
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the input is disabled. Combined with internal state via <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_IsDisabled">IsDisabled</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool Disabled { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Abstractions_BOBInputComponentBase_1_Error_" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.Error*"></a>
+
+  <h3 id="BlazOrbit_Abstractions_BOBInputComponentBase_1_Error" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.Error">
+  Error
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the input is forced into the error state. Combined with <code>EditContext</code> validation via <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_IsError">IsError</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool Error { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Abstractions_BOBInputComponentBase_1_IsDisabled_" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.IsDisabled*"></a>
+
+  <h3 id="BlazOrbit_Abstractions_BOBInputComponentBase_1_IsDisabled" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.IsDisabled">
+  IsDisabled
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Computed disabled state, combining <a class="xref" href="BlazOrbit.Components.IHasDisabled.html#BlazOrbit_Components_IHasDisabled_Disabled">Disabled</a> with internal conditions such as loading.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool IsDisabled { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Abstractions_BOBInputComponentBase_1_IsDisposed_" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.IsDisposed*"></a>
+
+  <h3 id="BlazOrbit_Abstractions_BOBInputComponentBase_1_IsDisposed" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.IsDisposed">
+  IsDisposed
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p><code>true</code> once <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_Dispose_System_Boolean_">Dispose(bool)</a> / <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_DisposeAsync">DisposeAsync()</a> has started. See
+BOBComponentBase.IsDisposed for the contract — gate post-await continuations in derived
+components on this flag.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool IsDisposed { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Abstractions_BOBInputComponentBase_1_IsError_" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.IsError*"></a>
+
+  <h3 id="BlazOrbit_Abstractions_BOBInputComponentBase_1_IsError" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.IsError">
+  IsError
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Computed error state, combining <a class="xref" href="BlazOrbit.Components.IHasError.html#BlazOrbit_Components_IHasError_Error">Error</a> with validation messages from <span class="xref">Microsoft.AspNetCore.Components.Forms.EditContext</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsError { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Abstractions_BOBInputComponentBase_1_IsReadOnly_" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.IsReadOnly*"></a>
+
+  <h3 id="BlazOrbit_Abstractions_BOBInputComponentBase_1_IsReadOnly" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.IsReadOnly">
+  IsReadOnly
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Computed read-only state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsReadOnly { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Abstractions_BOBInputComponentBase_1_IsRequired_" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.IsRequired*"></a>
+
+  <h3 id="BlazOrbit_Abstractions_BOBInputComponentBase_1_IsRequired" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.IsRequired">
+  IsRequired
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Computed required state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsRequired { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Abstractions_BOBInputComponentBase_1_ReadOnly_" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.ReadOnly*"></a>
+
+  <h3 id="BlazOrbit_Abstractions_BOBInputComponentBase_1_ReadOnly" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.ReadOnly">
+  ReadOnly
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the input is read-only. Combined with internal state via <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_IsReadOnly">IsReadOnly</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool ReadOnly { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Abstractions_BOBInputComponentBase_1_Required_" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.Required*"></a>
+
+  <h3 id="BlazOrbit_Abstractions_BOBInputComponentBase_1_Required" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.Required">
+  Required
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the input is marked required for validation. Combined with internal state via <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_IsRequired">IsRequired</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool Required { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="BlazOrbit_Abstractions_BOBInputComponentBase_1_BuildComponentCssVariables_" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.BuildComponentCssVariables*"></a>
+
+  <h3 id="BlazOrbit_Abstractions_BOBInputComponentBase_1_BuildComponentCssVariables_System_Collections_Generic_Dictionary_System_String_System_String__" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.BuildComponentCssVariables(System.Collections.Generic.Dictionary{System.String,System.String})">
+  BuildComponentCssVariables(Dictionary&lt;string, string&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void BuildComponentCssVariables(Dictionary&lt;string, string&gt; cssVariables)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>cssVariables</code> <span class="xref">Dictionary</span>&lt;<span class="xref">string</span>, <span class="xref">string</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Abstractions_BOBInputComponentBase_1_BuildComponentDataAttributes_" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.BuildComponentDataAttributes*"></a>
+
+  <h3 id="BlazOrbit_Abstractions_BOBInputComponentBase_1_BuildComponentDataAttributes_System_Collections_Generic_Dictionary_System_String_System_Object__" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.BuildComponentDataAttributes(System.Collections.Generic.Dictionary{System.String,System.Object})">
+  BuildComponentDataAttributes(Dictionary&lt;string, object&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void BuildComponentDataAttributes(Dictionary&lt;string, object&gt; dataAttributes)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>dataAttributes</code> <span class="xref">Dictionary</span>&lt;<span class="xref">string</span>, <span class="xref">object</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Abstractions_BOBInputComponentBase_1_BuildRenderTree_" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.BuildRenderTree*"></a>
+
+  <h3 id="BlazOrbit_Abstractions_BOBInputComponentBase_1_BuildRenderTree_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder_" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+  BuildRenderTree(RenderTreeBuilder)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Renders the component to the supplied <span class="xref">Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void BuildRenderTree(RenderTreeBuilder builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <span class="xref">RenderTreeBuilder</span></dt>
+    <dd><p>A <span class="xref">Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder</span> that will receive the render output.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Abstractions_BOBInputComponentBase_1_Dispose_" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.Dispose*"></a>
+
+  <h3 id="BlazOrbit_Abstractions_BOBInputComponentBase_1_Dispose_System_Boolean_" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.Dispose(System.Boolean)">
+  Dispose(bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sync disposal path inherited from <span class="xref">Microsoft.AspNetCore.Components.Forms.InputBase&lt;TValue&gt;</span>. Unsubscribes
+the <span class="xref">Microsoft.AspNetCore.Components.Forms.EditContext</span> validation handler so the next component instance
+does not double-fire validation. JS-side cleanup belongs in <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_DisposeAsync">DisposeAsync()</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Dispose(bool disposing)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>disposing</code> <span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Abstractions_BOBInputComponentBase_1_DisposeAsync_" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.DisposeAsync*"></a>
+
+  <h3 id="BlazOrbit_Abstractions_BOBInputComponentBase_1_DisposeAsync" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.DisposeAsync">
+  DisposeAsync()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Async disposal path. Blazor invokes this first when the component is unmounted
+because the type implements <span class="xref">System.IAsyncDisposable</span>; it tears down the
+JS-side behavior instance via <span class="xref">BlazOrbit.Abstractions.BOBComponentPipeline.DisposeBehaviorAsync()</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual ValueTask DisposeAsync()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">ValueTask</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="BlazOrbit_Abstractions_BOBInputComponentBase_1_DisposeAsync_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Both this method and <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_Dispose_System_Boolean_">Dispose(bool)</a> run on disposal — Blazor calls
+<code>DisposeAsync</code> for the async work and the framework's <span class="xref">System.IDisposable</span>
+contract still invokes <code>Dispose(true)</code> afterward. The split is intentional:
+async work (JS interop teardown) lives here, sync work (event unsubscribe) lives in
+<code>Dispose(true)</code>. Both set <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_IsDisposed">IsDisposed</a> so derived components can
+guard post-await continuations regardless of which path runs first.</p>
+</div>
+
+
+
+
+  <a id="BlazOrbit_Abstractions_BOBInputComponentBase_1_OnAfterRenderAsync_" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.OnAfterRenderAsync*"></a>
+
+  <h3 id="BlazOrbit_Abstractions_BOBInputComponentBase_1_OnAfterRenderAsync_System_Boolean_" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.OnAfterRenderAsync(System.Boolean)">
+  OnAfterRenderAsync(bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Method invoked after each time the component has been rendered interactively and the UI has finished
+updating (for example, after elements have been added to the browser DOM). Any <span class="xref">Microsoft.AspNetCore.Components.ElementReference</span>
+fields will be populated by the time this runs.</p>
+<p>This method is not invoked during prerendering or server-side rendering, because those processes
+are not attached to any live browser DOM and are already complete before the DOM is updated.</p>
+<p>Note that the component does not automatically re-render after the completion of any returned <span class="xref">System.Threading.Tasks.Task</span>,
+because that would cause an infinite render loop.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override Task OnAfterRenderAsync(bool firstRender)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>firstRender</code> <span class="xref">bool</span></dt>
+    <dd><p>Set to <code>true</code> if this is the first time <span class="xref">Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender(bool)</span> has been invoked
+on this component instance; otherwise <code>false</code>.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd><p>A <span class="xref">System.Threading.Tasks.Task</span> representing any asynchronous operation.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="BlazOrbit_Abstractions_BOBInputComponentBase_1_OnAfterRenderAsync_System_Boolean__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>The <span class="xref">Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender(bool)</span> and <span class="xref">Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(bool)</span> lifecycle methods
+are useful for performing interop, or interacting with values received from <code>@ref</code>.
+Use the <code class="paramref">firstRender</code> parameter to ensure that initialization work is only performed
+once.</p>
+</div>
+
+
+
+
+  <a id="BlazOrbit_Abstractions_BOBInputComponentBase_1_OnInitialized_" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.OnInitialized*"></a>
+
+  <h3 id="BlazOrbit_Abstractions_BOBInputComponentBase_1_OnInitialized" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.OnInitialized">
+  OnInitialized()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Method invoked when the component is ready to start, having received its
+initial parameters from its parent in the render tree.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnInitialized()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Abstractions_BOBInputComponentBase_1_OnParametersSet_" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.OnParametersSet*"></a>
+
+  <h3 id="BlazOrbit_Abstractions_BOBInputComponentBase_1_OnParametersSet" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.OnParametersSet">
+  OnParametersSet()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Method invoked when the component has received parameters from its parent in
+the render tree, and the incoming values have been assigned to properties.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnParametersSet()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Abstractions_BOBInputComponentBase_1_SetParametersAsync_" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.SetParametersAsync*"></a>
+
+  <h3 id="BlazOrbit_Abstractions_BOBInputComponentBase_1_SetParametersAsync_Microsoft_AspNetCore_Components_ParameterView_" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.SetParametersAsync(Microsoft.AspNetCore.Components.ParameterView)">
+  SetParametersAsync(ParameterView)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets parameters supplied by the component's parent in the render tree.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Task SetParametersAsync(ParameterView parameters)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>parameters</code> <span class="xref">ParameterView</span></dt>
+    <dd><p>The parameters.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd><p>A <span class="xref">System.Threading.Tasks.Task</span> that completes when the component has finished updating and rendering itself.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="BlazOrbit_Abstractions_BOBInputComponentBase_1_SetParametersAsync_Microsoft_AspNetCore_Components_ParameterView__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>
+Parameters are passed when <span class="xref">Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync(Microsoft.AspNetCore.Components.ParameterView)</span> is called. It is not required that
+the caller supply a parameter value for all of the parameters that are logically understood by the component.
+</p>
+<p>
+The default implementation of <span class="xref">Microsoft.AspNetCore.Components.ComponentBase.SetParametersAsync(Microsoft.AspNetCore.Components.ParameterView)</span> will set the value of each property
+decorated with <span class="xref">Microsoft.AspNetCore.Components.ParameterAttribute</span> or <span class="xref">Microsoft.AspNetCore.Components.CascadingParameterAttribute</span> that has
+a corresponding value in the <span class="xref">Microsoft.AspNetCore.Components.ParameterView</span>. Parameters that do not have a corresponding value
+will be unchanged.
+</p>
+</div>
+
+
+
+
+  <a id="BlazOrbit_Abstractions_BOBInputComponentBase_1_ShouldRender_" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.ShouldRender*"></a>
+
+  <h3 id="BlazOrbit_Abstractions_BOBInputComponentBase_1_ShouldRender" data-uid="BlazOrbit.Abstractions.BOBInputComponentBase`1.ShouldRender">
+  ShouldRender()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Echo-guard. Suppresses redundant render-tree rebuilds triggered by the
+<code>ValueChanged → parent → SetParametersAsync</code> round-trip when nothing
+observable changed. Fires only on the parameter-change path; explicit
+<code>StateHasChanged</code> calls (focus/blur, validation flips, derived-component
+private state, JS-driven updates) always render.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool ShouldRender()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class TriggerTransitionBuilder | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class TriggerTransitionBuilder | BlazOrbit API ">
+      
+      
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Components.TriggerTransitionBuilder">
+
+
+
+  <h1 id="BlazOrbit_Components_TriggerTransitionBuilder" data-uid="BlazOrbit.Components.TriggerTransitionBuilder" class="text-break">
+Class TriggerTransitionBuilder  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Abstractions/Behaviors/Transitions/BOBTransitionBuilder.cs"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Components.html">Components</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class TriggerTransitionBuilder</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">TriggerTransitionBuilder</span></div>
+    </dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="BlazOrbit_Components_TriggerTransitionBuilder_And_" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.And*"></a>
+
+  <h3 id="BlazOrbit_Components_TriggerTransitionBuilder_And" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.And">
+  And()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Abstractions/Behaviors/Transitions/BOBTransitionBuilder.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BOBTransitionsBuilder And()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.BOBTransitionsBuilder.html">BOBTransitionsBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TriggerTransitionBuilder_BackdropFilter_" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.BackdropFilter*"></a>
+
+  <h3 id="BlazOrbit_Components_TriggerTransitionBuilder_BackdropFilter_System_String_System_Action_BlazOrbit_Components_TransitionTiming__" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.BackdropFilter(System.String,System.Action{BlazOrbit.Components.TransitionTiming})">
+  BackdropFilter(string, Action&lt;TransitionTiming&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Abstractions/Behaviors/Transitions/BOBTransitionBuilder.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TriggerTransitionBuilder BackdropFilter(string value, Action&lt;TransitionTiming&gt;? timing = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>timing</code> <span class="xref">Action</span>&lt;<a class="xref" href="BlazOrbit.Components.TransitionTiming.html">TransitionTiming</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.TriggerTransitionBuilder.html">TriggerTransitionBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TriggerTransitionBuilder_Background_" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Background*"></a>
+
+  <h3 id="BlazOrbit_Components_TriggerTransitionBuilder_Background_System_String_System_Action_BlazOrbit_Components_TransitionTiming__" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Background(System.String,System.Action{BlazOrbit.Components.TransitionTiming})">
+  Background(string, Action&lt;TransitionTiming&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Abstractions/Behaviors/Transitions/BOBTransitionBuilder.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TriggerTransitionBuilder Background(string value, Action&lt;TransitionTiming&gt;? timing = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>timing</code> <span class="xref">Action</span>&lt;<a class="xref" href="BlazOrbit.Components.TransitionTiming.html">TransitionTiming</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.TriggerTransitionBuilder.html">TriggerTransitionBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TriggerTransitionBuilder_BackgroundColor_" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.BackgroundColor*"></a>
+
+  <h3 id="BlazOrbit_Components_TriggerTransitionBuilder_BackgroundColor_System_String_System_Action_BlazOrbit_Components_TransitionTiming__" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.BackgroundColor(System.String,System.Action{BlazOrbit.Components.TransitionTiming})">
+  BackgroundColor(string, Action&lt;TransitionTiming&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Abstractions/Behaviors/Transitions/BOBTransitionBuilder.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TriggerTransitionBuilder BackgroundColor(string value, Action&lt;TransitionTiming&gt;? timing = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>timing</code> <span class="xref">Action</span>&lt;<a class="xref" href="BlazOrbit.Components.TransitionTiming.html">TransitionTiming</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.TriggerTransitionBuilder.html">TriggerTransitionBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TriggerTransitionBuilder_Border_" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Border*"></a>
+
+  <h3 id="BlazOrbit_Components_TriggerTransitionBuilder_Border_BlazOrbit_Components_BorderStyle_System_Action_BlazOrbit_Components_TransitionTiming__" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Border(BlazOrbit.Components.BorderStyle,System.Action{BlazOrbit.Components.TransitionTiming})">
+  Border(BorderStyle, Action&lt;TransitionTiming&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Abstractions/Behaviors/Transitions/BOBTransitionBuilder.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TriggerTransitionBuilder Border(BorderStyle border, Action&lt;TransitionTiming&gt;? timing = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>border</code> <a class="xref" href="BlazOrbit.Components.BorderStyle.html">BorderStyle</a></dt>
+    <dd></dd>
+    <dt><code>timing</code> <span class="xref">Action</span>&lt;<a class="xref" href="BlazOrbit.Components.TransitionTiming.html">TransitionTiming</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.TriggerTransitionBuilder.html">TriggerTransitionBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TriggerTransitionBuilder_BoxShadow_" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.BoxShadow*"></a>
+
+  <h3 id="BlazOrbit_Components_TriggerTransitionBuilder_BoxShadow_BlazOrbit_Components_ShadowStyle_System_Action_BlazOrbit_Components_TransitionTiming__" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.BoxShadow(BlazOrbit.Components.ShadowStyle,System.Action{BlazOrbit.Components.TransitionTiming})">
+  BoxShadow(ShadowStyle, Action&lt;TransitionTiming&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Abstractions/Behaviors/Transitions/BOBTransitionBuilder.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TriggerTransitionBuilder BoxShadow(ShadowStyle shadow, Action&lt;TransitionTiming&gt;? timing = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>shadow</code> <a class="xref" href="BlazOrbit.Components.ShadowStyle.html">ShadowStyle</a></dt>
+    <dd></dd>
+    <dt><code>timing</code> <span class="xref">Action</span>&lt;<a class="xref" href="BlazOrbit.Components.TransitionTiming.html">TransitionTiming</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.TriggerTransitionBuilder.html">TriggerTransitionBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TriggerTransitionBuilder_Build_" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Build*"></a>
+
+  <h3 id="BlazOrbit_Components_TriggerTransitionBuilder_Build" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Build">
+  Build()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Abstractions/Behaviors/Transitions/BOBTransitionBuilder.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BOBTransitions Build()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.BOBTransitions.html">BOBTransitions</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TriggerTransitionBuilder_Color_" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Color*"></a>
+
+  <h3 id="BlazOrbit_Components_TriggerTransitionBuilder_Color_System_String_System_Action_BlazOrbit_Components_TransitionTiming__" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Color(System.String,System.Action{BlazOrbit.Components.TransitionTiming})">
+  Color(string, Action&lt;TransitionTiming&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Abstractions/Behaviors/Transitions/BOBTransitionBuilder.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TriggerTransitionBuilder Color(string value, Action&lt;TransitionTiming&gt;? timing = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>timing</code> <span class="xref">Action</span>&lt;<a class="xref" href="BlazOrbit.Components.TransitionTiming.html">TransitionTiming</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.TriggerTransitionBuilder.html">TriggerTransitionBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TriggerTransitionBuilder_Filter_" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Filter*"></a>
+
+  <h3 id="BlazOrbit_Components_TriggerTransitionBuilder_Filter_System_String_System_Action_BlazOrbit_Components_TransitionTiming__" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Filter(System.String,System.Action{BlazOrbit.Components.TransitionTiming})">
+  Filter(string, Action&lt;TransitionTiming&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Abstractions/Behaviors/Transitions/BOBTransitionBuilder.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TriggerTransitionBuilder Filter(string value, Action&lt;TransitionTiming&gt;? timing = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>timing</code> <span class="xref">Action</span>&lt;<a class="xref" href="BlazOrbit.Components.TransitionTiming.html">TransitionTiming</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.TriggerTransitionBuilder.html">TriggerTransitionBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TriggerTransitionBuilder_Gap_" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Gap*"></a>
+
+  <h3 id="BlazOrbit_Components_TriggerTransitionBuilder_Gap_System_String_System_Action_BlazOrbit_Components_TransitionTiming__" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Gap(System.String,System.Action{BlazOrbit.Components.TransitionTiming})">
+  Gap(string, Action&lt;TransitionTiming&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Abstractions/Behaviors/Transitions/BOBTransitionBuilder.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TriggerTransitionBuilder Gap(string value, Action&lt;TransitionTiming&gt;? timing = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>timing</code> <span class="xref">Action</span>&lt;<a class="xref" href="BlazOrbit.Components.TransitionTiming.html">TransitionTiming</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.TriggerTransitionBuilder.html">TriggerTransitionBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TriggerTransitionBuilder_Opacity_" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Opacity*"></a>
+
+  <h3 id="BlazOrbit_Components_TriggerTransitionBuilder_Opacity_System_Single_System_Action_BlazOrbit_Components_TransitionTiming__" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Opacity(System.Single,System.Action{BlazOrbit.Components.TransitionTiming})">
+  Opacity(float, Action&lt;TransitionTiming&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Abstractions/Behaviors/Transitions/BOBTransitionBuilder.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TriggerTransitionBuilder Opacity(float value = 0.7, Action&lt;TransitionTiming&gt;? timing = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">float</span></dt>
+    <dd></dd>
+    <dt><code>timing</code> <span class="xref">Action</span>&lt;<a class="xref" href="BlazOrbit.Components.TransitionTiming.html">TransitionTiming</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.TriggerTransitionBuilder.html">TriggerTransitionBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TriggerTransitionBuilder_Outline_" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Outline*"></a>
+
+  <h3 id="BlazOrbit_Components_TriggerTransitionBuilder_Outline_System_String_System_Action_BlazOrbit_Components_TransitionTiming__" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Outline(System.String,System.Action{BlazOrbit.Components.TransitionTiming})">
+  Outline(string, Action&lt;TransitionTiming&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Abstractions/Behaviors/Transitions/BOBTransitionBuilder.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TriggerTransitionBuilder Outline(string value, Action&lt;TransitionTiming&gt;? timing = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>timing</code> <span class="xref">Action</span>&lt;<a class="xref" href="BlazOrbit.Components.TransitionTiming.html">TransitionTiming</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.TriggerTransitionBuilder.html">TriggerTransitionBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TriggerTransitionBuilder_OutlineColor_" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.OutlineColor*"></a>
+
+  <h3 id="BlazOrbit_Components_TriggerTransitionBuilder_OutlineColor_System_String_System_Action_BlazOrbit_Components_TransitionTiming__" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.OutlineColor(System.String,System.Action{BlazOrbit.Components.TransitionTiming})">
+  OutlineColor(string, Action&lt;TransitionTiming&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Abstractions/Behaviors/Transitions/BOBTransitionBuilder.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TriggerTransitionBuilder OutlineColor(string value, Action&lt;TransitionTiming&gt;? timing = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>timing</code> <span class="xref">Action</span>&lt;<a class="xref" href="BlazOrbit.Components.TransitionTiming.html">TransitionTiming</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.TriggerTransitionBuilder.html">TriggerTransitionBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TriggerTransitionBuilder_OutlineOffset_" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.OutlineOffset*"></a>
+
+  <h3 id="BlazOrbit_Components_TriggerTransitionBuilder_OutlineOffset_System_String_System_Action_BlazOrbit_Components_TransitionTiming__" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.OutlineOffset(System.String,System.Action{BlazOrbit.Components.TransitionTiming})">
+  OutlineOffset(string, Action&lt;TransitionTiming&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Abstractions/Behaviors/Transitions/BOBTransitionBuilder.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TriggerTransitionBuilder OutlineOffset(string value, Action&lt;TransitionTiming&gt;? timing = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>timing</code> <span class="xref">Action</span>&lt;<a class="xref" href="BlazOrbit.Components.TransitionTiming.html">TransitionTiming</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.TriggerTransitionBuilder.html">TriggerTransitionBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TriggerTransitionBuilder_Padding_" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Padding*"></a>
+
+  <h3 id="BlazOrbit_Components_TriggerTransitionBuilder_Padding_System_String_System_Action_BlazOrbit_Components_TransitionTiming__" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Padding(System.String,System.Action{BlazOrbit.Components.TransitionTiming})">
+  Padding(string, Action&lt;TransitionTiming&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Abstractions/Behaviors/Transitions/BOBTransitionBuilder.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TriggerTransitionBuilder Padding(string value, Action&lt;TransitionTiming&gt;? timing = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>timing</code> <span class="xref">Action</span>&lt;<a class="xref" href="BlazOrbit.Components.TransitionTiming.html">TransitionTiming</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.TriggerTransitionBuilder.html">TriggerTransitionBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TriggerTransitionBuilder_Property_" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Property*"></a>
+
+  <h3 id="BlazOrbit_Components_TriggerTransitionBuilder_Property_System_String_System_String_System_Action_BlazOrbit_Components_TransitionTiming__" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Property(System.String,System.String,System.Action{BlazOrbit.Components.TransitionTiming})">
+  Property(string, string, Action&lt;TransitionTiming&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Abstractions/Behaviors/Transitions/BOBTransitionBuilder.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TriggerTransitionBuilder Property(string cssProperty, string value, Action&lt;TransitionTiming&gt;? timing = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>cssProperty</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>value</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>timing</code> <span class="xref">Action</span>&lt;<a class="xref" href="BlazOrbit.Components.TransitionTiming.html">TransitionTiming</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.TriggerTransitionBuilder.html">TriggerTransitionBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TriggerTransitionBuilder_Rotate_" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Rotate*"></a>
+
+  <h3 id="BlazOrbit_Components_TriggerTransitionBuilder_Rotate_System_String_System_Action_BlazOrbit_Components_TransitionTiming__" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Rotate(System.String,System.Action{BlazOrbit.Components.TransitionTiming})">
+  Rotate(string, Action&lt;TransitionTiming&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Abstractions/Behaviors/Transitions/BOBTransitionBuilder.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TriggerTransitionBuilder Rotate(string angle = &quot;5deg&quot;, Action&lt;TransitionTiming&gt;? timing = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>angle</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>timing</code> <span class="xref">Action</span>&lt;<a class="xref" href="BlazOrbit.Components.TransitionTiming.html">TransitionTiming</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.TriggerTransitionBuilder.html">TriggerTransitionBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TriggerTransitionBuilder_Scale_" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Scale*"></a>
+
+  <h3 id="BlazOrbit_Components_TriggerTransitionBuilder_Scale_System_Single_System_Action_BlazOrbit_Components_TransitionTiming__" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Scale(System.Single,System.Action{BlazOrbit.Components.TransitionTiming})">
+  Scale(float, Action&lt;TransitionTiming&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Abstractions/Behaviors/Transitions/BOBTransitionBuilder.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TriggerTransitionBuilder Scale(float value = 1.05, Action&lt;TransitionTiming&gt;? timing = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">float</span></dt>
+    <dd></dd>
+    <dt><code>timing</code> <span class="xref">Action</span>&lt;<a class="xref" href="BlazOrbit.Components.TransitionTiming.html">TransitionTiming</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.TriggerTransitionBuilder.html">TriggerTransitionBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TriggerTransitionBuilder_TextShadow_" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.TextShadow*"></a>
+
+  <h3 id="BlazOrbit_Components_TriggerTransitionBuilder_TextShadow_System_String_System_Action_BlazOrbit_Components_TransitionTiming__" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.TextShadow(System.String,System.Action{BlazOrbit.Components.TransitionTiming})">
+  TextShadow(string, Action&lt;TransitionTiming&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Abstractions/Behaviors/Transitions/BOBTransitionBuilder.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TriggerTransitionBuilder TextShadow(string value, Action&lt;TransitionTiming&gt;? timing = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>timing</code> <span class="xref">Action</span>&lt;<a class="xref" href="BlazOrbit.Components.TransitionTiming.html">TransitionTiming</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.TriggerTransitionBuilder.html">TriggerTransitionBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_TriggerTransitionBuilder_Translate_" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Translate*"></a>
+
+  <h3 id="BlazOrbit_Components_TriggerTransitionBuilder_Translate_System_String_System_String_System_Action_BlazOrbit_Components_TransitionTiming__" data-uid="BlazOrbit.Components.TriggerTransitionBuilder.Translate(System.String,System.String,System.Action{BlazOrbit.Components.TransitionTiming})">
+  Translate(string, string, Action&lt;TransitionTiming&gt;?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Abstractions/Behaviors/Transitions/BOBTransitionBuilder.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TriggerTransitionBuilder Translate(string x = &quot;0&quot;, string y = &quot;0&quot;, Action&lt;TransitionTiming&gt;? timing = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>x</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>y</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>timing</code> <span class="xref">Action</span>&lt;<a class="xref" href="BlazOrbit.Components.TransitionTiming.html">TransitionTiming</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.TriggerTransitionBuilder.html">TriggerTransitionBuilder</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Abstractions/Behaviors/Transitions/BOBTransitionBuilder.cs" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

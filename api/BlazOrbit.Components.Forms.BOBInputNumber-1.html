@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class BOBInputNumber&lt;TValue&gt; | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class BOBInputNumber&lt;TValue&gt; | BlazOrbit API ">
+      
+      
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1">
+
+
+
+  <h1 id="BlazOrbit_Components_Forms_BOBInputNumber_1" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1" class="text-break">
+Class BOBInputNumber&lt;TValue&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Components.html">Components</a>.<a class="xref" href="BlazOrbit.Components.Forms.html">Forms</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[GenerateComponentInfo]
+public class BOBInputNumber&lt;TValue&gt; : BOBInputComponentBase&lt;TValue, BOBInputNumber&lt;TValue&gt;, BOBInputVariant&gt;, IHasReadOnly, IHasDisabled, IHasRequired, IHasError, IVariantComponent&lt;BOBInputVariant&gt;, IVariantComponent, IHasSize, IHasLoading, IHasDensity, IHasShadow, IHasColor, IHasBackgroundColor, IHasPrefix, IHasSuffix, IInputFamilyComponent</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TValue</code></dt>
+    <dd></dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">ComponentBase</span></div>
+      <div><span class="xref">InputBase</span>&lt;TValue&gt;</div>
+      <div><a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs">BOBInputComponentBase</a>&lt;TValue&gt;</div>
+      <div><a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs">BOBInputComponentBase</a>&lt;TValue, <a class="xref" href="BlazOrbit.Components.Forms.BOBInputNumber-1.html">BOBInputNumber</a>&lt;TValue&gt;, <a class="xref" href="BlazOrbit.Components.Forms.BOBInputVariant.html">BOBInputVariant</a>&gt;</div>
+      <div><span class="xref">BOBInputNumber&lt;TValue&gt;</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="BlazOrbit.Components.IHasReadOnly.html">IHasReadOnly</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasDisabled.html">IHasDisabled</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasRequired.html">IHasRequired</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasError.html">IHasError</a></div>
+      <div><a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/Variants/IVariantComponent.cs">IVariantComponent</a>&lt;<a class="xref" href="BlazOrbit.Components.Forms.BOBInputVariant.html">BOBInputVariant</a>&gt;</div>
+      <div><a class="xref" href="BlazOrbit.Components.IVariantComponent.html">IVariantComponent</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasSize.html">IHasSize</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasLoading.html">IHasLoading</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasDensity.html">IHasDensity</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasShadow.html">IHasShadow</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasColor.html">IHasColor</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasBackgroundColor.html">IHasBackgroundColor</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasPrefix.html">IHasPrefix</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasSuffix.html">IHasSuffix</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IInputFamilyComponent.html">IInputFamilyComponent</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-3.html#BlazOrbit_Abstractions_BOBInputComponentBase_3_BuildRenderTree_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder_">BOBInputComponentBase&lt;TValue, BOBInputNumber&lt;TValue&gt;, BOBInputVariant&gt;.BuildRenderTree(RenderTreeBuilder)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-3.html#BlazOrbit_Abstractions_BOBInputComponentBase_3_OnParametersSet">BOBInputComponentBase&lt;TValue, BOBInputNumber&lt;TValue&gt;, BOBInputVariant&gt;.OnParametersSet()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-3.html#BlazOrbit_Abstractions_BOBInputComponentBase_3_CurrentVariant">BOBInputComponentBase&lt;TValue, BOBInputNumber&lt;TValue&gt;, BOBInputVariant&gt;.CurrentVariant</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-3.html#BlazOrbit_Abstractions_BOBInputComponentBase_3_DefaultVariant">BOBInputComponentBase&lt;TValue, BOBInputNumber&lt;TValue&gt;, BOBInputVariant&gt;.DefaultVariant</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-3.html#BlazOrbit_Abstractions_BOBInputComponentBase_3_Variant">BOBInputComponentBase&lt;TValue, BOBInputNumber&lt;TValue&gt;, BOBInputVariant&gt;.Variant</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-3.html#BlazOrbit_Abstractions_BOBInputComponentBase_3_BuiltInTemplates">BOBInputComponentBase&lt;TValue, BOBInputNumber&lt;TValue&gt;, BOBInputVariant&gt;.BuiltInTemplates</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_SetParametersAsync_Microsoft_AspNetCore_Components_ParameterView_">BOBInputComponentBase&lt;TValue&gt;.SetParametersAsync(ParameterView)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_ShouldRender">BOBInputComponentBase&lt;TValue&gt;.ShouldRender()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_BuildComponentCssVariables_System_Collections_Generic_Dictionary_System_String_System_String__">BOBInputComponentBase&lt;TValue&gt;.BuildComponentCssVariables(Dictionary&lt;string, string&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_DisposeAsync">BOBInputComponentBase&lt;TValue&gt;.DisposeAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_OnAfterRenderAsync_System_Boolean_">BOBInputComponentBase&lt;TValue&gt;.OnAfterRenderAsync(bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_OnInitialized">BOBInputComponentBase&lt;TValue&gt;.OnInitialized()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_Disabled">BOBInputComponentBase&lt;TValue&gt;.Disabled</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_ReadOnly">BOBInputComponentBase&lt;TValue&gt;.ReadOnly</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_Required">BOBInputComponentBase&lt;TValue&gt;.Required</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_Error">BOBInputComponentBase&lt;TValue&gt;.Error</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_IsDisabled">BOBInputComponentBase&lt;TValue&gt;.IsDisabled</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_IsError">BOBInputComponentBase&lt;TValue&gt;.IsError</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_IsReadOnly">BOBInputComponentBase&lt;TValue&gt;.IsReadOnly</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_IsRequired">BOBInputComponentBase&lt;TValue&gt;.IsRequired</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_ComputedAttributes">BOBInputComponentBase&lt;TValue&gt;.ComputedAttributes</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_IsDisposed">BOBInputComponentBase&lt;TValue&gt;.IsDisposed</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1__ctor_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1__ctor" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.#ctor">
+  BOBInputNumber()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BOBInputNumber()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_AccelerationInitialDelay_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.AccelerationInitialDelay*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_AccelerationInitialDelay" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.AccelerationInitialDelay">
+  AccelerationInitialDelay
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initial delay (ms) before holding a step button starts accelerating.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int AccelerationInitialDelay { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_AccelerationMinDelay_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.AccelerationMinDelay*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_AccelerationMinDelay" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.AccelerationMinDelay">
+  AccelerationMinDelay
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Minimum delay (ms) between repeats once acceleration has ramped up.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int AccelerationMinDelay { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_AccelerationStepReduction_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.AccelerationStepReduction*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_AccelerationStepReduction" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.AccelerationStepReduction">
+  AccelerationStepReduction
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Decrement (ms) applied to the repeat delay each acceleration tick until <a class="xref" href="BlazOrbit.Components.Forms.BOBInputNumber-1.html#BlazOrbit_Components_Forms_BOBInputNumber_1_AccelerationMinDelay">AccelerationMinDelay</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int AccelerationStepReduction { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_AllowNegative_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.AllowNegative*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_AllowNegative" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.AllowNegative">
+  AllowNegative
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, negative values are accepted; otherwise the input clamps at zero.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool AllowNegative { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_BackgroundColor_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.BackgroundColor*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_BackgroundColor" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.BackgroundColor">
+  BackgroundColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Background color of the input. Accepts any valid CSS color value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? BackgroundColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_BuiltInTemplates_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.BuiltInTemplates*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_BuiltInTemplates" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.BuiltInTemplates">
+  BuiltInTemplates
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override IReadOnlyDictionary&lt;BOBInputVariant, Func&lt;BOBInputNumber&lt;TValue&gt;, RenderFragment&gt;&gt; BuiltInTemplates { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IReadOnlyDictionary</span>&lt;<a class="xref" href="BlazOrbit.Components.Forms.BOBInputVariant.html">BOBInputVariant</a>, <span class="xref">Func</span>&lt;<a class="xref" href="BlazOrbit.Components.Forms.BOBInputNumber-1.html">BOBInputNumber</a>&lt;TValue&gt;, <span class="xref">RenderFragment</span>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_ButtonPlacement_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.ButtonPlacement*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_ButtonPlacement" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.ButtonPlacement">
+  ButtonPlacement
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Placement of the increment/decrement buttons relative to the input field.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public StepButtonPlacement ButtonPlacement { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.Forms.StepButtonPlacement.html">StepButtonPlacement</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_Color_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.Color*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_Color" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.Color">
+  Color
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Text color of the input. Accepts any valid CSS color value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Color { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_Culture_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.Culture*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_Culture" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.Culture">
+  Culture
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Culture used for number formatting and parsing. Defaults to <span class="xref">System.Globalization.CultureInfo.CurrentCulture</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public CultureInfo? Culture { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">CultureInfo</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_DecimalPlaces_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.DecimalPlaces*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_DecimalPlaces" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.DecimalPlaces">
+  DecimalPlaces
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Number of decimal places to display. <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> defers to the value type's default formatting.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int? DecimalPlaces { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_DefaultVariant_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.DefaultVariant*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_DefaultVariant" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.DefaultVariant">
+  DefaultVariant
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Default variant used when no explicit variant is specified.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override BOBInputVariant DefaultVariant { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.Forms.BOBInputVariant.html">BOBInputVariant</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_Density_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.Density*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_Density" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.Density">
+  Density
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Vertical density (gap) of the input.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public BOBDensity Density { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.BOBDensity.html">BOBDensity</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_EnableAcceleration_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.EnableAcceleration*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_EnableAcceleration" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.EnableAcceleration">
+  EnableAcceleration
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, Acceleration is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool EnableAcceleration { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_EnableMouseWheel_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.EnableMouseWheel*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_EnableMouseWheel" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.EnableMouseWheel">
+  EnableMouseWheel
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, MouseWheel is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool EnableMouseWheel { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_HelperText_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.HelperText*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_HelperText" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.HelperText">
+  HelperText
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Helper text displayed below the component for additional context.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? HelperText { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_Label_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.Label*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_Label" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.Label">
+  Label
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Floating label displayed above the input when it has a value or focus.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Label { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_Loading_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.Loading*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_Loading" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.Loading">
+  Loading
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the input shows a loading indicator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool Loading { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_LoadingIndicatorVariant_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.LoadingIndicatorVariant*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_LoadingIndicatorVariant" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.LoadingIndicatorVariant">
+  LoadingIndicatorVariant
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Variant of the loading indicator shown when <a class="xref" href="BlazOrbit.Components.Forms.BOBInputNumber-1.html#BlazOrbit_Components_Forms_BOBInputNumber_1_Loading">Loading</a> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public BOBLoadingIndicatorVariant LoadingIndicatorVariant { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.BOBLoadingIndicatorVariant.html">BOBLoadingIndicatorVariant</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_Max_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.Max*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_Max" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.Max">
+  Max
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Upper bound for the input, emitted as the <code>max</code> HTML attribute and
+enforced by the step buttons. UI hint only — re-validate on the server.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public TValue? Max { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TValue</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_Min_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.Min*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_Min" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.Min">
+  Min
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Lower bound for the input, emitted as the <code>min</code> HTML attribute and
+enforced by the step buttons. UI hint only — re-validate on the server.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public TValue? Min { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">TValue</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_OnDecrement_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.OnDecrement*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_OnDecrement" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.OnDecrement">
+  OnDecrement
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when the Decrement event occurs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public EventCallback&lt;TValue?&gt; OnDecrement { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">EventCallback</span>&lt;TValue&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_OnIncrement_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.OnIncrement*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_OnIncrement" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.OnIncrement">
+  OnIncrement
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when the Increment event occurs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public EventCallback&lt;TValue?&gt; OnIncrement { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">EventCallback</span>&lt;TValue&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_Placeholder_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.Placeholder*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_Placeholder" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.Placeholder">
+  Placeholder
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Placeholder text shown when the component is empty.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Placeholder { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_PrefixBackgroundColor_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.PrefixBackgroundColor*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_PrefixBackgroundColor" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.PrefixBackgroundColor">
+  PrefixBackgroundColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>PrefixBackground color. Accepts any valid CSS color value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? PrefixBackgroundColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_PrefixColor_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.PrefixColor*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_PrefixColor" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.PrefixColor">
+  PrefixColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Prefix color. Accepts any valid CSS color value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? PrefixColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_PrefixIcon_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.PrefixIcon*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_PrefixIcon" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.PrefixIcon">
+  PrefixIcon
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Material icon name for the Prefix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public IconKey? PrefixIcon { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Media/Icons/IconKey.cs">IconKey</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_PrefixText_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.PrefixText*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_PrefixText" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.PrefixText">
+  PrefixText
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Text displayed before the input value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? PrefixText { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_Shadow_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.Shadow*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_Shadow" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.Shadow">
+  Shadow
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Shadow style applied to the input container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public ShadowStyle? Shadow { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.ShadowStyle.html">ShadowStyle</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_ShowStepButtons_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.ShowStepButtons*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_ShowStepButtons" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.ShowStepButtons">
+  ShowStepButtons
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the StepButtons is shown.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool ShowStepButtons { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_Size_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.Size*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_Size" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.Size">
+  Size
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Visual size of the input.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public BOBSize Size { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.BOBSize.html">BOBSize</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_Step_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.Step*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_Step" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.Step">
+  Step
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Step size for the increment/decrement buttons and the <code>step</code> HTML
+attribute. UI hint only — re-validate on the server.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public decimal Step { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">decimal</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_SuffixBackgroundColor_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.SuffixBackgroundColor*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_SuffixBackgroundColor" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.SuffixBackgroundColor">
+  SuffixBackgroundColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>SuffixBackground color. Accepts any valid CSS color value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? SuffixBackgroundColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_SuffixColor_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.SuffixColor*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_SuffixColor" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.SuffixColor">
+  SuffixColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Suffix color. Accepts any valid CSS color value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? SuffixColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_SuffixIcon_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.SuffixIcon*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_SuffixIcon" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.SuffixIcon">
+  SuffixIcon
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Material icon name for the Suffix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public IconKey? SuffixIcon { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Media/Icons/IconKey.cs">IconKey</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_SuffixText_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.SuffixText*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_SuffixText" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.SuffixText">
+  SuffixText
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Text displayed after the input value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? SuffixText { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_UseThousandsSeparator_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.UseThousandsSeparator*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_UseThousandsSeparator" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.UseThousandsSeparator">
+  UseThousandsSeparator
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the displayed value is grouped with the culture's thousands separator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool UseThousandsSeparator { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_BuildComponentDataAttributes_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.BuildComponentDataAttributes*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_BuildComponentDataAttributes_System_Collections_Generic_Dictionary_System_String_System_Object__" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.BuildComponentDataAttributes(System.Collections.Generic.Dictionary{System.String,System.Object})">
+  BuildComponentDataAttributes(Dictionary&lt;string, object&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void BuildComponentDataAttributes(Dictionary&lt;string, object&gt; dataAttributes)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>dataAttributes</code> <span class="xref">Dictionary</span>&lt;<span class="xref">string</span>, <span class="xref">object</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_BuildRenderTree_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.BuildRenderTree*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_BuildRenderTree_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+  BuildRenderTree(RenderTreeBuilder)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Renders the component to the supplied <span class="xref">Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void BuildRenderTree(RenderTreeBuilder __builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>__builder</code> <span class="xref">RenderTreeBuilder</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_Dispose_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.Dispose*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_Dispose_System_Boolean_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.Dispose(System.Boolean)">
+  Dispose(bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sync disposal path inherited from <span class="xref">Microsoft.AspNetCore.Components.Forms.InputBase&lt;TValue&gt;</span>. Unsubscribes
+the <span class="xref">Microsoft.AspNetCore.Components.Forms.EditContext</span> validation handler so the next component instance
+does not double-fire validation. JS-side cleanup belongs in <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_DisposeAsync">DisposeAsync()</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Dispose(bool disposing)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>disposing</code> <span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_OnParametersSet_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.OnParametersSet*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_OnParametersSet" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.OnParametersSet">
+  OnParametersSet()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Method invoked when the component has received parameters from its parent in
+the render tree, and the incoming values have been assigned to properties.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnParametersSet()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputNumber_1_TryParseValueFromString_" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.TryParseValueFromString*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputNumber_1_TryParseValueFromString_System_String__0__System_String__" data-uid="BlazOrbit.Components.Forms.BOBInputNumber`1.TryParseValueFromString(System.String,`0@,System.String@)">
+  TryParseValueFromString(string?, out TValue, out string?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Parses a string to create an instance of <code class="typeparamref">TValue</code>. Derived classes can override this to change how
+<span class="xref">Microsoft.AspNetCore.Components.Forms.InputBase&lt;TValue&gt;.CurrentValueAsString</span> interprets incoming values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool TryParseValueFromString(string? value, out TValue result, out string? validationErrorMessage)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">string</span></dt>
+    <dd><p>The string value to be parsed.</p>
+</dd>
+    <dt><code>result</code> <span class="xref">TValue</span></dt>
+    <dd><p>An instance of <code class="typeparamref">TValue</code>.</p>
+</dd>
+    <dt><code>validationErrorMessage</code> <span class="xref">string</span></dt>
+    <dd><p>If the value could not be parsed, provides a validation error message.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd><p>True if the value could be parsed; otherwise false.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/Number/BOBInputNumber.razor" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

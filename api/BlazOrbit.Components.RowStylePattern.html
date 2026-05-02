@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class RowStylePattern | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class RowStylePattern | BlazOrbit API ">
+      
+      <meta name="description" content="Defines a styling pattern for rows (DataGrid) or cards (DataCards). CSS-expressible patterns set container-level variables once; custom patterns compute per-item.">
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Components.RowStylePattern">
+
+
+
+  <h1 id="BlazOrbit_Components_RowStylePattern" data-uid="BlazOrbit.Components.RowStylePattern" class="text-break">
+Class RowStylePattern  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/DataCollections/DataGrid/RowStylePattern.cs"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Components.html">Components</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Defines a styling pattern for rows (DataGrid) or cards (DataCards).
+CSS-expressible patterns set container-level variables once; custom patterns compute per-item.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class RowStylePattern</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">RowStylePattern</span></div>
+    </dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="BlazOrbit_Components_RowStylePattern__ctor_" data-uid="BlazOrbit.Components.RowStylePattern.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Components_RowStylePattern__ctor" data-uid="BlazOrbit.Components.RowStylePattern.#ctor">
+  RowStylePattern()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/DataCollections/DataGrid/RowStylePattern.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected RowStylePattern()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="BlazOrbit_Components_RowStylePattern_All_" data-uid="BlazOrbit.Components.RowStylePattern.All*"></a>
+
+  <h3 id="BlazOrbit_Components_RowStylePattern_All_System_String_" data-uid="BlazOrbit.Components.RowStylePattern.All(System.String)">
+  All(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/DataCollections/DataGrid/RowStylePattern.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a pattern that applies a background color to all rows.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static RowStylePattern All(string backgroundColor)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>backgroundColor</code> <span class="xref">string</span></dt>
+    <dd><p>The background color for all rows.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.RowStylePattern.html">RowStylePattern</a></dt>
+    <dd><p>A <a class="xref" href="BlazOrbit.Components.RowStylePattern.html">RowStylePattern</a> that applies to all rows.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_RowStylePattern_Alternating_" data-uid="BlazOrbit.Components.RowStylePattern.Alternating*"></a>
+
+  <h3 id="BlazOrbit_Components_RowStylePattern_Alternating_System_String_System_String_" data-uid="BlazOrbit.Components.RowStylePattern.Alternating(System.String,System.String)">
+  Alternating(string?, string?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/DataCollections/DataGrid/RowStylePattern.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates an alternating row style pattern.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static RowStylePattern Alternating(string? evenBackground = null, string? oddBackground = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>evenBackground</code> <span class="xref">string</span></dt>
+    <dd><p>The background color for even rows.</p>
+</dd>
+    <dt><code>oddBackground</code> <span class="xref">string</span></dt>
+    <dd><p>The background color for odd rows.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.RowStylePattern.html">RowStylePattern</a></dt>
+    <dd><p>A <a class="xref" href="BlazOrbit.Components.RowStylePattern.html">RowStylePattern</a> that alternates row backgrounds.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_RowStylePattern_Custom_" data-uid="BlazOrbit.Components.RowStylePattern.Custom*"></a>
+
+  <h3 id="BlazOrbit_Components_RowStylePattern_Custom_System_Func_System_Int32_BlazOrbit_Components_RowStyle__" data-uid="BlazOrbit.Components.RowStylePattern.Custom(System.Func{System.Int32,BlazOrbit.Components.RowStyle})">
+  Custom(Func&lt;int, RowStyle?&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/DataCollections/DataGrid/RowStylePattern.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a custom row style pattern using the specified selector function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static RowStylePattern Custom(Func&lt;int, RowStyle?&gt; selector)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>selector</code> <span class="xref">Func</span>&lt;<span class="xref">int</span>, <a class="xref" href="BlazOrbit.Components.RowStyle.html">RowStyle</a>&gt;</dt>
+    <dd><p>A function that returns a <a class="xref" href="BlazOrbit.Components.RowStyle.html">RowStyle</a> for a given row index.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.RowStylePattern.html">RowStylePattern</a></dt>
+    <dd><p>A <a class="xref" href="BlazOrbit.Components.RowStylePattern.html">RowStylePattern</a> that uses custom logic.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_RowStylePattern_EveryNth_" data-uid="BlazOrbit.Components.RowStylePattern.EveryNth*"></a>
+
+  <h3 id="BlazOrbit_Components_RowStylePattern_EveryNth_System_Int32_System_String_" data-uid="BlazOrbit.Components.RowStylePattern.EveryNth(System.Int32,System.String)">
+  EveryNth(int, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/DataCollections/DataGrid/RowStylePattern.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Creates a pattern that highlights every Nth row.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static RowStylePattern EveryNth(int n, string backgroundColor)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>n</code> <span class="xref">int</span></dt>
+    <dd><p>The interval at which rows are highlighted.</p>
+</dd>
+    <dt><code>backgroundColor</code> <span class="xref">string</span></dt>
+    <dd><p>The background color for highlighted rows.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.RowStylePattern.html">RowStylePattern</a></dt>
+    <dd><p>A <a class="xref" href="BlazOrbit.Components.RowStylePattern.html">RowStylePattern</a> that highlights every Nth row.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Generic/DataCollections/DataGrid/RowStylePattern.cs" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
