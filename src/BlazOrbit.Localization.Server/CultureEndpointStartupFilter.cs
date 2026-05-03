@@ -33,10 +33,12 @@ public class CultureEndpointStartupFilter : IStartupFilter
                     string? culture = context.Request.Query["culture"];
                     string redirectUri = context.Request.Query["redirectUri"].ToString();
 
-                    // Reject absolute / scheme-relative redirects to avoid
-                    // open-redirect: only same-origin paths are allowed.
+                    // Reject anything that is not a root-relative same-origin path.
+                    // Uri.TryCreate alone is insufficient — browsers treat strings
+                    // such as "http:evil.com" as absolute even though .NET parses
+                    // them as relative URIs.
                     if (string.IsNullOrEmpty(redirectUri)
-                        || !Uri.TryCreate(redirectUri, UriKind.Relative, out _)
+                        || !redirectUri.StartsWith("/", StringComparison.Ordinal)
                         || redirectUri.StartsWith("//", StringComparison.Ordinal)
                         || redirectUri.StartsWith("/\\", StringComparison.Ordinal))
                     {
@@ -53,7 +55,8 @@ public class CultureEndpointStartupFilter : IStartupFilter
                                 Expires = DateTimeOffset.UtcNow.AddYears(1),
                                 IsEssential = true,
                                 SameSite = SameSiteMode.Lax,
-                                HttpOnly = true
+                                HttpOnly = true,
+                                Secure = true
                             });
                     }
 
