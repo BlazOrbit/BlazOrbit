@@ -60,7 +60,7 @@ develop  ●────┬────┬────┬────┬──�
 - Must pass the **Preview Gate** workflow (`preview-gate.yml`):
   - Build (Debug & Release)
   - Run all tests
-  - Public API diff check
+  - Public API shipped integrity check
 - Merge with **Squash and merge**.
 - After merge, the **Preview Publish** workflow (`preview-publish.yml`) automatically publishes a `preview` NuGet version.
 
@@ -79,7 +79,7 @@ A Pull Request from the release branch to `master` must pass the **Release Gate*
 - Build and test
 - Vulnerability audit (no High/Critical NuGet advisories)
 - Blocking issues check (no open issues labeled `severity/blocker` or `severity/critical`)
-- Public API check
+- Public API shipped integrity check
 
 Once merged to `master`, create a tag `vX.Y.Z` to trigger the **Release Publish** workflow (`release-publish.yml`), which publishes the stable packages to NuGet.
 
@@ -161,9 +161,9 @@ The project maintains a `CHANGELOG.md` file that lists all notable changes per v
 
 | Workflow | Trigger | Purpose |
 |----------|---------|---------|
-| `preview-gate.yml` | PR to `develop` | Quality gates (build, test, public api) |
+| `preview-gate.yml` | PR to `develop` | Quality gates (build, test, public API shipped integrity) |
 | `preview-publish.yml` | Push to `develop` | Auto-publish preview NuGet packages |
-| `release-gate.yml` | PR to `master` | Release gates (blocking issues, vulnerabilities, public api) |
+| `release-gate.yml` | PR to `master` | Release gates (blocking issues, vulnerabilities, public API shipped integrity) |
 | `release-publish.yml` | Tag `v*` | Publish stable release to NuGet |
 | `setup-repository.yml` | Manual | Configure labels and branch protection |
 
