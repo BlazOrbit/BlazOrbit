@@ -1,0 +1,70 @@
+@page "/components/rangeslider"
+
+@inject IStringLocalizer<InputRangeSliderPage> Loc
+
+<PageTitle>BlazOrbit - BOBInputRangeSlider</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBInputRangeSlider"]"
+         Lede="@Loc["Two-thumb slider bound to a single BOBNumericRange<T> value. EditContext-aware, granular FluentValidation via Range.Min and Range.Max, with keyboard, ticks, and orientation."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBInputRangeSlider<>)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+        <BOBInputRangeSlider TValue="int" @bind-Value="_basic" Label="@Loc["Range"]" />
+    </DocDemo>
+
+    <DocDemo Key="PriceRange" Title="@Loc["Price range"]">
+        <BOBInputRangeSlider TValue="decimal" @bind-Value="_price"
+                             Label="@Loc["Price filter"]"
+                             Min="0m" Max="500m" Step="5m"
+                             ValueLabelFormat="C0" />
+    </DocDemo>
+
+    <DocDemo Key="Ticks" Title="@Loc["Ticks"]">
+        <BOBInputRangeSlider TValue="int" @bind-Value="_age" Label="@Loc["Age"]" Min="0" Max="100" Step="5" ShowTicks="true" />
+    </DocDemo>
+
+    <DocDemo Key="Vertical" Title="@Loc["Vertical orientation"]">
+        <div style="height: 240px;">
+            <BOBInputRangeSlider TValue="int" @bind-Value="_vertical" Label="@Loc["Working hours"]" Orientation="BOBSliderOrientation.Vertical" Min="0" Max="24" Step="1" />
+        </div>
+    </DocDemo>
+
+    <DocDemo Key="Sizes" Title="@Loc["Sizes"]">
+        <BOBInputRangeSlider TValue="int" @bind-Value="_sizeS" Label="@Loc["Small"]" Size="BOBSize.Small" />
+        <BOBInputRangeSlider TValue="int" @bind-Value="_sizeM" Label="@Loc["Medium (Default)"]" Size="BOBSize.Medium" />
+        <BOBInputRangeSlider TValue="int" @bind-Value="_sizeL" Label="@Loc["Large"]" Size="BOBSize.Large" />
+    </DocDemo>
+
+    <DocDemo Key="ColorAndBackground" Title="@Loc["Color & Background"]">
+        <BOBInputRangeSlider TValue="int" @bind-Value="_colored" Label="@Loc["Custom Color"]" Color="@PaletteColor.Secondary" BackgroundColor="@PaletteColor.SecondaryContrast" />
+    </DocDemo>
+
+    <DocDemo Key="States" Title="@Loc["States"]">
+        <BOBInputRangeSlider TValue="int" @bind-Value="_required" Label="@Loc["Required"]" Required="true" />
+        <BOBInputRangeSlider TValue="int" @bind-Value="_readonly" Label="@Loc["ReadOnly"]" ReadOnly="true" />
+        <BOBInputRangeSlider TValue="int" @bind-Value="_disabled" Label="@Loc["Disabled"]" Disabled="true" />
+        <BOBInputRangeSlider TValue="int" @bind-Value="_errorValue" Label="@Loc["Error"]" Error="true" HelperText="@Loc["Validation message goes here."]" />
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Properties</h2>
+        <PropertyTable Properties="@BOBInputRangeSliderComponentInfo.Parameters" />
+    </section>
+
+</DocPage>
+
+@code {
+    private BOBNumericRange<int> _basic = new(20, 80);
+    private BOBNumericRange<decimal> _price = new(50m, 250m);
+    private BOBNumericRange<int> _age = new(20, 60);
+    private BOBNumericRange<int> _vertical = new(8, 17);
+    private BOBNumericRange<int> _sizeS = new(10, 40);
+    private BOBNumericRange<int> _sizeM = new(20, 70);
+    private BOBNumericRange<int> _sizeL = new(30, 90);
+    private BOBNumericRange<int> _colored = new(25, 75);
+    private BOBNumericRange<int> _required = new(20, 80);
+    private BOBNumericRange<int> _readonly = new(20, 80);
+    private BOBNumericRange<int> _disabled = new(20, 80);
+    private BOBNumericRange<int> _errorValue = new(30, 60);
+}

@@ -1,0 +1,76 @@
+@page "/components/numberslider"
+
+@inject IStringLocalizer<InputNumberSliderPage> Loc
+
+<PageTitle>BlazOrbit - BOBInputNumberSlider</PageTitle>
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBInputNumberSlider"]"
+         Lede="@Loc["Single-thumb slider for any INumber<T> value with min/max/step, ticks, value label, horizontal and vertical orientation, and full keyboard support."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBInputNumberSlider<>)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+        <BOBInputNumberSlider TValue="int" @bind-Value="_basic" Label="@Loc["Volume"]" />
+    </DocDemo>
+
+    <DocDemo Key="MinMaxStep" Title="@Loc["Min, Max & Step"]">
+        <BOBInputNumberSlider TValue="int" @bind-Value="_brightness" Label="@Loc["Brightness"]" Min="0" Max="100" Step="5" />
+    </DocDemo>
+
+    <DocDemo Key="Decimals" Title="@Loc["Decimal values"]">
+        <BOBInputNumberSlider TValue="decimal" @bind-Value="_temperature" Label="@Loc["Temperature"]" Min="-20m" Max="40m" Step="0.5m" ValueLabelFormat="0.0 °C" />
+    </DocDemo>
+
+    <DocDemo Key="Ticks" Title="@Loc["Ticks"]">
+        <BOBInputNumberSlider TValue="int" @bind-Value="_zoom" Label="@Loc["Zoom"]" Min="0" Max="100" Step="10" ShowTicks="true" />
+    </DocDemo>
+
+    <DocDemo Key="Vertical" Title="@Loc["Vertical orientation"]">
+        <div style="height: 240px; display: flex; gap: 2rem;">
+            <BOBInputNumberSlider TValue="int" @bind-Value="_verticalA" Label="@Loc["Bass"]" Orientation="BOBSliderOrientation.Vertical" Min="0" Max="100" />
+            <BOBInputNumberSlider TValue="int" @bind-Value="_verticalB" Label="@Loc["Mid"]" Orientation="BOBSliderOrientation.Vertical" Min="0" Max="100" />
+            <BOBInputNumberSlider TValue="int" @bind-Value="_verticalC" Label="@Loc["Treble"]" Orientation="BOBSliderOrientation.Vertical" Min="0" Max="100" />
+        </div>
+    </DocDemo>
+
+    <DocDemo Key="Sizes" Title="@Loc["Sizes"]">
+        <BOBInputNumberSlider TValue="int" @bind-Value="_sizeS" Label="@Loc["Small"]" Size="BOBSize.Small" />
+        <BOBInputNumberSlider TValue="int" @bind-Value="_sizeM" Label="@Loc["Medium (Default)"]" Size="BOBSize.Medium" />
+        <BOBInputNumberSlider TValue="int" @bind-Value="_sizeL" Label="@Loc["Large"]" Size="BOBSize.Large" />
+    </DocDemo>
+
+    <DocDemo Key="ColorAndBackground" Title="@Loc["Color & Background"]">
+        <BOBInputNumberSlider TValue="int" @bind-Value="_colored" Label="@Loc["Custom Color"]" Color="@PaletteColor.Secondary" BackgroundColor="@PaletteColor.SecondaryContrast" />
+    </DocDemo>
+
+    <DocDemo Key="States" Title="@Loc["States"]">
+        <BOBInputNumberSlider TValue="int" @bind-Value="_required" Label="@Loc["Required"]" Required="true" />
+        <BOBInputNumberSlider TValue="int" @bind-Value="_readonly" Label="@Loc["ReadOnly"]" ReadOnly="true" />
+        <BOBInputNumberSlider TValue="int" @bind-Value="_disabled" Label="@Loc["Disabled"]" Disabled="true" />
+        <BOBInputNumberSlider TValue="int" @bind-Value="_errorValue" Label="@Loc["Error"]" Error="true" HelperText="@Loc["Validation message goes here."]" />
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Properties</h2>
+        <PropertyTable Properties="@BOBInputNumberSliderComponentInfo.Parameters" />
+    </section>
+
+</DocPage>
+
+@code {
+    private int _basic = 30;
+    private int _brightness = 60;
+    private decimal _temperature = 21.5m;
+    private int _zoom = 50;
+    private int _verticalA = 40;
+    private int _verticalB = 60;
+    private int _verticalC = 75;
+    private int _sizeS = 25;
+    private int _sizeM = 50;
+    private int _sizeL = 75;
+    private int _colored = 50;
+    private int _required;
+    private int _readonly = 42;
+    private int _disabled = 42;
+    private int _errorValue = 5;
+}

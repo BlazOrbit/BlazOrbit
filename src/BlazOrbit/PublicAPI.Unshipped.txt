@@ -2905,3 +2905,162 @@ BlazOrbit.Components.Forms.BOBInputText.OnInputDebounceMs.get -> int
 BlazOrbit.Components.Forms.BOBInputText.OnInputDebounceMs.set -> void
 BlazOrbit.Components.Forms.BOBInputTextArea.OnInputDebounceMs.get -> int
 BlazOrbit.Components.Forms.BOBInputTextArea.OnInputDebounceMs.set -> void
+BlazOrbit.Components.Forms.BOBSliderOrientation
+BlazOrbit.Components.Forms.BOBSliderOrientation.Horizontal = 0 -> BlazOrbit.Components.Forms.BOBSliderOrientation
+BlazOrbit.Components.Forms.BOBSliderOrientation.Vertical = 1 -> BlazOrbit.Components.Forms.BOBSliderOrientation
+BlazOrbit.Components.Forms.Internal._BOBSliderTrack
+BlazOrbit.Components.Forms.Internal._BOBSliderTrack._BOBSliderTrack() -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderTrack.ChildContent.get -> Microsoft.AspNetCore.Components.RenderFragment?
+BlazOrbit.Components.Forms.Internal._BOBSliderTrack.ChildContent.set -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderTrack.FillEndPercent.get -> double
+BlazOrbit.Components.Forms.Internal._BOBSliderTrack.FillEndPercent.set -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderTrack.FillStartPercent.get -> double
+BlazOrbit.Components.Forms.Internal._BOBSliderTrack.FillStartPercent.set -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderTrack.OnPointerDown.get -> Microsoft.AspNetCore.Components.EventCallback<Microsoft.AspNetCore.Components.Web.PointerEventArgs!>
+BlazOrbit.Components.Forms.Internal._BOBSliderTrack.OnPointerDown.set -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderTrack.Orientation.get -> BlazOrbit.Components.Forms.BOBSliderOrientation
+BlazOrbit.Components.Forms.Internal._BOBSliderTrack.Orientation.set -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderTrack.ShowTicks.get -> bool
+BlazOrbit.Components.Forms.Internal._BOBSliderTrack.ShowTicks.set -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderTrack.TickPercents.get -> System.Collections.Generic.IReadOnlyList<double>?
+BlazOrbit.Components.Forms.Internal._BOBSliderTrack.TickPercents.set -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderTrack.TrackElementRef.get -> Microsoft.AspNetCore.Components.ElementReference
+~override BlazOrbit.Components.Forms.Internal._BOBSliderTrack.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb._BOBSliderThumb() -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.AriaLabel.get -> string?
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.AriaLabel.set -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.AriaValueMax.get -> string?
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.AriaValueMax.set -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.AriaValueMin.get -> string?
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.AriaValueMin.set -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.AriaValueNow.get -> string?
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.AriaValueNow.set -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.AriaValueText.get -> string?
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.AriaValueText.set -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.Disabled.get -> bool
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.Disabled.set -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.Dragging.get -> bool
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.Dragging.set -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.Focused.get -> bool
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.Focused.set -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.OnBlur.get -> Microsoft.AspNetCore.Components.EventCallback<Microsoft.AspNetCore.Components.Web.FocusEventArgs!>
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.OnBlur.set -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.OnFocus.get -> Microsoft.AspNetCore.Components.EventCallback<Microsoft.AspNetCore.Components.Web.FocusEventArgs!>
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.OnFocus.set -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.OnKeyDown.get -> Microsoft.AspNetCore.Components.EventCallback<Microsoft.AspNetCore.Components.Web.KeyboardEventArgs!>
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.OnKeyDown.set -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.OnPointerDown.get -> Microsoft.AspNetCore.Components.EventCallback<Microsoft.AspNetCore.Components.Web.PointerEventArgs!>
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.OnPointerDown.set -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.Orientation.get -> BlazOrbit.Components.Forms.BOBSliderOrientation
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.Orientation.set -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.Percent.get -> double
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.Percent.set -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.ReadOnly.get -> bool
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.ReadOnly.set -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.ShowValueLabel.get -> bool
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.ShowValueLabel.set -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.ThumbRef.get -> Microsoft.AspNetCore.Components.ElementReference
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.ThumbRef.set -> void
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.ValueLabel.get -> string?
+BlazOrbit.Components.Forms.Internal._BOBSliderThumb.ValueLabel.set -> void
+~override BlazOrbit.Components.Forms.Internal._BOBSliderThumb.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
+BlazOrbit.Components.Forms.ISliderJsCallback
+BlazOrbit.Components.Forms.ISliderJsCallback.OnPointerMove(double percent) -> System.Threading.Tasks.Task!
+BlazOrbit.Components.Forms.ISliderJsCallback.OnPointerUp(double percent) -> System.Threading.Tasks.Task!
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.AriaLabel.get -> string?
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.AriaLabel.set -> void
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.BOBInputNumberSlider() -> void
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.BackgroundColor.get -> string?
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.BackgroundColor.set -> void
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.Color.get -> string?
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.Color.set -> void
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.Culture.get -> System.Globalization.CultureInfo?
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.Culture.set -> void
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.Density.get -> BlazOrbit.Components.BOBDensity
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.Density.set -> void
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.FullWidth.get -> bool
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.FullWidth.set -> void
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.HelperText.get -> string?
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.HelperText.set -> void
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.Label.get -> string?
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.Label.set -> void
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.Max.get -> TValue
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.Max.set -> void
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.Min.get -> TValue
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.Min.set -> void
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.Orientation.get -> BlazOrbit.Components.Forms.BOBSliderOrientation
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.Orientation.set -> void
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.Shadow.get -> BlazOrbit.Components.ShadowStyle?
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.Shadow.set -> void
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.ShowTicks.get -> bool
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.ShowTicks.set -> void
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.ShowValueLabel.get -> bool
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.ShowValueLabel.set -> void
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.Size.get -> BlazOrbit.Components.BOBSize
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.Size.set -> void
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.Step.get -> TValue
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.Step.set -> void
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.TickInterval.get -> TValue?
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.TickInterval.set -> void
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.ValueLabelFormat.get -> string?
+BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.ValueLabelFormat.set -> void
+override BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.DefaultVariant.get -> BlazOrbit.Components.Forms.BOBInputVariant!
+override BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.DisposeAsync() -> System.Threading.Tasks.ValueTask
+override BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.TryParseValueFromString(string? value, out TValue result, out string? validationErrorMessage) -> bool
+~override BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
+BlazOrbit.Components.Forms.BOBInputNumberSliderComponentInfo
+override BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.BuiltInTemplates.get -> System.Collections.Generic.IReadOnlyDictionary<BlazOrbit.Components.Forms.BOBInputVariant!, System.Func<BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
+static readonly BlazOrbit.Components.Forms.BOBInputNumberSliderComponentInfo.Parameters -> BlazOrbit.ComponentParameterInfo![]!
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.AriaLabelMax.get -> string!
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.AriaLabelMax.set -> void
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.AriaLabelMin.get -> string!
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.AriaLabelMin.set -> void
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.BOBInputRangeSlider() -> void
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.BackgroundColor.get -> string?
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.BackgroundColor.set -> void
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.Color.get -> string?
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.Color.set -> void
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.Culture.get -> System.Globalization.CultureInfo?
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.Culture.set -> void
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.Density.get -> BlazOrbit.Components.BOBDensity
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.Density.set -> void
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.FullWidth.get -> bool
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.FullWidth.set -> void
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.HelperText.get -> string?
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.HelperText.set -> void
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.Label.get -> string?
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.Label.set -> void
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.Max.get -> TValue
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.Max.set -> void
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.Min.get -> TValue
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.Min.set -> void
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.Orientation.get -> BlazOrbit.Components.Forms.BOBSliderOrientation
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.Orientation.set -> void
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.Shadow.get -> BlazOrbit.Components.ShadowStyle?
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.Shadow.set -> void
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.ShowTicks.get -> bool
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.ShowTicks.set -> void
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.ShowValueLabel.get -> bool
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.ShowValueLabel.set -> void
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.Size.get -> BlazOrbit.Components.BOBSize
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.Size.set -> void
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.Step.get -> TValue
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.Step.set -> void
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.TickInterval.get -> TValue?
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.TickInterval.set -> void
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.ValueLabelFormat.get -> string?
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.ValueLabelFormat.set -> void
+BlazOrbit.Components.Forms.BOBInputRangeSliderComponentInfo
+override BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.BuiltInTemplates.get -> System.Collections.Generic.IReadOnlyDictionary<BlazOrbit.Components.Forms.BOBInputVariant!, System.Func<BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
+override BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.DefaultVariant.get -> BlazOrbit.Components.Forms.BOBInputVariant!
+override BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.DisposeAsync() -> System.Threading.Tasks.ValueTask
+override BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.TryParseValueFromString(string? value, out BlazOrbit.Components.BOBNumericRange<TValue> result, out string? validationErrorMessage) -> bool
+static readonly BlazOrbit.Components.Forms.BOBInputRangeSliderComponentInfo.Parameters -> BlazOrbit.ComponentParameterInfo![]!
+~override BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
