@@ -22,7 +22,6 @@ public class CssArchitectureLintTests
         // Hosts — documented exceptions in CSS-SCOPED-04
         "BOBModalHost",
         "BOBModalContainer",
-        "BOBThemeGenerator",
     ];
 
     /// <summary>

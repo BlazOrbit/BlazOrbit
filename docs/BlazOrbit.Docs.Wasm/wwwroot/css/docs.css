@@ -512,13 +512,6 @@ html[data-theme="light"] {
     font-weight: 700;
 }
 
-.hero__ctas {
-    display: flex;
-    gap: 0.75rem;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
 .hero__snippet {
     display: inline-flex;
     align-items: center;

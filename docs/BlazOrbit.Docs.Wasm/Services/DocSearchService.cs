@@ -151,6 +151,7 @@ public sealed class DocSearchService
             // Features
             new(_loc["Validation"], "/features/validation", [_loc["Features"]], "validation fluent editcontext data annotations form rules"),
             new(_loc["Localization"], "/features/localization", [_loc["Features"]], "i18n l10n culture language resx translation globalize"),
+            new(_loc["Icon Gallery"], "/features/icons", [_loc["Features"]], "icons gallery"),
 
             // Live development
             new(_loc["Live Development"], "/live-development", [_loc["Live Development"]], "live development"),

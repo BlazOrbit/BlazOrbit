@@ -1,4 +1,5 @@
 ﻿using BlazOrbit.Components;
+using BlazOrbit.Core.Utilities;
 using BlazOrbit.Themes;
 using CdCSharp.BuildTools;
 using CdCSharp.BuildTools.Attributes;
@@ -34,7 +35,9 @@ public class CssInitializeThemesGenerator : IAssetGenerator
         string[] keys = typeof(BOBThemePaletteBase)
             .GetProperties(BindingFlags.Instance | BindingFlags.Public)
             .Where(p => p.PropertyType == typeof(CssColor))
-            .Select(p => ToKebabCase(p.Name))
+            // ToKebabCase: Mirrors BOBThemePaletteBase.ToCssVariableName() so the generated class names
+            // and var() references stay in sync with the --palette-* declarations.
+            .Select(p => p.Name.ToKebabCase())
             .OrderBy(k => k, StringComparer.Ordinal)
             .ToArray();
 
@@ -52,33 +55,5 @@ public class CssInitializeThemesGenerator : IAssetGenerator
         }
 
         return Task.FromResult(sb.ToString().TrimEnd());
-    }
-
-    // Mirrors BOBThemePaletteBase.ToCssVariableName() so the generated class names
-    // and var() references stay in sync with the --palette-* declarations.
-    private static string ToKebabCase(string propertyName)
-    {
-        if (string.IsNullOrEmpty(propertyName))
-        {
-            return propertyName;
-        }
-
-        StringBuilder sb = new(propertyName.Length + 4);
-        sb.Append(char.ToLowerInvariant(propertyName[0]));
-        for (int i = 1; i < propertyName.Length; i++)
-        {
-            char c = propertyName[i];
-            if (char.IsUpper(c))
-            {
-                sb.Append('-');
-                sb.Append(char.ToLowerInvariant(c));
-            }
-            else
-            {
-                sb.Append(c);
-            }
-        }
-
-        return sb.ToString();
     }
 }

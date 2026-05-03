@@ -218,6 +218,28 @@ function Invoke-GitCommand {
     }
 }
 
+function Test-BranchMergedViaPR {
+    <#
+    .SYNOPSIS
+    Returns $true if the branch was merged via a closed-merged GitHub PR.
+    Used as a fallback for `git branch --merged`, which cannot detect
+    squash-merges because the squash commit on develop has a different SHA
+    than the branch's commits. Best-effort: requires `gh` CLI and returns
+    $false silently if unavailable.
+    #>
+    param([string]$Branch)
+    try {
+        $jsonResult = & gh pr list --state merged --head $Branch --json number 2>$null
+        if ($LASTEXITCODE -ne 0) { return $false }
+        if (-not $jsonResult) { return $false }
+        $parsed = $jsonResult | ConvertFrom-Json
+        return @($parsed).Count -gt 0
+    }
+    catch {
+        return $false
+    }
+}
+
 function Get-NextVersion {
     param([string]$LastTag)
 
@@ -498,17 +520,24 @@ function Move-PublicApiToShipped {
         $unshippedContent = Get-Content $unshippedPath -Raw -ErrorAction SilentlyContinue
         
         if ($unshippedContent -and $unshippedContent.Trim()) {
-            # Append to Shipped
+            # Append to Shipped (with newline separator if needed)
             if (Test-Path $shippedPath) {
-                Add-Content -Path $shippedPath -Value $unshippedContent -Encoding UTF8 -NoNewline
+                # Ensure a separator newline between the existing Shipped content
+                # and the appended Unshipped content. Without this, the last line
+                # of Shipped fuses with the first line of Unshipped (PublicAPI
+                # tooling then sees a single garbled entry).
+                $existing = [System.IO.File]::ReadAllText($shippedPath)
+                $separator = if ($existing -and -not $existing.EndsWith("`n")) { "`n" } else { "" }
+                $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
+                [System.IO.File]::AppendAllText($shippedPath, "$separator$unshippedContent", $utf8NoBom)
             }
             else {
                 $unshippedContent | Set-Content -Path $shippedPath -Encoding UTF8 -NoNewline
             }
-            
+
             # Clear Unshipped
             "" | Set-Content -Path $unshippedPath -Encoding UTF8
-            
+
             Write-Info "Moved API: $($unshippedFile.Directory.Name)"
             $movedCount++
         }
@@ -532,24 +561,43 @@ function Move-PublicApiToShipped {
 
 function Publish-Release {
     param([string]$Version)
-    
+
     Write-Header "Publishing Release $Version"
-    
+
     if ($Version -notmatch '^\d+\.\d+\.\d+$') {
         Write-Error "Invalid format. Use: X.Y.Z"
         exit 1
     }
-    
+
     $releaseBranch = "release/$Version"
     $tag = "v$Version"
-    
-    # Check if release branch exists
-    $exists = git branch --list $releaseBranch 2>$null
-    if (-not $exists) {
-        Write-Error "Branch $releaseBranch doesn't exist. Create RC first."
+
+    # ---- STEP 1/8: Pre-flight checks ----
+    Write-Info "[STEP 1/8] Pre-flight checks"
+
+    # Working directory must be clean. Publish-Release does multiple checkouts
+    # and merges, any of which would fail or silently carry stale state if the
+    # tree is dirty. Matches the precondition in New-ReleaseCandidate.
+    $status = git status --porcelain 2>$null
+    if ($status) {
+        Write-Error "Working directory not clean. Commit or stash changes before publishing."
         exit 1
     }
-    
+
+    # Resolve release branch from local OR remote (admin may run on a fresh
+    # clone where the RC was created elsewhere and only exists on origin).
+    $existsLocal = git branch --list $releaseBranch 2>$null
+    $existsRemote = git ls-remote --heads $Config.Remote $releaseBranch 2>$null
+    if (-not $existsLocal -and -not $existsRemote) {
+        Write-Error "Branch $releaseBranch doesn't exist locally or on $($Config.Remote). Create RC first."
+        exit 1
+    }
+    if (-not $existsLocal -and $existsRemote) {
+        Write-Info "Release branch only on $($Config.Remote); fetching..."
+        $result = Invoke-GitCommand -Command "fetch" -Arguments @($Config.Remote, $releaseBranch)
+        if (-not $result) { exit 1 }
+    }
+
     # Confirmation
     if (-not $Force) {
         Write-Warning "This will:"
@@ -564,82 +612,78 @@ function Publish-Release {
             exit 0
         }
     }
-    
-    # Checkout release
-    Write-Info "Checkout $releaseBranch..."
+
+    # ---- STEP 2/8: Update release branch and ship Public API ----
+    Write-Info "[STEP 2/8] Updating release branch and shipping Public API"
     $result = Invoke-GitCommand -Command "checkout" -Arguments $releaseBranch
     if (-not $result) { exit 1 }
-    
+
     $result = Invoke-GitCommand -Command "pull" -Arguments @("$($Config.Remote)", "$releaseBranch")
     if (-not $result) { exit 1 }
-    
-    # Move Public API to Shipped
+
     $apiMoved = Move-PublicApiToShipped
-    
+
     if ($apiMoved) {
-        # Commit the API move
         $result = Invoke-GitCommand -Command "commit" -Arguments @("-m", "chore: ship public API for release $Version")
-        if (-not $result) { 
+        if (-not $result) {
             Write-Warning "Could not commit API changes, continuing..."
         }
         else {
-            # Push API changes to release branch
             $result = Invoke-GitCommand -Command "push" -Arguments @("$($Config.Remote)", "$releaseBranch")
             if (-not $result) {
                 Write-Warning "Could not push API changes, continuing..."
             }
         }
     }
-    
-    # Checkout master
-    Write-Info "Checkout $($Config.MainBranch)..."
+
+    # ---- STEP 3/8: Squash-merge release into master ----
+    Write-Info "[STEP 3/8] Squash-merging $releaseBranch into $($Config.MainBranch)"
     $result = Invoke-GitCommand -Command "checkout" -Arguments $Config.MainBranch
     if (-not $result) { exit 1 }
-    
+
     $result = Invoke-GitCommand -Command "pull" -Arguments @("$($Config.Remote)", "$($Config.MainBranch)")
     if (-not $result) { exit 1 }
-    
-    # Squash merge from release
-    Write-Info "Squash merge from $releaseBranch..."
+
     $result = Invoke-GitCommand -Command "merge" -Arguments @("--squash", "$releaseBranch")
     if (-not $result) { exit 1 }
-    
-    # Commit
+
+    # ---- STEP 4/8: Commit release and create tag ----
+    Write-Info "[STEP 4/8] Committing release and creating tag $tag"
     $result = Invoke-GitCommand -Command "commit" -Arguments @("-m", "Release $Version")
     if (-not $result) { exit 1 }
-    
-    # Tag
-    Write-Info "Creating tag $tag..."
+
     $result = Invoke-GitCommand -Command "tag" -Arguments @("-a", "$tag", "-m", "Release $Version")
     if (-not $result) { exit 1 }
-    
-    # Push
-    Write-Info "Pushing $($Config.MainBranch) and tag..."
+
+    # ---- STEP 5/8: Push master and tag ----
+    Write-Info "[STEP 5/8] Pushing $($Config.MainBranch) and $tag to $($Config.Remote)"
     $result = Invoke-GitCommand -Command "push" -Arguments @("$($Config.Remote)", "$($Config.MainBranch)")
     if (-not $result) { exit 1 }
-    
+
     $result = Invoke-GitCommand -Command "push" -Arguments @("$($Config.Remote)", "$tag")
     if (-not $result) { exit 1 }
-    
-    # Merge back to develop
-    Write-Info "Merging $($Config.MainBranch) into $($Config.DevelopBranch)..."
+
+    # ---- STEP 6/8: Merge master back into develop ----
+    Write-Info "[STEP 6/8] Merging $($Config.MainBranch) into $($Config.DevelopBranch)"
     $result = Invoke-GitCommand -Command "checkout" -Arguments $Config.DevelopBranch
     if (-not $result) { exit 1 }
-    
+
     $result = Invoke-GitCommand -Command "pull" -Arguments @("$($Config.Remote)", "$($Config.DevelopBranch)")
     if (-not $result) { exit 1 }
-    
+
     $result = Invoke-GitCommand -Command "merge" -Arguments @("$($Config.MainBranch)", "--no-edit")
     if (-not $result) { exit 1 }
-    
+
+    # ---- STEP 7/8: Push develop ----
+    Write-Info "[STEP 7/8] Pushing $($Config.DevelopBranch)"
     $result = Invoke-GitCommand -Command "push" -Arguments @("$($Config.Remote)", "$($Config.DevelopBranch)")
     if (-not $result) { exit 1 }
-    
-    # Cleanup
-    Write-Info "Cleaning up..."
+
+    # ---- STEP 8/8: Cleanup release branch ----
+    Write-Info "[STEP 8/8] Deleting $releaseBranch (local + remote)"
     Invoke-GitCommand -Command "branch" -Arguments @("-d", "$releaseBranch") -IgnoreError | Out-Null
     Invoke-GitCommand -Command "push" -Arguments @("$($Config.Remote)", "--delete", "$releaseBranch") -IgnoreError | Out-Null
-    
+
     Write-Success "Release $Version published"
     Write-Info "CI should publish package to NuGet"
 }
@@ -741,30 +785,55 @@ function Show-Changelog {
 
 function Invoke-Cleanup {
     Write-Header "Cleaning Branches"
-    
+
     # Checkout develop
     $result = Invoke-GitCommand -Command "checkout" -Arguments $Config.DevelopBranch
     if (-not $result) { exit 1 }
-    
+
     $result = Invoke-GitCommand -Command "pull" -Arguments @("$($Config.Remote)", "$($Config.DevelopBranch)")
     if (-not $result) { exit 1 }
-    
-    # Delete merged branches
-    $merged = git branch --merged $Config.DevelopBranch --format="%(refname:short)" | Where-Object { 
+
+    # Standard merge detection: catches non-squash merges via SHA reachability.
+    $standardMerged = git branch --merged $Config.DevelopBranch --format="%(refname:short)" | Where-Object {
         $_ -notin @($Config.MainBranch, $Config.DevelopBranch) -and $_ -notmatch "^\*"
     }
-    
-    if ($merged) {
-        Write-Info "Deleting merged branches:"
-        $merged | ForEach-Object {
-            Write-Host "  - $_"
-            Invoke-GitCommand -Command "branch" -Arguments @("-d", "$_") -IgnoreError | Out-Null
+
+    # Squash-merge detection via GitHub PR state. `git branch --merged` cannot
+    # see squash-merged branches because the squash commit on develop has a
+    # different SHA than the branch's tip; without this fallback, cleanup
+    # never deletes anything in a squash+rebase workflow.
+    $allLocal = git branch --format="%(refname:short)" | Where-Object {
+        $_ -notin @($Config.MainBranch, $Config.DevelopBranch) -and $_ -notmatch "^\*"
+    }
+    $prMerged = @()
+    foreach ($branch in $allLocal) {
+        if ($standardMerged -contains $branch) { continue }
+        if (Test-BranchMergedViaPR -Branch $branch) {
+            $prMerged += $branch
         }
     }
-    
+
+    if ($standardMerged) {
+        Write-Info "Deleting merged branches:"
+        foreach ($b in $standardMerged) {
+            Write-Host "  - $b"
+            Invoke-GitCommand -Command "branch" -Arguments @("-d", "$b") -IgnoreError | Out-Null
+        }
+    }
+    if ($prMerged) {
+        Write-Info "Deleting squash-merged branches (verified via gh PR state):"
+        foreach ($b in $prMerged) {
+            Write-Host "  - $b"
+            Invoke-GitCommand -Command "branch" -Arguments @("-D", "$b") -IgnoreError | Out-Null
+        }
+    }
+    if (-not $standardMerged -and -not $prMerged) {
+        Write-Info "No merged branches to delete"
+    }
+
     # Prune
     Invoke-GitCommand -Command "remote" -Arguments @("prune", "$($Config.Remote)") -IgnoreError | Out-Null
-    
+
     Write-Success "Cleanup completed"
 }
 

@@ -1,0 +1,19 @@
+﻿.preview {
+    font-family: var(--bob-font-family);
+    font-size: var(--bob-font-size-base);
+    line-height: var(--bob-line-height);
+    background-color: var(--palette-background);
+    color: var(--palette-background-contrast);
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid var(--palette-border);
+}
+
+.import-error {
+    margin-top: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    background: color-mix(in srgb, var(--palette-error) 15%, transparent);
+    color: var(--palette-error);
+    border-radius: 0.25rem;
+    font-size: 0.875rem;
+}
