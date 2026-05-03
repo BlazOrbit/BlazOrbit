@@ -80,7 +80,7 @@ public class ComponentRootContractLintTests
 
         violations.Should().BeEmpty(
             because: "all components that participate in the BOB design system must render " +
-                     "<bob-component> as their root element. See CLAUDE.md §Component architecture.\n\n" +
+                     "<bob-component> as their root element.\n\n" +
                      string.Join("\n", violations));
     }
 }

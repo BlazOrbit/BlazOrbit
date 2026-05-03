@@ -84,7 +84,7 @@ public class CssVarDeclarationAuditTests
             because: "every CSS custom property referenced via var() in scoped CSS must be declared in the same file, " +
                      "in a global CssBundle file, or as a FeatureDefinitions constant. " +
                      "Undeclared variables silently fall back to inherited/invalid values, hiding typos " +
-                     "and stale prefixes. See CLAUDE.md §CSS architecture rule 4.\n\n" +
+                     "and stale prefixes.\n\n" +
                      string.Join("\n", orphans));
     }
 

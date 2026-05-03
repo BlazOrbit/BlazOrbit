@@ -15,29 +15,6 @@
     box-sizing: border-box;
 }
 
-#blazor-error-ui {
-    color-scheme: light only;
-    background: #fff4d6;
-    color: #1a1a1a;
-    bottom: 0;
-    box-shadow: 0 -1px 12px rgba(0, 0, 0, 0.25);
-    box-sizing: border-box;
-    display: none;
-    left: 0;
-    padding: 0.85rem 1.25rem 0.95rem 1.25rem;
-    position: fixed;
-    width: 100%;
-    z-index: 10000;
-    font-family: 'Inter', sans-serif;
-}
-
-#blazor-error-ui .dismiss {
-    cursor: pointer;
-    position: absolute;
-    right: 0.75rem;
-    top: 0.6rem;
-}
-
 .blazor-error-boundary {
     background: #c41236;
     padding: 1rem 1.25rem;
@@ -47,4 +24,21 @@
 
 .blazor-error-boundary::after {
     content: "An error has occurred.";
+}
+
+/* ── SEO prerender shell ─────────────────────────────────────────
+   Visible to crawlers, visually hidden for human users.
+   Blazor replaces #app entirely on hydration, so this element
+   only exists in the static HTML served before WASM boots.
+   ─────────────────────────────────────────────────────────────── */
+.seo-prerender {
+    position: absolute;
+    left: -10000px;
+    top: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
 }

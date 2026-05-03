@@ -2,6 +2,8 @@
 
 @inject NavigationManager Nav
 
+<DocSeo Title="@Title" Description="@Lede" Keywords="@Keywords" />
+
 <CascadingValue Value="_ctx" IsFixed="true">
     <div class="doc-page">
         <header class="doc-page__header">
@@ -41,6 +43,7 @@
     [Parameter, EditorRequired] public string Title { get; set; } = default!;
     [Parameter] public string? Lede { get; set; }
     [Parameter] public object? PageInstance { get; set; }
+    [Parameter] public IEnumerable<string> Keywords { get; set; } = Array.Empty<string>();
     [Parameter] public Type? ApiType { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
 

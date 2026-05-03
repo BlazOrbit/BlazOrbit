@@ -1,0 +1,63 @@
+@using Microsoft.AspNetCore.Components.Web
+@inject NavigationManager Nav
+
+@* Renders <title>, <meta> and <link rel="canonical"> inside <head> via HeadOutlet.
+   Designed for prerender.io + Cloudflare Workers: when a crawler
+   hits the site it receives the fully hydrated HTML with these tags.
+*@
+
+@if (!string.IsNullOrEmpty(Title))
+{
+    <PageTitle>@(GetPageTitle())</PageTitle>
+}
+<HeadContent>
+    <meta name="description" content="@GetDescription()" />
+    <meta name="keywords" content="@GetKeywords()" />
+
+    <meta property="og:title" content="@GetPageTitle()" />
+    <meta property="og:description" content="@GetDescription()" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="@GetCanonicalUrl()" />
+    <meta property="og:image" content="https://blazorbit.com/icon-512.png" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="@GetPageTitle()" />
+    <meta name="twitter:description" content="@GetDescription()" />
+    <meta name="twitter:image" content="https://blazorbit.com/icon-512.png" />
+
+    <link rel="canonical" href="@GetCanonicalUrl()" />
+</HeadContent>
+
+@code {
+    [Parameter] public string? Title { get; set; }
+    [Parameter] public string? Description { get; set; }
+    [Parameter] public IEnumerable<string> Keywords { get; set; } = Array.Empty<string>();
+
+    private const string SiteName = "BlazOrbit";
+
+    private string GetPageTitle()
+        => string.IsNullOrEmpty(Title) ? SiteName : $"{Title} — {SiteName}";
+
+    private string GetDescription()
+        => !string.IsNullOrEmpty(Description)
+            ? Description.TrimEnd('.', ' ')
+            : "A modern, lightweight Blazor component library for .NET 10 that extends native capabilities and improves developer productivity.";
+
+    private string GetKeywords()
+    {
+        var keywords = new List<string> { "BlazOrbit", "Blazor", ".NET 10" };
+
+        if (!string.IsNullOrEmpty(Title))
+            keywords.Add(Title);
+
+        keywords.AddRange(Keywords);
+        return string.Join(", ", keywords.Distinct(StringComparer.OrdinalIgnoreCase));
+    }
+
+    private string GetCanonicalUrl()
+    {
+        // NavigationManager.Uri includes the origin; strip any query/hash for canonical.
+        var uri = new Uri(Nav.Uri);
+        return $"{uri.Scheme}://{uri.Host}{uri.AbsolutePath}";
+    }
+}
