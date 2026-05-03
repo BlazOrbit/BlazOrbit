@@ -1,9 +1,7 @@
-# .github/workflows/preview-publish.yml
-# Publishes preview versions automatically on each push to develop
-# Version calculated based on merged PR labels:
-#   - If any PR has 'changes/public-api' label since last tag: X.(Y+1).0-preview.N
-#   - Otherwise: X.Y.(Z+1)-preview.N
-# N = commits since last tag on master
+﻿# .github/workflows/preview-publish.yml
+# Publishes preview versions automatically on each push to develop.
+# Version is read from <VersionPrefix> in Directory.Build.props
+# and suffixed with -preview.<run-number>.
 
 name: '[Release] Preview Publish'
 
@@ -18,7 +16,7 @@ on:
   workflow_dispatch:
     inputs:
       override_version:
-        description: 'Override preview version (e.g. 1.0.0-preview1). Leave empty for auto-calculation from last master tag.'
+        description: 'Override preview version (e.g. 1.0.0-preview1). Leave empty for auto-calculation.'
         required: false
         type: string
 
@@ -30,7 +28,6 @@ env:
 
 permissions:
   contents: write
-  pull-requests: read  # Needed to read PR labels for semver calculation
 
 concurrency:
   group: preview-publish
@@ -58,16 +55,12 @@ jobs:
       full_version: ${{ steps.calc.outputs.full_version }}
       assembly_version: ${{ steps.calc.outputs.assembly_version }}
     steps:
-      - name: Checkout with full history
+      - name: Checkout
         uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-          fetch-tags: true
 
       - name: Calculate preview version
         id: calc
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OVERRIDE_VERSION: ${{ github.event.inputs.override_version }}
         run: |
           # Helper: extract assembly-friendly version (strip prerelease suffix, ensure 4 parts)
@@ -88,78 +81,25 @@ jobs:
             exit 0
           fi
 
-          # Get last tag on master (format vX.Y.Z)
-          LAST_TAG=$(git describe --tags --abbrev=0 --match "v[0-9]*.[0-9]*.[0-9]" origin/master 2>/dev/null || echo "")
-
-          if [ -z "$LAST_TAG" ]; then
-            echo "::warning::No release tag found on master. Using v0.0.0 as base."
-            echo "::warning::Create an initial tag (e.g., git tag v0.0.0) to establish versioning."
-            LAST_TAG="v0.0.0"
+          # Read VersionPrefix from Directory.Build.props
+          VERSION_PREFIX=$(grep -oP '<VersionPrefix>\K[^<]+' Directory.Build.props || echo "")
+          if [ -z "$VERSION_PREFIX" ]; then
+            echo "::error::Could not read <VersionPrefix> from Directory.Build.props"
+            exit 1
           fi
 
-          echo "Last tag on master: $LAST_TAG"
+          echo "VersionPrefix: $VERSION_PREFIX"
 
-          # Parse version
-          MAJOR=$(echo $LAST_TAG | cut -d. -f1 | tr -d 'v')
-          MINOR=$(echo $LAST_TAG | cut -d. -f2)
-          PATCH=$(echo $LAST_TAG | cut -d. -f3)
-
-          # Check for public API changes by examining merged PR labels
-          echo "Checking merged PRs for public API changes..."
-          HAS_PUBLIC_API=false
-
-          if [ "$LAST_TAG" != "v0.0.0" ]; then
-            # Get merge commits since last tag
-            MERGE_COMMITS=$(git log "$LAST_TAG"..HEAD --merges --format="%H" 2>/dev/null || true)
-
-            if [ -n "$MERGE_COMMITS" ]; then
-              for sha in $MERGE_COMMITS; do
-                # Get PRs associated with this merge commit
-                PR_DATA=$(gh api "/repos/${{ github.repository }}/commits/$sha/pulls" --jq '.[] | select(.state == "closed") | {number: .number, labels: [.labels[].name]}' 2>/dev/null || true)
-
-                if [ -n "$PR_DATA" ]; then
-                  # Check if any label is 'changes/public-api'
-                  HAS_LABEL=$(echo "$PR_DATA" | grep -q '"changes/public-api"' && echo "true" || echo "false")
-                  if [ "$HAS_LABEL" = "true" ]; then
-                    HAS_PUBLIC_API=true
-                    echo "  Found PR with changes/public-api label in commit $sha"
-                    break
-                  fi
-                fi
-              done
-            fi
-          fi
-
-          # Calculate next version based on PR labels
-          if [ "$HAS_PUBLIC_API" = "true" ]; then
-            NEXT_MINOR=$((MINOR + 1))
-            NEXT_PATCH=0
-            BUMP_TYPE="MINOR"
-            echo "Public API changes detected → MINOR bump"
-          else
-            NEXT_MINOR=$MINOR
-            NEXT_PATCH=$((PATCH + 1))
-            BUMP_TYPE="PATCH"
-            echo "No public API changes → PATCH bump"
-          fi
-
-          # Count commits since last tag (handle when tag doesn't exist)
-          if git rev-parse "$LAST_TAG" >/dev/null 2>&1; then
-            COMMITS=$(git rev-list --count "$LAST_TAG"..HEAD)
-          else
-            COMMITS=$(git rev-list --count HEAD)
-          fi
-
-          # Build version
-          VERSION="${MAJOR}.${NEXT_MINOR}.${NEXT_PATCH}-preview.${COMMITS}"
-          FULL_VERSION="${MAJOR}.${NEXT_MINOR}.${NEXT_PATCH}-preview.${COMMITS}+${GITHUB_SHA:0:7}"
+          # Use run number as preview counter (always increasing, no collision risk)
+          VERSION="${VERSION_PREFIX}-preview.${GITHUB_RUN_NUMBER}"
+          FULL_VERSION="${VERSION_PREFIX}-preview.${GITHUB_RUN_NUMBER}+${GITHUB_SHA:0:7}"
 
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "full_version=$FULL_VERSION" >> $GITHUB_OUTPUT
-          echo "bump_type=$BUMP_TYPE" >> $GITHUB_OUTPUT
-          echo "assembly_version=${MAJOR}.${NEXT_MINOR}.${NEXT_PATCH}.0" >> $GITHUB_OUTPUT
+          echo "bump_type=PREVIEW" >> $GITHUB_OUTPUT
+          echo "assembly_version=$(extract_assembly_version "$VERSION_PREFIX")" >> $GITHUB_OUTPUT
 
-          echo "Calculated version: $VERSION ($BUMP_TYPE bump)"
+          echo "Calculated version: $VERSION"
 
   build-and-test:
     name: Build and Test
@@ -255,23 +195,3 @@ jobs:
             --source ${{ env.NUGET_SOURCE }} \
             --api-key ${{ secrets.NUGET_API_KEY }} \
             --skip-duplicate
-
-      - name: Create GitHub Release (Preview)
-        uses: softprops/action-gh-release@v3
-        with:
-          tag_name: v${{ needs.version.outputs.version }}
-          name: Preview ${{ needs.version.outputs.version }}
-          body: |
-            ## Preview Release ${{ needs.version.outputs.version }}
-            
-            Development version automatically built from `develop`.
-            
-            ```bash
-            dotnet add package BlazOrbit --version ${{ needs.version.outputs.version }}
-            ```
-            
-            ⚠️ **Unstable - do not use in production**
-          prerelease: true
-          files: ./artifacts/*.nupkg
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

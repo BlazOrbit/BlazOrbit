@@ -250,76 +250,13 @@ function Get-NextVersion {
     $minor = [int]$parts[1]
     $patch = [int]$parts[2]
 
-    $hasPublicApiChanges = $false
-
-    # Try to detect public API changes via GitHub PR labels
-    $repo = Get-RepositoryInfo
-    if ($repo -and (Get-GitHubToken)) {
-        Write-Info "Querying GitHub API for merged PR labels..."
-
-        # Get merge commits since last tag on develop
-        $mergeCommits = git log "$LastTag..$($Config.Remote)/$($Config.DevelopBranch)" --merges --format="%H" 2>$null
-
-        if ($mergeCommits) {
-            foreach ($commit in $mergeCommits) {
-                $commit = $commit.Trim()
-                if (-not $commit) { continue }
-
-                # Get PRs associated with this merge commit
-                $prs = Invoke-GitHubApi -Endpoint "/repos/$($repo.Owner)/$($repo.Repo)/commits/$commit/pulls"
-
-                if ($prs) {
-                    foreach ($pr in $prs) {
-                        if ($pr.state -eq "closed" -and $pr.merged_at) {
-                            # Check labels
-                            $labels = Invoke-GitHubApi -Endpoint "/repos/$($repo.Owner)/$($repo.Repo)/issues/$($pr.number)/labels"
-                            if ($labels) {
-                                $labelNames = $labels | ForEach-Object { $_.name }
-                                if ($labelNames -contains "changes/public-api") {
-                                    $hasPublicApiChanges = $true
-                                    Write-Info "  Found PR #$($pr.number) with 'changes/public-api' label"
-                                    break
-                                }
-                            }
-                        }
-                    }
-                }
-
-                if ($hasPublicApiChanges) { break }
-            }
-        }
-
-        if (-not $hasPublicApiChanges) {
-            Write-Info "No public API changes detected in merged PRs"
-        }
-    }
-    else {
-        Write-Warning "GitHub API not available. Falling back to commit message heuristics."
-        $commits = git log "$LastTag..$($Config.Remote)/$($Config.DevelopBranch)" --format="%H" 2>$null
-        foreach ($commit in $commits) {
-            $message = git log -1 --format="%B" $commit 2>$null
-            if ($message -match "public.api|PublicAPI|breaking.change") {
-                $hasPublicApiChanges = $true
-                break
-            }
-        }
-    }
-
-    # Version bump logic
-    if ($hasPublicApiChanges) {
-        $minor++
-        $patch = 0
-        $bumpType = "MINOR"
-    }
-    else {
-        $patch++
-        $bumpType = "PATCH"
-    }
+    # Simple PATCH bump for status display. Actual bump (MINOR/MAJOR) is decided
+    # manually by editing VersionPrefix in Directory.Build.props.
+    $patch++
 
     return @{
         Version = "$major.$minor.$patch"
-        BumpType = $bumpType
-        HasPublicApiChanges = $hasPublicApiChanges
+        BumpType = "PATCH"
     }
 }
 
@@ -327,14 +264,19 @@ function Show-Status {
     Write-Header "Repository Status"
     
     # Version info
+    $versionPrefix = ""
+    if (Test-Path "Directory.Build.props") {
+        $versionPrefix = [regex]::Match((Get-Content "Directory.Build.props" -Raw), '<VersionPrefix>([^<]+)</VersionPrefix>').Groups[1].Value
+    }
+    if ($versionPrefix) {
+        Write-Info "VersionPrefix (develop target): $versionPrefix"
+    }
+    
     $lastTag = Get-LastTag
     Write-Info "Last tag on master: $lastTag"
     
     $nextVersion = Get-NextVersion -LastTag $lastTag
-    Write-Info "Next version: $($nextVersion.Version) ($($nextVersion.BumpType) bump)"
-    if ($nextVersion.HasPublicApiChanges) {
-        Write-Warning "Public API changes detected - will trigger MINOR bump"
-    }
+    Write-Info "Suggested next for master hotfix: $($nextVersion.Version) ($($nextVersion.BumpType) bump)"
     
     $commitsSince = Get-CommitsSinceTag -Tag $lastTag
     Write-Info "Commits since $lastTag`: $commitsSince"
