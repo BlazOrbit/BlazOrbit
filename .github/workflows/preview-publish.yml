@@ -1,5 +1,5 @@
 ﻿# .github/workflows/preview-publish.yml
-# Publishes preview versions automatically on each push to develop.
+# Publishes preview versions automatically on each relevant push to develop.
 # Version is read from <VersionPrefix> in Directory.Build.props
 # and suffixed with -preview.<run-number>.
 
@@ -9,9 +9,27 @@ on:
   push:
     branches: [develop]
     paths-ignore:
+      # Documentation and metadata
       - '**.md'
       - 'docs/**'
       - '.github/ISSUE_TEMPLATE/**'
+      # Workflows that do not affect preview packages
+      - '.github/workflows/codeql.yml'
+      - '.github/workflows/docs-api.yml'
+      - '.github/workflows/docs-site.yml'
+      - '.github/workflows/release-gate.yml'
+      - '.github/workflows/release-publish.yml'
+      # Non-packable code and dev tools
+      - 'test/**'
+      - 'tools/**'
+      - 'scripts/**'
+      # Static assets and repo configuration
+      - 'assets/**'
+      - 'coverage.runsettings'
+      - 'TestResults/**'
+      - '.editorconfig'
+      - '.gitattributes'
+      - '.gitignore'
 
   workflow_dispatch:
     inputs:
