@@ -51,7 +51,7 @@ BlazOrbit.Components.BOBButton.Disabled.get -> bool
 BlazOrbit.Components.BOBButton.Disabled.set -> void
 BlazOrbit.Components.BOBButton.FullWidth.get -> bool
 BlazOrbit.Components.BOBButton.FullWidth.set -> void
-BlazOrbit.Components.BOBButton.GetRippleContainer() -> Microsoft.AspNetCore.Components.ElementReference
+virtual BlazOrbit.Components.BOBButton.GetRippleContainer() -> Microsoft.AspNetCore.Components.ElementReference
 BlazOrbit.Components.BOBButton.IsDisabled.get -> bool
 BlazOrbit.Components.BOBButton.LeadingIcon.get -> BlazOrbit.Components.IconKey?
 BlazOrbit.Components.BOBButton.LeadingIcon.set -> void

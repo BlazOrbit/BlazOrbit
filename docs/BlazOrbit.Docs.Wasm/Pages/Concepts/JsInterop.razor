@@ -33,8 +33,7 @@
         <h2 class="doc-section__title">The IHas*Behavior pipeline</h2>
         <p class="doc-section__description">
             Some capabilities go beyond CSS — a ripple effect, say, needs a click-time DOM tweak.
-            Those are expressed as interfaces deriving from <code>IJsBehavior</code>:
-            <code>IHasRipple</code>, <code>IHasAutoGrow</code>, and so on.
+            Those are expressed as interfaces deriving from <code>IJsBehavior</code>.
         </p>
         <p class="doc-section__description">
             During <code>OnAfterRenderAsync(firstRender)</code>, <code>BOBComponentBase</code> walks
@@ -62,9 +61,7 @@
         <p class="doc-section__description">
             TypeScript sources live in <code>src/BlazOrbit/Types/&lt;Feature&gt;/</code> and are
             bundled per feature into <code>wwwroot/js/Types/&lt;Feature&gt;/&lt;Feature&gt;Interop.min.js</code>
-            by the build pipeline (see the <a href="/getting-started">Getting started</a> page for how
-            that is wired up). The generated JS is referenced by each interop C# class via
-            <code>IJSRuntime.InvokeAsync</code>.
+            by the build pipeline.
         </p>
         <p class="doc-section__description">
             You don't ship the JS bundles yourself — they're part of the <code>BlazOrbit</code>
