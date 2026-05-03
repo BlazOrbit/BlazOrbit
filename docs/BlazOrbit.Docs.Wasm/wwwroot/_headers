@@ -1,0 +1,28 @@
+# Cloudflare Pages custom headers — cache strategy for Blazor WASM.
+#
+# The entry HTML, the service worker itself and blazor.boot.json must never be
+# cached on the edge or the browser; otherwise users keep running stale shells.
+# Framework payloads already contain content hashes in their filenames and can
+# be cached immutably.
+
+/
+  Cache-Control: no-cache, no-store, must-revalidate
+  CDN-Cache-Control: no-cache
+
+/index.html
+  Cache-Control: no-cache, no-store, must-revalidate
+  CDN-Cache-Control: no-cache
+
+/service-worker.js
+  Cache-Control: no-cache, no-store, must-revalidate
+  CDN-Cache-Control: no-cache
+
+/_framework/blazor.boot.json
+  Cache-Control: no-cache, no-store, must-revalidate
+  CDN-Cache-Control: no-cache
+
+/_framework/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/_content/*
+  Cache-Control: public, max-age=31536000, immutable

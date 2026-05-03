@@ -37,6 +37,12 @@ self.addEventListener('activate', (event) => {
     );
 });
 
+self.addEventListener('message', (event) => {
+    if (event.data && event.data.type === 'SKIP_WAITING') {
+        self.skipWaiting();
+    }
+});
+
 // Network-first with cache fallback. On a successful network response, also
 // write it back to the cache so the next offline visit has it available.
 //
