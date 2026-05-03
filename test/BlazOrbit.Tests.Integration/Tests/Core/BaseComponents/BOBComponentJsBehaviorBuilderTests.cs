@@ -68,7 +68,7 @@ public class BOBComponentJsBehaviorBuilderTests
             .AttachBehaviorsAsync(Arg.Do<BehaviorConfiguration>(c => captured = c))
             .Returns(new ValueTask<IJSObjectReference>(jsRef));
 
-        RippleComponent component = new()
+        RippleComponentWithElementReference component = new()
         {
             DisableRipple = false,
             RippleColor = "#abcdef",
@@ -100,7 +100,7 @@ public class BOBComponentJsBehaviorBuilderTests
     }
 
     [Fact]
-    public async Task BuildAndAttachAsync_Should_Accept_Null_RippleColor_And_Duration()
+    public async Task BuildAndAttachAsync_Should_Be_Transparent_For_Default_ElementReference()
     {
         IBehaviorJsInterop interop = Substitute.For<IBehaviorJsInterop>();
         IJSObjectReference jsRef = Substitute.For<IJSObjectReference>();
@@ -110,6 +110,28 @@ public class BOBComponentJsBehaviorBuilderTests
             .Returns(new ValueTask<IJSObjectReference>(jsRef));
 
         RippleComponent component = new()
+        {
+            RippleColor = null,
+            RippleDurationMs = null
+        };
+
+        BOBComponentJsBehaviorBuilder builder = BOBComponentJsBehaviorBuilder.For(component, interop);
+
+        await builder.BuildAndAttachAsync();
+        // Assert: It must't throw
+    }
+
+    [Fact]
+    public async Task BuildAndAttachAsync_Should_Accept_Null_RippleColor_And_Duration()
+    {
+        IBehaviorJsInterop interop = Substitute.For<IBehaviorJsInterop>();
+        IJSObjectReference jsRef = Substitute.For<IJSObjectReference>();
+        BehaviorConfiguration? captured = null;
+        interop
+            .AttachBehaviorsAsync(Arg.Do<BehaviorConfiguration>(c => captured = c))
+            .Returns(new ValueTask<IJSObjectReference>(jsRef));
+
+        RippleComponentWithElementReference component = new()
         {
             RippleColor = null,
             RippleDurationMs = null
@@ -150,5 +172,14 @@ public class BOBComponentJsBehaviorBuilderTests
         public int? RippleDurationMs { get; set; }
 
         public ElementReference GetRippleContainer() => default;
+    }
+
+    private sealed class RippleComponentWithElementReference : ComponentBase, IHasRipple
+    {
+        public bool DisableRipple { get; set; }
+        public string? RippleColor { get; set; }
+        public int? RippleDurationMs { get; set; }
+
+        public ElementReference GetRippleContainer() => new("stub-id");
     }
 }

@@ -1,6 +1,5 @@
 ﻿@page "/concepts/variants"
 
-
 <DocPage Eyebrow="Concept"
          Title="Variants"
          Lede="Register your own render template for any component — slot it in alongside the built-ins with a strongly typed variant id.">
@@ -21,11 +20,11 @@
     </section>
 
     <section class="doc-section">
-        <h2 class="doc-section__title">Define a variant type</h2>
+        <h2 class="doc-section__title">How Variants are defined</h2>
         <p class="doc-section__description">
             Every variant type inherits <code>Variant</code> and exposes static named instances.
         </p>
-        <BOBCodeBlock Title="MyButtonVariant.cs"
+        <BOBCodeBlock Title="BOBButtonVariant.cs"
                       Language="SyntaxHighlightLanguage.CSharp"
                       Code="@_variantType" />
     </section>
@@ -36,9 +35,21 @@
             Register in <code>Program.cs</code> via <code>AddBlazOrbitVariants</code>. The builder's
             <code>ForComponent&lt;T&gt;()</code> scopes registrations to a concrete component type.
         </p>
+        <p>
+            There are many ways to register variants, depending on how closely we want them to be linked to the original component
+        </p>
         <BOBCodeBlock Title="Program.cs"
                       Language="SyntaxHighlightLanguage.CSharp"
                       Code="@_registerSample" />
+
+        <BOBCodeBlock Title="StaticTemplates.razor"
+                      Language="SyntaxHighlightLanguage.Razor"
+                      Code="@_staticTemplatesSample" />
+
+        <BOBCodeBlock Title="MyBOBButton.razor"
+                      Language="SyntaxHighlightLanguage.Razor"
+                      Code="@_customComponentSample" />
+
     </section>
 
     <section class="doc-section">
@@ -66,34 +77,97 @@
 </DocPage>
 
 @code {
-    private const string _variantType = @"public sealed class MyButtonVariant : Variant
-{
-    public static readonly MyButtonVariant Gradient = new(""Gradient"");
-    public static readonly MyButtonVariant Ghost    = new(""Ghost"");
+    private const string _variantType =
+    """
+    /// <summary>
+    /// Represents a variant definition for the <see cref="BOBButton"/> component.
+    /// </summary>
+    public sealed class BOBButtonVariant : Variant
+    {
+        /// <summary>
+        /// The default button variant.
+        /// </summary>
+        public static readonly BOBButtonVariant Default = new("Default");
+    
+        /// <summary>
+        /// Initializes a new instance of the <see cref="BOBButtonVariant"/> class with the specified name.
+        /// </summary>
+        /// <param name="name">The variant name.</param>
+        public BOBButtonVariant(string name) : base(name)
+        {
+        }
+    
+        /// <summary>
+        /// Creates a custom button variant with the specified name.
+        /// </summary>
+        /// <param name="name">The variant name.</param>
+        /// <returns>A new <see cref="BOBButtonVariant"/> instance.</returns>
+        public static BOBButtonVariant Custom(string name) => new(name);
+    }
+    """;
 
-    public MyButtonVariant(string name) : base(name) { }
-}";
+    private const string _registerSample =
+    """
+    BOBButtonVariant customVariant1 = BOBButtonVariant.Custom("Custom1");
+    BOBButtonVariant customVariant2 = BOBButtonVariant.Custom("Custom2");
+    BOBButtonVariant customVariant3 = BOBButtonVariant.Custom("Custom3");
+    
+    builder.Services.AddBlazOrbitVariants(options =>
+        options.ForComponent<BOBButton>()
+            .AddVariant(customVariant1,
+                (instance) => MyTemplates.ButtonTemplate));
+    
+    builder.Services.AddBlazOrbitVariants(options =>
+        options.ForComponent<BOBButton>()
+            .AddVariant(customVariant2,
+                (instance) => MyTemplates.GetButtonTemplate(instance)));
+    
+    builder.Services.AddBlazOrbitVariants(options =>
+        options.ForComponent<BOBButton>()
+            .AddVariant(customVariant3,
+                (instance) => builder => { builder.OpenComponent<MyButtonTemplate>(0); builder.CloseComponent(); }));
+    """;
 
-    private const string _registerSample = @"builder.Services.AddBlazOrbit();
+    private const string _staticTemplatesSample =
+    """
+    @code {
 
-builder.Services.AddBlazOrbitVariants(b =>
-{
-    b.ForComponent<BOBButton>()
-     .AddVariant(MyButtonVariant.Gradient, button => @<bob-component @attributes=""button.ComputedAttributes"">
-         <button class=""my-gradient-btn"" @onclick=""button.HandleClick"">
-             @button.Text
-         </button>
-     </bob-component>)
-     .AddVariant(MyButtonVariant.Ghost, button => @<bob-component @attributes=""button.ComputedAttributes"">
-         <button class=""my-ghost-btn"" @onclick=""button.HandleClick"">@button.Text</button>
-     </bob-component>);
-});";
+        public static RenderFragment ButtonTemplate => __builder =>
+        {
+            <button class="customButton"></button>
+        };
 
-    private const string _usageSample = @"<BOBButton Text=""Subscribe""
-           Variant=""MyButtonVariant.Gradient""
-           OnClick=""HandleSubscribe"" />
+        public static RenderFragment GetButtonTemplate(BOBButton instance) => __builder =>
+        {
+            <button class="customButton" @attributes="instance.ComputedAttributes"></button>
+        };
+    }
+    """;
 
-<BOBButton Text=""Skip""
-           Variant=""MyButtonVariant.Ghost""
-           OnClick=""HandleSkip"" />";
+    private const string _customComponentSample =
+    """
+    @inherits BOBButton
+    
+    <button @ref="_myCustomButton" @attributes="ComputedAttributes" class="my-custom-class">
+        @ChildContent
+    </button>
+    
+    @code {
+    
+        ElementReference _myCustomButton;
+    
+        public override ElementReference GetRippleContainer()
+        {
+            return _myCustomButton;
+        }
+    
+    }
+    """;
+
+    private const string _usageSample =
+    """
+    <BOBButton Variant="@(BOBButtonVariant.Custom("Custom1"))"></BOBButton>
+    <BOBButton Variant="@(BOBButtonVariant.Custom("Custom2"))"></BOBButton>
+    <BOBButton Variant="@(BOBButtonVariant.Custom("Custom3"))"></BOBButton>
+    """;
 }

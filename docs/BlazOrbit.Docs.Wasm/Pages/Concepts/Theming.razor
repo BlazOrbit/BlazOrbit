@@ -1,9 +1,12 @@
 ﻿@page "/concepts/theming"
 
-
 <DocPage Eyebrow="Guide"
          Title="Theming"
          Lede="Every visible color in the library is a CSS custom property. Override a single variable to re-skin the whole UI.">
+
+    <section class="doc-section">
+        <p>You can use <a href="/utils/themegenerator">Theme Generator</a> to create custom themes.</p>
+    </section>
 
     <section class="doc-section">
         <h2 class="doc-section__title">Palette tokens</h2>
@@ -26,8 +29,16 @@
             The <code>data-theme</code> attribute on a parent element selects the active
             theme. Drop a <code>BOBThemeSelector</code> anywhere to toggle it interactively:
         </p>
+        <i>
+            By default, uses two themes (dark, light). However, you can define alternative
+            themes and specify them using the <code>AvailableThemes</code> parameter in <code>BOBThemeSelector</code>.
+            In this case, the <code>SunMoon</code> variant becomes redundant, but the <code>Default</code> variant acts as a toggle
+            that switches between the defined themes. Alternatively, you can <a href="/concepts/variants">create your own variant of the selector</a>.
+        </i>
 
-        <ComponentDemo Definition="@_themeSelectorDemo" />
+        <BOBCodeBlock Title="Theme Selector"
+                      Language="SyntaxHighlightLanguage.Razor"
+                      Code=@_themeSelectorCode />
 
         <p style="margin-top: 1rem;">
             Under the hood, the selector writes to <code>localStorage</code> and sets
@@ -67,11 +78,10 @@
         <p class="doc-section__description">
             Each component exposes per-instance parameters for <code>Color</code>,
             <code>BackgroundColor</code>, <code>Border</code>, <code>Shadow</code>, etc.
-            These become <code>--bob-inline-*</code> CSS variables on the element — so a
-            one-off can be set without touching theme files:
         </p>
-
-        <ComponentDemo Definition="@_overrideDemo" />
+        <BOBCodeBlock Title="Component Parameters"
+                      Language="SyntaxHighlightLanguage.Razor"
+                      Code="@_overrideCode" />
     </section>
 
     <section class="doc-section">
@@ -81,8 +91,9 @@
             parameters. It renders to <code>var(--palette-*)</code> so the color follows
             the active theme:
         </p>
-
-        <ComponentDemo Definition="@_paletteDemo" />
+        <BOBCodeBlock Title="Component Parameters Using Palette"
+                      Language="SyntaxHighlightLanguage.Razor"
+                      Code="@_paletteCode" />
     </section>
 
 </DocPage>
@@ -121,46 +132,23 @@
     --palette-surface: #1e0c10;
 }";
 
-    private readonly ComponentDemoDefinition _themeSelectorDemo = new()
-    {
-        Code = @"<BOBThemeSelector Variant=""BOBThemeSelectorVariant.SunMoon"" />",
-        CodeTitle = "ThemeSelector.razor",
-        Demo = @<BOBThemeSelector Variant="BOBThemeSelectorVariant.SunMoon" />
-    };
-
-    private readonly ComponentDemoDefinition _overrideDemo = new()
-    {
-        Code = @"<BOBButton Text=""Custom""
-           BackgroundColor=""rgba(26,12,14,1)""
-           Color=""rgba(255,255,255,1)"" />",
-        CodeTitle = "InstanceOverride.razor",
-        Demo = @<BOBButton Text="Custom"
-                          BackgroundColor="rgba(26,12,14,1)"
-                          Color="rgba(255,255,255,1)" />
-    };
-
-    private readonly ComponentDemoDefinition _paletteDemo = new()
-    {
-        Code = @"<BOBButton Text=""Primary""
-           BackgroundColor=""@PaletteColor.Primary""
-           Color=""@PaletteColor.PrimaryContrast"" />
-<BOBButton Text=""Success""
-           BackgroundColor=""@PaletteColor.Success""
-           Color=""@PaletteColor.SuccessContrast"" />
-<BOBButton Text=""Warning""
-           BackgroundColor=""@PaletteColor.Warning""
-           Color=""@PaletteColor.WarningContrast"" />",
-        CodeTitle = "PaletteColors.razor",
-        Demo = @<div class="demo-row">
-            <BOBButton Text="Primary"
-                       BackgroundColor="@PaletteColor.Primary"
-                       Color="@PaletteColor.PrimaryContrast" />
-            <BOBButton Text="Success"
-                       BackgroundColor="@PaletteColor.Success"
-                       Color="@PaletteColor.SuccessContrast" />
-            <BOBButton Text="Warning"
-                       BackgroundColor="@PaletteColor.Warning"
-                       Color="@PaletteColor.WarningContrast" />
-        </div>
-    };
+    private string _themeSelectorCode = """<BOBThemeSelector Variant="BOBThemeSelectorVariant.Default" />""";
+    private string _overrideCode =
+        """
+        <BOBButton Text="Custom"
+           BackgroundColor="rgba(26,12,14,1)"
+           Color="rgba(255,255,255,1)" />
+        """;
+    private string _paletteCode =
+        """
+        <BOBButton Text="Primary"
+           BackgroundColor="@PaletteColor.Primary"
+           Color="@PaletteColor.PrimaryContrast" />
+        <BOBButton Text="Success"
+           BackgroundColor="@PaletteColor.Success"
+           Color="@PaletteColor.SuccessContrast" />
+        <BOBButton Text="Warning"
+           BackgroundColor="@PaletteColor.Warning"
+           Color="@PaletteColor.WarningContrast" />
+        """;
 }

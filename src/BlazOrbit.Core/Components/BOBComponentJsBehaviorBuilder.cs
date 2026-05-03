@@ -43,11 +43,14 @@ internal sealed class BOBComponentJsBehaviorBuilder
             return;
         }
 
+        ElementReference rippleContainer = hasRipple.GetRippleContainer();
+        if (rippleContainer.Equals(default(ElementReference))) { return; }
+
         _config.Ripple = new RippleConfiguration
         {
             Color = hasRipple.RippleColor,
             Duration = hasRipple.RippleDurationMs,
-            RippleContainer = hasRipple.GetRippleContainer(),
+            RippleContainer = rippleContainer,
         };
     }
 }
