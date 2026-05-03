@@ -6,5 +6,14 @@ public sealed class FakeNavigationManager : NavigationManager
 {
     public FakeNavigationManager() => Initialize("http://localhost/", "http://localhost/");
 
-    protected override void NavigateToCore(string uri, bool forceLoad) => Uri = ToAbsoluteUri(uri).ToString();
+    public string? LastNavigationUri { get; private set; }
+
+    public bool? LastForceLoad { get; private set; }
+
+    protected override void NavigateToCore(string uri, bool forceLoad)
+    {
+        LastNavigationUri = uri;
+        LastForceLoad = forceLoad;
+        Uri = ToAbsoluteUri(uri).ToString();
+    }
 }

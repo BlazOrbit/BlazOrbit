@@ -2,6 +2,7 @@
 //
 // Bump CACHE_VERSION on every shell change. The `activate` handler deletes
 // any cache that does not match — old shells are evicted on the next visit.
+// CACHE_VERSION is replaced in publish time.
 const CACHE_VERSION = 'blazorbit-docs-v1';
 
 // App shell precached on install so the site is reachable offline after the
@@ -38,6 +39,10 @@ self.addEventListener('activate', (event) => {
 });
 
 self.addEventListener('message', (event) => {
+    // Only accept messages from our own origin — untrusted origins could
+    // force an unexpected service-worker update.
+    if (event.origin !== self.location.origin) return;
+
     if (event.data && event.data.type === 'SKIP_WAITING') {
         self.skipWaiting();
     }
