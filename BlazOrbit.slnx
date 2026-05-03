@@ -33,6 +33,11 @@
     <File Path="Directory.Build.props" />
     <File Path="global.json" />
   </Folder>
+  <Folder Name="/_scripts/">
+    <File Path="scripts/admin-tools.ps1" />
+    <File Path="scripts/dev-tools.ps1" />
+    <File Path="scripts/fix-encoding-bom.ps1" />
+  </Folder>
   <Project Path="src/BlazOrbit.BuildTools/BlazOrbit.BuildTools.csproj" Id="a67069d5-56c2-49fa-adec-656079117b53" />
   <Project Path="src/BlazOrbit.CodeGeneration/BlazOrbit.CodeGeneration.csproj" Id="96bbc2e4-007e-4f7d-973b-8c83686462df" />
   <Project Path="src/BlazOrbit.Core.CodeGeneration/BlazOrbit.Core.CodeGeneration.csproj" Id="6ba20f9a-6292-42d8-a0d8-b45440bef1ea" />

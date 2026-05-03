@@ -46,10 +46,6 @@ public class CssScopedAuditTests
         "BOBInputPrefix",
         "BOBInputSuffix",
 
-        // ThemeGenerator sub-components — styled by parent BOBThemeGenerator.razor.css or have no visual rules
-        "BOBThemeEditor",
-        "BOBThemePreview",
-
         // Components whose styling is fully family-driven or render inside another component
         "BOBTab",
         "BOBTreeMenuItem",

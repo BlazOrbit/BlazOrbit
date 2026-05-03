@@ -1,0 +1,51 @@
+﻿@namespace BlazOrbit.Docs.Components
+@using BlazOrbit.Components.Forms
+@using BlazOrbit.Components.Layout
+
+@foreach (var category in _categories)
+{
+    <section>
+        <h2>@category.Name</h2>
+        <BOBGrid Columns="12" Gap="0.75rem">
+            @foreach (string propName in category.Properties)
+            {
+                if (Palette.ContainsKey(propName))
+                {
+                    string key = propName;
+                    <BOBGridItem Xs="12" Md="4">
+                        <BOBInputColor Label="@key"
+                                       Value="Palette[key]"
+                                       ValueChanged="c => HandleColorChanged(key, c)"
+                                       ValueExpression="@(() => Palette[key])"
+                                       Size="BOBSize.Small" />
+                    </BOBGridItem>
+                }
+            }
+        </BOBGrid>
+    </section>
+}
+
+@code {
+    [Parameter] public Dictionary<string, CssColor> Palette { get; set; } = new();
+
+    [Parameter] public EventCallback<Dictionary<string, CssColor>> OnPaletteChanged { get; set; }
+
+    protected override void OnParametersSet() => Palette ??= new();
+
+    private readonly List<ColorCategory> _categories = new()
+    {
+        new ColorCategory("Surface", new[] { "Background", "BackgroundContrast", "Surface", "SurfaceContrast" }),
+        new ColorCategory("Main", new[] { "Primary", "PrimaryContrast", "Secondary", "SecondaryContrast" }),
+        new ColorCategory("Status", new[] { "Error", "ErrorContrast", "Success", "SuccessContrast", "Warning", "WarningContrast", "Info", "InfoContrast" }),
+        new ColorCategory("Utility", new[] { "Black", "White", "Border", "Shadow", "Highlight" })
+    };
+
+    private async Task HandleColorChanged(string propertyName, CssColor? newColor)
+    {
+        if (newColor == null) return;
+        Palette[propertyName] = newColor;
+        await OnPaletteChanged.InvokeAsync(Palette);
+    }
+
+    private record ColorCategory(string Name, string[] Properties);
+}

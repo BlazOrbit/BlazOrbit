@@ -33,11 +33,14 @@
     Author: Samuel Maícas (@cdcsharp)
     Version: 2.0.0 - Squash+Rebase Strategy
 #>
+<#
+Conventional Commit actions: feat, fix, refactor, perf, style, test, docs, build, ops, chore
+#>
 
 [CmdletBinding()]
 param(
     [Parameter(Mandatory = $true, Position = 0)]
-    [ValidateSet("sync", "feature", "fix", "commit", "squash", "ready", "fix-conflict", "push", "pr", "cleanup", "status")]
+    [ValidateSet("feat", "fix", "refactor", "perf", "style", "test", "docs", "build", "ops", "chore", "sync", "commit", "squash", "ready", "fix-conflict", "push", "pr", "cleanup", "status")]
     [string]$Command,
 
     [Parameter(Position = 1)]
@@ -55,8 +58,16 @@ $Config = @{
     DevelopBranch = "develop"
     MainBranch = "master"
     Remote = "origin"
-    FeaturePrefix = "feature"
+    FeaturePrefix = "feat"
     FixPrefix = "fix"
+    RefactorPrefix = "refactor"
+    PerfPrefix = "perf"
+    StylePrefix = "style"
+    TestPrefix = "test"
+    DocsPrefix = "docs"
+    BuildPrefix = "build"
+    OpsPrefix = "ops"
+    ChorePrefix = "chore"
 }
 
 # Colors
@@ -106,6 +117,11 @@ function Test-GitRepository {
 }
 
 function Test-WorkingDirectoryClean {
+    # NOTE: counts untracked files as "dirty" (git status --porcelain default).
+    # If you stash to make this return true again, use `git stash push -u`
+    # (or Save-Stash) so untracked files are also captured. Plain `git stash push`
+    # leaves untracked in place, which makes this check fail again on the next
+    # call and can cascade into double-stash bugs.
     $status = git status --porcelain 2>$null
     return [string]::IsNullOrWhiteSpace($status)
 }
@@ -157,6 +173,96 @@ function Invoke-GitCommand {
     }
 }
 
+function Save-Stash {
+    <#
+    .SYNOPSIS
+    Stash current changes (including untracked files via -u) under a unique
+    tag, returning that tag for later use with Restore-Stash. Returns $null
+    when there is nothing to stash. Exits the script on actual stash failure.
+    #>
+    param([string]$ContextLabel = "auto")
+
+    $timestamp = [DateTimeOffset]::UtcNow.ToUnixTimeSeconds()
+    $rand = [Guid]::NewGuid().ToString('N').Substring(0, 8)
+    $tag = "dev-tools-$ContextLabel-$timestamp-$rand"
+
+    $output = & git stash push -u -m $tag 2>&1
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "git stash push failed: $output"
+        exit 1
+    }
+
+    # `git stash push` exits 0 with "No local changes to save" when there is
+    # nothing to stash. Verify an entry actually exists before claiming the
+    # caller has something to restore later.
+    $entries = git stash list 2>$null
+    $found = $entries | Where-Object { $_ -like "*$tag*" }
+    if (-not $found) {
+        return $null
+    }
+    return $tag
+}
+
+function Restore-Stash {
+    <#
+    .SYNOPSIS
+    Pop the stash entry matching a tag returned by Save-Stash. Locates the
+    entry by message rather than stack position, so unrelated stashes left
+    over from prior failed runs do not get popped by accident. Returns $true
+    on success (or no-op when $Tag is $null), $false on failure.
+    #>
+    param([string]$Tag)
+
+    if (-not $Tag) {
+        return $true
+    }
+
+    $entries = git stash list 2>$null
+    $line = $entries | Where-Object { $_ -like "*$Tag*" } | Select-Object -First 1
+    if (-not $line) {
+        Write-Warning "Stash entry '$Tag' not found (already popped or dropped)."
+        return $false
+    }
+
+    if ($line -notmatch '^(stash@\{\d+\})') {
+        Write-Warning "Could not parse stash ref from line: $line"
+        return $false
+    }
+    $ref = $matches[1]
+
+    $output = & git stash pop $ref 2>&1
+    if ($LASTEXITCODE -ne 0) {
+        Write-Error "git stash pop $ref failed: $output"
+        Write-Info "Your changes are still in the stash. Recover with:"
+        Write-Host "  git stash list   # find the entry tagged '$Tag'"
+        Write-Host "  git stash pop $ref"
+        return $false
+    }
+    return $true
+}
+
+function Test-BranchMergedViaPR {
+    <#
+    .SYNOPSIS
+    Returns $true if the branch was merged via a closed-merged GitHub PR.
+    Used as a fallback for `git branch --merged`, which cannot detect
+    squash-merges because the squash commit on develop has a different SHA
+    than the branch's commits. Best-effort: requires `gh` CLI and returns
+    $false silently if unavailable.
+    #>
+    param([string]$Branch)
+    try {
+        $jsonResult = & gh pr list --state merged --head $Branch --json number 2>$null
+        if ($LASTEXITCODE -ne 0) { return $false }
+        if (-not $jsonResult) { return $false }
+        $parsed = $jsonResult | ConvertFrom-Json
+        return @($parsed).Count -gt 0
+    }
+    catch {
+        return $false
+    }
+}
+
 function Show-Status {
     Write-Header "Repository Status"
     
@@ -192,35 +298,39 @@ function Show-Status {
 }
 
 function Sync-Develop {
+    param(
+        # When set, the caller has already stashed; skip our own stash/pop to
+        # avoid the double-stash cascade that misorders the stash stack and
+        # makes a later pop pick up the wrong entry from prior runs.
+        [switch]$NoStash
+    )
+
     Write-Header "Syncing $($Config.DevelopBranch)"
-    
-    $currentBranch = Get-CurrentBranch
-    
-    # Stash if there are changes
-    $hadChanges = $false
-    if (-not (Test-WorkingDirectoryClean)) {
+
+    # Stash if there are changes (unless caller already handled it)
+    $stashTag = $null
+    if (-not $NoStash -and -not (Test-WorkingDirectoryClean)) {
         Write-Warning "Uncommitted changes. Stashing..."
-        $result = Invoke-GitCommand -Command "stash" -Arguments @("push", "-m", "Auto-stash by dev-tools")
-        if (-not $result) { exit 1 }
-        $hadChanges = $true
+        $stashTag = Save-Stash -ContextLabel "sync"
     }
-    
+
     # Checkout develop
     $result = Invoke-GitCommand -Command "checkout" -Arguments $Config.DevelopBranch
     if (-not $result) { exit 1 }
-    
+
     # Pull
     Write-Info "Pull from $($Config.Remote)/$($Config.DevelopBranch)..."
     $result = Invoke-GitCommand -Command "pull" -Arguments @("$($Config.Remote)", "$($Config.DevelopBranch)")
     if (-not $result) { exit 1 }
-    
+
     # Restore stash
-    if ($hadChanges) {
+    if ($stashTag) {
         Write-Info "Restoring changes..."
-        $result = Invoke-GitCommand -Command "stash" -Arguments "pop"
-        if (-not $result) { exit 1 }
+        if (-not (Restore-Stash -Tag $stashTag)) {
+            exit 1
+        }
     }
-    
+
     Write-Success "$($Config.DevelopBranch) updated"
 }
 
@@ -229,36 +339,47 @@ function New-FeatureBranch {
         [string]$BranchName,
         [string]$Prefix
     )
-    
+
     Write-Header "Creating branch $Prefix/$BranchName"
-    
+
     # Validate name
     if ($BranchName -match '[\s\\:*?"<>|]') {
         Write-Error "Invalid branch name. No spaces or special characters."
         exit 1
     }
-    
-    # Check working directory
+
+    # Stash all working tree changes (tracked + untracked, via Save-Stash) once.
+    # We then pass -NoStash to Sync-Develop so it does not stash again on top —
+    # the prior cascade left an outer entry that pop later picked up the wrong
+    # slot from when older stashes existed.
+    $stashTag = $null
     if (-not (Test-WorkingDirectoryClean)) {
         Write-Warning "Uncommitted changes. Will auto-stash."
-        $result = Invoke-GitCommand -Command "stash" -Arguments "push"
-        if (-not $result) { exit 1 }
+        $stashTag = Save-Stash -ContextLabel "branch"
     }
-    
-    # Sync develop first
-    Sync-Develop
-    
+
+    # Sync develop first (we already stashed)
+    Sync-Develop -NoStash
+
     # Create branch
     $fullBranchName = "$Prefix/$BranchName"
     Write-Info "Creating branch $fullBranchName..."
     $result = Invoke-GitCommand -Command "checkout" -Arguments @("-b", "$fullBranchName")
     if (-not $result) { exit 1 }
-    
+
     # Push with tracking
     Write-Info "Pushing to $($Config.Remote)..."
     $result = Invoke-GitCommand -Command "push" -Arguments @("-u", "$($Config.Remote)", "$fullBranchName")
     if (-not $result) { exit 1 }
-    
+
+    # Restore stash onto the new branch
+    if ($stashTag) {
+        Write-Info "Restoring stashed changes..."
+        if (-not (Restore-Stash -Tag $stashTag)) {
+            exit 1
+        }
+    }
+
     Write-Success "Branch $fullBranchName created and pushed"
     Write-Info "Work on your changes and commit frequently."
     Write-Info "When done: ./dev-tools.ps1 squash"
@@ -285,10 +406,17 @@ function New-Commit {
     if ($Description -match '#\d+') {
         $Message = "$Message`n`nFixes $Description"
     }
-    
-    $result = Invoke-GitCommand -Command "commit" -Arguments @("-am", "$Message")
+
+    # Stage everything: tracked changes (modified/deleted) AND untracked (new
+    # files). `git commit -am` only auto-stages tracked changes, so brand-new
+    # files were silently skipped from commits before. `git add -A` covers
+    # add/modify/delete uniformly so the commit reflects the full working tree.
+    $result = Invoke-GitCommand -Command "add" -Arguments @("-A")
     if (-not $result) { exit 1 }
-    
+
+    $result = Invoke-GitCommand -Command "commit" -Arguments @("-m", "$Message")
+    if (-not $result) { exit 1 }
+
     Write-Success "Commit created"
     
     # Show count
@@ -388,7 +516,7 @@ function Ready-ForPR {
     
     # Step 5: Push force-with-lease
     Write-Info "Pushing with force-with-lease..."
-    $result = Invoke-GitCommand -Command "push" -Arguments "--force-with-lease"
+    $result = Invoke-GitCommand -Command "push" -Arguments @("-u", "$($Config.Remote)", "$currentBranch", "--force-with-lease")
     if (-not $result) { exit 1 }
     
     Write-Success "Branch ready for PR!"
@@ -396,7 +524,7 @@ function Ready-ForPR {
     Write-Host "  ✓ 1 commit (squash)"
     Write-Host "  ✓ Rebased onto current develop"
     Write-Host "  ✓ No conflicts"
-    Write-Host "`nCreate PR on GitHub or run: ./dev-tools.ps1 pr \"Title\" \"Description\""
+    Write-Host "`nCreate PR on GitHub or run: ./dev-tools.ps1 pr"
 }
 
 function Fix-Conflict {
@@ -434,8 +562,9 @@ function Fix-Conflict {
     }
     
     # Push
+    $currentBranch = Get-CurrentBranch
     Write-Info "Pushing with force-with-lease..."
-    $result = Invoke-GitCommand -Command "push" -Arguments "--force-with-lease"
+    $result = Invoke-GitCommand -Command "push" -Arguments @("-u", "$($Config.Remote)", "$currentBranch", "--force-with-lease")
     if (-not $result) { exit 1 }
     
     Write-Success "Conflicts resolved and code updated"
@@ -463,18 +592,13 @@ function Push-Changes {
     
     # Push
     Write-Info "Pushing..."
-    $result = Invoke-GitCommand -Command "push" -Arguments "--force-with-lease"
+    $result = Invoke-GitCommand -Command "push" -Arguments @("-u", "$($Config.Remote)", "$currentBranch", "--force-with-lease")
     if (-not $result) { exit 1 }
     
     Write-Success "Push completed"
 }
 
 function New-PullRequest {
-    param(
-        [string]$Title,
-        [string]$Body
-    )
-    
     Write-Header "Creating Pull Request"
     
     $currentBranch = Get-CurrentBranch
@@ -505,14 +629,7 @@ function New-PullRequest {
         
         $prUrl = "https://github.com/$owner/$repo/compare/$($Config.DevelopBranch)...$currentBranch?expand=1"
         
-        if ($Title) {
-            $prUrl += "&title=$([Uri]::EscapeDataString($Title))"
-        }
-        if ($Body) {
-            $prUrl += "&body=$([Uri]::EscapeDataString($Body))"
-        }
-        
-        Write-Info "Opening browser to create PR..."
+        Write-Info "Opening browser to create PR for branch '$currentBranch'..."
         Start-Process $prUrl
     }
     else {
@@ -524,36 +641,62 @@ function New-PullRequest {
 
 function Invoke-Cleanup {
     Write-Header "Cleaning Local Branches"
-    
+
     $currentBranch = Get-CurrentBranch
-    
+
     # Go back to develop
     if ($currentBranch -ne $Config.DevelopBranch) {
         $result = Invoke-GitCommand -Command "checkout" -Arguments $Config.DevelopBranch
         if (-not $result) { exit 1 }
     }
-    
+
     # Pull
     $result = Invoke-GitCommand -Command "pull" -Arguments @("$($Config.Remote)", "$($Config.DevelopBranch)")
     if (-not $result) { exit 1 }
-    
-    # Delete merged branches
-    $merged = git branch --merged $Config.DevelopBranch --format="%(refname:short)" | Where-Object { 
-        $_ -notin @($Config.MainBranch, $Config.DevelopBranch) -and 
-        $_ -notmatch "^\*" 
+
+    # Standard merge detection: catches non-squash merges via SHA reachability.
+    $standardMerged = git branch --merged $Config.DevelopBranch --format="%(refname:short)" | Where-Object {
+        $_ -notin @($Config.MainBranch, $Config.DevelopBranch) -and
+        $_ -notmatch "^\*"
     }
-    
-    if ($merged) {
-        Write-Info "Deleting merged branches:"
-        $merged | ForEach-Object {
-            Write-Host "  - $_"
-            Invoke-GitCommand -Command "branch" -Arguments @("-d", "$_") -IgnoreError | Out-Null
+
+    # Squash-merge detection via GitHub PR state. `git branch --merged` cannot
+    # see squash-merged branches because the squash commit on develop has a
+    # different SHA than the branch's tip; without this fallback, cleanup
+    # never deletes anything in a squash+rebase workflow.
+    $allLocal = git branch --format="%(refname:short)" | Where-Object {
+        $_ -notin @($Config.MainBranch, $Config.DevelopBranch) -and
+        $_ -notmatch "^\*"
+    }
+    $prMerged = @()
+    foreach ($branch in $allLocal) {
+        if ($standardMerged -contains $branch) { continue }
+        if (Test-BranchMergedViaPR -Branch $branch) {
+            $prMerged += $branch
         }
     }
-    
+
+    if ($standardMerged) {
+        Write-Info "Deleting merged branches:"
+        foreach ($b in $standardMerged) {
+            Write-Host "  - $b"
+            Invoke-GitCommand -Command "branch" -Arguments @("-d", "$b") -IgnoreError | Out-Null
+        }
+    }
+    if ($prMerged) {
+        Write-Info "Deleting squash-merged branches (verified via gh PR state):"
+        foreach ($b in $prMerged) {
+            Write-Host "  - $b"
+            Invoke-GitCommand -Command "branch" -Arguments @("-D", "$b") -IgnoreError | Out-Null
+        }
+    }
+    if (-not $standardMerged -and -not $prMerged) {
+        Write-Info "No merged branches to delete"
+    }
+
     # Prune
     Invoke-GitCommand -Command "remote" -Arguments @("prune", "$($Config.Remote)") -IgnoreError | Out-Null
-    
+
     Write-Success "Cleanup completed"
 }
 
@@ -571,26 +714,82 @@ if (-not (Test-GitRepository)) {
 switch ($Command) {
     "status" { Show-Status }
     "sync" { Sync-Develop }
-    "feature" {
+    "feat" {
         if (-not $Name) {
-            Write-Error "Name required. Usage: ./dev-tools.ps1 feature feature-name"
+            Write-Error "Branch Name required. Usage: ./dev-tools.ps1 feature feature-name"
             exit 1
         }
         New-FeatureBranch -BranchName $Name -Prefix $Config.FeaturePrefix
     }
     "fix" {
         if (-not $Name) {
-            Write-Error "Name required. Usage: ./dev-tools.ps1 fix fix-name"
+            Write-Error "Branch Name required. Usage: ./dev-tools.ps1 fix fix-name"
             exit 1
         }
         New-FeatureBranch -BranchName $Name -Prefix $Config.FixPrefix
+    }
+    "refactor" {
+        if (-not $Name) {
+            Write-Error "Branch Name required. Usage: ./dev-tools.ps1 refactor refactor-name"
+            exit 1
+        }
+        New-FeatureBranch -BranchName $Name -Prefix $Config.RefactorPrefix
+    }
+    "perf" {
+        if (-not $Name) {
+            Write-Error "Branch Name required. Usage: ./dev-tools.ps1 perf perf-name"
+            exit 1
+        }
+        New-FeatureBranch -BranchName $Name -Prefix $Config.PerfPrefix
+    }
+    "style" {
+        if (-not $Name) {
+            Write-Error "Branch Name required. Usage: ./dev-tools.ps1 style style-name"
+            exit 1
+        }
+        New-FeatureBranch -BranchName $Name -Prefix $Config.StylePrefix
+    }
+    "test" {
+        if (-not $Name) {
+            Write-Error "Branch Name required. Usage: ./dev-tools.ps1 test test-name"
+            exit 1
+        }
+        New-FeatureBranch -BranchName $Name -Prefix $Config.TestPrefix
+    }
+    "docs" {
+        if (-not $Name) {
+            Write-Error "Branch Name required. Usage: ./dev-tools.ps1 docs docs-name"
+            exit 1
+        }
+        New-FeatureBranch -BranchName $Name -Prefix $Config.DocsPrefix
+    }
+    "build" {
+        if (-not $Name) {
+            Write-Error "Branch Name required. Usage: ./dev-tools.ps1 build build-name"
+            exit 1
+        }
+        New-FeatureBranch -BranchName $Name -Prefix $Config.BuildPrefix
+    }
+    "ops" {
+        if (-not $Name) {
+            Write-Error "Branch Name required. Usage: ./dev-tools.ps1 ops ops-name"
+            exit 1
+        }
+        New-FeatureBranch -BranchName $Name -Prefix $Config.OpsPrefix
+    }
+    "chore" {
+        if (-not $Name) {
+            Write-Error "Branch Name required. Usage: ./dev-tools.ps1 chore chore-name"
+            exit 1
+        }
+        New-FeatureBranch -BranchName $Name -Prefix $Config.ChorePrefix
     }
     "commit" { New-Commit -Message $Name }
     "squash" { Invoke-Squash }
     "ready" { Ready-ForPR }
     "fix-conflict" { Fix-Conflict }
     "push" { Push-Changes }
-    "pr" { New-PullRequest -Title $Name -Body $Description }
+    "pr" { New-PullRequest }
     "cleanup" { Invoke-Cleanup }
 }
 

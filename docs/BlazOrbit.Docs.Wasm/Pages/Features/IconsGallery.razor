@@ -1,0 +1,110 @@
+﻿@page "/features/icons"
+@inject IClipboardJsInterop Clipboard
+@inject IToastService ToastService
+@inject IStringLocalizer<IconsGallery> Loc
+
+<PageTitle>Icons — BlazOrbit</PageTitle>
+
+<DocPage Eyebrow="Feature"
+         Title="Icons"
+         Lede="All available SVG icons. Click any row to copy its full reference path.">
+
+    <section class="doc-section">
+        <BOBInputText UpdateOnInput="true"
+                      OnInput="OnFilterChanged"
+                      OnInputDebounceMs="200"
+                      Label="Search"
+                      Placeholder="Filter by name or category..." />
+        <p class="icons-gallery__count">@_filteredIcons.Count icons</p>
+    </section>
+
+    <section class="doc-section icons-gallery__list">
+        <Virtualize Items="_filteredIcons" Context="icon" ItemSize="64">
+            <ItemContent>
+                <button type="button"
+                        class="icons-gallery__row"
+                        @onclick="() => CopyReference(icon)">
+                    <BOBSvgIcon Icon="@icon.Value" Size="BOBSize.Large" />
+                    <code class="icons-gallery__path">@($"{nameof(BOBIconKeys)}.{icon.CategoryName}.{icon.Name}")</code>
+                    <span class="icons-gallery__hint">@Loc["Click to copy"]</span>
+                </button>
+            </ItemContent>
+            <Placeholder>
+                <div class="icons-gallery__row icons-gallery__row--placeholder"></div>
+            </Placeholder>
+        </Virtualize>
+    </section>
+</DocPage>
+
+@code {
+    private string _filter = "";
+    private List<IconInfo> _allIcons = new();
+    private List<IconInfo> _filteredIcons = new();
+
+    protected override void OnInitialized()
+    {
+        ExtractIcons();
+        _filteredIcons = _allIcons;
+    }
+
+    private void OnFilterChanged(string value)
+    {
+        _filter = value ?? "";
+        _filteredIcons = string.IsNullOrWhiteSpace(_filter)
+            ? _allIcons
+            : _allIcons
+                .Where(i => i.Name.Contains(_filter, StringComparison.OrdinalIgnoreCase)
+                         || i.CategoryName.Contains(_filter, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+    }
+
+    private void ExtractIcons()
+    {
+        _allIcons.Clear();
+
+        var categories = typeof(BOBIconKeys).GetNestedTypes(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static);
+
+        foreach (var cat in categories)
+        {
+            var fields = cat.GetFields(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.FlattenHierarchy);
+
+            foreach (var field in fields)
+            {
+                if (field.FieldType == typeof(IconKey) && field.GetValue(null) is IconKey value)
+                {
+                    _allIcons.Add(new IconInfo
+                    {
+                        CategoryName = cat.Name,
+                        Name = field.Name,
+                        Value = value
+                    });
+                }
+            }
+        }
+    }
+
+    private async Task CopyReference(IconInfo icon)
+    {
+        string key = $"{nameof(BOBIconKeys)}.{icon.CategoryName}.{icon.Name}";
+        await Clipboard.CopyTextAsync(key);
+        await ToastService.ShowAsync(
+            builder =>
+            {
+                builder.AddContent(0, Loc["Copied to clipboard!"]);
+            },
+            new ToastOptions
+            {
+                Severity = ToastSeverity.Success,
+                Duration = TimeSpan.FromSeconds(2),
+                AutoDismiss = true,
+                Closable = false
+            });
+    }
+
+    public class IconInfo
+    {
+        public string CategoryName { get; set; } = "";
+        public string Name { get; set; } = "";
+        public required IconKey Value { get; set; }
+    }
+}

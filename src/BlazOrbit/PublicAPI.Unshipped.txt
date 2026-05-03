@@ -1958,16 +1958,6 @@ BlazOrbit.Components.Layout.BOBStackedLayout.StickyHeader.get -> bool
 BlazOrbit.Components.Layout.BOBStackedLayout.StickyHeader.set -> void
 BlazOrbit.Components.Layout.BOBStackedLayout.StickyNav.get -> bool
 BlazOrbit.Components.Layout.BOBStackedLayout.StickyNav.set -> void
-BlazOrbit.Components.Layout.BOBThemeEditor
-BlazOrbit.Components.Layout.BOBThemeEditor.BOBThemeEditor() -> void
-BlazOrbit.Components.Layout.BOBThemeEditor.OnPaletteChanged.get -> Microsoft.AspNetCore.Components.EventCallback<System.Collections.Generic.Dictionary<string!, BlazOrbit.Components.CssColor!>!>
-BlazOrbit.Components.Layout.BOBThemeEditor.OnPaletteChanged.set -> void
-BlazOrbit.Components.Layout.BOBThemeEditor.Palette.get -> System.Collections.Generic.Dictionary<string!, BlazOrbit.Components.CssColor!>!
-BlazOrbit.Components.Layout.BOBThemeEditor.Palette.set -> void
-BlazOrbit.Components.Layout.BOBThemeGenerator
-BlazOrbit.Components.Layout.BOBThemeGenerator.BOBThemeGenerator() -> void
-BlazOrbit.Components.Layout.BOBThemePreview
-BlazOrbit.Components.Layout.BOBThemePreview.BOBThemePreview() -> void
 BlazOrbit.Components.Layout.BOBThemeSelector
 BlazOrbit.Components.Layout.BOBThemeSelector.AvailableThemes.get -> string![]!
 BlazOrbit.Components.Layout.BOBThemeSelector.AvailableThemes.set -> void
@@ -2708,8 +2698,6 @@ BlazOrbit.Components.Layout.BOBSidebarLayout.BuildComponentCssVariables(System.C
 BlazOrbit.Components.Layout.BOBSidebarLayout.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
 BlazOrbit.Components.Layout.BOBStackedLayout.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
 BlazOrbit.Components.Layout.BOBStackedLayout.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
-override BlazOrbit.Components.Layout.BOBThemeEditor.OnParametersSet() -> void
-override BlazOrbit.Components.Layout.BOBThemeGenerator.OnInitialized() -> void
 override BlazOrbit.Components.Layout.BOBThemeSelector.BuiltInTemplates.get -> System.Collections.Generic.Dictionary<BlazOrbit.Components.Layout.BOBThemeSelectorVariant!, System.Func<BlazOrbit.Components.Layout.BOBThemeSelector!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
 override BlazOrbit.Components.Layout.BOBThemeSelector.DefaultVariant.get -> BlazOrbit.Components.Layout.BOBThemeSelectorVariant!
 override BlazOrbit.Components.Layout.BOBThemeSelector.OnAfterRenderAsync(bool firstRender) -> System.Threading.Tasks.Task!
@@ -2909,9 +2897,6 @@ virtual BlazOrbit.Components.Utils.Patterns.Abstractions.BOBBasePattern.ToggleVa
 ~override BlazOrbit.Components.Layout.BOBModalHost.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
 ~override BlazOrbit.Components.Layout.BOBSidebarLayout.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
 ~override BlazOrbit.Components.Layout.BOBStackedLayout.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
-~override BlazOrbit.Components.Layout.BOBThemeEditor.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
-~override BlazOrbit.Components.Layout.BOBThemeGenerator.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
-~override BlazOrbit.Components.Layout.BOBThemePreview.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
 ~override BlazOrbit.Components.Layout.BOBThemeSelector.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
 ~override BlazOrbit.Components.Layout.BOBToast.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
 ~override BlazOrbit.Components.Layout.BOBToastHost.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
