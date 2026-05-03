@@ -10,7 +10,7 @@
     Facilitates the flow: feature → squash to 1 commit → rebase → PR
 
 .EXAMPLE
-    ./dev-tools.ps1 feature css-tokens
+    ./dev-tools.ps1 feat css-tokens
     Creates a new feature branch from develop
 
 .EXAMPLE
@@ -716,7 +716,7 @@ switch ($Command) {
     "sync" { Sync-Develop }
     "feat" {
         if (-not $Name) {
-            Write-Error "Branch Name required. Usage: ./dev-tools.ps1 feature feature-name"
+            Write-Error "Branch Name required. Usage: ./dev-tools.ps1 feat feature-name"
             exit 1
         }
         New-FeatureBranch -BranchName $Name -Prefix $Config.FeaturePrefix

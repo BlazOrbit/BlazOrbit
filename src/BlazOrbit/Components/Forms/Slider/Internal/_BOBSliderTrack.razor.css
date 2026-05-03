@@ -1,0 +1,103 @@
+._bob-slider-track {
+    --_track-rail-thickness: calc(4px * var(--bob-size-multiplier, 1));
+    --_track-rail-radius: 999px;
+    --_track-rail-color: var(--bob-inline-background, color-mix(in oklab, var(--palette-surface-contrast) 18%, transparent));
+    --_track-fill-color: var(--bob-inline-color, var(--palette-primary));
+    --_track-tick-size: calc(6px * var(--bob-size-multiplier, 1));
+    --_track-tick-color: color-mix(in oklab, var(--palette-surface-contrast) 40%, transparent);
+    --_track-thumb-room: calc(20px * var(--bob-size-multiplier, 1));
+    --_fill-start: 0%;
+    --_fill-end: 100%;
+    --_tick-percent: 0%;
+    position: relative;
+    box-sizing: border-box;
+    display: block;
+    touch-action: none;
+    user-select: none;
+    cursor: pointer;
+}
+
+._bob-slider-track[data-orientation="horizontal"] {
+    width: 100%;
+    min-height: var(--_track-thumb-room);
+    padding-block: calc(var(--_track-thumb-room) / 2 - var(--_track-rail-thickness) / 2);
+}
+
+._bob-slider-track[data-orientation="vertical"] {
+    height: 100%;
+    min-width: var(--_track-thumb-room);
+    padding-inline: calc(var(--_track-thumb-room) / 2 - var(--_track-rail-thickness) / 2);
+}
+
+._bob-slider-track__rail {
+    position: absolute;
+    background: var(--_track-rail-color);
+    border-radius: var(--_track-rail-radius);
+    pointer-events: none;
+}
+
+._bob-slider-track[data-orientation="horizontal"] ._bob-slider-track__rail {
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: var(--_track-rail-thickness);
+    transform: translateY(-50%);
+}
+
+._bob-slider-track[data-orientation="vertical"] ._bob-slider-track__rail {
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: var(--_track-rail-thickness);
+    transform: translateX(-50%);
+}
+
+._bob-slider-track__fill {
+    position: absolute;
+    background: var(--_track-fill-color);
+    border-radius: var(--_track-rail-radius);
+    pointer-events: none;
+}
+
+._bob-slider-track[data-orientation="horizontal"] ._bob-slider-track__fill {
+    top: 50%;
+    height: var(--_track-rail-thickness);
+    transform: translateY(-50%);
+    left: var(--_fill-start, 0%);
+    right: calc(100% - var(--_fill-end, 100%));
+}
+
+._bob-slider-track[data-orientation="vertical"] ._bob-slider-track__fill {
+    left: 50%;
+    width: var(--_track-rail-thickness);
+    transform: translateX(-50%);
+    bottom: var(--_fill-start, 0%);
+    top: calc(100% - var(--_fill-end, 100%));
+}
+
+._bob-slider-track__tick {
+    position: absolute;
+    width: var(--_track-tick-size);
+    height: var(--_track-tick-size);
+    border-radius: 999px;
+    background: var(--_track-tick-color);
+    pointer-events: none;
+}
+
+._bob-slider-track[data-orientation="horizontal"] ._bob-slider-track__tick {
+    top: 50%;
+    left: var(--_tick-percent, 0%);
+    transform: translate(-50%, -50%);
+}
+
+._bob-slider-track[data-orientation="vertical"] ._bob-slider-track__tick {
+    left: 50%;
+    bottom: var(--_tick-percent, 0%);
+    transform: translate(-50%, 50%);
+}
+
+._bob-slider-track__thumbs {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}

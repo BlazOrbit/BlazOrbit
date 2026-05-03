@@ -1,4 +1,4 @@
-# Versioning Strategy
+﻿# Versioning Strategy
 
 BlazOrbit follows **Semantic Versioning (SemVer)** with a simplified Git Flow built around two long-lived branches: `master` and `develop`.
 
@@ -49,7 +49,7 @@ develop  ●────┬────┬────┬────┬──�
 ### 1. Start a Feature
 
 ```powershell
-./scripts/dev-tools.ps1 feature my-feature
+./scripts/dev-tools.ps1 feat my-feature
 # Work, commit frequently using Conventional Commits
 ./scripts/dev-tools.ps1 ready  # Squash + rebase onto develop + push
 # Open Pull Request on GitHub targeting develop
@@ -63,25 +63,6 @@ develop  ●────┬────┬────┬────┬──�
   - Public API shipped integrity check
 - Merge with **Squash and merge**.
 - After merge, the **Preview Publish** workflow (`preview-publish.yml`) automatically publishes a `preview` NuGet version.
-
-### 3. Prepare a Release
-
-When `develop` is ready for a stable release:
-
-```powershell
-./scripts/admin-tools.ps1 rc 1.0.0       # Create release candidate branch
-# OR for a stable release:
-./scripts/admin-tools.ps1 release 1.0.0  # Create release branch and tag
-```
-
-A Pull Request from the release branch to `master` must pass the **Release Gate** (`release-gate.yml`):
-
-- Build and test
-- Vulnerability audit (no High/Critical NuGet advisories)
-- Blocking issues check (no open issues labeled `severity/blocker` or `severity/critical`)
-- Public API shipped integrity check
-
-Once merged to `master`, create a tag `vX.Y.Z` to trigger the **Release Publish** workflow (`release-publish.yml`), which publishes the stable packages to NuGet.
 
 ---
 
@@ -123,27 +104,11 @@ Issues are classified by severity. Some labels block releases:
 
 ---
 
-## Hotfixes
-
-For urgent fixes on the current production version:
-
-```powershell
-./scripts/admin-tools.ps1 hotfix 1.0.1
-# Fix, commit, push
-# Create Pull Request directly to master
-# Fast-track through the release gate
-./scripts/admin-tools.ps1 release 1.0.1
-```
-
-After the hotfix is merged to `master`, port the fix back to `develop` with a separate PR or cherry-pick to avoid drift.
-
 ---
 
 ## Support Policy
 
 - **Latest stable** (`master`) receives bug fixes and security patches.
-- **Previous major version** receives critical security patches for **6 months** after the next major release.
-- **Preview / RC** builds are not supported; they exist for integration testing only.
 
 ---
 
@@ -168,12 +133,3 @@ The project maintains a `CHANGELOG.md` file that lists all notable changes per v
 | `setup-repository.yml` | Manual | Configure labels and branch protection |
 
 ---
-
-## Summary
-
-1. **Work on short-lived branches** from `develop`.
-2. **Squash to 1 commit** before opening a PR.
-3. **PR to `develop`** passes the Preview Gate.
-4. **PR to `master`** passes the Release Gate (no blockers).
-5. **Tag `vX.Y.Z`** triggers the stable release.
-6. **Linear history** is maintained throughout.

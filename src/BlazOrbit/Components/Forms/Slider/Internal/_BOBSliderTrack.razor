@@ -1,0 +1,63 @@
+@namespace BlazOrbit.Components.Forms.Internal
+@using BlazOrbit.Components.Forms
+
+<div @ref="TrackElementRef"
+     class="_bob-slider-track"
+     data-orientation="@OrientationKey"
+     style="@TrackStyle"
+     @onpointerdown="OnPointerDown">
+    <div class="_bob-slider-track__rail"></div>
+    <div class="_bob-slider-track__fill"></div>
+
+    @if (ShowTicks && TickPercents is not null)
+    {
+        @foreach (double percent in TickPercents)
+        {
+            <span class="_bob-slider-track__tick" style="@($"--_tick-percent: {percent.ToString("0.###", System.Globalization.CultureInfo.InvariantCulture)}%")"></span>
+        }
+    }
+
+    @if (ChildContent is not null)
+    {
+        <div class="_bob-slider-track__thumbs">
+            @ChildContent
+        </div>
+    }
+</div>
+
+@code {
+    /// <summary>Layout orientation of the track.</summary>
+    [Parameter] public BOBSliderOrientation Orientation { get; set; } = BOBSliderOrientation.Horizontal;
+
+    /// <summary>Filled segment start in the 0-100 percent space.</summary>
+    [Parameter] public double FillStartPercent { get; set; }
+
+    /// <summary>Filled segment end in the 0-100 percent space.</summary>
+    [Parameter] public double FillEndPercent { get; set; } = 100;
+
+    /// <summary>When <see langword="true"/>, tick marks listed in <see cref="TickPercents"/> are rendered along the rail.</summary>
+    [Parameter] public bool ShowTicks { get; set; }
+
+    /// <summary>Tick positions in the 0-100 percent space. Ignored when <see cref="ShowTicks"/> is <see langword="false"/>.</summary>
+    [Parameter] public IReadOnlyList<double>? TickPercents { get; set; }
+
+    /// <summary>Thumb fragments rendered above the track.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Element reference of the track root, captured at render time. Public components
+    /// read it after first render to start drag interactions via JS interop.
+    /// </summary>
+    public ElementReference TrackElementRef { get; private set; }
+
+    /// <summary>Raised on a pointer-down anywhere on the rail. Public components use it to implement click-to-seek.</summary>
+    [Parameter] public EventCallback<PointerEventArgs> OnPointerDown { get; set; }
+
+    private string OrientationKey => Orientation == BOBSliderOrientation.Vertical ? "vertical" : "horizontal";
+
+    private string TrackStyle =>
+        $"--_fill-start: {Format(FillStartPercent)}%; --_fill-end: {Format(FillEndPercent)}%";
+
+    private static string Format(double value) =>
+        value.ToString("0.###", System.Globalization.CultureInfo.InvariantCulture);
+}

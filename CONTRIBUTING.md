@@ -87,7 +87,7 @@ The `scripts/dev-tools.ps1` script wraps common operations:
 
 ```powershell
 ./scripts/dev-tools.ps1 sync                    # Update develop from origin
-./scripts/dev-tools.ps1 feature feature-name    # Create feature branch
+./scripts/dev-tools.ps1 feat feature-name       # Create feature branch
 ./scripts/dev-tools.ps1 fix fix-name            # Create fix branch
 ./scripts/dev-tools.ps1 commit "message"        # Commit with conventional commits
 ./scripts/dev-tools.ps1 squash                  # Squash all commits into one

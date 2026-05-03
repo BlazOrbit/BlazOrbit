@@ -1,0 +1,446 @@
+@using System.Diagnostics.CodeAnalysis
+@using System.Globalization
+@using System.Numerics
+@using BlazOrbit.Abstractions
+@using BlazOrbit.Components.Forms.Internal
+
+@namespace BlazOrbit.Components.Forms
+@attribute [GenerateComponentInfo]
+
+@typeparam TValue where TValue : struct, INumber<TValue>
+
+@inherits BOBInputComponentBase<BOBNumericRange<TValue>, BOBInputRangeSlider<TValue>, BOBInputVariant>
+@implements IBuiltComponent
+@implements IInputFamilyComponent
+@implements IHasSize
+@implements IHasDensity
+@implements IHasShadow
+@implements IHasColor
+@implements IHasBackgroundColor
+@implements IHasFullWidth
+@implements ISliderJsCallback
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code {
+    private enum ActiveThumb { None, Min, Max }
+
+    private readonly string _componentId = $"bob-input-range-slider-{Guid.NewGuid():N}";
+    private readonly string _helperTextId = $"bob-helper-{Guid.NewGuid():N}";
+    private readonly string _labelId = $"bob-label-{Guid.NewGuid():N}";
+    private SliderCallbacksRelay? _callbacksRelay;
+    private ActiveThumb _draggingThumb = ActiveThumb.None;
+    private ActiveThumb _focusedThumb = ActiveThumb.None;
+    private _BOBSliderTrack? _trackComponent;
+
+    [Inject] private ISliderJsInterop SliderJsInterop { get; set; } = default!;
+
+    // IHasSize
+    /// <summary>Visual size of the slider.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+
+    // IHasDensity
+    /// <summary>Vertical density (gap) of the slider.</summary>
+    [Parameter] public BOBDensity Density { get; set; } = BOBDensity.Standard;
+
+    // IHasShadow
+    /// <summary>Shadow style applied to the slider container.</summary>
+    [Parameter] public ShadowStyle? Shadow { get; set; }
+
+    // IHasBackgroundColor
+    /// <summary>Background color of the rail. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? BackgroundColor { get; set; }
+
+    // IHasColor
+    /// <summary>Filled-segment and thumb color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? Color { get; set; }
+
+    // IHasFullWidth
+    /// <summary>When <see langword="true" />, the slider spans the full width (or height in vertical) of its container.</summary>
+    [Parameter] public bool FullWidth { get; set; } = true;
+
+    // Range-slider-specific parameters
+    /// <summary>Floating label rendered above the slider.</summary>
+    [Parameter] public string? Label { get; set; }
+    /// <summary>Helper text rendered below the slider for additional context.</summary>
+    [Parameter] public string? HelperText { get; set; }
+    /// <summary>Lower bound of the slider track. Defaults to <c>TValue.Zero</c>.</summary>
+    [Parameter] public TValue Min { get; set; } = TValue.Zero;
+    /// <summary>Upper bound of the slider track. Defaults to 100.</summary>
+    [Parameter] public TValue Max { get; set; } = TValue.CreateChecked(100);
+    /// <summary>Step size used by keyboard increments and value snapping.</summary>
+    [Parameter] public TValue Step { get; set; } = TValue.One;
+    /// <summary>Layout orientation of the track.</summary>
+    [Parameter] public BOBSliderOrientation Orientation { get; set; } = BOBSliderOrientation.Horizontal;
+    /// <summary>When <see langword="true" />, tick marks are rendered along the rail at <see cref="TickInterval"/> spacing.</summary>
+    [Parameter] public bool ShowTicks { get; set; }
+    /// <summary>Distance between rendered ticks. Falls back to <see cref="Step"/> when <see langword="null"/>.</summary>
+    [Parameter] public TValue? TickInterval { get; set; }
+    /// <summary>When <see langword="true" />, a label surfaces over each thumb during drag or focus.</summary>
+    [Parameter] public bool ShowValueLabel { get; set; } = true;
+    /// <summary>Format string applied to value labels and <c>aria-valuetext</c>. Standard or custom <see cref="IFormattable"/> format.</summary>
+    [Parameter] public string? ValueLabelFormat { get; set; }
+    /// <summary>Culture used to format <see cref="ValueLabelFormat"/>. Defaults to <see cref="CultureInfo.CurrentCulture"/>.</summary>
+    [Parameter] public CultureInfo? Culture { get; set; }
+    /// <summary>Accessible label for the lower thumb.</summary>
+    [Parameter] public string AriaLabelMin { get; set; } = "Minimum";
+    /// <summary>Accessible label for the upper thumb.</summary>
+    [Parameter] public string AriaLabelMax { get; set; } = "Maximum";
+
+    public override BOBInputVariant DefaultVariant => BOBInputVariant.Standard;
+
+    private CultureInfo CurrentCulture => Culture ?? CultureInfo.CurrentCulture;
+    private string OrientationKey => Orientation == BOBSliderOrientation.Vertical ? "vertical" : "horizontal";
+
+    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    {
+        dataAttributes[FeatureDefinitions.DataAttributes.Orientation] = OrientationKey;
+    }
+
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables) { }
+
+    protected override IReadOnlyDictionary<BOBInputVariant, Func<BOBInputRangeSlider<TValue>, RenderFragment>> BuiltInTemplates { get; } =
+        new Dictionary<BOBInputVariant, Func<BOBInputRangeSlider<TValue>, RenderFragment>>
+        {
+            [BOBInputVariant.Standard] = s => s.RenderSlider(),
+            [BOBInputVariant.Outlined] = s => s.RenderSlider(),
+            [BOBInputVariant.Filled] = s => s.RenderSlider(),
+            [BOBInputVariant.Flat] = s => s.RenderSlider()
+        };
+
+    private RenderFragment RenderSlider() => __builder =>
+    {
+        BOBNumericRange<TValue> range = NormalizeRange(CurrentValue);
+        double minPercent = ValueToPercent(range.Min);
+        double maxPercent = ValueToPercent(range.Max);
+        IReadOnlyList<double>? tickPercents = ShowTicks ? ComputeTickPercents() : null;
+        string formattedMin = FormatValue(range.Min);
+        string formattedMax = FormatValue(range.Max);
+
+        <bob-component @attributes="ComputedAttributes">
+            <div class="bob-input-range-slider__wrapper">
+                @if (!string.IsNullOrEmpty(Label) || ShowValueLabel)
+                {
+                    <div class="bob-input-range-slider__header">
+                        @if (!string.IsNullOrEmpty(Label))
+                        {
+                            <label id="@_labelId" class="bob-input-range-slider__label">
+                                @Label
+                                @if (IsRequired)
+                                {
+                                    <span class="bob-input-range-slider__required" aria-hidden="true">*</span>
+                                }
+                            </label>
+                        }
+                        @if (ShowValueLabel)
+                        {
+                            <output class="bob-input-range-slider__value">@formattedMin&#8202;&#8211;&#8202;@formattedMax</output>
+                        }
+                    </div>
+                }
+
+                <div class="bob-input-range-slider__track-area" data-orientation="@OrientationKey">
+                    <_BOBSliderTrack @ref="_trackComponent"
+                                     Orientation="Orientation"
+                                     FillStartPercent="@minPercent"
+                                     FillEndPercent="@maxPercent"
+                                     ShowTicks="ShowTicks"
+                                     TickPercents="tickPercents"
+                                     OnPointerDown="HandleTrackPointerDown">
+                        <_BOBSliderThumb Percent="@minPercent"
+                                         Orientation="Orientation"
+                                         Dragging="@(_draggingThumb == ActiveThumb.Min)"
+                                         Focused="@(_focusedThumb == ActiveThumb.Min)"
+                                         Disabled="IsDisabled"
+                                         ReadOnly="IsReadOnly"
+                                         ShowValueLabel="ShowValueLabel"
+                                         ValueLabel="@formattedMin"
+                                         AriaLabel="@AriaLabelMin"
+                                         AriaValueMin="@FormatInvariant(Min)"
+                                         AriaValueMax="@FormatInvariant(Max)"
+                                         AriaValueNow="@FormatInvariant(range.Min)"
+                                         AriaValueText="@formattedMin"
+                                         OnPointerDown="@(e => HandleThumbPointerDown(ActiveThumb.Min, e))"
+                                         OnKeyDown="@(e => HandleKeyDown(ActiveThumb.Min, e))"
+                                         OnFocus="@(_ => HandleFocus(ActiveThumb.Min))"
+                                         OnBlur="@(_ => HandleBlur(ActiveThumb.Min))" />
+
+                        <_BOBSliderThumb Percent="@maxPercent"
+                                         Orientation="Orientation"
+                                         Dragging="@(_draggingThumb == ActiveThumb.Max)"
+                                         Focused="@(_focusedThumb == ActiveThumb.Max)"
+                                         Disabled="IsDisabled"
+                                         ReadOnly="IsReadOnly"
+                                         ShowValueLabel="ShowValueLabel"
+                                         ValueLabel="@formattedMax"
+                                         AriaLabel="@AriaLabelMax"
+                                         AriaValueMin="@FormatInvariant(Min)"
+                                         AriaValueMax="@FormatInvariant(Max)"
+                                         AriaValueNow="@FormatInvariant(range.Max)"
+                                         AriaValueText="@formattedMax"
+                                         OnPointerDown="@(e => HandleThumbPointerDown(ActiveThumb.Max, e))"
+                                         OnKeyDown="@(e => HandleKeyDown(ActiveThumb.Max, e))"
+                                         OnFocus="@(_ => HandleFocus(ActiveThumb.Max))"
+                                         OnBlur="@(_ => HandleBlur(ActiveThumb.Max))" />
+                    </_BOBSliderTrack>
+                </div>
+
+                @if (!string.IsNullOrEmpty(HelperText))
+                {
+                    <div id="@_helperTextId" class="bob-input-range-slider__helper-text">@HelperText</div>
+                }
+            </div>
+        </bob-component>
+    };
+
+    private async Task HandleTrackPointerDown(PointerEventArgs e)
+    {
+        if (IsDisabled || IsReadOnly) return;
+
+        // Pick the thumb closer to the click position so the click both seeks
+        // and starts a drag of the visually-closest handle.
+        BOBNumericRange<TValue> range = NormalizeRange(CurrentValue);
+        double minPercent = ValueToPercent(range.Min);
+        double maxPercent = ValueToPercent(range.Max);
+        double clickPercent = await ComputePercentFromClient(e.ClientX, e.ClientY);
+        ActiveThumb target = Math.Abs(clickPercent - minPercent) <= Math.Abs(clickPercent - maxPercent)
+            ? ActiveThumb.Min
+            : ActiveThumb.Max;
+
+        await StartDrag(target, e.ClientX, e.ClientY);
+    }
+
+    private async Task HandleThumbPointerDown(ActiveThumb thumb, PointerEventArgs e)
+    {
+        if (IsDisabled || IsReadOnly) return;
+        await StartDrag(thumb, e.ClientX, e.ClientY);
+    }
+
+    private async Task StartDrag(ActiveThumb thumb, double clientX, double clientY)
+    {
+        if (_trackComponent is null) return;
+
+        _draggingThumb = thumb;
+        _callbacksRelay ??= new SliderCallbacksRelay(this);
+
+        await SliderJsInterop.StartDragAsync(
+            _trackComponent.TrackElementRef,
+            _callbacksRelay.DotNetReference,
+            _componentId,
+            OrientationKey,
+            clientX,
+            clientY);
+    }
+
+    async Task ISliderJsCallback.OnPointerMove(double percent)
+    {
+        if (IsDisposed || _draggingThumb == ActiveThumb.None) return;
+        await UpdateValueFromPercent(percent);
+    }
+
+    async Task ISliderJsCallback.OnPointerUp(double percent)
+    {
+        if (IsDisposed) return;
+
+        ActiveThumb thumb = _draggingThumb;
+        _draggingThumb = ActiveThumb.None;
+        if (thumb != ActiveThumb.None)
+        {
+            await UpdateValueFromPercentForThumb(thumb, percent);
+        }
+        await SliderJsInterop.StopDragAsync(_componentId);
+    }
+
+    private Task UpdateValueFromPercent(double percent)
+        => UpdateValueFromPercentForThumb(_draggingThumb, percent);
+
+    private Task UpdateValueFromPercentForThumb(ActiveThumb thumb, double percent)
+    {
+        if (thumb == ActiveThumb.None) return Task.CompletedTask;
+
+        TValue newValue = PercentToValue(percent);
+        BOBNumericRange<TValue> range = NormalizeRange(CurrentValue);
+        BOBNumericRange<TValue> updated = thumb == ActiveThumb.Min
+            ? range with { Min = newValue > range.Max ? range.Max : newValue }
+            : range with { Max = newValue < range.Min ? range.Min : newValue };
+
+        if (!EqualityComparer<BOBNumericRange<TValue>>.Default.Equals(CurrentValue, updated))
+        {
+            CurrentValue = updated;
+        }
+
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private async Task HandleKeyDown(ActiveThumb thumb, KeyboardEventArgs e)
+    {
+        if (IsDisabled || IsReadOnly) return;
+
+        TValue stepLarge = Step + Step + Step + Step + Step + Step + Step + Step + Step + Step;
+        BOBNumericRange<TValue> range = NormalizeRange(CurrentValue);
+        TValue current = thumb == ActiveThumb.Min ? range.Min : range.Max;
+
+        TValue? delta = e.Key switch
+        {
+            "ArrowRight" => Step,
+            "ArrowUp" => Step,
+            "ArrowLeft" => Negate(Step),
+            "ArrowDown" => Negate(Step),
+            "PageUp" => stepLarge,
+            "PageDown" => Negate(stepLarge),
+            "Home" => Min - current,
+            "End" => Max - current,
+            _ => null
+        };
+
+        if (delta is null) return;
+
+        TValue raw = ClampToBounds(current + delta.Value);
+        BOBNumericRange<TValue> updated = thumb == ActiveThumb.Min
+            ? range with { Min = raw > range.Max ? range.Max : raw }
+            : range with { Max = raw < range.Min ? range.Min : raw };
+
+        if (!EqualityComparer<BOBNumericRange<TValue>>.Default.Equals(CurrentValue, updated))
+        {
+            CurrentValue = updated;
+            StateHasChanged();
+        }
+        await Task.CompletedTask;
+    }
+
+    private void HandleFocus(ActiveThumb thumb) => _focusedThumb = thumb;
+
+    private void HandleBlur(ActiveThumb thumb)
+    {
+        if (_focusedThumb == thumb) _focusedThumb = ActiveThumb.None;
+    }
+
+    private BOBNumericRange<TValue> NormalizeRange(BOBNumericRange<TValue> value)
+    {
+        TValue lo = ClampToBounds(value.Min);
+        TValue hi = ClampToBounds(value.Max);
+        if (hi < lo) (lo, hi) = (hi, lo);
+        return new BOBNumericRange<TValue>(lo, hi);
+    }
+
+    private double ValueToPercent(TValue value)
+    {
+        double range = double.CreateChecked(Max - Min);
+        if (range <= 0) return 0;
+        double v = double.CreateChecked(value - Min);
+        double percent = (v / range) * 100.0;
+        if (percent < 0) return 0;
+        if (percent > 100) return 100;
+        return percent;
+    }
+
+    private TValue PercentToValue(double percent)
+    {
+        double minD = double.CreateChecked(Min);
+        double range = double.CreateChecked(Max - Min);
+        double rawValue = minD + (percent / 100.0) * range;
+
+        double stepD = double.CreateChecked(Step);
+        if (stepD > 0)
+        {
+            rawValue = minD + Math.Round((rawValue - minD) / stepD) * stepD;
+        }
+
+        TValue v;
+        try { v = TValue.CreateChecked(rawValue); }
+        catch (OverflowException) { v = rawValue < minD ? Min : Max; }
+
+        return ClampToBounds(v);
+    }
+
+    private TValue ClampToBounds(TValue value)
+    {
+        if (value < Min) return Min;
+        if (value > Max) return Max;
+        return value;
+    }
+
+    private static TValue Negate(TValue value) => TValue.Zero - value;
+
+    private async Task<double> ComputePercentFromClient(double clientX, double clientY)
+    {
+        if (_trackComponent is null) return 0;
+        return await SliderJsInterop.ComputePercentAsync(
+            _trackComponent.TrackElementRef,
+            OrientationKey,
+            clientX,
+            clientY);
+    }
+
+    private IReadOnlyList<double> ComputeTickPercents()
+    {
+        TValue interval = TickInterval ?? Step;
+        if (interval <= TValue.Zero) return [];
+
+        List<double> ticks = [];
+        TValue current = Min;
+        while (current <= Max)
+        {
+            ticks.Add(ValueToPercent(current));
+            current += interval;
+        }
+        return ticks;
+    }
+
+    private string FormatValue(TValue value)
+    {
+        if (!string.IsNullOrEmpty(ValueLabelFormat) && value is IFormattable formattable)
+        {
+            return formattable.ToString(ValueLabelFormat, CurrentCulture);
+        }
+        return value.ToString() ?? string.Empty;
+    }
+
+    private static string FormatInvariant(TValue value) =>
+        value is IFormattable f
+            ? f.ToString(null, CultureInfo.InvariantCulture)
+            : value.ToString() ?? string.Empty;
+
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out BOBNumericRange<TValue> result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        validationErrorMessage = null;
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            result = default;
+            return true;
+        }
+
+        // Accepted form: "min..max" with culture-invariant numerals. Form bindings
+        // typically round-trip the typed value, not a string — this path exists only
+        // for the (rare) consumer that submits the slider via a hidden text field.
+        string[] parts = value.Split("..", 2);
+        if (parts.Length == 2
+            && TValue.TryParse(parts[0], NumberStyles.Any, CultureInfo.InvariantCulture, out TValue lo)
+            && TValue.TryParse(parts[1], NumberStyles.Any, CultureInfo.InvariantCulture, out TValue hi))
+        {
+            result = new BOBNumericRange<TValue>(lo, hi);
+            return true;
+        }
+
+        result = default;
+        validationErrorMessage = $"'{value}' is not a valid range (expected 'min..max').";
+        return false;
+    }
+
+    public override async ValueTask DisposeAsync()
+    {
+        if (_draggingThumb != ActiveThumb.None)
+        {
+            try { await SliderJsInterop.StopDragAsync(_componentId); }
+            catch (Microsoft.JSInterop.JSDisconnectedException) { }
+            catch (ObjectDisposedException) { }
+            catch (InvalidOperationException) { }
+            catch (TaskCanceledException) { }
+        }
+        _callbacksRelay?.Dispose();
+        await base.DisposeAsync();
+    }
+}

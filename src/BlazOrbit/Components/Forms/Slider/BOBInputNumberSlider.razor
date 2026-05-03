@@ -1,0 +1,360 @@
+@using System.Diagnostics.CodeAnalysis
+@using System.Globalization
+@using System.Numerics
+@using BlazOrbit.Abstractions
+@using BlazOrbit.Components.Forms.Internal
+
+@namespace BlazOrbit.Components.Forms
+@attribute [GenerateComponentInfo]
+
+@typeparam TValue where TValue : struct, INumber<TValue>
+
+@inherits BOBInputComponentBase<TValue, BOBInputNumberSlider<TValue>, BOBInputVariant>
+@implements IBuiltComponent
+@implements IInputFamilyComponent
+@implements IHasSize
+@implements IHasDensity
+@implements IHasShadow
+@implements IHasColor
+@implements IHasBackgroundColor
+@implements IHasFullWidth
+@implements ISliderJsCallback
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code {
+    private readonly string _componentId = $"bob-input-number-slider-{Guid.NewGuid():N}";
+    private readonly string _helperTextId = $"bob-helper-{Guid.NewGuid():N}";
+    private readonly string _labelId = $"bob-label-{Guid.NewGuid():N}";
+    private SliderCallbacksRelay? _callbacksRelay;
+    private bool _isDragging;
+    private bool _isFocused;
+    private _BOBSliderTrack? _trackComponent;
+
+    [Inject] private ISliderJsInterop SliderJsInterop { get; set; } = default!;
+
+    // IHasSize
+    /// <summary>Visual size of the slider.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+
+    // IHasDensity
+    /// <summary>Vertical density (gap) of the slider.</summary>
+    [Parameter] public BOBDensity Density { get; set; } = BOBDensity.Standard;
+
+    // IHasShadow
+    /// <summary>Shadow style applied to the slider container.</summary>
+    [Parameter] public ShadowStyle? Shadow { get; set; }
+
+    // IHasBackgroundColor
+    /// <summary>Background color of the rail. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? BackgroundColor { get; set; }
+
+    // IHasColor
+    /// <summary>Filled-segment and thumb color. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? Color { get; set; }
+
+    // IHasFullWidth
+    /// <summary>When <see langword="true" />, the slider spans the full width (or height in vertical) of its container.</summary>
+    [Parameter] public bool FullWidth { get; set; } = true;
+
+    // Slider-specific parameters
+    /// <summary>Floating label rendered above the slider.</summary>
+    [Parameter] public string? Label { get; set; }
+    /// <summary>Helper text rendered below the slider for additional context.</summary>
+    [Parameter] public string? HelperText { get; set; }
+    /// <summary>Lower bound. Defaults to <c>TValue.Zero</c>.</summary>
+    [Parameter] public TValue Min { get; set; } = TValue.Zero;
+    /// <summary>Upper bound. Defaults to 100.</summary>
+    [Parameter] public TValue Max { get; set; } = TValue.CreateChecked(100);
+    /// <summary>Step size. Defaults to <c>TValue.One</c>.</summary>
+    [Parameter] public TValue Step { get; set; } = TValue.One;
+    /// <summary>Layout orientation of the track.</summary>
+    [Parameter] public BOBSliderOrientation Orientation { get; set; } = BOBSliderOrientation.Horizontal;
+    /// <summary>When <see langword="true" />, tick marks are rendered along the rail at <see cref="TickInterval"/> spacing.</summary>
+    [Parameter] public bool ShowTicks { get; set; }
+    /// <summary>Distance between rendered ticks. Falls back to <see cref="Step"/> when <see langword="null"/>.</summary>
+    [Parameter] public TValue? TickInterval { get; set; }
+    /// <summary>When <see langword="true" />, a label surfaces over the thumb during drag or focus.</summary>
+    [Parameter] public bool ShowValueLabel { get; set; } = true;
+    /// <summary>Format string applied to the value label and <c>aria-valuetext</c>. Standard or custom <see cref="IFormattable"/> format.</summary>
+    [Parameter] public string? ValueLabelFormat { get; set; }
+    /// <summary>Culture used to format <see cref="ValueLabelFormat"/>. Defaults to <see cref="CultureInfo.CurrentCulture"/>.</summary>
+    [Parameter] public CultureInfo? Culture { get; set; }
+    /// <summary>Accessible label for the thumb. Falls back to <see cref="Label"/>.</summary>
+    [Parameter] public string? AriaLabel { get; set; }
+
+    public override BOBInputVariant DefaultVariant => BOBInputVariant.Standard;
+
+    private CultureInfo CurrentCulture => Culture ?? CultureInfo.CurrentCulture;
+    private string OrientationKey => Orientation == BOBSliderOrientation.Vertical ? "vertical" : "horizontal";
+
+    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    {
+        dataAttributes[FeatureDefinitions.DataAttributes.Orientation] = OrientationKey;
+    }
+
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables) { }
+
+    protected override IReadOnlyDictionary<BOBInputVariant, Func<BOBInputNumberSlider<TValue>, RenderFragment>> BuiltInTemplates { get; } =
+        new Dictionary<BOBInputVariant, Func<BOBInputNumberSlider<TValue>, RenderFragment>>
+        {
+            [BOBInputVariant.Standard] = s => s.RenderSlider(),
+            [BOBInputVariant.Outlined] = s => s.RenderSlider(),
+            [BOBInputVariant.Filled] = s => s.RenderSlider(),
+            [BOBInputVariant.Flat] = s => s.RenderSlider()
+        };
+
+    private RenderFragment RenderSlider() => __builder =>
+    {
+        double percent = ValueToPercent(CurrentValue);
+        IReadOnlyList<double>? tickPercents = ShowTicks ? ComputeTickPercents() : null;
+        string formattedValue = FormatValue(CurrentValue);
+        string ariaLabel = AriaLabel ?? Label ?? string.Empty;
+
+        <bob-component @attributes="ComputedAttributes">
+            <div class="bob-input-number-slider__wrapper">
+                @if (!string.IsNullOrEmpty(Label) || ShowValueLabel)
+                {
+                    <div class="bob-input-number-slider__header">
+                        @if (!string.IsNullOrEmpty(Label))
+                        {
+                            <label id="@_labelId" class="bob-input-number-slider__label" for="@_componentId">
+                                @Label
+                                @if (IsRequired)
+                                {
+                                    <span class="bob-input-number-slider__required" aria-hidden="true">*</span>
+                                }
+                            </label>
+                        }
+                        @if (ShowValueLabel)
+                        {
+                            <output class="bob-input-number-slider__value">@formattedValue</output>
+                        }
+                    </div>
+                }
+
+                <div class="bob-input-number-slider__track-area" data-orientation="@OrientationKey">
+                    <_BOBSliderTrack @ref="_trackComponent"
+                                     Orientation="Orientation"
+                                     FillStartPercent="0"
+                                     FillEndPercent="@percent"
+                                     ShowTicks="ShowTicks"
+                                     TickPercents="tickPercents"
+                                     OnPointerDown="HandleTrackPointerDown">
+                        <_BOBSliderThumb Percent="@percent"
+                                         Orientation="Orientation"
+                                         Dragging="_isDragging"
+                                         Focused="_isFocused"
+                                         Disabled="IsDisabled"
+                                         ReadOnly="IsReadOnly"
+                                         ShowValueLabel="ShowValueLabel"
+                                         ValueLabel="@formattedValue"
+                                         AriaLabel="@ariaLabel"
+                                         AriaValueMin="@FormatInvariant(Min)"
+                                         AriaValueMax="@FormatInvariant(Max)"
+                                         AriaValueNow="@FormatInvariant(CurrentValue)"
+                                         AriaValueText="@formattedValue"
+                                         OnPointerDown="HandleThumbPointerDown"
+                                         OnKeyDown="HandleKeyDown"
+                                         OnFocus="HandleFocus"
+                                         OnBlur="HandleBlur" />
+                    </_BOBSliderTrack>
+                </div>
+
+                @if (!string.IsNullOrEmpty(HelperText))
+                {
+                    <div id="@_helperTextId" class="bob-input-number-slider__helper-text">@HelperText</div>
+                }
+            </div>
+        </bob-component>
+    };
+
+    private async Task HandleTrackPointerDown(PointerEventArgs e)
+    {
+        if (IsDisabled || IsReadOnly) return;
+        await StartDrag(e.ClientX, e.ClientY);
+    }
+
+    private async Task HandleThumbPointerDown(PointerEventArgs e)
+    {
+        if (IsDisabled || IsReadOnly) return;
+        await StartDrag(e.ClientX, e.ClientY);
+    }
+
+    private async Task StartDrag(double clientX, double clientY)
+    {
+        if (_trackComponent is null) return;
+
+        _isDragging = true;
+        _callbacksRelay ??= new SliderCallbacksRelay(this);
+
+        await SliderJsInterop.StartDragAsync(
+            _trackComponent.TrackElementRef,
+            _callbacksRelay.DotNetReference,
+            _componentId,
+            OrientationKey,
+            clientX,
+            clientY);
+    }
+
+    async Task ISliderJsCallback.OnPointerMove(double percent)
+    {
+        if (IsDisposed || !_isDragging) return;
+        await UpdateValueFromPercent(percent);
+    }
+
+    async Task ISliderJsCallback.OnPointerUp(double percent)
+    {
+        if (IsDisposed) return;
+
+        _isDragging = false;
+        await UpdateValueFromPercent(percent);
+        await SliderJsInterop.StopDragAsync(_componentId);
+    }
+
+    private Task UpdateValueFromPercent(double percent)
+    {
+        TValue newValue = PercentToValue(percent);
+        if (!EqualityComparer<TValue>.Default.Equals(CurrentValue, newValue))
+        {
+            CurrentValue = newValue;
+        }
+
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private async Task HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (IsDisabled || IsReadOnly) return;
+
+        TValue stepLarge = Step + Step + Step + Step + Step + Step + Step + Step + Step + Step;
+        TValue? delta = e.Key switch
+        {
+            "ArrowRight" => Orientation == BOBSliderOrientation.Vertical ? Step : Step,
+            "ArrowUp" => Step,
+            "ArrowLeft" => Negate(Step),
+            "ArrowDown" => Negate(Step),
+            "PageUp" => stepLarge,
+            "PageDown" => Negate(stepLarge),
+            "Home" => Min - CurrentValue,
+            "End" => Max - CurrentValue,
+            _ => null
+        };
+
+        if (delta is null) return;
+
+        TValue newValue = ClampValue(CurrentValue + delta.Value);
+        if (!EqualityComparer<TValue>.Default.Equals(CurrentValue, newValue))
+        {
+            CurrentValue = newValue;
+            StateHasChanged();
+        }
+        await Task.CompletedTask;
+    }
+
+    private void HandleFocus(FocusEventArgs e) => _isFocused = true;
+    private void HandleBlur(FocusEventArgs e) => _isFocused = false;
+
+    private double ValueToPercent(TValue value)
+    {
+        double range = double.CreateChecked(Max - Min);
+        if (range <= 0) return 0;
+        double v = double.CreateChecked(value - Min);
+        double percent = (v / range) * 100.0;
+        if (percent < 0) return 0;
+        if (percent > 100) return 100;
+        return percent;
+    }
+
+    private TValue PercentToValue(double percent)
+    {
+        double minD = double.CreateChecked(Min);
+        double range = double.CreateChecked(Max - Min);
+        double rawValue = minD + (percent / 100.0) * range;
+
+        double stepD = double.CreateChecked(Step);
+        if (stepD > 0)
+        {
+            rawValue = minD + Math.Round((rawValue - minD) / stepD) * stepD;
+        }
+
+        TValue v;
+        try { v = TValue.CreateChecked(rawValue); }
+        catch (OverflowException) { v = rawValue < minD ? Min : Max; }
+
+        return ClampValue(v);
+    }
+
+    private TValue ClampValue(TValue value)
+    {
+        if (value < Min) return Min;
+        if (value > Max) return Max;
+        return value;
+    }
+
+    private static TValue Negate(TValue value) => TValue.Zero - value;
+
+    private IReadOnlyList<double> ComputeTickPercents()
+    {
+        TValue interval = TickInterval ?? Step;
+        if (interval <= TValue.Zero) return [];
+
+        List<double> ticks = [];
+        TValue current = Min;
+        while (current <= Max)
+        {
+            ticks.Add(ValueToPercent(current));
+            current += interval;
+        }
+        return ticks;
+    }
+
+    private string FormatValue(TValue value)
+    {
+        if (!string.IsNullOrEmpty(ValueLabelFormat) && value is IFormattable formattable)
+        {
+            return formattable.ToString(ValueLabelFormat, CurrentCulture);
+        }
+        return value.ToString() ?? string.Empty;
+    }
+
+    private static string FormatInvariant(TValue value) =>
+        value is IFormattable f
+            ? f.ToString(null, CultureInfo.InvariantCulture)
+            : value.ToString() ?? string.Empty;
+
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        validationErrorMessage = null;
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            result = default;
+            return true;
+        }
+        if (TValue.TryParse(value, NumberStyles.Any, CurrentCulture, out TValue parsed))
+        {
+            result = parsed;
+            return true;
+        }
+        result = default;
+        validationErrorMessage = $"'{value}' is not a valid number.";
+        return false;
+    }
+
+    public override async ValueTask DisposeAsync()
+    {
+        if (_isDragging)
+        {
+            try { await SliderJsInterop.StopDragAsync(_componentId); }
+            catch (Microsoft.JSInterop.JSDisconnectedException) { }
+            catch (ObjectDisposedException) { }
+            catch (InvalidOperationException) { }
+            catch (TaskCanceledException) { }
+        }
+        _callbacksRelay?.Dispose();
+        await base.DisposeAsync();
+    }
+}

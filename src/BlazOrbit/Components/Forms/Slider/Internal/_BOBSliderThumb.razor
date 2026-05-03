@@ -1,0 +1,93 @@
+@namespace BlazOrbit.Components.Forms.Internal
+@using BlazOrbit.Components.Forms
+
+<div @ref="@ThumbRef"
+     class="_bob-slider-thumb"
+     data-orientation="@OrientationKey"
+     data-dragging="@Dragging.ToString().ToLowerInvariant()"
+     data-focused="@Focused.ToString().ToLowerInvariant()"
+     data-disabled="@Disabled.ToString().ToLowerInvariant()"
+     style="@ThumbStyle"
+     role="slider"
+     tabindex="@(Disabled ? -1 : 0)"
+     aria-orientation="@OrientationKey"
+     aria-label="@AriaLabel"
+     aria-valuemin="@AriaValueMin"
+     aria-valuemax="@AriaValueMax"
+     aria-valuenow="@AriaValueNow"
+     aria-valuetext="@AriaValueText"
+     aria-disabled="@Disabled.ToString().ToLowerInvariant()"
+     aria-readonly="@ReadOnly.ToString().ToLowerInvariant()"
+     @onpointerdown="OnPointerDown"
+     @onkeydown="OnKeyDown"
+     @onfocus="OnFocus"
+     @onblur="OnBlur">
+
+    <div class="_bob-slider-thumb__handle"></div>
+
+    @if (ShowValueLabel && !string.IsNullOrEmpty(ValueLabel) && (Dragging || Focused))
+    {
+        <div class="_bob-slider-thumb__label">@ValueLabel</div>
+    }
+</div>
+
+@code {
+    /// <summary>Position of the thumb in the 0-100 percent space along the parent track.</summary>
+    [Parameter] public double Percent { get; set; }
+
+    /// <summary>Layout orientation of the parent track.</summary>
+    [Parameter] public BOBSliderOrientation Orientation { get; set; } = BOBSliderOrientation.Horizontal;
+
+    /// <summary>When <see langword="true"/>, the thumb is currently being dragged. Drives the value-label visibility.</summary>
+    [Parameter] public bool Dragging { get; set; }
+
+    /// <summary>When <see langword="true"/>, the thumb has keyboard focus.</summary>
+    [Parameter] public bool Focused { get; set; }
+
+    /// <summary>When <see langword="true"/>, the thumb is disabled — non-interactive and removed from the tab order.</summary>
+    [Parameter] public bool Disabled { get; set; }
+
+    /// <summary>When <see langword="true"/>, the thumb is read-only — interactive for focus but not for value changes.</summary>
+    [Parameter] public bool ReadOnly { get; set; }
+
+    /// <summary>When <see langword="true"/>, a small label surfaces on top of the thumb while it is dragged or focused.</summary>
+    [Parameter] public bool ShowValueLabel { get; set; } = true;
+
+    /// <summary>Text rendered inside the value label.</summary>
+    [Parameter] public string? ValueLabel { get; set; }
+
+    /// <summary>Accessible label exposed via <c>aria-label</c>.</summary>
+    [Parameter] public string? AriaLabel { get; set; }
+
+    /// <summary>Lower bound exposed via <c>aria-valuemin</c>.</summary>
+    [Parameter] public string? AriaValueMin { get; set; }
+
+    /// <summary>Upper bound exposed via <c>aria-valuemax</c>.</summary>
+    [Parameter] public string? AriaValueMax { get; set; }
+
+    /// <summary>Current value exposed via <c>aria-valuenow</c>.</summary>
+    [Parameter] public string? AriaValueNow { get; set; }
+
+    /// <summary>Localized human-readable value text exposed via <c>aria-valuetext</c>.</summary>
+    [Parameter] public string? AriaValueText { get; set; }
+
+    /// <summary>Captured thumb reference. Public components forward it to focus management and JS interop.</summary>
+    [Parameter] public ElementReference ThumbRef { get; set; }
+
+    /// <summary>Raised on pointer-down on the thumb. Public components use it to start a drag interaction.</summary>
+    [Parameter] public EventCallback<PointerEventArgs> OnPointerDown { get; set; }
+
+    /// <summary>Raised on a keyboard key press while the thumb has focus.</summary>
+    [Parameter] public EventCallback<KeyboardEventArgs> OnKeyDown { get; set; }
+
+    /// <summary>Raised when the thumb gains focus.</summary>
+    [Parameter] public EventCallback<FocusEventArgs> OnFocus { get; set; }
+
+    /// <summary>Raised when the thumb loses focus.</summary>
+    [Parameter] public EventCallback<FocusEventArgs> OnBlur { get; set; }
+
+    private string OrientationKey => Orientation == BOBSliderOrientation.Vertical ? "vertical" : "horizontal";
+
+    private string ThumbStyle =>
+        $"--_thumb-percent: {Percent.ToString("0.###", System.Globalization.CultureInfo.InvariantCulture)}%";
+}
