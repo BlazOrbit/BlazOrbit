@@ -4,12 +4,12 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="BlazOrbit — A modern, lightweight and expanded from native Blazor components library for .NET." />
     <meta name="theme-color" content="#c41236" />
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <title>BlazOrbit</title>
+
+    <title>BlazOrbit — Modern Blazor components for .NET 10</title>
     <base href="/" />
     <link rel="preload" id="webassembly" />
 
@@ -23,6 +23,23 @@
     <link rel="stylesheet" href="css/splash.css" />
     <link rel="stylesheet" href="css/docs.css" />
     <script type="importmap"></script>
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "BlazOrbit",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": ".NET 10",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "description": "A modern, lightweight Blazor component library for .NET 10 that extends native capabilities and improves developer productivity."
+    }
+    </script>
 </head>
 
 <body>
@@ -36,13 +53,30 @@
                 <span>Booting documentation&hellip;</span>
             </div>
         </div>
+
+        <!-- SEO app shell — indexed by crawlers, visually hidden for users.
+             Blazor replaces the entire #app content on hydration. -->
+        <div class="seo-prerender">
+            <h1>BlazOrbit — Modern Blazor components for .NET 10</h1>
+            <p>A lightweight component library that extends native Blazor capabilities and improves your productivity.</p>
+            <p>Install with <code>dotnet add package BlazOrbit</code> and add <code>builder.Services.AddBlazOrbit();</code> to your <code>Program.cs</code>.</p>
+            <nav aria-label="Documentation sections">
+                <a href="/getting-started">Getting Started</a>
+                <a href="/components/button">Button</a>
+                <a href="/components/card">Card</a>
+                <a href="/components/checkbox">Checkbox</a>
+                <a href="/components/datagrid">Data Grid</a>
+                <a href="/components/dropdown">Dropdown</a>
+                <a href="/components/modal">Modal</a>
+                <a href="/components/tabs">Tabs</a>
+                <a href="/components/toast">Toast</a>
+                <a href="/components/tooltip">Tooltip</a>
+                <a href="/concepts/theming">Theming</a>
+                <a href="/concepts/accessibility">Accessibility</a>
+            </nav>
+        </div>
     </div>
 
-    <div id="blazor-error-ui">
-        An unhandled error has occurred.
-        <a href="." class="reload">Reload</a>
-        <span class="dismiss">🗙</span>
-    </div>
     <script src="js/doc-search.js"></script>
     <script src="js/pwa-install.js" defer></script>
     <script src="_framework/blazor.webassembly#[.{fingerprint}].js"></script>

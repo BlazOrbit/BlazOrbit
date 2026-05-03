@@ -4,8 +4,7 @@ using System.Text.RegularExpressions;
 namespace BlazOrbit.Tests.Integration.Tests.Library;
 
 /// <summary>
-/// CSS-SCOPED-08: mecaniza las reglas de CSS scoped documentadas en
-/// CLAUDE.md §CSS architecture sobre los archivos <c>*.razor.css</c> del
+/// mecaniza las reglas de CSS scoped documentadas sobre los archivos <c>*.razor.css</c> del
 /// paquete principal.
 ///
 /// Reglas cubiertas aquí (las restantes ya están mecanizadas por:
@@ -43,7 +42,6 @@ public class ScopedCssLintTests
     /// el flujo de la página vía <c>@media</c> (grid template, drawer
     /// activation, toast position). El resto resuelve dimensiones vía los
     /// multiplicadores <c>--bob-size-multiplier</c> / <c>--bob-density-multiplier</c>.
-    /// Documentado en CLAUDE.md §CSS architecture rule 5 + CSS-SCOPED-07.
     /// </summary>
     private static readonly string LayoutFolderToken =
         $"{Path.DirectorySeparatorChar}Layout{Path.DirectorySeparatorChar}";
@@ -101,7 +99,7 @@ public class ScopedCssLintTests
 
         violations.Should().BeEmpty(
             because: "scoped CSS already runs inside Blazor's per-component [b-xxx] scope; " +
-                     "the short form [data-bob-component=\"...\"] is canonical (CLAUDE.md decision D-13). " +
+                     "the short form [data-bob-component=\"...\"] is canonical. " +
                      "The long form is reserved for global bundles in CssBundle/.\n\n" +
                      string.Join("\n", violations));
     }
@@ -148,7 +146,6 @@ public class ScopedCssLintTests
         violations.Should().BeEmpty(
             because: "the override surface is the private-var pattern: declare --_<comp>-X: var(--bob-inline-Y, default), " +
                      "then reference --_<comp>-X in the actual property. " +
-                     "See CLAUDE.md §CSS architecture rule 4.\n\n" +
                      string.Join("\n", violations));
     }
 
@@ -179,7 +176,6 @@ public class ScopedCssLintTests
             because: "non-layout components resolve sizing via the multiplier system (--bob-size-multiplier / --bob-density-multiplier). " +
                      "@media queries are only allowed in Layout/* components where they switch flow primitives " +
                      "(grid template columns, drawer activation, toast positioning). " +
-                     "See CLAUDE.md §CSS architecture rule 5 + CSS-SCOPED-07.\n\n" +
                      string.Join("\n", violations));
     }
 
@@ -209,7 +205,6 @@ public class ScopedCssLintTests
         violations.Should().BeEmpty(
             because: "scoped CSS must consume var(--palette-*) tokens (or color-mix() over them) so theming works. " +
                      "Hardcoded #hex / rgb() / rgba() / hsl() / hsla() literals bypass theme variables. " +
-                     "See CLAUDE.md §CSS architecture rule 8.\n\n" +
                      string.Join("\n", violations));
     }
 
