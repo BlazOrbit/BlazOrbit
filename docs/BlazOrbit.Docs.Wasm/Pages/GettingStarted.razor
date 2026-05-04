@@ -21,6 +21,7 @@
             <div>
                 <strong>Optional packages.</strong> Install <code>BlazOrbit.Localization.Server</code>
                 or <code>BlazOrbit.Localization.Wasm</code> if you need multi-culture support.
+                <a href="/features/localization">See Localization Feature</a>
             </div>
         </div>
     </section>
@@ -36,15 +37,6 @@
                       Language="SyntaxHighlightLanguage.CSharp"
                       Code="@_programCs" />
 
-        <h3 class="doc-section__sub">For WebAssembly localization</h3>
-        <p class="doc-section__description">
-            Before calling <code>host.RunAsync()</code>, await <code>host.UseBlazOrbitLocalizationWasm()</code>
-            to hydrate culture info.
-        </p>
-
-        <BOBCodeBlock Title="Program.cs (WASM, localized)"
-                      Language="SyntaxHighlightLanguage.CSharp"
-                      Code="@_programWasm" />
     </section>
 
     <section class="doc-section">
@@ -80,7 +72,10 @@
     </section>
 
     <section class="doc-section">
-        <h2 class="doc-section__title">5. Host Modal + Toast</h2>
+        <h2 class="doc-section__title">5. Theme Manager, Modal Host and Toast Host</h2>
+        <p class="doc-section__description">
+            Wrap the <code>@@Body</code> with <code>BOBInitializer</code> for theme management.
+        </p>
         <p class="doc-section__description">
             For <code>BOBModalHost</code> and <code>BOBToastHost</code> to render your modals
             and toasts globally, place them in your <code>MainLayout.razor</code> (outside the
@@ -110,50 +105,24 @@
 </DocPage>
 
 @code {
-    private const string _programCs = @"using BlazOrbit;
-
-var builder = WebApplication.CreateBuilder(args);
-
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
-
-builder.Services.AddBlazOrbit();
-
-var app = builder.Build();
-app.MapRazorComponents<App>()
-   .AddInteractiveServerRenderMode();
-app.Run();";
-
-    private const string _programWasm = @"using System.Globalization;
-
-var builder = WebAssemblyHostBuilder.CreateDefault(args);
-builder.RootComponents.Add<App>(""#app"");
-builder.RootComponents.Add<HeadOutlet>(""head::after"");
-
-builder.Services.AddBlazOrbit();
-builder.Services.AddBlazOrbitLocalizationWasm(options =>
-{
-    options.SupportedCultures = [new CultureInfo(""en-US""), new CultureInfo(""es-ES"")];
-    options.DefaultCulture = ""en-US"";
-});
-
-var host = builder.Build();
-await host.UseBlazOrbitLocalizationWasm();
-await host.RunAsync();";
+    private const string _programCs = @"builder.Services.AddBlazOrbit();
+";
 
     private const string _imports = @"@using BlazOrbit.Components
 @using BlazOrbit.Components.Forms
-@using BlazOrbit.Components.Layout
-@using BlazOrbit.Components";
+@using BlazOrbit.Components.Layout";
 
-    private const string _layoutSnippet = @"@inherits LayoutComponentBase
-
-<div class=""app-layout"">
-    @Body
-</div>
-
-<BOBModalHost />
-<BOBToastHost MaxVisiblePerPosition=""5"" />";
+    private const string _layoutSnippet =
+    """
+    @inherits LayoutComponentBase
+    
+    <BOBInitializer DefaultTheme="dark">
+        @Body
+    </BOBInitializer>
+    
+    <BOBModalHost />
+    <BOBToastHost MaxVisiblePerPosition=""5"" />
+    """;
 
     private readonly ComponentDemoDefinition _firstDemo = new()
     {
@@ -162,7 +131,7 @@ await host.RunAsync();";
            Size=""BOBSize.Large"" />",
         CodeTitle = "Pages/Hello.razor",
         Demo = @<BOBButton Text="Hello, BlazOrbit"
-                          LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_waving_hand"
-                          Size="BOBSize.Large" />
-    };
-}
+                               LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_waving_hand"
+                               Size="BOBSize.Large" />
+        };
+    }
