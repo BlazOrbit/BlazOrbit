@@ -1,0 +1,48 @@
+@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+@implements IDisposable
+
+@code {
+    /// <summary>Parent <see cref="BOBAccordion"/> container that owns this item. Cascaded automatically.</summary>
+    [CascadingParameter] public BOBAccordion? Parent { get; set; }
+
+    /// <summary>Stable identifier for the item. Used to track expanded state. Required.</summary>
+    [Parameter, EditorRequired] public string? Id { get; set; }
+
+    /// <summary>Markup rendered inside the header button. Required.</summary>
+    [Parameter, EditorRequired] public RenderFragment? Header { get; set; }
+
+    /// <summary>Body content rendered when the item is expanded.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>When <see langword="true" />, the item is non-interactive and cannot be expanded or collapsed by the user.</summary>
+    [Parameter] public bool Disabled { get; set; }
+
+    /// <summary>
+    /// Icon rendered next to the header. Defaults to <see cref="BOBIconKeys"/>.UI.Plus (rotates 45° to "x" when expanded).
+    /// If you set a directional icon (e.g. ChevronDown), override <c>--_accordion-icon-rotation</c>
+    /// in your CSS to a value that matches the glyph (180deg for chevrons).
+    /// </summary>
+    [Parameter] public IconKey? ExpandIcon { get; set; }
+
+    /// <summary>Color applied to the expand icon. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? ExpandIconColor { get; set; }
+
+    /// <summary>
+    /// When <see langword="true" />, the item starts expanded the first time it registers with its parent.
+    /// Subsequent changes to this parameter are ignored — control expanded state through the parent's
+    /// <see cref="BOBAccordion.ExpandedItems"/> binding.
+    /// </summary>
+    [Parameter] public bool InitiallyExpanded { get; set; }
+
+    protected override void OnInitialized()
+    {
+        if (string.IsNullOrEmpty(Id))
+        {
+            throw new InvalidOperationException("BOBAccordionItem requires a non-empty Id.");
+        }
+        Parent?.RegisterItem(this);
+    }
+
+    public void Dispose() => Parent?.UnregisterItem(this);
+}

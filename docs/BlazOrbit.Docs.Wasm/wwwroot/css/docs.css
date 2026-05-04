@@ -532,6 +532,37 @@ html[data-theme="light"] {
     user-select: none;
 }
 
+.hero__cta {
+    background: color-mix(in oklab, var(--palette-primary) 50%, transparent);
+    display: flex;
+    width: fit-content;
+    color: #fceef6;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 1.5rem auto 0;
+    padding: 0.55rem 1.25rem;
+    border-radius: 999px;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease;
+    cursor: pointer;
+}
+
+.hero__cta:hover {
+    background: color-mix(in oklab, var(--palette-primary) 18%, transparent);
+    color: var(--palette-primary);
+}
+
+.hero__cta svg {
+    transition: transform 0.2s ease;
+}
+
+.hero__cta:hover svg {
+    transform: translateX(2px);
+}
+
 
 /* ================================================================
    COSMIC TILES

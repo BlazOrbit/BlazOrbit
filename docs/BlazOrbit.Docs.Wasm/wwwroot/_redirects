@@ -1,0 +1,47 @@
+# Redirects for reorganized component sections (301 permanent)
+# Forms
+/components/checkbox /components/forms/checkbox 301
+/components/color /components/forms/color 301
+/components/datetime /components/forms/datetime 301
+/components/dropdown /components/forms/dropdown 301
+/components/number /components/forms/number 301
+/components/numberslider /components/forms/numberslider 301
+/components/radio /components/forms/radio 301
+/components/rangeslider /components/forms/rangeslider 301
+/components/switch /components/forms/switch 301
+/components/text /components/forms/text 301
+/components/textarea /components/forms/textarea 301
+
+# Actions
+/components/button /components/actions/button 301
+
+# Layout & Containers
+/components/accordion /components/layout/accordion 301
+/components/card /components/layout/card 301
+/components/flex-stack /components/layout/flex-stack 301
+/components/grid /components/layout/grid 301
+
+# Navigation
+/components/tabs /components/navigation/tabs 301
+/components/treemenu /components/navigation/treemenu 301
+/components/treeselector /components/navigation/treeselector 301
+
+# Data Display
+/components/codeblock /components/data/codeblock 301
+/components/datacards /components/data/datacards 301
+/components/datagrid /components/data/datagrid 301
+
+# Display & Media
+/components/badge /components/display/badge 301
+/components/carousel /components/display/carousel 301
+/components/loading /components/display/loading 301
+/components/svgicon /components/display/svgicon 301
+
+# Overlays & Feedback
+/components/modal /components/overlays/modal 301
+/components/toast /components/overlays/toast 301
+/components/tooltip /components/overlays/tooltip 301
+
+# Utilities
+/components/draggable /components/utilities/draggable 301
+/components/themeselector /components/utilities/themeselector 301

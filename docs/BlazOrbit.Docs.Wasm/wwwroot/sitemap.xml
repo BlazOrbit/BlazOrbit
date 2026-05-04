@@ -56,57 +56,67 @@
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/button</loc>
+    <loc>https://blazorbit.com/components/layout/accordion</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://blazorbit.com/components/actions/button</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/card</loc>
+    <loc>https://blazorbit.com/components/layout/card</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/checkbox</loc>
+    <loc>https://blazorbit.com/components/display/carousel</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://blazorbit.com/components/forms/checkbox</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/codeblock</loc>
+    <loc>https://blazorbit.com/components/data/codeblock</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/color</loc>
+    <loc>https://blazorbit.com/components/forms/color</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/datacards</loc>
+    <loc>https://blazorbit.com/components/data/datacards</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/datagrid</loc>
+    <loc>https://blazorbit.com/components/data/datagrid</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/datetime</loc>
+    <loc>https://blazorbit.com/components/forms/datetime</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/draggable</loc>
+    <loc>https://blazorbit.com/components/utilities/draggable</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/dropdown</loc>
+    <loc>https://blazorbit.com/components/forms/dropdown</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/flex-stack</loc>
+    <loc>https://blazorbit.com/components/layout/flex-stack</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -116,87 +126,87 @@
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/grid</loc>
+    <loc>https://blazorbit.com/components/layout/grid</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/loading</loc>
+    <loc>https://blazorbit.com/components/display/loading</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/modal</loc>
+    <loc>https://blazorbit.com/components/overlays/modal</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/number</loc>
+    <loc>https://blazorbit.com/components/forms/number</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/numberslider</loc>
+    <loc>https://blazorbit.com/components/forms/numberslider</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/radio</loc>
+    <loc>https://blazorbit.com/components/forms/radio</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/rangeslider</loc>
+    <loc>https://blazorbit.com/components/forms/rangeslider</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/svgicon</loc>
+    <loc>https://blazorbit.com/components/display/svgicon</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/switch</loc>
+    <loc>https://blazorbit.com/components/forms/switch</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/tabs</loc>
+    <loc>https://blazorbit.com/components/navigation/tabs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/text</loc>
+    <loc>https://blazorbit.com/components/forms/text</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/textarea</loc>
+    <loc>https://blazorbit.com/components/forms/textarea</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/themeselector</loc>
+    <loc>https://blazorbit.com/components/utilities/themeselector</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/toast</loc>
+    <loc>https://blazorbit.com/components/overlays/toast</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/tooltip</loc>
+    <loc>https://blazorbit.com/components/overlays/tooltip</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/treemenu</loc>
+    <loc>https://blazorbit.com/components/navigation/treemenu</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://blazorbit.com/components/treeselector</loc>
+    <loc>https://blazorbit.com/components/navigation/treeselector</loc>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>

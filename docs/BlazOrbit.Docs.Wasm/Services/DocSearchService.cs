@@ -109,44 +109,58 @@ public sealed class DocSearchService
             new(_loc["JS Interop"], "/concepts/js-interop", [_loc["Developer"]], "javascript interop typescript behavior service jsruntime"),
             new(_loc["Accessibility"], "/concepts/accessibility", [_loc["Developer"]], "a11y aria wcag keyboard focus screen reader semantic"),
 
-            // Guide
-            new("Getting started", "/getting-started", ["Guide"], "install nuget package setup quickstart register services"),
+            // Getting Started
+            new(_loc["Getting Started"], "/getting-started", [_loc["Getting Started"]], "install nuget package setup quickstart register services"),
 
             // Forms
-            new(_loc["Checkbox"], "/components/checkbox", [_loc["Components"], _loc["Forms"]], "check boolean form editcontext validation toggle"),
-            new(_loc["Color Picker"], "/components/color", [_loc["Components"], _loc["Forms"]], "color picker hex rgb hsv palette input"),
-            new(_loc["DateTime"], "/components/datetime", [_loc["Components"], _loc["Forms"]], "date time picker calendar format input"),
-            new(_loc["Dropdown"], "/components/dropdown", [_loc["Components"], _loc["Forms"]], "dropdown select searchable option list input"),
-            new(_loc["Number"], "/components/number", [_loc["Components"], _loc["Forms"]], "number input numeric spin min max form"),
-            new(_loc["Radio"], "/components/radio", [_loc["Components"], _loc["Forms"]], "radio button group option single choice form"),
-            new(_loc["Switch"], "/components/switch", [_loc["Components"], _loc["Forms"]], "switch toggle boolean on off form"),
-            new(_loc["Text"], "/components/text", [_loc["Components"], _loc["Forms"]], "text input string single line form field"),
-            new(_loc["TextArea"], "/components/textarea", [_loc["Components"], _loc["Forms"]], "textarea multiline text input form field"),
+            new(_loc["Checkbox"], "/components/forms/checkbox", [_loc["Components"], _loc["Forms"]], "check boolean form editcontext validation toggle"),
+            new(_loc["Color Picker"], "/components/forms/color", [_loc["Components"], _loc["Forms"]], "color picker hex rgb hsv palette input"),
+            new(_loc["DateTime"], "/components/forms/datetime", [_loc["Components"], _loc["Forms"]], "date time picker calendar format input"),
+            new(_loc["Dropdown"], "/components/forms/dropdown", [_loc["Components"], _loc["Forms"]], "dropdown select searchable option list input"),
+            new(_loc["Number"], "/components/forms/number", [_loc["Components"], _loc["Forms"]], "number input numeric spin min max form"),
+            new(_loc["Number Slider"], "/components/forms/numberslider", [_loc["Components"], _loc["Forms"]], "number slider range numeric form control"),
+            new(_loc["Radio"], "/components/forms/radio", [_loc["Components"], _loc["Forms"]], "radio button group option single choice form"),
+            new(_loc["Range Slider"], "/components/forms/rangeslider", [_loc["Components"], _loc["Forms"]], "range slider dual numeric form control"),
+            new(_loc["Switch"], "/components/forms/switch", [_loc["Components"], _loc["Forms"]], "switch toggle boolean on off form"),
+            new(_loc["Text"], "/components/forms/text", [_loc["Components"], _loc["Forms"]], "text input string single line form field"),
+            new(_loc["TextArea"], "/components/forms/textarea", [_loc["Components"], _loc["Forms"]], "textarea multiline text input form field"),
 
-            // Generic
-            new(_loc["Badge"], "/components/badge", [_loc["Components"], _loc["Generic"]], "badge chip pill status indicator count label"),
-            new(_loc["Button"], "/components/button", [_loc["Components"], _loc["Generic"]], "button click action submit icon loading color"),
-            new(_loc["Code Block"], "/components/codeblock", [_loc["Components"], _loc["Generic"]], "code syntax highlight snippet preformatted prism"),
-            new(_loc["DataCards"], "/components/datacards", [_loc["Components"], _loc["Generic"]], "datacards card list collection template repeater"),
-            new(_loc["DataGrid"], "/components/datagrid", [_loc["Components"], _loc["Generic"]], "datagrid table column sort filter pagination rows"),
-            new(_loc["Draggable"], "/components/draggable", [_loc["Components"], _loc["Generic"]], "draggable drag drop reorder sortable move handle"),
-            new(_loc["Loading"], "/components/loading", [_loc["Components"], _loc["Generic"]], "loading spinner progress indicator skeleton busy"),
-            new(_loc["Svg Icon"], "/components/svgicon", [_loc["Components"], _loc["Generic"]], "svg icon material iconography image vector"),
-            new(_loc["Tabs"], "/components/tabs", [_loc["Components"], _loc["Generic"]], "tabs tab panel navigation switch content segmented"),
-            new(_loc["Tooltip"], "/components/tooltip", [_loc["Components"], _loc["Generic"]], "tooltip hint popover description title hover focus"),
-            new(_loc["Tree Selector"], "/components/treeselector", [_loc["Components"], _loc["Generic"]], "tree selector hierarchical checkbox selection pick"),
+            // Actions
+            new(_loc["Button"], "/components/actions/button", [_loc["Components"], _loc["Actions"]], "button click action submit icon loading color"),
 
-            // Layout
-            new(_loc["Card"], "/components/card", [_loc["Components"], _loc["Layout"]], "card container surface content panel elevation"),
-            new(_loc["Dialog & Drawer"], "/components/modal", [_loc["Components"], _loc["Layout"]], "dialog drawer modal overlay popup host dismiss"),
-            new(_loc["Flex Stack"], "/components/flex-stack", [_loc["Components"], _loc["Layout"]], "flex stack layout alignment gap spacer distribute"),
-            new(_loc["Grid"], "/components/grid", [_loc["Components"], _loc["Layout"]], "grid layout column row responsive system container"),
-            new(_loc["Theme Selector"], "/components/themeselector", [_loc["Components"], _loc["Layout"]], "theme selector toggle light dark mode switch"),
-            new(_loc["Toast"], "/components/toast", [_loc["Components"], _loc["Layout"]], "toast snackbar notification alert message popup"),
-            new(_loc["Tree Menu"], "/components/treemenu", [_loc["Components"], _loc["Layout"]], "tree menu nested hierarchical navigation expand collapse"),
+            // Layout & Containers
+            new(_loc["Accordion"], "/components/layout/accordion", [_loc["Components"], _loc["Layout & Containers"]], "accordion expand collapse panel section disclosure single multiple"),
+            new(_loc["Card"], "/components/layout/card", [_loc["Components"], _loc["Layout & Containers"]], "card container surface content panel elevation"),
+            new(_loc["Flex Stack"], "/components/layout/flex-stack", [_loc["Components"], _loc["Layout & Containers"]], "flex stack layout alignment gap spacer distribute"),
+            new(_loc["Grid"], "/components/layout/grid", [_loc["Components"], _loc["Layout & Containers"]], "grid layout column row responsive system container"),
+
+            // Navigation
+            new(_loc["Tabs"], "/components/navigation/tabs", [_loc["Components"], _loc["Navigation"]], "tabs tab panel navigation switch content segmented"),
+            new(_loc["Tree Menu"], "/components/navigation/treemenu", [_loc["Components"], _loc["Navigation"]], "tree menu nested hierarchical navigation expand collapse"),
+            new(_loc["Tree Selector"], "/components/navigation/treeselector", [_loc["Components"], _loc["Navigation"]], "tree selector hierarchical checkbox selection pick"),
+
+            // Data Display
+            new(_loc["Code Block"], "/components/data/codeblock", [_loc["Components"], _loc["Data Display"]], "code syntax highlight snippet preformatted prism"),
+            new(_loc["DataCards"], "/components/data/datacards", [_loc["Components"], _loc["Data Display"]], "datacards card list collection template repeater"),
+            new(_loc["DataGrid"], "/components/data/datagrid", [_loc["Components"], _loc["Data Display"]], "datagrid table column sort filter pagination rows"),
+
+            // Display & Media
+            new(_loc["Badge"], "/components/display/badge", [_loc["Components"], _loc["Display & Media"]], "badge chip pill status indicator count label"),
+            new(_loc["Carousel"], "/components/display/carousel", [_loc["Components"], _loc["Display & Media"]], "carousel slideshow slide gallery image rotator coverflow wheel autoplay loop swipe"),
+            new(_loc["Loading"], "/components/display/loading", [_loc["Components"], _loc["Display & Media"]], "loading spinner progress indicator skeleton busy"),
+            new(_loc["Svg Icon"], "/components/display/svgicon", [_loc["Components"], _loc["Display & Media"]], "svg icon material iconography image vector"),
+
+            // Overlays & Feedback
+            new(_loc["Dialog & Drawer"], "/components/overlays/modal", [_loc["Components"], _loc["Overlays & Feedback"]], "dialog drawer modal overlay popup host dismiss"),
+            new(_loc["Toast"], "/components/overlays/toast", [_loc["Components"], _loc["Overlays & Feedback"]], "toast snackbar notification alert message popup"),
+            new(_loc["Tooltip"], "/components/overlays/tooltip", [_loc["Components"], _loc["Overlays & Feedback"]], "tooltip hint popover description title hover focus"),
+
+            // Utilities
+            new(_loc["Draggable"], "/components/utilities/draggable", [_loc["Components"], _loc["Utilities"]], "draggable drag drop reorder sortable move handle"),
+            new(_loc["Theme Selector"], "/components/utilities/themeselector", [_loc["Components"], _loc["Utilities"]], "theme selector toggle light dark mode switch"),
 
             // Utils
-            new(_loc["Theme Generator"], "/utils/themegenerator", [_loc["Utils"]], "theme generator custom palette builder creator"),        
+            new(_loc["Theme Generator"], "/utils/themegenerator", [_loc["Utils"]], "theme generator custom palette builder creator"),
 
             // Features
             new(_loc["Validation"], "/features/validation", [_loc["Features"]], "validation fluent editcontext data annotations form rules"),

@@ -1,9 +1,9 @@
 ﻿[data-bob-component="tree-menu"] {
     --_tree-menu-item-height: 2.5rem;
-    --_tree-menu-item-padding-x: 1rem;
+    --_tree-menu-item-padding-x: 0.5rem;
     --_tree-menu-item-padding-y: 0.5rem;
     --_tree-menu-item-gap: 0.5rem;
-    --_tree-menu-indent: 1rem;
+    --_tree-menu-indent: 0.5rem;
     --_tree-menu-border-radius: 4px;
     --_tree-menu-transition: 200ms ease;
     --_tree-menu-bg: transparent;

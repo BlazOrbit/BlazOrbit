@@ -42,7 +42,7 @@
     <Copyright>Copyright © BlazOrbit</Copyright>
 
     <!-- Repository / project URLs -->
-    <PackageProjectUrl>https://github.com/BlazOrbit/BlazOrbit</PackageProjectUrl>
+    <PackageProjectUrl>https://blazorbit.com/</PackageProjectUrl>
     <RepositoryUrl>https://github.com/BlazOrbit/BlazOrbit.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>

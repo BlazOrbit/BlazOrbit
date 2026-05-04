@@ -249,4 +249,34 @@
   <data name="Live Development" xml:space="preserve">
     <value>Desarrollo en directo</value>
   </data>
+  <data name="Getting Started" xml:space="preserve">
+    <value>Empezar</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Acciones</value>
+  </data>
+  <data name="Layout &amp; Containers" xml:space="preserve">
+    <value>Disposición y contenedores</value>
+  </data>
+  <data name="Navigation" xml:space="preserve">
+    <value>Navegación</value>
+  </data>
+  <data name="Data Display" xml:space="preserve">
+    <value>Visualización de datos</value>
+  </data>
+  <data name="Display &amp; Media" xml:space="preserve">
+    <value>Visual y multimedia</value>
+  </data>
+  <data name="Overlays &amp; Feedback" xml:space="preserve">
+    <value>Superposiciones y retroalimentación</value>
+  </data>
+  <data name="Utilities" xml:space="preserve">
+    <value>Utilidades</value>
+  </data>
+  <data name="Number Slider" xml:space="preserve">
+    <value>Deslizador numérico</value>
+  </data>
+  <data name="Range Slider" xml:space="preserve">
+    <value>Deslizador de rango</value>
+  </data>
 </root>

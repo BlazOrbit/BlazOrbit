@@ -15,7 +15,7 @@ public static class VerifyConfig
             RegexOptions.Compiled);
 
     private static readonly Regex BuiGeneratedIdRegex =
-        new(@"bob-(input|helper|label|checkbox|radio|switch|number|textarea|input-color|datetime|input-number-slider|input-range-slider)-[a-f0-9]{32}",
+        new(@"bob-(input|helper|label|checkbox|radio|switch|number|textarea|input-color|datetime|input-number-slider|input-range-slider|carousel)-[a-f0-9]{32}",
             RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
     private static readonly Regex PatternIdRegex =

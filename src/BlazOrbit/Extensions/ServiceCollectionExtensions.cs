@@ -29,6 +29,7 @@ public static class ServiceCollectionExtensions
         services.AddScoped<IDraggableJsInterop, DraggableJsInterop>();
         services.AddScoped<IColorPickerJsInterop, ColorPickerJsInterop>();
         services.AddScoped<ISliderJsInterop, SliderJsInterop>();
+        services.AddScoped<ICarouselJsInterop, CarouselJsInterop>();
 
         // Modal
         services.AddScoped<IModalService, ModalService>();
