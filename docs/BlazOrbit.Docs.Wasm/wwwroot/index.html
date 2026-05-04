@@ -7,6 +7,9 @@
 
     <!-- PRIMARY META -->
     <title>BlazOrbit | Modern Open Source Blazor Components for .NET</title>
+    <!-- BASE & PRELOAD -->
+    <base href="/" />
+    <link rel="preload" id="webassembly" />
     <meta name="description" content="High-performance open source component library for Blazor and .NET. Modern, accessible, and lightweight UI components to boost productivity." />
     <meta name="author" content="BlazOrbit" />
     <link rel="canonical" href="https://blazorbit.com/" />
@@ -101,16 +104,15 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
 
-    <!-- BASE & PRELOAD -->
-    <base href="/" />
-    <link rel="preload" id="webassembly" />
-
     <!-- STYLESHEETS -->
     <link href="_content/BlazOrbit/css/blazorbit.css" rel="stylesheet" />
     <link href="BlazOrbit.Docs.Wasm.styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/app.css" />
     <link rel="stylesheet" href="css/splash.css" />
     <link rel="stylesheet" href="css/docs.css" />
+
+    <!-- IMPORTMAP FOR _framework/dotnet.js fingerprinted -->
+    <script type="importmap"></script>
 </head>
 <body>
     <div id="app">
