@@ -48,6 +48,8 @@ public class CssScopedAuditTests
 
         // Components whose styling is fully family-driven or render inside another component
         "BOBTab",
+        "BOBAccordionItem",
+        "BOBCarouselItem",
         "BOBTreeMenuItem",
         "BOBTreeSelectorItem",
         "BOBDataColumn",

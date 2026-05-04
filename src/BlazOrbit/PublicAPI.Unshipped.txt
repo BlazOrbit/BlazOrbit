@@ -3064,3 +3064,147 @@ override BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.DisposeAsync() -
 override BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.TryParseValueFromString(string? value, out BlazOrbit.Components.BOBNumericRange<TValue> result, out string? validationErrorMessage) -> bool
 static readonly BlazOrbit.Components.Forms.BOBInputRangeSliderComponentInfo.Parameters -> BlazOrbit.ComponentParameterInfo![]!
 ~override BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
+BlazOrbit.Components.BOBAccordion
+BlazOrbit.Components.BOBAccordion.BOBAccordion() -> void
+BlazOrbit.Components.BOBAccordion.Border.get -> BlazOrbit.Components.BorderStyle?
+BlazOrbit.Components.BOBAccordion.Border.set -> void
+BlazOrbit.Components.BOBAccordion.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.BOBAccordion.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! attributes) -> void
+BlazOrbit.Components.BOBAccordion.ChildContent.get -> Microsoft.AspNetCore.Components.RenderFragment?
+BlazOrbit.Components.BOBAccordion.ChildContent.set -> void
+BlazOrbit.Components.BOBAccordion.ExpandedItems.get -> System.Collections.Generic.IReadOnlyList<string!>?
+BlazOrbit.Components.BOBAccordion.ExpandedItems.set -> void
+BlazOrbit.Components.BOBAccordion.ExpandedItemsChanged.get -> Microsoft.AspNetCore.Components.EventCallback<System.Collections.Generic.IReadOnlyList<string!>!>
+BlazOrbit.Components.BOBAccordion.ExpandedItemsChanged.set -> void
+BlazOrbit.Components.BOBAccordion.Gap.get -> string!
+BlazOrbit.Components.BOBAccordion.Gap.set -> void
+BlazOrbit.Components.BOBAccordion.IsItemExpanded(string! itemId) -> bool
+BlazOrbit.Components.BOBAccordion.Mode.get -> BlazOrbit.Components.BOBAccordionMode
+BlazOrbit.Components.BOBAccordion.Mode.set -> void
+BlazOrbit.Components.BOBAccordion.OnExpandedChanged.get -> Microsoft.AspNetCore.Components.EventCallback<BlazOrbit.Components.BOBAccordionItemToggle>
+BlazOrbit.Components.BOBAccordion.OnExpandedChanged.set -> void
+BlazOrbit.Components.BOBAccordion.Separator.get -> Microsoft.AspNetCore.Components.RenderFragment?
+BlazOrbit.Components.BOBAccordion.Separator.set -> void
+BlazOrbit.Components.BOBAccordion.Size.get -> BlazOrbit.Components.BOBSize
+BlazOrbit.Components.BOBAccordion.Size.set -> void
+BlazOrbit.Components.BOBAccordionComponentInfo
+BlazOrbit.Components.BOBAccordionItem
+BlazOrbit.Components.BOBAccordionItem.BOBAccordionItem() -> void
+BlazOrbit.Components.BOBAccordionItem.ChildContent.get -> Microsoft.AspNetCore.Components.RenderFragment?
+BlazOrbit.Components.BOBAccordionItem.ChildContent.set -> void
+BlazOrbit.Components.BOBAccordionItem.Disabled.get -> bool
+BlazOrbit.Components.BOBAccordionItem.Disabled.set -> void
+BlazOrbit.Components.BOBAccordionItem.ExpandIcon.get -> BlazOrbit.Components.IconKey?
+BlazOrbit.Components.BOBAccordionItem.ExpandIcon.set -> void
+BlazOrbit.Components.BOBAccordionItem.ExpandIconColor.get -> string?
+BlazOrbit.Components.BOBAccordionItem.ExpandIconColor.set -> void
+BlazOrbit.Components.BOBAccordionItem.Header.get -> Microsoft.AspNetCore.Components.RenderFragment?
+BlazOrbit.Components.BOBAccordionItem.Header.set -> void
+BlazOrbit.Components.BOBAccordionItem.Id.get -> string?
+BlazOrbit.Components.BOBAccordionItem.Id.set -> void
+BlazOrbit.Components.BOBAccordionItem.InitiallyExpanded.get -> bool
+BlazOrbit.Components.BOBAccordionItem.InitiallyExpanded.set -> void
+BlazOrbit.Components.BOBAccordionItem.Parent.get -> BlazOrbit.Components.BOBAccordion?
+BlazOrbit.Components.BOBAccordionItem.Parent.set -> void
+BlazOrbit.Components.BOBAccordionItemComponentInfo
+BlazOrbit.Components.BOBAccordionItemToggle
+BlazOrbit.Components.BOBAccordionItemToggle.BOBAccordionItemToggle() -> void
+BlazOrbit.Components.BOBAccordionItemToggle.BOBAccordionItemToggle(string! ItemId, bool IsExpanded) -> void
+BlazOrbit.Components.BOBAccordionItemToggle.Deconstruct(out string! ItemId, out bool IsExpanded) -> void
+BlazOrbit.Components.BOBAccordionItemToggle.Equals(BlazOrbit.Components.BOBAccordionItemToggle other) -> bool
+BlazOrbit.Components.BOBAccordionItemToggle.IsExpanded.get -> bool
+BlazOrbit.Components.BOBAccordionItemToggle.IsExpanded.init -> void
+BlazOrbit.Components.BOBAccordionItemToggle.ItemId.get -> string!
+BlazOrbit.Components.BOBAccordionItemToggle.ItemId.init -> void
+override BlazOrbit.Components.BOBAccordionItemToggle.GetHashCode() -> int
+static BlazOrbit.Components.BOBAccordionItemToggle.operator !=(BlazOrbit.Components.BOBAccordionItemToggle left, BlazOrbit.Components.BOBAccordionItemToggle right) -> bool
+static BlazOrbit.Components.BOBAccordionItemToggle.operator ==(BlazOrbit.Components.BOBAccordionItemToggle left, BlazOrbit.Components.BOBAccordionItemToggle right) -> bool
+~override BlazOrbit.Components.BOBAccordionItemToggle.Equals(object obj) -> bool
+~override BlazOrbit.Components.BOBAccordionItemToggle.ToString() -> string
+BlazOrbit.Components.BOBAccordionMode
+BlazOrbit.Components.BOBAccordionMode.Multiple = 0 -> BlazOrbit.Components.BOBAccordionMode
+BlazOrbit.Components.BOBAccordionMode.Single = 1 -> BlazOrbit.Components.BOBAccordionMode
+BlazOrbit.Components.BOBAccordionMode.SingleStrict = 2 -> BlazOrbit.Components.BOBAccordionMode
+BlazOrbit.Components.BOBAccordionItem.Dispose() -> void
+override BlazOrbit.Components.BOBAccordion.DisposeAsync() -> System.Threading.Tasks.ValueTask
+override BlazOrbit.Components.BOBAccordion.OnAfterRenderAsync(bool firstRender) -> System.Threading.Tasks.Task!
+override BlazOrbit.Components.BOBAccordion.OnParametersSet() -> void
+override BlazOrbit.Components.BOBAccordionItem.OnInitialized() -> void
+static readonly BlazOrbit.Components.BOBAccordionComponentInfo.Parameters -> BlazOrbit.ComponentParameterInfo![]!
+static readonly BlazOrbit.Components.BOBAccordionItemComponentInfo.Parameters -> BlazOrbit.ComponentParameterInfo![]!
+~override BlazOrbit.Components.BOBAccordion.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
+~override BlazOrbit.Components.BOBAccordionItem.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
+BlazOrbit.Components.BOBCarousel
+BlazOrbit.Components.BOBCarousel.ActiveIndex.get -> int
+BlazOrbit.Components.BOBCarousel.ActiveIndex.set -> void
+BlazOrbit.Components.BOBCarousel.ActiveIndexChanged.get -> Microsoft.AspNetCore.Components.EventCallback<int>
+BlazOrbit.Components.BOBCarousel.ActiveIndexChanged.set -> void
+BlazOrbit.Components.BOBCarousel.ActiveIndicatorIcon.get -> BlazOrbit.Components.IconKey?
+BlazOrbit.Components.BOBCarousel.ActiveIndicatorIcon.set -> void
+BlazOrbit.Components.BOBCarousel.ActiveIndicatorIconColor.get -> string?
+BlazOrbit.Components.BOBCarousel.ActiveIndicatorIconColor.set -> void
+BlazOrbit.Components.BOBCarousel.ArrowIconLeft.get -> BlazOrbit.Components.IconKey?
+BlazOrbit.Components.BOBCarousel.ArrowIconLeft.set -> void
+BlazOrbit.Components.BOBCarousel.ArrowIconRight.get -> BlazOrbit.Components.IconKey?
+BlazOrbit.Components.BOBCarousel.ArrowIconRight.set -> void
+BlazOrbit.Components.BOBCarousel.AutoPlay.get -> bool
+BlazOrbit.Components.BOBCarousel.AutoPlay.set -> void
+BlazOrbit.Components.BOBCarousel.AutoPlayInterval.get -> System.TimeSpan
+BlazOrbit.Components.BOBCarousel.AutoPlayInterval.set -> void
+BlazOrbit.Components.BOBCarousel.BOBCarousel() -> void
+BlazOrbit.Components.BOBCarousel.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.BOBCarousel.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! attributes) -> void
+BlazOrbit.Components.BOBCarousel.ChildContent.get -> Microsoft.AspNetCore.Components.RenderFragment?
+BlazOrbit.Components.BOBCarousel.ChildContent.set -> void
+BlazOrbit.Components.BOBCarousel.GoNextAsync() -> System.Threading.Tasks.Task!
+BlazOrbit.Components.BOBCarousel.GoPreviousAsync() -> System.Threading.Tasks.Task!
+BlazOrbit.Components.BOBCarousel.GoToAsync(int index) -> System.Threading.Tasks.Task!
+BlazOrbit.Components.BOBCarousel.IndicatorIcon.get -> BlazOrbit.Components.IconKey?
+BlazOrbit.Components.BOBCarousel.IndicatorIcon.set -> void
+BlazOrbit.Components.BOBCarousel.IndicatorIconColor.get -> string?
+BlazOrbit.Components.BOBCarousel.IndicatorIconColor.set -> void
+BlazOrbit.Components.BOBCarousel.Loop.get -> bool
+BlazOrbit.Components.BOBCarousel.Loop.set -> void
+BlazOrbit.Components.BOBCarousel.NextLabel.get -> string!
+BlazOrbit.Components.BOBCarousel.NextLabel.set -> void
+BlazOrbit.Components.BOBCarousel.PreviousLabel.get -> string!
+BlazOrbit.Components.BOBCarousel.PreviousLabel.set -> void
+BlazOrbit.Components.BOBCarousel.ShowArrows.get -> bool
+BlazOrbit.Components.BOBCarousel.ShowArrows.set -> void
+BlazOrbit.Components.BOBCarousel.ShowIndicators.get -> bool
+BlazOrbit.Components.BOBCarousel.ShowIndicators.set -> void
+BlazOrbit.Components.BOBCarousel.Size.get -> BlazOrbit.Components.BOBSize
+BlazOrbit.Components.BOBCarousel.Size.set -> void
+BlazOrbit.Components.BOBCarousel.SwipeThresholdPx.get -> int
+BlazOrbit.Components.BOBCarousel.SwipeThresholdPx.set -> void
+BlazOrbit.Components.BOBCarousel.Transition.get -> BlazOrbit.Components.BOBCarouselTransition
+BlazOrbit.Components.BOBCarousel.Transition.set -> void
+BlazOrbit.Components.BOBCarousel.TransitionDurationMs.get -> int
+BlazOrbit.Components.BOBCarousel.TransitionDurationMs.set -> void
+BlazOrbit.Components.BOBCarousel.WheelRadiusPx.get -> int
+BlazOrbit.Components.BOBCarousel.WheelRadiusPx.set -> void
+BlazOrbit.Components.BOBCarouselComponentInfo
+BlazOrbit.Components.BOBCarouselItem
+BlazOrbit.Components.BOBCarouselItem.AriaLabel.get -> string?
+BlazOrbit.Components.BOBCarouselItem.AriaLabel.set -> void
+BlazOrbit.Components.BOBCarouselItem.BOBCarouselItem() -> void
+BlazOrbit.Components.BOBCarouselItem.ChildContent.get -> Microsoft.AspNetCore.Components.RenderFragment?
+BlazOrbit.Components.BOBCarouselItem.ChildContent.set -> void
+BlazOrbit.Components.BOBCarouselItem.Dispose() -> void
+BlazOrbit.Components.BOBCarouselItem.Parent.get -> BlazOrbit.Components.BOBCarousel?
+BlazOrbit.Components.BOBCarouselItem.Parent.set -> void
+BlazOrbit.Components.BOBCarouselItemComponentInfo
+BlazOrbit.Components.BOBCarouselTransition
+BlazOrbit.Components.BOBCarouselTransition.Coverflow = 3 -> BlazOrbit.Components.BOBCarouselTransition
+BlazOrbit.Components.BOBCarouselTransition.Fade = 1 -> BlazOrbit.Components.BOBCarouselTransition
+BlazOrbit.Components.BOBCarouselTransition.None = 2 -> BlazOrbit.Components.BOBCarouselTransition
+BlazOrbit.Components.BOBCarouselTransition.Slide = 0 -> BlazOrbit.Components.BOBCarouselTransition
+BlazOrbit.Components.BOBCarouselTransition.Wheel = 4 -> BlazOrbit.Components.BOBCarouselTransition
+BlazOrbit.Components.BOBCarouselTransition.Wheel3D = 5 -> BlazOrbit.Components.BOBCarouselTransition
+override BlazOrbit.Components.BOBCarousel.DisposeAsync() -> System.Threading.Tasks.ValueTask
+override BlazOrbit.Components.BOBCarousel.OnAfterRenderAsync(bool firstRender) -> System.Threading.Tasks.Task!
+override BlazOrbit.Components.BOBCarouselItem.OnInitialized() -> void
+static readonly BlazOrbit.Components.BOBCarouselComponentInfo.Parameters -> BlazOrbit.ComponentParameterInfo![]!
+static readonly BlazOrbit.Components.BOBCarouselItemComponentInfo.Parameters -> BlazOrbit.ComponentParameterInfo![]!
+~override BlazOrbit.Components.BOBCarousel.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
+~override BlazOrbit.Components.BOBCarouselItem.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void

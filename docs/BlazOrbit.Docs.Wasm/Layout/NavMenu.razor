@@ -7,6 +7,12 @@
              TItem="object"
              Size="BOBSize.Medium"
              @bind-ExpandedKeys="_expandedKeys">
+    <BOBTreeMenuItem Text="@Loc["Getting Started"]"
+                     Key="nav-getting-started"
+                     Icon="@BOBIconKeys.MaterialIconsOutlined.i_rocket_launch"
+                     Href="/getting-started">
+    </BOBTreeMenuItem>
+
     <BOBTreeMenuItem Text="@Loc["Components"]"
                      Key="nav-components"
                      Icon="@BOBIconKeys.MaterialIconsOutlined.i_widgets"
@@ -19,49 +25,86 @@
                              Href="/components/forms"
                              OnClick="@NavigateToForms">
                 <ChildContent>
-                    <BOBTreeMenuItem Text="@Loc["Checkbox"]" Href="/components/checkbox" />
-                    <BOBTreeMenuItem Text="@Loc["Color Picker"]" Href="/components/color" />
-                    <BOBTreeMenuItem Text="@Loc["DateTime"]" Href="/components/datetime" />
-                    <BOBTreeMenuItem Text="@Loc["Dropdown"]" Href="/components/dropdown" />
-                    <BOBTreeMenuItem Text="@Loc["Number"]" Href="/components/number" />
-                    <BOBTreeMenuItem Text="@Loc["Number Slider"]" Href="/components/numberslider" />
-                    <BOBTreeMenuItem Text="@Loc["Radio"]" Href="/components/radio" />
-                    <BOBTreeMenuItem Text="@Loc["Range Slider"]" Href="/components/rangeslider" />
-                    <BOBTreeMenuItem Text="@Loc["Switch"]" Href="/components/switch" />
-                    <BOBTreeMenuItem Text="@Loc["Text"]" Href="/components/text" />
-                    <BOBTreeMenuItem Text="@Loc["TextArea"]" Href="/components/textarea" />
+                    <BOBTreeMenuItem Text="@Loc["Checkbox"]" Href="/components/forms/checkbox" />
+                    <BOBTreeMenuItem Text="@Loc["Color Picker"]" Href="/components/forms/color" />
+                    <BOBTreeMenuItem Text="@Loc["DateTime"]" Href="/components/forms/datetime" />
+                    <BOBTreeMenuItem Text="@Loc["Dropdown"]" Href="/components/forms/dropdown" />
+                    <BOBTreeMenuItem Text="@Loc["Number"]" Href="/components/forms/number" />
+                    <BOBTreeMenuItem Text="@Loc["Number Slider"]" Href="/components/forms/numberslider" />
+                    <BOBTreeMenuItem Text="@Loc["Radio"]" Href="/components/forms/radio" />
+                    <BOBTreeMenuItem Text="@Loc["Range Slider"]" Href="/components/forms/rangeslider" />
+                    <BOBTreeMenuItem Text="@Loc["Switch"]" Href="/components/forms/switch" />
+                    <BOBTreeMenuItem Text="@Loc["Text"]" Href="/components/forms/text" />
+                    <BOBTreeMenuItem Text="@Loc["TextArea"]" Href="/components/forms/textarea" />
                 </ChildContent>
             </BOBTreeMenuItem>
 
-            <BOBTreeMenuItem Text="@Loc["Generic"]"
-                             Key="nav-generic"
-                             Icon="@BOBIconKeys.MaterialIconsOutlined.i_category">
+            <BOBTreeMenuItem Text="@Loc["Actions"]"
+                             Key="nav-actions"
+                             Icon="@BOBIconKeys.MaterialIconsOutlined.i_touch_app">
                 <ChildContent>
-                    <BOBTreeMenuItem Text="@Loc["Badge"]" Href="/components/badge" />
-                    <BOBTreeMenuItem Text="@Loc["Button"]" Href="/components/button" />
-                    <BOBTreeMenuItem Text="@Loc["Code Block"]" Href="/components/codeblock" />
-                    <BOBTreeMenuItem Text="@Loc["DataCards"]" Href="/components/datacards" />
-                    <BOBTreeMenuItem Text="@Loc["DataGrid"]" Href="/components/datagrid" />
-                    <BOBTreeMenuItem Text="@Loc["Draggable"]" Href="/components/draggable" />
-                    <BOBTreeMenuItem Text="@Loc["Loading"]" Href="/components/loading" />
-                    <BOBTreeMenuItem Text="@Loc["Svg Icon"]" Href="/components/svgicon" />
-                    <BOBTreeMenuItem Text="@Loc["Tabs"]" Href="/components/tabs" />
-                    <BOBTreeMenuItem Text="@Loc["Tooltip"]" Href="/components/tooltip" />
-                    <BOBTreeMenuItem Text="@Loc["Tree Selector"]" Href="/components/treeselector" />
+                    <BOBTreeMenuItem Text="@Loc["Button"]" Href="/components/actions/button" />
                 </ChildContent>
             </BOBTreeMenuItem>
 
-            <BOBTreeMenuItem Text="@Loc["Layout"]"
-                             Key="nav-layout"
-                             Icon="@BOBIconKeys.MaterialIconsOutlined.i_dashboard">
+            <BOBTreeMenuItem Text="@Loc["Layout & Containers"]"
+                             Key="nav-layout-containers"
+                             Icon="@BOBIconKeys.MaterialIconsOutlined.i_view_quilt">
                 <ChildContent>
-                    <BOBTreeMenuItem Text="@Loc["Card"]" Href="/components/card" />
-                    <BOBTreeMenuItem Text="@Loc["Dialog & Drawer"]" Href="/components/modal" />
-                    <BOBTreeMenuItem Text="@Loc["Flex Stack"]" Href="/components/flex-stack" />
-                    <BOBTreeMenuItem Text="@Loc["Grid"]" Href="/components/grid" />
-                    <BOBTreeMenuItem Text="@Loc["Theme Selector"]" Href="/components/themeselector" />
-                    <BOBTreeMenuItem Text="@Loc["Toast"]" Href="/components/toast" />
-                    <BOBTreeMenuItem Text="@Loc["Tree Menu"]" Href="/components/treemenu" />
+                    <BOBTreeMenuItem Text="@Loc["Accordion"]" Href="/components/layout/accordion" />
+                    <BOBTreeMenuItem Text="@Loc["Card"]" Href="/components/layout/card" />
+                    <BOBTreeMenuItem Text="@Loc["Flex Stack"]" Href="/components/layout/flex-stack" />
+                    <BOBTreeMenuItem Text="@Loc["Grid"]" Href="/components/layout/grid" />
+                </ChildContent>
+            </BOBTreeMenuItem>
+
+            <BOBTreeMenuItem Text="@Loc["Navigation"]"
+                             Key="nav-navigation"
+                             Icon="@BOBIconKeys.MaterialIconsOutlined.i_explore">
+                <ChildContent>
+                    <BOBTreeMenuItem Text="@Loc["Tabs"]" Href="/components/navigation/tabs" />
+                    <BOBTreeMenuItem Text="@Loc["Tree Menu"]" Href="/components/navigation/treemenu" />
+                    <BOBTreeMenuItem Text="@Loc["Tree Selector"]" Href="/components/navigation/treeselector" />
+                </ChildContent>
+            </BOBTreeMenuItem>
+
+            <BOBTreeMenuItem Text="@Loc["Data Display"]"
+                             Key="nav-data-display"
+                             Icon="@BOBIconKeys.MaterialIconsOutlined.i_table_chart">
+                <ChildContent>
+                    <BOBTreeMenuItem Text="@Loc["Code Block"]" Href="/components/data/codeblock" />
+                    <BOBTreeMenuItem Text="@Loc["DataCards"]" Href="/components/data/datacards" />
+                    <BOBTreeMenuItem Text="@Loc["DataGrid"]" Href="/components/data/datagrid" />
+                </ChildContent>
+            </BOBTreeMenuItem>
+
+            <BOBTreeMenuItem Text="@Loc["Display & Media"]"
+                             Key="nav-display-media"
+                             Icon="@BOBIconKeys.MaterialIconsOutlined.i_palette">
+                <ChildContent>
+                    <BOBTreeMenuItem Text="@Loc["Badge"]" Href="/components/display/badge" />
+                    <BOBTreeMenuItem Text="@Loc["Carousel"]" Href="/components/display/carousel" />
+                    <BOBTreeMenuItem Text="@Loc["Loading"]" Href="/components/display/loading" />
+                    <BOBTreeMenuItem Text="@Loc["Svg Icon"]" Href="/components/display/svgicon" />
+                </ChildContent>
+            </BOBTreeMenuItem>
+
+            <BOBTreeMenuItem Text="@Loc["Overlays & Feedback"]"
+                             Key="nav-overlays-feedback"
+                             Icon="@BOBIconKeys.MaterialIconsOutlined.i_chat_bubble_outline">
+                <ChildContent>
+                    <BOBTreeMenuItem Text="@Loc["Dialog & Drawer"]" Href="/components/overlays/modal" />
+                    <BOBTreeMenuItem Text="@Loc["Toast"]" Href="/components/overlays/toast" />
+                    <BOBTreeMenuItem Text="@Loc["Tooltip"]" Href="/components/overlays/tooltip" />
+                </ChildContent>
+            </BOBTreeMenuItem>
+
+            <BOBTreeMenuItem Text="@Loc["Utilities"]"
+                             Key="nav-utilities"
+                             Icon="@BOBIconKeys.MaterialIconsOutlined.i_handyman">
+                <ChildContent>
+                    <BOBTreeMenuItem Text="@Loc["Draggable"]" Href="/components/utilities/draggable" />
+                    <BOBTreeMenuItem Text="@Loc["Theme Selector"]" Href="/components/utilities/themeselector" />
                 </ChildContent>
             </BOBTreeMenuItem>
 

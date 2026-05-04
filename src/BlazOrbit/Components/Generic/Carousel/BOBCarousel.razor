@@ -1,0 +1,636 @@
+@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+@using BlazOrbit.Utilities
+@using Microsoft.AspNetCore.Components.Web
+@using Microsoft.JSInterop
+@inherits BOBComponentBase
+@implements IAsyncDisposable
+@implements IHasSize
+@implements IBuiltComponent
+@implements ICarouselJsCallback
+
+@inject ICarouselJsInterop JsInterop
+
+@{
+    List<BOBCarouselItem> items = SnapshotItems();
+    int slideCount = items.Count;
+    int activeIndex = NormalizeIndex(ActiveIndex, slideCount);
+    string transitionAttr = Transition.ToString().ToLowerInvariant();
+    bool useClones = Transition == BOBCarouselTransition.Slide && Loop && slideCount > 1;
+    int trackOffset = useClones ? 1 : 0;
+    int displayIndex = _displayIndex ?? activeIndex;
+    double wheelStep = slideCount > 0 ? 360.0 / slideCount : 0;
+    string trackStyle = Transition == BOBCarouselTransition.Slide
+        ? $"transform: translateX(-{(displayIndex + trackOffset) * 100}%);"
+        : string.Empty;
+    string snapAttr = _snap ? "true" : "false";
+}
+
+<CascadingValue Value="this" IsFixed="true">
+    <bob-component @attributes="@ComputedAttributes"
+                   role="region"
+                   aria-roledescription="carousel"
+                   tabindex="0"
+                   @ref="_rootRef"
+                   @onkeydown="HandleKeyDown"
+                   @onmouseenter="HandleMouseEnter"
+                   @onmouseleave="HandleMouseLeave"
+                   @onfocusin="HandleFocusIn"
+                   @onfocusout="HandleFocusOut">
+
+        @* hidden slot for child registration *@
+        <div class="bob-carousel__items-slot" hidden>@ChildContent</div>
+
+        @if (ShowArrows && slideCount > 1)
+        {
+            <button type="button"
+                    class="bob-carousel__arrow bob-carousel__arrow--prev"
+                    aria-label="@PreviousLabel"
+                    disabled="@(!Loop && activeIndex == 0)"
+                    @onclick="GoPreviousAsync">
+                <BOBSvgIcon Icon="ArrowIconLeft ?? BOBIconKeys.UI.ChevronLeft" Size="BOBSize.Medium" />
+            </button>
+        }
+
+        <div class="bob-carousel__viewport"
+             data-bob-anim="@transitionAttr"
+             aria-live="@(AutoPlay ? "off" : "polite")"
+             @ref="_viewportRef">
+            <div class="bob-carousel__track"
+                 data-bob-snap="@snapAttr"
+                 style="@trackStyle">
+                @if (Transition == BOBCarouselTransition.Coverflow)
+                {
+                    @for (int i = 0; i < slideCount; i++)
+                    {
+                        BOBCarouselItem item = items[i];
+                        bool isActive = i == activeIndex;
+                        int slideNumber = i + 1;
+                        string label = item.UserAriaLabel ?? $"Slide {slideNumber} of {slideCount}";
+                        int offset = i - activeIndex;
+                        string slideStyle = BuildCoverflowStyle(offset);
+                        <div class="bob-carousel__slide"
+                             role="group"
+                             aria-roledescription="slide"
+                             aria-label="@label"
+                             data-bob-active="@(isActive ? "true" : "false")"
+                             aria-hidden="@(isActive ? "false" : "true")"
+                             style="@slideStyle">
+                            @item.Content
+                        </div>
+                    }
+                }
+                else if (Transition == BOBCarouselTransition.Wheel)
+                {
+                    @for (int i = 0; i < slideCount; i++)
+                    {
+                        BOBCarouselItem item = items[i];
+                        bool isActive = i == activeIndex;
+                        int slideNumber = i + 1;
+                        string label = item.UserAriaLabel ?? $"Slide {slideNumber} of {slideCount}";
+                        string slideStyle = BuildWheelSlideStyle(i, activeIndex, slideCount);
+                        <div class="bob-carousel__slide"
+                             role="group"
+                             aria-roledescription="slide"
+                             aria-label="@label"
+                             data-bob-active="@(isActive ? "true" : "false")"
+                             aria-hidden="@(isActive ? "false" : "true")"
+                             style="@slideStyle">
+                            @item.Content
+                        </div>
+                    }
+                }
+                else if (Transition == BOBCarouselTransition.Wheel3D)
+                {
+                    @for (int i = 0; i < slideCount; i++)
+                    {
+                        BOBCarouselItem item = items[i];
+                        bool isActive = i == activeIndex;
+                        int slideNumber = i + 1;
+                        string label = item.UserAriaLabel ?? $"Slide {slideNumber} of {slideCount}";
+                        string slideStyle = BuildWheel3DSlideStyle(i, activeIndex, slideCount);
+                        <div class="bob-carousel__slide"
+                             role="group"
+                             aria-roledescription="slide"
+                             aria-label="@label"
+                             data-bob-active="@(isActive ? "true" : "false")"
+                             aria-hidden="@(isActive ? "false" : "true")"
+                             style="@slideStyle">
+                            @item.Content
+                        </div>
+                    }
+                }
+                else
+                {
+                    @if (useClones)
+                    {
+                        BOBCarouselItem cloneEnd = items[slideCount - 1];
+                        <div class="bob-carousel__slide bob-carousel__slide--clone"
+                             role="presentation"
+                             aria-hidden="true">
+                            @cloneEnd.Content
+                        </div>
+                    }
+                    @for (int i = 0; i < slideCount; i++)
+                    {
+                        BOBCarouselItem item = items[i];
+                        bool isActive = i == activeIndex;
+                        int slideNumber = i + 1;
+                        string label = item.UserAriaLabel ?? $"Slide {slideNumber} of {slideCount}";
+                        <div class="bob-carousel__slide"
+                             role="group"
+                             aria-roledescription="slide"
+                             aria-label="@label"
+                             data-bob-active="@(isActive ? "true" : "false")"
+                             aria-hidden="@(isActive ? "false" : "true")">
+                            @item.Content
+                        </div>
+                    }
+                    @if (useClones)
+                    {
+                        BOBCarouselItem cloneStart = items[0];
+                        <div class="bob-carousel__slide bob-carousel__slide--clone"
+                             role="presentation"
+                             aria-hidden="true">
+                            @cloneStart.Content
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+
+        @if (ShowArrows && slideCount > 1)
+        {
+            <button type="button"
+                    class="bob-carousel__arrow bob-carousel__arrow--next"
+                    aria-label="@NextLabel"
+                    disabled="@(!Loop && activeIndex == slideCount - 1)"
+                    @onclick="GoNextAsync">
+                <BOBSvgIcon Icon="ArrowIconRight ?? BOBIconKeys.UI.ChevronRight" Size="BOBSize.Medium" />
+            </button>
+        }
+
+        @if (ShowIndicators && slideCount > 1)
+        {
+            <div class="bob-carousel__indicators" role="tablist">
+                @for (int i = 0; i < slideCount; i++)
+                {
+                    int targetIndex = i;
+                    bool isActive = i == activeIndex;
+                    IconKey? effectiveIcon = isActive
+                        ? (ActiveIndicatorIcon ?? IndicatorIcon)
+                        : IndicatorIcon;
+                    string? effectiveColor = isActive
+                        ? (ActiveIndicatorIconColor ?? IndicatorIconColor)
+                        : IndicatorIconColor;
+                    <button type="button"
+                            class="bob-carousel__indicator"
+                            role="tab"
+                            aria-label="@($"Go to slide {i + 1}")"
+                            aria-current="@(isActive ? "true" : "false")"
+                            data-bob-active="@(isActive ? "true" : "false")"
+                            @onclick="() => GoToAsync(targetIndex)">
+                        @if (effectiveIcon.HasValue)
+                        {
+                            <BOBSvgIcon Icon="effectiveIcon.Value" Color="@effectiveColor" Size="BOBSize.Small" />
+                        }
+                        else
+                        {
+                            <span class="bob-carousel__indicator-dot" aria-hidden="true"></span>
+                        }
+                    </button>
+                }
+            </div>
+        }
+    </bob-component>
+</CascadingValue>
+
+@code {
+    /// <summary>Markup that emits the slides (typically <c>&lt;BOBCarouselItem&gt;</c> children).</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>Index of the currently visible slide.</summary>
+    [Parameter] public int ActiveIndex { get; set; }
+
+    /// <summary>Raised when <see cref="ActiveIndex"/> changes via user interaction or auto-play.</summary>
+    [Parameter] public EventCallback<int> ActiveIndexChanged { get; set; }
+
+    /// <summary>When <see langword="true" />, the carousel advances automatically every <see cref="AutoPlayInterval"/>.</summary>
+    [Parameter] public bool AutoPlay { get; set; }
+
+    /// <summary>Time between automatic transitions when <see cref="AutoPlay"/> is enabled. Defaults to 5 seconds.</summary>
+    [Parameter] public TimeSpan AutoPlayInterval { get; set; } = TimeSpan.FromSeconds(5);
+
+    /// <summary>
+    /// When <see langword="true" />, navigation wraps around at both ends. With
+    /// <see cref="BOBCarouselTransition.Slide"/> the carousel renders cloned slides at the
+    /// boundaries so wrap-around feels continuous (no jump back to the start).
+    /// </summary>
+    [Parameter] public bool Loop { get; set; }
+
+    /// <summary>When <see langword="true" /> (default), the previous/next arrow buttons are visible.</summary>
+    [Parameter] public bool ShowArrows { get; set; } = true;
+
+    /// <summary>When <see langword="true" /> (default), the slide indicators row is visible.</summary>
+    [Parameter] public bool ShowIndicators { get; set; } = true;
+
+    /// <summary>
+    /// Optional icon used for non-active slide indicators. When <see langword="null"/> (default),
+    /// a CSS dot is rendered for inactive slides.
+    /// </summary>
+    [Parameter] public IconKey? IndicatorIcon { get; set; }
+
+    /// <summary>Color applied to the inactive-indicator icon. Accepts any valid CSS color value.</summary>
+    [Parameter] public string? IndicatorIconColor { get; set; }
+
+    /// <summary>
+    /// Optional icon override for the <em>active</em> slide indicator. When <see langword="null"/>,
+    /// the active indicator uses <see cref="IndicatorIcon"/> (or the default dot).
+    /// </summary>
+    [Parameter] public IconKey? ActiveIndicatorIcon { get; set; }
+
+    /// <summary>Color applied to the active-indicator icon. Falls back to <see cref="IndicatorIconColor"/>.</summary>
+    [Parameter] public string? ActiveIndicatorIconColor { get; set; }
+
+    /// <summary>Icon for the previous-slide arrow. Defaults to <see cref="BOBIconKeys"/>.UI.ChevronLeft.</summary>
+    [Parameter] public IconKey? ArrowIconLeft { get; set; }
+
+    /// <summary>Icon for the next-slide arrow. Defaults to <see cref="BOBIconKeys"/>.UI.ChevronRight.</summary>
+    [Parameter] public IconKey? ArrowIconRight { get; set; }
+
+    /// <summary>Visual transition between slides. Defaults to <see cref="BOBCarouselTransition.Slide"/>.</summary>
+    [Parameter] public BOBCarouselTransition Transition { get; set; } = BOBCarouselTransition.Slide;
+
+    /// <summary>Accessible label for the previous-slide arrow. Defaults to "Previous slide".</summary>
+    [Parameter] public string PreviousLabel { get; set; } = "Previous slide";
+
+    /// <summary>Accessible label for the next-slide arrow. Defaults to "Next slide".</summary>
+    [Parameter] public string NextLabel { get; set; } = "Next slide";
+
+    /// <summary>Pixel distance a horizontal swipe must cover before it triggers slide navigation. Defaults to 50.</summary>
+    [Parameter] public int SwipeThresholdPx { get; set; } = 50;
+
+    /// <summary>Visual size of the carousel.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+
+    /// <summary>
+    /// Duration of the slide transition in milliseconds. Drives both the CSS animation and the
+    /// post-animation snap-back used by the looping wrap behaviour. Defaults to 350.
+    /// </summary>
+    [Parameter] public int TransitionDurationMs { get; set; } = 350;
+
+    /// <summary>
+    /// Radius (in pixels) of the cylinder used by <see cref="BOBCarouselTransition.Wheel"/>.
+    /// Larger values push the side slides further behind the active one. Defaults to 280.
+    /// </summary>
+    [Parameter] public int WheelRadiusPx { get; set; } = 280;
+
+    private readonly string _componentId = $"bob-carousel-{Guid.NewGuid():N}";
+    private readonly List<BOBCarouselItem> _items = new();
+    private readonly object _itemsLock = new();
+    private ElementReference _rootRef;
+    private ElementReference _viewportRef;
+    private CarouselCallbacksRelay? _relay;
+    private CancellationTokenSource? _autoPlayCts;
+    private bool _isHovered;
+    private bool _isFocused;
+    private bool _jsAttached;
+    private int? _displayIndex;
+    private bool _snap;
+
+    internal void RegisterItem(BOBCarouselItem item)
+    {
+        if (IsDisposed) return;
+        bool added;
+        lock (_itemsLock)
+        {
+            if (_items.Contains(item)) return;
+            _items.Add(item);
+            added = true;
+        }
+        if (added) StateHasChanged();
+    }
+
+    internal void UnregisterItem(BOBCarouselItem item)
+    {
+        if (IsDisposed) return;
+        bool removed;
+        lock (_itemsLock)
+        {
+            removed = _items.Remove(item);
+        }
+        if (removed) StateHasChanged();
+    }
+
+    private List<BOBCarouselItem> SnapshotItems()
+    {
+        lock (_itemsLock)
+        {
+            return new List<BOBCarouselItem>(_items);
+        }
+    }
+
+    /// <summary>Navigate to a specific slide by index.</summary>
+    public Task GoToAsync(int index) => SetActiveIndexAsync(index, viaWrap: WrapDirection.None);
+
+    /// <summary>Navigate to the next slide.</summary>
+    public Task GoNextAsync()
+    {
+        int count = SnapshotItems().Count;
+        if (count == 0) return Task.CompletedTask;
+        if (ActiveIndex >= count - 1)
+        {
+            return Loop
+                ? SetActiveIndexAsync(0, viaWrap: WrapDirection.Forward)
+                : SetActiveIndexAsync(count - 1, viaWrap: WrapDirection.None);
+        }
+        return SetActiveIndexAsync(ActiveIndex + 1, viaWrap: WrapDirection.None);
+    }
+
+    /// <summary>Navigate to the previous slide.</summary>
+    public Task GoPreviousAsync()
+    {
+        int count = SnapshotItems().Count;
+        if (count == 0) return Task.CompletedTask;
+        if (ActiveIndex <= 0)
+        {
+            return Loop
+                ? SetActiveIndexAsync(count - 1, viaWrap: WrapDirection.Backward)
+                : SetActiveIndexAsync(0, viaWrap: WrapDirection.None);
+        }
+        return SetActiveIndexAsync(ActiveIndex - 1, viaWrap: WrapDirection.None);
+    }
+
+    private enum WrapDirection { None, Forward, Backward }
+
+    private async Task SetActiveIndexAsync(int index, WrapDirection viaWrap)
+    {
+        int count = SnapshotItems().Count;
+        if (count == 0) return;
+        int normalized = NormalizeIndex(index, count);
+        if (normalized == ActiveIndex && _displayIndex == null) return;
+
+        bool useClones = Transition == BOBCarouselTransition.Slide && Loop && count > 1;
+
+        if (useClones && viaWrap != WrapDirection.None)
+        {
+            // Animate to the cloned slide at the boundary, then snap silently to the real position.
+            int wrapTarget = viaWrap == WrapDirection.Forward ? count : -1;
+            _displayIndex = wrapTarget;
+            ActiveIndex = normalized;
+            _snap = false;
+            StateHasChanged();
+
+            if (ActiveIndexChanged.HasDelegate)
+            {
+                await ActiveIndexChanged.InvokeAsync(normalized);
+            }
+
+            try
+            {
+                await Task.Delay(TransitionDurationMs);
+            }
+            catch (TaskCanceledException) { return; }
+
+            if (IsDisposed) return;
+
+            _snap = true;
+            _displayIndex = normalized;
+            StateHasChanged();
+
+            // Allow the snap frame to commit, then re-enable transitions for the next move.
+            try
+            {
+                await Task.Delay(50);
+            }
+            catch (TaskCanceledException) { return; }
+
+            if (IsDisposed) return;
+            _snap = false;
+            StateHasChanged();
+            return;
+        }
+
+        ActiveIndex = normalized;
+        _displayIndex = null;
+        _snap = false;
+        StateHasChanged();
+        if (ActiveIndexChanged.HasDelegate)
+        {
+            await ActiveIndexChanged.InvokeAsync(normalized);
+        }
+    }
+
+    private static int NormalizeIndex(int index, int count)
+    {
+        if (count == 0) return 0;
+        if (index < 0) return 0;
+        if (index >= count) return count - 1;
+        return index;
+    }
+
+    private static string BuildCoverflowStyle(int offset)
+    {
+        // Side slides recede with rotateY + translateZ + scale; the active slide stays centered.
+        int absOffset = Math.Abs(offset);
+        if (absOffset == 0) return "transform: translateX(0) rotateY(0) translateZ(0); opacity: 1; z-index: 10;";
+
+        double rotate = Math.Sign(offset) * -45;
+        double translateX = Math.Sign(offset) * 60;
+        double translateZ = -150 - (absOffset - 1) * 80;
+        double scale = Math.Max(0.6, 1 - absOffset * 0.15);
+        double opacity = Math.Max(0.0, 1 - absOffset * 0.4);
+        int zIndex = 10 - absOffset;
+
+        return string.Create(System.Globalization.CultureInfo.InvariantCulture,
+            $"transform: translateX({translateX}%) translateZ({translateZ}px) rotateY({rotate}deg) scale({scale}); opacity: {opacity}; z-index: {zIndex};");
+    }
+
+    private string BuildWheel3DSlideStyle(int slideIndex, int activeIndex, int slideCount)
+    {
+        // Several slides are visible simultaneously, spread across the viewport. Side slides keep
+        // a fixed inward tilt and a small constant depth gradient — distance never feels empty.
+        // Loop is honoured: slides past N/2 wrap around to appear on the opposite side.
+        if (slideCount <= 1)
+        {
+            return "transform: translate3d(0, 0, 0); opacity: 1; z-index: 100;";
+        }
+
+        int rawOffset = slideIndex - activeIndex;
+        int offset = rawOffset;
+        if (Loop)
+        {
+            int half = slideCount / 2;
+            if (offset > half) offset -= slideCount;
+            else if (offset < -half) offset += slideCount;
+        }
+
+        int absOffset = Math.Abs(offset);
+        if (absOffset == 0)
+        {
+            return "transform: translate3d(0, 0, 0) rotateY(0) scale(1); opacity: 1; z-index: 100;";
+        }
+
+        int sign = Math.Sign(offset);
+        // Fixed inward tilt — every side slide leans the same toward centre, no extra rotation as
+        // depth grows. This is the "always 3D" feel.
+        double rotateY = -sign * 35;
+        // Lateral spacing: 45% of slide width per step. Side slides overlap the active a bit.
+        double translateX = sign * (45 + (absOffset - 1) * 38);
+        // Constant depth slope — back slides recede gently, never reach zero size.
+        double translateZ = -80 - (absOffset - 1) * 50;
+        double scale = Math.Max(0.7, 1 - absOffset * 0.07);
+        double opacity = Math.Max(0.25, 1 - absOffset * 0.18);
+        int zIndex = 100 - absOffset;
+
+        return string.Create(System.Globalization.CultureInfo.InvariantCulture,
+            $"transform: translate3d({translateX}%, 0, {translateZ}px) rotateY({rotateY}deg) scale({scale}); opacity: {opacity}; z-index: {zIndex};");
+    }
+
+    private string BuildWheelSlideStyle(int slideIndex, int activeIndex, int slideCount)
+    {
+        // Slides orbit on a horizontal circle around the active position. They always face the
+        // camera (no per-slide rotation) — only their X/Z position changes. The active slide sits
+        // at the front of the circle (z=0); the rest fan out behind it along the arc.
+        if (slideCount <= 1)
+        {
+            return "transform: translate3d(0, 0, 0); opacity: 1; z-index: 100;";
+        }
+
+        double step = 360.0 / slideCount;
+        // Signed angular distance from active, normalised to (-180, 180].
+        double rawDelta = (slideIndex - activeIndex) * step;
+        double delta = ((rawDelta % 360) + 540) % 360 - 180;
+        double absDelta = Math.Abs(delta);
+
+        double rad = delta * Math.PI / 180.0;
+        double radius = WheelRadiusPx;
+        // x: positive right, negative left. z: 0 at front, -2*radius at the back.
+        double translateX = radius * Math.Sin(rad);
+        double translateZ = radius * (Math.Cos(rad) - 1);
+
+        // Closer = larger; further = smaller. Scale 1.0 at front, ~0.55 at full back.
+        double scale = 0.55 + 0.45 * (Math.Cos(rad) + 1) / 2.0;
+        // Active fully opaque; sides + back fade. Hidden completely past 165° to avoid clutter.
+        double opacity = absDelta >= 165 ? 0 : Math.Max(0.2, 1 - absDelta / 200);
+        // Closer slides paint over the ones behind them.
+        int zIndex = 100 - (int)Math.Round(absDelta / 2);
+
+        return string.Create(System.Globalization.CultureInfo.InvariantCulture,
+            $"transform: translate3d({translateX}px, 0, {translateZ}px) scale({scale}); opacity: {opacity}; z-index: {zIndex};");
+    }
+
+    private async Task HandleKeyDown(KeyboardEventArgs e)
+    {
+        switch (e.Key)
+        {
+            case "ArrowLeft": await GoPreviousAsync(); break;
+            case "ArrowRight": await GoNextAsync(); break;
+            case "Home": await SetActiveIndexAsync(0, WrapDirection.None); break;
+            case "End":
+                int count = SnapshotItems().Count;
+                if (count > 0) await SetActiveIndexAsync(count - 1, WrapDirection.None);
+                break;
+        }
+    }
+
+    private void HandleMouseEnter() { _isHovered = true; }
+    private void HandleMouseLeave() { _isHovered = false; }
+    private void HandleFocusIn() { _isFocused = true; }
+    private void HandleFocusOut() { _isFocused = false; }
+
+    async Task ICarouselJsCallback.OnSwipeLeftAsync() => await GoNextAsync();
+    async Task ICarouselJsCallback.OnSwipeRightAsync() => await GoPreviousAsync();
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        await base.OnAfterRenderAsync(firstRender);
+
+        if (firstRender)
+        {
+            _relay = new CarouselCallbacksRelay(this);
+            try
+            {
+                await JsInterop.AttachAsync(_viewportRef, _relay.DotNetReference, _componentId, SwipeThresholdPx);
+                _jsAttached = true;
+            }
+            catch (JSDisconnectedException) { }
+            catch (ObjectDisposedException) { }
+            catch (InvalidOperationException) { }
+            catch (TaskCanceledException) { }
+            catch (JSException) { }
+
+            if (IsDisposed) return;
+
+            if (AutoPlay)
+            {
+                StartAutoPlay();
+            }
+        }
+    }
+
+    private void StartAutoPlay()
+    {
+        if (_autoPlayCts != null) return;
+        _autoPlayCts = new CancellationTokenSource();
+        CancellationToken token = _autoPlayCts.Token;
+        BOBAsyncHelper.SafeFireAndForget(() => RunAutoPlayLoopAsync(token));
+    }
+
+    private async Task RunAutoPlayLoopAsync(CancellationToken token)
+    {
+        while (!token.IsCancellationRequested && !IsDisposed)
+        {
+            try
+            {
+                await Task.Delay(AutoPlayInterval, token);
+            }
+            catch (TaskCanceledException) { return; }
+
+            if (token.IsCancellationRequested || IsDisposed) return;
+            if (_isHovered || _isFocused) continue;
+
+            int count = SnapshotItems().Count;
+            if (count <= 1) continue;
+
+            await InvokeAsync(GoNextAsync);
+        }
+    }
+
+    public void BuildComponentDataAttributes(Dictionary<string, object> attributes)
+    {
+        attributes["data-bob-anim"] = Transition.ToString().ToLowerInvariant();
+    }
+
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    {
+        cssVariables["--_carousel-transition-duration"] = $"{TransitionDurationMs}ms";
+    }
+
+    public override async ValueTask DisposeAsync()
+    {
+        IsDisposed = true;
+        _autoPlayCts?.Cancel();
+        _autoPlayCts?.Dispose();
+        _autoPlayCts = null;
+
+        if (_jsAttached)
+        {
+            try
+            {
+                await JsInterop.DetachAsync(_componentId);
+            }
+            catch (JSDisconnectedException) { }
+            catch (ObjectDisposedException) { }
+            catch (InvalidOperationException) { }
+            catch (TaskCanceledException) { }
+        }
+        _relay?.Dispose();
+
+        lock (_itemsLock)
+        {
+            _items.Clear();
+        }
+        await base.DisposeAsync();
+    }
+}

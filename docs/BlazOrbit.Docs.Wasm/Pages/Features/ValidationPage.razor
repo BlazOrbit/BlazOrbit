@@ -20,28 +20,26 @@
         <DocDemo Key="DataAnnotations" Title="@Loc["Data Annotations in action"]">
             <EditForm Model="@_modelAnnotations" OnValidSubmit="HandleValidSubmitAnnotations">
                 <DataAnnotationsValidator />
-                <ValidationSummary />
-                <br />
+                <BOBFlexStack Gap="1rem">
+                    <BOBInputText @bind-Value="_modelAnnotations.Name"
+                                  Label="@Loc["Name"]"
+                                  Variant="BOBInputVariant.Outlined" />
 
-                <BOBInputText @bind-Value="_modelAnnotations.Name"
-                              Label="@Loc["Name"]"
-                              Variant="BOBInputVariant.Outlined" />
-                <ValidationMessage For="@(() => _modelAnnotations.Name)" />
-
-                <BOBInputDropdown @bind-Value="_modelAnnotations.Role"
-                                  Label="@Loc["Role"]"
-                                  Searchable="true"
-                                  Variant="BOBInputVariant.Outlined">
-                    <DropdownOption Value="@Role.Admin" Text="@Loc["Admin"]" />
-                    <DropdownOption Value="@Role.Editor" Text="@Loc["Editor"]" />
-                    <DropdownOption Value="@Role.Viewer" Text="@Loc["Viewer"]" />
-                    <DropdownOption Value="@Role.Guest" Text="@Loc["Guest"]" />
-                </BOBInputDropdown>
-                <ValidationMessage For="@(() => _modelAnnotations.Role)" />
-
+                    <BOBInputDropdown @bind-Value="_modelAnnotations.Role"
+                                      Label="@Loc["Role"]"
+                                      Searchable="true"
+                                      Variant="BOBInputVariant.Outlined">
+                        <DropdownOption Value="@Role.Admin" Text="@Loc["Admin"]" />
+                        <DropdownOption Value="@Role.Editor" Text="@Loc["Editor"]" />
+                        <DropdownOption Value="@Role.Viewer" Text="@Loc["Viewer"]" />
+                        <DropdownOption Value="@Role.Guest" Text="@Loc["Guest"]" />
+                    </BOBInputDropdown>
+                </BOBFlexStack>
                 <br /><br />
-                <button type="submit">@Loc["Submit"]</button>
-                <button type="button" @onclick="ResetAnnotations">@Loc["Reset"]</button>
+                <BOBFlexStack Gap="1rem" Direction="FlexStackDirection.Row">
+                    <button type="submit">@Loc["Submit"]</button>
+                    <button type="button" @onclick="ResetAnnotations">@Loc["Reset"]</button>
+                </BOBFlexStack>
             </EditForm>
 
             @if (_sentDataAnotations)
@@ -73,28 +71,27 @@
         <DocDemo Key="FluentValidation" Title="@Loc["FluentValidation in action"]">
             <EditForm Model="@_modelFluent" OnValidSubmit="HandleValidSubmitFluent">
                 <BOBFluentValidator />
-                <ValidationSummary />
-                <br />
+                <BOBFlexStack Gap="1rem">
+                    <BOBInputText @bind-Value="_modelFluent.Name"
+                                  Label="@Loc["Name"]"
+                                  Variant="BOBInputVariant.Outlined" />
 
-                <BOBInputText @bind-Value="_modelFluent.Name"
-                              Label="@Loc["Name"]"
-                              Variant="BOBInputVariant.Outlined" />
-                <ValidationMessage For="@(() => _modelFluent.Name)" />
-
-                <BOBInputDropdown @bind-Value="_modelFluent.Role"
-                                  Label="@Loc["Role"]"
-                                  Searchable="true"
-                                  Variant="BOBInputVariant.Outlined">
-                    <DropdownOption Value="@Role.Admin" Text="@Loc["Admin"]" />
-                    <DropdownOption Value="@Role.Editor" Text="@Loc["Editor"]" />
-                    <DropdownOption Value="@Role.Viewer" Text="@Loc["Viewer"]" />
-                    <DropdownOption Value="@Role.Guest" Text="@Loc["Guest"]" />
-                </BOBInputDropdown>
-                <ValidationMessage For="@(() => _modelFluent.Role)" />
+                    <BOBInputDropdown @bind-Value="_modelFluent.Role"
+                                      Label="@Loc["Role"]"
+                                      Searchable="true"
+                                      Variant="BOBInputVariant.Outlined">
+                        <DropdownOption Value="@Role.Admin" Text="@Loc["Admin"]" />
+                        <DropdownOption Value="@Role.Editor" Text="@Loc["Editor"]" />
+                        <DropdownOption Value="@Role.Viewer" Text="@Loc["Viewer"]" />
+                        <DropdownOption Value="@Role.Guest" Text="@Loc["Guest"]" />
+                    </BOBInputDropdown>
+                </BOBFlexStack>
 
                 <br /><br />
-                <button type="submit">@Loc["Submit"]</button>
-                <button type="button" @onclick="ResetFluent">@Loc["Reset"]</button>
+                <BOBFlexStack Gap="1rem" Direction="FlexStackDirection.Row">
+                    <button type="submit">@Loc["Submit"]</button>
+                    <button type="button" @onclick="ResetFluent">@Loc["Reset"]</button>
+                </BOBFlexStack>
             </EditForm>
         </DocDemo>
         @if (_sentFluent)

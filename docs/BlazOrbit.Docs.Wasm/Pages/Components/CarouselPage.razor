@@ -1,0 +1,185 @@
+@page "/components/display/carousel"
+
+@inject IStringLocalizer<CarouselPage> Loc
+
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBCarousel"]"
+         Lede="@Loc["Slideshow with arrows, indicators, keyboard navigation, touch swipe, and optional auto-play. Slide / Fade / None / Coverflow transitions."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBCarousel)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+        <BOBCarousel @bind-ActiveIndex="_basicIndex">
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--blue">@Loc["Slide one"]</div>
+            </BOBCarouselItem>
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--green">@Loc["Slide two"]</div>
+            </BOBCarouselItem>
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--purple">@Loc["Slide three"]</div>
+            </BOBCarouselItem>
+        </BOBCarousel>
+    </DocDemo>
+
+    <DocDemo Key="AutoPlay" Title="@Loc["Auto-play"]" Description="@Loc["Advances every 3 seconds. Pauses on hover or focus."]">
+        <BOBCarousel AutoPlay="true" AutoPlayInterval="@TimeSpan.FromSeconds(3)" Loop="true">
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--blue">@Loc["Auto 1"]</div>
+            </BOBCarouselItem>
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--green">@Loc["Auto 2"]</div>
+            </BOBCarouselItem>
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--purple">@Loc["Auto 3"]</div>
+            </BOBCarouselItem>
+        </BOBCarousel>
+    </DocDemo>
+
+    <DocDemo Key="LoopWrap" Title="@Loc["Seamless loop"]" Description="@Loc["With Loop=true and Slide transition, a clone of the first slide is rendered after the last (and vice versa). Going from the last to the first looks like a continuous wrap rather than a jump back."]">
+        <BOBCarousel Loop="true" TransitionDurationMs="500">
+            <BOBCarouselItem AriaLabel="@Loc["Wrap A"]">
+                <div class="demo-slide demo-slide--blue">@Loc["A — try clicking next from the last slide"]</div>
+            </BOBCarouselItem>
+            <BOBCarouselItem AriaLabel="@Loc["Wrap B"]">
+                <div class="demo-slide demo-slide--green">@Loc["B"]</div>
+            </BOBCarouselItem>
+            <BOBCarouselItem AriaLabel="@Loc["Wrap C"]">
+                <div class="demo-slide demo-slide--purple">@Loc["C"]</div>
+            </BOBCarouselItem>
+        </BOBCarousel>
+    </DocDemo>
+
+    <DocDemo Key="Fade" Title="@Loc["Fade transition"]">
+        <BOBCarousel Transition="BOBCarouselTransition.Fade">
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--blue">@Loc["Fade A"]</div>
+            </BOBCarouselItem>
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--green">@Loc["Fade B"]</div>
+            </BOBCarouselItem>
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--purple">@Loc["Fade C"]</div>
+            </BOBCarouselItem>
+        </BOBCarousel>
+    </DocDemo>
+
+    <DocDemo Key="Wheel" Title="@Loc["Wheel (3D cylinder)"]" Description="@Loc["Slides arranged on a vertical cylinder that rotates around the Y axis. Side slides peek in from behind the active one as the wheel spins. Tune WheelRadiusPx to change how deep the back slides sit."]">
+        <BOBCarousel Transition="BOBCarouselTransition.Wheel" Loop="true" WheelRadiusPx="320">
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--blue">@Loc["Wheel 1"]</div>
+            </BOBCarouselItem>
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--green">@Loc["Wheel 2"]</div>
+            </BOBCarouselItem>
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--purple">@Loc["Wheel 3"]</div>
+            </BOBCarouselItem>
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--orange">@Loc["Wheel 4"]</div>
+            </BOBCarouselItem>
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--teal">@Loc["Wheel 5"]</div>
+            </BOBCarouselItem>
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--blue">@Loc["Wheel 6"]</div>
+            </BOBCarouselItem>
+        </BOBCarousel>
+    </DocDemo>
+
+    <DocDemo Key="Wheel3D" Title="@Loc["Wheel 3D (continuous perspective)"]" Description="@Loc["Several slides visible at once with a fixed inward tilt. Side slides keep their size — the carousel always feels 3D, with depth at the sides instead of behind the active slide."]">
+        <BOBCarousel Transition="BOBCarouselTransition.Wheel3D" Loop="true">
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--blue">@Loc["3D 1"]</div>
+            </BOBCarouselItem>
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--green">@Loc["3D 2"]</div>
+            </BOBCarouselItem>
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--purple">@Loc["3D 3"]</div>
+            </BOBCarouselItem>
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--orange">@Loc["3D 4"]</div>
+            </BOBCarouselItem>
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--teal">@Loc["3D 5"]</div>
+            </BOBCarouselItem>
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--blue">@Loc["3D 6"]</div>
+            </BOBCarouselItem>
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--green">@Loc["3D 7"]</div>
+            </BOBCarouselItem>
+        </BOBCarousel>
+    </DocDemo>
+
+    <DocDemo Key="Coverflow" Title="@Loc["Coverflow 3D"]" Description="@Loc["Side slides recede with a 3D rotation. The active slide stays in front; neighbours rotate, scale and fade."]">
+        <BOBCarousel Transition="BOBCarouselTransition.Coverflow" Loop="true">
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--blue">@Loc["Cover 1"]</div>
+            </BOBCarouselItem>
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--green">@Loc["Cover 2"]</div>
+            </BOBCarouselItem>
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--purple">@Loc["Cover 3"]</div>
+            </BOBCarouselItem>
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--orange">@Loc["Cover 4"]</div>
+            </BOBCarouselItem>
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--teal">@Loc["Cover 5"]</div>
+            </BOBCarouselItem>
+        </BOBCarousel>
+    </DocDemo>
+
+    <DocDemo Key="Indicators" Title="@Loc["Indicator icons"]" Description="@Loc["Inactive indicators use IndicatorIcon; the active one can override via ActiveIndicatorIcon + ActiveIndicatorIconColor."]">
+        <BOBCarousel IndicatorIcon="@BOBIconKeys.UI.Plus"
+                     IndicatorIconColor="var(--palette-surface-contrast)"
+                     ActiveIndicatorIcon="@BOBIconKeys.UI.Close"
+                     ActiveIndicatorIconColor="var(--palette-primary)">
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--blue">@Loc["A"]</div>
+            </BOBCarouselItem>
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--green">@Loc["B"]</div>
+            </BOBCarouselItem>
+            <BOBCarouselItem>
+                <div class="demo-slide demo-slide--purple">@Loc["C"]</div>
+            </BOBCarouselItem>
+        </BOBCarousel>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+
+        <h3 class="doc-section__subtitle">BOBCarousel</h3>
+        <PropertyTable Properties="@BOBCarouselComponentInfo.Parameters" />
+
+        <h3 class="doc-section__subtitle">BOBCarouselItem</h3>
+        <PropertyTable Properties="@BOBCarouselItemComponentInfo.Parameters" />
+    </section>
+
+</DocPage>
+
+<style>
+    .demo-slide {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: white;
+    }
+
+    .demo-slide--blue { background: linear-gradient(135deg, #4f46e5, #2563eb); }
+    .demo-slide--green { background: linear-gradient(135deg, #059669, #10b981); }
+    .demo-slide--purple { background: linear-gradient(135deg, #7c3aed, #a855f7); }
+    .demo-slide--orange { background: linear-gradient(135deg, #ea580c, #f97316); }
+    .demo-slide--teal { background: linear-gradient(135deg, #0891b2, #06b6d4); }
+</style>
+
+@code {
+    private int _basicIndex;
+}

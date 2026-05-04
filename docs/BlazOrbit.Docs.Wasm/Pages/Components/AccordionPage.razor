@@ -1,0 +1,137 @@
+@page "/components/layout/accordion"
+
+@inject IStringLocalizer<AccordionPage> Loc
+
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBAccordion"]"
+         Lede="@Loc["Vertically stacked, expandable panels. Choose between multi-open, single-open, or always-one-open modes."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBAccordion)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+        <BOBAccordion>
+            <BOBAccordionItem Id="general">
+                <Header>@Loc["General"]</Header>
+                <ChildContent>@Loc["General settings appear here. Click again to collapse."]</ChildContent>
+            </BOBAccordionItem>
+            <BOBAccordionItem Id="advanced">
+                <Header>@Loc["Advanced"]</Header>
+                <ChildContent>@Loc["Advanced configuration. In the default Multiple mode you can keep both panels open."]</ChildContent>
+            </BOBAccordionItem>
+            <BOBAccordionItem Id="diagnostics">
+                <Header>@Loc["Diagnostics"]</Header>
+                <ChildContent>@Loc["Diagnostic tools and logs."]</ChildContent>
+            </BOBAccordionItem>
+        </BOBAccordion>
+    </DocDemo>
+
+    <DocDemo Key="SingleMode" Title="@Loc["Single mode"]" Description="@Loc["Only one panel can be open at a time. Click an open panel to collapse it."]">
+        <BOBAccordion Mode="BOBAccordionMode.Single">
+            <BOBAccordionItem Id="step-1">
+                <Header>@Loc["Step 1 — Pick a plan"]</Header>
+                <ChildContent>@Loc["Plan selection content."]</ChildContent>
+            </BOBAccordionItem>
+            <BOBAccordionItem Id="step-2">
+                <Header>@Loc["Step 2 — Add billing"]</Header>
+                <ChildContent>@Loc["Billing form."]</ChildContent>
+            </BOBAccordionItem>
+            <BOBAccordionItem Id="step-3">
+                <Header>@Loc["Step 3 — Confirm"]</Header>
+                <ChildContent>@Loc["Final review."]</ChildContent>
+            </BOBAccordionItem>
+        </BOBAccordion>
+    </DocDemo>
+
+    <DocDemo Key="SingleStrict" Title="@Loc["Always one open"]" Description="@Loc["The first panel auto-expands and at least one panel is always visible."]">
+        <BOBAccordion Mode="BOBAccordionMode.SingleStrict">
+            <BOBAccordionItem Id="overview">
+                <Header>@Loc["Overview"]</Header>
+                <ChildContent>@Loc["Auto-expanded on first render."]</ChildContent>
+            </BOBAccordionItem>
+            <BOBAccordionItem Id="features">
+                <Header>@Loc["Features"]</Header>
+                <ChildContent>@Loc["Click to swap which panel is open."]</ChildContent>
+            </BOBAccordionItem>
+        </BOBAccordion>
+    </DocDemo>
+
+    <DocDemo Key="Disabled" Title="@Loc["Disabled item"]">
+        <BOBAccordion>
+            <BOBAccordionItem Id="active">
+                <Header>@Loc["Active"]</Header>
+                <ChildContent>@Loc["This panel works as usual."]</ChildContent>
+            </BOBAccordionItem>
+            <BOBAccordionItem Id="locked" Disabled="true">
+                <Header>@Loc["Locked (disabled)"]</Header>
+                <ChildContent>@Loc["Unreachable."]</ChildContent>
+            </BOBAccordionItem>
+            <BOBAccordionItem Id="next">
+                <Header>@Loc["Next"]</Header>
+                <ChildContent>@Loc["Keyboard arrow navigation skips disabled items."]</ChildContent>
+            </BOBAccordionItem>
+        </BOBAccordion>
+    </DocDemo>
+
+    <DocDemo Key="GapAndBorder" Title="@Loc["Gap + border"]" Description="@Loc["Default gap is 0 (items flush). Combine Gap with a Border preset for a card-like grouping."]">
+        <BOBAccordion Gap="0.5rem" Border="@BOBBorderPresets.Rounded">
+            <BOBAccordionItem Id="gap-a">
+                <Header>@Loc["Item A"]</Header>
+                <ChildContent>@Loc["Items separated by 0.5rem and grouped inside a rounded border."]</ChildContent>
+            </BOBAccordionItem>
+            <BOBAccordionItem Id="gap-b">
+                <Header>@Loc["Item B"]</Header>
+                <ChildContent>@Loc["The border is on the parent. Individual items never carry their own border."]</ChildContent>
+            </BOBAccordionItem>
+            <BOBAccordionItem Id="gap-c">
+                <Header>@Loc["Item C"]</Header>
+                <ChildContent>@Loc["Try other presets: BOBBorderPresets.Subtle, .Pill, .RoundedLarge..."]</ChildContent>
+            </BOBAccordionItem>
+        </BOBAccordion>
+    </DocDemo>
+
+    <DocDemo Key="Separator" Title="@Loc["Custom separator"]" Description="@Loc["Render any markup between items via the Separator slot. Combine with Gap=0 for a hairline divider."]">
+        <BOBAccordion>
+            <Separator>
+                <hr style="border: none; border-top: 1px solid var(--palette-border); margin: 0;" />
+            </Separator>
+            <ChildContent>
+                <BOBAccordionItem Id="sep-a">
+                    <Header>@Loc["Section one"]</Header>
+                    <ChildContent>@Loc["Content one."]</ChildContent>
+                </BOBAccordionItem>
+                <BOBAccordionItem Id="sep-b">
+                    <Header>@Loc["Section two"]</Header>
+                    <ChildContent>@Loc["Content two."]</ChildContent>
+                </BOBAccordionItem>
+                <BOBAccordionItem Id="sep-c">
+                    <Header>@Loc["Section three"]</Header>
+                    <ChildContent>@Loc["Content three."]</ChildContent>
+                </BOBAccordionItem>
+            </ChildContent>
+        </BOBAccordion>
+    </DocDemo>
+
+    <DocDemo Key="CustomIcon" Title="@Loc["Custom expand icon"]" Description="@Loc["Override the icon per item. Default Plus rotates 45° on open; for chevrons set --_accordion-icon-rotation: 180deg in your CSS."]">
+        <BOBAccordion>
+            <BOBAccordionItem Id="info" ExpandIcon="@BOBIconKeys.UI.ChevronDown" InitiallyExpanded="true">
+                <Header>@Loc["Info"]</Header>
+                <ChildContent>@Loc["Custom chevron icon."]</ChildContent>
+            </BOBAccordionItem>
+            <BOBAccordionItem Id="more" ExpandIcon="@BOBIconKeys.UI.ChevronDown">
+                <Header>@Loc["More"]</Header>
+                <ChildContent>@Loc["More content."]</ChildContent>
+            </BOBAccordionItem>
+        </BOBAccordion>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+
+        <h3 class="doc-section__subtitle">BOBAccordion</h3>
+        <PropertyTable Properties="@BOBAccordionComponentInfo.Parameters" />
+
+        <h3 class="doc-section__subtitle">BOBAccordionItem</h3>
+        <PropertyTable Properties="@BOBAccordionItemComponentInfo.Parameters" />
+    </section>
+
+</DocPage>

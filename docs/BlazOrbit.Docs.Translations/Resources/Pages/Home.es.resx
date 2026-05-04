@@ -120,4 +120,7 @@
   <data name="A lightweight component library that extends native capabilities and improves your productivity" xml:space="preserve">
     <value>Una biblioteca de componentes liviana que amplía las capacidades nativas y mejora su productividad</value>
   </data>
+  <data name="Get Started" xml:space="preserve">
+    <value>Empezar</value>
+  </data>
 </root>

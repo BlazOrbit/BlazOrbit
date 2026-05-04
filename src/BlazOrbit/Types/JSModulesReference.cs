@@ -3,6 +3,7 @@
 internal static class JSModulesReference
 {
     public const string BehaviorsJs = "./_content/BlazOrbit/js/Types/Behaviors/BehaviorInterop.min.js";
+    public const string Carousel = "./_content/BlazOrbit/js/Types/Carousel/CarouselInterop.min.js";
     public const string Clipboard = "./_content/BlazOrbit/js/Types/Clipboard/ClipboardInterop.min.js";
     public const string ColorPicker = "./_content/BlazOrbit/js/Types/ColorPicker/ColorPickerInterop.min.js";
     public const string Draggable = "./_content/BlazOrbit/js/Types/Draggable/DraggableInterop.min.js";

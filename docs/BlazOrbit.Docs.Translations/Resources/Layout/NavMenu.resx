@@ -249,4 +249,34 @@
   <data name="Live Development" xml:space="preserve">
     <value>Live Development</value>
   </data>
+  <data name="Getting Started" xml:space="preserve">
+    <value>Getting Started</value>
+  </data>
+  <data name="Actions" xml:space="preserve">
+    <value>Actions</value>
+  </data>
+  <data name="Layout &amp; Containers" xml:space="preserve">
+    <value>Layout &amp; Containers</value>
+  </data>
+  <data name="Navigation" xml:space="preserve">
+    <value>Navigation</value>
+  </data>
+  <data name="Data Display" xml:space="preserve">
+    <value>Data Display</value>
+  </data>
+  <data name="Display &amp; Media" xml:space="preserve">
+    <value>Display &amp; Media</value>
+  </data>
+  <data name="Overlays &amp; Feedback" xml:space="preserve">
+    <value>Overlays &amp; Feedback</value>
+  </data>
+  <data name="Utilities" xml:space="preserve">
+    <value>Utilities</value>
+  </data>
+  <data name="Number Slider" xml:space="preserve">
+    <value>Number Slider</value>
+  </data>
+  <data name="Range Slider" xml:space="preserve">
+    <value>Range Slider</value>
+  </data>
 </root>
