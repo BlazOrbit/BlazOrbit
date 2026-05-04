@@ -1,7 +1,7 @@
 ﻿{
-  "name": "BlazOrbit Docs",
+  "name": "BlazOrbit | Modern Blazor Components",
   "short_name": "BlazOrbit",
-  "description": "Official documentation for BlazOrbit — A modern, lightweight and expanded from native Blazor components library for .NET.",
+  "description": "Open source component library for Blazor and .NET. Modern, accessible, and lightweight.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -9,7 +9,11 @@
   "background_color": "#121417",
   "theme_color": "#c41236",
   "lang": "en",
-  "categories": [ "developer", "blazor", "dotnet", "components", "productivity" ],
+  "categories": [
+    "developer",
+    "education",
+    "productivity"
+  ],
   "icons": [
     {
       "src": "icon.svg",
@@ -31,13 +35,13 @@
     },
     {
       "src": "icon-512.png",
-      "sizes": "192x192",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
       "src": "icon-512.png",
-      "sizes": "192x192",
+      "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
     }

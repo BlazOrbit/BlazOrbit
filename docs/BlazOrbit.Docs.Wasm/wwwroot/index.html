@@ -1,48 +1,117 @@
 ﻿<!DOCTYPE html>
 <html lang="en" data-bob-scrollbars>
-
 <head>
+    <!-- CHARSET & VIEWPORT  -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#c41236" />
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
 
-    <title>BlazOrbit — Modern Blazor components for .NET 10</title>
+    <!-- PRIMARY META -->
+    <title>BlazOrbit | Modern Open Source Blazor Components for .NET</title>
+    <meta name="description" content="High-performance open source component library for Blazor and .NET. Modern, accessible, and lightweight UI components to boost productivity." />
+    <meta name="author" content="BlazOrbit" />
+    <link rel="canonical" href="https://blazorbit.com/" />
+
+    <!-- OPEN GRAPH -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="BlazOrbit" />
+    <meta property="og:url" content="https://blazorbit.com/" />
+    <meta property="og:title" content="BlazOrbit | Modern Open Source Blazor Components for .NET" />
+    <meta property="og:description" content="High-performance open source component library for Blazor and .NET. Modern, accessible, and lightweight UI components to boost productivity." />
+    <meta property="og:image" content="https://blazorbit.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="BlazOrbit — Modern Blazor Component Library" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- TWITTER / X CARDS -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@blazorbit" />
+    <meta name="twitter:title" content="BlazOrbit | Modern Open Source Blazor Components for .NET" />
+    <meta name="twitter:description" content="High-performance open source component library for Blazor and .NET. Modern, accessible, and lightweight UI components to boost productivity." />
+    <meta name="twitter:image" content="https://blazorbit.com/og-image.png" />
+    <meta name="twitter:image:alt" content="BlazOrbit — Modern Blazor Component Library" />
+
+    <!-- PWA / BROWSER -->
+    <meta name="theme-color" content="#c41236" />
+    <meta name="application-name" content="BlazOrbit" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <meta name="apple-mobile-web-app-title" content="BlazOrbit" />
+
+    <!-- STRUCTURED DATA (JSON-LD) -->
+    <script type="application/ld+json">
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "BlazOrbit",
+            "url": "https://blazorbit.com",
+            "logo": {
+              "@type": "ImageObject",
+              "url": "https://blazorbit.com/icon-512.png",
+              "width": 512,
+              "height": 512
+            },
+            "sameAs": [
+              "https://github.com/blazorbit"
+            ]
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "BlazOrbit",
+            "url": "https://blazorbit.com",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Web, Windows, macOS, Linux",
+            "softwareRequirements": "Blazor, .NET",
+            "softwareVersion": "1.0",
+            "author": {
+              "@type": "Organization",
+              "name": "BlazOrbit"
+            },
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD"
+            },
+            "description": "A modern, lightweight open source Blazor component library for .NET. High-performance, accessible UI components to boost developer productivity."
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "BlazOrbit",
+            "url": "https://blazorbit.com",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://blazorbit.com/search?q={search_term_string}"
+              },
+              "query-input": "required name=search_term_string"
+            }
+          }
+        ]
+    </script>
+
+    <!-- FAVICONS & MANIFEST -->
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="icon-144.png" type="image/png" sizes="144x144" />
+    <link rel="apple-touch-icon" href="icon-144.png" />
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+
+    <!-- BASE & PRELOAD -->
     <base href="/" />
-    <style>.seo-prerender{position:absolute;left:-9999px;top:-9999px;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;}</style>
     <link rel="preload" id="webassembly" />
 
-    <link rel="manifest" href="manifest.webmanifest" />
-    <link rel="icon" href="icon-48.png" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="icon-48.png" />
-
+    <!-- STYLESHEETS -->
     <link href="_content/BlazOrbit/css/blazorbit.css" rel="stylesheet" />
     <link href="BlazOrbit.Docs.Wasm.styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="css/app.css" />
     <link rel="stylesheet" href="css/splash.css" />
     <link rel="stylesheet" href="css/docs.css" />
-    <script type="importmap"></script>
-
-    <!-- Schema.org JSON-LD -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "BlazOrbit",
-      "applicationCategory": "DeveloperApplication",
-      "operatingSystem": ".NET 10",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "description": "A modern, lightweight Blazor component library for .NET 10 that extends native capabilities and improves developer productivity."
-    }
-    </script>
 </head>
-
 <body>
     <div id="app">
         <div class="docs-splash">
@@ -54,28 +123,6 @@
                 <span>Booting documentation&hellip;</span>
             </div>
         </div>
-
-        <!-- SEO app shell — indexed by crawlers, visually hidden for users.
-             Blazor replaces the entire #app content on hydration. -->
-        <div class="seo-prerender">
-            <h1>BlazOrbit — Modern Blazor components for .NET 10</h1>
-            <p>A lightweight component library that extends native Blazor capabilities and improves your productivity.</p>
-            <p>Install with <code>dotnet add package BlazOrbit</code> and add <code>builder.Services.AddBlazOrbit();</code> to your <code>Program.cs</code>.</p>
-            <nav aria-label="Documentation sections">
-                <a href="/getting-started">Getting Started</a>
-                <a href="/components/button">Button</a>
-                <a href="/components/card">Card</a>
-                <a href="/components/checkbox">Checkbox</a>
-                <a href="/components/datagrid">Data Grid</a>
-                <a href="/components/dropdown">Dropdown</a>
-                <a href="/components/modal">Modal</a>
-                <a href="/components/tabs">Tabs</a>
-                <a href="/components/toast">Toast</a>
-                <a href="/components/tooltip">Tooltip</a>
-                <a href="/concepts/theming">Theming</a>
-                <a href="/concepts/accessibility">Accessibility</a>
-            </nav>
-        </div>
     </div>
 
     <script src="js/doc-search.js"></script>
@@ -83,5 +130,4 @@
     <script src="_framework/blazor.webassembly#[.{fingerprint}].js"></script>
     <script src="js/sw-register.js" defer></script>
 </body>
-
 </html>

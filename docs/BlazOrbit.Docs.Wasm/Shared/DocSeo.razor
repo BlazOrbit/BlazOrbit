@@ -1,4 +1,4 @@
-@using Microsoft.AspNetCore.Components.Web
+﻿@using Microsoft.AspNetCore.Components.Web
 @inject NavigationManager Nav
 
 @* Renders <title>, <meta> and <link rel="canonical"> inside <head> via HeadOutlet.
@@ -11,6 +11,8 @@
     <PageTitle>@(GetPageTitle())</PageTitle>
 }
 <HeadContent>
+    <meta name="robots" content="@Robots" />
+
     <meta name="description" content="@GetDescription()" />
     <meta name="keywords" content="@GetKeywords()" />
 
@@ -32,6 +34,7 @@
     [Parameter] public string? Title { get; set; }
     [Parameter] public string? Description { get; set; }
     [Parameter] public IEnumerable<string> Keywords { get; set; } = Array.Empty<string>();
+    [Parameter] public string Robots { get; set; } = "index, follow";
 
     private const string SiteName = "BlazOrbit";
 
