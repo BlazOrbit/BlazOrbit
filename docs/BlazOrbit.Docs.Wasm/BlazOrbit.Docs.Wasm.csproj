@@ -37,9 +37,6 @@
 		<AdditionalFiles Include="Pages\**\*.razor" />
 	</ItemGroup>
 
-	<ItemGroup>
-	  <Content Remove="Pages\Other\LiveDevelopmentPage.razor" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<CompilerVisibleProperty Include="RootNamespace" />

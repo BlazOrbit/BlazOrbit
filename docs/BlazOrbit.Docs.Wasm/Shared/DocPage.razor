@@ -1,8 +1,8 @@
-@using BlazOrbit.Docs.Components
+﻿@using BlazOrbit.Docs.Components
 
 @inject NavigationManager Nav
 
-<DocSeo Title="@Title" Description="@Lede" Keywords="@Keywords" />
+<DocSeo Title="@Title" Description="@Lede" Keywords="@Keywords" Robots="@Robots" />
 
 <CascadingValue Value="_ctx" IsFixed="true">
     <div class="doc-page">
@@ -46,6 +46,7 @@
     [Parameter] public IEnumerable<string> Keywords { get; set; } = Array.Empty<string>();
     [Parameter] public Type? ApiType { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public string Robots { get; set; } = "index, follow";
 
     private DocDemoContext? _ctx;
 

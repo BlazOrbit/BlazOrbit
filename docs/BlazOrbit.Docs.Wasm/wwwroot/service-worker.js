@@ -13,6 +13,11 @@ const PRECACHE_URLS = [
     './',
     './index.html',
     './icon.svg',
+    './icon-48.png',
+    './icon-144.png',
+    './icon-192.png',
+    './icon-512.png',
+    './og-image.png',
     './manifest.webmanifest',
     './_content/BlazOrbit/css/blazorbit.css'
 ];
