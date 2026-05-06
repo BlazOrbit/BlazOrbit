@@ -18,6 +18,8 @@ jobs:
   router:
     name: Router
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
     outputs:
       runner: ${{ steps.check.outputs.runner }}
     steps:
