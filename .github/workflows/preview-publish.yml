@@ -55,6 +55,7 @@ concurrency:
 jobs:
   router:
     uses: ./.github/workflows/_runner-router.yml
+    secrets: inherit
 
   guard:
     name: Branch Guard
@@ -201,6 +202,10 @@ jobs:
     name: Publish to NuGet
     runs-on: ubuntu-latest
     needs: [version, pack]
+    # Push events build + pack only (artifact is uploaded by the pack job).
+    # Publishing to NuGet is gated to manual workflow_dispatch to avoid spamming
+    # preview versions on every commit.
+    if: github.event_name == 'workflow_dispatch'
     environment: preview
     steps:
       - name: Download packages

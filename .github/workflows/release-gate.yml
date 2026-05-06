@@ -28,6 +28,7 @@ concurrency:
 jobs:
   router:
     uses: ./.github/workflows/_runner-router.yml
+    secrets: inherit
 
   # ARCH-15: build + test on both Linux and Windows. Publishing still happens
   # only from Linux (release-publish.yml), but the gate verifies both platforms
