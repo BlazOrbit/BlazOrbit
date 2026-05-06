@@ -77,16 +77,29 @@
 		Strip Vite source maps before the Razor SDK promotes wwwroot/** to
 		StaticWebAssets. Keeping them on disk in Debug is still useful for local `dotnet watch`,
 		but shipping them in Release nupkgs doubles the JS payload every consumer's `dotnet
-		publish` has to carry. Deleting from disk is the cleanest override of the auto-manifest.
+		publish` has to carry.
+
+		Two failure modes this target defends against:
+		  1. Vite emits *.js.map in Debug; if a Release build follows without `dotnet clean`,
+		     stale .map files on disk get picked up by the Razor SDK auto-discovery scan.
+		  2. The Razor SDK populates @(Content) from `wwwroot/**` during MSBuild evaluation,
+		     before any `BeforeTargets` runs. By the time `ResolveProjectStaticWebAssets`
+		     enumerates the Content list, the file has been deleted from disk → the SDK
+		     throws "No file exists for the asset at either location ... .js.map".
+		Solution: delete from disk AND remove from the @(Content) ItemGroup, before the
+		first SDK target that consumes Content as candidate static web assets runs.
 	-->
 	<Target Name="StripJsMapsForRelease"
 			AfterTargets="BuildBlazOrbitAssets"
-			BeforeTargets="GetStaticWebAssetsBuildInputs;GenerateStaticWebAssetsManifest"
+			BeforeTargets="ResolveProjectStaticWebAssets;ResolveStaticWebAssetsConfiguration;GetStaticWebAssetsBuildInputs;GenerateStaticWebAssetsManifest"
 			Condition="'$(Configuration)' == 'Release' AND Exists('$(BlazOrbitProjectPath)\wwwroot\js')">
 		<ItemGroup>
 			<_BlazOrbitJsMapFiles Include="$(BlazOrbitProjectPath)\wwwroot\js\**\*.js.map" />
 		</ItemGroup>
 		<Delete Files="@(_BlazOrbitJsMapFiles)" />
+		<ItemGroup>
+			<Content Remove="$(BlazOrbitProjectPath)\wwwroot\**\*.js.map" />
+		</ItemGroup>
 		<Message Text="Stripped @(_BlazOrbitJsMapFiles->Count()) source map(s) from the Release package." Importance="normal" />
 	</Target>
 
