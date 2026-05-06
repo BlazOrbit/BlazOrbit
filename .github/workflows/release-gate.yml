@@ -19,6 +19,7 @@ on:
 permissions:
   contents: read
   issues: read
+  actions: read
 
 concurrency:
   group: release-gate-${{ github.ref }}

@@ -19,6 +19,7 @@ env:
 permissions:
   contents: read
   pull-requests: write  # Needed to add labels
+  actions: read
 
 concurrency:
   group: preview-gate-${{ github.ref }}

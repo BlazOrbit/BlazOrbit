@@ -23,6 +23,7 @@ env:
 
 permissions:
   contents: write
+  actions: read
 
 concurrency:
   group: release-publish
