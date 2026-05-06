@@ -1,6 +1,10 @@
 # Reusable workflow: decides whether to use local self-hosted runners or GitHub-hosted.
 # Detects runners whose names start with 'vm-runner'. If USE_LOCAL_RUNNER is true
 # and at least one is online, returns 'self-hosted'; otherwise 'ubuntu-latest'.
+#
+# Can also be triggered manually via workflow_dispatch to verify runner availability.
+
+name: '[Internal] Check Runner Routing'
 
 on:
   workflow_call:
@@ -8,11 +12,14 @@ on:
       runner:
         description: 'Runner label to use for subsequent jobs'
         value: ${{ jobs.router.outputs.runner }}
+  workflow_dispatch:
 
 jobs:
   router:
     name: Router
     runs-on: ubuntu-latest
+    permissions:
+      actions: read
     outputs:
       runner: ${{ steps.check.outputs.runner }}
     steps:
@@ -25,19 +32,49 @@ jobs:
           if [ "${{ vars.USE_LOCAL_RUNNER }}" != "true" ]; then
             echo "runner=ubuntu-latest" >> "$GITHUB_OUTPUT"
             echo "USE_LOCAL_RUNNER not enabled -> ubuntu-latest"
+
+            echo "### Result" >> "$GITHUB_STEP_SUMMARY"
+            echo "**USE_LOCAL_RUNNER** is not enabled → runner: \`ubuntu-latest\`" >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
 
-          # Query self-hosted runners filtered by name prefix
-          runners=$(gh api "repos/${{ github.repository }}/actions/runners" \
-            --jq '.runners[] | select(.name | startswith("vm-runner"))' 2>/dev/null || true)
+          # Query self-hosted runners filtered by name prefix (repo-level)
+          repo_raw=$(gh api "repos/${{ github.repository }}/actions/runners" || true)
+          repo_runners=$(echo "$repo_raw" | jq -r '.runners[] | select(.name | startswith("vm-runner"))' || true)
 
-          online=$(echo "$runners" | grep -c '"status": "online"' || true)
+          echo "--- Debug ---"
+          echo "Total repo runners: $(echo "$repo_raw" | jq '.runners | length' || true)"
+          echo "Filtered vm-runner(s): $(echo "$repo_runners" | grep -c '"id":' || true)"
+          echo ""
 
-          if [ "$online" -gt 0 ]; then
+          online_count=$(echo "$repo_runners" | jq -s '[.[] | select(.status == "online")] | length')
+
+          echo "Online vm-runner(s): $online_count"
+          echo "-------------"
+
+          # Build summary table
+          echo "### Self-Hosted Runners Status" >> "$GITHUB_STEP_SUMMARY"
+          echo "| Runner | Status |" >> "$GITHUB_STEP_SUMMARY"
+          echo "|--------|--------|" >> "$GITHUB_STEP_SUMMARY"
+
+          if [ -n "$repo_runners" ]; then
+            echo "$repo_runners" | jq -r '"| \(.name) | \(.status) |"' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "| *(none found)* | - |" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+
+          if [ "$online_count" -gt 0 ]; then
             echo "runner=self-hosted" >> "$GITHUB_OUTPUT"
-            echo "Found $online local runner(s) online -> self-hosted"
+            echo "Found $online_count local runner(s) online -> self-hosted"
+
+            echo "### Result" >> "$GITHUB_STEP_SUMMARY"
+            echo "**$online_count** runner(s) online → runner: \`self-hosted\`" >> "$GITHUB_STEP_SUMMARY"
           else
             echo "runner=ubuntu-latest" >> "$GITHUB_OUTPUT"
             echo "No local runners online -> ubuntu-latest"
+
+            echo "### Result" >> "$GITHUB_STEP_SUMMARY"
+            echo "No online runners found → runner: \`ubuntu-latest\`" >> "$GITHUB_STEP_SUMMARY"
           fi
