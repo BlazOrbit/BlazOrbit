@@ -2,6 +2,7 @@
 
 <button type="button"
         data-bob-size="@Size.ToString().ToLowerInvariant()"
+        data-bob-active="@(Active ? "true" : null)"
         class="@ComputedClass"
         disabled="@IsDisabled"
         tabindex="@(IsDisabled ? "-1" : "0")"
@@ -58,9 +59,6 @@
         get
         {
             List<string> classes = ["bob-btn"];
-
-            if (Active)
-                classes.Add("bob-btn--active");
 
             if (AdditionalAttributes?.TryGetValue("class", out object? extraClass) == true)
                 classes.Add(extraClass.ToString() ?? "");

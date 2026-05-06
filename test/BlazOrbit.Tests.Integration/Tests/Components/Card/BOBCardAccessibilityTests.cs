@@ -39,7 +39,7 @@ public class BOBCardAccessibilityTests
             .Add(c => c.ChildContent, b => b.AddContent(0, "Body")));
 
         // Assert
-        cut.Find("bob-component").GetAttribute("data-bob-clickable").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-clickable").Should().BeNull();
     }
 
     [Theory]

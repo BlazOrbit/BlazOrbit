@@ -6,7 +6,7 @@
     margin-top: 0.25rem;
 }
 
-.bob-field-helper--error {
+.bob-field-helper[data-bob-error="true"] {
     color: var(--palette-error);
     opacity: 1;
 }

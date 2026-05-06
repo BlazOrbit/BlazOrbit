@@ -27,7 +27,7 @@ public class BOBInputDateTimeInteractionTests
             .Add(c => c.Label, "Test DateTime"));
 
         IElement container = cut.Find("bob-component");
-        container.GetAttribute("data-bob-floated").Should().Be("false");
+        container.GetAttribute("data-bob-floated").Should().BeNull();
 
         // Act
         IElement pattern = cut.Find(".bob-pattern");
@@ -83,7 +83,7 @@ public class BOBInputDateTimeInteractionTests
 
         // Assert - Label should unfloat when empty and no focus
         cut.WaitForAssertion(() =>
-            container.GetAttribute("data-bob-floated").Should().Be("false"));
+            container.GetAttribute("data-bob-floated").Should().BeNull());
     }
 
     [Theory]

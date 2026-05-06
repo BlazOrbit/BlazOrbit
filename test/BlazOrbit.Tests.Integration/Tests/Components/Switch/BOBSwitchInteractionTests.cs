@@ -31,7 +31,7 @@ public class BOBSwitchInteractionTests
                     .Add(c => c.Value, v));
             }));
 
-        cut.Find("bob-component").GetAttribute("data-bob-active").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-active").Should().BeNull();
 
         // Act
         cut.Find("label").Click();
@@ -68,7 +68,7 @@ public class BOBSwitchInteractionTests
 
         // Assert
         capturedValue.Should().Be(false);
-        cut.Find("bob-component").GetAttribute("data-bob-active").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-active").Should().BeNull();
     }
 
     [Theory]

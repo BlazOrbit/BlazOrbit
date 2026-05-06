@@ -104,7 +104,6 @@ internal static class FeatureDefinitions
             public const string Grid = "bob-picker__grid";
             public const string Cell = "bob-picker__cell";
             public const string CellSelected = "bob-picker__cell--selected";
-            public const string CellMuted = "bob-picker__cell--muted";
             public const string Input = "bob-picker__input";
             public const string Separator = "bob-picker__separator";
             public const string Slider = "bob-picker__slider";
@@ -165,6 +164,13 @@ internal static class FeatureDefinitions
         /// Marks component as part of data collection family for shared styles.
         /// </summary>
         public const string DataCollectionBase = "data-bob-data-collection";
+
+        /// <summary>
+        /// Picker-family cell rendered with reduced emphasis (e.g. days outside the current month
+        /// in a date picker, weekday header cells). Used by the picker family CSS to apply the
+        /// muted opacity rule.
+        /// </summary>
+        public const string Muted = "data-bob-muted";
 
         // --- State attributes ---
         /// <summary>

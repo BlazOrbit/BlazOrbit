@@ -97,7 +97,7 @@ public class BOBFlexStackStateTests
         IRenderedComponent<BOBFlexStack> cut = ctx.Render<BOBFlexStack>(p => p
             .Add(c => c.FullWidth, false));
 
-        cut.Find("bob-component").GetAttribute("data-bob-fullwidth").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-fullwidth").Should().BeNull();
 
         // Act
         cut.Render(p => p.Add(c => c.FullWidth, true));

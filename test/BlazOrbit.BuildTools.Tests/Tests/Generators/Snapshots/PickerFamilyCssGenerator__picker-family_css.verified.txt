@@ -63,7 +63,7 @@ bob-component[data-bob-picker-base] .bob-picker__cell--selected {
     color: var(--palette-primary-contrast);
 }
 
-bob-component[data-bob-picker-base] .bob-picker__cell--muted {
+bob-component[data-bob-picker-base] .bob-picker__cell[data-bob-muted="true"] {
     opacity: 0.3;
 }
 

@@ -48,8 +48,14 @@
     {
         dataAttributes[FeatureDefinitions.DataAttributes.Position] = GetPositionValue();
         dataAttributes[FeatureDefinitions.DataAttributes.Animation] = GetAnimationValue();
-        dataAttributes[FeatureDefinitions.DataAttributes.Closing] = State.IsClosing.ToString().ToLowerInvariant();
-        dataAttributes[FeatureDefinitions.DataAttributes.Paused] = State.IsPaused.ToString().ToLowerInvariant();
+        if (State.IsClosing)
+            dataAttributes[FeatureDefinitions.DataAttributes.Closing] = "true";
+        else
+            dataAttributes.Remove(FeatureDefinitions.DataAttributes.Closing);
+        if (State.IsPaused)
+            dataAttributes[FeatureDefinitions.DataAttributes.Paused] = "true";
+        else
+            dataAttributes.Remove(FeatureDefinitions.DataAttributes.Paused);
     }
 
     public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
@@ -76,7 +82,7 @@
 
         if (State.Options.AutoDismiss)
         {
-            _ = RunProgressLoopAsync(_disposeCts.Token);
+            BOBAsyncHelper.SafeFireAndForget(() => RunProgressLoopAsync(_disposeCts.Token));
         }
     }
 

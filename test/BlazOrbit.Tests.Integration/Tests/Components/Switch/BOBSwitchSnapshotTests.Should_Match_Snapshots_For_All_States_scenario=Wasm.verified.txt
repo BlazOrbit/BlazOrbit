@@ -2,35 +2,35 @@
   {
     Name: Default_Off,
     Html:
-<bob-component data-bob-active="false" data-bob-component="switch" data-bob-size="medium" data-bob-density="standard" data-bob-disabled="false" b-<SCOPE>><label class="bob-switch" for="snap-off" blazor:onclick="<EVENT>" blazor:onclick:preventDefault b-<SCOPE>><input type="checkbox" id="snap-off" role="switch" aria-checked="false" aria-label="Toggle" aria-describedby="" class="bob-switch__input" b-<SCOPE> />
+<bob-component data-bob-component="switch" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><label class="bob-switch" for="snap-off" blazor:onclick="<EVENT>" blazor:onclick:preventDefault b-<SCOPE>><input type="checkbox" id="snap-off" role="switch" aria-checked="false" aria-label="Toggle" aria-describedby="" class="bob-switch__input" b-<SCOPE> />
 
         <span class="bob-switch__track" aria-hidden="true" b-<SCOPE>><span class="bob-switch__thumb" b-<SCOPE>></span></span></label></bob-component>
   },
   {
     Name: Default_On,
     Html:
-<bob-component data-bob-active="true" data-bob-component="switch" data-bob-size="medium" data-bob-density="standard" data-bob-disabled="false" b-<SCOPE>><label class="bob-switch" for="snap-on" blazor:onclick="<EVENT>" blazor:onclick:preventDefault b-<SCOPE>><input type="checkbox" id="snap-on" role="switch" checked aria-checked="true" aria-label="Toggle" aria-describedby="" class="bob-switch__input" b-<SCOPE> />
+<bob-component data-bob-active="true" data-bob-component="switch" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><label class="bob-switch" for="snap-on" blazor:onclick="<EVENT>" blazor:onclick:preventDefault b-<SCOPE>><input type="checkbox" id="snap-on" role="switch" checked aria-checked="true" aria-label="Toggle" aria-describedby="" class="bob-switch__input" b-<SCOPE> />
 
         <span class="bob-switch__track" aria-hidden="true" b-<SCOPE>><span class="bob-switch__thumb" b-<SCOPE>></span></span></label></bob-component>
   },
   {
     Name: Disabled,
     Html:
-<bob-component data-bob-active="false" data-bob-component="switch" data-bob-size="medium" data-bob-density="standard" data-bob-disabled="true" b-<SCOPE>><label class="bob-switch" for="snap-disabled" blazor:onclick="<EVENT>" blazor:onclick:preventDefault b-<SCOPE>><input type="checkbox" id="snap-disabled" role="switch" disabled aria-checked="false" aria-label="Toggle" aria-describedby="" class="bob-switch__input" b-<SCOPE> />
+<bob-component data-bob-component="switch" data-bob-size="medium" data-bob-density="standard" data-bob-disabled="true" b-<SCOPE>><label class="bob-switch" for="snap-disabled" blazor:onclick="<EVENT>" blazor:onclick:preventDefault b-<SCOPE>><input type="checkbox" id="snap-disabled" role="switch" disabled aria-checked="false" aria-label="Toggle" aria-describedby="" class="bob-switch__input" b-<SCOPE> />
 
         <span class="bob-switch__track" aria-hidden="true" b-<SCOPE>><span class="bob-switch__thumb" b-<SCOPE>></span></span></label></bob-component>
   },
   {
     Name: With_Label,
     Html:
-<bob-component data-bob-active="false" data-bob-component="switch" data-bob-size="medium" data-bob-density="standard" data-bob-disabled="false" b-<SCOPE>><label class="bob-switch" for="snap-label" blazor:onclick="<EVENT>" blazor:onclick:preventDefault b-<SCOPE>><input type="checkbox" id="snap-label" role="switch" aria-checked="false" aria-describedby="" class="bob-switch__input" b-<SCOPE> />
+<bob-component data-bob-component="switch" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><label class="bob-switch" for="snap-label" blazor:onclick="<EVENT>" blazor:onclick:preventDefault b-<SCOPE>><input type="checkbox" id="snap-label" role="switch" aria-checked="false" aria-describedby="" class="bob-switch__input" b-<SCOPE> />
 
         <span class="bob-switch__track" aria-hidden="true" b-<SCOPE>><span class="bob-switch__thumb" b-<SCOPE>></span></span><span class="bob-switch__label" b-<SCOPE>>Enable feature</span></label></bob-component>
   },
   {
     Name: Custom_Colors,
     Html:
-<bob-component data-bob-active="false" data-bob-component="switch" data-bob-size="medium" data-bob-density="standard" data-bob-disabled="false" style="--bob-inline-track-inactive-bg: #aaaaaa; --bob-inline-track-active-bg: #00aa00" b-<SCOPE>><label class="bob-switch" for="snap-colors" blazor:onclick="<EVENT>" blazor:onclick:preventDefault b-<SCOPE>><input type="checkbox" id="snap-colors" role="switch" aria-checked="false" aria-label="Toggle" aria-describedby="" class="bob-switch__input" b-<SCOPE> />
+<bob-component data-bob-component="switch" data-bob-size="medium" data-bob-density="standard" style="--bob-inline-track-inactive-bg: #aaaaaa; --bob-inline-track-active-bg: #00aa00" b-<SCOPE>><label class="bob-switch" for="snap-colors" blazor:onclick="<EVENT>" blazor:onclick:preventDefault b-<SCOPE>><input type="checkbox" id="snap-colors" role="switch" aria-checked="false" aria-label="Toggle" aria-describedby="" class="bob-switch__input" b-<SCOPE> />
 
         <span class="bob-switch__track" aria-hidden="true" b-<SCOPE>><span class="bob-switch__thumb" b-<SCOPE>></span></span></label></bob-component>
   }

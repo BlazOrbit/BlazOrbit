@@ -24,9 +24,9 @@ public class BOBInputCheckboxRenderingTests
         root.GetAttribute("data-bob-component").Should().Be("input-checkbox");
         root.GetAttribute("data-bob-variant").Should().Be("default");
         root.GetAttribute("data-bob-size").Should().Be("medium");
-        root.GetAttribute("data-bob-disabled").Should().Be("false");
-        root.GetAttribute("data-bob-error").Should().Be("false");
-        root.GetAttribute("data-bob-active").Should().Be("false");
+        root.GetAttribute("data-bob-disabled").Should().BeNull();
+        root.GetAttribute("data-bob-error").Should().BeNull();
+        root.GetAttribute("data-bob-active").Should().BeNull();
     }
 
     [Theory]
@@ -53,7 +53,7 @@ public class BOBInputCheckboxRenderingTests
 
         IElement root = cut.Find("bob-component");
         root.GetAttribute("data-bob-indeterminate").Should().Be("true");
-        root.GetAttribute("data-bob-active").Should().Be("false");
+        root.GetAttribute("data-bob-active").Should().BeNull();
     }
 
     [Theory]

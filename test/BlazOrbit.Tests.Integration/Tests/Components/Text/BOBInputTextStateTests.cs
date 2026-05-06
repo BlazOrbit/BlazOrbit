@@ -45,7 +45,7 @@ public class BOBInputTextStateTests
             .Add(c => c.Disabled, false));
 
         IElement root = cut.Find("bob-component");
-        root.GetAttribute("data-bob-disabled").Should().Be("false");
+        root.GetAttribute("data-bob-disabled").Should().BeNull();
         cut.Find("input").HasAttribute("disabled").Should().BeFalse();
 
         cut.Render(p => p
@@ -75,7 +75,7 @@ public class BOBInputTextStateTests
             .Add(c => c.ValueExpression, () => model.Value)
             .Add(c => c.ReadOnly, false));
 
-        root.GetAttribute("data-bob-readonly").Should().Be("false");
+        root.GetAttribute("data-bob-readonly").Should().BeNull();
         cut.Find("input").HasAttribute("readonly").Should().BeFalse();
     }
 
@@ -103,7 +103,7 @@ public class BOBInputTextStateTests
             .Add(c => c.ValueExpression, () => model.Value)
             .Add(c => c.Required, false));
 
-        root.GetAttribute("data-bob-required").Should().Be("false");
+        root.GetAttribute("data-bob-required").Should().BeNull();
         cut.Find("input").HasAttribute("required").Should().BeFalse();
         cut.FindAll(".bob-input__required").Should().BeEmpty();
     }
@@ -120,7 +120,7 @@ public class BOBInputTextStateTests
             .Add(c => c.Error, false));
 
         IElement root = cut.Find("bob-component");
-        root.GetAttribute("data-bob-error").Should().Be("false");
+        root.GetAttribute("data-bob-error").Should().BeNull();
 
         cut.Render(p => p
             .Add(c => c.ValueExpression, () => model.Value)
@@ -142,7 +142,7 @@ public class BOBInputTextStateTests
             .Add(c => c.Loading, false));
 
         IElement root = cut.Find("bob-component");
-        root.GetAttribute("data-bob-loading").Should().Be("false");
+        root.GetAttribute("data-bob-loading").Should().BeNull();
 
         cut.Render(p => p
             .Add(c => c.ValueExpression, () => model.Value)

@@ -231,7 +231,9 @@
         string? patternStyle = GetItemPatternStyle(index);
 
         <article @key="item"
-                 class="bob-datacards__card @(isSelected ? "bob-datacards__card--selected" : "") @(IsInteractiveRow ? "bob-datacards__card--interactive" : "")"
+                 class="bob-datacards__card"
+                 data-bob-interactive="@(IsInteractiveRow ? "true" : null)"
+                 data-bob-selected="@(isSelected ? "true" : null)"
                  style="@patternStyle"
                  role="@(SelectionMode != SelectionMode.None ? "option" : null)"
                  aria-selected="@(SelectionMode != SelectionMode.None ? isSelected.ToString().ToLowerInvariant() : null)"

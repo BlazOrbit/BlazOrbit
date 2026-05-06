@@ -2,7 +2,7 @@
   {
     Name: Default_Outlined,
     Html:
-<bob-component data-bob-floated="false" data-bob-component="input-text" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-component="input-text" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-input-<ID>" class="bob-input__label">Name</label></span>
         <span class="bob-input__outline-trailing"></span></div>
                 
@@ -17,7 +17,7 @@
   {
     Name: Filled_With_Value,
     Html:
-<bob-component data-bob-floated="true" data-bob-component="input-text" data-bob-variant="filled" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-floated="true" data-bob-component="input-text" data-bob-variant="filled" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-input-<ID>" class="bob-input__label">Name</label></span>
         <span class="bob-input__outline-trailing"></span></div>
                 
@@ -32,7 +32,7 @@
   {
     Name: Standard_With_Helper,
     Html:
-<bob-component data-bob-floated="false" data-bob-component="input-text" data-bob-variant="standard" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-component="input-text" data-bob-variant="standard" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-input-<ID>" class="bob-input__label">Email</label></span>
         <span class="bob-input__outline-trailing"></span></div>
                 
@@ -47,7 +47,7 @@
   {
     Name: Required,
     Html:
-<bob-component data-bob-floated="false" data-bob-component="input-text" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="true" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-component="input-text" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-required="true" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-input-<ID>" class="bob-input__label">Required Field</label></span>
         <span class="bob-input__outline-trailing"></span></div>
                 
@@ -62,7 +62,7 @@
   {
     Name: Disabled,
     Html:
-<bob-component data-bob-floated="false" data-bob-component="input-text" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="true" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-component="input-text" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-disabled="true" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-input-<ID>" class="bob-input__label">Disabled</label></span>
         <span class="bob-input__outline-trailing"></span></div>
                 
@@ -77,7 +77,7 @@
   {
     Name: Loading,
     Html:
-<bob-component data-bob-floated="false" data-bob-component="input-text" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="true" data-bob-error="false" data-bob-disabled="true" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-component="input-text" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="true" data-bob-disabled="true" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-input-<ID>" class="bob-input__label">Loading</label></span>
         <span class="bob-input__outline-trailing"></span></div>
                 
@@ -92,7 +92,7 @@
   {
     Name: Error_State,
     Html:
-<bob-component data-bob-floated="false" data-bob-component="input-text" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="true" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-component="input-text" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-error="true" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-input-<ID>" class="bob-input__label">Error</label></span>
         <span class="bob-input__outline-trailing"></span></div>
                 
@@ -107,7 +107,7 @@
   {
     Name: With_Prefix_Suffix,
     Html:
-<bob-component data-bob-floated="false" data-bob-component="input-text" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-component="input-text" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-input-<ID>" class="bob-input__label">Website</label></span>
         <span class="bob-input__outline-trailing"></span></div>
                 <div class="bob-addon bob-input__addon--prefix" b-<SCOPE>><span>https://</span></div>
@@ -122,7 +122,7 @@
   {
     Name: Sized_Large_Compact,
     Html:
-<bob-component data-bob-floated="false" data-bob-component="input-text" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="large" data-bob-density="compact" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-component="input-text" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="large" data-bob-density="compact" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-input-<ID>" class="bob-input__label">Styled</label></span>
         <span class="bob-input__outline-trailing"></span></div>
                 

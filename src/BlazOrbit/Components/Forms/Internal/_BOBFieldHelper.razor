@@ -10,7 +10,7 @@
    aria-live="assertive" + aria-atomic="true" per the ARIA spec. *@
 @if (ShowValidation && EditContext != null && For != null)
 {
-    <div class="bob-field-helper bob-field-helper--error" role="alert">
+    <div class="bob-field-helper" data-bob-error="true" role="alert">
         <ValidationMessage For="For" />
     </div>
 }

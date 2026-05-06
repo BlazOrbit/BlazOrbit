@@ -73,6 +73,20 @@
         </BOBDataCards>
     </DocDemo>
 
+    <DocDemo Key="Themed" Title="@Loc["Themed surface"]" Description="@Loc["Color and BackgroundColor paint the data-collection root; cards inherit the foreground color, surface color is layered behind the card grid."]">
+        <BOBDataCards TItem="Product" Items="_products"
+                      Color="rgba(255, 255, 255, 1)"
+                      BackgroundColor="rgba(33, 100, 196, 1)"
+                      CardBorder="@BOBBorderPresets.RoundedLarge"
+                      MinCardWidth="220px">
+            <Columns>
+                <BOBDataColumn TItem="Product" Header="@Loc["Name"]" Property="@(p => p.Name)" />
+                <BOBDataColumn TItem="Product" Header="@Loc["Category"]" Property="@(p => p.Category)" />
+                <BOBDataColumn TItem="Product" Header="@Loc["Price"]" Property="@(p => p.Price)" Format="C" />
+            </Columns>
+        </BOBDataCards>
+    </DocDemo>
+
     <section class="doc-section">
         <h2 class="doc-section__title">@Loc["Properties"]</h2>
         <PropertyTable Properties="@BOBDataCardsComponentInfo.Parameters" />

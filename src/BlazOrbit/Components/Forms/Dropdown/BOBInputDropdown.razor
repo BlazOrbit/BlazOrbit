@@ -76,7 +76,10 @@
             bool isSelected = _selectionState.IsSelected(option.Value);
             bool isFocused = _focusedIndex >= 0 && filteredOptions.ElementAtOrDefault(_focusedIndex) == option;
 
-            <div class="bob-dropdown__option @(isSelected ? "bob-dropdown__option--selected" : "") @(isFocused ? "bob-dropdown__option--focused" : "") @(option.IsDisabled ? "bob-dropdown__option--disabled" : "")"
+            <div class="bob-dropdown__option"
+                 data-bob-selected="@(isSelected ? "true" : null)"
+                 data-bob-focused="@(isFocused ? "true" : null)"
+                 data-bob-disabled="@(option.IsDisabled ? "true" : null)"
                  role="option"
                  aria-selected="@isSelected.ToString().ToLowerInvariant()"
                  aria-disabled="@(option.IsDisabled ? "true" : null)"

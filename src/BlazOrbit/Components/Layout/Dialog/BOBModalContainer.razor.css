@@ -6,13 +6,13 @@
     pointer-events: none;
 }
 
-.bob-modal-container--visible {
+.bob-modal-container[data-bob-visible="true"] {
     /* Local stacking inside the modal host — visible/hidden alternation
        within the host's stacking context, not the global scale. */
     z-index: 1;
 }
 
-.bob-modal-container--hidden {
+.bob-modal-container[data-bob-hidden="true"] {
     z-index: 0;
     visibility: hidden;
 }
@@ -38,11 +38,11 @@
             var(--palette-surface-contrast) var(--bob-inline-elevation-tint, 0%)));
 }
 
-.bob-modal-container--opening .bob-modal-dialog {
+.bob-modal-container:not([data-bob-closing="true"]) .bob-modal-dialog {
     animation: bob-dialog-in 200ms ease-out forwards;
 }
 
-.bob-modal-container--closing .bob-modal-dialog {
+.bob-modal-container[data-bob-closing="true"] .bob-modal-dialog {
     animation: bob-dialog-out 150ms ease-in forwards;
 }
 
@@ -97,25 +97,25 @@
             var(--palette-surface-contrast) var(--bob-inline-elevation-tint, 0%)));
 }
 
-.bob-modal-drawer--left {
+.bob-modal-drawer[data-bob-position="left"] {
     left: 0;
     top: 0;
     bottom: 0;
 }
 
-.bob-modal-drawer--right {
+.bob-modal-drawer[data-bob-position="right"] {
     right: 0;
     top: 0;
     bottom: 0;
 }
 
-.bob-modal-drawer--top {
+.bob-modal-drawer[data-bob-position="top"] {
     top: 0;
     left: 0;
     right: 0;
 }
 
-.bob-modal-drawer--bottom {
+.bob-modal-drawer[data-bob-position="bottom"] {
     bottom: 0;
     left: 0;
     right: 0;
@@ -134,41 +134,41 @@
 }
 
 /* Drawer animations */
-.bob-modal-container--opening .bob-modal-drawer--left {
+.bob-modal-container:not([data-bob-closing="true"]) .bob-modal-drawer[data-bob-position="left"] {
     animation: bob-drawer-left-in 250ms ease-out forwards;
 }
 
-.bob-modal-container--closing .bob-modal-drawer--left {
+.bob-modal-container[data-bob-closing="true"] .bob-modal-drawer[data-bob-position="left"] {
     animation: bob-drawer-left-out 200ms ease-in forwards;
 }
 
-.bob-modal-container--opening .bob-modal-drawer--right {
+.bob-modal-container:not([data-bob-closing="true"]) .bob-modal-drawer[data-bob-position="right"] {
     animation: bob-drawer-right-in 250ms ease-out forwards;
 }
 
-.bob-modal-container--closing .bob-modal-drawer--right {
+.bob-modal-container[data-bob-closing="true"] .bob-modal-drawer[data-bob-position="right"] {
     animation: bob-drawer-right-out 200ms ease-in forwards;
 }
 
-.bob-modal-container--opening .bob-modal-drawer--top {
+.bob-modal-container:not([data-bob-closing="true"]) .bob-modal-drawer[data-bob-position="top"] {
     animation: bob-drawer-top-in 250ms ease-out forwards;
 }
 
-.bob-modal-container--closing .bob-modal-drawer--top {
+.bob-modal-container[data-bob-closing="true"] .bob-modal-drawer[data-bob-position="top"] {
     animation: bob-drawer-top-out 200ms ease-in forwards;
 }
 
-.bob-modal-container--opening .bob-modal-drawer--bottom {
+.bob-modal-container:not([data-bob-closing="true"]) .bob-modal-drawer[data-bob-position="bottom"] {
     animation: bob-drawer-bottom-in 250ms ease-out forwards;
 }
 
-.bob-modal-container--closing .bob-modal-drawer--bottom {
+.bob-modal-container[data-bob-closing="true"] .bob-modal-drawer[data-bob-position="bottom"] {
     animation: bob-drawer-bottom-out 200ms ease-in forwards;
 }
 
 /* Hidden state */
-.bob-modal-container--hidden .bob-modal-dialog,
-.bob-modal-container--hidden .bob-modal-drawer {
+.bob-modal-container[data-bob-hidden="true"] .bob-modal-dialog,
+.bob-modal-container[data-bob-hidden="true"] .bob-modal-drawer {
     transform: scale(0.95);
     opacity: 0.3;
     filter: blur(2px);

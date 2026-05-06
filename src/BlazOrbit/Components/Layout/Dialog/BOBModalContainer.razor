@@ -1,6 +1,9 @@
 ﻿@namespace BlazOrbit.Components.Layout
 
-<div class="bob-modal-container @GetVisibilityClass() @GetAnimationClass()"
+<div class="bob-modal-container"
+     data-bob-visible="@(Modal.IsVisible ? "true" : null)"
+     data-bob-hidden="@(Modal.IsVisible ? null : "true")"
+     data-bob-closing="@(Modal.IsAnimatingOut ? "true" : null)"
      @onclick:stopPropagation="true">
 
     @if (Modal.Type == ModalType.Dialog)
@@ -34,7 +37,9 @@
     }
     else
     {
-        <div class="bob-modal-drawer @GetDrawerPositionClass()" style="@GetDrawerStyle()">
+        <div class="bob-modal-drawer"
+             data-bob-position="@((Modal.Options as DrawerOptions)?.Position.ToString().ToLowerInvariant())"
+             style="@GetDrawerStyle()">
             @if (Modal.Options.Closable)
             {
                 <div class="bob-modal-drawer__header">
@@ -55,12 +60,6 @@
     /// <summary>Modal state describing what to render and how to animate it. Required.</summary>
     [Parameter, EditorRequired]
     public ModalState Modal { get; set; } = default!;
-
-    private string GetVisibilityClass() =>
-        Modal.IsVisible ? "bob-modal-container--visible" : "bob-modal-container--hidden";
-
-    private string GetAnimationClass() =>
-        Modal.IsAnimatingOut ? "bob-modal-container--closing" : "bob-modal-container--opening";
 
     private string GetDialogStyle()
     {
@@ -94,14 +93,6 @@
             styles.Add(elevationStyle);
 
         return string.Join("; ", styles);
-    }
-
-    private string GetDrawerPositionClass()
-    {
-        if (Modal.Options is not DrawerOptions options)
-            return string.Empty;
-
-        return $"bob-modal-drawer--{options.Position.ToString().ToLowerInvariant()}";
     }
 
     private string GetDrawerStyle()

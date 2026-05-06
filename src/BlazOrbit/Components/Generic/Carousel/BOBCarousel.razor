@@ -6,7 +6,7 @@
 @inherits BOBComponentBase
 @implements IAsyncDisposable
 @implements IHasSize
-@implements IBuiltComponent
+@implements IPureBuiltComponent
 @implements ICarouselJsCallback
 
 @inject ICarouselJsInterop JsInterop
@@ -73,7 +73,7 @@
                              role="group"
                              aria-roledescription="slide"
                              aria-label="@label"
-                             data-bob-active="@(isActive ? "true" : "false")"
+                             data-bob-active="@(isActive ? "true" : null)"
                              aria-hidden="@(isActive ? "false" : "true")"
                              style="@slideStyle">
                             @item.Content
@@ -93,7 +93,7 @@
                              role="group"
                              aria-roledescription="slide"
                              aria-label="@label"
-                             data-bob-active="@(isActive ? "true" : "false")"
+                             data-bob-active="@(isActive ? "true" : null)"
                              aria-hidden="@(isActive ? "false" : "true")"
                              style="@slideStyle">
                             @item.Content
@@ -113,7 +113,7 @@
                              role="group"
                              aria-roledescription="slide"
                              aria-label="@label"
-                             data-bob-active="@(isActive ? "true" : "false")"
+                             data-bob-active="@(isActive ? "true" : null)"
                              aria-hidden="@(isActive ? "false" : "true")"
                              style="@slideStyle">
                             @item.Content
@@ -141,7 +141,7 @@
                              role="group"
                              aria-roledescription="slide"
                              aria-label="@label"
-                             data-bob-active="@(isActive ? "true" : "false")"
+                             data-bob-active="@(isActive ? "true" : null)"
                              aria-hidden="@(isActive ? "false" : "true")">
                             @item.Content
                         </div>
@@ -188,7 +188,7 @@
                             role="tab"
                             aria-label="@($"Go to slide {i + 1}")"
                             aria-current="@(isActive ? "true" : "false")"
-                            data-bob-active="@(isActive ? "true" : "false")"
+                            data-bob-active="@(isActive ? "true" : null)"
                             @onclick="() => GoToAsync(targetIndex)">
                         @if (effectiveIcon.HasValue)
                         {

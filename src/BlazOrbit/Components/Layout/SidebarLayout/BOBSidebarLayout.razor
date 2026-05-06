@@ -1,13 +1,13 @@
-﻿@namespace BlazOrbit.Components.Layout
+@namespace BlazOrbit.Components.Layout
 
 @inherits BOBComponentBase
-@implements IBuiltComponent
+@implements IPureBuiltComponent
 
 <bob-component @attributes="ComputedAttributes"
                data-bob-sidebar-side="@SidebarSide.ToString().ToLowerInvariant()"
-               data-bob-sidebar-open="@_sidebarOpen.ToString().ToLowerInvariant()"
-               data-bob-sticky-header="@StickyHeader.ToString().ToLowerInvariant()"
-               data-bob-sticky-sidebar="@StickySidebar.ToString().ToLowerInvariant()">
+               data-bob-sidebar-open="@(_sidebarOpen ? "true" : null)"
+               data-bob-sticky-header="@(StickyHeader ? "true" : null)"
+               data-bob-sticky-sidebar="@(StickySidebar ? "true" : null)">
 
     <header class="bob-sidebar-layout__header">
         @if (ShowToggle)

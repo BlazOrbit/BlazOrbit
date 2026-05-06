@@ -57,7 +57,7 @@ public class BOBModalContainerStateTests
             .Add(c => c.Modal, CreateDialogState(isVisible: false)));
 
         // Assert
-        cut.Find(".bob-modal-container--hidden").Should().NotBeNull();
+        cut.Find(".bob-modal-container[data-bob-hidden='true']").Should().NotBeNull();
     }
 
     [Theory]
@@ -71,7 +71,7 @@ public class BOBModalContainerStateTests
             .Add(c => c.Modal, CreateDialogState(isAnimatingOut: true)));
 
         // Assert
-        cut.Find(".bob-modal-container--closing").Should().NotBeNull();
+        cut.Find(".bob-modal-container[data-bob-closing='true']").Should().NotBeNull();
     }
 
     [Theory]
@@ -83,14 +83,14 @@ public class BOBModalContainerStateTests
         // Arrange
         IRenderedComponent<BOBModalContainer> cut = ctx.Render<BOBModalContainer>(p => p
             .Add(c => c.Modal, CreateDialogState(isVisible: true)));
-        cut.Find(".bob-modal-container--visible").Should().NotBeNull();
+        cut.Find(".bob-modal-container[data-bob-visible='true']").Should().NotBeNull();
 
         // Act — flip to hidden
         cut = ctx.Render<BOBModalContainer>(p => p
             .Add(c => c.Modal, CreateDialogState(isVisible: false)));
 
         // Assert
-        cut.Find(".bob-modal-container--hidden").Should().NotBeNull();
+        cut.Find(".bob-modal-container[data-bob-hidden='true']").Should().NotBeNull();
     }
 
     [Theory]

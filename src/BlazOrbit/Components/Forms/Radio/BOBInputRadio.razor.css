@@ -31,7 +31,7 @@
         user-select: none;
     }
 
-    [data-bob-component="input-radio"] .bob-radio__option--disabled {
+    [data-bob-component="input-radio"] .bob-radio__option[data-bob-disabled="true"] {
         cursor: not-allowed;
         opacity: var(--bob-opacity-disabled, 0.5);
     }

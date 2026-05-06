@@ -81,8 +81,8 @@ public class BOBDrawerStateTests
                 .Add(c => c.Position, position));
 
             // Assert
-            cut.Find(".bob-drawer").ClassList.Should()
-                .Contain($"bob-drawer--{position.ToString().ToLowerInvariant()}");
+            cut.Find(".bob-drawer").GetAttribute("data-bob-position").Should()
+                .Be(position.ToString().ToLowerInvariant());
         }
     }
 
@@ -128,17 +128,17 @@ public class BOBDrawerStateTests
         // Arrange
         IRenderedComponent<BOBDrawer> cut = ctx.Render<BOBDrawer>(p => p
             .Add(c => c.Open, true));
-        cut.Find(".bob-drawer").ClassList.Contains("bob-drawer--closing").Should().BeFalse();
+        cut.Find(".bob-drawer").GetAttribute("data-bob-closing").Should().BeNull();
 
         // Act
         cut.Find(".bob-drawer-overlay").Click();
         cut.WaitForState(
-            () => cut.FindAll(".bob-drawer.bob-drawer--closing").Count == 1,
+            () => cut.FindAll(".bob-drawer[data-bob-closing='true']").Count == 1,
             TimeSpan.FromSeconds(1));
 
         // Assert
-        cut.Find(".bob-drawer").ClassList.Contains("bob-drawer--closing").Should().BeTrue();
-        cut.Find(".bob-drawer-overlay").ClassList.Contains("bob-drawer-overlay--closing").Should().BeTrue();
+        cut.Find(".bob-drawer").GetAttribute("data-bob-closing").Should().Be("true");
+        cut.Find(".bob-drawer-overlay").GetAttribute("data-bob-closing").Should().Be("true");
 
         // Finish
         interop.AnimationGate.SetResult(true);
@@ -163,7 +163,7 @@ public class BOBDrawerStateTests
         // Act
         cut.Find(".bob-drawer-overlay").Click();
         cut.WaitForState(
-            () => cut.FindAll(".bob-drawer--closing").Count == 1,
+            () => cut.FindAll(".bob-drawer[data-bob-closing='true']").Count == 1,
             TimeSpan.FromSeconds(1));
         emitted.Should().BeNull();
 

@@ -1,0 +1,43 @@
+# Reusable workflow: decides whether to use local self-hosted runners or GitHub-hosted.
+# Detects runners whose names start with 'vm-runner'. If USE_LOCAL_RUNNER is true
+# and at least one is online, returns 'self-hosted'; otherwise 'ubuntu-latest'.
+
+on:
+  workflow_call:
+    outputs:
+      runner:
+        description: 'Runner label to use for subsequent jobs'
+        value: ${{ jobs.router.outputs.runner }}
+
+jobs:
+  router:
+    name: Router
+    runs-on: ubuntu-latest
+    outputs:
+      runner: ${{ steps.check.outputs.runner }}
+    steps:
+      - name: Decide runner
+        id: check
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Default: GitHub-hosted
+          if [ "${{ vars.USE_LOCAL_RUNNER }}" != "true" ]; then
+            echo "runner=ubuntu-latest" >> "$GITHUB_OUTPUT"
+            echo "USE_LOCAL_RUNNER not enabled -> ubuntu-latest"
+            exit 0
+          fi
+
+          # Query self-hosted runners filtered by name prefix
+          runners=$(gh api "repos/${{ github.repository }}/actions/runners" \
+            --jq '.runners[] | select(.name | startswith("vm-runner"))' 2>/dev/null || true)
+
+          online=$(echo "$runners" | grep -c '"status": "online"' || true)
+
+          if [ "$online" -gt 0 ]; then
+            echo "runner=self-hosted" >> "$GITHUB_OUTPUT"
+            echo "Found $online local runner(s) online -> self-hosted"
+          else
+            echo "runner=ubuntu-latest" >> "$GITHUB_OUTPUT"
+            echo "No local runners online -> ubuntu-latest"
+          fi

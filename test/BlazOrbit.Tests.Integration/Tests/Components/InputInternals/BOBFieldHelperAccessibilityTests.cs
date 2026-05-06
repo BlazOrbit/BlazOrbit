@@ -36,7 +36,7 @@ public class BOBFieldHelperAccessibilityTests
             .AddCascadingValue(editContext));
 
         // Assert
-        cut.Find("div.bob-field-helper--error").GetAttribute("role").Should().Be("alert");
+        cut.Find("div[data-bob-error=\"true\"]").GetAttribute("role").Should().Be("alert");
     }
 
     [Theory]

@@ -99,6 +99,19 @@
             </BOBDataGrid>
     </DocDemo>
 
+    <DocDemo Key="Themed" Title="@Loc["Themed surface"]" Description="@Loc["Color paints the foreground (cell text inherits), BackgroundColor paints the grid surface."]">
+            <BOBDataGrid Items="_people"
+                         Color="rgba(255, 255, 255, 1)"
+                         BackgroundColor="rgba(33, 100, 196, 1)"
+                         Border="@BOBBorderPresets.RoundedLarge">
+                <Columns>
+                    <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]" />
+                    <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]" />
+                    <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]" />
+                </Columns>
+            </BOBDataGrid>
+    </DocDemo>
+
     <section class="doc-section">
         <h2 class="doc-section__title">@Loc["Properties"]</h2>
         <PropertyTable Properties="@BOBDataGridComponentInfo.Parameters" />

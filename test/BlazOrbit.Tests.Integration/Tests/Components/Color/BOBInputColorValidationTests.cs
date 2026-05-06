@@ -18,8 +18,8 @@ public class BOBInputColorValidationTests
 
         IRenderedComponent<TestBOBInputColorConsumer> cut = ctx.Render<TestBOBInputColorConsumer>();
 
-        cut.Find("bob-component").GetAttribute("data-bob-error").Should().Be("false");
-        cut.FindAll(".bob-field-helper--error").Should().BeEmpty();
+        cut.Find("bob-component").GetAttribute("data-bob-error").Should().BeNull();
+        cut.FindAll("[data-bob-error=\"true\"]").Should().BeEmpty();
     }
 
     [Theory]
@@ -34,7 +34,7 @@ public class BOBInputColorValidationTests
 
         cut.Find("bob-component").GetAttribute("data-bob-error").Should().Be("true");
         cut.Find("input.bob-input__field").GetAttribute("aria-invalid").Should().Be("true");
-        cut.Find(".bob-field-helper--error").Should().NotBeNull();
+        cut.Find("[data-bob-error=\"true\"]").Should().NotBeNull();
     }
 
     [Theory]
@@ -47,7 +47,7 @@ public class BOBInputColorValidationTests
 
         cut.Find("button.submit-btn").Click();
 
-        IElement errorHelper = cut.Find(".bob-field-helper--error");
+        IElement errorHelper = cut.Find("[data-bob-error=\"true\"]");
         errorHelper.TextContent.Should().Contain("Color is required");
     }
 
@@ -65,8 +65,8 @@ public class BOBInputColorValidationTests
         cut.Find("input.bob-input__field").Change("#00ff00");
         cut.Find("button.submit-btn").Click();
 
-        cut.Find("bob-component").GetAttribute("data-bob-error").Should().Be("false");
-        cut.FindAll(".bob-field-helper--error").Should().BeEmpty();
+        cut.Find("bob-component").GetAttribute("data-bob-error").Should().BeNull();
+        cut.FindAll("[data-bob-error=\"true\"]").Should().BeEmpty();
     }
 
     [Theory]

@@ -2,7 +2,7 @@
   {
     Name: Closed_Start,
     Html:
-<bob-component data-bob-component="sidebar-layout" data-bob-sidebar-side="start" data-bob-sidebar-open="false" data-bob-sticky-header="true" data-bob-sticky-sidebar="true" b-<SCOPE>><header class="bob-sidebar-layout__header" b-<SCOPE>><button type="button" class="bob-sidebar-layout__toggle" aria-label="Toggle navigation" aria-expanded="false" blazor:onclick="<EVENT>" b-<SCOPE>><span class="bob-sidebar-layout__toggle-bar" b-<SCOPE>></span>
+<bob-component data-bob-component="sidebar-layout" data-bob-sidebar-side="start" data-bob-sticky-header="true" data-bob-sticky-sidebar="true" b-<SCOPE>><header class="bob-sidebar-layout__header" b-<SCOPE>><button type="button" class="bob-sidebar-layout__toggle" aria-label="Toggle navigation" aria-expanded="false" blazor:onclick="<EVENT>" b-<SCOPE>><span class="bob-sidebar-layout__toggle-bar" b-<SCOPE>></span>
                 <span class="bob-sidebar-layout__toggle-bar" b-<SCOPE>></span>
                 <span class="bob-sidebar-layout__toggle-bar" b-<SCOPE>></span></button><div class="bob-sidebar-layout__header-content" b-<SCOPE>>Header</div></header>
 
@@ -20,7 +20,7 @@
   {
     Name: Closed_End,
     Html:
-<bob-component data-bob-component="sidebar-layout" data-bob-sidebar-side="end" data-bob-sidebar-open="false" data-bob-sticky-header="true" data-bob-sticky-sidebar="true" b-<SCOPE>><header class="bob-sidebar-layout__header" b-<SCOPE>><button type="button" class="bob-sidebar-layout__toggle" aria-label="Toggle navigation" aria-expanded="false" blazor:onclick="<EVENT>" b-<SCOPE>><span class="bob-sidebar-layout__toggle-bar" b-<SCOPE>></span>
+<bob-component data-bob-component="sidebar-layout" data-bob-sidebar-side="end" data-bob-sticky-header="true" data-bob-sticky-sidebar="true" b-<SCOPE>><header class="bob-sidebar-layout__header" b-<SCOPE>><button type="button" class="bob-sidebar-layout__toggle" aria-label="Toggle navigation" aria-expanded="false" blazor:onclick="<EVENT>" b-<SCOPE>><span class="bob-sidebar-layout__toggle-bar" b-<SCOPE>></span>
                 <span class="bob-sidebar-layout__toggle-bar" b-<SCOPE>></span>
                 <span class="bob-sidebar-layout__toggle-bar" b-<SCOPE>></span></button></header>
 

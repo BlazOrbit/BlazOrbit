@@ -642,6 +642,15 @@ function New-PullRequest {
 function Invoke-Cleanup {
     Write-Header "Cleaning Local Branches"
 
+    # Squash-merge detection requires `gh` CLI. Without it, Test-BranchMergedViaPR silently
+    # returns $false and cleanup misses every squash-merged branch — which is the entire point
+    # of running cleanup in a squash+rebase workflow. Warn loudly so the user knows nothing
+    # is being deleted by silent fallback.
+    if (-not (Get-Command gh -ErrorAction SilentlyContinue)) {
+        Write-Warning "gh CLI not found — squash-merged branches cannot be detected."
+        Write-Warning "Install gh (https://cli.github.com/) and re-run cleanup, or delete branches manually."
+    }
+
     $currentBranch = Get-CurrentBranch
 
     # Go back to develop

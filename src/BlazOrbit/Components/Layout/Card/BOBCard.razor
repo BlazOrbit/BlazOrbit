@@ -1,8 +1,8 @@
-﻿@namespace BlazOrbit.Components.Layout
+@namespace BlazOrbit.Components.Layout
 @attribute [GenerateComponentInfo]
 
 @inherits BOBVariantComponentBase<BOBCard, BOBCardVariant>
-@implements IBuiltComponent
+@implements IPureBuiltComponent
 @implements IHasShadow
 @implements IHasElevation
 @implements IHasBorder
@@ -79,7 +79,7 @@
     private RenderFragment RenderCard() => __builder =>
     {
         <bob-component @attributes="ComputedAttributes"
-                       data-bob-clickable="@Clickable.ToString().ToLowerInvariant()"
+                       data-bob-clickable="@(Clickable ? "true" : null)"
                        data-bob-media-position="@MediaPosition.ToString().ToLowerInvariant()">
 
             <div class="bob-card"

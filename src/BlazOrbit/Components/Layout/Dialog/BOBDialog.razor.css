@@ -20,7 +20,7 @@
     animation: bob-dialog-overlay-in 200ms ease-out forwards;
 }
 
-[data-bob-component="dialog"] .bob-dialog-overlay--closing {
+[data-bob-component="dialog"] .bob-dialog-overlay[data-bob-closing="true"] {
     animation: bob-dialog-overlay-out 150ms ease-in forwards;
 }
 
@@ -45,7 +45,7 @@
         var(--palette-surface-contrast) var(--bob-inline-elevation-tint, 0%));
 }
 
-[data-bob-component="dialog"] .bob-dialog--closing {
+[data-bob-component="dialog"] .bob-dialog[data-bob-closing="true"] {
     animation: bob-dialog-out 150ms ease-in forwards;
 }
 

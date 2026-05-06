@@ -67,7 +67,7 @@ public class BOBCarouselRenderingTests
         // Assert
         var slides = cut.FindAll(".bob-carousel__slide");
         slides[0].GetAttribute("data-bob-active").Should().Be("true");
-        slides[1].GetAttribute("data-bob-active").Should().Be("false");
+        slides[1].GetAttribute("data-bob-active").Should().BeNull();
     }
 
     [Theory]

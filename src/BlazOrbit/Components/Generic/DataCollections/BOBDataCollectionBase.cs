@@ -13,7 +13,7 @@ namespace BlazOrbit.Components;
 /// <typeparam name="TVariant">Variant type owned by the derived component.</typeparam>
 public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
     : BOBVariantComponentBase<TComponent, TVariant>,
-      IBuiltComponent,
+      IPureBuiltComponent,
       IHasDensity,
       IHasSize,
       IHasShadow,

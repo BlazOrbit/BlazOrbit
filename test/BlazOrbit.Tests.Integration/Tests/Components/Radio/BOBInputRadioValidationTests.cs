@@ -18,8 +18,8 @@ public class BOBInputRadioValidationTests
         IRenderedComponent<TestBOBInputRadioValidationConsumer> cut =
             ctx.Render<TestBOBInputRadioValidationConsumer>();
 
-        cut.Find("bob-component").GetAttribute("data-bob-error").Should().Be("false");
-        cut.FindAll(".bob-field-helper--error").Should().BeEmpty();
+        cut.Find("bob-component").GetAttribute("data-bob-error").Should().BeNull();
+        cut.FindAll("[data-bob-error=\"true\"]").Should().BeEmpty();
     }
 
     [Theory]
@@ -35,7 +35,7 @@ public class BOBInputRadioValidationTests
         cut.Find("button.submit-btn").Click();
 
         cut.Find("bob-component").GetAttribute("data-bob-error").Should().Be("true");
-        cut.Find(".bob-field-helper--error").TextContent.Should().Contain("You must pick an option");
+        cut.Find("[data-bob-error=\"true\"]").TextContent.Should().Contain("You must pick an option");
     }
 
     [Theory]
@@ -57,8 +57,8 @@ public class BOBInputRadioValidationTests
         // Re-submit
         cut.Find("button.submit-btn").Click();
 
-        cut.Find("bob-component").GetAttribute("data-bob-error").Should().Be("false");
-        cut.FindAll(".bob-field-helper--error").Should().BeEmpty();
+        cut.Find("bob-component").GetAttribute("data-bob-error").Should().BeNull();
+        cut.FindAll("[data-bob-error=\"true\"]").Should().BeEmpty();
     }
 
     [Theory]

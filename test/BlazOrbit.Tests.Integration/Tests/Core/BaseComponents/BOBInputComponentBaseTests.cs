@@ -440,7 +440,7 @@ public class BOBInputComponentBaseTests
         // Arrange
         IRenderedComponent<BOBInputComponentBase_TestStub> cut = ctx.Render<BOBInputComponentBase_TestStub>(p => p
             .Add(c => c.Loading, false));
-        cut.Find("input").GetAttribute("data-bob-loading").Should().Be("false");
+        cut.Find("input").GetAttribute("data-bob-loading").Should().BeNull();
 
         // Act
         cut.Render(p => p.Add(c => c.Loading, true));

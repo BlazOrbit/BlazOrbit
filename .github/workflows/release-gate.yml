@@ -25,12 +25,16 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  router:
+    uses: ./.github/workflows/_runner-router.yml
+
   # ARCH-15: build + test on both Linux and Windows. Publishing still happens
   # only from Linux (release-publish.yml), but the gate verifies both platforms
   # before any tag can advance to publish.
   build-linux:
     name: Build Linux
-    runs-on: ubuntu-latest
+    needs: router
+    runs-on: ${{ needs.router.outputs.runner }}
 
     steps:
       - name: Checkout
@@ -118,7 +122,8 @@ jobs:
 
   tests:
     name: Tests
-    runs-on: ubuntu-latest
+    needs: router
+    runs-on: ${{ needs.router.outputs.runner }}
 
     steps:
       - name: Checkout

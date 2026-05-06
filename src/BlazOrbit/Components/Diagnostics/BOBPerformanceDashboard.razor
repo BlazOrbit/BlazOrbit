@@ -121,7 +121,7 @@
     private CancellationTokenSource? _debounceCts;
     private bool _disposed;
 
-    private void OnMetricsUpdated() => _ = OnMetricsUpdatedSafeAsync();
+    private void OnMetricsUpdated() => BOBAsyncHelper.SafeFireAndForget(OnMetricsUpdatedSafeAsync);
 
     private async Task OnMetricsUpdatedSafeAsync()
     {

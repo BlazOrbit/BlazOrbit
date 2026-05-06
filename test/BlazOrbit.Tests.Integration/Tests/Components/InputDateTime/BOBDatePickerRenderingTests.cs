@@ -106,8 +106,8 @@ public class BOBDatePickerRenderingTests
         IRenderedComponent<BOBDatePicker> cut = ctx.Render<BOBDatePicker>(p => p
             .Add(c => c.Value, selectedDate));
 
-        // Assert — selected day has bob-btn--active class
-        IReadOnlyList<IElement> activeCells = cut.FindAll(".bob-picker__cell.bob-btn--active");
+        // Assert — selected day has data-bob-active attribute
+        IReadOnlyList<IElement> activeCells = cut.FindAll(".bob-picker__cell[data-bob-active='true']");
         activeCells.Should().HaveCount(1);
         activeCells[0].TextContent.Trim().Should().Be("15");
     }

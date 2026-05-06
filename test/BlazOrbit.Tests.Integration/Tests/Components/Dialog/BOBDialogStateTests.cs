@@ -95,17 +95,17 @@ public class BOBDialogStateTests
         IRenderedComponent<BOBDialog> cut = ctx.Render<BOBDialog>(p => p
             .Add(c => c.Open, true));
 
-        cut.Find(".bob-dialog").ClassList.Contains("bob-dialog--closing").Should().BeFalse();
+        cut.Find(".bob-dialog").GetAttribute("data-bob-closing").Should().BeNull();
 
         // Act — initiate close; animation gate is still open
         _ = cut.InvokeAsync(async () => await ClickOverlayAsync(cut));
         cut.WaitForState(
-            () => cut.FindAll(".bob-dialog.bob-dialog--closing").Count == 1,
+            () => cut.FindAll(".bob-dialog[data-bob-closing='true']").Count == 1,
             TimeSpan.FromSeconds(1));
 
         // Assert — during the animation, the --closing modifier is present
-        cut.Find(".bob-dialog").ClassList.Contains("bob-dialog--closing").Should().BeTrue();
-        cut.Find(".bob-dialog-overlay").ClassList.Contains("bob-dialog-overlay--closing").Should().BeTrue();
+        cut.Find(".bob-dialog").GetAttribute("data-bob-closing").Should().Be("true");
+        cut.Find(".bob-dialog-overlay").GetAttribute("data-bob-closing").Should().Be("true");
 
         // Finish — release animation, dialog eventually unmounts
         interop.AnimationGate.SetResult(true);
@@ -130,7 +130,7 @@ public class BOBDialogStateTests
         // Act
         _ = cut.InvokeAsync(async () => await ClickOverlayAsync(cut));
         cut.WaitForState(
-            () => cut.FindAll(".bob-dialog--closing").Count == 1,
+            () => cut.FindAll(".bob-dialog[data-bob-closing='true']").Count == 1,
             TimeSpan.FromSeconds(1));
 
         // Still animating — OpenChanged not yet emitted

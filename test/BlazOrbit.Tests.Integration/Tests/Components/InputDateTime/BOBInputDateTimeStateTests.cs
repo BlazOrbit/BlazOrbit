@@ -66,7 +66,7 @@ public class BOBInputDateTimeStateTests
 
         // Arrange
         IRenderedComponent<BOBInputDateTime<DateOnly?>> cut = ctx.Render<BOBInputDateTime<DateOnly?>>();
-        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().BeNull();
 
         // Act
         cut.Render(p => p.Add(c => c.Value, new DateOnly(2024, 1, 1)));
@@ -83,7 +83,7 @@ public class BOBInputDateTimeStateTests
 
         // Arrange
         IRenderedComponent<BOBInputDateTime<TimeOnly?>> cut = ctx.Render<BOBInputDateTime<TimeOnly?>>();
-        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().BeNull();
 
         // Act
         cut.Render(p => p.Add(c => c.Value, new TimeOnly(12, 0)));
@@ -100,7 +100,7 @@ public class BOBInputDateTimeStateTests
 
         // Arrange
         IRenderedComponent<BOBInputDateTime<DateTime?>> cut = ctx.Render<BOBInputDateTime<DateTime?>>();
-        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().BeNull();
 
         // Act
         cut.Render(p => p.Add(c => c.Value, new DateTime(2024, 6, 15, 14, 30, 0)));

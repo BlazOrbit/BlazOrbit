@@ -37,7 +37,7 @@ public class BOBAccordionStateTests
 
         // Assert
         var items = cut.FindAll("[data-bob-component='accordion-item']");
-        items[0].GetAttribute("data-bob-expanded").Should().Be("false");
+        items[0].GetAttribute("data-bob-expanded").Should().BeNull();
         items[1].GetAttribute("data-bob-expanded").Should().Be("true");
     }
 
@@ -59,7 +59,7 @@ public class BOBAccordionStateTests
 
         // Assert
         var items = cut.FindAll("[data-bob-component='accordion-item']");
-        items[0].GetAttribute("data-bob-expanded").Should().Be("false");
+        items[0].GetAttribute("data-bob-expanded").Should().BeNull();
         items[1].GetAttribute("data-bob-expanded").Should().Be("true");
     }
 
@@ -86,7 +86,7 @@ public class BOBAccordionStateTests
 
         // Assert
         cut.Find("[data-bob-component='accordion-item']")
-            .GetAttribute("data-bob-expanded").Should().Be("false");
+            .GetAttribute("data-bob-expanded").Should().BeNull();
     }
 
     [Theory]

@@ -180,15 +180,15 @@
     background: var(--_dc-hover-bg);
 }
 
-[data-bob-component="data-grid"] .bob-datagrid__row--selected {
+[data-bob-component="data-grid"] .bob-datagrid__row[data-bob-selected="true"] {
     background: var(--_dc-selected-bg);
 }
 
-[data-bob-component="data-grid"] .bob-datagrid__row--interactive {
+[data-bob-component="data-grid"] .bob-datagrid__row[data-bob-interactive="true"] {
     cursor: pointer;
 }
 
-    [data-bob-component="data-grid"] .bob-datagrid__row--interactive:focus-visible {
+    [data-bob-component="data-grid"] .bob-datagrid__row[data-bob-interactive="true"]:focus-visible {
         outline: var(--bob-highlight-outline);
         outline-offset: var(--bob-highlight-outline-offset);
     }

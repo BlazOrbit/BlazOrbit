@@ -34,9 +34,10 @@ internal sealed class BOBComponentAttributesBuilder
         DataCollectionFamily = 1u << 20,
         BuiltComponent = 1u << 21,
         Elevation = 1u << 22,
+        PureBuiltComponent = 1u << 23,
 
         VolatileMask =
-            Active | Disabled | Loading | Error | ReadOnly | Required | FullWidth,
+            Active | Disabled | Loading | Error | ReadOnly | Required,
     }
 
     private readonly record struct TypeInfo(string ComponentName, ComponentFeatures Features);
@@ -165,10 +166,38 @@ internal sealed class BOBComponentAttributesBuilder
             flags |= ComponentFeatures.BuiltComponent;
         }
 
+        if (typeof(IPureBuiltComponent).IsAssignableFrom(type))
+        {
+            flags |= ComponentFeatures.PureBuiltComponent;
+        }
+
         return new TypeInfo(ToKebabCaseComponentName(type.Name), flags);
     }
 
-    private static string BoolToAttr(bool value) => value ? "true" : "false";
+    private static void SetBoolAttr(Dictionary<string, object> attrs, string key, bool value)
+    {
+        if (value)
+            attrs[key] = "true";
+        else
+            attrs.Remove(key);
+    }
+
+    /// <summary>
+    /// Order-independent hash for the <c>IPureBuiltComponent</c> contribution dictionaries.
+    /// Each entry contributes <c>HashCode.Combine(key, value)</c> XORed into the running total
+    /// so enumeration order does not matter — different parameters still produce different
+    /// fingerprints because each entry's hash is derived from both its key and its value.
+    /// </summary>
+    private static int OrderIndependentDictHash<TValue>(Dictionary<string, TValue> dict)
+    {
+        int hash = 0;
+        foreach (KeyValuePair<string, TValue> kv in dict)
+        {
+            int valueHash = kv.Value is null ? 0 : kv.Value.GetHashCode();
+            hash ^= HashCode.Combine(kv.Key, valueHash);
+        }
+        return hash;
+    }
 
     private static int ComputeStyleFingerprint(ComponentBase component)
     {
@@ -313,14 +342,40 @@ internal sealed class BOBComponentAttributesBuilder
         // Components that opt into IBuiltComponent contribute extra data-attrs / css-vars from
         // `BuildComponentDataAttributes` / `BuildComponentCssVariables` callbacks that may read
         // state opaque to the fingerprint (timers, counters, etc.). For them the fast-path cache
-        // is disabled and styles rebuild on every call. Components that do not implement the
-        // interface (the typical case — declaring it is opt-in) hit the fingerprint cache.
+        // is disabled and styles rebuild on every call.
+        //
+        // IPureBuiltComponent is a refined opt-in declaring the hooks read only [Parameter] state.
+        // Those components DO participate in the cache: we run the hooks into temp dictionaries
+        // and fold their contents into the fingerprint, so identical parameters → identical hash.
+        // On cache miss we reuse the temp dicts to avoid invoking the hooks twice.
+        //
+        // Components that do not implement the interface (the typical case — declaring it is opt-in)
+        // hit the fingerprint cache directly without the hook detour.
         ComponentFeatures flags = GetTypeInfo(component.GetType()).Features;
-        bool cacheEligible = (flags & ComponentFeatures.BuiltComponent) == 0;
+        bool isBuilt = (flags & ComponentFeatures.BuiltComponent) != 0;
+        bool isPure = (flags & ComponentFeatures.PureBuiltComponent) != 0;
+        bool cacheEligible = !isBuilt || isPure;
+
+        Dictionary<string, object>? pureDataContrib = null;
+        Dictionary<string, string>? pureCssContrib = null;
 
         if (cacheEligible)
         {
             int fingerprint = ComputeStyleFingerprint(component);
+
+            if (isPure)
+            {
+                pureDataContrib = new Dictionary<string, object>(StringComparer.Ordinal);
+                pureCssContrib = new Dictionary<string, string>(StringComparer.Ordinal);
+                IBuiltComponent built = (IBuiltComponent)component;
+                built.BuildComponentDataAttributes(pureDataContrib);
+                built.BuildComponentCssVariables(pureCssContrib);
+                fingerprint = HashCode.Combine(
+                    fingerprint,
+                    OrderIndependentDictHash(pureDataContrib),
+                    OrderIndependentDictHash(pureCssContrib));
+            }
+
             if (_hasBuiltOnce
                 && fingerprint == _lastFingerprint
                 && ReferenceEquals(additionalAttributes, _lastAdditionalAttributes))
@@ -365,9 +420,24 @@ internal sealed class BOBComponentAttributesBuilder
         // overwrite any collision. Components may only add *new* data-attrs / inline vars.
         if ((flags & ComponentFeatures.BuiltComponent) != 0)
         {
-            IBuiltComponent builtFirst = (IBuiltComponent)component;
-            builtFirst.BuildComponentDataAttributes(ComputedAttributes);
-            builtFirst.BuildComponentCssVariables(cssVariables);
+            if (isPure && pureDataContrib != null && pureCssContrib != null)
+            {
+                // Reuse the temp dicts we already populated during fingerprint compute.
+                foreach (KeyValuePair<string, object> kv in pureDataContrib)
+                {
+                    ComputedAttributes[kv.Key] = kv.Value;
+                }
+                foreach (KeyValuePair<string, string> kv in pureCssContrib)
+                {
+                    cssVariables[kv.Key] = kv.Value;
+                }
+            }
+            else
+            {
+                IBuiltComponent builtFirst = (IBuiltComponent)component;
+                builtFirst.BuildComponentDataAttributes(ComputedAttributes);
+                builtFirst.BuildComponentCssVariables(cssVariables);
+            }
         }
 
         ComputedAttributes[FeatureDefinitions.DataAttributes.Component] = typeInfo.ComponentName;
@@ -405,37 +475,37 @@ internal sealed class BOBComponentAttributesBuilder
 
         if ((flags & ComponentFeatures.FullWidth) != 0)
         {
-            ComputedAttributes[FeatureDefinitions.DataAttributes.FullWidth] = BoolToAttr(((IHasFullWidth)component).FullWidth);
+            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.FullWidth, ((IHasFullWidth)component).FullWidth);
         }
 
         if ((flags & ComponentFeatures.Loading) != 0)
         {
-            ComputedAttributes[FeatureDefinitions.DataAttributes.Loading] = BoolToAttr(((IHasLoading)component).Loading);
+            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.Loading, ((IHasLoading)component).Loading);
         }
 
         if ((flags & ComponentFeatures.Error) != 0)
         {
-            ComputedAttributes[FeatureDefinitions.DataAttributes.Error] = BoolToAttr(((IHasError)component).IsError);
+            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.Error, ((IHasError)component).IsError);
         }
 
         if ((flags & ComponentFeatures.Disabled) != 0)
         {
-            ComputedAttributes[FeatureDefinitions.DataAttributes.Disabled] = BoolToAttr(((IHasDisabled)component).IsDisabled);
+            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.Disabled, ((IHasDisabled)component).IsDisabled);
         }
 
         if ((flags & ComponentFeatures.Active) != 0)
         {
-            ComputedAttributes[FeatureDefinitions.DataAttributes.Active] = BoolToAttr(((IHasActive)component).IsActive);
+            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.Active, ((IHasActive)component).IsActive);
         }
 
         if ((flags & ComponentFeatures.ReadOnly) != 0)
         {
-            ComputedAttributes[FeatureDefinitions.DataAttributes.ReadOnly] = BoolToAttr(((IHasReadOnly)component).IsReadOnly);
+            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.ReadOnly, ((IHasReadOnly)component).IsReadOnly);
         }
 
         if ((flags & ComponentFeatures.Required) != 0)
         {
-            ComputedAttributes[FeatureDefinitions.DataAttributes.Required] = BoolToAttr(((IHasRequired)component).IsRequired);
+            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.Required, ((IHasRequired)component).IsRequired);
         }
 
         if ((flags & ComponentFeatures.Prefix) != 0)
@@ -609,38 +679,34 @@ internal sealed class BOBComponentAttributesBuilder
 
         if ((flags & ComponentFeatures.Active) != 0)
         {
-            ComputedAttributes[FeatureDefinitions.DataAttributes.Active] = BoolToAttr(((IHasActive)component).IsActive);
+            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.Active, ((IHasActive)component).IsActive);
         }
 
         if ((flags & ComponentFeatures.Disabled) != 0)
         {
-            ComputedAttributes[FeatureDefinitions.DataAttributes.Disabled] = BoolToAttr(((IHasDisabled)component).IsDisabled);
+            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.Disabled, ((IHasDisabled)component).IsDisabled);
         }
 
         if ((flags & ComponentFeatures.Loading) != 0)
         {
-            ComputedAttributes[FeatureDefinitions.DataAttributes.Loading] = BoolToAttr(((IHasLoading)component).Loading);
+            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.Loading, ((IHasLoading)component).Loading);
         }
 
         if ((flags & ComponentFeatures.Error) != 0)
         {
-            ComputedAttributes[FeatureDefinitions.DataAttributes.Error] = BoolToAttr(((IHasError)component).IsError);
+            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.Error, ((IHasError)component).IsError);
         }
 
         if ((flags & ComponentFeatures.ReadOnly) != 0)
         {
-            ComputedAttributes[FeatureDefinitions.DataAttributes.ReadOnly] = BoolToAttr(((IHasReadOnly)component).IsReadOnly);
+            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.ReadOnly, ((IHasReadOnly)component).IsReadOnly);
         }
 
         if ((flags & ComponentFeatures.Required) != 0)
         {
-            ComputedAttributes[FeatureDefinitions.DataAttributes.Required] = BoolToAttr(((IHasRequired)component).IsRequired);
+            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.Required, ((IHasRequired)component).IsRequired);
         }
 
-        if ((flags & ComponentFeatures.FullWidth) != 0)
-        {
-            ComputedAttributes[FeatureDefinitions.DataAttributes.FullWidth] = BoolToAttr(((IHasFullWidth)component).FullWidth);
-        }
     }
 
     private static string ToKebabCaseComponentName(string value)

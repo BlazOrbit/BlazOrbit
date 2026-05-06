@@ -97,7 +97,7 @@ public class BOBModalContainerRenderingTests
             .Add(c => c.Modal, CreateDrawerState(DrawerPosition.Left)));
 
         // Assert
-        cut.Find(".bob-modal-drawer--left").Should().NotBeNull();
+        cut.Find("[data-bob-position='left']").Should().NotBeNull();
     }
 
     [Theory]
@@ -111,6 +111,6 @@ public class BOBModalContainerRenderingTests
             .Add(c => c.Modal, CreateDialogState()));
 
         // Assert
-        cut.Find(".bob-modal-container--visible").Should().NotBeNull();
+        cut.Find("[data-bob-visible='true']").Should().NotBeNull();
     }
 }

@@ -291,7 +291,7 @@ public class BOBComponentBaseTests
         // Arrange
         IRenderedComponent<BOBComponentBase_TestStub> cut = ctx.Render<BOBComponentBase_TestStub>(p => p
             .Add(c => c.Loading, false));
-        cut.Find("div").GetAttribute("data-bob-loading").Should().Be("false");
+        cut.Find("div").GetAttribute("data-bob-loading").Should().BeNull();
 
         // Act — flip volatile attribute
         cut.Render(p => p.Add(c => c.Loading, true));
@@ -309,7 +309,7 @@ public class BOBComponentBaseTests
         // Arrange
         IRenderedComponent<BOBComponentBase_TestStub> cut = ctx.Render<BOBComponentBase_TestStub>(p => p
             .Add(c => c.Error, false));
-        cut.Find("div").GetAttribute("data-bob-error").Should().Be("false");
+        cut.Find("div").GetAttribute("data-bob-error").Should().BeNull();
 
         // Act
         cut.Render(p => p.Add(c => c.Error, true));

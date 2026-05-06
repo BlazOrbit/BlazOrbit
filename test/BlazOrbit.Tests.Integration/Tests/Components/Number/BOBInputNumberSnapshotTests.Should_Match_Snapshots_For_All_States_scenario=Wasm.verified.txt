@@ -2,7 +2,7 @@
   {
     Name: Default_Empty,
     Html:
-<bob-component data-bob-button-placement="right" data-bob-floated="false" data-bob-component="input-number" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-button-placement="right" data-bob-component="input-number" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-number-<ID>" class="bob-input__label">Qty</label></span>
         <span class="bob-input__outline-trailing"></span></div>
 
@@ -15,7 +15,7 @@
   {
     Name: With_Value,
     Html:
-<bob-component data-bob-button-placement="right" data-bob-floated="true" data-bob-component="input-number" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-button-placement="right" data-bob-floated="true" data-bob-component="input-number" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-number-<ID>" class="bob-input__label">Qty</label></span>
         <span class="bob-input__outline-trailing"></span></div>
 
@@ -28,7 +28,7 @@
   {
     Name: Disabled,
     Html:
-<bob-component data-bob-button-placement="right" data-bob-floated="false" data-bob-component="input-number" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="true" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-button-placement="right" data-bob-component="input-number" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-disabled="true" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-number-<ID>" class="bob-input__label">Qty</label></span>
         <span class="bob-input__outline-trailing"></span></div>
 
@@ -41,7 +41,7 @@
   {
     Name: Loading,
     Html:
-<bob-component data-bob-button-placement="right" data-bob-floated="false" data-bob-component="input-number" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="true" data-bob-error="false" data-bob-disabled="true" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-button-placement="right" data-bob-component="input-number" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="true" data-bob-disabled="true" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-number-<ID>" class="bob-input__label">Qty</label></span>
         <span class="bob-input__outline-trailing"></span></div>
 
@@ -54,7 +54,7 @@
   {
     Name: No_Step_Buttons,
     Html:
-<bob-component data-bob-button-placement="right" data-bob-floated="false" data-bob-component="input-number" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-button-placement="right" data-bob-component="input-number" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-number-<ID>" class="bob-input__label">Qty</label></span>
         <span class="bob-input__outline-trailing"></span></div>
 
@@ -66,7 +66,7 @@
   {
     Name: Left_Buttons,
     Html:
-<bob-component data-bob-button-placement="left" data-bob-floated="false" data-bob-component="input-number" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-button-placement="left" data-bob-component="input-number" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-number-<ID>" class="bob-input__label">Qty</label></span>
         <span class="bob-input__outline-trailing"></span></div><div class="bob-input__step-buttons" b-<SCOPE>><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Increment" blazor:onmousedown="55" blazor:onmouseup="56" blazor:onmouseleave="57" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg></bob-component></button>
             <button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Decrement" blazor:onmousedown="58" blazor:onmouseup="59" blazor:onmouseleave="60" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg></bob-component></button></div>
@@ -79,7 +79,7 @@
   {
     Name: With_Prefix_Suffix,
     Html:
-<bob-component data-bob-button-placement="right" data-bob-floated="false" data-bob-component="input-number" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-button-placement="right" data-bob-component="input-number" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-number-<ID>" class="bob-input__label">Price</label></span>
         <span class="bob-input__outline-trailing"></span></div><div class="bob-addon bob-input__addon--prefix" b-<SCOPE>><span>$</span></div>
 

@@ -27,12 +27,13 @@
     <div class="bob-picker__grid">
         @foreach (string day in WeekDays)
         {
-            <span class="bob-picker__cell bob-picker__cell--muted">@day[..2]</span>
+            <span class="bob-picker__cell" data-bob-muted="true">@day[..2]</span>
         }
         @foreach (DayCell day in Days)
         {
             <_BOBBtn Active="@day.IsSelected"
-                        class="@($"bob-picker__cell {(!day.IsCurrentMonth ? "bob-picker__cell--muted" : "")}")"
+                        class="bob-picker__cell"
+                        data-bob-muted="@(!day.IsCurrentMonth ? "true" : null)"
                         OnClick="() => SelectDateClicked(day.Date)">
                 @day.Date.Day
             </_BOBBtn>

@@ -63,7 +63,7 @@ public class BOBInputTextRenderingTests
             .Add(c => c.Label, "Empty")
             .Add(c => c.ValueExpression, () => model.Value));
 
-        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().BeNull();
     }
 
     [Theory]
@@ -123,6 +123,12 @@ public class BOBInputTextRenderingTests
         style.Should().Contain("--bob-inline-color: rgba(10,20,30,1)");
         style.Should().Contain("--bob-inline-background: rgba(40,50,60,1)");
         style.Should().Contain("--bob-inline-shadow:");
+
+        // Structural guard: the native <input> carries `bob-input__field` so the global
+        // rule `bob-component[data-bob-input-base] .bob-input__field { color: var(--bob-inline-color, inherit) }`
+        // matches it (audited by INPUT-COLOR-01).
+        IElement field = cut.Find("input.bob-input__field");
+        field.Should().NotBeNull();
     }
 
     [Theory]

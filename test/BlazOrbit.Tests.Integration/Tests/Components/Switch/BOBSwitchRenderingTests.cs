@@ -37,7 +37,7 @@ public class BOBSwitchRenderingTests
             .Add(c => c.OptionActive, true));
 
         // Assert
-        cut.Find("bob-component").GetAttribute("data-bob-active").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-active").Should().BeNull();
     }
 
     [Theory]

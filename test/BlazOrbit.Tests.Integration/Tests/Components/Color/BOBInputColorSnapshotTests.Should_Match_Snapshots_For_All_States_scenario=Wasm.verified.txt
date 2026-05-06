@@ -2,7 +2,7 @@
   {
     Name: Default_Empty,
     Html:
-<bob-component data-bob-floated="false" data-bob-component="input-color" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" blazor:onkeydown="<EVENT>" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-component="input-color" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" blazor:onkeydown="<EVENT>" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-input-color-<ID>" class="bob-input__label">Color</label></span>
         <span class="bob-input__outline-trailing"></span></div>
                 
@@ -15,7 +15,7 @@
   {
     Name: With_Hex_Value,
     Html:
-<bob-component data-bob-floated="true" data-bob-component="input-color" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" blazor:onkeydown="<EVENT>" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-floated="true" data-bob-component="input-color" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" blazor:onkeydown="<EVENT>" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-input-color-<ID>" class="bob-input__label">Color</label></span>
         <span class="bob-input__outline-trailing"></span></div>
                 
@@ -28,7 +28,7 @@
   {
     Name: With_Rgba_Value,
     Html:
-<bob-component data-bob-floated="true" data-bob-component="input-color" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" blazor:onkeydown="<EVENT>" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-floated="true" data-bob-component="input-color" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" blazor:onkeydown="<EVENT>" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-input-color-<ID>" class="bob-input__label">Color</label></span>
         <span class="bob-input__outline-trailing"></span></div>
                 
@@ -41,7 +41,7 @@
   {
     Name: Disabled,
     Html:
-<bob-component data-bob-floated="false" data-bob-component="input-color" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-loading="false" data-bob-error="false" data-bob-disabled="true" data-bob-readonly="false" data-bob-required="false" blazor:onkeydown="<EVENT>" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-component="input-color" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-disabled="true" blazor:onkeydown="<EVENT>" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-input-color-<ID>" class="bob-input__label">Color</label></span>
         <span class="bob-input__outline-trailing"></span></div>
                 
@@ -54,7 +54,7 @@
   {
     Name: Error_State,
     Html:
-<bob-component data-bob-floated="false" data-bob-component="input-color" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-loading="false" data-bob-error="true" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" blazor:onkeydown="<EVENT>" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-component="input-color" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-error="true" blazor:onkeydown="<EVENT>" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-input-color-<ID>" class="bob-input__label">Color</label></span>
         <span class="bob-input__outline-trailing"></span></div>
                 
@@ -67,7 +67,7 @@
   {
     Name: With_Helper,
     Html:
-<bob-component data-bob-floated="false" data-bob-component="input-color" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" blazor:onkeydown="<EVENT>" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-component="input-color" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" blazor:onkeydown="<EVENT>" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-input-color-<ID>" class="bob-input__label">Color</label></span>
         <span class="bob-input__outline-trailing"></span></div>
                 

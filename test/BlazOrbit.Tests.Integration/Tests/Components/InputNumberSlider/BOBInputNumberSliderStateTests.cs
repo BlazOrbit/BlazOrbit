@@ -40,7 +40,7 @@ public class BOBInputNumberSliderStateTests
         IRenderedComponent<BOBInputNumberSlider<int>> cut = ctx.Render<BOBInputNumberSlider<int>>();
 
         IElement root = cut.Find("bob-component");
-        root.GetAttribute("data-bob-disabled").Should().Be("false");
+        root.GetAttribute("data-bob-disabled").Should().BeNull();
 
         cut.Render(p => p.Add(c => c.Disabled, true));
 
@@ -74,7 +74,7 @@ public class BOBInputNumberSliderStateTests
         IRenderedComponent<BOBInputNumberSlider<int>> cut = ctx.Render<BOBInputNumberSlider<int>>();
 
         IElement root = cut.Find("bob-component");
-        root.GetAttribute("data-bob-error").Should().Be("false");
+        root.GetAttribute("data-bob-error").Should().BeNull();
 
         cut.Render(p => p.Add(c => c.Error, true));
 

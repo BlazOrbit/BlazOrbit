@@ -9,10 +9,10 @@
   },
   {
     Name: ValidationOnly,
-    Html: <div class="bob-field-helper bob-field-helper--error" role="alert" b-<SCOPE>></div>
+    Html: <div class="bob-field-helper" data-bob-error="true" role="alert" b-<SCOPE>></div>
   },
   {
     Name: HelperAndValidation,
-    Html: <div class="bob-field-helper bob-field-helper--error" role="alert" b-<SCOPE>></div><div class="bob-field-helper" aria-live="polite" b-<SCOPE>>Required field</div>
+    Html: <div class="bob-field-helper" data-bob-error="true" role="alert" b-<SCOPE>></div><div class="bob-field-helper" aria-live="polite" b-<SCOPE>>Required field</div>
   }
 ]

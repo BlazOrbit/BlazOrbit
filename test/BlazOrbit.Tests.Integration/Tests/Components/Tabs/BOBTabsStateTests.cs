@@ -69,7 +69,7 @@ public class BOBTabsStateTests
 
         // Assert — second tab button has active
         IReadOnlyList<IElement> tabs = cut.FindAll("[role='tab']");
-        tabs[0].GetAttribute("data-bob-active").Should().Be("false");
+        tabs[0].GetAttribute("data-bob-active").Should().BeNull();
         tabs[1].GetAttribute("data-bob-active").Should().Be("true");
     }
 

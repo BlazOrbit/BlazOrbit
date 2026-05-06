@@ -55,7 +55,7 @@ public class BOBInputTextAreaRenderingTests
         IRenderedComponent<BOBInputTextArea> cut = ctx.Render<BOBInputTextArea>(p => p
             .Add(c => c.ValueExpression, () => model.Value));
 
-        cut.Find("bob-component").GetAttribute("data-bob-autoresize").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-autoresize").Should().BeNull();
     }
 
     [Theory]
@@ -104,7 +104,7 @@ public class BOBInputTextAreaRenderingTests
             .Add(c => c.Label, "Empty")
             .Add(c => c.ValueExpression, () => model.Value));
 
-        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().BeNull();
     }
 
     [Theory]

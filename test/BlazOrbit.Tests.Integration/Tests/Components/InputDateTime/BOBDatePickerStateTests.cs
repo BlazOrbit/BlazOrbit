@@ -82,14 +82,14 @@ public class BOBDatePickerStateTests
         // Arrange
         IRenderedComponent<BOBDatePicker> cut = ctx.Render<BOBDatePicker>(p => p
             .Add(c => c.Value, new DateOnly(2024, 6, 15)));
-        cut.FindAll(".bob-picker__cell.bob-btn--active")
+        cut.FindAll(".bob-picker__cell[data-bob-active='true']")
             .Single().TextContent.Trim().Should().Be("15");
 
         // Act
         cut.Render(p => p.Add(c => c.Value, new DateOnly(2024, 6, 22)));
 
         // Assert
-        cut.FindAll(".bob-picker__cell.bob-btn--active")
+        cut.FindAll(".bob-picker__cell[data-bob-active='true']")
             .Single().TextContent.Trim().Should().Be("22");
     }
 
