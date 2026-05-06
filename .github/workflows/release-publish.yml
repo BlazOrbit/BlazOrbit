@@ -32,6 +32,7 @@ concurrency:
 jobs:
   router:
     uses: ./.github/workflows/_runner-router.yml
+    secrets: inherit
 
   guard:
     name: Branch Guard

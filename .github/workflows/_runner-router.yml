@@ -12,6 +12,10 @@ on:
       runner:
         description: 'Runner label to use for subsequent jobs'
         value: ${{ jobs.router.outputs.runner }}
+    secrets:
+      RUNNER_LIST_GITHUB_TOKEN:
+        required: false
+        description: 'PAT with administration:read scope for listing self-hosted runners. Optional — falls back to ubuntu-latest when missing, expired, or unauthorized.'
   workflow_dispatch:
 
 jobs:
@@ -26,7 +30,8 @@ jobs:
       - name: Decide runner
         id: check
         env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_TOKEN: ${{ secrets.RUNNER_LIST_GITHUB_TOKEN || secrets.GITHUB_TOKEN }}
+          USING_PAT: ${{ secrets.RUNNER_LIST_GITHUB_TOKEN != '' }}
         run: |
           # Default: GitHub-hosted
           if [ "${{ vars.USE_LOCAL_RUNNER }}" != "true" ]; then
@@ -38,8 +43,31 @@ jobs:
             exit 0
           fi
 
+          # Listing repo runners requires administration:read, not granted to GITHUB_TOKEN.
+          # If RUNNER_LIST_GITHUB_TOKEN is absent, skip the query and fall back to ubuntu-latest.
+          if [ "$USING_PAT" != "true" ]; then
+            echo "runner=ubuntu-latest" >> "$GITHUB_OUTPUT"
+            echo "RUNNER_LIST_GITHUB_TOKEN not configured -> ubuntu-latest"
+
+            echo "### Result" >> "$GITHUB_STEP_SUMMARY"
+            echo "**RUNNER_LIST_GITHUB_TOKEN** secret is not configured → runner: \`ubuntu-latest\`" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
           # Query self-hosted runners filtered by name prefix (repo-level)
-          repo_raw=$(gh api "repos/${{ github.repository }}/actions/runners" || true)
+          repo_raw=$(gh api "repos/${{ github.repository }}/actions/runners" 2>&1 || true)
+
+          # Detect auth failure (expired/revoked PAT) and fall back gracefully
+          if echo "$repo_raw" | grep -qE 'Resource not accessible|Bad credentials|HTTP 40[13]'; then
+            echo "runner=ubuntu-latest" >> "$GITHUB_OUTPUT"
+            echo "::warning::RUNNER_LIST_GITHUB_TOKEN unauthorized or expired -> ubuntu-latest"
+            echo "API response: $repo_raw"
+
+            echo "### Result" >> "$GITHUB_STEP_SUMMARY"
+            echo "PAT unauthorized or expired (rotate **RUNNER_LIST_GITHUB_TOKEN**) → runner: \`ubuntu-latest\`" >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+
           repo_runners=$(echo "$repo_raw" | jq -r '.runners[] | select(.name | startswith("vm-runner"))' || true)
 
           echo "--- Debug ---"
