@@ -1,7 +1,7 @@
 ﻿@namespace BlazOrbit.Components.Forms
 @attribute [GenerateComponentInfo]
 @inherits BOBInputComponentBase<TValue, BOBInputRadio<TValue>, BOBInputRadioVariant>
-@implements IBuiltComponent
+@implements IPureBuiltComponent
 @implements IRadioContainer
 @implements IHasSize
 @implements IHasColor
@@ -137,7 +137,8 @@
                     bool isSelected = ((IRadioContainer)this).IsOptionSelected(option.RawValue);
                     bool isOptionDisabled = IsDisabled || option.IsDisabled;
     
-                    <div class="bob-radio__option @(isOptionDisabled ? "bob-radio__option--disabled" : "")"
+                    <div class="bob-radio__option"
+                         data-bob-disabled="@(isOptionDisabled ? "true" : null)"
                          role="radio"
                          aria-checked="@isSelected.ToString().ToLowerInvariant()"
                          aria-disabled="@isOptionDisabled.ToString().ToLowerInvariant()"

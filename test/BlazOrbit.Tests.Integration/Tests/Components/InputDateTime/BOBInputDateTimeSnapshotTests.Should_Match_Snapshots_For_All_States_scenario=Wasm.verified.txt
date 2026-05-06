@@ -2,7 +2,7 @@
   {
     Name: Default_Empty_DateOnly,
     Html:
-<bob-component data-bob-floated="false" data-bob-component="input-date-time" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-component="input-date-time" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-datetime-<ID>" class="bob-input__label">Date</label></span>
         <span class="bob-input__outline-trailing"></span></div>
                 
@@ -18,7 +18,7 @@
   {
     Name: With_DateOnly_Value,
     Html:
-<bob-component data-bob-floated="true" data-bob-component="input-date-time" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-floated="true" data-bob-component="input-date-time" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-datetime-<ID>" class="bob-input__label">Date</label></span>
         <span class="bob-input__outline-trailing"></span></div>
                 
@@ -34,7 +34,7 @@
   {
     Name: Disabled,
     Html:
-<bob-component data-bob-floated="false" data-bob-component="input-date-time" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="true" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-component="input-date-time" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-disabled="true" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-datetime-<ID>" class="bob-input__label">Date</label></span>
         <span class="bob-input__outline-trailing"></span></div>
                 
@@ -50,7 +50,7 @@
   {
     Name: ReadOnly,
     Html:
-<bob-component data-bob-floated="true" data-bob-component="input-date-time" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="true" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-floated="true" data-bob-component="input-date-time" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-readonly="true" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-datetime-<ID>" class="bob-input__label">Date</label></span>
         <span class="bob-input__outline-trailing"></span></div>
                 
@@ -66,7 +66,7 @@
   {
     Name: Error_State,
     Html:
-<bob-component data-bob-floated="false" data-bob-component="input-date-time" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="true" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-component="input-date-time" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-error="true" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-datetime-<ID>" class="bob-input__label">Date</label></span>
         <span class="bob-input__outline-trailing"></span></div>
                 
@@ -82,7 +82,7 @@
   {
     Name: With_Helper_Text,
     Html:
-<bob-component data-bob-floated="false" data-bob-component="input-date-time" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-loading="false" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-component="input-date-time" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-datetime-<ID>" class="bob-input__label">Date</label></span>
         <span class="bob-input__outline-trailing"></span></div>
                 

@@ -41,7 +41,7 @@
     }
 
     /* Active */
-    .bob-btn.bob-btn--active {
+    .bob-btn[data-bob-active="true"] {
         background: color-mix(in oklab, var(--palette-primary) 90%, var(--palette-hover-tint) 10%);
     }
 

@@ -18,8 +18,8 @@ public class BOBInputTextValidationTests
 
         IRenderedComponent<TestBOBInputTextConsumer> cut = ctx.Render<TestBOBInputTextConsumer>();
 
-        cut.Find("bob-component").GetAttribute("data-bob-error").Should().Be("false");
-        cut.FindAll(".bob-field-helper--error").Should().BeEmpty();
+        cut.Find("bob-component").GetAttribute("data-bob-error").Should().BeNull();
+        cut.FindAll("[data-bob-error=\"true\"]").Should().BeEmpty();
     }
 
     [Theory]
@@ -35,7 +35,7 @@ public class BOBInputTextValidationTests
 
         cut.Find("bob-component").GetAttribute("data-bob-error").Should().Be("true");
         cut.Find("input.bob-input__field").GetAttribute("aria-invalid").Should().Be("true");
-        cut.Find(".bob-field-helper--error").Should().NotBeNull();
+        cut.Find("[data-bob-error=\"true\"]").Should().NotBeNull();
     }
 
     [Theory]
@@ -48,7 +48,7 @@ public class BOBInputTextValidationTests
 
         cut.Find("button.submit-btn").Click();
 
-        IElement errorHelper = cut.Find(".bob-field-helper--error");
+        IElement errorHelper = cut.Find("[data-bob-error=\"true\"]");
         errorHelper.TextContent.Should().Contain("Email is required");
     }
 
@@ -63,7 +63,7 @@ public class BOBInputTextValidationTests
         cut.Find("input.bob-input__field").Change("not-an-email");
         cut.Find("button.submit-btn").Click();
 
-        IElement errorHelper = cut.Find(".bob-field-helper--error");
+        IElement errorHelper = cut.Find("[data-bob-error=\"true\"]");
         errorHelper.TextContent.Should().Contain("Invalid email format");
     }
 
@@ -83,9 +83,9 @@ public class BOBInputTextValidationTests
         cut.Find("input.bob-input__field").Change("user@example.com");
         cut.Find("button.submit-btn").Click();
 
-        cut.Find("bob-component").GetAttribute("data-bob-error").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-error").Should().BeNull();
         cut.Find("input.bob-input__field").GetAttribute("aria-invalid").Should().Be("false");
-        cut.FindAll(".bob-field-helper--error").Should().BeEmpty();
+        cut.FindAll("[data-bob-error=\"true\"]").Should().BeEmpty();
     }
 
     [Theory]

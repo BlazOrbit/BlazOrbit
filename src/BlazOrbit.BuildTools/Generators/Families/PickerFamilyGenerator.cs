@@ -24,7 +24,6 @@ public class PickerFamilyCssGenerator : IAssetGenerator
         string grid = FeatureDefinitions.CssClasses.Picker.Grid;
         string cell = FeatureDefinitions.CssClasses.Picker.Cell;
         string cellSelected = FeatureDefinitions.CssClasses.Picker.CellSelected;
-        string cellMuted = FeatureDefinitions.CssClasses.Picker.CellMuted;
         string input = FeatureDefinitions.CssClasses.Picker.Input;
         string separator = FeatureDefinitions.CssClasses.Picker.Separator;
         string slider = FeatureDefinitions.CssClasses.Picker.Slider;
@@ -96,7 +95,7 @@ bob-component[{{picker}}] .{{cellSelected}} {
     color: var(--palette-primary-contrast);
 }
 
-bob-component[{{picker}}] .{{cellMuted}} {
+bob-component[{{picker}}] .{{cell}}[data-bob-muted="true"] {
     opacity: 0.3;
 }
 

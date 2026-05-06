@@ -1,19 +1,19 @@
 ﻿[
   {
     Name: NoNav,
-    Html: <bob-component data-bob-component="stacked-layout" data-bob-sticky-header="true" data-bob-sticky-nav="false" data-bob-nav-open="false" b-<SCOPE>><header class="bob-stacked-layout__header" b-<SCOPE>><div class="bob-stacked-layout__header-content" b-<SCOPE>>Header</div></header><main class="bob-stacked-layout__main" b-<SCOPE>><div class="bob-stacked-layout__main-inner" b-<SCOPE>>Content</div></main></bob-component>
+    Html: <bob-component data-bob-component="stacked-layout" data-bob-sticky-header="true" b-<SCOPE>><header class="bob-stacked-layout__header" b-<SCOPE>><div class="bob-stacked-layout__header-content" b-<SCOPE>>Header</div></header><main class="bob-stacked-layout__main" b-<SCOPE>><div class="bob-stacked-layout__main-inner" b-<SCOPE>>Content</div></main></bob-component>
   },
   {
     Name: WithNav_Closed,
     Html:
-<bob-component data-bob-component="stacked-layout" data-bob-sticky-header="true" data-bob-sticky-nav="false" data-bob-nav-open="false" b-<SCOPE>><header class="bob-stacked-layout__header" b-<SCOPE>><button type="button" class="bob-stacked-layout__toggle" aria-label="Toggle navigation" aria-expanded="false" blazor:onclick="<EVENT>" b-<SCOPE>><span class="bob-stacked-layout__toggle-bar" b-<SCOPE>></span>
+<bob-component data-bob-component="stacked-layout" data-bob-sticky-header="true" b-<SCOPE>><header class="bob-stacked-layout__header" b-<SCOPE>><button type="button" class="bob-stacked-layout__toggle" aria-label="Toggle navigation" aria-expanded="false" blazor:onclick="<EVENT>" b-<SCOPE>><span class="bob-stacked-layout__toggle-bar" b-<SCOPE>></span>
                 <span class="bob-stacked-layout__toggle-bar" b-<SCOPE>></span>
                 <span class="bob-stacked-layout__toggle-bar" b-<SCOPE>></span></button><div class="bob-stacked-layout__header-content" b-<SCOPE>>Header</div></header><nav class="bob-stacked-layout__nav" b-<SCOPE>><div class="bob-stacked-layout__nav-inner" b-<SCOPE>>Nav</div></nav><main class="bob-stacked-layout__main" b-<SCOPE>><div class="bob-stacked-layout__main-inner" b-<SCOPE>>Content</div></main></bob-component>
   },
   {
     Name: WithNav_Open,
     Html:
-<bob-component data-bob-component="stacked-layout" data-bob-sticky-header="true" data-bob-sticky-nav="false" data-bob-nav-open="true" b-<SCOPE>><header class="bob-stacked-layout__header" b-<SCOPE>><button type="button" class="bob-stacked-layout__toggle" aria-label="Toggle navigation" aria-expanded="true" blazor:onclick="<EVENT>" b-<SCOPE>><span class="bob-stacked-layout__toggle-bar" b-<SCOPE>></span>
+<bob-component data-bob-component="stacked-layout" data-bob-sticky-header="true" data-bob-nav-open="true" b-<SCOPE>><header class="bob-stacked-layout__header" b-<SCOPE>><button type="button" class="bob-stacked-layout__toggle" aria-label="Toggle navigation" aria-expanded="true" blazor:onclick="<EVENT>" b-<SCOPE>><span class="bob-stacked-layout__toggle-bar" b-<SCOPE>></span>
                 <span class="bob-stacked-layout__toggle-bar" b-<SCOPE>></span>
                 <span class="bob-stacked-layout__toggle-bar" b-<SCOPE>></span></button><div class="bob-stacked-layout__header-content" b-<SCOPE>>Header</div></header><nav class="bob-stacked-layout__nav" b-<SCOPE>><div class="bob-stacked-layout__nav-inner" b-<SCOPE>>Nav</div></nav><main class="bob-stacked-layout__main" b-<SCOPE>><div class="bob-stacked-layout__main-inner" b-<SCOPE>>Content</div></main></bob-component>
   }

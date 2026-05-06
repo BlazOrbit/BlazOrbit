@@ -1,12 +1,12 @@
-﻿@namespace BlazOrbit.Components.Layout
+@namespace BlazOrbit.Components.Layout
 
 @inherits BOBComponentBase
-@implements IBuiltComponent
+@implements IPureBuiltComponent
 
 <bob-component @attributes="ComputedAttributes"
-               data-bob-sticky-header="@StickyHeader.ToString().ToLowerInvariant()"
-               data-bob-sticky-nav="@StickyNav.ToString().ToLowerInvariant()"
-               data-bob-nav-open="@_navOpen.ToString().ToLowerInvariant()">
+               data-bob-sticky-header="@(StickyHeader ? "true" : null)"
+               data-bob-sticky-nav="@(StickyNav ? "true" : null)"
+               data-bob-nav-open="@(_navOpen ? "true" : null)">
 
     <header class="bob-stacked-layout__header">
         @if (ShowToggle && Nav != null)

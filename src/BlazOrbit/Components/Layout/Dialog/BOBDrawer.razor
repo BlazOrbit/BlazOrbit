@@ -15,11 +15,14 @@
          tabindex="-1"
          @ref="_hostRef">
 
-        <div class="bob-drawer-overlay @(_isClosing ? "bob-drawer-overlay--closing" : "")"
+        <div class="bob-drawer-overlay"
+             data-bob-closing="@(_isClosing ? "true" : null)"
              @onclick="HandleOverlayClick">
         </div>
 
-        <div class="bob-drawer bob-drawer--@Position.ToString().ToLowerInvariant() @(_isClosing ? "bob-drawer--closing" : "")"
+        <div class="bob-drawer"
+             data-bob-closing="@(_isClosing ? "true" : null)"
+             data-bob-position="@Position.ToString().ToLowerInvariant()"
              @ref="_drawerRef"
              @onclick:stopPropagation="true"
              role="dialog"
@@ -146,6 +149,7 @@
             await JsInterop.WaitForAnimationEndAsync(_drawerRef, CloseAnimationFallbackMs);
         }
         catch (JSDisconnectedException) { }
+        catch (ObjectDisposedException) { }
         catch (InvalidOperationException) { }
         catch (TaskCanceledException) { }
 

@@ -86,7 +86,7 @@ public class BOBAccordionInteractionTests
 
         // Assert — only third is expanded
         var items = cut.FindAll("[data-bob-component='accordion-item']");
-        items[0].GetAttribute("data-bob-expanded").Should().Be("false");
+        items[0].GetAttribute("data-bob-expanded").Should().BeNull();
         items[2].GetAttribute("data-bob-expanded").Should().Be("true");
     }
 
@@ -108,7 +108,7 @@ public class BOBAccordionInteractionTests
         // Assert — none expanded
         foreach (var item in cut.FindAll("[data-bob-component='accordion-item']"))
         {
-            item.GetAttribute("data-bob-expanded").Should().Be("false");
+            item.GetAttribute("data-bob-expanded").Should().BeNull();
         }
     }
 
@@ -146,7 +146,7 @@ public class BOBAccordionInteractionTests
 
         // Assert — still collapsed
         var items = cut.FindAll("[data-bob-component='accordion-item']");
-        items[1].GetAttribute("data-bob-expanded").Should().Be("false");
+        items[1].GetAttribute("data-bob-expanded").Should().BeNull();
     }
 
     [Theory]

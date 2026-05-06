@@ -26,8 +26,8 @@ public class BOBInputNumberRenderingTests
         root.GetAttribute("data-bob-variant").Should().Be("outlined");
         root.GetAttribute("data-bob-size").Should().Be("medium");
         root.GetAttribute("data-bob-density").Should().Be("standard");
-        root.GetAttribute("data-bob-disabled").Should().Be("false");
-        root.GetAttribute("data-bob-floated").Should().Be("false");
+        root.GetAttribute("data-bob-disabled").Should().BeNull();
+        root.GetAttribute("data-bob-floated").Should().BeNull();
     }
 
     [Theory]

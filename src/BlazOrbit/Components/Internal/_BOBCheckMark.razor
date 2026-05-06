@@ -7,9 +7,9 @@
     class stays as the identification anchor.
 *@
 <span class="_bob-checkmark"
-      data-bob-checked="@(IsChecked ? "true" : "false")"
-      data-bob-indeterminate="@(IsIndeterminate ? "true" : "false")"
-      data-bob-disabled="@(Disabled ? "true" : "false")"
+      data-bob-checked="@(IsChecked ? "true" : null)"
+      data-bob-indeterminate="@(IsIndeterminate ? "true" : null)"
+      data-bob-disabled="@(Disabled ? "true" : null)"
       role="@(Mode == CheckMarkMode.Radio ? "radio" : "checkbox")"
       aria-checked="@AriaChecked"
       aria-readonly="@ReadOnly.ToString().ToLowerInvariant()"

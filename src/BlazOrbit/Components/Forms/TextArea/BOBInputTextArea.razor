@@ -121,8 +121,14 @@
     public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
     {
         dataAttributes[FeatureDefinitions.DataAttributes.Resize] = Resize.ToString().ToLowerInvariant();
-        dataAttributes[FeatureDefinitions.DataAttributes.AutoResize] = AutoResize.ToString().ToLowerInvariant();
-        dataAttributes[FeatureDefinitions.DataAttributes.Floated] = IsFloated.ToString().ToLowerInvariant();
+        if (AutoResize)
+            dataAttributes[FeatureDefinitions.DataAttributes.AutoResize] = "true";
+        else
+            dataAttributes.Remove(FeatureDefinitions.DataAttributes.AutoResize);
+        if (IsFloated)
+            dataAttributes[FeatureDefinitions.DataAttributes.Floated] = "true";
+        else
+            dataAttributes.Remove(FeatureDefinitions.DataAttributes.Floated);
     }
 
     public void BuildComponentCssVariables(Dictionary<string, string> cssVariables) { }
@@ -146,8 +152,10 @@
                 await TextAreaJs.InitializeAutoResizeAsync(_textareaRef, _textareaId);
                 _jsInitialized = true;
             }
-            catch (InvalidOperationException) { }
             catch (JSDisconnectedException) { }
+            catch (ObjectDisposedException) { }
+            catch (InvalidOperationException) { }
+            catch (TaskCanceledException) { }
         }
     }
 

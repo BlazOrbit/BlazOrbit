@@ -144,6 +144,8 @@ Open the PR against `develop`. CI packs and surfaces `.nupkg` artifacts so revie
 
 All library components derive from `BOBComponentBase`, `BOBVariantComponentBase` or `BOBInputComponentBase<TValue>`. Unless they are explicitly excluded because they are internal components or there are valid reasons. In general do not inherit directly from `ComponentBase` and use the `<bob-component>` DOM rendering standards.
 
+> For the complete, up-to-date architecture reference see [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md).
+
 ### Styling Pipeline
 
 Styling is driven by marker/property interfaces (`IHas*`) along with date attributes rather than per-feature CSS class toggles:

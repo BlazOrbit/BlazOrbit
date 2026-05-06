@@ -21,7 +21,7 @@ public class BOBInputCheckboxStateTests
             .Add(c => c.Value, false));
 
         IElement root = cut.Find("bob-component");
-        root.GetAttribute("data-bob-active").Should().Be("false");
+        root.GetAttribute("data-bob-active").Should().BeNull();
 
         cut.Render(p => p.Add(c => c.Value, true));
 
@@ -39,7 +39,7 @@ public class BOBInputCheckboxStateTests
 
         IElement root = cut.Find("bob-component");
         root.GetAttribute("data-bob-indeterminate").Should().Be("true");
-        root.GetAttribute("data-bob-active").Should().Be("false");
+        root.GetAttribute("data-bob-active").Should().BeNull();
 
         cut.Render(p => p.Add(c => c.Value, (bool?)true));
 
@@ -48,7 +48,7 @@ public class BOBInputCheckboxStateTests
 
         cut.Render(p => p.Add(c => c.Value, (bool?)false));
 
-        root.GetAttribute("data-bob-active").Should().Be("false");
+        root.GetAttribute("data-bob-active").Should().BeNull();
         root.GetAttribute("data-bob-indeterminate").Should().BeNull();
     }
 
@@ -62,7 +62,7 @@ public class BOBInputCheckboxStateTests
             .Add(c => c.Disabled, false));
 
         IElement root = cut.Find("bob-component");
-        root.GetAttribute("data-bob-disabled").Should().Be("false");
+        root.GetAttribute("data-bob-disabled").Should().BeNull();
 
         cut.Render(p => p.Add(c => c.Disabled, true));
 
@@ -79,7 +79,7 @@ public class BOBInputCheckboxStateTests
             .Add(c => c.ReadOnly, false));
 
         IElement root = cut.Find("bob-component");
-        root.GetAttribute("data-bob-readonly").Should().Be("false");
+        root.GetAttribute("data-bob-readonly").Should().BeNull();
 
         cut.Render(p => p.Add(c => c.ReadOnly, true));
 
@@ -96,7 +96,7 @@ public class BOBInputCheckboxStateTests
             .Add(c => c.Error, false));
 
         IElement root = cut.Find("bob-component");
-        root.GetAttribute("data-bob-error").Should().Be("false");
+        root.GetAttribute("data-bob-error").Should().BeNull();
 
         cut.Render(p => p.Add(c => c.Error, true));
 
@@ -114,7 +114,7 @@ public class BOBInputCheckboxStateTests
             .Add(c => c.Required, false));
 
         IElement root = cut.Find("bob-component");
-        root.GetAttribute("data-bob-required").Should().Be("false");
+        root.GetAttribute("data-bob-required").Should().BeNull();
         cut.FindAll(".bob-field__required").Should().BeEmpty();
 
         cut.Render(p => p

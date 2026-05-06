@@ -18,7 +18,7 @@
     animation: bob-modal-overlay-in 200ms ease-out forwards;
 }
 
-.bob-modal-overlay--closing {
+.bob-modal-overlay[data-bob-closing="true"] {
     animation: bob-modal-overlay-out 150ms ease-in forwards;
 }
 

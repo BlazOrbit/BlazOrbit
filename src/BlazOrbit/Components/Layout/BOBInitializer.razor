@@ -44,7 +44,7 @@
         StateHasChanged();
     }
 
-    private void HandleThemeChanged(string theme) => _ = HandleThemeChangedSafeAsync();
+    private void HandleThemeChanged(string theme) => BOBAsyncHelper.SafeFireAndForget(HandleThemeChangedSafeAsync);
 
     private async Task HandleThemeChangedSafeAsync()
     {

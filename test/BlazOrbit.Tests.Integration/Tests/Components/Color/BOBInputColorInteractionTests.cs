@@ -97,7 +97,7 @@ public class BOBInputColorInteractionTests
             .Add(c => c.Label, "Color")
             .Add(c => c.ValueExpression, () => model.Value));
 
-        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().BeNull();
 
         cut.Find("input.bob-input__field").Focus();
 

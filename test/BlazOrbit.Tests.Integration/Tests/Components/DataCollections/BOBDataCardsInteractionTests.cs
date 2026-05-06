@@ -85,8 +85,8 @@ public class BOBDataCardsInteractionTests
         cut.FindAll(".bob-datacards__card")[0].Click();
 
         // Assert — only second is selected
-        cut.FindAll(".bob-datacards__card")[0].ClassList.Should().NotContain("bob-datacards__card--selected");
-        cut.FindAll(".bob-datacards__card")[1].ClassList.Should().Contain("bob-datacards__card--selected");
+        cut.FindAll(".bob-datacards__card")[0].GetAttribute("data-bob-selected").Should().BeNull();
+        cut.FindAll(".bob-datacards__card")[1].GetAttribute("data-bob-selected").Should().Be("true");
     }
 
     [Theory]

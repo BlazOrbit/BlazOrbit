@@ -108,7 +108,7 @@ public class BOBInputTextInteractionTests
 
         IElement root = cut.Find("bob-component");
         IElement input = cut.Find("input.bob-input__field");
-        root.GetAttribute("data-bob-floated").Should().Be("false");
+        root.GetAttribute("data-bob-floated").Should().BeNull();
 
         // Act - focus
         input.Focus();
@@ -120,7 +120,7 @@ public class BOBInputTextInteractionTests
         cut.Find("input.bob-input__field").Blur();
 
         // Assert collapsed back
-        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().BeNull();
     }
 
     [Theory]

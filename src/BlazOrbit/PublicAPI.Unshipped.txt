@@ -392,9 +392,13 @@ BlazOrbit.Components.BOBTooltip.Arrow.get -> bool
 BlazOrbit.Components.BOBTooltip.Arrow.set -> void
 BlazOrbit.Components.BOBTooltip.AutoCloseAfterMs.get -> int?
 BlazOrbit.Components.BOBTooltip.AutoCloseAfterMs.set -> void
+BlazOrbit.Components.BOBTooltip.BackgroundColor.get -> string?
+BlazOrbit.Components.BOBTooltip.BackgroundColor.set -> void
 BlazOrbit.Components.BOBTooltip.BOBTooltip() -> void
 BlazOrbit.Components.BOBTooltip.ChildContent.get -> Microsoft.AspNetCore.Components.RenderFragment?
 BlazOrbit.Components.BOBTooltip.ChildContent.set -> void
+BlazOrbit.Components.BOBTooltip.Color.get -> string?
+BlazOrbit.Components.BOBTooltip.Color.set -> void
 BlazOrbit.Components.BOBTooltip.Elevation.get -> int?
 BlazOrbit.Components.BOBTooltip.Elevation.set -> void
 BlazOrbit.Components.BOBTooltip.Interactive.get -> bool
@@ -680,6 +684,8 @@ BlazOrbit.Components.Forms.BOBDatePicker.ValueChanged.get -> Microsoft.AspNetCor
 BlazOrbit.Components.Forms.BOBDatePicker.ValueChanged.set -> void
 BlazOrbit.Components.Forms.BOBDatePickerComponentInfo
 BlazOrbit.Components.Forms.BOBInputCheckbox<TValue>
+BlazOrbit.Components.Forms.BOBInputCheckbox<TValue>.Active.get -> bool
+BlazOrbit.Components.Forms.BOBInputCheckbox<TValue>.Active.set -> void
 BlazOrbit.Components.Forms.BOBInputCheckbox<TValue>.BOBInputCheckbox() -> void
 BlazOrbit.Components.Forms.BOBInputCheckbox<TValue>.CheckedIcon.get -> BlazOrbit.Components.IconKey?
 BlazOrbit.Components.Forms.BOBInputCheckbox<TValue>.CheckedIcon.set -> void
@@ -691,6 +697,7 @@ BlazOrbit.Components.Forms.BOBInputCheckbox<TValue>.HelperText.get -> string?
 BlazOrbit.Components.Forms.BOBInputCheckbox<TValue>.HelperText.set -> void
 BlazOrbit.Components.Forms.BOBInputCheckbox<TValue>.IndeterminateIcon.get -> BlazOrbit.Components.IconKey?
 BlazOrbit.Components.Forms.BOBInputCheckbox<TValue>.IndeterminateIcon.set -> void
+BlazOrbit.Components.Forms.BOBInputCheckbox<TValue>.IsActive.get -> bool
 BlazOrbit.Components.Forms.BOBInputCheckbox<TValue>.Label.get -> string?
 BlazOrbit.Components.Forms.BOBInputCheckbox<TValue>.Label.set -> void
 BlazOrbit.Components.Forms.BOBInputCheckbox<TValue>.Size.get -> BlazOrbit.Components.BOBSize

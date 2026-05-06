@@ -2,6 +2,10 @@
     position: relative;
     display: inline-flex;
     --bob-tooltip-max-width: 300px;
+    --_tooltip-radius: 4px;
+    --_tooltip-background: var(--bob-inline-background, color-mix(in srgb, var(--palette-shadow) 80%, var(--palette-surface-contrast) 20%));
+    --_tooltip-color: var(--bob-inline-color, var(--palette-surface));
+    --_tooltip-shadow: var(--bob-inline-shadow, 0 2px 8px color-mix(in srgb, var(--palette-shadow) 15%, transparent));
 }
 
 [data-bob-component="tooltip"] .bob-tooltip {
@@ -13,13 +17,10 @@
 }
 
 [data-bob-component="tooltip"] .bob-tooltip__content {
-    --_tooltip-radius: 4px;
-    --_tooltip-background: color-mix(in srgb, var(--palette-shadow) 80%, var(--palette-surface-contrast) 20%);
-    --_tooltip-shadow: var(--bob-inline-shadow, 0 2px 8px color-mix(in srgb, var(--palette-shadow) 15%, transparent));
     display: flex;
     align-items: center;
     background-color: var(--_tooltip-background);
-    color: var(--palette-surface);
+    color: var(--_tooltip-color);
     padding: 0.5rem 0.75rem;
     border-radius: var(--_tooltip-radius);
     font-size: 0.875rem;
@@ -37,22 +38,22 @@
    data-bob-elevation attribute and --bob-inline-elevation-tint are still emitted for
    consumers that want to override the background in their own CSS. */
 
-[data-bob-component="tooltip"] .bob-tooltip__arrow {
-    position: absolute;
-    width: 8px;
-    height: 8px;
-    background-color: color-mix(in srgb, var(--palette-shadow) 80%, var(--palette-surface-contrast) 20%);
-    transform: rotate(45deg);
-}
+    [data-bob-component="tooltip"] .bob-tooltip__arrow {
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background-color: var(--_tooltip-background);
+        transform: rotate(45deg);
+    }
 
 /* ========== Dark theme ========== */
 [data-bob-theme="dark"] [data-bob-component="tooltip"] .bob-tooltip__content,
 [data-bob-theme="dark"] [data-bob-component="tooltip"] .bob-tooltip__arrow {
-    background-color: color-mix(in srgb, var(--palette-surface) 80%, var(--palette-surface-contrast) 20%);
+    background-color: var(--_tooltip-background);
 }
 
 [data-bob-theme="dark"] [data-bob-component="tooltip"] .bob-tooltip__content {
-    color: var(--palette-surface-contrast);
+    color: var(--_tooltip-color);
 }
 
 /* ========== Placement: Top ========== */

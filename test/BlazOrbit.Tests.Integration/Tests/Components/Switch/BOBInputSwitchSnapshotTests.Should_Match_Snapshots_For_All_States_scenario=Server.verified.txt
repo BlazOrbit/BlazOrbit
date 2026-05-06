@@ -2,7 +2,7 @@
   {
     Name: Off,
     Html:
-<bob-component data-bob-component="input-switch" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><bob-component data-bob-active="false" data-bob-component="switch" data-bob-size="medium" data-bob-density="standard" data-bob-disabled="false" b-<SCOPE>><label class="bob-switch" for="bob-switch-<ID>" blazor:onclick="<EVENT>" blazor:onclick:preventDefault b-<SCOPE>><input type="checkbox" id="bob-switch-<ID>" role="switch" aria-checked="false" aria-describedby="bob-helper-<ID>" class="bob-switch__input" b-<SCOPE> />
+<bob-component data-bob-component="input-switch" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><bob-component data-bob-component="switch" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><label class="bob-switch" for="bob-switch-<ID>" blazor:onclick="<EVENT>" blazor:onclick:preventDefault b-<SCOPE>><input type="checkbox" id="bob-switch-<ID>" role="switch" aria-checked="false" aria-describedby="bob-helper-<ID>" class="bob-switch__input" b-<SCOPE> />
 
         <span class="bob-switch__track" aria-hidden="true" b-<SCOPE>><span class="bob-switch__thumb" b-<SCOPE>></span></span><span class="bob-switch__label" b-<SCOPE>>Toggle</span></label></bob-component>
 
@@ -11,7 +11,7 @@
   {
     Name: On,
     Html:
-<bob-component data-bob-component="input-switch" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><bob-component data-bob-active="true" data-bob-component="switch" data-bob-size="medium" data-bob-density="standard" data-bob-disabled="false" b-<SCOPE>><label class="bob-switch" for="bob-switch-<ID>" blazor:onclick="<EVENT>" blazor:onclick:preventDefault b-<SCOPE>><input type="checkbox" id="bob-switch-<ID>" role="switch" checked aria-checked="true" aria-describedby="bob-helper-<ID>" class="bob-switch__input" b-<SCOPE> />
+<bob-component data-bob-component="input-switch" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><bob-component data-bob-active="true" data-bob-component="switch" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><label class="bob-switch" for="bob-switch-<ID>" blazor:onclick="<EVENT>" blazor:onclick:preventDefault b-<SCOPE>><input type="checkbox" id="bob-switch-<ID>" role="switch" checked aria-checked="true" aria-describedby="bob-helper-<ID>" class="bob-switch__input" b-<SCOPE> />
 
         <span class="bob-switch__track" aria-hidden="true" b-<SCOPE>><span class="bob-switch__thumb" b-<SCOPE>></span></span><span class="bob-switch__label" b-<SCOPE>>Toggle</span></label></bob-component>
 
@@ -20,7 +20,7 @@
   {
     Name: Disabled,
     Html:
-<bob-component data-bob-component="input-switch" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" data-bob-error="false" data-bob-disabled="true" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><bob-component data-bob-active="false" data-bob-component="switch" data-bob-size="medium" data-bob-density="standard" data-bob-disabled="true" b-<SCOPE>><label class="bob-switch" for="bob-switch-<ID>" blazor:onclick="<EVENT>" blazor:onclick:preventDefault b-<SCOPE>><input type="checkbox" id="bob-switch-<ID>" role="switch" disabled aria-checked="false" aria-describedby="bob-helper-<ID>" class="bob-switch__input" b-<SCOPE> />
+<bob-component data-bob-component="input-switch" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" data-bob-disabled="true" b-<SCOPE>><bob-component data-bob-component="switch" data-bob-size="medium" data-bob-density="standard" data-bob-disabled="true" b-<SCOPE>><label class="bob-switch" for="bob-switch-<ID>" blazor:onclick="<EVENT>" blazor:onclick:preventDefault b-<SCOPE>><input type="checkbox" id="bob-switch-<ID>" role="switch" disabled aria-checked="false" aria-describedby="bob-helper-<ID>" class="bob-switch__input" b-<SCOPE> />
 
         <span class="bob-switch__track" aria-hidden="true" b-<SCOPE>><span class="bob-switch__thumb" b-<SCOPE>></span></span><span class="bob-switch__label" b-<SCOPE>>Disabled</span></label></bob-component>
 
@@ -29,7 +29,7 @@
   {
     Name: Error,
     Html:
-<bob-component data-bob-component="input-switch" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" data-bob-error="true" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><bob-component data-bob-active="false" data-bob-component="switch" data-bob-size="medium" data-bob-density="standard" data-bob-disabled="false" b-<SCOPE>><label class="bob-switch" for="bob-switch-<ID>" blazor:onclick="<EVENT>" blazor:onclick:preventDefault b-<SCOPE>><input type="checkbox" id="bob-switch-<ID>" role="switch" aria-checked="false" aria-describedby="bob-helper-<ID>" class="bob-switch__input" b-<SCOPE> />
+<bob-component data-bob-component="input-switch" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" data-bob-error="true" b-<SCOPE>><bob-component data-bob-component="switch" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><label class="bob-switch" for="bob-switch-<ID>" blazor:onclick="<EVENT>" blazor:onclick:preventDefault b-<SCOPE>><input type="checkbox" id="bob-switch-<ID>" role="switch" aria-checked="false" aria-describedby="bob-helper-<ID>" class="bob-switch__input" b-<SCOPE> />
 
         <span class="bob-switch__track" aria-hidden="true" b-<SCOPE>><span class="bob-switch__thumb" b-<SCOPE>></span></span><span class="bob-switch__label" b-<SCOPE>>Error</span></label></bob-component>
 
@@ -38,7 +38,7 @@
   {
     Name: With_Helper,
     Html:
-<bob-component data-bob-component="input-switch" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><bob-component data-bob-active="false" data-bob-component="switch" data-bob-size="medium" data-bob-density="standard" data-bob-disabled="false" b-<SCOPE>><label class="bob-switch" for="bob-switch-<ID>" blazor:onclick="<EVENT>" blazor:onclick:preventDefault b-<SCOPE>><input type="checkbox" id="bob-switch-<ID>" role="switch" aria-checked="false" aria-describedby="bob-helper-<ID>" class="bob-switch__input" b-<SCOPE> />
+<bob-component data-bob-component="input-switch" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><bob-component data-bob-component="switch" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><label class="bob-switch" for="bob-switch-<ID>" blazor:onclick="<EVENT>" blazor:onclick:preventDefault b-<SCOPE>><input type="checkbox" id="bob-switch-<ID>" role="switch" aria-checked="false" aria-describedby="bob-helper-<ID>" class="bob-switch__input" b-<SCOPE> />
 
         <span class="bob-switch__track" aria-hidden="true" b-<SCOPE>><span class="bob-switch__thumb" b-<SCOPE>></span></span><span class="bob-switch__label" b-<SCOPE>>Notify</span></label></bob-component>
 
@@ -47,7 +47,7 @@
   {
     Name: Large_Compact,
     Html:
-<bob-component data-bob-component="input-switch" data-bob-variant="default" data-bob-size="large" data-bob-density="compact" data-bob-error="false" data-bob-disabled="false" data-bob-readonly="false" data-bob-required="false" b-<SCOPE>><bob-component data-bob-active="false" data-bob-component="switch" data-bob-size="large" data-bob-density="compact" data-bob-disabled="false" b-<SCOPE>><label class="bob-switch" for="bob-switch-<ID>" blazor:onclick="<EVENT>" blazor:onclick:preventDefault b-<SCOPE>><input type="checkbox" id="bob-switch-<ID>" role="switch" aria-checked="false" aria-describedby="bob-helper-<ID>" class="bob-switch__input" b-<SCOPE> />
+<bob-component data-bob-component="input-switch" data-bob-variant="default" data-bob-size="large" data-bob-density="compact" b-<SCOPE>><bob-component data-bob-component="switch" data-bob-size="large" data-bob-density="compact" b-<SCOPE>><label class="bob-switch" for="bob-switch-<ID>" blazor:onclick="<EVENT>" blazor:onclick:preventDefault b-<SCOPE>><input type="checkbox" id="bob-switch-<ID>" role="switch" aria-checked="false" aria-describedby="bob-helper-<ID>" class="bob-switch__input" b-<SCOPE> />
 
         <span class="bob-switch__track" aria-hidden="true" b-<SCOPE>><span class="bob-switch__thumb" b-<SCOPE>></span></span><span class="bob-switch__label" b-<SCOPE>>Big</span></label></bob-component>
 

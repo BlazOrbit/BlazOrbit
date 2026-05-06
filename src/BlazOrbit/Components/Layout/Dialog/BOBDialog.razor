@@ -14,11 +14,13 @@
          @onkeydown="HandleKeyDown"
          tabindex="-1"
          @ref="_hostRef">
-        <div class="bob-dialog-overlay @(_isClosing ? "bob-dialog-overlay--closing" : "")"
+        <div class="bob-dialog-overlay"
+             data-bob-closing="@(_isClosing ? "true" : null)"
              @onclick="HandleOverlayClick">
         </div>
 
-        <div class="bob-dialog @(_isClosing ? "bob-dialog--closing" : "")"
+        <div class="bob-dialog"
+             data-bob-closing="@(_isClosing ? "true" : null)"
              @ref="_dialogRef"
              @onclick:stopPropagation="true"
              role="dialog"
@@ -177,6 +179,7 @@
             await JsInterop.WaitForAnimationEndAsync(_dialogRef, CloseAnimationFallbackMs);
         }
         catch (JSDisconnectedException) { }
+        catch (ObjectDisposedException) { }
         catch (InvalidOperationException) { }
         catch (TaskCanceledException) { }
 

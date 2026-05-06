@@ -29,7 +29,7 @@ bob-component[data-bob-input-base] {
     --_input-border-color: var(--palette-border);
     --_input-border-width: 1px;
 
-    --_wrapper-bg: transparent;
+    --_wrapper-bg: var(--bob-inline-background, transparent);
     --_wrapper-radius: var(--_input-radius);
     --_wrapper-min-h: var(--_input-h);
     --_wrapper-pt: 0px;
@@ -400,7 +400,7 @@ bob-component[data-bob-input-base][data-bob-variant="standard"] .bob-input__vali
 bob-component[data-bob-input-base][data-bob-variant="flat"] {
     --_wrapper-pt: 0px;
     --_wrapper-radius: 0;
-    --_wrapper-bg: transparent;
+    --_wrapper-bg: var(--bob-inline-background, transparent);
     --_outline-leading-width: var(--_addon-offset);
 }
 

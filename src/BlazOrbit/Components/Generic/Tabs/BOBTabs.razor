@@ -1,10 +1,11 @@
-﻿@namespace BlazOrbit.Components
+@namespace BlazOrbit.Components
 @attribute [GenerateComponentInfo]
 @using Microsoft.AspNetCore.Components.Web
 @using Microsoft.JSInterop
 @inherits BOBVariantComponentBase<BOBTabs, BOBTabsVariant>
-@implements IBuiltComponent
+@implements IPureBuiltComponent
 @implements IHasSize
+@implements IHasFullWidth
 
 @{
     base.BuildRenderTree(__builder);
@@ -21,6 +22,7 @@
     /// <summary>ActiveTabChanged.</summary>
     [Parameter] public EventCallback<string?> ActiveTabChanged { get; set; }
 
+    // IHasFullWidth
     /// <summary>When <see langword="true" />, the component spans the full width of its container.</summary>
     [Parameter] public bool FullWidth { get; set; }
 
@@ -122,7 +124,7 @@
                                 role="tab"
                                 id="@($"bob-tab-{tabId}")"
                                 class="bob-tabs__tab"
-                                data-bob-active="@(isActive.ToString().ToLowerInvariant())"
+                                data-bob-active="@(isActive ? "true" : null)"
                                 aria-selected="@(isActive ? "true" : "false")"
                                 aria-controls="@($"bob-tabpanel-{tabId}")"
                                 tabindex="@(isActive ? 0 : -1)"
@@ -227,7 +229,13 @@
             catch (JSDisconnectedException)
             {
             }
+            catch (ObjectDisposedException)
+            {
+            }
             catch (InvalidOperationException)
+            {
+            }
+            catch (TaskCanceledException)
             {
             }
         }
@@ -236,10 +244,6 @@
     /* ========= Component Attributes ========= */
     public void BuildComponentDataAttributes(Dictionary<string, object> attributes)
     {
-        if (FullWidth)
-        {
-            attributes[FeatureDefinitions.DataAttributes.FullWidth] = "true";
-        }
     }
 
     public void BuildComponentCssVariables(Dictionary<string, string> cssVariables) { }

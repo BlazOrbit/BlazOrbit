@@ -70,7 +70,7 @@ public class BOBInputDropdownInteractionTests
 
         // Assert
         cut.FindAll(".bob-dropdown__menu").Should().BeEmpty();
-        cut.Find("bob-component").GetAttribute("data-bob-dropdown-open").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-dropdown-open").Should().BeNull();
     }
 
     [Theory]

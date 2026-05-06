@@ -5,6 +5,8 @@
 
 @inherits BOBComponentBase
 @implements IHasElevation
+@implements IHasColor
+@implements IHasBackgroundColor
 
 <bob-component @attributes="ComputedAttributes"
      aria-describedby="@(_isVisible ? _tooltipId : null)"
@@ -22,7 +24,7 @@
              id="@_tooltipId"
              data-bob-placement="@Placement.ToString().ToLowerInvariant()"
              data-bob-arrow="@Arrow.ToString().ToLowerInvariant()"
-             data-bob-permanent="@(Trigger == TooltipTrigger.Permanent ? "true" : "false")"
+             data-bob-permanent="@(Trigger == TooltipTrigger.Permanent ? "true" : null)"
              style="@GetTooltipStyle()"
              role="tooltip"
              @onmouseenter="HandleTooltipMouseEnter"
@@ -70,6 +72,14 @@
     /// shadow and lifts the surface in dark mode via a tint overlay. <see langword="null"/> (default)
     /// keeps the component-default shadow defined in CSS.</summary>
     [Parameter] public int? Elevation { get; set; }
+
+    /// <summary>Foreground color of the tooltip surface (text + arrow fill). Any valid CSS color.
+    /// <see langword="null"/> (default) inherits the component-default from the palette.</summary>
+    [Parameter] public string? Color { get; set; }
+
+    /// <summary>Background color of the tooltip surface. Any valid CSS color. <see langword="null"/>
+    /// (default) inherits the component-default from the palette.</summary>
+    [Parameter] public string? BackgroundColor { get; set; }
     /// <summary>TooltipContent.</summary>
     [Parameter] public RenderFragment? TooltipContent { get; set; }
     /// <summary>Text displayed as the .</summary>

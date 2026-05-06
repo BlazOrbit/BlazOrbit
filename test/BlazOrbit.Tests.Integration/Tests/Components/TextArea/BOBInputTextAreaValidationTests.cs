@@ -18,8 +18,8 @@ public class BOBInputTextAreaValidationTests
 
         IRenderedComponent<TestBOBInputTextAreaConsumer> cut = ctx.Render<TestBOBInputTextAreaConsumer>();
 
-        cut.Find("bob-component").GetAttribute("data-bob-error").Should().Be("false");
-        cut.FindAll(".bob-field-helper--error").Should().BeEmpty();
+        cut.Find("bob-component").GetAttribute("data-bob-error").Should().BeNull();
+        cut.FindAll("[data-bob-error=\"true\"]").Should().BeEmpty();
     }
 
     [Theory]
@@ -34,7 +34,7 @@ public class BOBInputTextAreaValidationTests
 
         cut.Find("bob-component").GetAttribute("data-bob-error").Should().Be("true");
         cut.Find("textarea.bob-input__field").GetAttribute("aria-invalid").Should().Be("true");
-        cut.Find(".bob-field-helper--error").Should().NotBeNull();
+        cut.Find("[data-bob-error=\"true\"]").Should().NotBeNull();
     }
 
     [Theory]
@@ -47,7 +47,7 @@ public class BOBInputTextAreaValidationTests
 
         cut.Find("button.submit-btn").Click();
 
-        IElement errorHelper = cut.Find(".bob-field-helper--error");
+        IElement errorHelper = cut.Find("[data-bob-error=\"true\"]");
         errorHelper.TextContent.Should().Contain("Bio is required");
     }
 
@@ -62,7 +62,7 @@ public class BOBInputTextAreaValidationTests
         cut.Find("textarea.bob-input__field").Change(new string('x', 25));
         cut.Find("button.submit-btn").Click();
 
-        IElement errorHelper = cut.Find(".bob-field-helper--error");
+        IElement errorHelper = cut.Find("[data-bob-error=\"true\"]");
         errorHelper.TextContent.Should().Contain("Too long");
     }
 
@@ -80,9 +80,9 @@ public class BOBInputTextAreaValidationTests
         cut.Find("textarea.bob-input__field").Change("short bio");
         cut.Find("button.submit-btn").Click();
 
-        cut.Find("bob-component").GetAttribute("data-bob-error").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-error").Should().BeNull();
         cut.Find("textarea.bob-input__field").GetAttribute("aria-invalid").Should().Be("false");
-        cut.FindAll(".bob-field-helper--error").Should().BeEmpty();
+        cut.FindAll("[data-bob-error=\"true\"]").Should().BeEmpty();
     }
 
     [Theory]

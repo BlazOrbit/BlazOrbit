@@ -1,5 +1,6 @@
 <Solution>
   <Folder Name="/docs/">
+    <File Path="docs/ARCHITECTURE.md" />
     <Project Path="docs/BlazOrbit.Docs.CodeGeneration/BlazOrbit.Docs.CodeGeneration.csproj" Id="30d05c9e-4dee-4cc0-a7d4-4cd32e938466" />
     <Project Path="docs/BlazOrbit.Docs.Components/BlazOrbit.Docs.Components.csproj" Id="218fa721-c163-4f2f-b1c7-4571dd7f742a" />
     <Project Path="docs/BlazOrbit.Docs.Translations/BlazOrbit.Docs.Translations.csproj" />

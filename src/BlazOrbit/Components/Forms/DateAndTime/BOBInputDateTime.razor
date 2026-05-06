@@ -101,7 +101,10 @@
 
     public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
     {
-        dataAttributes[FeatureDefinitions.DataAttributes.Floated] = IsFloated.ToString().ToLowerInvariant();
+        if (IsFloated)
+            dataAttributes[FeatureDefinitions.DataAttributes.Floated] = "true";
+        else
+            dataAttributes.Remove(FeatureDefinitions.DataAttributes.Floated);
     }
 
     public void BuildComponentCssVariables(Dictionary<string, string> cssVariables) { }

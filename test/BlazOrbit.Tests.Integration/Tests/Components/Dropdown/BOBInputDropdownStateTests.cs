@@ -84,7 +84,7 @@ public class BOBInputDropdownStateTests
             .Add(c => c.ValueExpression, _expr));
 
         // Assert
-        cut.Find("bob-component").GetAttribute("data-bob-dropdown-open").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-dropdown-open").Should().BeNull();
     }
 
     [Theory]
@@ -106,7 +106,7 @@ public class BOBInputDropdownStateTests
             }));
 
         // Assert initial — not floated
-        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().BeNull();
 
         // Act — set value
         cut.Render(p => p
@@ -180,7 +180,7 @@ public class BOBInputDropdownStateTests
             }));
 
         // Assert initial
-        cut.Find("bob-component").GetAttribute("data-bob-dropdown-open").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-dropdown-open").Should().BeNull();
 
         // Act
         cut.Find("button.bob-dropdown__trigger").Click();

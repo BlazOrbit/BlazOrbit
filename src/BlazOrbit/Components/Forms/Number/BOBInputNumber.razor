@@ -151,7 +151,10 @@
     public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
     {
         dataAttributes[FeatureDefinitions.DataAttributes.ButtonPlacement] = ButtonPlacement.ToString().ToLowerInvariant();
-        dataAttributes[FeatureDefinitions.DataAttributes.Floated] = IsFloated.ToString().ToLowerInvariant();
+        if (IsFloated)
+            dataAttributes[FeatureDefinitions.DataAttributes.Floated] = "true";
+        else
+            dataAttributes.Remove(FeatureDefinitions.DataAttributes.Floated);
     }
 
     public void BuildComponentCssVariables(Dictionary<string, string> cssVariables) { }
@@ -435,7 +438,7 @@
     {
         if (Disabled || IsAtMax()) return;
 
-        _ = IncrementValue();
+        BOBAsyncHelper.SafeFireAndForget(() => IncrementValue());
 
         if (EnableAcceleration) BeginAcceleration(IncrementValue);
     }
@@ -446,7 +449,7 @@
     {
         if (Disabled || IsAtMin()) return;
 
-        _ = DecrementValue();
+        BOBAsyncHelper.SafeFireAndForget(() => DecrementValue());
 
         if (EnableAcceleration) BeginAcceleration(DecrementValue);
     }
@@ -461,7 +464,7 @@
 
         if (Disabled || IsAtMax()) return;
 
-        _ = IncrementValue();
+        BOBAsyncHelper.SafeFireAndForget(() => IncrementValue());
 
         if (EnableAcceleration) BeginAcceleration(IncrementValue);
     }
@@ -481,7 +484,7 @@
 
         if (Disabled || IsAtMin()) return;
 
-        _ = DecrementValue();
+        BOBAsyncHelper.SafeFireAndForget(() => DecrementValue());
 
         if (EnableAcceleration) BeginAcceleration(DecrementValue);
     }
@@ -498,7 +501,7 @@
         EndAcceleration();
         CancellationTokenSource cts = new();
         _accelerationCts = cts;
-        _ = RunAcceleratedAction(action, cts.Token);
+        BOBAsyncHelper.SafeFireAndForget(() => RunAcceleratedAction(action, cts.Token));
     }
 
     private void EndAcceleration()

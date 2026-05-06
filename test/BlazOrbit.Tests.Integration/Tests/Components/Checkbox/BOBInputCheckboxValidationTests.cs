@@ -17,8 +17,8 @@ public class BOBInputCheckboxValidationTests
 
         IRenderedComponent<TestBOBInputCheckboxConsumer> cut = ctx.Render<TestBOBInputCheckboxConsumer>();
 
-        cut.Find("bob-component").GetAttribute("data-bob-error").Should().Be("false");
-        cut.FindAll(".bob-field-helper--error").Should().BeEmpty();
+        cut.Find("bob-component").GetAttribute("data-bob-error").Should().BeNull();
+        cut.FindAll("[data-bob-error=\"true\"]").Should().BeEmpty();
     }
 
     [Theory]
@@ -33,7 +33,7 @@ public class BOBInputCheckboxValidationTests
         cut.Find("button.submit-btn").Click();
 
         cut.Find("bob-component").GetAttribute("data-bob-error").Should().Be("true");
-        cut.Find(".bob-field-helper--error").TextContent.Should().Contain("You must accept the terms");
+        cut.Find("[data-bob-error=\"true\"]").TextContent.Should().Contain("You must accept the terms");
     }
 
     [Theory]
@@ -54,8 +54,8 @@ public class BOBInputCheckboxValidationTests
         // Re-submit
         cut.Find("button.submit-btn").Click();
 
-        cut.Find("bob-component").GetAttribute("data-bob-error").Should().Be("false");
-        cut.FindAll(".bob-field-helper--error").Should().BeEmpty();
+        cut.Find("bob-component").GetAttribute("data-bob-error").Should().BeNull();
+        cut.FindAll("[data-bob-error=\"true\"]").Should().BeEmpty();
     }
 
     [Theory]

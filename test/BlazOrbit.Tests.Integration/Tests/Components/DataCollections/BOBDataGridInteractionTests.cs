@@ -61,7 +61,7 @@ public class BOBDataGridInteractionTests
         cut.FindAll("[role='row']")[1].Click();
 
         // Assert — first data row selected
-        cut.FindAll("[role='row']")[1].ClassList.Should().Contain("bob-datagrid__row--selected");
+        cut.FindAll("[role='row']")[1].GetAttribute("data-bob-selected").Should().Be("true");
     }
 
     [Theory]

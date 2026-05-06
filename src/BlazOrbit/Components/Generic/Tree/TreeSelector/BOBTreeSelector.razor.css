@@ -36,11 +36,11 @@
             background-color: var(--_tree-selector-hover-bg);
         }
 
-    [data-bob-component="tree-selector"] .bob-tree-selector__node--selected > .bob-tree-selector__node-content {
+    [data-bob-component="tree-selector"] .bob-tree-selector__node[data-bob-selected="true"] > .bob-tree-selector__node-content {
         background-color: var(--_tree-selector-selected-bg);
     }
 
-    [data-bob-component="tree-selector"] .bob-tree-selector__node--disabled .bob-tree-selector__node-content {
+    [data-bob-component="tree-selector"] .bob-tree-selector__node[data-bob-disabled="true"] .bob-tree-selector__node-content {
         opacity: 0.5;
         cursor: not-allowed;
         pointer-events: none;
@@ -82,7 +82,7 @@
         overflow: hidden;
     }
 
-    [data-bob-component="tree-selector"] .bob-tree-selector__children--animated {
+    [data-bob-component="tree-selector"] .bob-tree-selector__children[data-bob-animated="true"] {
         animation: bob-tree-selector-expand var(--_tree-selector-transition);
     }
 

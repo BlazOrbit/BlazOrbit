@@ -80,7 +80,7 @@ bob-component[{{inputBase}}] {
     --_input-border-color: var(--palette-border);
     --_input-border-width: 1px;
 
-    --_wrapper-bg: transparent;
+    --_wrapper-bg: {{V(inlineBg, "transparent")}};
     --_wrapper-radius: var(--_input-radius);
     --_wrapper-min-h: var(--_input-h);
     --_wrapper-pt: 0px;
@@ -451,7 +451,7 @@ bob-component[{{inputBase}}][{{variant}}="standard"] .{{validation}} {
 bob-component[{{inputBase}}][{{variant}}="flat"] {
     --_wrapper-pt: 0px;
     --_wrapper-radius: 0;
-    --_wrapper-bg: transparent;
+    --_wrapper-bg: {{V(inlineBg, "transparent")}};
     --_outline-leading-width: var(--_addon-offset);
 }
 

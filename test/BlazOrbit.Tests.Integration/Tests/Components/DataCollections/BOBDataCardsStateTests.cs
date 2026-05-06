@@ -87,6 +87,6 @@ public class BOBDataCardsStateTests
         cut.Find(".bob-datacards__card").Click();
 
         // Assert
-        cut.Find(".bob-datacards__card").ClassList.Should().Contain("bob-datacards__card--selected");
+        cut.Find(".bob-datacards__card").GetAttribute("data-bob-selected").Should().Be("true");
     }
 }

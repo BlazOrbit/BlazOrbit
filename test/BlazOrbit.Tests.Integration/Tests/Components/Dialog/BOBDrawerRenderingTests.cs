@@ -48,7 +48,7 @@ public class BOBDrawerRenderingTests
             .Add(c => c.Open, true));
 
         // Assert
-        cut.Find(".bob-drawer--right").Should().NotBeNull();
+        cut.Find("[data-bob-position='right']").Should().NotBeNull();
     }
 
     [Theory]
@@ -63,7 +63,7 @@ public class BOBDrawerRenderingTests
             .Add(c => c.Position, DrawerPosition.Left));
 
         // Assert
-        cut.Find(".bob-drawer--left").Should().NotBeNull();
+        cut.Find("[data-bob-position='left']").Should().NotBeNull();
     }
 
     [Theory]

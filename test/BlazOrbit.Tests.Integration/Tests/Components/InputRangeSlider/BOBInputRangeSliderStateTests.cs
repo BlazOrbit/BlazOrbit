@@ -58,7 +58,7 @@ public class BOBInputRangeSliderStateTests
         IRenderedComponent<BOBInputRangeSlider<int>> cut = ctx.Render<BOBInputRangeSlider<int>>();
 
         IElement root = cut.Find("bob-component");
-        root.GetAttribute("data-bob-disabled").Should().Be("false");
+        root.GetAttribute("data-bob-disabled").Should().BeNull();
 
         cut.Render(p => p.Add(c => c.Disabled, true));
 

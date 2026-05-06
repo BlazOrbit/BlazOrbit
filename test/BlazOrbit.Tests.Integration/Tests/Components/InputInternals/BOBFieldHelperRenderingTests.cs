@@ -42,7 +42,7 @@ public class BOBFieldHelperRenderingTests
         IElement helper = cut.Find("div.bob-field-helper");
         helper.GetAttribute("id").Should().Be("helper-1");
         helper.TextContent.Should().Be("As it appears on your ID.");
-        helper.ClassList.Should().NotContain("bob-field-helper--error");
+        helper.GetAttribute("data-bob-error").Should().BeNull();
     }
 
     [Theory]
@@ -77,7 +77,7 @@ public class BOBFieldHelperRenderingTests
             .Add(c => c.For, expr));
 
         // Assert
-        cut.FindAll("div.bob-field-helper--error").Should().BeEmpty();
+        cut.FindAll("div[data-bob-error=\"true\"]").Should().BeEmpty();
     }
 
     [Theory]
@@ -96,7 +96,7 @@ public class BOBFieldHelperRenderingTests
             .Add(c => c.For, expr));
 
         // Assert
-        cut.FindAll("div.bob-field-helper--error").Should().BeEmpty();
+        cut.FindAll("div[data-bob-error=\"true\"]").Should().BeEmpty();
     }
 
     [Theory]
@@ -115,7 +115,7 @@ public class BOBFieldHelperRenderingTests
             .Add(c => c.EditContext, editContext));
 
         // Assert
-        cut.FindAll("div.bob-field-helper--error").Should().BeEmpty();
+        cut.FindAll("div[data-bob-error=\"true\"]").Should().BeEmpty();
     }
 
     [Theory]
@@ -137,7 +137,7 @@ public class BOBFieldHelperRenderingTests
             .AddCascadingValue(editContext));
 
         // Assert
-        IElement errorWrapper = cut.Find("div.bob-field-helper.bob-field-helper--error");
+        IElement errorWrapper = cut.Find("div.bob-field-helper[data-bob-error=\"true\"]");
         errorWrapper.Should().NotBeNull();
     }
 
@@ -162,6 +162,6 @@ public class BOBFieldHelperRenderingTests
 
         // Assert
         cut.FindAll("div.bob-field-helper").Should().HaveCount(2);
-        cut.FindAll("div.bob-field-helper--error").Should().HaveCount(1);
+        cut.FindAll("div[data-bob-error=\"true\"]").Should().HaveCount(1);
     }
 }

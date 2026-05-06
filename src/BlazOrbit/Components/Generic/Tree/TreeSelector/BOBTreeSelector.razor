@@ -1,11 +1,11 @@
-﻿@using BlazOrbit.Abstractions
+@using BlazOrbit.Abstractions
 
 @namespace BlazOrbit.Components
 @attribute [GenerateComponentInfo]
 
 @typeparam TItem
 @inherits BOBComponentBase
-@implements IBuiltComponent
+@implements IPureBuiltComponent
 @implements IHasSize
 @implements IDisposable
 
@@ -239,7 +239,9 @@
         bool isLoading = _tree.IsLoading(node.Key);
         bool isSelected = IsSelected(node.Key);
 
-        <div class="bob-tree-selector__node @(node.IsDisabled ? "bob-tree-selector__node--disabled" : "") @(isSelected ? "bob-tree-selector__node--selected" : "")"
+        <div class="bob-tree-selector__node"
+             data-bob-selected="@(isSelected ? "true" : null)"
+             data-bob-disabled="@(node.IsDisabled ? "true" : null)"
              role="treeitem"
              aria-expanded="@(node.HasChildren? isExpanded.ToString().ToLowerInvariant() : null)"
              aria-selected="@isSelected.ToString().ToLowerInvariant()"
@@ -297,7 +299,8 @@
 
             @if (node.HasChildren && isExpanded)
             {
-                <div class="bob-tree-selector__children @(AnimateExpand ? "bob-tree-selector__children--animated" : "")"
+                <div class="bob-tree-selector__children"
+                     data-bob-animated="@(AnimateExpand ? "true" : null)"
                      role="group">
                     @foreach (TreeSelectionNode<TItem> child in node.ChildrenInternal)
                     {

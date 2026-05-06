@@ -15,7 +15,8 @@
          tabindex="-1"
          @ref="_hostRef">
         
-        <div class="bob-modal-overlay @(_isClosing ? "bob-modal-overlay--closing" : "")"
+        <div class="bob-modal-overlay"
+             data-bob-closing="@(_isClosing ? "true" : null)"
              @onclick="HandleOverlayClick">
         </div>
 
@@ -59,6 +60,8 @@
         }
         catch (ObjectDisposedException) { }
         catch (JSDisconnectedException) { }
+        catch (InvalidOperationException) { }
+        catch (TaskCanceledException) { }
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)

@@ -1,4 +1,4 @@
-﻿@using BlazOrbit.Abstractions
+@using BlazOrbit.Abstractions
 @using Microsoft.AspNetCore.Components.Routing
 
 @namespace BlazOrbit.Components
@@ -6,7 +6,7 @@
 
 @typeparam TItem
 @inherits BOBComponentBase
-@implements IBuiltComponent
+@implements IPureBuiltComponent
 @implements IHasSize
 @implements IDisposable
 
@@ -265,8 +265,8 @@
         <div class="bob-tree-menu__item"
              role="none"
              data-depth="@node.Depth"
-             data-bob-disabled="@node.IsDisabled.ToString().ToLowerInvariant()"
-             data-bob-active="@isActive.ToString().ToLowerInvariant()"
+             data-bob-disabled="@(node.IsDisabled ? "true" : null)"
+             data-bob-active="@(isActive ? "true" : null)"
              @onmouseenter="@(isHoverTrigger && hasChildren ? (Func<MouseEventArgs, Task>)(_ => HandleHoverEnter(node.Key)) : null!)"
              @onmouseleave="@(isHoverTrigger && hasChildren && isFlyout ? (Func<MouseEventArgs, Task>)(_ => HandleHoverLeave(node.Key)) : null!)">
 

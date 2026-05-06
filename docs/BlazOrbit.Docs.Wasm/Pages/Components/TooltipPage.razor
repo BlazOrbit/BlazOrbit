@@ -103,6 +103,24 @@
             </BOBTooltip>
     </DocDemo>
 
+    <DocDemo Key="Colors" Title="@Loc["Custom colors"]" Description="@Loc["Color paints the text and arrow fill via currentColor; BackgroundColor paints the surface and arrow background. Both fall back to the palette default when null."]">
+            <BOBTooltip Text="@Loc["Branded primary surface"]"
+                        BackgroundColor="rgba(33, 100, 196, 1)"
+                        Color="rgba(255, 255, 255, 1)">
+                <BOBButton Text="@Loc["Primary tooltip"]" />
+            </BOBTooltip>
+            <BOBTooltip Text="@Loc["Warning surface"]"
+                        BackgroundColor="rgba(255, 193, 7, 1)"
+                        Color="rgba(33, 33, 33, 1)">
+                <BOBButton Text="@Loc["Warning tooltip"]" />
+            </BOBTooltip>
+            <BOBTooltip Text="@Loc["Subtle surface"]"
+                        BackgroundColor="rgba(245, 245, 245, 1)"
+                        Color="rgba(33, 33, 33, 1)">
+                <BOBButton Text="@Loc["Subtle tooltip"]" />
+            </BOBTooltip>
+    </DocDemo>
+
     <section class="doc-section">
         <h2 class="doc-section__title">@Loc["Properties"]</h2>
         <PropertyTable Properties="@BOBTooltipComponentInfo.Parameters" />

@@ -117,7 +117,7 @@ public class BOBInputNumberInteractionTests
         IRenderedComponent<BOBInputNumber<int?>> cut = ctx.Render<BOBInputNumber<int?>>(p => p
             .Add(c => c.Label, "Qty"));
 
-        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().BeNull();
 
         // Act
         cut.Find("input.bob-input__field").Focus();

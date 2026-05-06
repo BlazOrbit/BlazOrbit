@@ -1,10 +1,10 @@
-﻿@typeparam TValue
+@typeparam TValue
 
 @namespace BlazOrbit.Components.Forms
 @attribute [GenerateComponentInfo]
 
 @inherits BOBComponentBase
-@implements IBuiltComponent
+@implements IPureBuiltComponent
 @implements IHasSize
 @implements IHasDensity
 @implements IHasDisabled
@@ -176,7 +176,10 @@
 
     public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
     {
-        dataAttributes[FeatureDefinitions.DataAttributes.Active] = IsChecked.ToString().ToLowerInvariant();
+        if (IsChecked)
+            dataAttributes[FeatureDefinitions.DataAttributes.Active] = "true";
+        else
+            dataAttributes.Remove(FeatureDefinitions.DataAttributes.Active);
     }
 
     public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)

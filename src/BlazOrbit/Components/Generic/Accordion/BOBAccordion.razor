@@ -6,7 +6,7 @@
 @implements IAsyncDisposable
 @implements IHasSize
 @implements IHasBorder
-@implements IBuiltComponent
+@implements IPureBuiltComponent
 
 @{
     List<BOBAccordionItem> renderItems = SnapshotItems();
@@ -28,8 +28,8 @@
 
             <div class="bob-accordion-item"
                  data-bob-component="accordion-item"
-                 data-bob-expanded="@(isExpanded ? "true" : "false")"
-                 data-bob-disabled="@(item.Disabled ? "true" : "false")">
+                 data-bob-expanded="@(isExpanded ? "true" : null)"
+                 data-bob-disabled="@(item.Disabled ? "true" : null)">
                 <button type="button"
                         id="@headerId"
                         class="bob-accordion-item__header"
@@ -305,6 +305,7 @@
                 await er.FocusAsync();
             }
             catch (JSDisconnectedException) { }
+            catch (ObjectDisposedException) { }
             catch (InvalidOperationException) { }
             catch (TaskCanceledException) { }
         }

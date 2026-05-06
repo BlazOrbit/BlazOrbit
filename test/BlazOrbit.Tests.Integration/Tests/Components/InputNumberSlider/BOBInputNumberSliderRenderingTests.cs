@@ -25,7 +25,7 @@ public class BOBInputNumberSliderRenderingTests
         root.GetAttribute("data-bob-input-base").Should().NotBeNull();
         root.GetAttribute("data-bob-orientation").Should().Be("horizontal");
         root.GetAttribute("data-bob-size").Should().Be("medium");
-        root.GetAttribute("data-bob-disabled").Should().Be("false");
+        root.GetAttribute("data-bob-disabled").Should().BeNull();
     }
 
     [Theory]

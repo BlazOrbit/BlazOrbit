@@ -129,7 +129,10 @@
 
     public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
     {
-        dataAttributes[FeatureDefinitions.DataAttributes.Floated] = IsFloated.ToString().ToLowerInvariant();
+        if (IsFloated)
+            dataAttributes[FeatureDefinitions.DataAttributes.Floated] = "true";
+        else
+            dataAttributes.Remove(FeatureDefinitions.DataAttributes.Floated);
     }
 
     public void BuildComponentCssVariables(Dictionary<string, string> cssVariables) { }
@@ -137,7 +140,7 @@
     private RenderFragment RenderDropdown() => __builder =>
     {
         <bob-component @attributes="ComputedAttributes"
-                       data-bob-dropdown-open="@IsOpen.ToString().ToLowerInvariant()"
+                       data-bob-dropdown-open="@(IsOpen ? "true" : null)"
                        data-bob-placement="@GetEffectivePlacement().ToString().ToLowerInvariant()">
 
             <div class="bob-input__wrapper" @ref="_triggerElement">

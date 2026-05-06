@@ -54,7 +54,7 @@ public class BOBSwitchStateTests
             .Add(c => c.OptionActive, true)
             .Add(c => c.Value, false));
 
-        cut.Find("bob-component").GetAttribute("data-bob-active").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-active").Should().BeNull();
 
         // Act
         cut.Render(p => p

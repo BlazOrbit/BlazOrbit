@@ -94,13 +94,13 @@ public class BOBInputTextAreaInteractionTests
             .Add(c => c.ValueExpression, () => model.Value));
 
         IElement root = cut.Find("bob-component");
-        root.GetAttribute("data-bob-floated").Should().Be("false");
+        root.GetAttribute("data-bob-floated").Should().BeNull();
 
         cut.Find("textarea.bob-input__field").Focus();
         cut.Find("bob-component").GetAttribute("data-bob-floated").Should().Be("true");
 
         cut.Find("textarea.bob-input__field").Blur();
-        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().BeNull();
     }
 
     [Theory]

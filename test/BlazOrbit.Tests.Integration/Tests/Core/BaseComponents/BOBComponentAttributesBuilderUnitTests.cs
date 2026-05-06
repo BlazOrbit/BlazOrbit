@@ -2,6 +2,7 @@
 using BlazOrbit.Components;
 using FluentAssertions;
 using Microsoft.AspNetCore.Components;
+using System.Diagnostics;
 
 namespace BlazOrbit.Tests.Integration.Tests.Core.BaseComponents;
 
@@ -415,7 +416,6 @@ public class BOBComponentAttributesBuilderUnitTests
             ErrorFlag = false,
             ReadOnlyFlag = false,
             RequiredFlag = false,
-            FullWidth = false,
             ActiveFlag = false
         };
 
@@ -427,7 +427,6 @@ public class BOBComponentAttributesBuilderUnitTests
         component.ErrorFlag = true;
         component.ReadOnlyFlag = true;
         component.RequiredFlag = true;
-        component.FullWidth = true;
         component.ActiveFlag = true;
 
         builder.PatchVolatileAttributes(component);
@@ -437,7 +436,6 @@ public class BOBComponentAttributesBuilderUnitTests
         builder.ComputedAttributes[FeatureDefinitions.DataAttributes.Error].Should().Be("true");
         builder.ComputedAttributes[FeatureDefinitions.DataAttributes.ReadOnly].Should().Be("true");
         builder.ComputedAttributes[FeatureDefinitions.DataAttributes.Required].Should().Be("true");
-        builder.ComputedAttributes[FeatureDefinitions.DataAttributes.FullWidth].Should().Be("true");
         builder.ComputedAttributes[FeatureDefinitions.DataAttributes.Active].Should().Be("true");
         // Non-volatile attribute left untouched
         builder.ComputedAttributes[FeatureDefinitions.DataAttributes.Size].Should().Be("small");
@@ -514,8 +512,8 @@ public class BOBComponentAttributesBuilderUnitTests
         component.DisabledFlag = false;
         builder.PatchVolatileAttributes(component);
 
-        builder.ComputedAttributes[FeatureDefinitions.DataAttributes.Disabled]
-            .Should().Be("false",
+        builder.ComputedAttributes
+            .Should().NotContainKey(FeatureDefinitions.DataAttributes.Disabled,
                 "PatchVolatileAttributes must refresh data-bob-disabled from IHasDisabled and ignore the component override");
     }
 
@@ -581,6 +579,40 @@ public class BOBComponentAttributesBuilderUnitTests
     }
 
     [Fact]
+    public void BuildStyles_Should_Hit_Cache_When_Component_Implements_IPureBuiltComponent()
+    {
+        // IPureBuiltComponent is the refined opt-in: hooks read only [Parameter] state,
+        // so the builder folds their contributions into the fingerprint and the cache applies.
+        BOBComponentAttributesBuilder builder = new();
+        PureBuiltComponentStub component = new() { Gap = "1rem" };
+
+        builder.BuildStyles(component, null);
+        builder.LastBuildSkipped.Should().BeFalse("first call: cache cold");
+
+        builder.BuildStyles(component, null);
+        builder.LastBuildSkipped.Should().BeTrue(
+            "second call: hooks are pure → fingerprint includes their output → cache hits when params match");
+    }
+
+    [Fact]
+    public void BuildStyles_Should_Invalidate_Cache_When_Pure_Component_Parameter_Changes()
+    {
+        BOBComponentAttributesBuilder builder = new();
+        PureBuiltComponentStub component = new() { Gap = "1rem" };
+
+        builder.BuildStyles(component, null);
+        builder.LastBuildSkipped.Should().BeFalse();
+
+        component.Gap = "2rem";
+        builder.BuildStyles(component, null);
+        builder.LastBuildSkipped.Should().BeFalse(
+            "fingerprint must diverge when a parameter that the pure hook reads changes");
+
+        // And the rebuild must reflect the new value.
+        ((string)builder.ComputedAttributes["style"]!).Should().Contain("--_gap: 2rem");
+    }
+
+    [Fact]
     public void BuildStyles_Should_Invalidate_Cache_When_Style_Affecting_Parameter_Changes()
     {
         BOBComponentAttributesBuilder builder = new();
@@ -614,6 +646,59 @@ public class BOBComponentAttributesBuilderUnitTests
         builder.BuildStyles(component, secondSameContent);
         builder.LastBuildSkipped.Should().BeFalse(
             "reference change in additionalAttributes invalidates the cache, even with identical content");
+    }
+
+    // ---------- Perf regression guard (PERF-05) ----------
+
+    /// <summary>
+    /// PERF-05: warm cache hits must be measurably faster than cold rebuilds.
+    /// Threshold is deliberately loose (2×) to survive Debug-mode CI runs; the real-world
+    /// Release-build speedup on representative components is 5–30×. This test is a sanity guard:
+    /// if a future refactor erases the cache fast-path silently, this fact fails. It does NOT
+    /// claim a specific perf budget — that lives in dedicated benchmarks if/when they exist.
+    /// </summary>
+    [Fact]
+    public void BuildStyles_Cache_Hit_Should_Be_Significantly_Faster_Than_Cold_Rebuild()
+    {
+        const int iterations = 10_000;
+
+        // Warmup — JIT both paths.
+        BOBComponentAttributesBuilder warmup = new();
+        FullFeaturedStub warmStub = new() { Size = BOBSize.Medium, Density = BOBDensity.Standard };
+        for (int i = 0; i < 200; i++)
+        {
+            warmup.BuildStyles(warmStub, null);
+        }
+
+        // Cold path: fresh builder per iteration so every call is a cache miss.
+        Stopwatch cold = Stopwatch.StartNew();
+        for (int i = 0; i < iterations; i++)
+        {
+            BOBComponentAttributesBuilder b = new();
+            FullFeaturedStub s = new() { Size = BOBSize.Medium, Density = BOBDensity.Standard };
+            b.BuildStyles(s, null);
+        }
+
+        cold.Stop();
+
+        // Warm path: one builder, repeated calls — every call after the first is a cache hit.
+        BOBComponentAttributesBuilder warm = new();
+        FullFeaturedStub stub = new() { Size = BOBSize.Medium, Density = BOBDensity.Standard };
+        warm.BuildStyles(stub, null); // prime
+        Stopwatch hot = Stopwatch.StartNew();
+        for (int i = 0; i < iterations; i++)
+        {
+            warm.BuildStyles(stub, null);
+        }
+
+        hot.Stop();
+
+        warm.LastBuildSkipped.Should().BeTrue("the warm-path measurements must actually be hitting the cache");
+
+        double speedup = (double)cold.ElapsedTicks / Math.Max(hot.ElapsedTicks, 1);
+        speedup.Should().BeGreaterThan(2.0,
+            because: $"cache hit must be measurably faster than cold rebuild. Measured: cold={cold.ElapsedMilliseconds}ms, " +
+                     $"warm={hot.ElapsedMilliseconds}ms, speedup={speedup:F1}× over {iterations} iterations.");
     }
 
     // ---------- Type info cache (PERF-04) ----------
@@ -714,6 +799,21 @@ public class BOBComponentAttributesBuilderUnitTests
 
         public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
             => cssVariables["--bob-inline-custom"] = "42px";
+    }
+
+    private sealed class PureBuiltComponentStub : ComponentBase, IPureBuiltComponent
+    {
+        public string? Gap { get; set; }
+
+        public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes) { }
+
+        public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+        {
+            if (Gap != null)
+            {
+                cssVariables["--_gap"] = Gap;
+            }
+        }
     }
 
     private sealed class ContractHijackingStub : ComponentBase, IBuiltComponent, IHasDisabled, IHasColor

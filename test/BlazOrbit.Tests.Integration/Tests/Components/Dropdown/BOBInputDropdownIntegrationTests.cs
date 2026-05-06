@@ -188,7 +188,7 @@ public class BOBInputDropdownIntegrationTests
 
         // Act
         cut.Find("button.bob-dropdown__trigger").Click();
-        cut.Find(".bob-dropdown__option--disabled").Click();
+        cut.Find("[data-bob-disabled=\"true\"]").Click();
 
         // Assert — value stays null, not changed
         selected.Should().BeNull();

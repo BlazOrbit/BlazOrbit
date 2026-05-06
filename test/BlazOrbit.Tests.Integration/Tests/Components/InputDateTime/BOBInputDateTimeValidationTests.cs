@@ -54,8 +54,8 @@ public class BOBInputDateTimeValidationTests
         cut.Find("button.submit-btn").Click();
 
         // Assert
-        cut.Find(".bob-field-helper--error").Should().NotBeNull();
-        cut.Find(".bob-field-helper--error").TextContent.Should().Contain("Date is required");
+        cut.Find("[data-bob-error=\"true\"]").Should().NotBeNull();
+        cut.Find("[data-bob-error=\"true\"]").TextContent.Should().Contain("Date is required");
     }
 
     [Theory]
@@ -91,7 +91,7 @@ public class BOBInputDateTimeValidationTests
         cut.Find("button.submit-btn").Click();
 
         // Assert
-        cut.FindAll(".bob-field-helper--error").Should().BeEmpty();
+        cut.FindAll("[data-bob-error=\"true\"]").Should().BeEmpty();
         cut.Instance.WasSubmitted.Should().BeTrue();
     }
 }

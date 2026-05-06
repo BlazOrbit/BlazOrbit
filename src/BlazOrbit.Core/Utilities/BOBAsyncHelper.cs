@@ -30,7 +30,7 @@ public static class BOBAsyncHelper
     {
         try
         {
-            await action().ConfigureAwait(false);
+            await action();
         }
         catch (TaskCanceledException)
         {

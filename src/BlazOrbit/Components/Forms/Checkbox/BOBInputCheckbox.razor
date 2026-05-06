@@ -1,10 +1,11 @@
 ﻿@namespace BlazOrbit.Components.Forms
 @attribute [GenerateComponentInfo]
 @inherits BOBInputComponentBase<TValue, BOBInputCheckbox<TValue>, BOBInputCheckboxVariant>
-@implements IBuiltComponent
+@implements IPureBuiltComponent
 @implements IHasSize
 @implements IHasColor
 @implements IHasDensity
+@implements IHasActive
 @typeparam TValue
 
 @{
@@ -36,6 +37,12 @@
 
     private bool IsChecked => GetCheckedState();
     private bool IsIndeterminate => GetIndeterminateState();
+
+    // IHasActive
+    /// <summary>When <see langword="true" />, forces the active state.</summary>
+    [Parameter] public bool Active { get; set; }
+    /// <summary>Computed active state.</summary>
+    public bool IsActive => Active || IsChecked;
 
     public override BOBInputCheckboxVariant DefaultVariant => BOBInputCheckboxVariant.Default;
 
@@ -108,7 +115,6 @@
 
     public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
     {
-        dataAttributes[FeatureDefinitions.DataAttributes.Active] = IsChecked.ToString().ToLowerInvariant();
         if (IsIndeterminate)
             dataAttributes[FeatureDefinitions.DataAttributes.Indeterminate] = "true";
     }

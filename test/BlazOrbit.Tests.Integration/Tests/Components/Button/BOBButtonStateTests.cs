@@ -152,7 +152,7 @@ public class BOBButtonStateTests
         IElement component = cut.Find("bob-component");
 
         // Assert initial state
-        component.GetAttribute("data-bob-loading").Should().Be("false");
+        component.GetAttribute("data-bob-loading").Should().BeNull();
         cut.Find("button").GetAttribute("disabled").Should().BeNull();
         cut.FindComponents<BOBLoadingIndicator>().Should().BeEmpty();
 
@@ -171,7 +171,7 @@ public class BOBButtonStateTests
             .Add(c => c.Loading, false));
 
         // Assert final state
-        component.GetAttribute("data-bob-loading").Should().Be("false");
+        component.GetAttribute("data-bob-loading").Should().BeNull();
         cut.Find("button").GetAttribute("disabled").Should().BeNull();
         cut.FindComponents<BOBLoadingIndicator>().Should().BeEmpty();
     }

@@ -71,7 +71,7 @@ public class BOBDatePickerAccessibilityTests
         IReadOnlyList<IElement> headers = cut.FindAll(".bob-picker__grid span.bob-picker__cell");
         headers.Should().HaveCount(7);
         headers.Should().OnlyContain(h => h.TagName == "SPAN"
-            && h.ClassList.Contains("bob-picker__cell--muted"));
+            && h.GetAttribute("data-bob-muted") == "true");
     }
 
     [Theory]
