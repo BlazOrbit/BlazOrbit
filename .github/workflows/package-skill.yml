@@ -57,12 +57,16 @@ jobs:
 
       # pwsh is pre-installed on ubuntu-latest, no setup needed.
 
+      # The regenerator only needs BlazOrbit.dll + BlazOrbit.Core.dll on disk
+      # (it loads them via Assembly.LoadFrom and reflects). Building the full
+      # solution would also build docs/BlazOrbit.Docs.Wasm, which requires the
+      # `wasm-tools` workload — a slow, network-bound install we don't need.
+      # Restore + build BlazOrbit.csproj only; MSBuild pulls Core transitively.
       - name: Restore dependencies
-        run: dotnet restore BlazOrbit.slnx
+        run: dotnet restore src/BlazOrbit/BlazOrbit.csproj
 
       - name: Build (Debug)
-        # Debug is enough for the regenerator to reflect over the assemblies.
-        run: dotnet build BlazOrbit.slnx -c Debug --no-restore
+        run: dotnet build src/BlazOrbit/BlazOrbit.csproj -c Debug --no-restore
 
       - name: Regenerate skill references
         shell: pwsh
