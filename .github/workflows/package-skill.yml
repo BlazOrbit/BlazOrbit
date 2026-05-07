@@ -61,9 +61,15 @@ jobs:
       # (it loads them via Assembly.LoadFrom and reflects). Building the full
       # solution would also build docs/BlazOrbit.Docs.Wasm, which requires the
       # `wasm-tools` workload — a slow, network-bound install we don't need.
-      # Restore + build BlazOrbit.csproj only; MSBuild pulls Core transitively.
+      #
+      # `dotnet restore src/BlazOrbit/BlazOrbit.csproj` walks ProjectReferences
+      # (Core, CodeGeneration analyzers, SyntaxHighlight) but BuildTools is
+      # invoked at build time via MSBuild import in `_build/BlazOrbit.Dev.targets`,
+      # not via ProjectReference, so it has to be restored separately.
       - name: Restore dependencies
-        run: dotnet restore src/BlazOrbit/BlazOrbit.csproj
+        run: |
+          dotnet restore src/BlazOrbit.BuildTools/BlazOrbit.BuildTools.csproj
+          dotnet restore src/BlazOrbit/BlazOrbit.csproj
 
       - name: Build (Debug)
         run: dotnet build src/BlazOrbit/BlazOrbit.csproj -c Debug --no-restore

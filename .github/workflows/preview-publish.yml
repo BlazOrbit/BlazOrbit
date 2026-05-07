@@ -201,7 +201,7 @@ jobs:
         # unreleased library bits. Templates live in their own slnx, separate
         # from BlazOrbit.slnx, so we restore explicitly.
         run: |
-          dotnet restore BlazOrbit.Templates.slnx
+          dotnet restore templates/BlazOrbit.Templates.slnx
           dotnet pack templates/BlazOrbit.Templates.csproj \
             -c Release \
             --no-restore \

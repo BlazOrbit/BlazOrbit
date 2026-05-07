@@ -115,7 +115,7 @@ if ([string]::IsNullOrWhiteSpace($WorkDir)) {
 }
 
 $mainSln       = Join-Path $repoRoot "BlazOrbit.slnx"
-$templatesSln  = Join-Path $repoRoot "BlazOrbit.Templates.slnx"
+$templatesSln  = Join-Path $repoRoot "templates\BlazOrbit.Templates.slnx"
 $templatesProj = Join-Path $repoRoot "templates\BlazOrbit.Templates.csproj"
 
 # ---------- Default matrix ----------

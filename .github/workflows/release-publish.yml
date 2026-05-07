@@ -164,12 +164,12 @@ jobs:
 
       - name: Pack templates
         run: |
-          # Templates live in BlazOrbit.Templates.slnx, separate from BlazOrbit.slnx,
-          # so the upstream `dotnet restore BlazOrbit.slnx` does not cover them.
-          # Restore + pack here in one go and append to pack.log so the NU5xxx
-          # audit covers template packaging warnings as well.
+          # Templates live in templates/BlazOrbit.Templates.slnx, separate from
+          # the root BlazOrbit.slnx, so the upstream `dotnet restore` does not
+          # cover them. Restore + pack here in one go and append to pack.log so
+          # the NU5xxx audit covers template packaging warnings as well.
           set -o pipefail
-          dotnet restore BlazOrbit.Templates.slnx
+          dotnet restore templates/BlazOrbit.Templates.slnx
           dotnet pack templates/BlazOrbit.Templates.csproj \
             -c Release \
             --no-restore \
