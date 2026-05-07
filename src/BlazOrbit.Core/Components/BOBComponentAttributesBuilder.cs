@@ -177,9 +177,13 @@ internal sealed class BOBComponentAttributesBuilder
     private static void SetBoolAttr(Dictionary<string, object> attrs, string key, bool value)
     {
         if (value)
+        {
             attrs[key] = "true";
+        }
         else
+        {
             attrs.Remove(key);
+        }
     }
 
     /// <summary>
@@ -196,6 +200,7 @@ internal sealed class BOBComponentAttributesBuilder
             int valueHash = kv.Value is null ? 0 : kv.Value.GetHashCode();
             hash ^= HashCode.Combine(kv.Key, valueHash);
         }
+
         return hash;
     }
 
@@ -427,6 +432,7 @@ internal sealed class BOBComponentAttributesBuilder
                 {
                     ComputedAttributes[kv.Key] = kv.Value;
                 }
+
                 foreach (KeyValuePair<string, string> kv in pureCssContrib)
                 {
                     cssVariables[kv.Key] = kv.Value;
@@ -706,7 +712,6 @@ internal sealed class BOBComponentAttributesBuilder
         {
             SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.Required, ((IHasRequired)component).IsRequired);
         }
-
     }
 
     private static string ToKebabCaseComponentName(string value)

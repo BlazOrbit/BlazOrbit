@@ -1,4 +1,4 @@
-using BlazOrbit.Components;
+﻿using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -36,7 +36,7 @@ public class BOBAccordionStateTests
             .Add(c => c.ChildContent, BuildItems()));
 
         // Assert
-        var items = cut.FindAll("[data-bob-component='accordion-item']");
+        IReadOnlyList<AngleSharp.Dom.IElement> items = cut.FindAll("[data-bob-component='accordion-item']");
         items[0].GetAttribute("data-bob-expanded").Should().BeNull();
         items[1].GetAttribute("data-bob-expanded").Should().Be("true");
     }
@@ -58,7 +58,7 @@ public class BOBAccordionStateTests
             .Add(c => c.ChildContent, BuildItems()));
 
         // Assert
-        var items = cut.FindAll("[data-bob-component='accordion-item']");
+        IReadOnlyList<AngleSharp.Dom.IElement> items = cut.FindAll("[data-bob-component='accordion-item']");
         items[0].GetAttribute("data-bob-expanded").Should().BeNull();
         items[1].GetAttribute("data-bob-expanded").Should().Be("true");
     }
@@ -70,7 +70,7 @@ public class BOBAccordionStateTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         // Arrange — controlled (empty list) + InitiallyExpanded should be ignored
-        RenderFragment frag = b =>
+        static void frag(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder b)
         {
             b.OpenComponent<BOBAccordionItem>(0);
             b.AddAttribute(1, "Id", "a");
@@ -78,7 +78,7 @@ public class BOBAccordionStateTests
             b.AddAttribute(3, "InitiallyExpanded", true);
             b.AddAttribute(4, nameof(BOBAccordionItem.ChildContent), (RenderFragment)(b2 => b2.AddContent(0, "BodyA")));
             b.CloseComponent();
-        };
+        }
 
         IRenderedComponent<BOBAccordion> cut = ctx.Render<BOBAccordion>(p => p
             .Add(c => c.ExpandedItems, Array.Empty<string>())

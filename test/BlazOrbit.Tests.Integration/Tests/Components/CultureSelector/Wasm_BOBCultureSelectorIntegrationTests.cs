@@ -8,8 +8,8 @@ using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 using System.Globalization;
-using WasmSelector = BlazOrbit.Components.Wasm.BOBCultureSelector;
 using SharedVariant = BlazOrbit.Localization.Shared.BOBCultureSelectorVariant;
+using WasmSelector = BlazOrbit.Components.Wasm.BOBCultureSelector;
 
 namespace BlazOrbit.Tests.Integration.Tests.Components.CultureSelector;
 

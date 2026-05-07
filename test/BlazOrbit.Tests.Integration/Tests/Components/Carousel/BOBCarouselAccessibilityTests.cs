@@ -1,3 +1,4 @@
+﻿using AngleSharp.Dom;
 using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -37,7 +38,7 @@ public class BOBCarouselAccessibilityTests
             .Add(c => c.ChildContent, ThreeSlides));
 
         // Assert
-        var root = cut.Find("bob-component[data-bob-component='carousel']");
+        IElement root = cut.Find("bob-component[data-bob-component='carousel']");
         root.GetAttribute("role").Should().Be("region");
         root.GetAttribute("aria-roledescription").Should().Be("carousel");
     }
@@ -53,7 +54,7 @@ public class BOBCarouselAccessibilityTests
             .Add(c => c.ChildContent, ThreeSlides));
 
         // Assert
-        var slides = cut.FindAll(".bob-carousel__slide");
+        IReadOnlyList<IElement> slides = cut.FindAll(".bob-carousel__slide");
         slides[0].GetAttribute("role").Should().Be("group");
         slides[0].GetAttribute("aria-roledescription").Should().Be("slide");
         slides[0].GetAttribute("aria-label").Should().Be("Slide 1 of 3");
@@ -67,13 +68,13 @@ public class BOBCarouselAccessibilityTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         // Arrange
-        RenderFragment frag = b =>
+        static void frag(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder b)
         {
             b.OpenComponent<BOBCarouselItem>(0);
             b.AddAttribute(1, "AriaLabel", "Custom slide A");
             b.AddAttribute(2, nameof(BOBCarouselItem.ChildContent), (RenderFragment)(b2 => b2.AddContent(0, "A")));
             b.CloseComponent();
-        };
+        }
 
         // Act
         IRenderedComponent<BOBCarousel> cut = ctx.Render<BOBCarousel>(p => p
@@ -94,7 +95,7 @@ public class BOBCarouselAccessibilityTests
             .Add(c => c.ChildContent, ThreeSlides));
 
         // Assert
-        var slides = cut.FindAll(".bob-carousel__slide");
+        IReadOnlyList<IElement> slides = cut.FindAll(".bob-carousel__slide");
         slides[0].GetAttribute("aria-hidden").Should().Be("false");
         slides[1].GetAttribute("aria-hidden").Should().Be("true");
     }
@@ -131,7 +132,7 @@ public class BOBCarouselAccessibilityTests
             .Add(c => c.ChildContent, ThreeSlides));
 
         // Assert
-        var indicators = cut.FindAll(".bob-carousel__indicator");
+        IReadOnlyList<IElement> indicators = cut.FindAll(".bob-carousel__indicator");
         indicators[0].GetAttribute("role").Should().Be("tab");
         indicators[0].GetAttribute("aria-current").Should().Be("true");
         indicators[1].GetAttribute("aria-current").Should().Be("false");

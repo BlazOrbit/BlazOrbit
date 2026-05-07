@@ -15,7 +15,7 @@ public class ModalServiceTests
     [Fact]
     public void ActiveModals_Should_Be_Empty_By_Default()
     {
-        var sut = new ModalService();
+        ModalService sut = new();
 
         sut.ActiveModals.Should().BeEmpty();
     }
@@ -23,7 +23,7 @@ public class ModalServiceTests
     [Fact]
     public async Task ShowDialogAsync_Should_Add_Modal()
     {
-        var sut = new ModalService();
+        ModalService sut = new();
         bool notified = false;
         sut.OnChangeAsync += () => { notified = true; return Task.CompletedTask; };
 
@@ -37,7 +37,7 @@ public class ModalServiceTests
     [Fact]
     public async Task ShowDrawerAsync_Should_Add_Modal()
     {
-        var sut = new ModalService();
+        ModalService sut = new();
 
         await sut.ShowDrawerAsync<TestModalContent>();
 
@@ -48,7 +48,7 @@ public class ModalServiceTests
     [Fact]
     public async Task CloseAsync_Should_Remove_Topmost_Modal()
     {
-        var sut = new ModalService();
+        ModalService sut = new();
         await sut.ShowDialogAsync<TestModalContent>();
 
         await sut.CloseAsync();
@@ -59,7 +59,7 @@ public class ModalServiceTests
     [Fact]
     public async Task CloseAllAsync_Should_Remove_All_Modals()
     {
-        var sut = new ModalService();
+        ModalService sut = new();
         await sut.ShowDialogAsync<TestModalContent>();
         await sut.ShowDrawerAsync<TestModalContent>();
 
@@ -71,7 +71,7 @@ public class ModalServiceTests
     [Fact]
     public async Task ShowDialogAsync_With_Parameters_Should_Pass_Parameters()
     {
-        var sut = new ModalService();
+        ModalService sut = new();
         var parameters = new { Key = "Value" };
 
         await sut.ShowDialogAsync<TestModalContent>(parameters);
@@ -82,7 +82,7 @@ public class ModalServiceTests
     [Fact]
     public async Task ShowDialogAsync_Typed_Should_Return_Result_When_Closed()
     {
-        var sut = new ModalService();
+        ModalService sut = new();
         Task<string?> showTask = sut.ShowDialogAsync<TestModalContent, string>();
 
         ModalState modal = sut.ActiveModals.Single();

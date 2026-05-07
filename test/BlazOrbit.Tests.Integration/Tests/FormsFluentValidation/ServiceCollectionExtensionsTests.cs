@@ -1,5 +1,4 @@
-﻿using BlazOrbit.FormsFluentValidation;
-using FluentAssertions;
+﻿using FluentAssertions;
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -11,7 +10,7 @@ public class ServiceCollectionExtensionsTests
     [Fact]
     public void AddBOBFluentValidation_Generic_Should_Register_Validators_From_Containing_Assembly()
     {
-        var services = new ServiceCollection();
+        ServiceCollection services = new();
 
         services.AddBOBFluentValidation<BOBFluentValidatorTests.TestModelValidator>();
 
@@ -22,7 +21,7 @@ public class ServiceCollectionExtensionsTests
     [Fact]
     public void AddBOBFluentValidation_Assembly_Should_Register_Validators_From_Provided_Assembly()
     {
-        var services = new ServiceCollection();
+        ServiceCollection services = new();
 
         services.AddBOBFluentValidation(typeof(BOBFluentValidatorTests.TestModelValidator).Assembly);
 
@@ -33,7 +32,7 @@ public class ServiceCollectionExtensionsTests
     [Fact]
     public void AddBOBFluentValidation_Should_Return_Same_ServiceCollection()
     {
-        var services = new ServiceCollection();
+        ServiceCollection services = new();
 
         IServiceCollection result = services.AddBOBFluentValidation<BOBFluentValidatorTests.TestModelValidator>();
 

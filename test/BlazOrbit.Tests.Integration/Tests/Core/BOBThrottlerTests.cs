@@ -1,4 +1,4 @@
-using BlazOrbit.Utilities;
+﻿using BlazOrbit.Utilities;
 using FluentAssertions;
 
 namespace BlazOrbit.Tests.Integration.Tests.Core;
@@ -10,7 +10,7 @@ public class BOBThrottlerTests
     public async Task Should_Run_Action_Immediately_When_Idle()
     {
         // Arrange
-        using var throttler = new BOBThrottler<string>(TimeSpan.FromMilliseconds(100));
+        using BOBThrottler<string> throttler = new(TimeSpan.FromMilliseconds(100));
         string? captured = null;
 
         // Act
@@ -24,8 +24,8 @@ public class BOBThrottlerTests
     public async Task Should_Coalesce_Subsequent_Calls_During_Cooldown()
     {
         // Arrange — use a short real interval so the test remains fast.
-        using var throttler = new BOBThrottler<string>(TimeSpan.FromMilliseconds(10));
-        var captured = new List<string>();
+        using BOBThrottler<string> throttler = new(TimeSpan.FromMilliseconds(10));
+        List<string> captured = [];
 
         // Act — first runs immediately and enters cooldown
         Task t1 = throttler.InvokeAsync("a", v => { captured.Add(v); return Task.CompletedTask; });
@@ -45,8 +45,8 @@ public class BOBThrottlerTests
     public async Task Cancel_Should_Reset_Cooldown_And_Discard_Pending()
     {
         // Arrange
-        using var throttler = new BOBThrottler<int>(TimeSpan.FromMilliseconds(100));
-        var captured = new List<int>();
+        using BOBThrottler<int> throttler = new(TimeSpan.FromMilliseconds(100));
+        List<int> captured = [];
 
         // Act — start first invocation (enters cooldown)
         Task t1 = throttler.InvokeAsync(1, v => { captured.Add(v); return Task.CompletedTask; });
@@ -66,7 +66,7 @@ public class BOBThrottlerTests
     public async Task Dispose_Should_Prevent_Future_Invocations()
     {
         // Arrange
-        var throttler = new BOBThrottler<int>(TimeSpan.FromMilliseconds(100));
+        BOBThrottler<int> throttler = new(TimeSpan.FromMilliseconds(100));
         bool executed = false;
 
         // Act

@@ -1,3 +1,4 @@
+﻿using AngleSharp.Dom;
 using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -63,7 +64,7 @@ public class BOBAccordionRenderingTests
             .Add(c => c.ChildContent, BuildTwoItems()));
 
         // Assert
-        var headers = cut.FindAll(".bob-accordion-item__header");
+        IReadOnlyList<IElement> headers = cut.FindAll(".bob-accordion-item__header");
         headers.Should().HaveCount(2);
         headers[0].TextContent.Should().Contain("Section A");
         headers[1].TextContent.Should().Contain("Section B");
@@ -82,7 +83,7 @@ public class BOBAccordionRenderingTests
             .Add(c => c.ChildContent, BuildTwoItems()));
 
         // Assert
-        var bodies = cut.FindAll(".bob-accordion-item__body");
+        IReadOnlyList<IElement> bodies = cut.FindAll(".bob-accordion-item__body");
         bodies.Should().HaveCount(2);
         bodies[0].TextContent.Should().Contain("Body A");
     }
@@ -98,7 +99,7 @@ public class BOBAccordionRenderingTests
             .Add(c => c.ChildContent, BuildTwoItems()));
 
         // Assert
-        foreach (var item in cut.FindAll("[data-bob-component='accordion-item']"))
+        foreach (IElement item in cut.FindAll("[data-bob-component='accordion-item']"))
         {
             item.GetAttribute("data-bob-expanded").Should().BeNull();
         }
@@ -116,7 +117,7 @@ public class BOBAccordionRenderingTests
             .Add(c => c.ChildContent, BuildTwoItems()));
 
         // Assert
-        var items = cut.FindAll("[data-bob-component='accordion-item']");
+        IReadOnlyList<IElement> items = cut.FindAll("[data-bob-component='accordion-item']");
         items[0].GetAttribute("data-bob-expanded").Should().Be("true");
         items[1].GetAttribute("data-bob-expanded").Should().BeNull();
     }
@@ -128,7 +129,7 @@ public class BOBAccordionRenderingTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         // Arrange — second item starts open
-        RenderFragment frag = b =>
+        static void frag(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder b)
         {
             b.OpenComponent<BOBAccordionItem>(0);
             b.AddAttribute(1, "Id", "i1");
@@ -141,14 +142,14 @@ public class BOBAccordionRenderingTests
             b.AddAttribute(7, "InitiallyExpanded", true);
             b.AddAttribute(8, nameof(BOBAccordionItem.ChildContent), (RenderFragment)(b2 => b2.AddContent(0, "BodyB")));
             b.CloseComponent();
-        };
+        }
 
         // Act
         IRenderedComponent<BOBAccordion> cut = ctx.Render<BOBAccordion>(p => p
             .Add(c => c.ChildContent, frag));
 
         // Assert
-        var items = cut.FindAll("[data-bob-component='accordion-item']");
+        IReadOnlyList<IElement> items = cut.FindAll("[data-bob-component='accordion-item']");
         items[1].GetAttribute("data-bob-expanded").Should().Be("true");
     }
 

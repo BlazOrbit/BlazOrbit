@@ -1,3 +1,4 @@
+﻿using AngleSharp.Dom;
 using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -51,7 +52,7 @@ public class BOBAccordionAccessibilityTests
             .Add(c => c.ChildContent, TwoItems()));
 
         // Assert
-        var headers = cut.FindAll(".bob-accordion-item__header");
+        IReadOnlyList<IElement> headers = cut.FindAll(".bob-accordion-item__header");
         headers[0].GetAttribute("aria-expanded").Should().Be("true");
         headers[1].GetAttribute("aria-expanded").Should().Be("false");
     }
@@ -82,7 +83,7 @@ public class BOBAccordionAccessibilityTests
             .Add(c => c.ChildContent, TwoItems()));
 
         // Assert
-        var body = cut.Find("#bob-accordion-body-i1");
+        IElement body = cut.Find("#bob-accordion-body-i1");
         body.GetAttribute("role").Should().Be("region");
         body.GetAttribute("aria-labelledby").Should().Be("bob-accordion-header-i1");
     }
@@ -98,7 +99,7 @@ public class BOBAccordionAccessibilityTests
             .Add(c => c.ChildContent, TwoItems()));
 
         // Assert
-        var headers = cut.FindAll(".bob-accordion-item__header");
+        IReadOnlyList<IElement> headers = cut.FindAll(".bob-accordion-item__header");
         headers[1].HasAttribute("disabled").Should().BeTrue();
         headers[1].GetAttribute("aria-disabled").Should().Be("true");
     }

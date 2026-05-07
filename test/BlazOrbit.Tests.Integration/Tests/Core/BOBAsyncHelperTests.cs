@@ -20,10 +20,7 @@ public class BOBAsyncHelperTests
             EventId eventId,
             TState state,
             Exception? exception,
-            Func<TState, Exception?, string> formatter)
-        {
-            Entries.Add((logLevel, exception, formatter(state, exception)));
-        }
+            Func<TState, Exception?, string> formatter) => Entries.Add((logLevel, exception, formatter(state, exception)));
     }
 
     [Fact]
@@ -45,7 +42,7 @@ public class BOBAsyncHelperTests
     public async Task SafeFireAndForget_Should_Swallow_TaskCanceledException()
     {
         bool executed = false;
-        var logger = new FakeLogger();
+        FakeLogger logger = new();
 
         BOBAsyncHelper.SafeFireAndForget(async () =>
         {
@@ -63,7 +60,7 @@ public class BOBAsyncHelperTests
     public async Task SafeFireAndForget_Should_Swallow_JSDisconnectedException()
     {
         bool executed = false;
-        var logger = new FakeLogger();
+        FakeLogger logger = new();
 
         BOBAsyncHelper.SafeFireAndForget(async () =>
         {
@@ -81,7 +78,7 @@ public class BOBAsyncHelperTests
     public async Task SafeFireAndForget_Should_Swallow_ObjectDisposedException()
     {
         bool executed = false;
-        var logger = new FakeLogger();
+        FakeLogger logger = new();
 
         BOBAsyncHelper.SafeFireAndForget(async () =>
         {
@@ -99,7 +96,7 @@ public class BOBAsyncHelperTests
     public async Task SafeFireAndForget_Should_Swallow_InvalidOperationException()
     {
         bool executed = false;
-        var logger = new FakeLogger();
+        FakeLogger logger = new();
 
         BOBAsyncHelper.SafeFireAndForget(async () =>
         {
@@ -117,8 +114,8 @@ public class BOBAsyncHelperTests
     public async Task SafeFireAndForget_Should_Log_Unexpected_Exception_When_Logger_Provided()
     {
         bool executed = false;
-        var logger = new FakeLogger();
-        var unexpected = new InvalidCastException("boom");
+        FakeLogger logger = new();
+        InvalidCastException unexpected = new("boom");
 
         BOBAsyncHelper.SafeFireAndForget(async () =>
         {

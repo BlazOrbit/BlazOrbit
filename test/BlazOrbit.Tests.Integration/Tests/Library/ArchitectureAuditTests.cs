@@ -1,7 +1,6 @@
-using FluentAssertions;
+﻿using FluentAssertions;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using Xunit.Sdk;
 
 namespace BlazOrbit.Tests.Integration.Tests.Library;
 
@@ -385,6 +384,7 @@ public class ArchitectureAuditTests
         {
             sourceByTypeName[Path.GetFileNameWithoutExtension(razor)] = razor;
         }
+
         foreach (string cs in EnumerateLibrarySources("*.cs"))
         {
             string name = Path.GetFileNameWithoutExtension(cs);
@@ -437,19 +437,34 @@ public class ArchitectureAuditTests
             while (true)
             {
                 Match opener = hookOpener.Match(content, searchStart);
-                if (!opener.Success) break;
+                if (!opener.Success)
+                {
+                    break;
+                }
 
                 // Find the matching closing brace by simple counting from the first `{` after the opener.
                 int braceStart = content.IndexOf('{', opener.Index + opener.Length);
-                if (braceStart < 0) break;
+                if (braceStart < 0)
+                {
+                    break;
+                }
+
                 int depth = 1;
                 int i = braceStart + 1;
                 while (i < content.Length && depth > 0)
                 {
-                    if (content[i] == '{') depth++;
-                    else if (content[i] == '}') depth--;
+                    if (content[i] == '{')
+                    {
+                        depth++;
+                    }
+                    else if (content[i] == '}')
+                    {
+                        depth--;
+                    }
+
                     i++;
                 }
+
                 int braceEnd = i;
                 string body = content[(braceStart + 1)..(braceEnd - 1)];
                 string scanBody = stringLiteral.Replace(body, "\"\"");
@@ -458,7 +473,11 @@ public class ArchitectureAuditTests
                 {
                     // Allow `_` alone (discard) and the contribution-dict locals if any.
                     string ident = fr.Value;
-                    if (ident == "_") continue;
+                    if (ident == "_")
+                    {
+                        continue;
+                    }
+
                     string relative = Path.GetRelativePath(RepoRoot, path);
                     violations.Add($"{relative}  {t.Name}.BuildComponent{opener.Groups[2].Value} reads `{ident}`");
                 }

@@ -1,3 +1,4 @@
+﻿using AngleSharp.Dom;
 using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -65,7 +66,7 @@ public class BOBCarouselRenderingTests
             .Add(c => c.ChildContent, ThreeSlides));
 
         // Assert
-        var slides = cut.FindAll(".bob-carousel__slide");
+        IReadOnlyList<IElement> slides = cut.FindAll(".bob-carousel__slide");
         slides[0].GetAttribute("data-bob-active").Should().Be("true");
         slides[1].GetAttribute("data-bob-active").Should().BeNull();
     }

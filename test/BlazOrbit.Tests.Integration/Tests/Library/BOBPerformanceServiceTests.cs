@@ -75,7 +75,7 @@ public class BOBPerformanceServiceTests
         sut.RecordRenderTreeBuild("BOBB", 10.0);
         sut.RecordRenderTreeBuild("BOBC", 50.0);
 
-        var all = sut.GetAll().ToList();
+        List<BOBComponentMetrics> all = sut.GetAll().ToList();
 
         all.Should().HaveCount(3);
         all[0].ComponentType.Should().Be("BOBC");
