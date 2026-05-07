@@ -1,4 +1,4 @@
-# .github/workflows/docs-site.yml
+﻿# .github/workflows/docs-site.yml
 # Builds the BlazOrbit Docs site (Blazor WASM) and publishes it to Cloudflare Pages.
 # Triggered manually (workflow_dispatch).
 
@@ -44,7 +44,9 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install wasm-tools workload (required for AOT)
+      - name: Install wasm-tools workload
+        # Required even when AOT is disabled — wasm-tools provides icudt
+        # generation, wasm-opt and other publish-time tooling.
         run: dotnet workload install wasm-tools
 
       - name: Restore BuildTools
@@ -54,13 +56,21 @@ jobs:
         run: dotnet restore docs/BlazOrbit.Docs.Wasm/BlazOrbit.Docs.Wasm.csproj
 
       - name: Publish Docs.Wasm
+        # AOT must be OFF if size > 25MB
+        # for Cloudflare Pages deployments because Cloudflare enforces
+        # a 25 MB per-file limit on publish, and AOT-compiled `dotnet.native.wasm`
+        # lands at ~30-40 MB. To re-enable AOT, flip the flag below to `true`:
+        # the csproj wires `EnableDocsAot=true` to both `RunAOTCompilation=true`
+        # and `WasmStripILAfterAOT=true` in a single switch, so the resulting
+        # native asset stays under Cloudflare's per-file budget. The runner
+        # (`ubuntu-latest`) already ships with Python on PATH, which emcc needs.
         run: >
           dotnet publish
           docs/BlazOrbit.Docs.Wasm/BlazOrbit.Docs.Wasm.csproj
           -c Release
           -o ./publish
           --no-restore
-          -p:RunAOTCompilation=false
+          -p:EnableDocsAot=false
 
       - name: Stamp service-worker cache version
         run: |
