@@ -10,7 +10,7 @@
     <BOBTreeMenuItem Text="@Loc["Getting Started"]"
                      Key="nav-getting-started"
                      Icon="@BOBIconKeys.MaterialIconsOutlined.i_rocket_launch"
-                     Href="/getting-started">
+                     OnClick="@NavigateToGettingStarted">
         <ChildContent>
             <BOBTreeMenuItem Text="@Loc["Templates"]" Href="/getting-started/templates" />
             <BOBTreeMenuItem Text="@Loc["AI Skill"]" Href="/getting-started/ai-skill" />
@@ -26,7 +26,6 @@
                              Key="nav-forms"
                              Icon="@BOBIconKeys.MaterialIconsOutlined.i_edit_note"
                              InitiallyExpanded="true"
-                             Href="/components/forms"
                              OnClick="@NavigateToForms">
                 <ChildContent>
                     <BOBTreeMenuItem Text="@Loc["Checkbox"]" Href="/components/forms/checkbox" />
@@ -205,6 +204,11 @@
 
         if (changed)
             StateHasChanged();
+    }
+
+    private void NavigateToGettingStarted()
+    {
+        NavigationManager.NavigateTo("/getting-started");
     }
 
     private void NavigateToForms()

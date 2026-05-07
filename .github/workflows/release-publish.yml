@@ -296,12 +296,39 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
+      - name: Refuse to publish if version already on NuGet
+        # 1:1 invariant: every published NuGet version maps to exactly one
+        # commit and exactly one skill. Re-publishing would either be blocked
+        # by NuGet's immutability (`409`) or silently no-op the .nupkg push
+        # while overwriting the .skill on the GH release — drift. Probe the
+        # flat-container endpoint and bail out before either side mutates.
+        env:
+          VERSION: ${{ needs.version.outputs.version }}
+        run: |
+          set -e
+          url="https://api.nuget.org/v3-flatcontainer/blazorbit/${VERSION,,}/blazorbit.${VERSION,,}.nupkg"
+          status=$(curl -sS -o /dev/null -w "%{http_code}" -I "$url")
+          case "$status" in
+            200)
+              echo "::error::BlazOrbit ${VERSION} already published on NuGet. Bump VersionPrefix in Directory.Build.props and re-tag."
+              exit 1
+              ;;
+            404)
+              echo "✅ Version ${VERSION} not on NuGet — safe to publish."
+              ;;
+            *)
+              echo "::warning::Unexpected status $status from NuGet flat-container probe. Proceeding cautiously."
+              ;;
+          esac
+
       - name: Push to NuGet
+        # `--skip-duplicate` intentionally NOT set: the upstream guard already
+        # vetted version uniqueness. If a 409 reaches us anyway (concurrent
+        # dispatch, NuGet race), failing loudly is the correct response.
         run: |
           dotnet nuget push ./artifacts/*.nupkg \
             --source ${{ env.NUGET_SOURCE }} \
-            --api-key ${{ secrets.NUGET_API_KEY }} \
-            --skip-duplicate
+            --api-key ${{ secrets.NUGET_API_KEY }}
 
       - name: Extract release notes from CHANGELOG.md
         id: notes
@@ -350,3 +377,16 @@ jobs:
           files: ./artifacts/*.nupkg
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  package-skill:
+    name: Package BlazOrbit User Skill
+    needs: [version, publish]
+    # Reusable workflow appends blazorbit-user.skill to the GH release that
+    # `publish` just created. 1:1 NuGet:skill mapping; consumers download via
+    # https://github.com/<repo>/releases/download/v<version>/blazorbit-user.skill
+    uses: ./.github/workflows/package-skill.yml
+    with:
+      version: ${{ needs.version.outputs.version }}
+      tag_name: ${{ startsWith(github.ref_name, 'v') && github.ref_name || format('v{0}', needs.version.outputs.version) }}
+      prerelease: false
+    secrets: inherit

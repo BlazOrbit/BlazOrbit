@@ -32,11 +32,6 @@ on:
       - '.gitignore'
 
   workflow_dispatch:
-    inputs:
-      override_version:
-        description: 'Override preview version (e.g. 1.0.0-preview1). Leave empty for auto-calculation.'
-        required: false
-        type: string
 
 env:
   DOTNET_VERSION: |
@@ -83,8 +78,6 @@ jobs:
 
       - name: Calculate preview version
         id: calc
-        env:
-          OVERRIDE_VERSION: ${{ github.event.inputs.override_version }}
         run: |
           # Helper: extract assembly-friendly version (strip prerelease suffix, ensure 4 parts)
           extract_assembly_version() {
@@ -94,15 +87,10 @@ jobs:
             echo "${parts[0]:-0}.${parts[1]:-0}.${parts[2]:-0}.${parts[3]:-0}"
           }
 
-          # If a manual override was provided, use it directly
-          if [ -n "$OVERRIDE_VERSION" ]; then
-            echo "Using manually specified version: $OVERRIDE_VERSION"
-            echo "version=$OVERRIDE_VERSION" >> $GITHUB_OUTPUT
-            echo "full_version=${OVERRIDE_VERSION}+${GITHUB_SHA:0:7}" >> $GITHUB_OUTPUT
-            echo "bump_type=MANUAL" >> $GITHUB_OUTPUT
-            echo "assembly_version=$(extract_assembly_version "$OVERRIDE_VERSION")" >> $GITHUB_OUTPUT
-            exit 0
-          fi
+          # Version is fully derived from VersionPrefix + run number — no manual
+          # override accepted. Each NuGet version is published exactly once,
+          # 1:1 with its skill. To re-test something, push a new commit (run
+          # number bumps) instead of forcing a duplicate version.
 
           # Read VersionPrefix from Directory.Build.props
           VERSION_PREFIX=$(grep -oP '<VersionPrefix>\K[^<]+' Directory.Build.props || echo "")
@@ -236,9 +224,51 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
+      - name: Refuse to publish if version already on NuGet
+        # 1:1 invariant: every published NuGet version maps to exactly one
+        # commit and exactly one skill. Re-publishing would either be blocked
+        # by NuGet's immutability (`409`) or silently no-op the .nupkg push
+        # while overwriting the .skill on the GH release — drift. Probe the
+        # flat-container endpoint and bail out before either side mutates.
+        env:
+          VERSION: ${{ needs.version.outputs.version }}
+        run: |
+          set -e
+          url="https://api.nuget.org/v3-flatcontainer/blazorbit/${VERSION,,}/blazorbit.${VERSION,,}.nupkg"
+          status=$(curl -sS -o /dev/null -w "%{http_code}" -I "$url")
+          case "$status" in
+            200)
+              echo "::error::BlazOrbit ${VERSION} already published on NuGet. Bump the version (typically by pushing a new commit so GITHUB_RUN_NUMBER advances) and re-dispatch."
+              exit 1
+              ;;
+            404)
+              echo "✅ Version ${VERSION} not on NuGet — safe to publish."
+              ;;
+            *)
+              echo "::warning::Unexpected status $status from NuGet flat-container probe. Proceeding cautiously."
+              ;;
+          esac
+
       - name: Push to NuGet
+        # `--skip-duplicate` intentionally NOT set: the upstream guard already
+        # vetted version uniqueness. If a 409 reaches us anyway (concurrent
+        # dispatch, NuGet race), failing loudly is the correct response.
         run: |
           dotnet nuget push ./artifacts/*.nupkg \
             --source ${{ env.NUGET_SOURCE }} \
-            --api-key ${{ secrets.NUGET_API_KEY }} \
-            --skip-duplicate
+            --api-key ${{ secrets.NUGET_API_KEY }}
+
+  package-skill:
+    name: Package BlazOrbit User Skill
+    needs: [version, publish]
+    # Each preview NuGet that ships gets a matching .skill attached to a
+    # prerelease GH release tagged v<version>. The reusable workflow creates
+    # the release on first call (preview-publish doesn't otherwise create GH
+    # releases). Skipped on pure-push events because publish is dispatch-only.
+    if: github.event_name == 'workflow_dispatch'
+    uses: ./.github/workflows/package-skill.yml
+    with:
+      version: ${{ needs.version.outputs.version }}
+      tag_name: v${{ needs.version.outputs.version }}
+      prerelease: true
+    secrets: inherit
