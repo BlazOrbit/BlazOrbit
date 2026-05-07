@@ -31,7 +31,7 @@ public class ReroutedStringLocalizerFactoryTests
         IStringLocalizer expected = Substitute.For<IStringLocalizer>();
         inner.Create(typeof(string)).Returns(expected);
 
-        var sut = new ReroutedStringLocalizerFactory(
+        ReroutedStringLocalizerFactory sut = new(
             inner, new Dictionary<string, string>());
 
         IStringLocalizer result = sut.Create(typeof(string));
@@ -53,11 +53,11 @@ public class ReroutedStringLocalizerFactoryTests
         string translationsAsm = "BlazOrbit.Tests.Integration.Translations";
         inner.Create(rewrittenBaseName, translationsAsm).Returns(expected);
 
-        var map = new Dictionary<string, string>
+        Dictionary<string, string> map = new()
         {
             ["BlazOrbit.Tests.Integration"] = translationsAsm
         };
-        var sut = new ReroutedStringLocalizerFactory(inner, map);
+        ReroutedStringLocalizerFactory sut = new(inner, map);
 
         Type resourceType = typeof(FakeResourceType);
 
@@ -74,11 +74,11 @@ public class ReroutedStringLocalizerFactoryTests
         IStringLocalizer expected = Substitute.For<IStringLocalizer>();
         inner.Create(typeof(FakeResourceType)).Returns(expected);
 
-        var map = new Dictionary<string, string>
+        Dictionary<string, string> map = new()
         {
             ["OtherAssembly"] = "OtherAssembly.Translations"
         };
-        var sut = new ReroutedStringLocalizerFactory(inner, map);
+        ReroutedStringLocalizerFactory sut = new(inner, map);
 
         IStringLocalizer result = sut.Create(typeof(FakeResourceType));
 
@@ -93,11 +93,11 @@ public class ReroutedStringLocalizerFactoryTests
         IStringLocalizer expected = Substitute.For<IStringLocalizer>();
         inner.Create(typeof(FakeResourceType)).Returns(expected);
 
-        var map = new Dictionary<string, string>
+        Dictionary<string, string> map = new()
         {
             ["BlazOrbit.Localization.Shared"] = ""
         };
-        var sut = new ReroutedStringLocalizerFactory(inner, map);
+        ReroutedStringLocalizerFactory sut = new(inner, map);
 
         IStringLocalizer result = sut.Create(typeof(FakeResourceType));
 
@@ -107,7 +107,7 @@ public class ReroutedStringLocalizerFactoryTests
     [Fact]
     public void Create_Type_Should_Throw_When_ResourceSource_Is_Null()
     {
-        var sut = new ReroutedStringLocalizerFactory(
+        ReroutedStringLocalizerFactory sut = new(
             Substitute.For<IStringLocalizerFactory>(),
             new Dictionary<string, string>());
 
@@ -122,7 +122,7 @@ public class ReroutedStringLocalizerFactoryTests
         IStringLocalizer expected = Substitute.For<IStringLocalizer>();
         inner.Create("baseName", "location").Returns(expected);
 
-        var sut = new ReroutedStringLocalizerFactory(
+        ReroutedStringLocalizerFactory sut = new(
             inner, new Dictionary<string, string>());
 
         IStringLocalizer result = sut.Create("baseName", "location");

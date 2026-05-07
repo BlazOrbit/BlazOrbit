@@ -1,4 +1,4 @@
-using BlazOrbit.Components;
+﻿using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -185,10 +185,10 @@ public class BOBCarouselInteractionTests
         await cut.InvokeAsync(() => cut.Instance.GoToAsync(2));
         cut.Instance.ActiveIndex.Should().Be(2);
 
-        await cut.InvokeAsync(() => cut.Instance.GoPreviousAsync());
+        await cut.InvokeAsync(cut.Instance.GoPreviousAsync);
         cut.Instance.ActiveIndex.Should().Be(1);
 
-        await cut.InvokeAsync(() => cut.Instance.GoNextAsync());
+        await cut.InvokeAsync(cut.Instance.GoNextAsync);
         cut.Instance.ActiveIndex.Should().Be(2);
     }
 }

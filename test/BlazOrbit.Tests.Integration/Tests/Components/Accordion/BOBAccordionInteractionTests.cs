@@ -1,3 +1,4 @@
+﻿using AngleSharp.Dom;
 using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -21,7 +22,11 @@ public class BOBAccordionInteractionTests
         b.OpenComponent<BOBAccordionItem>(4);
         b.AddAttribute(5, "Id", "i2");
         b.AddAttribute(6, nameof(BOBAccordionItem.Header), (RenderFragment)(b2 => b2.AddContent(0, "B")));
-        if (middleDisabled) b.AddAttribute(7, "Disabled", true);
+        if (middleDisabled)
+        {
+            b.AddAttribute(7, "Disabled", true);
+        }
+
         b.AddAttribute(8, nameof(BOBAccordionItem.ChildContent), (RenderFragment)(b2 => b2.AddContent(0, "BodyB")));
         b.CloseComponent();
         b.OpenComponent<BOBAccordionItem>(9);
@@ -45,7 +50,7 @@ public class BOBAccordionInteractionTests
         cut.FindAll(".bob-accordion-item__header")[0].Click();
 
         // Assert
-        var items = cut.FindAll("[data-bob-component='accordion-item']");
+        IReadOnlyList<IElement> items = cut.FindAll("[data-bob-component='accordion-item']");
         items[0].GetAttribute("data-bob-expanded").Should().Be("true");
     }
 
@@ -64,7 +69,7 @@ public class BOBAccordionInteractionTests
         cut.FindAll(".bob-accordion-item__header")[2].Click();
 
         // Assert
-        var items = cut.FindAll("[data-bob-component='accordion-item']");
+        IReadOnlyList<IElement> items = cut.FindAll("[data-bob-component='accordion-item']");
         items[0].GetAttribute("data-bob-expanded").Should().Be("true");
         items[2].GetAttribute("data-bob-expanded").Should().Be("true");
     }
@@ -85,7 +90,7 @@ public class BOBAccordionInteractionTests
         cut.FindAll(".bob-accordion-item__header")[2].Click();
 
         // Assert — only third is expanded
-        var items = cut.FindAll("[data-bob-component='accordion-item']");
+        IReadOnlyList<IElement> items = cut.FindAll("[data-bob-component='accordion-item']");
         items[0].GetAttribute("data-bob-expanded").Should().BeNull();
         items[2].GetAttribute("data-bob-expanded").Should().Be("true");
     }
@@ -106,7 +111,7 @@ public class BOBAccordionInteractionTests
         cut.FindAll(".bob-accordion-item__header")[0].Click();
 
         // Assert — none expanded
-        foreach (var item in cut.FindAll("[data-bob-component='accordion-item']"))
+        foreach (IElement item in cut.FindAll("[data-bob-component='accordion-item']"))
         {
             item.GetAttribute("data-bob-expanded").Should().BeNull();
         }
@@ -127,7 +132,7 @@ public class BOBAccordionInteractionTests
         cut.FindAll(".bob-accordion-item__header")[0].Click();
 
         // Assert — still expanded
-        var items = cut.FindAll("[data-bob-component='accordion-item']");
+        IReadOnlyList<IElement> items = cut.FindAll("[data-bob-component='accordion-item']");
         items[0].GetAttribute("data-bob-expanded").Should().Be("true");
     }
 
@@ -145,7 +150,7 @@ public class BOBAccordionInteractionTests
         cut.FindAll(".bob-accordion-item__header")[1].Click();
 
         // Assert — still collapsed
-        var items = cut.FindAll("[data-bob-component='accordion-item']");
+        IReadOnlyList<IElement> items = cut.FindAll("[data-bob-component='accordion-item']");
         items[1].GetAttribute("data-bob-expanded").Should().BeNull();
     }
 

@@ -1,5 +1,4 @@
 ﻿using BlazOrbit.FormsFluentValidation;
-using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
 using FluentAssertions;
 using FluentValidation;
@@ -29,7 +28,7 @@ public class BOBFluentValidatorTests
     [Fact]
     public void Should_Throw_When_Not_Inside_EditForm()
     {
-        using var ctx = new BunitContext();
+        using BunitContext ctx = new();
         ctx.JSInterop.Mode = JSRuntimeMode.Loose;
 
         Action act = () => ctx.Render<BOBFluentValidator>();
@@ -41,10 +40,10 @@ public class BOBFluentValidatorTests
     [Fact]
     public void Should_Throw_When_No_Validator_Resolved()
     {
-        using var ctx = new BunitContext();
+        using BunitContext ctx = new();
         ctx.JSInterop.Mode = JSRuntimeMode.Loose;
 
-        var model = new TestModel();
+        TestModel model = new();
 
         Action act = () => ctx.Render<EditForm>(p => p
             .Add(c => c.Model, model)
@@ -61,11 +60,11 @@ public class BOBFluentValidatorTests
     [Fact]
     public void Should_Validate_Model_On_ValidationRequested()
     {
-        using var ctx = new BunitContext();
+        using BunitContext ctx = new();
         ctx.JSInterop.Mode = JSRuntimeMode.Loose;
         ctx.Services.AddValidatorsFromAssemblyContaining<TestModelValidator>();
 
-        var model = new TestModel { Name = "", Age = 200 };
+        TestModel model = new() { Name = "", Age = 200 };
 
         IRenderedComponent<EditForm> cut = ctx.Render<EditForm>(p => p
             .Add(c => c.Model, model)
@@ -89,11 +88,11 @@ public class BOBFluentValidatorTests
     [Fact]
     public void Should_Validate_Single_Field_On_FieldChanged()
     {
-        using var ctx = new BunitContext();
+        using BunitContext ctx = new();
         ctx.JSInterop.Mode = JSRuntimeMode.Loose;
         ctx.Services.AddValidatorsFromAssemblyContaining<TestModelValidator>();
 
-        var model = new TestModel { Name = "ValidName", Age = 200 };
+        TestModel model = new() { Name = "ValidName", Age = 200 };
 
         IRenderedComponent<EditForm> cut = ctx.Render<EditForm>(p => p
             .Add(c => c.Model, model)
@@ -118,11 +117,11 @@ public class BOBFluentValidatorTests
     [Fact]
     public void Should_Not_Subscribe_FieldChanged_When_ValidateOnFieldChanged_Is_False()
     {
-        using var ctx = new BunitContext();
+        using BunitContext ctx = new();
         ctx.JSInterop.Mode = JSRuntimeMode.Loose;
         ctx.Services.AddValidatorsFromAssemblyContaining<TestModelValidator>();
 
-        var model = new TestModel { Name = "", Age = 0 };
+        TestModel model = new() { Name = "", Age = 0 };
 
         IRenderedComponent<EditForm> cut = ctx.Render<EditForm>(p => p
             .Add(c => c.Model, model)
@@ -143,11 +142,11 @@ public class BOBFluentValidatorTests
     [Fact]
     public void Should_Use_Explicit_ValidatorType_When_Provided()
     {
-        using var ctx = new BunitContext();
+        using BunitContext ctx = new();
         ctx.JSInterop.Mode = JSRuntimeMode.Loose;
         // Deliberately NOT registering the validator in DI.
 
-        var model = new TestModel { Name = "" };
+        TestModel model = new() { Name = "" };
 
         IRenderedComponent<EditForm> cut = ctx.Render<EditForm>(p => p
             .Add(c => c.Model, model)
@@ -167,11 +166,11 @@ public class BOBFluentValidatorTests
     [Fact]
     public void Should_Clear_Messages_On_Dispose()
     {
-        using var ctx = new BunitContext();
+        using BunitContext ctx = new();
         ctx.JSInterop.Mode = JSRuntimeMode.Loose;
         ctx.Services.AddValidatorsFromAssemblyContaining<TestModelValidator>();
 
-        var model = new TestModel { Name = "" };
+        TestModel model = new() { Name = "" };
 
         IRenderedComponent<EditForm> cut = ctx.Render<EditForm>(p => p
             .Add(c => c.Model, model)
