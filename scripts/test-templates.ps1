@@ -66,6 +66,10 @@
     Just regenerate projects, keep them on disk and the templates installed.
 
 .EXAMPLE
+    ./scripts/test-templates.ps1 -RunE2E
+    After building all projects, run Playwright end-to-end tests against the generated projects.
+
+.EXAMPLE
     ./scripts/test-templates.ps1 -Help
     Show this help message and exit.
 
@@ -82,6 +86,7 @@ param(
     [string]$WorkDir = "",
     [switch]$SkipBlazOrbitPack,
     [switch]$SkipBuild,
+    [switch]$RunE2E,
     [switch]$KeepWorkDir,
     [switch]$KeepInstalled,
     [hashtable[]]$Matrix,
@@ -163,6 +168,10 @@ if (-not $existingSource) {
 
 # ---------- 1. Pack BlazOrbit library (optional) ----------
 if (-not $SkipBlazOrbitPack) {
+    Write-Step "Cleaning BlazOrbit solution to avoid stale static-asset manifests"
+    Invoke-DotNet @("clean", $mainSln, "-c", $Configuration, "--nologo") "clean solution"
+    Write-Ok "cleaned"
+
     Write-Step "Packing BlazOrbit library to $FeedDir"
     Invoke-DotNet @("pack", $mainSln, "-c", $Configuration, "-o", $FeedDir, "--nologo") "pack BlazOrbit.slnx"
     Write-Ok "library packed"
@@ -271,11 +280,57 @@ foreach ($case in $Matrix) {
     $results.Add($caseResult)
 }
 
-# ---------- 7. Summary ----------
+# ---------- 7. E2E tests (optional) ----------
+$failures = $results | Where-Object { $_.Generate -ne "ok" -or ($_.Build -eq "fail") }
+$e2eResults = "skipped"
+if ($RunE2E) {
+    if ($SkipBuild) {
+        Write-Warn2 "Cannot run E2E tests with -SkipBuild. Projects must be built first."
+    }
+    elseif ($failures.Count -gt 0) {
+        Write-Warn2 "Skipping E2E tests because some builds failed."
+    }
+    else {
+        Write-Step "Running Playwright E2E tests"
+
+        $e2eProj = Join-Path $repoRoot "test\BlazOrbit.Templates.E2E\BlazOrbit.Templates.E2E.csproj"
+        if (-not (Test-Path $e2eProj)) {
+            throw "E2E test project not found: $e2eProj"
+        }
+
+        # 1. Build E2E project (idempotent — no-op if already built)
+        Invoke-DotNet @("build", $e2eProj, "-c", $Configuration, "--nologo") "build E2E project"
+
+        # 2. Ensure Playwright browsers are installed (idempotent — skips if present)
+        $playwrightPs1 = Join-Path $repoRoot "test\BlazOrbit.Templates.E2E\bin\$Configuration\net10.0\playwright.ps1"
+        if (-not (Test-Path $playwrightPs1)) {
+            throw "playwright.ps1 not found at $playwrightPs1. Ensure the E2E project built successfully."
+        }
+
+        Write-Host "    > pwsh $playwrightPs1 install chromium" -ForegroundColor DarkGray
+        & pwsh $playwrightPs1 install chromium
+        if ($LASTEXITCODE -ne 0) {
+            throw "Playwright browser installation failed"
+        }
+
+        # 3. Pass the work directory to the fixture so it reuses generated projects
+        $env:BLAZORBIT_TEMPLATE_TEST_DIR = $WorkDir
+
+        try {
+            Invoke-DotNet @("test", $e2eProj, "-c", $Configuration, "--no-build", "--verbosity", "normal", "--nologo") "run E2E tests"
+            $e2eResults = "ok"
+            Write-Ok "E2E tests passed"
+        } catch {
+            $e2eResults = "fail"
+            Write-Err "E2E tests failed: $($_.Exception.Message)"
+        }
+    }
+}
+
+# ---------- 8. Summary ----------
 Write-Step "Summary"
 $results | Format-Table Name, Template, Framework, Localization, Generate, Build -AutoSize | Out-String | Write-Host
 
-$failures = $results | Where-Object { $_.Generate -ne "ok" -or ($_.Build -eq "fail") }
 if ($failures.Count -gt 0) {
     Write-Host ""
     Write-Host "Failures:" -ForegroundColor Red
@@ -285,14 +340,27 @@ if ($failures.Count -gt 0) {
     }
 }
 
-# ---------- 8. Cleanup ----------
+if ($RunE2E) {
+    Write-Host ""
+    Write-Host ("E2E tests: {0}" -f $e2eResults) -ForegroundColor $(if ($e2eResults -eq "ok") { "Green" } elseif ($e2eResults -eq "fail") { "Red" } else { "Yellow" })
+}
+
+# ---------- 9. Cleanup ----------
 if (-not $KeepInstalled) {
     Write-Step "Uninstalling BlazOrbit.Templates"
-    try {
-        Invoke-DotNet @("new", "uninstall", "BlazOrbit.Templates") "uninstall templates"
-        Write-Ok "uninstalled"
-    } catch {
-        Write-Warn2 "uninstall failed (templates may have been installed from a different path): $($_.Exception.Message)"
+    # The E2E fixture's DisposeAsync already calls `dotnet new uninstall`, so when
+    # -RunE2E was used the templates may already be gone. Detect that and stay
+    # quiet instead of warning.
+    $installedNow = & dotnet new uninstall 2>&1 | Out-String
+    if ($installedNow -match "BlazOrbit\.Templates") {
+        try {
+            Invoke-DotNet @("new", "uninstall", "BlazOrbit.Templates") "uninstall templates"
+            Write-Ok "uninstalled"
+        } catch {
+            Write-Warn2 "uninstall failed (templates may have been installed from a different path): $($_.Exception.Message)"
+        }
+    } else {
+        Write-Ok "already uninstalled"
     }
 } else {
     Write-Step "Leaving BlazOrbit.Templates installed (-KeepInstalled)"
@@ -306,12 +374,20 @@ if (-not $KeepWorkDir) {
     Write-Step "Leaving generated projects in $WorkDir (-KeepWorkDir)"
 }
 
-if ($failures.Count -gt 0) {
+# Exit non-zero if templates failed OR E2E (when requested) failed.
+$overallFail = $failures.Count -gt 0 -or ($RunE2E -and $e2eResults -eq "fail")
+if ($overallFail) {
     Write-Host ""
-    Write-Host "FAIL: $($failures.Count) of $($results.Count) cases failed." -ForegroundColor Red
+    if ($failures.Count -gt 0) {
+        Write-Host "FAIL: $($failures.Count) of $($results.Count) template cases failed." -ForegroundColor Red
+    }
+    if ($RunE2E -and $e2eResults -eq "fail") {
+        Write-Host "FAIL: E2E tests failed. Diagnostics in $env:TEMP\blazorbit-e2e-logs" -ForegroundColor Red
+    }
     exit 1
 } else {
     Write-Host ""
     Write-Host "OK: all $($results.Count) cases passed." -ForegroundColor Green
+    if ($RunE2E) { Write-Host "OK: E2E tests passed." -ForegroundColor Green }
     exit 0
 }

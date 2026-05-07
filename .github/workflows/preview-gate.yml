@@ -34,6 +34,11 @@ jobs:
     name: Build Linux
     needs: router
     runs-on: ${{ needs.router.outputs.runner }}
+    # Each job runs inside a fresh container — guarantees clean toolchain state
+    # between runs (no cached workloads, leftover processes, or shared NuGet
+    # locks across parallel runners). Equivalent to GitHub-hosted ephemeral VMs.
+    container:
+      image: mcr.microsoft.com/dotnet/sdk:10.0
 
     steps:
       - name: Checkout
@@ -101,6 +106,8 @@ jobs:
     name: Tests
     needs: router
     runs-on: ${{ needs.router.outputs.runner }}
+    container:
+      image: mcr.microsoft.com/dotnet/sdk:10.0
 
     steps:
       - name: Checkout
