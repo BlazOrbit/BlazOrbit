@@ -38,6 +38,20 @@
     <File Path="scripts/admin-tools.ps1" />
     <File Path="scripts/dev-tools.ps1" />
     <File Path="scripts/fix-encoding-bom.ps1" />
+    <File Path="scripts/test-templates.ps1" />
+    <File Path="scripts/tests-debug.ps1" />
+    <File Path="scripts/tests-release.ps1" />
+  </Folder>
+  <Folder Name="/_workflows/">
+    <File Path=".github/workflows/codeql.yml" />
+    <File Path=".github/workflows/docs-api.yml" />
+    <File Path=".github/workflows/docs-site.yml" />
+    <File Path=".github/workflows/package-skill.yml" />
+    <File Path=".github/workflows/preview-gate.yml" />
+    <File Path=".github/workflows/preview-publish.yml" />
+    <File Path=".github/workflows/release-gate.yml" />
+    <File Path=".github/workflows/release-publish.yml" />
+    <File Path=".github/workflows/_runner-router.yml" />
   </Folder>
   <Project Path="src/BlazOrbit.BuildTools/BlazOrbit.BuildTools.csproj" Id="a67069d5-56c2-49fa-adec-656079117b53" />
   <Project Path="src/BlazOrbit.CodeGeneration/BlazOrbit.CodeGeneration.csproj" Id="96bbc2e4-007e-4f7d-973b-8c83686462df" />
