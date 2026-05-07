@@ -109,14 +109,16 @@ jobs:
       - name: Package skill
         # Tooling lives under scripts/skills/<skill-name>/ so the skill payload
         # under .agents/skills/<skill-name>/ is naturally clean — no excludes
-        # needed in the zip.
+        # needed in the zip. Use absolute paths to avoid `../` arithmetic that
+        # depends on $SKILL_DIR's depth.
         run: |
-          mkdir -p ./artifacts
-          cd "$SKILL_DIR"
-          zip -r "../../artifacts/${SKILL_NAME}.skill" .
-          cd -
+          set -e
+          ARTIFACT_DIR="$GITHUB_WORKSPACE/artifacts"
+          ARTIFACT_PATH="$ARTIFACT_DIR/${SKILL_NAME}.skill"
+          mkdir -p "$ARTIFACT_DIR"
+          ( cd "$SKILL_DIR" && zip -r "$ARTIFACT_PATH" . )
           echo "=== Packaged contents ==="
-          unzip -l "artifacts/${SKILL_NAME}.skill"
+          unzip -l "$ARTIFACT_PATH"
 
       - name: Attach to GitHub release
         uses: softprops/action-gh-release@v3
