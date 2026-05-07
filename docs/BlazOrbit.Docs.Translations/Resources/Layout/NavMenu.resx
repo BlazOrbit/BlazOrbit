@@ -252,6 +252,12 @@
   <data name="Getting Started" xml:space="preserve">
     <value>Getting Started</value>
   </data>
+  <data name="Templates" xml:space="preserve">
+    <value>Templates</value>
+  </data>
+  <data name="AI Skill" xml:space="preserve">
+    <value>AI Skill</value>
+  </data>
   <data name="Actions" xml:space="preserve">
     <value>Actions</value>
   </data>

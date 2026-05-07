@@ -10,6 +10,12 @@
   -->
 
   <PropertyGroup>
+    <!--
+      Pin the canonical solution for libraries that auto-discover it
+    -->
+    <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
+    <SolutionName>BlazOrbit</SolutionName>
+
     <!-- Language + framework defaults -->
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>

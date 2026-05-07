@@ -1,0 +1,12 @@
+@inherits LayoutComponentBase
+@using BlazOrbit.Components.Wasm
+
+<BOBInitializer DefaultTheme="dark">
+    <NavMenu />
+    <main class="bob-app__main">
+        @Body
+    </main>
+</BOBInitializer>
+
+<BOBModalHost />
+<BOBToastHost MaxVisiblePerPosition="5" />

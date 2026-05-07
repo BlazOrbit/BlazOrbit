@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "BlazOrbit",
+  "classifications": ["Web", "Blazor", "BlazOrbit"],
+  "identity": "BlazOrbit.Wasm",
+  "name": "BlazOrbit WebAssembly App",
+  "shortName": "blazorbit-wasm",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "BlazorApp",
+  "preferNameDirectory": true,
+  "symbols": {
+    "Framework": {
+      "type": "parameter",
+      "description": "The target framework for the project.",
+      "datatype": "choice",
+      "choices": [
+        { "choice": "net8.0", "description": "Target .NET 8.0" },
+        { "choice": "net10.0", "description": "Target .NET 10.0" }
+      ],
+      "defaultValue": "net8.0",
+      "replaces": "net8.0"
+    },
+    "IncludeLocalization": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Whether to include BlazOrbit localization support."
+    }
+  },
+  "sources": [
+    {
+      "source": "./",
+      "target": "./",
+      "modifiers": [
+        { "condition": "(Framework != 'net8.0')", "exclude": ["**/*.net8.*"] },
+        { "condition": "(Framework != 'net10.0')", "exclude": ["**/*.net10.*"] },
+        { "condition": "(Framework != 'net10.0')", "exclude": ["Pages/NotFound.razor"] },
+        { "condition": "(!IncludeLocalization)", "exclude": ["localized/**"] },
+        { "condition": "(IncludeLocalization)", "exclude": ["Program.cs", "Layout/MainLayout.razor", "Layout/NavMenu.razor", "localized/**"] }
+      ],
+      "rename": {
+        "App.net8.razor": "App.razor",
+        "App.net10.razor": "App.razor",
+        "wwwroot/index.net8.html": "wwwroot/index.html",
+        "wwwroot/index.net10.html": "wwwroot/index.html",
+        "BlazorApp.net8.csproj": "BlazorApp.csproj",
+        "BlazorApp.net10.csproj": "BlazorApp.csproj"
+      }
+    },
+    {
+      "condition": "(IncludeLocalization)",
+      "source": "localized/",
+      "target": "./"
+    }
+  ]
+}

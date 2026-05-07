@@ -158,7 +158,10 @@ jobs:
         run: dotnet build BlazOrbit.slnx -c Release --no-restore -p:TreatWarningsAsErrors=true
 
       - name: Test
-        run: dotnet test BlazOrbit.slnx -c Release --no-build --verbosity normal
+        # Category!=Perf excludes timing-based perf guards (e.g. PERF-05) that flake
+        # on shared/self-hosted CI runners due to JIT/GC noise. Maintainers still run
+        # the full set locally via tests-release.ps1 / tests-debug.ps1.
+        run: dotnet test BlazOrbit.slnx -c Release --no-build --verbosity normal --filter "Category!=Perf"
 
   pack:
     name: Pack NuGet Packages
@@ -189,6 +192,20 @@ jobs:
             -p:FileVersion=${{ needs.version.outputs.assembly_version }} \
             -p:InformationalVersion=${{ needs.version.outputs.full_version }} \
             -p:ContinuousIntegrationBuild=true \
+            -o ./artifacts
+
+      - name: Pack templates
+        # Mirror the stable release flow so the preview feed exposes the
+        # templates package alongside the libraries — consumers can validate
+        # `dotnet new install BlazOrbit.Templates --version <preview>` against
+        # unreleased library bits. Templates live in their own slnx, separate
+        # from BlazOrbit.slnx, so we restore explicitly.
+        run: |
+          dotnet restore templates/BlazOrbit.Templates.slnx
+          dotnet pack templates/BlazOrbit.Templates.csproj \
+            -c Release \
+            --no-restore \
+            -p:PackageVersion=${{ needs.version.outputs.version }} \
             -o ./artifacts
 
       - name: Upload packages

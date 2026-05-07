@@ -30,8 +30,15 @@ public static class VerifyConfig
         new(@"dialog-title-[a-f0-9]{32}",
             RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
+    // Razor SDK CSS isolation scope: `b-` followed by exactly 10 [a-z0-9]
+    // chars, attached as an attribute on HTML elements (`<div b-xyz1234abc>`)
+    // or as an attribute selector in scoped CSS (`[b-xyz1234abc]`). The
+    // word-boundary anchors stop the regex from devouring ordinary tokens of
+    // the form `bob-comfortabl` / `data-bob-transition` / `b-component`,
+    // which are 10-char identifiers but never appear preceded/followed by a
+    // word boundary together with a leading `b-` segment in real DOM output.
     private static readonly Regex CssIsolationScopeRegex =
-        new(@"b-[a-z0-9]{10}",
+        new(@"\bb-[a-z0-9]{10}\b",
             RegexOptions.Compiled);
 
     [ModuleInitializer]

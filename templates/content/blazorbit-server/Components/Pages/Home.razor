@@ -1,0 +1,139 @@
+@page "/"
+@inject IToastService ToastService
+@inject NavigationManager Navigation
+@using BlazOrbit.Components.Layout.Services
+
+<PageTitle>BlazorApp · BlazOrbit</PageTitle>
+
+<section class="bob-showcase__hero">
+    <div class="bob-showcase__hero-copy">
+        <span class="bob-showcase__eyebrow">BlazOrbit</span>
+        <h1>Build accessible Blazor UIs without the boilerplate.</h1>
+        <p>
+            This starter ships a reflective styling pipeline, a full design-token system,
+            light/dark themes, and a JS-light component set. Edit
+            <code>Components/Pages/Home.razor</code> to make it yours.
+        </p>
+        <div class="bob-showcase__hero-actions">
+            <BOBButton Text="Show toast"
+                       LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_notifications"
+                       OnClick="@HandleToastClick" />
+            <BOBButton Text="Documentation"
+                       TrailingIcon="@BOBIconKeys.MaterialIconsOutlined.i_open_in_new"
+                       Color="@PaletteColor.Primary"
+                       OnClick="@OpenDocs" />
+        </div>
+    </div>
+</section>
+
+<section class="bob-showcase__section">
+    <h2>Buttons</h2>
+    <p class="bob-showcase__lead">Sizes, icons, palette colors, loading, and disabled states.</p>
+
+    <div class="bob-showcase__row">
+        <BOBButton Text="Small"  Size="BOBSize.Small" />
+        <BOBButton Text="Medium" Size="BOBSize.Medium" />
+        <BOBButton Text="Large"  Size="BOBSize.Large" />
+    </div>
+
+    <div class="bob-showcase__row">
+        <BOBButton Text="Save"
+                   LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_save" />
+        <BOBButton Text="Continue"
+                   TrailingIcon="@BOBIconKeys.MaterialIconsOutlined.i_arrow_forward" />
+        <BOBButton AriaLabel="Search"
+                   LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_search" />
+    </div>
+
+    <div class="bob-showcase__row">
+        <BOBButton Text="Primary"   BackgroundColor="@PaletteColor.Primary"   Color="@PaletteColor.PrimaryContrast" />
+        <BOBButton Text="Secondary" BackgroundColor="@PaletteColor.Secondary" Color="@PaletteColor.SecondaryContrast" />
+        <BOBButton Text="Success"   BackgroundColor="@PaletteColor.Success"   Color="@PaletteColor.SuccessContrast" />
+        <BOBButton Text="Warning"   BackgroundColor="@PaletteColor.Warning"   Color="@PaletteColor.WarningContrast" />
+    </div>
+
+    <div class="bob-showcase__row">
+        <BOBButton Text="Loading"  Loading="true" />
+        <BOBButton Text="Disabled" Disabled="true" />
+    </div>
+</section>
+
+<section class="bob-showcase__section">
+    <h2>Inputs</h2>
+    <p class="bob-showcase__lead">Form-bound inputs participate in <code>EditContext</code> like the natives.</p>
+
+    <div class="bob-showcase__grid">
+        <BOBInputText @bind-Value="_name" Label="Your name" HelperText="As it appears on your ID." />
+        <BOBInputText @bind-Value="_email" Label="Email" HelperText="We will not share it." />
+        <BOBInputCheckbox @bind-Value="_acceptsTerms" Label="I accept the terms." />
+        <BOBSwitch @bind-Value="_notifications"
+                   OptionInactive="false"
+                   OptionActive="true"
+                   Label="Send me notifications" />
+    </div>
+</section>
+
+<section class="bob-showcase__section">
+    <h2>Card &amp; Accordion</h2>
+    <p class="bob-showcase__lead">Layouts compose on top of design tokens — no breakpoints, multiplier-based sizing.</p>
+
+    <div class="bob-showcase__cards">
+        <BOBCard Header="@CardHeader" Actions="@CardActions">
+            <p>
+                Cards expose <code>Header</code>, <code>Media</code>, <code>ChildContent</code>
+                and <code>Actions</code> slots. Drop them in any order.
+            </p>
+        </BOBCard>
+
+        <BOBAccordion>
+            <BOBAccordionItem Id="theming">
+                <Header>Theming</Header>
+                <ChildContent>
+                    Swap themes from the navbar, or override <code>--palette-*</code> /
+                    <code>--bob-*</code> in your CSS.
+                </ChildContent>
+            </BOBAccordionItem>
+            <BOBAccordionItem Id="variants">
+                <Header>Variants</Header>
+                <ChildContent>
+                    Register custom render templates per component via
+                    <code>AddBlazOrbitVariants(...)</code>.
+                </ChildContent>
+            </BOBAccordionItem>
+            <BOBAccordionItem Id="a11y">
+                <Header>Accessibility</Header>
+                <ChildContent>
+                    Components ship WCAG 2.2 AA focus, ARIA, and reduced-motion support out of the box.
+                </ChildContent>
+            </BOBAccordionItem>
+        </BOBAccordion>
+    </div>
+</section>
+
+@code {
+    private string? _name;
+    private string? _email;
+    private bool _acceptsTerms;
+    private bool _notifications = true;
+
+    private RenderFragment CardHeader => @<h3>Getting started</h3>;
+
+    private RenderFragment CardActions => __builder =>
+    {
+        <BOBButton Text="Open docs"
+                   TrailingIcon="@BOBIconKeys.MaterialIconsOutlined.i_open_in_new"
+                   OnClick="@OpenDocs" />
+    };
+
+    private async Task HandleToastClick()
+    {
+        await ToastService.ShowAsync(builder =>
+        {
+            builder.OpenElement(0, "div");
+            builder.AddContent(1, "👋 Hello from BlazOrbit!");
+            builder.CloseElement();
+        });
+    }
+
+    private void OpenDocs() => Navigation.NavigateTo("https://blazorbit.com", forceLoad: true);
+}

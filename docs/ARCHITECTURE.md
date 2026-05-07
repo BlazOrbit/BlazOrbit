@@ -318,6 +318,18 @@ gap: calc(0.5rem * var(--bob-density-multiplier));
 - **BEM modifiers on children are allowed** (e.g. `bob-button__icon--leading`, `bob-picker__cell--selected`).
 - **BEM modifiers on the root are forbidden**. Root state must be `data-bob-*`.
 
+### Consumer Customization Surfaces
+
+Two complementary override layers ship for downstream apps:
+
+| Surface | Prefix | Where to set | What it controls |
+|---|---|---|---|
+| **Palette** | `--palette-*` | `:root` or `html[data-bob-theme="<id>"]` | Semantic colors (`primary`, `secondary`, `surface`, `background`, status colors, contrast pairs, `border`, `shadow`, `highlight`, `hover-tint`, `active-tint`) |
+| **Design tokens** | `--bob-*` | `:root` (theme-agnostic) or scoped per theme | Typography, sizing/density multipliers, borders, focus outline, opacity states, z-index scale, ripple, scrollbar, input/picker family defaults |
+| **Per-instance inline** | `--bob-inline-*` | Component parameters (`Color`, `BackgroundColor`, `Border`, `Shadow`, …) | Single-component overrides; emitted automatically by `BOBComponentAttributesBuilder` from `IHas*` |
+
+The palette and design-token catalogs are emitted by `[AssetGenerator]`s from `FeatureDefinitions.Tokens` / `Typography` constants, so consumer-facing names cannot drift from the bundled CSS. The Theme Generator at `/utils/themegenerator` lets consumers edit both surfaces live and export JSON / CSS / C#.
+
 ---
 
 ## Async / JS Interop

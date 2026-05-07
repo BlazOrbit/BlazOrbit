@@ -1,4 +1,4 @@
-﻿@namespace BlazOrbit.Docs.Components
+@namespace BlazOrbit.Docs.Components
 
 @using BlazOrbit.Core.Utilities
 @using BlazOrbit.Themes
@@ -6,12 +6,20 @@
 @using System.Reflection
 @using BlazOrbit.SyntaxHighlight
 
-<BOBTabs @bind-ActiveTab="_activeTheme" Variant="BOBTabsVariant.Underline">
-    <BOBTab Id="dark" Label="Dark">
+<BOBTabs @bind-ActiveTab="_activeTab" Variant="BOBTabsVariant.Underline">
+    <BOBTab Id="dark" Label="Palette · Dark">
         <ThemeEditor Palette="_darkPalette" OnPaletteChanged="p => _darkPalette = p" />
     </BOBTab>
-    <BOBTab Id="light" Label="Light">
+    <BOBTab Id="light" Label="Palette · Light">
         <ThemeEditor Palette="_lightPalette" OnPaletteChanged="p => _lightPalette = p" />
+    </BOBTab>
+    <BOBTab Id="tokens" Label="Design tokens">
+        <p style="opacity: 0.8;">
+            Override any non-color primitive: typography, sizing, density, borders,
+            outline, opacity, z-index, ripple, scrollbar, and family defaults. Tokens
+            are theme-agnostic by default — they apply to both themes.
+        </p>
+        <TokensEditor Tokens="_tokens" OnTokensChanged="t => _tokens = t" />
     </BOBTab>
 </BOBTabs>
 
@@ -60,9 +68,10 @@
 </BOBDialog>
 
 @code {
-    private string _activeTheme = "dark";
+    private string _activeTab = "dark";
     private Dictionary<string, CssColor> _darkPalette = new();
     private Dictionary<string, CssColor> _lightPalette = new();
+    private Dictionary<string, string> _tokens = new();
 
     private bool _exportDialogOpen = false;
     private string _exportTitle = "";
@@ -74,12 +83,14 @@
     private string _importError = "";
     private const string _importPlaceholder = @"{
   ""dark"": { ""primary"": ""#8AB4F8"", ... },
-  ""light"": { ""primary"": ""#1A73E8"", ... }
+  ""light"": { ""primary"": ""#1A73E8"", ... },
+  ""tokens"": { ""--bob-border-radius"": ""8px"", ... }
 }";
 
     protected override void OnInitialized()
     {
         InitializePalettes();
+        InitializeTokens();
     }
 
     private void InitializePalettes()
@@ -89,6 +100,11 @@
 
         _darkPalette = ExtractPaletteColors(dark);
         _lightPalette = ExtractPaletteColors(light);
+    }
+
+    private void InitializeTokens()
+    {
+        _tokens = TokensEditor.BuildDefaults();
     }
 
     private Dictionary<string, CssColor> ExtractPaletteColors(BOBThemePaletteBase palette)
@@ -110,12 +126,21 @@
     private string GetPreviewStyles()
     {
         List<string> vars = new();
-        Dictionary<string, CssColor> palette = _activeTheme == "dark" ? _darkPalette : _lightPalette;
+        Dictionary<string, CssColor> palette = _activeTab == "light" ? _lightPalette : _darkPalette;
 
         foreach (KeyValuePair<string, CssColor> kvp in palette)
         {
             string cssName = kvp.Key.ToKebabCase();
             vars.Add($"--palette-{cssName}: {kvp.Value.ToString(ColorOutputFormats.Hex)}");
+        }
+
+        // Tokens apply to whichever tab is active so the preview reflects them everywhere.
+        foreach (KeyValuePair<string, string> kvp in _tokens)
+        {
+            if (!string.IsNullOrWhiteSpace(kvp.Value))
+            {
+                vars.Add($"{kvp.Key}: {kvp.Value}");
+            }
         }
 
         return string.Join("; ", vars);
@@ -155,6 +180,11 @@
                 MergePalette(_lightPalette, lightElement, "light", failures);
             }
 
+            if (root.TryGetProperty("tokens", out JsonElement tokensElement) && tokensElement.ValueKind == JsonValueKind.Object)
+            {
+                MergeTokens(_tokens, tokensElement);
+            }
+
             if (failures.Count > 0)
             {
                 _importError = "Some colors could not be parsed: " + string.Join(", ", failures);
@@ -192,6 +222,20 @@
         }
     }
 
+    private void MergeTokens(Dictionary<string, string> target, JsonElement source)
+    {
+        foreach (JsonProperty prop in source.EnumerateObject())
+        {
+            if (prop.Value.ValueKind != JsonValueKind.String) continue;
+            string cssVar = prop.Name.StartsWith("--", StringComparison.Ordinal) ? prop.Name : "--" + prop.Name;
+            string? value = prop.Value.GetString();
+            if (!string.IsNullOrEmpty(value))
+            {
+                target[cssVar] = value;
+            }
+        }
+    }
+
     private string? FindMatchingKey(Dictionary<string, CssColor> palette, string jsonKey)
     {
         foreach (string key in palette.Keys)
@@ -223,7 +267,8 @@
         var export = new
         {
             dark = _darkPalette.ToDictionary(k => k.Key.ToLowerInvariant(), v => v.Value.ToString(ColorOutputFormats.Hex)),
-            light = _lightPalette.ToDictionary(k => k.Key.ToLowerInvariant(), v => v.Value.ToString(ColorOutputFormats.Hex))
+            light = _lightPalette.ToDictionary(k => k.Key.ToLowerInvariant(), v => v.Value.ToString(ColorOutputFormats.Hex)),
+            tokens = _tokens.ToDictionary(k => k.Key, v => v.Value)
         };
         return JsonSerializer.Serialize(export, new JsonSerializerOptions { WriteIndented = true });
     }
@@ -232,10 +277,29 @@
     {
         System.Text.StringBuilder sb = new();
         sb.AppendLine(":root {");
+        sb.AppendLine("  /* Palette (default / dark) */");
         foreach (KeyValuePair<string, CssColor> kvp in _darkPalette)
         {
             sb.AppendLine($"  --palette-{kvp.Key.ToLowerInvariant()}: {kvp.Value.ToString(ColorOutputFormats.Hex)};");
         }
+
+        if (_tokens.Count > 0)
+        {
+            sb.AppendLine();
+            sb.AppendLine("  /* Design tokens (theme-agnostic) */");
+            foreach (TokensEditor.TokenCategory category in TokensEditor.Catalog)
+            {
+                sb.AppendLine($"  /* {category.Name} */");
+                foreach (TokensEditor.DesignTokenSpec spec in category.Tokens)
+                {
+                    if (_tokens.TryGetValue(spec.CssVar, out string? value) && !string.IsNullOrWhiteSpace(value))
+                    {
+                        sb.AppendLine($"  {spec.CssVar}: {value};");
+                    }
+                }
+            }
+        }
+
         sb.AppendLine("}");
         sb.AppendLine();
         sb.AppendLine("html[data-bob-theme=\"light\"] {");
@@ -278,11 +342,35 @@
         }
         sb.AppendLine("    }");
         sb.AppendLine("}");
+
+        if (_tokens.Count > 0)
+        {
+            sb.AppendLine();
+            sb.AppendLine("/*");
+            sb.AppendLine(" * Design tokens override the C# palette layer — drop this CSS into your");
+            sb.AppendLine(" * wwwroot/css to apply them globally:");
+            sb.AppendLine(" *");
+            sb.AppendLine(" * :root {");
+            foreach (TokensEditor.TokenCategory category in TokensEditor.Catalog)
+            {
+                foreach (TokensEditor.DesignTokenSpec spec in category.Tokens)
+                {
+                    if (_tokens.TryGetValue(spec.CssVar, out string? value) && !string.IsNullOrWhiteSpace(value))
+                    {
+                        sb.AppendLine($" *   {spec.CssVar}: {value};");
+                    }
+                }
+            }
+            sb.AppendLine(" * }");
+            sb.AppendLine(" */");
+        }
+
         return sb.ToString();
     }
 
     private void Reset()
     {
         InitializePalettes();
+        InitializeTokens();
     }
 }

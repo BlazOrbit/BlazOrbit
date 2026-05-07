@@ -1,4 +1,4 @@
-name: '[Security] CodeQL Analysis'
+﻿name: '[Security] CodeQL Analysis'
 
 on:
   push:
@@ -43,12 +43,13 @@ jobs:
           global-json-file: global.json
 
       - name: Restore workloads
+        # Explicit slnx
         if: matrix.language == 'csharp'
-        run: dotnet workload restore
+        run: dotnet workload restore BlazOrbit.slnx
 
       - name: Restore NuGet packages
         if: matrix.language == 'csharp'
-        run: dotnet restore
+        run: dotnet restore BlazOrbit.slnx
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v4

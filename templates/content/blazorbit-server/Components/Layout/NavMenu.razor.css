@@ -1,0 +1,32 @@
+.bob-app__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1.5rem;
+    background-color: var(--palette-surface);
+    border-bottom: 1px solid var(--palette-border);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.bob-app__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--palette-surface-contrast);
+    text-decoration: none;
+}
+
+.bob-app__brand-icon {
+    width: 1.75rem;
+    height: 1.75rem;
+}
+
+.bob-app__nav-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}

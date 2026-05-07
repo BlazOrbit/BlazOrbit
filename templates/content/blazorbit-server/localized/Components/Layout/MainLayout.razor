@@ -1,0 +1,18 @@
+@inherits LayoutComponentBase
+@using BlazOrbit.Components.Server
+
+<BOBInitializer DefaultTheme="dark">
+    <NavMenu />
+    <main class="bob-app__main">
+        @Body
+    </main>
+</BOBInitializer>
+
+<BOBModalHost />
+<BOBToastHost MaxVisiblePerPosition="5" />
+
+<div id="blazor-error-ui">
+    An unhandled error has occurred.
+    <a href="" class="reload">Reload</a>
+    <a class="dismiss">🗙</a>
+</div>
