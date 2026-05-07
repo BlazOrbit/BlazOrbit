@@ -42,6 +42,31 @@ In cases such as form components, it uses InputBase just like native components.
 
 ## Quickstart
 
+### Start a new project
+
+The fastest path. Install the templates package once:
+
+```bash
+dotnet new install BlazOrbit.Templates
+```
+
+Then scaffold a Blazor Server or WebAssembly project — pick the framework and toggle localization on demand:
+
+```bash
+# Blazor Server, .NET 10
+dotnet new blazorbit-server -n MyApp -F net10.0
+
+# Blazor WebAssembly, .NET 8, with localization
+dotnet new blazorbit-wasm -n MyApp -F net8.0 -IncludeLocalization true
+
+cd MyApp
+dotnet run
+```
+
+The generated app ships a showcase Home page, theme switcher, modal/toast hosts, favicon set, and (when localization is enabled) a culture selector — all already wired through `BOBInitializer`. See the [Templates guide](https://blazorbit.com/getting-started/templates) for the full matrix of options.
+
+### Add to an existing project
+
 Install the main package:
 
 ```bash
@@ -124,9 +149,9 @@ For prerendered WASM (hosted WASM with Server prerender), install **both** packa
 
 ## Features
 
-- **Theming** — Built-in light and dark themes with CSS custom properties and automatic palette generation.
+- **Theming** — Built-in light and dark themes with CSS custom properties and automatic palette generation. Override `--palette-*` to re-skin colors and `--bob-*` to retune typography, sizing, density, borders, focus, z-index, ripple, scrollbar, and input/picker family defaults.
 - **Variants** — Register custom rendering templates for any component via `AddBlazOrbitVariants(...)`.
-- **Design Tokens** — Unified spacing, sizing, density, elevation, and shadow system across all components.
+- **Design Tokens** — Unified typography, sizing, density, borders, outline, opacity, z-index, ripple, and family defaults — all overridable from a single CSS var.
 - **Accessibility** — ARIA attributes, keyboard navigation, and focus management built in.
 - **Form Integration** — Full `EditContext` / `EditForm` support with validation states. Custom FluentValidation Validator ready to use.
 - **JS Interop** — Modular TypeScript interop for dropdowns, modals, clipboard, color picking, drag-and-drop, and more.
@@ -148,6 +173,28 @@ You un it locally:
 ```bash
 dotnet run --project docs/BlazOrbit.Docs.Wasm
 ```
+
+---
+
+## AI assistant integration
+
+BlazOrbit ships a `.skill` bundle that teaches AI coding agents to use the canonical component API, theming pipeline, and conventions — no more hallucinated parameters or stale BOB* signatures. The bundle is regenerated against every release so the agent's mental model stays in lock-step with the published library.
+
+Download the latest bundle from the GitHub release:
+
+```bash
+curl -L -o blazorbit-user.skill \
+  https://github.com/BlazOrbit/BlazOrbit/releases/latest/download/blazorbit-user.skill
+```
+
+Compatible loaders:
+
+* **Claude Code** — extract into `~/.claude/skills/blazorbit-user/`.
+* **Kimi (Moonshot)** — upload through the Skills tab in the web UI.
+* **OpenCode** — extract into the workspace `skills/` folder and reference it from `opencode.json`.
+* **Generic loaders** — any agent that consumes the public Anthropic Skill format (`SKILL.md` at the archive root with optional `references/` and `scripts/`).
+
+See the [AI Skill guide](https://blazorbit.com/getting-started/ai-skill) for per-agent install snippets, verification prompts, update flow, and contributor instructions for building the bundle locally.
 
 ---
 

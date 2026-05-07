@@ -14,7 +14,7 @@ First public preview of BlazOrbit — a modern, accessible component library for
 
 - **Core component set** — Button, Input, Select, Badge, Tabs, Tooltip, Card, DataGrid, DataCards, TreeMenu, TreeSelector, Dialog, Drawer, Toast, and more.
 - **Reflective styling pipeline** — components declare capabilities via `IHas*` interfaces; `data-bob-*` attributes and CSS custom properties drive the visual layer without brittle class toggles.
-- **Design tokens & theming** — built-in Light/Dark themes with a full CSS-variable palette; consumer overrides flow through `--bob-inline-*` and `--palette-*` variables.
+- **Design tokens & theming** — built-in Light/Dark themes with a full CSS-variable palette (`--palette-*`) and a complete design-token catalog (`--bob-*`: typography, sizing, density, borders, outline, opacity, z-index, ripple, scrollbar, input/picker family defaults). Consumer overrides flow through `--palette-*`, `--bob-*`, and per-instance `--bob-inline-*`. The shipped Theme Generator tool exposes both palette and tokens as a live editor with JSON/CSS/C# export.
 - **Component variants** — register custom render templates per component type through `AddBlazOrbitVariants(...)`.
 - **JS interop modules** — minimal, tree-shaken TypeScript bundles for ripple, dropdowns, modals, color-picker, clipboard, draggable, theme switching, and local-storage.
 - **Accessibility first** — WCAG 2.2 AA compliant focus states, `aria-*` attributes, reduced-motion support, and keyboard navigation built in.

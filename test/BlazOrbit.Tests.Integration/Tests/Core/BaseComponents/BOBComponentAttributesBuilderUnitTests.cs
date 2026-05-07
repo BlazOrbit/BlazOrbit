@@ -656,8 +656,14 @@ public class BOBComponentAttributesBuilderUnitTests
     /// Release-build speedup on representative components is 5–30×. This test is a sanity guard:
     /// if a future refactor erases the cache fast-path silently, this fact fails. It does NOT
     /// claim a specific perf budget — that lives in dedicated benchmarks if/when they exist.
+    ///
+    /// Tagged Category=Perf so noisy shared-VM CI runners can exclude it via
+    /// `dotnet test --filter "Category!=Perf"`. The deterministic counterpart
+    /// <see cref="BuildStyles_Same_Inputs_Should_Hit_Cache_And_Reuse_Computed_Attributes" />
+    /// covers the cache-hit contract without depending on wall-clock measurements.
     /// </summary>
     [Fact]
+    [Trait("Category", "Perf")]
     public void BuildStyles_Cache_Hit_Should_Be_Significantly_Faster_Than_Cold_Rebuild()
     {
         const int iterations = 10_000;
@@ -699,6 +705,30 @@ public class BOBComponentAttributesBuilderUnitTests
         speedup.Should().BeGreaterThan(2.0,
             because: $"cache hit must be measurably faster than cold rebuild. Measured: cold={cold.ElapsedMilliseconds}ms, " +
                      $"warm={hot.ElapsedMilliseconds}ms, speedup={speedup:F1}× over {iterations} iterations.");
+    }
+
+    /// <summary>
+    /// Deterministic counterpart to the timing-based PERF-05 guard. Asserts the cache-hit
+    /// contract directly: a second BuildStyles call with the same input on the same builder
+    /// must set <c>LastBuildSkipped</c> and produce byte-identical <c>ComputedAttributes</c>.
+    /// This pins the cache fast-path without depending on wall-clock noise, so it stays
+    /// green on shared CI runners where micro-benchmarks routinely flake.
+    /// </summary>
+    [Fact]
+    public void BuildStyles_Same_Inputs_Should_Hit_Cache_And_Reuse_Computed_Attributes()
+    {
+        BOBComponentAttributesBuilder builder = new();
+        FullFeaturedStub stub = new() { Size = BOBSize.Medium, Density = BOBDensity.Standard };
+
+        builder.BuildStyles(stub, null);
+        Dictionary<string, object> firstSnapshot = new(builder.ComputedAttributes);
+
+        builder.BuildStyles(stub, null);
+
+        builder.LastBuildSkipped.Should().BeTrue(
+            "identical inputs on the same builder must hit the per-instance cache and skip recomputation");
+        builder.ComputedAttributes.Should().BeEquivalentTo(firstSnapshot,
+            "cached output must match the original computation byte-for-byte");
     }
 
     // ---------- Type info cache (PERF-04) ----------

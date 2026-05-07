@@ -92,7 +92,7 @@
 	<Target Name="StripJsMapsForRelease"
 			AfterTargets="BuildBlazOrbitAssets"
 			BeforeTargets="ResolveProjectStaticWebAssets;ResolveStaticWebAssetsConfiguration;GetStaticWebAssetsBuildInputs;GenerateStaticWebAssetsManifest"
-			Condition="'$(Configuration)' == 'Release' AND Exists('$(BlazOrbitProjectPath)\wwwroot\js')">
+			Condition="'$(Configuration)' == 'Release' AND Exists('$(BlazOrbitProjectPath)\wwwroot\js') AND ('$(IsCrossTargetingBuild)' == 'true' OR '$(TargetFrameworks)' == '')">
 		<ItemGroup>
 			<_BlazOrbitJsMapFiles Include="$(BlazOrbitProjectPath)\wwwroot\js\**\*.js.map" />
 		</ItemGroup>

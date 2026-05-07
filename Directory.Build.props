@@ -10,6 +10,16 @@
   -->
 
   <PropertyGroup>
+    <!--
+      Pin the canonical solution so libraries that auto-discover it (e.g. Verify
+      in Verify.props) do not bail out with "Multiple solution files found" when
+      the repo root contains both BlazOrbit.slnx (libraries) and
+      BlazOrbit.Templates.slnx (dotnet new templates). The values match the
+      directory containing this file and the main solution name.
+    -->
+    <SolutionDir>$(MSBuildThisFileDirectory)</SolutionDir>
+    <SolutionName>BlazOrbit</SolutionName>
+
     <!-- Language + framework defaults -->
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>

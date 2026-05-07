@@ -103,6 +103,7 @@
     border-right: 1px solid var(--_sidebar-layout-border);
     background: var(--_sidebar-layout-surface);
     min-width: 0;
+    z-index:1100;
 }
 
 [data-bob-component="sidebar-layout"][data-bob-sidebar-side="end"] .bob-sidebar-layout__sidebar {
@@ -129,6 +130,7 @@
     min-width: 0;
     padding: 2rem clamp(1rem, 4vw, 3rem) 4rem;
     box-sizing: border-box;
+    z-index: 1000;
 }
 
 [data-bob-component="sidebar-layout"][data-bob-sidebar-side="end"] .bob-sidebar-layout__main {

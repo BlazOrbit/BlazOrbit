@@ -1,0 +1,166 @@
+@page "/getting-started/templates"
+
+<DocPage Eyebrow="Guide"
+         Title="Project Templates"
+         Lede="Start a new BlazOrbit project from a `dotnet new` template — Server or WebAssembly, .NET 8 or .NET 10, with optional localization wired up.">
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">1. Install the templates</h2>
+        <p class="doc-section__description">
+            The templates ship as a single NuGet package. Install once and the
+            <code>dotnet new</code> CLI picks them up globally.
+        </p>
+
+        <BOBCodeBlock Title="Terminal"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="dotnet new install BlazOrbit.Templates" />
+
+        <p class="doc-section__description">
+            Update to a newer release at any time:
+        </p>
+
+        <BOBCodeBlock Title="Terminal"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="dotnet new install BlazOrbit.Templates::*" />
+
+        <p class="doc-section__description">
+            Uninstall when you no longer need them:
+        </p>
+
+        <BOBCodeBlock Title="Terminal"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="dotnet new uninstall BlazOrbit.Templates" />
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">2. Available templates</h2>
+        <p class="doc-section__description">
+            Both templates ship the same component surface and theming pipeline.
+            Pick the hosting model that fits your app.
+        </p>
+
+        <table class="doc-table">
+            <thead>
+                <tr>
+                    <th>Short name</th>
+                    <th>Hosting</th>
+                    <th>Description</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>blazorbit-server</code></td>
+                    <td>Blazor Server</td>
+                    <td>Interactive Server render mode + cookie-friendly auth integration points.</td>
+                </tr>
+                <tr>
+                    <td><code>blazorbit-wasm</code></td>
+                    <td>Blazor WebAssembly</td>
+                    <td>Standalone WASM with PWA manifest, service worker, and BlazOrbit bundles preconfigured.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">3. Parameters</h2>
+
+        <table class="doc-table">
+            <thead>
+                <tr>
+                    <th>Parameter</th>
+                    <th>Values</th>
+                    <th>Default</th>
+                    <th>Effect</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><code>-F</code> / <code>--Framework</code></td>
+                    <td><code>net8.0</code> · <code>net10.0</code></td>
+                    <td><code>net8.0</code></td>
+                    <td>Targets the chosen TFM and switches per-version host plumbing (e.g. <code>MapStaticAssets</code>, <code>ImportMap</code>, <code>NotFoundPage</code>).</td>
+                </tr>
+                <tr>
+                    <td><code>-IncludeLocalization</code></td>
+                    <td><code>true</code> · <code>false</code></td>
+                    <td><code>false</code></td>
+                    <td>Adds <code>BlazOrbit.Localization.Server</code> / <code>.Wasm</code>, registers <code>RequestLocalization</code> / <code>localStorage</code> bridge, and exposes <code>BOBCultureSelector</code> in the navbar.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">4. Generate a project</h2>
+
+        <p class="doc-section__description">
+            <strong>Blazor Server, .NET 10, no localization:</strong>
+        </p>
+        <BOBCodeBlock Title="Terminal"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="dotnet new blazorbit-server -n MyApp -F net10.0" />
+
+        <p class="doc-section__description" style="margin-top: 1.5rem;">
+            <strong>Blazor Server, .NET 10, with localization:</strong>
+        </p>
+        <BOBCodeBlock Title="Terminal"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="dotnet new blazorbit-server -n MyApp -F net10.0 -IncludeLocalization true" />
+
+        <p class="doc-section__description" style="margin-top: 1.5rem;">
+            <strong>Blazor WebAssembly, .NET 8, no localization:</strong>
+        </p>
+        <BOBCodeBlock Title="Terminal"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="dotnet new blazorbit-wasm -n MyApp -F net8.0" />
+
+        <p class="doc-section__description" style="margin-top: 1.5rem;">
+            <strong>Blazor WebAssembly, .NET 10, with localization:</strong>
+        </p>
+        <BOBCodeBlock Title="Terminal"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="dotnet new blazorbit-wasm -n MyApp -F net10.0 -IncludeLocalization true" />
+
+        <div class="doc-callout doc-callout--info">
+            <span class="doc-callout__icon">ℹ️</span>
+            <div>
+                Run <code>cd MyApp &amp;&amp; dotnet run</code> to launch. The default Home page is a
+                live showcase of the component library you can edit at
+                <code>Components/Pages/Home.razor</code> (Server) or <code>Pages/Home.razor</code> (WASM).
+            </div>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">5. What the template ships</h2>
+        <p class="doc-section__description">Out of the box, every generated project includes:</p>
+        <ul>
+            <li>A pre-wired <code>BOBInitializer</code> in <code>MainLayout.razor</code> with theme switching and the modal/toast hosts.</li>
+            <li>A branded loading screen using the BlazOrbit icon, replaced once the interactive shell mounts.</li>
+            <li>The CSS bundle linked from <code>_content/BlazOrbit/css/blazorbit.css</code> and the anti-flash bootstrap script.</li>
+            <li>A favicon set (SVG + 48/192/512 PNG) and, on WASM, a PWA manifest.</li>
+            <li>A showcase Home page demonstrating buttons, inputs, cards, and accordion with palette-driven styling.</li>
+            <li>When localization is enabled: <code>BOBCultureSelector</code> in the navbar, <code>en-US</code> / <code>es-ES</code> / <code>fr-FR</code> sample cultures, and the request-localization wiring.</li>
+        </ul>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">For contributors — local feed</h2>
+        <p class="doc-section__description">
+            Validating template changes against unreleased library bits requires a
+            local NuGet feed. The repo ships a script that packs the libraries plus
+            the templates package, installs them, generates a matrix of sample
+            projects, and builds each combo end-to-end.
+        </p>
+
+        <BOBCodeBlock Title="Terminal"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="./scripts/test-templates.ps1" />
+
+        <p class="doc-section__description">
+            See <code>scripts/test-templates.ps1 -Help</code> for flags
+            (<code>-SkipBlazOrbitPack</code>, <code>-KeepWorkDir</code>, custom <code>-Matrix</code>, …).
+        </p>
+    </section>
+</DocPage>

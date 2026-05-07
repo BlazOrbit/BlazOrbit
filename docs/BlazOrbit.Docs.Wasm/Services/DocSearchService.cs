@@ -160,7 +160,7 @@ public sealed class DocSearchService
             new(_loc["Theme Selector"], "/components/utilities/themeselector", [_loc["Components"], _loc["Utilities"]], "theme selector toggle light dark mode switch"),
 
             // Utils
-            new(_loc["Theme Generator"], "/utils/themegenerator", [_loc["Utils"]], "theme generator custom palette builder creator"),
+            new(_loc["Theme Generator"], "/utils/themegenerator", [_loc["Utils"]], "theme generator custom palette design tokens builder creator typography sizing density borders outline radius z-index ripple"),
 
             // Features
             new(_loc["Validation"], "/features/validation", [_loc["Features"]], "validation fluent editcontext data annotations form rules"),

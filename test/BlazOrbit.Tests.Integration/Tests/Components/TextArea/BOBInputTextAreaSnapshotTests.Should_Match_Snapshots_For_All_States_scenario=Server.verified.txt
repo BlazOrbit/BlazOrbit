@@ -32,7 +32,7 @@
   {
     Name: AutoResize_Enabled,
     Html:
-<bob-component data-bob-resize="vertical" data-bob-<SCOPE>="true" data-bob-component="input-text-area" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+<bob-component data-bob-resize="vertical" data-bob-autoresize="true" data-bob-component="input-text-area" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-textarea-<ID>" class="bob-input__label">Notes</label></span>
         <span class="bob-input__outline-trailing"></span></div>
                 

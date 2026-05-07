@@ -64,6 +64,16 @@ jobs:
           REF_NAME: ${{ github.ref_name }}
           INPUT_VERSION: ${{ github.event.inputs.version }}
         run: |
+          # Helper: extract assembly-friendly version (strip prerelease suffix, ensure 4 parts).
+          # `local` is only valid inside a function, hence the wrapper — top-level
+          # `local parts=...` aborts under `set -e` (default GH Actions bash flags).
+          extract_assembly_version() {
+            local v="$1"
+            v="${v%%-*}"
+            local parts=(${v//./ })
+            echo "${parts[0]:-0}.${parts[1]:-0}.${parts[2]:-0}.${parts[3]:-0}"
+          }
+
           if [ "$EVENT_NAME" = "push" ]; then
             VERSION="$REF_NAME"
             VERSION="${VERSION#v}"
@@ -71,10 +81,7 @@ jobs:
             VERSION="$INPUT_VERSION"
           fi
 
-          # Extract assembly-friendly version (strip prerelease suffix, ensure 4 parts)
-          ASSEMBLY_VERSION="${VERSION%%-*}"
-          local parts=(${ASSEMBLY_VERSION//./ })
-          ASSEMBLY_VERSION="${parts[0]:-0}.${parts[1]:-0}.${parts[2]:-0}.${parts[3]:-0}"
+          ASSEMBLY_VERSION=$(extract_assembly_version "$VERSION")
 
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "assembly_version=$ASSEMBLY_VERSION" >> $GITHUB_OUTPUT
@@ -114,7 +121,10 @@ jobs:
         run: dotnet build BlazOrbit.slnx -c Release --no-restore -p:TreatWarningsAsErrors=true
 
       - name: Test
-        run: dotnet test BlazOrbit.slnx -c Release --no-build --verbosity normal
+        # Category!=Perf excludes timing-based perf guards (e.g. PERF-05) that flake
+        # on shared/self-hosted CI runners due to JIT/GC noise. Maintainers still run
+        # the full set locally via tests-release.ps1 / tests-debug.ps1.
+        run: dotnet test BlazOrbit.slnx -c Release --no-build --verbosity normal --filter "Category!=Perf"
 
   pack:
     name: Pack NuGet Packages
@@ -152,12 +162,28 @@ jobs:
             -o ./artifacts \
             2>&1 | tee pack.log
 
+      - name: Pack templates
+        run: |
+          # Templates live in BlazOrbit.Templates.slnx, separate from BlazOrbit.slnx,
+          # so the upstream `dotnet restore BlazOrbit.slnx` does not cover them.
+          # Restore + pack here in one go and append to pack.log so the NU5xxx
+          # audit covers template packaging warnings as well.
+          set -o pipefail
+          dotnet restore BlazOrbit.Templates.slnx
+          dotnet pack templates/BlazOrbit.Templates.csproj \
+            -c Release \
+            --no-restore \
+            -p:PackageVersion=${{ needs.version.outputs.version }} \
+            -o ./artifacts \
+            2>&1 | tee -a pack.log
+
       - name: Audit NU5xxx packaging warnings
         run: |
           # Fail the release if dotnet pack emitted any NU5xxx warning. These
           # diagnose structural issues in the produced .nupkg
           # (NU5104 prerelease deps, NU5128 framework mismatch, NU5100 non-
           # standard assembly placement, NU5110/NU5111 naming). See PKG-07.
+          # pack.log includes both the main pack and the templates pack output.
           if grep -E "warning NU5[0-9]+" pack.log; then
             echo "::error::NU5xxx packaging warning detected. Review pack.log."
             exit 1
@@ -222,6 +248,23 @@ jobs:
               "lib/$tfm/BlazOrbit.Localization.Wasm.dll" \
               "README.md" \
               "icon.png"
+          done
+
+          # Templates package — content-only (no lib/), so we just confirm the
+          # package shipped and that both template trees survived packing.
+          # Specific filenames are intentionally not asserted because the
+          # template content is iterated frequently; tighten only after the
+          # template surface stabilises.
+          PKG=./artifacts/BlazOrbit.Templates.${VERSION}.nupkg
+          if [ ! -f "$PKG" ]; then
+            echo "::error::$PKG not produced by the templates pack step"
+            exit 1
+          fi
+          for prefix in "content/blazorbit-server/" "content/blazorbit-wasm/"; do
+            if ! unzip -l "$PKG" | awk '{print $4}' | grep -Fq "$prefix"; then
+              echo "::error::$PKG is missing entries under $prefix"
+              exit 1
+            fi
           done
 
           echo "All packages have the expected structure."

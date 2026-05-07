@@ -40,7 +40,7 @@ We needed both: a shared token layer that consumers can theme, plus per-componen
 ### Positive
 
 - **Encapsulation**: scoped CSS cannot leak to the consumer app. Global CSS is intentionally minimal and token-based.
-- **Themability**: consumers override `--palette-primary`, `--bob-size-multiplier`, etc. at `:root` without fighting component selectors.
+- **Themability**: consumers override the full palette (`--palette-*`) and the full design-token catalog (`--bob-*` — typography, sizing, density, borders, outline, opacity, z-index, ripple, scrollbar, input/picker family defaults) at `:root` (or scoped per `html[data-bob-theme]`) without fighting component selectors. Per-instance escape hatches flow through `--bob-inline-*` set automatically by `IHas*` parameters.
 - **Consistency**: family CSS (input, picker, data-collection) is generated once and shared across all members of the family.
 - **Cacheability**: the global bundle is a single file with a stable URL; browsers cache it effectively.
 

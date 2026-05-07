@@ -1,0 +1,202 @@
+@page "/getting-started/ai-skill"
+
+<DocPage Eyebrow="Guide"
+         Title="AI Assistant Skill"
+         Lede="Drop a self-contained reference bundle into your AI coding agent so it writes idiomatic BlazOrbit code without re-explaining the project on every prompt.">
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">What it provides</h2>
+        <p class="doc-section__description">
+            <code>blazorbit-user.skill</code> is a zip archive following the public
+            <strong>Anthropic Skill</strong> format (a <code>SKILL.md</code> at the root with
+            optional <code>references/</code> and <code>scripts/</code> folders). It teaches an
+            agent how to:
+        </p>
+        <ul>
+            <li>Pick the right component for a task (buttons, inputs, dialogs, data-grid, …).</li>
+            <li>Use the canonical parameter names, types, and presets — no hallucinated APIs.</li>
+            <li>Apply the BlazOrbit theming pipeline (<code>--palette-*</code>, <code>--bob-*</code>, <code>--bob-inline-*</code>).</li>
+            <li>Register variants, wire forms with <code>EditContext</code>, and use the modal/toast services correctly.</li>
+            <li>Honor accessibility rules baked into every component.</li>
+        </ul>
+        <p class="doc-section__description">
+            The bundle is regenerated against each release, so its component catalog
+            stays in lock-step with the published library — no drift between the
+            agent's mental model and the actual API surface.
+        </p>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Download</h2>
+        <p class="doc-section__description">
+            The latest skill bundle is attached to every BlazOrbit GitHub release.
+            Download the file and keep it next to your agent configuration.
+        </p>
+
+        <p class="doc-section__description">
+            <a class="doc-page__api-link"
+               href="https://github.com/BlazOrbit/BlazOrbit/releases/latest/download/blazorbit-user.skill"
+               download>
+                Download blazorbit-user.skill ↗
+            </a>
+        </p>
+
+        <BOBCodeBlock Title="Terminal (cURL)"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="curl -L -o blazorbit-user.skill https://github.com/BlazOrbit/BlazOrbit/releases/latest/download/blazorbit-user.skill" />
+
+        <BOBCodeBlock Title="Terminal (PowerShell)"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="Invoke-WebRequest -Uri https://github.com/BlazOrbit/BlazOrbit/releases/latest/download/blazorbit-user.skill -OutFile blazorbit-user.skill" />
+
+        <div class="doc-callout doc-callout--info">
+            <span class="doc-callout__icon">ℹ️</span>
+            <div>
+                The <code>.skill</code> file is a regular zip archive. Rename to
+                <code>.zip</code> if you want to inspect the contents before installing.
+            </div>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Install per agent</h2>
+
+        <h3>Claude Code</h3>
+        <p class="doc-section__description">
+            Claude Code reads skills from <code>~/.claude/skills/</code> on macOS/Linux
+            or <code>%USERPROFILE%\.claude\skills\</code> on Windows. Extract the bundle
+            into a folder named after the skill:
+        </p>
+        <BOBCodeBlock Title="Terminal"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="@_claudeInstall" />
+        <p class="doc-section__description">
+            Restart Claude Code and confirm the skill is loaded with
+            <code>/skills</code>. Trigger it by mentioning a BlazOrbit component
+            in any prompt.
+        </p>
+
+        <h3>Kimi (Moonshot)</h3>
+        <p class="doc-section__description">
+            Kimi consumes the same skill format. Upload the file through the
+            "Skills" tab in the Kimi web UI, or drop the extracted folder under
+            the Kimi configuration directory documented at
+            <a href="https://kimi.moonshot.cn/docs" target="_blank" rel="noopener noreferrer">kimi.moonshot.cn/docs</a>.
+        </p>
+
+        <h3>OpenCode</h3>
+        <p class="doc-section__description">
+            OpenCode loads skills from its <code>skills/</code> workspace folder.
+            Extract the bundle and reference the directory in your OpenCode
+            configuration (<code>opencode.json</code>):
+        </p>
+        <BOBCodeBlock Title="Terminal"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="@_opencodeInstall" />
+
+        <h3>Generic loader</h3>
+        <p class="doc-section__description">
+            Any agent that can ingest the public <strong>Anthropic Skill</strong>
+            format works. The contract is:
+        </p>
+        <ul>
+            <li>The archive root contains <code>SKILL.md</code> with YAML frontmatter (<code>name</code>, <code>description</code>).</li>
+            <li>Side files live under <code>references/</code> (read on demand) and <code>scripts/</code> (executed on request).</li>
+            <li>The agent loads the skill when its <code>description</code> matches the user's request.</li>
+        </ul>
+        <p class="doc-section__description">
+            Extract the archive somewhere your agent scans for skills, then point
+            its loader at that directory.
+        </p>
+
+        <BOBCodeBlock Title="Terminal (any host — extract only)"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="@_genericInstall" />
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Verify the agent loaded it</h2>
+        <p class="doc-section__description">
+            Drop this prompt into a fresh chat. A correctly-loaded skill answers
+            with the canonical parameter names, not the agent's training-set
+            guesses:
+        </p>
+
+        <BOBCodeBlock Title="Prompt"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="What parameter does BOBButton expose to render a leading icon?" />
+
+        <p class="doc-section__description">
+            Expected answer mentions <code>LeadingIcon</code> of type
+            <code>IconKey?</code>, and points to <code>BOBIconKeys.MaterialIconsOutlined</code>.
+        </p>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">Update</h2>
+        <p class="doc-section__description">
+            Every BlazOrbit release publishes a fresh skill bundle. Re-download
+            and overwrite the extracted folder; no migration needed.
+        </p>
+        <BOBCodeBlock Title="Terminal"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="@_updateSnippet" />
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">For contributors — build locally</h2>
+        <p class="doc-section__description">
+            The skill is generated by reflecting over the BlazOrbit assemblies, so
+            it stays accurate without manual upkeep. Run the regenerator after
+            building the library:
+        </p>
+
+        <BOBCodeBlock Title="Terminal"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="@_regenerateSnippet" />
+
+        <p class="doc-section__description">
+            Then zip the resulting <code>.agents/skills/blazorbit-user/</code>
+            folder (excluding <code>scripts/*.ps1</code> and <code>scripts/*.cs</code>) to
+            produce a custom <code>.skill</code> file. The <code>package-skill</code> CI
+            workflow does this automatically on every release.
+        </p>
+    </section>
+</DocPage>
+
+@code {
+    private const string _claudeInstall =
+@"# Linux / macOS
+mkdir -p ~/.claude/skills/blazorbit-user
+unzip -o blazorbit-user.skill -d ~/.claude/skills/blazorbit-user
+
+# Windows (PowerShell)
+$dir = Join-Path $HOME '.claude\skills\blazorbit-user'
+New-Item -ItemType Directory -Force -Path $dir | Out-Null
+Expand-Archive -Path blazorbit-user.skill -DestinationPath $dir -Force";
+
+    private const string _opencodeInstall =
+@"mkdir -p ./skills/blazorbit-user
+unzip -o blazorbit-user.skill -d ./skills/blazorbit-user
+
+# In opencode.json:
+# {
+#   ""skills"": { ""path"": ""./skills"" }
+# }";
+
+    private const string _genericInstall =
+@"mkdir blazorbit-user
+unzip blazorbit-user.skill -d blazorbit-user
+# Now point your agent's skill loader at the blazorbit-user/ directory.";
+
+    private const string _updateSnippet =
+@"curl -L -o blazorbit-user.skill \
+  https://github.com/BlazOrbit/BlazOrbit/releases/latest/download/blazorbit-user.skill
+
+# Then re-extract over the existing folder (Claude Code example):
+unzip -o blazorbit-user.skill -d ~/.claude/skills/blazorbit-user";
+
+    private const string _regenerateSnippet =
+@"dotnet build BlazOrbit.slnx -c Debug
+./.agents/skills/blazorbit-user/scripts/regenerate-skill.ps1 -Configuration Debug -SkipBuild";
+}

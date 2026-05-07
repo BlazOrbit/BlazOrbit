@@ -132,7 +132,10 @@ jobs:
         run: dotnet build BlazOrbit.slnx -c Release --no-restore -p:TreatWarningsAsErrors=true
 
       - name: Test
-        run: dotnet test BlazOrbit.slnx -c Release --no-build --verbosity normal
+        # Category!=Perf excludes timing-based perf guards (e.g. PERF-05) that flake
+        # on shared/self-hosted CI runners due to JIT/GC noise. Maintainers still run
+        # the full set locally via tests-release.ps1 / tests-debug.ps1.
+        run: dotnet test BlazOrbit.slnx -c Release --no-build --verbosity normal --filter "Category!=Perf"
 
   public-api-shipped-check:
     name: Check Public API Shipped
