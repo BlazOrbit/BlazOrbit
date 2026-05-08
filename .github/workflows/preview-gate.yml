@@ -104,6 +104,8 @@ jobs:
     name: Tests
     needs: router
     runs-on: ${{ needs.router.outputs.runner }}
+    container:
+      image: mcr.microsoft.com/dotnet/sdk:10.0
 
     steps:
       - name: Checkout
