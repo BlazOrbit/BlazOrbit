@@ -13,7 +13,33 @@
 		-->
 		<BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
 		<HybridGlobalization>true</HybridGlobalization>
-		<RunAOTCompilation>true</RunAOTCompilation>
+		<!--
+			AOT is gated behind the `EnableDocsAot` opt-in property and OFF by default.
+
+			Why off by default:
+			1. Cloudflare Pages enforces a 25 MB per-file limit on deployments.
+			   AOT-compiled `dotnet.native.wasm` typically lands at ~30-40 MB,
+			   which exceeds the limit and breaks the Cloudflare publish step.
+			   Pairing AOT with `WasmStripILAfterAOT=true` (below) shaves ~30%
+			   off and brings the file back under the limit.
+			2. Native (emcc) compilation requires Python in PATH, which the
+			   `mcr.microsoft.com/dotnet/sdk:10.0` container image does not ship.
+			   CI gates (preview-gate / release-gate / preview-publish /
+			   release-publish) run inside that container and only need to verify
+			   the docs site compiles — they do not need optimized output.
+
+			How to enable (opt-in):
+			- Pass `-p:EnableDocsAot=true` on the command line.
+			- The single flag activates both AOT and post-AOT IL strip together,
+			  so callers cannot accidentally produce an AOT build that exceeds
+			  the Cloudflare file-size budget.
+			- The host running the build must have Python on PATH (GitHub-hosted
+			  `ubuntu-latest` already does).
+
+			See `.github/workflows/docs-site.yml` for the current publish flow.
+		-->
+		<RunAOTCompilation Condition="'$(EnableDocsAot)' == 'true'">true</RunAOTCompilation>
+		<WasmStripILAfterAOT Condition="'$(EnableDocsAot)' == 'true'">true</WasmStripILAfterAOT>
 	</PropertyGroup>
 
 	<ItemGroup>

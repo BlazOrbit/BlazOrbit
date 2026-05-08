@@ -1,4 +1,4 @@
-# .github/workflows/preview-gate.yml
+﻿# .github/workflows/preview-gate.yml
 # Quality gates for previews - runs on PRs to develop
 # Verifies build, test and public API before merging to develop
 
@@ -34,9 +34,7 @@ jobs:
     name: Build Linux
     needs: router
     runs-on: ${{ needs.router.outputs.runner }}
-    # Each job runs inside a fresh container — guarantees clean toolchain state
-    # between runs (no cached workloads, leftover processes, or shared NuGet
-    # locks across parallel runners). Equivalent to GitHub-hosted ephemeral VMs.
+    # Each job runs inside a fresh container
     container:
       image: mcr.microsoft.com/dotnet/sdk:10.0
 

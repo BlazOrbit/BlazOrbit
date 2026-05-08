@@ -97,9 +97,7 @@ jobs:
     name: Build and Test
     needs: [router, guard, version]
     runs-on: ${{ needs.router.outputs.runner }}
-    # Each job runs inside a fresh container — guarantees clean toolchain state
-    # between runs (no cached workloads, leftover processes, or shared NuGet
-    # locks across parallel runners). Equivalent to GitHub-hosted ephemeral VMs.
+    # Each job runs inside a fresh container
     container:
       image: mcr.microsoft.com/dotnet/sdk:10.0
     steps:
