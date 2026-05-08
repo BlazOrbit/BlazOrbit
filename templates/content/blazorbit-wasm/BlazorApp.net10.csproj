@@ -4,7 +4,15 @@
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <OverrideHtmlAssetPlaceholders>true</OverrideHtmlAssetPlaceholders>
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+    <!--#if (IncludeLocalization)-->
+    <!-- BlazOrbit.Localization changes the app's culture during startup, which the
+         default WASM globalization payload does not support. Loading the full ICU
+         data set lets RequestLocalization / persisted culture cookies switch
+         cultures at runtime. Cost: ~7MB extra in the wasm payload. -->
+    <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
+    <!--#endif-->
   </PropertyGroup>
 
   <ItemGroup>
