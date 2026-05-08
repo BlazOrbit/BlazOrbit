@@ -1,4 +1,4 @@
-# .github/workflows/release-publish.yml
+﻿# .github/workflows/release-publish.yml
 # Publishes stable releases on tags v*
 # Creates GitHub release and publishes to NuGet
 
@@ -67,6 +67,9 @@ jobs:
     name: Build and Test
     needs: [router]
     runs-on: ${{ needs.router.outputs.runner }}
+    # Each job runs inside a fresh container
+    container:
+      image: mcr.microsoft.com/dotnet/sdk:10.0
     steps:
       - name: Checkout
         uses: actions/checkout@v6
