@@ -196,12 +196,26 @@ jobs:
           for tfm in net8.0 net10.0; do
             echo "=== Validating $tfm ==="
 
+            # Main library: lib/, consumer-facing _build/.targets, full CSS bundle.
             PKG=./artifacts/BlazOrbit.${VERSION}.nupkg
             assert_in_pkg "$PKG" \
               "lib/$tfm/BlazOrbit.dll" \
               "lib/$tfm/BlazOrbit.xml" \
               "build/BlazOrbit.targets" \
               "staticwebassets/css/blazorbit.css" \
+              "README.md" \
+              "icon.png"
+
+            # Charts: separate package, ships its own CSS bundle + pre-built
+            # ChartInterop.min.js as static web assets so consumers don't need
+            # Node/esbuild. CSS is auto-injected by the JS module on first use,
+            # so consumers never have to add a manual <link>.
+            PKG=./artifacts/BlazOrbit.Charts.${VERSION}.nupkg
+            assert_in_pkg "$PKG" \
+              "lib/$tfm/BlazOrbit.Charts.dll" \
+              "lib/$tfm/BlazOrbit.Charts.xml" \
+              "staticwebassets/css/blazorbit-charts.css" \
+              "staticwebassets/js/Types/Chart/ChartInterop.min.js" \
               "README.md" \
               "icon.png"
 
@@ -218,9 +232,21 @@ jobs:
               "README.md" \
               "icon.png"
 
+            PKG=./artifacts/BlazOrbit.FormsFluentValidation.${VERSION}.nupkg
+            assert_in_pkg "$PKG" \
+              "lib/$tfm/BlazOrbit.FormsFluentValidation.dll" \
+              "README.md" \
+              "icon.png"
+
             PKG=./artifacts/BlazOrbit.Localization.Server.${VERSION}.nupkg
             assert_in_pkg "$PKG" \
               "lib/$tfm/BlazOrbit.Localization.Server.dll" \
+              "README.md" \
+              "icon.png"
+
+            PKG=./artifacts/BlazOrbit.Localization.Shared.${VERSION}.nupkg
+            assert_in_pkg "$PKG" \
+              "lib/$tfm/BlazOrbit.Localization.Shared.dll" \
               "README.md" \
               "icon.png"
 
@@ -229,7 +255,53 @@ jobs:
               "lib/$tfm/BlazOrbit.Localization.Wasm.dll" \
               "README.md" \
               "icon.png"
+
+            # Translations: resource-only assembly + culture satellites under
+            # lib/$tfm/<culture>/. We only assert the main DLL; the satellite
+            # set is iterated frequently as we add cultures, so locking specific
+            # culture filenames here would be churny. The csproj's resx → satellite
+            # pipeline is a pack-time invariant; absence would surface elsewhere.
+            PKG=./artifacts/BlazOrbit.Translations.${VERSION}.nupkg
+            assert_in_pkg "$PKG" \
+              "lib/$tfm/BlazOrbit.Translations.dll" \
+              "README.md" \
+              "icon.png"
           done
+
+          # Cross-cutting check: every produced .nupkg under ./artifacts must
+          # match a known PackageId. Catches the inverse failure where a new
+          # packable project lands in src/ without an entry in this validation
+          # block — the release would otherwise publish it un-checked.
+          KNOWN_IDS=(
+            BlazOrbit
+            BlazOrbit.Charts
+            BlazOrbit.Core
+            BlazOrbit.SyntaxHighlight
+            BlazOrbit.FormsFluentValidation
+            BlazOrbit.Localization.Server
+            BlazOrbit.Localization.Shared
+            BlazOrbit.Localization.Wasm
+            BlazOrbit.Translations
+            BlazOrbit.Templates
+          )
+          unknown=0
+          for nupkg in ./artifacts/*.nupkg; do
+            [ -e "$nupkg" ] || continue
+            filename=$(basename "$nupkg" .nupkg)
+            package_id=${filename%."$VERSION"}
+            found=0
+            for known in "${KNOWN_IDS[@]}"; do
+              if [ "$package_id" = "$known" ]; then
+                found=1
+                break
+              fi
+            done
+            if [ "$found" -eq 0 ]; then
+              echo "::error::Unknown PackageId in artifacts: $package_id ($nupkg). Add it to KNOWN_IDS and to the per-package assertion block above."
+              unknown=1
+            fi
+          done
+          [ "$unknown" -eq 0 ] || exit 1
 
           # Templates package — content-only (no lib/), so we just confirm the
           # package shipped and that both template trees survived packing.

@@ -42,7 +42,7 @@
     /// <summary>When <see langword="true" />, the trigger shows a loading indicator and ignores activation.</summary>
     [Parameter] public bool Loading { get; set; }
     /// <summary>Variant of the loading indicator shown when <see cref="Loading"/> is <see langword="true"/>.</summary>
-    [Parameter] public BOBLoadingIndicatorVariant LoadingIndicatorVariant { get; set; } = BOBLoadingIndicatorVariant.CircularProgress;
+    [Parameter] public BOBProgressIconVariant LoadingIndicatorVariant { get; set; } = BOBProgressIconVariant.Ring;
 
     // IHasShadow
     /// <summary>Shadow style applied to the trigger container. Wins over <see cref="Elevation"/> when both are set.</summary>
@@ -54,11 +54,11 @@
     [Parameter] public int? Elevation { get; set; }
 
     // IHasBackgroundColor
-    /// <summary>Background color of the trigger. Accepts any valid CSS color value.</summary>
+    /// <summary>Background color of the trigger. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? BackgroundColor { get; set; }
 
     // IHasColor
-    /// <summary>Text color of the trigger. Accepts any valid CSS color value.</summary>
+    /// <summary>Text color of the trigger. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? Color { get; set; }
 
     // IHasPrefix
@@ -66,9 +66,9 @@
     [Parameter] public string? PrefixText { get; set; }
     /// <summary>Material icon name for the Prefix.</summary>
     [Parameter] public IconKey? PrefixIcon { get; set; }
-    /// <summary>Prefix color. Accepts any valid CSS color value.</summary>
+    /// <summary>Prefix color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? PrefixColor { get; set; }
-    /// <summary>PrefixBackground color. Accepts any valid CSS color value.</summary>
+    /// <summary>PrefixBackground color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? PrefixBackgroundColor { get; set; }
 
     // IHasSuffix
@@ -76,9 +76,9 @@
     [Parameter] public string? SuffixText { get; set; }
     /// <summary>Material icon name for the Suffix.</summary>
     [Parameter] public IconKey? SuffixIcon { get; set; }
-    /// <summary>Suffix color. Accepts any valid CSS color value.</summary>
+    /// <summary>Suffix color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? SuffixColor { get; set; }
-    /// <summary>SuffixBackground color. Accepts any valid CSS color value.</summary>
+    /// <summary>SuffixBackground color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? SuffixBackgroundColor { get; set; }
 
     /// <summary>Placeholder text shown when the component is empty.</summary>
@@ -353,7 +353,11 @@
     {
         if (_jsInitialized)
         {
-            await JsInterop.DisposeAsync(_componentId);
+            try { await JsInterop.DisposeAsync(_componentId); }
+            catch (Microsoft.JSInterop.JSDisconnectedException) { }
+            catch (ObjectDisposedException) { }
+            catch (InvalidOperationException) { }
+            catch (TaskCanceledException) { }
         }
 
         _callbacksRelay?.Dispose();

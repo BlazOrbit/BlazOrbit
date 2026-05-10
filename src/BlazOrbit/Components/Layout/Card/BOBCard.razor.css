@@ -16,6 +16,7 @@
     --_card-content-padding: 1rem;
     --_card-actions-padding: 0.5rem 1rem;
     --_card-media-height: 200px;
+    border-radius: var(--_card-border-radius)
 }
 
 /* IHasElevation in dark theme: overlay surface-tint percentage on top of the surface.

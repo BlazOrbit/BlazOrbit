@@ -53,7 +53,7 @@
     [Parameter] public BorderStyle? Border { get; set; }
 
     // IHasBackgroundColor
-    /// <summary>Background color of the code block. Accepts any valid CSS color value.</summary>
+    /// <summary>Background color of the code block. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? BackgroundColor { get; set; }
 
     private bool _copied;

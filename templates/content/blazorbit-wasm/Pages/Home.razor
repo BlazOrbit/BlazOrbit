@@ -1,7 +1,19 @@
-@page "/"
+﻿@page "/"
 @inject IToastService ToastService
 @inject NavigationManager Navigation
 @using BlazOrbit.Components.Layout.Services
+@*#if (UseNotificationsCenter)*@
+@using BlazOrbit.Notifications
+@*#endif*@
+@*#if (UseHotKeys)*@
+@using BlazOrbit.Hotkeys
+@*#endif*@
+@*#if (UseNotificationsCenter)*@
+@inject INotificationCenter Center
+@*#endif*@
+@*#if (UseHotKeys)*@
+@inject IHotkeyService Hotkeys
+@*#endif*@
 
 <PageTitle>BlazorApp · BlazOrbit</PageTitle>
 
@@ -20,7 +32,8 @@
                        OnClick="@HandleToastClick" />
             <BOBButton Text="Documentation"
                        TrailingIcon="@BOBIconKeys.MaterialIconsOutlined.i_open_in_new"
-                       Color="@PaletteColor.Primary"
+                       Color="@PaletteColor.SecondaryContrast"
+                       BackgroundColor="@PaletteColor.Secondary"
                        OnClick="@OpenDocs" />
         </div>
     </div>
@@ -110,6 +123,57 @@
     </div>
 </section>
 
+@*#if (UseNotificationsCenter)*@
+<section class="bob-showcase__section">
+    <h2>Notifications</h2>
+    <p class="bob-showcase__lead">Persistent inbox-style notifications with BOBNotificationBell.</p>
+    <div class="bob-showcase__row">
+        <BOBButton Text="Push info"
+                   LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_info"
+                   OnClick="@(() => PushNotificationAsync(NotificationSeverity.Info, "Hello", "This is an info notification."))" />
+        <BOBButton Text="Push warning"
+                   LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_warning"
+                   OnClick="@(() => PushNotificationAsync(NotificationSeverity.Warning, "Heads up", "Something needs attention."))" />
+        <BOBNotificationBell />
+    </div>
+    @if (Center.All.Count > 0)
+    {
+        <ul class="bob-showcase__inbox">
+            @foreach (var n in Center.All)
+            {
+                <li class="bob-showcase__inbox-item">
+                    <span class="bob-showcase__inbox-severity @($"bob-showcase__inbox-severity--{n.Severity.ToString().ToLowerInvariant()}")">@n.Severity</span>
+                    <strong>@n.Title</strong> — @n.Body
+                </li>
+            }
+        </ul>
+    }
+</section>
+@*#endif*@
+@*#if (UseHotKeys)*@
+<section class="bob-showcase__section">
+    <h2>Hotkeys</h2>
+    <p class="bob-showcase__lead">Global keyboard shortcuts with BlazOrbit.Hotkeys.</p>
+    <p>Press <kbd>Ctrl</kbd>+<kbd>K</kbd> to push a notification from anywhere outside an input.</p>
+    <p>Press <kbd>Ctrl</kbd>+<kbd>F1</kbd> to show a toast.</p>
+    <p>Hits: <strong>@_hotkeyHits</strong> | Last combo: <code>@_lastCombo</code></p>
+    @if (Hotkeys.RegisteredHotkeys.Count > 0)
+    {
+        <table class="bob-showcase__hotkeys">
+            <thead>
+                <tr><th>Combo</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                @foreach (var h in Hotkeys.RegisteredHotkeys)
+                {
+                    <tr><td><code>@h.Combo</code></td><td>@h.Description</td></tr>
+                }
+            </tbody>
+        </table>
+    }
+</section>
+@*#endif*@
+
 @code {
     private string? _name;
     private string? _email;
@@ -136,4 +200,69 @@
     }
 
     private void OpenDocs() => Navigation.NavigateTo("https://blazorbit.com", forceLoad: true);
+@*#if (UseNotificationsCenter)*@
+
+    private async Task PushNotificationAsync(NotificationSeverity severity, string title, string message)
+    {
+        await Center.PushAsync(new BOBNotification
+        {
+            Severity = severity,
+            Title = title,
+            Body = message
+        });
+    }
+@*#endif*@
+@*#if (UseHotKeys)*@
+
+    private int _hotkeyHits;
+    private string _lastCombo = "none";
+    private IDisposable? _hotkeyReg1;
+    private IDisposable? _hotkeyReg2;
+
+    protected override void OnInitialized()
+    {
+        _hotkeyReg1 = Hotkeys.Register("ctrl+k", "Push a demo notification",
+            async () =>
+            {
+                _hotkeyHits++;
+                _lastCombo = "ctrl+k";
+                await InvokeAsync(StateHasChanged);
+@*#if (UseNotificationsCenter)*@
+                await Center.PushAsync(new BOBNotification
+                {
+                    Severity = NotificationSeverity.Success,
+                    Title = "Hotkey fired",
+                    Body = $"Ctrl+K was pressed (hit #{_hotkeyHits})."
+                });
+@*#else*@
+                await ToastService.ShowAsync(b =>
+                {
+                    b.OpenElement(0, "div");
+                    b.AddContent(1, $"Hotkey fired: Ctrl+K (hit #{_hotkeyHits}).");
+                    b.CloseElement();
+                });
+@*#endif*@
+            });
+
+        _hotkeyReg2 = Hotkeys.Register("ctrl+f1", "Show a toast",
+            async () =>
+            {
+                _hotkeyHits++;
+                _lastCombo = "ctrl+f1";
+                await InvokeAsync(StateHasChanged);
+                await ToastService.ShowAsync(b =>
+                {
+                    b.OpenElement(0, "div");
+                    b.AddContent(1, $"Hotkey fired: Ctrl+F1 (hit #{_hotkeyHits}).");
+                    b.CloseElement();
+                });
+            });
+    }
+
+    public void Dispose()
+    {
+        _hotkeyReg1?.Dispose();
+        _hotkeyReg2?.Dispose();
+    }
+@*#endif*@
 }

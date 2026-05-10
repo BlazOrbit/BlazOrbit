@@ -35,9 +35,9 @@
     [Parameter] public bool FullWidth { get; set; }
 
     /* ── IHasColor / IHasBackgroundColor ── */
-    /// <summary>Text color of the select. Accepts any valid CSS color value.</summary>
+    /// <summary>Text color of the select. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? Color { get; set; }
-    /// <summary>Background color. Accepts any valid CSS color value.</summary>
+    /// <summary>Background color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? BackgroundColor { get; set; }
 
     /* ── States ── */

@@ -1,0 +1,66 @@
+@namespace BlazOrbit.Hotkeys
+
+@using Microsoft.JSInterop
+
+@inject IHotkeyService HotkeyService
+@inject IHotkeyJsInterop HotkeyJsInterop
+@implements IAsyncDisposable
+
+@* Pure host — renders nothing visible. Mount it once in the app shell (e.g. inside
+   BOBBlazorLayout) to wire the document-level keydown listener that drives
+   IHotkeyService. Inherits the default ComponentBase rather than BOBComponentBase
+   because there is no design-system surface to participate in. *@
+
+@code {
+    private DotNetObjectReference<HotkeyHostRelay>? _relay;
+    private string _hostId = Guid.NewGuid().ToString("n");
+    private bool _attached;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (!firstRender || _attached) return;
+
+        // The relay is invokable from JS via `relay.invokeMethodAsync('OnHotkey', combo)`.
+        _relay = DotNetObjectReference.Create(new HotkeyHostRelay(HotkeyService));
+        try
+        {
+            await HotkeyJsInterop.AttachAsync(_hostId, _relay);
+            _attached = true;
+        }
+        catch (JSDisconnectedException)
+        {
+            // Server circuit gone before we could attach — nothing to do.
+        }
+        catch (ObjectDisposedException)
+        {
+        }
+        catch (InvalidOperationException)
+        {
+            // Prerender path with no JS runtime; the listener wires up on the next render
+            // when interop is available.
+        }
+        catch (TaskCanceledException)
+        {
+        }
+        catch (JSException)
+        {
+            // Module load failure is non-fatal — hotkeys silently degrade.
+        }
+    }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (_attached)
+        {
+            try
+            {
+                await HotkeyJsInterop.DetachAsync(_hostId);
+            }
+            catch (JSDisconnectedException) { }
+            catch (ObjectDisposedException) { }
+            catch (InvalidOperationException) { }
+            catch (TaskCanceledException) { }
+        }
+        _relay?.Dispose();
+    }
+}

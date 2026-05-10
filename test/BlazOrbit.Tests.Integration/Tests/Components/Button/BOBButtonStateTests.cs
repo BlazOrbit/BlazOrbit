@@ -154,17 +154,17 @@ public class BOBButtonStateTests
         // Assert initial state
         component.GetAttribute("data-bob-loading").Should().BeNull();
         cut.Find("button").GetAttribute("disabled").Should().BeNull();
-        cut.FindComponents<BOBLoadingIndicator>().Should().BeEmpty();
+        cut.FindComponents<BOBProgressIcon>().Should().BeEmpty();
 
         // Act - Set loading
         cut.Render(p => p
             .Add(c => c.Loading, true)
-            .Add(c => c.LoadingIndicatorVariant, BOBLoadingIndicatorVariant.Dots));
+            .Add(c => c.LoadingIndicatorVariant, BOBProgressIconVariant.Dots));
 
         // Assert loading state
         component.GetAttribute("data-bob-loading").Should().Be("true");
         cut.Find("button").GetAttribute("disabled").Should().NotBeNull();
-        cut.FindComponent<BOBLoadingIndicator>().Should().NotBeNull();
+        cut.FindComponent<BOBProgressIcon>().Should().NotBeNull();
 
         // Act - Clear loading
         cut.Render(p => p
@@ -173,7 +173,7 @@ public class BOBButtonStateTests
         // Assert final state
         component.GetAttribute("data-bob-loading").Should().BeNull();
         cut.Find("button").GetAttribute("disabled").Should().BeNull();
-        cut.FindComponents<BOBLoadingIndicator>().Should().BeEmpty();
+        cut.FindComponents<BOBProgressIcon>().Should().BeEmpty();
     }
 
     [Theory]

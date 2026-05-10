@@ -1,0 +1,14 @@
+﻿[
+  {
+    Name: Initials,
+    Html: <bob-component data-bob-component="avatar" data-bob-size="medium" b-<SCOPE>><span class="bob-avatar" data-bob-shape="circle" role="img" style="--_avatar-bg: linear-gradient(135deg, hsl(332 60% 50%) 0%, hsl(7 60% 40%) 100%)" b-<SCOPE>><span class="bob-avatar__initials" b-<SCOPE>>AL</span></span></bob-component>
+  },
+  {
+    Name: Image,
+    Html: <bob-component data-bob-component="avatar" data-bob-size="medium" b-<SCOPE>><span class="bob-avatar" data-bob-shape="circle" role="img" b-<SCOPE>><img src="/me.png" alt="Me" class="bob-avatar__img" b-<SCOPE> /></span></bob-component>
+  },
+  {
+    Name: Square_Online,
+    Html: <bob-component data-bob-component="avatar" data-bob-size="medium" b-<SCOPE>><span class="bob-avatar" data-bob-shape="square" role="img" style="--_avatar-bg: linear-gradient(135deg, hsl(222 60% 50%) 0%, hsl(257 60% 40%) 100%)" b-<SCOPE>><span class="bob-avatar__initials" b-<SCOPE>>JD</span></span><span class="bob-avatar__status" data-bob-status="online" aria-label="Online" b-<SCOPE>></span></bob-component>
+  }
+]

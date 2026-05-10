@@ -41,6 +41,12 @@ public class DataCollectionFamilyCssGenerator : IAssetGenerator
 {{root}}[{{dc}}] {
     --_dc-padding-x: 1rem;
     --_dc-padding-y: 0.75rem;
+    /* Animation tokens consumed by scoped skeleton / spinner CSS so
+       reduced-motion handling lives in this single family-level
+       @media block (per CSS-MEDIA-01: scoped CSS may not host
+       @media queries; layout-only exceptions). */
+    --bob-dc-anim-duration: 1.4s;
+    --bob-dc-spinner-duration: 0.9s;
     --_dc-header-bg: color-mix(in oklab, var(--palette-surface) 95%, var(--palette-primary));
     --_dc-hover-bg: color-mix(in oklab, var(--_dc-background) 90%, var(--palette-hover-tint) 10%);
     --_dc-selected-bg: color-mix(in oklab, var(--_dc-background) 80%, var(--palette-primary) 20%);
@@ -173,6 +179,18 @@ public class DataCollectionFamilyCssGenerator : IAssetGenerator
 {{root}}[{{dc}}][{{density}}="comfortable"] {
     --_dc-padding-x: 1.5rem;
     --_dc-padding-y: 1rem;
+}
+
+/* === REDUCED MOTION ===
+   Skeleton / spinner CSS reads --bob-dc-anim-duration and
+   --bob-dc-spinner-duration. Zeroing them here turns the animations
+   into static placeholders for users who prefer reduced motion,
+   without scoped CSS having to host its own @media query. */
+@media (prefers-reduced-motion: reduce) {
+    {{root}}[{{dc}}] {
+        --bob-dc-anim-duration: 0s;
+        --bob-dc-spinner-duration: 0s;
+    }
 }
 """);
     }

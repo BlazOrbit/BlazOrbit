@@ -1,0 +1,71 @@
+﻿@namespace BlazOrbit.Components.Layout
+@attribute [GenerateComponentInfo]
+
+@using BlazOrbit.Abstractions
+@using BlazOrbit.Components
+
+@inherits BOBComponentBase
+@implements IModalContent
+
+<bob-component @attributes="ComputedAttributes"
+               data-bob-severity="@SeverityToken">
+    <div class="bob-confirm__head">
+        <span class="bob-confirm__icon" aria-hidden="true">
+            <BOBSvgIcon Icon="@SeverityIcon" Size="BOBSize.Large" />
+        </span>
+        <h2 class="bob-confirm__title">@Title</h2>
+    </div>
+
+    <p class="bob-confirm__message">@Message</p>
+
+    <div class="bob-confirm__actions">
+        <BOBButton Text="@NoLabel"
+                   OnClick="@CancelAsync" />
+        <BOBButton Text="@YesLabel"
+                   OnClick="@AcceptAsync"
+                   Color="@AcceptColor" />
+    </div>
+</bob-component>
+
+@code {
+    /// <summary>Cascaded reference back to the modal so the dialog can resolve with a result.</summary>
+    [Parameter] public ModalReference ModalReference { get; set; } = default!;
+
+    /// <summary>Dialog title.</summary>
+    [Parameter] public string Title { get; set; } = string.Empty;
+
+    /// <summary>Body message.</summary>
+    [Parameter] public string Message { get; set; } = string.Empty;
+
+    /// <summary>Severity tier used for icon + accent.</summary>
+    [Parameter] public ConfirmSeverity Severity { get; set; } = ConfirmSeverity.Info;
+
+    /// <summary>Accept-button label.</summary>
+    [Parameter] public string YesLabel { get; set; } = "Yes";
+
+    /// <summary>Cancel-button label.</summary>
+    [Parameter] public string NoLabel { get; set; } = "Cancel";
+
+    private string SeverityToken => Severity.ToString().ToLowerInvariant();
+
+    private IconKey SeverityIcon => Severity switch
+    {
+        ConfirmSeverity.Warning => BOBIconKeys.MaterialIconsOutlined.i_warning,
+        ConfirmSeverity.Danger => BOBIconKeys.MaterialIconsOutlined.i_error,
+        _ => BOBIconKeys.MaterialIconsOutlined.i_info,
+    };
+
+    // Accept button picks up the severity-derived palette token so a Danger dialog renders
+    // the destructive call-to-action with the error palette without forcing the consumer to
+    // wire up custom button colours.
+    private string? AcceptColor => Severity switch
+    {
+        ConfirmSeverity.Warning => "var(--palette-warning)",
+        ConfirmSeverity.Danger => "var(--palette-error)",
+        _ => null,
+    };
+
+    private Task AcceptAsync() => ModalReference.CloseAsync(true);
+
+    private Task CancelAsync() => ModalReference.CloseAsync(false);
+}

@@ -19,7 +19,7 @@
     [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
     [Parameter] public bool Disabled { get; set; }
     [Parameter] public bool IsLoading { get; set; }
-    [Parameter] public BOBLoadingIndicatorVariant? LoadingVariant { get; set; }
+    [Parameter] public BOBProgressIconVariant? LoadingVariant { get; set; }
     [Parameter] public EventCallback<int> OnButtonClicked { get; set; }
     
     private int _clickCount = 0;

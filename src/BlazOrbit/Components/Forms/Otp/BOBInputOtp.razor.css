@@ -1,0 +1,79 @@
+[data-bob-component="input-otp"] {
+    /* Public override surface — every paint reads only --_otp-* below. */
+    --_otp-gap: calc(0.5rem * var(--bob-density-multiplier, 1));
+    --_otp-slot-size: calc(3rem * var(--bob-size-multiplier, 1));
+    --_otp-slot-radius: var(--bob-input-border-radius, 0.5rem);
+    --_otp-slot-border: 1px solid color-mix(in oklab, var(--palette-border) 40%, transparent);
+    --_otp-slot-border-focus: 2px solid var(--palette-highlight);
+    --_otp-slot-border-error: 2px solid var(--palette-error);
+    --_otp-slot-bg: var(--bob-inline-background, transparent);
+    --_otp-slot-color: var(--bob-inline-color, inherit);
+    --_otp-slot-font-size: calc(1.25rem * var(--bob-size-multiplier, 1));
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+[data-bob-component="input-otp"] .bob-otp__label {
+    font-size: 0.875rem;
+    color: var(--palette-surface-contrast);
+    opacity: 0.85;
+}
+
+[data-bob-component="input-otp"] .bob-otp__slots {
+    display: inline-flex;
+    gap: var(--_otp-gap);
+}
+
+[data-bob-component="input-otp"] .bob-otp__slot {
+    width: var(--_otp-slot-size);
+    height: var(--_otp-slot-size);
+    text-align: center;
+    font-size: var(--_otp-slot-font-size);
+    font-variant-numeric: tabular-nums;
+    background: var(--_otp-slot-bg);
+    color: var(--_otp-slot-color);
+    border: var(--_otp-slot-border);
+    border-radius: var(--_otp-slot-radius);
+    outline: none;
+    transition: border-color var(--bob-input-transition-duration, 150ms) var(--bob-input-transition-easing, ease),
+                box-shadow var(--bob-input-transition-duration, 150ms) var(--bob-input-transition-easing, ease);
+}
+
+[data-bob-component="input-otp"] .bob-otp__slot:focus {
+    border: var(--_otp-slot-border-focus);
+}
+
+[data-bob-component="input-otp"][data-bob-error="true"] .bob-otp__slot {
+    border: var(--_otp-slot-border-error);
+}
+
+/* === VARIANT: Boxed (Default) — kept as base above. === */
+
+/* === VARIANT: Underlined — only bottom border. === */
+
+[data-bob-component="input-otp"][data-bob-variant="underlined"] .bob-otp__slot {
+    border: none;
+    border-bottom: var(--_otp-slot-border);
+    border-radius: 0;
+}
+
+[data-bob-component="input-otp"][data-bob-variant="underlined"] .bob-otp__slot:focus {
+    border-bottom: var(--_otp-slot-border-focus);
+}
+
+[data-bob-component="input-otp"][data-bob-variant="underlined"][data-bob-error="true"] .bob-otp__slot {
+    border-bottom: var(--_otp-slot-border-error);
+}
+
+/* === Disabled / ReadOnly === */
+
+[data-bob-component="input-otp"][data-bob-disabled="true"] .bob-otp__slot {
+    opacity: var(--bob-opacity-disabled, 0.5);
+    cursor: not-allowed;
+}
+
+[data-bob-component="input-otp"][data-bob-readonly="true"] .bob-otp__slot {
+    cursor: default;
+}

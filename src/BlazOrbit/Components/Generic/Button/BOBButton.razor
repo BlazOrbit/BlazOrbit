@@ -55,7 +55,7 @@
     /// <summary>When <see langword="true" />, the button shows a loading indicator and is non-interactive.</summary>
     [Parameter] public bool Loading { get; set; }
     /// <summary>Variant of the loading indicator shown when <see cref="Loading"/> is <see langword="true"/>.</summary>
-    [Parameter] public BOBLoadingIndicatorVariant? LoadingIndicatorVariant { get; set; }
+    [Parameter] public BOBProgressIconVariant? LoadingIndicatorVariant { get; set; }
 
     // IHasShadow
     /// <summary>Shadow style applied to the button.</summary>
@@ -78,11 +78,11 @@
     [Parameter] public BOBDensity Density { get; set; } = BOBDensity.Standard;
 
     // IHasBackgroundColor
-    /// <summary>Background color of the button. Accepts any valid CSS color value.</summary>
+    /// <summary>Background color of the button. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? BackgroundColor { get; set; }
 
     // IHasColor
-    /// <summary>Text and icon color of the button. Accepts any valid CSS color value.</summary>
+    /// <summary>Text and icon color of the button. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? Color { get; set; }
 
     // IHasDisabled
@@ -130,7 +130,7 @@
             {
                 @if (Loading && LoadingIndicatorVariant != null)
                 {
-                    <BOBLoadingIndicator Variant="@LoadingIndicatorVariant"
+                    <BOBProgressIcon Variant="@LoadingIndicatorVariant"
                                          Size="@Size"
                                          Color="@Color" />
                 }

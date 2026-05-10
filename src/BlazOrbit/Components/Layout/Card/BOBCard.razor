@@ -1,4 +1,4 @@
-@namespace BlazOrbit.Components.Layout
+﻿@namespace BlazOrbit.Components.Layout
 @attribute [GenerateComponentInfo]
 
 @inherits BOBVariantComponentBase<BOBCard, BOBCardVariant>
@@ -57,12 +57,12 @@
 
     /* === IHasBackgroundColor === */
 
-    /// <summary>Background color of the card. Accepts any valid CSS color value.</summary>
+    /// <summary>Background color of the card. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? BackgroundColor { get; set; }
 
     /* === IHasColor === */
 
-    /// <summary>Text color of the card. Accepts any valid CSS color value.</summary>
+    /// <summary>Text color of the card. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? Color { get; set; }
 
     /* === Variant === */

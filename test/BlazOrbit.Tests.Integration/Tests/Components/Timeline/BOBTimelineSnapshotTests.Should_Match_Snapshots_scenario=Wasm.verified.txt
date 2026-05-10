@@ -1,0 +1,48 @@
+﻿[
+  {
+    Name: Vertical,
+    Html:
+<bob-component data-bob-component="timeline" data-bob-size="medium" data-bob-orientation="vertical" b-<SCOPE>><ol class="bob-timeline__list" role="list" b-<SCOPE>><li class="bob-timeline__entry" b-<SCOPE>><div class="bob-timeline__marker" aria-hidden="true" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12.36 6l.4 2H18v6h-3.36l-.4-2H7V6h5.36M14 4H5v17h2v-7h5.6l.4 2h7V6h-5.6L14 4z"/></svg></bob-component></div>
+            <div class="bob-timeline__content" b-<SCOPE>><time class="bob-timeline__time" datetime="2026-05-01T09:00:00.0000000+00:00" b-<SCOPE>>09:00</time>
+                    <div class="bob-timeline__title" b-<SCOPE>>Kickoff</div><p class="bob-timeline__description" b-<SCOPE>>scope agreed</p></div></li><li class="bob-timeline__entry" b-<SCOPE>><div class="bob-timeline__marker" aria-hidden="true" b-<SCOPE>></div>
+            <div class="bob-timeline__content" b-<SCOPE>><time class="bob-timeline__time" datetime="2026-05-01T13:00:00.0000000+00:00" b-<SCOPE>>13:00</time>
+                    <div class="bob-timeline__title" b-<SCOPE>>Build</div></div></li><li class="bob-timeline__entry" style="--bob-inline-color:#00aa00;" b-<SCOPE>><div class="bob-timeline__marker" aria-hidden="true" b-<SCOPE>></div>
+            <div class="bob-timeline__content" b-<SCOPE>><time class="bob-timeline__time" datetime="2026-05-02T09:00:00.0000000+00:00" b-<SCOPE>>09:00</time>
+                    <div class="bob-timeline__title" b-<SCOPE>>Done</div></div></li></ol></bob-component>
+  },
+  {
+    Name: Alternating,
+    Html:
+<bob-component data-bob-component="timeline" data-bob-size="medium" data-bob-orientation="vertical" data-bob-alternating="true" b-<SCOPE>><ol class="bob-timeline__list" role="list" b-<SCOPE>><li class="bob-timeline__entry" data-bob-side="start" b-<SCOPE>><div class="bob-timeline__marker" aria-hidden="true" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12.36 6l.4 2H18v6h-3.36l-.4-2H7V6h5.36M14 4H5v17h2v-7h5.6l.4 2h7V6h-5.6L14 4z"/></svg></bob-component></div>
+            <div class="bob-timeline__content" b-<SCOPE>><time class="bob-timeline__time" datetime="2026-05-01T09:00:00.0000000+00:00" b-<SCOPE>>09:00</time>
+                    <div class="bob-timeline__title" b-<SCOPE>>Kickoff</div><p class="bob-timeline__description" b-<SCOPE>>scope agreed</p></div></li><li class="bob-timeline__entry" data-bob-side="end" b-<SCOPE>><div class="bob-timeline__marker" aria-hidden="true" b-<SCOPE>></div>
+            <div class="bob-timeline__content" b-<SCOPE>><time class="bob-timeline__time" datetime="2026-05-01T13:00:00.0000000+00:00" b-<SCOPE>>13:00</time>
+                    <div class="bob-timeline__title" b-<SCOPE>>Build</div></div></li><li class="bob-timeline__entry" data-bob-side="start" style="--bob-inline-color:#00aa00;" b-<SCOPE>><div class="bob-timeline__marker" aria-hidden="true" b-<SCOPE>></div>
+            <div class="bob-timeline__content" b-<SCOPE>><time class="bob-timeline__time" datetime="2026-05-02T09:00:00.0000000+00:00" b-<SCOPE>>09:00</time>
+                    <div class="bob-timeline__title" b-<SCOPE>>Done</div></div></li></ol></bob-component>
+  },
+  {
+    Name: Horizontal,
+    Html:
+<bob-component data-bob-component="timeline" data-bob-size="medium" data-bob-orientation="horizontal" b-<SCOPE>><ol class="bob-timeline__list" role="list" b-<SCOPE>><li class="bob-timeline__entry" b-<SCOPE>><div class="bob-timeline__marker" aria-hidden="true" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12.36 6l.4 2H18v6h-3.36l-.4-2H7V6h5.36M14 4H5v17h2v-7h5.6l.4 2h7V6h-5.6L14 4z"/></svg></bob-component></div>
+            <div class="bob-timeline__content" b-<SCOPE>><time class="bob-timeline__time" datetime="2026-05-01T09:00:00.0000000+00:00" b-<SCOPE>>09:00</time>
+                    <div class="bob-timeline__title" b-<SCOPE>>Kickoff</div><p class="bob-timeline__description" b-<SCOPE>>scope agreed</p></div></li><li class="bob-timeline__entry" b-<SCOPE>><div class="bob-timeline__marker" aria-hidden="true" b-<SCOPE>></div>
+            <div class="bob-timeline__content" b-<SCOPE>><time class="bob-timeline__time" datetime="2026-05-01T13:00:00.0000000+00:00" b-<SCOPE>>13:00</time>
+                    <div class="bob-timeline__title" b-<SCOPE>>Build</div></div></li><li class="bob-timeline__entry" style="--bob-inline-color:#00aa00;" b-<SCOPE>><div class="bob-timeline__marker" aria-hidden="true" b-<SCOPE>></div>
+            <div class="bob-timeline__content" b-<SCOPE>><time class="bob-timeline__time" datetime="2026-05-02T09:00:00.0000000+00:00" b-<SCOPE>>09:00</time>
+                    <div class="bob-timeline__title" b-<SCOPE>>Done</div></div></li></ol></bob-component>
+  },
+  {
+    Name: GroupByDate,
+    Html:
+<bob-component data-bob-component="timeline" data-bob-size="medium" data-bob-orientation="vertical" b-<SCOPE>><div class="bob-timeline__group" b-<SCOPE>><div class="bob-timeline__group-header" b-<SCOPE>>2026-05-01</div>
+                    <ol class="bob-timeline__list" role="list" b-<SCOPE>><li class="bob-timeline__entry" b-<SCOPE>><div class="bob-timeline__marker" aria-hidden="true" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12.36 6l.4 2H18v6h-3.36l-.4-2H7V6h5.36M14 4H5v17h2v-7h5.6l.4 2h7V6h-5.6L14 4z"/></svg></bob-component></div>
+            <div class="bob-timeline__content" b-<SCOPE>><time class="bob-timeline__time" datetime="2026-05-01T09:00:00.0000000+00:00" b-<SCOPE>>09:00</time>
+                    <div class="bob-timeline__title" b-<SCOPE>>Kickoff</div><p class="bob-timeline__description" b-<SCOPE>>scope agreed</p></div></li><li class="bob-timeline__entry" b-<SCOPE>><div class="bob-timeline__marker" aria-hidden="true" b-<SCOPE>></div>
+            <div class="bob-timeline__content" b-<SCOPE>><time class="bob-timeline__time" datetime="2026-05-01T13:00:00.0000000+00:00" b-<SCOPE>>13:00</time>
+                    <div class="bob-timeline__title" b-<SCOPE>>Build</div></div></li></ol></div><div class="bob-timeline__group" b-<SCOPE>><div class="bob-timeline__group-header" b-<SCOPE>>2026-05-02</div>
+                    <ol class="bob-timeline__list" role="list" b-<SCOPE>><li class="bob-timeline__entry" style="--bob-inline-color:#00aa00;" b-<SCOPE>><div class="bob-timeline__marker" aria-hidden="true" b-<SCOPE>></div>
+            <div class="bob-timeline__content" b-<SCOPE>><time class="bob-timeline__time" datetime="2026-05-02T09:00:00.0000000+00:00" b-<SCOPE>>09:00</time>
+                    <div class="bob-timeline__title" b-<SCOPE>>Done</div></div></li></ol></div></bob-component>
+  }
+]

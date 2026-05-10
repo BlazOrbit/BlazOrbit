@@ -1,0 +1,75 @@
+[data-bob-component="progress-bar"] {
+    --_progress-h: calc(0.5rem * var(--bob-size-multiplier, 1));
+    --_progress-radius: 999px;
+    --_progress-bg: color-mix(in oklab, var(--palette-border) 30%, transparent);
+    --_progress-fill: var(--bob-inline-color, var(--palette-highlight));
+    --_progress-segment-gap: 0.25rem;
+
+    display: block;
+    width: 100%;
+}
+
+[data-bob-component="progress-bar"] .bob-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+}
+
+[data-bob-component="progress-bar"] .bob-progress__head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: 0.8125rem;
+    color: var(--palette-surface-contrast);
+}
+
+[data-bob-component="progress-bar"] .bob-progress__pct {
+    font-variant-numeric: tabular-nums;
+    color: color-mix(in oklab, var(--palette-surface-contrast) 70%, transparent);
+}
+
+[data-bob-component="progress-bar"] .bob-progress__label {
+    color: var(--palette-surface-contrast);
+}
+
+[data-bob-component="progress-bar"] .bob-progress__track {
+    width: 100%;
+    height: var(--_progress-h);
+    background: var(--_progress-bg);
+    border-radius: var(--_progress-radius);
+    overflow: hidden;
+}
+
+[data-bob-component="progress-bar"] .bob-progress__fill {
+    height: 100%;
+    background: var(--_progress-fill);
+    border-radius: inherit;
+    transition: width 200ms ease;
+}
+
+[data-bob-component="progress-bar"] .bob-progress[data-bob-indeterminate="true"] .bob-progress__fill {
+    width: 33%;
+    animation: bob-progress-indeterminate 1.4s linear infinite;
+}
+
+@keyframes bob-progress-indeterminate {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(300%); }
+}
+
+[data-bob-component="progress-bar"] .bob-progress__segments {
+    display: flex;
+    gap: var(--_progress-segment-gap);
+    height: var(--_progress-h);
+}
+
+[data-bob-component="progress-bar"] .bob-progress__segment {
+    flex: 1;
+    background: var(--_progress-bg);
+    border-radius: var(--_progress-radius);
+    transition: background 150ms ease;
+}
+
+[data-bob-component="progress-bar"] .bob-progress__segment[data-bob-filled="true"] {
+    background: var(--_progress-fill);
+}

@@ -1,0 +1,47 @@
+@page "/components/charts/boxplot"
+
+@inject IStringLocalizer<BoxplotChartPage> Loc
+
+<DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBBoxplotChart"]"
+         Lede="@Loc["Box-and-whisker plot — distribution comparison across categorical groups. Each box shows the IQR (Q1..Q3), median line, whiskers (typically ±1.5·IQR) and individual outlier dots."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBBoxplotChart<>)">
+
+    <DocDemo Key="Basic" Title="@Loc["Compute from raw data"]"
+             Description="@Loc["BOBChartBoxStat<TX>.FromValues runs the five-number summary + outlier extraction (1.5·IQR rule) for you. Pass pre-computed stats directly when the data lives server-side."]">
+        <BOBBoxplotChart TX="string"
+                         Boxes="_byTeam"
+                         Width="640" Height="360" />
+    </DocDemo>
+
+</DocPage>
+
+@code {
+
+    private static readonly IEnumerable<BOBChartBoxStat<string>> _byTeam = ComputeBoxes();
+
+    private static IEnumerable<BOBChartBoxStat<string>> ComputeBoxes()
+    {
+        Random rng = new(42);
+        IEnumerable<double> sample(double mean, double stddev, int n, double[] outliers)
+        {
+            for (int i = 0; i < n; i++)
+            {
+                // Box-Muller approximate normal.
+                double u1 = 1 - rng.NextDouble();
+                double u2 = 1 - rng.NextDouble();
+                double z = Math.Sqrt(-2 * Math.Log(u1)) * Math.Cos(2 * Math.PI * u2);
+                yield return mean + z * stddev;
+            }
+            foreach (double o in outliers) yield return o;
+        }
+        return new[]
+        {
+            BOBChartBoxStat<string>.FromValues("Frontend",   sample(28, 8, 60, new[] { 80.0, 92, 5 })),
+            BOBChartBoxStat<string>.FromValues("Backend",    sample(22, 6, 60, new[] { 65.0, 70 })),
+            BOBChartBoxStat<string>.FromValues("Mobile",     sample(34, 12, 60, new[] { 110.0, 8 })),
+            BOBChartBoxStat<string>.FromValues("Data",       sample(18, 5, 60, new[] { 55.0, 62 })),
+            BOBChartBoxStat<string>.FromValues("Platform",   sample(40, 14, 60, new[] { 130.0 })),
+        };
+    }
+}

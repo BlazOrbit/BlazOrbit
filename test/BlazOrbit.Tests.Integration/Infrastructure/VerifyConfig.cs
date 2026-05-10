@@ -15,7 +15,7 @@ public static class VerifyConfig
             RegexOptions.Compiled);
 
     private static readonly Regex BuiGeneratedIdRegex =
-        new(@"bob-(input|helper|label|checkbox|radio|switch|number|textarea|input-color|datetime|input-number-slider|input-range-slider|carousel)-[a-f0-9]{32}",
+        new(@"bob-(input|helper|label|checkbox|radio|switch|number|textarea|input-color|datetime|input-number-slider|input-range-slider|carousel|otp)-[a-f0-9]{32}",
             RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
     private static readonly Regex PatternIdRegex =
@@ -39,6 +39,19 @@ public static class VerifyConfig
     // word boundary together with a leading `b-` segment in real DOM output.
     private static readonly Regex CssIsolationScopeRegex =
         new(@"\bb-[a-z0-9]{10}\b",
+            RegexOptions.Compiled);
+
+    // BOBDatePicker / BOBTimePicker / BOBInputDateRange render the calendar grid with
+    // `data-bob-active="true"` on the cell that matches DateTime.Today. That makes any
+    // snapshot containing a date picker drift on the day boundary. Strip the attribute
+    // when it lands on a `bob-picker__cell` element so the snapshot becomes date-stable.
+    // The `\s+` keeps the leading space the attribute sits on consistent across days.
+    private static readonly Regex PickerActiveCellRegex =
+        new(@"(?<=class=""bob-btn bob-picker__cell"") data-bob-active=""true""",
+            RegexOptions.Compiled);
+
+    private static readonly Regex PickerActiveCellRegexAlt =
+        new(@" data-bob-active=""true""(?= class=""bob-btn bob-picker__cell"")",
             RegexOptions.Compiled);
 
     [ModuleInitializer]
@@ -84,6 +97,9 @@ public static class VerifyConfig
             text = CssIsolationScopeRegex.Replace(
                 text,
                 @"b-<SCOPE>");
+
+            text = PickerActiveCellRegex.Replace(text, string.Empty);
+            text = PickerActiveCellRegexAlt.Replace(text, string.Empty);
 
             sb.Clear();
             sb.Append(text);

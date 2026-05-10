@@ -5,6 +5,6 @@
 /// </summary>
 public interface IHasBackgroundColor
 {
-    /// <summary>Background color. Accepts any valid CSS color value.</summary>
+    /// <summary>Background color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     string? BackgroundColor { get; set; }
 }

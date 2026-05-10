@@ -1,0 +1,61 @@
+@page "/components/charts/gauge"
+
+@inject IStringLocalizer<GaugeChartPage> Loc
+
+<DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBGaugeChart"]"
+         Lede="@Loc["KPI gauge — single value rendered as an arc fill against a track. Semi (180°), three-quarter (270°) and full (360°) shapes. Optional zone segments highlight thresholds (green / amber / red)."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBGaugeChart)">
+
+    <DocDemo Key="Semi" Title="@Loc["Semicircle gauge"]">
+        <BOBGaugeChart Value="62" Caption="@Loc["CPU usage"]" Unit="%" Width="320" Height="220" />
+    </DocDemo>
+
+    <DocDemo Key="ThreeQuarter" Title="@Loc["Three-quarter gauge with zones"]"
+             Description="@Loc["Segments paint a colored band over the track between From..To values. Combine with the value arc to highlight whether the KPI sits in the safe (green) or critical (red) range."]">
+        <BOBGaugeChart Value="83"
+                       Caption="@Loc["Memory"]" Unit="%"
+                       Shape="BOBGaugeShape.ThreeQuarter"
+                       Segments="_zones"
+                       Width="320" Height="260" />
+    </DocDemo>
+
+    <DocDemo Key="Full" Title="@Loc["Full-circle KPI ring"]">
+        <BOBGaugeChart Value="78"
+                       Min="0" Max="100"
+                       Shape="BOBGaugeShape.Full"
+                       Caption="@Loc["Conversion"]" Unit="%"
+                       ValueColor="var(--palette-success)"
+                       Thickness="22"
+                       Width="280" Height="280" />
+    </DocDemo>
+
+    <DocDemo Key="CustomDomain" Title="@Loc["Custom domain (latency ms)"]"
+             Description="@Loc["Min / Max can model any numeric domain — KPIs that aren't 0..100% percentages, currency, latency milliseconds, etc."]">
+        <BOBGaugeChart Value="135"
+                       Min="0" Max="500"
+                       Caption="@Loc["p95 latency"]" Unit=" ms"
+                       Segments="_latencyZones"
+                       Width="320" Height="220" />
+    </DocDemo>
+
+</DocPage>
+
+@code {
+
+    private static readonly IEnumerable<BOBChartGaugeSegment> _zones =
+        new[]
+        {
+            new BOBChartGaugeSegment { From = 0, To = 60, Color = "var(--palette-success)" },
+            new BOBChartGaugeSegment { From = 60, To = 85, Color = "var(--palette-warning)" },
+            new BOBChartGaugeSegment { From = 85, To = 100, Color = "var(--palette-error)" },
+        };
+
+    private static readonly IEnumerable<BOBChartGaugeSegment> _latencyZones =
+        new[]
+        {
+            new BOBChartGaugeSegment { From = 0, To = 100, Color = "var(--palette-success)" },
+            new BOBChartGaugeSegment { From = 100, To = 250, Color = "var(--palette-warning)" },
+            new BOBChartGaugeSegment { From = 250, To = 500, Color = "var(--palette-error)" },
+        };
+}

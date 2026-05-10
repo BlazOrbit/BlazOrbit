@@ -1,0 +1,65 @@
+﻿[
+  {
+    Name: Default_Empty,
+    Html:
+<bob-component data-bob-component="auto-complete" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+        <span class="bob-input__outline-notch"><label for="bob-input-<ID>" class="bob-input__label">Search</label></span>
+        <span class="bob-input__outline-trailing"></span></div>
+                
+
+                <input type="text" id="bob-input-<ID>" class="bob-input__field" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="bob-label-<ID>" value="" blazor:oninput="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" blazor:onkeydown="<EVENT>" aria-describedby="bob-helper-<ID>" aria-invalid="false" aria-required="false" b-<SCOPE> />
+
+                
+                </div></bob-component>
+  },
+  {
+    Name: Filled_Variant,
+    Html:
+<bob-component data-bob-component="auto-complete" data-bob-variant="filled" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+        <span class="bob-input__outline-notch"><label for="bob-input-<ID>" class="bob-input__label">Search</label></span>
+        <span class="bob-input__outline-trailing"></span></div>
+                
+
+                <input type="text" id="bob-input-<ID>" class="bob-input__field" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="bob-label-<ID>" value="" blazor:oninput="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" blazor:onkeydown="<EVENT>" aria-describedby="bob-helper-<ID>" aria-invalid="false" aria-required="false" b-<SCOPE> />
+
+                
+                </div></bob-component>
+  },
+  {
+    Name: Hydrated_Value,
+    Html:
+<bob-component data-bob-floated="true" data-bob-component="auto-complete" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+        <span class="bob-input__outline-notch"><label for="bob-input-<ID>" class="bob-input__label">Country</label></span>
+        <span class="bob-input__outline-trailing"></span></div>
+                
+
+                <input type="text" id="bob-input-<ID>" class="bob-input__field" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="bob-label-<ID>" value="Spain" blazor:oninput="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" blazor:onkeydown="<EVENT>" aria-describedby="bob-helper-<ID>" aria-invalid="false" aria-required="false" b-<SCOPE> />
+
+                
+                </div></bob-component>
+  },
+  {
+    Name: Required_Disabled,
+    Html:
+<bob-component data-bob-component="auto-complete" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-disabled="true" data-bob-required="true" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
+        <span class="bob-input__outline-notch"><label for="bob-input-<ID>" class="bob-input__label">Search</label></span>
+        <span class="bob-input__outline-trailing"></span></div>
+                
+
+                <input type="text" id="bob-input-<ID>" class="bob-input__field" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="bob-label-<ID>" value="" blazor:oninput="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" blazor:onkeydown="<EVENT>" aria-describedby="bob-helper-<ID>" aria-invalid="false" aria-required="true" disabled required b-<SCOPE> />
+
+                
+                </div></bob-component>
+  },
+  {
+    Name: Error_With_Helper,
+    Html:
+<bob-component data-bob-component="auto-complete" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" data-bob-error="true" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>>
+                
+
+                <input type="text" id="bob-input-<ID>" class="bob-input__field" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="bob-label-<ID>" value="" blazor:oninput="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" blazor:onkeydown="<EVENT>" aria-describedby="bob-helper-<ID>" aria-invalid="true" aria-required="false" b-<SCOPE> />
+
+                
+                </div><div id="bob-helper-<ID>" class="bob-field-helper" aria-live="polite" b-<SCOPE>>Pick something.</div></bob-component>
+  }
+]

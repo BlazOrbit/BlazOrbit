@@ -39,6 +39,7 @@ public class CssScopedAuditTests
         "BOBModalContainer",
         "BOBInitializer",
         "BOBBlazorLayout",
+        "BOBHotkeyHost",
 
         // Input-family helpers — styled by global _input-family.css
         "BOBInputLoading",
@@ -58,6 +59,8 @@ public class CssScopedAuditTests
         "BOBInputDropdownTree",
         "BOBDropdownContainer",
         "BOBDateTimePattern",
+        "BOBSplitterPane",
+        "BOBStep",
     };
 
     [Fact]

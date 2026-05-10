@@ -250,7 +250,6 @@
              data-key="@node.Key">
 
             <div class="bob-tree-selector__node-content"
-                 style="padding-left: calc(@(node.Depth) * var(--bob-tree-selector-indent, 1.5rem))"
                  tabindex="@(node.IsDisabled ? -1 : 0)"
                  @onclick="() => HandleNodeClickAsync(node)"
                  @onclick:stopPropagation="true"

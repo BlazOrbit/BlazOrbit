@@ -1,0 +1,169 @@
+[data-bob-component="timeline"] {
+    --_timeline-rail: 2px;
+    --_timeline-marker-size: calc(1.25rem * var(--bob-size-multiplier, 1));
+    --_timeline-rail-color: color-mix(in oklab, var(--palette-border) 60%, transparent);
+    --_timeline-marker-color: var(--bob-inline-color, var(--palette-highlight));
+    --_timeline-content-gap: 0.25rem;
+    --_timeline-entry-gap: 1.25rem;
+    --_timeline-time-color: color-mix(in oklab, var(--palette-surface-contrast) 60%, transparent);
+
+    display: block;
+    color: var(--palette-surface-contrast);
+}
+
+[data-bob-component="timeline"] .bob-timeline__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+[data-bob-component="timeline"] .bob-timeline__group + .bob-timeline__group {
+    margin-block-start: var(--_timeline-entry-gap);
+}
+
+[data-bob-component="timeline"] .bob-timeline__group-header {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--_timeline-time-color);
+    padding-block-end: 0.5rem;
+}
+
+/* ── Vertical (default) ───────────────────────────────────────────── */
+
+[data-bob-component="timeline"][data-bob-orientation="vertical"] .bob-timeline__list {
+    display: grid;
+    grid-template-columns: var(--_timeline-marker-size) 1fr;
+    column-gap: 0.75rem;
+    row-gap: var(--_timeline-entry-gap);
+    position: relative;
+}
+
+[data-bob-component="timeline"][data-bob-orientation="vertical"] .bob-timeline__list::before {
+    /* Continuous rail behind the marker column. Using a pseudo-element keeps the entries
+       free of border/background tricks that would break alternating layouts. */
+    content: "";
+    position: absolute;
+    inset-block: calc(var(--_timeline-marker-size) / 2) calc(var(--_timeline-marker-size) / 2);
+    inset-inline-start: calc(var(--_timeline-marker-size) / 2 - var(--_timeline-rail) / 2);
+    width: var(--_timeline-rail);
+    background: var(--_timeline-rail-color);
+}
+
+[data-bob-component="timeline"][data-bob-orientation="vertical"] .bob-timeline__entry {
+    display: contents;
+}
+
+[data-bob-component="timeline"][data-bob-orientation="vertical"] .bob-timeline__marker {
+    grid-column: 1;
+    width: var(--_timeline-marker-size);
+    height: var(--_timeline-marker-size);
+    border-radius: 999px;
+    background: var(--_timeline-marker-color);
+    color: var(--palette-surface);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+[data-bob-component="timeline"][data-bob-orientation="vertical"] .bob-timeline__content {
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    gap: var(--_timeline-content-gap);
+    min-width: 0;
+}
+
+/* ── Vertical alternating ─────────────────────────────────────────── */
+
+[data-bob-component="timeline"][data-bob-orientation="vertical"][data-bob-alternating="true"] .bob-timeline__list {
+    grid-template-columns: 1fr var(--_timeline-marker-size) 1fr;
+    column-gap: 1rem;
+}
+
+[data-bob-component="timeline"][data-bob-orientation="vertical"][data-bob-alternating="true"] .bob-timeline__list::before {
+    inset-inline-start: calc(50% - var(--_timeline-rail) / 2);
+}
+
+[data-bob-component="timeline"][data-bob-orientation="vertical"][data-bob-alternating="true"] .bob-timeline__marker {
+    grid-column: 2;
+}
+
+[data-bob-component="timeline"][data-bob-orientation="vertical"][data-bob-alternating="true"] .bob-timeline__entry[data-bob-side="start"] .bob-timeline__content {
+    grid-column: 1;
+    text-align: end;
+}
+
+[data-bob-component="timeline"][data-bob-orientation="vertical"][data-bob-alternating="true"] .bob-timeline__entry[data-bob-side="end"] .bob-timeline__content {
+    grid-column: 3;
+}
+
+/* ── Horizontal ───────────────────────────────────────────────────── */
+
+[data-bob-component="timeline"][data-bob-orientation="horizontal"] .bob-timeline__list {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(8rem, 1fr);
+    column-gap: var(--_timeline-entry-gap);
+    position: relative;
+    overflow-x: auto;
+    padding-block-start: var(--_timeline-marker-size);
+}
+
+[data-bob-component="timeline"][data-bob-orientation="horizontal"] .bob-timeline__list::before {
+    content: "";
+    position: absolute;
+    inset-inline: calc(var(--_timeline-marker-size) / 2) calc(var(--_timeline-marker-size) / 2);
+    inset-block-start: calc(var(--_timeline-marker-size) / 2 - var(--_timeline-rail) / 2);
+    height: var(--_timeline-rail);
+    background: var(--_timeline-rail-color);
+}
+
+[data-bob-component="timeline"][data-bob-orientation="horizontal"] .bob-timeline__entry {
+    display: grid;
+    grid-template-rows: 0 1fr;
+    row-gap: 0.5rem;
+    position: relative;
+}
+
+[data-bob-component="timeline"][data-bob-orientation="horizontal"] .bob-timeline__marker {
+    width: var(--_timeline-marker-size);
+    height: var(--_timeline-marker-size);
+    border-radius: 999px;
+    background: var(--_timeline-marker-color);
+    color: var(--palette-surface);
+    position: absolute;
+    inset-block-start: calc(-1 * var(--_timeline-marker-size));
+    inset-inline-start: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+[data-bob-component="timeline"][data-bob-orientation="horizontal"] .bob-timeline__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--_timeline-content-gap);
+    min-width: 0;
+}
+
+/* ── Inner content ────────────────────────────────────────────────── */
+
+[data-bob-component="timeline"] .bob-timeline__time {
+    font-size: 0.75rem;
+    color: var(--_timeline-time-color);
+    font-variant-numeric: tabular-nums;
+}
+
+[data-bob-component="timeline"] .bob-timeline__title {
+    font-weight: 500;
+}
+
+[data-bob-component="timeline"] .bob-timeline__description {
+    margin: 0;
+    font-size: 0.875rem;
+    color: color-mix(in oklab, var(--palette-surface-contrast) 80%, transparent);
+}

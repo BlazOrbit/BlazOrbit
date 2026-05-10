@@ -1,0 +1,29 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net10.0</TargetFramework>
+		<PackAsTool>true</PackAsTool>
+		<!-- Redundant with PackAsTool=true (the SDK already infers DotnetTool) but
+		     explicit for clarity and so NuGet.org categorization is unambiguous. -->
+		<PackageType>DotnetTool</PackageType>
+		<!-- Owner prefix on the tool command name avoids global-tool name
+		     collisions when a user installs us alongside another `blazorbit-*`
+		     tool (a fork, an unrelated project, or a shell alias). -->
+		<ToolCommandName>cdcsharp-blazorbit-charts-buildtools</ToolCommandName>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<IsPackable>false</IsPackable>
+		<PackageId>BlazOrbit.Charts.BuildTools</PackageId>
+		<Description>Build-time tool used by BlazOrbit.Charts `.targets` to scaffold the chart-family TypeScript interop modules (e.g. `ChartInterop.ts`) and the esbuild scaffolding into the consuming project. Consumers typically do not install this directly — it is invoked automatically when building a project that references BlazOrbit.Charts.</Description>
+		<PackageTags>blazor;blazorbit;charts;build-tools;typescript;esbuild;generator;tool</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CdCSharp.BuildTools" Version="1.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\BlazOrbit.Core\BlazOrbit.Core.csproj" />
+	</ItemGroup>
+
+</Project>

@@ -493,7 +493,7 @@ public sealed class CssColor : IEquatable<CssColor>
     /// in unexpected contexts. Prefer <see cref="ToString()"/> directly when
     /// the call site is obvious.
     /// </summary>
-    public static explicit operator string(CssColor? color)
+    public static implicit operator string(CssColor? color)
     {
         return color?.ToString() ?? string.Empty;
     }

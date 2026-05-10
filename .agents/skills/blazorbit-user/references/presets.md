@@ -220,7 +220,7 @@ list and namespaces. Examples:
 ```csharp
 BOBInputVariant.Filled, BOBInputVariant.Outlined, BOBInputVariant.Standard, BOBInputVariant.Flat
 BOBTabsVariant.Underline, BOBTabsVariant.Pills, BOBTabsVariant.Enclosed
-BOBLoadingIndicatorVariant.Spinner, .CircularProgress, .Ring, .Dots, .Bars, .LinearIndeterminate
+BOBProgressIconVariant.Spinner, .Ring, .Dots, .Bars
 BOBThemeSelectorVariant.Default, .SunMoon
 
 // Custom — use a stable, cached identifier for both registration and consumption:

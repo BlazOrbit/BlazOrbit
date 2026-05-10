@@ -1,0 +1,95 @@
+﻿@page "/components/services/notifications"
+
+@using BlazOrbit.Notifications
+
+@inject IStringLocalizer<NotificationCenterPage> Loc
+@inject INotificationCenter Center
+@implements IDisposable
+
+
+<DocPage Eyebrow="@Loc["Service"]" Title="@Loc["BOBNotificationCenter"]"
+         Lede="@Loc["Persistent inbox-style notifications with a paired BOBNotificationBell badge."]">
+
+         <p>
+             The <code>BOBNotificationCenter</code> service provides a way to manage notifications in a persistent inbox-style manner. It is designed to work in tandem with the 
+             <code>BOBNotificationBell</code> component, which displays a badge with the count of unread notifications and can be clicked to reveal the inbox.
+         </p>
+
+         <p>
+             Persistence is managed by <code>INotificationStore</code>. Default implementation stores notifications in memory but you can implement your own 
+             (e.g. using local storage or server-side database) and register it using <code>@("builder.Services.AddBlazOrbitNotifications<TStore>")</code>
+         </p>
+
+    <DocDemo Key="Push" Title="@Loc["Push notifications"]">
+        <div style="display:flex;gap:.5rem;align-items:center;">
+            <BOBButton Text="@Loc["Push info"]" OnClick="@(() => PushAsync(NotificationSeverity.Info, "Info", "Plain message."))" />
+            <BOBButton Text="@Loc["Push success"]" OnClick="@(() => PushAsync(NotificationSeverity.Success, "Deploy OK", "v2.4.1 is live."))" />
+            <BOBButton Text="@Loc["Push warning"]" OnClick="@(() => PushAsync(NotificationSeverity.Warning, "Quota", "85% of disk used."))" />
+            <BOBButton Text="@Loc["Push error"]" OnClick="@(() => PushAsync(NotificationSeverity.Error, "Failed", "Job 42 crashed."))" />
+            <BOBNotificationBell />
+        </div>
+    </DocDemo>
+
+    <DocDemo Key="Inbox" Title="@Loc["Inbox"]">
+        @if (Center.All.Count == 0)
+        {
+            <p class="doc-demo__caption">@Loc["No notifications yet."]</p>
+        }
+        else
+        {
+            <div style="display:flex;gap:.5rem;align-items:center;margin-block-end:.5rem;">
+                <BOBButton Text="@Loc["Mark all read"]" OnClick="@(() => Center.MarkAllReadAsync())" />
+                <BOBButton Text="@Loc["Clear"]" OnClick="@(() => Center.ClearAsync())" />
+                <span>@Loc["Unread:"] @Center.UnreadCount</span>
+            </div>
+            <ul class="doc-inbox">
+                @foreach (BOBNotification entry in Center.All)
+                {
+                    string capturedId = entry.Id;
+                    <li class="doc-inbox__row" data-bob-read="@(entry.IsRead ? "true" : null)">
+                        <span class="doc-inbox__title">@entry.Title</span>
+                        @if (!string.IsNullOrEmpty(entry.Body))
+                        {
+                            <span class="doc-inbox__body">@entry.Body</span>
+                        }
+                        <span class="doc-inbox__meta">
+                            @entry.Severity · @entry.CreatedAt.ToLocalTime().ToString("HH:mm:ss")
+                        </span>
+                        <span class="doc-inbox__actions">
+                            @if (!entry.IsRead)
+                            {
+                                <BOBButton Text="@Loc["Read"]" OnClick="@(() => Center.MarkReadAsync(capturedId))" />
+                            }
+                            <BOBButton Text="@Loc["Remove"]" OnClick="@(() => Center.RemoveAsync(capturedId))" />
+                        </span>
+                    </li>
+                }
+            </ul>
+        }
+    </DocDemo>
+
+</DocPage>
+
+@code {
+    protected override void OnInitialized()
+    {
+        Center.OnChangeAsync += OnCenterChangedAsync;
+    }
+
+    private Task OnCenterChangedAsync() => InvokeAsync(StateHasChanged);
+
+    private Task PushAsync(NotificationSeverity severity, string title, string body)
+    {
+        return Center.PushAsync(new BOBNotification
+        {
+            Title = title,
+            Body = body,
+            Severity = severity,
+        });
+    }
+
+    public void Dispose()
+    {
+        Center.OnChangeAsync -= OnCenterChangedAsync;
+    }
+}

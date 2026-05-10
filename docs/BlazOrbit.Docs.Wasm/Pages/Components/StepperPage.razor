@@ -1,0 +1,132 @@
+@page "/components/navigation/stepper"
+
+@using BlazOrbit.Components
+@using BlazOrbit.Components.Navigation
+
+@inject IStringLocalizer<StepperPage> Loc
+
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBStepper"]"
+         Lede="@Loc["Multi-step flow with header rail, body slot, and cancellable step transitions."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBStepper)">
+
+    <DocDemo Key="Horizontal" Title="@Loc["Horizontal (default)"]">
+        <BOBStepper @bind-CurrentStep="_step1">
+            <BOBStep Title="@Loc["Account"]" Icon="@BOBIconKeys.MaterialIconsOutlined.i_person">
+                <p>@Loc["Account form…"]</p>
+            </BOBStep>
+            <BOBStep Title="@Loc["Plan"]" Icon="@BOBIconKeys.MaterialIconsOutlined.i_credit_card">
+                <p>@Loc["Pick a plan…"]</p>
+            </BOBStep>
+            <BOBStep Title="@Loc["Confirm"]" Icon="@BOBIconKeys.MaterialIconsOutlined.i_check">
+                <p>@Loc["Review and confirm."]</p>
+            </BOBStep>
+        </BOBStepper>
+        <div class="doc-demo__caption" style="display:flex;gap:.5rem;align-items:center;">
+            <BOBButton Text="@Loc["Back"]" OnClick="@(async () => await GoPrevAsync(0))" />
+            <BOBButton Text="@Loc["Next"]" OnClick="@(async () => await GoNextAsync(0))" />
+            <span>@Loc["Step:"] @(_step1 + 1) / 3</span>
+        </div>
+    </DocDemo>
+
+    <DocDemo Key="Vertical" Title="@Loc["Vertical"]">
+        <BOBStepper @bind-CurrentStep="_step2" Orientation="BOBStepperOrientation.Vertical">
+            <BOBStep Title="@Loc["Source"]" Description="@Loc["Pick the input file"]">
+                <p>@Loc["Step 1 body."]</p>
+            </BOBStep>
+            <BOBStep Title="@Loc["Map"]" Description="@Loc["Match the columns"]">
+                <p>@Loc["Step 2 body."]</p>
+            </BOBStep>
+            <BOBStep Title="@Loc["Done"]" Description="@Loc["Review and import"]">
+                <p>@Loc["Step 3 body."]</p>
+            </BOBStep>
+        </BOBStepper>
+    </DocDemo>
+
+    <DocDemo Key="ErrorState" Title="@Loc["Step with error"]">
+        <BOBStepper CurrentStep="1">
+            <BOBStep Title="@Loc["First"]">
+                <p>@Loc["Already done."]</p>
+            </BOBStep>
+            <BOBStep Title="@Loc["Validate"]" Error="true">
+                <p>@Loc["Validation failed — fix the form below."]</p>
+            </BOBStep>
+            <BOBStep Title="@Loc["Finish"]">
+                <p>@Loc["Pending."]</p>
+            </BOBStep>
+        </BOBStepper>
+    </DocDemo>
+
+    <DocDemo Key="AllowSkip" Title="@Loc["Allow skipping ahead"]">
+        <BOBStepper @bind-CurrentStep="_step3" AllowSkip="true">
+            <BOBStep Title="@Loc["Alpha"]"><p>α</p></BOBStep>
+            <BOBStep Title="@Loc["Beta"]"><p>β</p></BOBStep>
+            <BOBStep Title="@Loc["Gamma"]"><p>γ</p></BOBStep>
+        </BOBStepper>
+        <p class="doc-demo__caption">@Loc["With AllowSkip, every header is reachable directly."]</p>
+    </DocDemo>
+
+    <DocDemo Key="Cancellable" Title="@Loc["Cancellable transition"]">
+        <BOBStepper @ref="_cancellableStepper" @bind-CurrentStep="_step4" OnStepChange="HandleStepChange" AllowSkip="true">
+            <BOBStep Title="@Loc["One"]" />
+            <BOBStep Title="@Loc["Two"]" />
+            <BOBStep Title="@Loc["Three"]" />
+        </BOBStepper>
+        <div class="doc-demo__caption" style="display:flex;gap:.5rem;align-items:center;">
+            <BOBButton Text="@Loc["Back"]" OnClick="@CancellableBackAsync" />
+            <BOBButton Text="@Loc["Next"]" OnClick="@CancellableNextAsync" />
+            <span>@Loc["Step:"] @(_step4 + 1) / 3</span>
+        </div>
+        <p class="doc-demo__caption">@Loc["Going to step 3 is blocked until you tick the checkbox."]</p>
+        <label>
+            <input type="checkbox" @bind="_unlocked" />
+            @Loc["Allow advancing to step 3"]
+        </label>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBStepperComponentInfo.Parameters" />
+    </section>
+
+</DocPage>
+
+@code {
+    private int _step1;
+    private int _step2;
+    private int _step3;
+    private int _step4;
+    private bool _unlocked;
+    private BOBStepper? _cancellableStepper;
+
+    private async Task GoNextAsync(int which)
+    {
+        // Trivial helper to drive the first demo from external buttons.
+        if (which == 0)
+        {
+            _step1 = Math.Min(_step1 + 1, 2);
+            await Task.CompletedTask;
+        }
+    }
+
+    private async Task GoPrevAsync(int which)
+    {
+        if (which == 0)
+        {
+            _step1 = Math.Max(_step1 - 1, 0);
+            await Task.CompletedTask;
+        }
+    }
+
+    private void HandleStepChange(BOBStepChangeEventArgs args)
+    {
+        if (args.To == 2 && !_unlocked)
+        {
+            args.Cancel = true;
+        }
+    }
+
+    private Task CancellableBackAsync() => _cancellableStepper?.PreviousAsync() ?? Task.CompletedTask;
+    private Task CancellableNextAsync() => _cancellableStepper?.NextAsync() ?? Task.CompletedTask;
+}

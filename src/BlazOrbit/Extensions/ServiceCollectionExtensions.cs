@@ -38,10 +38,31 @@ public static class ServiceCollectionExtensions
         // Toast
         services.AddScoped<IToastService, ToastService>();
 
+        // Confirm — themed wrapper over IModalService. Zero JS bundle so it ships with
+        // the core registration; opt-out simply by ignoring the IConfirmService injection.
+        services.AddScoped<IConfirmService, ConfirmService>();
+
+        // Data-collection state persistence — default no-op so grids without a
+        // PersistenceKey behave as before. Consumers opt in to localStorage-backed
+        // persistence by registering LocalStorageStatePersistence on top of this entry.
+        services.AddScoped<IDataCollectionStatePersistence, NullStatePersistence>();
+
 #if DEBUG
         services.AddSingleton<IBOBPerformanceService, BOBPerformanceService>();
 #endif
 
+        return services;
+    }
+
+    /// <summary>
+    /// Replaces the default <see cref="NullStatePersistence"/> with
+    /// <see cref="LocalStorageStatePersistence"/>. Call after <c>AddBlazOrbit()</c> to
+    /// opt every grid in to <c>localStorage</c>-backed state persistence whenever a
+    /// <c>PersistenceKey</c> parameter is set on the grid.
+    /// </summary>
+    public static IServiceCollection AddBlazOrbitDataCollectionLocalStorage(this IServiceCollection services)
+    {
+        services.AddScoped<IDataCollectionStatePersistence, LocalStorageStatePersistence>();
         return services;
     }
 
@@ -54,6 +75,7 @@ public static class ServiceCollectionExtensions
 
         return services;
     }
+
 }
 
 #region Variant Registry Builders

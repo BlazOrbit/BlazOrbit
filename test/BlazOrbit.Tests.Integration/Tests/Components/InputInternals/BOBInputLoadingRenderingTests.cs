@@ -38,7 +38,7 @@ public class BOBInputLoadingRenderingTests
         // Assert
         IElement addon = cut.Find(".bob-addon");
         addon.Should().NotBeNull();
-        cut.FindComponents<BOBLoadingIndicator>().Should().HaveCount(1);
+        cut.FindComponents<BOBProgressIcon>().Should().HaveCount(1);
     }
 
     [Theory]
@@ -50,10 +50,10 @@ public class BOBInputLoadingRenderingTests
         // Arrange & Act
         IRenderedComponent<BOBInputLoading> cut = ctx.Render<BOBInputLoading>(p => p
             .Add(c => c.Loading, true)
-            .Add(c => c.LoadingIndicatorVariant, BOBLoadingIndicatorVariant.Dots));
+            .Add(c => c.LoadingIndicatorVariant, BOBProgressIconVariant.Dots));
 
         // Assert
-        IRenderedComponent<BOBLoadingIndicator> indicator = cut.FindComponent<BOBLoadingIndicator>();
+        IRenderedComponent<BOBProgressIcon> indicator = cut.FindComponent<BOBProgressIcon>();
         indicator.Instance.Variant.Name.Should().Be("Dots");
     }
 
@@ -69,7 +69,7 @@ public class BOBInputLoadingRenderingTests
             .Add(c => c.Size, BOBSize.Large));
 
         // Assert
-        IRenderedComponent<BOBLoadingIndicator> indicator = cut.FindComponent<BOBLoadingIndicator>();
+        IRenderedComponent<BOBProgressIcon> indicator = cut.FindComponent<BOBProgressIcon>();
         indicator.Instance.Size.Should().Be(BOBSize.Large);
     }
 

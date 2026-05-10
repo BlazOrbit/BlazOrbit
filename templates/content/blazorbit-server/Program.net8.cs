@@ -1,4 +1,7 @@
 using BlazorApp.Components;
+//#if (IncludeCharts)
+using BlazOrbit.Charts.Services;
+//#endif
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,6 +10,15 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddBlazOrbit();
+//#if (IncludeCharts)
+builder.Services.AddBlazOrbitCharts();
+//#endif
+//#if (UseNotificationsCenter)
+builder.Services.AddBlazOrbitNotifications();
+//#endif
+//#if (UseHotKeys)
+builder.Services.AddBlazOrbitHotkeys();
+//#endif
 
 var app = builder.Build();
 

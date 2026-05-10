@@ -1,0 +1,51 @@
+[data-bob-component="auto-complete"] {
+    --_ac-panel-bg: var(--palette-surface);
+    --_ac-panel-border: 1px solid color-mix(in oklab, var(--palette-border) 40%, transparent);
+    --_ac-panel-radius: var(--bob-input-border-radius, 0.5rem);
+    --_ac-panel-shadow: 0 4px 12px color-mix(in oklab, var(--palette-surface-contrast) 18%, transparent);
+    --_ac-panel-max-h: 16rem;
+    --_ac-option-px: 0.75rem;
+    --_ac-option-py: 0.5rem;
+    --_ac-option-focus-bg: color-mix(in oklab, var(--palette-highlight) 12%, transparent);
+
+    position: relative;
+}
+
+/* Open-state hook: the panel itself is conditionally rendered, but data-bob-open lets
+   global skins (or consumer overrides) target the open chrome without depending on
+   internal class names. */
+[data-bob-component="auto-complete"][data-bob-open="true"] {
+    z-index: 5;
+}
+
+[data-bob-component="auto-complete"] .bob-autocomplete__panel {
+    position: absolute;
+    inset-inline: 0;
+    top: 100%;
+    z-index: 10;
+    margin-block-start: 0.25rem;
+    background: var(--_ac-panel-bg);
+    border: var(--_ac-panel-border);
+    border-radius: var(--_ac-panel-radius);
+    box-shadow: var(--_ac-panel-shadow);
+    max-height: var(--_ac-panel-max-h);
+    overflow-y: auto;
+}
+
+[data-bob-component="auto-complete"] .bob-autocomplete__option {
+    padding: var(--_ac-option-py) var(--_ac-option-px);
+    cursor: pointer;
+    color: var(--palette-surface-contrast);
+    transition: background 100ms ease;
+}
+
+[data-bob-component="auto-complete"] .bob-autocomplete__option:hover,
+[data-bob-component="auto-complete"] .bob-autocomplete__option[data-bob-focused="true"] {
+    background: var(--_ac-option-focus-bg);
+}
+
+[data-bob-component="auto-complete"] .bob-autocomplete__no-results {
+    padding: var(--_ac-option-py) var(--_ac-option-px);
+    color: color-mix(in oklab, var(--palette-surface-contrast) 60%, transparent);
+    font-style: italic;
+}

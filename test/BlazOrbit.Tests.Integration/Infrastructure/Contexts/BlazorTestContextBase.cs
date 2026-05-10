@@ -1,4 +1,5 @@
-﻿using BlazOrbit.Tests.Integration.Infrastructure.Fakes;
+﻿using BlazOrbit.Charts.Services;
+using BlazOrbit.Tests.Integration.Infrastructure.Fakes;
 using Bunit;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +20,7 @@ public abstract class BlazorTestContextBase : BunitContext
     {
         // Register ===
         services.AddBlazOrbit();
+        services.AddBlazOrbitCharts();
 
         // JSInterop fake (bUnit controla IJSRuntime)
         JSInterop.Mode = JSRuntimeMode.Loose;

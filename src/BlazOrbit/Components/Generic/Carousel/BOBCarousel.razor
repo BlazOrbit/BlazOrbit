@@ -1,4 +1,4 @@
-@namespace BlazOrbit.Components
+﻿@namespace BlazOrbit.Components
 @attribute [GenerateComponentInfo]
 @using BlazOrbit.Utilities
 @using Microsoft.AspNetCore.Components.Web
@@ -240,7 +240,7 @@
     /// </summary>
     [Parameter] public IconKey? IndicatorIcon { get; set; }
 
-    /// <summary>Color applied to the inactive-indicator icon. Accepts any valid CSS color value.</summary>
+    /// <summary>Color applied to the inactive-indicator icon. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? IndicatorIconColor { get; set; }
 
     /// <summary>

@@ -523,9 +523,19 @@ public static class RazorParser
                     raw.Append(cn.ToString());
                 }
 
-                // Quitar tags XML inline (<c>, <see cref="…"/>, etc.)
-                string text = Regex.Replace(raw.ToString(), @"<[^>]+>", string.Empty);
-                // Colapsar whitespace de summaries multilínea
+                // 1: reemplaza etiquetas con atributos por el valor literal del atributo
+                string text = Regex.Replace(raw.ToString(), @"<[^>]+=\s*""([^""]+)""[^>]*>", "$1");
+
+                // 2: elimina el resto de etiquetas sin atributos (como <summary>, </summary>, etc.)
+                text = Regex.Replace(text, @"<[^>]+>", string.Empty);
+
+                // 3: remplazar comillas dobles por simples para evitar problemas de escape en el código generado,
+                // y eliminar \\\ sobrantes.
+                text = text.Replace("\"", "'");
+
+                text = text.Replace("/// ", string.Empty).Replace("///", string.Empty);
+
+                // 4: colapsar whitespace de summaries multilínea
                 text = Regex.Replace(text, @"\s+", " ").Trim();
 
                 return string.IsNullOrWhiteSpace(text) ? null : text;
@@ -940,8 +950,8 @@ internal static class Emitter
             sb.AppendLine("        new(");
             sb.AppendLine($"            ParameterName:        \"{p.Name}\",");
             sb.AppendLine($"            ParameterType:        \"{p.Type}\",");
-            sb.AppendLine($"            ParameterDefault:     {Literal(p.Default)},");
-            sb.AppendLine($"            ParameterDescription: {Literal(p.Description)}");
+            sb.AppendLine($"            ParameterDefault:     {LiteralDefault(p.Default)},");
+            sb.AppendLine($"            ParameterDescription: {LiteralDescription(p.Description)}");
             sb.AppendLine("        ),");
         }
 
@@ -951,8 +961,38 @@ internal static class Emitter
         return sb.ToString();
     }
 
-    private static string Literal(string? value)
-        => value is null
-            ? "null"
-            : $"\"{value.Replace("\\", "\\\\").Replace("\"", "\\\"")}\"";
+    private static string LiteralDefault(string? value)
+    {
+        //if (type.Equals("string?", StringComparison.OrdinalIgnoreCase)
+        //    || type.Equals("string", StringComparison.OrdinalIgnoreCase))
+        //{
+        //    return value is null
+        //        ? "null"
+        //        : $"@{value}";
+        //}
+
+        if (value is null)
+        {
+            return "null";
+        }
+
+        // Collapse any whitespace (including newlines from multiline initialisers)
+        string normalised = Regex.Replace(value, @"\s+", " ").Trim();
+
+        return $"\"{normalised.Replace("\\", "\\\\").Replace("\"", "\\\"")}\"";
+    }
+
+    private static string LiteralDescription(string? value)
+    {
+        if (value is null)
+        {
+            return "null";
+        }
+
+        // Collapse any whitespace (including newlines from multiline initialisers)
+        string normalised = Regex.Replace(value, @"\s+", " ").Trim();
+
+        return $"\"{normalised.Replace("\\", "\\\\").Replace("\"", "\\\"")}\"";
+    }
+    //: $"@\"{value.Replace("\\", "\\\\").Replace("\"", "\\\"")}\"";
 }

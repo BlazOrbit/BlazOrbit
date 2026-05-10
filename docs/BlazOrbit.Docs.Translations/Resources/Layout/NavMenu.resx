@@ -192,6 +192,39 @@
   <data name="Tabs" xml:space="preserve">
     <value>Tabs</value>
   </data>
+  <data name="Breadcrumbs" xml:space="preserve">
+    <value>Breadcrumbs</value>
+  </data>
+  <data name="Timeline" xml:space="preserve">
+    <value>Timeline</value>
+  </data>
+  <data name="Stepper" xml:space="preserve">
+    <value>Stepper</value>
+  </data>
+  <data name="Aspect Ratio" xml:space="preserve">
+    <value>Aspect Ratio</value>
+  </data>
+  <data name="Container" xml:space="preserve">
+    <value>Container</value>
+  </data>
+  <data name="Page Header" xml:space="preserve">
+    <value>Page Header</value>
+  </data>
+  <data name="Splitter" xml:space="preserve">
+    <value>Splitter</value>
+  </data>
+  <data name="Services" xml:space="preserve">
+    <value>Services</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirm</value>
+  </data>
+  <data name="Hotkey" xml:space="preserve">
+    <value>Hotkey</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
   <data name="Card" xml:space="preserve">
     <value>Card</value>
   </data>
@@ -284,5 +317,41 @@
   </data>
   <data name="Range Slider" xml:space="preserve">
     <value>Range Slider</value>
+  </data>
+  <data name="OTP" xml:space="preserve">
+    <value>OTP</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
+  </data>
+  <data name="AutoComplete" xml:space="preserve">
+    <value>AutoComplete</value>
+  </data>
+  <data name="Date Range" xml:space="preserve">
+    <value>Date Range</value>
+  </data>
+  <data name="File Upload" xml:space="preserve">
+    <value>File Upload</value>
+  </data>
+  <data name="Display" xml:space="preserve">
+    <value>Display</value>
+  </data>
+  <data name="Banner" xml:space="preserve">
+    <value>Banner</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>Rating</value>
+  </data>
+  <data name="Stat Card" xml:space="preserve">
+    <value>Stat Card</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>Progress</value>
+  </data>
+  <data name="Chip" xml:space="preserve">
+    <value>Chip</value>
+  </data>
+  <data name="Avatar" xml:space="preserve">
+    <value>Avatar</value>
   </data>
 </root>

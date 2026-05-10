@@ -1,3 +1,4 @@
+using BlazOrbit.Charts.Services;
 ﻿using BlazOrbit.Docs.Wasm;
 using BlazOrbit.Docs.Wasm.Services;
 using Microsoft.AspNetCore.Components.Web;
@@ -11,6 +12,16 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
 builder.Services.AddBlazOrbit();
+builder.Services.AddBlazOrbitCharts();
+// Opt every BOBDataGrid / BOBDataCards instance with a PersistenceKey in to
+// localStorage-backed state persistence — the docs site uses it for the State Persistence
+// demo so reloading the page restores the user's filter / sort / column order.
+builder.Services.AddBlazOrbitDataCollectionLocalStorage();
+// Hotkeys: per-component registrations (e.g. Ctrl+K for the DocSearch trigger) live
+// inside the component itself so they auto-dispose with the page. Program.cs is the
+// place to declare app-wide shortcuts that survive across pages.
+builder.Services.AddBlazOrbitHotkeys();
+builder.Services.AddBlazOrbitNotifications();
 
 builder.Services.AddBlazOrbitLocalizationWasm(options =>
 {

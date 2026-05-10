@@ -65,7 +65,10 @@ public class DesignTokensGenerator : IAssetGenerator
     /* ========================================
        INPUT FAMILY
        ======================================== */
-    {{FeatureDefinitions.Tokens.Input.Radius}}: {{FeatureDefinitions.Tokens.Input.RadiusValue}};
+    {{FeatureDefinitions.Tokens.Input.BorderWidth}}: {{FeatureDefinitions.Tokens.Input.BorderWidthValue}};
+    {{FeatureDefinitions.Tokens.Input.BorderStyle}}: {{FeatureDefinitions.Tokens.Input.BorderStyleValue}};
+    {{FeatureDefinitions.Tokens.Input.BorderColor}}: {{FeatureDefinitions.Tokens.Input.BorderColorValue}};
+    {{FeatureDefinitions.Tokens.Input.BorderRadius}}: {{FeatureDefinitions.Tokens.Input.BorderRadiusValue}};
     {{FeatureDefinitions.Tokens.Input.TransitionDuration}}: {{FeatureDefinitions.Tokens.Input.TransitionDurationValue}};
     {{FeatureDefinitions.Tokens.Input.TransitionEasing}}: {{FeatureDefinitions.Tokens.Input.TransitionEasingValue}};
     {{FeatureDefinitions.Tokens.Input.FloatedScale}}: {{FeatureDefinitions.Tokens.Input.FloatedScaleValue}};
@@ -74,6 +77,7 @@ public class DesignTokensGenerator : IAssetGenerator
        PICKER FAMILY
        ======================================== */
     {{FeatureDefinitions.Tokens.Picker.Radius}}: {{FeatureDefinitions.Tokens.Picker.RadiusValue}};
+    {{FeatureDefinitions.Tokens.Picker.BorderColor}}: {{FeatureDefinitions.Tokens.Picker.BorderColorValue}};
     {{FeatureDefinitions.Tokens.Picker.CellSize}}: {{FeatureDefinitions.Tokens.Picker.CellSizeValue}};
     {{FeatureDefinitions.Tokens.Picker.Padding}}: {{FeatureDefinitions.Tokens.Picker.PaddingValue}};
 }

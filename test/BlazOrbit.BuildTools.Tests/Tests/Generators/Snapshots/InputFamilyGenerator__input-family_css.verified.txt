@@ -17,7 +17,7 @@ bob-component[data-bob-input-base] {
     --_input-h: calc(3.5rem * var(--bob-size-multiplier, 1));
     --_input-px: 1rem;
     --_input-py: 0.75rem;
-    --_input-radius: var(--bob-input-radius);
+    --_input-radius: var(--bob-input-border-radius);
     --_input-transition: var(--bob-input-transition-duration) var(--bob-input-transition-easing);
     --_input-scale: var(--bob-input-floated-scale);
     --_input-floated-size: calc(1rem * var(--_input-scale) * var(--bob-size-multiplier, 1));
@@ -26,8 +26,9 @@ bob-component[data-bob-input-base] {
     --_input-focus-color: var(--palette-highlight);
     --_input-error-color: var(--palette-error);
 
-    --_input-border-color: var(--palette-border);
-    --_input-border-width: 1px;
+    --_input-border-color: var(--bob-input-border-color);
+    --_input-border-width: var(--bob-input-border-width);
+    --_input-border-style: var(--bob-input-border-style);
 
     --_wrapper-bg: var(--bob-inline-background, transparent);
     --_wrapper-radius: var(--_input-radius);
@@ -98,7 +99,7 @@ bob-component[data-bob-input-base] .bob-input__outline {
 
 bob-component[data-bob-input-base] .bob-input__outline-leading {
     width: var(--_outline-leading-width);
-    border: var(--_input-border-width) solid var(--_input-border-color);
+    border: var(--_input-border-width) var(--_input-border-style) var(--_input-border-color);
     border-inline-end: none;
     border-radius: var(--_input-radius) 0 0 var(--_input-radius);
     transition: border-color var(--_input-transition), border-width var(--_input-transition);
@@ -108,14 +109,14 @@ bob-component[data-bob-input-base] .bob-input__outline-notch {
     position: relative;
     display: flex;
     flex-direction: column;
-    border-block-start: var(--_input-border-width) solid var(--_input-border-color);
-    border-block-end: var(--_input-border-width) solid var(--_input-border-color);
+    border-block-start: var(--_input-border-width) var(--_input-border-style) var(--_input-border-color);
+    border-block-end: var(--_input-border-width) var(--_input-border-style) var(--_input-border-color);
     transition: border-color var(--_input-transition), border-width var(--_input-transition);
 }
 
 bob-component[data-bob-input-base] .bob-input__outline-trailing {
     flex: 1;
-    border: var(--_input-border-width) solid var(--_input-border-color);
+    border: var(--_input-border-width) var(--_input-border-style) var(--_input-border-color);
     border-inline-start: none;
     border-radius: 0 var(--_input-radius) var(--_input-radius) 0;
     transition: border-color var(--_input-transition), border-width var(--_input-transition);
@@ -181,7 +182,7 @@ bob-component[data-bob-input-base] .bob-input__addon--prefix {
     color: var(--_input-prefix-color);
     background-color: var(--_input-prefix-bg);
     border-inline-start: none;
-    border-inline-end: 1px solid var(--_input-border-color);
+    border-inline-end: var(--_input-border-width) var(--_input-border-style) var(--_input-border-color);
 }
 
 bob-component[data-bob-input-base]:has(.bob-input__addon--prefix) {
@@ -197,7 +198,7 @@ bob-component[data-bob-input-base] .bob-input__addon--suffix {
     order: 1;
     color: var(--_input-suffix-color);
     background-color: var(--_input-suffix-bg);
-    border-inline-start: 1px solid var(--_input-border-color);
+    border-inline-start: var(--_input-border-width) var(--_input-border-style) var(--_input-border-color);
     border-inline-end: none;
 }
 
@@ -280,7 +281,7 @@ bob-component[data-bob-input-base][data-bob-variant="filled"]:has(.bob-input__la
 bob-component[data-bob-input-base][data-bob-variant="filled"] .bob-input__outline-leading,
 bob-component[data-bob-input-base][data-bob-variant="filled"] .bob-input__outline-trailing {
     border: none;
-    border-block-end: var(--_input-border-width) solid var(--_input-border-color);
+    border-block-end: var(--_input-border-width) var(--_input-border-style) var(--_input-border-color);
     border-radius: 0;
 }
 
@@ -342,7 +343,7 @@ bob-component[data-bob-input-base][data-bob-variant="standard"]:has(.bob-input__
 /* Outline: only bottom border */
 bob-component[data-bob-input-base][data-bob-variant="standard"] .bob-input__outline-leading {
     border: none;
-    border-block-end: var(--_input-border-width) solid var(--_input-border-color);
+    border-block-end: var(--_input-border-width) var(--_input-border-style) var(--_input-border-color);
     border-radius: 0;
 }
 
@@ -353,7 +354,7 @@ bob-component[data-bob-input-base][data-bob-variant="standard"] .bob-input__outl
 
 bob-component[data-bob-input-base][data-bob-variant="standard"] .bob-input__outline-trailing {
     border: none;
-    border-block-end: var(--_input-border-width) solid var(--_input-border-color);
+    border-block-end: var(--_input-border-width) var(--_input-border-style) var(--_input-border-color);
     border-radius: 0;
 }
 

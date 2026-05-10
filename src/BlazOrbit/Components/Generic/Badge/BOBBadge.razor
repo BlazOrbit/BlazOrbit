@@ -1,4 +1,4 @@
-@using BlazOrbit.Abstractions
+﻿@using BlazOrbit.Abstractions
 @namespace BlazOrbit.Components
 @attribute [GenerateComponentInfo]
 
@@ -27,11 +27,11 @@
     [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
 
     // IHasColor
-    /// <summary>Text color of the badge. Accepts any valid CSS color value.</summary>
+    /// <summary>Text color of the badge. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? Color { get; set; }
 
     // IHasBackgroundColor
-    /// <summary>Background color of the badge. Accepts any valid CSS color value.</summary>
+    /// <summary>Background color of the badge. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? BackgroundColor { get; set; }
 
     // IHasBorder

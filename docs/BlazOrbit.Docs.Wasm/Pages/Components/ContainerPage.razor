@@ -1,0 +1,41 @@
+@page "/components/layout/container"
+
+@using BlazOrbit.Components.Layout
+
+@inject IStringLocalizer<ContainerPage> Loc
+
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBContainer / BOBSection"]"
+         Lede="@Loc["Semantic max-width wrappers with shared container size tiers."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBContainer)">
+
+    <DocDemo Key="Container" Title="@Loc["Container sizes"]">
+        @foreach (BOBContainerSize size in System.Enum.GetValues<BOBContainerSize>())
+        {
+            <BOBContainer Size="@size">
+                <div class="doc-demo__placeholder">@size</div>
+            </BOBContainer>
+        }
+    </DocDemo>
+
+    <DocDemo Key="Section" Title="@Loc["Section with title + lead"]">
+        <BOBSection Title="@Loc["Pricing"]" Size="BOBContainerSize.Medium">
+            <Lead>@Loc["Pick the plan that fits your team."]</Lead>
+            <ChildContent>
+                <p>@Loc["Section body content lives here."]</p>
+            </ChildContent>
+        </BOBSection>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Container properties"]</h2>
+        <PropertyTable Properties="@BOBContainerComponentInfo.Parameters" />
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Section properties"]</h2>
+        <PropertyTable Properties="@BOBSectionComponentInfo.Parameters" />
+    </section>
+
+</DocPage>

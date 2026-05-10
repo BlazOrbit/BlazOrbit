@@ -49,6 +49,102 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `Id` | `string` | `BOBAccordionItem` |
 | `InitiallyExpanded` | `bool` | `BOBAccordionItem` |
 
+## `BOBAspectRatio`
+
+- **Namespace**: `BlazOrbit.Components.Layout`
+- **Base**: `BOBComponentBase`
+
+### Parameters
+
+| Parameter | Type | Declared on |
+|-----------|------|-------------|
+| `AdditionalAttributes` | `IReadOnlyDictionary<string, object>` | `BOBComponentBase` |
+| `ChildContent` | `RenderFragment` | `BOBAspectRatio` |
+| `Ratio` | `string` | `BOBAspectRatio` |
+
+## `BOBAutoComplete<TItem>`
+
+- **Namespace**: `BlazOrbit.Components.Forms`
+- **Base**: `BOBInputComponentBase<TItem, BOBAutoComplete<TItem>, BOBInputVariant>`
+- **Implements**: `IHasBackgroundColor`, `IHasColor`, `IHasDensity`, `IHasDisabled`, `IHasError`, `IHasLoading`, `IHasPrefix`, `IHasReadOnly`, `IHasRequired`, `IHasShadow`, `IHasSize`, `IHasSuffix`, `IInputFamilyComponent`
+
+### Parameters
+
+| Parameter | Type | Declared on |
+|-----------|------|-------------|
+| `AdditionalAttributes` | `IReadOnlyDictionary<string, object>` | `InputBase` |
+| `BackgroundColor` | `string` | `BOBAutoComplete` |
+| `Color` | `string` | `BOBAutoComplete` |
+| `DebounceMs` | `int` | `BOBAutoComplete` |
+| `Density` | `BOBDensity` | `BOBAutoComplete` |
+| `Disabled` | `bool` | `BOBInputComponentBase` |
+| `DisplayName` | `string` | `InputBase` |
+| `Error` | `bool` | `BOBInputComponentBase` |
+| `HelperText` | `string` | `BOBAutoComplete` |
+| `ItemTemplate` | `RenderFragment<TItem>` | `BOBAutoComplete` |
+| `ItemText` | `Func<TItem, string>` | `BOBAutoComplete` |
+| `Label` | `string` | `BOBAutoComplete` |
+| `Loading` | `bool` | `BOBAutoComplete` |
+| `LoadingIndicatorVariant` | `BOBProgressIconVariant` | `BOBAutoComplete` |
+| `MinSearchLength` | `int` | `BOBAutoComplete` |
+| `NoResultsTemplate` | `RenderFragment<string>` | `BOBAutoComplete` |
+| `OnSelected` | `EventCallback<TItem>` | `BOBAutoComplete` |
+| `Placeholder` | `string` | `BOBAutoComplete` |
+| `PrefixBackgroundColor` | `string` | `BOBAutoComplete` |
+| `PrefixColor` | `string` | `BOBAutoComplete` |
+| `PrefixIcon` | `IconKey?` | `BOBAutoComplete` |
+| `PrefixText` | `string` | `BOBAutoComplete` |
+| `ReadOnly` | `bool` | `BOBInputComponentBase` |
+| `Required` | `bool` | `BOBInputComponentBase` |
+| `SearchAsync` | `Func<string, CancellationToken, Task<IEnumerable<TItem>>>` | `BOBAutoComplete` |
+| `Shadow` | `ShadowStyle` | `BOBAutoComplete` |
+| `Size` | `BOBSize` | `BOBAutoComplete` |
+| `SuffixBackgroundColor` | `string` | `BOBAutoComplete` |
+| `SuffixColor` | `string` | `BOBAutoComplete` |
+| `SuffixIcon` | `IconKey?` | `BOBAutoComplete` |
+| `SuffixText` | `string` | `BOBAutoComplete` |
+| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
+| `Value` | `TItem` | `InputBase` |
+| `ValueChanged` | `EventCallback<TItem>` | `InputBase` |
+| `ValueExpression` | `Expression<Func<TItem>>` | `InputBase` |
+| `Variant` | `BOBInputVariant` | `BOBInputComponentBase` |
+
+## `BOBAvatar`
+
+- **Namespace**: `BlazOrbit.Components.Display`
+- **Base**: `BOBComponentBase`
+- **Implements**: `IHasSize`
+
+### Parameters
+
+| Parameter | Type | Declared on |
+|-----------|------|-------------|
+| `AdditionalAttributes` | `IReadOnlyDictionary<string, object>` | `BOBComponentBase` |
+| `AriaLabel` | `string` | `BOBAvatar` |
+| `ChildContent` | `RenderFragment` | `BOBAvatar` |
+| `ImageUrl` | `string` | `BOBAvatar` |
+| `Label` | `string` | `BOBAvatar` |
+| `Shape` | `BOBAvatarShape` | `BOBAvatar` |
+| `Size` | `BOBSize` | `BOBAvatar` |
+| `Status` | `BOBAvatarStatus` | `BOBAvatar` |
+
+## `BOBAvatarGroup`
+
+- **Namespace**: `BlazOrbit.Components.Display`
+- **Base**: `BOBComponentBase`
+- **Implements**: `IHasSize`
+
+### Parameters
+
+| Parameter | Type | Declared on |
+|-----------|------|-------------|
+| `AdditionalAttributes` | `IReadOnlyDictionary<string, object>` | `BOBComponentBase` |
+| `AriaLabel` | `string` | `BOBAvatarGroup` |
+| `ChildContent` | `RenderFragment` | `BOBAvatarGroup` |
+| `MaxVisible` | `int` | `BOBAvatarGroup` |
+| `Size` | `BOBSize` | `BOBAvatarGroup` |
+| `TotalOverride` | `int?` | `BOBAvatarGroup` |
+
 ## `BOBBadge`
 
 - **Namespace**: `BlazOrbit.Components`
@@ -69,6 +165,29 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `Size` | `BOBSize` | `BOBBadge` |
 | `Variant` | `BOBBadgeVariant` | `BOBVariantComponentBase` |
 
+## `BOBBanner`
+
+- **Namespace**: `BlazOrbit.Components.Display`
+- **Base**: `BOBComponentBase`
+- **Implements**: `IHasSize`
+
+### Parameters
+
+| Parameter | Type | Declared on |
+|-----------|------|-------------|
+| `Actions` | `RenderFragment` | `BOBBanner` |
+| `AdditionalAttributes` | `IReadOnlyDictionary<string, object>` | `BOBComponentBase` |
+| `ChildContent` | `RenderFragment` | `BOBBanner` |
+| `Dismissible` | `bool` | `BOBBanner` |
+| `DismissText` | `string` | `BOBBanner` |
+| `Icon` | `IconKey?` | `BOBBanner` |
+| `Message` | `string` | `BOBBanner` |
+| `OnDismissed` | `EventCallback` | `BOBBanner` |
+| `Severity` | `BOBBannerSeverity` | `BOBBanner` |
+| `ShowIcon` | `bool` | `BOBBanner` |
+| `Size` | `BOBSize` | `BOBBanner` |
+| `Title` | `string` | `BOBBanner` |
+
 ## `BOBBlazorLayout`
 
 - **Namespace**: `BlazOrbit.Components.Layout`
@@ -79,6 +198,24 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | Parameter | Type | Declared on |
 |-----------|------|-------------|
 | `Body` | `RenderFragment` | `LayoutComponentBase` |
+
+## `BOBBreadcrumbs`
+
+- **Namespace**: `BlazOrbit.Components.Navigation`
+- **Base**: `BOBComponentBase`
+- **Implements**: `IHasSize`
+
+### Parameters
+
+| Parameter | Type | Declared on |
+|-----------|------|-------------|
+| `AdditionalAttributes` | `IReadOnlyDictionary<string, object>` | `BOBComponentBase` |
+| `AriaLabel` | `string` | `BOBBreadcrumbs` |
+| `Items` | `IReadOnlyList<BreadcrumbItem>` | `BOBBreadcrumbs` |
+| `ItemTemplate` | `RenderFragment<BreadcrumbItem>` | `BOBBreadcrumbs` |
+| `MaxVisible` | `int` | `BOBBreadcrumbs` |
+| `Separator` | `RenderFragment` | `BOBBreadcrumbs` |
+| `Size` | `BOBSize` | `BOBBreadcrumbs` |
 
 ## `BOBButton`
 
@@ -102,7 +239,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `FullWidth` | `bool` | `BOBButton` |
 | `LeadingIcon` | `IconKey?` | `BOBButton` |
 | `Loading` | `bool` | `BOBButton` |
-| `LoadingIndicatorVariant` | `BOBLoadingIndicatorVariant` | `BOBButton` |
+| `LoadingIndicatorVariant` | `BOBProgressIconVariant` | `BOBButton` |
 | `OnClick` | `EventCallback<MouseEventArgs>` | `BOBButton` |
 | `RippleColor` | `string` | `BOBButton` |
 | `RippleDurationMs` | `int?` | `BOBButton` |
@@ -185,23 +322,33 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `AriaLabel` | `string` | `BOBCarouselItem` |
 | `ChildContent` | `RenderFragment` | `BOBCarouselItem` |
 
-## `BOBCodeBlock`
+## `BOBChip`
 
-- **Namespace**: `BlazOrbit.Components`
+- **Namespace**: `BlazOrbit.Components.Display`
 - **Base**: `BOBComponentBase`
-- **Implements**: `IHasBackgroundColor`, `IHasBorder`, `IHasSize`
+- **Implements**: `IHasActive`, `IHasColor`, `IHasDisabled`, `IHasSize`
 
 ### Parameters
 
 | Parameter | Type | Declared on |
 |-----------|------|-------------|
+| `Active` | `bool` | `BOBChip` |
 | `AdditionalAttributes` | `IReadOnlyDictionary<string, object>` | `BOBComponentBase` |
-| `BackgroundColor` | `string` | `BOBCodeBlock` |
-| `Border` | `BorderStyle` | `BOBCodeBlock` |
-| `Code` | `string` | `BOBCodeBlock` |
-| `Language` | `SyntaxHighlightLanguage` | `BOBCodeBlock` |
-| `Size` | `BOBSize` | `BOBCodeBlock` |
-| `Title` | `string` | `BOBCodeBlock` |
+| `ChildContent` | `RenderFragment` | `BOBChip` |
+| `Clickable` | `bool` | `BOBChip` |
+| `Color` | `string` | `BOBChip` |
+| `Count` | `int?` | `BOBChip` |
+| `Disabled` | `bool` | `BOBChip` |
+| `Label` | `string` | `BOBChip` |
+| `LeadingIcon` | `IconKey?` | `BOBChip` |
+| `OnClick` | `EventCallback` | `BOBChip` |
+| `OnRemoved` | `EventCallback` | `BOBChip` |
+| `Removable` | `bool` | `BOBChip` |
+| `RemoveText` | `string` | `BOBChip` |
+| `Selectable` | `bool` | `BOBChip` |
+| `Selected` | `bool` | `BOBChip` |
+| `SelectedChanged` | `EventCallback<bool>` | `BOBChip` |
+| `Size` | `BOBSize` | `BOBChip` |
 
 ## `BOBColorPicker`
 
@@ -221,6 +368,19 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `Value` | `CssColor` | `BOBColorPicker` |
 | `ValueChanged` | `EventCallback<CssColor>` | `BOBColorPicker` |
 
+## `BOBContainer`
+
+- **Namespace**: `BlazOrbit.Components.Layout`
+- **Base**: `BOBComponentBase`
+
+### Parameters
+
+| Parameter | Type | Declared on |
+|-----------|------|-------------|
+| `AdditionalAttributes` | `IReadOnlyDictionary<string, object>` | `BOBComponentBase` |
+| `ChildContent` | `RenderFragment` | `BOBContainer` |
+| `Size` | `BOBContainerSize` | `BOBContainer` |
+
 ## `BOBDataCards<TItem>`
 
 - **Namespace**: `BlazOrbit.Components`
@@ -234,6 +394,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `AdditionalAttributes` | `IReadOnlyDictionary<string, object>` | `BOBComponentBase` |
 | `BackgroundColor` | `string` | `BOBDataCollectionBase` |
 | `Border` | `BorderStyle` | `BOBDataCollectionBase` |
+| `BulkActions` | `IReadOnlyList<DataCollectionBulkAction<TItem>>` | `BOBDataCollectionBase` |
 | `CardBackground` | `string` | `BOBDataCards` |
 | `CardBorder` | `BorderStyle` | `BOBDataCards` |
 | `CardFooterTemplate` | `RenderFragment<TItem>` | `BOBDataCards` |
@@ -244,10 +405,13 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `ColumnsCount` | `int` | `BOBDataCards` |
 | `CustomFilter` | `Func<TItem, string, bool>` | `BOBDataCollectionBase` |
 | `DefaultSortColumn` | `string` | `BOBDataCollectionBase` |
-| `DefaultSortDirection` | `SortDirection?` | `BOBDataCollectionBase` |
+| `DefaultSortDirection` | `SortDirection` | `BOBDataCollectionBase` |
 | `Density` | `BOBDensity` | `BOBDataCollectionBase` |
+| `EmptyActionTemplate` | `RenderFragment` | `BOBDataCollectionBase` |
 | `EmptyContent` | `RenderFragment` | `BOBDataCollectionBase` |
 | `EnableVirtualization` | `bool` | `BOBDataCollectionBase` |
+| `Error` | `string` | `BOBDataCollectionBase` |
+| `ErrorContent` | `RenderFragment` | `BOBDataCollectionBase` |
 | `Filterable` | `bool` | `BOBDataCollectionBase` |
 | `FilterPlaceholder` | `string` | `BOBDataCollectionBase` |
 | `Gap` | `string` | `BOBDataCards` |
@@ -257,6 +421,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `Items` | `IEnumerable<TItem>` | `BOBDataCollectionBase` |
 | `Loading` | `bool` | `BOBDataCollectionBase` |
 | `LoadingContent` | `RenderFragment` | `BOBDataCollectionBase` |
+| `LoadingMode` | `LoadingMode` | `BOBDataCollectionBase` |
 | `MinCardWidth` | `string` | `BOBDataCards` |
 | `OnFilter` | `EventCallback<DataCollectionFilterEventArgs>` | `BOBDataCollectionBase` |
 | `OnPageChange` | `EventCallback<DataCollectionPageChangeEventArgs>` | `BOBDataCollectionBase` |
@@ -264,6 +429,8 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `OnSort` | `EventCallback<DataCollectionSortEventArgs>` | `BOBDataCollectionBase` |
 | `PageSize` | `int?` | `BOBDataCollectionBase` |
 | `PageSizeOptions` | `int[]` | `BOBDataCollectionBase` |
+| `RowActions` | `IReadOnlyList<DataCollectionRowAction<TItem>>` | `BOBDataCollectionBase` |
+| `RowDetailTemplate` | `RenderFragment<TItem>` | `BOBDataCollectionBase` |
 | `SelectedItems` | `HashSet<TItem>` | `BOBDataCollectionBase` |
 | `SelectedItemsChanged` | `EventCallback<HashSet<TItem>>` | `BOBDataCollectionBase` |
 | `SelectionMode` | `SelectionMode` | `BOBDataCollectionBase` |
@@ -271,6 +438,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `ShowPageSizeSelector` | `bool` | `BOBDataCollectionBase` |
 | `Size` | `BOBSize` | `BOBDataCollectionBase` |
 | `Sortable` | `bool` | `BOBDataCollectionBase` |
+| `SortAppendBehavior` | `SortAppendBehavior` | `BOBDataCollectionBase` |
 | `Variant` | `DataCardsVariant` | `BOBVariantComponentBase` |
 
 ## `BOBDataColumn<TItem>`
@@ -282,8 +450,12 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 | Parameter | Type | Declared on |
 |-----------|------|-------------|
+| `Aggregate` | `AggregateFunction` | `BOBDataColumn` |
+| `AggregateFormat` | `string` | `BOBDataColumn` |
+| `AggregateLabel` | `string` | `BOBDataColumn` |
 | `Align` | `ColumnAlign` | `BOBDataColumn` |
 | `CellClass` | `string` | `BOBDataColumn` |
+| `CustomAggregate` | `Func<IEnumerable<TItem>, object>` | `BOBDataColumn` |
 | `CustomComparer` | `Func<TItem, TItem, int>` | `BOBDataColumn` |
 | `CustomFilter` | `Func<TItem, string, bool>` | `BOBDataColumn` |
 | `Filterable` | `bool` | `BOBDataColumn` |
@@ -310,14 +482,18 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `AdditionalAttributes` | `IReadOnlyDictionary<string, object>` | `BOBComponentBase` |
 | `BackgroundColor` | `string` | `BOBDataCollectionBase` |
 | `Border` | `BorderStyle` | `BOBDataCollectionBase` |
+| `BulkActions` | `IReadOnlyList<DataCollectionBulkAction<TItem>>` | `BOBDataCollectionBase` |
 | `CellBorder` | `BorderStyle` | `BOBDataGrid` |
 | `Columns` | `RenderFragment` | `BOBDataCollectionBase` |
 | `CustomFilter` | `Func<TItem, string, bool>` | `BOBDataCollectionBase` |
 | `DefaultSortColumn` | `string` | `BOBDataCollectionBase` |
-| `DefaultSortDirection` | `SortDirection?` | `BOBDataCollectionBase` |
+| `DefaultSortDirection` | `SortDirection` | `BOBDataCollectionBase` |
 | `Density` | `BOBDensity` | `BOBDataCollectionBase` |
+| `EmptyActionTemplate` | `RenderFragment` | `BOBDataCollectionBase` |
 | `EmptyContent` | `RenderFragment` | `BOBDataCollectionBase` |
 | `EnableVirtualization` | `bool` | `BOBDataCollectionBase` |
+| `Error` | `string` | `BOBDataCollectionBase` |
+| `ErrorContent` | `RenderFragment` | `BOBDataCollectionBase` |
 | `Filterable` | `bool` | `BOBDataCollectionBase` |
 | `FilterPlaceholder` | `string` | `BOBDataCollectionBase` |
 | `FixedHeader` | `bool` | `BOBDataGrid` |
@@ -328,13 +504,16 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `Items` | `IEnumerable<TItem>` | `BOBDataCollectionBase` |
 | `Loading` | `bool` | `BOBDataCollectionBase` |
 | `LoadingContent` | `RenderFragment` | `BOBDataCollectionBase` |
+| `LoadingMode` | `LoadingMode` | `BOBDataCollectionBase` |
 | `OnFilter` | `EventCallback<DataCollectionFilterEventArgs>` | `BOBDataCollectionBase` |
 | `OnPageChange` | `EventCallback<DataCollectionPageChangeEventArgs>` | `BOBDataCollectionBase` |
 | `OnRowClick` | `EventCallback<TItem>` | `BOBDataCollectionBase` |
 | `OnSort` | `EventCallback<DataCollectionSortEventArgs>` | `BOBDataCollectionBase` |
 | `PageSize` | `int?` | `BOBDataCollectionBase` |
 | `PageSizeOptions` | `int[]` | `BOBDataCollectionBase` |
+| `RowActions` | `IReadOnlyList<DataCollectionRowAction<TItem>>` | `BOBDataCollectionBase` |
 | `RowBorder` | `BorderStyle` | `BOBDataGrid` |
+| `RowDetailTemplate` | `RenderFragment<TItem>` | `BOBDataCollectionBase` |
 | `RowTemplate` | `RenderFragment<TItem>` | `BOBDataGrid` |
 | `SelectedItems` | `HashSet<TItem>` | `BOBDataCollectionBase` |
 | `SelectedItemsChanged` | `EventCallback<HashSet<TItem>>` | `BOBDataCollectionBase` |
@@ -343,6 +522,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `ShowPageSizeSelector` | `bool` | `BOBDataCollectionBase` |
 | `Size` | `BOBSize` | `BOBDataCollectionBase` |
 | `Sortable` | `bool` | `BOBDataCollectionBase` |
+| `SortAppendBehavior` | `SortAppendBehavior` | `BOBDataCollectionBase` |
 | `Variant` | `DataGridVariant` | `BOBVariantComponentBase` |
 
 ## `BOBDatePicker`
@@ -473,7 +653,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `HelperText` | `string` | `BOBDropdownContainer` |
 | `Label` | `string` | `BOBDropdownContainer` |
 | `Loading` | `bool` | `BOBDropdownContainer` |
-| `LoadingIndicatorVariant` | `BOBLoadingIndicatorVariant` | `BOBDropdownContainer` |
+| `LoadingIndicatorVariant` | `BOBProgressIconVariant` | `BOBDropdownContainer` |
 | `MenuContent` | `RenderFragment` | `BOBDropdownContainer` |
 | `OnClosed` | `EventCallback` | `BOBDropdownContainer` |
 | `OnKeyboardNavigation` | `EventCallback<DropdownKeyboardEventArgs>` | `BOBDropdownContainer` |
@@ -704,7 +884,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `HelperText` | `string` | `BOBInputColor` |
 | `Label` | `string` | `BOBInputColor` |
 | `Loading` | `bool` | `BOBInputColor` |
-| `LoadingIndicatorVariant` | `BOBLoadingIndicatorVariant` | `BOBInputColor` |
+| `LoadingIndicatorVariant` | `BOBProgressIconVariant` | `BOBInputColor` |
 | `OutputFormat` | `ColorOutputFormats` | `BOBInputColor` |
 | `Placeholder` | `string` | `BOBInputColor` |
 | `PrefixBackgroundColor` | `string` | `BOBInputColor` |
@@ -727,6 +907,32 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `ValueExpression` | `Expression<Func<CssColor>>` | `InputBase` |
 | `Variant` | `BOBInputVariant` | `BOBInputComponentBase` |
 
+## `BOBInputDateRange`
+
+- **Namespace**: `BlazOrbit.Components.Forms`
+- **Base**: `BOBComponentBase`
+- **Implements**: `IHasDensity`, `IHasSize`, `IPickerFamilyComponent`
+
+### Parameters
+
+| Parameter | Type | Declared on |
+|-----------|------|-------------|
+| `AdditionalAttributes` | `IReadOnlyDictionary<string, object>` | `BOBComponentBase` |
+| `ClearText` | `string` | `BOBInputDateRange` |
+| `DaysText` | `string` | `BOBInputDateRange` |
+| `Density` | `BOBDensity` | `BOBInputDateRange` |
+| `EndLabel` | `string` | `BOBInputDateRange` |
+| `Label` | `string` | `BOBInputDateRange` |
+| `Last30DaysText` | `string` | `BOBInputDateRange` |
+| `Last7DaysText` | `string` | `BOBInputDateRange` |
+| `ShowPresets` | `bool` | `BOBInputDateRange` |
+| `ShowSummary` | `bool` | `BOBInputDateRange` |
+| `Size` | `BOBSize` | `BOBInputDateRange` |
+| `StartLabel` | `string` | `BOBInputDateRange` |
+| `ThisMonthText` | `string` | `BOBInputDateRange` |
+| `Value` | `DateRange` | `BOBInputDateRange` |
+| `ValueChanged` | `EventCallback<DateRange>` | `BOBInputDateRange` |
+
 ## `BOBInputDateTime<TValue>`
 
 - **Namespace**: `BlazOrbit.Components.Forms`
@@ -747,7 +953,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `HelperText` | `string` | `BOBInputDateTime` |
 | `Label` | `string` | `BOBInputDateTime` |
 | `Loading` | `bool` | `BOBInputDateTime` |
-| `LoadingIndicatorVariant` | `BOBLoadingIndicatorVariant` | `BOBInputDateTime` |
+| `LoadingIndicatorVariant` | `BOBProgressIconVariant` | `BOBInputDateTime` |
 | `PrefixBackgroundColor` | `string` | `BOBInputDateTime` |
 | `PrefixColor` | `string` | `BOBInputDateTime` |
 | `PrefixIcon` | `IconKey?` | `BOBInputDateTime` |
@@ -786,7 +992,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `HelperText` | `string` | `BOBInputDropdown` |
 | `IsLoading` | `bool` | `BOBInputDropdown` |
 | `Label` | `string` | `BOBInputDropdown` |
-| `LoadingIndicatorVariant` | `BOBLoadingIndicatorVariant` | `BOBInputDropdown` |
+| `LoadingIndicatorVariant` | `BOBProgressIconVariant` | `BOBInputDropdown` |
 | `NoOptionsTemplate` | `RenderFragment` | `BOBInputDropdown` |
 | `NoResultsTemplate` | `RenderFragment<NoResultsContext>` | `BOBInputDropdown` |
 | `Placeholder` | `string` | `BOBInputDropdown` |
@@ -833,7 +1039,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `Items` | `IEnumerable<TItem>` | `BOBInputDropdownTree` |
 | `KeySelector` | `Func<TItem, string>` | `BOBInputDropdownTree` |
 | `Label` | `string` | `BOBInputDropdownTree` |
-| `LoadingIndicatorVariant` | `BOBLoadingIndicatorVariant` | `BOBInputDropdownTree` |
+| `LoadingIndicatorVariant` | `BOBProgressIconVariant` | `BOBInputDropdownTree` |
 | `NodeTemplate` | `RenderFragment<TreeSelectionNode<TItem>>` | `BOBInputDropdownTree` |
 | `NoOptionsTemplate` | `RenderFragment` | `BOBInputDropdownTree` |
 | `OnLoadChildren` | `Func<TItem, Task<IEnumerable<TItem>>>` | `BOBInputDropdownTree` |
@@ -850,6 +1056,39 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `ValueExpression` | `Expression<Func<TValue>>` | `BOBInputDropdownTree` |
 | `Variant` | `BOBInputVariant` | `BOBInputDropdownTree` |
 
+## `BOBInputFile`
+
+- **Namespace**: `BlazOrbit.Components.Forms`
+- **Base**: `BOBComponentBase`
+- **Implements**: `IHasDensity`, `IHasSize`
+
+### Parameters
+
+| Parameter | Type | Declared on |
+|-----------|------|-------------|
+| `Accept` | `string` | `BOBInputFile` |
+| `AdditionalAttributes` | `IReadOnlyDictionary<string, object>` | `BOBComponentBase` |
+| `ChildContent` | `RenderFragment` | `BOBInputFile` |
+| `Density` | `BOBDensity` | `BOBInputFile` |
+| `Disabled` | `bool` | `BOBInputFile` |
+| `DisallowedTypeText` | `string` | `BOBInputFile` |
+| `DropZoneHint` | `string` | `BOBInputFile` |
+| `DropZoneText` | `string` | `BOBInputFile` |
+| `GeneratePreviews` | `bool` | `BOBInputFile` |
+| `HelperText` | `string` | `BOBInputFile` |
+| `Label` | `string` | `BOBInputFile` |
+| `MaxFiles` | `int` | `BOBInputFile` |
+| `MaxSize` | `long` | `BOBInputFile` |
+| `Multiple` | `bool` | `BOBInputFile` |
+| `OnFilesSelected` | `EventCallback<IReadOnlyList<IBrowserFile>>` | `BOBInputFile` |
+| `OnInvalid` | `EventCallback<IReadOnlyList<BOBFileValidationError>>` | `BOBInputFile` |
+| `OnRemoved` | `EventCallback<IBrowserFile>` | `BOBInputFile` |
+| `PreviewMaxBytes` | `long` | `BOBInputFile` |
+| `RemoveText` | `string` | `BOBInputFile` |
+| `Size` | `BOBSize` | `BOBInputFile` |
+| `TooLargeText` | `string` | `BOBInputFile` |
+| `TooManyFilesText` | `string` | `BOBInputFile` |
+
 ## `BOBInputLoading`
 
 - **Namespace**: `BlazOrbit.Components.Forms`
@@ -860,7 +1099,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | Parameter | Type | Declared on |
 |-----------|------|-------------|
 | `Loading` | `bool` | `BOBInputLoading` |
-| `LoadingIndicatorVariant` | `BOBLoadingIndicatorVariant` | `BOBInputLoading` |
+| `LoadingIndicatorVariant` | `BOBProgressIconVariant` | `BOBInputLoading` |
 | `Size` | `BOBSize` | `BOBInputLoading` |
 
 ## `BOBInputNumber<TValue>`
@@ -892,7 +1131,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `HelperText` | `string` | `BOBInputNumber` |
 | `Label` | `string` | `BOBInputNumber` |
 | `Loading` | `bool` | `BOBInputNumber` |
-| `LoadingIndicatorVariant` | `BOBLoadingIndicatorVariant` | `BOBInputNumber` |
+| `LoadingIndicatorVariant` | `BOBProgressIconVariant` | `BOBInputNumber` |
 | `Max` | `decimal?` | `BOBInputNumber` |
 | `Min` | `decimal?` | `BOBInputNumber` |
 | `OnDecrement` | `EventCallback<TValue>` | `BOBInputNumber` |
@@ -959,6 +1198,37 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `ValueLabelFormat` | `string` | `BOBInputNumberSlider` |
 | `Variant` | `BOBInputVariant` | `BOBInputComponentBase` |
 
+## `BOBInputOtp`
+
+- **Namespace**: `BlazOrbit.Components.Forms`
+- **Base**: `BOBInputComponentBase<string, BOBInputOtp, BOBInputOtpVariant>`
+- **Implements**: `IHasColor`, `IHasDensity`, `IHasDisabled`, `IHasError`, `IHasReadOnly`, `IHasRequired`, `IHasSize`
+
+### Parameters
+
+| Parameter | Type | Declared on |
+|-----------|------|-------------|
+| `AdditionalAttributes` | `IReadOnlyDictionary<string, object>` | `InputBase` |
+| `Color` | `string` | `BOBInputOtp` |
+| `Density` | `BOBDensity` | `BOBInputOtp` |
+| `Disabled` | `bool` | `BOBInputComponentBase` |
+| `DisplayName` | `string` | `InputBase` |
+| `Error` | `bool` | `BOBInputComponentBase` |
+| `HelperText` | `string` | `BOBInputOtp` |
+| `Label` | `string` | `BOBInputOtp` |
+| `Length` | `int` | `BOBInputOtp` |
+| `Mask` | `bool` | `BOBInputOtp` |
+| `Numeric` | `bool` | `BOBInputOtp` |
+| `OnComplete` | `EventCallback<string>` | `BOBInputOtp` |
+| `ReadOnly` | `bool` | `BOBInputComponentBase` |
+| `Required` | `bool` | `BOBInputComponentBase` |
+| `Size` | `BOBSize` | `BOBInputOtp` |
+| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
+| `Value` | `string` | `InputBase` |
+| `ValueChanged` | `EventCallback<string>` | `InputBase` |
+| `ValueExpression` | `Expression<Func<string>>` | `InputBase` |
+| `Variant` | `BOBInputOtpVariant` | `BOBInputComponentBase` |
+
 ## `BOBInputOutline`
 
 - **Namespace**: `BlazOrbit.Components.Forms`
@@ -971,6 +1241,54 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `For` | `string` | `BOBInputOutline` |
 | `Label` | `string` | `BOBInputOutline` |
 | `Required` | `bool` | `BOBInputOutline` |
+
+## `BOBInputPassword`
+
+- **Namespace**: `BlazOrbit.Components.Forms`
+- **Base**: `BOBInputComponentBase<string, BOBInputPassword, BOBInputVariant>`
+- **Implements**: `IHasBackgroundColor`, `IHasColor`, `IHasDensity`, `IHasDisabled`, `IHasError`, `IHasLoading`, `IHasPrefix`, `IHasReadOnly`, `IHasRequired`, `IHasShadow`, `IHasSize`, `IHasSuffix`, `IInputFamilyComponent`
+
+### Parameters
+
+| Parameter | Type | Declared on |
+|-----------|------|-------------|
+| `AdditionalAttributes` | `IReadOnlyDictionary<string, object>` | `InputBase` |
+| `BackgroundColor` | `string` | `BOBInputPassword` |
+| `Color` | `string` | `BOBInputPassword` |
+| `Density` | `BOBDensity` | `BOBInputPassword` |
+| `Disabled` | `bool` | `BOBInputComponentBase` |
+| `DisplayName` | `string` | `InputBase` |
+| `Error` | `bool` | `BOBInputComponentBase` |
+| `HelperText` | `string` | `BOBInputPassword` |
+| `Label` | `string` | `BOBInputPassword` |
+| `Loading` | `bool` | `BOBInputPassword` |
+| `LoadingIndicatorVariant` | `BOBProgressIconVariant` | `BOBInputPassword` |
+| `MinLength` | `int` | `BOBInputPassword` |
+| `OnInput` | `EventCallback<string>` | `BOBInputPassword` |
+| `OnInputDebounceMs` | `int` | `BOBInputPassword` |
+| `OnStrengthChanged` | `EventCallback<BOBPasswordStrength>` | `BOBInputPassword` |
+| `Placeholder` | `string` | `BOBInputPassword` |
+| `PrefixBackgroundColor` | `string` | `BOBInputPassword` |
+| `PrefixColor` | `string` | `BOBInputPassword` |
+| `PrefixIcon` | `IconKey?` | `BOBInputPassword` |
+| `PrefixText` | `string` | `BOBInputPassword` |
+| `ReadOnly` | `bool` | `BOBInputComponentBase` |
+| `Required` | `bool` | `BOBInputComponentBase` |
+| `Shadow` | `ShadowStyle` | `BOBInputPassword` |
+| `ShowStrengthMeter` | `bool` | `BOBInputPassword` |
+| `ShowVisibilityToggle` | `bool` | `BOBInputPassword` |
+| `Size` | `BOBSize` | `BOBInputPassword` |
+| `StrengthFlags` | `PasswordStrengthFlags` | `BOBInputPassword` |
+| `SuffixBackgroundColor` | `string` | `BOBInputPassword` |
+| `SuffixColor` | `string` | `BOBInputPassword` |
+| `SuffixIcon` | `IconKey?` | `BOBInputPassword` |
+| `SuffixText` | `string` | `BOBInputPassword` |
+| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
+| `UpdateOnInput` | `bool` | `BOBInputPassword` |
+| `Value` | `string` | `InputBase` |
+| `ValueChanged` | `EventCallback<string>` | `InputBase` |
+| `ValueExpression` | `Expression<Func<string>>` | `InputBase` |
+| `Variant` | `BOBInputVariant` | `BOBInputComponentBase` |
 
 ## `BOBInputPrefix`
 
@@ -1121,7 +1439,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `HelperText` | `string` | `BOBInputText` |
 | `Label` | `string` | `BOBInputText` |
 | `Loading` | `bool` | `BOBInputText` |
-| `LoadingIndicatorVariant` | `BOBLoadingIndicatorVariant` | `BOBInputText` |
+| `LoadingIndicatorVariant` | `BOBProgressIconVariant` | `BOBInputText` |
 | `OnInput` | `EventCallback<string>` | `BOBInputText` |
 | `OnInputDebounceMs` | `int` | `BOBInputText` |
 | `Placeholder` | `string` | `BOBInputText` |
@@ -1165,7 +1483,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `HelperText` | `string` | `BOBInputTextArea` |
 | `Label` | `string` | `BOBInputTextArea` |
 | `Loading` | `bool` | `BOBInputTextArea` |
-| `LoadingIndicatorVariant` | `BOBLoadingIndicatorVariant` | `BOBInputTextArea` |
+| `LoadingIndicatorVariant` | `BOBProgressIconVariant` | `BOBInputTextArea` |
 | `MaxLength` | `int?` | `BOBInputTextArea` |
 | `OnInput` | `EventCallback<string>` | `BOBInputTextArea` |
 | `OnInputDebounceMs` | `int` | `BOBInputTextArea` |
@@ -1190,22 +1508,6 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `ValueChanged` | `EventCallback<string>` | `InputBase` |
 | `ValueExpression` | `Expression<Func<string>>` | `InputBase` |
 | `Variant` | `BOBInputVariant` | `BOBInputComponentBase` |
-
-## `BOBLoadingIndicator`
-
-- **Namespace**: `BlazOrbit.Components`
-- **Base**: `BOBVariantComponentBase<BOBLoadingIndicator, BOBLoadingIndicatorVariant>`
-- **Implements**: `IHasColor`, `IHasSize`
-
-### Parameters
-
-| Parameter | Type | Declared on |
-|-----------|------|-------------|
-| `AdditionalAttributes` | `IReadOnlyDictionary<string, object>` | `BOBComponentBase` |
-| `AriaLabel` | `string` | `BOBLoadingIndicator` |
-| `Color` | `string` | `BOBLoadingIndicator` |
-| `Size` | `BOBSize` | `BOBLoadingIndicator` |
-| `Variant` | `BOBLoadingIndicatorVariant` | `BOBVariantComponentBase` |
 
 ## `BOBModalContainer`
 
@@ -1245,10 +1547,127 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `Size` | `BOBSize` | `BOBNotificationBadge` |
 | `Variant` | `BOBBadgeVariant` | `BOBVariantComponentBase` |
 
+## `BOBPageHeader`
+
+- **Namespace**: `BlazOrbit.Components.Layout`
+- **Base**: `BOBComponentBase`
+
+### Parameters
+
+| Parameter | Type | Declared on |
+|-----------|------|-------------|
+| `Actions` | `RenderFragment` | `BOBPageHeader` |
+| `AdditionalAttributes` | `IReadOnlyDictionary<string, object>` | `BOBComponentBase` |
+| `Breadcrumbs` | `RenderFragment` | `BOBPageHeader` |
+| `Eyebrow` | `RenderFragment` | `BOBPageHeader` |
+| `Lead` | `RenderFragment` | `BOBPageHeader` |
+| `Sticky` | `bool` | `BOBPageHeader` |
+| `Title` | `string` | `BOBPageHeader` |
+
 ## `BOBPerformanceDashboard`
 
 - **Namespace**: `BlazOrbit.Components.Diagnostics`
 - **Base**: `ComponentBase`
+
+## `BOBProgressBar`
+
+- **Namespace**: `BlazOrbit.Components.Display`
+- **Base**: `BOBComponentBase`
+- **Implements**: `IHasColor`, `IHasSize`
+
+### Parameters
+
+| Parameter | Type | Declared on |
+|-----------|------|-------------|
+| `AdditionalAttributes` | `IReadOnlyDictionary<string, object>` | `BOBComponentBase` |
+| `AriaLabel` | `string` | `BOBProgressBar` |
+| `Color` | `string` | `BOBProgressBar` |
+| `Indeterminate` | `bool` | `BOBProgressBar` |
+| `Label` | `string` | `BOBProgressBar` |
+| `Max` | `double` | `BOBProgressBar` |
+| `Min` | `double` | `BOBProgressBar` |
+| `Segments` | `int` | `BOBProgressBar` |
+| `ShowPercentage` | `bool` | `BOBProgressBar` |
+| `Size` | `BOBSize` | `BOBProgressBar` |
+| `Value` | `double` | `BOBProgressBar` |
+
+## `BOBProgressIcon`
+
+- **Namespace**: `BlazOrbit.Components`
+- **Base**: `BOBVariantComponentBase<BOBProgressIcon, BOBProgressIconVariant>`
+- **Implements**: `IHasColor`, `IHasSize`
+
+### Parameters
+
+| Parameter | Type | Declared on |
+|-----------|------|-------------|
+| `AdditionalAttributes` | `IReadOnlyDictionary<string, object>` | `BOBComponentBase` |
+| `AriaLabel` | `string` | `BOBProgressIcon` |
+| `Color` | `string` | `BOBProgressIcon` |
+| `Size` | `BOBSize` | `BOBProgressIcon` |
+| `Variant` | `BOBProgressIconVariant` | `BOBVariantComponentBase` |
+
+## `BOBProgressRing`
+
+- **Namespace**: `BlazOrbit.Components.Display`
+- **Base**: `BOBComponentBase`
+- **Implements**: `IHasColor`, `IHasSize`
+
+### Parameters
+
+| Parameter | Type | Declared on |
+|-----------|------|-------------|
+| `AdditionalAttributes` | `IReadOnlyDictionary<string, object>` | `BOBComponentBase` |
+| `AriaLabel` | `string` | `BOBProgressRing` |
+| `Color` | `string` | `BOBProgressRing` |
+| `Indeterminate` | `bool` | `BOBProgressRing` |
+| `Label` | `string` | `BOBProgressRing` |
+| `Max` | `double` | `BOBProgressRing` |
+| `Min` | `double` | `BOBProgressRing` |
+| `ShowPercentage` | `bool` | `BOBProgressRing` |
+| `Size` | `BOBSize` | `BOBProgressRing` |
+| `Value` | `double` | `BOBProgressRing` |
+
+## `BOBRating`
+
+- **Namespace**: `BlazOrbit.Components.Display`
+- **Base**: `BOBComponentBase`
+- **Implements**: `IHasColor`, `IHasDisabled`, `IHasReadOnly`, `IHasSize`
+
+### Parameters
+
+| Parameter | Type | Declared on |
+|-----------|------|-------------|
+| `AdditionalAttributes` | `IReadOnlyDictionary<string, object>` | `BOBComponentBase` |
+| `AllowHalf` | `bool` | `BOBRating` |
+| `AriaLabel` | `string` | `BOBRating` |
+| `Color` | `string` | `BOBRating` |
+| `Disabled` | `bool` | `BOBRating` |
+| `EmptyIcon` | `IconKey` | `BOBRating` |
+| `FullIcon` | `IconKey` | `BOBRating` |
+| `HalfIcon` | `IconKey` | `BOBRating` |
+| `HelperText` | `string` | `BOBRating` |
+| `Label` | `string` | `BOBRating` |
+| `MaxValue` | `int` | `BOBRating` |
+| `ReadOnly` | `bool` | `BOBRating` |
+| `Size` | `BOBSize` | `BOBRating` |
+| `Value` | `double` | `BOBRating` |
+| `ValueChanged` | `EventCallback<double>` | `BOBRating` |
+
+## `BOBSection`
+
+- **Namespace**: `BlazOrbit.Components.Layout`
+- **Base**: `BOBComponentBase`
+
+### Parameters
+
+| Parameter | Type | Declared on |
+|-----------|------|-------------|
+| `AdditionalAttributes` | `IReadOnlyDictionary<string, object>` | `BOBComponentBase` |
+| `ChildContent` | `RenderFragment` | `BOBSection` |
+| `Lead` | `RenderFragment` | `BOBSection` |
+| `Size` | `BOBContainerSize` | `BOBSection` |
+| `Title` | `string` | `BOBSection` |
 
 ## `BOBSelect<TValue>`
 
@@ -1299,6 +1718,35 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `StickyHeader` | `bool` | `BOBSidebarLayout` |
 | `StickySidebar` | `bool` | `BOBSidebarLayout` |
 
+## `BOBSplitter`
+
+- **Namespace**: `BlazOrbit.Components.Layout`
+- **Base**: `BOBComponentBase`
+
+### Parameters
+
+| Parameter | Type | Declared on |
+|-----------|------|-------------|
+| `AdditionalAttributes` | `IReadOnlyDictionary<string, object>` | `BOBComponentBase` |
+| `ChildContent` | `RenderFragment` | `BOBSplitter` |
+| `KeyboardStep` | `double` | `BOBSplitter` |
+| `Orientation` | `BOBSplitterOrientation` | `BOBSplitter` |
+
+## `BOBSplitterPane`
+
+- **Namespace**: `BlazOrbit.Components.Layout`
+- **Base**: `ComponentBase`
+
+### Parameters
+
+| Parameter | Type | Declared on |
+|-----------|------|-------------|
+| `ChildContent` | `RenderFragment` | `BOBSplitterPane` |
+| `Flex` | `bool` | `BOBSplitterPane` |
+| `MaxSize` | `double` | `BOBSplitterPane` |
+| `MinSize` | `double` | `BOBSplitterPane` |
+| `Size` | `double` | `BOBSplitterPane` |
+
 ## `BOBStackedLayout`
 
 - **Namespace**: `BlazOrbit.Components.Layout`
@@ -1322,6 +1770,64 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `ShowToggle` | `bool` | `BOBStackedLayout` |
 | `StickyHeader` | `bool` | `BOBStackedLayout` |
 | `StickyNav` | `bool` | `BOBStackedLayout` |
+
+## `BOBStatCard`
+
+- **Namespace**: `BlazOrbit.Components.Display`
+- **Base**: `BOBComponentBase`
+- **Implements**: `IHasSize`
+
+### Parameters
+
+| Parameter | Type | Declared on |
+|-----------|------|-------------|
+| `AdditionalAttributes` | `IReadOnlyDictionary<string, object>` | `BOBComponentBase` |
+| `ChildContent` | `RenderFragment` | `BOBStatCard` |
+| `Delta` | `string` | `BOBStatCard` |
+| `DeltaCaption` | `string` | `BOBStatCard` |
+| `DeltaTrend` | `BOBStatTrend` | `BOBStatCard` |
+| `Footnote` | `string` | `BOBStatCard` |
+| `FootnoteContent` | `RenderFragment` | `BOBStatCard` |
+| `Icon` | `IconKey?` | `BOBStatCard` |
+| `Label` | `string` | `BOBStatCard` |
+| `Size` | `BOBSize` | `BOBStatCard` |
+| `Sparkline` | `RenderFragment` | `BOBStatCard` |
+| `Value` | `string` | `BOBStatCard` |
+
+## `BOBStep`
+
+- **Namespace**: `BlazOrbit.Components.Navigation`
+- **Base**: `ComponentBase`
+
+### Parameters
+
+| Parameter | Type | Declared on |
+|-----------|------|-------------|
+| `ChildContent` | `RenderFragment` | `BOBStep` |
+| `Description` | `string` | `BOBStep` |
+| `Disabled` | `bool` | `BOBStep` |
+| `Error` | `bool` | `BOBStep` |
+| `Icon` | `IconKey?` | `BOBStep` |
+| `Title` | `string` | `BOBStep` |
+
+## `BOBStepper`
+
+- **Namespace**: `BlazOrbit.Components.Navigation`
+- **Base**: `BOBComponentBase`
+- **Implements**: `IHasSize`
+
+### Parameters
+
+| Parameter | Type | Declared on |
+|-----------|------|-------------|
+| `AdditionalAttributes` | `IReadOnlyDictionary<string, object>` | `BOBComponentBase` |
+| `AllowSkip` | `bool` | `BOBStepper` |
+| `ChildContent` | `RenderFragment` | `BOBStepper` |
+| `CurrentStep` | `int` | `BOBStepper` |
+| `CurrentStepChanged` | `EventCallback<int>` | `BOBStepper` |
+| `OnStepChange` | `EventCallback<BOBStepChangeEventArgs>` | `BOBStepper` |
+| `Orientation` | `BOBStepperOrientation` | `BOBStepper` |
+| `Size` | `BOBSize` | `BOBStepper` |
 
 ## `BOBSvgIcon`
 
@@ -1422,6 +1928,26 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `ThemeIcons` | `Dictionary<string, string>` | `BOBThemeSelector` |
 | `Variant` | `BOBThemeSelectorVariant` | `BOBVariantComponentBase` |
 
+## `BOBTimeline`
+
+- **Namespace**: `BlazOrbit.Components.Navigation`
+- **Base**: `BOBComponentBase`
+- **Implements**: `IHasSize`
+
+### Parameters
+
+| Parameter | Type | Declared on |
+|-----------|------|-------------|
+| `AdditionalAttributes` | `IReadOnlyDictionary<string, object>` | `BOBComponentBase` |
+| `Alternating` | `bool` | `BOBTimeline` |
+| `DateFormat` | `string` | `BOBTimeline` |
+| `GroupByDate` | `bool` | `BOBTimeline` |
+| `Items` | `IReadOnlyList<TimelineItem>` | `BOBTimeline` |
+| `ItemTemplate` | `RenderFragment<TimelineItem>` | `BOBTimeline` |
+| `Orientation` | `BOBTimelineOrientation` | `BOBTimeline` |
+| `Size` | `BOBSize` | `BOBTimeline` |
+| `TimeFormat` | `string` | `BOBTimeline` |
+
 ## `BOBTimePicker`
 
 - **Namespace**: `BlazOrbit.Components.Forms`
@@ -1517,6 +2043,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `HoverOpenDelay` | `int` | `BOBTreeMenu` |
 | `Items` | `IEnumerable<TItem>` | `BOBTreeMenu` |
 | `KeySelector` | `Func<TItem, string>` | `BOBTreeMenu` |
+| `Match` | `NavLinkMatch?` | `BOBTreeMenu` |
 | `NodeTemplate` | `RenderFragment<TreeMenuNode<TItem>>` | `BOBTreeMenu` |
 | `OnLoadChildren` | `Func<TItem, Task<IEnumerable<TItem>>>` | `BOBTreeMenu` |
 | `OnNavigate` | `EventCallback<string>` | `BOBTreeMenu` |

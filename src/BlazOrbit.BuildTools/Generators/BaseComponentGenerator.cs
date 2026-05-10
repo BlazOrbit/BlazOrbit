@@ -101,7 +101,7 @@ public class BaseComponentGenerator : IAssetGenerator
 
 /* Loading hosts get a wait cursor and stop accepting pointer events. The
    visual content (spinner / dimming) is still owned by each component's
-   BOBLoadingIndicator child render. */
+   BOBProgressIcon child render. */
 {{FeatureDefinitions.Tags.Component}}[{{FeatureDefinitions.DataAttributes.Loading}}="true"] {
     cursor: wait;
     pointer-events: none;

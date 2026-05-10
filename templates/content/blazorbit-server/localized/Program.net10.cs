@@ -1,5 +1,8 @@
 using System.Globalization;
 using BlazOrbit.Localization.Server;
+//#if (IncludeCharts)
+using BlazOrbit.Charts.Services;
+//#endif
 using BlazOrbit.Components;
 using BlazorApp.Components;
 using Microsoft.AspNetCore.Localization;
@@ -12,6 +15,15 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddBlazOrbit();
+//#if (IncludeCharts)
+builder.Services.AddBlazOrbitCharts();
+//#endif
+//#if (UseNotificationsCenter)
+builder.Services.AddBlazOrbitNotifications();
+//#endif
+//#if (UseHotKeys)
+builder.Services.AddBlazOrbitHotkeys();
+//#endif
 builder.Services.AddBlazOrbitLocalizationServer(opts =>
 {
     opts.SupportedCultures = [

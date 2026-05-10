@@ -1,4 +1,7 @@
 @inherits LayoutComponentBase
+@*#if (UseHotKeys)*@
+@using BlazOrbit.Hotkeys
+@*#endif*@
 
 <BOBInitializer DefaultTheme="dark">
     <NavMenu />
@@ -7,5 +10,8 @@
     </main>
 </BOBInitializer>
 
+@*#if (UseHotKeys)*@
+<BOBHotkeyHost />
+@*#endif*@
 <BOBModalHost />
 <BOBToastHost MaxVisiblePerPosition="5" />

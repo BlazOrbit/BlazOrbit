@@ -65,7 +65,11 @@
     {
         if (_isDragging)
         {
-            await JsInterop.StopDragAsync(_componentId);
+            try { await JsInterop.StopDragAsync(_componentId); }
+            catch (Microsoft.JSInterop.JSDisconnectedException) { }
+            catch (ObjectDisposedException) { }
+            catch (InvalidOperationException) { }
+            catch (TaskCanceledException) { }
         }
         _callbacksRelay?.Dispose();
         await base.DisposeAsync();

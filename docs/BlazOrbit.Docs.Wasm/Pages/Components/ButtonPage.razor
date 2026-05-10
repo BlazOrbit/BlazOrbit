@@ -1,4 +1,4 @@
-@page "/components/actions/button"
+﻿@page "/components/actions/button"
 
 @inject IStringLocalizer<ButtonPage> Loc
 
@@ -34,9 +34,9 @@
 
     <DocDemo Key="Loading" Title="@Loc["Loading state"]" Description="@Loc["While Loading is true, the button is disabled and shows an indicator."]">
             <BOBButton Text="@Loc["Submitting"]" Loading="true" />
-            <BOBButton Text="@Loc["Ring"]" Loading="true" LoadingIndicatorVariant="BOBLoadingIndicatorVariant.Ring" />
-            <BOBButton Text="@Loc["Dots"]" Loading="true" LoadingIndicatorVariant="BOBLoadingIndicatorVariant.Dots" />
-            <BOBButton Text="@Loc["Bars"]" Loading="true" LoadingIndicatorVariant="BOBLoadingIndicatorVariant.Bars" />
+            <BOBButton Text="@Loc["Ring"]" Loading="true" LoadingIndicatorVariant="BOBProgressIconVariant.Ring" />
+            <BOBButton Text="@Loc["Dots"]" Loading="true" LoadingIndicatorVariant="BOBProgressIconVariant.Dots" />
+            <BOBButton Text="@Loc["Bars"]" Loading="true" LoadingIndicatorVariant="BOBProgressIconVariant.Bars" />
     </DocDemo>
 
     <DocDemo Key="Disabled" Title="@Loc["Disabled"]">

@@ -1,0 +1,135 @@
+﻿@using BlazOrbit.Abstractions
+
+@namespace BlazOrbit.Components.Display
+@attribute [GenerateComponentInfo]
+
+@inherits BOBComponentBase
+@implements IHasSize
+@implements IHasColor
+@implements IHasDisabled
+@implements IHasActive
+
+<bob-component @attributes="ComputedAttributes">
+    @{
+        string tag = Selectable || Clickable ? "button" : "span";
+        string? clickRole = (Selectable || Clickable) && tag == "button" ? null : null;
+    }
+    <CascadingValue Value="this">
+        @if (Selectable || Clickable)
+        {
+            <button type="button"
+                    class="bob-chip"
+                    data-bob-selected="@(Selected ? "true" : null)"
+                    data-bob-clickable="true"
+                    aria-pressed="@(Selectable ? Selected.ToString().ToLowerInvariant() : null)"
+                    disabled="@IsDisabled"
+                    @onclick="HandleClickAsync">
+                @ChipChildren()
+            </button>
+        }
+        else
+        {
+            <span class="bob-chip">
+                @ChipChildren()
+            </span>
+        }
+    </CascadingValue>
+</bob-component>
+
+@code {
+    private RenderFragment ChipChildren() => __builder =>
+    {
+        if (LeadingIcon is not null)
+        {
+            <span class="bob-chip__leading" aria-hidden="true">
+                <BOBSvgIcon Icon="@LeadingIcon.Value" Size="@Size" />
+            </span>
+        }
+
+        <span class="bob-chip__label">
+            @if (ChildContent is not null) { @ChildContent }
+            else if (!string.IsNullOrEmpty(Label)) { @Label }
+        </span>
+
+        if (Count.HasValue)
+        {
+            <span class="bob-chip__count" aria-label="@($"{Count} items")">@Count</span>
+        }
+
+        if (Removable && !IsDisabled)
+        {
+            <button type="button"
+                    class="bob-chip__remove"
+                    aria-label="@RemoveText"
+                    @onclick="HandleRemoveAsync"
+                    @onclick:stopPropagation="true">
+                <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_close" Size="BOBSize.Small" />
+            </button>
+        }
+    };
+
+    /// <summary>Text rendered inside the chip. Ignored when <see cref="ChildContent"/> is set.</summary>
+    [Parameter] public string? Label { get; set; }
+    /// <summary>Custom content (overrides <see cref="Label"/>).</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    /// <summary>Optional leading icon rendered before the label.</summary>
+    [Parameter] public IconKey? LeadingIcon { get; set; }
+    /// <summary>Optional badge count rendered after the label.</summary>
+    [Parameter] public int? Count { get; set; }
+
+    /// <summary>When <see langword="true"/>, render an X button that fires <see cref="OnRemoved"/>.</summary>
+    [Parameter] public bool Removable { get; set; }
+    /// <summary>Aria-label for the remove button.</summary>
+    [Parameter] public string RemoveText { get; set; } = "Remove";
+
+    /// <summary>When <see langword="true"/>, the chip behaves like a toggle (filter chip pattern).</summary>
+    [Parameter] public bool Selectable { get; set; }
+    /// <summary>Selection state (only meaningful when <see cref="Selectable"/> is set).</summary>
+    [Parameter] public bool Selected { get; set; }
+    /// <summary>Two-way binding companion for <see cref="Selected"/>.</summary>
+    [Parameter] public EventCallback<bool> SelectedChanged { get; set; }
+    /// <summary>When <see langword="true"/>, render the chip as a button without selection semantics (action chip pattern).</summary>
+    [Parameter] public bool Clickable { get; set; }
+    /// <summary>Raised when a clickable chip is clicked.</summary>
+    [Parameter] public EventCallback OnClick { get; set; }
+    /// <summary>Raised when the X button is clicked.</summary>
+    [Parameter] public EventCallback OnRemoved { get; set; }
+
+    /// <summary>When <see langword="true"/>, the chip is dimmed and non-interactive.</summary>
+    [Parameter] public bool Disabled { get; set; }
+    /// <summary>Visual size of the chip.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    /// <summary>Foreground / accent color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
+    [Parameter] public string? Color { get; set; }
+
+    public bool IsDisabled => Disabled;
+    /// <summary>When <see langword="true"/>, forces the active state (independent of selection).</summary>
+    [Parameter] public bool Active { get; set; }
+    public bool IsActive => Active || Selected;
+
+    private async Task HandleClickAsync()
+    {
+        if (IsDisabled) return;
+        if (Selectable)
+        {
+            Selected = !Selected;
+            if (SelectedChanged.HasDelegate)
+            {
+                await SelectedChanged.InvokeAsync(Selected);
+            }
+        }
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync();
+        }
+    }
+
+    private async Task HandleRemoveAsync()
+    {
+        if (IsDisabled) return;
+        if (OnRemoved.HasDelegate)
+        {
+            await OnRemoved.InvokeAsync();
+        }
+    }
+}

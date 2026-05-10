@@ -11,13 +11,7 @@ public class BOBModalContainerSnapshotTests
     private sealed class DummyModalContent : Microsoft.AspNetCore.Components.ComponentBase, IModalContent
     {
         [Microsoft.AspNetCore.Components.Parameter]
-        public ModalReference ModalRef { get; set; } = default!;
-
-        ModalReference IModalContent.ModalReference
-        {
-            get => ModalRef;
-            set => ModalRef = value;
-        }
+        public ModalReference ModalReference { get; set; } = default!;
     }
 
     private static ModalState DialogState(string title, bool closable = false, bool isVisible = true)

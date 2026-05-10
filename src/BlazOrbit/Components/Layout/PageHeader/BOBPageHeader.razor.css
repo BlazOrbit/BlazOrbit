@@ -1,0 +1,65 @@
+[data-bob-component="page-header"] {
+    --_page-header-py: 1.25rem;
+    --_page-header-gap: 0.25rem;
+    --_page-header-eyebrow: color-mix(in oklab, var(--palette-surface-contrast) 60%, transparent);
+    --_page-header-lead: color-mix(in oklab, var(--palette-surface-contrast) 70%, transparent);
+    --_page-header-border: color-mix(in oklab, var(--palette-border) 50%, transparent);
+
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: var(--_page-header-py);
+    border-block-end: 1px solid var(--_page-header-border);
+}
+
+[data-bob-component="page-header"][data-bob-sticky="true"] {
+    position: sticky;
+    inset-block-start: 0;
+    background: var(--palette-surface);
+    z-index: 1;
+}
+
+[data-bob-component="page-header"] .bob-page-header__main {
+    display: flex;
+    flex-direction: column;
+    gap: var(--_page-header-gap);
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+[data-bob-component="page-header"] .bob-page-header__eyebrow {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+    color: var(--_page-header-eyebrow);
+}
+
+[data-bob-component="page-header"] .bob-page-header__breadcrumbs {
+    /* Slot wrapper kept thin so the embedded BOBBreadcrumbs (or custom markup) inherits the
+       page-header rhythm without the breadcrumb component owning its own margin. */
+    margin-block-start: 0.125rem;
+}
+
+[data-bob-component="page-header"] .bob-page-header__title {
+    margin: 0;
+    font-size: 1.625rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--palette-surface-contrast);
+}
+
+[data-bob-component="page-header"] .bob-page-header__lead {
+    margin: 0;
+    color: var(--_page-header-lead);
+    max-width: 70ch;
+}
+
+[data-bob-component="page-header"] .bob-page-header__actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex: 0 0 auto;
+}

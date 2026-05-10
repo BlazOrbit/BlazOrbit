@@ -15,7 +15,7 @@
         @attributes="FilteredAttributes">
     @if (Loading)
     {
-        <BOBLoadingIndicator Variant="LoadingIndicatorVariant" />
+        <BOBProgressIcon Variant="LoadingIndicatorVariant" />
     }
     else if (Icon.HasValue)
     {
@@ -38,7 +38,7 @@
     /// <summary>Visual size of the component.</summary>
     [Parameter] public BOBSize Size { get; set; }
     /// <summary>Variant of the loading indicator shown when <see cref="Loading"/> is <see langword="true"/>.</summary>
-    [Parameter] public BOBLoadingIndicatorVariant LoadingIndicatorVariant { get; set; } = BOBLoadingIndicatorVariant.CircularProgress;
+    [Parameter] public BOBProgressIconVariant LoadingIndicatorVariant { get; set; } = BOBProgressIconVariant.Ring;
     /// <summary>IconRotation.</summary>
     [Parameter] public int IconRotation { get; set; }
     /// <summary>Accessible name for the component.</summary>

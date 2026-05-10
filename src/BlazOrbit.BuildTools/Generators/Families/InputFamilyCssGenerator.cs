@@ -68,7 +68,7 @@ bob-component[{{inputBase}}] {
     --_input-h: calc(3.5rem * {{V(sizeMult, "1")}});
     --_input-px: 1rem;
     --_input-py: 0.75rem;
-    --_input-radius: {{V(FeatureDefinitions.Tokens.Input.Radius)}};
+    --_input-radius: {{V(FeatureDefinitions.Tokens.Input.BorderRadius)}};
     --_input-transition: {{V(FeatureDefinitions.Tokens.Input.TransitionDuration)}} {{V(FeatureDefinitions.Tokens.Input.TransitionEasing)}};
     --_input-scale: {{V(FeatureDefinitions.Tokens.Input.FloatedScale)}};
     --_input-floated-size: calc(1rem * var(--_input-scale) * {{V(sizeMult, "1")}});
@@ -77,8 +77,9 @@ bob-component[{{inputBase}}] {
     --_input-focus-color: var(--palette-highlight);
     --_input-error-color: var(--palette-error);
 
-    --_input-border-color: var(--palette-border);
-    --_input-border-width: 1px;
+    --_input-border-color: {{V(FeatureDefinitions.Tokens.Input.BorderColor)}};
+    --_input-border-width: {{V(FeatureDefinitions.Tokens.Input.BorderWidth)}};
+    --_input-border-style: {{V(FeatureDefinitions.Tokens.Input.BorderStyle)}};
 
     --_wrapper-bg: {{V(inlineBg, "transparent")}};
     --_wrapper-radius: var(--_input-radius);
@@ -149,7 +150,7 @@ bob-component[{{inputBase}}] .{{outline}} {
 
 bob-component[{{inputBase}}] .{{outlineLeading}} {
     width: var(--_outline-leading-width);
-    border: var(--_input-border-width) solid var(--_input-border-color);
+    border: var(--_input-border-width) var(--_input-border-style) var(--_input-border-color);
     border-inline-end: none;
     border-radius: var(--_input-radius) 0 0 var(--_input-radius);
     transition: border-color var(--_input-transition), border-width var(--_input-transition);
@@ -159,14 +160,14 @@ bob-component[{{inputBase}}] .{{outlineNotch}} {
     position: relative;
     display: flex;
     flex-direction: column;
-    border-block-start: var(--_input-border-width) solid var(--_input-border-color);
-    border-block-end: var(--_input-border-width) solid var(--_input-border-color);
+    border-block-start: var(--_input-border-width) var(--_input-border-style) var(--_input-border-color);
+    border-block-end: var(--_input-border-width) var(--_input-border-style) var(--_input-border-color);
     transition: border-color var(--_input-transition), border-width var(--_input-transition);
 }
 
 bob-component[{{inputBase}}] .{{outlineTrailing}} {
     flex: 1;
-    border: var(--_input-border-width) solid var(--_input-border-color);
+    border: var(--_input-border-width) var(--_input-border-style) var(--_input-border-color);
     border-inline-start: none;
     border-radius: 0 var(--_input-radius) var(--_input-radius) 0;
     transition: border-color var(--_input-transition), border-width var(--_input-transition);
@@ -232,7 +233,7 @@ bob-component[{{inputBase}}] .{{addonPrefix}} {
     color: var(--_input-prefix-color);
     background-color: var(--_input-prefix-bg);
     border-inline-start: none;
-    border-inline-end: 1px solid var(--_input-border-color);
+    border-inline-end: var(--_input-border-width) var(--_input-border-style) var(--_input-border-color);
 }
 
 bob-component[{{inputBase}}]:has(.{{addonPrefix}}) {
@@ -248,7 +249,7 @@ bob-component[{{inputBase}}] .{{addonSuffix}} {
     order: 1;
     color: var(--_input-suffix-color);
     background-color: var(--_input-suffix-bg);
-    border-inline-start: 1px solid var(--_input-border-color);
+    border-inline-start: var(--_input-border-width) var(--_input-border-style) var(--_input-border-color);
     border-inline-end: none;
 }
 
@@ -331,7 +332,7 @@ bob-component[{{inputBase}}][{{variant}}="filled"]:has(.{{label}}) {
 bob-component[{{inputBase}}][{{variant}}="filled"] .{{outlineLeading}},
 bob-component[{{inputBase}}][{{variant}}="filled"] .{{outlineTrailing}} {
     border: none;
-    border-block-end: var(--_input-border-width) solid var(--_input-border-color);
+    border-block-end: var(--_input-border-width) var(--_input-border-style) var(--_input-border-color);
     border-radius: 0;
 }
 
@@ -393,7 +394,7 @@ bob-component[{{inputBase}}][{{variant}}="standard"]:has(.{{label}}) {
 /* Outline: only bottom border */
 bob-component[{{inputBase}}][{{variant}}="standard"] .{{outlineLeading}} {
     border: none;
-    border-block-end: var(--_input-border-width) solid var(--_input-border-color);
+    border-block-end: var(--_input-border-width) var(--_input-border-style) var(--_input-border-color);
     border-radius: 0;
 }
 
@@ -404,7 +405,7 @@ bob-component[{{inputBase}}][{{variant}}="standard"] .{{outlineNotch}} {
 
 bob-component[{{inputBase}}][{{variant}}="standard"] .{{outlineTrailing}} {
     border: none;
-    border-block-end: var(--_input-border-width) solid var(--_input-border-color);
+    border-block-end: var(--_input-border-width) var(--_input-border-style) var(--_input-border-color);
     border-radius: 0;
 }
 

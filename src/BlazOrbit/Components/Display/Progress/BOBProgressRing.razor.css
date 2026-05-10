@@ -1,0 +1,57 @@
+[data-bob-component="progress-ring"] {
+    --_ring-size: calc(3rem * var(--bob-size-multiplier, 1));
+    --_ring-track: color-mix(in oklab, var(--palette-border) 30%, transparent);
+    --_ring-fill: var(--bob-inline-color, var(--palette-highlight));
+    --_ring-text: var(--palette-surface-contrast);
+
+    display: inline-block;
+}
+
+[data-bob-component="progress-ring"] .bob-progress-ring {
+    position: relative;
+    width: var(--_ring-size);
+    height: var(--_ring-size);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+[data-bob-component="progress-ring"] .bob-progress-ring__svg {
+    width: 100%;
+    height: 100%;
+}
+
+[data-bob-component="progress-ring"] .bob-progress-ring__track {
+    stroke: var(--_ring-track);
+}
+
+[data-bob-component="progress-ring"] .bob-progress-ring__fill {
+    stroke: var(--_ring-fill);
+    transition: stroke-dashoffset 200ms ease;
+}
+
+[data-bob-component="progress-ring"] .bob-progress-ring__label {
+    position: absolute;
+    inset: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(0.75rem * var(--bob-size-multiplier, 1));
+    color: var(--_ring-text);
+    font-variant-numeric: tabular-nums;
+}
+
+[data-bob-component="progress-ring"][data-bob-indeterminate="true"] .bob-progress-ring__svg,
+[data-bob-component="progress-ring"] .bob-progress-ring[data-bob-indeterminate="true"] .bob-progress-ring__svg {
+    animation: bob-progress-ring-rotate 1.2s linear infinite;
+}
+
+[data-bob-component="progress-ring"][data-bob-indeterminate="true"] .bob-progress-ring__fill,
+[data-bob-component="progress-ring"] .bob-progress-ring[data-bob-indeterminate="true"] .bob-progress-ring__fill {
+    stroke-dasharray: 60 200;
+    stroke-dashoffset: 0;
+}
+
+@keyframes bob-progress-ring-rotate {
+    to { transform: rotate(360deg); }
+}

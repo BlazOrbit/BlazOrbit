@@ -37,6 +37,40 @@
     [Parameter] public bool Visible { get; set; } = true;
     /// <summary>Width.</summary>
     [Parameter] public string? Width { get; set; }
+    /// <summary>
+    /// Pin side. <see cref="ColumnFreeze.Start"/> sticks the column to the inline-start
+    /// edge of the scroll container, <see cref="ColumnFreeze.End"/> to the inline-end.
+    /// Frozen columns require an explicit pixel <see cref="Width"/> so the grid can
+    /// compute cumulative offsets for adjacent frozen peers.
+    /// </summary>
+    [Parameter] public ColumnFreeze Freeze { get; set; } = ColumnFreeze.None;
+    /// <summary>
+    /// Filter category. Drives which input type + operator dropdown render when
+    /// <c>ShowColumnFilters=true</c> on the parent grid. Defaults to
+    /// <see cref="ColumnFilterMode.Text"/>. Use <see cref="ColumnFilterMode.Numeric"/>
+    /// for <c>=/!=/&gt;/&lt;</c> against numeric properties, or
+    /// <see cref="ColumnFilterMode.Date"/> for Before / After / Equals against date
+    /// properties.
+    /// </summary>
+    [Parameter] public ColumnFilterMode FilterMode { get; set; } = ColumnFilterMode.Text;
+    /// <summary>
+    /// When <see langword="true"/>, the grid renders a drag handle on the trailing edge of
+    /// this column's header so the user can resize via pointer events. Requires
+    /// <c>BOBDataGrid.Resizable</c> to be on.
+    /// </summary>
+    [Parameter] public bool Resizable { get; set; }
+    /// <summary>Lower bound (in pixels) the resize drag clamps to. Default <c>48</c>.</summary>
+    [Parameter] public double MinWidth { get; set; } = 48d;
+    /// <summary>Upper bound (in pixels) the resize drag clamps to. <c>0</c> = no limit.</summary>
+    [Parameter] public double MaxWidth { get; set; }
+    /// <summary>Aggregate function rendered in the column footer (Sum, Avg, …). Default <see cref="AggregateFunction.None"/>.</summary>
+    [Parameter] public AggregateFunction Aggregate { get; set; } = AggregateFunction.None;
+    /// <summary>Format string applied to the aggregate value. Falls back to <see cref="Format"/> when null.</summary>
+    [Parameter] public string? AggregateFormat { get; set; }
+    /// <summary>Optional prefix label shown next to the aggregate (e.g. <c>"Total: "</c>).</summary>
+    [Parameter] public string? AggregateLabel { get; set; }
+    /// <summary>Custom aggregate. Invoked when <see cref="Aggregate"/> is <see cref="AggregateFunction.Custom"/>.</summary>
+    [Parameter] public Func<IEnumerable<TItem>, object?>? CustomAggregate { get; set; }
 
     [CascadingParameter(Name = "DataColumnRegistry")]
     internal IDataColumnRegistry<TItem>? Registry { get; set; }
@@ -77,7 +111,16 @@
                     Sortable = Sortable,
                     Filterable = Filterable,
                     CustomComparer = CustomComparer,
-                    CustomFilter = CustomFilter
+                    CustomFilter = CustomFilter,
+                    Aggregate = Aggregate,
+                    AggregateFormat = AggregateFormat,
+                    AggregateLabel = AggregateLabel,
+                    CustomAggregate = CustomAggregate,
+                    Freeze = Freeze,
+                    FilterMode = FilterMode,
+                    Resizable = Resizable,
+                    MinWidth = MinWidth,
+                    MaxWidth = MaxWidth
                 };
                 Registry.RegisterColumn(_registration);
                 _registered = true;
@@ -98,6 +141,15 @@
                 _registration.Filterable = Filterable;
                 _registration.CustomComparer = CustomComparer;
                 _registration.CustomFilter = CustomFilter;
+                _registration.Aggregate = Aggregate;
+                _registration.AggregateFormat = AggregateFormat;
+                _registration.AggregateLabel = AggregateLabel;
+                _registration.CustomAggregate = CustomAggregate;
+                _registration.Freeze = Freeze;
+                _registration.FilterMode = FilterMode;
+                _registration.Resizable = Resizable;
+                _registration.MinWidth = MinWidth;
+                _registration.MaxWidth = MaxWidth;
             }
         }
     }

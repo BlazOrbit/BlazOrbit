@@ -9,8 +9,8 @@ public interface IHasSuffix
     string? SuffixText { get; set; }
     /// <summary>Closed-catalog icon key displayed after the component value.</summary>
     IconKey? SuffixIcon { get; set; }
-    /// <summary>Color of the suffix content. Accepts any valid CSS color value.</summary>
+    /// <summary>Color of the suffix content. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     string? SuffixColor { get; set; }
-    /// <summary>Background color of the suffix content. Accepts any valid CSS color value.</summary>
+    /// <summary>Background color of the suffix content. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     string? SuffixBackgroundColor { get; set; }
 }

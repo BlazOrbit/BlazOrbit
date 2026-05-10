@@ -9,7 +9,7 @@
   },
   {
     Name: Loading,
-    Html: <bob-component data-bob-component="button" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" data-bob-loading="true" data-bob-disabled="true" b-<SCOPE>><button type="button" disabled aria-busy="true" aria-live="polite" blazor:onclick="<EVENT>" class="transition-target" b-<SCOPE> blazor:elementReference="<GUID>"><bob-component data-bob-component="loading-indicator" data-bob-variant="spinner" data-bob-size="medium" role="status" aria-live="polite" aria-label="Loading" b-<SCOPE>><svg viewBox="0 0 50 50" role="img" aria-hidden="true" focusable="false" b-<SCOPE>><circle cx="25" cy="25" r="20" b-<SCOPE>></circle></svg></bob-component><span class="bob-button__text" b-<SCOPE>>Loading</span></button></bob-component>
+    Html: <bob-component data-bob-component="button" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" data-bob-loading="true" data-bob-disabled="true" b-<SCOPE>><button type="button" disabled aria-busy="true" aria-live="polite" blazor:onclick="<EVENT>" class="transition-target" b-<SCOPE> blazor:elementReference="<GUID>"><bob-component data-bob-component="progress-icon" data-bob-variant="spinner" data-bob-size="medium" role="status" aria-live="polite" aria-label="Loading" b-<SCOPE>><svg viewBox="0 0 50 50" role="img" aria-hidden="true" focusable="false" b-<SCOPE>><circle cx="25" cy="25" r="20" b-<SCOPE>></circle></svg></bob-component><span class="bob-button__text" b-<SCOPE>>Loading</span></button></bob-component>
   },
   {
     Name: Disabled,

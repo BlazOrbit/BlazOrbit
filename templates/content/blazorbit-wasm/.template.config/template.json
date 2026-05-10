@@ -28,6 +28,41 @@
       "datatype": "bool",
       "defaultValue": "false",
       "description": "Whether to include BlazOrbit localization support."
+    },
+    "IncludeCharts": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Whether to include the BlazOrbit.Charts package and replace Home with a dashboard sample."
+    },
+    "UseNotificationsCenter": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Whether to include BlazOrbit.Notifications package, register AddBlazOrbitNotifications(), and add BOBNotificationBell demo."
+    },
+    "UseHotKeys": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Whether to include BlazOrbit.Hotkeys package, register AddBlazOrbitHotkeys(), mount BOBHotkeyHost in layout, and add hotkey demo."
+    },
+    "Theme": {
+      "type": "parameter",
+      "datatype": "choice",
+      "defaultValue": "None",
+      "description": "Pre-built visual theme that overrides palette and design tokens.",
+      "choices": [
+        { "choice": "None", "description": "No theme override (default BlazOrbit styling)." },
+        { "choice": "NeoBrutalism", "description": "Ultra-saturated colors, thick black borders, hard shadows, zero radius." },
+        { "choice": "BentoGrid", "description": "Soft pastels, large radius, diffused shadows, airy spacing." },
+        { "choice": "Glassmorphism", "description": "Transparency, blur, subtle borders, gradient backgrounds." },
+        { "choice": "FlatDesign", "description": "Flat vivid colors, no borders or shadows, moderate radius." },
+        { "choice": "MaterialDesign", "description": "Elevated shadows, vivid colors, 4px radius, pronounced ripple." },
+        { "choice": "Neomorphism", "description": "Dual soft shadows, monochrome, wide radius." },
+        { "choice": "Claymorphism", "description": "Warm colors, multiple diffused shadows, very wide radius." },
+        { "choice": "RetroWeb", "description": "Phosphor green/amber on black, monospace font, pixelated, zero radius." }
+      ]
     }
   },
   "sources": [
@@ -39,7 +74,9 @@
         { "condition": "(Framework != 'net10.0')", "exclude": ["**/*.net10.*"] },
         { "condition": "(Framework != 'net10.0')", "exclude": ["Pages/NotFound.razor"] },
         { "condition": "(!IncludeLocalization)", "exclude": ["localized/**"] },
-        { "condition": "(IncludeLocalization)", "exclude": ["Program.cs", "Layout/MainLayout.razor", "Layout/NavMenu.razor", "localized/**"] }
+        { "condition": "(IncludeLocalization)", "exclude": ["Program.cs", "Layout/MainLayout.razor", "Layout/NavMenu.razor", "localized/**"] },
+        { "condition": "(Theme == 'None')", "exclude": ["wwwroot/css/theme.css"] },
+        { "exclude": ["Pages/Home.razor", "Pages/Home.razor.css", "Pages/Home.charts.razor", "Pages/Home.charts.razor.css"] }
       ],
       "rename": {
         "App.net8.razor": "App.razor",
@@ -48,6 +85,22 @@
         "wwwroot/index.net10.html": "wwwroot/index.html",
         "BlazorApp.net8.csproj": "BlazorApp.csproj",
         "BlazorApp.net10.csproj": "BlazorApp.csproj"
+      }
+    },
+    {
+      "condition": "(!IncludeCharts)",
+      "source": "./",
+      "target": "./",
+      "include": ["Pages/Home.razor", "Pages/Home.razor.css"]
+    },
+    {
+      "condition": "(IncludeCharts)",
+      "source": "./",
+      "target": "./",
+      "include": ["Pages/Home.charts.razor", "Pages/Home.charts.razor.css"],
+      "rename": {
+        "Pages/Home.charts.razor": "Pages/Home.razor",
+        "Pages/Home.charts.razor.css": "Pages/Home.razor.css"
       }
     },
     {

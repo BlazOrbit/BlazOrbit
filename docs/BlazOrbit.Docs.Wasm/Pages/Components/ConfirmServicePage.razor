@@ -1,0 +1,90 @@
+﻿@page "/components/services/confirm"
+
+@using BlazOrbit.Components.Layout
+
+@inject IStringLocalizer<ConfirmServicePage> Loc
+@inject IConfirmService Confirm
+
+
+<DocPage Eyebrow="@Loc["Service"]" Title="@Loc["BOBConfirmService"]"
+         Lede="@Loc["Themed replacement for window.confirm() — async, severity-aware, modal-stack-aware."]">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic confirm"]">
+        <BOBButton Text="@Loc["Ask"]" OnClick="@AskBasicAsync" />
+        @if (_basicResult is not null)
+        {
+            <p class="doc-demo__caption">@Loc["Result:"] @_basicResult</p>
+        }
+    </DocDemo>
+
+    <DocDemo Key="Danger" Title="@Loc["Danger severity"]">
+        <BOBButton Text="@Loc["Delete user"]" OnClick="@AskDangerAsync" />
+        @if (_dangerResult is not null)
+        {
+            <p class="doc-demo__caption">@Loc["Result:"] @_dangerResult</p>
+        }
+    </DocDemo>
+
+    <DocDemo Key="Warning" Title="@Loc["Warning severity + custom labels"]">
+        <BOBButton Text="@Loc["Discard changes"]" OnClick="@AskWarningAsync" />
+        @if (_warningResult is not null)
+        {
+            <p class="doc-demo__caption">@Loc["Result:"] @_warningResult</p>
+        }
+    </DocDemo>
+
+    <DocDemo Key="Timeout" Title="@Loc["With auto-cancel timeout"]">
+        <BOBButton Text="@Loc["Ask (3s timeout)"]" OnClick="@AskTimeoutAsync" />
+        @if (_timeoutResult is not null)
+        {
+            <p class="doc-demo__caption">@Loc["Result:"] @_timeoutResult</p>
+        }
+    </DocDemo>
+
+</DocPage>
+
+@code {
+    private string? _basicResult;
+    private string? _dangerResult;
+    private string? _warningResult;
+    private string? _timeoutResult;
+
+    private async Task AskBasicAsync()
+    {
+        bool ok = await Confirm.AskAsync(
+            title: Loc["Confirm"],
+            message: Loc["Are you sure?"]);
+        _basicResult = ok ? Loc["accepted"] : Loc["cancelled"];
+    }
+
+    private async Task AskDangerAsync()
+    {
+        bool ok = await Confirm.AskAsync(
+            title: Loc["Delete user?"],
+            message: Loc["This action cannot be undone."],
+            severity: ConfirmSeverity.Danger,
+            yesLabel: Loc["Delete"],
+            noLabel: Loc["Keep"]);
+        _dangerResult = ok ? Loc["accepted"] : Loc["cancelled"];
+    }
+
+    private async Task AskWarningAsync()
+    {
+        bool ok = await Confirm.AskAsync(
+            title: Loc["Discard changes?"],
+            message: Loc["Unsaved edits will be lost."],
+            severity: ConfirmSeverity.Warning,
+            yesLabel: Loc["Discard"],
+            noLabel: Loc["Keep editing"]);
+        _warningResult = ok ? Loc["accepted"] : Loc["cancelled"];
+    }
+
+    private async Task AskTimeoutAsync()
+    {
+        bool ok = await Confirm.AskAsync(
+            title: Loc["Quick decision"],
+            message: Loc["Auto-cancels in 3 seconds."],
+            timeout: TimeSpan.FromSeconds(3));
+        _timeoutResult = ok ? Loc["accepted"] : Loc["cancelled or timed out"];
+    }
+}

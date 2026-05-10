@@ -1,14 +1,17 @@
 ﻿@using BlazOrbit.Docs.Wasm.Models
 @using BlazOrbit.Docs.Wasm.Services
+@using BlazOrbit.Hotkeys
 @using System.Net
 @using System.Text.RegularExpressions
 
 @inject DocSearchService SearchService
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JS
+@inject IHotkeyService Hotkeys
+@implements IAsyncDisposable
 
 <div class="doc-search">
-    <button type="button" class="doc-search-trigger" @onclick="OpenSearch" aria-label="Open search">
+    <button type="button" class="doc-search-trigger" @onclick="OpenSearchAsync" aria-label="Open search">
         <span class="doc-search-trigger__icon">
             <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_search" />
         </span>
@@ -67,19 +70,31 @@
     private bool _isOpen;
     private int _selectedIndex = -1;
     private List<DocSearchResult> _results = [];
-    private DotNetObjectReference<DocSearch>? _dotNetRef;
+    private IDisposable? _ctrlKRegistration;
+    private IDisposable? _slashRegistration;
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override void OnInitialized()
     {
-        if (firstRender)
-        {
-            _dotNetRef = DotNetObjectReference.Create(this);
-            await JS.InvokeVoidAsync("DocSearchShortcuts.register", _dotNetRef);
-        }
+        // Ctrl+K (and "/" outside inputs) wire the docs site search via BlazOrbit.Hotkeys.
+        // The previous DocSearchShortcuts.register JS bridge is gone; the hotkey service
+        // already skips inputs / textareas / contentEditable, so the trigger never fires
+        // while the user is typing inside the search input itself.
+        _ctrlKRegistration = Hotkeys.Register(
+            combo: "ctrl+k",
+            description: "Open documentation search",
+            handler: () => InvokeAsync(OpenSearchAsync),
+            scope: HotkeyScope.Global,
+            preventDefault: true);
+
+        _slashRegistration = Hotkeys.Register(
+            combo: "/",
+            description: "Open documentation search",
+            handler: () => InvokeAsync(OpenSearchAsync),
+            scope: HotkeyScope.Global,
+            preventDefault: true);
     }
 
-    [JSInvokable]
-    public async Task OpenSearch()
+    public async Task OpenSearchAsync()
     {
         _isOpen = true;
         _query = string.Empty;
@@ -152,8 +167,10 @@
         NavigationManager.NavigateTo(route);
     }
 
-    public async ValueTask DisposeAsync()
+    public ValueTask DisposeAsync()
     {
-        _dotNetRef?.Dispose();
+        _ctrlKRegistration?.Dispose();
+        _slashRegistration?.Dispose();
+        return ValueTask.CompletedTask;
     }
 }
