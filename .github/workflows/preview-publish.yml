@@ -157,6 +157,7 @@ jobs:
         run: dotnet restore BlazOrbit.slnx
 
       - name: Pack packages
+        shell: bash
         run: |
           # Capture pack output to scan for NU5xxx packaging warnings (PKG-07).
           # Mirror the audit policy of release-publish.yml — preview is the
@@ -180,6 +181,7 @@ jobs:
         # `dotnet new install BlazOrbit.Templates --version <preview>` against
         # unreleased library bits. Templates live in their own slnx, separate
         # from BlazOrbit.slnx, so we restore explicitly.
+        shell: bash
         run: |
           set -o pipefail
           dotnet restore templates/BlazOrbit.Templates.slnx
