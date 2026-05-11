@@ -127,6 +127,7 @@ jobs:
         run: dotnet restore BlazOrbit.slnx
 
       - name: Pack packages
+        shell: bash
         run: |
           # Capture pack output to scan for NU5xxx packaging warnings (PKG-07).
           # Baseline today is clean; any new warning blocks the release until
@@ -144,6 +145,7 @@ jobs:
             2>&1 | tee pack.log
 
       - name: Pack templates
+        shell: bash
         run: |
           # Templates live in templates/BlazOrbit.Templates.slnx, separate from
           # the root BlazOrbit.slnx, so the upstream `dotnet restore` does not
