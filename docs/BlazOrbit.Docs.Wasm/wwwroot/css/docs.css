@@ -5,11 +5,14 @@
    ─────────────────────────────────────────────────────────────── */
 
 :root,
-html[data-theme="dark"],
-html[data-theme="light"] {
-    --palette-primary: #a9234e;
+html[data-bob-theme="dark"],
+html[data-bob-theme="light"] {
+    --palette-secondary: #a00a57;
+    --palette-secondary-contrast: #f8edf0;
+    --palette-primary: #f04a3f;
+    --palette-primary-contrast: #fceef6;
     --logo-a: #a00a57;
-    --logo-b: #fd693a;
+    --logo-b: #f04a3f;
     /* cosmic palette */
     --orb-fill-a: color-mix(in oklab, var(--logo-a) 22%, transparent);
     --orb-fill-b: color-mix(in oklab, var(--logo-b) 16%, transparent);
@@ -25,9 +28,10 @@ html[data-theme="light"] {
     --docs-links-border-radius: var(--bob-border-radius);
 }
 
-
+html[data-bob-theme="light"] {
+    --palette-primary-contrast: #010101;
+}
 /* ── Shared layout ───────────────────────────────────────────────*/
-
 .doc-layout {
     display: flex;
     flex-direction: column;
@@ -55,9 +59,20 @@ html[data-theme="light"] {
 .doc-header__brand {
     display: inline-flex;
     align-items: center;
+    flex-shrink: 0;
+    /* Promote the brand to its own stacking context so the logo always
+       paints above scrolled content (the parent header is sticky with
+       backdrop-filter, which can collapse stacking on Safari/Firefox). */
+    position: relative;
+    z-index: 1;
     text-decoration: none;
     color: var(--palette-surface-contrast);
 }
+
+    .doc-header__brand img {
+        display: block;
+        flex-shrink: 0;
+    }
 
     .doc-header__brand:hover,
     .doc-header__brand:focus {
@@ -180,12 +195,12 @@ html[data-theme="light"] {
     transition: background 0.15s ease, border-color 0.15s ease;
 }
 
-.doc-page__api-link:hover,
-.doc-page__api-link:focus-visible {
-    background: color-mix(in oklab, var(--palette-primary) 14%, var(--palette-surface));
-    border-color: var(--palette-primary);
-    text-decoration: none;
-}
+    .doc-page__api-link:hover,
+    .doc-page__api-link:focus-visible {
+        background: color-mix(in oklab, var(--palette-primary) 14%, var(--palette-surface));
+        border-color: var(--palette-primary);
+        text-decoration: none;
+    }
 
 .doc-section {
     margin: 3rem 0;
@@ -464,6 +479,7 @@ html[data-theme="light"] {
     letter-spacing: -0.03em;
     line-height: 0.93;
     color: var(--palette-surface-contrast);
+    user-select: none;
 }
 
 .b-svg {
@@ -510,6 +526,7 @@ html[data-theme="light"] {
     color: color-mix(in oklab, var(--palette-surface-contrast) 55%, var(--palette-surface));
     padding-top: 1rem;
     font-weight: 700;
+    user-select: none;
 }
 
 .hero__snippet {
@@ -550,18 +567,18 @@ html[data-theme="light"] {
     cursor: pointer;
 }
 
-.hero__cta:hover {
-    background: color-mix(in oklab, var(--palette-primary) 18%, transparent);
-    color: var(--palette-primary);
-}
+    .hero__cta:hover {
+        background: color-mix(in oklab, var(--palette-primary) 18%, transparent);
+        color: var(--palette-primary);
+    }
 
-.hero__cta svg {
-    transition: transform 0.2s ease;
-}
+    .hero__cta svg {
+        transition: transform 0.2s ease;
+    }
 
-.hero__cta:hover svg {
-    transform: translateX(2px);
-}
+    .hero__cta:hover svg {
+        transform: translateX(2px);
+    }
 
 
 /* ================================================================
@@ -1131,8 +1148,8 @@ html[data-theme="light"] {
 /* ── DocSearch ─────────────────────────────────────────────────── */
 
 /* Trigger */
-.bob-tree-menu__item .doc-search-trigger{
-    width:100%;
+.doc-nav__head .doc-search-trigger {
+    width: 100%;
 }
 
 .hero__content .doc-search {
@@ -1314,7 +1331,7 @@ html[data-theme="light"] {
 .doc-footer {
     padding: 2rem 1.5rem;
     text-align: center;
-    border-top: 1px solid var(--palette-border);
+    border-top: 1px solid color-mix(in oklab, var(--palette-border) 40%, transparent);
     background: var(--palette-surface);
 }
 
@@ -1323,6 +1340,61 @@ html[data-theme="light"] {
     font-size: 0.85rem;
     color: color-mix(in oklab, var(--palette-surface-contrast) 50%, var(--palette-surface));
 }
+
+/* ── Sidebar nav layout ───────────────────────────────────────────
+   Three-band flex column inside the sidebar-inner: the search box
+   stays pinned at the top, the tree menu scrolls in the middle,
+   and the footer stays pinned at the bottom — always visible
+   without ever covering tree-menu items. */
+
+.doc-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    /* sidebar-inner is sticky with explicit height; filling 100%
+       lets us split the available height across the three bands
+       without depending on viewport math here. The negative
+       margins cancel sidebar-inner's default 1.25rem 0.75rem
+       padding so the bands span edge-to-edge and the footer's
+       border-top sits flush with the sidebar's right border. */
+    height: 100%;
+    margin: -1.25rem -0.75rem;
+    min-height: 0;
+}
+
+.doc-nav__head {
+    flex: 0 0 auto;
+    padding: 1.25rem 0.75rem 0.5rem;
+    background: var(--palette-surface);
+    /* Subtle fade-out under DocSearch so the scrolled tree never
+       reads "cut off" abruptly when content slides past the head. */
+    border-bottom: 1px solid color-mix(in oklab, var(--palette-border) 40%, transparent);
+}
+
+.doc-nav__body {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0.5rem 0.75rem;
+    /* Allow flex item to shrink below content size — required for
+       overflow to actually trigger inside a flex column. */
+    min-height: 0;
+}
+
+.doc-nav__footer {
+    flex: 0 0 auto;
+}
+
+    /* Reset the footer's own padding when nested in the sidebar so
+       it sits compact against the sidebar edge (the standalone
+       footer used elsewhere keeps its 2rem padding). */
+    .doc-nav__footer .doc-footer {
+        padding: 1rem 0.75rem;
+    }
+
+    .doc-nav__footer .doc-footer__text {
+        font-size: 0.78rem;
+    }
 
 
 /* Responsive */

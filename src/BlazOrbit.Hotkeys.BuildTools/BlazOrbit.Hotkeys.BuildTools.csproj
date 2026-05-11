@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net10.0</TargetFramework>
+		<PackAsTool>true</PackAsTool>
+		<PackageType>DotnetTool</PackageType>
+		<ToolCommandName>cdcsharp-blazorbit-hotkeys-buildtools</ToolCommandName>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<IsPackable>false</IsPackable>
+		<PackageId>BlazOrbit.Hotkeys.BuildTools</PackageId>
+		<Description>Build-time tool used by BlazOrbit.Hotkeys `.targets` to scaffold the esbuild scaffolding into the consuming project. Consumers typically do not install this directly — it is invoked automatically when building a project that references BlazOrbit.Hotkeys.</Description>
+		<PackageTags>blazor;blazorbit;hotkeys;build-tools;typescript;esbuild;generator;tool</PackageTags>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CdCSharp.BuildTools" Version="1.0.3" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\BlazOrbit.Core\BlazOrbit.Core.csproj" />
+	</ItemGroup>
+
+</Project>

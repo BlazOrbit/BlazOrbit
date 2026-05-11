@@ -1,0 +1,71 @@
+[data-bob-component="splitter"] {
+    --_splitter-gripper-thickness: 6px;
+    --_splitter-gripper-color: color-mix(in oklab, var(--palette-border) 60%, transparent);
+    --_splitter-gripper-color-active: var(--palette-highlight);
+
+    display: flex;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    min-width: 0;
+}
+
+[data-bob-component="splitter"][data-bob-orientation="horizontal"] {
+    flex-direction: row;
+}
+
+[data-bob-component="splitter"][data-bob-orientation="vertical"] {
+    flex-direction: column;
+}
+
+[data-bob-component="splitter"] .bob-splitter__sink {
+    display: none;
+}
+
+[data-bob-component="splitter"] .bob-splitter__pane {
+    overflow: auto;
+    /* min-width / min-height are also enforced in the inline style for completeness; the
+       0-baseline lets the flex container absorb negative space without clipping siblings. */
+}
+
+[data-bob-component="splitter"] .bob-splitter__gripper {
+    flex: 0 0 var(--_splitter-gripper-thickness);
+    background: var(--_splitter-gripper-color);
+    transition: background 100ms ease;
+    user-select: none;
+}
+
+[data-bob-component="splitter"] .bob-splitter__gripper:hover,
+[data-bob-component="splitter"] .bob-splitter__gripper:focus-visible {
+    background: var(--_splitter-gripper-color-active);
+}
+
+[data-bob-component="splitter"][data-bob-orientation="horizontal"] .bob-splitter__gripper {
+    cursor: col-resize;
+    width: var(--_splitter-gripper-thickness);
+    height: 100%;
+}
+
+[data-bob-component="splitter"][data-bob-orientation="vertical"] .bob-splitter__gripper {
+    cursor: row-resize;
+    width: 100%;
+    height: var(--_splitter-gripper-thickness);
+}
+
+/* Drag overlay — only mounted while a drag is in progress. Captures pointermove/up so
+   the cursor cannot slip outside the splitter. The overlay sets a global cursor so the
+   resize affordance follows the pointer even over arbitrary content. */
+[data-bob-component="splitter"] .bob-splitter__drag-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: transparent;
+}
+
+[data-bob-component="splitter"] .bob-splitter__drag-overlay[data-bob-orientation="horizontal"] {
+    cursor: col-resize;
+}
+
+[data-bob-component="splitter"] .bob-splitter__drag-overlay[data-bob-orientation="vertical"] {
+    cursor: row-resize;
+}

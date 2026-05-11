@@ -41,7 +41,7 @@ bob-component[{{picker}}] {
     gap: calc(0.5rem * var(--bob-density-multiplier));
     padding: calc({{V(FeatureDefinitions.Tokens.Picker.Padding)}} * {{V(sizeMult, "1")}});
     background: var(--palette-surface);
-    border: 1px solid var(--palette-border);
+    border: 1px solid {{V(FeatureDefinitions.Tokens.Picker.BorderColor)}};
     border-radius: {{V(FeatureDefinitions.Tokens.Picker.Radius)}};
     user-select: none;
     --_cell: calc({{V(FeatureDefinitions.Tokens.Picker.CellSize)}} * {{V(sizeMult, "1")}});

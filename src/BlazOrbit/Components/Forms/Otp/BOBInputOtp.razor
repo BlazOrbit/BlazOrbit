@@ -1,0 +1,273 @@
+﻿@using BlazOrbit.Abstractions
+@using System.Diagnostics.CodeAnalysis
+
+@namespace BlazOrbit.Components.Forms
+@attribute [GenerateComponentInfo]
+
+@inherits BOBInputComponentBase<string, BOBInputOtp, BOBInputOtpVariant>
+@implements IBuiltComponent
+@implements IHasSize
+@implements IHasColor
+@implements IHasDensity
+
+@{
+    base.BuildRenderTree(__builder);
+}
+
+@code {
+    private readonly string _groupId = $"bob-otp-{Guid.NewGuid():N}";
+    private readonly string _helperTextId = $"bob-helper-{Guid.NewGuid():N}";
+    private ElementReference[] _slotRefs = [];
+    private char?[] _digits = [];
+    private int _lastLength = -1;
+    private bool _completedFired;
+
+    // IHasSize
+    /// <summary>Visual size of the OTP input.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+
+    // IHasColor
+    /// <summary>Foreground color of each slot. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
+    [Parameter] public string? Color { get; set; }
+
+    // IHasDensity
+    /// <summary>Vertical density (gap) between slots.</summary>
+    [Parameter] public BOBDensity Density { get; set; } = BOBDensity.Standard;
+
+    // Component-specific
+    /// <summary>Number of OTP digit slots. Defaults to <c>6</c>. Range: 2–12.</summary>
+    [Parameter] public int Length { get; set; } = 6;
+    /// <summary>When <see langword="true" /> (default), only digit characters are accepted.</summary>
+    [Parameter] public bool Numeric { get; set; } = true;
+    /// <summary>When <see langword="true" />, slots are rendered as masked password fields.</summary>
+    [Parameter] public bool Mask { get; set; }
+    /// <summary>Floating label displayed above the OTP slots.</summary>
+    [Parameter] public string? Label { get; set; }
+    /// <summary>Helper text displayed below the OTP slots for additional context.</summary>
+    [Parameter] public string? HelperText { get; set; }
+    /// <summary>
+    /// Raised once when every slot is filled and the resulting code parses successfully.
+    /// Fires exactly once per fill cycle; backspacing and refilling triggers a new event.
+    /// </summary>
+    [Parameter] public EventCallback<string> OnComplete { get; set; }
+
+    public override BOBInputOtpVariant DefaultVariant => BOBInputOtpVariant.Boxed;
+
+    protected override IReadOnlyDictionary<BOBInputOtpVariant, Func<BOBInputOtp, RenderFragment>> BuiltInTemplates { get; } =
+        new Dictionary<BOBInputOtpVariant, Func<BOBInputOtp, RenderFragment>>
+        {
+            [BOBInputOtpVariant.Default] = c => c.RenderSlots(),
+            [BOBInputOtpVariant.Boxed] = c => c.RenderSlots(),
+            [BOBInputOtpVariant.Underlined] = c => c.RenderSlots(),
+        };
+
+    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes) { }
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables) { }
+
+    protected override void OnParametersSet()
+    {
+        // Clamp Length to a sane window before any rendering uses it. Below 2 collapses to a
+        // single textbox (use BOBInputText instead); above 12 is past every real-world OTP code
+        // (TOTP=6, longer auth codes top out around 10) and explodes layout.
+        if (Length < 2) Length = 2;
+        if (Length > 12) Length = 12;
+
+        if (_lastLength != Length)
+        {
+            _digits = new char?[Length];
+            _slotRefs = new ElementReference[Length];
+            _lastLength = Length;
+            SyncDigitsFromValue();
+        }
+
+        base.OnParametersSet();
+    }
+
+    private void SyncDigitsFromValue()
+    {
+        // CurrentValue may be set by parent binding (initial value, programmatic reset).
+        // Hydrate the per-slot buffer from it, truncating or padding to Length.
+        string current = CurrentValue ?? string.Empty;
+        for (int i = 0; i < Length; i++)
+        {
+            _digits[i] = i < current.Length ? current[i] : null;
+        }
+
+        _completedFired = current.Length >= Length && !string.IsNullOrEmpty(current);
+    }
+
+    private string ComposeValue()
+    {
+        Span<char> buffer = stackalloc char[Length];
+        int written = 0;
+        foreach (char? d in _digits)
+        {
+            if (d is null) break;
+            buffer[written++] = d.Value;
+        }
+        return new string(buffer[..written]);
+    }
+
+    private bool IsAccepted(char c) => Numeric ? char.IsDigit(c) : !char.IsControl(c);
+
+    private async Task HandleSlotInput(int index, ChangeEventArgs e)
+    {
+        string raw = e.Value?.ToString() ?? string.Empty;
+
+        // Browsers emit the whole field value on input, not just the typed char. The slot is
+        // maxlength=1 so raw is normally 1 char, but Android keyboards / IME composition can
+        // arrive as 2+ characters. Take the last accepted character so re-typing on a filled
+        // slot replaces the previous value naturally.
+        char? next = null;
+        for (int i = raw.Length - 1; i >= 0; i--)
+        {
+            if (IsAccepted(raw[i])) { next = raw[i]; break; }
+        }
+
+        _digits[index] = next;
+        await PropagateAsync();
+
+        // Auto-advance only when the user actually entered a character; clearing via input
+        // event leaves focus where it is so the user can re-type on the same slot.
+        if (next is not null && index + 1 < Length)
+        {
+            await _slotRefs[index + 1].FocusAsync();
+        }
+    }
+
+    private async Task HandleSlotKeyDown(int index, KeyboardEventArgs e)
+    {
+        switch (e.Key)
+        {
+            case "Backspace":
+                if (_digits[index] is null && index > 0)
+                {
+                    // Empty slot + backspace: hop to previous and clear it. Mirrors the
+                    // behaviour of every popular OTP input (Auth0, Stripe, Twilio).
+                    _digits[index - 1] = null;
+                    await PropagateAsync();
+                    await _slotRefs[index - 1].FocusAsync();
+                }
+                else if (_digits[index] is not null)
+                {
+                    _digits[index] = null;
+                    await PropagateAsync();
+                }
+                break;
+            case "ArrowLeft":
+                if (index > 0) await _slotRefs[index - 1].FocusAsync();
+                break;
+            case "ArrowRight":
+                if (index + 1 < Length) await _slotRefs[index + 1].FocusAsync();
+                break;
+            case "Home":
+                await _slotRefs[0].FocusAsync();
+                break;
+            case "End":
+                await _slotRefs[Length - 1].FocusAsync();
+                break;
+        }
+    }
+
+    // Paste handling lives inside the input event handler: Blazor's ClipboardEventArgs does
+    // not carry the pasted text, but the browser fires a synthetic `input` event right after
+    // paste with the full string. HandleSlotInputCore detects raw.Length > 1 and distributes.
+    private async Task HandleSlotInputCore(int index, ChangeEventArgs e)
+    {
+        string raw = e.Value?.ToString() ?? string.Empty;
+        if (raw.Length > 1)
+        {
+            // Paste path: distribute across remaining slots starting at `index`.
+            int slot = index;
+            foreach (char ch in raw)
+            {
+                if (slot >= Length) break;
+                if (!IsAccepted(ch)) continue;
+                _digits[slot++] = ch;
+            }
+            await PropagateAsync();
+            int focusTarget = Math.Min(slot, Length - 1);
+            await _slotRefs[focusTarget].FocusAsync();
+            return;
+        }
+
+        await HandleSlotInput(index, e);
+    }
+
+    private async Task PropagateAsync()
+    {
+        string composed = ComposeValue();
+        CurrentValueAsString = composed;
+
+        bool isComplete = composed.Length >= Length;
+        if (isComplete && !_completedFired && OnComplete.HasDelegate)
+        {
+            _completedFired = true;
+            await OnComplete.InvokeAsync(composed);
+        }
+        else if (!isComplete)
+        {
+            _completedFired = false;
+        }
+    }
+
+    private RenderFragment RenderSlots() => __builder =>
+    {
+        <bob-component @attributes="ComputedAttributes">
+
+            @if (!string.IsNullOrWhiteSpace(Label))
+            {
+                <span class="bob-otp__label" id="@($"{_groupId}-label")">
+                    @Label
+                    @if (IsRequired)
+                    {
+                        <span class="bob-field__required">*</span>
+                    }
+                </span>
+            }
+
+            <div class="bob-otp__slots"
+                 role="group"
+                 aria-labelledby="@(string.IsNullOrWhiteSpace(Label) ? null : $"{_groupId}-label")"
+                 aria-describedby="@_helperTextId">
+
+                @for (int i = 0; i < Length; i++)
+                {
+                    int index = i;
+                    char? digit = _digits[index];
+                    string display = digit is null ? string.Empty : (Mask ? "•" : digit.Value.ToString());
+                    <input @key="index"
+                           @ref="_slotRefs[index]"
+                           type="@(Mask ? "password" : "text")"
+                           inputmode="@(Numeric ? "numeric" : "text")"
+                           pattern="@(Numeric ? "[0-9]*" : null)"
+                           autocomplete="@(index == 0 ? "one-time-code" : "off")"
+                           class="bob-otp__slot"
+                           maxlength="@(index == 0 ? Length : 1)"
+                           value="@display"
+                           aria-label="@($"Digit {index + 1} of {Length}")"
+                           aria-invalid="@IsError.ToString().ToLowerInvariant()"
+                           aria-required="@IsRequired.ToString().ToLowerInvariant()"
+                           disabled="@IsDisabled"
+                           readonly="@IsReadOnly"
+                           @oninput="@(e => HandleSlotInputCore(index, e))"
+                           @onkeydown="@(e => HandleSlotKeyDown(index, e))" />
+                }
+            </div>
+
+            <_BOBFieldHelper TValue="string"
+                             Id="@_helperTextId"
+                             HelperText="@HelperText"
+                             ShowValidation="@IsError"
+                             EditContext="@EditContext"
+                             For="@ValueExpression" />
+        </bob-component>
+    };
+
+    protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out string result, [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        result = value ?? string.Empty;
+        validationErrorMessage = null;
+        return true;
+    }
+}

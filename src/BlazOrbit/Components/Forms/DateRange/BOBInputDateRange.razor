@@ -1,0 +1,121 @@
+@using BlazOrbit.Abstractions
+@using BlazOrbit.Components
+
+@namespace BlazOrbit.Components.Forms
+@attribute [GenerateComponentInfo]
+
+@inherits BOBComponentBase
+@implements IHasSize
+@implements IHasDensity
+@implements IPickerFamilyComponent
+
+<bob-component @attributes="ComputedAttributes">
+
+    @if (!string.IsNullOrWhiteSpace(Label))
+    {
+        <span class="bob-daterange__label">@Label</span>
+    }
+
+    <div class="bob-daterange__row">
+        <div class="bob-daterange__pane">
+            <span class="bob-daterange__pane-title">@StartLabel</span>
+            <BOBDatePicker Value="@Value.Start"
+                           ValueChanged="HandleStartChanged"
+                           Size="@Size"
+                           Density="@Density" />
+        </div>
+        <div class="bob-daterange__pane">
+            <span class="bob-daterange__pane-title">@EndLabel</span>
+            <BOBDatePicker Value="@Value.End"
+                           ValueChanged="HandleEndChanged"
+                           Size="@Size"
+                           Density="@Density" />
+        </div>
+    </div>
+
+    @if (ShowPresets)
+    {
+        <div class="bob-daterange__presets">
+            <_BOBBtn OnClick="@(() => ApplyPreset(DateRange.Last7Days()))">@Last7DaysText</_BOBBtn>
+            <_BOBBtn OnClick="@(() => ApplyPreset(DateRange.Last30Days()))">@Last30DaysText</_BOBBtn>
+            <_BOBBtn OnClick="@(() => ApplyPreset(DateRange.ThisMonth()))">@ThisMonthText</_BOBBtn>
+            <_BOBBtn OnClick="@(() => ApplyPreset(default))">@ClearText</_BOBBtn>
+        </div>
+    }
+
+    @if (ShowSummary && Value.IsComplete)
+    {
+        <div class="bob-daterange__summary" aria-live="polite">
+            <span>@Value.Start!.Value.ToString(System.Globalization.CultureInfo.CurrentCulture)</span>
+            <span aria-hidden="true">→</span>
+            <span>@Value.End!.Value.ToString(System.Globalization.CultureInfo.CurrentCulture)</span>
+            <span class="bob-daterange__summary-count">(@Value.DayCount @DaysText)</span>
+        </div>
+    }
+</bob-component>
+
+@code {
+    /// <summary>Currently selected range. Defaults to an empty range.</summary>
+    [Parameter] public DateRange Value { get; set; }
+    /// <summary>Raised when the user picks a date or applies a preset.</summary>
+    [Parameter] public EventCallback<DateRange> ValueChanged { get; set; }
+
+    /// <summary>Visual size of the component.</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    /// <summary>Vertical density of the component.</summary>
+    [Parameter] public BOBDensity Density { get; set; } = BOBDensity.Standard;
+
+    /// <summary>Optional label rendered above the two pickers.</summary>
+    [Parameter] public string? Label { get; set; }
+    /// <summary>Caption for the start-date pane. Defaults to <c>"Start"</c>.</summary>
+    [Parameter] public string StartLabel { get; set; } = "Start";
+    /// <summary>Caption for the end-date pane. Defaults to <c>"End"</c>.</summary>
+    [Parameter] public string EndLabel { get; set; } = "End";
+
+    /// <summary>When <see langword="true" /> (default), render the preset shortcut buttons.</summary>
+    [Parameter] public bool ShowPresets { get; set; } = true;
+    /// <summary>When <see langword="true" /> (default), render the textual summary below the picker.</summary>
+    [Parameter] public bool ShowSummary { get; set; } = true;
+
+    /// <summary>Localised label for the "last 7 days" preset.</summary>
+    [Parameter] public string Last7DaysText { get; set; } = "Last 7 days";
+    /// <summary>Localised label for the "last 30 days" preset.</summary>
+    [Parameter] public string Last30DaysText { get; set; } = "Last 30 days";
+    /// <summary>Localised label for the "this month" preset.</summary>
+    [Parameter] public string ThisMonthText { get; set; } = "This month";
+    /// <summary>Localised label for the "clear" preset.</summary>
+    [Parameter] public string ClearText { get; set; } = "Clear";
+    /// <summary>Localised noun used in the summary day-count line ("days" by default).</summary>
+    [Parameter] public string DaysText { get; set; } = "days";
+
+    private async Task HandleStartChanged(DateOnly? newStart)
+    {
+        DateOnly? newEnd = Value.End;
+        // Constraint: when the new start passes the existing end, drag the end forward to match
+        // so the resulting range remains valid. Open-ended ranges (null end) are left untouched.
+        if (newStart.HasValue && newEnd.HasValue && newStart.Value > newEnd.Value)
+        {
+            newEnd = newStart;
+        }
+        Value = new DateRange(newStart, newEnd);
+        await ValueChanged.InvokeAsync(Value);
+    }
+
+    private async Task HandleEndChanged(DateOnly? newEnd)
+    {
+        DateOnly? newStart = Value.Start;
+        // Mirror of HandleStartChanged: when end is dragged before start, pull the start backward.
+        if (newEnd.HasValue && newStart.HasValue && newEnd.Value < newStart.Value)
+        {
+            newStart = newEnd;
+        }
+        Value = new DateRange(newStart, newEnd);
+        await ValueChanged.InvokeAsync(Value);
+    }
+
+    private async Task ApplyPreset(DateRange preset)
+    {
+        Value = preset;
+        await ValueChanged.InvokeAsync(Value);
+    }
+}

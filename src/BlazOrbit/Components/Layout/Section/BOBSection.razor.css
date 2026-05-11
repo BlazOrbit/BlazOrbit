@@ -1,0 +1,63 @@
+[data-bob-component="section"] {
+    /* Reuses container max-width tokens to stay consistent with BOBContainer. */
+    --_section-max-small: 30rem;
+    --_section-max-medium: 48rem;
+    --_section-max-large: 64rem;
+    --_section-max-wide: 80rem;
+    --_section-px: 1rem;
+    --_section-py: 2rem;
+    --_section-gap: 1rem;
+    --_section-lead: color-mix(in oklab, var(--palette-surface-contrast) 70%, transparent);
+
+    display: block;
+    padding-block: var(--_section-py);
+}
+
+[data-bob-component="section"] .bob-section__inner {
+    margin-inline: auto;
+    padding-inline: var(--_section-px);
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: var(--_section-gap);
+}
+
+[data-bob-component="section"][data-bob-size="small"] .bob-section__inner {
+    max-width: var(--_section-max-small);
+}
+
+[data-bob-component="section"][data-bob-size="medium"] .bob-section__inner {
+    max-width: var(--_section-max-medium);
+}
+
+[data-bob-component="section"][data-bob-size="large"] .bob-section__inner {
+    max-width: var(--_section-max-large);
+}
+
+[data-bob-component="section"][data-bob-size="wide"] .bob-section__inner {
+    max-width: var(--_section-max-wide);
+}
+
+[data-bob-component="section"][data-bob-size="full"] .bob-section__inner {
+    max-width: none;
+}
+
+[data-bob-component="section"] .bob-section__title {
+    margin: 0;
+    font-size: 1.375rem;
+    font-weight: 600;
+    color: var(--palette-surface-contrast);
+}
+
+[data-bob-component="section"] .bob-section__lead {
+    margin: 0;
+    color: var(--_section-lead);
+    max-width: 70ch;
+}
+
+[data-bob-component="section"] .bob-section__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--_section-gap);
+}

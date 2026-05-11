@@ -1,0 +1,389 @@
+@page "/"
+@inject IToastService ToastService
+@inject NavigationManager Navigation
+@using BlazOrbit.Charts.Components
+@using BlazOrbit.Charts.Enums
+@using BlazOrbit.Charts.Models
+@using BlazOrbit.Components.Layout.Services
+@*#if (UseNotificationsCenter)*@
+@using BlazOrbit.Notifications
+@*#endif*@
+@*#if (UseHotKeys)*@
+@using BlazOrbit.Hotkeys
+@*#endif*@
+@*#if (UseNotificationsCenter)*@
+@inject INotificationCenter Center
+@*#endif*@
+@*#if (UseHotKeys)*@
+@inject IHotkeyService Hotkeys
+@*#endif*@
+
+<PageTitle>Dashboard · BlazOrbit</PageTitle>
+
+<section class="bob-dashboard__hero">
+    <div class="bob-dashboard__hero-copy">
+        <span class="bob-dashboard__eyebrow">BlazOrbit · Dashboard</span>
+        <h1>Operations overview</h1>
+        <p>
+            This sample home page wires together <strong>BlazOrbit.Charts</strong> with
+            the rest of the BlazOrbit component set. Replace the mock data in
+            <code>Pages/Home.razor</code> with your services to make it real.
+        </p>
+        <div class="bob-dashboard__hero-actions">
+            <BOBButton Text="Documentation"
+                       TrailingIcon="@BOBIconKeys.MaterialIconsOutlined.i_open_in_new"
+                       Color="@PaletteColor.Primary"
+                       OnClick="@OpenDocs" />
+            <BOBButton Text="Refresh"
+                       LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_refresh"
+                       OnClick="@Refresh" />
+        </div>
+    </div>
+</section>
+
+<section class="bob-dashboard__kpi-row">
+    <BOBCard>
+        <div class="bob-dashboard__kpi">
+            <span class="bob-dashboard__kpi-label">Active users</span>
+            <span class="bob-dashboard__kpi-value">2 481</span>
+            <BOBLineChart TX="int" TY="double"
+                          Series="_kpiUsers"
+                          Sparkline="true"
+                          ShowMarkers="false"
+                          Smooth="true"
+                          Width="180" Height="36" />
+        </div>
+    </BOBCard>
+    <BOBCard>
+        <div class="bob-dashboard__kpi">
+            <span class="bob-dashboard__kpi-label">p95 latency</span>
+            <span class="bob-dashboard__kpi-value">128 ms</span>
+            <BOBLineChart TX="int" TY="double"
+                          Series="_kpiLatency"
+                          Sparkline="true"
+                          ShowMarkers="false"
+                          Width="180" Height="36" />
+        </div>
+    </BOBCard>
+    <BOBCard>
+        <div class="bob-dashboard__kpi">
+            <span class="bob-dashboard__kpi-label">Error rate</span>
+            <span class="bob-dashboard__kpi-value">0.42 %</span>
+            <BOBLineChart TX="int" TY="double"
+                          Series="_kpiErrors"
+                          Sparkline="true"
+                          ShowMarkers="false"
+                          Width="180" Height="36" />
+        </div>
+    </BOBCard>
+    <BOBCard>
+        <div class="bob-dashboard__kpi">
+            <span class="bob-dashboard__kpi-label">Capacity</span>
+            <BOBGaugeChart Value="68"
+                           Caption="CPU"
+                           Unit="%"
+                           Segments="_capacityZones"
+                           Width="180" Height="120" />
+        </div>
+    </BOBCard>
+</section>
+
+<section class="bob-dashboard__grid">
+    <BOBCard Header="@RevenueHeader">
+        <BOBLineChart TX="DateTime" TY="decimal"
+                      Series="_revenue"
+                      ZoomEnabled="true"
+                      ShowCrosshair="true"
+                      Smooth="true"
+                      ReferenceLines="_revenueGoals"
+                      XAxis="@(new BOBChartAxis { Format = "MMM" })"
+                      Width="640" Height="280" />
+    </BOBCard>
+    <BOBCard Header="@RegionsHeader">
+        <BOBBarChart TX="string" TY="decimal"
+                     Series="_byRegion"
+                     StackMode="BOBBarStackMode.Stacked"
+                     Width="380" Height="280" />
+    </BOBCard>
+</section>
+
+<section class="bob-dashboard__grid">
+    <BOBCard Header="@TrafficHeader">
+        <BOBHeatmapChart TX="string" TY="string"
+                         Cells="_trafficHeatmap"
+                         Columns="_hours"
+                         Rows="_days"
+                         Width="640" Height="220" />
+    </BOBCard>
+    <BOBCard Header="@PriceHeader">
+        <BOBCandlestickChart TX="DateTime"
+                             Candles="_ohlc"
+                             ShowVolumePane="true"
+                             XAxis="@(new BOBChartAxis { Format = "MM-dd" })"
+                             Width="380" Height="220" />
+    </BOBCard>
+</section>
+
+@*#if (UseNotificationsCenter)*@
+<section class="bob-showcase__section">
+    <h2>Notifications</h2>
+    <p class="bob-showcase__lead">Persistent inbox-style notifications with BOBNotificationBell.</p>
+    <div class="bob-showcase__row">
+        <BOBButton Text="Push info"
+                   LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_info"
+                   OnClick="@(() => PushNotificationAsync(NotificationSeverity.Info, "Hello", "This is an info notification."))" />
+        <BOBButton Text="Push warning"
+                   LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_warning"
+                   OnClick="@(() => PushNotificationAsync(NotificationSeverity.Warning, "Heads up", "Something needs attention."))" />
+        <BOBNotificationBell />
+    </div>
+    @if (Center.All.Count > 0)
+    {
+        <ul class="bob-showcase__inbox">
+            @foreach (var n in Center.All)
+            {
+                <li class="bob-showcase__inbox-item">
+                    <span class="bob-showcase__inbox-severity @($"bob-showcase__inbox-severity--{n.Severity.ToString().ToLowerInvariant()}")">@n.Severity</span>
+                    <strong>@n.Title</strong> — @n.Body
+                </li>
+            }
+        </ul>
+    }
+</section>
+@*#endif*@
+@*#if (UseHotKeys)*@
+<section class="bob-showcase__section">
+    <h2>Hotkeys</h2>
+    <p class="bob-showcase__lead">Global keyboard shortcuts with BlazOrbit.Hotkeys.</p>
+    <p>Press <kbd>Ctrl</kbd>+<kbd>K</kbd> to push a notification from anywhere outside an input.</p>
+    <p>Press <kbd>Ctrl</kbd>+<kbd>F1</kbd> to show a toast.</p>
+    <p>Hits: <strong>@_hotkeyHits</strong> | Last combo: <code>@_lastCombo</code></p>
+    @if (Hotkeys.RegisteredHotkeys.Count > 0)
+    {
+        <table class="bob-showcase__hotkeys">
+            <thead>
+                <tr><th>Combo</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+                @foreach (var h in Hotkeys.RegisteredHotkeys)
+                {
+                    <tr><td><code>@h.Combo</code></td><td>@h.Description</td></tr>
+                }
+            </tbody>
+        </table>
+    }
+</section>
+@*#endif*@
+
+@code {
+    private RenderFragment RevenueHeader => @<h3>Revenue trend</h3>;
+    private RenderFragment RegionsHeader => @<h3>Revenue by region</h3>;
+    private RenderFragment TrafficHeader => @<h3>Hourly traffic</h3>;
+    private RenderFragment PriceHeader => @<h3>Top asset price</h3>;
+
+    private async Task Refresh()
+    {
+        await ToastService.ShowAsync(b =>
+        {
+            b.OpenElement(0, "div");
+            b.AddContent(1, "Dashboard refreshed.");
+            b.CloseElement();
+        });
+    }
+
+    private void OpenDocs() => Navigation.NavigateTo("https://blazorbit.com", forceLoad: true);
+@*#if (UseNotificationsCenter)*@
+
+    private async Task PushNotificationAsync(NotificationSeverity severity, string title, string message)
+    {
+        await Center.PushAsync(new BOBNotification
+        {
+            Severity = severity,
+            Title = title,
+            Body = message
+        });
+    }
+@*#endif*@
+@*#if (UseHotKeys)*@
+
+    private int _hotkeyHits;
+    private string _lastCombo = "none";
+    private IDisposable? _hotkeyReg1;
+    private IDisposable? _hotkeyReg2;
+
+    protected override void OnInitialized()
+    {
+        _hotkeyReg1 = Hotkeys.Register("ctrl+k", "Push a demo notification",
+            async () =>
+            {
+                _hotkeyHits++;
+                _lastCombo = "ctrl+k";
+                await InvokeAsync(StateHasChanged);
+@*#if (UseNotificationsCenter)*@
+                await Center.PushAsync(new BOBNotification
+                {
+                    Severity = NotificationSeverity.Success,
+                    Title = "Hotkey fired",
+                    Body = $"Ctrl+K was pressed (hit #{_hotkeyHits})."
+                });
+@*#else*@
+                await ToastService.ShowAsync(b =>
+                {
+                    b.OpenElement(0, "div");
+                    b.AddContent(1, $"Hotkey fired: Ctrl+K (hit #{_hotkeyHits}).");
+                    b.CloseElement();
+                });
+@*#endif*@
+            });
+
+        _hotkeyReg2 = Hotkeys.Register("ctrl+f1", "Show a toast",
+            async () =>
+            {
+                _hotkeyHits++;
+                _lastCombo = "ctrl+f1";
+                await InvokeAsync(StateHasChanged);
+                await ToastService.ShowAsync(b =>
+                {
+                    b.OpenElement(0, "div");
+                    b.AddContent(1, $"Hotkey fired: Ctrl+F1 (hit #{_hotkeyHits}).");
+                    b.CloseElement();
+                });
+            });
+    }
+
+    public void Dispose()
+    {
+        _hotkeyReg1?.Dispose();
+        _hotkeyReg2?.Dispose();
+    }
+@*#endif*@
+
+    // -------- Mock data (replace with real services) ----------------------
+
+    private static IEnumerable<BOBChartSeries<int, double>> Synth(string label, double mean, double stddev, int seed, int n = 30)
+    {
+        Random rng = new(seed);
+        var pts = new List<BOBChartPoint<int, double>>();
+        for (int i = 0; i < n; i++)
+        {
+            double u1 = 1 - rng.NextDouble();
+            double u2 = 1 - rng.NextDouble();
+            double z = Math.Sqrt(-2 * Math.Log(u1)) * Math.Cos(2 * Math.PI * u2);
+            pts.Add(new BOBChartPoint<int, double>(i, mean + z * stddev));
+        }
+        return new[] { new BOBChartSeries<int, double> { Label = label, Points = pts.ToArray() } };
+    }
+
+    private static readonly IEnumerable<BOBChartSeries<int, double>> _kpiUsers = Synth("users", 2400, 120, 1);
+    private static readonly IEnumerable<BOBChartSeries<int, double>> _kpiLatency = Synth("latency", 130, 18, 2);
+    private static readonly IEnumerable<BOBChartSeries<int, double>> _kpiErrors = Synth("errors", 0.5, 0.18, 3);
+
+    private static readonly IEnumerable<BOBChartGaugeSegment> _capacityZones = new[]
+    {
+        new BOBChartGaugeSegment { From = 0, To = 60, Color = "var(--palette-success)" },
+        new BOBChartGaugeSegment { From = 60, To = 85, Color = "var(--palette-warning)" },
+        new BOBChartGaugeSegment { From = 85, To = 100, Color = "var(--palette-error)" },
+    };
+
+    private static readonly IEnumerable<BOBChartSeries<DateTime, decimal>> _revenue = new[]
+    {
+        new BOBChartSeries<DateTime, decimal>
+        {
+            Label = "MRR",
+            Points = Enumerable.Range(0, 12)
+                .Select(i => new BOBChartPoint<DateTime, decimal>(
+                    new DateTime(2026, 1, 1).AddMonths(i),
+                    (decimal)(80_000 + Math.Sin(i * 0.6) * 8_000 + i * 4_500)))
+                .ToArray()
+        }
+    };
+
+    private static readonly IEnumerable<BOBChartReferenceLine> _revenueGoals = new[]
+    {
+        new BOBChartReferenceLine
+        {
+            Value = 130_000, Label = "Goal", Color = "var(--palette-success)",
+            Style = BOBChartReferenceLineStyle.Dashed, StrokeWidth = 1.5
+        }
+    };
+
+    private static readonly IEnumerable<BOBChartSeries<string, decimal>> _byRegion = new[]
+    {
+        new BOBChartSeries<string, decimal>
+        {
+            Label = "EMEA",
+            Points = new[]
+            {
+                new BOBChartPoint<string, decimal>("Q1", 45m),
+                new BOBChartPoint<string, decimal>("Q2", 52m),
+                new BOBChartPoint<string, decimal>("Q3", 58m),
+                new BOBChartPoint<string, decimal>("Q4", 64m),
+            }
+        },
+        new BOBChartSeries<string, decimal>
+        {
+            Label = "Americas",
+            Points = new[]
+            {
+                new BOBChartPoint<string, decimal>("Q1", 38m),
+                new BOBChartPoint<string, decimal>("Q2", 41m),
+                new BOBChartPoint<string, decimal>("Q3", 50m),
+                new BOBChartPoint<string, decimal>("Q4", 62m),
+            }
+        },
+        new BOBChartSeries<string, decimal>
+        {
+            Label = "APAC",
+            Points = new[]
+            {
+                new BOBChartPoint<string, decimal>("Q1", 22m),
+                new BOBChartPoint<string, decimal>("Q2", 28m),
+                new BOBChartPoint<string, decimal>("Q3", 34m),
+                new BOBChartPoint<string, decimal>("Q4", 41m),
+            }
+        },
+    };
+
+    private static readonly string[] _hours = Enumerable.Range(0, 24).Select(h => h.ToString("00")).ToArray();
+    private static readonly string[] _days = new[] { "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" };
+
+    private static readonly BOBChartHeatmapCell<string, string>[] _trafficHeatmap = GenerateTraffic();
+
+    private static BOBChartHeatmapCell<string, string>[] GenerateTraffic()
+    {
+        Random rng = new(7);
+        var cells = new List<BOBChartHeatmapCell<string, string>>();
+        foreach (string day in _days)
+        {
+            foreach (string hour in _hours)
+            {
+                int hr = int.Parse(hour);
+                bool weekend = day == "Sat" || day == "Sun";
+                double bias = (hr is >= 9 and <= 18 ? 4 : 1) * (weekend ? 0.4 : 1.0);
+                cells.Add(new BOBChartHeatmapCell<string, string>(hour, day, bias + rng.NextDouble() * 4));
+            }
+        }
+        return cells.ToArray();
+    }
+
+    private static readonly BOBChartCandlePoint<DateTime>[] _ohlc = GenerateOhlc();
+
+    private static BOBChartCandlePoint<DateTime>[] GenerateOhlc()
+    {
+        Random rng = new(2026);
+        var list = new List<BOBChartCandlePoint<DateTime>>();
+        DateTime start = new(2026, 04, 01);
+        double last = 145.0;
+        for (int i = 0; i < 18; i++)
+        {
+            double open = last;
+            double close = open + (rng.NextDouble() - 0.45) * 4;
+            double high = Math.Max(open, close) + rng.NextDouble() * 2;
+            double low = Math.Min(open, close) - rng.NextDouble() * 2;
+            double vol = 600_000 + rng.NextDouble() * 400_000;
+            list.Add(new BOBChartCandlePoint<DateTime>(start.AddDays(i), open, high, low, close, vol));
+            last = close;
+        }
+        return list.ToArray();
+    }
+}

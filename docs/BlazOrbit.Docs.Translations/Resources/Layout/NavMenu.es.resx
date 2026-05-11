@@ -192,6 +192,39 @@
   <data name="Tabs" xml:space="preserve">
     <value>Pestañas</value>
   </data>
+  <data name="Breadcrumbs" xml:space="preserve">
+    <value>Migas de pan</value>
+  </data>
+  <data name="Timeline" xml:space="preserve">
+    <value>Línea temporal</value>
+  </data>
+  <data name="Stepper" xml:space="preserve">
+    <value>Asistente por pasos</value>
+  </data>
+  <data name="Aspect Ratio" xml:space="preserve">
+    <value>Relación de aspecto</value>
+  </data>
+  <data name="Container" xml:space="preserve">
+    <value>Contenedor</value>
+  </data>
+  <data name="Page Header" xml:space="preserve">
+    <value>Cabecera de página</value>
+  </data>
+  <data name="Splitter" xml:space="preserve">
+    <value>Divisor</value>
+  </data>
+  <data name="Services" xml:space="preserve">
+    <value>Servicios</value>
+  </data>
+  <data name="Confirm" xml:space="preserve">
+    <value>Confirmación</value>
+  </data>
+  <data name="Hotkey" xml:space="preserve">
+    <value>Atajos de teclado</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notificaciones</value>
+  </data>
   <data name="Card" xml:space="preserve">
     <value>Tarjeta</value>
   </data>
@@ -284,5 +317,41 @@
   </data>
   <data name="Range Slider" xml:space="preserve">
     <value>Deslizador de rango</value>
+  </data>
+  <data name="OTP" xml:space="preserve">
+    <value>OTP</value>
+  </data>
+  <data name="Password" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="AutoComplete" xml:space="preserve">
+    <value>Autocompletar</value>
+  </data>
+  <data name="Date Range" xml:space="preserve">
+    <value>Rango de fechas</value>
+  </data>
+  <data name="File Upload" xml:space="preserve">
+    <value>Subir archivos</value>
+  </data>
+  <data name="Display" xml:space="preserve">
+    <value>Visualización</value>
+  </data>
+  <data name="Banner" xml:space="preserve">
+    <value>Aviso</value>
+  </data>
+  <data name="Rating" xml:space="preserve">
+    <value>Valoración</value>
+  </data>
+  <data name="Stat Card" xml:space="preserve">
+    <value>Tarjeta KPI</value>
+  </data>
+  <data name="Progress" xml:space="preserve">
+    <value>Progreso</value>
+  </data>
+  <data name="Chip" xml:space="preserve">
+    <value>Etiqueta</value>
+  </data>
+  <data name="Avatar" xml:space="preserve">
+    <value>Avatar</value>
   </data>
 </root>

@@ -66,7 +66,11 @@ public class ComponentInfoGeneratorTests
             @namespace TestNs
 
             @code {
-                /// <summary>Shared size.</summary>
+                /// <summary>
+                /// Optional CTA template rendered alongside the empty state — pair
+                /// with <see cref="EmptyContent"/> for "Create first record" buttons
+                /// without rewriting the entire empty layout.
+                /// </summary>
                 [Parameter] public string? Size { get; set; }
             }
             """;

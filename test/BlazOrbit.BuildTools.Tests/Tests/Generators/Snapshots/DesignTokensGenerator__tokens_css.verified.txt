@@ -46,7 +46,10 @@
     /* ========================================
        INPUT FAMILY
        ======================================== */
-    --bob-input-radius: 4px;
+    --bob-input-border-width: 1px;
+    --bob-input-border-style: solid;
+    --bob-input-border-color: color-mix(in oklab, var(--palette-border) 40%, transparent);
+    --bob-input-border-radius: 0;
     --bob-input-transition-duration: 150ms;
     --bob-input-transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
     --bob-input-floated-scale: 0.75;
@@ -55,6 +58,7 @@
        PICKER FAMILY
        ======================================== */
     --bob-picker-radius: 8px;
+    --bob-picker-border-color: color-mix(in oklab, var(--palette-border) 40%, transparent);
     --bob-picker-cell-size: 36px;
     --bob-picker-padding: 0.75rem;
 }

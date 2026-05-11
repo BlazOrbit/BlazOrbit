@@ -1,0 +1,87 @@
+@page "/components/charts/pie"
+
+@inject IStringLocalizer<PieChartPage> Loc
+
+<DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBPieChart"]"
+         Lede="@Loc["Full circular distribution chart. Each slice value is auto-normalized to 100% across the slice set; slice order goes clockwise from 12 o'clock following declaration order."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBPieChart<>)"
+>
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+        <BOBPieChart TY="decimal"
+                     Slices="_revenueSlices"
+                     Width="380" Height="380" />
+    </DocDemo>
+
+    <DocDemo Key="WithoutPercentages" Title="@Loc["Without percentage labels"]"
+             Description="@Loc["ShowPercentages=false hides the in-slice labels. Hover still reveals the exact percentage via the native tooltip."]">
+        <BOBPieChart TY="decimal"
+                     Slices="_revenueSlices"
+                     ShowPercentages="false"
+                     Width="380" Height="380" />
+    </DocDemo>
+
+    <DocDemo Key="WithExport" Title="@Loc["With export button"]">
+        <BOBPieChart TY="decimal"
+                     Slices="_revenueSlices"
+                     Width="380" Height="380"
+                     ShowExportButton="true"
+                     ExportFileName="revenue-distribution" />
+    </DocDemo>
+
+    <DocDemo Key="SliceClick" Title="@Loc["Slice click handler"]"
+             Description="@Loc["OnSliceClick fires when a slice is clicked, carrying the label, raw value, index and computed percentage."]">
+        <BOBPieChart TY="decimal"
+                     Slices="_revenueSlices"
+                     Width="380" Height="380"
+                     OnSliceClick="HandleSliceClick" />
+        @if (!string.IsNullOrEmpty(_clickMessage))
+        {
+            <p class="doc-helper-text">@_clickMessage</p>
+        }
+    </DocDemo>
+
+    <DocDemo Key="CustomColors" Title="@Loc["Custom slice colors"]"
+             Description="@Loc["Assign explicit Color values to each BOBChartSlice to override the default palette cycle."]">
+        <BOBPieChart TY="decimal"
+                     Slices="_coloredSlices"
+                     Width="380" Height="380" />
+    </DocDemo>
+
+    <DocDemo Key="LegendPosition" Title="@Loc["Legend on the right"]"
+             Description="@Loc["LegendPosition moves the legend block relative to the chart."]">
+        <BOBPieChart TY="decimal"
+                     Slices="_revenueSlices"
+                     Width="380" Height="380"
+                     LegendPosition="BOBChartLegendPosition.Right" />
+    </DocDemo>
+
+</DocPage>
+
+@code {
+
+    private string? _clickMessage;
+
+    private void HandleSliceClick(BOBChartSliceClickArgs<decimal> args)
+    {
+        _clickMessage = $"Clicked: {args.SliceLabel} — {args.Value} ({args.Percentage:F1}%)";
+    }
+
+    private static readonly IEnumerable<BOBChartSlice<decimal>> _revenueSlices =
+        new[]
+        {
+            new BOBChartSlice<decimal> { Label = "EMEA",     Value = 45m },
+            new BOBChartSlice<decimal> { Label = "Americas", Value = 35m },
+            new BOBChartSlice<decimal> { Label = "APAC",     Value = 15m },
+            new BOBChartSlice<decimal> { Label = "Other",    Value = 5m },
+        };
+
+    private static readonly IEnumerable<BOBChartSlice<decimal>> _coloredSlices =
+        new[]
+        {
+            new BOBChartSlice<decimal> { Label = "Success", Value = 62m, Color = "var(--palette-success)" },
+            new BOBChartSlice<decimal> { Label = "Warning", Value = 25m, Color = "var(--palette-warning)" },
+            new BOBChartSlice<decimal> { Label = "Error",   Value = 13m, Color = "var(--palette-error)" },
+        };
+}

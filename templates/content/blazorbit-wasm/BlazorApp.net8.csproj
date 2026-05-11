@@ -21,6 +21,15 @@
     <!--#if (IncludeLocalization)-->
     <PackageReference Include="BlazOrbit.Localization.Wasm" Version="*" />
     <!--#endif-->
+    <!--#if (IncludeCharts)-->
+    <PackageReference Include="BlazOrbit.Charts" Version="*" />
+    <!--#endif-->
+    <!--#if (UseNotificationsCenter)-->
+    <PackageReference Include="BlazOrbit.Notifications" Version="*" />
+    <!--#endif-->
+    <!--#if (UseHotKeys)-->
+    <PackageReference Include="BlazOrbit.Hotkeys" Version="*" />
+    <!--#endif-->
   </ItemGroup>
 
   <ItemGroup>

@@ -1,4 +1,4 @@
-@using System.Diagnostics.CodeAnalysis
+﻿@using System.Diagnostics.CodeAnalysis
 @using System.Globalization
 @using System.Numerics
 @using BlazOrbit.Abstractions
@@ -48,11 +48,11 @@
     [Parameter] public ShadowStyle? Shadow { get; set; }
 
     // IHasBackgroundColor
-    /// <summary>Background color of the rail. Accepts any valid CSS color value.</summary>
+    /// <summary>Background color of the rail. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? BackgroundColor { get; set; }
 
     // IHasColor
-    /// <summary>Filled-segment and thumb color. Accepts any valid CSS color value.</summary>
+    /// <summary>Filled-segment and thumb color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? Color { get; set; }
 
     // IHasFullWidth

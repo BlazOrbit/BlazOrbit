@@ -1,0 +1,81 @@
+@page "/components/charts/candlestick"
+
+@inject IStringLocalizer<CandlestickChartPage> Loc
+
+<DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBCandlestickChart"]"
+         Lede="@Loc["OHLC / candlestick chart for financial time series. Wick from Low to High; body Open → Close colored bullish (Close ≥ Open) or bearish (Close < Open). Optional volume pane on the bottom 20% sharing the X axis."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBCandlestickChart<>)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic OHLC"]">
+        <BOBCandlestickChart TX="DateTime"
+                             Candles="_ohlc"
+                             XAxis="@(new BOBChartAxis { Format = "MM-dd" })"
+                             Width="640" Height="360" />
+    </DocDemo>
+
+    <DocDemo Key="WithVolume" Title="@Loc["With volume pane"]"
+             Description="@Loc["ShowVolumePane reserves the bottom 20% for volume bars colored by the candle direction. Use the same dataset to spot price/volume divergences."]">
+        <BOBCandlestickChart TX="DateTime"
+                             Candles="_ohlc"
+                             ShowVolumePane="true"
+                             XAxis="@(new BOBChartAxis { Format = "MM-dd" })"
+                             Width="640" Height="380" />
+    </DocDemo>
+
+    <DocDemo Key="ReferenceLines" Title="@Loc["With moving-average reference"]"
+             Description="@Loc["ReferenceLines map onto the price pane. Useful for SMA / EMA bands or fixed support / resistance levels."]">
+        <BOBCandlestickChart TX="DateTime"
+                             Candles="_ohlc"
+                             ReferenceLines="_movingAverage"
+                             XAxis="@(new BOBChartAxis { Format = "MM-dd" })"
+                             Width="640" Height="360" />
+    </DocDemo>
+
+    <DocDemo Key="CustomColors" Title="@Loc["Custom up / down colors"]">
+        <BOBCandlestickChart TX="DateTime"
+                             Candles="_ohlc"
+                             UpColor="#0ea5e9"
+                             DownColor="#f97316"
+                             XAxis="@(new BOBChartAxis { Format = "MM-dd" })"
+                             Width="640" Height="360" />
+    </DocDemo>
+
+</DocPage>
+
+@code {
+
+    private static readonly BOBChartCandlePoint<DateTime>[] _ohlc = GenerateOhlc();
+
+    private static BOBChartCandlePoint<DateTime>[] GenerateOhlc()
+    {
+        Random rng = new(2026);
+        var list = new List<BOBChartCandlePoint<DateTime>>();
+        DateTime start = new(2026, 04, 01);
+        double last = 145.0;
+        for (int i = 0; i < 25; i++)
+        {
+            double open = last;
+            double close = open + (rng.NextDouble() - 0.45) * 4;
+            double high = Math.Max(open, close) + rng.NextDouble() * 2;
+            double low = Math.Min(open, close) - rng.NextDouble() * 2;
+            double vol = 600_000 + rng.NextDouble() * 400_000;
+            list.Add(new BOBChartCandlePoint<DateTime>(start.AddDays(i), open, high, low, close, vol));
+            last = close;
+        }
+        return list.ToArray();
+    }
+
+    private static readonly IEnumerable<BOBChartReferenceLine> _movingAverage =
+        new[]
+        {
+            new BOBChartReferenceLine
+            {
+                Value = 145,
+                Label = "SMA(20)",
+                Color = "var(--palette-warning)",
+                Style = BOBChartReferenceLineStyle.Dashed,
+                StrokeWidth = 1.5
+            }
+        };
+}

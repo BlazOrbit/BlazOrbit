@@ -48,7 +48,11 @@ public abstract class BOBBasePattern : ComponentBase, IPatternJsCallback, IAsync
     {
         if (_jsCallbacksRelay != null && _isInitialized)
         {
-            await Js.DisposePatternAsync(ComponentId);
+            try { await Js.DisposePatternAsync(ComponentId); }
+            catch (Microsoft.JSInterop.JSDisconnectedException) { }
+            catch (ObjectDisposedException) { }
+            catch (InvalidOperationException) { }
+            catch (TaskCanceledException) { }
             _jsCallbacksRelay.Dispose();
         }
 

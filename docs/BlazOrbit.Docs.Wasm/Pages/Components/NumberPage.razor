@@ -1,4 +1,4 @@
-@page "/components/forms/number"
+﻿@page "/components/forms/number"
 
 @inject IStringLocalizer<NumberPage> Loc
 
@@ -25,7 +25,7 @@
     </DocDemo>
 
     <DocDemo Key="ColorAndBackground" Title="@Loc["Color & Background"]">
-        <BOBInputNumber @bind-Value="_colorValue" Label="@Loc["Custom Color & Background"]" Color="@PaletteColor.Secondary" BackgroundColor="@PaletteColor.SecondaryContrast" />
+        <BOBInputNumber @bind-Value="_colorValue" Label="@Loc["Custom Color & Background"]" Color="@PaletteColor.SecondaryContrast" BackgroundColor="@PaletteColor.Secondary" />
     </DocDemo>
 
     <DocDemo Key="PrefixSuffix" Title="@Loc["Prefix & Suffix"]">

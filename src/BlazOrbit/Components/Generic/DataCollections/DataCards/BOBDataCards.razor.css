@@ -147,3 +147,155 @@
     [data-bob-component="data-cards"][data-bob-row-pattern="all"] .bob-datacards__card {
         --_dc-card-pattern-bg: var(--bob-inline-row-pattern-all-bg, var(--_dc-card-background));
     }
+
+/* === Row actions strip inside each card === */
+[data-bob-component="data-cards"] .bob-datacards__card-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.25rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed var(--palette-border);
+}
+
+[data-bob-component="data-cards"] .bob-dc__row-actions {
+    display: inline-flex;
+    gap: 0.25rem;
+    align-items: center;
+}
+
+/* === Master-detail expansion section === */
+[data-bob-component="data-cards"] .bob-datacards__card-detail {
+    padding: 0.75rem 0 0;
+    margin-top: 0.5rem;
+    border-top: 1px dashed var(--palette-border);
+    background: color-mix(in oklab, var(--palette-primary) 4%, var(--_dc-card-background, transparent));
+    font-size: 0.95rem;
+    line-height: 1.45;
+}
+
+/* === Aggregate summary band rendered below the grid === */
+[data-bob-component="data-cards"] .bob-datacards__summary {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding: 0.75rem var(--_dc-padding-x);
+    margin-top: 1rem;
+    background: var(--_dc-header-bg);
+    border-top: 2px solid var(--palette-border);
+    border-radius: var(--bob-border-radius);
+    font-variant-numeric: tabular-nums;
+}
+
+[data-bob-component="data-cards"] .bob-datacards__summary-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    min-width: 100px;
+}
+
+[data-bob-component="data-cards"] .bob-datacards__summary-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: color-mix(in oklab, var(--palette-surface-contrast) 65%, transparent);
+}
+
+[data-bob-component="data-cards"] .bob-datacards__summary-value {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--palette-surface-contrast);
+}
+
+/* === Skeleton card placeholders === */
+[data-bob-component="data-cards"] .bob-datacards__grid--skeleton {
+    pointer-events: none;
+}
+
+[data-bob-component="data-cards"] .bob-dc__skeleton-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    border-radius: var(--bob-border-radius);
+    border: 1px solid var(--palette-border);
+    background: var(--_dc-card-background);
+}
+
+[data-bob-component="data-cards"] .bob-dc__skeleton-cell {
+    height: 1rem;
+    border-radius: 4px;
+    background: linear-gradient(
+        90deg,
+        color-mix(in oklab, var(--palette-surface-contrast) 6%, transparent) 0%,
+        color-mix(in oklab, var(--palette-surface-contrast) 14%, transparent) 50%,
+        color-mix(in oklab, var(--palette-surface-contrast) 6%, transparent) 100%);
+    background-size: 200% 100%;
+    /* Duration sourced from --bob-dc-anim-duration on the family bundle so
+       reduced-motion is centralised (per CSS-MEDIA-01). */
+    animation: bob-dc-skeleton-pulse var(--bob-dc-anim-duration, 1.4s) ease-in-out infinite;
+}
+
+[data-bob-component="data-cards"] .bob-dc__skeleton-cell--header {
+    height: 1.4rem;
+    width: 60%;
+}
+
+[data-bob-component="data-cards"] .bob-dc__skeleton-cell--short {
+    width: 40%;
+}
+
+@keyframes bob-dc-skeleton-pulse {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* === Spinner fallback === */
+[data-bob-component="data-cards"] .bob-dc__loading--spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+[data-bob-component="data-cards"] .bob-dc__spinner {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 3px solid var(--palette-border);
+    border-top-color: var(--palette-primary);
+    animation: bob-dc-spinner var(--bob-dc-spinner-duration, 0.9s) linear infinite;
+}
+
+@keyframes bob-dc-spinner {
+    to { transform: rotate(360deg); }
+}
+
+/* === Error state === */
+[data-bob-component="data-cards"] .bob-dc__error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 2rem;
+    color: var(--palette-error);
+    text-align: center;
+}
+
+[data-bob-component="data-cards"] .bob-dc__error-icon {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+[data-bob-component="data-cards"] .bob-dc__error-text {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* === Empty state CTA slot === */
+[data-bob-component="data-cards"] .bob-dc__empty-actions {
+    margin-top: 0.75rem;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}

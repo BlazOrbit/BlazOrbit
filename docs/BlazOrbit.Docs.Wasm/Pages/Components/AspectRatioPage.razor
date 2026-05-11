@@ -1,0 +1,36 @@
+@page "/components/layout/aspect-ratio"
+
+@using BlazOrbit.Components.Layout
+
+@inject IStringLocalizer<AspectRatioPage> Loc
+
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBAspectRatio"]"
+         Lede="@Loc["Layout box that locks any child to a fixed width-to-height ratio."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBAspectRatio)">
+
+    <DocDemo Key="Default" Title="@Loc["Default 16/9"]">
+        <BOBAspectRatio>
+            <div class="doc-demo__placeholder">16 / 9</div>
+        </BOBAspectRatio>
+    </DocDemo>
+
+    <DocDemo Key="Square" Title="@Loc["Square 1/1"]">
+        <BOBAspectRatio Ratio="1 / 1">
+            <div class="doc-demo__placeholder">1 / 1</div>
+        </BOBAspectRatio>
+    </DocDemo>
+
+    <DocDemo Key="Cinema" Title="@Loc["Cinematic 21/9"]">
+        <BOBAspectRatio Ratio="21 / 9">
+            <div class="doc-demo__placeholder">21 / 9</div>
+        </BOBAspectRatio>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBAspectRatioComponentInfo.Parameters" />
+    </section>
+
+</DocPage>

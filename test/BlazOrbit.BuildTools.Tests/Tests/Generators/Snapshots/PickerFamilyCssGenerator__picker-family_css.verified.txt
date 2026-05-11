@@ -9,7 +9,7 @@ bob-component[data-bob-picker-base] {
     gap: calc(0.5rem * var(--bob-density-multiplier));
     padding: calc(var(--bob-picker-padding) * var(--bob-size-multiplier, 1));
     background: var(--palette-surface);
-    border: 1px solid var(--palette-border);
+    border: 1px solid var(--bob-picker-border-color);
     border-radius: var(--bob-picker-radius);
     user-select: none;
     --_cell: calc(var(--bob-picker-cell-size) * var(--bob-size-multiplier, 1));

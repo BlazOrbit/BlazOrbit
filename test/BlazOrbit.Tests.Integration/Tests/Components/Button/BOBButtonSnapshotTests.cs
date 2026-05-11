@@ -26,7 +26,7 @@ public class BOBButtonSnapshotTests
             new { Name = "Loading", Builder = (Action<ComponentParameterCollectionBuilder<BOBButton>>)(p => p
                 .Add(c => c.Text, "Loading")
                 .Add(c => c.Loading, true)
-                .Add(c => c.LoadingIndicatorVariant, BOBLoadingIndicatorVariant.Spinner)) },
+                .Add(c => c.LoadingIndicatorVariant, BOBProgressIconVariant.Spinner)) },
 
             new { Name = "Disabled", Builder = (Action<ComponentParameterCollectionBuilder<BOBButton>>)(p => p
                 .Add(c => c.Text, "Disabled")

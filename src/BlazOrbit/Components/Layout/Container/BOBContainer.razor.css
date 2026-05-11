@@ -1,0 +1,36 @@
+[data-bob-component="container"] {
+    /* Tier tokens centralised so BOBSection (which composes the same widths) can reuse
+       them in turn. Consumers can override --_container-max-* on the root to shift
+       breakpoints globally. */
+    --_container-max-small: 30rem;
+    --_container-max-medium: 48rem;
+    --_container-max-large: 64rem;
+    --_container-max-wide: 80rem;
+    --_container-px: 1rem;
+
+    display: block;
+    margin-inline: auto;
+    padding-inline: var(--_container-px);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+[data-bob-component="container"][data-bob-size="small"] {
+    max-width: var(--_container-max-small);
+}
+
+[data-bob-component="container"][data-bob-size="medium"] {
+    max-width: var(--_container-max-medium);
+}
+
+[data-bob-component="container"][data-bob-size="large"] {
+    max-width: var(--_container-max-large);
+}
+
+[data-bob-component="container"][data-bob-size="wide"] {
+    max-width: var(--_container-max-wide);
+}
+
+[data-bob-component="container"][data-bob-size="full"] {
+    max-width: none;
+}

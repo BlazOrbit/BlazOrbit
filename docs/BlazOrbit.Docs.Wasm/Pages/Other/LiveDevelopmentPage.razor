@@ -10,6 +10,10 @@
     <p>
         @((MarkupString)Loc[_introText].ToString())
     </p>
+
+    <p>
+        @((MarkupString)Loc[_introText2].ToString())
+    </p>
     <hr />
 
     <div class="twitch-container">
@@ -30,6 +34,10 @@
     private string _introText =
     """
     BlazOrbit originated from another library we developed on streamings in <a href="https://www.twitch.tv/cdcsharp">@cdcsharp's Twitch channel</a> and was later revised, refactored, and optimized to become what it is today. Live development continues from time to time, and you're welcome to join in.
+    """;
+    private string _introText2 =
+    """
+    Contributors who want to do live video streaming of the library's development can contact the administrator to add their network here. Or submit a pull request—this site is built alongside the code.
     """;
 
     private string GetPlayerSource()

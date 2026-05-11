@@ -1,0 +1,33 @@
+﻿@namespace BlazOrbit.Components.Layout
+@attribute [GenerateComponentInfo]
+
+@inherits BOBComponentBase
+
+<bob-component @attributes="ComputedAttributes"
+               style="@RatioStyle()">
+    <div class="bob-aspect-ratio__inner">
+        @ChildContent
+    </div>
+</bob-component>
+
+@code {
+    /// <summary>
+    /// CSS <c>aspect-ratio</c> value. Accepts ratios in slash form (<c>"16/9"</c>,
+    /// <c>"4/3"</c>, <c>"1/1"</c>) or any other valid <c>aspect-ratio</c> token. Defaults to
+    /// <c>"16 / 9"</c>.
+    /// </summary>
+    [Parameter] public string Ratio { get; set; } = "16 / 9";
+
+    /// <summary>Inner content stretched to fill the constrained box.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    private string RatioStyle()
+    {
+        // Custom-property surface so consumers can override via CSS without re-rendering.
+        // Quoting/escaping the input: aspect-ratio only accepts a tightly bounded grammar so
+        // a stray ;/{ would produce an invalid value and the browser would discard it. No
+        // need for extra sanitisation but keep a stable default fallback.
+        string ratio = string.IsNullOrWhiteSpace(Ratio) ? "16 / 9" : Ratio;
+        return $"{FeatureDefinitions.InlineVariables.AspectRatio}:{ratio};";
+    }
+}

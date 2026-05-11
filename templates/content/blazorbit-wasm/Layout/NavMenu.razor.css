@@ -1,10 +1,10 @@
-.bob-app__nav {
+﻿.bob-app__nav {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0.75rem 1.5rem;
     background-color: var(--palette-surface);
-    border-bottom: 1px solid var(--palette-border);
+    border-bottom: var(--bob-border-width) var(--bob-border-style) var(--palette-border);
     position: sticky;
     top: 0;
     z-index: 10;

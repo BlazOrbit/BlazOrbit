@@ -1,0 +1,39 @@
+@namespace BlazOrbit.Components.Navigation
+@attribute [GenerateComponentInfo]
+@implements IDisposable
+
+@* This component contributes its parameters to the parent BOBStepper and renders
+   nothing on its own. The stepper renders both the header tile and the active body. *@
+
+@code {
+    /// <summary>Parent <see cref="BOBStepper"/> container that owns this step. Cascaded automatically.</summary>
+    [CascadingParameter] public BOBStepper? Parent { get; set; }
+
+    /// <summary>Visible label rendered next to the marker.</summary>
+    [Parameter, EditorRequired] public string? Title { get; set; }
+
+    /// <summary>Optional secondary line below the title.</summary>
+    [Parameter] public string? Description { get; set; }
+
+    /// <summary>Optional icon rendered inside the marker (overrides the index numeral).</summary>
+    [Parameter] public IconKey? Icon { get; set; }
+
+    /// <summary>When <see langword="true"/>, the step is rendered with the error state regardless of its position.</summary>
+    [Parameter] public bool Error { get; set; }
+
+    /// <summary>When <see langword="true"/>, header click is suppressed even if the parent allows skip.</summary>
+    [Parameter] public bool Disabled { get; set; }
+
+    /// <summary>Body rendered when this step is the active one.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Parent?.RegisterStep(this);
+    }
+
+    public void Dispose()
+    {
+        Parent?.UnregisterStep(this);
+    }
+}

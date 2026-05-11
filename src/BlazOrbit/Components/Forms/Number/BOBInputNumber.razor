@@ -45,7 +45,7 @@
     /// <summary>When <see langword="true" />, the input shows a loading indicator.</summary>
     [Parameter] public bool Loading { get; set; }
     /// <summary>Variant of the loading indicator shown when <see cref="Loading"/> is <see langword="true"/>.</summary>
-    [Parameter] public BOBLoadingIndicatorVariant LoadingIndicatorVariant { get; set; } = BOBLoadingIndicatorVariant.CircularProgress;
+    [Parameter] public BOBProgressIconVariant LoadingIndicatorVariant { get; set; } = BOBProgressIconVariant.Ring;
 
     // IHasDensity
     /// <summary>Vertical density (gap) of the input.</summary>
@@ -56,11 +56,11 @@
     [Parameter] public ShadowStyle? Shadow { get; set; }
 
     // IHasBackgroundColor
-    /// <summary>Background color of the input. Accepts any valid CSS color value.</summary>
+    /// <summary>Background color of the input. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? BackgroundColor { get; set; }
 
     // IHasColor
-    /// <summary>Text color of the input. Accepts any valid CSS color value.</summary>
+    /// <summary>Text color of the input. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? Color { get; set; }
 
     // IHasPrefix
@@ -68,9 +68,9 @@
     [Parameter] public string? PrefixText { get; set; }
     /// <summary>Material icon name for the Prefix.</summary>
     [Parameter] public IconKey? PrefixIcon { get; set; }
-    /// <summary>Prefix color. Accepts any valid CSS color value.</summary>
+    /// <summary>Prefix color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? PrefixColor { get; set; }
-    /// <summary>PrefixBackground color. Accepts any valid CSS color value.</summary>
+    /// <summary>PrefixBackground color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? PrefixBackgroundColor { get; set; }
 
     // IHasSuffix
@@ -78,9 +78,9 @@
     [Parameter] public string? SuffixText { get; set; }
     /// <summary>Material icon name for the Suffix.</summary>
     [Parameter] public IconKey? SuffixIcon { get; set; }
-    /// <summary>Suffix color. Accepts any valid CSS color value.</summary>
+    /// <summary>Suffix color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? SuffixColor { get; set; }
-    /// <summary>SuffixBackground color. Accepts any valid CSS color value.</summary>
+    /// <summary>SuffixBackground color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? SuffixBackgroundColor { get; set; }
 
     // Number-specific parameters

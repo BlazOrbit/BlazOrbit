@@ -200,12 +200,16 @@ overrides, link them **after** `blazorbit.css`.
 Full per-component parameter tables → `references/components.md`. High-level grouping:
 
 - **Generic** (`BlazOrbit.Components`)
-  Buttons & feedback: `BOBButton`, `BOBBadge`, `BOBNotificationBadge`, `BOBLoadingIndicator`, `BOBTooltip`, `BOBDraggable`, `BOBSvgIcon`, `BOBCodeBlock`.
+  Buttons & feedback: `BOBButton`, `BOBBadge`, `BOBNotificationBadge`, `BOBTooltip`, `BOBDraggable`, `BOBSvgIcon`, `BOBCodeBlock`.
   Containers: `BOBTabs` + `BOBTab`, `BOBAccordion` + `BOBAccordionItem`, `BOBCarousel` + `BOBCarouselItem`.
   Selection / data: `BOBSelect<T>` (native `<select>` — feed plain `<option>` children via `ChildContent`), `BOBDataGrid<TItem>` + `BOBDataColumn<TItem>`, `BOBDataCards<TItem>`, `BOBTreeMenu<TItem>` + `BOBTreeMenuItem`, `BOBTreeSelector<TItem>` + `BOBTreeSelectorItem`.
 
 - **Forms** (`BlazOrbit.Components.Forms`)
-  `BOBInputText`, `BOBInputTextArea`, `BOBInputNumber<T>`, `BOBInputCheckbox<T>`, `BOBInputRadio<T>`, `BOBInputSwitch`, `BOBInputDateTime<T>`, `BOBInputColor`, `BOBInputDropdown<T>`, `BOBInputDropdownTree<TItem,TValue>`, `BOBInputNumberSlider<T>`, `BOBInputRangeSlider<T>`. Presentation switch: `BOBSwitch<T>` (no validation; for non-form on/off UI). Standalone pickers: `BOBDatePicker`, `BOBTimePicker`, `BOBColorPicker`.
+  `BOBInputText`, `BOBInputTextArea`, `BOBInputNumber<T>`, `BOBInputCheckbox<T>`, `BOBInputRadio<T>`, `BOBInputSwitch`, `BOBInputDateTime<T>`, `BOBInputColor`, `BOBInputDropdown<T>`, `BOBInputDropdownTree<TItem,TValue>`, `BOBInputNumberSlider<T>`, `BOBInputRangeSlider<T>`, `BOBInputPassword`, `BOBInputOtp`, `BOBInputFile`, `BOBInputDateRange`, `BOBAutoComplete<TItem>`. Presentation switch: `BOBSwitch<T>` (no validation; for non-form on/off UI). Standalone pickers: `BOBDatePicker`, `BOBTimePicker`, `BOBColorPicker`.
+
+- **Display** (`BlazOrbit.Components.Display`)
+  Feedback / progress: `BOBProgressIcon` (variant-driven Spinner/Ring/Dots/Bars), `BOBProgressBar`, `BOBProgressRing`, `BOBBanner`.
+  Identity / status: `BOBAvatar` + `BOBAvatarGroup`, `BOBChip`, `BOBRating`, `BOBStatCard`.
 
 > **`BOBSwitch<T>` vs `BOBInputSwitch`** — both render the same on/off control but `BOBInputSwitch` derives from `BOBInputComponentBase<bool,…>` and integrates with `EditForm` (`@bind-Value`, validation, `aria-invalid`); `BOBSwitch<T>` is a presentation component for free-floating on/off UI (settings toggles, header dark-mode flips). Use `BOBInputSwitch` whenever the value is part of an `EditForm` model.
 

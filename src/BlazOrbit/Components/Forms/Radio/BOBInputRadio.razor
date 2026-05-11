@@ -31,7 +31,7 @@
     [Parameter] public RenderFragment? ChildContent { get; set; }
     /// <summary>Visual size of the component.</summary>
     [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
-    /// <summary>Text or foreground color. Accepts any valid CSS color value.</summary>
+    /// <summary>Text or foreground color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? Color { get; set; }
     /// <summary>Floating label displayed above the component.</summary>
     [Parameter] public string? Label { get; set; }

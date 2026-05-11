@@ -1,0 +1,44 @@
+[data-bob-component="avatar-group"] {
+    --_group-overlap: 0.625rem;
+
+    display: inline-flex;
+    align-items: center;
+}
+
+[data-bob-component="avatar-group"] .bob-avatar-group {
+    display: inline-flex;
+    align-items: center;
+}
+
+[data-bob-component="avatar-group"] .bob-avatar-group__inner {
+    display: inline-flex;
+    align-items: center;
+}
+
+/* Stack avatars with a slight overlap. Inline isolation: each avatar pulls left so
+   subsequent siblings sit on top of the previous one. The visual ordering matches
+   the DOM order; reverse it via CSS direction if right-to-left makes more sense. */
+[data-bob-component="avatar-group"] .bob-avatar-group__inner ::deep [data-bob-component="avatar"] {
+    margin-inline-start: calc(-1 * var(--_group-overlap));
+    border: 2px solid var(--palette-surface);
+    border-radius: 50%;
+}
+
+[data-bob-component="avatar-group"] .bob-avatar-group__inner ::deep [data-bob-component="avatar"]:first-child {
+    margin-inline-start: 0;
+}
+
+[data-bob-component="avatar-group"] .bob-avatar-group__overflow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(2.5rem * var(--bob-size-multiplier, 1));
+    height: calc(2.5rem * var(--bob-size-multiplier, 1));
+    border-radius: 50%;
+    margin-inline-start: calc(-1 * var(--_group-overlap));
+    background: color-mix(in oklab, var(--palette-surface-contrast) 12%, transparent);
+    color: var(--palette-surface-contrast);
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 2px solid var(--palette-surface);
+}

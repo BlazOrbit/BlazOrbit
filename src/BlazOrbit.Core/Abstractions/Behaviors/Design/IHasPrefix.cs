@@ -9,8 +9,8 @@ public interface IHasPrefix
     string? PrefixText { get; set; }
     /// <summary>Closed-catalog icon key displayed before the component value.</summary>
     IconKey? PrefixIcon { get; set; }
-    /// <summary>Color of the prefix content. Accepts any valid CSS color value.</summary>
+    /// <summary>Color of the prefix content. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     string? PrefixColor { get; set; }
-    /// <summary>Background color of the prefix content. Accepts any valid CSS color value.</summary>
+    /// <summary>Background color of the prefix content. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     string? PrefixBackgroundColor { get; set; }
 }

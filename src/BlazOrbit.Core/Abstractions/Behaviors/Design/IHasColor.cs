@@ -5,6 +5,6 @@
 /// </summary>
 public interface IHasColor
 {
-    /// <summary>Text or foreground color. Accepts any valid CSS color value.</summary>
+    /// <summary>Text or foreground color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     string? Color { get; set; }
 }

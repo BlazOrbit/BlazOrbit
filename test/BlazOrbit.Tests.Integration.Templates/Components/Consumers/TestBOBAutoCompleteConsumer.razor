@@ -1,0 +1,47 @@
+@using BlazOrbit.Components.Forms
+@using Microsoft.AspNetCore.Components.Forms
+@using System.ComponentModel.DataAnnotations
+
+<div class="test-autocomplete-consumer">
+    <EditForm EditContext="_editContext" OnValidSubmit="HandleValid" OnInvalidSubmit="HandleInvalid">
+        <DataAnnotationsValidator />
+
+        <BOBAutoComplete TItem="string"
+                         @bind-Value="_model.Country"
+                         SearchAsync="Search"
+                         ItemText="@(c => c)"
+                         DebounceMs="0"
+                         Label="Country"
+                         HelperText="Pick a country" />
+
+        <button type="submit" class="submit-btn">Submit</button>
+    </EditForm>
+    <div class="submit-result">@_submitResult</div>
+</div>
+
+@code {
+    public class CountryModel
+    {
+        [Required(ErrorMessage = "Country is required")]
+        public string? Country { get; set; }
+    }
+
+    private static readonly string[] _items = { "Spain", "Sweden", "Switzerland" };
+
+    private CountryModel _model = new();
+    private EditContext? _editContext;
+    private string _submitResult = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        _editContext = new EditContext(_model);
+    }
+
+    public CountryModel BoundModel => _model;
+
+    private Task<IEnumerable<string>> Search(string q, CancellationToken ct) =>
+        Task.FromResult(_items.Where(i => i.Contains(q, StringComparison.OrdinalIgnoreCase)));
+
+    private void HandleValid() => _submitResult = "valid";
+    private void HandleInvalid() => _submitResult = "invalid";
+}

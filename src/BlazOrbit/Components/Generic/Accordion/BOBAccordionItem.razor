@@ -1,4 +1,4 @@
-@namespace BlazOrbit.Components
+﻿@namespace BlazOrbit.Components
 @attribute [GenerateComponentInfo]
 @implements IDisposable
 
@@ -25,7 +25,7 @@
     /// </summary>
     [Parameter] public IconKey? ExpandIcon { get; set; }
 
-    /// <summary>Color applied to the expand icon. Accepts any valid CSS color value.</summary>
+    /// <summary>Color applied to the expand icon. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? ExpandIconColor { get; set; }
 
     /// <summary>

@@ -810,11 +810,16 @@ public class BOBInputDateTimeInteractionTests
 
     #endregion
 
-    #region Picker Title Variations
+    #region Picker Variations
+
+    // The dialog dropped its static "Select Date / Time / Date & Time" title in commit 0ff8...
+    // (charts phase 3); the calendar header itself ("May 2026" + day grid) plus the time
+    // column markers are now the only context cues. These tests assert the *picker shape*
+    // matches TValue rather than a static title string.
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
-    public async Task Should_Show_DateTime_Title_For_DateTime_Picker(BlazorScenario scenario)
+    public async Task Should_Render_Both_Pickers_For_DateTime_Value(BlazorScenario scenario)
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
@@ -827,14 +832,13 @@ public class BOBInputDateTimeInteractionTests
         calendarButton.Click();
 
         // Assert
-        IElement dialog = cut.Find(".bob-dialog");
-        string dialogContent = dialog.TextContent;
-        dialogContent.Should().Contain("Select Date & Time");
+        cut.FindAll(".bob-dialog .bob-picker__grid").Should().NotBeEmpty();
+        cut.FindAll(".bob-dialog .bob-time-picker__fields").Should().NotBeEmpty();
     }
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
-    public async Task Should_Show_Date_Title_For_DateOnly_Picker(BlazorScenario scenario)
+    public async Task Should_Render_Only_Date_Picker_For_DateOnly_Value(BlazorScenario scenario)
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
@@ -847,15 +851,13 @@ public class BOBInputDateTimeInteractionTests
         calendarButton.Click();
 
         // Assert
-        IElement dialog = cut.Find(".bob-dialog");
-        string dialogContent = dialog.TextContent;
-        dialogContent.Should().Contain("Select Date");
-        dialogContent.Should().NotContain("Time");
+        cut.FindAll(".bob-dialog .bob-picker__grid").Should().NotBeEmpty();
+        cut.FindAll(".bob-dialog .bob-time-picker__fields").Should().BeEmpty();
     }
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
-    public async Task Should_Show_Time_Title_For_TimeOnly_Picker(BlazorScenario scenario)
+    public async Task Should_Render_Only_Time_Picker_For_TimeOnly_Value(BlazorScenario scenario)
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
@@ -868,10 +870,8 @@ public class BOBInputDateTimeInteractionTests
         calendarButton.Click();
 
         // Assert
-        IElement dialog = cut.Find(".bob-dialog");
-        string dialogContent = dialog.TextContent;
-        dialogContent.Should().Contain("Select Time");
-        dialogContent.Should().NotContain("Date");
+        cut.FindAll(".bob-dialog .bob-time-picker__fields").Should().NotBeEmpty();
+        cut.FindAll(".bob-dialog .bob-picker__grid").Should().BeEmpty();
     }
 
     #endregion

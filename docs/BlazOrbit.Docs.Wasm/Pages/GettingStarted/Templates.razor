@@ -87,6 +87,30 @@
                     <td><code>false</code></td>
                     <td>Adds <code>BlazOrbit.Localization.Server</code> / <code>.Wasm</code>, registers <code>RequestLocalization</code> / <code>localStorage</code> bridge, and exposes <code>BOBCultureSelector</code> in the navbar.</td>
                 </tr>
+                <tr>
+                    <td><code>-IncludeCharts</code></td>
+                    <td><code>true</code> · <code>false</code></td>
+                    <td><code>false</code></td>
+                    <td>Adds <code>BlazOrbit.Charts</code>, registers <code>AddBlazOrbitCharts()</code>, and replaces Home with a dashboard sample.</td>
+                </tr>
+                <tr>
+                    <td><code>-UseNotificationsCenter</code></td>
+                    <td><code>true</code> · <code>false</code></td>
+                    <td><code>false</code></td>
+                    <td>Adds <code>BlazOrbit.Notifications</code>, registers <code>AddBlazOrbitNotifications()</code>, adds <code>BOBNotificationBell</code> in the navbar, and includes a notification inbox demo in Home.</td>
+                </tr>
+                <tr>
+                    <td><code>-UseHotKeys</code></td>
+                    <td><code>true</code> · <code>false</code></td>
+                    <td><code>false</code></td>
+                    <td>Adds <code>BlazOrbit.Hotkeys</code>, registers <code>AddBlazOrbitHotkeys()</code>, mounts <code>BOBHotkeyHost</code> in the app shell, and includes a keyboard-shortcuts demo in Home.</td>
+                </tr>
+                <tr>
+                    <td><code>-Theme</code></td>
+                    <td><code>None</code> · <code>NeoBrutalism</code> · <code>BentoGrid</code> · <code>Glassmorphism</code> · <code>FlatDesign</code> · <code>MaterialDesign</code> · <code>Neomorphism</code> · <code>Claymorphism</code> · <code>RetroWeb</code></td>
+                    <td><code>None</code></td>
+                    <td>Pre-built visual theme that overrides the default palette and design tokens (border radius, border width, input radius, font family, etc.).</td>
+                </tr>
             </tbody>
         </table>
     </section>
@@ -122,6 +146,20 @@
                       Language="SyntaxHighlightLanguage.CSharp"
                       Code="dotnet new blazorbit-wasm -n MyApp -F net10.0 -IncludeLocalization true" />
 
+        <p class="doc-section__description" style="margin-top: 1.5rem;">
+            <strong>Blazor Server, .NET 10, with Neo-Brutalism theme:</strong>
+        </p>
+        <BOBCodeBlock Title="Terminal"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="dotnet new blazorbit-server -n MyApp -F net10.0 -Theme NeoBrutalism" />
+
+        <p class="doc-section__description" style="margin-top: 1.5rem;">
+            <strong>Blazor Server, .NET 10, with everything:</strong>
+        </p>
+        <BOBCodeBlock Title="Terminal"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="dotnet new blazorbit-server -n MyApp -F net10.0 -IncludeLocalization true -IncludeCharts true -UseNotificationsCenter true -UseHotKeys true" />
+
         <div class="doc-callout doc-callout--info">
             <span class="doc-callout__icon">ℹ️</span>
             <div>
@@ -142,6 +180,9 @@
             <li>A favicon set (SVG + 48/192/512 PNG) and, on WASM, a PWA manifest.</li>
             <li>A showcase Home page demonstrating buttons, inputs, cards, and accordion with palette-driven styling.</li>
             <li>When localization is enabled: <code>BOBCultureSelector</code> in the navbar, <code>en-US</code> / <code>es-ES</code> / <code>fr-FR</code> sample cultures, and the request-localization wiring.</li>
+            <li>When charts are enabled: <code>BlazOrbit.Charts</code> package, <code>AddBlazOrbitCharts()</code> registration, and a dashboard Home page with sample KPIs and data visualizations.</li>
+            <li>When notifications are enabled: <code>BOBNotificationBell</code> in the navbar and a sample inbox with push / mark-read / remove demo.</li>
+            <li>When hotkeys are enabled: <code>BOBHotkeyHost</code> in the layout shell and a sample shortcuts table with <code>Ctrl+K</code> / <code>Ctrl+F1</code> handlers.</li>
         </ul>
     </section>
 

@@ -1,4 +1,4 @@
-@namespace BlazOrbit.Docs.Components
+﻿@namespace BlazOrbit.Docs.Components
 
 @foreach (TokenCategory category in Catalog)
 {
@@ -132,7 +132,10 @@
             "Defaults applied across every input component.",
             new[]
             {
-                new DesignTokenSpec("--bob-input-radius", "4px"),
+                new DesignTokenSpec("--bob-input-border-width", "1px"),
+                new DesignTokenSpec("--bob-input-border-style", "solid"),
+                new DesignTokenSpec("--bob-input-border-color", "color-mix(in oklab, var(--palette-border) 40%, transparent)"),
+                new DesignTokenSpec("--bob-input-border-radius", "0"),
                 new DesignTokenSpec("--bob-input-transition-duration", "150ms"),
                 new DesignTokenSpec("--bob-input-transition-easing", "cubic-bezier(0.4, 0, 0.2, 1)"),
                 new DesignTokenSpec("--bob-input-floated-scale", "0.75"),
@@ -142,6 +145,7 @@
             new[]
             {
                 new DesignTokenSpec("--bob-picker-radius", "8px"),
+                new DesignTokenSpec("--bob-picker-border-color", "color-mix(in oklab, var(--palette-border) 40%, transparent)"),
                 new DesignTokenSpec("--bob-picker-cell-size", "36px"),
                 new DesignTokenSpec("--bob-picker-padding", "0.75rem"),
             }),

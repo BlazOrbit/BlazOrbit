@@ -13,13 +13,7 @@ public class BOBModalContainerAccessibilityTests
     private sealed class DummyModalContent : Microsoft.AspNetCore.Components.ComponentBase, IModalContent
     {
         [Microsoft.AspNetCore.Components.Parameter]
-        public ModalReference ModalRef { get; set; } = default!;
-
-        ModalReference IModalContent.ModalReference
-        {
-            get => ModalRef;
-            set => ModalRef = value;
-        }
+        public ModalReference ModalReference { get; set; } = default!;
     }
 
     [Theory]

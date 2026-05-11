@@ -1,0 +1,37 @@
+﻿[
+  {
+    Name: Default,
+    Html:
+<bob-component data-bob-component="select" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><div class="bob-select__control" b-<SCOPE>><select class="bob-select__native" value="a" aria-required="false" blazor:onchange="<EVENT>" b-<SCOPE>><option value='a'>A</option><option value='b'>B</option></select>
+
+                <span class="bob-select__arrow" aria-hidden="true" b-<SCOPE>><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" b-<SCOPE>><polyline points="6 9 12 15 18 9" b-<SCOPE>></polyline></svg></span></div></bob-component>
+  },
+  {
+    Name: With_Label_And_Helper,
+    Html:
+<bob-component data-bob-component="select" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><label class="bob-select__label" b-<SCOPE>>Country</label><div class="bob-select__control" b-<SCOPE>><select class="bob-select__native" value="a" aria-required="false" blazor:onchange="<EVENT>" b-<SCOPE>><option value='a'>A</option></select>
+
+                <span class="bob-select__arrow" aria-hidden="true" b-<SCOPE>><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" b-<SCOPE>><polyline points="6 9 12 15 18 9" b-<SCOPE>></polyline></svg></span></div><span class="bob-field__helper" b-<SCOPE>>Pick your country</span></bob-component>
+  },
+  {
+    Name: Disabled,
+    Html:
+<bob-component data-bob-component="select" data-bob-variant="default" data-bob-size="medium" data-bob-disabled="true" b-<SCOPE>><div class="bob-select__control" b-<SCOPE>><select class="bob-select__native" value="a" disabled aria-required="false" blazor:onchange="<EVENT>" b-<SCOPE>><option value='a'>A</option></select>
+
+                <span class="bob-select__arrow" aria-hidden="true" b-<SCOPE>><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" b-<SCOPE>><polyline points="6 9 12 15 18 9" b-<SCOPE>></polyline></svg></span></div></bob-component>
+  },
+  {
+    Name: Required,
+    Html:
+<bob-component data-bob-component="select" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><label class="bob-select__label" b-<SCOPE>>Required field<span class="bob-field__required" aria-hidden="true" b-<SCOPE>>*</span></label><div class="bob-select__control" b-<SCOPE>><select class="bob-select__native" value="a" required aria-required="true" blazor:onchange="<EVENT>" b-<SCOPE>><option value='a'>A</option></select>
+
+                <span class="bob-select__arrow" aria-hidden="true" b-<SCOPE>><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" b-<SCOPE>><polyline points="6 9 12 15 18 9" b-<SCOPE>></polyline></svg></span></div></bob-component>
+  },
+  {
+    Name: FullWidth,
+    Html:
+<bob-component data-bob-component="select" data-bob-variant="default" data-bob-size="medium" data-bob-fullwidth="true" b-<SCOPE>><div class="bob-select__control" b-<SCOPE>><select class="bob-select__native" value="a" aria-required="false" blazor:onchange="<EVENT>" b-<SCOPE>><option value='a'>A</option></select>
+
+                <span class="bob-select__arrow" aria-hidden="true" b-<SCOPE>><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" b-<SCOPE>><polyline points="6 9 12 15 18 9" b-<SCOPE>></polyline></svg></span></div></bob-component>
+  }
+]

@@ -7,20 +7,43 @@
 .DESCRIPTION
     Packs the BlazOrbit library + the templates package into a local NuGet feed,
     installs the templates with `dotnet new install`, generates a matrix of
-    sample projects (server / wasm × net8 / net10 × +/- localization), builds
-    each, and uninstalls the templates afterwards.
+    sample projects (server / wasm × net8 / net10 × +/- localization × +/- charts),
+    builds each, writes an aggregating slnx for manual exploration, and
+    uninstalls the templates afterwards.
 
     The local feed lets the generated projects resolve `BlazOrbit 1.0.*` against
     the just-built bits instead of the public NuGet, so this script is the only
     way to validate template changes against unreleased library changes.
 
-    Default matrix (4 combos):
-        | template          | framework | localization |
-        |-------------------|-----------|--------------|
-        | blazorbit-server  | net8.0    | false        |
-        | blazorbit-server  | net10.0   | true         |
-        | blazorbit-wasm    | net8.0    | true         |
-        | blazorbit-wasm    | net10.0   | false        |
+    Default matrix (20 combos — accumulative features across both templates):
+        | #  | template          | framework | localization | charts | notifications | hotkeys |
+        |----|-------------------|-----------|--------------|--------|---------------|---------|
+        | 1  | blazorbit-server  | net8.0    | false        | false  | false         | false   |
+        | 2  | blazorbit-server  | net8.0    | true         | false  | false         | false   |
+        | 3  | blazorbit-server  | net8.0    | true         | true   | false         | false   |
+        | 4  | blazorbit-server  | net8.0    | true         | true   | true          | false   |
+        | 5  | blazorbit-server  | net8.0    | true         | true   | true          | true    |
+        | 6  | blazorbit-wasm    | net8.0    | false        | false  | false         | false   |
+        | 7  | blazorbit-wasm    | net8.0    | true         | false  | false         | false   |
+        | 8  | blazorbit-wasm    | net8.0    | true         | true   | false         | false   |
+        | 9  | blazorbit-wasm    | net8.0    | true         | true   | true          | false   |
+        | 10 | blazorbit-wasm    | net8.0    | true         | true   | true          | true    |
+        | 11 | blazorbit-server  | net10.0   | false        | false  | false         | false   |
+        | 12 | blazorbit-server  | net10.0   | true         | false  | false         | false   |
+        | 13 | blazorbit-server  | net10.0   | true         | true   | false         | false   |
+        | 14 | blazorbit-server  | net10.0   | true         | true   | true          | false   |
+        | 15 | blazorbit-server  | net10.0   | true         | true   | true          | true    |
+        | 16 | blazorbit-wasm    | net10.0   | false        | false  | false         | false   |
+        | 17 | blazorbit-wasm    | net10.0   | true         | false  | false         | false   |
+        | 18 | blazorbit-wasm    | net10.0   | true         | true   | false         | false   |
+        | 19 | blazorbit-wasm    | net10.0   | true         | true   | true          | false   |
+        | 20 | blazorbit-wasm    | net10.0   | true         | true   | true          | true    |
+
+    After the matrix runs, an aggregating `template-tests.slnx` is written at
+    the work-dir root referencing every successfully-generated project. Pair
+    with -KeepWorkDir to load it in VS / Rider or run
+    `dotnet build artifacts/template-tests/template-tests.slnx` for ad-hoc
+    inspection — the local feed stays configured so package restore works.
 
 .PARAMETER Configuration
     MSBuild configuration for the pack + build steps. Default: Release.
@@ -51,7 +74,7 @@
 
 .PARAMETER Matrix
     Override the test matrix. Each entry is a hashtable with keys
-    `Template`, `Framework`, `Localization`, `Name`.
+    `Template`, `Framework`, `Localization`, `Charts`, `Name`.
 
 .EXAMPLE
     ./scripts/test-templates.ps1
@@ -124,12 +147,42 @@ $templatesSln  = Join-Path $repoRoot "templates\BlazOrbit.Templates.slnx"
 $templatesProj = Join-Path $repoRoot "templates\BlazOrbit.Templates.csproj"
 
 # ---------- Default matrix ----------
+# Eight cases cover all (Loc × Charts) cells across both templates so the
+# `IncludeCharts` opt-in interacts cleanly with the existing Localization
+# wiring (Program.cs / Layout / NavMenu variants). The Loc+Charts cells
+# are the ones most likely to break — both modifiers reach into the
+# project root and conflicts in `template.json` exclusions surface here.
 if (-not $Matrix -or $Matrix.Count -eq 0) {
     $Matrix = @(
-        @{ Template = "blazorbit-server"; Framework = "net8.0";  Localization = $false; Name = "Server_Net8_NoLoc" }
-        @{ Template = "blazorbit-server"; Framework = "net10.0"; Localization = $true;  Name = "Server_Net10_Loc"   }
-        @{ Template = "blazorbit-wasm";   Framework = "net8.0";  Localization = $true;  Name = "Wasm_Net8_Loc"      }
-        @{ Template = "blazorbit-wasm";   Framework = "net10.0"; Localization = $false; Name = "Wasm_Net10_NoLoc"   }
+        @{ Template = "blazorbit-server"; Framework = "net8.0";  Localization = $false; Charts = $false; Notifications = $false; HotKeys = $false; Theme = "None"; Name = "Server_Net8" }
+        @{ Template = "blazorbit-server"; Framework = "net8.0";  Localization = $true;  Charts = $false; Notifications = $false; HotKeys = $false; Theme = "None"; Name = "Server_Net8_Loc" }
+        @{ Template = "blazorbit-server"; Framework = "net8.0";  Localization = $true;  Charts = $true;  Notifications = $false; HotKeys = $false; Theme = "None"; Name = "Server_Net8_Loc_Charts" }
+        @{ Template = "blazorbit-server"; Framework = "net8.0";  Localization = $true;  Charts = $true;  Notifications = $true;  HotKeys = $false; Theme = "None"; Name = "Server_Net8_Loc_Charts_Not" }
+        @{ Template = "blazorbit-server"; Framework = "net8.0";  Localization = $true;  Charts = $true;  Notifications = $true;  HotKeys = $true;  Theme = "None"; Name = "Server_Net8_Loc_Charts_Not_Hot" }
+        @{ Template = "blazorbit-wasm";   Framework = "net8.0";  Localization = $false; Charts = $false; Notifications = $false; HotKeys = $false; Theme = "None"; Name = "Wasm_Net8" }
+        @{ Template = "blazorbit-wasm";   Framework = "net8.0";  Localization = $true;  Charts = $false; Notifications = $false; HotKeys = $false; Theme = "None"; Name = "Wasm_Net8_Loc" }
+        @{ Template = "blazorbit-wasm";   Framework = "net8.0";  Localization = $true;  Charts = $true;  Notifications = $false; HotKeys = $false; Theme = "None"; Name = "Wasm_Net8_Loc_Charts" }
+        @{ Template = "blazorbit-wasm";   Framework = "net8.0";  Localization = $true;  Charts = $true;  Notifications = $true;  HotKeys = $false; Theme = "None"; Name = "Wasm_Net8_Loc_Charts_Not" }
+        @{ Template = "blazorbit-wasm";   Framework = "net8.0";  Localization = $true;  Charts = $true;  Notifications = $true;  HotKeys = $true;  Theme = "None"; Name = "Wasm_Net8_Loc_Charts_Not_Hot" }
+        @{ Template = "blazorbit-server"; Framework = "net10.0"; Localization = $false; Charts = $false; Notifications = $false; HotKeys = $false; Theme = "None"; Name = "Server_Net10" }
+        @{ Template = "blazorbit-server"; Framework = "net10.0"; Localization = $true;  Charts = $false; Notifications = $false; HotKeys = $false; Theme = "None"; Name = "Server_Net10_Loc" }
+        @{ Template = "blazorbit-server"; Framework = "net10.0"; Localization = $true;  Charts = $true;  Notifications = $false; HotKeys = $false; Theme = "None"; Name = "Server_Net10_Loc_Charts" }
+        @{ Template = "blazorbit-server"; Framework = "net10.0"; Localization = $true;  Charts = $true;  Notifications = $true;  HotKeys = $false; Theme = "None"; Name = "Server_Net10_Loc_Charts_Not" }
+        @{ Template = "blazorbit-server"; Framework = "net10.0"; Localization = $true;  Charts = $true;  Notifications = $true;  HotKeys = $true;  Theme = "None"; Name = "Server_Net10_Loc_Charts_Not_Hot" }
+        @{ Template = "blazorbit-wasm";   Framework = "net10.0"; Localization = $false; Charts = $false; Notifications = $false; HotKeys = $false; Theme = "None"; Name = "Wasm_Net10" }
+        @{ Template = "blazorbit-wasm";   Framework = "net10.0"; Localization = $true;  Charts = $false; Notifications = $false; HotKeys = $false; Theme = "None"; Name = "Wasm_Net10_Loc" }
+        @{ Template = "blazorbit-wasm";   Framework = "net10.0"; Localization = $true;  Charts = $true;  Notifications = $false; HotKeys = $false; Theme = "None"; Name = "Wasm_Net10_Loc_Charts" }
+        @{ Template = "blazorbit-wasm";   Framework = "net10.0"; Localization = $true;  Charts = $true;  Notifications = $true;  HotKeys = $false; Theme = "None"; Name = "Wasm_Net10_Loc_Charts_Not" }
+        @{ Template = "blazorbit-wasm";   Framework = "net10.0"; Localization = $true;  Charts = $true;  Notifications = $true;  HotKeys = $true;  Theme = "None"; Name = "Wasm_Net10_Loc_Charts_Not_Hot" }
+        @{ Template = "blazorbit-wasm";   Framework = "net10.0"; Localization = $false; Charts = $false; Notifications = $false; HotKeys = $false; Theme = "None"; Name = "Wasm_Net10_Theme_None" }
+        @{ Template = "blazorbit-wasm";   Framework = "net10.0"; Localization = $false; Charts = $false; Notifications = $false; HotKeys = $false; Theme = "NeoBrutalism"; Name = "Wasm_Net10_Theme_NeoBrutalism" }
+        @{ Template = "blazorbit-wasm";   Framework = "net10.0"; Localization = $false; Charts = $false; Notifications = $false; HotKeys = $false; Theme = "BentoGrid"; Name = "Wasm_Net10_Theme_BentoGrid" }
+        @{ Template = "blazorbit-wasm";   Framework = "net10.0"; Localization = $false; Charts = $false; Notifications = $false; HotKeys = $false; Theme = "Glassmorphism"; Name = "Wasm_Net10_Theme_Glassmorphism" }
+        @{ Template = "blazorbit-wasm";   Framework = "net10.0"; Localization = $false; Charts = $false; Notifications = $false; HotKeys = $false; Theme = "FlatDesign"; Name = "Wasm_Net10_Theme_FlatDesign" }
+        @{ Template = "blazorbit-wasm";   Framework = "net10.0"; Localization = $false; Charts = $false; Notifications = $false; HotKeys = $false; Theme = "MaterialDesign"; Name = "Wasm_Net10_Theme_MaterialDesign" }
+        @{ Template = "blazorbit-wasm";   Framework = "net10.0"; Localization = $false; Charts = $false; Notifications = $false; HotKeys = $false; Theme = "Neomorphism"; Name = "Wasm_Net10_Theme_Neomorphism" }
+        @{ Template = "blazorbit-wasm";   Framework = "net10.0"; Localization = $false; Charts = $false; Notifications = $false; HotKeys = $false; Theme = "Claymorphism"; Name = "Wasm_Net10_Theme_Claymorphism" }
+        @{ Template = "blazorbit-wasm";   Framework = "net10.0"; Localization = $false; Charts = $false; Notifications = $false; HotKeys = $false; Theme = "RetroWeb"; Name = "Wasm_Net10_Theme_RetroWeb" }
     )
 }
 
@@ -219,13 +272,21 @@ foreach ($case in $Matrix) {
     $template = $case.Template
     $framework = $case.Framework
     $loc = [bool]$case.Localization
+    $charts = [bool]$case.Charts
+    $notifications = [bool]$case.Notifications
+    $hotkeys = [bool]$case.HotKeys
+    $theme = $case.Theme
     $name = $case.Name
     if ([string]::IsNullOrWhiteSpace($name)) {
-        $name = "{0}_{1}_{2}" -f $template, $framework, ($loc ? "Loc" : "NoLoc")
+        $suffix = ($loc ? "Loc" : "NoLoc")
+        if ($charts) { $suffix += "_Charts" }
+        if ($notifications) { $suffix += "_Not" }
+        if ($hotkeys) { $suffix += "_Hot" }
+        $name = "{0}_{1}_{2}" -f $template, $framework, $suffix
     }
     $caseDir = Join-Path $WorkDir $name
 
-    Write-Step ("Case: {0} | {1} | localization={2} → {3}" -f $template, $framework, $loc, $name)
+    Write-Step ("Case: {0} | {1} | localization={2} | charts={3} | notifications={4} | hotkeys={5} → {6}" -f $template, $framework, $loc, $charts, $notifications, $hotkeys, $name)
 
     if (Test-Path $caseDir) { Remove-Item $caseDir -Recurse -Force }
 
@@ -234,17 +295,24 @@ foreach ($case in $Matrix) {
         "-n", $name,
         "-o", $caseDir,
         "--Framework", $framework,
-        "--IncludeLocalization", $loc.ToString().ToLower()
+        "--IncludeLocalization", $loc.ToString().ToLower(),
+        "--IncludeCharts", $charts.ToString().ToLower(),
+        "--UseNotificationsCenter", $notifications.ToString().ToLower(),
+        "--UseHotKeys", $hotkeys.ToString().ToLower(),
+        "--Theme", $theme
     )
 
     $caseResult = [pscustomobject]@{
-        Name         = $name
-        Template     = $template
-        Framework    = $framework
-        Localization = $loc
-        Generate     = "skipped"
-        Build        = "skipped"
-        Error        = $null
+        Name          = $name
+        Template      = $template
+        Framework     = $framework
+        Localization  = $loc
+        Charts        = $charts
+        Notifications = $notifications
+        HotKeys       = $hotkeys
+        Generate      = "skipped"
+        Build         = "skipped"
+        Error         = $null
     }
 
     try {
@@ -280,7 +348,32 @@ foreach ($case in $Matrix) {
     $results.Add($caseResult)
 }
 
-# ---------- 7. E2E tests (optional) ----------
+# ---------- 7. Aggregate slnx for manual exploration ----------
+# Pair with -KeepWorkDir to open / build / debug the eight generated
+# projects from a single solution: `dotnet build $WorkDir\template-tests.slnx`
+# or open it in VS / Rider. Survives across runs as long as the work dir
+# is not cleaned.
+$slnxPath = Join-Path $WorkDir "template-tests.slnx"
+Write-Step "Writing slnx → $slnxPath"
+$slnxLines = New-Object System.Collections.Generic.List[string]
+$slnxLines.Add("<Solution>") | Out-Null
+$slnxIncluded = 0
+foreach ($r in $results) {
+    if ($r.Generate -ne "ok") { continue }
+    $caseDir = Join-Path $WorkDir $r.Name
+    $csproj = Get-ChildItem $caseDir -Filter "*.csproj" -Recurse -ErrorAction SilentlyContinue | Select-Object -First 1
+    if (-not $csproj) { continue }
+    # slnx Path entries are relative to the slnx location and use forward
+    # slashes for cross-platform compatibility.
+    $rel = $csproj.FullName.Substring($WorkDir.Length).TrimStart('\', '/').Replace('\', '/')
+    $slnxLines.Add("  <Project Path=`"$rel`" />") | Out-Null
+    $slnxIncluded++
+}
+$slnxLines.Add("</Solution>") | Out-Null
+($slnxLines -join "`n") | Set-Content -Path $slnxPath -Encoding UTF8
+Write-Ok "slnx written ($slnxIncluded project(s))"
+
+# ---------- 8. E2E tests (optional) ----------
 $failures = $results | Where-Object { $_.Generate -ne "ok" -or ($_.Build -eq "fail") }
 $e2eResults = "skipped"
 if ($RunE2E) {
@@ -327,9 +420,9 @@ if ($RunE2E) {
     }
 }
 
-# ---------- 8. Summary ----------
+# ---------- 9. Summary ----------
 Write-Step "Summary"
-$results | Format-Table Name, Template, Framework, Localization, Generate, Build -AutoSize | Out-String | Write-Host
+$results | Format-Table Name, Template, Framework, Localization, Charts, Notifications, HotKeys, Generate, Build -AutoSize | Out-String | Write-Host
 
 if ($failures.Count -gt 0) {
     Write-Host ""
@@ -345,7 +438,7 @@ if ($RunE2E) {
     Write-Host ("E2E tests: {0}" -f $e2eResults) -ForegroundColor $(if ($e2eResults -eq "ok") { "Green" } elseif ($e2eResults -eq "fail") { "Red" } else { "Yellow" })
 }
 
-# ---------- 9. Cleanup ----------
+# ---------- 10. Cleanup ----------
 if (-not $KeepInstalled) {
     Write-Step "Uninstalling BlazOrbit.Templates"
     # The E2E fixture's DisposeAsync already calls `dotnet new uninstall`, so when

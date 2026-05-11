@@ -1,0 +1,196 @@
+@page "/components/charts/area"
+
+@inject IStringLocalizer<AreaChartPage> Loc
+
+<DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBAreaChart"]"
+         Lede="@Loc["Line chart with the region between the line and the X axis baseline filled. Each series renders its own filled region (overlapping when they intersect). Inherits everything from BOBLineChart — Smooth, ShowMarkers, axes, temporal X auto-detect."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBAreaChart<,>)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+        <BOBAreaChart TX="int" TY="double"
+                      Series="_singleSeries"
+                      Width="600" Height="320" />
+    </DocDemo>
+
+    <DocDemo Key="Smooth" Title="@Loc["Smooth fill"]"
+             Description="@Loc["Smooth=true applies the cubic bezier engine to both the stroke and the fill, producing a soft contour."]">
+        <BOBAreaChart TX="int" TY="double"
+                      Series="_singleSeries"
+                      Smooth="true"
+                      Width="600" Height="320" />
+    </DocDemo>
+
+    <DocDemo Key="MultiSeries" Title="@Loc["Overlapping multi-series"]"
+             Description="@Loc["FillOpacity defaults to 0.25 so overlapping fills stay visually distinguishable."]">
+        <BOBAreaChart TX="int" TY="double"
+                      Series="_multiSeries"
+                      Smooth="true"
+                      Width="600" Height="320" />
+    </DocDemo>
+
+    <DocDemo Key="Markers" Title="@Loc["With markers"]"
+             Description="@Loc["Area charts default ShowMarkers to false (the filled volume carries the visual weight). Set ShowMarkers=true if you need the per-point hit targets."]">
+        <BOBAreaChart TX="int" TY="double"
+                      Series="_singleSeries"
+                      ShowMarkers="true"
+                      Width="600" Height="320" />
+    </DocDemo>
+
+    <DocDemo Key="StackedArea" Title="@Loc["Stacked area"]"
+             Description="@Loc["Stacked=true fills the band between adjacent cumulative totals rather than the zero line. Ideal for showing part-to-whole evolution over time."]">
+        <BOBAreaChart TX="int" TY="double"
+                      Series="_stackableSeries"
+                      Stacked="true"
+                      Width="600" Height="320" />
+    </DocDemo>
+
+    <DocDemo Key="FillOpacity" Title="@Loc["Custom fill opacity"]"
+             Description="@Loc["FillOpacity controls the area fill transparency. Lower values make overlaps easier to read; higher values make individual series more prominent."]">
+        <BOBAreaChart TX="int" TY="double"
+                      Series="_multiSeries"
+                      FillOpacity="0.55"
+                      Width="600" Height="320" />
+    </DocDemo>
+
+    <DocDemo Key="Crosshair" Title="@Loc["Crosshair"]"
+             Description="@Loc["Inherited from BOBLineChart: ShowCrosshair tracks the mouse and highlights the nearest point per series with an HTML readout."]">
+        <BOBAreaChart TX="int" TY="double"
+                      Series="_multiSeries"
+                      ShowCrosshair="true"
+                      Width="600" Height="320" />
+    </DocDemo>
+
+    <DocDemo Key="ReferenceLines" Title="@Loc["Reference lines"]"
+             Description="@Loc["Reference lines work exactly as in BOBLineChart and BOBBarChart."]">
+        <BOBAreaChart TX="int" TY="double"
+                      Series="_singleSeries"
+                      Width="600" Height="320"
+                      ReferenceLines="_referenceLines" />
+    </DocDemo>
+
+    <DocDemo Key="Annotations" Title="@Loc["Annotations"]"
+             Description="@Loc["Inherited from BOBLineChart: combine text, vertical band and shape annotations to call out incidents, milestones and peaks directly on the area."]">
+        <BOBAreaChart TX="int" TY="double"
+                      Series="_singleSeries"
+                      Smooth="true"
+                      FillOpacity="0.35"
+                      Annotations="_annotations"
+                      Width="600" Height="320" />
+    </DocDemo>
+
+    <DocDemo Key="ZoomBrush" Title="@Loc["Zoom and brush"]"
+             Description="@Loc["BOBAreaChart inherits ZoomEnabled (wheel + double-click reset) and BrushEnabled (drag-to-select range with auto-zoom). The series fills clip cleanly to the plot rect even when zoomed past the data extent."]">
+        <BOBAreaChart TX="int" TY="double"
+                      Series="_singleSeries"
+                      Smooth="true"
+                      ZoomEnabled="true"
+                      BrushEnabled="true"
+                      Width="600" Height="320" />
+    </DocDemo>
+
+</DocPage>
+
+@code {
+
+    private static readonly IEnumerable<BOBChartSeries<int, double>> _singleSeries =
+        new[]
+        {
+            new BOBChartSeries<int, double>
+            {
+                Label = "Throughput",
+                Points = Enumerable.Range(1, 14)
+                    .Select(i => new BOBChartPoint<int, double>(i, 40 + Math.Sin(i * 0.5) * 18 + i * 1.2))
+                    .ToArray()
+            }
+        };
+
+    private static readonly IEnumerable<BOBChartSeries<int, double>> _multiSeries =
+        new[]
+        {
+            new BOBChartSeries<int, double>
+            {
+                Label = "Service A",
+                Points = Enumerable.Range(1, 14)
+                    .Select(i => new BOBChartPoint<int, double>(i, 30 + Math.Sin(i * 0.6) * 14))
+                    .ToArray()
+            },
+            new BOBChartSeries<int, double>
+            {
+                Label = "Service B",
+                Points = Enumerable.Range(1, 14)
+                    .Select(i => new BOBChartPoint<int, double>(i, 22 + Math.Cos(i * 0.45) * 10 + i * 0.8))
+                    .ToArray()
+            }
+        };
+
+    private static readonly IEnumerable<BOBChartSeries<int, double>> _stackableSeries =
+        new[]
+        {
+            new BOBChartSeries<int, double>
+            {
+                Label = "Web",
+                Points = Enumerable.Range(1, 10)
+                    .Select(i => new BOBChartPoint<int, double>(i, 15 + i * 1.5))
+                    .ToArray()
+            },
+            new BOBChartSeries<int, double>
+            {
+                Label = "API",
+                Points = Enumerable.Range(1, 10)
+                    .Select(i => new BOBChartPoint<int, double>(i, 10 + i))
+                    .ToArray()
+            },
+            new BOBChartSeries<int, double>
+            {
+                Label = "Mobile",
+                Points = Enumerable.Range(1, 10)
+                    .Select(i => new BOBChartPoint<int, double>(i, 8 + i * 0.8))
+                    .ToArray()
+            }
+        };
+
+    // Mix of band + text + shape annotations for the area page demo.
+    private static readonly IEnumerable<BOBChartAnnotation> _annotations =
+        new BOBChartAnnotation[]
+        {
+            new BOBChartBandAnnotation<int>
+            {
+                FromX = 5,
+                ToX = 7,
+                FillOpacity = 0.18,
+                Label = "Incident",
+                Color = "var(--palette-error)"
+            },
+            new BOBChartShapeAnnotation<int, double>
+            {
+                X = 14,
+                Y = 40 + Math.Sin(14 * 0.5) * 18 + 14 * 1.2,
+                Shape = BOBChartAnnotationShape.Triangle,
+                SizePx = 14,
+                Color = "var(--palette-success)"
+            },
+            new BOBChartTextAnnotation<int, double>
+            {
+                X = 14,
+                Y = 40 + Math.Sin(14 * 0.5) * 18 + 14 * 1.2,
+                Text = "All-time high",
+                DxPx = -16,
+                DyPx = -14,
+                Color = "var(--palette-success)"
+            },
+        };
+
+    private static readonly IEnumerable<BOBChartReferenceLine> _referenceLines =
+        new[]
+        {
+            new BOBChartReferenceLine
+            {
+                Value = 50,
+                Label = "Capacity",
+                Color = "var(--palette-warning)",
+                Style = BOBChartReferenceLineStyle.Dashed,
+                StrokeWidth = 2
+            }
+        };
+}

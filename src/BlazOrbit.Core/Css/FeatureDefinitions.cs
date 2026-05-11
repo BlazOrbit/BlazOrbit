@@ -379,6 +379,9 @@ internal static class FeatureDefinitions
         public const string SwitchThumbInactiveColor = "--bob-inline-thumb-inactive-color";
         public const string SwitchThumbActiveColor = "--bob-inline-thumb-active-color";
 
+        // --- Aspect ratio overrides (BOBAspectRatio) ---
+        public const string AspectRatio = "--bob-inline-aspect-ratio";
+
         // --- Layout overrides ---
         public const string LayoutSidebarWidth = "--bob-inline-sidebar-width";
         public const string LayoutHeaderHeight = "--bob-inline-header-height";
@@ -545,8 +548,17 @@ internal static class FeatureDefinitions
         /// </summary>
         public static class Input
         {
-            public const string Radius = "--bob-input-radius";
-            public const string RadiusValue = "4px";
+            // Border family for input components — mirrors the global Border tokens but
+            // scoped so a consumer can dial input chrome independently of every other
+            // border in the system.
+            public const string BorderWidth = "--bob-input-border-width";
+            public const string BorderWidthValue = "1px";
+            public const string BorderStyle = "--bob-input-border-style";
+            public const string BorderStyleValue = "solid";
+            public const string BorderColor = "--bob-input-border-color";
+            public const string BorderColorValue = "color-mix(in oklab, var(--palette-border) 40%, transparent)";
+            public const string BorderRadius = "--bob-input-border-radius";
+            public const string BorderRadiusValue = "0";
             public const string TransitionDuration = "--bob-input-transition-duration";
             public const string TransitionDurationValue = "150ms";
             public const string TransitionEasing = "--bob-input-transition-easing";
@@ -562,6 +574,8 @@ internal static class FeatureDefinitions
         {
             public const string Radius = "--bob-picker-radius";
             public const string RadiusValue = "8px";
+            public const string BorderColor = "--bob-picker-border-color";
+            public const string BorderColorValue = "color-mix(in oklab, var(--palette-border) 40%, transparent)";
             public const string CellSize = "--bob-picker-cell-size";
             public const string CellSizeValue = "36px";
             public const string Padding = "--bob-picker-padding";

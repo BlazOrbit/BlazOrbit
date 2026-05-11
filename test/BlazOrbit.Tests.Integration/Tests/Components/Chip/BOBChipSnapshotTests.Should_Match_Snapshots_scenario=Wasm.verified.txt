@@ -1,0 +1,18 @@
+﻿[
+  {
+    Name: Static,
+    Html: <bob-component data-bob-component="chip" data-bob-size="medium" b-<SCOPE>><span class="bob-chip" b-<SCOPE>><span class="bob-chip__label" b-<SCOPE>>tag</span></span></bob-component>
+  },
+  {
+    Name: With_Icon_And_Count,
+    Html: <bob-component data-bob-component="chip" data-bob-size="medium" b-<SCOPE>><span class="bob-chip" b-<SCOPE>><span class="bob-chip__leading" aria-hidden="true" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M0 0h24v24H0V0z" fill="none"/><path d="M17.63 5.84C17.27 5.33 16.67 5 16 5L5 5.01C3.9 5.01 3 5.9 3 7v10c0 1.1.9 1.99 2 1.99L16 19c.67 0 1.27-.33 1.63-.84L22 12l-4.37-6.16zM16 17H5V7h11l3.55 5L16 17z"/></svg></bob-component></span><span class="bob-chip__label" b-<SCOPE>>Inbox</span><span class="bob-chip__count" aria-label="12 items" b-<SCOPE>>12</span></span></bob-component>
+  },
+  {
+    Name: Selectable_On,
+    Html: <bob-component data-bob-component="chip" data-bob-size="medium" data-bob-active="true" b-<SCOPE>><button type="button" class="bob-chip" data-bob-selected="true" data-bob-clickable="true" aria-pressed="true" blazor:onclick="<EVENT>" b-<SCOPE>><span class="bob-chip__label" b-<SCOPE>>On</span></button></bob-component>
+  },
+  {
+    Name: Removable,
+    Html: <bob-component data-bob-component="chip" data-bob-size="medium" b-<SCOPE>><span class="bob-chip" b-<SCOPE>><span class="bob-chip__label" b-<SCOPE>>alpha</span><button type="button" class="bob-chip__remove" aria-label="Remove" blazor:onclick="<EVENT>" blazor:onclick:stopPropagation b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg></bob-component></button></span></bob-component>
+  }
+]

@@ -152,7 +152,7 @@
     /// <summary>When <see langword="true" />, the dropdown shows a loading indicator.</summary>
     [Parameter] public bool IsLoading { get; set; }
     /// <summary>Variant of the loading indicator shown when <see cref="IsLoading"/> is <see langword="true"/>.</summary>
-    [Parameter] public BOBLoadingIndicatorVariant? LoadingIndicatorVariant { get; set; }
+    [Parameter] public BOBProgressIconVariant? LoadingIndicatorVariant { get; set; }
     /// <summary>When <see langword="true" />, a value must be selected.</summary>
     [Parameter] public bool Required { get; set; }
     /// <summary>When <see langword="true" />, the value cannot be changed.</summary>
@@ -161,9 +161,9 @@
     [Parameter] public BOBDensity Density { get; set; } = BOBDensity.Standard;
     /// <summary>Shadow style applied to the input container.</summary>
     [Parameter] public ShadowStyle? Shadow { get; set; }
-    /// <summary>Text color of the dropdown. Accepts any valid CSS color value.</summary>
+    /// <summary>Text color of the dropdown. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? Color { get; set; }
-    /// <summary>Background color of the dropdown. Accepts any valid CSS color value.</summary>
+    /// <summary>Background color of the dropdown. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? BackgroundColor { get; set; }
 
     /// <summary>Content rendered inside the dropdown, typically <c>&lt;BOBOption&gt;</c> items.</summary>

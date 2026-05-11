@@ -5,11 +5,5 @@
 <div class="test-modal-content">Test Modal</div>
 
 @code {
-    [Parameter] public ModalReference ModalRef { get; set; } = default!;
-
-    ModalReference IModalContent.ModalReference
-    {
-        get => ModalRef;
-        set => ModalRef = value;
-    }
+    [Parameter] public ModalReference ModalReference { get; set; } = default!;
 }

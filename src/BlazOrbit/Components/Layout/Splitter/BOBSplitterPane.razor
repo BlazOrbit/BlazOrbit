@@ -1,0 +1,40 @@
+@namespace BlazOrbit.Components.Layout
+@attribute [GenerateComponentInfo]
+@implements IDisposable
+
+@* Pane definitions are sucked up by the parent BOBSplitter and rendered there.
+   This component contributes no DOM of its own. *@
+
+@code {
+    /// <summary>Parent <see cref="BOBSplitter"/> container that owns this pane. Cascaded automatically.</summary>
+    [CascadingParameter] public BOBSplitter? Parent { get; set; }
+
+    /// <summary>Initial pane size in pixels along the splitter axis. <c>0</c> = let the pane flex.</summary>
+    [Parameter] public double Size { get; set; }
+
+    /// <summary>Minimum pane size in pixels. Drag is clamped here. Defaults to <c>80</c>.</summary>
+    [Parameter] public double MinSize { get; set; } = 80;
+
+    /// <summary>Maximum pane size in pixels. <c>0</c> means unbounded. Defaults to <c>0</c>.</summary>
+    [Parameter] public double MaxSize { get; set; }
+
+    /// <summary>
+    /// When <see langword="true"/>, the pane absorbs the leftover space and the
+    /// drag-resize cannot fix its size. Useful for the "main content" pane in a docs
+    /// layout. Only one flex pane per splitter is meaningful.
+    /// </summary>
+    [Parameter] public bool Flex { get; set; }
+
+    /// <summary>Markup rendered inside the pane.</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Parent?.RegisterPane(this);
+    }
+
+    public void Dispose()
+    {
+        Parent?.UnregisterPane(this);
+    }
+}

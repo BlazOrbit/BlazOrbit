@@ -1,0 +1,61 @@
+@page "/components/display/chip"
+
+@using BlazOrbit.Components.Display
+
+@inject IStringLocalizer<ChipPage> Loc
+
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBChip"]"
+         Lede="@Loc["Compact tag for filters, selections and removable inline items."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBChip)">
+
+    <DocDemo Key="Static" Title="@Loc["Static label"]">
+        <BOBChip Label="@Loc["Default"]" />
+        <BOBChip Label="@Loc["With icon"]" LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_label" />
+        <BOBChip Label="@Loc["With count"]" Count="12" />
+    </DocDemo>
+
+    <DocDemo Key="Selectable" Title="@Loc["Filter chips"]">
+        <BOBChip Label="@Loc["JavaScript"]" Selectable="true" @bind-Selected="_jsSelected" />
+        <BOBChip Label="@Loc["TypeScript"]" Selectable="true" @bind-Selected="_tsSelected" />
+        <BOBChip Label="@Loc["C#"]" Selectable="true" @bind-Selected="_csSelected" />
+        <p class="doc-demo__caption">@Loc["Selected:"] JS=@_jsSelected TS=@_tsSelected C#=@_csSelected</p>
+    </DocDemo>
+
+    <DocDemo Key="Removable" Title="@Loc["Removable"]">
+        @foreach (string tag in _tags.ToList())
+        {
+            string capture = tag;
+            <BOBChip Label="@capture" Removable="true" OnRemoved="@(() => _tags.Remove(capture))" />
+        }
+        @if (_tags.Count == 0)
+        {
+            <em>@Loc["All removed"]</em>
+        }
+    </DocDemo>
+
+    <DocDemo Key="Clickable" Title="@Loc["Action chips"]">
+        <BOBChip Label="@Loc["Increment"]" Clickable="true" LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_add" OnClick="@(() => _clicks++)" />
+        <p class="doc-demo__caption">@Loc["Clicks:"] @_clicks</p>
+    </DocDemo>
+
+    <DocDemo Key="States" Title="@Loc["States"]">
+        <BOBChip Label="@Loc["Disabled"]" Selectable="true" Disabled="true" />
+        <BOBChip Label="@Loc["Active"]" Selectable="true" Selected="true" />
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBChipComponentInfo.Parameters" />
+    </section>
+
+</DocPage>
+
+@code {
+    private bool _jsSelected;
+    private bool _tsSelected;
+    private bool _csSelected = true;
+    private int _clicks;
+    private readonly List<string> _tags = new() { "alpha", "beta", "gamma" };
+}

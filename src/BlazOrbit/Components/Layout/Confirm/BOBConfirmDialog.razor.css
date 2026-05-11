@@ -1,0 +1,59 @@
+[data-bob-component="confirm-dialog"] {
+    --_confirm-info: var(--palette-highlight);
+    --_confirm-warning: var(--palette-warning);
+    --_confirm-danger: var(--palette-error);
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.25rem;
+    min-width: 22rem;
+    max-width: 32rem;
+}
+
+[data-bob-component="confirm-dialog"] .bob-confirm__head {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+[data-bob-component="confirm-dialog"] .bob-confirm__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--_confirm-info) 15%, transparent);
+    color: var(--_confirm-info);
+}
+
+[data-bob-component="confirm-dialog"][data-bob-severity="warning"] .bob-confirm__icon {
+    background: color-mix(in oklab, var(--_confirm-warning) 15%, transparent);
+    color: var(--_confirm-warning);
+}
+
+[data-bob-component="confirm-dialog"][data-bob-severity="danger"] .bob-confirm__icon {
+    background: color-mix(in oklab, var(--_confirm-danger) 15%, transparent);
+    color: var(--_confirm-danger);
+}
+
+[data-bob-component="confirm-dialog"] .bob-confirm__title {
+    margin: 0;
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--palette-surface-contrast);
+}
+
+[data-bob-component="confirm-dialog"] .bob-confirm__message {
+    margin: 0;
+    color: color-mix(in oklab, var(--palette-surface-contrast) 80%, transparent);
+}
+
+[data-bob-component="confirm-dialog"] .bob-confirm__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    /* Keep the destructive accept button on the right so muscle-memory matches platform
+       conventions across macOS / Windows confirm prompts. */
+}

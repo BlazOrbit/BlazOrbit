@@ -1,4 +1,4 @@
-@page "/components/data/datacards"
+﻿@page "/components/data/datacards"
 
 @inject IStringLocalizer<DataCardsPage> Loc
 
@@ -48,16 +48,16 @@
     </DocDemo>
 
     <DocDemo Key="Selection" Title="@Loc["Selection"]" Description="@Loc["SelectionMode.Multiple adds a checkbox per card and exposes the set via @bind-SelectedItems."]">
-            <BOBDataCards TItem="Product"
-                          Items="_products"
-                          SelectionMode="SelectionMode.Multiple"
-                          @bind-SelectedItems="_selected"
-                          MinCardWidth="220px">
-                <Columns>
-                    <BOBDataColumn TItem="Product" Header="@Loc["Name"]" Property="@(p => p.Name)" />
-                    <BOBDataColumn TItem="Product" Header="@Loc["Price"]" Property="@(p => p.Price)" Format="C" />
-                </Columns>
-            </BOBDataCards>
+        <BOBDataCards TItem="Product"
+                      Items="_products"
+                      SelectionMode="SelectionMode.Multiple"
+                      @bind-SelectedItems="_selected"
+                      MinCardWidth="220px">
+            <Columns>
+                <BOBDataColumn TItem="Product" Header="@Loc["Name"]" Property="@(p => p.Name)" />
+                <BOBDataColumn TItem="Product" Header="@Loc["Price"]" Property="@(p => p.Price)" Format="C" />
+            </Columns>
+        </BOBDataCards>
     </DocDemo>
 
     <DocDemo Key="CardStyling" Title="@Loc["Card styling"]" Description="@Loc["Use CardBorder, CardShadow, and CardBackground for quick tweaks without CSS."]">
@@ -87,6 +87,116 @@
         </BOBDataCards>
     </DocDemo>
 
+    <DocDemo Key="Aggregates" Title="@Loc["Aggregate summary band"]"
+             Description="@Loc["Set Aggregate per column to render a totals strip below the cards. The summary uses the filtered set so totals adapt to the user's search."]">
+        <BOBDataCards TItem="Product" Items="_products" Filterable="true" MinCardWidth="220px">
+            <Columns>
+                <BOBDataColumn TItem="Product" Header="@Loc["Items"]" Property="@(p => p.Id)"
+                               Aggregate="AggregateFunction.Count" AggregateLabel="" />
+                <BOBDataColumn TItem="Product" Header="@Loc["Catalog value"]" Property="@(p => p.Price)"
+                               Aggregate="AggregateFunction.Sum" AggregateFormat="C" />
+                <BOBDataColumn TItem="Product" Header="@Loc["Stock"]" Property="@(p => p.Stock)"
+                               Aggregate="AggregateFunction.Sum" />
+                <BOBDataColumn TItem="Product" Header="@Loc["Avg price"]" Property="@(p => p.Price)"
+                               Aggregate="AggregateFunction.Average" AggregateFormat="C" />
+            </Columns>
+        </BOBDataCards>
+    </DocDemo>
+
+    <DocDemo Key="RowActions" Title="@Loc["Per-card actions"]"
+             Description="@Loc["RowActions render an action strip at the bottom of each card. Per-row Visible / Enabled predicates support read-only flags and stock-aware destructive operations."]">
+        <BOBDataCards TItem="Product" Items="_products" RowActions="_rowActions" MinCardWidth="220px">
+            <Columns>
+                <BOBDataColumn TItem="Product" Header="@Loc["Name"]" Property="@(p => p.Name)" />
+                <BOBDataColumn TItem="Product" Header="@Loc["Stock"]" Property="@(p => p.Stock)" />
+                <BOBDataColumn TItem="Product" Header="@Loc["Price"]" Property="@(p => p.Price)" Format="C" />
+            </Columns>
+        </BOBDataCards>
+        @if (!string.IsNullOrEmpty(_actionLog))
+        {
+            <p class="doc-helper-text">@_actionLog</p>
+        }
+    </DocDemo>
+
+    <DocDemo Key="BulkActions" Title="@Loc["Bulk actions on selection"]"
+             Description="@Loc["BulkActions appear in the toolbar when at least one card is selected — the handler receives the selection so you can wire delete / archive / export."]">
+        <BOBDataCards TItem="Product"
+                      Items="_products"
+                      SelectionMode="SelectionMode.Multiple"
+                      BulkActions="_bulkActions"
+                      MinCardWidth="220px">
+            <Columns>
+                <BOBDataColumn TItem="Product" Header="@Loc["Name"]" Property="@(p => p.Name)" />
+                <BOBDataColumn TItem="Product" Header="@Loc["Price"]" Property="@(p => p.Price)" Format="C" />
+            </Columns>
+        </BOBDataCards>
+        @if (!string.IsNullOrEmpty(_bulkLog))
+        {
+            <p class="doc-helper-text">@_bulkLog</p>
+        }
+    </DocDemo>
+
+    <DocDemo Key="RowDetail" Title="@Loc["Card row detail"]"
+             Description="@Loc["RowDetailTemplate adds an expansion section under each card — perfect for catalogs where the card surfaces the highlights and the detail shows specs, history or stock breakdown."]">
+        <BOBDataCards TItem="Product" Items="_products" MinCardWidth="220px">
+            <Columns>
+                <BOBDataColumn TItem="Product" Header="@Loc["Name"]" Property="@(p => p.Name)" />
+                <BOBDataColumn TItem="Product" Header="@Loc["Category"]" Property="@(p => p.Category)" />
+                <BOBDataColumn TItem="Product" Header="@Loc["Price"]" Property="@(p => p.Price)" Format="C" />
+            </Columns>
+            <RowDetailTemplate Context="p">
+                <BOBFlexStack Gap="0.4rem" Direction="FlexStackDirection.Column">
+                    <strong>@p.Name</strong>
+                    <span>@Loc["Category"]: @p.Category</span>
+                    <span>@Loc["Stock"]: @p.Stock</span>
+                    <span>@Loc["Inventory value"]: @((p.Price * p.Stock).ToString("C"))</span>
+                </BOBFlexStack>
+            </RowDetailTemplate>
+        </BOBDataCards>
+    </DocDemo>
+
+    <DocDemo Key="LoadingSkeleton" Title="@Loc["Skeleton loading"]"
+             Description="@Loc["LoadingMode = Skeleton renders animated placeholder cards while the source is fetching. PageSize controls the placeholder count."]">
+        <BOBFlexStack Gap="0.75rem" Direction="FlexStackDirection.Column">
+            <BOBButton Text="@(_demoLoading ? Loc["Stop loading"] : Loc["Show skeleton"])" OnClick="ToggleLoading" />
+            <BOBDataCards TItem="Product"
+                          Items="_products"
+                          Loading="_demoLoading"
+                          LoadingMode="LoadingMode.Skeleton"
+                          PageSize="4"
+                          MinCardWidth="220px">
+                <Columns>
+                    <BOBDataColumn TItem="Product" Header="@Loc["Name"]" Property="@(p => p.Name)" />
+                    <BOBDataColumn TItem="Product" Header="@Loc["Price"]" Property="@(p => p.Price)" Format="C" />
+                </Columns>
+            </BOBDataCards>
+        </BOBFlexStack>
+    </DocDemo>
+
+    <DocDemo Key="ErrorState" Title="@Loc["Error state"]"
+             Description="@Loc["Set Error to surface a remote-load failure with a built-in alert. Override ErrorContent for custom retry UI."]">
+        <BOBDataCards TItem="Product" Items="_products"
+                      Error="@Loc["Catalog service is unavailable. Try again in a moment."]"
+                      MinCardWidth="220px">
+            <Columns>
+                <BOBDataColumn TItem="Product" Header="@Loc["Name"]" Property="@(p => p.Name)" />
+            </Columns>
+        </BOBDataCards>
+    </DocDemo>
+
+    <DocDemo Key="EmptyCta" Title="@Loc["Empty state with CTA"]"
+             Description="@Loc["EmptyActionTemplate slots a button into the default empty layout — encourages users to create their first record without writing a custom EmptyContent."]">
+        <BOBDataCards TItem="Product" Items="_emptyList" MinCardWidth="240px">
+            <Columns>
+                <BOBDataColumn TItem="Product" Header="@Loc["Name"]" Property="@(p => p.Name)" />
+            </Columns>
+            <EmptyActionTemplate>
+                <BOBButton Text="@Loc["Add first product"]"
+                           LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_add" />
+            </EmptyActionTemplate>
+        </BOBDataCards>
+    </DocDemo>
+
     <section class="doc-section">
         <h2 class="doc-section__title">@Loc["Properties"]</h2>
         <PropertyTable Properties="@BOBDataCardsComponentInfo.Parameters" />
@@ -107,5 +217,64 @@
         new(6, "Fjord Mug", "Kitchen", 18.00m, 60)
     ];
 
+    private readonly List<Product> _emptyList = new();
+
     private HashSet<Product> _selected = [];
+    private string? _actionLog;
+    private string? _bulkLog;
+    private bool _demoLoading;
+
+    private Task LogAction(Product p, string verb)
+    {
+        _actionLog = $"{verb} {p.Name}";
+        return Task.CompletedTask;
+    }
+
+    private IReadOnlyList<DataCollectionRowAction<Product>> _rowActions => new[]
+    {
+        new DataCollectionRowAction<Product>
+        {
+            Label = "Edit",
+            Icon = BOBIconKeys.MaterialIconsOutlined.i_edit,
+            OnClick = p => LogAction(p, "Edit"),
+        },
+        new DataCollectionRowAction<Product>
+        {
+            Label = "Archive",
+            Icon = BOBIconKeys.MaterialIconsOutlined.i_archive,
+            // Archive only available when in stock — predicate gates the button.
+            Enabled = p => p.Stock > 0,
+            OnClick = p => LogAction(p, "Archive"),
+        },
+        new DataCollectionRowAction<Product>
+        {
+            Label = "Delete",
+            Icon = BOBIconKeys.MaterialIconsOutlined.i_delete,
+            Color = PaletteColor.Error,
+            // Hide Delete entirely when stock is high (proxy for "in active use").
+            Visible = p => p.Stock <= 12,
+            OnClick = p => LogAction(p, "Delete"),
+        },
+    };
+
+    private IReadOnlyList<DataCollectionBulkAction<Product>> _bulkActions => new[]
+    {
+        new DataCollectionBulkAction<Product>
+        {
+            Label = "Export",
+            Icon = BOBIconKeys.MaterialIconsOutlined.i_download,
+            OnClick = sel => { _bulkLog = $"Exporting {sel.Count} product(s)"; return Task.CompletedTask; },
+        },
+        new DataCollectionBulkAction<Product>
+        {
+            Label = "Discontinue",
+            Icon = BOBIconKeys.MaterialIconsOutlined.i_block,
+            Color = PaletteColor.Error,
+            // Defensive cap — destructive bulk-op limited to 5.
+            Enabled = sel => sel.Count <= 5,
+            OnClick = sel => { _bulkLog = $"Discontinuing {sel.Count} product(s)"; return Task.CompletedTask; },
+        },
+    };
+
+    private void ToggleLoading() => _demoLoading = !_demoLoading;
 }

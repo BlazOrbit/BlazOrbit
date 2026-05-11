@@ -28,6 +28,41 @@
       "datatype": "bool",
       "defaultValue": "false",
       "description": "Whether to include BlazOrbit localization support."
+    },
+    "IncludeCharts": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Whether to include the BlazOrbit.Charts package and replace Home with a dashboard sample."
+    },
+    "UseNotificationsCenter": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Whether to include BlazOrbit.Notifications package, register AddBlazOrbitNotifications(), and add BOBNotificationBell demo."
+    },
+    "UseHotKeys": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Whether to include BlazOrbit.Hotkeys package, register AddBlazOrbitHotkeys(), mount BOBHotkeyHost in layout, and add hotkey demo."
+    },
+    "Theme": {
+      "type": "parameter",
+      "datatype": "choice",
+      "defaultValue": "None",
+      "description": "Pre-built visual theme that overrides palette and design tokens.",
+      "choices": [
+        { "choice": "None", "description": "No theme override (default BlazOrbit styling)." },
+        { "choice": "NeoBrutalism", "description": "Ultra-saturated colors, thick black borders, hard shadows, zero radius." },
+        { "choice": "BentoGrid", "description": "Soft pastels, large radius, diffused shadows, airy spacing." },
+        { "choice": "Glassmorphism", "description": "Transparency, blur, subtle borders, gradient backgrounds." },
+        { "choice": "FlatDesign", "description": "Flat vivid colors, no borders or shadows, moderate radius." },
+        { "choice": "MaterialDesign", "description": "Elevated shadows, vivid colors, 4px radius, pronounced ripple." },
+        { "choice": "Neomorphism", "description": "Dual soft shadows, monochrome, wide radius." },
+        { "choice": "Claymorphism", "description": "Warm colors, multiple diffused shadows, very wide radius." },
+        { "choice": "RetroWeb", "description": "Phosphor green/amber on black, monospace font, pixelated, zero radius." }
+      ]
     }
   },
   "sources": [
@@ -39,7 +74,9 @@
         { "condition": "(Framework != 'net10.0')", "exclude": ["**/*.net10.*"] },
         { "condition": "(Framework != 'net10.0')", "exclude": ["Components/Pages/NotFound.razor", "Components/Layout/ReconnectModal.razor", "Components/Layout/ReconnectModal.razor.css", "Components/Layout/ReconnectModal.razor.js"] },
         { "condition": "(!IncludeLocalization)", "exclude": ["localized/**"] },
-        { "condition": "(IncludeLocalization)", "exclude": ["Program.cs", "Components/Layout/MainLayout.razor", "Components/Layout/NavMenu.razor", "localized/**"] }
+        { "condition": "(IncludeLocalization)", "exclude": ["Program.cs", "Components/Layout/MainLayout.razor", "Components/Layout/NavMenu.razor", "localized/**"] },
+        { "condition": "(Theme == 'None')", "exclude": ["wwwroot/theme.css"] },
+        { "exclude": ["Components/Pages/Home.razor", "Components/Pages/Home.razor.css", "Components/Pages/Home.charts.razor", "Components/Pages/Home.charts.razor.css"] }
       ],
       "rename": {
         "Components/App.net8.razor": "Components/App.razor",
@@ -50,6 +87,22 @@
         "Program.net10.cs": "Program.cs",
         "Properties/launchSettings.net8.json": "Properties/launchSettings.json",
         "Properties/launchSettings.net10.json": "Properties/launchSettings.json"
+      }
+    },
+    {
+      "condition": "(!IncludeCharts)",
+      "source": "./",
+      "target": "./",
+      "include": ["Components/Pages/Home.razor", "Components/Pages/Home.razor.css"]
+    },
+    {
+      "condition": "(IncludeCharts)",
+      "source": "./",
+      "target": "./",
+      "include": ["Components/Pages/Home.charts.razor", "Components/Pages/Home.charts.razor.css"],
+      "rename": {
+        "Components/Pages/Home.charts.razor": "Components/Pages/Home.razor",
+        "Components/Pages/Home.charts.razor.css": "Components/Pages/Home.razor.css"
       }
     },
     {

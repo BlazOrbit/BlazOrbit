@@ -20,7 +20,7 @@
     {
         <div role="status" aria-live="polite" class="sr-only">@LiveRegionMessage</div>
 
-        @if (Filterable || ShowPageSizeSelector || (Sortable && CachedSortableColumns.Any()))
+        @if (Filterable || ShowPageSizeSelector || (Sortable && CachedSortableColumns.Any()) || HasVisibleBulkActions)
         {
             <div class="bob-dc__toolbar">
                 @if (Filterable)
@@ -49,6 +49,17 @@
                         <_BOBBtn OnClick="ClearSelectionClicked">
                             Clear
                         </_BOBBtn>
+                        @foreach (DataCollectionBulkAction<TItem> bulk in VisibleBulkActions())
+                        {
+                            DataCollectionBulkAction<TItem> capturedBulk = bulk;
+                            bool bulkEnabled = bulk.Enabled is null || bulk.Enabled(State.SelectedItems.ToList());
+                            <_BOBBtn Text="@bulk.Label"
+                                     LeadingIcon="@bulk.Icon"
+                                     Color="@bulk.Color"
+                                     Disabled="@(!bulkEnabled)"
+                                     AriaLabel="@bulk.Label"
+                                     OnClick="@(_ => InvokeBulkActionAsync(capturedBulk))" />
+                        }
                     </div>
                 }
 
@@ -100,10 +111,48 @@
             </div>
         }
 
-        @if (Loading && LoadingContent != null)
+        @if (Loading)
         {
-            <div class="bob-dc__loading">
-                @LoadingContent
+            @if (LoadingContent != null)
+            {
+                <div class="bob-dc__loading">@LoadingContent</div>
+            }
+            else if (LoadingMode == LoadingMode.Skeleton)
+            {
+                int skeletonCards = PageSize ?? 6;
+                <div class="bob-datacards__grid bob-datacards__grid--skeleton"
+                     style="@GetGridStyle()"
+                     role="status" aria-live="polite" aria-label="Loading data">
+                    @for (int s = 0; s < skeletonCards; s++)
+                    {
+                        <div class="bob-datacards__card bob-dc__skeleton-card">
+                            <div class="bob-dc__skeleton-cell bob-dc__skeleton-cell--header"></div>
+                            <div class="bob-dc__skeleton-cell"></div>
+                            <div class="bob-dc__skeleton-cell"></div>
+                            <div class="bob-dc__skeleton-cell bob-dc__skeleton-cell--short"></div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="bob-dc__loading bob-dc__loading--spinner" role="status" aria-live="polite" aria-label="Loading">
+                    <div class="bob-dc__spinner" aria-hidden="true"></div>
+                </div>
+            }
+        }
+        else if (!string.IsNullOrEmpty(Error))
+        {
+            <div class="bob-dc__error" role="alert">
+                @if (ErrorContent != null)
+                {
+                    @ErrorContent
+                }
+                else
+                {
+                    <span class="bob-dc__error-icon" aria-hidden="true">⚠</span>
+                    <p class="bob-dc__error-text">@Error</p>
+                }
             </div>
         }
         else if (ProcessedItems.Any())
@@ -127,6 +176,22 @@
                     }
                 }
             </div>
+
+            @if (HasAggregates)
+            {
+                <div class="bob-datacards__summary" role="group" aria-label="Aggregate totals">
+                    @foreach (DataColumnRegistration<TItem> col in VisibleColumns.Where(c => c.Aggregate != AggregateFunction.None))
+                    {
+                        string? aggregate = ComputeAggregate(col, FilteredItems);
+                        if (aggregate is null) continue;
+                        <div class="bob-datacards__summary-cell"
+                             aria-label="@($"{col.Header} {col.Aggregate.ToString().ToLowerInvariant()}")">
+                            <span class="bob-datacards__summary-label">@col.Header</span>
+                            <span class="bob-datacards__summary-value">@aggregate</span>
+                        </div>
+                    }
+                </div>
+            }
         }
         else
         {
@@ -139,6 +204,10 @@
                 <div class="bob-dc__empty">
                     <span class="bob-dc__empty-icon">📋</span>
                     <p class="bob-dc__empty-text">No data available</p>
+                    @if (EmptyActionTemplate != null)
+                    {
+                        <div class="bob-dc__empty-actions">@EmptyActionTemplate</div>
+                    }
                 </div>
             }
         }
@@ -185,12 +254,15 @@
     private List<(TItem Item, int Index)> IndexedItems =>
         ProcessedItems.Select((item, i) => (item, i)).ToList();
 
-    protected override void OnParametersSet()
+    protected override void OnAfterRender(bool firstRender)
     {
-        base.OnParametersSet();
-        CachedSortableColumns = RegisteredColumns
-            .Where(c => c.Sortable && c.ValueSelector != null)
-            .ToList();
+        base.OnAfterRender(firstRender);
+        if (firstRender)
+        {
+            CachedSortableColumns = RegisteredColumns
+                .Where(c => c.Sortable && c.ValueSelector != null)
+                .ToList();
+        }
     }
 
     public override void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
@@ -228,12 +300,14 @@
     private RenderFragment RenderCard(TItem item, int index) => __builder =>
     {
         bool isSelected = State.IsSelected(item);
+        bool isExpanded = HasRowDetail && IsExpanded(item);
         string? patternStyle = GetItemPatternStyle(index);
 
         <article @key="item"
                  class="bob-datacards__card"
                  data-bob-interactive="@(IsInteractiveRow ? "true" : null)"
                  data-bob-selected="@(isSelected ? "true" : null)"
+                 data-bob-expanded="@(isExpanded ? "true" : null)"
                  style="@patternStyle"
                  role="@(SelectionMode != SelectionMode.None ? "option" : null)"
                  aria-selected="@(SelectionMode != SelectionMode.None ? isSelected.ToString().ToLowerInvariant() : null)"
@@ -298,6 +372,46 @@
                         @CardFooterTemplate(item)
                     </footer>
                 }
+            }
+
+            @if (HasRowActions || HasRowDetail)
+            {
+                <div class="bob-datacards__card-actions" @onclick:stopPropagation="true">
+                    @if (HasRowActions)
+                    {
+                        <div class="bob-dc__row-actions">
+                            @foreach (DataCollectionRowAction<TItem> action in VisibleRowActionsFor(item))
+                            {
+                                DataCollectionRowAction<TItem> capturedAction = action;
+                                TItem capturedItem = item;
+                                bool actionEnabled = action.Enabled is null || action.Enabled(item);
+                                <_BOBBtn Icon="@action.Icon"
+                                         Text="@(action.Icon is null ? action.Label : null)"
+                                         Color="@action.Color"
+                                         AriaLabel="@action.Label"
+                                         Disabled="@(!actionEnabled)"
+                                         Size="BOBSize.Small"
+                                         OnClick="@(_ => InvokeRowActionAsync(capturedAction, capturedItem))" />
+                            }
+                        </div>
+                    }
+                    @if (HasRowDetail)
+                    {
+                        TItem capturedExpItem = item;
+                        bool capturedExpState = isExpanded;
+                        <_BOBBtn Icon="@(capturedExpState ? BOBIconKeys.UI.ArrowDownward : BOBIconKeys.UI.ArrowForward)"
+                                 AriaLabel="@(capturedExpState ? "Collapse details" : "Expand details")"
+                                 Size="BOBSize.Small"
+                                 OnClick="@(_ => { ToggleExpanded(capturedExpItem); StateHasChanged(); return Task.CompletedTask; })" />
+                    }
+                </div>
+            }
+
+            @if (isExpanded && RowDetailTemplate != null)
+            {
+                <section class="bob-datacards__card-detail" role="region" aria-label="Details">
+                    @RowDetailTemplate(item)
+                </section>
             }
         </article>
     };

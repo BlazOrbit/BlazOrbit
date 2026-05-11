@@ -13,7 +13,7 @@
     /// <summary>Target.</summary>
     [Parameter] public string? Target { get; set; }
     /// <summary>Match.</summary>
-    [Parameter] public NavLinkMatch Match { get; set; } = NavLinkMatch.Prefix;
+    [Parameter] public NavLinkMatch Match { get; set; } = NavLinkMatch.All;
     /// <summary>Raised when the component is clicked.</summary>
     [Parameter] public EventCallback OnClick { get; set; }
 

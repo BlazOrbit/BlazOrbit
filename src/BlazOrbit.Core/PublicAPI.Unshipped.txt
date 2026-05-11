@@ -378,6 +378,28 @@ BlazOrbit.Components.CubicBezierBuilder.MaterialDecelerate() -> BlazOrbit.Compon
 BlazOrbit.Components.CubicBezierBuilder.MaterialSharp() -> BlazOrbit.Components.EasingBuilder!
 BlazOrbit.Components.CubicBezierBuilder.MaterialStandard() -> BlazOrbit.Components.EasingBuilder!
 BlazOrbit.Components.CubicBezierBuilder.WithControlPoints(double x1, double y1, double x2, double y2) -> BlazOrbit.Components.CubicBezierBuilder!
+BlazOrbit.Components.DateRange
+BlazOrbit.Components.DateRange.Contains(System.DateOnly date) -> bool
+BlazOrbit.Components.DateRange.DateRange() -> void
+BlazOrbit.Components.DateRange.DateRange(System.DateOnly? Start, System.DateOnly? End) -> void
+BlazOrbit.Components.DateRange.DayCount.get -> int
+BlazOrbit.Components.DateRange.Deconstruct(out System.DateOnly? Start, out System.DateOnly? End) -> void
+BlazOrbit.Components.DateRange.End.get -> System.DateOnly?
+BlazOrbit.Components.DateRange.End.init -> void
+BlazOrbit.Components.DateRange.Equals(BlazOrbit.Components.DateRange other) -> bool
+BlazOrbit.Components.DateRange.IsComplete.get -> bool
+BlazOrbit.Components.DateRange.IsEmpty.get -> bool
+BlazOrbit.Components.DateRange.Start.get -> System.DateOnly?
+BlazOrbit.Components.DateRange.Start.init -> void
+override BlazOrbit.Components.DateRange.GetHashCode() -> int
+static BlazOrbit.Components.CssColor.implicit operator string!(BlazOrbit.Components.CssColor? color) -> string!
+~override BlazOrbit.Components.DateRange.Equals(object obj) -> bool
+~override BlazOrbit.Components.DateRange.ToString() -> string
+static BlazOrbit.Components.DateRange.Last30Days() -> BlazOrbit.Components.DateRange
+static BlazOrbit.Components.DateRange.Last7Days() -> BlazOrbit.Components.DateRange
+static BlazOrbit.Components.DateRange.ThisMonth() -> BlazOrbit.Components.DateRange
+static BlazOrbit.Components.DateRange.operator !=(BlazOrbit.Components.DateRange left, BlazOrbit.Components.DateRange right) -> bool
+static BlazOrbit.Components.DateRange.operator ==(BlazOrbit.Components.DateRange left, BlazOrbit.Components.DateRange right) -> bool
 BlazOrbit.Components.Easing
 BlazOrbit.Components.EasingBuilder
 BlazOrbit.Components.EasingBuilder.Build() -> string!
@@ -12435,7 +12457,6 @@ static BlazOrbit.Components.BOBTransitionPresets.Neumorphism.get -> BlazOrbit.Co
 static BlazOrbit.Components.BOBTransitionPresets.PremiumButton.get -> BlazOrbit.Components.BOBTransitions!
 static BlazOrbit.Components.BorderStyle.Create() -> BlazOrbit.Components.BorderStyle!
 static BlazOrbit.Components.CssColor.explicit operator BlazOrbit.Components.CssColor!(string! input) -> BlazOrbit.Components.CssColor!
-static BlazOrbit.Components.CssColor.explicit operator string!(BlazOrbit.Components.CssColor? color) -> string!
 static BlazOrbit.Components.CssColor.Parse(string! value) -> BlazOrbit.Components.CssColor!
 static BlazOrbit.Components.CssColor.TryParse(string? value, out BlazOrbit.Components.CssColor? result) -> bool
 static BlazOrbit.Components.CssColor.operator !=(BlazOrbit.Components.CssColor? lhs, BlazOrbit.Components.CssColor? rhs) -> bool
@@ -23267,3 +23288,40 @@ static BlazOrbit.Components.BOBNumericRange<T>.operator !=(BlazOrbit.Components.
 static BlazOrbit.Components.BOBNumericRange<T>.operator ==(BlazOrbit.Components.BOBNumericRange<T> left, BlazOrbit.Components.BOBNumericRange<T> right) -> bool
 ~override BlazOrbit.Components.BOBNumericRange<T>.Equals(object obj) -> bool
 ~override BlazOrbit.Components.BOBNumericRange<T>.ToString() -> string
+BlazOrbit.Components.BreadcrumbItem
+BlazOrbit.Components.BreadcrumbItem.BreadcrumbItem() -> void
+BlazOrbit.Components.BreadcrumbItem.BreadcrumbItem(string! Text, string? Href = null, BlazOrbit.Components.IconKey? Icon = null) -> void
+BlazOrbit.Components.BreadcrumbItem.Deconstruct(out string! Text, out string? Href, out BlazOrbit.Components.IconKey? Icon) -> void
+BlazOrbit.Components.BreadcrumbItem.Equals(BlazOrbit.Components.BreadcrumbItem other) -> bool
+BlazOrbit.Components.BreadcrumbItem.Href.get -> string?
+BlazOrbit.Components.BreadcrumbItem.Href.init -> void
+BlazOrbit.Components.BreadcrumbItem.Icon.get -> BlazOrbit.Components.IconKey?
+BlazOrbit.Components.BreadcrumbItem.Icon.init -> void
+BlazOrbit.Components.BreadcrumbItem.IsCurrent.get -> bool
+BlazOrbit.Components.BreadcrumbItem.Text.get -> string!
+BlazOrbit.Components.BreadcrumbItem.Text.init -> void
+override BlazOrbit.Components.BreadcrumbItem.GetHashCode() -> int
+static BlazOrbit.Components.BreadcrumbItem.operator !=(BlazOrbit.Components.BreadcrumbItem left, BlazOrbit.Components.BreadcrumbItem right) -> bool
+static BlazOrbit.Components.BreadcrumbItem.operator ==(BlazOrbit.Components.BreadcrumbItem left, BlazOrbit.Components.BreadcrumbItem right) -> bool
+~override BlazOrbit.Components.BreadcrumbItem.Equals(object obj) -> bool
+~override BlazOrbit.Components.BreadcrumbItem.ToString() -> string
+BlazOrbit.Components.TimelineItem
+BlazOrbit.Components.TimelineItem.Color.get -> string?
+BlazOrbit.Components.TimelineItem.Color.init -> void
+BlazOrbit.Components.TimelineItem.Deconstruct(out System.DateTimeOffset Timestamp, out string! Title, out string? Description, out BlazOrbit.Components.IconKey? Icon, out string? Color) -> void
+BlazOrbit.Components.TimelineItem.Description.get -> string?
+BlazOrbit.Components.TimelineItem.Description.init -> void
+BlazOrbit.Components.TimelineItem.Equals(BlazOrbit.Components.TimelineItem other) -> bool
+BlazOrbit.Components.TimelineItem.Icon.get -> BlazOrbit.Components.IconKey?
+BlazOrbit.Components.TimelineItem.Icon.init -> void
+BlazOrbit.Components.TimelineItem.TimelineItem() -> void
+BlazOrbit.Components.TimelineItem.TimelineItem(System.DateTimeOffset Timestamp, string! Title, string? Description = null, BlazOrbit.Components.IconKey? Icon = null, string? Color = null) -> void
+BlazOrbit.Components.TimelineItem.Timestamp.get -> System.DateTimeOffset
+BlazOrbit.Components.TimelineItem.Timestamp.init -> void
+BlazOrbit.Components.TimelineItem.Title.get -> string!
+BlazOrbit.Components.TimelineItem.Title.init -> void
+override BlazOrbit.Components.TimelineItem.GetHashCode() -> int
+static BlazOrbit.Components.TimelineItem.operator !=(BlazOrbit.Components.TimelineItem left, BlazOrbit.Components.TimelineItem right) -> bool
+static BlazOrbit.Components.TimelineItem.operator ==(BlazOrbit.Components.TimelineItem left, BlazOrbit.Components.TimelineItem right) -> bool
+~override BlazOrbit.Components.TimelineItem.Equals(object obj) -> bool
+~override BlazOrbit.Components.TimelineItem.ToString() -> string

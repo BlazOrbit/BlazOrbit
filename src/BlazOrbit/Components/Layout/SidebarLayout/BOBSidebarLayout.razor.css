@@ -29,8 +29,15 @@
     -webkit-backdrop-filter: saturate(180%) blur(12px);
     border-bottom: 1px solid var(--_sidebar-layout-border);
     box-sizing: border-box;
-    /* Header stays above page content (incl. dropdowns) but below modals/tooltips/toasts. */
-    z-index: var(--bob-z-sticky);
+    /* Header stays above page content (incl. dropdowns + the sidebar
+       drawer in mobile) but below modals/tooltips/toasts. The +1 keeps
+       the header reliably above the sidebar (which also uses
+       --bob-z-sticky for its mobile drawer state) so the logo never gets
+       occluded when scrolling. `isolation: isolate` locks a private
+       stacking context so backdrop-filter's compositor flatten doesn't
+       leak children to the page below on Safari / Firefox. */
+    z-index: calc(var(--bob-z-sticky) + 1);
+    isolation: isolate;
 }
 
 [data-bob-component="sidebar-layout"][data-bob-sticky-header="true"] .bob-sidebar-layout__header {

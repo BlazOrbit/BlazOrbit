@@ -1,0 +1,191 @@
+[data-bob-component="input-file"] {
+    --_zone-border: 2px dashed color-mix(in oklab, var(--palette-border) 60%, transparent);
+    --_zone-border-active: 2px dashed var(--palette-highlight);
+    --_zone-radius: var(--bob-input-border-radius, 0.75rem);
+    --_zone-bg: color-mix(in oklab, var(--palette-surface-contrast) 4%, transparent);
+    --_zone-bg-hover: color-mix(in oklab, var(--palette-highlight) 8%, transparent);
+    --_zone-py: calc(2rem * var(--bob-size-multiplier, 1));
+    --_zone-px: 1.5rem;
+
+    --_thumb-size: calc(2.5rem * var(--bob-size-multiplier, 1));
+    --_entry-gap: calc(0.75rem * var(--bob-density-multiplier, 1));
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+[data-bob-component="input-file"] .bob-file-upload__label {
+    font-size: 0.875rem;
+    color: var(--palette-surface-contrast);
+}
+
+[data-bob-component="input-file"] .bob-file-upload__zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: var(--_zone-py) var(--_zone-px);
+    border: var(--_zone-border);
+    border-radius: var(--_zone-radius);
+    background: var(--_zone-bg);
+    cursor: pointer;
+    text-align: center;
+    transition: background 150ms ease, border-color 150ms ease;
+}
+
+[data-bob-component="input-file"] .bob-file-upload__zone:hover,
+[data-bob-component="input-file"] .bob-file-upload__zone:focus-within {
+    background: var(--_zone-bg-hover);
+    border: var(--_zone-border-active);
+}
+
+[data-bob-component="input-file"] .bob-file-upload__zone[data-bob-disabled="true"] {
+    opacity: var(--bob-opacity-disabled, 0.5);
+    cursor: not-allowed;
+}
+
+[data-bob-component="input-file"] .bob-file-upload__zone {
+    position: relative;
+}
+
+/* `<InputFile>` is a Blazor child component, so Blazor's CSS isolation does NOT add the
+   scope attribute to its rendered <input>. That means a normal scoped rule on
+   `.bob-file-upload__native` would never match. Use ::deep to escape the scope. Without
+   this rule, the input stays inline at default size and drag-drop events land outside it,
+   so the browser falls back to its default behavior (opening the dropped file). */
+[data-bob-component="input-file"] .bob-file-upload__zone ::deep .bob-file-upload__native {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: inherit;
+    z-index: 1;
+}
+
+/* Sibling spans (icon/title/hint or ChildContent) paint over the absolutely positioned
+   input. Without `pointer-events: none` they swallow the drag-drop events instead of
+   letting the input receive them. */
+[data-bob-component="input-file"] .bob-file-upload__zone > *:not(.bob-file-upload__native) {
+    pointer-events: none;
+}
+
+[data-bob-component="input-file"] .bob-file-upload__title {
+    font-weight: 500;
+}
+
+[data-bob-component="input-file"] .bob-file-upload__hint {
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
+[data-bob-component="input-file"] .bob-file-upload__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--palette-highlight);
+}
+
+[data-bob-component="input-file"] .bob-file-upload__helper {
+    font-size: 0.75rem;
+    color: var(--palette-surface-contrast);
+    opacity: 0.7;
+    padding-inline-start: 0.25rem;
+}
+
+[data-bob-component="input-file"] .bob-file-upload__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--_entry-gap);
+}
+
+[data-bob-component="input-file"] .bob-file-upload__entry {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    background: var(--palette-surface);
+    border: 1px solid color-mix(in oklab, var(--palette-border) 30%, transparent);
+    border-radius: var(--_zone-radius);
+}
+
+[data-bob-component="input-file"] .bob-file-upload__entry-thumb {
+    width: var(--_thumb-size);
+    height: var(--_thumb-size);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 0.25rem;
+    flex-shrink: 0;
+}
+
+[data-bob-component="input-file"] .bob-file-upload__entry-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+[data-bob-component="input-file"] .bob-file-upload__entry-meta {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 0;
+}
+
+[data-bob-component="input-file"] .bob-file-upload__entry-name {
+    font-size: 0.875rem;
+    color: var(--palette-surface-contrast);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+[data-bob-component="input-file"] .bob-file-upload__entry-size {
+    font-size: 0.75rem;
+    opacity: 0.7;
+}
+
+[data-bob-component="input-file"] .bob-file-upload__remove {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--palette-surface-contrast);
+    opacity: 0.6;
+    padding: 0.25rem;
+    border-radius: 0.25rem;
+    transition: opacity 100ms ease;
+}
+
+[data-bob-component="input-file"] .bob-file-upload__remove:hover,
+[data-bob-component="input-file"] .bob-file-upload__remove:focus-visible {
+    opacity: 1;
+}
+
+[data-bob-component="input-file"] .bob-file-upload__remove:disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+}
+
+[data-bob-component="input-file"] .bob-file-upload__errors {
+    list-style: none;
+    margin: 0;
+    padding: 0.5rem 0.75rem;
+    background: color-mix(in oklab, var(--palette-error) 10%, transparent);
+    border: 1px solid color-mix(in oklab, var(--palette-error) 50%, transparent);
+    border-radius: var(--_zone-radius);
+    color: var(--palette-error);
+    font-size: 0.875rem;
+}
+
+[data-bob-component="input-file"] .bob-file-upload__errors li + li {
+    margin-block-start: 0.25rem;
+}

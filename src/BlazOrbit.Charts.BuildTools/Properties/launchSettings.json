@@ -1,0 +1,9 @@
+﻿{
+  "profiles": {
+    "BUILD": {
+      "commandName": "Project",
+      "commandLineArgs": "\"V:\\Work\\CdCSharp\\Projects\\BlazOrbit\\codebase\\src\\BlazOrbit.Charts\"",
+      "hotReloadEnabled": false
+    }
+  }
+}

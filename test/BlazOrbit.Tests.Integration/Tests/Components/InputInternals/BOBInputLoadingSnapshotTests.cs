@@ -22,7 +22,7 @@ public class BOBInputLoadingSnapshotTests
 
             new { Name = "Loading", Builder = (Action<ComponentParameterCollectionBuilder<BOBInputLoading>>)(p => p
                 .Add(c => c.Loading, true)
-                .Add(c => c.LoadingIndicatorVariant, BOBLoadingIndicatorVariant.CircularProgress)
+                .Add(c => c.LoadingIndicatorVariant, BOBProgressIconVariant.Ring)
                 .Add(c => c.Size, BOBSize.Medium)) }
         };
 

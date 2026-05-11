@@ -1,4 +1,4 @@
-@using BlazOrbit.Abstractions
+﻿@using BlazOrbit.Abstractions
 @using Microsoft.AspNetCore.Components.Routing
 
 @namespace BlazOrbit.Components
@@ -84,7 +84,8 @@
     [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
     /// <summary>Collapsible.</summary>
     [Parameter] public bool Collapsible { get; set; } = true;
-
+    /// <summary>Overrides the default NavLinkMatch for all the child menu items.</summary>
+    [Parameter] public NavLinkMatch? Match { get; set; }
     /// <summary>HoverOpenDelay.</summary>
     [Parameter] public int HoverOpenDelay { get; set; } = 150;
     /// <summary>HoverCloseDelay.</summary>
@@ -126,6 +127,7 @@
         {
             _tree.BuildFromItems(Items, KeySelector, ChildrenSelector, HasChildrenSelector, ExpandAll);
             _structureBuilt = true;
+            EnsureCurrentPathExpanded();
         }
     }
 
@@ -137,6 +139,9 @@
         {
             BuildFromDeclarativeRegistrations();
             _structureBuilt = true;
+            // Initial render: open the ancestor chain of the route the user
+            // landed on (deep-link / refresh on a nested page).
+            EnsureCurrentPathExpanded();
             StateHasChanged();
         }
     }
@@ -249,6 +254,12 @@
         {
             CloseAllMenus();
         }
+        else if (_structureBuilt)
+        {
+            // Inline mode: keep the active page's ancestor chain open so
+            // navigating to a sibling page doesn't collapse the group.
+            EnsureCurrentPathExpanded();
+        }
 
         StateHasChanged();
     }
@@ -270,12 +281,48 @@
              @onmouseenter="@(isHoverTrigger && hasChildren ? (Func<MouseEventArgs, Task>)(_ => HandleHoverEnter(node.Key)) : null!)"
              @onmouseleave="@(isHoverTrigger && hasChildren && isFlyout ? (Func<MouseEventArgs, Task>)(_ => HandleHoverLeave(node.Key)) : null!)">
 
-            @if (node.Navigation.HasNavigation && !hasChildren)
+            @if (node.Navigation.HasNavigation && hasChildren)
+            {
+                // Split affordance: the label is a real <a> (right-click,
+                // middle-click, aria-current, copy-link all work natively
+                // and Blazor's router intercepts internal hrefs for SPA
+                // navigation) and the chevron is a separate <button> that
+                // stops propagation, so toggling expand never navigates.
+                string? rowAriaCurrent = isActive ? "page" : null;
+                <div class="bob-tree-menu__row" role="none">
+                    <a class="bob-tree-menu__link bob-tree-menu__link--with-toggle"
+                       href="@node.Navigation.Href"
+                       target="@node.Navigation.Target"
+                       role="menuitem"
+                       aria-current="@rowAriaCurrent"
+                       aria-disabled="@node.IsDisabled.ToString().ToLowerInvariant()"
+                       @onclick="() => HandleLinkClickAsync(node)"
+                       @onclick:preventDefault="@(node.IsDisabled || OnNavigate.HasDelegate)">
+                        @RenderItemBody(node)
+                    </a>
+                    <button type="button"
+                            class="bob-tree-menu__toggle-btn"
+                            aria-haspopup="true"
+                            aria-expanded="@isExpanded.ToString().ToLowerInvariant()"
+                            aria-label="@(isExpanded ? "Collapse" : "Expand")"
+                            disabled="@node.IsDisabled"
+                            @onclick="() => ToggleExpandAsync(node.Key)"
+                            @onclick:stopPropagation="true">
+                        <_BOBAddon Icon="@GetExpandIcon()"
+                                   IconRotation="@(isExpanded ? 90 : 0)"
+                                   Loading="@isLoading"
+                                   LoadingIndicatorVariant="BOBProgressIconVariant.Spinner"
+                                   Size="Size" />
+                    </button>
+                </div>
+            }
+            else if (node.Navigation.HasNavigation && !hasChildren)
             {
                 <a class="bob-tree-menu__link"
                    href="@node.Navigation.Href"
                    target="@node.Navigation.Target"
                    role="menuitem"
+                   aria-current="@(isActive ? "page" : null)"
                    aria-disabled="@node.IsDisabled.ToString().ToLowerInvariant()"
                    @onclick="() => HandleItemClickAsync(node)"
                    @onclick:preventDefault="@node.IsDisabled">
@@ -313,6 +360,31 @@
         </div>
     };
 
+    /// <summary>
+    /// Renders only the icon + label of a node (no chevron). Used by the
+    /// split-affordance branch where the link element shows the label and
+    /// the toggle button is a separate sibling.
+    /// </summary>
+    private RenderFragment RenderItemBody(TreeMenuNode<TItem> node) => __builder =>
+    {
+        @if (_isDeclarativeMode && node.CustomContent != null)
+        {
+            @node.CustomContent
+        }
+        else if (!_isDeclarativeMode && NodeTemplate != null)
+        {
+            @NodeTemplate(node)
+        }
+        else
+        {
+            @if (node.Icon.HasValue)
+            {
+                <BOBSvgIcon Icon="@node.Icon.Value" Size="Size" class="bob-tree-menu__icon" />
+            }
+            <span class="bob-tree-menu__text">@(node.Text ?? node.Item?.ToString() ?? node.Key)</span>
+        }
+    };
+
     private RenderFragment RenderItemContent(TreeMenuNode<TItem> node, bool hasChildren, bool isExpanded, bool isLoading) => __builder =>
     {
         @if (_isDeclarativeMode && node.CustomContent != null)
@@ -337,7 +409,7 @@
             <_BOBAddon Icon="@GetExpandIcon()"
                        IconRotation="@(isExpanded ? 90 : 0)"
                        Loading="@isLoading"
-                       LoadingIndicatorVariant="BOBLoadingIndicatorVariant.Spinner"
+                       LoadingIndicatorVariant="BOBProgressIconVariant.Spinner"
                        Size="Size" />
         }
     };
@@ -349,6 +421,14 @@
         return BOBIconKeys.UI.ChevronRight;
     }
 
+    /// <summary>
+    /// Handles a click on a leaf or pure-container node. Container nodes
+    /// without navigation toggle expand; leaves with navigation fire the
+    /// browser-default link click (the <c>&lt;a&gt;</c> tag handles SPA
+    /// navigation natively via Blazor's router). Container nodes with
+    /// navigation use <see cref="HandleLinkClickAsync"/> instead — this
+    /// method only sees them via the no-children branch.
+    /// </summary>
     private async Task HandleItemClickAsync(TreeMenuNode<TItem> node)
     {
         if (node.IsDisabled) return;
@@ -366,11 +446,19 @@
             IsExpanded = _tree.IsExpanded(node.Key)
         });
 
-        if (node.HasChildren && !(node.OnClick.HasDelegate && node.Navigation.HasNavigation))
+        bool hasNav = node.Navigation.HasNavigation && !string.IsNullOrEmpty(node.Navigation.Href);
+
+        // Pure container (no Href): toggle the subtree.
+        if (node.HasChildren)
         {
             await ToggleExpandAsync(node.Key);
+            return;
         }
-        else if (node.Navigation.HasNavigation)
+
+        // Leaf with navigation: <a href> default click navigates via
+        // Blazor's router. We still notify OnNavigate consumers and
+        // close flyout submenus.
+        if (hasNav)
         {
             if (OnNavigate.HasDelegate)
             {
@@ -381,6 +469,80 @@
             {
                 CloseAllMenus();
             }
+        }
+    }
+
+    /// <summary>
+    /// Handles a click on the link half of a split-affordance row
+    /// (container with both Href + children). Auto-expands the subtree so
+    /// the user can immediately see siblings, then lets the
+    /// <c>&lt;a&gt;</c> default click navigate. When the consumer wired
+    /// an <see cref="OnNavigate"/> callback, the click was rendered with
+    /// <c>preventDefault</c> on the markup side so the callback drives
+    /// navigation exclusively.
+    /// </summary>
+    private async Task HandleLinkClickAsync(TreeMenuNode<TItem> node)
+    {
+        if (node.IsDisabled) return;
+
+        if (node.OnClick.HasDelegate)
+        {
+            await node.OnClick.InvokeAsync();
+        }
+
+        await OnNodeClick.InvokeAsync(new TreeNodeEventArgs<TreeMenuNode<TItem>>
+        {
+            Node = node,
+            Key = node.Key,
+            Depth = node.Depth,
+            IsExpanded = _tree.IsExpanded(node.Key)
+        });
+
+        // Auto-expand on link click — the user is about to browse the
+        // section; showing siblings without them having to chase the
+        // chevron is a usability win.
+        if (node.HasChildren && !_tree.IsExpanded(node.Key))
+        {
+            await HandleExpandAsync(node.Key);
+        }
+
+        if (OnNavigate.HasDelegate)
+        {
+            await OnNavigate.InvokeAsync(node.Navigation.Href);
+        }
+    }
+
+    /// <summary>
+    /// Walks every node in the tree and expands the ancestor chain of the
+    /// node whose <c>Href</c> matches the current URI. Keeps the active
+    /// page's group open — without this, navigating to a child page closes
+    /// the parent group as soon as <see cref="OnLocationChanged"/> fires.
+    /// </summary>
+    private void EnsureCurrentPathExpanded()
+    {
+        if (_tree.NodeMap.Count == 0) return;
+
+        TreeMenuNode<TItem>? activeNode = null;
+        foreach (TreeMenuNode<TItem> n in _tree.NodeMap.Values)
+        {
+            if (!string.IsNullOrEmpty(n.Navigation.Href) && IsActive(n.Navigation.Href))
+            {
+                // Pick the deepest match — multiple ancestors can match a
+                // prefix-rule href, but the leaf is the actual current page.
+                if (activeNode is null || n.Depth > activeNode.Depth)
+                {
+                    activeNode = n;
+                }
+            }
+        }
+
+        if (activeNode is null) return;
+
+        TreeMenuNode<TItem>? cursor = activeNode.ParentNode;
+        while (cursor is not null)
+        {
+            _tree.Expand(cursor.Key);
+            cursor = cursor.ParentNode;
         }
     }
 
@@ -523,7 +685,7 @@
         if (string.IsNullOrEmpty(targetPath)) targetPath = "/";
 
         TreeMenuNode<TItem>? node = _tree.NodeMap.Values.FirstOrDefault(n => n.Navigation.Href == href);
-        NavLinkMatch match = node?.Navigation.Match ?? NavLinkMatch.Prefix;
+        NavLinkMatch match = Match ?? node?.Navigation.Match ?? NavLinkMatch.All;
 
         if (match == NavLinkMatch.All)
             return string.Equals(currentPath, targetPath, StringComparison.OrdinalIgnoreCase);

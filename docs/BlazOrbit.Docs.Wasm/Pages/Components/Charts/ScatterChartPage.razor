@@ -1,0 +1,157 @@
+@page "/components/charts/scatter"
+
+@inject IStringLocalizer<ScatterChartPage> Loc
+
+<DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBScatterChart"]"
+         Lede="@Loc["Cartesian scatter / bubble chart. Plots disconnected XY points to expose distributions, clusters and correlations. Bubble mode encodes a third dimension via the marker radius (auto-scaled across the series)."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBScatterChart<,>)">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic scatter"]">
+        <BOBScatterChart TX="double" TY="double"
+                         Series="_clusters"
+                         Width="600" Height="360" />
+    </DocDemo>
+
+    <DocDemo Key="MarkerRadius" Title="@Loc["Marker radius"]"
+             Description="@Loc["MarkerRadius (px) controls the constant size of every scatter marker. Combine with MarkerOpacity to keep dense overlaps readable."]">
+        <BOBScatterChart TX="double" TY="double"
+                         Series="_clusters"
+                         MarkerRadius="9"
+                         MarkerOpacity="0.55"
+                         Width="600" Height="360" />
+    </DocDemo>
+
+    <DocDemo Key="Bubble" Title="@Loc["Bubble chart"]"
+             Description="@Loc["BubbleSeries renders a third dimension via the marker radius. Sizes are auto-scaled into BubbleMinRadius..BubbleMaxRadius across the union of all bubble points."]">
+        <BOBScatterChart TX="double" TY="double"
+                         BubbleSeries="_marketCaps"
+                         BubbleMinRadius="6"
+                         BubbleMaxRadius="42"
+                         Width="600" Height="360" />
+    </DocDemo>
+
+    <DocDemo Key="Mixed" Title="@Loc["Scatter + bubble overlay"]"
+             Description="@Loc["Series and BubbleSeries can coexist on the same chart, sharing axes and palette indices. Useful for highlighting outliers (large bubbles) over a dense scatter cloud."]">
+        <BOBScatterChart TX="double" TY="double"
+                         Series="_clusters"
+                         BubbleSeries="_outliers"
+                         Width="600" Height="360" />
+    </DocDemo>
+
+    <DocDemo Key="ClickHandler" Title="@Loc["Click handler"]"
+             Description="@Loc["OnPointClick fires when a marker is clicked, carrying the series label, X / Y values and point index."]">
+        <BOBScatterChart TX="double" TY="double"
+                         Series="_clusters"
+                         Width="600" Height="360"
+                         OnPointClick="HandleClick" />
+        @if (!string.IsNullOrEmpty(_clickMessage))
+        {
+            <p class="doc-helper-text">@_clickMessage</p>
+        }
+    </DocDemo>
+
+    <DocDemo Key="ReferenceLines" Title="@Loc["Reference lines"]"
+             Description="@Loc["Reference lines work the same way as in BOBLineChart and BOBBarChart, drawing horizontal thresholds across the plot."]">
+        <BOBScatterChart TX="double" TY="double"
+                         Series="_clusters"
+                         Width="600" Height="360"
+                         ReferenceLines="_referenceLines" />
+    </DocDemo>
+
+</DocPage>
+
+@code {
+
+    private string? _clickMessage;
+
+    private void HandleClick(BOBChartClickArgs<double, double> args)
+    {
+        _clickMessage = $"Clicked: {args.SeriesLabel} — ({args.X:F2}, {args.Y:F2})";
+    }
+
+    private static readonly Random _rng = new(42);
+
+    private static IEnumerable<BOBChartPoint<double, double>> Cluster(double cx, double cy, int count, double spread)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            double dx = (_rng.NextDouble() - 0.5) * spread;
+            double dy = (_rng.NextDouble() - 0.5) * spread;
+            yield return new BOBChartPoint<double, double>(cx + dx, cy + dy);
+        }
+    }
+
+    private static readonly IEnumerable<BOBChartSeries<double, double>> _clusters =
+        new[]
+        {
+            new BOBChartSeries<double, double>
+            {
+                Label = "Group α",
+                Points = Cluster(2.5, 4.0, 24, 1.6).ToArray()
+            },
+            new BOBChartSeries<double, double>
+            {
+                Label = "Group β",
+                Points = Cluster(5.5, 6.5, 22, 1.4).ToArray()
+            },
+            new BOBChartSeries<double, double>
+            {
+                Label = "Group γ",
+                Points = Cluster(7.5, 2.5, 18, 1.8).ToArray()
+            },
+        };
+
+    private static readonly IEnumerable<BOBChartBubbleSeries<double, double>> _marketCaps =
+        new[]
+        {
+            new BOBChartBubbleSeries<double, double>
+            {
+                Label = "Tech",
+                Points = new[]
+                {
+                    new BOBChartBubblePoint<double, double>(15, 22, Size: 2800),
+                    new BOBChartBubblePoint<double, double>(8, 18, Size: 1600),
+                    new BOBChartBubblePoint<double, double>(22, 30, Size: 3200),
+                    new BOBChartBubblePoint<double, double>(11, 12, Size: 900),
+                }
+            },
+            new BOBChartBubbleSeries<double, double>
+            {
+                Label = "Finance",
+                Points = new[]
+                {
+                    new BOBChartBubblePoint<double, double>(6, 9, Size: 1200),
+                    new BOBChartBubblePoint<double, double>(10, 14, Size: 800),
+                    new BOBChartBubblePoint<double, double>(14, 8, Size: 600),
+                }
+            },
+        };
+
+    private static readonly IEnumerable<BOBChartBubbleSeries<double, double>> _outliers =
+        new[]
+        {
+            new BOBChartBubbleSeries<double, double>
+            {
+                Label = "Outliers",
+                Points = new[]
+                {
+                    new BOBChartBubblePoint<double, double>(0.5, 7.5, Size: 50),
+                    new BOBChartBubblePoint<double, double>(9.5, 0.5, Size: 80),
+                }
+            }
+        };
+
+    private static readonly IEnumerable<BOBChartReferenceLine> _referenceLines =
+        new[]
+        {
+            new BOBChartReferenceLine
+            {
+                Value = 5.0,
+                Label = "Avg",
+                Color = "var(--palette-warning)",
+                Style = BOBChartReferenceLineStyle.Dashed,
+                StrokeWidth = 1.5
+            }
+        };
+}

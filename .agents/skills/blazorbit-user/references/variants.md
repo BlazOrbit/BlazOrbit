@@ -60,6 +60,22 @@ BOBCardVariant.Custom(string name)
 BOBInputCheckboxVariant.Custom(string name)
 ```
 
+## `BOBInputOtpVariant`
+
+- **Namespace**: `BlazOrbit.Components.Forms`
+
+### Built-in values
+
+- `BOBInputOtpVariant.Boxed`
+- `BOBInputOtpVariant.Default`
+- `BOBInputOtpVariant.Underlined`
+
+### Custom factory
+
+```csharp
+BOBInputOtpVariant.Custom(string name)
+```
+
 ## `BOBInputRadioVariant`
 
 - **Namespace**: `BlazOrbit.Components.Forms`
@@ -105,23 +121,21 @@ BOBInputSwitchVariant.Custom(string name)
 BOBInputVariant.Custom(string name)
 ```
 
-## `BOBLoadingIndicatorVariant`
+## `BOBProgressIconVariant`
 
 - **Namespace**: `BlazOrbit.Components`
 
 ### Built-in values
 
-- `BOBLoadingIndicatorVariant.Bars`
-- `BOBLoadingIndicatorVariant.CircularProgress`
-- `BOBLoadingIndicatorVariant.Dots`
-- `BOBLoadingIndicatorVariant.LinearIndeterminate`
-- `BOBLoadingIndicatorVariant.Ring`
-- `BOBLoadingIndicatorVariant.Spinner`
+- `BOBProgressIconVariant.Bars`
+- `BOBProgressIconVariant.Dots`
+- `BOBProgressIconVariant.Ring`
+- `BOBProgressIconVariant.Spinner`
 
 ### Custom factory
 
 ```csharp
-BOBLoadingIndicatorVariant.Custom(string name)
+BOBProgressIconVariant.Custom(string name)
 ```
 
 ## `BOBSelectVariant`

@@ -1,9 +1,15 @@
+@*#if (UseNotificationsCenter)*@
+@using BlazOrbit.Notifications
+@*#endif*@
 <nav class="bob-app__nav">
     <a class="bob-app__brand" href="">
         <img src="icon.svg" alt="" class="bob-app__brand-icon" />
         <span>BlazorApp</span>
     </a>
     <div class="bob-app__nav-actions">
+        @*#if (UseNotificationsCenter)*@
+        <BOBNotificationBell />
+        @*#endif*@
         <BOBThemeSelector />
     </div>
 </nav>

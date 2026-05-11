@@ -33,4 +33,67 @@ public sealed class DataColumnRegistration<TItem>
     public bool Visible { get; set; } = true;
     /// <summary>Optional explicit column width (any valid CSS length).</summary>
     public string? Width { get; set; }
+
+    /// <summary>
+    /// When <see langword="true"/>, the grid renders a drag handle at the trailing edge
+    /// of this column's header so the user can resize the column with pointer events.
+    /// Requires <c>BOBDataGrid.Resizable</c> to also be on.
+    /// </summary>
+    public bool Resizable { get; set; }
+
+    /// <summary>
+    /// Lower bound (in pixels) the resize drag will clamp to. Defaults to <c>48</c> so a
+    /// user can't shrink a column below the typical icon + padding minimum.
+    /// </summary>
+    public double MinWidth { get; set; } = 48d;
+
+    /// <summary>
+    /// Upper bound (in pixels) the resize drag will clamp to. <c>0</c> (default) means
+    /// no upper limit — the column grows freely.
+    /// </summary>
+    public double MaxWidth { get; set; }
+
+    /// <summary>
+    /// Pin side for the column. Defaults to <see cref="ColumnFreeze.None"/>. Frozen
+    /// columns require an explicit <see cref="Width"/> in pixels so the grid can
+    /// compute cumulative <c>left</c> / <c>right</c> offsets for adjacent frozen peers.
+    /// </summary>
+    public ColumnFreeze Freeze { get; set; } = ColumnFreeze.None;
+
+    /// <summary>
+    /// Filter category for the column. Drives which input type (<c>type=text</c> /
+    /// <c>type=number</c> / <c>type=date</c>) and which operator dropdown the grid
+    /// renders when <c>ShowColumnFilters=true</c>. Defaults to
+    /// <see cref="ColumnFilterMode.Text"/>.
+    /// </summary>
+    public ColumnFilterMode FilterMode { get; set; } = ColumnFilterMode.Text;
+
+    /// <summary>
+    /// Aggregate function rendered in the footer cell of this column. The
+    /// aggregate runs against the full filtered set (not just the visible
+    /// page) so the total reflects the result of the user's filters.
+    /// </summary>
+    public AggregateFunction Aggregate { get; set; } = AggregateFunction.None;
+
+    /// <summary>
+    /// Optional <see cref="IFormattable"/> format applied to the aggregate
+    /// value. Falls back to <see cref="Format"/> when not set so consumers
+    /// don't have to repeat their currency / percentage format strings.
+    /// </summary>
+    public string? AggregateFormat { get; set; }
+
+    /// <summary>
+    /// Prefix label shown next to the aggregate value (e.g. <c>"Total: "</c>,
+    /// <c>"Avg: "</c>). When <see langword="null"/> the column renders the
+    /// aggregate value alone.
+    /// </summary>
+    public string? AggregateLabel { get; set; }
+
+    /// <summary>
+    /// Custom aggregate delegate invoked when <see cref="Aggregate"/> is
+    /// <see cref="AggregateFunction.Custom"/>. Receives the filtered items
+    /// and returns the value to render (formatted via
+    /// <see cref="AggregateFormat"/> when applicable).
+    /// </summary>
+    public Func<IEnumerable<TItem>, object?>? CustomAggregate { get; set; }
 }

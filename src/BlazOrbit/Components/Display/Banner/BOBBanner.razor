@@ -1,0 +1,107 @@
+@using BlazOrbit.Abstractions
+
+@namespace BlazOrbit.Components.Display
+@attribute [GenerateComponentInfo]
+
+@inherits BOBComponentBase
+@implements IHasSize
+
+@if (!_dismissed)
+{
+    <bob-component @attributes="ComputedAttributes">
+        <div class="bob-banner"
+             role="@AriaRole"
+             aria-live="@AriaLive"
+             data-bob-severity="@Severity.ToString().ToLowerInvariant()">
+
+            @if (ShowIcon)
+            {
+                <span class="bob-banner__icon" aria-hidden="true">
+                    <BOBSvgIcon Icon="@(Icon ?? DefaultIcon())" Size="@Size" />
+                </span>
+            }
+
+            <div class="bob-banner__body">
+                @if (!string.IsNullOrWhiteSpace(Title))
+                {
+                    <strong class="bob-banner__title">@Title</strong>
+                }
+                @if (ChildContent is not null)
+                {
+                    <span class="bob-banner__message">@ChildContent</span>
+                }
+                else if (!string.IsNullOrWhiteSpace(Message))
+                {
+                    <span class="bob-banner__message">@Message</span>
+                }
+            </div>
+
+            @if (Actions is not null)
+            {
+                <div class="bob-banner__actions">@Actions</div>
+            }
+
+            @if (Dismissible)
+            {
+                <button type="button"
+                        class="bob-banner__dismiss"
+                        aria-label="@DismissText"
+                        @onclick="DismissAsync">
+                    <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_close" Size="@Size" />
+                </button>
+            }
+        </div>
+    </bob-component>
+}
+
+@code {
+    private bool _dismissed;
+
+    /// <summary>Severity tone — drives icon and palette accent.</summary>
+    [Parameter] public BOBBannerSeverity Severity { get; set; } = BOBBannerSeverity.Info;
+    /// <summary>Bold prefix rendered before the message.</summary>
+    [Parameter] public string? Title { get; set; }
+    /// <summary>Text body. Ignored when <see cref="ChildContent"/> is set.</summary>
+    [Parameter] public string? Message { get; set; }
+    /// <summary>Custom body content (overrides <see cref="Message"/>).</summary>
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    /// <summary>Right-side action slot (typically a button or a link).</summary>
+    [Parameter] public RenderFragment? Actions { get; set; }
+
+    /// <summary>When <see langword="true"/>, render an X button that hides the banner client-side.</summary>
+    [Parameter] public bool Dismissible { get; set; }
+    /// <summary>Aria-label for the dismiss button.</summary>
+    [Parameter] public string DismissText { get; set; } = "Dismiss";
+    /// <summary>Raised after the user dismisses the banner.</summary>
+    [Parameter] public EventCallback OnDismissed { get; set; }
+
+    /// <summary>When <see langword="true"/> (default), render the severity icon on the left.</summary>
+    [Parameter] public bool ShowIcon { get; set; } = true;
+    /// <summary>Override the default severity icon.</summary>
+    [Parameter] public IconKey? Icon { get; set; }
+    /// <summary>Visual size of the banner (drives icon size + padding).</summary>
+    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+
+    private string AriaRole => Severity == BOBBannerSeverity.Error ? "alert" : "status";
+    private string AriaLive => Severity == BOBBannerSeverity.Error ? "assertive" : "polite";
+
+    private IconKey DefaultIcon() => Severity switch
+    {
+        BOBBannerSeverity.Success => BOBIconKeys.MaterialIconsOutlined.i_check_circle,
+        BOBBannerSeverity.Warning => BOBIconKeys.MaterialIconsOutlined.i_warning,
+        BOBBannerSeverity.Error => BOBIconKeys.MaterialIconsOutlined.i_error,
+        _ => BOBIconKeys.MaterialIconsOutlined.i_info
+    };
+
+    private async Task DismissAsync()
+    {
+        _dismissed = true;
+        if (OnDismissed.HasDelegate)
+        {
+            await OnDismissed.InvokeAsync();
+        }
+    }
+
+    /// <summary>Programmatically restore a dismissed banner.</summary>
+    public void Reset() => _dismissed = false;
+}

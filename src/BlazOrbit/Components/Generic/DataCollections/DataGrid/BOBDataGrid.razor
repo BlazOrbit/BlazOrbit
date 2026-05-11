@@ -1,4 +1,5 @@
 ﻿@using BlazOrbit.Abstractions
+@using Microsoft.AspNetCore.Components.Web
 @using Microsoft.AspNetCore.Components.Web.Virtualization
 
 @namespace BlazOrbit.Components
@@ -20,7 +21,7 @@
     {
         <div role="status" aria-live="polite" class="sr-only">@LiveRegionMessage</div>
 
-        @if (Filterable || ShowPageSizeSelector)
+        @if (Filterable || ShowPageSizeSelector || HasVisibleBulkActions)
         {
             <div class="bob-dc__toolbar">
                 @if (Filterable)
@@ -49,6 +50,17 @@
                         <_BOBBtn OnClick="ClearSelectionClicked">
                             Clear
                         </_BOBBtn>
+                        @foreach (DataCollectionBulkAction<TItem> bulk in VisibleBulkActions())
+                        {
+                            DataCollectionBulkAction<TItem> capturedBulk = bulk;
+                            bool bulkEnabled = bulk.Enabled is null || bulk.Enabled(State.SelectedItems.ToList());
+                            <_BOBBtn Text="@bulk.Label"
+                                     LeadingIcon="@bulk.Icon"
+                                     Color="@bulk.Color"
+                                     Disabled="@(!bulkEnabled)"
+                                     AriaLabel="@bulk.Label"
+                                     OnClick="@(_ => InvokeBulkActionAsync(capturedBulk))" />
+                        }
                     </div>
                 }
 
@@ -69,10 +81,50 @@
             </div>
         }
 
-        @if (Loading && LoadingContent != null)
+        @if (Loading)
         {
-            <div class="bob-dc__loading">
-                @LoadingContent
+            @if (LoadingContent != null)
+            {
+                <div class="bob-dc__loading">@LoadingContent</div>
+            }
+            else if (LoadingMode == LoadingMode.Skeleton)
+            {
+                int skeletonCols = VisibleColumns.Count
+                    + (SelectionMode != SelectionMode.None ? 1 : 0)
+                    + (HasRowDetail ? 1 : 0)
+                    + (HasRowActions ? 1 : 0);
+                int skeletonRows = PageSize ?? 6;
+                <div class="bob-dc__skeleton" role="status" aria-live="polite" aria-label="Loading data">
+                    @for (int r = 0; r < skeletonRows; r++)
+                    {
+                        <div class="bob-dc__skeleton-row">
+                            @for (int c = 0; c < Math.Max(1, skeletonCols); c++)
+                            {
+                                <div class="bob-dc__skeleton-cell"></div>
+                            }
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="bob-dc__loading bob-dc__loading--spinner" role="status" aria-live="polite" aria-label="Loading">
+                    <div class="bob-dc__spinner" aria-hidden="true"></div>
+                </div>
+            }
+        }
+        else if (!string.IsNullOrEmpty(Error))
+        {
+            <div class="bob-dc__error" role="alert">
+                @if (ErrorContent != null)
+                {
+                    @ErrorContent
+                }
+                else
+                {
+                    <span class="bob-dc__error-icon" aria-hidden="true">⚠</span>
+                    <p class="bob-dc__error-text">@Error</p>
+                }
             </div>
         }
         else
@@ -81,6 +133,11 @@
                 <table class="bob-datagrid__table" role="grid" aria-rowcount="@FilteredItems.Count">
                     <thead class="bob-datagrid__header">
                         <tr role="row">
+                            @if (HasRowDetail)
+                            {
+                                <th class="bob-datagrid__header-cell bob-datagrid__expand-cell"
+                                    role="columnheader" scope="col" aria-label="Expand row"></th>
+                            }
                             @if (SelectionMode != SelectionMode.None)
                             {
                                 <th class="bob-datagrid__header-cell bob-datagrid__select-cell" role="columnheader" scope="col">
@@ -95,16 +152,22 @@
                             }
                             @foreach (DataColumnRegistration<TItem> col in VisibleColumns)
                             {
-                                <th class="bob-datagrid__header-cell @GetAlignClass(col.Align, "bob-datagrid__cell") @col.HeaderClass"
-                                    style="@(col.Width != null ? $"width: {col.Width}" : null)"
+                                <th class="bob-datagrid__header-cell @GetAlignClass(col.Align, "bob-datagrid__cell") @GetFrozenClass(col) @col.HeaderClass"
+                                    style="@BuildHeaderCellStyle(col)"
                                     role="columnheader"
                                     scope="col"
+                                    tabindex="@(Reorderable ? 0 : (int?)null)"
+                                    @attributes="BuildHeaderDragAttributes(col)"
+                                    @onkeydown="@(e => HandleHeaderKeyDown(col.Header ?? string.Empty, e))"
                                     aria-sort="@GetAriaSort(col)">
                                     @if (col.Sortable && Sortable)
                                     {
+                                        SortDirection dir = GetSortDirection(col);
+                                        int? priority = GetSortPriority(col);
                                         <button type="button"
                                                 class="bob-datagrid__sort-btn"
-                                                @onclick="() => HandleSort(col)">
+                                                title="@(priority != null ? $"Sort priority {priority}" : "Sort column")"
+                                                @onclick="@((MouseEventArgs e) => HandleSortClick(col, e))">
                                             <span>
                                                 @if (col.HeaderTemplate != null)
                                                 {
@@ -116,18 +179,20 @@
                                                 }
                                             </span>
                                             <span class="bob-datagrid__sort-icon" aria-hidden="true">
-                                                @if (State.SortColumn == col.Header)
+                                                @if (dir == SortDirection.Ascending)
                                                 {
-                                                    @if (State.SortDirection == SortDirection.Ascending)
-                                                    {
-                                                        <BOBSvgIcon Icon="@BOBIconKeys.UI.ArrowUpward" Size="BOBSize.Small" />
-                                                    }
-                                                    else if (State.SortDirection == SortDirection.Descending)
-                                                    {
-                                                        <BOBSvgIcon Icon="@BOBIconKeys.UI.ArrowDownward" Size="BOBSize.Small" />
-                                                    }
+                                                    <BOBSvgIcon Icon="@BOBIconKeys.UI.ArrowUpward" Size="BOBSize.Small" />
+                                                }
+                                                else if (dir == SortDirection.Descending)
+                                                {
+                                                    <BOBSvgIcon Icon="@BOBIconKeys.UI.ArrowDownward" Size="BOBSize.Small" />
                                                 }
                                             </span>
+                                            @if (priority is not null)
+                                            {
+                                                <span class="bob-datagrid__sort-priority"
+                                                      aria-label="@($"Sort priority {priority}")">@priority</span>
+                                            }
                                         </button>
                                     }
                                     else
@@ -141,7 +206,61 @@
                                             @col.Header
                                         }
                                     }
+
+                                    @if (Resizable && col.Resizable && !string.IsNullOrEmpty(col.Header))
+                                    {
+                                        DataColumnRegistration<TItem> capturedCol = col;
+                                        <div class="bob-datagrid__col-resizer"
+                                             role="separator"
+                                             aria-orientation="vertical"
+                                             aria-label="@($"Resize column {col.Header}")"
+                                             @onpointerdown="@(e => StartColumnResize(capturedCol, e))"
+                                             @onpointerdown:stopPropagation="true"></div>
+                                    }
+
+                                    @if (ShowColumnFilters && col.Filterable && col.ValueSelector != null && !string.IsNullOrEmpty(col.Header))
+                                    {
+                                        string columnKey = col.Header!;
+                                        State.ColumnFilters.TryGetValue(columnKey, out ColumnFilterEntry currentValue);
+                                        ColumnFilterMode mode = col.FilterMode;
+                                        ColumnFilterOperator currentOp = currentValue.Text is { Length: > 0 }
+                                            ? currentValue.Operator
+                                            : DefaultOperatorFor(mode);
+                                        string inputType = mode switch
+                                        {
+                                            ColumnFilterMode.Numeric => "number",
+                                            ColumnFilterMode.Date => "date",
+                                            _ => "search",
+                                        };
+
+                                        <div class="bob-datagrid__column-filter-wrap">
+                                            <select class="bob-datagrid__column-filter-op"
+                                                    aria-label="@($"Operator {columnKey}")"
+                                                    value="@currentOp"
+                                                    @onchange="@(e => HandleColumnFilterOperator(columnKey, e))"
+                                                    @onclick:stopPropagation="true">
+                                                @foreach (ColumnFilterOperator op in GetOperatorsFor(mode))
+                                                {
+                                                    <option value="@op" selected="@(op == currentOp)">@OperatorLabel(op)</option>
+                                                }
+                                            </select>
+                                            <input type="@inputType"
+                                                   class="bob-datagrid__column-filter"
+                                                   placeholder="@FilterPlaceholder"
+                                                   aria-label="@($"Filter {columnKey}")"
+                                                   value="@currentValue.Text"
+                                                   @oninput="@(e => HandleColumnFilterInput(columnKey, e))"
+                                                   @onclick:stopPropagation="true" />
+                                        </div>
+                                    }
                                 </th>
+                            }
+                            @if (HasRowActions)
+                            {
+                                <th class="bob-datagrid__header-cell bob-datagrid__actions-cell"
+                                    role="columnheader"
+                                    scope="col"
+                                    aria-label="Row actions"></th>
                             }
                         </tr>
                     </thead>
@@ -164,7 +283,7 @@
                         else
                         {
                             <tr class="bob-datagrid__empty-row" role="row">
-                                <td colspan="@(VisibleColumns.Count + (SelectionMode != SelectionMode.None ? 1 : 0))"
+                                <td colspan="@(VisibleColumns.Count + (SelectionMode != SelectionMode.None ? 1 : 0) + (HasRowActions ? 1 : 0) + (HasRowDetail ? 1 : 0))"
                                     class="bob-datagrid__empty-cell">
                                     @if (EmptyContent != null)
                                     {
@@ -175,6 +294,10 @@
                                         <div class="bob-dc__empty">
                                             <span class="bob-dc__empty-icon">📋</span>
                                             <p class="bob-dc__empty-text">No data available</p>
+                                            @if (EmptyActionTemplate != null)
+                                            {
+                                                <div class="bob-dc__empty-actions">@EmptyActionTemplate</div>
+                                            }
                                         </div>
                                     }
                                 </td>
@@ -182,6 +305,35 @@
                         }
                     </tbody>
 
+                    @if (HasAggregates)
+                    {
+                        <tfoot class="bob-datagrid__footer bob-datagrid__footer--aggregate" role="rowgroup">
+                            <tr role="row">
+                                @if (HasRowDetail)
+                                {
+                                    <td class="bob-datagrid__cell bob-datagrid__expand-cell" role="gridcell"></td>
+                                }
+                                @if (SelectionMode != SelectionMode.None)
+                                {
+                                    <td class="bob-datagrid__cell bob-datagrid__select-cell" role="gridcell"></td>
+                                }
+                                @foreach (DataColumnRegistration<TItem> col in VisibleColumns)
+                                {
+                                    string? aggregate = ComputeAggregate(col, FilteredItems);
+                                    <td class="bob-datagrid__cell bob-datagrid__aggregate-cell @GetAlignClass(col.Align, "bob-datagrid__cell") @GetFrozenClass(col) @col.CellClass"
+                                        style="@(col.Freeze != ColumnFreeze.None ? GetFrozenStyle(col) : null)"
+                                        role="gridcell"
+                                        aria-label="@(aggregate != null ? $"{col.Header} {col.Aggregate.ToString().ToLowerInvariant()}" : null)">
+                                        @aggregate
+                                    </td>
+                                }
+                                @if (HasRowActions)
+                                {
+                                    <td class="bob-datagrid__cell bob-datagrid__actions-cell" role="gridcell"></td>
+                                }
+                            </tr>
+                        </tfoot>
+                    }
                     @if (FooterTemplate != null)
                     {
                         <tfoot class="bob-datagrid__footer">
@@ -189,6 +341,18 @@
                         </tfoot>
                     }
                 </table>
+
+                @if (IsResizing)
+                {
+                    @* Full-grid overlay activates only while a column resize is in progress,
+                       capturing pointermove / pointerup so the cursor can leave the column
+                       resizer mid-drag. Pure-Blazor alternative to setPointerCapture (mirrors
+                       the BOBSplitter pattern). *@
+                    <div class="bob-datagrid__resize-overlay"
+                         @onpointermove="OnResizePointerMove"
+                         @onpointerup="EndColumnResize"
+                         @onpointercancel="EndColumnResize"></div>
+                }
             </div>
         }
 
@@ -262,11 +426,13 @@
     private RenderFragment RenderRow(TItem item, int index) => __builder =>
     {
         bool isSelected = State.IsSelected(item);
+        bool isExpanded = HasRowDetail && IsExpanded(item);
         string? patternStyle = GetItemPatternStyle(index);
 
         <tr @key="item"
             class="bob-datagrid__row"
             data-bob-selected="@(isSelected ? "true" : null)"
+            data-bob-expanded="@(isExpanded ? "true" : null)"
             data-bob-interactive="@(IsInteractiveRow ? "true" : null)"
             style="@patternStyle"
             role="row"
@@ -274,6 +440,18 @@
             @onclick="() => HandleRowClick(item)"
             @onkeydown="e => HandleRowKeyDown(e, item)"
             @onkeydown:preventDefault="PreventRowKeyDown">
+
+            @if (HasRowDetail)
+            {
+                TItem capturedExpItem = item;
+                bool capturedExpState = isExpanded;
+                <td class="bob-datagrid__cell bob-datagrid__expand-cell" role="gridcell" @onclick:stopPropagation="true">
+                    <_BOBBtn Icon="@(capturedExpState ? BOBIconKeys.UI.ArrowDownward : BOBIconKeys.UI.ArrowForward)"
+                             AriaLabel="@(capturedExpState ? "Collapse row" : "Expand row")"
+                             Size="BOBSize.Small"
+                             OnClick="@(_ => { ToggleExpanded(capturedExpItem); StateHasChanged(); return Task.CompletedTask; })" />
+                </td>
+            }
 
             @if (SelectionMode != SelectionMode.None)
             {
@@ -292,7 +470,8 @@
             {
                 @foreach (DataColumnRegistration<TItem> col in VisibleColumns)
                 {
-                    <td class="@GetAlignClass(col.Align, "bob-datagrid__cell") @col.CellClass"
+                    <td class="@GetAlignClass(col.Align, "bob-datagrid__cell") @GetFrozenClass(col) @col.CellClass"
+                        style="@(col.Freeze != ColumnFreeze.None ? GetFrozenStyle(col) : null)"
                         role="gridcell">
                         @if (col.Template != null)
                         {
@@ -305,7 +484,40 @@
                     </td>
                 }
             }
+
+            @if (HasRowActions)
+            {
+                <td class="bob-datagrid__cell bob-datagrid__actions-cell" role="gridcell">
+                    <div class="bob-dc__row-actions" @onclick:stopPropagation="true">
+                        @foreach (DataCollectionRowAction<TItem> action in VisibleRowActionsFor(item))
+                        {
+                            DataCollectionRowAction<TItem> capturedAction = action;
+                            TItem capturedItem = item;
+                            bool actionEnabled = action.Enabled is null || action.Enabled(item);
+                            <_BOBBtn Icon="@action.Icon"
+                                     Text="@(action.Icon is null ? action.Label : null)"
+                                     Color="@action.Color"
+                                     AriaLabel="@action.Label"
+                                     Disabled="@(!actionEnabled)"
+                                     Size="BOBSize.Small"
+                                     OnClick="@(_ => InvokeRowActionAsync(capturedAction, capturedItem))" />
+                        }
+                    </div>
+                </td>
+            }
         </tr>
+        @if (isExpanded && RowDetailTemplate != null)
+        {
+            int detailColspan = VisibleColumns.Count
+                + (SelectionMode != SelectionMode.None ? 1 : 0)
+                + (HasRowDetail ? 1 : 0)
+                + (HasRowActions ? 1 : 0);
+            <tr @key="@(new { Item = item, Detail = true })" class="bob-datagrid__detail-row" role="row">
+                <td colspan="@detailColspan" class="bob-datagrid__detail-cell" role="gridcell">
+                    @RowDetailTemplate(item)
+                </td>
+            </tr>
+        }
     };
 
     private string GetContainerStyle()
@@ -318,6 +530,159 @@
 
         return string.Empty;
     }
+
+    /// <summary>
+    /// Returns the additional CSS class fragment for a frozen cell. The grid renders
+    /// frozen columns as <c>position: sticky</c> on the inline-start (Start) or inline-end
+    /// (End) edges; the modifier class drives background opacity + z-index in the scoped
+    /// CSS so the frozen surface stays opaque while the rest of the row scrolls under it.
+    /// </summary>
+    private static string GetFrozenClass(DataColumnRegistration<TItem> col) => col.Freeze switch
+    {
+        ColumnFreeze.Start => "bob-datagrid__cell--frozen bob-datagrid__cell--frozen-start",
+        ColumnFreeze.End => "bob-datagrid__cell--frozen bob-datagrid__cell--frozen-end",
+        _ => string.Empty,
+    };
+
+    /// <summary>
+    /// Returns the inline <c>style</c> fragment for a frozen cell — the cumulative
+    /// <c>left</c> (Start) or <c>right</c> (End) offset summed over preceding peers on
+    /// the same edge. Width must be specified in pixels (e.g. <c>"180px"</c>); other CSS
+    /// length units fall back to a zero offset which still renders correctly when only
+    /// one column is frozen on a given edge.
+    /// </summary>
+    private string GetFrozenStyle(DataColumnRegistration<TItem> col)
+    {
+        if (col.Freeze == ColumnFreeze.None) return string.Empty;
+
+        // Walk visible columns in render order, accumulating widths up to (but not
+        // including) the column under inspection. End-frozen columns walk in reverse so
+        // each column's "right" offset reflects the columns to its right that are also
+        // pinned.
+        IReadOnlyList<DataColumnRegistration<TItem>> visible = VisibleColumns;
+        int offset = 0;
+        if (col.Freeze == ColumnFreeze.Start)
+        {
+            foreach (DataColumnRegistration<TItem> peer in visible)
+            {
+                if (ReferenceEquals(peer, col)) break;
+                if (peer.Freeze == ColumnFreeze.Start)
+                {
+                    offset += GetEffectiveWidthPx(peer);
+                }
+            }
+            return $"left: {offset}px;";
+        }
+        else
+        {
+            for (int i = visible.Count - 1; i >= 0; i--)
+            {
+                DataColumnRegistration<TItem> peer = visible[i];
+                if (ReferenceEquals(peer, col)) break;
+                if (peer.Freeze == ColumnFreeze.End)
+                {
+                    offset += GetEffectiveWidthPx(peer);
+                }
+            }
+            return $"right: {offset}px;";
+        }
+    }
+
+    private string? BuildHeaderCellStyle(DataColumnRegistration<TItem> col)
+    {
+        // The state-level ColumnWidths dict (populated by the resize drag handle) wins
+        // over the static Width parameter so the user's drag survives across re-renders.
+        string? effectiveWidth = ResolveEffectiveWidth(col);
+        bool hasWidth = effectiveWidth != null;
+        bool isFrozen = col.Freeze != ColumnFreeze.None;
+        if (!hasWidth && !isFrozen) return null;
+
+        string widthFragment = hasWidth ? $"width: {effectiveWidth}" : string.Empty;
+        string frozenFragment = isFrozen ? GetFrozenStyle(col) : string.Empty;
+
+        if (hasWidth && isFrozen)
+        {
+            return $"{widthFragment}; {frozenFragment}";
+        }
+        return hasWidth ? widthFragment : frozenFragment;
+    }
+
+    private string? ResolveEffectiveWidth(DataColumnRegistration<TItem> col)
+    {
+        if (!string.IsNullOrEmpty(col.Header)
+            && State.ColumnWidths.TryGetValue(col.Header!, out double live)
+            && live > 0)
+        {
+            return $"{live.ToString("0.##", System.Globalization.CultureInfo.InvariantCulture)}px";
+        }
+        return col.Width;
+    }
+
+    private int GetEffectiveWidthPx(DataColumnRegistration<TItem> col)
+    {
+        if (!string.IsNullOrEmpty(col.Header)
+            && State.ColumnWidths.TryGetValue(col.Header!, out double live)
+            && live > 0)
+        {
+            return (int)Math.Round(live);
+        }
+        return ParseWidthPx(col.Width);
+    }
+
+    private static int ParseWidthPx(string? width)
+    {
+        if (string.IsNullOrWhiteSpace(width)) return 0;
+        // Accept "180px" / "180" only — other CSS length units would require runtime
+        // resolution we cannot do server-side. Consumers freezing columns must use px.
+        string trimmed = width.Trim();
+        if (trimmed.EndsWith("px", StringComparison.OrdinalIgnoreCase))
+        {
+            trimmed = trimmed[..^2];
+        }
+        return int.TryParse(trimmed, out int value) ? value : 0;
+    }
+
+    private IReadOnlyDictionary<string, object>? BuildHeaderDragAttributes(DataColumnRegistration<TItem> col)
+    {
+        // Only emit drag-related attributes when Reorderable is on. Mounting them
+        // unconditionally would leak event handler bindings into the snapshot output for
+        // every grid that opted out of reorder, breaking the Phase 1 baselines.
+        if (!Reorderable) return null;
+        string header = col.Header ?? string.Empty;
+        bool isSource = string.Equals(DraggingColumnHeader, header, StringComparison.OrdinalIgnoreCase);
+        Dictionary<string, object> attrs = new()
+        {
+            ["draggable"] = "true",
+            ["ondragstart"] = EventCallback.Factory.Create<DragEventArgs>(this, e => HandleHeaderDragStart(header, e)),
+            ["ondragover"] = EventCallback.Factory.Create<DragEventArgs>(this, e => HandleHeaderDragOver(header, e)),
+            ["ondragover:preventDefault"] = true,
+            ["ondrop"] = EventCallback.Factory.Create<DragEventArgs>(this, e => HandleHeaderDrop(header, e)),
+            ["ondragend"] = EventCallback.Factory.Create<DragEventArgs>(this, HandleHeaderDragEnd),
+        };
+        if (isSource) attrs["data-bob-drag-source"] = "true";
+        return attrs;
+    }
+
+    private static ColumnFilterOperator DefaultOperatorFor(ColumnFilterMode mode) => mode switch
+    {
+        ColumnFilterMode.Numeric => ColumnFilterOperator.Equals,
+        ColumnFilterMode.Date => ColumnFilterOperator.Equals,
+        _ => ColumnFilterOperator.Contains,
+    };
+
+    private static string OperatorLabel(ColumnFilterOperator op) => op switch
+    {
+        ColumnFilterOperator.Contains => "contains",
+        ColumnFilterOperator.StartsWith => "starts",
+        ColumnFilterOperator.EndsWith => "ends",
+        ColumnFilterOperator.Equals => "=",
+        ColumnFilterOperator.NotEquals => "!=",
+        ColumnFilterOperator.GreaterThan => ">",
+        ColumnFilterOperator.LessThan => "<",
+        ColumnFilterOperator.GreaterOrEqual => ">=",
+        ColumnFilterOperator.LessOrEqual => "<=",
+        _ => op.ToString(),
+    };
 
     private IconKey GetSelectAllIcon()
     {
