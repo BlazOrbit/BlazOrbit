@@ -80,7 +80,7 @@
   -->
   <Target Name="EnsureChartNodeModules"
           BeforeTargets="DispatchToInnerBuilds;BeforeBuild"
-          Condition="('$(IsCrossTargetingBuild)' == 'true' OR '$(TargetFrameworks)' == '') AND !Exists('$(_ChartsEsbuildBinaryUnix)') AND !Exists('$(_ChartsEsbuildBinaryWin)')">
+          Condition="('$(IsCrossTargetingBuild)' == 'true' OR '$(TargetFrameworks)' == '') AND !Exists('$(_ChartsEsbuildBinaryUnix)') AND !Exists('$(_ChartsEsbuildBinaryWin)') AND Exists('$(MSBuildThisFileDirectory)package.json')">
     <Message Text="[BlazOrbit.Charts] esbuild binary missing (corrupted node_modules). Purging esbuild and running npm install..." Importance="high" />
     <RemoveDir Directories="$(MSBuildThisFileDirectory)node_modules\esbuild" />
     <Exec Command="npm install" WorkingDirectory="$(MSBuildThisFileDirectory)" ContinueOnError="false" />

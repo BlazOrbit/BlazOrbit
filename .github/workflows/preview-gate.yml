@@ -158,7 +158,7 @@ jobs:
 
           # PublicAPI.Shipped.txt should only be modified during release
           # by the admin-tools.ps1 Move-PublicApiToShipped function.
-          SHIPPED_CHANGES=$(git diff --name-only origin/develop...HEAD | grep -i "PublicAPI.Shipped.txt" || true)
+          SHIPPED_CHANGES=$(git diff --diff-filter=M --name-only origin/develop...HEAD | grep -i "PublicAPI.Shipped.txt" || true)
 
           if [ -n "$SHIPPED_CHANGES" ]; then
             echo "❌ ERROR: PublicAPI.Shipped.txt was modified"
