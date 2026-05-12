@@ -32,7 +32,9 @@ public readonly struct HsvColor : IEquatable<HsvColor>
         {
             h = Math.Abs(max - r) < 0.0001
                 ? 60 * ((g - b) / delta % 6)
-                : Math.Abs(max - g) < 0.0001 ? 60 * (((b - r) / delta) + 2) : 60 * (((r - g) / delta) + 4);
+                : Math.Abs(max - g) < 0.0001
+                    ? 60 * (((b - r) / delta) + 2)
+                    : 60 * (((r - g) / delta) + 4);
         }
 
         if (h < 0)
@@ -58,8 +60,8 @@ public readonly struct HsvColor : IEquatable<HsvColor>
 
     public bool Equals(HsvColor other)
         => Hue == other.Hue &&
-        Math.Abs(Saturation - other.Saturation) < 0.0001 &&
-        Math.Abs(Value - other.Value) < 0.0001;
+           Math.Abs(Saturation - other.Saturation) < 0.0001 &&
+           Math.Abs(Value - other.Value) < 0.0001;
 
     public override bool Equals(object? obj) => obj is HsvColor other && Equals(other);
 
@@ -80,7 +82,7 @@ public readonly struct HsvColor : IEquatable<HsvColor>
             < 180 => ((double, double, double))(0, c, x),
             < 240 => ((double, double, double))(0, x, c),
             < 300 => ((double, double, double))(x, 0, c),
-            _ => ((double, double, double))(c, 0, x),
+            _ => ((double, double, double))(c, 0, x)
         };
         return new CssColor(
             (int)Math.Round((r + m) * 255),

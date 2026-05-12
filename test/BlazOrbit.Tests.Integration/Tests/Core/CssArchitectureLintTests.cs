@@ -21,7 +21,7 @@ public class CssArchitectureLintTests
         "_BOB",
         // Hosts — documented exceptions in CSS-SCOPED-04
         "BOBModalHost",
-        "BOBModalContainer",
+        "BOBModalContainer"
     ];
 
     /// <summary>
@@ -69,8 +69,8 @@ public class CssArchitectureLintTests
         }
 
         violations.Should().BeEmpty(
-            because: "root state must be expressed via data-bob-* attributes, never BEM modifiers. " +
-                     "Decision: COMP-STATE-CLASS-01 option b (BEM modifiers acceptable on children, not on root).");
+            "root state must be expressed via data-bob-* attributes, never BEM modifiers. " +
+            "Decision: COMP-STATE-CLASS-01 option b (BEM modifiers acceptable on children, not on root).");
     }
 
     /// <summary>
@@ -87,7 +87,7 @@ public class CssArchitectureLintTests
             "src", "BlazOrbit", "CssBundle", "_base.css"));
 
         File.Exists(baseCssPath).Should().BeTrue(
-            because: "BaseComponentGenerator must regenerate _base.css before tests run");
+            "BaseComponentGenerator must regenerate _base.css before tests run");
 
         string content = File.ReadAllText(baseCssPath);
 

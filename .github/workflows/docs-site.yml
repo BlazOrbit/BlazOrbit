@@ -1,4 +1,4 @@
-﻿# .github/workflows/docs-site.yml
+# .github/workflows/docs-site.yml
 # Builds the BlazOrbit Docs site (Blazor WASM) and publishes it to Cloudflare Pages.
 # Triggered manually (workflow_dispatch).
 
@@ -31,16 +31,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@c2fa09f4bde5ebb9d1777cf28262a3eb3db3ced7  # v5
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           global-json-file: global.json
 
       - name: Setup Node.js (required for BuildTools/Vite)
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6
         with:
           node-version: '20'
 
@@ -84,7 +84,7 @@ jobs:
           find ./publish/wwwroot -type f | sort
 
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@9acf94ace14e7dc412b076f2c5c20b8ce93c79cd  # v3
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

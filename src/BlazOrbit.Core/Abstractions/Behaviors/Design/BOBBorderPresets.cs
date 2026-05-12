@@ -14,7 +14,7 @@ public static class BOBBorderPresets
 
     /// <summary>Default subtle solid border with 1px width.</summary>
     public static BorderStyle Default
-            => BorderStyle.Create()
+        => BorderStyle.Create()
             .All("1px", BorderStyleType.Solid, BOBColor.Gray.Lighten2);
 
     // ===================================== Estilos especiales =====================================
@@ -92,7 +92,7 @@ public static class BOBBorderPresets
 
     /// <summary>Solid warning-colored border with 2px width.</summary>
     public static BorderStyle Warning
-            => BorderStyle.Create()
+        => BorderStyle.Create()
             .All("2px", BorderStyleType.Solid, PaletteColor.Warning);
 
     // ===================================== Utilitarios =====================================

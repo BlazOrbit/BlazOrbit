@@ -21,7 +21,7 @@
     private volatile bool _progressPaused;
 
     /// <summary>Toast state (id, content, options, lifecycle flags) supplied by <see cref="BOBToastHost"/>.</summary>
-    [Parameter, EditorRequired]
+    [Parameter][EditorRequired]
     public ToastState State { get; set; } = default!;
 
     /// <summary>Raised after the close animation finishes so the host can remove the toast from the active list.</summary>
@@ -34,8 +34,7 @@
     [Parameter]
     public int? Elevation { get; set; }
 
-    [CascadingParameter]
-    private ToastService? ToastService { get; set; }
+    [CascadingParameter] private ToastService? ToastService { get; set; }
 
     [Inject] internal IStringLocalizer<BOBLayoutResources> Localizer { get; set; } = default!;
 
@@ -99,10 +98,18 @@
                 await InvokeAsync(StateHasChanged);
             }
         }
-        catch (OperationCanceledException) { }
-        catch (JSDisconnectedException) { }
-        catch (ObjectDisposedException) { }
-        catch (InvalidOperationException) { }
+        catch (OperationCanceledException)
+        {
+        }
+        catch (JSDisconnectedException)
+        {
+        }
+        catch (ObjectDisposedException)
+        {
+        }
+        catch (InvalidOperationException)
+        {
+        }
     }
 
     protected override async Task OnParametersSetAsync()
@@ -116,8 +123,14 @@
             {
                 await Task.Delay(State.Options.Animation.Duration, TimeProvider, _disposeCts.Token);
             }
-            catch (TaskCanceledException) { return; }
-            catch (ObjectDisposedException) { return; }
+            catch (TaskCanceledException)
+            {
+                return;
+            }
+            catch (ObjectDisposedException)
+            {
+                return;
+            }
 
             if (_disposeCts.IsCancellationRequested) return;
             await OnCloseAnimationComplete.InvokeAsync(State.Id);
@@ -145,11 +158,11 @@
 
             @if (State.Options.Closable)
             {
-                <_BOBBtn Icon="@BOBIconKeys.UI.Close"
-                         Variant="BOBBtnVariant.Ghost"
-                         AriaLabel="@Localizer["Close"]"
-                         OnClick="HandleClose"
-                         OnClickStopPropagation="true" />
+                <_BOBInBtn Icon="@BOBIconKeys.UI.Close"
+                           Variant="BOBInBtnVariant.Ghost"
+                           AriaLabel="@Localizer["Close"]"
+                           OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, HandleClose))"
+                           OnClickStopPropagation="true"/>
             }
 
             @if (State.Options.AutoDismiss)
@@ -161,34 +174,46 @@
         </bob-component>
     };
 
-    private string GetPositionValue() => State.Options.Position switch
+    private string GetPositionValue()
     {
-        ToastPosition.TopLeft => "top-left",
-        ToastPosition.TopCenter => "top-center",
-        ToastPosition.TopRight => "top-right",
-        ToastPosition.BottomLeft => "bottom-left",
-        ToastPosition.BottomCenter => "bottom-center",
-        ToastPosition.BottomRight => "bottom-right",
-        _ => "top-right"
-    };
+        return State.Options.Position switch
+        {
+            ToastPosition.TopLeft => "top-left",
+            ToastPosition.TopCenter => "top-center",
+            ToastPosition.TopRight => "top-right",
+            ToastPosition.BottomLeft => "bottom-left",
+            ToastPosition.BottomCenter => "bottom-center",
+            ToastPosition.BottomRight => "bottom-right",
+            _ => "top-right"
+        };
+    }
 
-    private string GetAnimationValue() => State.Options.Animation.Type switch
+    private string GetAnimationValue()
     {
-        ToastAnimationType.Fade => "fade",
-        ToastAnimationType.Slide => "slide",
-        ToastAnimationType.SlideAndFade => "slide-fade",
-        _ => "none"
-    };
+        return State.Options.Animation.Type switch
+        {
+            ToastAnimationType.Fade => "fade",
+            ToastAnimationType.Slide => "slide",
+            ToastAnimationType.SlideAndFade => "slide-fade",
+            _ => "none"
+        };
+    }
 
-    private string GetAriaRole() => State.Options.Severity == ToastSeverity.Error ? "alert" : "status";
+    private string GetAriaRole()
+    {
+        return State.Options.Severity == ToastSeverity.Error ? "alert" : "status";
+    }
 
-    private string GetAriaLive() => State.Options.Severity == ToastSeverity.Error ? "assertive" : "polite";
+    private string GetAriaLive()
+    {
+        return State.Options.Severity == ToastSeverity.Error ? "assertive" : "polite";
+    }
 
     private string GetProgressStyle()
     {
         if (!State.Options.AutoDismiss) return "width: 0%";
 
-        double progress = State.ProgressPercentage;
+        var progress = State.ProgressPercentage;
         return $"width: {100 - progress:F1}%";
     }
 
@@ -225,7 +250,15 @@
 
     public void Dispose()
     {
-        try { _disposeCts.Cancel(); } catch (ObjectDisposedException) { }
+        try
+        {
+            _disposeCts.Cancel();
+        }
+        catch (ObjectDisposedException)
+        {
+        }
+
         _disposeCts.Dispose();
     }
+
 }

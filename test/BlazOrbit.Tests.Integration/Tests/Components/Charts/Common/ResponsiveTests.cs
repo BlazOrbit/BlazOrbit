@@ -17,14 +17,13 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Charts.Common;
 [Trait("Component Interaction", "Charts.Responsive")]
 public class ResponsiveTests
 {
-    private static IEnumerable<BOBChartSeries<string, decimal>> Series() => new[]
-    {
+    private static IEnumerable<BOBChartSeries<string, decimal>> Series() =>
+    [
         new BOBChartSeries<string, decimal>
         {
-            Label = "S",
-            Points = new[] { new BOBChartPoint<string, decimal>("Q1", 100m) }
+            Label = "S", Points = [new BOBChartPoint<string, decimal>("Q1", 100m)]
         }
-    };
+    ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -62,7 +61,7 @@ public class ResponsiveTests
         AngleSharp.Dom.IElement bar = cut.Find("rect.bob-bar-chart__bar");
         double x = double.Parse(bar.GetAttribute("x")!, System.Globalization.CultureInfo.InvariantCulture);
         x.Should().BeApproximately(129.2, 0.5,
-            because: "with width=800 the plot rect widens and bar position scales accordingly");
+            "with width=800 the plot rect widens and bar position scales accordingly");
     }
 
     [Theory]
@@ -106,7 +105,7 @@ public class ResponsiveTests
         // Sub-pixel oscillation rounding to the same int — no re-render.
         await cut.InvokeAsync(() => cut.Instance.OnResize(800.3, 500.4));
         cut.RenderCount.Should().Be(rendersAfterFirst,
-            because: "rounding to the same integer should suppress redundant renders");
+            "rounding to the same integer should suppress redundant renders");
     }
 
     [Theory]
@@ -134,18 +133,18 @@ public class ResponsiveTests
 
         IRenderedComponent<BOBLineChart<int, double>> cut =
             ctx.Render<BOBLineChart<int, double>>(p => p
-                .Add(c => c.Series, new[]
-                {
+                .Add(c => c.Series,
+                [
                     new BOBChartSeries<int, double>
-                    {
-                        Label = "L",
-                        Points = new[]
                         {
-                            new BOBChartPoint<int, double>(1, 10.0),
-                            new BOBChartPoint<int, double>(2, 20.0),
+                            Label = "L",
+                            Points =
+                            [
+                                new BOBChartPoint<int, double>(1, 10.0),
+                                new BOBChartPoint<int, double>(2, 20.0)
+                            ]
                         }
-                    }
-                }));
+                ]));
 
         await cut.InvokeAsync(() => cut.Instance.OnResize(1000, 600));
 
@@ -165,10 +164,7 @@ public class ResponsiveTests
 
         IRenderedComponent<BOBPieChart<decimal>> cut =
             ctx.Render<BOBPieChart<decimal>>(p => p
-                .Add(c => c.Slices, new[]
-                {
-                    new BOBChartSlice<decimal> { Label = "All", Value = 100m }
-                }));
+                .Add(c => c.Slices, [new BOBChartSlice<decimal> { Label = "All", Value = 100m }]));
 
         await cut.InvokeAsync(() => cut.Instance.OnResize(500, 500));
 

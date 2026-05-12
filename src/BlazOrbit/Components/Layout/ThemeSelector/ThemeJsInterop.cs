@@ -28,28 +28,40 @@ public interface IThemeJsInterop
 
 internal sealed class ThemeJsInterop(IJSRuntime jsRuntime)
     : ModuleJsInteropBase(jsRuntime, JSModulesReference.ThemeJs),
-      IThemeJsInterop
+        IThemeJsInterop
 {
     public event Action<string>? OnThemeChanged;
 
     public async ValueTask<string> GetThemeAsync()
     {
         IJSObjectReference? module = await TryGetModuleAsync();
-        if (module is null) return string.Empty;
+        if (module is null)
+        {
+            return string.Empty;
+        }
+
         return await module.InvokeAsync<string>("getTheme");
     }
 
     public async ValueTask InitializeAsync(string? defaultTheme = null)
     {
         IJSObjectReference? module = await TryGetModuleAsync();
-        if (module is null) return;
+        if (module is null)
+        {
+            return;
+        }
+
         await module.InvokeVoidAsync("initialize", defaultTheme);
     }
 
     public async ValueTask SetThemeAsync(string theme)
     {
         IJSObjectReference? module = await TryGetModuleAsync();
-        if (module is null) return;
+        if (module is null)
+        {
+            return;
+        }
+
         await module.InvokeVoidAsync("setTheme", theme);
         OnThemeChanged?.Invoke(theme);
     }
@@ -57,8 +69,12 @@ internal sealed class ThemeJsInterop(IJSRuntime jsRuntime)
     public async ValueTask<string> ToggleThemeAsync(params string[] themes)
     {
         IJSObjectReference? module = await TryGetModuleAsync();
-        if (module is null) return string.Empty;
-        string newTheme = await module.InvokeAsync<string>("toggleTheme", new object[] { themes });
+        if (module is null)
+        {
+            return string.Empty;
+        }
+
+        string newTheme = await module.InvokeAsync<string>("toggleTheme", [themes]);
         OnThemeChanged?.Invoke(newTheme);
         return newTheme;
     }
@@ -66,7 +82,11 @@ internal sealed class ThemeJsInterop(IJSRuntime jsRuntime)
     public async ValueTask<Dictionary<string, string>> GetPaletteAsync()
     {
         IJSObjectReference? module = await TryGetModuleAsync();
-        if (module is null) return [];
+        if (module is null)
+        {
+            return [];
+        }
+
         return await module.InvokeAsync<Dictionary<string, string>>("getPalette");
     }
 }

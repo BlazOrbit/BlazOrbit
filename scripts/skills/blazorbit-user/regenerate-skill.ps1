@@ -20,6 +20,7 @@ param(
     [switch]$SkipBuild
 )
 
+Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 # --- Locate repo root ----------------------------------------------------

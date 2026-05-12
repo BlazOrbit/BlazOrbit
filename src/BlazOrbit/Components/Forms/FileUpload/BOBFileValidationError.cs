@@ -8,10 +8,13 @@ public enum BOBFileStatus
 {
     /// <summary>Selection passed client-side validation; awaiting any consumer-driven action.</summary>
     Accepted,
+
     /// <summary>Upload in progress — progress bar visible while <c>ProgressPercent</c> &gt; 0.</summary>
     Uploading,
+
     /// <summary>Terminal success — green check glyph rendered.</summary>
     Uploaded,
+
     /// <summary>Terminal failure — error glyph rendered; tooltip carries the status message.</summary>
     Failed
 }
@@ -23,8 +26,10 @@ public enum BOBFileValidationErrorKind
 {
     /// <summary>The file exceeded the configured <c>MaxSize</c>.</summary>
     TooLarge,
+
     /// <summary>The file's MIME type or extension did not satisfy the <c>Accept</c> filter.</summary>
     DisallowedType,
+
     /// <summary>The selection would push the total above the <c>MaxFiles</c> ceiling.</summary>
     TooManyFiles
 }

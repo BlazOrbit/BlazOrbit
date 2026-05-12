@@ -11,7 +11,7 @@
                data-bob-severity="@SeverityToken">
     <div class="bob-confirm__head">
         <span class="bob-confirm__icon" aria-hidden="true">
-            <BOBSvgIcon Icon="@SeverityIcon" Size="BOBSize.Large" />
+            <BOBSvgIcon Icon="@SeverityIcon" Size="BOBSize.Large"/>
         </span>
         <h2 class="bob-confirm__title">@Title</h2>
     </div>
@@ -20,31 +20,38 @@
 
     <div class="bob-confirm__actions">
         <BOBButton Text="@ResolvedNoLabel"
-                   OnClick="@CancelAsync" />
+                   OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, CancelAsync))"/>
         <BOBButton Text="@ResolvedYesLabel"
-                   OnClick="@AcceptAsync"
-                   Color="@AcceptColor" />
+                   OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, AcceptAsync))"
+                   Color="@AcceptColor"/>
     </div>
 </bob-component>
 
 @code {
+
     /// <summary>Cascaded reference back to the modal so the dialog can resolve with a result.</summary>
-    [Parameter] public ModalReference ModalReference { get; set; } = default!;
+    [Parameter]
+    public ModalReference ModalReference { get; set; } = default!;
 
     /// <summary>Dialog title.</summary>
-    [Parameter] public string Title { get; set; } = string.Empty;
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
 
     /// <summary>Body message.</summary>
-    [Parameter] public string Message { get; set; } = string.Empty;
+    [Parameter]
+    public string Message { get; set; } = string.Empty;
 
     /// <summary>Severity tier used for icon + accent.</summary>
-    [Parameter] public ConfirmSeverity Severity { get; set; } = ConfirmSeverity.Info;
+    [Parameter]
+    public ConfirmSeverity Severity { get; set; } = ConfirmSeverity.Info;
 
     /// <summary>Accept-button label.</summary>
-    [Parameter] public string? YesLabel { get; set; }
+    [Parameter]
+    public string? YesLabel { get; set; }
 
     /// <summary>Cancel-button label.</summary>
-    [Parameter] public string? NoLabel { get; set; }
+    [Parameter]
+    public string? NoLabel { get; set; }
 
     [Inject] internal IStringLocalizer<BOBLayoutResources> Localizer { get; set; } = default!;
 
@@ -57,7 +64,7 @@
     {
         ConfirmSeverity.Warning => BOBIconKeys.MaterialIconsOutlined.i_warning,
         ConfirmSeverity.Danger => BOBIconKeys.MaterialIconsOutlined.i_error,
-        _ => BOBIconKeys.MaterialIconsOutlined.i_info,
+        _ => BOBIconKeys.MaterialIconsOutlined.i_info
     };
 
     // Accept button picks up the severity-derived palette token so a Danger dialog renders
@@ -67,10 +74,17 @@
     {
         ConfirmSeverity.Warning => "var(--palette-warning)",
         ConfirmSeverity.Danger => "var(--palette-error)",
-        _ => null,
+        _ => null
     };
 
-    private Task AcceptAsync() => ModalReference.CloseAsync(true);
+    private Task AcceptAsync()
+    {
+        return ModalReference.CloseAsync(true);
+    }
 
-    private Task CancelAsync() => ModalReference.CloseAsync(false);
+    private Task CancelAsync()
+    {
+        return ModalReference.CloseAsync(false);
+    }
+
 }

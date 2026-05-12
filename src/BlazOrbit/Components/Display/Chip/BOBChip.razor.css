@@ -75,9 +75,9 @@
 }
 
 /* Chip remove affordance: appearance + opacity/hover state flow through the
-   internal _BOBBtn Ghost variant. The overrides below shape it as a tiny round
+   internal _BOBInBtn Ghost variant. The overrides below shape it as a tiny round
    pip nested at the trailing edge — width/height/border-radius/margin tighter
-   than the Ghost defaults. ::deep reaches the button rendered inside _BOBBtn. */
+   than the Ghost defaults. ::deep reaches the button rendered inside _BOBInBtn. */
 [data-bob-component="chip"] ::deep .bob-chip__remove {
     min-width: 0;
     width: 1rem;

@@ -1,0 +1,32 @@
+# BOBTreemapChart
+BOBTreemapChart
+
+# Branch nodes recurse into nested rects so the chart reads as a tree. Padding leaves a frame around each parent so the hierarchy stays visible.
+Los nodos rama se subdividen recursivamente en rectángulos anidados para que el gráfico se lea como árbol. El padding deja un marco alrededor de cada padre para que la jerarquía se mantenga visible.
+
+# Chart
+Gráfico
+
+# Clicked:
+Pulsado:
+
+# Explicit per-node colors
+Colores explícitos por nodo
+
+# Extra package required
+Paquete adicional requerido
+
+# Flat portfolio breakdown
+Desglose plano de cartera
+
+# Hierarchical drill-down
+Drill-down jerárquico
+
+# Hierarchical layout that fills a rectangle with proportionally sized cells. The squarified algorithm keeps each cell close to square so adjacent magnitudes are easy to compare. Use for portfolio breakdowns, storage usage, organisation charts and budget allocation.
+Layout jerárquico que rellena un rectángulo con celdas proporcionales a sus valores. El algoritmo squarified mantiene cada celda cerca de cuadrada para facilitar comparar magnitudes adyacentes. Útil para desgloses de cartera, uso de almacenamiento, organigramas y asignación de presupuesto.
+
+# Node Color overrides the auto-palette. Useful when categories already have brand colours assigned upstream.
+Node.Color sobrescribe la paleta automática. Útil cuando las categorías ya tienen colores de marca asignados aguas arriba.
+
+# This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs.
+Este gráfico requiere el paquete NuGet BlazOrbit.Charts. Instálalo con dotnet add package BlazOrbit.Charts y registra AddBlazOrbitCharts() en Program.cs.

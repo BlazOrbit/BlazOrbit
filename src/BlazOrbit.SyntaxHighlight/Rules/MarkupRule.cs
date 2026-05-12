@@ -258,7 +258,8 @@ public sealed class MarkupRule : ITokenRule
                     }
                     else
                     {
-                        while (pos < end - 1 && !char.IsWhiteSpace(input[pos]) && input[pos] != '>' && input[pos] != '/')
+                        while (pos < end - 1 && !char.IsWhiteSpace(input[pos]) && input[pos] != '>' &&
+                               input[pos] != '/')
                         {
                             pos++;
                         }

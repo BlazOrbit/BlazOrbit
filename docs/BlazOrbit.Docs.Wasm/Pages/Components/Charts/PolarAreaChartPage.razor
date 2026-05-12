@@ -1,20 +1,21 @@
-@page "/components/charts/polar-area"
+﻿@page "/components/charts/polar-area"
 
 @inject IStringLocalizer<PolarAreaChartPage> Loc
 
 <DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBPolarAreaChart"]"
          Lede="@Loc["Polar-area / Coxcomb / Rose chart — pie variant where every slice has the same angular width and the radius encodes the magnitude. Ideal for cyclic data (months, hours-of-day) or when you want uniform angular slots."]"
          PageInstance="this"
-         ApiType="@typeof(BOBPolarAreaChart<>)">
+         ApiType="@typeof(BOBPolarAreaChart<>)"
+         Keywords="@(["polar area", "radar", "spider", "multivariate"])">
 
     <BOBBanner Severity="BOBBannerSeverity.Warning"
                Title="@Loc["Extra package required"]"
-               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]" />
+               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]"/>
 
     <DocDemo Key="Monthly" Title="@Loc["Monthly distribution"]">
         <BOBPolarAreaChart TY="double"
                            Slices="_monthly"
-                           Width="420" Height="420" />
+                           Width="420" Height="420"/>
     </DocDemo>
 
     <DocDemo Key="WindRose" Title="@Loc["Wind rose"]"
@@ -23,7 +24,7 @@
                            Slices="_windRose"
                            RingCount="5"
                            FillOpacity="0.85"
-                           Width="420" Height="420" />
+                           Width="420" Height="420"/>
     </DocDemo>
 
 </DocPage>
@@ -31,9 +32,8 @@
 @code {
 
     private static readonly IEnumerable<BOBChartSlice<double>> _monthly =
-        new[]
-        {
-            new BOBChartSlice<double> { Label = "Jan", Value = 18 },
+    [
+        new BOBChartSlice<double> { Label = "Jan", Value = 18 },
             new BOBChartSlice<double> { Label = "Feb", Value = 22 },
             new BOBChartSlice<double> { Label = "Mar", Value = 30 },
             new BOBChartSlice<double> { Label = "Apr", Value = 28 },
@@ -44,19 +44,19 @@
             new BOBChartSlice<double> { Label = "Sep", Value = 38 },
             new BOBChartSlice<double> { Label = "Oct", Value = 32 },
             new BOBChartSlice<double> { Label = "Nov", Value = 24 },
-            new BOBChartSlice<double> { Label = "Dec", Value = 19 },
-        };
+            new BOBChartSlice<double> { Label = "Dec", Value = 19 }
+    ];
 
     private static readonly IEnumerable<BOBChartSlice<double>> _windRose =
-        new[]
-        {
-            new BOBChartSlice<double> { Label = "N", Value = 35 },
+    [
+        new BOBChartSlice<double> { Label = "N", Value = 35 },
             new BOBChartSlice<double> { Label = "NE", Value = 18 },
             new BOBChartSlice<double> { Label = "E", Value = 9 },
             new BOBChartSlice<double> { Label = "SE", Value = 6 },
             new BOBChartSlice<double> { Label = "S", Value = 12 },
             new BOBChartSlice<double> { Label = "SW", Value = 22 },
             new BOBChartSlice<double> { Label = "W", Value = 38 },
-            new BOBChartSlice<double> { Label = "NW", Value = 28 },
-        };
+            new BOBChartSlice<double> { Label = "NW", Value = 28 }
+    ];
+
 }

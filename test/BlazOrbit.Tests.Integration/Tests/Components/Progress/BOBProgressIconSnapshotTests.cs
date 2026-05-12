@@ -16,12 +16,7 @@ public class BOBProgressIconSnapshotTests
 
         var testCases = new[]
         {
-            new
-            {
-                Name = "Spinner_Default",
-                Html = ctx.Render<BOBProgressIcon>().GetNormalizedMarkup()
-            },
-            new
+            new { Name = "Spinner_Default", Html = ctx.Render<BOBProgressIcon>().GetNormalizedMarkup() }, new
             {
                 Name = "Dots",
                 Html = ctx.Render<BOBProgressIcon>(p => p
@@ -39,7 +34,7 @@ public class BOBProgressIconSnapshotTests
                 Html = ctx.Render<BOBProgressIcon>(p => p
                     .Add(c => c.Size, BOBSize.Large)
                     .Add(c => c.AriaLabel, "Uploading file")).GetNormalizedMarkup()
-            },
+            }
         };
 
         await Verify(testCases).UseParameters(scenario.Name);

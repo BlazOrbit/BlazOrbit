@@ -33,9 +33,9 @@ public class BOBShadowPresetsTests
         string css = shadow.ToCss();
 
         // Assert — two shadow layers separated by ", "
-        css.Should().Contain(", ", because: $"elevation {level} should produce key + ambient layers");
-        css.Should().Contain("px", because: "shadow values must have pixel units");
-        css.Should().Contain("color-mix", because: "opacity is expressed via color-mix");
+        css.Should().Contain(", ", $"elevation {level} should produce key + ambient layers");
+        css.Should().Contain("px", "shadow values must have pixel units");
+        css.Should().Contain("color-mix", "opacity is expressed via color-mix");
     }
 
     [Theory]
@@ -77,7 +77,7 @@ public class BOBShadowPresetsTests
     public void ShadowStyle_ToCss_Should_Produce_Valid_BoxShadow_Syntax()
     {
         // Arrange
-        ShadowStyle shadow = ShadowStyle.Create(y: 2, blur: 4, opacity: 0.2f);
+        ShadowStyle shadow = ShadowStyle.Create(2, 4, 0.2f);
 
         // Act
         string css = shadow.ToCss();

@@ -30,7 +30,7 @@ public class BOBModalContainerAccessibilityTests
             ComponentType = typeof(DummyModalContent),
             Reference = new ModalReference("a11y-1", _ => Task.CompletedTask),
             Options = new DialogOptions { Title = "My Dialog" },
-            IsVisible = true,
+            IsVisible = true
         };
         IRenderedComponent<BOBModalContainer> cut = ctx.Render<BOBModalContainer>(p => p
             .Add(c => c.Modal, modal));
@@ -54,7 +54,7 @@ public class BOBModalContainerAccessibilityTests
             ComponentType = typeof(DummyModalContent),
             Reference = new ModalReference("a11y-close", _ => Task.CompletedTask),
             Options = new DialogOptions { Title = "Closable", Closable = true },
-            IsVisible = true,
+            IsVisible = true
         };
         IRenderedComponent<BOBModalContainer> cut = ctx.Render<BOBModalContainer>(p => p
             .Add(c => c.Modal, modal));

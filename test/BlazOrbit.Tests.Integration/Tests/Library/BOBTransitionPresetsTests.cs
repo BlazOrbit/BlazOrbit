@@ -31,7 +31,7 @@ public class BOBTransitionPresetsTests
 
         // Assert
         transitions.HasTransitions.Should().BeTrue(
-            because: $"preset '{presetName}' must define at least one transition entry");
+            $"preset '{presetName}' must define at least one transition entry");
     }
 
     [Fact]
@@ -74,9 +74,9 @@ public class BOBTransitionPresetsTests
 
         // Assert — both translate and box-shadow vars present
         vars.Keys.Should().Contain(k => k.Contains("translate"),
-            because: "HoverLift includes a translate transition");
+            "HoverLift includes a translate transition");
         vars.Keys.Should().Contain(k => k.Contains("box-shadow"),
-            because: "HoverLift includes a box-shadow transition");
+            "HoverLift includes a box-shadow transition");
     }
 
     [Fact]

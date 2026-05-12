@@ -11,8 +11,8 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Charts.Common;
 [Trait("Component Interaction", "Charts.Brush")]
 public class BrushTests
 {
-    private static IEnumerable<BOBChartSeries<int, double>> Series10() => new[]
-    {
+    private static IEnumerable<BOBChartSeries<int, double>> Series10() =>
+    [
         new BOBChartSeries<int, double>
         {
             Label = "S",
@@ -20,7 +20,7 @@ public class BrushTests
                 .Select(i => new BOBChartPoint<int, double>(i, i * 1.0))
                 .ToArray()
         }
-    };
+    ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -104,7 +104,7 @@ public class BrushTests
 
         captured.Should().NotBeNull();
         captured!.MinX.Should().BeLessThan(captured.MaxX,
-            because: "the args carry the X-domain values bracketing the drag");
+            "the args carry the X-domain values bracketing the drag");
     }
 
     [Theory]
@@ -180,7 +180,7 @@ public class BrushTests
         overlay.MouseDown(new MouseEventArgs { OffsetX = 200, OffsetY = 100 });
         overlay.MouseUp(new MouseEventArgs { OffsetX = 200, OffsetY = 100 });
 
-        fired.Should().BeFalse(because: "trivial drags (< 2px) should not fire the brush event");
+        fired.Should().BeFalse("trivial drags (< 2px) should not fire the brush event");
     }
 
     [Theory]
@@ -204,7 +204,7 @@ public class BrushTests
         overlay.MouseUp(new MouseEventArgs { OffsetX = 300, OffsetY = 100 });
 
         // Brush rect should have rendered (pan would not produce one).
-        captured.Should().NotBeNull(because: "BrushEnabled wins over ZoomEnabled pan when both are set");
+        captured.Should().NotBeNull("BrushEnabled wins over ZoomEnabled pan when both are set");
     }
 
     [Theory]
@@ -217,8 +217,7 @@ public class BrushTests
 
         IRenderedComponent<BOBLineChart<DateTime, double>> cut =
             ctx.Render<BOBLineChart<DateTime, double>>(p => p
-                .Add(c => c.Series, new[]
-                {
+                .Add(c => c.Series, [
                     new BOBChartSeries<DateTime, double>
                     {
                         Label = "T",
@@ -227,7 +226,7 @@ public class BrushTests
                                 new DateTime(2026, 01, 01).AddDays(i), i * 1.0))
                             .ToArray()
                     }
-                })
+                ])
                 .Add(c => c.BrushEnabled, true)
                 .Add(c => c.OnBrush, args => captured = args));
 

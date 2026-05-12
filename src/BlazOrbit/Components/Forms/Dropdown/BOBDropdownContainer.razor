@@ -36,80 +36,122 @@
 
     // IHasSize
     /// <summary>Visual size of the dropdown trigger.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
 
     // IHasLoading
     /// <summary>When <see langword="true" />, the trigger shows a loading indicator and ignores activation.</summary>
-    [Parameter] public bool Loading { get; set; }
+    [Parameter]
+    public bool Loading { get; set; }
+
     /// <summary>Variant of the loading indicator shown when <see cref="Loading"/> is <see langword="true"/>.</summary>
-    [Parameter] public BOBProgressIconVariant LoadingIndicatorVariant { get; set; } = BOBProgressIconVariant.Ring;
+    [Parameter]
+    public BOBProgressIconVariant LoadingIndicatorVariant { get; set; } = BOBProgressIconVariant.Ring;
 
     // IHasShadow
     /// <summary>Shadow style applied to the trigger container. Wins over <see cref="Elevation"/> when both are set.</summary>
-    [Parameter] public ShadowStyle? Shadow { get; set; }
+    [Parameter]
+    public ShadowStyle? Shadow { get; set; }
 
     // IHasElevation
     /// <summary>Material Design elevation level (0–24) applied to the menu surface. Sets a derived
     /// shadow and lifts the surface in dark mode via a tint overlay. Overridden by <see cref="Shadow"/>.</summary>
-    [Parameter] public int? Elevation { get; set; }
+    [Parameter]
+    public int? Elevation { get; set; }
 
     // IHasBackgroundColor
     /// <summary>Background color of the trigger. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? BackgroundColor { get; set; }
+    [Parameter]
+    public string? BackgroundColor { get; set; }
 
     // IHasColor
     /// <summary>Text color of the trigger. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? Color { get; set; }
+    [Parameter]
+    public string? Color { get; set; }
 
     // IHasPrefix
     /// <summary>Text displayed before the trigger value.</summary>
-    [Parameter] public string? PrefixText { get; set; }
+    [Parameter]
+    public string? PrefixText { get; set; }
+
     /// <summary>Material icon name for the Prefix.</summary>
-    [Parameter] public IconKey? PrefixIcon { get; set; }
+    [Parameter]
+    public IconKey? PrefixIcon { get; set; }
+
     /// <summary>Prefix color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? PrefixColor { get; set; }
+    [Parameter]
+    public string? PrefixColor { get; set; }
+
     /// <summary>PrefixBackground color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? PrefixBackgroundColor { get; set; }
+    [Parameter]
+    public string? PrefixBackgroundColor { get; set; }
 
     // IHasSuffix
     /// <summary>Text displayed after the trigger value.</summary>
-    [Parameter] public string? SuffixText { get; set; }
+    [Parameter]
+    public string? SuffixText { get; set; }
+
     /// <summary>Material icon name for the Suffix.</summary>
-    [Parameter] public IconKey? SuffixIcon { get; set; }
+    [Parameter]
+    public IconKey? SuffixIcon { get; set; }
+
     /// <summary>Suffix color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? SuffixColor { get; set; }
+    [Parameter]
+    public string? SuffixColor { get; set; }
+
     /// <summary>SuffixBackground color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? SuffixBackgroundColor { get; set; }
+    [Parameter]
+    public string? SuffixBackgroundColor { get; set; }
 
     /// <summary>Placeholder text shown when the component is empty.</summary>
-    [Parameter] public string? Placeholder { get; set; }
+    [Parameter]
+    public string? Placeholder { get; set; }
+
     /// <summary>Floating label displayed above the component.</summary>
-    [Parameter] public string? Label { get; set; }
+    [Parameter]
+    public string? Label { get; set; }
+
     /// <summary>Helper text displayed below the component for additional context.</summary>
-    [Parameter] public string? HelperText { get; set; }
+    [Parameter]
+    public string? HelperText { get; set; }
 
     /// <summary>Preferred placement of the popup menu relative to the trigger.</summary>
-    [Parameter] public DropdownPlacement Placement { get; set; } = DropdownPlacement.Auto;
+    [Parameter]
+    public DropdownPlacement Placement { get; set; } = DropdownPlacement.Auto;
 
-    [Parameter, EditorRequired] public string DisplayValue { get; set; } = string.Empty;
+    [Parameter][EditorRequired] public string DisplayValue { get; set; } = string.Empty;
+
     /// <summary>When <see langword="true" />, HasValue is active.</summary>
-    [Parameter] public bool HasValue { get; set; }
+    [Parameter]
+    public bool HasValue { get; set; }
+
     /// <summary>ARIA role applied to the popup menu (defaults to <c>listbox</c>; use <c>tree</c> or <c>menu</c> for non-list semantics).</summary>
-    [Parameter] public string AriaRole { get; set; } = "listbox";
+    [Parameter]
+    public string AriaRole { get; set; } = "listbox";
+
     /// <summary>When <see langword="true" />, advertises the menu as multi-selectable to assistive tech.</summary>
-    [Parameter] public bool AriaMultiselectable { get; set; }
+    [Parameter]
+    public bool AriaMultiselectable { get; set; }
 
     /// <summary>Render fragment that emits the popup menu content (option list, tree, etc.).</summary>
-    [Parameter] public RenderFragment? MenuContent { get; set; }
+    [Parameter]
+    public RenderFragment? MenuContent { get; set; }
+
     /// <summary>Raised when the Opened event occurs.</summary>
-    [Parameter] public EventCallback OnOpened { get; set; }
+    [Parameter]
+    public EventCallback OnOpened { get; set; }
+
     /// <summary>Raised when the Closed event occurs.</summary>
-    [Parameter] public EventCallback OnClosed { get; set; }
+    [Parameter]
+    public EventCallback OnClosed { get; set; }
+
     /// <summary>Raised when the KeyboardNavigation event occurs.</summary>
-    [Parameter] public EventCallback<DropdownKeyboardEventArgs> OnKeyboardNavigation { get; set; }
+    [Parameter]
+    public EventCallback<DropdownKeyboardEventArgs> OnKeyboardNavigation { get; set; }
 
     /// <summary>Raised when the ValueChanged event occurs.</summary>
-    [Parameter] public EventCallback<TValue> OnValueChanged { get; set; }
+    [Parameter]
+    public EventCallback<TValue> OnValueChanged { get; set; }
 
     public bool IsOpen { get; private set; }
     public string ComponentId => _componentId;
@@ -135,7 +177,9 @@
             dataAttributes.Remove(FeatureDefinitions.DataAttributes.Floated);
     }
 
-    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables) { }
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    {
+    }
 
     private RenderFragment RenderDropdown() => __builder =>
     {
@@ -149,9 +193,9 @@
 
             <div class="bob-input__wrapper" @ref="_triggerElement">
 
-                
-                <BOBInputOutline Label="@Label" For="@_componentId" Required="@IsRequired" />
-                <BOBInputPrefix PrefixText="@PrefixText" PrefixIcon="@PrefixIcon" Size="@Size" />
+
+                <BOBInputOutline Label="@Label" For="@_componentId" Required="@IsRequired"/>
+                <BOBInputPrefix PrefixText="@PrefixText" PrefixIcon="@PrefixIcon" Size="@Size"/>
 
                 <button id="@_componentId"
                         type="button"
@@ -175,9 +219,9 @@
                         }
                     </span>
 
-                    <_BOBAddon Icon="@BOBIconKeys.UI.ExpandMore"
-                               IconRotation="@(IsOpen ? 180 : 0)"
-                               Size="Size" />
+                    <_BOBInAddon Icon="@BOBIconKeys.UI.ExpandMore"
+                                 IconRotation="@(IsOpen ? 180 : 0)"
+                                 Size="Size"/>
                 </button>
 
                 @if (IsOpen)
@@ -190,8 +234,8 @@
                     </div>
                 }
 
-                <BOBInputSuffix SuffixText="@SuffixText" SuffixIcon="@SuffixIcon" Size="@Size" />
-                <BOBInputLoading Loading="@Loading" LoadingIndicatorVariant="@LoadingIndicatorVariant" Size="@Size" />
+                <BOBInputSuffix SuffixText="@SuffixText" SuffixIcon="@SuffixIcon" Size="@Size"/>
+                <BOBInputLoading Loading="@Loading" LoadingIndicatorVariant="@LoadingIndicatorVariant" Size="@Size"/>
 
             </div>
 
@@ -200,7 +244,7 @@
                              HelperText="@HelperText"
                              ShowValidation="@IsError"
                              EditContext="@EditContext"
-                             For="@ValueExpression" />
+                             For="@ValueExpression"/>
 
         </bob-component>
     };
@@ -228,9 +272,9 @@
 
     private async Task ComputePlacementAsync()
     {
-        DropdownPosition position = await JsInterop.GetPositionAsync(_componentId);
-        double spaceBelow = position.ViewportHeight - position.TriggerTop - position.TriggerHeight;
-        double spaceAbove = position.TriggerTop;
+        var position = await JsInterop.GetPositionAsync(_componentId);
+        var spaceBelow = position.ViewportHeight - position.TriggerTop - position.TriggerHeight;
+        var spaceAbove = position.TriggerTop;
 
         _computedPlacement = spaceBelow >= spaceAbove
             ? DropdownPlacement.Bottom
@@ -240,7 +284,9 @@
     }
 
     private DropdownPlacement GetEffectivePlacement()
-        => Placement == DropdownPlacement.Auto ? _computedPlacement : Placement;
+    {
+        return Placement == DropdownPlacement.Auto ? _computedPlacement : Placement;
+    }
 
     public async Task ToggleAsync()
     {
@@ -289,7 +335,10 @@
         _isFocused = false;
     }
 
-    Task IDropdownJsCallback.OnClickOutside() => CloseAsync();
+    Task IDropdownJsCallback.OnClickOutside()
+    {
+        return CloseAsync();
+    }
 
     async Task IDropdownJsCallback.OnKeyDown(string key, bool shiftKey, bool ctrlKey)
     {
@@ -336,7 +385,9 @@
     }
 
     async Task<DropdownPosition> IDropdownJsCallback.OnRequestPosition()
-        => await JsInterop.GetPositionAsync(_componentId);
+    {
+        return await JsInterop.GetPositionAsync(_componentId);
+    }
 
     protected override bool TryParseValueFromString(string? value, out TValue result, out string validationErrorMessage)
     {
@@ -357,14 +408,26 @@
     {
         if (_jsInitialized)
         {
-            try { await JsInterop.DisposeAsync(_componentId); }
-            catch (Microsoft.JSInterop.JSDisconnectedException) { }
-            catch (ObjectDisposedException) { }
-            catch (InvalidOperationException) { }
-            catch (TaskCanceledException) { }
+            try
+            {
+                await JsInterop.DisposeAsync(_componentId);
+            }
+            catch (Microsoft.JSInterop.JSDisconnectedException)
+            {
+            }
+            catch (ObjectDisposedException)
+            {
+            }
+            catch (InvalidOperationException)
+            {
+            }
+            catch (TaskCanceledException)
+            {
+            }
         }
 
         _callbacksRelay?.Dispose();
         await base.DisposeAsync();
     }
+
 }

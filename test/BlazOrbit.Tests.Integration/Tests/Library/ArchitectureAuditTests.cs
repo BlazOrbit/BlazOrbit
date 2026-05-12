@@ -71,10 +71,10 @@ public class ArchitectureAuditTests
         }
 
         violations.Should().BeEmpty(
-            because: "fire-and-forget async calls must go through BOBAsyncHelper.SafeFireAndForget, " +
-                     "which catches the 4-tuple silently and logs anything else. The `_ = FooAsync()` " +
-                     "shortcut leaks failures to UnobservedTaskException. See ASYNC-01.\n\nViolations:\n  " +
-                     string.Join("\n  ", violations));
+            "fire-and-forget async calls must go through BOBAsyncHelper.SafeFireAndForget, " +
+            "which catches the 4-tuple silently and logs anything else. The `_ = FooAsync()` " +
+            "shortcut leaks failures to UnobservedTaskException. See ASYNC-01.\n\nViolations:\n  " +
+            string.Join("\n  ", violations));
     }
 
     /// <summary>
@@ -109,10 +109,10 @@ public class ArchitectureAuditTests
         }
 
         violations.Should().BeEmpty(
-            because: "library code must preserve the renderer's synchronization context across awaits. " +
-                     "ConfigureAwait(false) detaches it and breaks subsequent StateHasChanged / " +
-                     "InvokeAsync. See ASYNC-02.\n\nViolations:\n  " +
-                     string.Join("\n  ", violations));
+            "library code must preserve the renderer's synchronization context across awaits. " +
+            "ConfigureAwait(false) detaches it and breaks subsequent StateHasChanged / " +
+            "InvokeAsync. See ASYNC-02.\n\nViolations:\n  " +
+            string.Join("\n  ", violations));
     }
 
     /// <summary>
@@ -133,7 +133,7 @@ public class ArchitectureAuditTests
             "JSDisconnectedException",
             "ObjectDisposedException",
             "InvalidOperationException",
-            "TaskCanceledException",
+            "TaskCanceledException"
         ];
 
         Regex catchBlock = new(@"catch\s*\(\s*(\w+Exception)", RegexOptions.Compiled);
@@ -159,12 +159,12 @@ public class ArchitectureAuditTests
         }
 
         violations.Should().BeEmpty(
-            because: "any file that catches JSDisconnectedException is on a teardown path and must " +
-                     "also catch ObjectDisposedException, InvalidOperationException, and " +
-                     "TaskCanceledException — the canonical 4-tuple. Use BOBAsyncHelper.SafeFireAndForget " +
-                     "instead of hand-writing teardown catches when the caller can't be async. " +
-                     "See ASYNC-03.\n\nViolations:\n  " +
-                     string.Join("\n  ", violations));
+            "any file that catches JSDisconnectedException is on a teardown path and must " +
+            "also catch ObjectDisposedException, InvalidOperationException, and " +
+            "TaskCanceledException — the canonical 4-tuple. Use BOBAsyncHelper.SafeFireAndForget " +
+            "instead of hand-writing teardown catches when the caller can't be async. " +
+            "See ASYNC-03.\n\nViolations:\n  " +
+            string.Join("\n  ", violations));
     }
 
     // Singular and plural forms are both accepted: the codebase uses plural for the test
@@ -175,16 +175,18 @@ public class ArchitectureAuditTests
     private static readonly HashSet<string> AllowedTraitContexts = new(StringComparer.Ordinal)
     {
         "Rendering",
-        "Snapshot", "Snapshots",
+        "Snapshot",
+        "Snapshots",
         "State",
         "Interaction",
-        "Variant", "Variants",
+        "Variant",
+        "Variants",
         "Accessibility",
         "Validation",
         "Integration",
         "Disposal",
         "Security",
-        "Service",
+        "Service"
     };
 
     /// <summary>
@@ -199,10 +201,15 @@ public class ArchitectureAuditTests
     {
         Assembly testAssembly = typeof(ArchitectureAuditTests).Assembly;
 
-        Type[] componentTestTypes = [.. testAssembly.GetTypes()
-            .Where(t => t.IsClass && !t.IsAbstract)
-            .Where(t => t.Namespace?.StartsWith("BlazOrbit.Tests.Integration.Tests.Components.", StringComparison.Ordinal) == true)
-            .Where(t => t.GetMethods().Any(m => m.GetCustomAttributes<FactAttribute>().Any() || m.GetCustomAttributes<TheoryAttribute>().Any()))];
+        Type[] componentTestTypes =
+        [
+            .. testAssembly.GetTypes()
+                .Where(t => t.IsClass && !t.IsAbstract)
+                .Where(t => t.Namespace?.StartsWith("BlazOrbit.Tests.Integration.Tests.Components.",
+                    StringComparison.Ordinal) == true)
+                .Where(t => t.GetMethods().Any(m =>
+                    m.GetCustomAttributes<FactAttribute>().Any() || m.GetCustomAttributes<TheoryAttribute>().Any()))
+        ];
 
         componentTestTypes.Should().NotBeEmpty("there must be component test classes to audit");
 
@@ -223,7 +230,8 @@ public class ArchitectureAuditTests
             string context = componentTrait.Name!["Component ".Length..];
             if (!AllowedTraitContexts.Contains(context))
             {
-                violations.Add($"{type.FullName}  unknown context '{context}' (allowed: {string.Join(", ", AllowedTraitContexts)})");
+                violations.Add(
+                    $"{type.FullName}  unknown context '{context}' (allowed: {string.Join(", ", AllowedTraitContexts)})");
                 continue;
             }
 
@@ -234,10 +242,10 @@ public class ArchitectureAuditTests
         }
 
         violations.Should().BeEmpty(
-            because: "every component test class must be tagged [Trait(\"Component <Context>\", \"<ComponentName>\")] " +
-                     "so 'dotnet test --filter \"Component Rendering=BOBButton\"' selects the right slice. " +
-                     "See TEST-TRAIT-01.\n\nViolations:\n  " +
-                     string.Join("\n  ", violations));
+            "every component test class must be tagged [Trait(\"Component <Context>\", \"<ComponentName>\")] " +
+            "so 'dotnet test --filter \"Component Rendering=BOBButton\"' selects the right slice. " +
+            "See TEST-TRAIT-01.\n\nViolations:\n  " +
+            string.Join("\n  ", violations));
     }
 
     /// <summary>
@@ -256,7 +264,7 @@ public class ArchitectureAuditTests
             "BOBGridItem.razor.css",
             "BOBSidebarLayout.razor.css",
             "BOBStackedLayout.razor.css",
-            "BOBToastHost.razor.css",
+            "BOBToastHost.razor.css"
         };
 
         Regex pattern = new(@"@media\b", RegexOptions.Compiled);
@@ -289,12 +297,12 @@ public class ArchitectureAuditTests
         }
 
         violations.Should().BeEmpty(
-            because: "scoped CSS must scale via --bob-size-multiplier / --bob-density-multiplier, not " +
-                     "@media breakpoints. Layout components whose flow changes categorically (grid, " +
-                     "sidebar, stacked, toast host) are the documented exception. If a new component " +
-                     "needs categorical viewport behavior, add it to the layout family and to the " +
-                     "allowlist with a justification. See CSS-MEDIA-01.\n\nViolations:\n  " +
-                     string.Join("\n  ", violations));
+            "scoped CSS must scale via --bob-size-multiplier / --bob-density-multiplier, not " +
+            "@media breakpoints. Layout components whose flow changes categorically (grid, " +
+            "sidebar, stacked, toast host) are the documented exception. If a new component " +
+            "needs categorical viewport behavior, add it to the layout family and to the " +
+            "allowlist with a justification. See CSS-MEDIA-01.\n\nViolations:\n  " +
+            string.Join("\n  ", violations));
     }
 
     /// <summary>
@@ -326,11 +334,11 @@ public class ArchitectureAuditTests
         }
 
         violations.Should().BeEmpty(
-            because: "every assignment to --_wrapper-bg in the input-family bundle must consume " +
-                     "--bob-inline-background so the BackgroundColor parameter applies regardless of " +
-                     "variant. Wrap the literal in `var(--bob-inline-background, <fallback>)`. " +
-                     "See INPUT-BG-01.\n\nViolations:\n  " +
-                     string.Join("\n  ", violations));
+            "every assignment to --_wrapper-bg in the input-family bundle must consume " +
+            "--bob-inline-background so the BackgroundColor parameter applies regardless of " +
+            "variant. Wrap the literal in `var(--bob-inline-background, <fallback>)`. " +
+            "See INPUT-BG-01.\n\nViolations:\n  " +
+            string.Join("\n  ", violations));
     }
 
     /// <summary>
@@ -353,9 +361,9 @@ public class ArchitectureAuditTests
             RegexOptions.Compiled | RegexOptions.Singleline);
 
         fieldColor.IsMatch(content).Should().BeTrue(
-            because: "the input-family bundle must consume --bob-inline-color on .bob-input__field " +
-                     "so the Color parameter paints the native <input>/<textarea> text. " +
-                     "See INPUT-COLOR-01.");
+            "the input-family bundle must consume --bob-inline-color on .bob-input__field " +
+            "so the Color parameter paints the native <input>/<textarea> text. " +
+            "See INPUT-COLOR-01.");
     }
 
     /// <summary>
@@ -392,16 +400,20 @@ public class ArchitectureAuditTests
             sourceByTypeName.TryAdd(name, cs);
         }
 
-        Type[] pureTypes = [..
+        Type[] pureTypes =
+        [
+            ..
             AppDomain.CurrentDomain.GetAssemblies()
                 .Where(a => a.GetName().Name?.StartsWith("BlazOrbit", StringComparison.Ordinal) == true)
                 .Where(a => a.GetName().Name?.Contains(".Tests", StringComparison.Ordinal) != true)
                 .SelectMany(a =>
                 {
-                    try { return a.GetTypes(); } catch { return []; }
+                    try { return a.GetTypes(); }
+                    catch { return []; }
                 })
                 .Where(t => typeof(BlazOrbit.Components.IPureBuiltComponent).IsAssignableFrom(t)
-                            && t.IsClass && t != typeof(BlazOrbit.Components.IPureBuiltComponent))];
+                            && t.IsClass && t != typeof(BlazOrbit.Components.IPureBuiltComponent))
+        ];
 
         pureTypes.Should().NotBeEmpty(
             "the migration to IPureBuiltComponent must yield at least one type (no implementers found)");
@@ -487,11 +499,11 @@ public class ArchitectureAuditTests
         }
 
         violations.Should().BeEmpty(
-            because: "IPureBuiltComponent hooks must not read instance fields — the cache folds the " +
-                     "hook output into the fingerprint, so a non-parameter field would silently freeze " +
-                     "the stale value. Either remove the field read, or drop the IPureBuiltComponent " +
-                     "marker (revert to plain IBuiltComponent) to opt back out of the cache. " +
-                     "See CACHE-PURE-01.\n\nViolations:\n  " +
-                     string.Join("\n  ", violations));
+            "IPureBuiltComponent hooks must not read instance fields — the cache folds the " +
+            "hook output into the fingerprint, so a non-parameter field would silently freeze " +
+            "the stale value. Either remove the field read, or drop the IPureBuiltComponent " +
+            "marker (revert to plain IBuiltComponent) to opt back out of the cache. " +
+            "See CACHE-PURE-01.\n\nViolations:\n  " +
+            string.Join("\n  ", violations));
     }
 }

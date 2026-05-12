@@ -41,7 +41,8 @@ public class ComponentMarkupLintTests
     /// </summary>
     private static readonly Dictionary<string, string> ScriptTagAllowlist = new()
     {
-        ["BOBInitializer.razor"] = "Standard Blazor <HeadContent> pattern for injecting external StaticWebAsset script."
+        ["BOBInitializer.razor"] =
+            "Standard Blazor <HeadContent> pattern for injecting external StaticWebAsset script."
     };
 
     private static readonly Dictionary<string, string> StyleAllowlist = new()
@@ -104,10 +105,10 @@ public class ComponentMarkupLintTests
         }
 
         violations.Should().BeEmpty(
-            because: "native HTML event attributes with inline handlers are an anti-pattern in Blazor. " +
-                     "Use @onclick, @onkeydown, etc. with C# handlers or JS behaviors. " +
-                     "See COMP-AUDIT-CHECKLIST-01 (markup complexity / keyboard events).\n\n" +
-                     string.Join("\n", violations));
+            "native HTML event attributes with inline handlers are an anti-pattern in Blazor. " +
+            "Use @onclick, @onkeydown, etc. with C# handlers or JS behaviors. " +
+            "See COMP-AUDIT-CHECKLIST-01 (markup complexity / keyboard events).\n\n" +
+            string.Join("\n", violations));
     }
 
     /// <summary>
@@ -140,10 +141,10 @@ public class ComponentMarkupLintTests
         }
 
         violations.Should().BeEmpty(
-            because: "<script> tags inside .razor files violate encapsulation. " +
-                     "Use TypeScript under Types/ and IJSObjectReference for JS interop. " +
-                     "See COMP-AUDIT-CHECKLIST-01.\n\n" +
-                     string.Join("\n", violations));
+            "<script> tags inside .razor files violate encapsulation. " +
+            "Use TypeScript under Types/ and IJSObjectReference for JS interop. " +
+            "See COMP-AUDIT-CHECKLIST-01.\n\n" +
+            string.Join("\n", violations));
     }
 
     /// <summary>
@@ -199,9 +200,9 @@ public class ComponentMarkupLintTests
         }
 
         violations.Should().BeEmpty(
-            because: "hardcoded style attributes bypass the design-token system and the CSS pipeline. " +
-                     "Use ComputedAttributes or CSS custom properties. " +
-                     "See COMP-AUDIT-CHECKLIST-01.\n\n" +
-                     string.Join("\n", violations));
+            "hardcoded style attributes bypass the design-token system and the CSS pipeline. " +
+            "Use ComputedAttributes or CSS custom properties. " +
+            "See COMP-AUDIT-CHECKLIST-01.\n\n" +
+            string.Join("\n", violations));
     }
 }

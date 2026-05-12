@@ -22,7 +22,7 @@ public class BOBDataGridResizeTests
     [
         new("Alice", 30),
         new("Bob", 25),
-        new("Charlie", 40),
+        new("Charlie", 40)
     ];
 
     [Theory]
@@ -49,7 +49,8 @@ public class BOBDataGridResizeTests
                 b.AddAttribute(8, "Property", AgeExpr);
                 // Second column is NOT Resizable — the grid renders the handle only on
                 // columns that explicitly opted in.
-                b.AddAttribute(9, "Template", (RenderFragment<Person>)(item => b2 => b2.AddContent(0, item.Age.ToString())));
+                b.AddAttribute(9, "Template",
+                    (RenderFragment<Person>)(item => b2 => b2.AddContent(0, item.Age.ToString())));
                 b.CloseComponent();
             }));
 

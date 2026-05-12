@@ -14,7 +14,7 @@
             class="bob-notification-bell"
             aria-label="@AriaLabel"
             @onclick="HandleClickAsync">
-        <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_notifications" Size="@Size" />
+        <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_notifications" Size="@Size"/>
         @if (UnreadCount > 0)
         {
             <span class="bob-notification-bell__badge"
@@ -26,14 +26,18 @@
 </bob-component>
 
 @code {
+
     /// <summary>Visual size of the bell glyph + badge.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
 
     /// <summary>Aria label rendered on the button.</summary>
-    [Parameter] public string AriaLabel { get; set; } = "Notifications";
+    [Parameter]
+    public string AriaLabel { get; set; } = "Notifications";
 
     /// <summary>Raised when the bell is clicked. Consumers typically open a drawer or popover here.</summary>
-    [Parameter] public EventCallback OnClick { get; set; }
+    [Parameter]
+    public EventCallback OnClick { get; set; }
 
     /// <summary>Live unread count, sourced from the injected <see cref="INotificationCenter"/>.</summary>
     public int UnreadCount => Center.UnreadCount;
@@ -62,4 +66,5 @@
     {
         Center.OnChangeAsync -= OnCenterChangedAsync;
     }
+
 }

@@ -6,6 +6,7 @@
 public sealed class ModalReference
 {
     private readonly Func<ModalReference, Task> _onCloseAsync;
+
     // RunContinuationsAsynchronously: prevent awaiter continuations from running inline on the
     // CloseAsync caller thread. Otherwise a costly awaiter of Result would block whoever closed
     // the modal.

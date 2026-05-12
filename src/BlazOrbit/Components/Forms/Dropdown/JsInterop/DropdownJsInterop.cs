@@ -14,7 +14,7 @@ internal interface IDropdownJsInterop
     ValueTask<DropdownPosition> GetPositionAsync(string componentId);
 
     ValueTask InitializeAsync(
-                    ElementReference triggerElement,
+        ElementReference triggerElement,
         ElementReference menuElement,
         DotNetObjectReference<DropdownCallbacksRelay> dotnetReference,
         string componentId);
@@ -38,7 +38,10 @@ internal sealed class DropdownJsInterop : ModuleJsInteropBase, IDropdownJsIntero
     public async ValueTask FocusSearchInputAsync(string componentId)
     {
         IJSObjectReference? module = await TryGetModuleAsync();
-        if (module is null) return;
+        if (module is null)
+        {
+            return;
+        }
 
         await module.InvokeVoidAsync("focusSearchInput", componentId);
     }
@@ -46,19 +49,25 @@ internal sealed class DropdownJsInterop : ModuleJsInteropBase, IDropdownJsIntero
     public async ValueTask<DropdownPosition> GetPositionAsync(string componentId)
     {
         IJSObjectReference? module = await TryGetModuleAsync();
-        if (module is null) return default;
+        if (module is null)
+        {
+            return default;
+        }
 
         return await module.InvokeAsync<DropdownPosition>("getPosition", componentId);
     }
 
     public async ValueTask InitializeAsync(
-                    ElementReference triggerElement,
+        ElementReference triggerElement,
         ElementReference menuElement,
         DotNetObjectReference<DropdownCallbacksRelay> dotnetReference,
         string componentId)
     {
         IJSObjectReference? module = await TryGetModuleAsync();
-        if (module is null) return;
+        if (module is null)
+        {
+            return;
+        }
 
         await module.InvokeVoidAsync(
             "initialize",

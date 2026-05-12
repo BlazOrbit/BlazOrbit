@@ -59,53 +59,59 @@ public abstract class BOBChartBase<TX, TY> : BOBComponentBase, IDataVisualizatio
     /// </summary>
     private (double PixelX, double PixelY, Models.BOBChartTooltipContext<TX, TY> Context)? _activeTooltip;
 
-    [Inject]
-    private IChartJsInterop ChartInterop { get; set; } = default!;
+    [Inject] private IChartJsInterop ChartInterop { get; set; } = default!;
 
     /// <summary>
     /// Optional explicit width in pixels. When <c>null</c> the chart fills its
     /// container.
     /// </summary>
-    [Parameter] public int? Width { get; set; }
+    [Parameter]
+    public int? Width { get; set; }
 
     /// <summary>
     /// Optional explicit height in pixels. When <c>null</c> the chart fills
     /// its container.
     /// </summary>
-    [Parameter] public int? Height { get; set; }
+    [Parameter]
+    public int? Height { get; set; }
 
     /// <summary>
     /// CSS aspect ratio applied when neither <see cref="Width"/> nor
     /// <see cref="Height"/> are set (e.g. <c>"16/9"</c>).
     /// </summary>
-    [Parameter] public string AspectRatio { get; set; } = "16/9";
+    [Parameter]
+    public string AspectRatio { get; set; } = "16/9";
 
     /// <summary>
     /// When <c>true</c>, a small "Export PNG" button is rendered in the
     /// chart's top-right corner. Clicking it triggers a client-side
     /// SVG → PNG rasterization (white background) and a browser download.
     /// </summary>
-    [Parameter] public bool ShowExportButton { get; set; }
+    [Parameter]
+    public bool ShowExportButton { get; set; }
 
     /// <summary>
     /// Filename (without extension) used for the PNG export. Defaults to
     /// <c>"chart"</c>; consumers should set this to something more
     /// descriptive (e.g. <c>"sales-by-quarter"</c>).
     /// </summary>
-    [Parameter] public string ExportFileName { get; set; } = "chart";
+    [Parameter]
+    public string ExportFileName { get; set; } = "chart";
 
     /// <summary>
     /// Whether the legend block is visible. The legend lists every series /
     /// slice with its color marker; clicking an entry toggles that
     /// series visibility. Default <c>true</c>.
     /// </summary>
-    [Parameter] public bool ShowLegend { get; set; } = true;
+    [Parameter]
+    public bool ShowLegend { get; set; } = true;
 
     /// <summary>
     /// Anchor of the legend block relative to the plot area. <c>None</c>
     /// hides the legend entirely (equivalent to <see cref="ShowLegend"/> = false).
     /// </summary>
-    [Parameter] public BOBChartLegendPosition LegendPosition { get; set; } = BOBChartLegendPosition.Bottom;
+    [Parameter]
+    public BOBChartLegendPosition LegendPosition { get; set; } = BOBChartLegendPosition.Bottom;
 
     /// <summary>
     /// Fired when the user toggles a legend entry. The argument is the
@@ -113,14 +119,16 @@ public abstract class BOBChartBase<TX, TY> : BOBComponentBase, IDataVisualizatio
     /// hidden-series set has been mutated, so consumers can read the current
     /// visibility state via <see cref="IsSeriesHidden(string)"/>.
     /// </summary>
-    [Parameter] public EventCallback<string> OnLegendToggle { get; set; }
+    [Parameter]
+    public EventCallback<string> OnLegendToggle { get; set; }
 
     /// <summary>
     /// Fired exactly once, after the chart has completed its first render.
     /// Useful for triggering downstream actions that require the SVG to be
     /// in the DOM (e.g. measuring, programmatic export).
     /// </summary>
-    [Parameter] public EventCallback OnChartReady { get; set; }
+    [Parameter]
+    public EventCallback OnChartReady { get; set; }
 
     /// <summary>
     /// Forces a specific theme palette regardless of the application's
@@ -128,7 +136,8 @@ public abstract class BOBChartBase<TX, TY> : BOBComponentBase, IDataVisualizatio
     /// the chart in sync with the host's <c>data-bob-theme</c>; <c>Light</c>
     /// or <c>Dark</c> emits a chart-local <c>data-bob-theme</c> override.
     /// </summary>
-    [Parameter] public BOBChartTheme Theme { get; set; } = BOBChartTheme.Inherit;
+    [Parameter]
+    public BOBChartTheme Theme { get; set; } = BOBChartTheme.Inherit;
 
     /// <summary>
     /// Custom tooltip render fragment. When set, replaces the native
@@ -141,7 +150,8 @@ public abstract class BOBChartBase<TX, TY> : BOBComponentBase, IDataVisualizatio
     /// — for custom slice UI use <c>OnSliceHover</c> + your own panel.
     /// </para>
     /// </summary>
-    [Parameter] public RenderFragment<Models.BOBChartTooltipContext<TX, TY>>? TooltipTemplate { get; set; }
+    [Parameter]
+    public RenderFragment<Models.BOBChartTooltipContext<TX, TY>>? TooltipTemplate { get; set; }
 
     /// <summary>
     /// <c>string.Format</c>-style pattern for the default cartesian tooltip
@@ -149,7 +159,8 @@ public abstract class BOBChartBase<TX, TY> : BOBComponentBase, IDataVisualizatio
     /// <c>{0}</c> = label, <c>{1}</c> = X, <c>{2}</c> = Y. Default produces
     /// <c>"&lt;label&gt;: &lt;X&gt; = &lt;Y&gt;"</c>.
     /// </summary>
-    [Parameter] public string? TooltipFormat { get; set; }
+    [Parameter]
+    public string? TooltipFormat { get; set; }
 
     /// <summary>
     /// Whether geometry transitions are animated when data changes — bar
@@ -163,14 +174,16 @@ public abstract class BOBChartBase<TX, TY> : BOBComponentBase, IDataVisualizatio
     /// trail behind the real value).
     /// </para>
     /// </summary>
-    [Parameter] public bool Animated { get; set; } = true;
+    [Parameter]
+    public bool Animated { get; set; } = true;
 
     /// <summary>
     /// Duration of the data-update transition, in milliseconds. Default
     /// <c>400</c>. Ignored when <see cref="Animated"/> is <c>false</c> or
     /// the user has opted into <c>prefers-reduced-motion</c>.
     /// </summary>
-    [Parameter] public int AnimationDuration { get; set; } = 400;
+    [Parameter]
+    public int AnimationDuration { get; set; } = 400;
 
     /// <summary>
     /// Concrete charts override this to emit SVG content. The supplied
@@ -347,6 +360,7 @@ public abstract class BOBChartBase<TX, TY> : BOBComponentBase, IDataVisualizatio
         {
             return;
         }
+
         _activeTooltip = (pixelX, pixelY, ctx);
         StateHasChanged();
     }
@@ -354,7 +368,11 @@ public abstract class BOBChartBase<TX, TY> : BOBComponentBase, IDataVisualizatio
     /// <summary>Concrete cartesian charts call this from mouseleave to dismiss the overlay.</summary>
     private protected void ClearActiveTooltip()
     {
-        if (_activeTooltip is null) return;
+        if (_activeTooltip is null)
+        {
+            return;
+        }
+
         _activeTooltip = null;
         StateHasChanged();
     }
@@ -369,7 +387,7 @@ public abstract class BOBChartBase<TX, TY> : BOBComponentBase, IDataVisualizatio
     /// the legend block even when <see cref="ShowLegend"/> is <c>true</c>.
     /// </summary>
     private protected virtual IEnumerable<LegendEntry> GetLegendEntries() =>
-        Array.Empty<LegendEntry>();
+        [];
 
     /// <summary>
     /// Per-entry data emitted by <see cref="GetLegendEntries"/>.
@@ -381,7 +399,10 @@ public abstract class BOBChartBase<TX, TY> : BOBComponentBase, IDataVisualizatio
     private void RenderLegend(RenderTreeBuilder builder)
     {
         List<LegendEntry> entries = GetLegendEntries().ToList();
-        if (entries.Count == 0) return;
+        if (entries.Count == 0)
+        {
+            return;
+        }
 
         builder.OpenElement(40, "ul");
         builder.AddAttribute(41, "class", "bob-chart__legend");
@@ -438,7 +459,11 @@ public abstract class BOBChartBase<TX, TY> : BOBComponentBase, IDataVisualizatio
     /// </summary>
     public async Task ToggleSeriesAsync(string label)
     {
-        if (string.IsNullOrEmpty(label)) return;
+        if (string.IsNullOrEmpty(label))
+        {
+            return;
+        }
+
         if (!_hiddenSeries.Add(label))
         {
             _hiddenSeries.Remove(label);
@@ -456,7 +481,10 @@ public abstract class BOBChartBase<TX, TY> : BOBComponentBase, IDataVisualizatio
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         await base.OnAfterRenderAsync(firstRender);
-        if (!firstRender || IsDisposed) return;
+        if (!firstRender || IsDisposed)
+        {
+            return;
+        }
 
         // Install ResizeObserver only when at least one dimension is auto.
         // When BOTH Width and Height are pinned the chart is fixed-size and
@@ -477,12 +505,13 @@ public abstract class BOBChartBase<TX, TY> : BOBComponentBase, IDataVisualizatio
                     {
                         await ChartInterop.UnobserveResizeAsync(_resizeHandle);
                     }
+
                     _dotnetRef?.Dispose();
                     _dotnetRef = null;
                     return;
                 }
             }
-            catch (Microsoft.JSInterop.JSDisconnectedException) { }
+            catch (JSDisconnectedException) { }
             catch (ObjectDisposedException) { }
             catch (InvalidOperationException) { }
             catch (TaskCanceledException) { }
@@ -508,7 +537,10 @@ public abstract class BOBChartBase<TX, TY> : BOBComponentBase, IDataVisualizatio
     [JSInvokable]
     public Task OnResize(double width, double height)
     {
-        if (IsDisposed) return Task.CompletedTask;
+        if (IsDisposed)
+        {
+            return Task.CompletedTask;
+        }
 
         // Only re-render when the rounded value actually changed — observers
         // can fire several times per second during a drag-resize.
@@ -520,12 +552,18 @@ public abstract class BOBChartBase<TX, TY> : BOBComponentBase, IDataVisualizatio
             _measuredWidth = w;
             changed = true;
         }
+
         if (Height is null && _measuredHeight != h)
         {
             _measuredHeight = h;
             changed = true;
         }
-        if (changed) StateHasChanged();
+
+        if (changed)
+        {
+            StateHasChanged();
+        }
+
         return Task.CompletedTask;
     }
 
@@ -553,10 +591,11 @@ public abstract class BOBChartBase<TX, TY> : BOBComponentBase, IDataVisualizatio
             {
                 await ChartInterop.UnobserveResizeAsync(_resizeHandle);
             }
-            catch (Microsoft.JSInterop.JSDisconnectedException) { }
+            catch (JSDisconnectedException) { }
             catch (ObjectDisposedException) { }
             catch (InvalidOperationException) { }
             catch (TaskCanceledException) { }
+
             _resizeHandle = null;
         }
 
@@ -605,7 +644,7 @@ public abstract class BOBChartBase<TX, TY> : BOBComponentBase, IDataVisualizatio
         {
             await ChartInterop.ExportSvgAsPngAsync(_svgRef, ExportFileName, Width, Height);
         }
-        catch (Microsoft.JSInterop.JSDisconnectedException) { }
+        catch (JSDisconnectedException) { }
         catch (ObjectDisposedException) { }
         catch (InvalidOperationException) { }
         catch (TaskCanceledException) { }

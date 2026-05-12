@@ -15,7 +15,7 @@ public class ThemesCssGenerator : IAssetGenerator
     public string Name => "Themes CSS";
 
     public Task<string> GetContent() => Task.FromResult(CssThemeGenerator.Generate("dark",
-            [new Themes.DarkTheme(), new Themes.LightTheme()]));
+        [new DarkTheme(), new LightTheme()]));
 }
 
 public static class CssThemeGenerator
@@ -107,7 +107,8 @@ public static class CssThemeGenerator
             missing.ExceptWith(kv.Value);
             if (missing.Count > 0)
             {
-                mismatches.Add($"theme '{kv.Key}' missing {{{string.Join(", ", missing.OrderBy(x => x, StringComparer.Ordinal))}}}");
+                mismatches.Add(
+                    $"theme '{kv.Key}' missing {{{string.Join(", ", missing.OrderBy(x => x, StringComparer.Ordinal))}}}");
             }
         }
 

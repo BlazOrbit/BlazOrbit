@@ -1,0 +1,86 @@
+// Auto-migrated from BarChartPage.es.resx. Edit freely from now on.
+
+# Bar group ratio
+Relación de grupo de barras
+
+# BarGroupRatio (0..1) controls how much of each category band the bars fill. 1.0 = touching, 0.5 = half-padded.
+BarGroupRatio (0..1) controla cuánto de cada banda de categoría llenan las barras. 1,0 = juntas, 0,5 = medio relleno.
+
+# Basic usage
+Uso básico
+
+# Bidirectional stacked
+Apilado bidireccional
+
+# BOBBarChart
+BOBBarChart
+
+# Chart
+Gráfico
+
+# Click handler
+Manejador de clic
+
+# Custom tooltip
+Bloque de consejo personalizado
+
+# Each category gets its own band; series within a band are grouped side-by-side.
+Cada categoría tiene su propia banda; las series dentro de una banda se agrupan lado a lado.
+
+# Extra package required
+Paquete adicional requerido
+
+# Legend on top
+Leyenda arriba
+
+# LegendPosition moves the legend block. Bottom is the default; here it is placed at the top.
+LegendPosition mueve el bloque de leyenda. Abajo es el valor predeterminado; aquí se coloca arriba.
+
+# Multi-series
+Multi-serie
+
+# OnPointClick fires when a bar is clicked, carrying the series label, X / Y values and point index.
+OnPointClick se dispara al hacer clic en una barra, llevando la etiqueta de la serie, valores X / Y e índice del punto.
+
+# Percent stacked
+Apilado porcentual
+
+# Reference lines
+Líneas de referencia
+
+# Reference lines draw horizontal thresholds across the plot area. They render over the grid but under the bars so hover and click still work.
+Las líneas de referencia dibujan umbrales horizontales a través del área de trazado. Se dibujan sobre la cuadrícula pero debajo de las barras para que el pasar el ratón y el clic sigan funcionando.
+
+# Set ShowExportButton to true to render a download icon in the top-right corner. Clicking it rasterizes the SVG to a PNG client-side and triggers a browser download.
+Establece ShowExportButton en true para renderizar un icono de descarga en la esquina superior derecha. Al hacer clic, rasteriza el SVG a PNG en el cliente e inicia una descarga del navegador.
+
+# Stacked bars
+Barras apiladas
+
+# StackMode = Bidirectional stacks positive values upward from the zero baseline and negative values downward, each side keeping its own running cumulative. Ideal for budget variance, P&L by segment and cash inflow / outflow visualisations.
+StackMode = Bidirectional apila valores positivos hacia arriba desde la línea base cero y valores negativos hacia abajo, cada lado manteniendo su propio acumulado. Ideal para variaciones de presupuesto, P&L por segmento y visualizaciones de entradas / salidas de efectivo.
+
+# StackMode = PercentStacked normalises every category to 100%. Useful for comparing proportional contribution across categories.
+StackMode = PercentStacked normaliza cada categoría al 100%. Útil para comparar la contribución proporcional entre categorías.
+
+# StackMode = Stacked renders series on top of one another so the total bar height shows the cumulative value per category.
+StackMode = Stacked renderiza series una sobre otra para que la altura total de la barra muestre el valor acumulado por categoría.
+
+# StackMode = Waterfall — single series where each bar represents a delta from the running cumulative of all previous bars. Standard format for P&L bridges (start → adjustments → end), budget vs actuals and cash-flow waterfalls.
+StackMode = Waterfall: serie única donde cada barra representa un delta del acumulado de todas las barras anteriores. Formato estándar para puentes P&L (inicio → ajustes → fin), presupuesto vs reales y cascadas de flujo de caja.
+
+# This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs.
+Este gráfico requiere el paquete NuGet BlazOrbit.Charts. Instálalo con dotnet add package BlazOrbit.Charts y registra AddBlazOrbitCharts() en Program.cs.
+
+# TooltipTemplate replaces the native SVG tooltip with your own HTML fragment. The context exposes SeriesLabel, X, Y and Color.
+TooltipTemplate reemplaza el tooltip SVG nativo con tu propio fragmento HTML. El contexto expone SeriesLabel, X, Y y Color.
+
+# Vertical bar chart with multi-series support. Categorical X axis (typically string labels), linear numeric Y axis. Bars within a category render side-by-side.
+Gráfico de barras vertical con soporte multiseries. Eje X categórico (normalmente etiquetas de texto), eje Y numérico lineal. Las barras dentro de una categoría se renderizan lado a lado.
+
+# Waterfall (P&L bridge)
+Cascada (puente P&L)
+
+# With export button
+Con botón de exportación
+

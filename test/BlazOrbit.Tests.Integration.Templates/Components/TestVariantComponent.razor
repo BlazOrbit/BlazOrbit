@@ -15,7 +15,7 @@
     protected override Dictionary<TestVariant, Func<TestVariantComponent, RenderFragment>> BuiltInTemplates { get; } = new()
     {
         [TestVariant.Default] = component => component.RenderDefault(),
-        [TestVariant.Alternative] = component => component.RenderAlternative(),
+        [TestVariant.Alternative] = component => component.RenderAlternative()
     };
 
     private RenderFragment RenderDefault() => __builder =>
@@ -36,4 +36,5 @@
             </div>
         </bob-component>
     };
+
 }

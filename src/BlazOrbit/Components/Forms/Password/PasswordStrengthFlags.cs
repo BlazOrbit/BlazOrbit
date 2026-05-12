@@ -8,5 +8,5 @@ public enum PasswordStrengthFlags
     HasLower = 1 << 1,
     HasDigit = 1 << 2,
     HasSymbol = 1 << 3,
-    MeetsLength = 1 << 4,
+    MeetsLength = 1 << 4
 }

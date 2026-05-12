@@ -95,7 +95,7 @@
     inset: 0;
     transform-origin: center center;
     transition: transform var(--_carousel-transition-duration) var(--_carousel-transition-easing),
-                opacity var(--_carousel-transition-duration) var(--_carousel-transition-easing);
+    opacity var(--_carousel-transition-duration) var(--_carousel-transition-easing);
     pointer-events: none;
     will-change: transform, opacity;
     backface-visibility: hidden;
@@ -130,7 +130,7 @@
     inset: 0;
     transform-origin: center center;
     transition: transform var(--_carousel-transition-duration) var(--_carousel-transition-easing),
-                opacity var(--_carousel-transition-duration) var(--_carousel-transition-easing);
+    opacity var(--_carousel-transition-duration) var(--_carousel-transition-easing);
     pointer-events: none;
     backface-visibility: hidden;
     will-change: transform, opacity;
@@ -158,19 +158,19 @@
     transition: opacity var(--_carousel-transition-duration) var(--_carousel-transition-easing);
 }
 
-    .bob-carousel__arrow:hover:not(:disabled) {
-        opacity: 0.85;
-    }
+.bob-carousel__arrow:hover:not(:disabled) {
+    opacity: 0.85;
+}
 
-    .bob-carousel__arrow:focus-visible {
-        outline: 2px solid var(--palette-primary);
-        outline-offset: 2px;
-    }
+.bob-carousel__arrow:focus-visible {
+    outline: 2px solid var(--palette-primary);
+    outline-offset: 2px;
+}
 
-    .bob-carousel__arrow:disabled {
-        opacity: var(--bob-opacity-disabled, 0.4);
-        cursor: not-allowed;
-    }
+.bob-carousel__arrow:disabled {
+    opacity: var(--bob-opacity-disabled, 0.4);
+    cursor: not-allowed;
+}
 
 .bob-carousel__arrow--prev {
     left: 0.5rem;
@@ -199,15 +199,15 @@
     color: var(--_carousel-indicator-color);
 }
 
-    .bob-carousel__indicator:focus-visible {
-        outline: 2px solid var(--palette-primary);
-        outline-offset: 2px;
-        border-radius: 4px;
-    }
+.bob-carousel__indicator:focus-visible {
+    outline: 2px solid var(--palette-primary);
+    outline-offset: 2px;
+    border-radius: 4px;
+}
 
-    .bob-carousel__indicator[data-bob-active="true"] {
-        color: var(--_carousel-indicator-active-color);
-    }
+.bob-carousel__indicator[data-bob-active="true"] {
+    color: var(--_carousel-indicator-active-color);
+}
 
 .bob-carousel__indicator-dot {
     width: var(--_carousel-indicator-dot-size);

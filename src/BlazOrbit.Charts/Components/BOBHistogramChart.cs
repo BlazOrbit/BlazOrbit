@@ -22,31 +22,39 @@ public class BOBHistogramChart<T> :
     where T : struct
 {
     /// <summary>Raw observations to bin and plot. Repeated values increase a bin's count.</summary>
-    [Parameter] public IEnumerable<T>? Values { get; set; }
+    [Parameter]
+    public IEnumerable<T>? Values { get; set; }
 
     /// <summary>Binning rule. Default <see cref="BOBHistogramBinRule.Sturges"/>.</summary>
-    [Parameter] public BOBHistogramBinRule BinRule { get; set; } = BOBHistogramBinRule.Sturges;
+    [Parameter]
+    public BOBHistogramBinRule BinRule { get; set; } = BOBHistogramBinRule.Sturges;
 
     /// <summary>Bin count when <see cref="BinRule"/> is <see cref="BOBHistogramBinRule.FixedCount"/>.</summary>
-    [Parameter] public int BinCount { get; set; } = 10;
+    [Parameter]
+    public int BinCount { get; set; } = 10;
 
     /// <summary>Optional fill color override; falls back to the active palette's first color.</summary>
-    [Parameter] public string? Color { get; set; }
+    [Parameter]
+    public string? Color { get; set; }
 
     /// <summary>
     /// When <c>true</c>, draws vertical guide lines at the median and 95th
     /// percentile of <see cref="Values"/>. Default <c>false</c>.
     /// </summary>
-    [Parameter] public bool ShowQuantileLines { get; set; }
+    [Parameter]
+    public bool ShowQuantileLines { get; set; }
 
     /// <summary>Number-format used for bin label ranges. Default <c>"G"</c>.</summary>
-    [Parameter] public string? BinLabelFormat { get; set; }
+    [Parameter]
+    public string? BinLabelFormat { get; set; }
 
     /// <inheritdoc />
-    [Parameter] public BOBChartAxis XAxis { get; set; } = new();
+    [Parameter]
+    public BOBChartAxis XAxis { get; set; } = new();
 
     /// <inheritdoc />
-    [Parameter] public BOBChartAxis YAxis { get; set; } = new();
+    [Parameter]
+    public BOBChartAxis YAxis { get; set; } = new();
 
     /// <inheritdoc />
     protected override string BuildAriaLabel()
@@ -58,26 +66,36 @@ public class BOBHistogramChart<T> :
     /// <inheritdoc />
     protected override void RenderSvg(RenderTreeBuilder builder)
     {
-        if (Values is null) return;
+        if (Values is null)
+        {
+            return;
+        }
+
         double[] raw = Values.Select(v => Convert.ToDouble(v, CultureInfo.InvariantCulture)).ToArray();
-        if (raw.Length == 0) return;
+        if (raw.Length == 0)
+        {
+            return;
+        }
 
         Binning.Rule rule = BinRule switch
         {
             BOBHistogramBinRule.Scott => Binning.Rule.Scott,
             BOBHistogramBinRule.FreedmanDiaconis => Binning.Rule.FreedmanDiaconis,
             BOBHistogramBinRule.FixedCount => Binning.Rule.FixedCount,
-            _ => Binning.Rule.Sturges,
+            _ => Binning.Rule.Sturges
         };
         Binning.Bin[] bins = Binning.Compute(raw, rule, BinCount);
-        if (bins.Length == 0) return;
+        if (bins.Length == 0)
+        {
+            return;
+        }
 
         ChartLayout layout = ChartLayout.Default(EffectiveWidth, EffectiveHeight);
         int maxCount = bins.Max(b => b.Count);
         LinearScale yScale = new(
-            new[] { 0.0, (double)maxCount },
+            [0.0, (double)maxCount],
             layout.PlotBottom, layout.PlotTop, YAxis.Min, YAxis.Max,
-            includeZero: true);
+            true);
 
         double bandWidth = layout.PlotWidth / bins.Length;
         string fill = Color ?? Palette.ColorAt(0);
@@ -99,8 +117,10 @@ public class BOBHistogramChart<T> :
                 builder.AddAttribute(seq++, "y2", ChartLayout.ToInvariant(y));
                 builder.CloseElement();
             }
+
             builder.CloseElement();
         }
+
         if (YAxis.ShowLabels)
         {
             builder.OpenElement(seq++, "g");
@@ -116,6 +136,7 @@ public class BOBHistogramChart<T> :
                 builder.AddContent(seq++, tick.ToString(yFormat, CultureInfo.InvariantCulture));
                 builder.CloseElement();
             }
+
             builder.CloseElement();
         }
 
@@ -123,7 +144,7 @@ public class BOBHistogramChart<T> :
         for (int i = 0; i < bins.Length; i++)
         {
             Binning.Bin bin = bins[i];
-            double xLeft = layout.PlotLeft + i * bandWidth;
+            double xLeft = layout.PlotLeft + (i * bandWidth);
             double yTop = yScale.Project(bin.Count);
             double yBottom = yScale.Project(0);
             double height = Math.Max(0, yBottom - yTop);
@@ -152,8 +173,12 @@ public class BOBHistogramChart<T> :
             int sampleEvery = Math.Max(1, bins.Length / 6);
             for (int i = 0; i < bins.Length; i++)
             {
-                if (i % sampleEvery != 0 && i != bins.Length - 1) continue;
-                double xCenter = layout.PlotLeft + i * bandWidth + bandWidth / 2;
+                if (i % sampleEvery != 0 && i != bins.Length - 1)
+                {
+                    continue;
+                }
+
+                double xCenter = layout.PlotLeft + (i * bandWidth) + (bandWidth / 2);
                 builder.OpenElement(seq++, "text");
                 builder.AddAttribute(seq++, "x", ChartLayout.ToInvariant(xCenter));
                 builder.AddAttribute(seq++, "y", ChartLayout.ToInvariant(layout.PlotBottom + 18));
@@ -161,6 +186,7 @@ public class BOBHistogramChart<T> :
                 builder.AddContent(seq++, bins[i].Lower.ToString(format, CultureInfo.InvariantCulture));
                 builder.CloseElement();
             }
+
             builder.CloseElement();
         }
 
@@ -172,7 +198,8 @@ public class BOBHistogramChart<T> :
             // Both quantile lines map across the data extent — projected to
             // pixel x using the same bin geometry: locate the bin then
             // interpolate within it.
-            DrawQuantileLine(builder, ref seq, layout, bins, bandWidth, median, "Median", "var(--palette-primary, #2563eb)");
+            DrawQuantileLine(builder, ref seq, layout, bins, bandWidth, median, "Median",
+                "var(--palette-primary, #2563eb)");
             DrawQuantileLine(builder, ref seq, layout, bins, bandWidth, p95, "P95", "var(--palette-error, #dc2626)");
         }
     }
@@ -183,9 +210,13 @@ public class BOBHistogramChart<T> :
     {
         double min = bins[0].Lower;
         double max = bins[^1].Upper;
-        if (Math.Abs(max - min) < double.Epsilon) return;
+        if (Math.Abs(max - min) < double.Epsilon)
+        {
+            return;
+        }
+
         double t = (value - min) / (max - min);
-        double x = layout.PlotLeft + t * (layout.PlotWidth);
+        double x = layout.PlotLeft + (t * layout.PlotWidth);
         builder.OpenElement(seq++, "line");
         builder.AddAttribute(seq++, "class", "bob-histogram-chart__quantile");
         builder.AddAttribute(seq++, "x1", ChartLayout.ToInvariant(x));

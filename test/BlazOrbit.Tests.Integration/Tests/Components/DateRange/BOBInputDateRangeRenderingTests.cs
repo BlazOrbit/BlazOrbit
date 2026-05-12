@@ -20,7 +20,8 @@ public class BOBInputDateRangeRenderingTests
         // <bob-component data-bob-component="input-date-range"> root, with the
         // separator glyph between them.
         IRenderedComponent<BOBInputDateRange> cut = ctx.Render<BOBInputDateRange>(p => p
-            .Add(c => c.Value, new BlazOrbit.Components.DateRange(new DateOnly(2026, 1, 1), new DateOnly(2026, 1, 31))));
+            .Add(c => c.Value,
+                new BlazOrbit.Components.DateRange(new DateOnly(2026, 1, 1), new DateOnly(2026, 1, 31))));
 
         cut.Find("bob-component[data-bob-component='input-date-range']").Should().NotBeNull();
         cut.FindAll("[data-bob-component='input-date-time']").Should().HaveCount(2);
@@ -36,7 +37,7 @@ public class BOBInputDateRangeRenderingTests
         IRenderedComponent<BOBInputDateRange> cut = ctx.Render<BOBInputDateRange>(p => p
             .Add(c => c.Label, "Range")
             .Add(c => c.Required, true)
-            .Add(c => c.Value, default(BlazOrbit.Components.DateRange)));
+            .Add(c => c.Value, default));
 
         cut.Find("label.bob-daterange__label").TextContent.Should().Contain("Range");
         cut.Find(".bob-field__required").TextContent.Should().Be("*");

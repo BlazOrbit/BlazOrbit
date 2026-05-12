@@ -34,7 +34,8 @@ public class BOBTransitions
 
             foreach (TransitionEntry entry in entries)
             {
-                variables[FeatureDefinitions.Tokens.Transitions.VariableFor(triggerName, entry.CssProperty)] = entry.Value;
+                variables[FeatureDefinitions.Tokens.Transitions.VariableFor(triggerName, entry.CssProperty)] =
+                    entry.Value;
             }
         }
 

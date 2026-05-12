@@ -1,0 +1,20 @@
+// French translations for LocalizationDemo.
+// Keys with no entry here fall back to the English literal.
+
+# Localization Demo
+Démo de localisation
+
+# This page shows how BlazOrbit localization works with literal keys, translated keys, arguments, and HTML.
+Cette page montre comment fonctionne la localisation de BlazOrbit avec des clés littérales, des clés traduites, des arguments et du HTML.
+
+# Hello, world!
+Bonjour, le monde !
+
+# Welcome {0}!
+Bienvenue, {0} !
+
+# <strong>Bold</strong> text from translation.
+Texte en <strong>gras</strong> depuis la traduction.
+
+# Card Example
+Exemple de carte

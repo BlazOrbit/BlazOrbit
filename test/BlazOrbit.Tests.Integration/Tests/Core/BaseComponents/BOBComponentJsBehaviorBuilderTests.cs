@@ -70,9 +70,7 @@ public class BOBComponentJsBehaviorBuilderTests
 
         RippleComponentWithElementReference component = new()
         {
-            DisableRipple = false,
-            RippleColor = "#abcdef",
-            RippleDurationMs = 250
+            DisableRipple = false, RippleColor = "#abcdef", RippleDurationMs = 250
         };
 
         BOBComponentJsBehaviorBuilder builder = BOBComponentJsBehaviorBuilder.For(component, interop);
@@ -109,11 +107,7 @@ public class BOBComponentJsBehaviorBuilderTests
             .AttachBehaviorsAsync(Arg.Do<BehaviorConfiguration>(c => captured = c))
             .Returns(new ValueTask<IJSObjectReference>(jsRef));
 
-        RippleComponent component = new()
-        {
-            RippleColor = null,
-            RippleDurationMs = null
-        };
+        RippleComponent component = new() { RippleColor = null, RippleDurationMs = null };
 
         BOBComponentJsBehaviorBuilder builder = BOBComponentJsBehaviorBuilder.For(component, interop);
 
@@ -131,11 +125,7 @@ public class BOBComponentJsBehaviorBuilderTests
             .AttachBehaviorsAsync(Arg.Do<BehaviorConfiguration>(c => captured = c))
             .Returns(new ValueTask<IJSObjectReference>(jsRef));
 
-        RippleComponentWithElementReference component = new()
-        {
-            RippleColor = null,
-            RippleDurationMs = null
-        };
+        RippleComponentWithElementReference component = new() { RippleColor = null, RippleDurationMs = null };
 
         BOBComponentJsBehaviorBuilder builder = BOBComponentJsBehaviorBuilder.For(component, interop);
 
@@ -171,7 +161,7 @@ public class BOBComponentJsBehaviorBuilderTests
         public string? RippleColor { get; set; }
         public int? RippleDurationMs { get; set; }
 
-        public ElementReference GetRippleContainer() => default;
+        public ElementReference? GetRippleContainer() => default;
     }
 
     private sealed class RippleComponentWithElementReference : ComponentBase, IHasRipple
@@ -180,6 +170,6 @@ public class BOBComponentJsBehaviorBuilderTests
         public string? RippleColor { get; set; }
         public int? RippleDurationMs { get; set; }
 
-        public ElementReference GetRippleContainer() => new("stub-id");
+        public ElementReference? GetRippleContainer() => new("stub-id");
     }
 }

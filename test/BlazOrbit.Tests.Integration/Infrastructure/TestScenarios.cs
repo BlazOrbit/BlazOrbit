@@ -9,38 +9,37 @@ public sealed record BlazorScenario(
 public class TestScenarios
 {
     public static IEnumerable<object[]> All
-    => [
-        new object[]
-        {
-            new BlazorScenario(
-                "Server",
-                () => new ServerTestContext())
-        },
-        new object[]
-        {
-            new BlazorScenario(
-                "Wasm",
-                () => new WasmTestContext())
-        }
-    ];
+        =>
+        [
+            [
+                new BlazorScenario(
+                    "Server",
+                    () => new ServerTestContext())
+            ],
+            [
+                new BlazorScenario(
+                    "Wasm",
+                    () => new WasmTestContext())
+            ]
+        ];
 
     public static IEnumerable<object[]> OnlyServer
-    => [
-        new object[]
-        {
-            new BlazorScenario(
-                "Server",
-                () => new ServerTestContext())
-        }
-    ];
+        =>
+        [
+            [
+                new BlazorScenario(
+                    "Server",
+                    () => new ServerTestContext())
+            ]
+        ];
 
     public static IEnumerable<object[]> OnlyWasm
-        => [
-        new object[]
-        {
-            new BlazorScenario(
-                "Wasm",
-                () => new WasmTestContext())
-        }
-    ];
+        =>
+        [
+            [
+                new BlazorScenario(
+                    "Wasm",
+                    () => new WasmTestContext())
+            ]
+        ];
 }

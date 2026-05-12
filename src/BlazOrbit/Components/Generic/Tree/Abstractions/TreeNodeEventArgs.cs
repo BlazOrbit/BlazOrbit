@@ -6,10 +6,13 @@ public sealed class TreeNodeEventArgs<TNode> : EventArgs
 {
     /// <summary>Depth of the affected node.</summary>
     public int Depth { get; init; }
+
     /// <summary><see langword="true"/> when the node is currently expanded.</summary>
     public bool IsExpanded { get; init; }
+
     /// <summary>Stable key of the affected node.</summary>
     public required string Key { get; init; }
+
     /// <summary>Affected node instance.</summary>
     public required TNode Node { get; init; }
 }

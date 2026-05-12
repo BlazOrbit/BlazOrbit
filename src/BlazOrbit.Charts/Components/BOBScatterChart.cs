@@ -29,47 +29,59 @@ public class BOBScatterChart<TX, TY> :
     where TX : notnull
 {
     /// <inheritdoc />
-    [Parameter] public IEnumerable<BOBChartSeries<TX, TY>>? Series { get; set; }
+    [Parameter]
+    public IEnumerable<BOBChartSeries<TX, TY>>? Series { get; set; }
 
     /// <summary>
     /// Optional bubble series rendered alongside <see cref="Series"/>. Each
     /// point's <see cref="BOBChartBubblePoint{TX, TY}.Size"/> is auto-scaled
     /// across the union of all bubble points into pixel radii.
     /// </summary>
-    [Parameter] public IEnumerable<BOBChartBubbleSeries<TX, TY>>? BubbleSeries { get; set; }
+    [Parameter]
+    public IEnumerable<BOBChartBubbleSeries<TX, TY>>? BubbleSeries { get; set; }
 
     /// <inheritdoc />
-    [Parameter] public BOBChartAxis XAxis { get; set; } = new();
+    [Parameter]
+    public BOBChartAxis XAxis { get; set; } = new();
 
     /// <inheritdoc />
-    [Parameter] public BOBChartAxis YAxis { get; set; } = new();
+    [Parameter]
+    public BOBChartAxis YAxis { get; set; } = new();
 
     /// <summary>Pixel radius of the per-point markers in <see cref="Series"/> mode.</summary>
-    [Parameter] public double MarkerRadius { get; set; } = 5;
+    [Parameter]
+    public double MarkerRadius { get; set; } = 5;
 
     /// <summary>Lower clamp for bubble radii (px) when mapping <see cref="BOBChartBubblePoint{TX, TY}.Size"/> across <see cref="BubbleSeries"/>.</summary>
-    [Parameter] public double BubbleMinRadius { get; set; } = 4;
+    [Parameter]
+    public double BubbleMinRadius { get; set; } = 4;
 
     /// <summary>Upper clamp for bubble radii (px) when mapping <see cref="BOBChartBubblePoint{TX, TY}.Size"/> across <see cref="BubbleSeries"/>.</summary>
-    [Parameter] public double BubbleMaxRadius { get; set; } = 28;
+    [Parameter]
+    public double BubbleMaxRadius { get; set; } = 28;
 
     /// <summary>
     /// Marker fill opacity (0..1). Default 0.7 keeps overlapping points
     /// individually distinguishable without sacrificing color identity.
     /// </summary>
-    [Parameter] public double MarkerOpacity { get; set; } = 0.7;
+    [Parameter]
+    public double MarkerOpacity { get; set; } = 0.7;
 
     /// <summary>Optional reference / threshold lines drawn across the plot.</summary>
-    [Parameter] public IEnumerable<BOBChartReferenceLine>? ReferenceLines { get; set; }
+    [Parameter]
+    public IEnumerable<BOBChartReferenceLine>? ReferenceLines { get; set; }
 
     /// <summary>Optional annotations (text / band / shape) layered on top of the markers.</summary>
-    [Parameter] public IEnumerable<BOBChartAnnotation>? Annotations { get; set; }
+    [Parameter]
+    public IEnumerable<BOBChartAnnotation>? Annotations { get; set; }
 
     /// <summary>Fired when the user clicks a marker.</summary>
-    [Parameter] public EventCallback<BOBChartClickArgs<TX, TY>> OnPointClick { get; set; }
+    [Parameter]
+    public EventCallback<BOBChartClickArgs<TX, TY>> OnPointClick { get; set; }
 
     /// <summary>Fired when the user hovers a marker (mouseenter).</summary>
-    [Parameter] public EventCallback<BOBChartHoverArgs<TX, TY>> OnDataHover { get; set; }
+    [Parameter]
+    public EventCallback<BOBChartHoverArgs<TX, TY>> OnDataHover { get; set; }
 
     private List<int>? _scatterOriginalIndices;
     private List<int>? _bubbleOriginalIndices;
@@ -84,7 +96,7 @@ public class BOBScatterChart<TX, TY> :
         {
             0 => "Scatter chart with no data",
             1 => "Scatter chart with one series",
-            _ => $"Scatter chart with {total} series",
+            _ => $"Scatter chart with {total} series"
         };
     }
 
@@ -100,8 +112,8 @@ public class BOBScatterChart<TX, TY> :
 
         // Filter visible series + capture original indices so legend toggles
         // don't shift palette colors.
-        List<BOBChartSeries<TX, TY>> scatterList = new();
-        List<int> scatterOrig = new();
+        List<BOBChartSeries<TX, TY>> scatterList = [];
+        List<int> scatterOrig = [];
         if (hasScatter)
         {
             List<BOBChartSeries<TX, TY>> all = Series!.ToList();
@@ -115,8 +127,8 @@ public class BOBScatterChart<TX, TY> :
             }
         }
 
-        List<BOBChartBubbleSeries<TX, TY>> bubbleList = new();
-        List<int> bubbleOrig = new();
+        List<BOBChartBubbleSeries<TX, TY>> bubbleList = [];
+        List<int> bubbleOrig = [];
         if (hasBubble)
         {
             List<BOBChartBubbleSeries<TX, TY>> all = BubbleSeries!.ToList();
@@ -153,6 +165,7 @@ public class BOBScatterChart<TX, TY> :
         {
             return;
         }
+
         LinearScale yScale = new(allY, layout.PlotBottom, layout.PlotTop, YAxis.Min, YAxis.Max);
 
         // X scale — continuous (numeric / temporal) or categorical fallback.
@@ -178,8 +191,11 @@ public class BOBScatterChart<TX, TY> :
         (double sMin, double sMax) = bubbleList.Count == 0
             ? (0, 1)
             : (bubbleList.SelectMany(b => b.Points).Min(p => p.Size),
-               bubbleList.SelectMany(b => b.Points).Max(p => p.Size));
-        if (Math.Abs(sMax - sMin) < double.Epsilon) sMax = sMin + 1;
+                bubbleList.SelectMany(b => b.Points).Max(p => p.Size));
+        if (Math.Abs(sMax - sMin) < double.Epsilon)
+        {
+            sMax = sMin + 1;
+        }
 
         int seq = 100;
         RenderGrid(builder, ref seq, layout, yScale);
@@ -200,7 +216,11 @@ public class BOBScatterChart<TX, TY> :
 
     private void RenderGrid(RenderTreeBuilder builder, ref int seq, ChartLayout layout, LinearScale yScale)
     {
-        if (!YAxis.ShowGrid) return;
+        if (!YAxis.ShowGrid)
+        {
+            return;
+        }
+
         builder.OpenElement(seq++, "g");
         builder.AddAttribute(seq++, "class", "bob-scatter-chart__grid");
         foreach (double tick in yScale.Ticks())
@@ -213,12 +233,17 @@ public class BOBScatterChart<TX, TY> :
             builder.AddAttribute(seq++, "y2", ChartLayout.ToInvariant(y));
             builder.CloseElement();
         }
+
         builder.CloseElement();
     }
 
     private void RenderYAxisLabels(RenderTreeBuilder builder, ref int seq, ChartLayout layout, LinearScale yScale)
     {
-        if (!YAxis.ShowLabels) return;
+        if (!YAxis.ShowLabels)
+        {
+            return;
+        }
+
         builder.OpenElement(seq++, "g");
         builder.AddAttribute(seq++, "class", "bob-scatter-chart__axis bob-scatter-chart__axis--y");
         string format = YAxis.Format ?? yScale.SuggestedFormat();
@@ -232,6 +257,7 @@ public class BOBScatterChart<TX, TY> :
             builder.AddContent(seq++, tick.ToString(format, CultureInfo.InvariantCulture));
             builder.CloseElement();
         }
+
         builder.CloseElement();
     }
 
@@ -239,7 +265,11 @@ public class BOBScatterChart<TX, TY> :
         RenderTreeBuilder builder, ref int seq, ChartLayout layout,
         LinearScale? xLinear, CategoricalScale<TX>? xCat)
     {
-        if (!XAxis.ShowLabels) return;
+        if (!XAxis.ShowLabels)
+        {
+            return;
+        }
+
         builder.OpenElement(seq++, "g");
         builder.AddAttribute(seq++, "class", "bob-scatter-chart__axis bob-scatter-chart__axis--x");
         if (xLinear is not null)
@@ -268,6 +298,7 @@ public class BOBScatterChart<TX, TY> :
                 builder.CloseElement();
             }
         }
+
         builder.CloseElement();
     }
 
@@ -317,9 +348,10 @@ public class BOBScatterChart<TX, TY> :
                                 SeriesLabel = capturedSeries.Label,
                                 X = capturedPt.X,
                                 Y = capturedPt.Y,
-                                PointIndex = capturedIdx,
+                                PointIndex = capturedIdx
                             })));
                 }
+
                 if (OnDataHover.HasDelegate)
                 {
                     builder.AddAttribute(seq++, "onmouseenter",
@@ -330,9 +362,10 @@ public class BOBScatterChart<TX, TY> :
                                 SeriesLabel = capturedSeries.Label,
                                 X = capturedPt.X,
                                 Y = capturedPt.Y,
-                                PointIndex = capturedIdx,
+                                PointIndex = capturedIdx
                             })));
                 }
+
                 builder.OpenElement(seq++, "title");
                 builder.AddContent(seq++, $"{series.Label}: ({pt.X}, {pt.Y})");
                 builder.CloseElement();
@@ -369,7 +402,7 @@ public class BOBScatterChart<TX, TY> :
                     : xCat!.Center(pt.X);
                 double cy = yScale.Project(Numeric.ToDouble(pt.Y));
                 double t = (pt.Size - sizeMin) / (sizeMax - sizeMin);
-                double r = BubbleMinRadius + t * (BubbleMaxRadius - BubbleMinRadius);
+                double r = BubbleMinRadius + (t * (BubbleMaxRadius - BubbleMinRadius));
 
                 builder.OpenElement(seq++, "circle");
                 builder.AddAttribute(seq++, "class", "bob-scatter-chart__bubble");
@@ -405,8 +438,12 @@ public class BOBScatterChart<TX, TY> :
                 case BOBChartTextAnnotation<TX, TY> text:
                     {
                         double? cxn = xLinear is not null ? xLinear.Project(Numeric.ToDouble(text.X)) :
-                                      xCat is not null ? xCat.Center(text.X) : (double?)null;
-                        if (cxn is null) break;
+                            xCat is not null ? xCat.Center(text.X) : (double?)null;
+                        if (cxn is null)
+                        {
+                            break;
+                        }
+
                         double cyn = yScale.Project(Numeric.ToDouble(text.Y));
                         builder.OpenElement(seq++, "text");
                         builder.AddAttribute(seq++, "class", "bob-chart__annotation-text");
@@ -419,6 +456,7 @@ public class BOBScatterChart<TX, TY> :
                     }
             }
         }
+
         builder.CloseElement();
     }
 
@@ -434,6 +472,7 @@ public class BOBScatterChart<TX, TY> :
                 i++;
             }
         }
+
         if (BubbleSeries is not null)
         {
             int offset = Series?.Count() ?? 0;

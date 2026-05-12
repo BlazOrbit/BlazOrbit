@@ -10,12 +10,12 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Charts.PieChart;
 [Trait("Component Rendering", "BOBPieChart")]
 public class BOBPieChartRenderingTests
 {
-    private static IEnumerable<BOBChartSlice<decimal>> SampleSlices() => new[]
-    {
-        new BOBChartSlice<decimal> { Label = "EMEA",     Value = 45m },
+    private static IEnumerable<BOBChartSlice<decimal>> SampleSlices() =>
+    [
+        new BOBChartSlice<decimal> { Label = "EMEA", Value = 45m },
         new BOBChartSlice<decimal> { Label = "Americas", Value = 35m },
-        new BOBChartSlice<decimal> { Label = "APAC",     Value = 20m },
-    };
+        new BOBChartSlice<decimal> { Label = "APAC", Value = 20m }
+    ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -60,8 +60,8 @@ public class BOBPieChartRenderingTests
         // the differentiator vs. a donut wedge (which has no centre line).
         string d = cut.FindAll("path.bob-pie-chart__arc").First().GetAttribute("d") ?? string.Empty;
         d.Should().StartWith("M ");
-        d.Should().Contain(" L ", because: "pie wedges include a centre-to-rim L segment");
-        d.Should().Contain(" A ", because: "the rim is drawn with an arc command");
+        d.Should().Contain(" L ", "pie wedges include a centre-to-rim L segment");
+        d.Should().Contain(" A ", "the rim is drawn with an arc command");
         d.Should().EndWith(" Z");
     }
 
@@ -116,10 +116,7 @@ public class BOBPieChartRenderingTests
 
         IRenderedComponent<BOBPieChart<decimal>> cut =
             ctx.Render<BOBPieChart<decimal>>(p => p
-                .Add(c => c.Slices, new[]
-                {
-                    new BOBChartSlice<decimal> { Label = "All", Value = 100m }
-                }));
+                .Add(c => c.Slices, [new BOBChartSlice<decimal> { Label = "All", Value = 100m }]));
 
         // 360° wedge is degenerate in SVG → fallback to <circle>.
         cut.FindAll("circle").Should().NotBeEmpty();
@@ -134,11 +131,11 @@ public class BOBPieChartRenderingTests
 
         IRenderedComponent<BOBPieChart<decimal>> cut =
             ctx.Render<BOBPieChart<decimal>>(p => p
-                .Add(c => c.Slices, new[]
-                {
+                .Add(c => c.Slices,
+                [
                     new BOBChartSlice<decimal> { Label = "A", Value = 0m },
-                    new BOBChartSlice<decimal> { Label = "B", Value = 0m },
-                }));
+                        new BOBChartSlice<decimal> { Label = "B", Value = 0m }
+                ]));
 
         cut.FindAll(".bob-pie-chart__slice").Should().BeEmpty();
     }

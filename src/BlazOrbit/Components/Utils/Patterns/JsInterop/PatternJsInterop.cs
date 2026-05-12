@@ -14,7 +14,7 @@ internal interface IPatternJsInterop
     ValueTask FocusSpanAsync(string componentId, int index);
 
     ValueTask InitializePatternAsync(
-                    ElementReference containerBox,
+        ElementReference containerBox,
         DotNetObjectReference<PatternCallbacksRelay> dotnetReference,
         string componentId);
 
@@ -54,14 +54,21 @@ internal sealed class PatternJsInterop
     public async ValueTask FocusFirstEditableAsync(string componentId)
     {
         IJSObjectReference? module = await TryGetModuleAsync();
-        if (module is null) return;
+        if (module is null)
+        {
+            return;
+        }
+
         await module.InvokeVoidAsync("focusFirstEditable", componentId);
     }
 
     public async ValueTask FocusSpanAsync(string componentId, int index)
     {
         IJSObjectReference? module = await TryGetModuleAsync();
-        if (module is null) return;
+        if (module is null)
+        {
+            return;
+        }
 
         await module.InvokeVoidAsync(
             "focusSpan",
@@ -70,12 +77,15 @@ internal sealed class PatternJsInterop
     }
 
     public async ValueTask InitializePatternAsync(
-                    ElementReference containerBox,
+        ElementReference containerBox,
         DotNetObjectReference<PatternCallbacksRelay> dotnetReference,
         string componentId)
     {
         IJSObjectReference? module = await TryGetModuleAsync();
-        if (module is null) return;
+        if (module is null)
+        {
+            return;
+        }
 
         await module.InvokeVoidAsync(
             "initialize",
@@ -97,7 +107,10 @@ internal sealed class PatternJsInterop
     public async ValueTask SelectSpanContentAsync(string componentId, int index)
     {
         IJSObjectReference? module = await TryGetModuleAsync();
-        if (module is null) return;
+        if (module is null)
+        {
+            return;
+        }
 
         await module.InvokeVoidAsync(
             "selectSpanContent",
@@ -108,7 +121,10 @@ internal sealed class PatternJsInterop
     public async ValueTask SetCaretToEndAsync(string componentId, int index)
     {
         IJSObjectReference? module = await TryGetModuleAsync();
-        if (module is null) return;
+        if (module is null)
+        {
+            return;
+        }
 
         await module.InvokeVoidAsync(
             "setCaretToEnd",
@@ -119,7 +135,10 @@ internal sealed class PatternJsInterop
     public async ValueTask UpdateSpanValueAsync(string componentId, int index, string value)
     {
         IJSObjectReference? module = await TryGetModuleAsync();
-        if (module is null) return;
+        if (module is null)
+        {
+            return;
+        }
 
         await module.InvokeVoidAsync(
             "updateSpanValue",

@@ -21,6 +21,7 @@ param(
     [string]$Root = (Get-Location)
 )
 
+Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 # ---------------------------------------------------------------------------

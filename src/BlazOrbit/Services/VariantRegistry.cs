@@ -43,7 +43,7 @@ internal sealed class VariantRegistry : IVariantRegistry
     }
 
     public void Register<TComponent, TVariant>(
-            TVariant variant,
+        TVariant variant,
         Func<TComponent, RenderFragment> template)
         where TComponent : ComponentBase
         where TVariant : Variant

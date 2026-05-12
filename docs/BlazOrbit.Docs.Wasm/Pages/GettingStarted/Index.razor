@@ -1,115 +1,115 @@
 ﻿@page "/getting-started"
 
+@inject IStringLocalizer<Index> Loc
 
-<DocPage Eyebrow="Guide"
-         Title="Getting started"
-         Lede="Install the package, register the services, link the stylesheet, and you're shipping.">
+<DocPage Eyebrow="@Loc["Guide"]"
+         Title="@Loc["Getting started"]"
+         Lede="@Loc["Install the package, register the services, link the stylesheet, and you're shipping."]"
+         Keywords="@(["installation", "setup", "NuGet", "quick start", "getting started"])">
 
     <section class="doc-section">
-        <h2 class="doc-section__title">1. Install the NuGet package</h2>
+        <h2 class="doc-section__title">@Loc["1. Install the NuGet package"]</h2>
         <p class="doc-section__description">
-            BlazOrbit targets <code>net8.0</code> and <code>net10.0</code> and runs on both Blazor Server and
-            Blazor WebAssembly. Add the package to your project:
+            @Loc.Html("BlazOrbit targets <code>net8.0</code> and <code>net10.0</code> and runs on both Blazor Server and Blazor WebAssembly. Add the package to your project:")
         </p>
 
-        <BOBCodeBlock Title="Terminal"
+        <BOBCodeBlock Title="@Loc["Terminal"]"
                       Language="SyntaxHighlightLanguage.CSharp"
-                      Code="dotnet add package BlazOrbit" />
+                      Code="dotnet add package BlazOrbit"/>
 
         <div class="doc-callout">
             <span class="doc-callout__icon">💡</span>
             <div>
-                <strong>Optional packages.</strong> Install additional packages on demand:
+                <strong>@Loc["Optional packages."]</strong> @Loc["Install additional packages on demand:"]
                 <ul style="margin: 0.5rem 0 0 1.25rem;">
-                    <li><code>BlazOrbit.Charts</code> — <a href="/components/charts/bar">15 SVG chart types</a></li>
-                    <li><code>BlazOrbit.Hotkeys</code> — <a href="/components/services/hotkey">global keyboard shortcuts</a></li>
-                    <li><code>BlazOrbit.Notifications</code> — <a href="/components/services/notifications">notification center + bell badge</a></li>
-                    <li><code>BlazOrbit.Localization.Server</code> / <code>.Wasm</code> — <a href="/features/localization">multi-culture support</a></li>
+                    <li><code>BlazOrbit.Charts</code> — <a href="/components/charts/bar">@Loc["15 SVG chart types"]</a></li>
+                    <li><code>BlazOrbit.Hotkeys</code> — <a href="/components/services/hotkey">@Loc["global keyboard shortcuts"]</a></li>
+                    <li><code>BlazOrbit.Notifications</code> — <a href="/components/services/notifications">@Loc["notification center + bell badge"]</a></li>
+                    <li><code>BlazOrbit.Localization.Server</code> / <code>.Wasm</code> — <a href="/features/localization">@Loc["multi-culture support"]</a></li>
                 </ul>
             </div>
         </div>
     </section>
 
     <section class="doc-section">
-        <h2 class="doc-section__title">2. Register the services</h2>
+        <h2 class="doc-section__title">@Loc["2. Register the services"]</h2>
         <p class="doc-section__description">
-            Call <code>AddBlazOrbit()</code> in your <code>Program.cs</code>. This wires up the
-            JS interop services, the variant registry, and the modal/toast services.
+            @Loc.Html("Call <code>AddBlazOrbit()</code> in your <code>Program.cs</code>. This wires up the JS interop services, the variant registry, and the modal/toast services.")
         </p>
 
-        <BOBCodeBlock Title="Program.cs"
+        <BOBCodeBlock Title="@Loc["Program.cs"]"
                       Language="SyntaxHighlightLanguage.CSharp"
-                      Code="@_programCs" />
+                      Code="@_programCs"/>
 
     </section>
 
     <section class="doc-section">
-        <h2 class="doc-section__title">3. Link the stylesheet</h2>
+        <h2 class="doc-section__title">@Loc["3. Link the stylesheet"]</h2>
         <p class="doc-section__description">
-            The library ships a pre-built, vendor-prefixed CSS bundle. Add it to your
-            <code>index.html</code> (WASM) or <code>App.razor</code> <code>&lt;head&gt;</code> (Server).
+            @Loc.Html("The library ships a pre-built, vendor-prefixed CSS bundle. Add it to your <code>index.html</code> (WASM) or <code>App.razor</code> <code>&lt;head&gt;</code> (Server).")
         </p>
 
-        <BOBCodeBlock Title="wwwroot/index.html"
+        <BOBCodeBlock Title="@Loc["wwwroot/index.html"]"
                       Language="SyntaxHighlightLanguage.Razor"
-                      Code='<link href="_content/BlazOrbit/css/blazorbit.css" rel="stylesheet" />' />
+                      Code='<link href="_content/BlazOrbit/css/blazorbit.css" rel="stylesheet" />'/>
 
         <div class="doc-callout doc-callout--info">
             <span class="doc-callout__icon">ℹ️</span>
             <div>
-                Since .NET 8, scoped CSS bundles are included automatically — you do not need
-                to link the <code>.bundle.scp.css</code> file.
+                @Loc.Html("Since .NET 8, scoped CSS bundles are included automatically — you do not need to link the <code>.bundle.scp.css</code> file.")
             </div>
         </div>
     </section>
 
     <section class="doc-section">
-        <h2 class="doc-section__title">4. Import the namespaces</h2>
+        <h2 class="doc-section__title">@Loc["4. Import the namespaces"]</h2>
         <p class="doc-section__description">
-            Add these to <code>_Imports.razor</code> so you can use components without
-            fully-qualified names:
+            @Loc.Html("Add these to <code>_Imports.razor</code> so you can use components without fully-qualified names:")
         </p>
 
-        <BOBCodeBlock Title="_Imports.razor"
+        <BOBCodeBlock Title="@Loc["_Imports.razor"]"
                       Language="SyntaxHighlightLanguage.Razor"
-                      Code="@_imports" />
+                      Code="@_imports"/>
     </section>
 
     <section class="doc-section">
-        <h2 class="doc-section__title">5. Theme Manager, Modal Host and Toast Host</h2>
+        <h2 class="doc-section__title">@Loc["5. Theme Manager, Modal Host and Toast Host"]</h2>
         <p class="doc-section__description">
-            Wrap the <code>@@Body</code> with <code>BOBInitializer</code> for theme management.
+            @Loc.Html("Wrap the <code>@Body</code> with <code>BOBInitializer</code> for theme management.")
         </p>
         <p class="doc-section__description">
-            For <code>BOBModalHost</code> and <code>BOBToastHost</code> to render your modals
-            and toasts globally, place them in your <code>MainLayout.razor</code> (outside the
-            <code>@@Body</code> block).
-            If you installed <code>BlazOrbit.Hotkeys</code>, add <code>BOBHotkeyHost</code> here as well:
+            @Loc.Html("For <code>BOBModalHost</code> and <code>BOBToastHost</code> to render your modals and toasts globally, place them in your <code>MainLayout.razor</code> (outside the <code>@Body</code> block). If you installed <code>BlazOrbit.Hotkeys</code>, add <code>BOBHotkeyHost</code> here as well:")
         </p>
 
-        <BOBCodeBlock Title="Layout/MainLayout.razor"
+        <BOBCodeBlock Title="@Loc["Layout/MainLayout.razor"]"
                       Language="SyntaxHighlightLanguage.Razor"
-                      Code="@_layoutSnippet" />
+                      Code="@_layoutSnippet"/>
 
         <p style="margin-top: 1rem;">
-            That's it — you're ready to use <a href="/components/actions/button">Button</a>,
-            <a href="/components/layout/card">Card</a>,
-            <a href="/components/forms/text">InputText</a>, and the rest.
+            @_html_8
         </p>
     </section>
 
     <section class="doc-section">
-        <h2 class="doc-section__title">Your first component</h2>
+        <h2 class="doc-section__title">@Loc["Your first component"]</h2>
         <p class="doc-section__description">
-            Drop a <code>BOBButton</code> into any page:
+            @Loc.Html("Drop a <code>BOBButton</code> into any page:")
         </p>
 
-        <ComponentDemo Definition="@_firstDemo" />
+        <ComponentDemo Definition="@_firstDemo"/>
     </section>
 
 </DocPage>
 
 @code {
+    private MarkupString _html_8 = new MarkupString();
+
+    protected override void OnInitialized()
+    {
+        _html_8 = Loc.Html("""That's it — you're ready to use <a href="/components/actions/button">Button</a>, <a href="/components/layout/card">Card</a>, <a href="/components/forms/text">InputText</a>, and the rest.""");
+    }
+
+
     private const string _programCs = @"builder.Services.AddBlazOrbit();
 ";
 
@@ -118,14 +118,17 @@
 @using BlazOrbit.Components.Layout";
 
     private const string _layoutSnippet =
-    """
-    @inherits LayoutComponentBase
-    
-    <BOBInitializer DefaultTheme="dark">
-        @Body
-    </BOBInitializer>
-    
-    @* Optional: only when BlazOrbit.Hotkeys is installed *@
+        """
+        @inherits LayoutComponentBase
+        
+        <BOBInitializer DefaultTheme="dark">
+            @Body
+        </BOBInitializer>
+        
+
+
+
+        @* Optional: only when BlazOrbit.Hotkeys is installed *@
     <BOBHotkeyHost />
     
     <BOBModalHost />
@@ -139,7 +142,8 @@
            Size=""BOBSize.Large"" />",
         CodeTitle = "Pages/Hello.razor",
         Demo = @<BOBButton Text="Hello, BlazOrbit"
-                               LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_waving_hand"
-                               Size="BOBSize.Large" />
-        };
-    }
+                           LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_waving_hand"
+                           Size="BOBSize.Large"/>
+    };
+
+}

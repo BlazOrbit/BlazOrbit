@@ -32,24 +32,32 @@
 </bob-component>
 
 @code {
+
     /// <summary>Primary page title rendered as an <c>&lt;h1&gt;</c>.</summary>
-    [Parameter] public string? Title { get; set; }
+    [Parameter]
+    public string? Title { get; set; }
 
     /// <summary>Optional eyebrow line rendered above the title (caption / breadcrumb-like context).</summary>
-    [Parameter] public RenderFragment? Eyebrow { get; set; }
+    [Parameter]
+    public RenderFragment? Eyebrow { get; set; }
 
     /// <summary>Optional lead paragraph below the title.</summary>
-    [Parameter] public RenderFragment? Lead { get; set; }
+    [Parameter]
+    public RenderFragment? Lead { get; set; }
 
     /// <summary>
     /// Slot for a <c>BOBBreadcrumbs</c> (or any markup) rendered between the eyebrow and
     /// the title. Decoupled from the component so consumers can swap implementations.
     /// </summary>
-    [Parameter] public RenderFragment? Breadcrumbs { get; set; }
+    [Parameter]
+    public RenderFragment? Breadcrumbs { get; set; }
 
     /// <summary>Right-aligned action bar (typically <c>BOBButton</c> instances).</summary>
-    [Parameter] public RenderFragment? Actions { get; set; }
+    [Parameter]
+    public RenderFragment? Actions { get; set; }
 
     /// <summary>When <see langword="true"/>, the header sticks to the top of the viewport on scroll.</summary>
-    [Parameter] public bool Sticky { get; set; }
+    [Parameter]
+    public bool Sticky { get; set; }
+
 }

@@ -44,8 +44,8 @@ export function initialize(
         }
     };
 
-    element.addEventListener('touchstart', handlers.touchStart, { passive: true });
-    element.addEventListener('touchend', handlers.touchEnd, { passive: true });
+    element.addEventListener('touchstart', handlers.touchStart, {passive: true});
+    element.addEventListener('touchend', handlers.touchEnd, {passive: true});
 
     instances.set(componentId, handlers);
 }

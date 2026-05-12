@@ -23,7 +23,11 @@ public class BOBTreeSelectorDisposalTests
             .Add(c => c.KeySelector, m => m.Key));
 
         // Act + Assert
-        Func<Task> act = () => { cut.Instance.Dispose(); return Task.CompletedTask; };
+        Func<Task> act = () =>
+        {
+            cut.Instance.Dispose();
+            return Task.CompletedTask;
+        };
         await act.Should().NotThrowAsync();
     }
 
@@ -44,7 +48,11 @@ public class BOBTreeSelectorDisposalTests
 
         // Act — select item then dispose
         cut.FindAll(".bob-tree-selector__node-content")[0].Click();
-        Func<Task> act = () => { cut.Instance.Dispose(); return Task.CompletedTask; };
+        Func<Task> act = () =>
+        {
+            cut.Instance.Dispose();
+            return Task.CompletedTask;
+        };
         await act.Should().NotThrowAsync();
     }
 }

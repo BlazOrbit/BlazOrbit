@@ -14,15 +14,15 @@
            ChildContent into a hidden slot purely for the side effect of registering. *@
         <div class="bob-stepper__sink">@ChildContent</div>
 
-        @{ List<BOBStep> snapshot = SnapshotSteps(); }
+        @{ var snapshot = SnapshotSteps(); }
 
         <ol class="bob-stepper__rail" role="list">
-            @for (int i = 0; i < snapshot.Count; i++)
+            @for (var i = 0; i < snapshot.Count; i++)
             {
-                BOBStep step = snapshot[i];
-                BOBStepState state = ResolveState(i, step);
-                bool clickable = !step.Disabled && CanJumpTo(i);
-                int captured = i;
+                var step = snapshot[i];
+                var state = ResolveState(i, step);
+                var clickable = !step.Disabled && CanJumpTo(i);
+                var captured = i;
 
                 <li class="bob-stepper__entry"
                     data-bob-state="@state.ToString().ToLowerInvariant()"
@@ -35,15 +35,15 @@
                         <span class="bob-stepper__marker" aria-hidden="true">
                             @if (state == BOBStepState.Error)
                             {
-                                <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_priority_high" Size="@Size" />
+                                <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_priority_high" Size="@Size"/>
                             }
                             else if (state == BOBStepState.Complete)
                             {
-                                <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_check" Size="@Size" />
+                                <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_check" Size="@Size"/>
                             }
                             else if (step.Icon.HasValue)
                             {
-                                <BOBSvgIcon Icon="@step.Icon.Value" Size="@Size" />
+                                <BOBSvgIcon Icon="@step.Icon.Value" Size="@Size"/>
                             }
                             else
                             {
@@ -68,7 +68,7 @@
             }
         </ol>
 
-        @{ BOBStep? active = (CurrentStep >= 0 && CurrentStep < snapshot.Count) ? snapshot[CurrentStep] : null; }
+        @{ var active = CurrentStep >= 0 && CurrentStep < snapshot.Count ? snapshot[CurrentStep] : null; }
         @if (active is not null)
         {
             <section class="bob-stepper__body" aria-live="polite">
@@ -79,38 +79,46 @@
 </bob-component>
 
 @code {
+
     /// <summary>Markup that emits the <c>&lt;BOBStep&gt;</c> children describing each step.</summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>Index of the active step (zero-based). Two-way bound.</summary>
-    [Parameter] public int CurrentStep { get; set; }
+    [Parameter]
+    public int CurrentStep { get; set; }
 
     /// <summary>Companion event for <see cref="CurrentStep"/>.</summary>
-    [Parameter] public EventCallback<int> CurrentStepChanged { get; set; }
+    [Parameter]
+    public EventCallback<int> CurrentStepChanged { get; set; }
 
     /// <summary>Layout direction. Defaults to <see cref="BOBStepperOrientation.Horizontal"/>.</summary>
-    [Parameter] public BOBStepperOrientation Orientation { get; set; } = BOBStepperOrientation.Horizontal;
+    [Parameter]
+    public BOBStepperOrientation Orientation { get; set; } = BOBStepperOrientation.Horizontal;
 
     /// <summary>
     /// When <see langword="true"/>, clicking any step jumps to it. When <see langword="false"/>
     /// (default), only completed steps are reachable; pending steps are non-interactive until
     /// the user advances through <see cref="NextAsync"/> or <see cref="MoveToAsync"/>.
     /// </summary>
-    [Parameter] public bool AllowSkip { get; set; }
+    [Parameter]
+    public bool AllowSkip { get; set; }
 
     /// <summary>
     /// Cancellable hook invoked before applying a step transition. Set
     /// <see cref="BOBStepChangeEventArgs.Cancel"/> to keep the active step at
     /// <see cref="BOBStepChangeEventArgs.From"/>.
     /// </summary>
-    [Parameter] public EventCallback<BOBStepChangeEventArgs> OnStepChange { get; set; }
+    [Parameter]
+    public EventCallback<BOBStepChangeEventArgs> OnStepChange { get; set; }
 
     /// <summary>Visual size of step markers + icons.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
 
     private string OrientationToken => Orientation == BOBStepperOrientation.Vertical ? "vertical" : "horizontal";
 
-    private readonly List<BOBStep> _steps = new();
+    private readonly List<BOBStep> _steps = [];
     private readonly object _stepsLock = new();
 
     /// <summary>Total number of registered steps.</summary>
@@ -126,10 +134,16 @@
     }
 
     /// <summary>Move to the next step (clamped to the last index).</summary>
-    public Task NextAsync() => MoveToAsync(Math.Min(CurrentStep + 1, StepCount - 1));
+    public Task NextAsync()
+    {
+        return MoveToAsync(Math.Min(CurrentStep + 1, StepCount - 1));
+    }
 
     /// <summary>Move to the previous step (clamped to <c>0</c>).</summary>
-    public Task PreviousAsync() => MoveToAsync(Math.Max(CurrentStep - 1, 0));
+    public Task PreviousAsync()
+    {
+        return MoveToAsync(Math.Max(CurrentStep - 1, 0));
+    }
 
     /// <summary>Move to an arbitrary step index. Honours <see cref="OnStepChange"/> cancellation.</summary>
     public async Task MoveToAsync(int target)
@@ -149,6 +163,7 @@
         {
             await CurrentStepChanged.InvokeAsync(target);
         }
+
         StateHasChanged();
     }
 
@@ -163,6 +178,7 @@
             _steps.Add(step);
             added = true;
         }
+
         if (added)
         {
             StateHasChanged();
@@ -178,6 +194,7 @@
         {
             removed = _steps.Remove(step);
         }
+
         if (removed)
         {
             StateHasChanged();
@@ -188,7 +205,7 @@
     {
         lock (_stepsLock)
         {
-            return new List<BOBStep>(_steps);
+            return [.._steps];
         }
     }
 
@@ -202,7 +219,10 @@
 
     // Forward navigation always allowed via API, but click-driven jumps obey AllowSkip.
     // Without skip, only already-completed steps + the active one are reachable from the rail.
-    private bool CanJumpTo(int index) => AllowSkip || index <= CurrentStep;
+    private bool CanJumpTo(int index)
+    {
+        return AllowSkip || index <= CurrentStep;
+    }
 
     public override async ValueTask DisposeAsync()
     {
@@ -210,6 +230,8 @@
         {
             _steps.Clear();
         }
+
         await base.DisposeAsync();
     }
+
 }

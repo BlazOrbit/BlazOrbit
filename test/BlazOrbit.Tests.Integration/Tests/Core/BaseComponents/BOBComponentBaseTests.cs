@@ -132,13 +132,13 @@ public class BOBComponentBaseTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         IRenderedComponent<BOBComponentBase_TestStub> cut =
-    ctx.Render<BOBComponentBase_TestStub>(p => p
-        .Add(c => c.Border,
-            BorderStyle.Create()
-                .All("1px", BorderStyleType.Solid, new CssColor("#000"))
-                .Bottom("2px", BorderStyleType.Dashed, new CssColor("#FFF"))
-                .Radius(5))
-    );
+            ctx.Render<BOBComponentBase_TestStub>(p => p
+                .Add(c => c.Border,
+                    BorderStyle.Create()
+                        .All("1px", BorderStyleType.Solid, new CssColor("#000"))
+                        .Bottom("2px", BorderStyleType.Dashed, new CssColor("#FFF"))
+                        .Radius(5))
+            );
 
         string? style = cut.Find("div").GetAttribute("style");
         // Composed shorthand var
@@ -154,7 +154,8 @@ public class BOBComponentBaseTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<BOBComponentBase_TestStub> cut = ctx.Render<BOBComponentBase_TestStub>(p => p.Add(c => c.Shadow, BOBShadowPresets.Elevation(12)));
+        IRenderedComponent<BOBComponentBase_TestStub> cut =
+            ctx.Render<BOBComponentBase_TestStub>(p => p.Add(c => c.Shadow, BOBShadowPresets.Elevation(12)));
         IElement el = cut.Find("div");
         el.GetAttribute("data-bob-shadow").Should().Be("true");
         el.GetAttribute("style").Should().Contain("--bob-inline-shadow:");
@@ -202,7 +203,7 @@ public class BOBComponentBaseTests
         ctx.Services.AddSingleton(_jsInterop);
         // Arrange
         _jsInterop.AttachBehaviorsAsync(Arg.Any<BehaviorConfiguration>())
-                  .Returns(_jsModule);
+            .Returns(_jsModule);
 
         // Act
         IRenderedComponent<BOBComponentBase_TestStub> cut = ctx.Render<BOBComponentBase_TestStub>();
@@ -268,8 +269,7 @@ public class BOBComponentBaseTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        Dictionary<string, object> attrs = new()
-        { { "style", "display: flex;" } };
+        Dictionary<string, object> attrs = new() { { "style", "display: flex;" } };
         IRenderedComponent<BOBComponentBase_TestStub> cut = ctx.Render<BOBComponentBase_TestStub>(p => p
             .Add(c => c.AdditionalAttributes, attrs)
             .Add(c => c.Color, "rgba(255,0,0,1)")

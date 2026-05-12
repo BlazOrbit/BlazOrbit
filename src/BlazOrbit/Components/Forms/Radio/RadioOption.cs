@@ -12,12 +12,14 @@ public class RadioOption<TOption> : ComponentBase, IRadioOption, IDisposable
     /// <summary>
     /// The content to render for this option.
     /// </summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
     /// The parent radio container this option is registered with.
     /// </summary>
-    [CascadingParameter] public IRadioContainer? Container { get; set; }
+    [CascadingParameter]
+    public IRadioContainer? Container { get; set; }
 
     /// <summary>
     /// The rendered content for this option.
@@ -27,7 +29,8 @@ public class RadioOption<TOption> : ComponentBase, IRadioOption, IDisposable
     /// <summary>
     /// When <see langword="true"/>, forces the option to be disabled.
     /// </summary>
-    [Parameter] public bool Disabled { get; set; }
+    [Parameter]
+    public bool Disabled { get; set; }
 
     /// <summary>
     /// Computed disabled state, combining the <see cref="Disabled"/> parameter with internal conditions.
@@ -42,7 +45,9 @@ public class RadioOption<TOption> : ComponentBase, IRadioOption, IDisposable
     /// <summary>
     /// The value associated with this option.
     /// </summary>
-    [Parameter, EditorRequired] public TOption? Value { get; set; }
+    [Parameter]
+    [EditorRequired]
+    public TOption? Value { get; set; }
 
     /// <summary>
     /// Unregisters this option from the parent container.

@@ -88,6 +88,7 @@ function handleKeyDown(e: KeyboardEvent): void {
 }
 
 let listenersInstalled = false;
+
 function ensureListeners(): void {
     if (listenersInstalled || dropdownInstances.size === 0) return;
     document.addEventListener('mousedown', handleClickOutside);

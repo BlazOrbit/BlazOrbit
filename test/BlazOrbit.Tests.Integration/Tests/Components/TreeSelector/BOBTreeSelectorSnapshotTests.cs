@@ -11,13 +11,14 @@ public class BOBTreeSelectorSnapshotTests
     private sealed record SelectItem(string Key, string Label, IEnumerable<SelectItem>? Children = null);
 
     private static IEnumerable<SelectItem> TreeItems
-    => [
-        new SelectItem("fruits", "Fruits", [
-            new SelectItem("apple", "Apple"),
-            new SelectItem("banana", "Banana"),
-        ]),
-        new SelectItem("vegs", "Vegetables"),
-    ];
+        =>
+        [
+            new("fruits", "Fruits", [
+                new SelectItem("apple", "Apple"),
+                new SelectItem("banana", "Banana")
+            ]),
+            new("vegs", "Vegetables")
+        ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -54,7 +55,7 @@ public class BOBTreeSelectorSnapshotTests
                     .Add(c => c.KeySelector, m => m.Key)
                     .Add(c => c.ChildrenSelector, m => m.Children)
                     .Add(c => c.ShowCheckboxes, false)).GetNormalizedMarkup()
-            },
+            }
         };
 
         await Verify(testCases).UseParameters(scenario.Name);

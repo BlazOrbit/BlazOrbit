@@ -12,9 +12,10 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.DataCollections;
 public class BOBDataColumnStateTests
 {
     private sealed record Person(string Name, int Age);
+
     private static readonly Expression<Func<Person, object?>> NameExpr = p => (object?)p.Name;
 
-    private static IEnumerable<Person> Items => [new Person("Alice", 30)];
+    private static IEnumerable<Person> Items => [new("Alice", 30)];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]

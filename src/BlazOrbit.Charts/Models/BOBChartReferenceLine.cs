@@ -12,7 +12,7 @@ public enum BOBChartReferenceLineStyle
     Dashed,
 
     /// <summary>Dotted line — minimal visual weight; works well for grid-tier baselines.</summary>
-    Dotted,
+    Dotted
 }
 
 /// <summary>

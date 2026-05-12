@@ -1,4 +1,4 @@
-@page "/components/charts/donut"
+﻿@page "/components/charts/donut"
 
 @inject IStringLocalizer<DonutChartPage> Loc
 
@@ -6,16 +6,16 @@
          Lede="@Loc["Annular distribution chart — same shape as the pie but with a hollow centre (default 60% of the outer radius). Useful for embedding a KPI label inside the ring."]"
          PageInstance="this"
          ApiType="@typeof(BOBDonutChart<>)"
->
+         Keywords="@(["donut chart", "doughnut", "percentage", "proportion"])">
 
     <BOBBanner Severity="BOBBannerSeverity.Warning"
                Title="@Loc["Extra package required"]"
-               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]" />
+               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]"/>
 
     <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
         <BOBDonutChart TY="decimal"
                        Slices="_statusSlices"
-                       Width="380" Height="380" />
+                       Width="380" Height="380"/>
     </DocDemo>
 
     <DocDemo Key="ThinRing" Title="@Loc["Thin ring (InnerRadius = 0.8)"]"
@@ -23,14 +23,14 @@
         <BOBDonutChart TY="decimal"
                        Slices="_statusSlices"
                        InnerRadius="0.8"
-                       Width="380" Height="380" />
+                       Width="380" Height="380"/>
     </DocDemo>
 
     <DocDemo Key="WideRing" Title="@Loc["Wide ring (InnerRadius = 0.35)"]">
         <BOBDonutChart TY="decimal"
                        Slices="_statusSlices"
                        InnerRadius="0.35"
-                       Width="380" Height="380" />
+                       Width="380" Height="380"/>
     </DocDemo>
 
     <DocDemo Key="WithExport" Title="@Loc["With export button"]">
@@ -38,7 +38,7 @@
                        Slices="_statusSlices"
                        Width="380" Height="380"
                        ShowExportButton="true"
-                       ExportFileName="status-distribution" />
+                       ExportFileName="status-distribution"/>
     </DocDemo>
 
     <DocDemo Key="SliceClick" Title="@Loc["Slice click handler"]"
@@ -46,7 +46,7 @@
         <BOBDonutChart TY="decimal"
                        Slices="_statusSlices"
                        Width="380" Height="380"
-                       OnSliceClick="HandleSliceClick" />
+                       OnSliceClick="@(EventCallback.Factory.Create<BOBChartSliceClickArgs<decimal>>(this, HandleSliceClick))"/>
         @if (!string.IsNullOrEmpty(_clickMessage))
         {
             <p class="doc-helper-text">@_clickMessage</p>
@@ -58,7 +58,7 @@
         <BOBDonutChart TY="decimal"
                        Slices="_statusSlices"
                        Width="380" Height="380"
-                       Padding="32" />
+                       Padding="32"/>
     </DocDemo>
 
     <DocDemo Key="LegendTop" Title="@Loc["Legend on top"]"
@@ -66,7 +66,7 @@
         <BOBDonutChart TY="decimal"
                        Slices="_statusSlices"
                        Width="380" Height="380"
-                       LegendPosition="BOBChartLegendPosition.Top" />
+                       LegendPosition="BOBChartLegendPosition.Top"/>
     </DocDemo>
 
 </DocPage>
@@ -81,10 +81,10 @@
     }
 
     private static readonly IEnumerable<BOBChartSlice<decimal>> _statusSlices =
-        new[]
-        {
-            new BOBChartSlice<decimal> { Label = "Active", Value = 62m },
-            new BOBChartSlice<decimal> { Label = "Idle",   Value = 27m },
-            new BOBChartSlice<decimal> { Label = "Error",  Value = 11m },
-        };
+    [
+        new BOBChartSlice<decimal> { Label = "Active", Value = 62m },
+            new BOBChartSlice<decimal> { Label = "Idle", Value = 27m },
+            new BOBChartSlice<decimal> { Label = "Error", Value = 11m }
+    ];
+
 }

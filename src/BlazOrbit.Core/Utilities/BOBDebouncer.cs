@@ -54,7 +54,8 @@ public sealed class BOBDebouncer<T> : IDisposable
     /// task always completes successfully.
     /// </returns>
     [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope",
-        Justification = "CancellationTokenSource ownership transfers to the awaiter; disposed in Dispose() or on next InvokeAsync.")]
+        Justification =
+            "CancellationTokenSource ownership transfers to the awaiter; disposed in Dispose() or on next InvokeAsync.")]
     public async Task InvokeAsync(T arg, Func<T, Task> action)
     {
         ArgumentNullException.ThrowIfNull(action);

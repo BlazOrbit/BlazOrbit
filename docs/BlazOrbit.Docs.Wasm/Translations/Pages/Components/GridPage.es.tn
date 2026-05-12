@@ -1,0 +1,62 @@
+// Auto-migrated from GridPage.es.resx. Edit freely from now on.
+
+# 12-column responsive grid layout with breakpoint-aware column spans, gaps, directions, offsets, and spacing.
+Cuadrícula responsive de 12 columnas con anchos de columna adaptados a puntos de ruptura, espacios, direcciones, desplazamientos y separación.
+
+# Auto
+Auto
+
+# Auto items
+Elementos automáticos
+
+# Auto, wider content here
+Auto, contenido más ancho aquí
+
+# Basic usage
+Uso básico
+
+# BOBGrid
+BOBGrid
+
+# Component
+Componente
+
+# Direction & alignment
+Dirección y alineación
+
+# Gaps & spacing
+Espacios y separación
+
+# Item A
+Elemento A
+
+# Item B
+Elemento B
+
+# Item C
+Elemento C
+
+# Per-breakpoint spans (Xs, Sm, Md, Lg, Xl) override Span.
+Los spans por punto de ruptura (Xs, Sm, Md, Lg, Xl) sobrescriben Span.
+
+# Properties
+Propiedades
+
+# Responsive spans
+Spans responsive
+
+# Span 4
+Span 4
+
+# Span 4 fills rest
+Span 4 llena el resto
+
+# Span 6
+Span 6
+
+# Use integer Span (out of Columns, default 12) to size each item.
+Usa Span entero (de Columns, predeterminado 12) para dimensionar cada elemento.
+
+
+#             The layout system is built from two types: <code>BOBGrid</code> (the container) and <code>BOBGridItem</code> (the cell). Breakpoints, spans, gaps, directions, and offsets are all declared as parameters rather than CSS classes, so the grid remains strongly typed and refactor-safe.
+El sistema de diseño se construye a partir de dos tipos: <code>BOBGrid</code> (el contenedor) y <code>BOBGridItem</code> (la celda). Los puntos de interrupción, spans, gaps, direcciones y offsets se declaran como parámetros en lugar de clases CSS, por lo que la cuadrícula permanece con tipado fuerte y segura para refactorizar.

@@ -40,7 +40,11 @@ internal sealed class SliderJsInterop : ModuleJsInteropBase, ISliderJsInterop
         double initialClientY)
     {
         IJSObjectReference? module = await TryGetModuleAsync();
-        if (module is null) return;
+        if (module is null)
+        {
+            return;
+        }
+
         await module.InvokeVoidAsync(
             "startDrag",
             trackElement,
@@ -65,7 +69,11 @@ internal sealed class SliderJsInterop : ModuleJsInteropBase, ISliderJsInterop
         double clientY)
     {
         IJSObjectReference? module = await TryGetModuleAsync();
-        if (module is null) return 0;
+        if (module is null)
+        {
+            return 0;
+        }
+
         return await module.InvokeAsync<double>(
             "computePercent",
             trackElement,

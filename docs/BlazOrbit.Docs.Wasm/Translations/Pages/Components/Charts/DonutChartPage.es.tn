@@ -1,0 +1,50 @@
+// Auto-migrated from DonutChartPage.es.resx. Edit freely from now on.
+
+# A higher InnerRadius (closer to 1) produces a thinner ring. Lower values approach the look of a full pie.
+Un InnerRadius mayor (más cercano a 1) produce un anillo más fino. Valores más bajos se acercan al aspecto de un pastel completo.
+
+# Annular distribution chart — same shape as the pie but with a hollow centre (default 60% of the outer radius). Useful for embedding a KPI label inside the ring.
+Gráfico de distribución anular: misma forma que el pastel pero con un centro hueco (60% del radio externo por defecto). Útil para incrustar una etiqueta KPI dentro del anillo.
+
+# Basic usage
+Uso básico
+
+# BOBDonutChart
+BOBDonutChart
+
+# Chart
+Gráfico
+
+# Custom padding
+Relleno personalizado
+
+# Extra package required
+Paquete adicional requerido
+
+# Legend on top
+Leyenda arriba
+
+# LegendPosition can be combined with any InnerRadius to suit your layout.
+LegendPosition se puede combinar con cualquier InnerRadius para adaptarse a tu diseño.
+
+# OnSliceClick fires when a slice is clicked. Combine with a centred KPI label for interactive dashboards.
+OnSliceClick se dispara al hacer clic en una porción. Combínalo con una etiqueta KPI centrada para paneles interactivos.
+
+# Padding controls the pixel inset between the SVG viewport edge and the outer radius. Increase it when labels or legend crowd the ring.
+Padding controla el margen en píxeles entre el borde de la ventana SVG y el radio externo. Aumentarlo cuando las etiquetas o la leyenda llenen el anillo.
+
+# Slice click handler
+Manejador de clic en porción
+
+# Thin ring (InnerRadius = 0.8)
+Anillo fino (InnerRadius = 0,8)
+
+# This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs.
+Este gráfico requiere el paquete NuGet BlazOrbit.Charts. Instálalo con dotnet add package BlazOrbit.Charts y registra AddBlazOrbitCharts() en Program.cs.
+
+# Wide ring (InnerRadius = 0.35)
+Anillo ancho (InnerRadius = 0,35)
+
+# With export button
+Con botón de exportación
+

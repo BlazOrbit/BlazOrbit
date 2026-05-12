@@ -47,7 +47,11 @@ public class BOBSvgIconSecurityTests
 
         // Arrange & Act
         IRenderedComponent<BOBSvgIcon> cut = ctx.Render<BOBSvgIcon>(p => p
-            .Add(c => c.Icon, new IconKey("xss3") { SvgContent = "<path d=\"M1 1\"/><foreignObject><div>XSS</div></foreignObject>" }));
+            .Add(c => c.Icon,
+                new IconKey("xss3")
+                {
+                    SvgContent = "<path d=\"M1 1\"/><foreignObject><div>XSS</div></foreignObject>"
+                }));
 
         // Assert — foreignObject stripped
         cut.Find("svg").InnerHtml.Should().NotContain("foreignObject");
@@ -62,7 +66,8 @@ public class BOBSvgIconSecurityTests
 
         // Arrange & Act
         IRenderedComponent<BOBSvgIcon> cut = ctx.Render<BOBSvgIcon>(p => p
-            .Add(c => c.Icon, new IconKey("xss4") { SvgContent = "<a href=\"javascript:alert(1)\"><path d=\"M1 1\"/></a>" }));
+            .Add(c => c.Icon,
+                new IconKey("xss4") { SvgContent = "<a href=\"javascript:alert(1)\"><path d=\"M1 1\"/></a>" }));
 
         // Assert — javascript: URI stripped
         cut.Find("svg").InnerHtml.Should().NotContain("javascript:");

@@ -49,25 +49,38 @@
 @code {
     [Inject] internal IStringLocalizer<BOBDisplayResources> Localizer { get; set; } = default!;
 
-    private readonly string _labelId = $"bob-chip-group-label-{System.Guid.NewGuid():N}";
+    private readonly string _labelId = $"bob-chip-group-label-{Guid.NewGuid():N}";
 
     /// <summary>
     /// Currently selected values. Bind via <c>@bind-SelectedValues</c>. In
     /// <see cref="ChipGroupSelectionMode.Single"/> mode the list holds at most one item;
     /// tapping the same chip again clears it.
     /// </summary>
-    [Parameter] public IReadOnlyList<TValue>? SelectedValues { get; set; }
+    [Parameter]
+    public IReadOnlyList<TValue>? SelectedValues { get; set; }
+
     /// <summary>Two-way binding companion for <see cref="SelectedValues"/>.</summary>
-    [Parameter] public EventCallback<IReadOnlyList<TValue>> SelectedValuesChanged { get; set; }
+    [Parameter]
+    public EventCallback<IReadOnlyList<TValue>> SelectedValuesChanged { get; set; }
+
     /// <summary>Selection cardinality. Defaults to <see cref="ChipGroupSelectionMode.Single"/>.</summary>
-    [Parameter] public ChipGroupSelectionMode Mode { get; set; } = ChipGroupSelectionMode.Single;
+    [Parameter]
+    public ChipGroupSelectionMode Mode { get; set; } = ChipGroupSelectionMode.Single;
+
     /// <summary>Optional label rendered above the chip row.</summary>
-    [Parameter] public string? Label { get; set; }
+    [Parameter]
+    public string? Label { get; set; }
+
     /// <summary>Helper text rendered below the chip row.</summary>
-    [Parameter] public string? HelperText { get; set; }
+    [Parameter]
+    public string? HelperText { get; set; }
+
     /// <summary>Aria-label fallback when <see cref="Label"/> is empty.</summary>
-    [Parameter] public string? AriaLabel { get; set; }
+    [Parameter]
+    public string? AriaLabel { get; set; }
+
     private string ResolvedAriaLabel => AriaLabel ?? (string.IsNullOrWhiteSpace(Label) ? Localizer["Chips"] : Label!);
+
     /// <summary>
     /// Flags the group as required: renders the label asterisk, sets
     /// <c>aria-required="true"</c> on the items container, and surfaces
@@ -79,18 +92,26 @@
     /// then drives the message surface. A dedicated <c>BOBChipGroupForm&lt;TValue&gt;</c>
     /// that hooks into <c>BOBInputComponentBase</c> directly is on the backlog.
     /// </summary>
-    [Parameter] public bool Required { get; set; }
+    [Parameter]
+    public bool Required { get; set; }
+
     /// <summary>Chip definitions rendered inside the group. Each child should set a <see cref="BOBChip.Value"/>.</summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>When <see langword="true"/>, the entire group is non-interactive; cascades to nested chips.</summary>
-    [Parameter] public bool Disabled { get; set; }
+    [Parameter]
+    public bool Disabled { get; set; }
+
     public bool IsDisabled => Disabled;
 
     /// <summary>Visual size cascaded into nested chips (chips may still override per-instance).</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
+
     /// <summary>Accent color forwarded to nested chips via the inline color slot.</summary>
-    [Parameter] public string? Color { get; set; }
+    [Parameter]
+    public string? Color { get; set; }
 
     ChipGroupSelectionMode IChipGroupContainer.Mode => Mode;
     bool IChipGroupContainer.IsGroupDisabled => Disabled;
@@ -99,10 +120,11 @@
     {
         if (SelectedValues is null) return false;
         if (value is not TValue typed) return false;
-        foreach (TValue v in SelectedValues)
+        foreach (var v in SelectedValues)
         {
             if (EqualityComparer<TValue>.Default.Equals(v, typed)) return true;
         }
+
         return false;
     }
 
@@ -111,11 +133,11 @@
         if (Disabled) return;
         if (value is not TValue typed) return;
 
-        List<TValue> next = SelectedValues is null
+        var next = SelectedValues is null
             ? new List<TValue>()
             : new List<TValue>(SelectedValues);
 
-        bool alreadySelected = next.Any(v => EqualityComparer<TValue>.Default.Equals(v, typed));
+        var alreadySelected = next.Any(v => EqualityComparer<TValue>.Default.Equals(v, typed));
 
         if (Mode == ChipGroupSelectionMode.Single)
         {
@@ -123,8 +145,8 @@
             // current selection again clears it (toggle-off behaviour matches radio with a
             // Clearable opt-in).
             next = alreadySelected
-                ? new List<TValue>()
-                : new List<TValue> { typed };
+                ? []
+                : [typed];
         }
         else
         {
@@ -144,4 +166,5 @@
             await SelectedValuesChanged.InvokeAsync(next);
         }
     }
+
 }

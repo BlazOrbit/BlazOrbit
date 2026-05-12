@@ -1,0 +1,56 @@
+// Auto-migrated from RatingPage.es.resx. Edit freely from now on.
+
+# Average rating
+Calificación promedio
+
+# Basic usage
+Uso básico
+
+# BOBRating
+BOBRating
+
+# Click closer to the left of a star for a half
+Haz clic más cerca de la izquierda de una estrella para media
+
+# Component
+Componente
+
+# Custom icons
+Iconos personalizados
+
+# Custom max
+Máximo personalizado
+
+# Disabled
+Deshabilitado
+
+# Half-step
+Medio paso
+
+# How was your experience?
+¿Cómo fue tu experiencia?
+
+# Like it?
+¿Te gusta?
+
+# Out of 10
+De 10
+
+# Properties
+Propiedades
+
+# Read-only
+Solo lectura
+
+# Sizes
+Tamaños
+
+# Star rating with optional half-step, hover preview, and full keyboard navigation. Accessible out of the box.
+Calificación por estrellas con medio paso opcional, vista previa al pasar el ratón y navegación completa por teclado. Accesible desde el primer momento.
+
+# Value:
+Valor:
+
+
+# Under the hood, the rating uses a native <code>radiogroup</code> ARIA role with individual <code>radio</code> buttons for each star. This ensures screen readers announce the current value correctly and keyboard users can navigate with arrow keys just like a standard HTML radio group.
+En su interior, la valoración usa un rol ARIA nativo <code>radiogroup</code> con botones <code>radio</code> individuales para cada estrella. Esto garantiza que los lectores de pantalla anuncien el valor actual correctamente y que los usuarios de teclado puedan navegar con las flechas como en un grupo de radio HTML estándar.

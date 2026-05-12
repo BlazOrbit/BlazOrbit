@@ -46,15 +46,15 @@ public class BOBCultureSelectorRenderingTests
         IReadOnlyList<IElement> options;
         if (scenario.Name == "Server")
         {
-            IRenderedComponent<ServerSelector> cut = ctx.Render<ServerSelector>(
-                p => p.Add(c => c.Variant, SharedVariant.Dropdown));
+            IRenderedComponent<ServerSelector> cut =
+                ctx.Render<ServerSelector>(p => p.Add(c => c.Variant, SharedVariant.Dropdown));
             cut.Find("button.bob-dropdown__trigger").Click();
             options = cut.FindAll(".bob-dropdown__option");
         }
         else
         {
-            IRenderedComponent<WasmSelector> cut = ctx.Render<WasmSelector>(
-                p => p.Add(c => c.Variant, SharedVariant.Dropdown));
+            IRenderedComponent<WasmSelector> cut =
+                ctx.Render<WasmSelector>(p => p.Add(c => c.Variant, SharedVariant.Dropdown));
             cut.Find("button.bob-dropdown__trigger").Click();
             options = cut.FindAll(".bob-dropdown__option");
         }

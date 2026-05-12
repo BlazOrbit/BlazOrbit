@@ -18,29 +18,37 @@
     /* ========= Public API ========= */
 
     /// <summary>Content rendered inside the badge (typically a number or short label).</summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     /// <summary>When <see langword="true" />, the badge is forced to a circular shape; otherwise it adapts to its content.</summary>
-    [Parameter] public bool Circular { get; set; }
+    [Parameter]
+    public bool Circular { get; set; }
 
     //  IHasSize
     /// <summary>Visual size of the badge.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
 
     // IHasColor
     /// <summary>Text color of the badge. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? Color { get; set; }
+    [Parameter]
+    public string? Color { get; set; }
 
     // IHasBackgroundColor
     /// <summary>Background color of the badge. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? BackgroundColor { get; set; }
+    [Parameter]
+    public string? BackgroundColor { get; set; }
 
     // IHasBorder
     /// <summary>Border style applied to the badge.</summary>
-    [Parameter] public BorderStyle? Border { get; set; }
+    [Parameter]
+    public BorderStyle? Border { get; set; }
 
     // IHasShadow
     /// <summary>Shadow style applied to the badge.</summary>
-    [Parameter] public ShadowStyle? Shadow { get; set; }
+    [Parameter]
+    public ShadowStyle? Shadow { get; set; }
 
     /* ========= Variant ========= */
 
@@ -48,7 +56,7 @@
 
     protected override Dictionary<BOBBadgeVariant, Func<BOBBadge, RenderFragment>> BuiltInTemplates { get; } = new()
     {
-        [BOBBadgeVariant.Default] = b => b.RenderBadge(),
+        [BOBBadgeVariant.Default] = b => b.RenderBadge()
     };
 
     /* ========= Base additions ========= */
@@ -66,7 +74,9 @@
         }
     }
 
-    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables) { }
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    {
+    }
 
     /* ========= Render ========= */
 
@@ -81,4 +91,5 @@
             </span>
         </bob-component>
     };
+
 }

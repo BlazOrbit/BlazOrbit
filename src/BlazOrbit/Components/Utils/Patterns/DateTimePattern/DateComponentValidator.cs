@@ -92,10 +92,11 @@ internal static class DateComponentValidator
         => int.TryParse(value, out int minute) && minute >= 0 && minute <= 59;
 
     private static bool ValidateMonth(string value)
-                    => int.TryParse(value, out int month) && month >= 1 && month <= 12;
+        => int.TryParse(value, out int month) && month >= 1 && month <= 12;
 
     private static bool ValidateSecond(string value)
         => int.TryParse(value, out int second) && second >= 0 && second <= 59;
 
-    private static bool ValidateYear(string value) => int.TryParse(value, out int year) && (value.Length <= 2 || year is >= 1900 and <= 2100);
+    private static bool ValidateYear(string value) =>
+        int.TryParse(value, out int year) && (value.Length <= 2 || year is >= 1900 and <= 2100);
 }

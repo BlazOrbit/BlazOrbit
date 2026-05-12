@@ -38,7 +38,7 @@
     border-radius: var(--_otp-slot-radius);
     outline: none;
     transition: border-color var(--bob-input-transition-duration, 150ms) var(--bob-input-transition-easing, ease),
-                box-shadow var(--bob-input-transition-duration, 150ms) var(--bob-input-transition-easing, ease);
+    box-shadow var(--bob-input-transition-duration, 150ms) var(--bob-input-transition-easing, ease);
 }
 
 [data-bob-component="input-otp"] .bob-otp__slot:focus {

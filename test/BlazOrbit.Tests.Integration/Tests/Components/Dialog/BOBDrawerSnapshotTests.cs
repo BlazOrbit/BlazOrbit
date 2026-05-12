@@ -38,7 +38,7 @@ public class BOBDrawerSnapshotTests
                     .Add(c => c.Closable, true)
                     .Add(c => c.Header, b => b.AddContent(0, "Drawer title"))
                     .Add(c => c.ChildContent, b => b.AddContent(0, "Drawer body"))).GetNormalizedMarkup()
-            },
+            }
         };
 
         await Verify(testCases).UseParameters(scenario.Name);

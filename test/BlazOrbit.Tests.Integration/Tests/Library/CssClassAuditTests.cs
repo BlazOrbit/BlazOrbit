@@ -46,8 +46,10 @@ public class CssClassAuditTests
         ["bob-button__icon--leading"] = "Modifier for leading icon; verified by BOBButtonStateTests.",
         ["bob-button__icon--trailing"] = "Modifier for trailing icon; verified by BOBButtonStateTests.",
         ["bob-tabs__tab-label"] = "Structural/test hook for tab label text; verified by BOBTabsRenderingTests.",
-        ["bob-tree-menu__submenu"] = "Structural/test hook for submenu container; verified by BOBTreeMenuInteractionTests.",
-        ["bob-tree-selector__expander"] = "Structural/test hook for expand button; verified by BOBTreeSelectorStateTests.",
+        ["bob-tree-menu__submenu"] =
+            "Structural/test hook for submenu container; verified by BOBTreeMenuInteractionTests.",
+        ["bob-tree-selector__expander"] =
+            "Structural/test hook for expand button; verified by BOBTreeSelectorStateTests."
     };
 
     [Fact]
@@ -62,12 +64,12 @@ public class CssClassAuditTests
             .OrderBy(s => s, StringComparer.Ordinal);
 
         ghosts.Should().BeEmpty(
-            because: "every CSS class written onto the DOM must be selected by at least one " +
-                     "CSS rule, otherwise the class is dead weight or styling is missing. " +
-                     "If the class is an intentional public hook or test anchor, add it to " +
-                     "GhostClassAllowlist with a justification and a test reference.\n\n" +
-                     "Ghost classes:\n  " +
-                     string.Join("\n  ", ghosts.Select(o => $".{o}")));
+            "every CSS class written onto the DOM must be selected by at least one " +
+            "CSS rule, otherwise the class is dead weight or styling is missing. " +
+            "If the class is an intentional public hook or test anchor, add it to " +
+            "GhostClassAllowlist with a justification and a test reference.\n\n" +
+            "Ghost classes:\n  " +
+            string.Join("\n  ", ghosts.Select(o => $".{o}")));
     }
 
     [Fact]
@@ -91,8 +93,8 @@ public class CssClassAuditTests
         }
 
         stale.Should().BeEmpty(
-            because: "stale allowlist entries hide future drift. Remove the entries listed below.\n\n" +
-                     string.Join("\n", stale));
+            "stale allowlist entries hide future drift. Remove the entries listed below.\n\n" +
+            string.Join("\n", stale));
     }
 
     private static HashSet<string> ExtractClassesFromCss()

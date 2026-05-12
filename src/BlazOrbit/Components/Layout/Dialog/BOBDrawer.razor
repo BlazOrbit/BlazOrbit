@@ -11,9 +11,9 @@
 @if (Open)
 {
     <bob-component @attributes="ComputedAttributes"
-         @onkeydown="HandleKeyDown"
-         tabindex="-1"
-         @ref="_hostRef">
+                   @onkeydown="HandleKeyDown"
+                   tabindex="-1"
+                   @ref="_hostRef">
 
         <div class="bob-drawer-overlay"
              data-bob-closing="@(_isClosing ? "true" : null)"
@@ -41,10 +41,10 @@
 
                     @if (Closable)
                     {
-                        <_BOBBtn Icon="@BOBIconKeys.UI.Close"
-                                    Variant="BOBBtnVariant.Ghost"
-                                    AriaLabel="@Localizer["Close"]"
-                                    OnClick="CloseAsync" />
+                        <_BOBInBtn Icon="@BOBIconKeys.UI.Close"
+                                   Variant="BOBInBtnVariant.Ghost"
+                                   AriaLabel="@Localizer["Close"]"
+                                   OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, CloseAsync))"/>
                     }
                 </div>
             }
@@ -74,33 +74,50 @@
     /// <summary>Material Design elevation level (0–24) applied to the drawer surface. Sets a derived
     /// shadow and lifts the surface in dark mode via a tint overlay. <see langword="null"/> (default)
     /// keeps the component-default shadow defined in CSS.</summary>
-    [Parameter] public int? Elevation { get; set; }
+    [Parameter]
+    public int? Elevation { get; set; }
 
     /// <summary>Open.</summary>
-    [Parameter] public bool Open { get; set; }
+    [Parameter]
+    public bool Open { get; set; }
+
     /// <summary>OpenChanged.</summary>
-    [Parameter] public EventCallback<bool> OpenChanged { get; set; }
+    [Parameter]
+    public EventCallback<bool> OpenChanged { get; set; }
 
     /// <summary>Header.</summary>
-    [Parameter] public RenderFragment? Header { get; set; }
+    [Parameter]
+    public RenderFragment? Header { get; set; }
+
     /// <summary>Content rendered inside the component.</summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     /// <summary>Footer.</summary>
-    [Parameter] public RenderFragment? Footer { get; set; }
+    [Parameter]
+    public RenderFragment? Footer { get; set; }
 
     /// <summary>Position.</summary>
-    [Parameter] public DrawerPosition Position { get; set; } = DrawerPosition.Right;
+    [Parameter]
+    public DrawerPosition Position { get; set; } = DrawerPosition.Right;
+
     /// <summary>Visual size of the component.</summary>
-    [Parameter] public string Size { get; set; } = "300px";
+    [Parameter]
+    public string Size { get; set; } = "300px";
 
     [Inject] internal IStringLocalizer<BOBLayoutResources> Localizer { get; set; } = default!;
 
     /// <summary>Closable.</summary>
-    [Parameter] public bool Closable { get; set; } = true;
+    [Parameter]
+    public bool Closable { get; set; } = true;
+
     /// <summary>CloseOnOverlayClick.</summary>
-    [Parameter] public bool CloseOnOverlayClick { get; set; } = true;
+    [Parameter]
+    public bool CloseOnOverlayClick { get; set; } = true;
+
     /// <summary>CloseOnEscape.</summary>
-    [Parameter] public bool CloseOnEscape { get; set; } = true;
+    [Parameter]
+    public bool CloseOnEscape { get; set; } = true;
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -151,10 +168,18 @@
         {
             await JsInterop.WaitForAnimationEndAsync(_drawerRef, CloseAnimationFallbackMs);
         }
-        catch (JSDisconnectedException) { }
-        catch (ObjectDisposedException) { }
-        catch (InvalidOperationException) { }
-        catch (TaskCanceledException) { }
+        catch (JSDisconnectedException)
+        {
+        }
+        catch (ObjectDisposedException)
+        {
+        }
+        catch (InvalidOperationException)
+        {
+        }
+        catch (TaskCanceledException)
+        {
+        }
 
         if (IsDisposed) return;
 
@@ -179,4 +204,5 @@
         await CleanupAsync();
         await base.DisposeAsync();
     }
+
 }

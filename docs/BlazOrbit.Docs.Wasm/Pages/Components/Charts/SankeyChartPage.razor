@@ -1,0 +1,97 @@
+﻿@page "/components/charts/sankey"
+
+@inject IStringLocalizer<SankeyChartPage> Loc
+
+<DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBSankeyChart"]"
+         Lede="@Loc["Flow diagram with variable-thickness ribbons between named nodes. The chart auto-derives node columns from the edge graph (topological rank) so consumers only describe the links. Use for energy flows, budget movements, conversion funnels and migrations between states."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBSankeyChart<>)"
+         Keywords="@(["sankey", "flow", "diagram", "energy", "migration", "conversion"])">
+
+    <BOBBanner Severity="BOBBannerSeverity.Warning"
+               Title="@Loc["Extra package required"]"
+               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]"/>
+
+    <DocDemo Key="EnergyFlow" Title="@Loc["Energy flow"]"
+             Description="@Loc["Each link's ribbon thickness scales with its Value. Source nodes appear on the left; sinks pin to the rightmost column automatically."]">
+        <BOBSankeyChart TY="double"
+                        Links="_energy"
+                        Width="720" Height="360"/>
+    </DocDemo>
+
+    <DocDemo Key="ConversionFunnel" Title="@Loc["Conversion funnel"]"
+             Description="@Loc["Click a ribbon to drill into the source data. The chart highlights the path under the cursor and the tooltip shows the formatted value."]">
+        <BOBSankeyChart TY="int"
+                        Links="_funnel"
+                        NodeColors="_funnelNodeColors"
+                        AlignSinksRight="false"
+                        NodeWidth="20"
+                        NodePadding="20"
+                        LinkOpacity="0.65"
+                        OnLinkClick="@(EventCallback.Factory.Create<BOBChartSankeyLink<int>>(this, HandleLinkClick))"
+                        Width="720" Height="1100"/>
+        @if (_lastLink is not null)
+        {
+            <p class="doc-callout doc-callout--info"><strong>@Loc["Clicked:"]</strong> @_lastLink.Source → @_lastLink.Target — @_lastLink.Value</p>
+        }
+    </DocDemo>
+
+    <DocDemo Key="MultiColumn" Title="@Loc["Multi-column flow"]"
+             Description="@Loc["Topological ranking places each node one column right of its deepest source. Branching and merging columns emerge naturally from the graph."]">
+        <BOBSankeyChart TY="double"
+                        Links="_supplyChain"
+                        Width="720" Height="380"/>
+    </DocDemo>
+
+</DocPage>
+
+@code {
+
+    private BOBChartSankeyLink<int>? _lastLink;
+
+    private void HandleLinkClick(BOBChartSankeyLink<int> link)
+    {
+        _lastLink = link;
+    }
+
+    private static readonly BOBChartSankeyLink<double>[] _energy =
+    [
+        new BOBChartSankeyLink<double> { Source = "Coal", Target = "Electricity", Value = 35 },
+        new BOBChartSankeyLink<double> { Source = "Gas", Target = "Electricity", Value = 25 },
+        new BOBChartSankeyLink<double> { Source = "Wind", Target = "Electricity", Value = 18 },
+        new BOBChartSankeyLink<double> { Source = "Solar", Target = "Electricity", Value = 12 },
+        new BOBChartSankeyLink<double> { Source = "Electricity", Target = "Industry", Value = 38 },
+        new BOBChartSankeyLink<double> { Source = "Electricity", Target = "Homes", Value = 30 },
+        new BOBChartSankeyLink<double> { Source = "Electricity", Target = "Transport", Value = 22 }
+    ];
+
+    private static readonly System.Collections.Generic.Dictionary<string, string> _funnelNodeColors = new()
+    {
+        ["Bounce"] = "#9ca3af",
+        ["Dropped"] = "#9ca3af",
+        ["Paid"] = "var(--palette-success)"
+    };
+
+    private static readonly BOBChartSankeyLink<int>[] _funnel =
+    [
+        new BOBChartSankeyLink<int> { Source = "Visitors", Target = "Sign-ups", Value = 4200, Color = "var(--palette-primary)" },
+        new BOBChartSankeyLink<int> { Source = "Visitors", Target = "Bounce", Value = 5800, Color = "#9ca3af" },
+        new BOBChartSankeyLink<int> { Source = "Sign-ups", Target = "Activated", Value = 2400, Color = "var(--palette-primary)" },
+        new BOBChartSankeyLink<int> { Source = "Sign-ups", Target = "Dropped", Value = 1800, Color = "#9ca3af" },
+        new BOBChartSankeyLink<int> { Source = "Activated", Target = "Paid", Value = 720, Color = "var(--palette-success)" },
+        new BOBChartSankeyLink<int> { Source = "Activated", Target = "Free", Value = 1680, Color = "var(--palette-primary)" }
+    ];
+
+    private static readonly BOBChartSankeyLink<double>[] _supplyChain =
+    [
+        new BOBChartSankeyLink<double> { Source = "Mines", Target = "Smelter A", Value = 40 },
+        new BOBChartSankeyLink<double> { Source = "Mines", Target = "Smelter B", Value = 30 },
+        new BOBChartSankeyLink<double> { Source = "Recycling", Target = "Smelter A", Value = 15 },
+        new BOBChartSankeyLink<double> { Source = "Recycling", Target = "Smelter B", Value = 10 },
+        new BOBChartSankeyLink<double> { Source = "Smelter A", Target = "Factory", Value = 50 },
+        new BOBChartSankeyLink<double> { Source = "Smelter B", Target = "Factory", Value = 35 },
+        new BOBChartSankeyLink<double> { Source = "Factory", Target = "Retail", Value = 60 },
+        new BOBChartSankeyLink<double> { Source = "Factory", Target = "Export", Value = 25 }
+    ];
+
+}

@@ -7,43 +7,74 @@
     private bool _registered;
     private DataColumnRegistration<TItem>? _registration;
     private Func<TItem, object?>? _compiledSelector;
+    private Action<TItem, object?>? _compiledSetter;
     private string? _propertyName;
 
     /// <summary>Align.</summary>
-    [Parameter] public ColumnAlign Align { get; set; } = ColumnAlign.Left;
+    [Parameter]
+    public ColumnAlign Align { get; set; } = ColumnAlign.Left;
+
     /// <summary>CSS class applied to the Cell.</summary>
-    [Parameter] public string? CellClass { get; set; }
+    [Parameter]
+    public string? CellClass { get; set; }
+
     /// <summary>Custom sort comparer for the column. Replaces default value comparison when <see cref="Sortable"/> is on.</summary>
-    [Parameter] public Func<TItem, TItem, int>? CustomComparer { get; set; }
+    [Parameter]
+    public Func<TItem, TItem, int>? CustomComparer { get; set; }
+
     /// <summary>Custom filter predicate. Replaces default substring matching when <see cref="Filterable"/> is on.</summary>
-    [Parameter] public Func<TItem, string, bool>? CustomFilter { get; set; }
+    [Parameter]
+    public Func<TItem, string, bool>? CustomFilter { get; set; }
+
     /// <summary>Filterable.</summary>
-    [Parameter] public bool Filterable { get; set; }
+    [Parameter]
+    public bool Filterable { get; set; }
+
     /// <summary>Format.</summary>
-    [Parameter] public string? Format { get; set; }
+    [Parameter]
+    public string? Format { get; set; }
+
     /// <summary>Header.</summary>
-    [Parameter] public string? Header { get; set; }
+    [Parameter]
+    public string? Header { get; set; }
+
     /// <summary>Custom template for rendering the Header.</summary>
-    [Parameter] public RenderFragment? HeaderTemplate { get; set; }
+    [Parameter]
+    public RenderFragment? HeaderTemplate { get; set; }
+
     /// <summary>CSS class applied to the Header.</summary>
-    [Parameter] public string? HeaderClass { get; set; }
+    [Parameter]
+    public string? HeaderClass { get; set; }
+
     /// <summary>Expression that selects the column's bound property. Used to derive header text, sorting, and filtering.</summary>
-    [Parameter] public Expression<Func<TItem, object?>>? Property { get; set; }
+    [Parameter]
+    public Expression<Func<TItem, object?>>? Property { get; set; }
+
     /// <summary>Sortable.</summary>
-    [Parameter] public bool Sortable { get; set; }
+    [Parameter]
+    public bool Sortable { get; set; }
+
     /// <summary>Custom template for rendering the .</summary>
-    [Parameter] public RenderFragment<TItem>? Template { get; set; }
+    [Parameter]
+    public RenderFragment<TItem>? Template { get; set; }
+
     /// <summary>Visible.</summary>
-    [Parameter] public bool Visible { get; set; } = true;
+    [Parameter]
+    public bool Visible { get; set; } = true;
+
     /// <summary>Width.</summary>
-    [Parameter] public string? Width { get; set; }
+    [Parameter]
+    public string? Width { get; set; }
+
     /// <summary>
     /// Pin side. <see cref="ColumnFreeze.Start"/> sticks the column to the inline-start
     /// edge of the scroll container, <see cref="ColumnFreeze.End"/> to the inline-end.
     /// Frozen columns require an explicit pixel <see cref="Width"/> so the grid can
     /// compute cumulative offsets for adjacent frozen peers.
     /// </summary>
-    [Parameter] public ColumnFreeze Freeze { get; set; } = ColumnFreeze.None;
+    [Parameter]
+    public ColumnFreeze Freeze { get; set; } = ColumnFreeze.None;
+
     /// <summary>
     /// Filter category. Drives which input type + operator dropdown render when
     /// <c>ShowColumnFilters=true</c> on the parent grid. Defaults to
@@ -52,25 +83,64 @@
     /// <see cref="ColumnFilterMode.Date"/> for Before / After / Equals against date
     /// properties.
     /// </summary>
-    [Parameter] public ColumnFilterMode FilterMode { get; set; } = ColumnFilterMode.Text;
+    [Parameter]
+    public ColumnFilterMode FilterMode { get; set; } = ColumnFilterMode.Text;
+
     /// <summary>
     /// When <see langword="true"/>, the grid renders a drag handle on the trailing edge of
     /// this column's header so the user can resize via pointer events. Requires
     /// <c>BOBDataGrid.Resizable</c> to be on.
     /// </summary>
-    [Parameter] public bool Resizable { get; set; }
+    [Parameter]
+    public bool Resizable { get; set; }
+
     /// <summary>Lower bound (in pixels) the resize drag clamps to. Default <c>48</c>.</summary>
-    [Parameter] public double MinWidth { get; set; } = 48d;
+    [Parameter]
+    public double MinWidth { get; set; } = 48d;
+
     /// <summary>Upper bound (in pixels) the resize drag clamps to. <c>0</c> = no limit.</summary>
-    [Parameter] public double MaxWidth { get; set; }
+    [Parameter]
+    public double MaxWidth { get; set; }
+
     /// <summary>Aggregate function rendered in the column footer (Sum, Avg, …). Default <see cref="AggregateFunction.None"/>.</summary>
-    [Parameter] public AggregateFunction Aggregate { get; set; } = AggregateFunction.None;
+    [Parameter]
+    public AggregateFunction Aggregate { get; set; } = AggregateFunction.None;
+
     /// <summary>Format string applied to the aggregate value. Falls back to <see cref="Format"/> when null.</summary>
-    [Parameter] public string? AggregateFormat { get; set; }
+    [Parameter]
+    public string? AggregateFormat { get; set; }
+
     /// <summary>Optional prefix label shown next to the aggregate (e.g. <c>"Total: "</c>).</summary>
-    [Parameter] public string? AggregateLabel { get; set; }
+    [Parameter]
+    public string? AggregateLabel { get; set; }
+
     /// <summary>Custom aggregate. Invoked when <see cref="Aggregate"/> is <see cref="AggregateFunction.Custom"/>.</summary>
-    [Parameter] public Func<IEnumerable<TItem>, object?>? CustomAggregate { get; set; }
+    [Parameter]
+    public Func<IEnumerable<TItem>, object?>? CustomAggregate { get; set; }
+
+    /// <summary>
+    /// When <see langword="true"/> and the parent grid runs in an inline-edit mode, this
+    /// column participates in editing. Requires <see cref="Property"/> to bind to a
+    /// writable member (auto-derived setter) or an explicit <see cref="EditTemplate"/>.
+    /// </summary>
+    [Parameter]
+    public bool Editable { get; set; }
+
+    /// <summary>
+    /// Optional editor render fragment used in place of the auto-resolved input primitive
+    /// while a cell is in edit mode. Receives the row item — bind to its properties via
+    /// the consumer-supplied template.
+    /// </summary>
+    [Parameter]
+    public RenderFragment<TItem>? EditTemplate { get; set; }
+
+    /// <summary>
+    /// Optional validator invoked on every cell commit when <see cref="Editable"/> is on.
+    /// Receives the row item and the proposed value; returns the error message to surface
+    /// in the cell's tooltip when invalid, or <see langword="null"/> to allow the commit.
+    /// </summary>
+    [Parameter]
+    public Func<TItem, object?, string?>? Validator { get; set; }
 
     [CascadingParameter(Name = "DataColumnRegistry")]
     internal IDataColumnRegistry<TItem>? Registry { get; set; }
@@ -79,16 +149,37 @@
     {
         if (Property != null && _compiledSelector == null)
         {
-            Func<TItem, object?> compiled = Property.Compile();
+            var compiled = Property.Compile();
             _compiledSelector = compiled;
 
-            if (Property.Body is MemberExpression memberExpr)
+            MemberExpression? member = Property.Body switch
             {
-                _propertyName = memberExpr.Member.Name;
-            }
-            else if (Property.Body is UnaryExpression { Operand: MemberExpression innerMember })
+                MemberExpression direct => direct,
+                UnaryExpression { Operand: MemberExpression inner } => inner,
+                _ => null
+            };
+
+            if (member is not null)
             {
-                _propertyName = innerMember.Member.Name;
+                _propertyName = member.Member.Name;
+
+                // Derive a setter from the same property access used for the getter so
+                // inline-edit cells can write back without the consumer wiring a separate
+                // expression. Skip when the member is read-only or backed by a field that
+                // the .NET runtime won't let us assign to.
+                if (member.Member is System.Reflection.PropertyInfo { CanWrite: true } prop)
+                {
+                    _compiledSetter = (item, value) =>
+                    {
+                        if (item is null)
+                        {
+                            return;
+                        }
+
+                        object? coerced = CoerceValue(value, prop.PropertyType);
+                        prop.SetValue(item, coerced);
+                    };
+                }
             }
         }
 
@@ -120,7 +211,11 @@
                     FilterMode = FilterMode,
                     Resizable = Resizable,
                     MinWidth = MinWidth,
-                    MaxWidth = MaxWidth
+                    MaxWidth = MaxWidth,
+                    ValueSetter = _compiledSetter,
+                    Editable = Editable,
+                    EditTemplate = EditTemplate,
+                    Validator = Validator
                 };
                 Registry.RegisterColumn(_registration);
                 _registered = true;
@@ -150,7 +245,43 @@
                 _registration.Resizable = Resizable;
                 _registration.MinWidth = MinWidth;
                 _registration.MaxWidth = MaxWidth;
+                _registration.ValueSetter = _compiledSetter;
+                _registration.Editable = Editable;
+                _registration.EditTemplate = EditTemplate;
+                _registration.Validator = Validator;
             }
         }
     }
+
+    // Coerces an input control's raw value back to the column property's CLR type.
+    // String inputs come through as `string`; numeric / date primitives bind as their
+    // typed value already. Falls back to <see cref="Convert.ChangeType"/> for the
+    // common BCL conversions; returns the raw value on conversion failure so consumers
+    // see the user input (with validation surfacing the error) instead of silent loss.
+    //
+    // AOT note: Activator.CreateInstance is only invoked on value types, which always
+    // have an implicit public parameterless constructor that the trimmer preserves —
+    // no [DynamicallyAccessedMembers] annotation is needed for this branch.
+    private static object? CoerceValue(object? value, Type targetType)
+    {
+        if (value is null)
+        {
+            return targetType.IsValueType ? Activator.CreateInstance(targetType) : null;
+        }
+
+        if (targetType.IsAssignableFrom(value.GetType()))
+        {
+            return value;
+        }
+
+        Type underlying = Nullable.GetUnderlyingType(targetType) ?? targetType;
+        try
+        {
+            return Convert.ChangeType(value, underlying, System.Globalization.CultureInfo.InvariantCulture);
+        }
+        catch (FormatException) { return value; }
+        catch (InvalidCastException) { return value; }
+        catch (OverflowException) { return value; }
+    }
+
 }

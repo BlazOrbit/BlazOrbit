@@ -12,7 +12,7 @@ public class BOBDataGridRenderingTests
 {
     private sealed record Person(string Name, int Age);
 
-    private static IEnumerable<Person> Items => [new Person("Alice", 30), new Person("Bob", 25)];
+    private static IEnumerable<Person> Items => [new("Alice", 30), new("Bob", 25)];
 
     private static RenderFragment Columns => b =>
     {

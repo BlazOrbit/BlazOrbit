@@ -20,7 +20,7 @@ public class BOBInputNumberSliderInteractionTests
             .Add(c => c.Value, value)
             .Add(c => c.ValueChanged, v => value = v));
 
-        cut.Find("._bob-slider-thumb").KeyDown(key: "ArrowUp");
+        cut.Find("._bob-slider-thumb").KeyDown("ArrowUp");
 
         value.Should().Be(11);
     }
@@ -36,7 +36,7 @@ public class BOBInputNumberSliderInteractionTests
             .Add(c => c.Value, value)
             .Add(c => c.ValueChanged, v => value = v));
 
-        cut.Find("._bob-slider-thumb").KeyDown(key: "ArrowDown");
+        cut.Find("._bob-slider-thumb").KeyDown("ArrowDown");
 
         value.Should().Be(9);
     }
@@ -53,7 +53,7 @@ public class BOBInputNumberSliderInteractionTests
             .Add(c => c.Value, value)
             .Add(c => c.ValueChanged, v => value = v));
 
-        cut.Find("._bob-slider-thumb").KeyDown(key: "ArrowRight");
+        cut.Find("._bob-slider-thumb").KeyDown("ArrowRight");
 
         value.Should().Be(5);
     }
@@ -71,7 +71,7 @@ public class BOBInputNumberSliderInteractionTests
             .Add(c => c.Value, value)
             .Add(c => c.ValueChanged, v => value = v));
 
-        cut.Find("._bob-slider-thumb").KeyDown(key: "Home");
+        cut.Find("._bob-slider-thumb").KeyDown("Home");
 
         value.Should().Be(0);
     }
@@ -89,7 +89,7 @@ public class BOBInputNumberSliderInteractionTests
             .Add(c => c.Value, value)
             .Add(c => c.ValueChanged, v => value = v));
 
-        cut.Find("._bob-slider-thumb").KeyDown(key: "End");
+        cut.Find("._bob-slider-thumb").KeyDown("End");
 
         value.Should().Be(100);
     }
@@ -108,7 +108,7 @@ public class BOBInputNumberSliderInteractionTests
             .Add(c => c.Value, value)
             .Add(c => c.ValueChanged, v => value = v));
 
-        cut.Find("._bob-slider-thumb").KeyDown(key: "PageUp");
+        cut.Find("._bob-slider-thumb").KeyDown("PageUp");
 
         value.Should().Be(10);
     }
@@ -125,7 +125,7 @@ public class BOBInputNumberSliderInteractionTests
             .Add(c => c.Disabled, true)
             .Add(c => c.ValueChanged, v => value = v));
 
-        cut.Find("._bob-slider-thumb").KeyDown(key: "ArrowUp");
+        cut.Find("._bob-slider-thumb").KeyDown("ArrowUp");
 
         value.Should().Be(10);
     }
@@ -142,7 +142,7 @@ public class BOBInputNumberSliderInteractionTests
             .Add(c => c.ReadOnly, true)
             .Add(c => c.ValueChanged, v => value = v));
 
-        cut.Find("._bob-slider-thumb").KeyDown(key: "ArrowUp");
+        cut.Find("._bob-slider-thumb").KeyDown("ArrowUp");
 
         value.Should().Be(10);
     }

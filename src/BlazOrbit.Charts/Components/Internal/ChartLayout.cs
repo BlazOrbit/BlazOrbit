@@ -26,12 +26,12 @@ internal readonly record struct ChartLayout(
     /// </summary>
     public static ChartLayout Default(double width, double height)
         => new(
-            Width: width,
-            Height: height,
-            PlotLeft: 56,
-            PlotTop: 12,
-            PlotRight: width - 12,
-            PlotBottom: height - 32);
+            width,
+            height,
+            56,
+            12,
+            width - 12,
+            height - 32);
 
     /// <summary>
     /// Edge-to-edge layout for sparkline mode (no axis padding). Reserves
@@ -40,12 +40,12 @@ internal readonly record struct ChartLayout(
     /// </summary>
     public static ChartLayout Sparkline(double width, double height)
         => new(
-            Width: width,
-            Height: height,
-            PlotLeft: 1,
-            PlotTop: 1,
-            PlotRight: width - 1,
-            PlotBottom: height - 1);
+            width,
+            height,
+            1,
+            1,
+            width - 1,
+            height - 1);
 
     /// <summary>Format a double to two decimals using the invariant culture.</summary>
     public static string ToInvariant(double v)

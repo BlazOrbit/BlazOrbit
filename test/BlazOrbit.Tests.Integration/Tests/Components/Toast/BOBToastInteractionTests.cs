@@ -55,7 +55,10 @@ public class BOBToastInteractionTests
         ToastState state = new()
         {
             Content = b => b.AddContent(0, "msg"),
-            Options = new ToastOptions { AutoDismiss = false, Animation = new ToastAnimation { Duration = TimeSpan.FromMilliseconds(10) } }
+            Options = new ToastOptions
+            {
+                AutoDismiss = false, Animation = new ToastAnimation { Duration = TimeSpan.FromMilliseconds(10) }
+            }
         };
 
         IRenderedComponent<BOBToast> cut = ctx.Render<BOBToast>(p => p

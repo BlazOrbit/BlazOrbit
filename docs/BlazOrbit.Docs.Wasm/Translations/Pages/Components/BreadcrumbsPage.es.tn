@@ -1,0 +1,32 @@
+// Auto-migrated from BreadcrumbsPage.es.resx. Edit freely from now on.
+
+# Basic
+Básico
+
+# BOBBreadcrumbs
+BOBBreadcrumbs
+
+# Compact trail showing where the user is and how to walk back up the route.
+Rastro compacto que muestra dónde está el usuario y cómo volver por la ruta.
+
+# Component
+Componente
+
+# Custom item template
+Plantilla de elemento personalizada
+
+# Custom separator
+Separador personalizado
+
+# MaxVisible=3 hides the middle entries behind an ellipsis.
+MaxVisible=3 oculta las entradas intermedias detrás de una elipsis.
+
+# Properties
+Propiedades
+
+# Truncated trail
+Rastro truncado
+
+# With leading icons
+Con iconos iniciales
+

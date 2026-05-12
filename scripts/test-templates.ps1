@@ -65,6 +65,14 @@
     Generate the projects but skip `dotnet build` on each. Faster smoke for
     pure template/content edits.
 
+.PARAMETER SkipE2E
+    Skip the Playwright end-to-end smoke against the generated apps. E2E runs
+    by default after every successful build because that is the only stage that
+    catches runtime regressions (asset 404s, JS errors, blank pages) — a
+    template can compile clean yet still ship a broken home page if a referenced
+    `_content/<pkg>/...` URL is missing from the BlazOrbit nupkg's static
+    web asset manifest.
+
 .PARAMETER KeepWorkDir
     Keep generated projects on disk after the run for manual inspection.
 
@@ -78,7 +86,8 @@
 
 .EXAMPLE
     ./scripts/test-templates.ps1
-    Full run: pack everything, install, build all 4 combos, uninstall.
+    Full run: pack everything, install, build all combos, run Playwright E2E,
+    uninstall.
 
 .EXAMPLE
     ./scripts/test-templates.ps1 -SkipBlazOrbitPack
@@ -89,8 +98,8 @@
     Just regenerate projects, keep them on disk and the templates installed.
 
 .EXAMPLE
-    ./scripts/test-templates.ps1 -RunE2E
-    After building all projects, run Playwright end-to-end tests against the generated projects.
+    ./scripts/test-templates.ps1 -SkipE2E
+    Quick smoke: pack + build only. Skips Playwright (no browser spin-up).
 
 .EXAMPLE
     ./scripts/test-templates.ps1 -Help
@@ -109,13 +118,16 @@ param(
     [string]$WorkDir = "",
     [switch]$SkipBlazOrbitPack,
     [switch]$SkipBuild,
-    [switch]$RunE2E,
+    [switch]$SkipE2E,
     [switch]$KeepWorkDir,
     [switch]$KeepInstalled,
     [hashtable[]]$Matrix,
     [Alias("h")]
     [switch]$Help
 )
+
+Set-StrictMode -Version Latest
+$ErrorActionPreference = 'Stop'
 
 if ($Help) {
     Get-Help $PSCommandPath -Full | Out-String | Write-Host
@@ -239,9 +251,19 @@ $templatePkg = Get-ChildItem $FeedDir -Filter "BlazOrbit.Templates.*.nupkg" | So
 if (-not $templatePkg) { throw "BlazOrbit.Templates.*.nupkg not found in $FeedDir" }
 Write-Ok "templates packed: $($templatePkg.Name)"
 
-# ---------- 3. Clear http cache so the new pkg is picked up ----------
-Write-Step "Clearing NuGet http cache"
-Invoke-DotNet @("nuget", "locals", "http-cache", "--clear") "clear nuget cache"
+# ---------- 3. Clear caches so the new pkgs are picked up ----------
+Write-Step "Clearing NuGet caches"
+$globalPackages = Join-Path $env:USERPROFILE ".nuget\packages"
+$blazOrbitPackages = Get-ChildItem -Path $globalPackages -Directory -Filter "blazorbit*" -ErrorAction SilentlyContinue
+if ($blazOrbitPackages) {
+    foreach ($pkg in $blazOrbitPackages) {
+        Remove-Item -Recurse -Force $pkg.FullName -ErrorAction SilentlyContinue
+        Write-Ok "removed stale global cache: $($pkg.Name)"
+    }
+} else {
+    Write-Ok "no stale BlazOrbit packages in global cache"
+}
+Invoke-DotNet @("nuget", "locals", "http-cache", "--clear") "clear nuget http cache"
 Write-Ok "cleared"
 
 # ---------- 4. Install templates ----------
@@ -373,9 +395,13 @@ $slnxLines.Add("</Solution>") | Out-Null
 ($slnxLines -join "`n") | Set-Content -Path $slnxPath -Encoding UTF8
 Write-Ok "slnx written ($slnxIncluded project(s))"
 
-# ---------- 8. E2E tests (optional) ----------
-$failures = $results | Where-Object { $_.Generate -ne "ok" -or ($_.Build -eq "fail") }
+# ---------- 8. E2E tests (default on; -SkipE2E opts out) ----------
+# E2E is the only stage that catches runtime regressions (asset 404s, blank
+# home page) that `dotnet build` happily compiles through, so it runs every
+# time unless explicitly skipped.
+$failures = @($results | Where-Object { $_.Generate -ne "ok" -or ($_.Build -eq "fail") })
 $e2eResults = "skipped"
+$RunE2E = -not $SkipE2E
 if ($RunE2E) {
     if ($SkipBuild) {
         Write-Warn2 "Cannot run E2E tests with -SkipBuild. Projects must be built first."
@@ -442,8 +468,8 @@ if ($RunE2E) {
 if (-not $KeepInstalled) {
     Write-Step "Uninstalling BlazOrbit.Templates"
     # The E2E fixture's DisposeAsync already calls `dotnet new uninstall`, so when
-    # -RunE2E was used the templates may already be gone. Detect that and stay
-    # quiet instead of warning.
+    # E2E ran (the default) the templates may already be gone. Detect that and
+    # stay quiet instead of warning.
     $installedNow = & dotnet new uninstall 2>&1 | Out-String
     if ($installedNow -match "BlazOrbit\.Templates") {
         try {

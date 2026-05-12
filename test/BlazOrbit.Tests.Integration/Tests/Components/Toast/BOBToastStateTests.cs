@@ -41,9 +41,7 @@ public class BOBToastStateTests
         // Arrange
         ToastState state = new()
         {
-            Content = b => b.AddContent(0, "msg"),
-            Options = ToastOptions.Default,
-            IsPaused = true
+            Content = b => b.AddContent(0, "msg"), Options = ToastOptions.Default, IsPaused = true
         };
 
         // Act

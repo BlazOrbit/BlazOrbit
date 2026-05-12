@@ -1,11 +1,6 @@
 ﻿using BlazOrbit.Localization;
-using BlazOrbit.Localization.Shared;
 using BlazOrbit.Localization.Wasm;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using System.Globalization;
 
 namespace Microsoft.Extensions.DependencyInjection;
@@ -21,19 +16,14 @@ public static class WasmLocalizationServiceCollectionExtensions
         services.AddSingleton<LocalizationSettings>(options);
         services.AddSingleton(options);
 
-        // Add standard localization
-        services.AddLocalization(opts => opts.ResourcesPath = options.ResourcesPath);
+        // BOBLocalize takes over IStringLocalizer<T> resolution. Built-in providers
+        // (Bundle, Literal) plus per-bundle `.tn` data are registered via the
+        // `[ModuleInitializer]` emitted by `BlazOrbit.Localization.CodeGeneration` in each
+        // assembly that declares `[BobLocalizationBundle]` — by the time any consumer
+        // resolves `IStringLocalizer<TResource>`, every bundle is already in place.
+        services.AddBlazOrbitLocalization();
 
-        // Reroute IStringLocalizer<T> lookups to the configured *.Translations assemblies.
-        services.Replace(ServiceDescriptor.Singleton<IStringLocalizerFactory>(sp =>
-        {
-            IOptions<LocalizationOptions> localOpts = sp.GetRequiredService<IOptions<LocalizationOptions>>();
-            ILoggerFactory loggerFactory = sp.GetRequiredService<ILoggerFactory>();
-            ResourceManagerStringLocalizerFactory inner = new(localOpts, loggerFactory);
-            return new ReroutedStringLocalizerFactory(inner, options.TranslationsAssemblies);
-        }));
-
-        // Add WASM-specific persistence
+        // WASM-specific persistence — culture cookie/localStorage round-trip.
         services.AddScoped<ILocalizationPersistence, WasmLocalizationPersistence>();
 
         return services;

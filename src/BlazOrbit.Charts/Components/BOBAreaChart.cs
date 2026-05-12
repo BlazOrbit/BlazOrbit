@@ -35,7 +35,8 @@ public sealed class BOBAreaChart<TX, TY> : BOBLineChart<TX, TY>
     /// enough to see the volume, transparent enough that overlapping series
     /// remain distinguishable.
     /// </summary>
-    [Parameter] public double FillOpacity { get; set; } = 0.25;
+    [Parameter]
+    public double FillOpacity { get; set; } = 0.25;
 
     /// <inheritdoc />
     protected override string BuildAriaLabel()
@@ -45,7 +46,7 @@ public sealed class BOBAreaChart<TX, TY> : BOBLineChart<TX, TY>
         {
             0 => "Area chart with no data",
             1 => "Area chart with one series",
-            _ => $"Area chart with {seriesCount} series",
+            _ => $"Area chart with {seriesCount} series"
         };
     }
 
@@ -78,7 +79,7 @@ public sealed class BOBAreaChart<TX, TY> : BOBLineChart<TX, TY>
             // Reverse the baseline so the path closes cleanly: top forward,
             // baseline backward. Both rendered with the same curve engine so
             // smooth fills hug both contours consistently.
-            var reversedBaseline = new List<(double X, double Y)>(baselineProjected);
+            List<(double X, double Y)> reversedBaseline = new(baselineProjected);
             reversedBaseline.Reverse();
             string baseSegment = Smooth
                 ? BuildSmoothPath(reversedBaseline)
@@ -93,8 +94,8 @@ public sealed class BOBAreaChart<TX, TY> : BOBLineChart<TX, TY>
             double zero = yScale.Project(0);
             double baseline = Math.Min(layout.PlotBottom, Math.Max(layout.PlotTop, zero));
             areaPath = $"{topSegment} "
-                + $"L {ChartLayout.ToInvariant(projected[^1].X)},{ChartLayout.ToInvariant(baseline)} "
-                + $"L {ChartLayout.ToInvariant(projected[0].X)},{ChartLayout.ToInvariant(baseline)} Z";
+                       + $"L {ChartLayout.ToInvariant(projected[^1].X)},{ChartLayout.ToInvariant(baseline)} "
+                       + $"L {ChartLayout.ToInvariant(projected[0].X)},{ChartLayout.ToInvariant(baseline)} Z";
         }
 
         builder.OpenElement(seq++, "path");
@@ -107,6 +108,7 @@ public sealed class BOBAreaChart<TX, TY> : BOBLineChart<TX, TY>
         builder.CloseElement();
 
         // Then call base for the line stroke + (optional) markers, layered on top.
-        base.RenderSeriesShape(builder, ref seq, series, points, projected, color, seriesIndex, layout, yScale, baselineProjected);
+        base.RenderSeriesShape(builder, ref seq, series, points, projected, color, seriesIndex, layout, yScale,
+            baselineProjected);
     }
 }

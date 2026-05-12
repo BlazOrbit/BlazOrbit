@@ -42,7 +42,7 @@ public sealed class SelectionState<TValue>
     }
 
     public TValue GetValue()
-                => _typeInfo.CreateValue<TValue>(_selectedValues);
+        => _typeInfo.CreateValue<TValue>(_selectedValues);
 
     public bool IsSelected(object? value)
         => value != null && _selectedValues.Contains(value);
@@ -130,7 +130,8 @@ public sealed class SelectionState<TValue>
 
     private sealed class ValueEqualityComparer : IEqualityComparer<object>
     {
-        public new bool Equals(object? x, object? y) => (x == null && y == null) || (x != null && y != null && x.Equals(y));
+        public new bool Equals(object? x, object? y) =>
+            (x == null && y == null) || (x != null && y != null && x.Equals(y));
 
         public int GetHashCode(object obj)
             => obj?.GetHashCode() ?? 0;

@@ -170,7 +170,7 @@
 }
 
 /* Per-entry remove affordance: appearance + hover/focus + disabled state flow
-   through the internal _BOBBtn Ghost variant. */
+   through the internal _BOBInBtn Ghost variant. */
 
 [data-bob-component="input-file"] .bob-file-upload__errors {
     list-style: none;

@@ -44,10 +44,7 @@ public class VariantHelperTests
         TestVariant filled = new("Filled");
         TestVariant outlined = new("Outlined");
         RenderFragment registryFragment = _ => { };
-        Dictionary<TestVariant, Func<TestComponent, RenderFragment>> builtIns = new()
-        {
-            [filled] = _ => _ => { }
-        };
+        Dictionary<TestVariant, Func<TestComponent, RenderFragment>> builtIns = new() { [filled] = _ => _ => { } };
         registry
             .GetTemplate(typeof(TestComponent), outlined, component)
             .Returns(registryFragment);
@@ -71,7 +68,7 @@ public class VariantHelperTests
 
         VariantHelper<TestComponent, TestVariant> helper = new(component, registry);
 
-        RenderFragment? resolved = helper.ResolveTemplate(outlined, builtInTemplates: null);
+        RenderFragment? resolved = helper.ResolveTemplate(outlined, null);
 
         resolved.Should().BeNull();
     }
@@ -82,9 +79,9 @@ public class VariantHelperTests
         TestComponent component = new();
         TestVariant variant = new("Outlined");
 
-        VariantHelper<TestComponent, TestVariant> helper = new(component, registry: null);
+        VariantHelper<TestComponent, TestVariant> helper = new(component, null);
 
-        RenderFragment? resolved = helper.ResolveTemplate(variant, builtInTemplates: null);
+        RenderFragment? resolved = helper.ResolveTemplate(variant, null);
 
         resolved.Should().BeNull();
     }
@@ -102,7 +99,7 @@ public class VariantHelperTests
 
         VariantHelper<TestComponent, TestVariant> helper = new(component, registry);
 
-        RenderFragment? resolved = helper.ResolveTemplate(variant, builtInTemplates: null);
+        RenderFragment? resolved = helper.ResolveTemplate(variant, null);
 
         resolved.Should().BeSameAs(registryFragment);
     }
@@ -122,7 +119,7 @@ public class VariantHelperTests
             }
         };
 
-        VariantHelper<TestComponent, TestVariant> helper = new(component, registry: null);
+        VariantHelper<TestComponent, TestVariant> helper = new(component, null);
 
         helper.ResolveTemplate(variant, builtIns);
 
@@ -138,7 +135,7 @@ public class VariantHelperTests
 
         VariantHelper<TestComponent, TestVariant> helper = new(component, registry);
 
-        helper.ResolveTemplate(variant, builtInTemplates: null);
+        helper.ResolveTemplate(variant, null);
 
         registry.Received(1).GetTemplate(typeof(DerivedTestComponent), variant, component);
     }

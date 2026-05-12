@@ -12,7 +12,7 @@
 .import-error {
     margin-top: 0.75rem;
     padding: 0.5rem 0.75rem;
-    background: color-mix(in srgb, var(--palette-error) 15%, transparent);
+    background: color-mix(in oklab, var(--palette-error) 15%, transparent);
     color: var(--palette-error);
     border-radius: 0.25rem;
     font-size: 0.875rem;

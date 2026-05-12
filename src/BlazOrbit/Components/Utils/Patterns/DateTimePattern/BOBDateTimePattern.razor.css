@@ -8,20 +8,20 @@
     min-height: 1.5em;
 }
 
-    /* The wrapper is a contenteditable container; mouse focus inside it would
-       paint the UA outline around the whole block which is visually noisy.
-       Suppressed for both focus modes — keyboard users see the per-field
-       :focus-visible outlines on .bob-pattern__editable / .bob-pattern__toggle
-       below instead. */
-    .bob-pattern:focus,
-    .bob-pattern:focus-visible {
-        outline: none;
-    }
+/* The wrapper is a contenteditable container; mouse focus inside it would
+   paint the UA outline around the whole block which is visually noisy.
+   Suppressed for both focus modes — keyboard users see the per-field
+   :focus-visible outlines on .bob-pattern__editable / .bob-pattern__toggle
+   below instead. */
+.bob-pattern:focus,
+.bob-pattern:focus-visible {
+    outline: none;
+}
 
-    .bob-pattern:empty::before {
-        content: '\00a0';
-        visibility: hidden;
-    }
+.bob-pattern:empty::before {
+    content: '\00a0';
+    visibility: hidden;
+}
 
 .bob-pattern__editable {
     min-width: 2ch;
@@ -33,15 +33,15 @@
     transition: background-color 150ms ease;
 }
 
-    .bob-pattern__editable:focus {
-        background: color-mix(in oklab, var(--palette-primary) 15%, transparent);
-    }
+.bob-pattern__editable:focus {
+    background: color-mix(in oklab, var(--palette-primary) 15%, transparent);
+}
 
-    /* WCAG 2.4.7 — keyboard-only focus restores the design-system outline. */
-    .bob-pattern__editable:focus-visible {
-        outline: var(--bob-highlight-outline);
-        outline-offset: var(--bob-highlight-outline-offset);
-    }
+/* WCAG 2.4.7 — keyboard-only focus restores the design-system outline. */
+.bob-pattern__editable:focus-visible {
+    outline: var(--bob-highlight-outline);
+    outline-offset: var(--bob-highlight-outline-offset);
+}
 
 .bob-pattern[data-has-value="false"] .bob-pattern__editable,
 .bob-pattern[data-has-value="false"] .bob-pattern__separator,
@@ -64,17 +64,17 @@
     transition: background-color 150ms ease;
 }
 
-    .bob-pattern__toggle:hover {
-        background: color-mix(in oklab, var(--palette-surface-contrast) 8%, transparent);
-    }
+.bob-pattern__toggle:hover {
+    background: color-mix(in oklab, var(--palette-surface-contrast) 8%, transparent);
+}
 
-    .bob-pattern__toggle:focus {
-        outline: none;
-        background: color-mix(in oklab, var(--palette-primary) 15%, transparent);
-    }
+.bob-pattern__toggle:focus {
+    outline: none;
+    background: color-mix(in oklab, var(--palette-primary) 15%, transparent);
+}
 
-    /* WCAG 2.4.7 — keyboard-only focus restores the design-system outline. */
-    .bob-pattern__toggle:focus-visible {
-        outline: var(--bob-highlight-outline);
-        outline-offset: var(--bob-highlight-outline-offset);
-    }
+/* WCAG 2.4.7 — keyboard-only focus restores the design-system outline. */
+.bob-pattern__toggle:focus-visible {
+    outline: var(--bob-highlight-outline);
+    outline-offset: var(--bob-highlight-outline-offset);
+}

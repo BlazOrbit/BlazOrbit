@@ -15,30 +15,27 @@ public class BOBSwitchInteractionTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange
         bool? capturedValue = null;
-        IRenderedComponent<BOBSwitch<bool>> cut = null!;
-        cut = ctx.Render<BOBSwitch<bool>>(p => p
+        IRenderedComponent<BOBSwitch<bool>>[] cutHolder = new IRenderedComponent<BOBSwitch<bool>>[1];
+
+        cutHolder[0] = ctx.Render<BOBSwitch<bool>>(p => p
             .Add(c => c.OptionInactive, false)
             .Add(c => c.OptionActive, true)
             .Add(c => c.Value, false)
             .Add(c => c.ValueChanged, v =>
             {
                 capturedValue = v;
-                cut.Render(p2 => p2
+                cutHolder[0].Render(p2 => p2
                     .Add(c => c.OptionInactive, false)
                     .Add(c => c.OptionActive, true)
                     .Add(c => c.Value, v));
             }));
 
-        cut.Find("bob-component").GetAttribute("data-bob-active").Should().BeNull();
+        cutHolder[0].Find("bob-component").GetAttribute("data-bob-active").Should().BeNull();
+        await cutHolder[0].Find("label").ClickAsync();
 
-        // Act
-        cut.Find("label").Click();
-
-        // Assert
         capturedValue.Should().Be(true);
-        cut.Find("bob-component").GetAttribute("data-bob-active").Should().Be("true");
+        cutHolder[0].Find("bob-component").GetAttribute("data-bob-active").Should().Be("true");
     }
 
     [Theory]
@@ -47,28 +44,26 @@ public class BOBSwitchInteractionTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange
         bool? capturedValue = null;
-        IRenderedComponent<BOBSwitch<bool>> cut = null!;
-        cut = ctx.Render<BOBSwitch<bool>>(p => p
+        IRenderedComponent<BOBSwitch<bool>>[] cutHolder = new IRenderedComponent<BOBSwitch<bool>>[1];
+
+        cutHolder[0] = ctx.Render<BOBSwitch<bool>>(p => p
             .Add(c => c.OptionInactive, false)
             .Add(c => c.OptionActive, true)
             .Add(c => c.Value, true)
             .Add(c => c.ValueChanged, v =>
             {
                 capturedValue = v;
-                cut.Render(p2 => p2
+                cutHolder[0].Render(p2 => p2
                     .Add(c => c.OptionInactive, false)
                     .Add(c => c.OptionActive, true)
                     .Add(c => c.Value, v));
             }));
 
-        // Act
-        cut.Find("label").Click();
+        await cutHolder[0].Find("label").ClickAsync();
 
-        // Assert
         capturedValue.Should().Be(false);
-        cut.Find("bob-component").GetAttribute("data-bob-active").Should().BeNull();
+        cutHolder[0].Find("bob-component").GetAttribute("data-bob-active").Should().BeNull();
     }
 
     [Theory]

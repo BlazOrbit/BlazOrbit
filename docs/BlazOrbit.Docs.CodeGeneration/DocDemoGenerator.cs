@@ -76,9 +76,11 @@ public sealed class DocDemoGenerator : IIncrementalGenerator
             .AppendLine()
             .Append("partial class ").AppendLine(cls)
             .AppendLine("{")
-            .AppendLine("    internal global::System.Collections.Generic.IReadOnlyDictionary<string, string> __GetDocDemoCodes()")
+            .AppendLine(
+                "    internal global::System.Collections.Generic.IReadOnlyDictionary<string, string> __GetDocDemoCodes()")
             .AppendLine("    {")
-            .AppendLine("        return new global::System.Collections.Generic.Dictionary<string, string>(global::System.StringComparer.Ordinal)")
+            .AppendLine(
+                "        return new global::System.Collections.Generic.Dictionary<string, string>(global::System.StringComparer.Ordinal)")
             .AppendLine("        {");
         foreach (DemoBlock d in demos)
         {
@@ -133,7 +135,7 @@ public sealed class DocDemoGenerator : IIncrementalGenerator
 
     private static string GetFileNameWithoutExtension(string path)
     {
-        int slash = path.LastIndexOfAny(new[] { '\\', '/' });
+        int slash = path.LastIndexOfAny(['\\', '/']);
         string name = slash < 0 ? path : path.Substring(slash + 1);
         int dot = name.LastIndexOf('.');
         return dot < 0 ? name : name.Substring(0, dot);
@@ -141,7 +143,7 @@ public sealed class DocDemoGenerator : IIncrementalGenerator
 
     private static string GetDirectoryName(string path)
     {
-        int slash = path.LastIndexOfAny(new[] { '\\', '/' });
+        int slash = path.LastIndexOfAny(['\\', '/']);
         return slash < 0 ? string.Empty : path.Substring(0, slash);
     }
 
@@ -268,7 +270,11 @@ public sealed class DocDemoGenerator : IIncrementalGenerator
                 bool allWs = true;
                 for (int k = 0; k < min; k++)
                 {
-                    if (l[k] is not ' ' and not '\t') { allWs = false; break; }
+                    if (l[k] is not ' ' and not '\t')
+                    {
+                        allWs = false;
+                        break;
+                    }
                 }
 
                 sb.Append(allWs ? l.Substring(min) : l);
@@ -310,11 +316,11 @@ public sealed class DocDemoGenerator : IIncrementalGenerator
         string dollarPrefix = new('$', dollars);
 
         sb.Append("            [\"")
-          .Append(EscapeLiteral(d.Key))
-          .Append("\"] = ")
-          .Append(dollarPrefix)
-          .Append(quotes)
-          .AppendLine();
+            .Append(EscapeLiteral(d.Key))
+            .Append("\"] = ")
+            .Append(dollarPrefix)
+            .Append(quotes)
+            .AppendLine();
 
         foreach (string line in transformed.Replace("\r\n", "\n").Split('\n'))
         {
@@ -345,7 +351,8 @@ public sealed class DocDemoGenerator : IIncrementalGenerator
         {
             if (c == target)
             {
-                cur++; if (cur > max)
+                cur++;
+                if (cur > max)
                 {
                     max = cur;
                 }
@@ -360,5 +367,6 @@ public sealed class DocDemoGenerator : IIncrementalGenerator
     }
 
     private readonly record struct RazorInput(string Path, string Text, string? RootNamespace, string? ProjectDir);
+
     private readonly record struct DemoBlock(string Key, string Code);
 }

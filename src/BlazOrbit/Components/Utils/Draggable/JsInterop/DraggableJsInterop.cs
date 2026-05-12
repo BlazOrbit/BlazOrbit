@@ -28,7 +28,11 @@ internal sealed class DraggableJsInterop : ModuleJsInteropBase, IDraggableJsInte
         string componentId)
     {
         IJSObjectReference? module = await TryGetModuleAsync();
-        if (module is null) return;
+        if (module is null)
+        {
+            return;
+        }
+
         await module.InvokeVoidAsync("initialize", element, dotnetReference, componentId);
     }
 

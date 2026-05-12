@@ -3,7 +3,7 @@
     Name: Empty,
     Html:
 <bob-component data-bob-hoverable="true" data-bob-component="data-cards" data-bob-variant="default" data-bob-data-collection="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div role="status" aria-live="polite" class="sr-only" b-<SCOPE>>No data available.</div><div class="bob-dc__empty" b-<SCOPE>><span class="bob-dc__empty-icon" b-<SCOPE>>📋</span>
-                    <p class="bob-dc__empty-text" b-<SCOPE>>No data available</p></div></bob-component>
+                <p class="bob-dc__empty-text" b-<SCOPE>>No data available</p></div></bob-component>
   },
   {
     Name: Loading,

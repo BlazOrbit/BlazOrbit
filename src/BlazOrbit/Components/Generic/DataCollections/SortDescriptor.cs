@@ -29,12 +29,16 @@ public enum SortAppendBehavior
 {
     /// <summary>Never append when sorting => single column sorting</summary>
     None = 0,
+
     /// <summary>Always append when sorting</summary>
     Always = 1,
+
     /// <summary>Append to sorting when holding Shift key</summary>
     ShiftKey = 2,
+
     /// <summary>Append to sorting when holding Ctrl key</summary>
     CtrlKey = 3,
+
     /// <summary>Append to sorting when holding Ctrl or Shift key</summary>
     CtrlOrShiftKey = 4
 }

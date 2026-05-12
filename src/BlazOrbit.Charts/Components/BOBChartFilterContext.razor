@@ -1,0 +1,99 @@
+@namespace BlazOrbit.Charts.Components
+
+@* Cascading container that lets sibling charts coordinate cross-filtering. A click on
+   a slice / bar / point in one chart sets a named filter on the context; charts that
+   read the same filter via GetFilter(key) react by dimming non-matching geometry. *@
+
+<CascadingValue Value="this" IsFixed="true">
+    @ChildContent
+</CascadingValue>
+
+@code {
+    private readonly Dictionary<string, object?> _filters = new(StringComparer.Ordinal);
+
+    /// <summary>Charts and other Blazor content that share this filter context.</summary>
+    [Parameter, EditorRequired]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>
+    /// Raised after every <see cref="SetFilter"/> / <see cref="ClearFilter"/> /
+    /// <see cref="ClearAll"/> mutation. Subscribers receive the snapshot of active
+    /// filters keyed by dimension name; null values are skipped from the dictionary.
+    /// </summary>
+    [Parameter]
+    public EventCallback<IReadOnlyDictionary<string, object?>> OnFiltersChanged { get; set; }
+
+    /// <summary>Snapshot of the active filters keyed by dimension name.</summary>
+    public IReadOnlyDictionary<string, object?> Filters => _filters;
+
+    /// <summary>
+    /// Sets the filter value for a named dimension (e.g. <c>"region"</c>,
+    /// <c>"product"</c>). Passing <see langword="null"/> as <paramref name="value"/>
+    /// removes the dimension from the active set — equivalent to
+    /// <see cref="ClearFilter"/>. Triggers a notification and a re-render via the
+    /// cascading parameter.
+    /// </summary>
+    public async Task SetFilter(string dimension, object? value)
+    {
+        if (string.IsNullOrEmpty(dimension))
+        {
+            return;
+        }
+
+        if (value is null)
+        {
+            _filters.Remove(dimension);
+        }
+        else
+        {
+            _filters[dimension] = value;
+        }
+
+        StateHasChanged();
+        await NotifyAsync();
+    }
+
+    /// <summary>Removes the filter for a single dimension. No-op when none was set.</summary>
+    public Task ClearFilter(string dimension) => SetFilter(dimension, null);
+
+    /// <summary>Drops every active filter. Subscribed charts return to their unfiltered view.</summary>
+    public async Task ClearAll()
+    {
+        if (_filters.Count == 0)
+        {
+            return;
+        }
+
+        _filters.Clear();
+        StateHasChanged();
+        await NotifyAsync();
+    }
+
+    /// <summary>
+    /// Returns the active value for <paramref name="dimension"/>, or
+    /// <see langword="null"/> when the dimension has no filter set.
+    /// </summary>
+    public object? GetFilter(string dimension) =>
+        _filters.TryGetValue(dimension, out object? v) ? v : null;
+
+    /// <summary>
+    /// Returns <see langword="true"/> when the supplied <paramref name="value"/> matches
+    /// the active filter for <paramref name="dimension"/>, or when the dimension has no
+    /// active filter (no filter = "everything passes"). Charts use this to dim
+    /// non-matching geometry without removing it from the render tree.
+    /// </summary>
+    public bool Matches(string dimension, object? value)
+    {
+        if (!_filters.TryGetValue(dimension, out object? active))
+        {
+            return true;
+        }
+
+        return Equals(active, value);
+    }
+
+    private Task NotifyAsync() =>
+        OnFiltersChanged.HasDelegate
+            ? OnFiltersChanged.InvokeAsync(_filters)
+            : Task.CompletedTask;
+}

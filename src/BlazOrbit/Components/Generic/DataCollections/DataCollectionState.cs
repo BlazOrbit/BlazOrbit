@@ -10,6 +10,7 @@ namespace BlazOrbit.Components;
 public sealed class DataCollectionState<TItem>
 {
     private readonly HashSet<TItem> _selectedItems = [];
+
     // Per-column filter entries. Keyed by column header (case-insensitive). The value
     // carries the user-typed text plus the operator + data mode so the grid pipeline
     // applies the right comparison without re-deriving it from the column registration.
@@ -42,30 +43,42 @@ public sealed class DataCollectionState<TItem>
     /// </summary>
     public void SetColumnFilter(string columnName, string filter)
     {
-        if (string.IsNullOrEmpty(columnName)) return;
+        if (string.IsNullOrEmpty(columnName))
+        {
+            return;
+        }
+
         if (string.IsNullOrWhiteSpace(filter))
         {
             _columnFilters.Remove(columnName);
             return;
         }
+
         // Preserve a previously chosen operator / mode when one is already configured —
         // typing into the input shouldn't reset the dropdown choice.
         ColumnFilterOperator op = _columnFilters.TryGetValue(columnName, out ColumnFilterEntry existing)
-            ? existing.Operator : ColumnFilterOperator.Contains;
+            ? existing.Operator
+            : ColumnFilterOperator.Contains;
         ColumnFilterMode mode = _columnFilters.TryGetValue(columnName, out existing)
-            ? existing.Mode : ColumnFilterMode.Text;
+            ? existing.Mode
+            : ColumnFilterMode.Text;
         _columnFilters[columnName] = new ColumnFilterEntry(filter, op, mode);
     }
 
     /// <summary>Sets the full filter entry (text + operator + mode) for a column.</summary>
     public void SetColumnFilter(string columnName, ColumnFilterEntry entry)
     {
-        if (string.IsNullOrEmpty(columnName)) return;
+        if (string.IsNullOrEmpty(columnName))
+        {
+            return;
+        }
+
         if (string.IsNullOrWhiteSpace(entry.Text))
         {
             _columnFilters.Remove(columnName);
             return;
         }
+
         _columnFilters[columnName] = entry;
     }
 
@@ -75,7 +88,11 @@ public sealed class DataCollectionState<TItem>
     /// </summary>
     public void SetColumnFilterOperator(string columnName, ColumnFilterOperator op)
     {
-        if (!_columnFilters.TryGetValue(columnName, out ColumnFilterEntry existing)) return;
+        if (!_columnFilters.TryGetValue(columnName, out ColumnFilterEntry existing))
+        {
+            return;
+        }
+
         _columnFilters[columnName] = existing with { Operator = op };
     }
 
@@ -88,7 +105,7 @@ public sealed class DataCollectionState<TItem>
     // Custom column order. When empty the grid renders the registry's natural order; once
     // populated (typically via the keyboard-driven Alt+Arrow handler in BOBDataGrid) it
     // becomes the source of truth for visible-column ordering.
-    private readonly List<string> _columnOrder = new();
+    private readonly List<string> _columnOrder = [];
 
     /// <summary>
     /// Active column ordering by header name. Empty means "use the registration order".
@@ -107,7 +124,10 @@ public sealed class DataCollectionState<TItem>
         _columnOrder.Clear();
         foreach (string h in headers)
         {
-            if (!string.IsNullOrEmpty(h)) _columnOrder.Add(h);
+            if (!string.IsNullOrEmpty(h))
+            {
+                _columnOrder.Add(h);
+            }
         }
     }
 
@@ -137,6 +157,7 @@ public sealed class DataCollectionState<TItem>
             _columnWidths.Remove(columnName);
             return;
         }
+
         _columnWidths[columnName] = widthPx;
     }
 
@@ -163,15 +184,24 @@ public sealed class DataCollectionState<TItem>
         {
             foreach (string h in referenceOrder)
             {
-                if (!string.IsNullOrEmpty(h)) _columnOrder.Add(h);
+                if (!string.IsNullOrEmpty(h))
+                {
+                    _columnOrder.Add(h);
+                }
             }
         }
 
         int index = _columnOrder.FindIndex(h => string.Equals(h, columnName, StringComparison.OrdinalIgnoreCase));
-        if (index < 0) return;
+        if (index < 0)
+        {
+            return;
+        }
 
         int target = Math.Clamp(index + delta, 0, _columnOrder.Count - 1);
-        if (target == index) return;
+        if (target == index)
+        {
+            return;
+        }
 
         string entry = _columnOrder[index];
         _columnOrder.RemoveAt(index);
@@ -188,7 +218,7 @@ public sealed class DataCollectionState<TItem>
     /// </summary>
     public IReadOnlySet<TItem> SelectedItems => _selectedItems;
 
-    private readonly List<SortDescriptor> _sortDescriptors = new();
+    private readonly List<SortDescriptor> _sortDescriptors = [];
 
     /// <summary>
     /// The name of the primary sort column (first descriptor in
@@ -210,8 +240,12 @@ public sealed class DataCollectionState<TItem>
                 {
                     return;
                 }
+
                 _sortDescriptors.Clear();
-                _sortDescriptors.Add(new SortDescriptor { ColumnName = value, Direction = SortDirection.Ascending, Priority = 1 });
+                _sortDescriptors.Add(new SortDescriptor
+                {
+                    ColumnName = value, Direction = SortDirection.Ascending, Priority = 1
+                });
             }
         }
     }
@@ -300,7 +334,7 @@ public sealed class DataCollectionState<TItem>
     /// <c>append=true</c> to add a tie-breaker without dropping prior
     /// sort levels (multi-column sort).
     /// </summary>
-    public void ToggleSort(string columnName) => ToggleSort(columnName, append: false);
+    public void ToggleSort(string columnName) => ToggleSort(columnName, false);
 
     /// <summary>
     /// Toggle the sort state for a column. When <paramref name="append"/>
@@ -322,20 +356,24 @@ public sealed class DataCollectionState<TItem>
                     SortDirection.None => SortDirection.Ascending,
                     SortDirection.Ascending => SortDirection.Descending,
                     SortDirection.Descending => SortDirection.None,
-                    _ => SortDirection.Ascending,
+                    _ => SortDirection.Ascending
                 };
                 if (next == SortDirection.None)
                 {
                     _sortDescriptors.Clear();
                     return;
                 }
+
                 existing.Direction = next;
                 return;
             }
 
             // Replace any current sort with a fresh ascending entry.
             _sortDescriptors.Clear();
-            _sortDescriptors.Add(new SortDescriptor { ColumnName = columnName, Direction = SortDirection.Ascending, Priority = 1 });
+            _sortDescriptors.Add(new SortDescriptor
+            {
+                ColumnName = columnName, Direction = SortDirection.Ascending, Priority = 1
+            });
             return;
         }
 
@@ -346,7 +384,7 @@ public sealed class DataCollectionState<TItem>
             {
                 SortDirection.Ascending => SortDirection.Descending,
                 SortDirection.Descending => SortDirection.None,
-                _ => SortDirection.Ascending,
+                _ => SortDirection.Ascending
             };
             if (next == SortDirection.None)
             {
@@ -354,15 +392,14 @@ public sealed class DataCollectionState<TItem>
                 ReassignPriorities();
                 return;
             }
+
             existing.Direction = next;
             return;
         }
 
         _sortDescriptors.Add(new SortDescriptor
         {
-            ColumnName = columnName,
-            Direction = SortDirection.Ascending,
-            Priority = _sortDescriptors.Count + 1,
+            ColumnName = columnName, Direction = SortDirection.Ascending, Priority = _sortDescriptors.Count + 1
         });
     }
 
@@ -378,7 +415,7 @@ public sealed class DataCollectionState<TItem>
             {
                 ColumnName = _sortDescriptors[i].ColumnName,
                 Direction = _sortDescriptors[i].Direction,
-                Priority = i + 1,
+                Priority = i + 1
             };
         }
     }
@@ -400,15 +437,14 @@ public sealed class DataCollectionState<TItem>
                 kv => kv.Key,
                 kv => new ColumnFilterPayload
                 {
-                    Text = kv.Value.Text,
-                    Operator = kv.Value.Operator,
-                    Mode = kv.Value.Mode,
+                    Text = kv.Value.Text, Operator = kv.Value.Operator, Mode = kv.Value.Mode
                 }),
-            ColumnOrder = new List<string>(_columnOrder),
+            ColumnOrder = [.._columnOrder],
             ColumnWidths = new Dictionary<string, double>(_columnWidths),
             SortDescriptors = _sortDescriptors
-                .Select(d => new SortPayload { ColumnName = d.ColumnName, Direction = d.Direction, Priority = d.Priority })
-                .ToList(),
+                .Select(d =>
+                    new SortPayload { ColumnName = d.ColumnName, Direction = d.Direction, Priority = d.Priority })
+                .ToList()
         };
         return JsonSerializer.Serialize(payload);
     }
@@ -420,7 +456,11 @@ public sealed class DataCollectionState<TItem>
     /// </summary>
     public void LoadFromJson(string? json)
     {
-        if (string.IsNullOrWhiteSpace(json)) return;
+        if (string.IsNullOrWhiteSpace(json))
+        {
+            return;
+        }
+
         StatePayload? payload;
         try
         {
@@ -430,19 +470,34 @@ public sealed class DataCollectionState<TItem>
         {
             return;
         }
-        if (payload is null) return;
+
+        if (payload is null)
+        {
+            return;
+        }
 
         FilterText = payload.FilterText ?? string.Empty;
         CurrentPage = payload.CurrentPage > 0 ? payload.CurrentPage : 1;
-        if (payload.PageSize > 0) PageSize = payload.PageSize;
+        if (payload.PageSize > 0)
+        {
+            PageSize = payload.PageSize;
+        }
 
         _columnFilters.Clear();
         if (payload.ColumnFilters is not null)
         {
             foreach (KeyValuePair<string, ColumnFilterPayload> entry in payload.ColumnFilters)
             {
-                if (string.IsNullOrEmpty(entry.Key) || entry.Value is null) continue;
-                if (string.IsNullOrWhiteSpace(entry.Value.Text)) continue;
+                if (string.IsNullOrEmpty(entry.Key) || entry.Value is null)
+                {
+                    continue;
+                }
+
+                if (string.IsNullOrWhiteSpace(entry.Value.Text))
+                {
+                    continue;
+                }
+
                 _columnFilters[entry.Key] = new ColumnFilterEntry(
                     entry.Value.Text,
                     entry.Value.Operator,
@@ -455,7 +510,10 @@ public sealed class DataCollectionState<TItem>
         {
             foreach (string h in payload.ColumnOrder)
             {
-                if (!string.IsNullOrEmpty(h)) _columnOrder.Add(h);
+                if (!string.IsNullOrEmpty(h))
+                {
+                    _columnOrder.Add(h);
+                }
             }
         }
 
@@ -464,7 +522,11 @@ public sealed class DataCollectionState<TItem>
         {
             foreach (KeyValuePair<string, double> entry in payload.ColumnWidths)
             {
-                if (string.IsNullOrEmpty(entry.Key) || entry.Value <= 0) continue;
+                if (string.IsNullOrEmpty(entry.Key) || entry.Value <= 0)
+                {
+                    continue;
+                }
+
                 _columnWidths[entry.Key] = entry.Value;
             }
         }
@@ -474,12 +536,14 @@ public sealed class DataCollectionState<TItem>
         {
             foreach (SortPayload entry in payload.SortDescriptors)
             {
-                if (string.IsNullOrEmpty(entry.ColumnName)) continue;
+                if (string.IsNullOrEmpty(entry.ColumnName))
+                {
+                    continue;
+                }
+
                 _sortDescriptors.Add(new SortDescriptor
                 {
-                    ColumnName = entry.ColumnName,
-                    Direction = entry.Direction,
-                    Priority = entry.Priority,
+                    ColumnName = entry.ColumnName, Direction = entry.Direction, Priority = entry.Priority
                 });
             }
         }

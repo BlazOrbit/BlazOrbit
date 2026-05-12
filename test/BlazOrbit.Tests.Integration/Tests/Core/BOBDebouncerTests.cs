@@ -16,7 +16,11 @@ public class BOBDebouncerTests
         string? captured = null;
 
         // Act
-        Task task = debouncer.InvokeAsync("hello", v => { captured = v; return Task.CompletedTask; });
+        Task task = debouncer.InvokeAsync("hello", v =>
+        {
+            captured = v;
+            return Task.CompletedTask;
+        });
         timeProvider.Advance(TimeSpan.FromMilliseconds(150));
         await task;
 
@@ -33,13 +37,25 @@ public class BOBDebouncerTests
         List<string> captured = [];
 
         // Act
-        Task t1 = debouncer.InvokeAsync("a", v => { captured.Add(v); return Task.CompletedTask; });
+        Task t1 = debouncer.InvokeAsync("a", v =>
+        {
+            captured.Add(v);
+            return Task.CompletedTask;
+        });
         timeProvider.Advance(TimeSpan.FromMilliseconds(50));
 
-        Task t2 = debouncer.InvokeAsync("b", v => { captured.Add(v); return Task.CompletedTask; });
+        Task t2 = debouncer.InvokeAsync("b", v =>
+        {
+            captured.Add(v);
+            return Task.CompletedTask;
+        });
         timeProvider.Advance(TimeSpan.FromMilliseconds(50));
 
-        Task t3 = debouncer.InvokeAsync("c", v => { captured.Add(v); return Task.CompletedTask; });
+        Task t3 = debouncer.InvokeAsync("c", v =>
+        {
+            captured.Add(v);
+            return Task.CompletedTask;
+        });
         timeProvider.Advance(TimeSpan.FromMilliseconds(150));
 
         await Task.WhenAll(t1, t2, t3);
@@ -57,7 +73,11 @@ public class BOBDebouncerTests
         bool executed = false;
 
         // Act
-        Task task = debouncer.InvokeAsync(1, _ => { executed = true; return Task.CompletedTask; });
+        Task task = debouncer.InvokeAsync(1, _ =>
+        {
+            executed = true;
+            return Task.CompletedTask;
+        });
         debouncer.Cancel();
         timeProvider.Advance(TimeSpan.FromMilliseconds(150));
         await task;
@@ -76,7 +96,11 @@ public class BOBDebouncerTests
 
         // Act
         debouncer.Dispose();
-        await debouncer.InvokeAsync(1, _ => { executed = true; return Task.CompletedTask; });
+        await debouncer.InvokeAsync(1, _ =>
+        {
+            executed = true;
+            return Task.CompletedTask;
+        });
         timeProvider.Advance(TimeSpan.FromMilliseconds(150));
 
         // Assert

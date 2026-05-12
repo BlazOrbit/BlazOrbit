@@ -45,7 +45,7 @@ public class BOBCodeBlockSnapshotTests
                 Html = ctx.Render<BOBCodeBlock>(p => p
                     .Add(c => c.Code, "const x: number = 1;")
                     .Add(c => c.Language, SyntaxHighlightLanguage.TypeScript)).GetNormalizedMarkup()
-            },
+            }
         };
 
         await Verify(testCases).UseParameters(scenario.Name);

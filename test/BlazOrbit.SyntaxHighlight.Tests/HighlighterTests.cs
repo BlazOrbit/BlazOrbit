@@ -154,10 +154,7 @@ public class HighlighterTests
     [Fact]
     public void Options_CanBeChanged()
     {
-        Highlighter highlighter = new()
-        {
-            Options = HtmlRenderOptions.LightTheme
-        };
+        Highlighter highlighter = new() { Options = HtmlRenderOptions.LightTheme };
         string result = highlighter.Highlight("csharp", "class Foo { }");
 
         Assert.Contains("#ffffff", result);

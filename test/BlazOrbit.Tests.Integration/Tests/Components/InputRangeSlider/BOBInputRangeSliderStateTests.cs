@@ -73,7 +73,8 @@ public class BOBInputRangeSliderStateTests
 
         IRenderedComponent<BOBInputRangeSlider<int>> cut = ctx.Render<BOBInputRangeSlider<int>>();
 
-        cut.FindAll("._bob-slider-thumb").Should().AllSatisfy(t => t.GetAttribute("aria-readonly").Should().Be("false"));
+        cut.FindAll("._bob-slider-thumb").Should()
+            .AllSatisfy(t => t.GetAttribute("aria-readonly").Should().Be("false"));
 
         cut.Render(p => p.Add(c => c.ReadOnly, true));
 

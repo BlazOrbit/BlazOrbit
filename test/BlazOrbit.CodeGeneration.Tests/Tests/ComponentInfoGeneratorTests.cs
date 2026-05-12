@@ -8,27 +8,27 @@ namespace BlazOrbit.CodeGeneration.Tests.Tests;
 public class ComponentInfoGeneratorTests
 {
     private const string ParameterAttrSource = """
-        namespace Microsoft.AspNetCore.Components;
+                                               namespace Microsoft.AspNetCore.Components;
 
-        [System.AttributeUsage(System.AttributeTargets.Property)]
-        public sealed class ParameterAttribute : System.Attribute { }
-        """;
+                                               [System.AttributeUsage(System.AttributeTargets.Property)]
+                                               public sealed class ParameterAttribute : System.Attribute { }
+                                               """;
 
     [Fact]
     public async Task Should_Skip_Razor_Without_GenerateComponentInfo_Attribute()
     {
         string razor = """
-            @namespace TestNs
+                       @namespace TestNs
 
-            @code {
-                [Parameter] public string? Text { get; set; }
-            }
-            """;
+                       @code {
+                           [Parameter] public string? Text { get; set; }
+                       }
+                       """;
 
         string output = GeneratorTestHarness.Run(
             new ComponentInfoGenerator(),
-            sources: [ParameterAttrSource],
-            additionalTexts: [("/src/NoMark.razor", razor)]);
+            [ParameterAttrSource],
+            [("/src/NoMark.razor", razor)]);
 
         await Verify(output);
     }
@@ -37,24 +37,24 @@ public class ComponentInfoGeneratorTests
     public async Task Should_Generate_From_Basic_Razor()
     {
         string razor = """
-            @namespace TestNs
-            @attribute [GenerateComponentInfo]
+                       @namespace TestNs
+                       @attribute [GenerateComponentInfo]
 
-            @code {
-                /// <summary>Visible label.</summary>
-                [Parameter] public string? Text { get; set; }
+                       @code {
+                           /// <summary>Visible label.</summary>
+                           [Parameter] public string? Text { get; set; }
 
-                /// <summary>Disables interaction.</summary>
-                [Parameter] public bool Disabled { get; set; } = false;
+                           /// <summary>Disables interaction.</summary>
+                           [Parameter] public bool Disabled { get; set; } = false;
 
-                [Parameter] public int Count { get; set; } = 42;
-            }
-            """;
+                           [Parameter] public int Count { get; set; } = 42;
+                       }
+                       """;
 
         string output = GeneratorTestHarness.Run(
             new ComponentInfoGenerator(),
-            sources: [ParameterAttrSource],
-            additionalTexts: [("/src/MyComponent.razor", razor)]);
+            [ParameterAttrSource],
+            [("/src/MyComponent.razor", razor)]);
 
         await Verify(output);
     }
@@ -63,36 +63,35 @@ public class ComponentInfoGeneratorTests
     public async Task Should_Resolve_Inherited_Params_From_Razor_Base()
     {
         string baseRazor = """
-            @namespace TestNs
+                           @namespace TestNs
 
-            @code {
-                /// <summary>
-                /// Optional CTA template rendered alongside the empty state — pair
-                /// with <see cref="EmptyContent"/> for "Create first record" buttons
-                /// without rewriting the entire empty layout.
-                /// </summary>
-                [Parameter] public string? Size { get; set; }
-            }
-            """;
+                           @code {
+                               /// <summary>
+                               /// Optional CTA template rendered alongside the empty state — pair
+                               /// with <see cref="EmptyContent"/> for "Create first record" buttons
+                               /// without rewriting the entire empty layout.
+                               /// </summary>
+                               [Parameter] public string? Size { get; set; }
+                           }
+                           """;
 
         string derivedRazor = """
-            @namespace TestNs
-            @inherits BaseThing
-            @attribute [GenerateComponentInfo]
+                              @namespace TestNs
+                              @inherits BaseThing
+                              @attribute [GenerateComponentInfo]
 
-            @code {
-                /// <summary>Own text.</summary>
-                [Parameter] public string? Text { get; set; }
-            }
-            """;
+                              @code {
+                                  /// <summary>Own text.</summary>
+                                  [Parameter] public string? Text { get; set; }
+                              }
+                              """;
 
         string output = GeneratorTestHarness.Run(
             new ComponentInfoGenerator(),
-            sources: [ParameterAttrSource],
-            additionalTexts:
+            [ParameterAttrSource],
             [
                 ("/src/BaseThing.razor", baseRazor),
-                ("/src/Derived.razor", derivedRazor),
+                ("/src/Derived.razor", derivedRazor)
             ]);
 
         await Verify(output);
@@ -102,31 +101,31 @@ public class ComponentInfoGeneratorTests
     public async Task Should_Resolve_Inherited_Params_From_CSharp_Base()
     {
         string csBase = """
-            using Microsoft.AspNetCore.Components;
+                        using Microsoft.AspNetCore.Components;
 
-            namespace TestNs;
+                        namespace TestNs;
 
-            public class CsBase
-            {
-                /// <summary>From C# base.</summary>
-                [Parameter] public string? Shared { get; set; }
-            }
-            """;
+                        public class CsBase
+                        {
+                            /// <summary>From C# base.</summary>
+                            [Parameter] public string? Shared { get; set; }
+                        }
+                        """;
 
         string derivedRazor = """
-            @namespace TestNs
-            @inherits CsBase
-            @attribute [GenerateComponentInfo]
+                              @namespace TestNs
+                              @inherits CsBase
+                              @attribute [GenerateComponentInfo]
 
-            @code {
-                [Parameter] public string? Own { get; set; }
-            }
-            """;
+                              @code {
+                                  [Parameter] public string? Own { get; set; }
+                              }
+                              """;
 
         string output = GeneratorTestHarness.Run(
             new ComponentInfoGenerator(),
-            sources: [ParameterAttrSource, csBase],
-            additionalTexts: [("/src/Derived.razor", derivedRazor)]);
+            [ParameterAttrSource, csBase],
+            [("/src/Derived.razor", derivedRazor)]);
 
         await Verify(output);
     }
@@ -138,39 +137,38 @@ public class ComponentInfoGeneratorTests
         // in different folders/namespaces. The generator must emit BOBGEN001
         // so the consumer notices the collision instead of silently picking one.
         string baseRazorA = """
-            @namespace TestNs.A
+                            @namespace TestNs.A
 
-            @code {
-                [Parameter] public string? FromA { get; set; }
-            }
-            """;
+                            @code {
+                                [Parameter] public string? FromA { get; set; }
+                            }
+                            """;
 
         string baseRazorB = """
-            @namespace TestNs.B
+                            @namespace TestNs.B
 
-            @code {
-                [Parameter] public string? FromB { get; set; }
-            }
-            """;
+                            @code {
+                                [Parameter] public string? FromB { get; set; }
+                            }
+                            """;
 
         string derivedRazor = """
-            @namespace TestNs.A
-            @inherits BaseThing
-            @attribute [GenerateComponentInfo]
+                              @namespace TestNs.A
+                              @inherits BaseThing
+                              @attribute [GenerateComponentInfo]
 
-            @code {
-                [Parameter] public string? Own { get; set; }
-            }
-            """;
+                              @code {
+                                  [Parameter] public string? Own { get; set; }
+                              }
+                              """;
 
         string output = GeneratorTestHarness.Run(
             new ComponentInfoGenerator(),
-            sources: [ParameterAttrSource],
-            additionalTexts:
+            [ParameterAttrSource],
             [
                 ("/src/A/BaseThing.razor", baseRazorA),
                 ("/src/B/BaseThing.razor", baseRazorB),
-                ("/src/A/Derived.razor", derivedRazor),
+                ("/src/A/Derived.razor", derivedRazor)
             ]);
 
         // BOBGEN001 must appear in the output; same-namespace match (TestNs.A)
@@ -184,41 +182,41 @@ public class ComponentInfoGeneratorTests
         // fast path: when @inherits is fully qualified, use
         // GetTypeByMetadataName directly (deterministic, O(1) in metadata).
         string csBaseFoo = """
-            using Microsoft.AspNetCore.Components;
+                           using Microsoft.AspNetCore.Components;
 
-            namespace Foo;
+                           namespace Foo;
 
-            public class Base
-            {
-                [Parameter] public string? FromFoo { get; set; }
-            }
-            """;
+                           public class Base
+                           {
+                               [Parameter] public string? FromFoo { get; set; }
+                           }
+                           """;
 
         string csBaseBar = """
-            using Microsoft.AspNetCore.Components;
+                           using Microsoft.AspNetCore.Components;
 
-            namespace Bar;
+                           namespace Bar;
 
-            public class Base
-            {
-                [Parameter] public string? FromBar { get; set; }
-            }
-            """;
+                           public class Base
+                           {
+                               [Parameter] public string? FromBar { get; set; }
+                           }
+                           """;
 
         string derivedRazor = """
-            @namespace TestNs
-            @inherits Foo.Base
-            @attribute [GenerateComponentInfo]
+                              @namespace TestNs
+                              @inherits Foo.Base
+                              @attribute [GenerateComponentInfo]
 
-            @code {
-                [Parameter] public string? Own { get; set; }
-            }
-            """;
+                              @code {
+                                  [Parameter] public string? Own { get; set; }
+                              }
+                              """;
 
         string output = GeneratorTestHarness.Run(
             new ComponentInfoGenerator(),
-            sources: [ParameterAttrSource, csBaseFoo, csBaseBar],
-            additionalTexts: [("/src/Derived.razor", derivedRazor)]);
+            [ParameterAttrSource, csBaseFoo, csBaseBar],
+            [("/src/Derived.razor", derivedRazor)]);
 
         // Must pick Foo.Base (FQN match) without emitting BOBGEN002, even
         // though both `Base` types exist in the compilation.
@@ -232,41 +230,41 @@ public class ComponentInfoGeneratorTests
         // BOBGEN002 fires and the resolver picks the first candidate
         // alphabetically (Bar.Base < Foo.Base).
         string csBaseFoo = """
-            using Microsoft.AspNetCore.Components;
+                           using Microsoft.AspNetCore.Components;
 
-            namespace Foo;
+                           namespace Foo;
 
-            public class Base
-            {
-                [Parameter] public string? FromFoo { get; set; }
-            }
-            """;
+                           public class Base
+                           {
+                               [Parameter] public string? FromFoo { get; set; }
+                           }
+                           """;
 
         string csBaseBar = """
-            using Microsoft.AspNetCore.Components;
+                           using Microsoft.AspNetCore.Components;
 
-            namespace Bar;
+                           namespace Bar;
 
-            public class Base
-            {
-                [Parameter] public string? FromBar { get; set; }
-            }
-            """;
+                           public class Base
+                           {
+                               [Parameter] public string? FromBar { get; set; }
+                           }
+                           """;
 
         string derivedRazor = """
-            @namespace TestNs
-            @inherits Base
-            @attribute [GenerateComponentInfo]
+                              @namespace TestNs
+                              @inherits Base
+                              @attribute [GenerateComponentInfo]
 
-            @code {
-                [Parameter] public string? Own { get; set; }
-            }
-            """;
+                              @code {
+                                  [Parameter] public string? Own { get; set; }
+                              }
+                              """;
 
         string output = GeneratorTestHarness.Run(
             new ComponentInfoGenerator(),
-            sources: [ParameterAttrSource, csBaseFoo, csBaseBar],
-            additionalTexts: [("/src/Derived.razor", derivedRazor)]);
+            [ParameterAttrSource, csBaseFoo, csBaseBar],
+            [("/src/Derived.razor", derivedRazor)]);
 
         await Verify(output);
     }
@@ -275,32 +273,31 @@ public class ComponentInfoGeneratorTests
     public async Task Should_Deduplicate_Child_Overrides_Of_Base_Params()
     {
         string baseRazor = """
-            @namespace TestNs
+                           @namespace TestNs
 
-            @code {
-                /// <summary>Base desc.</summary>
-                [Parameter] public string? Text { get; set; }
-            }
-            """;
+                           @code {
+                               /// <summary>Base desc.</summary>
+                               [Parameter] public string? Text { get; set; }
+                           }
+                           """;
 
         string derivedRazor = """
-            @namespace TestNs
-            @inherits BaseThing
-            @attribute [GenerateComponentInfo]
+                              @namespace TestNs
+                              @inherits BaseThing
+                              @attribute [GenerateComponentInfo]
 
-            @code {
-                /// <summary>Child desc.</summary>
-                [Parameter] public string? Text { get; set; } = "override";
-            }
-            """;
+                              @code {
+                                  /// <summary>Child desc.</summary>
+                                  [Parameter] public string? Text { get; set; } = "override";
+                              }
+                              """;
 
         string output = GeneratorTestHarness.Run(
             new ComponentInfoGenerator(),
-            sources: [ParameterAttrSource],
-            additionalTexts:
+            [ParameterAttrSource],
             [
                 ("/src/BaseThing.razor", baseRazor),
-                ("/src/Derived.razor", derivedRazor),
+                ("/src/Derived.razor", derivedRazor)
             ]);
 
         await Verify(output);
@@ -315,32 +312,31 @@ public class ComponentInfoGeneratorTests
         // the cycle just stops collection at the second visit, neither file
         // crashes the generator.
         string razorA = """
-            @namespace TestNs
-            @inherits B
-            @attribute [GenerateComponentInfo]
+                        @namespace TestNs
+                        @inherits B
+                        @attribute [GenerateComponentInfo]
 
-            @code {
-                [Parameter] public string? FromA { get; set; }
-            }
-            """;
+                        @code {
+                            [Parameter] public string? FromA { get; set; }
+                        }
+                        """;
 
         string razorB = """
-            @namespace TestNs
-            @inherits A
-            @attribute [GenerateComponentInfo]
+                        @namespace TestNs
+                        @inherits A
+                        @attribute [GenerateComponentInfo]
 
-            @code {
-                [Parameter] public string? FromB { get; set; }
-            }
-            """;
+                        @code {
+                            [Parameter] public string? FromB { get; set; }
+                        }
+                        """;
 
         string output = GeneratorTestHarness.Run(
             new ComponentInfoGenerator(),
-            sources: [ParameterAttrSource],
-            additionalTexts:
+            [ParameterAttrSource],
             [
                 ("/src/A.razor", razorA),
-                ("/src/B.razor", razorB),
+                ("/src/B.razor", razorB)
             ]);
 
         await Verify(output);
@@ -355,25 +351,25 @@ public class ComponentInfoGeneratorTests
         // change introduced ordering instability (e.g. switching to a
         // non-stable sort, hashing without seed), this test catches it.
         string razor = """
-            @namespace TestNs
-            @attribute [GenerateComponentInfo]
+                       @namespace TestNs
+                       @attribute [GenerateComponentInfo]
 
-            @code {
-                [Parameter] public string? Text { get; set; }
-                [Parameter] public bool Flag { get; set; } = true;
-                [Parameter] public int Count { get; set; } = 7;
-            }
-            """;
+                       @code {
+                           [Parameter] public string? Text { get; set; }
+                           [Parameter] public bool Flag { get; set; } = true;
+                           [Parameter] public int Count { get; set; } = 7;
+                       }
+                       """;
 
         string first = GeneratorTestHarness.Run(
             new ComponentInfoGenerator(),
-            sources: [ParameterAttrSource],
-            additionalTexts: [("/src/MyComponent.razor", razor)]);
+            [ParameterAttrSource],
+            [("/src/MyComponent.razor", razor)]);
 
         string second = GeneratorTestHarness.Run(
             new ComponentInfoGenerator(),
-            sources: [ParameterAttrSource],
-            additionalTexts: [("/src/MyComponent.razor", razor)]);
+            [ParameterAttrSource],
+            [("/src/MyComponent.razor", razor)]);
 
         first.Should().Be(second);
     }

@@ -29,32 +29,46 @@
 
     // IHasSize
     /// <summary>Visual size of the OTP input.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
 
     // IHasColor
     /// <summary>Foreground color of each slot. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? Color { get; set; }
+    [Parameter]
+    public string? Color { get; set; }
 
     // IHasDensity
     /// <summary>Vertical density (gap) between slots.</summary>
-    [Parameter] public BOBDensity Density { get; set; } = BOBDensity.Standard;
+    [Parameter]
+    public BOBDensity Density { get; set; } = BOBDensity.Standard;
 
     // Component-specific
     /// <summary>Number of OTP digit slots. Defaults to <c>6</c>. Range: 2–12.</summary>
-    [Parameter] public int Length { get; set; } = 6;
+    [Parameter]
+    public int Length { get; set; } = 6;
+
     /// <summary>When <see langword="true" /> (default), only digit characters are accepted.</summary>
-    [Parameter] public bool Numeric { get; set; } = true;
+    [Parameter]
+    public bool Numeric { get; set; } = true;
+
     /// <summary>When <see langword="true" />, slots are rendered as masked password fields.</summary>
-    [Parameter] public bool Mask { get; set; }
+    [Parameter]
+    public bool Mask { get; set; }
+
     /// <summary>Floating label displayed above the OTP slots.</summary>
-    [Parameter] public string? Label { get; set; }
+    [Parameter]
+    public string? Label { get; set; }
+
     /// <summary>Helper text displayed below the OTP slots for additional context.</summary>
-    [Parameter] public string? HelperText { get; set; }
+    [Parameter]
+    public string? HelperText { get; set; }
+
     /// <summary>
     /// Raised once when every slot is filled and the resulting code parses successfully.
     /// Fires exactly once per fill cycle; backspacing and refilling triggers a new event.
     /// </summary>
-    [Parameter] public EventCallback<string> OnComplete { get; set; }
+    [Parameter]
+    public EventCallback<string> OnComplete { get; set; }
 
     public override BOBInputOtpVariant DefaultVariant => BOBInputOtpVariant.Boxed;
 
@@ -63,11 +77,16 @@
         {
             [BOBInputOtpVariant.Default] = c => c.RenderSlots(),
             [BOBInputOtpVariant.Boxed] = c => c.RenderSlots(),
-            [BOBInputOtpVariant.Underlined] = c => c.RenderSlots(),
+            [BOBInputOtpVariant.Underlined] = c => c.RenderSlots()
         };
 
-    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes) { }
-    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables) { }
+    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    {
+    }
+
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    {
+    }
 
     protected override void OnParametersSet()
     {
@@ -92,8 +111,8 @@
     {
         // CurrentValue may be set by parent binding (initial value, programmatic reset).
         // Hydrate the per-slot buffer from it, truncating or padding to Length.
-        string current = CurrentValue ?? string.Empty;
-        for (int i = 0; i < Length; i++)
+        var current = CurrentValue ?? string.Empty;
+        for (var i = 0; i < Length; i++)
         {
             _digits[i] = i < current.Length ? current[i] : null;
         }
@@ -104,29 +123,37 @@
     private string ComposeValue()
     {
         Span<char> buffer = stackalloc char[Length];
-        int written = 0;
-        foreach (char? d in _digits)
+        var written = 0;
+        foreach (var d in _digits)
         {
             if (d is null) break;
             buffer[written++] = d.Value;
         }
+
         return new string(buffer[..written]);
     }
 
-    private bool IsAccepted(char c) => Numeric ? char.IsDigit(c) : !char.IsControl(c);
+    private bool IsAccepted(char c)
+    {
+        return Numeric ? char.IsDigit(c) : !char.IsControl(c);
+    }
 
     private async Task HandleSlotInput(int index, ChangeEventArgs e)
     {
-        string raw = e.Value?.ToString() ?? string.Empty;
+        var raw = e.Value?.ToString() ?? string.Empty;
 
         // Browsers emit the whole field value on input, not just the typed char. The slot is
         // maxlength=1 so raw is normally 1 char, but Android keyboards / IME composition can
         // arrive as 2+ characters. Take the last accepted character so re-typing on a filled
         // slot replaces the previous value naturally.
         char? next = null;
-        for (int i = raw.Length - 1; i >= 0; i--)
+        for (var i = raw.Length - 1; i >= 0; i--)
         {
-            if (IsAccepted(raw[i])) { next = raw[i]; break; }
+            if (IsAccepted(raw[i]))
+            {
+                next = raw[i];
+                break;
+            }
         }
 
         _digits[index] = next;
@@ -158,6 +185,7 @@
                     _digits[index] = null;
                     await PropagateAsync();
                 }
+
                 break;
             case "ArrowLeft":
                 if (index > 0) await _slotRefs[index - 1].FocusAsync();
@@ -179,19 +207,20 @@
     // paste with the full string. HandleSlotInputCore detects raw.Length > 1 and distributes.
     private async Task HandleSlotInputCore(int index, ChangeEventArgs e)
     {
-        string raw = e.Value?.ToString() ?? string.Empty;
+        var raw = e.Value?.ToString() ?? string.Empty;
         if (raw.Length > 1)
         {
             // Paste path: distribute across remaining slots starting at `index`.
-            int slot = index;
-            foreach (char ch in raw)
+            var slot = index;
+            foreach (var ch in raw)
             {
                 if (slot >= Length) break;
                 if (!IsAccepted(ch)) continue;
                 _digits[slot++] = ch;
             }
+
             await PropagateAsync();
-            int focusTarget = Math.Min(slot, Length - 1);
+            var focusTarget = Math.Min(slot, Length - 1);
             await _slotRefs[focusTarget].FocusAsync();
             return;
         }
@@ -201,10 +230,10 @@
 
     private async Task PropagateAsync()
     {
-        string composed = ComposeValue();
+        var composed = ComposeValue();
         CurrentValueAsString = composed;
 
-        bool isComplete = composed.Length >= Length;
+        var isComplete = composed.Length >= Length;
         if (isComplete && !_completedFired && OnComplete.HasDelegate)
         {
             _completedFired = true;
@@ -236,11 +265,11 @@
                  aria-labelledby="@(string.IsNullOrWhiteSpace(Label) ? null : $"{_groupId}-label")"
                  aria-describedby="@_helperTextId">
 
-                @for (int i = 0; i < Length; i++)
+                @for (var i = 0; i < Length; i++)
                 {
-                    int index = i;
-                    char? digit = _digits[index];
-                    string display = digit is null ? string.Empty : (Mask ? "•" : digit.Value.ToString());
+                    var index = i;
+                    var digit = _digits[index];
+                    var display = digit is null ? string.Empty : Mask ? "•" : digit.Value.ToString();
                     <input @key="index"
                            @ref="_slotRefs[index]"
                            type="@(Mask ? "password" : "text")"
@@ -250,13 +279,13 @@
                            class="bob-otp__slot"
                            maxlength="@(index == 0 ? Length : 1)"
                            value="@display"
-                           aria-label="@string.Format(Localizer["DigitXOfY"], index + 1, Length)"
+                           aria-label="@string.Format(Localizer["Digit {0} of {1}"], index + 1, Length)"
                            aria-invalid="@IsError.ToString().ToLowerInvariant()"
                            aria-required="@IsRequired.ToString().ToLowerInvariant()"
                            disabled="@IsDisabled"
                            readonly="@IsReadOnly"
                            @oninput="@(e => HandleSlotInputCore(index, e))"
-                           @onkeydown="@(e => HandleSlotKeyDown(index, e))" />
+                           @onkeydown="@(e => HandleSlotKeyDown(index, e))"/>
                 }
             </div>
 
@@ -265,7 +294,7 @@
                              HelperText="@HelperText"
                              ShowValidation="@IsError"
                              EditContext="@EditContext"
-                             For="@ValueExpression" />
+                             For="@ValueExpression"/>
         </bob-component>
     };
 
@@ -275,4 +304,5 @@
         validationErrorMessage = null;
         return true;
     }
+
 }

@@ -9,6 +9,7 @@ public enum ChipGroupSelectionMode
 {
     /// <summary>At most one chip selected at a time. Tapping the same chip again clears the selection.</summary>
     Single = 0,
+
     /// <summary>Any number of chips selected. Tapping toggles individual membership.</summary>
-    Multiple = 1,
+    Multiple = 1
 }

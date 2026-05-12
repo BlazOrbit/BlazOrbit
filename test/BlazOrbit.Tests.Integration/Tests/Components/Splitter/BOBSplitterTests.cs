@@ -5,6 +5,7 @@ using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
 using FluentAssertions;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Web;
 
 namespace BlazOrbit.Tests.Integration.Tests.Components.Splitter;
 
@@ -143,10 +144,10 @@ public class BOBSplitterInteractionTests
 
         // Start drag at clientX=500, then move to clientX=560 (delta +60). The leading
         // pane should grow from 200 to 260, the trailing one should shrink from 200 to 140.
-        cut.Find(".bob-splitter__gripper").PointerDown(new() { ClientX = 500, ClientY = 0 });
-        cut.Find(".bob-splitter__drag-overlay").PointerMove(new() { ClientX = 560, ClientY = 0 });
+        cut.Find(".bob-splitter__gripper").PointerDown(new PointerEventArgs { ClientX = 500, ClientY = 0 });
+        cut.Find(".bob-splitter__drag-overlay").PointerMove(new PointerEventArgs { ClientX = 560, ClientY = 0 });
 
-        var panes = cut.FindAll(".bob-splitter__pane");
+        IReadOnlyList<IElement> panes = cut.FindAll(".bob-splitter__pane");
         panes[0].GetAttribute("style").Should().Contain("260px");
         panes[1].GetAttribute("style").Should().Contain("140px");
     }
@@ -161,10 +162,10 @@ public class BOBSplitterInteractionTests
             .Add(c => c.ChildContent, TwoPanes()));
 
         // Drag far left so the leading pane would shrink below MinSize=100.
-        cut.Find(".bob-splitter__gripper").PointerDown(new() { ClientX = 500, ClientY = 0 });
-        cut.Find(".bob-splitter__drag-overlay").PointerMove(new() { ClientX = 0, ClientY = 0 });
+        cut.Find(".bob-splitter__gripper").PointerDown(new PointerEventArgs { ClientX = 500, ClientY = 0 });
+        cut.Find(".bob-splitter__drag-overlay").PointerMove(new PointerEventArgs { ClientX = 0, ClientY = 0 });
 
-        var panes = cut.FindAll(".bob-splitter__pane");
+        IReadOnlyList<IElement> panes = cut.FindAll(".bob-splitter__pane");
         panes[0].GetAttribute("style").Should().Contain("100px");
     }
 
@@ -178,10 +179,10 @@ public class BOBSplitterInteractionTests
             .Add(c => c.ChildContent, TwoPanes()));
 
         // Drag far right so the leading pane would grow past MaxSize=400.
-        cut.Find(".bob-splitter__gripper").PointerDown(new() { ClientX = 500, ClientY = 0 });
-        cut.Find(".bob-splitter__drag-overlay").PointerMove(new() { ClientX = 9999, ClientY = 0 });
+        cut.Find(".bob-splitter__gripper").PointerDown(new PointerEventArgs { ClientX = 500, ClientY = 0 });
+        cut.Find(".bob-splitter__drag-overlay").PointerMove(new PointerEventArgs { ClientX = 9999, ClientY = 0 });
 
-        var panes = cut.FindAll(".bob-splitter__pane");
+        IReadOnlyList<IElement> panes = cut.FindAll(".bob-splitter__pane");
         panes[0].GetAttribute("style").Should().Contain("400px");
     }
 
@@ -197,7 +198,7 @@ public class BOBSplitterInteractionTests
 
         cut.Find(".bob-splitter__gripper").KeyDown("ArrowRight");
 
-        var panes = cut.FindAll(".bob-splitter__pane");
+        IReadOnlyList<IElement> panes = cut.FindAll(".bob-splitter__pane");
         panes[0].GetAttribute("style").Should().Contain("225px");
         panes[1].GetAttribute("style").Should().Contain("175px");
     }
@@ -255,18 +256,26 @@ public class BOBSplitterSnapshotTests
 
         var testCases = new[]
         {
-            new { Name = "Horizontal", Builder = (Action<ComponentParameterCollectionBuilder<BOBSplitter>>)(p => p
-                .Add(c => c.ChildContent, twoPanes)) },
-            new { Name = "Vertical", Builder = (Action<ComponentParameterCollectionBuilder<BOBSplitter>>)(p => p
-                .Add(c => c.ChildContent, twoPanes)
-                .Add(c => c.Orientation, BOBSplitterOrientation.Vertical)) },
+            new
+            {
+                Name = "Horizontal",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBSplitter>>)(p => p
+                    .Add(c => c.ChildContent, twoPanes))
+            },
+            new
+            {
+                Name = "Vertical",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBSplitter>>)(p => p
+                    .Add(c => c.ChildContent, twoPanes)
+                    .Add(c => c.Orientation, BOBSplitterOrientation.Vertical))
+            }
         };
 
         var results = testCases.Select(tc =>
         {
             IRenderedComponent<BOBSplitter> cut = ctx.Render<BOBSplitter>(tc.Builder);
             return new { tc.Name, Html = cut.GetNormalizedMarkup() };
-        });
+        }).ToList();
 
         await Verify(results).UseParameters(scenario.Name);
     }

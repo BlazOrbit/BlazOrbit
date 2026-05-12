@@ -31,6 +31,7 @@ param(
     [switch]$Coverage
 )
 
+Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 $Colors = @{

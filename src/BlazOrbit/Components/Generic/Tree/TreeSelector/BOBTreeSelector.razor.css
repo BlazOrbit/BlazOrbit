@@ -79,18 +79,18 @@
     font-weight: 400;
     cursor: pointer;
     transition: background-color var(--_tree-selector-transition),
-                color var(--_tree-selector-transition),
-                border-color var(--_tree-selector-transition);
+    color var(--_tree-selector-transition),
+    border-color var(--_tree-selector-transition);
     width: 100%;
     text-align: left;
     position: relative;
     user-select: none;
 }
 
-    [data-bob-component="tree-selector"] .bob-tree-selector__node-content:hover {
-        background: var(--_tree-selector-hover-bg);
-        color: var(--palette-surface-contrast);
-    }
+[data-bob-component="tree-selector"] .bob-tree-selector__node-content:hover {
+    background: var(--_tree-selector-hover-bg);
+    color: var(--palette-surface-contrast);
+}
 
 [data-bob-component="tree-selector"] .bob-tree-selector__node[data-bob-selected="true"] > .bob-tree-selector__node-content {
     background: var(--_tree-selector-selected-bg);
@@ -99,9 +99,9 @@
     font-weight: 600;
 }
 
-    [data-bob-component="tree-selector"] .bob-tree-selector__node[data-bob-selected="true"] > .bob-tree-selector__node-content .bob-tree-selector__node-icon {
-        color: var(--_tree-selector-selected-color);
-    }
+[data-bob-component="tree-selector"] .bob-tree-selector__node[data-bob-selected="true"] > .bob-tree-selector__node-content .bob-tree-selector__node-icon {
+    color: var(--_tree-selector-selected-color);
+}
 
 [data-bob-component="tree-selector"] .bob-tree-selector__node[data-bob-disabled="true"] .bob-tree-selector__node-content {
     opacity: 0.5;

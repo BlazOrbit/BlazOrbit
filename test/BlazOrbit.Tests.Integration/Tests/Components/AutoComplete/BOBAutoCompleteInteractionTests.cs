@@ -53,7 +53,11 @@ public class BOBAutoCompleteInteractionTests
 
         int callCount = 0;
         IRenderedComponent<BOBAutoComplete<string>> cut = ctx.Render<BOBAutoComplete<string>>(p => p
-            .Add(c => c.SearchAsync, (q, _) => { callCount++; return Task.FromResult(Enumerable.Empty<string>()); })
+            .Add(c => c.SearchAsync, (q, _) =>
+            {
+                callCount++;
+                return Task.FromResult(Enumerable.Empty<string>());
+            })
             .Add(c => c.ItemText, s => s)
             .Add(c => c.MinSearchLength, 3)
             .Add(c => c.DebounceMs, 0));

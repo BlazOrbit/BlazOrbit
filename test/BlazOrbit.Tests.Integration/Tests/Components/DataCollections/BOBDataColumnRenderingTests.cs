@@ -12,7 +12,7 @@ public class BOBDataColumnRenderingTests
 {
     private sealed record Person(string Name, int Age);
 
-    private static IEnumerable<Person> Items => [new Person("Alice", 30), new Person("Bob", 25)];
+    private static IEnumerable<Person> Items => [new("Alice", 30), new("Bob", 25)];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]

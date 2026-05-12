@@ -146,26 +146,42 @@ public class BOBChipSnapshotTests
 
         var testCases = new[]
         {
-            new { Name = "Static", Builder = (Action<ComponentParameterCollectionBuilder<BOBChip>>)(p => p
-                .Add(c => c.Label, "tag")) },
-            new { Name = "With_Icon_And_Count", Builder = (Action<ComponentParameterCollectionBuilder<BOBChip>>)(p => p
-                .Add(c => c.Label, "Inbox")
-                .Add(c => c.LeadingIcon, BOBIconKeys.MaterialIconsOutlined.i_label)
-                .Add(c => c.Count, 12)) },
-            new { Name = "Selectable_On", Builder = (Action<ComponentParameterCollectionBuilder<BOBChip>>)(p => p
-                .Add(c => c.Label, "On")
-                .Add(c => c.Selectable, true)
-                .Add(c => c.Selected, true)) },
-            new { Name = "Removable", Builder = (Action<ComponentParameterCollectionBuilder<BOBChip>>)(p => p
-                .Add(c => c.Label, "alpha")
-                .Add(c => c.Removable, true)) }
+            new
+            {
+                Name = "Static",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBChip>>)(p => p
+                    .Add(c => c.Label, "tag"))
+            },
+            new
+            {
+                Name = "With_Icon_And_Count",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBChip>>)(p => p
+                    .Add(c => c.Label, "Inbox")
+                    .Add(c => c.LeadingIcon, BOBIconKeys.MaterialIconsOutlined.i_label)
+                    .Add(c => c.Count, 12))
+            },
+            new
+            {
+                Name = "Selectable_On",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBChip>>)(p => p
+                    .Add(c => c.Label, "On")
+                    .Add(c => c.Selectable, true)
+                    .Add(c => c.Selected, true))
+            },
+            new
+            {
+                Name = "Removable",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBChip>>)(p => p
+                    .Add(c => c.Label, "alpha")
+                    .Add(c => c.Removable, true))
+            }
         };
 
         var results = testCases.Select(tc =>
         {
             IRenderedComponent<BOBChip> cut = ctx.Render<BOBChip>(tc.Builder);
             return new { tc.Name, Html = cut.GetNormalizedMarkup() };
-        });
+        }).ToList();
 
         await Verify(results).UseParameters(scenario.Name);
     }

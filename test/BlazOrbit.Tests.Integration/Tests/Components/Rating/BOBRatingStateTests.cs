@@ -1,3 +1,4 @@
+using AngleSharp.Dom;
 using BlazOrbit.Components.Display;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -47,7 +48,7 @@ public class BOBRatingStateTests
 
         cut.Render(p => p.Add(c => c.Value, 4));
 
-        var cells = cut.FindAll(".bob-rating__cell");
+        IReadOnlyList<IElement> cells = cut.FindAll(".bob-rating__cell");
         cells[0].GetAttribute("data-bob-fill").Should().Be("full");
         cells[3].GetAttribute("data-bob-fill").Should().Be("full");
         cells[4].GetAttribute("data-bob-fill").Should().Be("empty");

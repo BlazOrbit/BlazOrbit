@@ -62,7 +62,7 @@ public class BOBColorPickerAccessibilityTests
 
         IReadOnlyList<IElement> labelledInputs = cut.FindAll("input[aria-label]");
         labelledInputs.Select(i => i.GetAttribute("aria-label"))
-            .Should().Contain(new[] { "Red", "Green", "Blue", "Alpha" });
+            .Should().Contain(["Red", "Green", "Blue", "Alpha"]);
     }
 
     [Theory]

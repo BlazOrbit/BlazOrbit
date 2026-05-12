@@ -72,7 +72,7 @@ public class BOBConfirmDialogStateTests
             .Add(c => c.Severity, ConfirmSeverity.Danger));
 
         // The accept (Yes) button is the second button and should have an inline style with the error palette
-        var acceptButton = cut.FindAll(".bob-confirm__actions bob-component").Last();
+        IElement acceptButton = cut.FindAll(".bob-confirm__actions bob-component").Last();
         string? style = acceptButton.GetAttribute("style");
         style.Should().Contain("var(--palette-error)");
     }
@@ -89,7 +89,7 @@ public class BOBConfirmDialogStateTests
             .Add(c => c.Message, "M")
             .Add(c => c.Severity, ConfirmSeverity.Warning));
 
-        var acceptButton = cut.FindAll(".bob-confirm__actions bob-component").Last();
+        IElement acceptButton = cut.FindAll(".bob-confirm__actions bob-component").Last();
         string? style = acceptButton.GetAttribute("style");
         style.Should().Contain("var(--palette-warning)");
     }
@@ -106,7 +106,7 @@ public class BOBConfirmDialogStateTests
             .Add(c => c.Message, "M")
             .Add(c => c.Severity, ConfirmSeverity.Info));
 
-        var acceptButton = cut.FindAll(".bob-confirm__actions bob-component").Last();
+        IElement acceptButton = cut.FindAll(".bob-confirm__actions bob-component").Last();
         string? style = acceptButton.GetAttribute("style");
         style.Should().NotContain("var(--palette-error)");
         style.Should().NotContain("var(--palette-warning)");

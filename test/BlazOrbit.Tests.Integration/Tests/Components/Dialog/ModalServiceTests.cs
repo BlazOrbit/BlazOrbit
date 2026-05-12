@@ -25,7 +25,11 @@ public class ModalServiceTests
     {
         ModalService sut = new();
         bool notified = false;
-        sut.OnChangeAsync += () => { notified = true; return Task.CompletedTask; };
+        sut.OnChangeAsync += () =>
+        {
+            notified = true;
+            return Task.CompletedTask;
+        };
 
         await sut.ShowDialogAsync<TestModalContent>();
 

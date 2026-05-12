@@ -20,9 +20,16 @@ internal static class ReferenceLineRenderer
         LinearScale yScale,
         IEnumerable<BOBChartReferenceLine>? lines)
     {
-        if (lines is null) return;
+        if (lines is null)
+        {
+            return;
+        }
+
         List<BOBChartReferenceLine> list = lines.ToList();
-        if (list.Count == 0) return;
+        if (list.Count == 0)
+        {
+            return;
+        }
 
         builder.OpenElement(seq++, "g");
         builder.AddAttribute(seq++, "class", "bob-chart__reference-lines");
@@ -38,7 +45,7 @@ internal static class ReferenceLineRenderer
             {
                 BOBChartReferenceLineStyle.Dashed => "6,4",
                 BOBChartReferenceLineStyle.Dotted => "2,3",
-                _ => "0",
+                _ => "0"
             };
 
             builder.OpenElement(seq++, "line");
@@ -54,6 +61,7 @@ internal static class ReferenceLineRenderer
             {
                 builder.AddAttribute(seq++, "stroke-dasharray", dashArray);
             }
+
             builder.CloseElement(); // line
 
             if (!string.IsNullOrEmpty(line.Label))

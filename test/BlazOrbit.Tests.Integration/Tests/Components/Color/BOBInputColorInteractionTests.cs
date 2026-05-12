@@ -10,7 +10,10 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Color;
 [Trait("Component Interaction", "BOBInputColor")]
 public class BOBInputColorInteractionTests
 {
-    private class Model { public CssColor? Value { get; set; } }
+    private class Model
+    {
+        public CssColor? Value { get; set; }
+    }
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -61,7 +64,7 @@ public class BOBInputColorInteractionTests
 
         cut.FindAll(".bob-input-color__dropdown").Should().BeEmpty();
 
-        // Act — click the palette button (last _BOBBtn inside wrapper)
+        // Act — click the palette button (last _BOBInBtn inside wrapper)
         cut.Find("[aria-label='Open color picker']").Click();
 
         cut.Find(".bob-input-color__dropdown").Should().NotBeNull();

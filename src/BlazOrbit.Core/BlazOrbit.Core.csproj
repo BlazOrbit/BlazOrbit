@@ -1,36 +1,38 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-	<PropertyGroup>
-		<TargetFrameworks>net8.0;net10.0</TargetFrameworks>
-		<IsPackable>true</IsPackable>
-		<PackageType>Dependency</PackageType>
-		<PackageId>BlazOrbit.Core</PackageId>
-		<Description>Framework-agnostic primitives shared by the BlazOrbit component library. Provides the base component types (`BOBComponentBase`, `BOBInputComponentBase`), the `IHas*` behavior interfaces, theme/palette types (`CssColor`, `PaletteColor`, `LightTheme`, `DarkTheme`), and the JS-interop service contracts.</Description>
-		<PackageTags>blazor;components;core;abstractions;theming;design-system</PackageTags>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+        <IsPackable>true</IsPackable>
+        <PackageType>Dependency</PackageType>
+        <PackageId>BlazOrbit.Core</PackageId>
+        <Description>Framework-agnostic primitives shared by the BlazOrbit component library. Provides the base component types (`BOBComponentBase`, `BOBInputComponentBase`), the `IHas*` behavior interfaces, theme/palette types (`CssColor`, `PaletteColor`, `LightTheme`, `DarkTheme`), and the JS-interop service contracts.</Description>
+        <PackageTags>blazor;components;core;abstractions;theming;design-system</PackageTags>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<InternalsVisibleTo Include="BlazOrbit" />
-		<InternalsVisibleTo Include="BlazOrbit.BuildTools" />
-		<InternalsVisibleTo Include="BlazOrbit.Tests.Integration" />
-		<InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
-	</ItemGroup>
+    <ItemGroup>
+        <InternalsVisibleTo Include="BlazOrbit"/>
+        <InternalsVisibleTo Include="BlazOrbit.BuildTools"/>
+        <InternalsVisibleTo Include="BlazOrbit.Tests.Integration"/>
+        <InternalsVisibleTo Include="DynamicProxyGenAssembly2"/>
+    </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components" Version="$(BlazOrbitAspNetCoreVersion)" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(BlazOrbitAspNetCoreVersion)" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Forms" Version="$(BlazOrbitAspNetCoreVersion)" />
-		<PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(BlazOrbitExtensionsVersion)" />
-		<PackageReference Include="Microsoft.JSInterop" Version="$(BlazOrbitAspNetCoreVersion)" />
-		<PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="4.14.0" PrivateAssets="all" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components" Version="$(BlazOrbitAspNetCoreVersion)"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(BlazOrbitAspNetCoreVersion)"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Forms" Version="$(BlazOrbitAspNetCoreVersion)"/>
+        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(BlazOrbitExtensionsVersion)"/>
+        <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="$(BlazOrbitExtensionsVersion)"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(BlazOrbitExtensionsVersion)"/>
+        <PackageReference Include="Microsoft.JSInterop" Version="$(BlazOrbitAspNetCoreVersion)"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="4.14.0" PrivateAssets="all"/>
+    </ItemGroup>
 
-	<ItemGroup>
-		<AdditionalFiles Include="PublicAPI.Shipped.txt" />
-		<AdditionalFiles Include="PublicAPI.Unshipped.txt" />
-	</ItemGroup>
+    <ItemGroup>
+        <AdditionalFiles Include="PublicAPI.Shipped.txt"/>
+        <AdditionalFiles Include="PublicAPI.Unshipped.txt"/>
+    </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\BlazOrbit.Core.CodeGeneration\BlazOrbit.Core.CodeGeneration.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\BlazOrbit.Core.CodeGeneration\BlazOrbit.Core.CodeGeneration.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
+    </ItemGroup>
 </Project>

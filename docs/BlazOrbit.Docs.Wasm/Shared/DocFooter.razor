@@ -1,5 +1,5 @@
 ﻿@inject IStringLocalizer<DocFooter> Loc
 
 <footer class="doc-footer">
-    <p class="doc-footer__text">@string.Format(Loc["CopyrightText"], DateTime.Now.Year)</p>
+    <p class="doc-footer__text">@Loc["© {0} BlazOrbit.", DateTime.Now.Year]</p>
 </footer>

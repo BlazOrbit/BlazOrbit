@@ -10,34 +10,34 @@
 
 <bob-component @attributes="ComputedAttributes">
     <div class="bob-picker__row">
-        <_BOBBtn Icon="@BOBIconKeys.UI.ChevronLeft"
-                    AriaLabel="@Localizer["PreviousYear"]"
-                    OnClick="PrevYearClicked" />
-        <_BOBBtn Icon="@BOBIconKeys.UI.ChevronLeft"
-                    AriaLabel="@Localizer["PreviousMonth"]"
-                    OnClick="PrevMonthClicked" />
+        <_BOBInBtn Icon="@BOBIconKeys.UI.ChevronLeft"
+                   AriaLabel="@Localizer["Previous year"]"
+                   OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, PrevYearClicked))"/>
+        <_BOBInBtn Icon="@BOBIconKeys.UI.ChevronLeft"
+                   AriaLabel="@Localizer["Previous month"]"
+                   OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, PrevMonthClicked))"/>
         <span class="bob-picker__title">@CurrentMonth.ToString("MMMM yyyy", CultureInfo.CurrentCulture)</span>
-        <_BOBBtn Icon="@BOBIconKeys.UI.ChevronRight"
-                    AriaLabel="@Localizer["NextMonth"]"
-                    OnClick="NextMonthClicked" />
-        <_BOBBtn Icon="@BOBIconKeys.UI.ChevronRight"
-                    AriaLabel="@Localizer["NextYear"]"
-                    OnClick="NextYearClicked" />
+        <_BOBInBtn Icon="@BOBIconKeys.UI.ChevronRight"
+                   AriaLabel="@Localizer["Next month"]"
+                   OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, NextMonthClicked))"/>
+        <_BOBInBtn Icon="@BOBIconKeys.UI.ChevronRight"
+                   AriaLabel="@Localizer["Next year"]"
+                   OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, NextYearClicked))"/>
     </div>
 
     <div class="bob-picker__grid">
-        @foreach (string day in WeekDays)
+        @foreach (var day in WeekDays)
         {
             <span class="bob-picker__cell" data-bob-muted="true">@day[..2]</span>
         }
-        @foreach (DayCell day in Days)
+        @foreach (var day in Days)
         {
-            <_BOBBtn Active="@day.IsSelected"
-                        class="bob-picker__cell"
-                        data-bob-muted="@(!day.IsCurrentMonth ? "true" : null)"
-                        OnClick="() => SelectDateClicked(day.Date)">
+            <_BOBInBtn Active="@day.IsSelected"
+                       class="bob-picker__cell"
+                       data-bob-muted="@(!day.IsCurrentMonth ? "true" : null)"
+                       OnClick="@(() => SelectDateClicked(day.Date))">
                 @day.Date.Day
-            </_BOBBtn>
+            </_BOBInBtn>
         }
     </div>
 </bob-component>
@@ -46,13 +46,20 @@
     [Inject] internal IStringLocalizer<BOBFormsResources> Localizer { get; set; } = default!;
 
     /// <summary>Current value of the component.</summary>
-    [Parameter] public DateOnly? Value { get; set; }
+    [Parameter]
+    public DateOnly? Value { get; set; }
+
     /// <summary>Raised when the value changes.</summary>
-    [Parameter] public EventCallback<DateOnly?> ValueChanged { get; set; }
+    [Parameter]
+    public EventCallback<DateOnly?> ValueChanged { get; set; }
+
     /// <summary>Visual size of the component.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
+
     /// <summary>Vertical density (gap) of the component.</summary>
-    [Parameter] public BOBDensity Density { get; set; } = BOBDensity.Standard;
+    [Parameter]
+    public BOBDensity Density { get; set; } = BOBDensity.Standard;
 
     private DateTime CurrentMonth = DateTime.Today;
     private DateOnly SelectedDate = DateOnly.FromDateTime(DateTime.Today);
@@ -67,10 +74,25 @@
         }
     }
 
-    private void PrevYearClicked(MouseEventArgs e) => CurrentMonth = CurrentMonth.AddYears(-1);
-    private void NextYearClicked(MouseEventArgs e) => CurrentMonth = CurrentMonth.AddYears(1);
-    private void PrevMonthClicked(MouseEventArgs e) => CurrentMonth = CurrentMonth.AddMonths(-1);
-    private void NextMonthClicked(MouseEventArgs e) => CurrentMonth = CurrentMonth.AddMonths(1);
+    private void PrevYearClicked(MouseEventArgs e)
+    {
+        CurrentMonth = CurrentMonth.AddYears(-1);
+    }
+
+    private void NextYearClicked(MouseEventArgs e)
+    {
+        CurrentMonth = CurrentMonth.AddYears(1);
+    }
+
+    private void PrevMonthClicked(MouseEventArgs e)
+    {
+        CurrentMonth = CurrentMonth.AddMonths(-1);
+    }
+
+    private void NextMonthClicked(MouseEventArgs e)
+    {
+        CurrentMonth = CurrentMonth.AddMonths(1);
+    }
 
     private async Task SelectDateClicked(DateOnly date)
     {
@@ -86,16 +108,16 @@
         get
         {
             DateOnly firstOfMonth = new(CurrentMonth.Year, CurrentMonth.Month, 1);
-            DateOnly start = firstOfMonth.AddDays(-(int)firstOfMonth.DayOfWeek);
+            var start = firstOfMonth.AddDays(-(int)firstOfMonth.DayOfWeek);
             return Enumerable.Range(0, 42).Select(i =>
             {
-                DateOnly d = start.AddDays(i);
+                var d = start.AddDays(i);
                 return new DayCell
                 {
                     Date = d,
                     IsCurrentMonth = d.Month == CurrentMonth.Month,
-                    IsSelected = 
-                        SelectedDate.DayNumber == d.DayNumber 
+                    IsSelected =
+                        SelectedDate.DayNumber == d.DayNumber
                         && SelectedDate.Month == d.Month
                         && SelectedDate.Year == d.Year
                 };

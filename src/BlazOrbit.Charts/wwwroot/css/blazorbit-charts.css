@@ -43,19 +43,19 @@
    existing elements, which lets these transitions actually fire. */
 [data-bob-animated][data-bob-data-visualization-base] .bob-bar-chart__bar {
     transition: y var(--bob-chart-anim-duration, 400ms) ease-out,
-                height var(--bob-chart-anim-duration, 400ms) ease-out;
+    height var(--bob-chart-anim-duration, 400ms) ease-out;
 }
 
 [data-bob-animated][data-bob-data-visualization-base] .bob-line-chart__marker {
     transition: cx var(--bob-chart-anim-duration, 400ms) ease-out,
-                cy var(--bob-chart-anim-duration, 400ms) ease-out,
-                r 120ms ease-in-out;
+    cy var(--bob-chart-anim-duration, 400ms) ease-out,
+    r 120ms ease-in-out;
 }
 
 [data-bob-animated][data-bob-data-visualization-base] .bob-pie-chart__arc {
     transition: opacity 120ms ease-in-out,
-                transform 120ms ease-in-out,
-                d var(--bob-chart-anim-duration, 400ms) ease-out;
+    transform 120ms ease-in-out,
+    d var(--bob-chart-anim-duration, 400ms) ease-out;
 }
 
 /* prefers-reduced-motion always wins — disable every animation transition. */
@@ -190,10 +190,21 @@
     gap: 12px;
 }
 
-[data-bob-data-visualization-base][data-bob-legend-position="top"]    { flex-direction: column-reverse; }
-[data-bob-data-visualization-base][data-bob-legend-position="bottom"] { flex-direction: column; }
-[data-bob-data-visualization-base][data-bob-legend-position="left"]   { flex-direction: row-reverse; }
-[data-bob-data-visualization-base][data-bob-legend-position="right"]  { flex-direction: row; }
+[data-bob-data-visualization-base][data-bob-legend-position="top"] {
+    flex-direction: column-reverse;
+}
+
+[data-bob-data-visualization-base][data-bob-legend-position="bottom"] {
+    flex-direction: column;
+}
+
+[data-bob-data-visualization-base][data-bob-legend-position="left"] {
+    flex-direction: row-reverse;
+}
+
+[data-bob-data-visualization-base][data-bob-legend-position="right"] {
+    flex-direction: row;
+}
 
 [data-bob-data-visualization-base][data-bob-legend-position] > svg {
     flex: 1 1 auto;
@@ -470,6 +481,152 @@
 
 @media (prefers-reduced-motion: reduce) {
     [data-bob-component="area-chart"] .bob-area-chart__fill {
+        transition: none;
+    }
+}
+
+/* ---------- Treemap chart (Phase 3) ---------- */
+
+[data-bob-component="treemap-chart"] .bob-treemap-chart__cell {
+    transition: opacity 120ms ease-in-out;
+    cursor: default;
+}
+
+[data-bob-component="treemap-chart"] .bob-treemap-chart__cell:hover {
+    opacity: 0.85;
+}
+
+[data-bob-component="treemap-chart"] .bob-treemap-chart__label {
+    pointer-events: none;
+    user-select: none;
+    font-weight: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-bob-component="treemap-chart"] .bob-treemap-chart__cell {
+        transition: none;
+    }
+}
+
+/* ---------- Sunburst chart (Phase 3) ---------- */
+
+[data-bob-component="sunburst-chart"] .bob-sunburst-chart__arc {
+    transition: opacity 120ms ease-in-out;
+    cursor: default;
+}
+
+[data-bob-component="sunburst-chart"] .bob-sunburst-chart__arc:hover {
+    opacity: 0.85;
+}
+
+[data-bob-component="sunburst-chart"] .bob-sunburst-chart__label {
+    pointer-events: none;
+    user-select: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-bob-component="sunburst-chart"] .bob-sunburst-chart__arc {
+        transition: none;
+    }
+}
+
+/* ---------- Sankey chart (Phase 3) ---------- */
+
+[data-bob-component="sankey-chart"] .bob-sankey-chart__link {
+    transition: stroke-opacity 120ms ease-in-out;
+}
+
+[data-bob-component="sankey-chart"] .bob-sankey-chart__link:hover {
+    stroke-opacity: 0.85;
+}
+
+[data-bob-component="sankey-chart"] .bob-sankey-chart__node {
+    transition: opacity 120ms ease-in-out;
+}
+
+[data-bob-component="sankey-chart"] .bob-sankey-chart__node:hover {
+    opacity: 0.85;
+}
+
+[data-bob-component="sankey-chart"] .bob-sankey-chart__label {
+    pointer-events: none;
+    user-select: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-bob-component="sankey-chart"] .bob-sankey-chart__link,
+    [data-bob-component="sankey-chart"] .bob-sankey-chart__node {
+        transition: none;
+    }
+}
+
+/* ---------- Stock chart (Phase 3) ---------- */
+
+[data-bob-component="stock-chart"] .bob-stock-chart__wick {
+    stroke-width: 1;
+}
+
+[data-bob-component="stock-chart"] .bob-stock-chart__body {
+    transition: opacity 120ms ease-in-out;
+}
+
+[data-bob-component="stock-chart"] .bob-stock-chart__body:hover {
+    opacity: 0.85;
+}
+
+[data-bob-component="stock-chart"] .bob-stock-chart__axis-label {
+    fill: var(--palette-surface-contrast, #6b7280);
+}
+
+[data-bob-component="stock-chart"] .bob-stock-chart__volume {
+    pointer-events: none;
+}
+
+[data-bob-component="stock-chart"] .bob-stock-chart__bb-mid,
+[data-bob-component="stock-chart"] .bob-stock-chart__bb-upper,
+[data-bob-component="stock-chart"] .bob-stock-chart__bb-lower,
+[data-bob-component="stock-chart"] .bob-stock-chart__rsi,
+[data-bob-component="stock-chart"] .bob-stock-chart__macd-line,
+[data-bob-component="stock-chart"] .bob-stock-chart__macd-signal {
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-bob-component="stock-chart"] .bob-stock-chart__body {
+        transition: none;
+    }
+}
+
+/* ---------- Mixed chart (Phase 3) ---------- */
+
+[data-bob-component="mixed-chart"] .bob-mixed-chart__grid {
+    stroke: var(--palette-border, rgba(0, 0, 0, 0.08));
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+[data-bob-component="mixed-chart"] .bob-mixed-chart__axis-label,
+[data-bob-component="mixed-chart"] .bob-mixed-chart__axis-title {
+    fill: var(--palette-surface-contrast, #6b7280);
+    font-size: inherit;
+}
+
+[data-bob-component="mixed-chart"] .bob-mixed-chart__bar {
+    transition: opacity 120ms ease-in-out;
+    cursor: default;
+}
+
+[data-bob-component="mixed-chart"] .bob-mixed-chart__bar:hover {
+    opacity: 0.85;
+}
+
+[data-bob-component="mixed-chart"] .bob-mixed-chart__line,
+[data-bob-component="mixed-chart"] .bob-mixed-chart__area {
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-bob-component="mixed-chart"] .bob-mixed-chart__bar {
         transition: none;
     }
 }

@@ -45,7 +45,8 @@ public abstract class BOBComponentBase : ComponentBase, IAsyncDisposable
         base.OnParametersSet();
         _pipeline.BuildStyles(this, AdditionalAttributes);
 #if DEBUG
-        if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("TrackPerformanceEnabled", out object? trackPerfAttr))
+        if (AdditionalAttributes != null &&
+            AdditionalAttributes.TryGetValue("TrackPerformanceEnabled", out object? trackPerfAttr))
         {
             bool isEnabled = trackPerfAttr switch
             {
@@ -64,7 +65,8 @@ public abstract class BOBComponentBase : ComponentBase, IAsyncDisposable
         if (firstRender)
         {
 #if DEBUG
-            if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("TrackPerformanceEnabled", out object? trackPerfAttr))
+            if (AdditionalAttributes != null &&
+                AdditionalAttributes.TryGetValue("TrackPerformanceEnabled", out object? trackPerfAttr))
             {
                 bool isEnabled = trackPerfAttr switch
                 {
@@ -99,7 +101,8 @@ public abstract class BOBComponentBase : ComponentBase, IAsyncDisposable
         _pipeline.PatchVolatileAttributes(this);
         base.BuildRenderTree(builder);
 #if DEBUG
-        if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("TrackPerformanceEnabled", out object? trackPerfAttr))
+        if (AdditionalAttributes != null &&
+            AdditionalAttributes.TryGetValue("TrackPerformanceEnabled", out object? trackPerfAttr))
         {
             bool isEnabled = trackPerfAttr switch
             {

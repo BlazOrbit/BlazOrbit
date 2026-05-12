@@ -2,19 +2,26 @@
 
 @using System.ComponentModel.DataAnnotations
 @using BlazOrbit.FormsFluentValidation
+@using BlazOrbit.Localization
 @using FluentValidation
 
 @inject IStringLocalizer<ValidationPage> Loc
 
-
 <DocPage Eyebrow="@Loc["Utilities"]" Title="@Loc["Validation"]"
          Lede="@_lede"
-         PageInstance="this">
+         PageInstance="this"
+         Keywords="@(["validation", "forms", "FluentValidation", "rules"])">
+
+    <section class="doc-section">
+        <p class="doc-section__description">
+                        @Loc.Html("BlazOrbit form components inherit from <code>InputBase</code>, so they integrate with <code>EditForm</code> and <code>EditContext</code> exactly like native Blazor inputs. For FluentValidation, add the <code>BlazOrbit.FormsFluentValidation</code> package and place <code>BOBFluentValidator</code> inside your <code>EditForm</code>; validation state flows through the same <code>EditContext</code> without additional wiring.")
+        </p>
+    </section>
 
     <DocSection Title="@Loc["Data Annotations"]">
-        <p>@((MarkupString)Loc["The easiest way to validate forms is using <strong>Data Annotations</strong>. Define rules directly on your model with attributes like <code>[Required]</code>, <code>[MinLength]</code>, or <code>[EmailAddress]</code>."].ToString())</p>
-        <p>@((MarkupString)Loc["Wrap your inputs in an <code>EditForm</code>, add the <code>DataAnnotationsValidator</code> component, and use <code>ValidationMessage</code> to display field errors."].ToString())</p>
-        <p>@((MarkupString)Loc["""Learn more in <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/forms/validation" target="_blank">Microsoft Docs — Blazor Form Validation</a>."""].ToString())</p>
+        <p>@(Loc["The easiest way to validate forms is using <strong>Data Annotations</strong>. Define rules directly on your model with attributes like <code>[Required]</code>, <code>[MinLength]</code>, or <code>[EmailAddress]</code>."].ToString())</p>
+        <p>@(Loc["Wrap your inputs in an <code>EditForm</code>, add the <code>DataAnnotationsValidator</code> component, and use <code>ValidationMessage</code> to display field errors."].ToString())</p>
+        <p>@_dataAnnotations3</p>
         <br />
 
         <DocDemo Key="DataAnnotations" Title="@Loc["Data Annotations in action"]">
@@ -53,8 +60,8 @@
     </DocSection>
 
     <DocSection Title="@Loc["FluentValidation"]">
-        <p>@((MarkupString)Loc["For more complex scenarios, you can use <strong>FluentValidation</strong>. It allows you to define validation rules in dedicated validator classes with full support for dependency injection, conditional rules, and reusable logic."].ToString())</p>
-        <p>@((MarkupString)Loc["BlazorUI form components work seamlessly with FluentValidation because they read validation state directly from the <code>EditContext</code> — no component changes are required."].ToString())</p>
+        <p>@(Loc["For more complex scenarios, you can use <strong>FluentValidation</strong>. It allows you to define validation rules in dedicated validator classes with full support for dependency injection, conditional rules, and reusable logic."].ToString())</p>
+        <p>@(Loc["BlazorUI form components work seamlessly with FluentValidation because they read validation state directly from the <code>EditContext</code> — no component changes are required."].ToString())</p>
         <br />
 
         <h4>@Loc["1. Configure Services"]</h4>
@@ -103,7 +110,7 @@
         }
 
         <br />
-        <p>@((MarkupString)Loc["""Learn more at <a href="https://docs.fluentvalidation.net/" target="_blank">FluentValidation Docs</a>."""].ToString())</p>
+        <p>@_fluentValidationDocs</p>
     </DocSection>
 
 </DocPage>
@@ -113,6 +120,8 @@
     private bool _sentDataAnotations;
 
     private string _lede = string.Empty;
+    private MarkupString _dataAnnotations3 = new MarkupString();
+    private MarkupString _fluentValidationDocs = new MarkupString();
 
     private string _fluentValidationRegisterCode1 =
     """
@@ -128,9 +137,11 @@
         base.OnInitialized();
         _lede = Loc[
                 """
-                BlazorUI form components inherit from InputBase, Blazor's native form component. Therefore, validation can be performed in the same way as EditForm.
-                Furthermore, BlazorUI allows the use of FluentValidation by adding a reference to BlazOrbit.FormsFluentValidation.
+                Form validation with data annotations and FluentValidation rules. Validate text inputs, dropdowns, and numeric fields with inline error messages.
                 """];
+
+        _dataAnnotations3 = Loc.Html("""Learn more in <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/forms/validation" target="_blank">Microsoft Docs — Blazor Form Validation</a>.""");
+        _fluentValidationDocs = Loc.Html("""Learn more at <a href="https://docs.fluentvalidation.net/" target="_blank">FluentValidation Docs</a>.""");
     }
 
     private void HandleValidSubmitAnnotations()
@@ -140,7 +151,7 @@
 
     private void ResetAnnotations()
     {
-        _modelAnnotations = new();
+        _modelAnnotations = new AnnotationFormModel();
         _sentDataAnotations = false;
     }
 
@@ -164,7 +175,7 @@
 
     private void ResetFluent()
     {
-        _modelFluent = new();
+        _modelFluent = new FluentFormModel();
         _sentFluent = false;
     }
 

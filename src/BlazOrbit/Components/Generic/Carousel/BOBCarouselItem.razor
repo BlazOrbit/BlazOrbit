@@ -3,14 +3,18 @@
 @implements IDisposable
 
 @code {
+
     /// <summary>Parent <see cref="BOBCarousel"/> container that owns this slide. Cascaded automatically.</summary>
-    [CascadingParameter] public BOBCarousel? Parent { get; set; }
+    [CascadingParameter]
+    public BOBCarousel? Parent { get; set; }
 
     /// <summary>Slide content.</summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>Optional accessible label for the slide. Falls back to "Slide N of M" when null.</summary>
-    [Parameter] public string? AriaLabel { get; set; }
+    [Parameter]
+    public string? AriaLabel { get; set; }
 
     internal RenderFragment? Content => ChildContent;
     internal string? UserAriaLabel => AriaLabel;
@@ -25,4 +29,5 @@
     {
         Parent?.UnregisterItem(this);
     }
+
 }

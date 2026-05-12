@@ -9,7 +9,7 @@
 @implements IPureBuiltComponent
 
 @{
-    List<BOBAccordionItem> renderItems = SnapshotItems();
+    var renderItems = SnapshotItems();
 }
 
 <CascadingValue Value="this" IsFixed="true">
@@ -17,14 +17,14 @@
         @* Hidden registration slot — items register on initialization but render through the parent below. *@
         <div class="bob-accordion__items-slot" hidden>@ChildContent</div>
 
-        @for (int i = 0; i < renderItems.Count; i++)
+        @for (var i = 0; i < renderItems.Count; i++)
         {
-            BOBAccordionItem item = renderItems[i];
-            string itemId = item.Id ?? string.Empty;
-            string headerId = $"bob-accordion-header-{itemId}";
-            string bodyId = $"bob-accordion-body-{itemId}";
-            bool isExpanded = IsItemExpanded(itemId);
-            IconKey effectiveIcon = item.ExpandIcon ?? BOBIconKeys.UI.Plus;
+            var item = renderItems[i];
+            var itemId = item.Id ?? string.Empty;
+            var headerId = $"bob-accordion-header-{itemId}";
+            var bodyId = $"bob-accordion-body-{itemId}";
+            var isExpanded = IsItemExpanded(itemId);
+            var effectiveIcon = item.ExpandIcon ?? BOBIconKeys.UI.Plus;
 
             <div class="bob-accordion-item"
                  data-bob-component="accordion-item"
@@ -42,7 +42,7 @@
                         @onkeydown="e => HandleItemKeyDownAsync(e, itemId)">
                     <span class="bob-accordion-item__header-content">@item.Header</span>
                     <span class="bob-accordion-item__icon" aria-hidden="true">
-                        <BOBSvgIcon Icon="effectiveIcon" Color="@item.ExpandIconColor" Size="BOBSize.Small" />
+                        <BOBSvgIcon Icon="effectiveIcon" Color="@item.ExpandIconColor" Size="BOBSize.Small"/>
                     </span>
                 </button>
                 <div class="bob-accordion-item__body-wrapper"
@@ -68,50 +68,60 @@
 </CascadingValue>
 
 @code {
+
     /// <summary>Markup that emits the accordion items (typically <c>&lt;BOBAccordionItem&gt;</c> children).</summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
     /// Optional content rendered between consecutive items. When <see langword="null"/> (default),
     /// items stack flush with no divider.
     /// </summary>
-    [Parameter] public RenderFragment? Separator { get; set; }
+    [Parameter]
+    public RenderFragment? Separator { get; set; }
 
     /// <summary>
     /// CSS gap between items (and between items and separators). Accepts any valid CSS length
     /// (e.g. <c>"0"</c>, <c>"0.5rem"</c>, <c>"8px"</c>). Defaults to <c>"0"</c>.
     /// </summary>
-    [Parameter] public string Gap { get; set; } = "0";
+    [Parameter]
+    public string Gap { get; set; } = "0";
 
     /// <summary>Determines how many items can be expanded at the same time. Defaults to <see cref="BOBAccordionMode.Multiple"/>.</summary>
-    [Parameter] public BOBAccordionMode Mode { get; set; } = BOBAccordionMode.Multiple;
+    [Parameter]
+    public BOBAccordionMode Mode { get; set; } = BOBAccordionMode.Multiple;
 
     /// <summary>
     /// Identifiers of currently expanded items. When non-<see langword="null"/>, the accordion runs in
     /// <em>controlled</em> mode: the internal state mirrors this list on every render and
     /// <see cref="BOBAccordionItem.InitiallyExpanded"/> is ignored.
     /// </summary>
-    [Parameter] public IReadOnlyList<string>? ExpandedItems { get; set; }
+    [Parameter]
+    public IReadOnlyList<string>? ExpandedItems { get; set; }
 
     /// <summary>Raised whenever the set of expanded items changes. Provides the full new snapshot.</summary>
-    [Parameter] public EventCallback<IReadOnlyList<string>> ExpandedItemsChanged { get; set; }
+    [Parameter]
+    public EventCallback<IReadOnlyList<string>> ExpandedItemsChanged { get; set; }
 
     /// <summary>
     /// Raised for the item whose expanded state was toggled by the user (click or keyboard).
     /// Other items collapsed implicitly by Single/SingleStrict modes do not trigger this callback.
     /// </summary>
-    [Parameter] public EventCallback<BOBAccordionItemToggle> OnExpandedChanged { get; set; }
+    [Parameter]
+    public EventCallback<BOBAccordionItemToggle> OnExpandedChanged { get; set; }
 
     /// <summary>Visual size of the accordion.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
 
     /// <summary>
     /// Border applied to the accordion container. Defaults to <see cref="BOBBorderPresets"/>.None;
     /// individual items never carry a border of their own.
     /// </summary>
-    [Parameter] public BorderStyle? Border { get; set; } = BOBBorderPresets.None;
+    [Parameter]
+    public BorderStyle? Border { get; set; } = BOBBorderPresets.None;
 
-    private readonly List<BOBAccordionItem> _items = new();
+    private readonly List<BOBAccordionItem> _items = [];
     private readonly object _itemsLock = new();
     private readonly HashSet<string> _expandedSet = new(StringComparer.Ordinal);
     private readonly object _setLock = new();
@@ -119,7 +129,9 @@
     private IReadOnlyList<string>? _previousExpandedItems;
     private string? _pendingFocusItemId;
 
-    public void BuildComponentDataAttributes(Dictionary<string, object> attributes) { }
+    public void BuildComponentDataAttributes(Dictionary<string, object> attributes)
+    {
+    }
 
     public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
     {
@@ -137,11 +149,12 @@
                 lock (_setLock)
                 {
                     _expandedSet.Clear();
-                    foreach (string id in ExpandedItems)
+                    foreach (var id in ExpandedItems)
                     {
                         _expandedSet.Add(id);
                     }
                 }
+
                 StateHasChanged();
             }
         }
@@ -198,8 +211,10 @@
             {
                 _expandedSet.Remove(item.Id);
             }
+
             _headerRefs.Remove(item.Id);
         }
+
         StateHasChanged();
     }
 
@@ -217,7 +232,7 @@
     {
         if (IsDisposed || string.IsNullOrEmpty(itemId)) return;
 
-        BOBAccordionItem? item = SnapshotItems().FirstOrDefault(i => i.Id == itemId);
+        var item = SnapshotItems().FirstOrDefault(i => i.Id == itemId);
         if (item == null || item.Disabled) return;
 
         bool wasExpanded;
@@ -246,19 +261,21 @@
                         _expandedSet.Clear();
                         _expandedSet.Add(itemId);
                     }
+
                     break;
             }
         }
 
         if (!stateChanged) return;
 
-        bool isNowExpanded = !wasExpanded;
+        var isNowExpanded = !wasExpanded;
         StateHasChanged();
 
         if (OnExpandedChanged.HasDelegate)
         {
             await OnExpandedChanged.InvokeAsync(new BOBAccordionItemToggle(itemId, isNowExpanded));
         }
+
         if (ExpandedItemsChanged.HasDelegate)
         {
             List<string> snapshot;
@@ -266,17 +283,18 @@
             {
                 snapshot = _expandedSet.ToList();
             }
+
             await ExpandedItemsChanged.InvokeAsync(snapshot);
         }
     }
 
     private async Task HandleItemKeyDownAsync(KeyboardEventArgs e, string currentId)
     {
-        List<BOBAccordionItem> items = SnapshotItems();
+        var items = SnapshotItems();
         if (items.Count == 0) return;
 
-        int currentIndex = items.FindIndex(i => i.Id == currentId);
-        int target = -1;
+        var currentIndex = items.FindIndex(i => i.Id == currentId);
+        var target = -1;
 
         switch (e.Key)
         {
@@ -297,17 +315,25 @@
     {
         await base.OnAfterRenderAsync(firstRender);
 
-        if (_pendingFocusItemId != null && _headerRefs.TryGetValue(_pendingFocusItemId, out ElementReference er))
+        if (_pendingFocusItemId != null && _headerRefs.TryGetValue(_pendingFocusItemId, out var er))
         {
             _pendingFocusItemId = null;
             try
             {
                 await er.FocusAsync();
             }
-            catch (JSDisconnectedException) { }
-            catch (ObjectDisposedException) { }
-            catch (InvalidOperationException) { }
-            catch (TaskCanceledException) { }
+            catch (JSDisconnectedException)
+            {
+            }
+            catch (ObjectDisposedException)
+            {
+            }
+            catch (InvalidOperationException)
+            {
+            }
+            catch (TaskCanceledException)
+            {
+            }
         }
     }
 
@@ -315,28 +341,30 @@
     {
         lock (_itemsLock)
         {
-            return new List<BOBAccordionItem>(_items);
+            return [.._items];
         }
     }
 
     private static int FindNextEnabled(List<BOBAccordionItem> items, int start, int step)
     {
         if (items.Count == 0) return -1;
-        int count = items.Count;
-        for (int i = 1; i <= count; i++)
+        var count = items.Count;
+        for (var i = 1; i <= count; i++)
         {
-            int idx = ((start + step * i) % count + count) % count;
+            var idx = ((start + step * i) % count + count) % count;
             if (!items[idx].Disabled) return idx;
         }
+
         return -1;
     }
 
     private static int FindFirstEnabled(List<BOBAccordionItem> items, int start, int step)
     {
-        for (int i = start; i >= 0 && i < items.Count; i += step)
+        for (var i = start; i >= 0 && i < items.Count; i += step)
         {
             if (!items[i].Disabled) return i;
         }
+
         return -1;
     }
 
@@ -347,11 +375,14 @@
         {
             _items.Clear();
         }
+
         lock (_setLock)
         {
             _expandedSet.Clear();
         }
+
         _headerRefs.Clear();
         await base.DisposeAsync();
     }
+
 }

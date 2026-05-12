@@ -17,29 +17,35 @@ public class BOBInputPrefixSnapshotTests
 
         var testCases = new[]
         {
-            new { Name = "TextOnly", Builder = (Action<ComponentParameterCollectionBuilder<BOBInputPrefix>>)(p => p
-                .Add(c => c.PrefixText, "$")
-                .Add(c => c.Size, BOBSize.Medium)) },
-
-            new { Name = "IconOnly", Builder = (Action<ComponentParameterCollectionBuilder<BOBInputPrefix>>)(p => p
-                .Add(c => c.PrefixIcon, BOBIconKeys.MaterialIconsOutlined.i_check)
-                .Add(c => c.Size, BOBSize.Medium)) },
-
-            new { Name = "TextAndIcon", Builder = (Action<ComponentParameterCollectionBuilder<BOBInputPrefix>>)(p => p
-                .Add(c => c.PrefixText, "USD")
-                .Add(c => c.PrefixIcon, BOBIconKeys.MaterialIconsOutlined.i_check)
-                .Add(c => c.Size, BOBSize.Medium)) }
+            new
+            {
+                Name = "TextOnly",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBInputPrefix>>)(p => p
+                    .Add(c => c.PrefixText, "$")
+                    .Add(c => c.Size, BOBSize.Medium))
+            },
+            new
+            {
+                Name = "IconOnly",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBInputPrefix>>)(p => p
+                    .Add(c => c.PrefixIcon, BOBIconKeys.MaterialIconsOutlined.i_check)
+                    .Add(c => c.Size, BOBSize.Medium))
+            },
+            new
+            {
+                Name = "TextAndIcon",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBInputPrefix>>)(p => p
+                    .Add(c => c.PrefixText, "USD")
+                    .Add(c => c.PrefixIcon, BOBIconKeys.MaterialIconsOutlined.i_check)
+                    .Add(c => c.Size, BOBSize.Medium))
+            }
         };
 
         var results = testCases.Select(testCase =>
         {
             IRenderedComponent<BOBInputPrefix> cut = ctx.Render<BOBInputPrefix>(testCase.Builder);
-            return new
-            {
-                testCase.Name,
-                Html = cut.GetNormalizedMarkup()
-            };
-        });
+            return new { testCase.Name, Html = cut.GetNormalizedMarkup() };
+        }).ToList();
 
         await Verify(results).UseParameters(scenario.Name);
     }

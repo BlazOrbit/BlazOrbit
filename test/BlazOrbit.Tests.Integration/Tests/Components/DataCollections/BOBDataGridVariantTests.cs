@@ -13,7 +13,7 @@ public class BOBDataGridVariantTests
 {
     private sealed record Person(string Name, int Age);
 
-    private static IEnumerable<Person> Items => [new Person("Alice", 30)];
+    private static IEnumerable<Person> Items => [new("Alice", 30)];
 
     private static RenderFragment Columns => b =>
     {

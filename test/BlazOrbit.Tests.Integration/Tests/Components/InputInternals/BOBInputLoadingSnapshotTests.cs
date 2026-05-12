@@ -17,24 +17,27 @@ public class BOBInputLoadingSnapshotTests
 
         var testCases = new[]
         {
-            new { Name = "Idle", Builder = (Action<ComponentParameterCollectionBuilder<BOBInputLoading>>)(p => p
-                .Add(c => c.Loading, false)) },
-
-            new { Name = "Loading", Builder = (Action<ComponentParameterCollectionBuilder<BOBInputLoading>>)(p => p
-                .Add(c => c.Loading, true)
-                .Add(c => c.LoadingIndicatorVariant, BOBProgressIconVariant.Ring)
-                .Add(c => c.Size, BOBSize.Medium)) }
+            new
+            {
+                Name = "Idle",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBInputLoading>>)(p => p
+                    .Add(c => c.Loading, false))
+            },
+            new
+            {
+                Name = "Loading",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBInputLoading>>)(p => p
+                    .Add(c => c.Loading, true)
+                    .Add(c => c.LoadingIndicatorVariant, BOBProgressIconVariant.Ring)
+                    .Add(c => c.Size, BOBSize.Medium))
+            }
         };
 
         var results = testCases.Select(testCase =>
         {
             IRenderedComponent<BOBInputLoading> cut = ctx.Render<BOBInputLoading>(testCase.Builder);
-            return new
-            {
-                testCase.Name,
-                Html = cut.GetNormalizedMarkup()
-            };
-        });
+            return new { testCase.Name, Html = cut.GetNormalizedMarkup() };
+        }).ToList();
 
         await Verify(results).UseParameters(scenario.Name);
     }

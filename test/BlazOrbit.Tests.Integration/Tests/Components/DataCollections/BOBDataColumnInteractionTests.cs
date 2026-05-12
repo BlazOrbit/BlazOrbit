@@ -12,10 +12,11 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.DataCollections;
 public class BOBDataColumnInteractionTests
 {
     private sealed record Person(string Name, int Age);
+
     private static readonly Expression<Func<Person, object?>> NameExpr = p => (object?)p.Name;
     private static readonly Expression<Func<Person, object?>> AgeExpr = p => (object?)p.Age;
 
-    private static IEnumerable<Person> TwoItems => [new Person("Bob", 25), new Person("Alice", 30)];
+    private static IEnumerable<Person> TwoItems => [new("Bob", 25), new("Alice", 30)];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -99,7 +100,8 @@ public class BOBDataColumnInteractionTests
                 b.AddAttribute(6, "Header", "Age");
                 b.AddAttribute(7, "Sortable", true);
                 b.AddAttribute(8, "Property", AgeExpr);
-                b.AddAttribute(9, "Template", (RenderFragment<Person>)(item => b2 => b2.AddContent(0, item.Age.ToString())));
+                b.AddAttribute(9, "Template",
+                    (RenderFragment<Person>)(item => b2 => b2.AddContent(0, item.Age.ToString())));
                 b.CloseComponent();
             }));
 

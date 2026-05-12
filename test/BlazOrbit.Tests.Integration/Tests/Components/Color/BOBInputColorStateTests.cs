@@ -11,7 +11,10 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Color;
 [Trait("Component State", "BOBInputColor")]
 public class BOBInputColorStateTests
 {
-    private class Model { public CssColor? Value { get; set; } }
+    private class Model
+    {
+        public CssColor? Value { get; set; }
+    }
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]

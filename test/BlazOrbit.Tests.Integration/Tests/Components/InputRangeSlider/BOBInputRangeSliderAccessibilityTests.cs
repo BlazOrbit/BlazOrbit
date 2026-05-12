@@ -76,7 +76,8 @@ public class BOBInputRangeSliderAccessibilityTests
         IRenderedComponent<BOBInputRangeSlider<int>> cut = ctx.Render<BOBInputRangeSlider<int>>(p => p
             .Add(c => c.Orientation, BOBSliderOrientation.Vertical));
 
-        cut.FindAll("._bob-slider-thumb").Should().AllSatisfy(t => t.GetAttribute("aria-orientation").Should().Be("vertical"));
+        cut.FindAll("._bob-slider-thumb").Should()
+            .AllSatisfy(t => t.GetAttribute("aria-orientation").Should().Be("vertical"));
     }
 
     [Theory]

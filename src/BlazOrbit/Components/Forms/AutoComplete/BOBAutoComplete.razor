@@ -35,82 +35,124 @@
     private int _focusedIndex = -1;
     private List<TItem> _items = [];
     private CancellationTokenSource? _searchCts;
+
     private BOBDebouncer<string>? _searchDebouncer;
+
     // Tracks the latest query string so out-of-order results are dropped — async sources can
     // resolve in a different order than the keystrokes that triggered them.
     private string _activeQuery = string.Empty;
 
     // IHasSize
     /// <summary>Visual size of the input.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
 
     // IHasLoading
     /// <summary>When <see langword="true" />, force the loading indicator. Async searches drive this automatically too.</summary>
-    [Parameter] public bool Loading { get; set; }
+    [Parameter]
+    public bool Loading { get; set; }
+
     /// <summary>Variant of the loading indicator shown while a search is in flight.</summary>
-    [Parameter] public BOBProgressIconVariant LoadingIndicatorVariant { get; set; } = BOBProgressIconVariant.Ring;
+    [Parameter]
+    public BOBProgressIconVariant LoadingIndicatorVariant { get; set; } = BOBProgressIconVariant.Ring;
 
     // IHasDensity
     /// <summary>Vertical density of the input.</summary>
-    [Parameter] public BOBDensity Density { get; set; } = BOBDensity.Standard;
+    [Parameter]
+    public BOBDensity Density { get; set; } = BOBDensity.Standard;
 
     // IHasShadow
     /// <summary>Shadow style applied to the input container.</summary>
-    [Parameter] public ShadowStyle? Shadow { get; set; }
+    [Parameter]
+    public ShadowStyle? Shadow { get; set; }
 
     // IHasBackgroundColor
     /// <summary>Background color of the input.</summary>
-    [Parameter] public string? BackgroundColor { get; set; }
+    [Parameter]
+    public string? BackgroundColor { get; set; }
 
     // IHasColor
     /// <summary>Text color of the input.</summary>
-    [Parameter] public string? Color { get; set; }
+    [Parameter]
+    public string? Color { get; set; }
 
     // IHasPrefix
     /// <summary>Text displayed before the input value.</summary>
-    [Parameter] public string? PrefixText { get; set; }
+    [Parameter]
+    public string? PrefixText { get; set; }
+
     /// <summary>Material icon name displayed before the input value.</summary>
-    [Parameter] public IconKey? PrefixIcon { get; set; }
+    [Parameter]
+    public IconKey? PrefixIcon { get; set; }
+
     /// <summary>Color of the prefix.</summary>
-    [Parameter] public string? PrefixColor { get; set; }
+    [Parameter]
+    public string? PrefixColor { get; set; }
+
     /// <summary>Background color of the prefix.</summary>
-    [Parameter] public string? PrefixBackgroundColor { get; set; }
+    [Parameter]
+    public string? PrefixBackgroundColor { get; set; }
 
     // IHasSuffix
     /// <summary>Text displayed after the input value.</summary>
-    [Parameter] public string? SuffixText { get; set; }
+    [Parameter]
+    public string? SuffixText { get; set; }
+
     /// <summary>Material icon name displayed after the input value.</summary>
-    [Parameter] public IconKey? SuffixIcon { get; set; }
+    [Parameter]
+    public IconKey? SuffixIcon { get; set; }
+
     /// <summary>Color of the suffix.</summary>
-    [Parameter] public string? SuffixColor { get; set; }
+    [Parameter]
+    public string? SuffixColor { get; set; }
+
     /// <summary>Background color of the suffix.</summary>
-    [Parameter] public string? SuffixBackgroundColor { get; set; }
+    [Parameter]
+    public string? SuffixBackgroundColor { get; set; }
 
     // Component-specific
     /// <summary>Placeholder text shown when the input is empty.</summary>
-    [Parameter] public string? Placeholder { get; set; }
+    [Parameter]
+    public string? Placeholder { get; set; }
+
     /// <summary>Floating label displayed above the input.</summary>
-    [Parameter] public string? Label { get; set; }
+    [Parameter]
+    public string? Label { get; set; }
+
     /// <summary>Helper text displayed below the input.</summary>
-    [Parameter] public string? HelperText { get; set; }
+    [Parameter]
+    public string? HelperText { get; set; }
 
     /// <summary>
     /// Async source for completion suggestions. Receives the current search text and a cancellation
     /// token that fires when a newer keystroke arrives or the component disposes. Required.
     /// </summary>
-    [Parameter, EditorRequired] public Func<string, CancellationToken, Task<IEnumerable<TItem>>>? SearchAsync { get; set; }
+    [Parameter][EditorRequired]
+    public Func<string, CancellationToken, Task<IEnumerable<TItem>>>? SearchAsync { get; set; }
+
     /// <summary>Projects an item to its display string. Required.</summary>
-    [Parameter, EditorRequired] public Func<TItem, string>? ItemText { get; set; }
+    [Parameter][EditorRequired]
+    public Func<TItem, string>? ItemText { get; set; }
+
     /// <summary>Optional template for rendering each suggestion. Falls back to <c>ItemText</c>.</summary>
-    [Parameter] public RenderFragment<TItem>? ItemTemplate { get; set; }
+    [Parameter]
+    public RenderFragment<TItem>? ItemTemplate { get; set; }
+
     /// <summary>Optional template rendered when the search returns zero results.</summary>
-    [Parameter] public RenderFragment<string>? NoResultsTemplate { get; set; }
+    [Parameter]
+    public RenderFragment<string>? NoResultsTemplate { get; set; }
+
     /// <summary>Trailing-edge debounce delay for keystroke-driven searches. <c>0</c> disables debouncing.</summary>
-    [Parameter] public int DebounceMs { get; set; } = 250;
+    [Parameter]
+    public int DebounceMs { get; set; } = 250;
+
     /// <summary>Minimum length before a search fires. Defaults to <c>1</c>.</summary>
-    [Parameter] public int MinSearchLength { get; set; } = 1;
+    [Parameter]
+    public int MinSearchLength { get; set; } = 1;
+
     /// <summary>Raised when the user picks a suggestion.</summary>
-    [Parameter] public EventCallback<TItem> OnSelected { get; set; }
+    [Parameter]
+    public EventCallback<TItem> OnSelected { get; set; }
 
     /// <summary>
     /// Optional resolver lifting a raw search string back to a <typeparamref name="TItem"/>.
@@ -120,12 +162,15 @@
     /// entries). Return <see langword="null"/> to reject the string with a validation error.
     /// When <see langword="null"/> the component keeps its historical SelectAsync-only contract.
     /// </summary>
-    [Parameter] public Func<string, TItem?>? StringToItem { get; set; }
+    [Parameter]
+    public Func<string, TItem?>? StringToItem { get; set; }
+
     /// <summary>
     /// Validation message surfaced when <see cref="StringToItem"/> returns <see langword="null"/>
     /// for a non-empty input. Defaults to a generic "value not recognised" string.
     /// </summary>
-    [Parameter] public string? UnresolvedStringError { get; set; }
+    [Parameter]
+    public string? UnresolvedStringError { get; set; }
 
     private bool HasValue => CurrentValue is not null;
     private bool IsFloated => _isFocused || HasValue || _isDirty || !string.IsNullOrEmpty(_searchText);
@@ -144,7 +189,9 @@
             dataAttributes.Remove("data-bob-open");
     }
 
-    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables) { }
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    {
+    }
 
     public override BOBInputVariant DefaultVariant => BOBInputVariant.Outlined;
 
@@ -178,8 +225,8 @@
 
             <div class="bob-input__wrapper">
 
-                <BOBInputOutline Label="@Label" For="@_inputId" Required="@IsRequired" />
-                <BOBInputPrefix PrefixText="@PrefixText" PrefixIcon="@PrefixIcon" Size="@Size" />
+                <BOBInputOutline Label="@Label" For="@_inputId" Required="@IsRequired"/>
+                <BOBInputPrefix PrefixText="@PrefixText" PrefixIcon="@PrefixIcon" Size="@Size"/>
 
                 <input type="text"
                        id="@_inputId"
@@ -199,13 +246,13 @@
                        aria-describedby="@_helperTextId"
                        aria-invalid="@IsError.ToString().ToLower()"
                        aria-required="@IsRequired.ToString().ToLower()"
-                       placeholder="@(IsFloated? Placeholder : null)"
+                       placeholder="@(IsFloated ? Placeholder : null)"
                        disabled="@IsDisabled"
                        readonly="@IsReadOnly"
-                       required="@IsRequired" />
+                       required="@IsRequired"/>
 
-                <BOBInputSuffix SuffixText="@SuffixText" SuffixIcon="@SuffixIcon" Size="@Size" />
-                <BOBInputLoading Loading="@IsBusy" LoadingIndicatorVariant="@LoadingIndicatorVariant" Size="@Size" />
+                <BOBInputSuffix SuffixText="@SuffixText" SuffixIcon="@SuffixIcon" Size="@Size"/>
+                <BOBInputLoading Loading="@IsBusy" LoadingIndicatorVariant="@LoadingIndicatorVariant" Size="@Size"/>
 
             </div>
 
@@ -227,11 +274,11 @@
                     }
                     else
                     {
-                        @for (int i = 0; i < _items.Count; i++)
+                        @for (var i = 0; i < _items.Count; i++)
                         {
-                            int index = i;
-                            TItem item = _items[index];
-                            bool isFocused = index == _focusedIndex;
+                            var index = i;
+                            var item = _items[index];
+                            var isFocused = index == _focusedIndex;
                             <div class="bob-autocomplete__option"
                                  id="@($"{_listboxId}-opt-{index}")"
                                  role="option"
@@ -258,14 +305,14 @@
                              HelperText="@HelperText"
                              ShowValidation="@IsError"
                              EditContext="@EditContext"
-                             For="@ValueExpression" />
+                             For="@ValueExpression"/>
 
         </bob-component>
     };
 
     private async Task HandleInput(ChangeEventArgs e)
     {
-        string raw = e.Value?.ToString() ?? string.Empty;
+        var raw = e.Value?.ToString() ?? string.Empty;
         _searchText = raw;
         _isDirty = true;
 
@@ -298,7 +345,7 @@
         _searchCts?.Cancel();
         _searchCts?.Dispose();
         _searchCts = new CancellationTokenSource();
-        CancellationToken token = _searchCts.Token;
+        var token = _searchCts.Token;
 
         _isLoading = true;
         _activeQuery = query;
@@ -306,11 +353,12 @@
 
         try
         {
-            IEnumerable<TItem> results = await SearchAsync(query, token);
-            if (token.IsCancellationRequested || IsDisposed || !ReferenceEquals(query, _activeQuery) && query != _activeQuery)
+            var results = await SearchAsync(query, token);
+            if (token.IsCancellationRequested || IsDisposed || (!ReferenceEquals(query, _activeQuery) && query != _activeQuery))
             {
                 return;
             }
+
             _items = results.ToList();
             _focusedIndex = _items.Count > 0 ? 0 : -1;
         }
@@ -339,6 +387,7 @@
                 _isOpen = true;
                 _focusedIndex = 0;
             }
+
             return;
         }
 
@@ -349,12 +398,14 @@
                 {
                     _focusedIndex = (_focusedIndex + 1) % _items.Count;
                 }
+
                 break;
             case "ArrowUp":
                 if (_items.Count > 0)
                 {
                     _focusedIndex = _focusedIndex <= 0 ? _items.Count - 1 : _focusedIndex - 1;
                 }
+
                 break;
             case "Enter":
                 if (_focusedIndex >= 0 && _focusedIndex < _items.Count)
@@ -368,6 +419,7 @@
                     // preserve that to avoid surfacing spurious validation errors.
                     CommitFreeText();
                 }
+
                 break;
             case "Escape":
                 _isOpen = false;
@@ -389,6 +441,7 @@
         {
             _searchText = ItemText(item);
         }
+
         _isOpen = false;
         _focusedIndex = -1;
 
@@ -421,7 +474,7 @@
         // option-driven blur still skips this branch (CurrentValue was set in SelectAsync,
         // _searchText was updated to match ItemText, so the equality check below short-circuits).
         if (StringToItem is null) return;
-        string committed = HasValue && ItemText is not null ? ItemText(CurrentValue!) : string.Empty;
+        var committed = HasValue && ItemText is not null ? ItemText(CurrentValue!) : string.Empty;
         if (_searchText != committed)
         {
             CommitFreeText();
@@ -461,7 +514,7 @@
         // binding to a string therefore only matters when consumers opt in via StringToItem.
         if (StringToItem is not null)
         {
-            TItem? resolved = StringToItem(value);
+            var resolved = StringToItem(value);
             if (resolved is not null)
             {
                 result = resolved;
@@ -479,7 +532,8 @@
         // SelectAsync. Tell the analyzer the input couldn't be converted.
         result = default!;
         validationErrorMessage = "BOBAutoComplete does not support direct string parsing. "
-            + "Provide a StringToItem resolver to opt in.";
+                                 + "Provide a StringToItem resolver to opt in.";
         return false;
     }
+
 }

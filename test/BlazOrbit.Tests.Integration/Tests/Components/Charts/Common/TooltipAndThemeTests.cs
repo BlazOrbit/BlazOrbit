@@ -12,14 +12,13 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Charts.Common;
 [Trait("Component Interaction", "Charts.TooltipAndTheme")]
 public class TooltipAndThemeTests
 {
-    private static IEnumerable<BOBChartSeries<string, decimal>> Series() => new[]
-    {
+    private static IEnumerable<BOBChartSeries<string, decimal>> Series() =>
+    [
         new BOBChartSeries<string, decimal>
         {
-            Label = "Sales",
-            Points = new[] { new BOBChartPoint<string, decimal>("Q1", 100m) }
+            Label = "Sales", Points = [new BOBChartPoint<string, decimal>("Q1", 100m)]
         }
-    };
+    ];
 
     // ---------- Theme parameter ----------
 
@@ -168,18 +167,17 @@ public class TooltipAndThemeTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IEnumerable<BOBChartSeries<int, double>> lineSeries = new[]
-        {
+        IEnumerable<BOBChartSeries<int, double>> lineSeries =
+        [
             new BOBChartSeries<int, double>
             {
                 Label = "L",
-                Points = new[]
-                {
-                    new BOBChartPoint<int, double>(1, 5.5),
-                    new BOBChartPoint<int, double>(2, 7.2),
-                }
+                Points =
+                [
+                    new BOBChartPoint<int, double>(1, 5.5), new BOBChartPoint<int, double>(2, 7.2)
+                ]
             }
-        };
+        ];
 
         IRenderedComponent<BOBLineChart<int, double>> cut =
             ctx.Render<BOBLineChart<int, double>>(p => p

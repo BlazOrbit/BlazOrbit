@@ -7,7 +7,7 @@ namespace BlazOrbit.Notifications;
 /// </summary>
 public sealed class InMemoryNotificationStore : INotificationStore
 {
-    private readonly List<BOBNotification> _entries = new();
+    private readonly List<BOBNotification> _entries = [];
     private readonly object _lock = new();
 
     /// <inheritdoc />
@@ -37,7 +37,11 @@ public sealed class InMemoryNotificationStore : INotificationStore
         lock (_lock)
         {
             BOBNotification? hit = _entries.Find(n => n.Id == id);
-            if (hit is null) return false;
+            if (hit is null)
+            {
+                return false;
+            }
+
             hit.IsRead = true;
             return true;
         }

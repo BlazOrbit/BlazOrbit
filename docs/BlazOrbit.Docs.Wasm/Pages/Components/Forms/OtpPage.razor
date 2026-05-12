@@ -1,0 +1,97 @@
+﻿@page "/components/forms/otp"
+
+@inject IStringLocalizer<OtpPage> Loc
+
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBInputOtp"]"
+         Lede="@Loc["Multi-slot one-time-code input with auto-advance, backspace navigation, paste distribution and IME-safe handling."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBInputOtp)"
+         Keywords="@(["OTP", "one-time password", "verification code", "input"])">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+        <BOBInputOtp @bind-Value="_basic" Label="@Loc["Verification code"]"
+                     HelperText="@Loc["Enter the 6-digit code sent to your phone."]"/>
+        <p class="doc-demo__caption">@Loc["Current value:"] <code>@_basic</code></p>
+    </DocDemo>
+
+    <DocDemo Key="Length" Title="@Loc["Custom length"]">
+        <BOBInputOtp @bind-Value="_length4" Length="4" Label="@Loc["4 digits"]"/>
+        <br/>
+        <BOBInputOtp @bind-Value="_length8" Length="8" Label="@Loc["8 digits"]"/>
+    </DocDemo>
+
+    <DocDemo Key="Variants" Title="@Loc["Variants"]">
+        <BOBInputOtp @bind-Value="_boxed" Variant="BOBInputOtpVariant.Boxed" Label="@Loc["Boxed (default)"]"/>
+        <br/>
+        <BOBInputOtp @bind-Value="_underlined" Variant="BOBInputOtpVariant.Underlined" Label="@Loc["Underlined"]"/>
+    </DocDemo>
+
+    <DocDemo Key="Alphanumeric" Title="@Loc["Alphanumeric"]">
+        <BOBInputOtp @bind-Value="_alpha" Numeric="false" Length="5" Label="@Loc["Alphanumeric code"]"
+                     HelperText="@Loc["Disabling Numeric accepts any printable character."]"/>
+    </DocDemo>
+
+    <DocDemo Key="Mask" Title="@Loc["Masked"]">
+        <BOBInputOtp @bind-Value="_masked" Mask="true" Label="@Loc["PIN"]"
+                     HelperText="@Loc["Slots are obscured for sensitive codes."]"/>
+    </DocDemo>
+
+    <DocDemo Key="Sizes" Title="@Loc["Sizes"]">
+        <BOBInputOtp @bind-Value="_small" Size="BOBSize.Small" Length="4"/>
+        <br/>
+        <BOBInputOtp @bind-Value="_medium" Size="BOBSize.Medium" Length="4"/>
+        <br/>
+        <BOBInputOtp @bind-Value="_large" Size="BOBSize.Large" Length="4"/>
+    </DocDemo>
+
+    <DocDemo Key="OnComplete" Title="@Loc["Completion callback"]">
+        <BOBInputOtp @bind-Value="_completed" OnComplete="@(EventCallback.Factory.Create<string>(this, HandleOtpComplete))" Label="@Loc["Type 6 digits"]"/>
+        @if (!string.IsNullOrEmpty(_lastCompleted))
+        {
+            <p class="doc-demo__caption">@Loc["Last completed code:"] <code>@_lastCompleted</code></p>
+        }
+    </DocDemo>
+
+    <DocDemo Key="States" Title="@Loc["States"]">
+        <BOBInputOtp @bind-Value="_required" Required="true" Length="4" Label="@Loc["Required"]"/>
+        <br/>
+        <BOBInputOtp @bind-Value="_readonly" ReadOnly="true" Length="4" Label="@Loc["ReadOnly"]"/>
+        <br/>
+        <BOBInputOtp @bind-Value="_disabled" Disabled="true" Length="4" Label="@Loc["Disabled"]"/>
+        <br/>
+        <BOBInputOtp @bind-Value="_error" Error="true" Length="4" Label="@Loc["Error"]"
+                     HelperText="@Loc["Invalid code."]"/>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBInputOtpComponentInfo.Parameters"/>
+    </section>
+
+</DocPage>
+
+@code {
+    private string? _basic;
+    private string? _length4;
+    private string? _length8;
+    private string? _boxed;
+    private string? _underlined;
+    private string? _alpha;
+    private string? _masked;
+    private string? _small;
+    private string? _medium;
+    private string? _large;
+    private string? _completed;
+    private string? _lastCompleted;
+    private string? _required;
+    private string? _readonly;
+    private string? _disabled;
+    private string? _error;
+
+    private void HandleOtpComplete(string code)
+    {
+        _lastCompleted = code;
+    }
+
+}

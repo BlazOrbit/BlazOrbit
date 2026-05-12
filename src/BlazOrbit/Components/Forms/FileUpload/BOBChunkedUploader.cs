@@ -94,23 +94,23 @@ public sealed class BOBChunkedUploader
                 await stream.ReadExactlyAsync(buffer, 0, length, ct);
 
                 BOBChunkContext chunk = new(
-                    FileName: file.Name,
-                    ContentType: file.ContentType,
-                    FileSize: file.Size,
-                    Index: index,
-                    TotalChunks: totalChunks,
-                    Offset: offset,
-                    Data: buffer);
+                    file.Name,
+                    file.ContentType,
+                    file.Size,
+                    index,
+                    totalChunks,
+                    offset,
+                    buffer);
 
                 await SendChunk(chunk, ct);
 
                 bytesSent += length;
                 Progress?.Report(new BOBChunkedUploadProgress(
-                    FileName: file.Name,
-                    BytesSent: bytesSent,
-                    FileSize: file.Size,
-                    ChunkIndex: index,
-                    TotalChunks: totalChunks));
+                    file.Name,
+                    bytesSent,
+                    file.Size,
+                    index,
+                    totalChunks));
             }
 
             return new BOBChunkedUploadResult(file.Name, file.Size, totalChunks, true, null);

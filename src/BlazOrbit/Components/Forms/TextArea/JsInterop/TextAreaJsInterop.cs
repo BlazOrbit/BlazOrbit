@@ -33,7 +33,10 @@ internal sealed class TextAreaJsInterop : ModuleJsInteropBase, ITextAreaJsIntero
     public async ValueTask InitializeAutoResizeAsync(ElementReference textarea, string textareaId)
     {
         IJSObjectReference? module = await TryGetModuleAsync();
-        if (module is null) return;
+        if (module is null)
+        {
+            return;
+        }
 
         await module.InvokeVoidAsync("initialize", textarea, textareaId);
     }

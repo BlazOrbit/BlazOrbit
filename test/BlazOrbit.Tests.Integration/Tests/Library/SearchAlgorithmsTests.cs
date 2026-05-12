@@ -101,7 +101,7 @@ public class SearchAlgorithmsTests
     public void Fuzzy_Should_Match_Similar_Strings_Within_Distance_Threshold()
     {
         SearchResult<string>[] results = SearchAlgorithms
-            .Search(new[] { "apple" }, "aple", x => x, SearchMode.Fuzzy)
+            .Search(["apple"], "aple", x => x, SearchMode.Fuzzy)
             .ToArray();
 
         results.Should().HaveCount(1);
@@ -113,7 +113,7 @@ public class SearchAlgorithmsTests
     public void Fuzzy_Should_Reject_Strings_Exceeding_Distance_Threshold()
     {
         SearchResult<string>[] results = SearchAlgorithms
-            .Search(new[] { "zebra" }, "apple", x => x, SearchMode.Fuzzy)
+            .Search(["zebra"], "apple", x => x, SearchMode.Fuzzy)
             .ToArray();
 
         results.Should().BeEmpty();
@@ -136,7 +136,7 @@ public class SearchAlgorithmsTests
     public void Fuzzy_Short_Query_Should_Use_Minimum_Distance_Of_One()
     {
         SearchResult<string>[] results = SearchAlgorithms
-            .Search(new[] { "ab" }, "ac", x => x, SearchMode.Fuzzy)
+            .Search(["ab"], "ac", x => x, SearchMode.Fuzzy)
             .ToArray();
 
         results.Should().HaveCount(1);
@@ -335,7 +335,7 @@ public class SearchAlgorithmsTests
     {
         Person alice = new("Alice", 30);
         SearchResult<Person>[] results = SearchAlgorithms
-            .Search(new[] { alice }, "ali", p => p.Name, SearchMode.StartsWith)
+            .Search([alice], "ali", p => p.Name, SearchMode.StartsWith)
             .ToArray();
 
         results[0].Item.Should().BeSameAs(alice);

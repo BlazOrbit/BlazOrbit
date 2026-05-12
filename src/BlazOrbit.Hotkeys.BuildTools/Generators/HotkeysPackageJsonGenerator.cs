@@ -18,19 +18,19 @@ public class HotkeysPackageJsonGenerator : IAssetGenerator
     public string Name => "esbuild package.json";
 
     public Task<string> GetContent() => Task.FromResult("""
-{
-  "name": "blazorbit-hotkeys-js",
-  "version": "1.0.0",
-  "description": "Hotkeys TypeScript interop bundle for BlazOrbit.Hotkeys. Built into wwwroot/js/ at MSBuild time.",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "build:js": "esbuild Types/Hotkey/HotkeyInterop.ts --bundle --minify --format=esm --target=es2020 --outfile=wwwroot/js/Hotkey/HotkeyInterop.min.js"
-  },
-  "devDependencies": {
-    "esbuild": "latest",
-    "typescript": "latest"
-  }
-}
-""");
+                                                        {
+                                                          "name": "blazorbit-hotkeys-js",
+                                                          "version": "1.0.0",
+                                                          "description": "Hotkeys TypeScript interop bundle for BlazOrbit.Hotkeys. Built into wwwroot/js/ at MSBuild time.",
+                                                          "private": true,
+                                                          "type": "module",
+                                                          "scripts": {
+                                                            "build:js": "esbuild Types/Hotkey/HotkeyInterop.ts --bundle --minify --format=esm --target=es2020 --outfile=wwwroot/js/Hotkey/HotkeyInterop.min.js"
+                                                          },
+                                                          "devDependencies": {
+                                                            "esbuild": "latest",
+                                                            "typescript": "latest"
+                                                          }
+                                                        }
+                                                        """);
 }

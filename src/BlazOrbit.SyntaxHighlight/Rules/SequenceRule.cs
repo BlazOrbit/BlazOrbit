@@ -34,6 +34,8 @@ public sealed class SequenceRule : ITokenRule
             ? StringComparison.Ordinal
             : StringComparison.OrdinalIgnoreCase;
 
-        return input.AsSpan(position).StartsWith(_sequence, comparison) ? new TokenMatch(_tokenType, position, _sequence.Length) : null;
+        return input.AsSpan(position).StartsWith(_sequence, comparison)
+            ? new TokenMatch(_tokenType, position, _sequence.Length)
+            : null;
     }
 }

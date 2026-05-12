@@ -7,6 +7,7 @@ using Bunit.Rendering;
 using FluentAssertions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Components.Web;
 using System.Globalization;
 
 namespace BlazOrbit.Tests.Integration.Tests.Components.Forms;
@@ -31,7 +32,7 @@ public class BOBInputDateTimeInteractionTests
 
         // Act
         IElement pattern = cut.Find(".bob-pattern");
-        await pattern.FocusAsync(new());
+        await pattern.FocusAsync(new FocusEventArgs());
 
         // Assert - Label should float on focus
         cut.WaitForAssertion(() =>
@@ -54,8 +55,8 @@ public class BOBInputDateTimeInteractionTests
         container.GetAttribute("data-bob-floated").Should().Be("true");
 
         IElement pattern = cut.Find(".bob-pattern");
-        await pattern.FocusAsync(new());
-        await pattern.FocusOutAsync(new());
+        await pattern.FocusAsync(new FocusEventArgs());
+        await pattern.FocusOutAsync(new FocusEventArgs());
 
         // Assert - Label should remain floated because there's a value
         container.GetAttribute("data-bob-floated").Should().Be("true");
@@ -74,12 +75,12 @@ public class BOBInputDateTimeInteractionTests
         IElement container = cut.Find("bob-component");
         IElement pattern = cut.Find(".bob-pattern");
 
-        await pattern.FocusAsync(new());
+        await pattern.FocusAsync(new FocusEventArgs());
         cut.WaitForAssertion(() =>
             container.GetAttribute("data-bob-floated").Should().Be("true"));
 
         // Act
-        await pattern.FocusOutAsync(new());
+        await pattern.FocusOutAsync(new FocusEventArgs());
 
         // Assert - Label should unfloat when empty and no focus
         cut.WaitForAssertion(() =>
@@ -126,8 +127,9 @@ public class BOBInputDateTimeInteractionTests
 
         // Simulate dirty state by typing
         cut.Instance.GetType()
-            .GetMethod("HandleDirtyChanged", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-            ?.Invoke(cut.Instance, new object[] { true });
+            .GetMethod("HandleDirtyChanged",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            ?.Invoke(cut.Instance, [true]);
         cut.Render();
 
         IElement clearButton = cut.Find("button[aria-label='Clear']");
@@ -155,8 +157,9 @@ public class BOBInputDateTimeInteractionTests
 
         // Simulate dirty state (user typed incomplete value like "12")
         cut.Instance.GetType()
-            .GetMethod("HandleDirtyChanged", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-            ?.Invoke(cut.Instance, new object[] { true });
+            .GetMethod("HandleDirtyChanged",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            ?.Invoke(cut.Instance, [true]);
         cut.Render();
 
         IElement clearButton = cut.Find("button[aria-label='Clear']");
@@ -190,8 +193,9 @@ public class BOBInputDateTimeInteractionTests
         cut.Render(p => p.Add(c => c.Value, new TimeOnly(18, 45)));
 
         cut.Instance.GetType()
-            .GetMethod("HandleDirtyChanged", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-            ?.Invoke(cut.Instance, new object[] { true });
+            .GetMethod("HandleDirtyChanged",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            ?.Invoke(cut.Instance, [true]);
         cut.Render();
 
         IElement clearButton = cut.Find("button[aria-label='Clear']");
@@ -231,8 +235,9 @@ public class BOBInputDateTimeInteractionTests
 
         // Simulate dirty state
         cut.Instance.GetType()
-            .GetMethod("HandleDirtyChanged", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-            ?.Invoke(cut.Instance, new object[] { true });
+            .GetMethod("HandleDirtyChanged",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            ?.Invoke(cut.Instance, [true]);
         cut.Render();
 
         // Act & Assert
@@ -553,8 +558,9 @@ public class BOBInputDateTimeInteractionTests
         cut.Render(p => p.Add(c => c.Value, new TimeOnly(14, 30)));
 
         cut.Instance.GetType()
-            .GetMethod("HandleDirtyChanged", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-            ?.Invoke(cut.Instance, new object[] { true });
+            .GetMethod("HandleDirtyChanged",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            ?.Invoke(cut.Instance, [true]);
         cut.Render();
 
         IElement clearButton = cut.Find("button[aria-label='Clear']");
@@ -625,8 +631,9 @@ public class BOBInputDateTimeInteractionTests
 
         // Simulate dirty state (user typed something)
         cut.Instance.GetType()
-            .GetMethod("HandleDirtyChanged", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-            ?.Invoke(cut.Instance, new object[] { true });
+            .GetMethod("HandleDirtyChanged",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            ?.Invoke(cut.Instance, [true]);
         cut.Render();
 
         // Act & Assert
@@ -649,8 +656,9 @@ public class BOBInputDateTimeInteractionTests
 
         // Simulate incomplete input (user typed "12" but didn't complete)
         cut.Instance.GetType()
-            .GetMethod("HandleDirtyChanged", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-            ?.Invoke(cut.Instance, new object[] { true });
+            .GetMethod("HandleDirtyChanged",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            ?.Invoke(cut.Instance, [true]);
         cut.Render();
 
         IElement calendarButton = cut.Find("button[aria-label='Open picker']");
@@ -1044,8 +1052,9 @@ public class BOBInputDateTimeInteractionTests
 
         // Simulate dirty state
         cut.Instance.GetType()
-            .GetMethod("HandleDirtyChanged", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-            ?.Invoke(cut.Instance, new object[] { true });
+            .GetMethod("HandleDirtyChanged",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            ?.Invoke(cut.Instance, [true]);
         cut.Render();
 
         IElement patternBefore = cut.Find(".bob-pattern");
@@ -1079,8 +1088,9 @@ public class BOBInputDateTimeInteractionTests
         cut.Render(p => p.Add(c => c.Value, new DateTime(2024, 6, 20, 10, 15, 0)));
 
         cut.Instance.GetType()
-            .GetMethod("HandleDirtyChanged", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-            ?.Invoke(cut.Instance, new object[] { true });
+            .GetMethod("HandleDirtyChanged",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            ?.Invoke(cut.Instance, [true]);
         cut.Render();
 
         // Act - Multiple rapid clears (button may unmount after first clear when no longer dirty)

@@ -43,6 +43,7 @@ public static class HotkeyServiceCollectionExtensions
                     reg.Scope,
                     reg.PreventDefault);
             }
+
             return svc;
         });
 

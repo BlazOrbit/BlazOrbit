@@ -11,8 +11,8 @@
                     Disabled="@Disabled"
                     ReadOnly="@ReadOnly"
                     ShowStepButtons="@ShowStepButtons"
-                    OnIncrement="HandleIncrement"
-                    OnDecrement="HandleDecrement" />
+                    OnIncrement="@(EventCallback.Factory.Create<int?>(this, HandleIncrement))"
+                    OnDecrement="@(EventCallback.Factory.Create<int?>(this, HandleDecrement))"/>
     <div class="current-value">@Value</div>
     <div class="last-increment">@_lastIncrement</div>
     <div class="last-decrement">@_lastDecrement</div>
@@ -31,6 +31,14 @@
     [Parameter] public bool ReadOnly { get; set; }
     [Parameter] public bool ShowStepButtons { get; set; } = true;
 
-    private void HandleIncrement(int? v) => _lastIncrement = v;
-    private void HandleDecrement(int? v) => _lastDecrement = v;
+    private void HandleIncrement(int? v)
+    {
+        _lastIncrement = v;
+    }
+
+    private void HandleDecrement(int? v)
+    {
+        _lastDecrement = v;
+    }
+
 }

@@ -53,8 +53,12 @@
 }
 
 @keyframes bob-progress-indeterminate {
-    0%   { transform: translateX(-100%); }
-    100% { transform: translateX(300%); }
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(300%);
+    }
 }
 
 [data-bob-component="progress-bar"] .bob-progress__segments {

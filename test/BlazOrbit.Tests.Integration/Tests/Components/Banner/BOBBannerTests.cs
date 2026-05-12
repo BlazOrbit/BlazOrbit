@@ -189,12 +189,8 @@ public class BOBBannerSnapshotTests
                 .Add(c => c.Severity, tc.Severity)
                 .Add(c => c.Title, "Heads up")
                 .Add(c => c.Message, "Sample message."));
-            return new
-            {
-                tc.Name,
-                Html = cut.GetNormalizedMarkup()
-            };
-        });
+            return new { tc.Name, Html = cut.GetNormalizedMarkup() };
+        }).ToList();
 
         await Verify(results).UseParameters(scenario.Name);
     }

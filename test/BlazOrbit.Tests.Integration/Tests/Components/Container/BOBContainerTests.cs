@@ -36,7 +36,7 @@ public class BOBContainerRenderingTests
             (BOBContainerSize.Medium, "medium"),
             (BOBContainerSize.Large, "large"),
             (BOBContainerSize.Wide, "wide"),
-            (BOBContainerSize.Full, "full"),
+            (BOBContainerSize.Full, "full")
         ];
 
         foreach ((BOBContainerSize size, string token) in tiers)
@@ -100,19 +100,27 @@ public class BOBContainerSnapshotTests
 
         var testCases = new[]
         {
-            new { Name = "ContainerLarge", Builder = (Action<ComponentParameterCollectionBuilder<BOBContainer>>)(p => p
-                .Add(c => c.Size, BOBContainerSize.Large)
-                .AddChildContent("<p>body</p>")) },
-            new { Name = "ContainerFull", Builder = (Action<ComponentParameterCollectionBuilder<BOBContainer>>)(p => p
-                .Add(c => c.Size, BOBContainerSize.Full)
-                .AddChildContent("<p>body</p>")) },
+            new
+            {
+                Name = "ContainerLarge",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBContainer>>)(p => p
+                    .Add(c => c.Size, BOBContainerSize.Large)
+                    .AddChildContent("<p>body</p>"))
+            },
+            new
+            {
+                Name = "ContainerFull",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBContainer>>)(p => p
+                    .Add(c => c.Size, BOBContainerSize.Full)
+                    .AddChildContent("<p>body</p>"))
+            }
         };
 
         var results = testCases.Select(tc =>
         {
             IRenderedComponent<BOBContainer> cut = ctx.Render<BOBContainer>(tc.Builder);
             return new { tc.Name, Html = cut.GetNormalizedMarkup() };
-        });
+        }).ToList();
 
         await Verify(results).UseParameters(scenario.Name);
     }

@@ -1,0 +1,122 @@
+// Auto-migrated from ButtonPage.es.resx. Edit freely from now on.
+
+# Add
+Añadir
+
+# Bars
+Barras
+
+# Basic usage
+Uso básico
+
+# BOBButton
+BOBButton
+
+# Built-in transition presets for hover/click feedback.
+Presets de transición integrados para retroalimentación al pasar el ratón o hacer clic.
+
+# Click me
+Haz clic aquí
+
+# Colors
+Colores
+
+# Component
+Componente
+
+# Disabled
+Deshabilitado
+
+# Dots
+Puntos
+
+# Elevated
+Elevado
+
+# Error
+Error
+
+# Full width
+Ancho completo
+
+# Full-width button
+Botón de ancho completo
+
+# Hover lift
+Elevación al pasar
+
+# Hover scale
+Escalado al pasar
+
+# Icons
+Iconos
+
+# Icons can be placed before or after the text.
+Los iconos pueden colocarse antes o después del texto.
+
+# Large
+Grande
+
+# Loading state
+Estado de carga
+
+# Material
+Material
+
+# Medium
+Mediano
+
+# Next
+Siguiente
+
+# Pill
+Píldora
+
+# Primary
+Primario
+
+# Properties
+Propiedades
+
+# Ring
+Anillo
+
+# Rounded
+Redondeado
+
+# Save
+Guardar
+
+# Shadow & Border
+Sombra y borde
+
+# Sizes
+Tamaños
+
+# Small
+Pequeño
+
+# Strong
+Fuerte
+
+# Submitting
+Enviando
+
+# Success
+Éxito
+
+# The workhorse of any UI. Multiple variants, sizes, loading states, icons, and colors — all driven by parameters.
+La pieza angular de cualquier interfaz. Múltiples variantes, tamaños, estados de carga, iconos y colores, todo controlado por parámetros.
+
+# Transitions
+Transiciones
+
+# Use semantic PaletteColor values, or any CSS color string.
+Usa valores semánticos de PaletteColor, o cualquier cadena de color CSS.
+
+# Warning
+Advertencia
+
+# While Loading is true, the button is disabled and shows an indicator.
+Mientras Loading sea true, el botón está deshabilitado y muestra un indicador.
+

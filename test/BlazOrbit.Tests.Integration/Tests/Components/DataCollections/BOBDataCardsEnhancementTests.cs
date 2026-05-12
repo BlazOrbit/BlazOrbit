@@ -12,14 +12,13 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.DataCollections;
 public class BOBDataCardsEnhancementTests
 {
     private sealed record Person(string Name, int Age);
+
     private sealed record Order(string Region, decimal Amount);
 
-    private static IEnumerable<Person> People => new[]
-    {
-        new Person("Alice", 30),
-        new Person("Bob", 25),
-        new Person("Carol", 35),
-    };
+    private static IEnumerable<Person> People =>
+    [
+        new Person("Alice", 30), new Person("Bob", 25), new Person("Carol", 35)
+    ];
 
     private static RenderFragment PersonCols => b =>
     {
@@ -44,11 +43,19 @@ public class BOBDataCardsEnhancementTests
         IRenderedComponent<BOBDataCards<Person>> cut = ctx.Render<BOBDataCards<Person>>(p => p
             .Add(c => c.Items, People)
             .Add(c => c.Columns, PersonCols)
-            .Add(c => c.RowActions, new[]
-            {
-                new DataCollectionRowAction<Person> { Label = "Edit", Icon = BOBIconKeys.MaterialIconsOutlined.i_edit, OnClick = _ => Task.CompletedTask },
-                new DataCollectionRowAction<Person> { Label = "Delete", Color = PaletteColor.Error, OnClick = _ => Task.CompletedTask },
-            }));
+            .Add(c => c.RowActions,
+            [
+                new DataCollectionRowAction<Person>
+                    {
+                        Label = "Edit",
+                        Icon = BOBIconKeys.MaterialIconsOutlined.i_edit,
+                        OnClick = _ => Task.CompletedTask
+                    },
+                    new DataCollectionRowAction<Person>
+                    {
+                        Label = "Delete", Color = PaletteColor.Error, OnClick = _ => Task.CompletedTask
+                    }
+            ]));
 
         // 3 cards × 2 actions = 6 buttons in row-action strips.
         cut.FindAll(".bob-datacards__card-actions .bob-dc__row-actions button").Should().HaveCount(6);
@@ -65,15 +72,18 @@ public class BOBDataCardsEnhancementTests
             .Add(c => c.Items, People)
             .Add(c => c.Columns, PersonCols)
             .Add(c => c.SelectionMode, SelectionMode.Multiple)
-            .Add(c => c.BulkActions, new[]
-            {
+            .Add(c => c.BulkActions, [
                 new DataCollectionBulkAction<Person>
                 {
                     Label = "Email",
                     Icon = BOBIconKeys.MaterialIconsOutlined.i_mail,
-                    OnClick = sel => { captured = sel; return Task.CompletedTask; },
-                },
-            }));
+                    OnClick = sel =>
+                    {
+                        captured = sel;
+                        return Task.CompletedTask;
+                    }
+                }
+            ]));
 
         // Click first card to select it.
         await cut.InvokeAsync(() => cut.FindAll(".bob-datacards__card-select").First().Click());
@@ -111,12 +121,7 @@ public class BOBDataCardsEnhancementTests
     public async Task Aggregate_Summary_Band_Should_Render_Below_Grid(BlazorScenario scenario)
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
-        IEnumerable<Order> orders = new[]
-        {
-            new Order("EMEA", 100m),
-            new Order("APAC", 250m),
-            new Order("EMEA", 150m),
-        };
+        IEnumerable<Order> orders = [new Order("EMEA", 100m), new Order("APAC", 250m), new Order("EMEA", 150m)];
 
         IRenderedComponent<BOBDataCards<Order>> cut = ctx.Render<BOBDataCards<Order>>(p => p
             .Add(c => c.Items, orders)
@@ -151,7 +156,7 @@ public class BOBDataCardsEnhancementTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         IRenderedComponent<BOBDataCards<Person>> cut = ctx.Render<BOBDataCards<Person>>(p => p
-            .Add(c => c.Items, Array.Empty<Person>())
+            .Add(c => c.Items, [])
             .Add(c => c.Columns, PersonCols)
             .Add(c => c.Loading, true)
             .Add(c => c.LoadingMode, LoadingMode.Skeleton)
@@ -168,7 +173,7 @@ public class BOBDataCardsEnhancementTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         IRenderedComponent<BOBDataCards<Person>> cut = ctx.Render<BOBDataCards<Person>>(p => p
-            .Add(c => c.Items, Array.Empty<Person>())
+            .Add(c => c.Items, [])
             .Add(c => c.Columns, PersonCols)
             .Add(c => c.Error, "Network down"));
 
@@ -183,7 +188,7 @@ public class BOBDataCardsEnhancementTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         IRenderedComponent<BOBDataCards<Person>> cut = ctx.Render<BOBDataCards<Person>>(p => p
-            .Add(c => c.Items, Array.Empty<Person>())
+            .Add(c => c.Items, [])
             .Add(c => c.Columns, PersonCols)
             .Add(c => c.EmptyActionTemplate,
                 (RenderFragment)(b => b.AddMarkupContent(0, "<button class=\"my-cta\">Create first</button>"))));

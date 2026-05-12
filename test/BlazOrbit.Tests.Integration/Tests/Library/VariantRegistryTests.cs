@@ -62,10 +62,10 @@ public class VariantRegistryTests
         ctx.Services.AddBlazOrbitVariants(builder =>
         {
             builder.ForComponent<TestVariantComponent>()
-                   .AddVariant(sharedVariant, _templates.BasicCustomTemplate);
+                .AddVariant(sharedVariant, _templates.BasicCustomTemplate);
 
             builder.ForComponent<DerivedTestVariantComponent>()
-                   .AddVariant(sharedVariant, _templates.BasicCustomTemplate);
+                .AddVariant(sharedVariant, _templates.BasicCustomTemplate);
         });
 
         IVariantRegistry registry = ctx.Services.GetRequiredService<IVariantRegistry>();
@@ -113,15 +113,15 @@ public class VariantRegistryTests
 
         ctx.Services.AddBlazOrbitVariants(builder =>
             builder.ForComponent<TestVariantComponent>()
-                   .AddVariant(
-                       variant,
-                       _ => __builder => firstCalled = true));
+                .AddVariant(
+                    variant,
+                    _ => __builder => firstCalled = true));
 
         ctx.Services.AddBlazOrbitVariants(builder =>
             builder.ForComponent<TestVariantComponent>()
-                   .AddVariant(
-                       variant,
-                       _ => __builder => secondCalled = true));
+                .AddVariant(
+                    variant,
+                    _ => __builder => secondCalled = true));
 
         IVariantRegistry registry = ctx.Services.GetRequiredService<IVariantRegistry>();
         RenderFragment? retrieved =
@@ -144,9 +144,9 @@ public class VariantRegistryTests
 
         ctx.Services.AddBlazOrbitVariants(builder =>
             builder.ForComponent<TestVariantComponent>()
-                   .AddVariant(
-                       variant,
-                       _ => __builder => { }));
+                .AddVariant(
+                    variant,
+                    _ => __builder => { }));
 
         IVariantRegistry registry = ctx.Services.GetRequiredService<IVariantRegistry>();
         RenderFragment? retrieved =
@@ -171,7 +171,7 @@ public class VariantRegistryTests
                 _ => __builder => { });
 
         act.Should().Throw<InvalidOperationException>()
-           .WithMessage("Variants must be registered during startup");
+            .WithMessage("Variants must be registered during startup");
     }
 
     [Theory]
@@ -185,7 +185,7 @@ public class VariantRegistryTests
 
         ctx.Services.AddBlazOrbitVariants(builder =>
             builder.ForComponent<TestVariantComponent>()
-                   .AddVariant(inheritedVariant, _templates.BasicCustomTemplate));
+                .AddVariant(inheritedVariant, _templates.BasicCustomTemplate));
 
         IVariantRegistry registry = ctx.Services.GetRequiredService<IVariantRegistry>();
 
@@ -209,7 +209,7 @@ public class VariantRegistryTests
 
         ctx.Services.AddBlazOrbitVariants(builder =>
             builder.ForComponent<TestVariantComponent>()
-                   .AddVariant(customVariant, _templates.BasicCustomTemplate));
+                .AddVariant(customVariant, _templates.BasicCustomTemplate));
 
         IRenderedComponent<TestVariantComponent> cut =
             ctx.Render<TestVariantComponent>(parameters => parameters
@@ -222,13 +222,13 @@ public class VariantRegistryTests
     [Fact]
     public void VariantRegistry_Throws_When_AddBlazOrbit_IsMissing()
     {
-        ServiceCollection services = new();
+        ServiceCollection services = [];
 
         services.AddBlazOrbitVariants(_ => { });
 
         Action act = () =>
             services.BuildServiceProvider()
-                    .GetRequiredService<IVariantRegistry>();
+                .GetRequiredService<IVariantRegistry>();
 
         act.Should().Throw<InvalidOperationException>();
     }

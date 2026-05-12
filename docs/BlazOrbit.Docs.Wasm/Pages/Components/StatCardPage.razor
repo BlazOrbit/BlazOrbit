@@ -1,4 +1,4 @@
-@page "/components/display/stat-card"
+﻿@page "/components/display/stat-card"
 
 @using BlazOrbit.Components.Display
 
@@ -8,18 +8,22 @@
 <DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBStatCard"]"
          Lede="@Loc["Compact KPI card with value, delta, trend arrow, optional sparkline slot and footnote."]"
          PageInstance="this"
-         ApiType="@typeof(BOBStatCard)">
+         ApiType="@typeof(BOBStatCard)"
+         Keywords="@(["stat card", "KPI", "metric", "dashboard"])">
 
     <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
-        <BOBStatCard Label="@Loc["Active users"]" Value="2,481" />
+        <BOBStatCard Label="@Loc["Active users"]" Value="2,481"/>
     </DocDemo>
 
     <DocDemo Key="Trends" Title="@Loc["Trend deltas"]">
-        <BOBStatCard Label="@Loc["Revenue"]" Value="$24,800" Delta="+12.4%" DeltaCaption="@Loc["vs last week"]" DeltaTrend="BOBStatTrend.Up" />
-        <br />
-        <BOBStatCard Label="@Loc["Bounce rate"]" Value="42.1%" Delta="-3.2%" DeltaCaption="@Loc["vs last week"]" DeltaTrend="BOBStatTrend.Down" />
-        <br />
-        <BOBStatCard Label="@Loc["Sessions"]" Value="18,231" Delta="0%" DeltaCaption="@Loc["flat"]" DeltaTrend="BOBStatTrend.Flat" />
+        <BOBStatCard Label="@Loc["Revenue"]" Value="$24,800" Delta="+12.4%" DeltaCaption="@Loc["vs last week"]"
+                     DeltaTrend="BOBStatTrend.Up"/>
+        <br/>
+        <BOBStatCard Label="@Loc["Bounce rate"]" Value="42.1%" Delta="-3.2%" DeltaCaption="@Loc["vs last week"]"
+                     DeltaTrend="BOBStatTrend.Down"/>
+        <br/>
+        <BOBStatCard Label="@Loc["Sessions"]" Value="18,231" Delta="0%" DeltaCaption="@Loc["flat"]"
+                     DeltaTrend="BOBStatTrend.Flat"/>
     </DocDemo>
 
     <DocDemo Key="Icon" Title="@Loc["With icon"]">
@@ -27,7 +31,7 @@
                      Value="9,128"
                      Icon="@BOBIconKeys.MaterialIconsOutlined.i_group"
                      Delta="+5.2%"
-                     DeltaTrend="BOBStatTrend.Up" />
+                     DeltaTrend="BOBStatTrend.Up"/>
     </DocDemo>
 
     <DocDemo Key="Footnote" Title="@Loc["With footnote"]">
@@ -35,7 +39,7 @@
                      Value="3"
                      DeltaTrend="BOBStatTrend.Down"
                      Delta="-2"
-                     Footnote="@Loc["Updated 5 min ago"]" />
+                     Footnote="@Loc["Updated 5 min ago"]"/>
     </DocDemo>
 
     <DocDemo Key="Custom" Title="@Loc["Custom value content"]">
@@ -52,7 +56,7 @@
 
     <section class="doc-section">
         <h2 class="doc-section__title">@Loc["Properties"]</h2>
-        <PropertyTable Properties="@BOBStatCardComponentInfo.Parameters" />
+        <PropertyTable Properties="@BOBStatCardComponentInfo.Parameters"/>
     </section>
 
 </DocPage>

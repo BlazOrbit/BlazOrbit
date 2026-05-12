@@ -1,20 +1,21 @@
-@page "/components/charts/scatter"
+﻿@page "/components/charts/scatter"
 
 @inject IStringLocalizer<ScatterChartPage> Loc
 
 <DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBScatterChart"]"
          Lede="@Loc["Cartesian scatter / bubble chart. Plots disconnected XY points to expose distributions, clusters and correlations. Bubble mode encodes a third dimension via the marker radius (auto-scaled across the series)."]"
          PageInstance="this"
-         ApiType="@typeof(BOBScatterChart<,>)">
+         ApiType="@typeof(BOBScatterChart<,>)"
+         Keywords="@(["scatter plot", "correlation", "XY", "distribution"])">
 
     <BOBBanner Severity="BOBBannerSeverity.Warning"
                Title="@Loc["Extra package required"]"
-               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]" />
+               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]"/>
 
     <DocDemo Key="Basic" Title="@Loc["Basic scatter"]">
         <BOBScatterChart TX="double" TY="double"
                          Series="_clusters"
-                         Width="600" Height="360" />
+                         Width="600" Height="360"/>
     </DocDemo>
 
     <DocDemo Key="MarkerRadius" Title="@Loc["Marker radius"]"
@@ -23,7 +24,7 @@
                          Series="_clusters"
                          MarkerRadius="9"
                          MarkerOpacity="0.55"
-                         Width="600" Height="360" />
+                         Width="600" Height="360"/>
     </DocDemo>
 
     <DocDemo Key="Bubble" Title="@Loc["Bubble chart"]"
@@ -32,7 +33,7 @@
                          BubbleSeries="_marketCaps"
                          BubbleMinRadius="6"
                          BubbleMaxRadius="42"
-                         Width="600" Height="360" />
+                         Width="600" Height="360"/>
     </DocDemo>
 
     <DocDemo Key="Mixed" Title="@Loc["Scatter + bubble overlay"]"
@@ -40,7 +41,7 @@
         <BOBScatterChart TX="double" TY="double"
                          Series="_clusters"
                          BubbleSeries="_outliers"
-                         Width="600" Height="360" />
+                         Width="600" Height="360"/>
     </DocDemo>
 
     <DocDemo Key="ClickHandler" Title="@Loc["Click handler"]"
@@ -48,7 +49,7 @@
         <BOBScatterChart TX="double" TY="double"
                          Series="_clusters"
                          Width="600" Height="360"
-                         OnPointClick="HandleClick" />
+                         OnPointClick="@(EventCallback.Factory.Create<BOBChartClickArgs<double, double>>(this, HandleClick))"/>
         @if (!string.IsNullOrEmpty(_clickMessage))
         {
             <p class="doc-helper-text">@_clickMessage</p>
@@ -60,7 +61,7 @@
         <BOBScatterChart TX="double" TY="double"
                          Series="_clusters"
                          Width="600" Height="360"
-                         ReferenceLines="_referenceLines" />
+                         ReferenceLines="_referenceLines"/>
     </DocDemo>
 
 </DocPage>
@@ -78,18 +79,17 @@
 
     private static IEnumerable<BOBChartPoint<double, double>> Cluster(double cx, double cy, int count, double spread)
     {
-        for (int i = 0; i < count; i++)
+        for (var i = 0; i < count; i++)
         {
-            double dx = (_rng.NextDouble() - 0.5) * spread;
-            double dy = (_rng.NextDouble() - 0.5) * spread;
+            var dx = (_rng.NextDouble() - 0.5) * spread;
+            var dy = (_rng.NextDouble() - 0.5) * spread;
             yield return new BOBChartPoint<double, double>(cx + dx, cy + dy);
         }
     }
 
     private static readonly IEnumerable<BOBChartSeries<double, double>> _clusters =
-        new[]
-        {
-            new BOBChartSeries<double, double>
+    [
+        new BOBChartSeries<double, double>
             {
                 Label = "Group α",
                 Points = Cluster(2.5, 4.0, 24, 1.6).ToArray()
@@ -103,53 +103,50 @@
             {
                 Label = "Group γ",
                 Points = Cluster(7.5, 2.5, 18, 1.8).ToArray()
-            },
-        };
+            }
+    ];
 
     private static readonly IEnumerable<BOBChartBubbleSeries<double, double>> _marketCaps =
-        new[]
-        {
-            new BOBChartBubbleSeries<double, double>
+    [
+        new BOBChartBubbleSeries<double, double>
             {
                 Label = "Tech",
-                Points = new[]
-                {
-                    new BOBChartBubblePoint<double, double>(15, 22, Size: 2800),
-                    new BOBChartBubblePoint<double, double>(8, 18, Size: 1600),
-                    new BOBChartBubblePoint<double, double>(22, 30, Size: 3200),
-                    new BOBChartBubblePoint<double, double>(11, 12, Size: 900),
-                }
+                Points =
+                [
+                    new BOBChartBubblePoint<double, double>(15, 22, 2800),
+                    new BOBChartBubblePoint<double, double>(8, 18, 1600),
+                    new BOBChartBubblePoint<double, double>(22, 30, 3200),
+                    new BOBChartBubblePoint<double, double>(11, 12, 900)
+                ]
             },
             new BOBChartBubbleSeries<double, double>
             {
                 Label = "Finance",
-                Points = new[]
-                {
-                    new BOBChartBubblePoint<double, double>(6, 9, Size: 1200),
-                    new BOBChartBubblePoint<double, double>(10, 14, Size: 800),
-                    new BOBChartBubblePoint<double, double>(14, 8, Size: 600),
-                }
-            },
-        };
+                Points =
+                [
+                    new BOBChartBubblePoint<double, double>(6, 9, 1200),
+                    new BOBChartBubblePoint<double, double>(10, 14, 800),
+                    new BOBChartBubblePoint<double, double>(14, 8, 600)
+                ]
+            }
+    ];
 
     private static readonly IEnumerable<BOBChartBubbleSeries<double, double>> _outliers =
-        new[]
-        {
-            new BOBChartBubbleSeries<double, double>
+    [
+        new BOBChartBubbleSeries<double, double>
             {
                 Label = "Outliers",
-                Points = new[]
-                {
-                    new BOBChartBubblePoint<double, double>(0.5, 7.5, Size: 50),
-                    new BOBChartBubblePoint<double, double>(9.5, 0.5, Size: 80),
-                }
+                Points =
+                [
+                    new BOBChartBubblePoint<double, double>(0.5, 7.5, 50),
+                    new BOBChartBubblePoint<double, double>(9.5, 0.5, 80)
+                ]
             }
-        };
+    ];
 
     private static readonly IEnumerable<BOBChartReferenceLine> _referenceLines =
-        new[]
-        {
-            new BOBChartReferenceLine
+    [
+        new BOBChartReferenceLine
             {
                 Value = 5.0,
                 Label = "Avg",
@@ -157,5 +154,6 @@
                 Style = BOBChartReferenceLineStyle.Dashed,
                 StrokeWidth = 1.5
             }
-        };
+    ];
+
 }

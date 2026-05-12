@@ -62,8 +62,9 @@ public class BOBChipGroupTests
         IReadOnlyList<string>? captured = null;
         IRenderedComponent<BOBChipGroup<string>> cut = ctx.Render<BOBChipGroup<string>>(p => p
             .Add(c => c.Mode, ChipGroupSelectionMode.Single)
-            .Add(c => c.SelectedValues, new[] { "a" })
-            .Add(c => c.SelectedValuesChanged, EventCallback.Factory.Create<IReadOnlyList<string>>(p, v => captured = v))
+            .Add(c => c.SelectedValues, ["a"])
+            .Add(c => c.SelectedValuesChanged,
+                EventCallback.Factory.Create<IReadOnlyList<string>>(p, v => captured = v))
             .Add(c => c.ChildContent, ThreeChips()));
 
         // Tap chip "b" — single-select replaces the whole list with the new value.
@@ -82,8 +83,9 @@ public class BOBChipGroupTests
         IReadOnlyList<string>? captured = null;
         IRenderedComponent<BOBChipGroup<string>> cut = ctx.Render<BOBChipGroup<string>>(p => p
             .Add(c => c.Mode, ChipGroupSelectionMode.Single)
-            .Add(c => c.SelectedValues, new[] { "a" })
-            .Add(c => c.SelectedValuesChanged, EventCallback.Factory.Create<IReadOnlyList<string>>(p, v => captured = v))
+            .Add(c => c.SelectedValues, ["a"])
+            .Add(c => c.SelectedValuesChanged,
+                EventCallback.Factory.Create<IReadOnlyList<string>>(p, v => captured = v))
             .Add(c => c.ChildContent, ThreeChips()));
 
         // Tap the already-selected chip — toggle-off clears the list to empty.
@@ -102,8 +104,9 @@ public class BOBChipGroupTests
         IReadOnlyList<string>? captured = null;
         IRenderedComponent<BOBChipGroup<string>> cut = ctx.Render<BOBChipGroup<string>>(p => p
             .Add(c => c.Mode, ChipGroupSelectionMode.Multiple)
-            .Add(c => c.SelectedValues, new[] { "a" })
-            .Add(c => c.SelectedValuesChanged, EventCallback.Factory.Create<IReadOnlyList<string>>(p, v => captured = v))
+            .Add(c => c.SelectedValues, ["a"])
+            .Add(c => c.SelectedValuesChanged,
+                EventCallback.Factory.Create<IReadOnlyList<string>>(p, v => captured = v))
             .Add(c => c.ChildContent, ThreeChips()));
 
         cut.FindAll("button.bob-chip")[1].Click();
@@ -120,7 +123,7 @@ public class BOBChipGroupTests
 
         IRenderedComponent<BOBChipGroup<string>> cut = ctx.Render<BOBChipGroup<string>>(p => p
             .Add(c => c.Mode, ChipGroupSelectionMode.Multiple)
-            .Add(c => c.SelectedValues, new[] { "a", "c" })
+            .Add(c => c.SelectedValues, ["a", "c"])
             .Add(c => c.ChildContent, ThreeChips()));
 
         IReadOnlyList<AngleSharp.Dom.IElement> chips = cut.FindAll("button.bob-chip");
@@ -140,8 +143,9 @@ public class BOBChipGroupTests
         IReadOnlyList<string>? captured = null;
         IRenderedComponent<BOBChipGroup<string>> cut = ctx.Render<BOBChipGroup<string>>(p => p
             .Add(c => c.Disabled, true)
-            .Add(c => c.SelectedValues, new[] { "a" })
-            .Add(c => c.SelectedValuesChanged, EventCallback.Factory.Create<IReadOnlyList<string>>(p, v => captured = v))
+            .Add(c => c.SelectedValues, ["a"])
+            .Add(c => c.SelectedValuesChanged,
+                EventCallback.Factory.Create<IReadOnlyList<string>>(p, v => captured = v))
             .Add(c => c.ChildContent, ThreeChips()));
 
         IReadOnlyList<AngleSharp.Dom.IElement> chips = cut.FindAll("button.bob-chip");

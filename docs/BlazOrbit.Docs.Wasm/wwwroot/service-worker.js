@@ -28,7 +28,7 @@ self.addEventListener('install', (event) => {
             // `addAll` is atomic — if any URL fails, the install is rejected,
             // so map each URL through `Request` with a `no-cache` mode to
             // bypass any stale browser cache during the precache fetch.
-            cache.addAll(PRECACHE_URLS.map((url) => new Request(url, { cache: 'reload' })))
+            cache.addAll(PRECACHE_URLS.map((url) => new Request(url, {cache: 'reload'})))
         ).then(() => self.skipWaiting())
     );
 });

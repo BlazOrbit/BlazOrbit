@@ -12,7 +12,7 @@
 <bob-component @attributes="ComputedAttributes">
     <div class="bob-progress-ring"
          role="progressbar"
-         aria-valuenow="@(Indeterminate ? null : Math.Round(NormalisedValue * 100, 0).ToString())"
+         aria-valuenow="@(Indeterminate ? null : Math.Round(NormalisedValue * 100, 0).ToString(CultureInfo.InvariantCulture))"
          aria-valuemin="0"
          aria-valuemax="100"
          aria-label="@ResolvedAriaLabel"
@@ -22,7 +22,7 @@
             <circle class="bob-progress-ring__track"
                     cx="@Center" cy="@Center" r="@Radius"
                     fill="none"
-                    stroke-width="@StrokeWidth" />
+                    stroke-width="@StrokeWidth"/>
             <circle class="bob-progress-ring__fill"
                     cx="@Center" cy="@Center" r="@Radius"
                     fill="none"
@@ -30,7 +30,7 @@
                     stroke-linecap="round"
                     stroke-dasharray="@Circumference.ToString("0.0", CultureInfo.InvariantCulture)"
                     stroke-dashoffset="@DashOffset.ToString("0.0", CultureInfo.InvariantCulture)"
-                    transform="@($"rotate(-90 {Center} {Center})")" />
+                    transform="@($"rotate(-90 {Center} {Center})")"/>
         </svg>
 
         @if (ShowPercentage && !Indeterminate)
@@ -48,26 +48,42 @@
     [Inject] internal IStringLocalizer<BOBDisplayResources> Localizer { get; set; } = default!;
 
     /// <summary>Current progress value, in <see cref="Min"/>–<see cref="Max"/>.</summary>
-    [Parameter] public double Value { get; set; }
+    [Parameter]
+    public double Value { get; set; }
+
     /// <summary>Minimum value (default <c>0</c>).</summary>
-    [Parameter] public double Min { get; set; }
+    [Parameter]
+    public double Min { get; set; }
+
     /// <summary>Maximum value (default <c>100</c>).</summary>
-    [Parameter] public double Max { get; set; } = 100;
+    [Parameter]
+    public double Max { get; set; } = 100;
+
     /// <summary>When <see langword="true"/>, render an indeterminate spinner.</summary>
-    [Parameter] public bool Indeterminate { get; set; }
+    [Parameter]
+    public bool Indeterminate { get; set; }
 
     /// <summary>Center label rendered when <see cref="ShowPercentage"/> is <see langword="false"/>.</summary>
-    [Parameter] public string? Label { get; set; }
+    [Parameter]
+    public string? Label { get; set; }
+
     /// <summary>When <see langword="true"/>, render the "<c>NN%</c>" string in the center.</summary>
-    [Parameter] public bool ShowPercentage { get; set; }
+    [Parameter]
+    public bool ShowPercentage { get; set; }
+
     /// <summary>Aria-label for assistive tech.</summary>
-    [Parameter] public string? AriaLabel { get; set; }
+    [Parameter]
+    public string? AriaLabel { get; set; }
+
     private string ResolvedAriaLabel => AriaLabel ?? Localizer["Progress"];
 
     /// <summary>Visual size of the ring.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
+
     /// <summary>Stroke color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? Color { get; set; }
+    [Parameter]
+    public string? Color { get; set; }
 
     private const double ViewBox = 40;
     private const double Center = 20;
@@ -80,7 +96,7 @@
         get
         {
             if (Max <= Min) return 0;
-            double clamped = Math.Clamp(Value, Min, Max);
+            var clamped = Math.Clamp(Value, Min, Max);
             return (clamped - Min) / (Max - Min);
         }
     }

@@ -21,9 +21,9 @@ html[data-bob-theme="light"] {
     --orb-glow-a: color-mix(in oklab, var(--logo-a) 48%, transparent);
     --orb-glow-b: color-mix(in oklab, var(--logo-b) 42%, transparent);
     --orb-star: rgba(255, 218, 200, 0.80);
-    --docs-shadow-sm: 0 1px 2px rgba(0,0,0,.4), 0 1px 3px rgba(0,0,0,.5);
-    --docs-shadow-md: 0 4px 14px -2px rgba(0,0,0,.5), 0 2px 6px rgba(0,0,0,.4);
-    --docs-shadow-lg: 0 20px 60px -15px rgba(0,0,0,.7), 0 10px 20px -10px rgba(0,0,0,.5);
+    --docs-shadow-sm: 0 1px 2px rgba(0, 0, 0, .4), 0 1px 3px rgba(0, 0, 0, .5);
+    --docs-shadow-md: 0 4px 14px -2px rgba(0, 0, 0, .5), 0 2px 6px rgba(0, 0, 0, .4);
+    --docs-shadow-lg: 0 20px 60px -15px rgba(0, 0, 0, .7), 0 10px 20px -10px rgba(0, 0, 0, .5);
     --docs-shadow-glow: 0 20px 60px -10px color-mix(in oklab, var(--logo-b) 28%, transparent);
     --docs-links-border-radius: var(--bob-border-radius);
 }
@@ -31,6 +31,7 @@ html[data-bob-theme="light"] {
 html[data-bob-theme="light"] {
     --palette-primary-contrast: #010101;
 }
+
 /* ── Shared layout ───────────────────────────────────────────────*/
 .doc-layout {
     display: flex;
@@ -69,16 +70,16 @@ html[data-bob-theme="light"] {
     color: var(--palette-surface-contrast);
 }
 
-    .doc-header__brand img {
-        display: block;
-        flex-shrink: 0;
-    }
+.doc-header__brand img {
+    display: block;
+    flex-shrink: 0;
+}
 
-    .doc-header__brand:hover,
-    .doc-header__brand:focus {
-        text-decoration: none;
-        border-bottom: none;
-    }
+.doc-header__brand:hover,
+.doc-header__brand:focus {
+    text-decoration: none;
+    border-bottom: none;
+}
 
 .doc-header__actions {
     display: flex;
@@ -99,10 +100,10 @@ html[data-bob-theme="light"] {
     transition: color .15s, background .15s;
 }
 
-    .doc-header__link:hover {
-        color: var(--palette-primary);
-        background: color-mix(in oklab, var(--palette-primary) 10%, var(--palette-surface));
-    }
+.doc-header__link:hover {
+    color: var(--palette-primary);
+    background: color-mix(in oklab, var(--palette-primary) 10%, var(--palette-surface));
+}
 
 
 /* ── Doc layout (sidebar + content) ─────────────────────────────*/
@@ -125,9 +126,9 @@ html[data-bob-theme="light"] {
     background: var(--palette-surface);
 }
 
-    .doc-sidebar bob-component[data-bob-component="treemenu"] {
-        --_treemenu-background: transparent;
-    }
+.doc-sidebar bob-component[data-bob-component="treemenu"] {
+    --_treemenu-background: transparent;
+}
 
 .doc-content {
     min-width: 0;
@@ -195,12 +196,12 @@ html[data-bob-theme="light"] {
     transition: background 0.15s ease, border-color 0.15s ease;
 }
 
-    .doc-page__api-link:hover,
-    .doc-page__api-link:focus-visible {
-        background: color-mix(in oklab, var(--palette-primary) 14%, var(--palette-surface));
-        border-color: var(--palette-primary);
-        text-decoration: none;
-    }
+.doc-page__api-link:hover,
+.doc-page__api-link:focus-visible {
+    background: color-mix(in oklab, var(--palette-primary) 14%, var(--palette-surface));
+    border-color: var(--palette-primary);
+    text-decoration: none;
+}
 
 .doc-section {
     margin: 3rem 0;
@@ -251,9 +252,9 @@ html[data-bob-theme="light"] {
     transition: border-color .15s;
 }
 
-    .doc-content__wrapper a:hover {
-        border-bottom-color: var(--palette-primary);
-    }
+.doc-content__wrapper a:hover {
+    border-bottom-color: var(--palette-primary);
+}
 
 
 /* ── Callouts ────────────────────────────────────────────────────*/
@@ -393,46 +394,40 @@ html[data-bob-theme="light"] {
 }
 
 
-    /* ── Starfield ───────────────────────────────────────────────────
-   Box-shadow projection from a 1×1 seed element.
-   Stars cluster in the periphery, sparse near the center where
-   content lives. Warm white-pink hue echoes the brand gradient.
-   ─────────────────────────────────────────────────────────────── */
+/* ── Starfield ───────────────────────────────────────────────────
+Box-shadow projection from a 1×1 seed element.
+Stars cluster in the periphery, sparse near the center where
+content lives. Warm white-pink hue echoes the brand gradient.
+─────────────────────────────────────────────────────────────── */
 
-    .hero__puzzle::before {
-        content: '';
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        top: 0;
-        left: 0;
-        background: var(--orb-star);
-        z-index: 0;
-        box-shadow:
-        /* ── left zone ── */
-        22px 88px 0 0 rgba(255,210,190,0.75), 68px 210px 0 1px rgba(255,235,220,0.55), 125px 348px 0 0 rgba(255,220,200,0.68), 188px 58px 0 0 rgba(255,245,232,0.80), 235px 490px 0 1px rgba(255,208,185,0.48), 295px 138px 0 0 rgba(255,255,245,0.62), 355px 628px 0 0 rgba(255,218,198,0.58), 412px 288px 0 1px rgba(255,240,225,0.42), 65px 728px 0 0 rgba(255,212,192,0.62), 148px 818px 0 0 rgba(255,238,222,0.52), 282px 772px 0 1px rgba(255,252,240,0.46), 50px 395px 0 0 rgba(255,222,202,0.38), 178px 548px 0 0 rgba(255,248,232,0.56), 328px 445px 0 0 rgba(255,215,195,0.44), 92px 652px 0 1px rgba(255,230,210,0.36),
-        /* ── top strip ── */
-        508px 22px 0 0 rgba(255,232,218,0.72), 622px 14px 0 1px rgba(255,252,242,0.58), 722px 38px 0 0 rgba(255,220,202,0.66), 826px 10px 0 0 rgba(255,240,228,0.52), 938px 28px 0 1px rgba(255,228,212,0.62),
-        /* ── top center scatter ── */
-        490px 148px 0 0 rgba(255,232,215,0.40), 580px 82px 0 1px rgba(255,252,238,0.36), 672px 198px 0 0 rgba(255,222,202,0.42), 750px 122px 0 0 rgba(255,244,228,0.46), 822px 162px 0 1px rgba(255,212,192,0.36),
-        /* ── bottom strip ── */
-        522px 824px 0 0 rgba(255,228,208,0.56), 645px 864px 0 1px rgba(255,242,226,0.46), 758px 844px 0 0 rgba(255,222,202,0.52), 882px 880px 0 0 rgba(255,252,238,0.42),
-        /* ── right zone ── */
-        988px 92px 0 0 rgba(255,212,192,0.68), 1055px 255px 0 1px rgba(255,252,238,0.52), 1122px 438px 0 0 rgba(255,222,204,0.62), 1182px 85px 0 0 rgba(255,242,226,0.78), 1245px 562px 0 1px rgba(255,210,188,0.48), 1315px 198px 0 0 rgba(255,252,242,0.58), 1372px 688px 0 0 rgba(255,226,208,0.52), 1035px 788px 0 1px rgba(255,242,222,0.46), 1155px 875px 0 0 rgba(255,216,196,0.56), 1285px 378px 0 0 rgba(255,252,234,0.42), 1402px 145px 0 0 rgba(255,236,218,0.62), 1092px 548px 0 0 rgba(255,222,202,0.36), 1335px 732px 0 1px rgba(255,246,228,0.52), 1450px 298px 0 0 rgba(255,212,192,0.46), 1485px 478px 0 0 rgba(255,240,222,0.42), 1068px 142px 0 1px rgba(255,228,208,0.58), 1418px 598px 0 0 rgba(255,248,230,0.38);
-        animation: star-field-breathe 18s ease-in-out infinite alternate;
-    }
+.hero__puzzle::before {
+    content: '';
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    top: 0;
+    left: 0;
+    background: var(--orb-star);
+    z-index: 0;
+    box-shadow: /* ── left zone ── */ 22px 88px 0 0 rgba(255, 210, 190, 0.75), 68px 210px 0 1px rgba(255, 235, 220, 0.55), 125px 348px 0 0 rgba(255, 220, 200, 0.68), 188px 58px 0 0 rgba(255, 245, 232, 0.80), 235px 490px 0 1px rgba(255, 208, 185, 0.48), 295px 138px 0 0 rgba(255, 255, 245, 0.62), 355px 628px 0 0 rgba(255, 218, 198, 0.58), 412px 288px 0 1px rgba(255, 240, 225, 0.42), 65px 728px 0 0 rgba(255, 212, 192, 0.62), 148px 818px 0 0 rgba(255, 238, 222, 0.52), 282px 772px 0 1px rgba(255, 252, 240, 0.46), 50px 395px 0 0 rgba(255, 222, 202, 0.38), 178px 548px 0 0 rgba(255, 248, 232, 0.56), 328px 445px 0 0 rgba(255, 215, 195, 0.44), 92px 652px 0 1px rgba(255, 230, 210, 0.36),
+        /* ── top strip ── */ 508px 22px 0 0 rgba(255, 232, 218, 0.72), 622px 14px 0 1px rgba(255, 252, 242, 0.58), 722px 38px 0 0 rgba(255, 220, 202, 0.66), 826px 10px 0 0 rgba(255, 240, 228, 0.52), 938px 28px 0 1px rgba(255, 228, 212, 0.62),
+        /* ── top center scatter ── */ 490px 148px 0 0 rgba(255, 232, 215, 0.40), 580px 82px 0 1px rgba(255, 252, 238, 0.36), 672px 198px 0 0 rgba(255, 222, 202, 0.42), 750px 122px 0 0 rgba(255, 244, 228, 0.46), 822px 162px 0 1px rgba(255, 212, 192, 0.36),
+        /* ── bottom strip ── */ 522px 824px 0 0 rgba(255, 228, 208, 0.56), 645px 864px 0 1px rgba(255, 242, 226, 0.46), 758px 844px 0 0 rgba(255, 222, 202, 0.52), 882px 880px 0 0 rgba(255, 252, 238, 0.42),
+        /* ── right zone ── */ 988px 92px 0 0 rgba(255, 212, 192, 0.68), 1055px 255px 0 1px rgba(255, 252, 238, 0.52), 1122px 438px 0 0 rgba(255, 222, 204, 0.62), 1182px 85px 0 0 rgba(255, 242, 226, 0.78), 1245px 562px 0 1px rgba(255, 210, 188, 0.48), 1315px 198px 0 0 rgba(255, 252, 242, 0.58), 1372px 688px 0 0 rgba(255, 226, 208, 0.52), 1035px 788px 0 1px rgba(255, 242, 222, 0.46), 1155px 875px 0 0 rgba(255, 216, 196, 0.56), 1285px 378px 0 0 rgba(255, 252, 234, 0.42), 1402px 145px 0 0 rgba(255, 236, 218, 0.62), 1092px 548px 0 0 rgba(255, 222, 202, 0.36), 1335px 732px 0 1px rgba(255, 246, 228, 0.52), 1450px 298px 0 0 rgba(255, 212, 192, 0.46), 1485px 478px 0 0 rgba(255, 240, 222, 0.42), 1068px 142px 0 1px rgba(255, 228, 208, 0.58), 1418px 598px 0 0 rgba(255, 248, 230, 0.38);
+    animation: star-field-breathe 18s ease-in-out infinite alternate;
+}
 
 
-    /* ── Nebula glow — soft background bloom ────────────────────────*/
+/* ── Nebula glow — soft background bloom ────────────────────────*/
 
-    .hero__puzzle::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        z-index: 0;
-        background: radial-gradient(ellipse 55% 45% at 12% 22%, color-mix(in oklab, var(--logo-a) 8%, transparent), transparent 70%), radial-gradient(ellipse 48% 38% at 88% 72%, color-mix(in oklab, var(--logo-b) 7%, transparent), transparent 70%), radial-gradient(ellipse 32% 28% at 50% 50%, color-mix(in oklab, var(--logo-a) 4%, transparent), transparent 70%);
-        pointer-events: none;
-    }
+.hero__puzzle::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: radial-gradient(ellipse 55% 45% at 12% 22%, color-mix(in oklab, var(--logo-a) 8%, transparent), transparent 70%), radial-gradient(ellipse 48% 38% at 88% 72%, color-mix(in oklab, var(--logo-b) 7%, transparent), transparent 70%), radial-gradient(ellipse 32% 28% at 50% 50%, color-mix(in oklab, var(--logo-a) 4%, transparent), transparent 70%);
+    pointer-events: none;
+}
 
 
 /* ── Hero content ────────────────────────────────────────────────*/
@@ -473,6 +468,7 @@ html[data-bob-theme="light"] {
 }
 
 .hero__title {
+    display: inline-flex;
     margin: 0 0 1.25rem;
     font-size: clamp(2rem, 1.5rem + 5vw, 7rem);
     font-weight: 900;
@@ -567,18 +563,18 @@ html[data-bob-theme="light"] {
     cursor: pointer;
 }
 
-    .hero__cta:hover {
-        background: color-mix(in oklab, var(--palette-primary) 18%, transparent);
-        color: var(--palette-primary);
-    }
+.hero__cta:hover {
+    background: color-mix(in oklab, var(--palette-primary) 18%, transparent);
+    color: var(--palette-primary);
+}
 
-    .hero__cta svg {
-        transition: transform 0.2s ease;
-    }
+.hero__cta svg {
+    transition: transform 0.2s ease;
+}
 
-    .hero__cta:hover svg {
-        transform: translateX(2px);
-    }
+.hero__cta:hover svg {
+    transform: translateX(2px);
+}
 
 
 /* ================================================================
@@ -602,7 +598,7 @@ html[data-bob-theme="light"] {
     --oy: 0px;
     position: absolute;
     display: block;
-    transform: translate3d( calc(var(--ox) + var(--mx) * var(--d)), calc(var(--oy) + var(--my) * var(--d) - var(--sy) * var(--s)), 0 ) rotate(calc(var(--rot) + var(--mx) * var(--tilt)));
+    transform: translate3d(calc(var(--ox) + var(--mx) * var(--d)), calc(var(--oy) + var(--my) * var(--d) - var(--sy) * var(--s)), 0) rotate(calc(var(--rot) + var(--mx) * var(--tilt)));
     transition: transform .12s linear;
     will-change: transform;
     isolation: isolate;
@@ -621,27 +617,27 @@ html[data-bob-theme="light"] {
     --d: 44px;
     --s: .30;
     border-radius: 50%;
-    background: radial-gradient( circle at 36% 32%, color-mix(in oklab, var(--logo-b) 75%, white) 0%, var(--logo-b) 28%, var(--logo-a) 60%, color-mix(in oklab, var(--logo-a) 52%, black) 100% );
+    background: radial-gradient(circle at 36% 32%, color-mix(in oklab, var(--logo-b) 75%, white) 0%, var(--logo-b) 28%, var(--logo-a) 60%, color-mix(in oklab, var(--logo-a) 52%, black) 100%);
     box-shadow: 0 0 30px var(--orb-glow-a), 0 0 72px color-mix(in oklab, var(--logo-a) 18%, transparent), inset -20px -20px 34px color-mix(in oklab, var(--logo-a) 48%, black);
     animation: planet-glow-a 5s ease-in-out infinite alternate;
 }
 
-    .hero__tile--1::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 200px;
-        height: 48px;
-        margin-left: -100px;
-        margin-top: -24px;
-        border-radius: 50%;
-        border: 1px solid var(--orb-border-a);
-        box-shadow: 0 0 6px color-mix(in oklab, var(--logo-a) 15%, transparent);
-        pointer-events: none;
-        opacity: 0.55;
-        animation: halo-breathe 6s ease-in-out infinite alternate;
-    }
+.hero__tile--1::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 200px;
+    height: 48px;
+    margin-left: -100px;
+    margin-top: -24px;
+    border-radius: 50%;
+    border: 1px solid var(--orb-border-a);
+    box-shadow: 0 0 6px color-mix(in oklab, var(--logo-a) 15%, transparent);
+    pointer-events: none;
+    opacity: 0.55;
+    animation: halo-breathe 6s ease-in-out infinite alternate;
+}
 
 
 /* ── tile--2 — Moon (upper right) ───────────────────────────────*/
@@ -654,7 +650,7 @@ html[data-bob-theme="light"] {
     --d: 60px;
     --s: .44;
     border-radius: 50%;
-    background: radial-gradient( circle at 31% 29%, color-mix(in oklab, var(--logo-b) 65%, white) 0%, color-mix(in oklab, var(--logo-b) 50%, var(--logo-a)) 42%, color-mix(in oklab, var(--logo-a) 42%, black) 100% );
+    background: radial-gradient(circle at 31% 29%, color-mix(in oklab, var(--logo-b) 65%, white) 0%, color-mix(in oklab, var(--logo-b) 50%, var(--logo-a)) 42%, color-mix(in oklab, var(--logo-a) 42%, black) 100%);
     box-shadow: 0 0 16px var(--orb-glow-b), 0 0 38px color-mix(in oklab, var(--logo-b) 12%, transparent), inset -10px -10px 20px color-mix(in oklab, var(--logo-a) 32%, black);
     animation: planet-glow-b 4s ease-in-out infinite alternate;
 }
@@ -684,18 +680,18 @@ html[data-bob-theme="light"] {
     animation: ring-spin-cw 90s linear infinite;
 }
 
-    .hero__tile--3::before {
-        content: '';
-        position: absolute;
-        top: -4px;
-        left: 50%;
-        width: 8px;
-        height: 8px;
-        margin-left: -4px;
-        border-radius: 50%;
-        background: radial-gradient(circle at 40% 40%, white, var(--logo-b));
-        box-shadow: 0 0 10px var(--orb-glow-b), 0 0 22px color-mix(in oklab, var(--logo-b) 30%, transparent);
-    }
+.hero__tile--3::before {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    margin-left: -4px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 40%, white, var(--logo-b));
+    box-shadow: 0 0 10px var(--orb-glow-b), 0 0 22px color-mix(in oklab, var(--logo-b) 30%, transparent);
+}
 
 
 /* ── tile--4 — Saturn-style planet (lower right) ────────────────
@@ -710,40 +706,40 @@ html[data-bob-theme="light"] {
     --d: 52px;
     --s: .40;
     border-radius: 50%;
-    background: radial-gradient( circle at 38% 33%, color-mix(in oklab, var(--logo-b) 88%, white) 0%, var(--logo-b) 26%, color-mix(in oklab, var(--logo-a) 68%, var(--logo-b)) 56%, color-mix(in oklab, var(--logo-a) 48%, black) 100% );
+    background: radial-gradient(circle at 38% 33%, color-mix(in oklab, var(--logo-b) 88%, white) 0%, var(--logo-b) 26%, color-mix(in oklab, var(--logo-a) 68%, var(--logo-b)) 56%, color-mix(in oklab, var(--logo-a) 48%, black) 100%);
     box-shadow: 0 0 26px var(--orb-glow-b), 0 0 64px color-mix(in oklab, var(--logo-b) 15%, transparent), inset -17px -17px 30px color-mix(in oklab, var(--logo-a) 38%, black);
     animation: planet-glow-ab 7s ease-in-out infinite;
 }
 
-    .hero__tile--4::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 188px;
-        height: 44px;
-        margin-left: -94px;
-        margin-top: -22px;
-        border-radius: 50%;
-        border: 2px solid color-mix(in oklab, var(--logo-b) 42%, transparent);
-        pointer-events: none;
-        opacity: 0.60;
-    }
+.hero__tile--4::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 188px;
+    height: 44px;
+    margin-left: -94px;
+    margin-top: -22px;
+    border-radius: 50%;
+    border: 2px solid color-mix(in oklab, var(--logo-b) 42%, transparent);
+    pointer-events: none;
+    opacity: 0.60;
+}
 
-    .hero__tile--4::after {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 158px;
-        height: 36px;
-        margin-left: -79px;
-        margin-top: -18px;
-        border-radius: 50%;
-        border: 1.5px solid color-mix(in oklab, var(--logo-a) 30%, transparent);
-        pointer-events: none;
-        opacity: 0.45;
-    }
+.hero__tile--4::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 158px;
+    height: 36px;
+    margin-left: -79px;
+    margin-top: -18px;
+    border-radius: 50%;
+    border: 1.5px solid color-mix(in oklab, var(--logo-a) 30%, transparent);
+    pointer-events: none;
+    opacity: 0.45;
+}
 
 
 /* ── tile--5 — Hot star with ping ring ──────────────────────────*/
@@ -756,20 +752,20 @@ html[data-bob-theme="light"] {
     --d: 80px;
     --s: .60;
     border-radius: 50%;
-    background: radial-gradient( circle at 38% 38%, rgba(255,255,255,.95) 0%, var(--logo-b) 32%, var(--logo-a) 68% );
+    background: radial-gradient(circle at 38% 38%, rgba(255, 255, 255, .95) 0%, var(--logo-b) 32%, var(--logo-a) 68%);
     box-shadow: 0 0 14px var(--orb-glow-b), 0 0 32px color-mix(in oklab, var(--logo-b) 26%, transparent);
     opacity: 0.78;
     animation: star-pulse 3.5s ease-in-out infinite alternate;
 }
 
-    .hero__tile--5::after {
-        content: '';
-        position: absolute;
-        inset: -6px;
-        border-radius: 50%;
-        border: 1.5px solid color-mix(in oklab, var(--logo-b) 52%, transparent);
-        animation: ping-ring 3s ease-out infinite;
-    }
+.hero__tile--5::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 50%;
+    border: 1.5px solid color-mix(in oklab, var(--logo-b) 52%, transparent);
+    animation: ping-ring 3s ease-out infinite;
+}
 
 
 /* ── tile--6 — Micro star ────────────────────────────────────────*/
@@ -782,7 +778,7 @@ html[data-bob-theme="light"] {
     --d: 96px;
     --s: .72;
     border-radius: 50%;
-    background: radial-gradient( circle, rgba(255,255,255,.92), color-mix(in oklab, var(--logo-b) 78%, white) );
+    background: radial-gradient(circle, rgba(255, 255, 255, .92), color-mix(in oklab, var(--logo-b) 78%, white));
     box-shadow: 0 0 8px color-mix(in oklab, var(--logo-b) 62%, transparent);
     opacity: 0.62;
     animation: star-twinkle 4.5s ease-in-out infinite;
@@ -810,19 +806,19 @@ html[data-bob-theme="light"] {
     animation: ring-spin-ccw 55s linear infinite;
 }
 
-    .hero__tile--7::after {
-        content: '';
-        position: absolute;
-        top: -3.5px;
-        left: 50%;
-        width: 7px;
-        height: 7px;
-        margin-left: -3.5px;
-        border-radius: 50%;
-        background: var(--logo-a);
-        box-shadow: 0 0 8px var(--orb-glow-a);
-        opacity: 0.75;
-    }
+.hero__tile--7::after {
+    content: '';
+    position: absolute;
+    top: -3.5px;
+    left: 50%;
+    width: 7px;
+    height: 7px;
+    margin-left: -3.5px;
+    border-radius: 50%;
+    background: var(--logo-a);
+    box-shadow: 0 0 8px var(--orb-glow-a);
+    opacity: 0.75;
+}
 
 
 /* ── tile--icon — Brand isotipo silhouette ───────────────────────
@@ -866,7 +862,7 @@ html[data-bob-theme="light"] {
 
 @keyframes ring-spin-cw {
     from {
-        transform: translate3d(0, 0, 0) rotate( 0deg);
+        transform: translate3d(0, 0, 0) rotate(0deg);
     }
 
     to {
@@ -876,7 +872,7 @@ html[data-bob-theme="light"] {
 
 @keyframes ring-spin-ccw {
     from {
-        transform: translate3d(0, 0, 0) rotate( 0deg);
+        transform: translate3d(0, 0, 0) rotate(0deg);
     }
 
     to {
@@ -1007,12 +1003,12 @@ html[data-bob-theme="light"] {
 @keyframes float-icon {
     0%, 100% {
         opacity: .05;
-        transform: translate3d( calc(var(--ox) + var(--mx) * var(--d)), calc(var(--oy) + var(--my) * var(--d) - var(--sy) * var(--s)), 0 ) rotate(calc(-3deg + var(--mx) * 1deg)) translateY(0px);
+        transform: translate3d(calc(var(--ox) + var(--mx) * var(--d)), calc(var(--oy) + var(--my) * var(--d) - var(--sy) * var(--s)), 0) rotate(calc(-3deg + var(--mx) * 1deg)) translateY(0px);
     }
 
     50% {
         opacity: .09;
-        transform: translate3d( calc(var(--ox) + var(--mx) * var(--d)), calc(var(--oy) + var(--my) * var(--d) - var(--sy) * var(--s)), 0 ) rotate(calc(-3deg + var(--mx) * 1deg)) translateY(-16px);
+        transform: translate3d(calc(var(--ox) + var(--mx) * var(--d)), calc(var(--oy) + var(--my) * var(--d) - var(--sy) * var(--s)), 0) rotate(calc(-3deg + var(--mx) * 1deg)) translateY(-16px);
     }
 }
 
@@ -1092,12 +1088,12 @@ html[data-bob-theme="light"] {
         left: 4%;
     }
 
-        .hero__tile--1::after {
-            width: 128px;
-            height: 30px;
-            margin-left: -64px;
-            margin-top: -15px;
-        }
+    .hero__tile--1::after {
+        width: 128px;
+        height: 30px;
+        margin-left: -64px;
+        margin-top: -15px;
+    }
 
     .hero__tile--2 {
         width: 44px;
@@ -1113,19 +1109,19 @@ html[data-bob-theme="light"] {
         right: 4%;
     }
 
-        .hero__tile--4::before {
-            width: 148px;
-            height: 34px;
-            margin-left: -74px;
-            margin-top: -17px;
-        }
+    .hero__tile--4::before {
+        width: 148px;
+        height: 34px;
+        margin-left: -74px;
+        margin-top: -17px;
+    }
 
-        .hero__tile--4::after {
-            width: 124px;
-            height: 28px;
-            margin-left: -62px;
-            margin-top: -14px;
-        }
+    .hero__tile--4::after {
+        width: 124px;
+        height: 28px;
+        margin-left: -62px;
+        margin-top: -14px;
+    }
 
     .hero__tile--icon {
         width: 150px;
@@ -1171,11 +1167,11 @@ html[data-bob-theme="light"] {
     transition: background .15s, border-color .15s, color .15s;
 }
 
-    .doc-search-trigger:hover {
-        background: color-mix(in oklab, var(--palette-primary) 8%, var(--palette-surface));
-        border-color: var(--palette-primary);
-        color: var(--palette-primary);
-    }
+.doc-search-trigger:hover {
+    background: color-mix(in oklab, var(--palette-primary) 8%, var(--palette-surface));
+    border-color: var(--palette-primary);
+    color: var(--palette-primary);
+}
 
 .doc-search-trigger__icon {
     display: inline-flex;
@@ -1250,11 +1246,11 @@ html[data-bob-theme="light"] {
     border-left: 3px solid transparent;
 }
 
-    .doc-search-modal__item:hover,
-    .doc-search-modal__item--selected {
-        background: color-mix(in oklab, var(--palette-primary) 8%, var(--palette-surface));
-        border-left-color: var(--palette-primary);
-    }
+.doc-search-modal__item:hover,
+.doc-search-modal__item--selected {
+    background: color-mix(in oklab, var(--palette-primary) 8%, var(--palette-surface));
+    border-left-color: var(--palette-primary);
+}
 
 .doc-search-modal__item-title {
     font-size: 0.92rem;
@@ -1263,18 +1259,27 @@ html[data-bob-theme="light"] {
     line-height: 1.35;
 }
 
-    .doc-search-modal__item-title mark {
-        background: color-mix(in oklab, var(--palette-primary) 30%, transparent);
-        color: inherit;
-        border-radius: 3px;
-        padding: 0 2px;
-    }
+.doc-search-modal__item-title mark {
+    background: color-mix(in oklab, var(--palette-primary) 30%, transparent);
+    color: inherit;
+    border-radius: 3px;
+    padding: 0 2px;
+}
 
 .doc-search-modal__item-breadcrumb {
     font-size: 0.78rem;
     color: color-mix(in oklab, var(--palette-surface-contrast) 55%, var(--palette-surface));
     margin-top: 0.15rem;
     line-height: 1.3;
+}
+
+.doc-search-modal__suggestions-header {
+    padding: 0.75rem 1.25rem 0.25rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: color-mix(in oklab, var(--palette-surface-contrast) 50%, var(--palette-surface));
 }
 
 .doc-search-modal__empty {
@@ -1294,14 +1299,14 @@ html[data-bob-theme="light"] {
     color: color-mix(in oklab, var(--palette-surface-contrast) 45%, var(--palette-surface));
 }
 
-    .doc-search-modal__footer kbd {
-        padding: 0.1rem 0.3rem;
-        border-radius: 4px;
-        background: var(--palette-background);
-        border: 1px solid var(--palette-border);
-        font-family: var(--bob-font-mono, ui-monospace, monospace);
-        font-size: 0.7rem;
-    }
+.doc-search-modal__footer kbd {
+    padding: 0.1rem 0.3rem;
+    border-radius: 4px;
+    background: var(--palette-background);
+    border: 1px solid var(--palette-border);
+    font-family: var(--bob-font-mono, ui-monospace, monospace);
+    font-size: 0.7rem;
+}
 
 /* Animations */
 @keyframes doc-search-fade-in {
@@ -1385,16 +1390,16 @@ html[data-bob-theme="light"] {
     flex: 0 0 auto;
 }
 
-    /* Reset the footer's own padding when nested in the sidebar so
-       it sits compact against the sidebar edge (the standalone
-       footer used elsewhere keeps its 2rem padding). */
-    .doc-nav__footer .doc-footer {
-        padding: 1rem 0.75rem;
-    }
+/* Reset the footer's own padding when nested in the sidebar so
+   it sits compact against the sidebar edge (the standalone
+   footer used elsewhere keeps its 2rem padding). */
+.doc-nav__footer .doc-footer {
+    padding: 1rem 0.75rem;
+}
 
-    .doc-nav__footer .doc-footer__text {
-        font-size: 0.78rem;
-    }
+.doc-nav__footer .doc-footer__text {
+    font-size: 0.78rem;
+}
 
 
 /* Responsive */

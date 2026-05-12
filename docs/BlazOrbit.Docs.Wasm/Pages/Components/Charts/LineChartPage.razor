@@ -1,21 +1,28 @@
-@page "/components/charts/line"
+﻿@page "/components/charts/line"
 @implements IDisposable
 
 @inject IStringLocalizer<LineChartPage> Loc
 
 <DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBLineChart"]"
-         Lede="@Loc["Continuous line chart with auto-detected X axis: numeric, DateTime / DateTimeOffset / TimeSpan, or categorical. Smooth interpolation, per-point markers, native SVG tooltips, zoom + brush, crosshair, annotations and live streaming — all SVG-rendered, no external chart library."]"
+         Lede="@Loc["Continuous line chart with smooth curves, per-point markers, tooltips, zoom, annotations, and live streaming. Supports numeric, temporal, or categorical axes."]"
          PageInstance="this"
-         ApiType="@typeof(BOBLineChart<,>)">
+         ApiType="@typeof(BOBLineChart<,>)"
+         Keywords="@(["line chart", "trend", "time series", "plot"])">
+
+    <section class="doc-section">
+        <p class="doc-section__description">
+                        @Loc.Html("The X axis is auto-detected from the data type: numeric, <code>DateTime</code> / <code>DateTimeOffset</code> / <code>TimeSpan</code>, or categorical string labels. Advanced features include smooth Bezier interpolation, zoom + brush, crosshair tracking, annotation lines, and live streaming — all rendered as pure SVG without external chart dependencies.")
+        </p>
+    </section>
 
     <BOBBanner Severity="BOBBannerSeverity.Warning"
                Title="@Loc["Extra package required"]"
-               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]" />
+               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]"/>
 
     <DocDemo Key="Basic" Title="@Loc["Basic usage (numeric X)"]">
         <BOBLineChart TX="int" TY="double"
                       Series="_numericSeries"
-                      Width="600" Height="320" />
+                      Width="600" Height="320"/>
     </DocDemo>
 
     <DocDemo Key="Temporal" Title="@Loc["Temporal X axis"]"
@@ -23,7 +30,7 @@
         <BOBLineChart TX="DateTime" TY="decimal"
                       Series="_temporalSeries"
                       XAxis="@(new BOBChartAxis { Format = "yyyy-MM" })"
-                      Width="600" Height="320" />
+                      Width="600" Height="320"/>
     </DocDemo>
 
     <DocDemo Key="Smooth" Title="@Loc["Smooth interpolation"]"
@@ -31,14 +38,14 @@
         <BOBLineChart TX="int" TY="double"
                       Series="_numericSeries"
                       Smooth="true"
-                      Width="600" Height="320" />
+                      Width="600" Height="320"/>
     </DocDemo>
 
     <DocDemo Key="MultiSeries" Title="@Loc["Multi-series with markers off"]">
         <BOBLineChart TX="int" TY="double"
                       Series="_multiSeries"
                       ShowMarkers="false"
-                      Width="600" Height="320" />
+                      Width="600" Height="320"/>
     </DocDemo>
 
     <DocDemo Key="Stacked" Title="@Loc["Stacked lines"]"
@@ -46,7 +53,7 @@
         <BOBLineChart TX="int" TY="double"
                       Series="_stackableSeries"
                       Stacked="true"
-                      Width="600" Height="320" />
+                      Width="600" Height="320"/>
     </DocDemo>
 
     <DocDemo Key="ZoomBrush" Title="@Loc["Zoom and brush"]"
@@ -55,7 +62,7 @@
                       Series="_numericSeries"
                       ZoomEnabled="true"
                       BrushEnabled="true"
-                      Width="600" Height="320" />
+                      Width="600" Height="320"/>
     </DocDemo>
 
     <DocDemo Key="Crosshair" Title="@Loc["Crosshair"]"
@@ -63,7 +70,7 @@
         <BOBLineChart TX="int" TY="double"
                       Series="_multiSeries"
                       ShowCrosshair="true"
-                      Width="600" Height="320" />
+                      Width="600" Height="320"/>
     </DocDemo>
 
     <DocDemo Key="ReferenceLines" Title="@Loc["Reference lines"]"
@@ -71,7 +78,7 @@
         <BOBLineChart TX="int" TY="double"
                       Series="_numericSeries"
                       Width="600" Height="320"
-                      ReferenceLines="_referenceLines" />
+                      ReferenceLines="_referenceLines"/>
     </DocDemo>
 
     <DocDemo Key="Annotations" Title="@Loc["Annotations"]"
@@ -79,7 +86,7 @@
         <BOBLineChart TX="int" TY="double"
                       Series="_numericSeries"
                       Annotations="_annotations"
-                      Width="600" Height="320" />
+                      Width="600" Height="320"/>
     </DocDemo>
 
     <DocDemo Key="Streaming" Title="@Loc["Live streaming"]"
@@ -94,11 +101,11 @@
                           ZoomEnabled="true"
                           Smooth="true"
                           ReferenceLines="_streamSloLines"
-                          Width="600" Height="320" />
+                          Width="600" Height="320"/>
             <BOBFlexStack Gap="0.5rem" Direction="FlexStackDirection.Row">
-                <BOBButton Text="@(_streaming ? Loc["Pause"] : Loc["Start"])" OnClick="ToggleStream" />
-                <BOBButton Text="@Loc["Add one point"]" OnClick="AddStreamPoint" />
-                <BOBButton Text="@Loc["Reset"]" OnClick="ResetStream" />
+                <BOBButton Text="@(_streaming ? Loc["Pause"] : Loc["Start"])" OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, ToggleStream))"/>
+                <BOBButton Text="@Loc["Add one point"]" OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, AddStreamPoint))"/>
+                <BOBButton Text="@Loc["Reset"]" OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, ResetStream))"/>
             </BOBFlexStack>
             <p class="doc-helper-text">@_streamStatus</p>
         </BOBFlexStack>
@@ -111,7 +118,8 @@
                       Width="600" Height="320">
             <TooltipTemplate>
                 <div style="display:flex;align-items:center;gap:0.5rem">
-                    <span style="display:inline-block;width:10px;height:10px;border-radius:50%;background:@context.Color"></span>
+                    <span
+                        style="display:inline-block;width:10px;height:10px;border-radius:50%;background:@context.Color"></span>
                     <span>@context.SeriesLabel: <strong>@context.Y</strong> at @context.X</span>
                 </div>
             </TooltipTemplate>
@@ -125,10 +133,13 @@
     private BOBLineChart<int, double>? _streamChart;
     private int _streamIndex = 7;
     private string _streamStatus = "Buffer: 6 points";
-    private System.Threading.Timer? _streamTimer;
+    private Timer? _streamTimer;
     private bool _streaming;
 
-    public void Dispose() => _streamTimer?.Dispose();
+    public void Dispose()
+    {
+        _streamTimer?.Dispose();
+    }
 
     private async Task AddStreamPoint()
     {
@@ -150,11 +161,9 @@
             _streamStatus = $"Paused at X={_streamIndex - 1}";
             return;
         }
+
         _streaming = true;
-        _streamTimer = new System.Threading.Timer(async _ =>
-        {
-            await InvokeAsync(AddStreamPoint);
-        }, null, dueTime: 0, period: 600);
+        _streamTimer = new Timer(async _ => { await InvokeAsync(AddStreamPoint); }, null, 0, 600);
     }
 
     private async Task ResetStream()
@@ -169,44 +178,41 @@
     }
 
     private static readonly IEnumerable<BOBChartSeries<int, double>> _numericSeries =
-        new[]
-        {
-            new BOBChartSeries<int, double>
+    [
+        new BOBChartSeries<int, double>
             {
                 Label = "Latency (ms)",
-                Points = new[]
-                {
+                Points =
+                [
                     new BOBChartPoint<int, double>(1, 12.4),
                     new BOBChartPoint<int, double>(2, 18.9),
                     new BOBChartPoint<int, double>(3, 9.7),
                     new BOBChartPoint<int, double>(4, 22.1),
                     new BOBChartPoint<int, double>(5, 15.3),
-                    new BOBChartPoint<int, double>(6, 30.6),
-                }
+                    new BOBChartPoint<int, double>(6, 30.6)
+                ]
             }
-        };
+    ];
 
     private static readonly IEnumerable<BOBChartSeries<DateTime, decimal>> _temporalSeries =
-        new[]
-        {
-            new BOBChartSeries<DateTime, decimal>
+    [
+        new BOBChartSeries<DateTime, decimal>
             {
                 Label = "MRR",
-                Points = new[]
-                {
+                Points =
+                [
                     new BOBChartPoint<DateTime, decimal>(new DateTime(2026, 01, 01), 12_000m),
                     new BOBChartPoint<DateTime, decimal>(new DateTime(2026, 02, 01), 14_500m),
                     new BOBChartPoint<DateTime, decimal>(new DateTime(2026, 03, 01), 13_800m),
                     new BOBChartPoint<DateTime, decimal>(new DateTime(2026, 04, 01), 17_200m),
-                    new BOBChartPoint<DateTime, decimal>(new DateTime(2026, 05, 01), 18_900m),
-                }
+                    new BOBChartPoint<DateTime, decimal>(new DateTime(2026, 05, 01), 18_900m)
+                ]
             }
-        };
+    ];
 
     private static readonly IEnumerable<BOBChartSeries<int, double>> _multiSeries =
-        new[]
-        {
-            new BOBChartSeries<int, double>
+    [
+        new BOBChartSeries<int, double>
             {
                 Label = "Build A",
                 Points = Enumerable.Range(1, 12)
@@ -220,12 +226,11 @@
                     .Select(i => new BOBChartPoint<int, double>(i, 55 + Math.Cos(i * 0.4) * 10))
                     .ToArray()
             }
-        };
+    ];
 
     private static readonly IEnumerable<BOBChartSeries<int, double>> _stackableSeries =
-        new[]
-        {
-            new BOBChartSeries<int, double>
+    [
+        new BOBChartSeries<int, double>
             {
                 Label = "Direct",
                 Points = Enumerable.Range(1, 8)
@@ -246,30 +251,28 @@
                     .Select(i => new BOBChartPoint<int, double>(i, 15 + i * 1.5))
                     .ToArray()
             }
-        };
+    ];
 
     private static readonly IEnumerable<BOBChartSeries<int, double>> _streamSeed =
-        new[]
-        {
-            new BOBChartSeries<int, double>
+    [
+        new BOBChartSeries<int, double>
             {
                 Label = "Latency (ms)",
-                Points = new[]
-                {
+                Points =
+                [
                     new BOBChartPoint<int, double>(1, 12.4),
                     new BOBChartPoint<int, double>(2, 18.9),
                     new BOBChartPoint<int, double>(3, 9.7),
                     new BOBChartPoint<int, double>(4, 22.1),
                     new BOBChartPoint<int, double>(5, 15.3),
-                    new BOBChartPoint<int, double>(6, 30.6),
-                }
+                    new BOBChartPoint<int, double>(6, 30.6)
+                ]
             }
-        };
+    ];
 
     private static readonly IEnumerable<BOBChartReferenceLine> _referenceLines =
-        new[]
-        {
-            new BOBChartReferenceLine
+    [
+        new BOBChartReferenceLine
             {
                 Value = 20,
                 Label = "SLO",
@@ -277,12 +280,11 @@
                 Style = BOBChartReferenceLineStyle.Dashed,
                 StrokeWidth = 2
             }
-        };
+    ];
 
     private static readonly IEnumerable<BOBChartReferenceLine> _streamSloLines =
-        new[]
-        {
-            new BOBChartReferenceLine
+    [
+        new BOBChartReferenceLine
             {
                 Value = 25,
                 Label = "p95 SLO",
@@ -290,13 +292,12 @@
                 Style = BOBChartReferenceLineStyle.Dashed,
                 StrokeWidth = 1.5
             }
-        };
+    ];
 
     // Mix of annotation kinds against the _numericSeries (X 1..6, Y up to 30).
     private static readonly IEnumerable<BOBChartAnnotation> _annotations =
-        new BOBChartAnnotation[]
-        {
-            // Vertical band marking a deploy window across X = 2..3.
+    [
+        // Vertical band marking a deploy window across X = 2..3.
             new BOBChartBandAnnotation<int>
             {
                 FromX = 2,
@@ -332,6 +333,7 @@
                 Shape = BOBChartAnnotationShape.Diamond,
                 SizePx = 14,
                 Color = "var(--palette-success)"
-            },
-        };
+            }
+    ];
+
 }

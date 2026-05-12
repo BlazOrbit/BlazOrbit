@@ -17,5 +17,5 @@ public interface IChipGroupContainer
     bool IsValueSelected(object? value);
 
     /// <summary>Toggles <paramref name="value"/> in/out of the selection, honouring <see cref="Mode"/>.</summary>
-    System.Threading.Tasks.Task ToggleAsync(object? value);
+    Task ToggleAsync(object? value);
 }

@@ -13,36 +13,35 @@ public class BOBBarChartBidirectionalTests
 {
     // Mixed-sign series: "Inflow" positive, "Outflow" negative — classic
     // budget variance shape.
-    private static IEnumerable<BOBChartSeries<string, decimal>> Mixed() => new[]
-    {
+    private static IEnumerable<BOBChartSeries<string, decimal>> Mixed() =>
+    [
         new BOBChartSeries<string, decimal>
         {
             Label = "Inflow",
-            Points = new[]
-            {
+            Points =
+            [
                 new BOBChartPoint<string, decimal>("Q1", 30m),
-                new BOBChartPoint<string, decimal>("Q2", 50m),
-            }
+                    new BOBChartPoint<string, decimal>("Q2", 50m)
+            ]
         },
         new BOBChartSeries<string, decimal>
         {
             Label = "Refunds",
-            Points = new[]
-            {
+            Points =
+            [
                 new BOBChartPoint<string, decimal>("Q1", -10m),
-                new BOBChartPoint<string, decimal>("Q2", -5m),
-            }
+                new BOBChartPoint<string, decimal>("Q2", -5m)
+            ]
         },
         new BOBChartSeries<string, decimal>
         {
             Label = "Bonus",
-            Points = new[]
-            {
-                new BOBChartPoint<string, decimal>("Q1", 5m),
-                new BOBChartPoint<string, decimal>("Q2", 10m),
-            }
-        },
-    };
+            Points =
+            [
+                new BOBChartPoint<string, decimal>("Q1", 5m), new BOBChartPoint<string, decimal>("Q2", 10m)
+            ]
+        }
+    ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -93,7 +92,7 @@ public class BOBBarChartBidirectionalTests
             double y = double.Parse(neg.GetAttribute("y")!,
                 System.Globalization.CultureInfo.InvariantCulture);
             y.Should().BeApproximately(inflowBottom, 1,
-                because: "negative bars hang from the zero line");
+                "negative bars hang from the zero line");
         }
     }
 
@@ -126,9 +125,9 @@ public class BOBBarChartBidirectionalTests
             System.Globalization.CultureInfo.InvariantCulture);
 
         (bonusY + bonusH).Should().BeApproximately(inflowY, 1,
-            because: "Bonus stacks on top of Inflow → its bottom touches Inflow's top");
+            "Bonus stacks on top of Inflow → its bottom touches Inflow's top");
         bonusY.Should().BeLessThan(inflowY,
-            because: "stacked-up bar's top sits above the previous segment's top");
+            "stacked-up bar's top sits above the previous segment's top");
     }
 
     [Theory]
@@ -137,19 +136,17 @@ public class BOBBarChartBidirectionalTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IEnumerable<BOBChartSeries<string, decimal>> twoNegative = new[]
-        {
+        IEnumerable<BOBChartSeries<string, decimal>> twoNegative =
+        [
             new BOBChartSeries<string, decimal>
             {
-                Label = "A",
-                Points = new[] { new BOBChartPoint<string, decimal>("X", -10m) }
+                Label = "A", Points = [new BOBChartPoint<string, decimal>("X", -10m)]
             },
             new BOBChartSeries<string, decimal>
             {
-                Label = "B",
-                Points = new[] { new BOBChartPoint<string, decimal>("X", -5m) }
-            },
-        };
+                Label = "B", Points = [new BOBChartPoint<string, decimal>("X", -5m)]
+            }
+        ];
 
         IRenderedComponent<BOBBarChart<string, decimal>> cut =
             ctx.Render<BOBBarChart<string, decimal>>(p => p
@@ -170,7 +167,7 @@ public class BOBBarChartBidirectionalTests
         // A is the first negative segment, hanging from zero.
         // B is the second negative segment, hanging from A's bottom.
         bY.Should().BeApproximately(aY + aH, 1,
-            because: "second negative segment hangs from the prior negative segment's bottom");
+            "second negative segment hangs from the prior negative segment's bottom");
     }
 
     [Theory]
@@ -216,19 +213,17 @@ public class BOBBarChartBidirectionalTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IEnumerable<BOBChartSeries<string, decimal>> allPositive = new[]
-        {
+        IEnumerable<BOBChartSeries<string, decimal>> allPositive =
+        [
             new BOBChartSeries<string, decimal>
             {
-                Label = "A",
-                Points = new[] { new BOBChartPoint<string, decimal>("X", 10m) }
+                Label = "A", Points = [new BOBChartPoint<string, decimal>("X", 10m)]
             },
             new BOBChartSeries<string, decimal>
             {
-                Label = "B",
-                Points = new[] { new BOBChartPoint<string, decimal>("X", 5m) }
-            },
-        };
+                Label = "B", Points = [new BOBChartPoint<string, decimal>("X", 5m)]
+            }
+        ];
 
         IRenderedComponent<BOBBarChart<string, decimal>> cut =
             ctx.Render<BOBBarChart<string, decimal>>(p => p

@@ -46,6 +46,9 @@ param(
     [switch]$DryRun
 )
 
+Set-StrictMode -Version Latest
+$ErrorActionPreference = 'Stop'
+
 # Configuration
 $Config = @{
     Remote = "origin"

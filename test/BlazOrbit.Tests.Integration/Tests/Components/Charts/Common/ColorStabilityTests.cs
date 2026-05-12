@@ -11,8 +11,8 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Charts.Common;
 [Trait("Component Variant", "Charts.ColorStability")]
 public class ColorStabilityTests
 {
-    private static IEnumerable<BOBChartSeries<int, double>> ThreeLineSeries() => new[]
-    {
+    private static IEnumerable<BOBChartSeries<int, double>> ThreeLineSeries() =>
+    [
         new BOBChartSeries<int, double>
         {
             Label = "A",
@@ -27,8 +27,8 @@ public class ColorStabilityTests
         {
             Label = "C",
             Points = Enumerable.Range(1, 5).Select(i => new BOBChartPoint<int, double>(i, i * 3.0)).ToArray()
-        },
-    };
+        }
+    ];
 
     private static string SeriesStrokeColor(IRenderedComponent<BOBLineChart<int, double>> cut, string label) =>
         cut.FindAll("g.bob-line-chart__series")
@@ -55,9 +55,9 @@ public class ColorStabilityTests
         string colorCAfter = SeriesStrokeColor(cut, "C");
 
         colorBAfter.Should().Be(colorBBefore,
-            because: "B keeps its palette slot independent of A's visibility");
+            "B keeps its palette slot independent of A's visibility");
         colorCAfter.Should().Be(colorCBefore,
-            because: "C keeps its palette slot independent of A's visibility");
+            "C keeps its palette slot independent of A's visibility");
     }
 
     [Theory]
@@ -85,24 +85,21 @@ public class ColorStabilityTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IEnumerable<BOBChartSeries<string, decimal>> series = new[]
-        {
+        IEnumerable<BOBChartSeries<string, decimal>> series =
+        [
             new BOBChartSeries<string, decimal>
             {
-                Label = "A",
-                Points = new[] { new BOBChartPoint<string, decimal>("Q1", 10m) }
+                Label = "A", Points = [new BOBChartPoint<string, decimal>("Q1", 10m)]
             },
             new BOBChartSeries<string, decimal>
             {
-                Label = "B",
-                Points = new[] { new BOBChartPoint<string, decimal>("Q1", 20m) }
+                Label = "B", Points = [new BOBChartPoint<string, decimal>("Q1", 20m)]
             },
             new BOBChartSeries<string, decimal>
             {
-                Label = "C",
-                Points = new[] { new BOBChartPoint<string, decimal>("Q1", 30m) }
-            },
-        };
+                Label = "C", Points = [new BOBChartPoint<string, decimal>("Q1", 30m)]
+            }
+        ];
 
         IRenderedComponent<BOBBarChart<string, decimal>> cut =
             ctx.Render<BOBBarChart<string, decimal>>(p => p.Add(c => c.Series, series));

@@ -19,11 +19,11 @@ public static class CssLanguage
             .CaseSensitive(false)
 
             // Comments
-            .AddBlockComment("/*", "*/", priority: 1000)
+            .AddBlockComment("/*", "*/", 1000)
 
             // Strings
-            .AddString("\"", "\"", escape: "\\", priority: 999)
-            .AddString("'", "'", escape: "\\", priority: 998)
+            .AddString("\"", "\"", "\\", priority: 999)
+            .AddString("'", "'", "\\", priority: 998)
 
             // URLs
             .AddPattern(TokenType.String, @"url\([^)]+\)", priority: 997)
@@ -34,7 +34,7 @@ public static class CssLanguage
                 "@page", "@namespace", "@charset", "@viewport", "@counter-style",
                 "@font-feature-values", "@property", "@layer", "@container",
                 "@scope", "@starting-style"
-            ], priority: 900)
+            ], 900)
 
             // Pseudo-elements and pseudo-classes
             .AddPattern(TokenType.CssPseudo, @"::[\w-]+", priority: 850)
@@ -55,21 +55,21 @@ public static class CssLanguage
                 "h1", "h2", "h3", "h4", "h5", "h6", "strong", "em", "code", "pre",
                 "blockquote", "figure", "figcaption", "video", "audio", "canvas",
                 "svg", "path", "circle", "rect", "line", "polygon", "polyline"
-            ], priority: 798)
+            ], 798)
 
             // Contextual keywords: values after ':'
             .AddContextualKeywords(
                 TokenType.CssValue,
                 ["flex", "grid"],
                 IsAfterColon,
-                priority: 751)
+                751)
 
             // Contextual keywords: properties after '{' or ';'
             .AddContextualKeywords(
                 TokenType.CssProperty,
                 ["flex", "grid"],
                 IsAfterPropertyDelimiter,
-                priority: 750)
+                750)
 
             // CSS properties (match any identifier followed by : in property context)
             .AddPattern(TokenType.CssProperty, @"[\w-]+(?=\s*:)", priority: 700)
@@ -87,7 +87,7 @@ public static class CssLanguage
                 "stretch", "baseline", "start", "end", "flex-start", "flex-end",
                 "pointer", "default", "not-allowed", "grab", "grabbing",
                 "transparent", "currentColor"
-            ], priority: 699)
+            ], 699)
 
             // Colors
             .AddContextualPattern(
@@ -95,19 +95,21 @@ public static class CssLanguage
                 @"#[0-9a-fA-F]{3,8}\b",
                 IsAfterColon,
                 priority: 801)
-            .AddPattern(TokenType.CssValue, @"(?:rgb|rgba|hsl|hsla|hwb|lab|lch|oklab|oklch|color)\([^)]+\)", priority: 697)
+            .AddPattern(TokenType.CssValue, @"(?:rgb|rgba|hsl|hsla|hwb|lab|lch|oklab|oklch|color)\([^)]+\)",
+                priority: 697)
             .AddKeywords(TokenType.CssValue, [
                 "black", "white", "red", "green", "blue", "yellow", "cyan", "magenta",
                 "gray", "grey", "orange", "purple", "pink", "brown", "navy", "teal",
                 "aqua", "lime", "olive", "maroon", "silver", "fuchsia"
-            ], priority: 696)
+            ], 696)
 
             // Units Units (% doesn't need word boundary, others do)
             .AddPattern(TokenType.CssUnit, @"\d+\.?\d*%", priority: 651)
-            .AddPattern(TokenType.CssUnit, @"\d+\.?\d*(?:px|em|rem|vh|vw|vmin|vmax|ch|ex|cm|mm|in|pt|pc|deg|rad|turn|s|ms|fr)\b", priority: 650)
+            .AddPattern(TokenType.CssUnit,
+                @"\d+\.?\d*(?:px|em|rem|vh|vw|vmin|vmax|ch|ex|cm|mm|in|pt|pc|deg|rad|turn|s|ms|fr)\b", priority: 650)
 
             // Numbers
-            .AddPattern(TokenType.Number, @"\d+\.?\d*", requireWordBoundary: true, priority: 600)
+            .AddPattern(TokenType.Number, @"\d+\.?\d*", true, 600)
 
             // Variables
             .AddPattern(TokenType.Variable, @"--[\w-]+", priority: 550)
@@ -117,9 +119,8 @@ public static class CssLanguage
             .AddPattern(TokenType.Keyword, @"!important\b", priority: 500)
 
             // Operators and punctuation
-            .AddOperators([">", "+", "~", "*", "=", "^=", "$=", "*=", "|=", "~="], priority: 400)
-            .AddPunctuation("{}[]();:,.", priority: 399)
-
+            .AddOperators([">", "+", "~", "*", "=", "^=", "$=", "*=", "|=", "~="], 400)
+            .AddPunctuation("{}[]();:,.", 399)
             .Build();
     }
 

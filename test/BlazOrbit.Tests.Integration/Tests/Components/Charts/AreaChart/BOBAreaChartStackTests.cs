@@ -10,39 +10,36 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Charts.AreaChart;
 [Trait("Component Variant", "BOBAreaChart.Stacked")]
 public class BOBAreaChartStackTests
 {
-    private static IEnumerable<BOBChartSeries<int, double>> ThreeSeries() => new[]
-    {
+    private static IEnumerable<BOBChartSeries<int, double>> ThreeSeries() =>
+    [
         new BOBChartSeries<int, double>
         {
             Label = "A",
-            Points = new[]
-            {
-                new BOBChartPoint<int, double>(1, 10),
-                new BOBChartPoint<int, double>(2, 20),
-                new BOBChartPoint<int, double>(3, 15),
-            }
+            Points =
+            [
+                new BOBChartPoint<int, double>(1, 10), new BOBChartPoint<int, double>(2, 20),
+                    new BOBChartPoint<int, double>(3, 15)
+            ]
         },
         new BOBChartSeries<int, double>
         {
             Label = "B",
-            Points = new[]
-            {
-                new BOBChartPoint<int, double>(1, 5),
-                new BOBChartPoint<int, double>(2, 10),
-                new BOBChartPoint<int, double>(3, 25),
-            }
+            Points =
+            [
+                new BOBChartPoint<int, double>(1, 5), new BOBChartPoint<int, double>(2, 10),
+                new BOBChartPoint<int, double>(3, 25)
+            ]
         },
         new BOBChartSeries<int, double>
         {
             Label = "C",
-            Points = new[]
-            {
-                new BOBChartPoint<int, double>(1, 20),
-                new BOBChartPoint<int, double>(2, 30),
-                new BOBChartPoint<int, double>(3, 10),
-            }
+            Points =
+            [
+                new BOBChartPoint<int, double>(1, 20), new BOBChartPoint<int, double>(2, 30),
+                new BOBChartPoint<int, double>(3, 10)
+            ]
         }
-    };
+    ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -112,7 +109,7 @@ public class BOBAreaChartStackTests
 
         // Path should contain a coord near PlotBottom=368 (the baseline).
         d.Should().MatchRegex(@",368\.0\d?\b",
-            because: "the bottom-most stacked series fills down to the X axis");
+            "the bottom-most stacked series fills down to the X axis");
     }
 
     [Theory]
@@ -132,11 +129,13 @@ public class BOBAreaChartStackTests
         // Top series (C) third marker at X=3: cumulative = 15+25+10 = 50.
         // First series (A) third marker at X=3: cumulative = 15.
         IReadOnlyList<AngleSharp.Dom.IElement> allMarkers = cut.FindAll("circle.bob-line-chart__marker");
-        double aLastCy = double.Parse(allMarkers[2].GetAttribute("cy")!, System.Globalization.CultureInfo.InvariantCulture);
-        double cLastCy = double.Parse(allMarkers[8].GetAttribute("cy")!, System.Globalization.CultureInfo.InvariantCulture);
+        double aLastCy = double.Parse(allMarkers[2].GetAttribute("cy")!,
+            System.Globalization.CultureInfo.InvariantCulture);
+        double cLastCy = double.Parse(allMarkers[8].GetAttribute("cy")!,
+            System.Globalization.CultureInfo.InvariantCulture);
 
         cLastCy.Should().BeLessThan(aLastCy,
-            because: "stacked top series should sit higher (smaller Y in SVG) than the bottom series at the same X");
+            "stacked top series should sit higher (smaller Y in SVG) than the bottom series at the same X");
     }
 
     [Theory]
@@ -187,6 +186,6 @@ public class BOBAreaChartStackTests
                 .Add(c => c.Smooth, true));
 
         string d = cut.FindAll("path.bob-area-chart__fill").First().GetAttribute("d") ?? string.Empty;
-        d.Should().Contain(" C ", because: "smooth fills curve both top and bottom contours");
+        d.Should().Contain(" C ", "smooth fills curve both top and bottom contours");
     }
 }

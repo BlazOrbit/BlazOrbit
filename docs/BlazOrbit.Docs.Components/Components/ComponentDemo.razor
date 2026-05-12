@@ -10,12 +10,11 @@
         <div class="demo__code">
             <BOBCodeBlock Code="@Definition.Code"
                           Language="@Definition.Language"
-                          Title="@Definition.CodeTitle" />
+                          Title="@Definition.CodeTitle"/>
         </div>
     }
 </div>
 
 @code {
-    [Parameter, EditorRequired]
-    public ComponentDemoDefinition Definition { get; set; } = default!;
+    [Parameter][EditorRequired] public ComponentDemoDefinition Definition { get; set; } = default!;
 }

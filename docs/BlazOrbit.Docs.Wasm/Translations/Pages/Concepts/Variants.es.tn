@@ -1,0 +1,164 @@
+# A <em>variant</em> is a <code>RenderFragment</code> keyed on a typed id. Built-in variants (e.g. <code>BOBButtonVariant.Default</code>, <code>BOBThemeSelectorVariant.SunMoon</code>) are hard-coded inside the component; custom variants are registered at startup and resolved by the <code>IVariantRegistry</code> singleton at render time.
+Una <em>variante</em> es un <code>RenderFragment</code> tecleado en un ID escrito. Las variantes integradas (por <code>ejemplo</code>, BOBButtonVariant.Default<code>,</code> BOBThemeSelectorVariant.SunMoon) están codificadas dentro del componente; las variantes personalizadas se registran al inicio y se resuelven mediante el singleton <code>IVariantRegistry</code> en el momento del renderizado.
+
+
+
+
+
+# A variant is a strongly typed <code>RenderFragment</code> keyed on an enum or string id. At startup you register custom variants through the <code>IVariantRegistry</code> builder; at render time the component resolves the id against the registry and falls back to the built-in default when no match is found.
+Una variante es un RenderFragment fuertemente <code>tecleado</code> en un identificador de enumeración o cadena. En el inicio, registra variantes personalizadas a través <code>del</code> generador IVariantRegistry; en el momento del renderizado, el componente resuelve el id contra el registro y vuelve al valor predeterminado incorporado cuando no se encuentra ninguna coincidencia.
+
+
+
+
+
+# BOBButtonVariant.cs
+BOBButtonVariant.cs
+
+
+
+
+
+# Components that support variants derive from <code>BOBVariantComponentBase&lt;TComponent, TVariant&gt;</code>. Inside they expose a dictionary of built-in templates and delegate unknown ids to the registry.
+Los componentes que admiten variantes se derivan <code>deBOBVariantComponentBase &lt;TComponent, TVariant&gt;</code>. En el interior exponen un diccionario de plantillas integradas y delegan identificadores desconocidos al registro.
+
+
+
+
+
+# Concept
+Concepto
+
+
+
+
+
+# Create a custom variant via <code>SomeVariant.Custom(&quot;name&quot;)</code> when the type exposes it, or subclass <code>Variant</code> directly.
+Cree una variante personalizada a través <code>deSomeVariant.Custom ("name")</code> cuando el tipo la exponga, o subclase <code>Variant</code> directamente.
+
+
+
+
+
+# Create and register custom visual variants for any component. Mix your own designs with the built-in defaults using a typed identifier.
+Cree y registre variantes visuales personalizadas para cualquier componente. Mezcle sus propios diseños con los valores predeterminados incorporados utilizando un identificador escrito.
+
+
+
+
+
+# Every variant type inherits <code>Variant</code> and exposes static named instances.
+Cada tipo de variante hereda <code>Variant</code> y expone instancias con nombre estático.
+
+
+
+
+
+# For one-off layouts you'd rather inline, use the component's slots (e.g. <code>ChildContent</code>, <code>Header</code>) instead of a registered variant.
+Para diseños únicos que prefiera en línea, use las ranuras del componente (por ejemplo, <code>ChildContent</code>, <code>Header</code>) en lugar de una variante registrada.
+
+
+
+
+
+# How Variants are defined
+Cómo se definen las variantes
+
+
+
+
+
+# MyBOBButton.razor
+MyBOBButton.razor
+
+
+
+
+
+# MyPage.razor
+Mi página.razor
+
+
+
+
+
+# Pass your custom variant through the component's <code>Variant</code> parameter. The framework calls your registered <code>RenderFragment</code> with the live component instance, so you can bind to its parameters, state, and callbacks.
+Pase su variante personalizada a través del parámetro <code>Variant</code> del componente. El marco llama a su RenderFragment <code>registrado</code> con la instancia del componente en vivo, para que pueda vincularse a sus parámetros, estado y devoluciones de llamada.
+
+
+
+
+
+# Program.cs
+Programa.cs
+
+
+
+
+
+# Register a template
+Registrar una plantilla
+
+
+
+
+
+# Register in <code>Program.cs</code> via <code>AddBlazOrbitVariants</code>. The builder's <code>ForComponent&lt;T&gt;()</code> scopes registrations to a concrete component type.
+Regístrese en <code>Program.cs</code> a través de <code>AddBlazOrbitVariants</code>. El ForComponent <code>&lt;T&gt;()</code> del constructor amplía los registros a un tipo de componente concreto.
+
+
+
+
+
+# StaticTemplates.razor
+Plantillas estáticas.razor
+
+
+
+
+
+# There are many ways to register variants, depending on how closely we want them to be linked to the original component
+Hay muchas formas de registrar variantes, dependiendo de lo cerca que queramos que estén vinculadas al componente original
+
+
+
+
+
+# Tips
+Consejos
+
+
+
+
+
+# Use the variant
+La variante
+
+
+
+
+
+# Variants
+Variantes
+
+
+
+
+
+# Variants always run through <code>BOBComponentAttributesBuilder</code> first — the root <code>&lt;bob-component&gt;</code> gets the usual <code>data-bob-*</code> treatment whether you override the template or not.
+Las variantes siempre pasan por <code>BOBComponentAttributesBuilder</code> primero: la raíz <code>&lt; bob-component&gt;</code> recibe el tratamiento habitual <code>de data-bob-*</code>, ya sea que anule la plantilla o no.
+
+
+
+
+
+# Variants are <strong>singletons</strong>. Don't close over mutable state; use component parameters instead.
+Las variantes son <strong>singletones</strong>. No cierre sobre el estado mutable; use parámetros de componente en su lugar.
+
+
+
+
+
+# What a variant is
+Qué es una variante
+

@@ -41,14 +41,18 @@ public class CssAuditTests
 
     private static readonly Regex DataAttrLiteral =
         new(@"data-bob-" + NamePart, RegexOptions.Compiled);
+
     private static readonly Regex DataAttrSelector =
         new(@"\[data-bob-" + NamePart, RegexOptions.Compiled);
+
     // TypeScript references can appear inside quotes, backticks (template literals),
     // or even concatenated strings. We use the same extractor as C#/Razor since the
     // literal prefix 'data-bob-' is unambiguous inside .ts files.
     private static readonly Regex DataAttrInTypeScript = DataAttrLiteral;
+
     private static readonly Regex InlineVarReference =
         new(@"var\(\s*--bob-inline-" + NamePart, RegexOptions.Compiled);
+
     private static readonly Regex InlineVarLiteral =
         new(@"--bob-inline-" + NamePart, RegexOptions.Compiled);
 
@@ -103,14 +107,14 @@ public class CssAuditTests
             .OrderBy(s => s, StringComparer.Ordinal);
 
         orphans.Should().BeEmpty(
-            because: "every data-bob-* the code writes onto the DOM must be selected by at least one " +
-                     "CSS rule, or be consumed by TypeScript under src/BlazOrbit/Types. " +
-                     "Otherwise the attribute is dead weight or styling is missing. Add the " +
-                     "matching selector under src/BlazOrbit/CssBundle (global) or alongside " +
-                     "the component's .razor.css (scoped). If the attribute is a pure JS sink, " +
-                     "reference it in TypeScript so the auto-detector picks it up, or add a " +
-                     "justified entry to DomOnlyAllowlist.\n\nOffending attributes:\n  " +
-                     string.Join("\n  ", orphans.Select(o => $"data-bob-{o}")));
+            "every data-bob-* the code writes onto the DOM must be selected by at least one " +
+            "CSS rule, or be consumed by TypeScript under src/BlazOrbit/Types. " +
+            "Otherwise the attribute is dead weight or styling is missing. Add the " +
+            "matching selector under src/BlazOrbit/CssBundle (global) or alongside " +
+            "the component's .razor.css (scoped). If the attribute is a pure JS sink, " +
+            "reference it in TypeScript so the auto-detector picks it up, or add a " +
+            "justified entry to DomOnlyAllowlist.\n\nOffending attributes:\n  " +
+            string.Join("\n  ", orphans.Select(o => $"data-bob-{o}")));
     }
 
     [Fact]
@@ -125,12 +129,12 @@ public class CssAuditTests
             .OrderBy(s => s, StringComparer.Ordinal);
 
         orphans.Should().BeEmpty(
-            because: "every [data-bob-*] selector in CSS must have a code source that emits the " +
-                     "attribute, otherwise the rule never matches in production. Either add the emitter " +
-                     "(component override of BuildComponentDataAttributes / FeatureDefinitions constant) " +
-                     "or drop the selector. JS-driven attributes belong in CssOnlyAllowlist with a " +
-                     "justification.\n\nOffending selectors:\n  " +
-                     string.Join("\n  ", orphans.Select(o => $"[data-bob-{o}]")));
+            "every [data-bob-*] selector in CSS must have a code source that emits the " +
+            "attribute, otherwise the rule never matches in production. Either add the emitter " +
+            "(component override of BuildComponentDataAttributes / FeatureDefinitions constant) " +
+            "or drop the selector. JS-driven attributes belong in CssOnlyAllowlist with a " +
+            "justification.\n\nOffending selectors:\n  " +
+            string.Join("\n  ", orphans.Select(o => $"[data-bob-{o}]")));
     }
 
     [Fact]
@@ -138,7 +142,7 @@ public class CssAuditTests
     {
         HashSet<string> declared = GetFeatureDefinitionsInlineVariables();
         declared.Should().NotBeEmpty(
-            because: "FeatureDefinitions.InlineVariables must expose the canonical --bob-inline-* names");
+            "FeatureDefinitions.InlineVariables must expose the canonical --bob-inline-* names");
 
         HashSet<string> referenced = ExtractInlineVarReferencesFromCss();
 
@@ -148,12 +152,12 @@ public class CssAuditTests
             .OrderBy(s => s, StringComparer.Ordinal);
 
         orphans.Should().BeEmpty(
-            because: "every FeatureDefinitions.InlineVariables constant must be consumed by at least " +
-                     "one CSS rule via var(--bob-inline-*). An unconsumed constant is dead surface that " +
-                     "components emit into 'style' for nothing. Either drop the constant or wire a " +
-                     "CSS reference; document temporary exceptions in InlineVarOrphanAllowlist.\n\n" +
-                     "Unreferenced inline variables:\n  " +
-                     string.Join("\n  ", orphans.Select(o => $"--bob-inline-{o}")));
+            "every FeatureDefinitions.InlineVariables constant must be consumed by at least " +
+            "one CSS rule via var(--bob-inline-*). An unconsumed constant is dead surface that " +
+            "components emit into 'style' for nothing. Either drop the constant or wire a " +
+            "CSS reference; document temporary exceptions in InlineVarOrphanAllowlist.\n\n" +
+            "Unreferenced inline variables:\n  " +
+            string.Join("\n  ", orphans.Select(o => $"--bob-inline-{o}")));
     }
 
     /// <summary>
@@ -183,11 +187,13 @@ public class CssAuditTests
             }
             else if (css.Contains(key))
             {
-                stale.Add($"DomOnlyAllowlist[\"{key}\"] — CSS now selects on [data-bob-{key}]; remove the allowlist entry");
+                stale.Add(
+                    $"DomOnlyAllowlist[\"{key}\"] — CSS now selects on [data-bob-{key}]; remove the allowlist entry");
             }
             else if (ts.Contains(key))
             {
-                stale.Add($"DomOnlyAllowlist[\"{key}\"] — TypeScript now references data-bob-{key}; remove the allowlist entry (auto-detected)");
+                stale.Add(
+                    $"DomOnlyAllowlist[\"{key}\"] — TypeScript now references data-bob-{key}; remove the allowlist entry (auto-detected)");
             }
         }
 
@@ -207,18 +213,20 @@ public class CssAuditTests
         {
             if (!declared.Contains(key))
             {
-                stale.Add($"InlineVarOrphanAllowlist[\"{key}\"] — FeatureDefinitions no longer declares --bob-inline-{key}");
+                stale.Add(
+                    $"InlineVarOrphanAllowlist[\"{key}\"] — FeatureDefinitions no longer declares --bob-inline-{key}");
             }
             else if (referenced.Contains(key))
             {
-                stale.Add($"InlineVarOrphanAllowlist[\"{key}\"] — CSS now references --bob-inline-{key}; remove the allowlist entry");
+                stale.Add(
+                    $"InlineVarOrphanAllowlist[\"{key}\"] — CSS now references --bob-inline-{key}; remove the allowlist entry");
             }
         }
 
         stale.Should().BeEmpty(
-            because: "stale allowlist entries hide future drift. Remove the entries listed below — " +
-                     "either the underlying issue was fixed, or the surface no longer exists.\n\n" +
-                     string.Join("\n", stale));
+            "stale allowlist entries hide future drift. Remove the entries listed below — " +
+            "either the underlying issue was fixed, or the surface no longer exists.\n\n" +
+            string.Join("\n", stale));
     }
 
     [Fact]
@@ -236,11 +244,11 @@ public class CssAuditTests
             .OrderBy(s => s, StringComparer.Ordinal);
 
         hardcoded.Should().BeEmpty(
-            because: "every --bob-inline-* token in code or CSS must be declared in " +
-                     "FeatureDefinitions.InlineVariables, so that the canonical name is the source of " +
-                     "truth. Hard-coded tokens drift between emitters and consumers.\n\nMissing " +
-                     "FeatureDefinitions entries:\n  " +
-                     string.Join("\n  ", hardcoded.Select(o => $"--bob-inline-{o}")));
+            "every --bob-inline-* token in code or CSS must be declared in " +
+            "FeatureDefinitions.InlineVariables, so that the canonical name is the source of " +
+            "truth. Hard-coded tokens drift between emitters and consumers.\n\nMissing " +
+            "FeatureDefinitions entries:\n  " +
+            string.Join("\n  ", hardcoded.Select(o => $"--bob-inline-{o}")));
     }
 
     private static HashSet<string> ExtractFromCode()
@@ -248,7 +256,7 @@ public class CssAuditTests
         IEnumerable<string> roots =
         [
             SrcBlazOrbit,
-            SrcCore,
+            SrcCore
         ];
 
         HashSet<string> result = new(StringComparer.Ordinal);
@@ -394,7 +402,7 @@ public class CssAuditTests
         IEnumerable<string> roots =
         [
             SrcBlazOrbit,
-            SrcCore,
+            SrcCore
         ];
         HashSet<string> result = new(StringComparer.Ordinal);
         foreach (string root in roots)

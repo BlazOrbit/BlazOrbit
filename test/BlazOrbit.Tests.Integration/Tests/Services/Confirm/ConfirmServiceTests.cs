@@ -17,7 +17,7 @@ public class BOBConfirmServiceTests
                 Arg.Any<DialogOptions?>())
             .Returns(Task.FromResult(true));
 
-        IConfirmService svc = new BlazOrbit.Components.Layout.ConfirmService(modal);
+        IConfirmService svc = new ConfirmService(modal);
 
         bool result = await svc.AskAsync("title", "message");
 
@@ -34,7 +34,7 @@ public class BOBConfirmServiceTests
                 Arg.Any<DialogOptions?>())
             .Returns(Task.FromResult(false));
 
-        IConfirmService svc = new BlazOrbit.Components.Layout.ConfirmService(modal);
+        IConfirmService svc = new ConfirmService(modal);
 
         bool result = await svc.AskAsync("title", "message");
 
@@ -53,7 +53,7 @@ public class BOBConfirmServiceTests
                 Arg.Any<DialogOptions?>())
             .Returns(tcs.Task);
 
-        IConfirmService svc = new BlazOrbit.Components.Layout.ConfirmService(modal);
+        IConfirmService svc = new ConfirmService(modal);
 
         bool result = await svc.AskAsync(
             "title",
@@ -74,14 +74,14 @@ public class BOBConfirmServiceTests
                 Arg.Any<DialogOptions?>())
             .Returns(Task.FromResult(true));
 
-        IConfirmService svc = new BlazOrbit.Components.Layout.ConfirmService(modal);
+        IConfirmService svc = new ConfirmService(modal);
 
         await svc.AskAsync(
-            title: "Delete?",
-            message: "This cannot be undone.",
-            severity: ConfirmSeverity.Danger,
-            yesLabel: "Delete",
-            noLabel: "Keep");
+            "Delete?",
+            "This cannot be undone.",
+            ConfirmSeverity.Danger,
+            "Delete",
+            "Keep");
 
         capturedParams.Should().NotBeNull();
         // Anonymous-object property bag — verify via reflection.
@@ -103,7 +103,7 @@ public class BOBConfirmServiceTests
                 Arg.Do<DialogOptions?>(o => capturedOpts = o))
             .Returns(Task.FromResult(false));
 
-        IConfirmService svc = new BlazOrbit.Components.Layout.ConfirmService(modal);
+        IConfirmService svc = new ConfirmService(modal);
 
         await svc.AskAsync("t", "m");
 

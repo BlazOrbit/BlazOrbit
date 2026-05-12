@@ -15,7 +15,7 @@
     background: var(--_sidebar-layout-bg);
     color: var(--_sidebar-layout-fg);
     box-sizing: border-box;
-    gap:0px;
+    gap: 0px;
 }
 
 [data-bob-component="sidebar-layout"] .bob-sidebar-layout__header {
@@ -110,7 +110,7 @@
     border-right: 1px solid var(--_sidebar-layout-border);
     background: var(--_sidebar-layout-surface);
     min-width: 0;
-    z-index:1100;
+    z-index: 1100;
 }
 
 [data-bob-component="sidebar-layout"][data-bob-sidebar-side="end"] .bob-sidebar-layout__sidebar {
@@ -160,8 +160,12 @@
 }
 
 @keyframes bob-sidebar-layout-fade {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 @media (max-width: 960px) {

@@ -31,7 +31,7 @@ public class BOBCardSnapshotTests
                 .Add(c => c.ChildContent, b => b.AddContent(0, "Body"))),
             ("WithActions", p => p
                 .Add(c => c.Actions, b => b.AddContent(0, "Save"))
-                .Add(c => c.ChildContent, b => b.AddContent(0, "Body"))),
+                .Add(c => c.ChildContent, b => b.AddContent(0, "Body")))
         ];
 
         var results = testCases.Select(tc =>
@@ -40,6 +40,6 @@ public class BOBCardSnapshotTests
             return new { tc.Name, Html = cut.GetNormalizedMarkup() };
         }).ToArray();
 
-        await Verifier.Verify(results).UseParameters(scenario.Name);
+        await Verify(results).UseParameters(scenario.Name);
     }
 }

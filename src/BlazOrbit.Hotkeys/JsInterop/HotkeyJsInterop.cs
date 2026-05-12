@@ -17,7 +17,11 @@ internal sealed class HotkeyJsInterop : ModuleJsInteropBase, IHotkeyJsInterop
     public async ValueTask AttachAsync(string hostId, DotNetObjectReference<HotkeyHostRelay> relay)
     {
         IJSObjectReference? module = await TryGetModuleAsync();
-        if (module is null) return;
+        if (module is null)
+        {
+            return;
+        }
+
         await module.InvokeVoidAsync("attach", hostId, relay);
     }
 
@@ -31,7 +35,11 @@ internal sealed class HotkeyJsInterop : ModuleJsInteropBase, IHotkeyJsInterop
     public async ValueTask RegisterComboAsync(string hostId, string combo, bool preventDefault)
     {
         IJSObjectReference? module = await TryGetModuleAsync();
-        if (module is null) return;
+        if (module is null)
+        {
+            return;
+        }
+
         await module.InvokeVoidAsync("registerCombo", hostId, combo, preventDefault);
     }
 

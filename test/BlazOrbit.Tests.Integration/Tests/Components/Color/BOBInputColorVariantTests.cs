@@ -11,7 +11,11 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Color;
 [Trait("Component Variants", "BOBInputColor")]
 public class BOBInputColorVariantTests
 {
-    private class DummyModel { public CssColor? Value { get; set; } }
+    private class DummyModel
+    {
+        public CssColor? Value { get; set; }
+    }
+
     private static readonly DummyModel _dm = new();
     private static readonly Expression<Func<CssColor?>> _expr = () => _dm.Value;
 

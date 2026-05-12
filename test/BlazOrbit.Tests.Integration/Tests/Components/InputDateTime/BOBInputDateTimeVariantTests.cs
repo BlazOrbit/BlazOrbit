@@ -10,7 +10,11 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.InputDateTime;
 [Trait("Component Variants", "BOBInputDateTime")]
 public class BOBInputDateTimeVariantTests
 {
-    private class DummyModel { public DateOnly? Value { get; set; } }
+    private class DummyModel
+    {
+        public DateOnly? Value { get; set; }
+    }
+
     private static readonly DummyModel _dm = new();
     private static readonly Expression<Func<DateOnly?>> _expr = () => _dm.Value;
 

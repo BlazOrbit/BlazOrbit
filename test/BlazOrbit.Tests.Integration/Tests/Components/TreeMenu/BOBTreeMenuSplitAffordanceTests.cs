@@ -59,14 +59,18 @@ public class BOBTreeMenuSplitAffordanceTests
 
         IRenderedComponent<BOBTreeMenu<object>> cut = ctx.Render<BOBTreeMenu<object>>(p => p
             .Add(c => c.ChildContent, ContainerWithChildrenMarkup)
-            .Add(c => c.OnNavigate, _ => { navigated = true; return Task.CompletedTask; }));
+            .Add(c => c.OnNavigate, _ =>
+            {
+                navigated = true;
+                return Task.CompletedTask;
+            }));
 
         // Click the chevron toggle.
         cut.Find(".bob-tree-menu__toggle-btn").Click();
 
         cut.Find(".bob-tree-menu__toggle-btn").GetAttribute("aria-expanded")
-            .Should().Be("true", because: "the toggle button must expand the subtree");
-        navigated.Should().BeFalse(because: "the chevron must not trigger OnNavigate");
+            .Should().Be("true", "the toggle button must expand the subtree");
+        navigated.Should().BeFalse("the chevron must not trigger OnNavigate");
         cut.FindAll(".bob-tree-menu__submenu--inline").Should().HaveCount(1);
     }
 
@@ -79,16 +83,20 @@ public class BOBTreeMenuSplitAffordanceTests
 
         IRenderedComponent<BOBTreeMenu<object>> cut = ctx.Render<BOBTreeMenu<object>>(p => p
             .Add(c => c.ChildContent, ContainerWithChildrenMarkup)
-            .Add(c => c.OnNavigate, href => { navigatedTo = href; return Task.CompletedTask; }));
+            .Add(c => c.OnNavigate, href =>
+            {
+                navigatedTo = href;
+                return Task.CompletedTask;
+            }));
 
         // Click the label anchor.
         cut.Find(".bob-tree-menu__row a.bob-tree-menu__link").Click();
 
         navigatedTo.Should().Be("/components",
-            because: "the OnNavigate callback fires with the link's href");
+            "the OnNavigate callback fires with the link's href");
         cut.Find(".bob-tree-menu__toggle-btn").GetAttribute("aria-expanded")
             .Should().Be("true",
-                because: "clicking the link auto-expands the subtree so siblings appear");
+                "clicking the link auto-expands the subtree so siblings appear");
     }
 
     [Theory]

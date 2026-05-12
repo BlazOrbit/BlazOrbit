@@ -4,7 +4,7 @@
 
 <div class="test-autocomplete-consumer">
     <EditForm EditContext="_editContext" OnValidSubmit="HandleValid" OnInvalidSubmit="HandleInvalid">
-        <DataAnnotationsValidator />
+        <DataAnnotationsValidator/>
 
         <BOBAutoComplete TItem="string"
                          @bind-Value="_model.Country"
@@ -14,7 +14,7 @@
                          UnresolvedStringError="@UnresolvedStringError"
                          DebounceMs="0"
                          Label="Country"
-                         HelperText="Pick a country" />
+                         HelperText="Pick a country"/>
 
         <button type="submit" class="submit-btn">Submit</button>
     </EditForm>
@@ -22,22 +22,26 @@
 </div>
 
 @code {
+
     public class CountryModel
     {
         [Required(ErrorMessage = "Country is required")]
         public string? Country { get; set; }
     }
 
-    private static readonly string[] _items = { "Spain", "Sweden", "Switzerland" };
+    private static readonly string[] _items = ["Spain", "Sweden", "Switzerland"];
 
     private CountryModel _model = new();
     private EditContext? _editContext;
     private string _submitResult = string.Empty;
 
     /// <summary>Optional resolver passed through to BOBAutoComplete to exercise the free-text EditContext path.</summary>
-    [Parameter] public Func<string, string?>? StringToItem { get; set; }
+    [Parameter]
+    public Func<string, string?>? StringToItem { get; set; }
+
     /// <summary>Optional validation message for the unresolved-string case.</summary>
-    [Parameter] public string? UnresolvedStringError { get; set; }
+    [Parameter]
+    public string? UnresolvedStringError { get; set; }
 
     protected override void OnInitialized()
     {
@@ -46,9 +50,19 @@
 
     public CountryModel BoundModel => _model;
 
-    private Task<IEnumerable<string>> Search(string q, CancellationToken ct) =>
-        Task.FromResult(_items.Where(i => i.Contains(q, StringComparison.OrdinalIgnoreCase)));
+    private Task<IEnumerable<string>> Search(string q, CancellationToken ct)
+    {
+        return Task.FromResult(_items.Where(i => i.Contains(q, StringComparison.OrdinalIgnoreCase)));
+    }
 
-    private void HandleValid() => _submitResult = "valid";
-    private void HandleInvalid() => _submitResult = "invalid";
+    private void HandleValid()
+    {
+        _submitResult = "valid";
+    }
+
+    private void HandleInvalid()
+    {
+        _submitResult = "invalid";
+    }
+
 }

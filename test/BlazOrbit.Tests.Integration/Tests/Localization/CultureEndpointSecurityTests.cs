@@ -20,13 +20,13 @@ public class CultureEndpointSecurityTests
     {
         return await new HostBuilder()
             .ConfigureWebHost(webHost => webHost
-                    .UseTestServer()
-                    .ConfigureServices(services => services.AddBlazOrbitLocalizationServer(configure))
-                    .Configure(app => app.Run(async context =>
-                        {
-                            context.Response.StatusCode = StatusCodes.Status200OK;
-                            await context.Response.WriteAsync("OK", TestContext.Current.CancellationToken);
-                        })))
+                .UseTestServer()
+                .ConfigureServices(services => services.AddBlazOrbitLocalizationServer(configure))
+                .Configure(app => app.Run(async context =>
+                {
+                    context.Response.StatusCode = StatusCodes.Status200OK;
+                    await context.Response.WriteAsync("OK", TestContext.Current.CancellationToken);
+                })))
             .StartAsync(TestContext.Current.CancellationToken);
     }
 
@@ -94,11 +94,11 @@ public class CultureEndpointSecurityTests
     }
 
     [Theory]
-    [InlineData("https://evil.com")]          // absolute URL
-    [InlineData("//evil.com")]                // scheme-relative
-    [InlineData("http:evil.com")]             // colon trick — parsed as relative by Uri but absolute by browser
-    [InlineData("/\\evil.com")]               // backslash trick — IE/Edge quirk
-    [InlineData("")]                          // empty
+    [InlineData("https://evil.com")] // absolute URL
+    [InlineData("//evil.com")] // scheme-relative
+    [InlineData("http:evil.com")] // colon trick — parsed as relative by Uri but absolute by browser
+    [InlineData("/\\evil.com")] // backslash trick — IE/Edge quirk
+    [InlineData("")] // empty
     public async Task Should_Fallback_To_Root_For_Untrusted_RedirectUri(string redirectUri)
     {
         // Arrange

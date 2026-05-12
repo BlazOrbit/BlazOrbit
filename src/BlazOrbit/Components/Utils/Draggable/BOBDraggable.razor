@@ -23,17 +23,28 @@
     [Inject] private IDraggableJsInterop JsInterop { get; set; } = default!;
 
     /// <summary>Content rendered inside the component.</summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     /// <summary>Raised when the DragStart event occurs.</summary>
-    [Parameter] public EventCallback<DragEventArgs> OnDragStart { get; set; }
+    [Parameter]
+    public EventCallback<DragEventArgs> OnDragStart { get; set; }
+
     /// <summary>Raised when the Drag event occurs.</summary>
-    [Parameter] public EventCallback<DragEventArgs> OnDrag { get; set; }
+    [Parameter]
+    public EventCallback<DragEventArgs> OnDrag { get; set; }
+
     /// <summary>Raised when the DragEnd event occurs.</summary>
-    [Parameter] public EventCallback<DragEventArgs> OnDragEnd { get; set; }
+    [Parameter]
+    public EventCallback<DragEventArgs> OnDragEnd { get; set; }
+
     /// <summary>PreventDefault.</summary>
-    [Parameter] public bool PreventDefault { get; set; } = true;
+    [Parameter]
+    public bool PreventDefault { get; set; } = true;
+
     /// <summary>When <see langword="true" />, the component is non-interactive.</summary>
-    [Parameter] public bool Disabled { get; set; }
+    [Parameter]
+    public bool Disabled { get; set; }
 
     private async Task HandleMouseDown(MouseEventArgs e)
     {
@@ -65,13 +76,26 @@
     {
         if (_isDragging)
         {
-            try { await JsInterop.StopDragAsync(_componentId); }
-            catch (Microsoft.JSInterop.JSDisconnectedException) { }
-            catch (ObjectDisposedException) { }
-            catch (InvalidOperationException) { }
-            catch (TaskCanceledException) { }
+            try
+            {
+                await JsInterop.StopDragAsync(_componentId);
+            }
+            catch (Microsoft.JSInterop.JSDisconnectedException)
+            {
+            }
+            catch (ObjectDisposedException)
+            {
+            }
+            catch (InvalidOperationException)
+            {
+            }
+            catch (TaskCanceledException)
+            {
+            }
         }
+
         _callbacksRelay?.Dispose();
         await base.DisposeAsync();
     }
+
 }

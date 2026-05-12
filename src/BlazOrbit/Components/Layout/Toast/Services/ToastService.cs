@@ -41,7 +41,8 @@ public interface IToastService
     Task ShowAsync<TComponent>(IDictionary<string, object?>? parameters) where TComponent : IComponent;
 
     /// <summary>Shows a toast that renders <typeparamref name="TComponent"/> with parameters and explicit options.</summary>
-    Task ShowAsync<TComponent>(IDictionary<string, object?>? parameters, ToastOptions? options) where TComponent : IComponent;
+    Task ShowAsync<TComponent>(IDictionary<string, object?>? parameters, ToastOptions? options)
+        where TComponent : IComponent;
 }
 
 /// <summary>Default <see cref="IToastService"/> implementation registered by <c>AddBlazOrbit()</c>.</summary>
@@ -154,11 +155,7 @@ public sealed class ToastService : IToastService, IDisposable
     /// <summary>Shows a toast whose body is the supplied <see cref="RenderFragment"/>.</summary>
     public Task ShowFragmentAsync(RenderFragment content, ToastOptions? options = null)
     {
-        ToastState state = new()
-        {
-            Content = content,
-            Options = options ?? ToastOptions.Default
-        };
+        ToastState state = new() { Content = content, Options = options ?? ToastOptions.Default };
 
         return AddToastAsync(state);
     }
@@ -177,13 +174,16 @@ public sealed class ToastService : IToastService, IDisposable
     public Task ShowAsync<TComponent>() where TComponent : IComponent => ShowAsync<TComponent>(null, null);
 
     /// <inheritdoc />
-    public Task ShowAsync<TComponent>(ToastOptions? options) where TComponent : IComponent => ShowAsync<TComponent>(null, options);
+    public Task ShowAsync<TComponent>(ToastOptions? options) where TComponent : IComponent =>
+        ShowAsync<TComponent>(null, options);
 
     /// <inheritdoc />
-    public Task ShowAsync<TComponent>(IDictionary<string, object?>? parameters) where TComponent : IComponent => ShowAsync<TComponent>(parameters, null);
+    public Task ShowAsync<TComponent>(IDictionary<string, object?>? parameters) where TComponent : IComponent =>
+        ShowAsync<TComponent>(parameters, null);
 
     /// <inheritdoc />
-    public Task ShowAsync<TComponent>(IDictionary<string, object?>? parameters, ToastOptions? options) where TComponent : IComponent
+    public Task ShowAsync<TComponent>(IDictionary<string, object?>? parameters, ToastOptions? options)
+        where TComponent : IComponent
     {
         void fragment(RenderTreeBuilder builder)
         {

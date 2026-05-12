@@ -38,5 +38,5 @@ public enum BOBCarouselTransition
     /// viewport with a fixed inward tilt. Side slides keep their size and stay visible, giving
     /// the impression of a constant 3D scene rather than a deep orbit.
     /// </summary>
-    Wheel3D = 5,
+    Wheel3D = 5
 }

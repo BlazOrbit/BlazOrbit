@@ -16,32 +16,32 @@ public static class BOBTransitionPresets
 
     public static BOBTransitions HoverLift => new BOBTransitionsBuilder()
         .OnHover()
-            .Translate("0", "-4px")
-            .BoxShadow(BOBShadowPresets.Elevation(4))
+        .Translate("0", "-4px")
+        .BoxShadow(BOBShadowPresets.Elevation(4))
         .Build();
 
     public static BOBTransitions HoverGlow => new BOBTransitionsBuilder()
         .OnHover()
-            .BoxShadow(ShadowStyle.Create(
-                    y: 0,
-                    blur: 20,
-                    opacity: 0.5f,
-                    x: 0,
-                    spread: 0,
-                    color: PaletteColor.Shadow,
-                    inset: false
-                ))
-            .Scale(1.02f)
+        .BoxShadow(ShadowStyle.Create(
+            0,
+            20,
+            0.5f,
+            0,
+            0,
+            PaletteColor.Shadow,
+            false
+        ))
+        .Scale(1.02f)
         .Build();
 
     public static BOBTransitions CardHover => new BOBTransitionsBuilder()
         .OnHover()
-            .Translate("0", "-4px", t =>
-            {
-                t.Duration = TimeSpan.FromMilliseconds(300);
-                t.Easing = e => e.CubicBezier().MaterialStandard();
-            })
-            .BoxShadow(BOBShadowPresets.Elevation(8))
+        .Translate("0", "-4px", t =>
+        {
+            t.Duration = TimeSpan.FromMilliseconds(300);
+            t.Easing = e => e.CubicBezier().MaterialStandard();
+        })
+        .BoxShadow(BOBShadowPresets.Elevation(8))
         .Build();
 
     public static BOBTransitions FocusRing => new BOBTransitionsBuilder()
@@ -50,8 +50,8 @@ public static class BOBTransitionPresets
 
     public static BOBTransitions Interactive => new BOBTransitionsBuilder()
         .OnHover()
-            .Translate("0", "-4px")
-            .BoxShadow(BOBShadowPresets.Elevation(4))
+        .Translate("0", "-4px")
+        .BoxShadow(BOBShadowPresets.Elevation(4))
         .And()
         .OnFocus().BoxShadow(BOBShadowPresets.Elevation(2))
         .And()
@@ -74,28 +74,28 @@ public static class BOBTransitionPresets
 
     public static BOBTransitions PremiumButton => new BOBTransitionsBuilder()
         .OnHover()
-            .Scale(1.05f, t =>
-            {
-                t.Duration = TimeSpan.FromMilliseconds(200);
-                t.Easing = e => e.CubicBezier().MaterialStandard();
-            })
-            .BoxShadow(
-                BOBShadowPresets.Elevation(12))
+        .Scale(1.05f, t =>
+        {
+            t.Duration = TimeSpan.FromMilliseconds(200);
+            t.Easing = e => e.CubicBezier().MaterialStandard();
+        })
+        .BoxShadow(
+            BOBShadowPresets.Elevation(12))
         .And()
         .OnActive().Scale(0.98f, t => t.Duration = TimeSpan.FromMilliseconds(50))
         .Build();
 
     public static BOBTransitions GlassMorphism => new BOBTransitionsBuilder()
         .OnHover()
-            .BackdropFilter("blur(16px)")
-            .BoxShadow(BOBShadowPresets.Elevation(6))
-            .Scale(1.02f)
+        .BackdropFilter("blur(16px)")
+        .BoxShadow(BOBShadowPresets.Elevation(6))
+        .Scale(1.02f)
         .Build();
 
     public static BOBTransitions Neumorphism => new BOBTransitionsBuilder()
         .OnHover().BoxShadow(
-            ShadowStyle.Create(8, 16, 0.1f, x: 8)
-                .Add(-8, 16, 0.7f, x: -8, color: "#ffffff"))
+            ShadowStyle.Create(8, 16, 0.1f, 8)
+                .Add(-8, 16, 0.7f, -8, color: "#ffffff"))
         .Build();
 
     public static BOBTransitionsBuilder Create() => new();

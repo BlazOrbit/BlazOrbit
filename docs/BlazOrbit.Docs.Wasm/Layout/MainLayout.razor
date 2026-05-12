@@ -1,26 +1,28 @@
 ﻿@inherits LayoutComponentBase
+@inject IStringLocalizer<MainLayout> Loc
 
 <BOBInitializer DefaultTheme="dark">
     <BOBSidebarLayout HeaderHeight="68px" SidebarWidth="280px">
         <Header>
-            <a class="doc-header__brand" href="/" aria-label="BlazOrbit home">
-                <img src="icon-48.png" alt="BlazOrbit Icon" width="48" height="48" aria-hidden="true" />
+            <a class="doc-header__brand" href="/" aria-label="@Loc["BlazOrbit home"]">
+                <img src="icon-48.png" alt="@Loc["BlazOrbit Icon"]" width="48" height="48" aria-hidden="true"/>
             </a>
             <nav class="doc-header__actions">
                 <a class="doc-header__link" href="https://discord.gg/CmBtHkn2zn" target="_blank" rel="noopener">
-                    <BOBSvgIcon Icon="BOBIconKeys.Brands.Discord" />
+                    <BOBSvgIcon Icon="BOBIconKeys.Brands.Discord"/>
                 </a>
-                <a class="doc-header__link" href="https://github.com/BlazOrbit/BlazOrbit" target="_blank" rel="noopener">
-                    <BOBSvgIcon Icon="BOBIconKeys.Brands.GitHub" />
+                <a class="doc-header__link" href="https://github.com/BlazOrbit/BlazOrbit" target="_blank"
+                   rel="noopener">
+                    <BOBSvgIcon Icon="BOBIconKeys.Brands.GitHub"/>
                 </a>
                 <BlazOrbit.Components.Wasm.BOBCultureSelector Size="BOBSize.Small"
                                                               Variant="BOBCultureSelectorVariant.Dropdown"
-                                                              ForceReload="true" />
-                <BOBThemeSelector Variant="BOBThemeSelectorVariant.SunMoon" />
+                                                              ForceReload="true"/>
+                <BOBThemeSelector Variant="BOBThemeSelectorVariant.SunMoon"/>
             </nav>
         </Header>
         <Sidebar>
-            <NavMenu />
+            <NavMenu/>
         </Sidebar>
         <ChildContent>
             <div class="doc-content__wrapper">
@@ -30,6 +32,6 @@
     </BOBSidebarLayout>
 </BOBInitializer>
 
-<BOBModalHost />
-<BOBToastHost MaxVisiblePerPosition="5" />
-<BOBHotkeyHost />
+<BOBModalHost/>
+<BOBToastHost MaxVisiblePerPosition="5"/>
+<BOBHotkeyHost/>

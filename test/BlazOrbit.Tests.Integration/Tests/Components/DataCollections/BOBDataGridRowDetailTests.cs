@@ -12,11 +12,7 @@ public class BOBDataGridRowDetailTests
 {
     private sealed record Order(int Id, string Customer, decimal Total);
 
-    private static IEnumerable<Order> Items => new[]
-    {
-        new Order(1, "ACME", 120m),
-        new Order(2, "Globex", 240m),
-    };
+    private static IEnumerable<Order> Items => [new Order(1, "ACME", 120m), new Order(2, "Globex", 240m)];
 
     private static RenderFragment Columns => b =>
     {

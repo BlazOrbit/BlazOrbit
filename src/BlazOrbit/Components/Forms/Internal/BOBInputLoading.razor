@@ -2,14 +2,21 @@
 
 @if (Loading)
 {
-    <_BOBAddon Loading="true" LoadingIndicatorVariant="@LoadingIndicatorVariant" Size="Size" />
+    <_BOBInAddon Loading="true" LoadingIndicatorVariant="@LoadingIndicatorVariant" Size="Size"/>
 }
 
 @code {
+
     /// <summary>When <see langword="true" />, the component shows a loading indicator.</summary>
-    [Parameter] public bool Loading { get; set; }
+    [Parameter]
+    public bool Loading { get; set; }
+
     /// <summary>Variant of the loading indicator shown when <see cref="Loading"/> is <see langword="true"/>.</summary>
-    [Parameter] public BOBProgressIconVariant LoadingIndicatorVariant { get; set; } = BOBProgressIconVariant.Ring;
+    [Parameter]
+    public BOBProgressIconVariant LoadingIndicatorVariant { get; set; } = BOBProgressIconVariant.Ring;
+
     /// <summary>Visual size of the component.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
+
 }

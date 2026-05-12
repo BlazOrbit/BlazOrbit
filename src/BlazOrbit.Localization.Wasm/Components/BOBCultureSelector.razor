@@ -19,15 +19,17 @@
 }
 
 @code {
+
     /// <summary>When <see langword="true" />, switching cultures hard-reloads the page. Otherwise the culture is updated in place via <see cref="CultureInfo.CurrentCulture"/>.</summary>
-    [Parameter] public override bool ForceReload { get; set; }
+    [Parameter]
+    public override bool ForceReload { get; set; }
 
     protected override async Task SetCultureAsync(string cultureName)
     {
         if (string.IsNullOrEmpty(cultureName) || cultureName == _currentCulture.Name)
             return;
 
-        CultureInfo? newCulture = WasmSettings.SupportedCultures
+        var newCulture = WasmSettings.SupportedCultures
             .FirstOrDefault(c => c.Name == cultureName);
 
         if (newCulture == null)
@@ -39,7 +41,7 @@
 
             if (ForceReload)
             {
-                Navigation.NavigateTo(Navigation.Uri, forceLoad: true);
+                Navigation.NavigateTo(Navigation.Uri, true);
             }
             else
             {
@@ -59,4 +61,5 @@
             Console.Error.WriteLine($"Error setting culture: {ex.Message}");
         }
     }
+
 }

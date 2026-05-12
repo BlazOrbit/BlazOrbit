@@ -52,6 +52,7 @@ public sealed class HotkeyService : IHotkeyService
                 bucket = [];
                 _entries[normalized] = bucket;
             }
+
             bucket.Add(entry);
         }
 
@@ -75,13 +76,18 @@ public sealed class HotkeyService : IHotkeyService
             {
                 return false;
             }
+
             matches = [.. bucket];
         }
 
         bool preventDefault = false;
         foreach (Entry entry in matches)
         {
-            if (entry.PreventDefault) preventDefault = true;
+            if (entry.PreventDefault)
+            {
+                preventDefault = true;
+            }
+
             try
             {
                 await entry.Handler();
@@ -93,6 +99,7 @@ public sealed class HotkeyService : IHotkeyService
                 _ = ex; // prevent CS0168 / mark intentional swallow.
             }
         }
+
         return preventDefault;
     }
 
@@ -141,19 +148,45 @@ public sealed class HotkeyService : IHotkeyService
             string t = raw.ToLowerInvariant();
             switch (t)
             {
-                case "ctrl": case "control": ctrl = true; break;
-                case "meta": case "cmd": case "command": case "win": meta = true; break;
-                case "alt": case "option": alt = true; break;
+                case "ctrl":
+                case "control": ctrl = true; break;
+                case "meta":
+                case "cmd":
+                case "command":
+                case "win": meta = true; break;
+                case "alt":
+                case "option": alt = true; break;
                 case "shift": shift = true; break;
                 default: key = t; break;
             }
         }
+
         List<string> parts = [];
-        if (ctrl) parts.Add("ctrl");
-        if (meta) parts.Add("meta");
-        if (alt) parts.Add("alt");
-        if (shift) parts.Add("shift");
-        if (!string.IsNullOrEmpty(key)) parts.Add(key);
+        if (ctrl)
+        {
+            parts.Add("ctrl");
+        }
+
+        if (meta)
+        {
+            parts.Add("meta");
+        }
+
+        if (alt)
+        {
+            parts.Add("alt");
+        }
+
+        if (shift)
+        {
+            parts.Add("shift");
+        }
+
+        if (!string.IsNullOrEmpty(key))
+        {
+            parts.Add(key);
+        }
+
         return string.Join('+', parts);
     }
 
@@ -180,7 +213,11 @@ public sealed class HotkeyService : IHotkeyService
 
         public void Dispose()
         {
-            if (_disposed) return;
+            if (_disposed)
+            {
+                return;
+            }
+
             _disposed = true;
             _service.Remove(_combo, _entry);
         }

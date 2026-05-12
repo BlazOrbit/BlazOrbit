@@ -19,9 +19,9 @@ public class BOBDataGridFilterOperatorsTests
 
     private static IEnumerable<Person> Items =>
     [
-        new("Alice",   30, new DateTime(1995, 1, 15)),
-        new("Bob",     25, new DateTime(2000, 6, 1)),
-        new("Charlie", 40, new DateTime(1985, 12, 20)),
+        new("Alice", 30, new DateTime(1995, 1, 15)),
+        new("Bob", 25, new DateTime(2000, 6, 1)),
+        new("Charlie", 40, new DateTime(1985, 12, 20))
     ];
 
     private static int RowCount(IRenderedComponent<BOBDataGrid<Person>> cut) =>
@@ -67,7 +67,8 @@ public class BOBDataGridFilterOperatorsTests
                 b.AddAttribute(2, "Property", AgeExpr);
                 b.AddAttribute(3, "Filterable", true);
                 b.AddAttribute(4, "FilterMode", ColumnFilterMode.Numeric);
-                b.AddAttribute(5, "Template", (RenderFragment<Person>)(item => b2 => b2.AddContent(0, item.Age.ToString())));
+                b.AddAttribute(5, "Template",
+                    (RenderFragment<Person>)(item => b2 => b2.AddContent(0, item.Age.ToString())));
                 b.CloseComponent();
             }));
 
@@ -104,7 +105,8 @@ public class BOBDataGridFilterOperatorsTests
                 b.AddAttribute(2, "Property", BirthExpr);
                 b.AddAttribute(3, "Filterable", true);
                 b.AddAttribute(4, "FilterMode", ColumnFilterMode.Date);
-                b.AddAttribute(5, "Template", (RenderFragment<Person>)(item => b2 => b2.AddContent(0, item.BirthDay.ToString("yyyy-MM-dd"))));
+                b.AddAttribute(5, "Template",
+                    (RenderFragment<Person>)(item => b2 => b2.AddContent(0, item.BirthDay.ToString("yyyy-MM-dd"))));
                 b.CloseComponent();
             }));
 
@@ -156,7 +158,8 @@ public class BOBDataGridFilterOperatorsTests
     public void State_SetColumnFilter_Preserves_Operator_On_Text_Update()
     {
         DataCollectionState<Person> state = new();
-        state.SetColumnFilter("Name", new ColumnFilterEntry("alice", ColumnFilterOperator.StartsWith, ColumnFilterMode.Text));
+        state.SetColumnFilter("Name",
+            new ColumnFilterEntry("alice", ColumnFilterOperator.StartsWith, ColumnFilterMode.Text));
 
         // Updating just the text via the simple overload must keep the previously
         // configured operator + mode — typing should not reset the dropdown choice.

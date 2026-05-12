@@ -22,8 +22,10 @@ public sealed class TreeStructure<TNode, TItem>
 
     /// <summary>Keys of currently expanded nodes.</summary>
     public IReadOnlySet<string> ExpandedKeys => _expandedKeys;
+
     /// <summary>Lookup from key to materialized node.</summary>
     public IReadOnlyDictionary<string, TNode> NodeMap => _nodeMap;
+
     /// <summary>Roots of the materialized tree.</summary>
     public List<TNode> RootNodes { get; } = [];
 
@@ -43,7 +45,8 @@ public sealed class TreeStructure<TNode, TItem>
 
         foreach (TItem item in items)
         {
-            TNode node = BuildNodeFromItem(item, default, 0, keySelector, childrenSelector, hasChildrenSelector, expandAll);
+            TNode node = BuildNodeFromItem(item, default, 0, keySelector, childrenSelector, hasChildrenSelector,
+                expandAll);
             RootNodes.Add(node);
         }
     }

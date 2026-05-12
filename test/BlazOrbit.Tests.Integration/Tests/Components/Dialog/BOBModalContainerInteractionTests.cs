@@ -36,7 +36,7 @@ public class BOBModalContainerInteractionTests
             ComponentType = typeof(DummyModalContent),
             Reference = reference,
             Options = new DialogOptions { Title = "Closable", Closable = true },
-            IsVisible = true,
+            IsVisible = true
         };
 
         IRenderedComponent<BOBModalContainer> cut = ctx.Render<BOBModalContainer>(p => p
@@ -63,7 +63,7 @@ public class BOBModalContainerInteractionTests
             ComponentType = typeof(DummyModalContent),
             Reference = new ModalReference("no-close", _ => Task.CompletedTask),
             Options = new DialogOptions { Title = "Non-closable", Closable = false },
-            IsVisible = true,
+            IsVisible = true
         };
 
         IRenderedComponent<BOBModalContainer> cut = ctx.Render<BOBModalContainer>(p => p
@@ -103,11 +103,8 @@ public class BOBModalContainerInteractionTests
             IsVisible = true,
             Parameters = new Dictionary<string, object?>
             {
-                ["Title"] = "Delete?",
-                ["Message"] = "Are you sure?",
-                ["YesLabel"] = "Yes",
-                ["NoLabel"] = "No",
-            },
+                ["Title"] = "Delete?", ["Message"] = "Are you sure?", ["YesLabel"] = "Yes", ["NoLabel"] = "No"
+            }
         };
 
         IRenderedComponent<BOBModalContainer> cut = ctx.Render<BOBModalContainer>(p => p

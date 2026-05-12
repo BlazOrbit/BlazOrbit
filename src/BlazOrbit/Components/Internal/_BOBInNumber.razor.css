@@ -18,26 +18,26 @@
     -moz-appearance: textfield;
 }
 
-    ._bob-simple-number:focus {
-        border-color: var(--palette-highlight);
-    }
+._bob-simple-number:focus {
+    border-color: var(--palette-highlight);
+}
 
-    ._bob-simple-number:focus-visible {
-        outline: var(--bob-highlight-outline);
-        outline-offset: var(--bob-highlight-outline-offset);
-    }
+._bob-simple-number:focus-visible {
+    outline: var(--bob-highlight-outline);
+    outline-offset: var(--bob-highlight-outline-offset);
+}
 
-    ._bob-simple-number:disabled {
-        cursor: not-allowed;
-        opacity: var(--bob-opacity-disabled);
-    }
+._bob-simple-number:disabled {
+    cursor: not-allowed;
+    opacity: var(--bob-opacity-disabled);
+}
 
-    ._bob-simple-number::placeholder {
-        opacity: var(--bob-opacity-placeholder);
-    }
+._bob-simple-number::placeholder {
+    opacity: var(--bob-opacity-placeholder);
+}
 
-    ._bob-simple-number::-webkit-outer-spin-button,
-    ._bob-simple-number::-webkit-inner-spin-button {
-        -webkit-appearance: none;
-        margin: 0;
-    }
+._bob-simple-number::-webkit-outer-spin-button,
+._bob-simple-number::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}

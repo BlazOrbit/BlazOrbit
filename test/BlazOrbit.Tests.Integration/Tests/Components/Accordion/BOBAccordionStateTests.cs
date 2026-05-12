@@ -32,7 +32,7 @@ public class BOBAccordionStateTests
 
         // Arrange & Act
         IRenderedComponent<BOBAccordion> cut = ctx.Render<BOBAccordion>(p => p
-            .Add(c => c.ExpandedItems, new[] { "b" })
+            .Add(c => c.ExpandedItems, ["b"])
             .Add(c => c.ChildContent, BuildItems()));
 
         // Assert
@@ -49,12 +49,12 @@ public class BOBAccordionStateTests
 
         // Arrange
         IRenderedComponent<BOBAccordion> cut = ctx.Render<BOBAccordion>(p => p
-            .Add(c => c.ExpandedItems, new[] { "a" })
+            .Add(c => c.ExpandedItems, ["a"])
             .Add(c => c.ChildContent, BuildItems()));
 
         // Act
         cut.Render(p => p
-            .Add(c => c.ExpandedItems, new[] { "b" })
+            .Add(c => c.ExpandedItems, ["b"])
             .Add(c => c.ChildContent, BuildItems()));
 
         // Assert
@@ -81,7 +81,7 @@ public class BOBAccordionStateTests
         }
 
         IRenderedComponent<BOBAccordion> cut = ctx.Render<BOBAccordion>(p => p
-            .Add(c => c.ExpandedItems, Array.Empty<string>())
+            .Add(c => c.ExpandedItems, [])
             .Add(c => c.ChildContent, frag));
 
         // Assert
@@ -97,7 +97,7 @@ public class BOBAccordionStateTests
 
         // Arrange
         IRenderedComponent<BOBAccordion> cut = ctx.Render<BOBAccordion>(p => p
-            .Add(c => c.ExpandedItems, new[] { "a" })
+            .Add(c => c.ExpandedItems, ["a"])
             .Add(c => c.ChildContent, BuildItems()));
 
         // Act + Assert

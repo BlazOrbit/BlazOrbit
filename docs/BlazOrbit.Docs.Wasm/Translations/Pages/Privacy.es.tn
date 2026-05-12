@@ -1,0 +1,23 @@
+# Privacy
+Privacidad
+
+# BlazOrbit documentation site privacy policy. No trackers, no analytics, no third-party scripts.
+Política de privacidad del sitio de documentación de BlazOrbit. Sin rastreadores, sin analíticas, sin scripts de terceros.
+
+# This documentation site is intentionally analytics-free.
+Este sitio de documentación está intencionalmente libre de analíticas.
+
+# No Google Analytics, Plausible, Fathom, Cloudflare Web Analytics, or any other tracker.
+Sin Google Analytics, Plausible, Fathom, Cloudflare Web Analytics ni ningún otro rastreador.
+
+# No third-party scripts are loaded. Every JavaScript and CSS asset ships from the same origin as this page (<code>self</code> in CSP terms).
+No se cargan scripts de terceros. Cada recurso JavaScript y CSS se sirve desde el mismo origen que esta página (<code>self</code> en términos de CSP).
+
+# No remote fonts. Typography is bundled.
+Sin fuentes remotas. La tipografía está incluida en el paquete.
+
+# No telemetry beacons from the BlazOrbit runtime. The library never phones home; the only outbound surface in any consumer app is the optional <code>/BlazOrbit/Culture/Set</code> endpoint when Server localization is opted in.
+Sin balizas de telemetría desde el runtime de BlazOrbit. La biblioteca nunca se comunica con servidores externos; la única superficie de salida en cualquier aplicación consumidora es el endpoint opcional <code>/BlazOrbit/Culture/Set</code> cuando se opta por la localización en Server.
+
+# This policy is intentional and not subject to change without an explicit announcement on the GitHub repository.
+Esta política es intencional y no está sujeta a cambios sin un anuncio explícito en el repositorio de GitHub.

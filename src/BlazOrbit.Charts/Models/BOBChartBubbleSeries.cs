@@ -17,7 +17,7 @@ public sealed class BOBChartBubbleSeries<TX, TY>
 
     /// <summary>The bubble points, in plot order.</summary>
     public IEnumerable<BOBChartBubblePoint<TX, TY>> Points { get; init; }
-        = Array.Empty<BOBChartBubblePoint<TX, TY>>();
+        = [];
 
     /// <summary>
     /// Optional explicit color for the series. When <c>null</c> the color is

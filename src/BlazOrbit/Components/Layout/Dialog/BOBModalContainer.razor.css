@@ -33,7 +33,7 @@
 /* Elevation surface-tint in dark mode (dialog) */
 [data-bob-theme="dark"] .bob-modal-dialog[style*="--bob-inline-elevation-tint"] {
     --_modal-dialog-background: var(--bob-inline-background,
-        color-mix(in oklab,
+    color-mix(in oklab,
             var(--palette-surface),
             var(--palette-surface-contrast) var(--bob-inline-elevation-tint, 0%)));
 }
@@ -92,7 +92,7 @@
 /* Elevation surface-tint in dark mode (drawer) */
 [data-bob-theme="dark"] .bob-modal-drawer[style*="--bob-inline-elevation-tint"] {
     --_modal-drawer-background: var(--bob-inline-background,
-        color-mix(in oklab,
+    color-mix(in oklab,
             var(--palette-surface),
             var(--palette-surface-contrast) var(--bob-inline-elevation-tint, 0%)));
 }
@@ -176,8 +176,8 @@
        them out keeps the GPU-friendly transform/opacity/filter combo and
        avoids the layout-invalidation cost of `transition: all`. */
     transition: transform 200ms ease,
-                opacity 200ms ease,
-                filter 200ms ease;
+    opacity 200ms ease,
+    filter 200ms ease;
 }
 
 /* Keyframes */

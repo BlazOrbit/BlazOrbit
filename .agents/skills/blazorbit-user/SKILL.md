@@ -495,13 +495,28 @@ Errors flow through the same `EditContext` channel, so `IsError` /
 
 ### Localization (optional)
 
+`AddBlazOrbit()` already registers `IStringLocalizer<T>` (it composes
+`AddBlazOrbitLocalization()` internally) and BlazOrbit's own built-in components
+ship translated — so a no-loc consumer that never installs the Server/Wasm
+packages still gets working components and `IStringLocalizer<TMarker>`
+injection without a DI exception. The Server/Wasm packages add culture
+switching (cookie / `localStorage`), the request pipeline, and
+`BOBCultureSelector`.
+
 Two glue packages, one per host:
 
 - `BlazOrbit.Localization.Server` — cookie-backed `RequestLocalization` setup.
 - `BlazOrbit.Localization.Wasm` — `localStorage`-backed culture persistence.
 
+Both transitively pull `BlazOrbit.Localization.Shared`, which ships the
+BlazOrbit localization source generator (`BlazOrbit.Localization.CodeGeneration`)
+under `analyzers/dotnet/cs/` and a `buildTransitive/*.targets` that
+auto-includes `Translations/**/*.tn` as `AdditionalFiles` for the consumer.
+Result: no csproj plumbing required — install the package, declare bundles,
+drop `.tn` files.
+
 Both expose `BOBCultureSelector` (a small dropdown of supported cultures with
-flag glyphs). Register in `Program.cs`:
+flag glyphs).
 
 ```csharp
 using System.Globalization;
@@ -524,9 +539,73 @@ builder.Services.AddBlazOrbitLocalizationWasm(options =>
 <BOBCultureSelector />
 ```
 
-The library's own strings travel with `BlazOrbit.Translations`. Your app's
-strings stay in your own `.resx` consumed via `IStringLocalizer<T>` as
-normal.
+#### Your own translations (`.tn` files)
+
+BlazOrbit's localization runtime is **BOBLocalize** — `.tn` files + a Roslyn
+source generator, not satellite-assembly resx. To localize app-side strings:
+
+1. Pick a marker type (POCO empty class, or the auto-generated partial of a
+   `.razor` page — both work).
+2. Declare a bundle once per marker:
+
+   ```csharp
+   // BobLocalizationBundles.cs
+   using BlazOrbit.Localization;
+
+   [assembly: BobLocalizationBundle(typeof(MyApp.Pages.Home), DefaultCulture = "en-US")]
+   ```
+
+3. Drop translation files under `Translations/`, naming
+   `Translations/<RelativeNamespace>/<TypeName>.<culture>.tn` (the folder
+   structure mirrors the namespace tail after the project root namespace):
+
+   ```
+   Translations/Pages/Home.tn        ← optional, en-US fallback if DefaultCulture matches
+   Translations/Pages/Home.es-ES.tn
+   Translations/Pages/Home.fr-FR.tn
+   ```
+
+   Dot-separated layout (`Translations/Pages.Home.es-ES.tn`) also works.
+
+4. `.tn` format: `# Key` line introduces a key, lines below are the value, `@ culture`
+   headers switch the active culture mid-file, `\#` / `\@` / `\/` escape literal
+   leading characters. Comments are `//` lines.
+
+   ```
+   // Spanish translations for Pages/Home.
+   # Welcome, {0}!
+   ¡Bienvenido, {0}!
+
+   # Hello, world!
+   ¡Hola, mundo!
+
+   # <strong>Bold</strong> from translation.
+   <strong>Negrita</strong> de la traducción.
+   ```
+
+5. Inject `IStringLocalizer<TMarker>` and call into it normally:
+
+   ```razor
+   @inject IStringLocalizer<MyApp.Pages.Home> Loc
+
+   <h1>@Loc["Hello, world!"]</h1>
+   <p>@Loc["Welcome, {0}!", userName]</p>
+   <p>@Loc.Html("<strong>Bold</strong> from translation.")</p>
+   ```
+
+   `Loc.Html(...)` (extension method) returns a `MarkupString` and
+   HTML-encodes every format argument. Use it when a translation contains
+   markup.
+
+6. Keys not present in the active culture's `.tn` (nor the bundle's
+   `DefaultCulture`) fall through to a literal value (`ResourceNotFound = true`
+   on the returned `LocalizedString`) — the literal key text itself shows up,
+   `IStringLocalizer<T>` never returns `null`.
+
+The library's own strings ship inside `BlazOrbit.dll` (its module initializer
+registers BlazOrbit's bundles when the assembly loads). The Server/Wasm
+package's selector strings live in `BlazOrbit.Localization.Shared`. Both work
+without any consumer-side setup beyond `AddBlazOrbit()`.
 
 ## Modals, dialogs, drawers, toasts
 

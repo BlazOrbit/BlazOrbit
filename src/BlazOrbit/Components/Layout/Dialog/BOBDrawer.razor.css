@@ -33,8 +33,8 @@
 /* IHasElevation in dark theme: lift the drawer surface via tint overlay. */
 [data-bob-theme="dark"] [data-bob-component="drawer"][data-bob-elevation] .bob-drawer {
     --_drawer-background: color-mix(in oklab,
-        var(--palette-surface),
-        var(--palette-surface-contrast) var(--bob-inline-elevation-tint, 0%));
+    var(--palette-surface),
+    var(--palette-surface-contrast) var(--bob-inline-elevation-tint, 0%));
 }
 
 [data-bob-component="drawer"] .bob-drawer[data-bob-position="left"] {
@@ -44,9 +44,9 @@
     animation: bob-drawer-left-in 250ms ease-out forwards;
 }
 
-    [data-bob-component="drawer"] .bob-drawer[data-bob-position="left"][data-bob-closing="true"] {
-        animation: bob-drawer-left-out 200ms ease-in forwards;
-    }
+[data-bob-component="drawer"] .bob-drawer[data-bob-position="left"][data-bob-closing="true"] {
+    animation: bob-drawer-left-out 200ms ease-in forwards;
+}
 
 [data-bob-component="drawer"] .bob-drawer[data-bob-position="right"] {
     right: 0;
@@ -55,9 +55,9 @@
     animation: bob-drawer-right-in 250ms ease-out forwards;
 }
 
-    [data-bob-component="drawer"] .bob-drawer[data-bob-position="right"][data-bob-closing="true"] {
-        animation: bob-drawer-right-out 200ms ease-in forwards;
-    }
+[data-bob-component="drawer"] .bob-drawer[data-bob-position="right"][data-bob-closing="true"] {
+    animation: bob-drawer-right-out 200ms ease-in forwards;
+}
 
 [data-bob-component="drawer"] .bob-drawer[data-bob-position="top"] {
     top: 0;
@@ -66,9 +66,9 @@
     animation: bob-drawer-top-in 250ms ease-out forwards;
 }
 
-    [data-bob-component="drawer"] .bob-drawer[data-bob-position="top"][data-bob-closing="true"] {
-        animation: bob-drawer-top-out 200ms ease-in forwards;
-    }
+[data-bob-component="drawer"] .bob-drawer[data-bob-position="top"][data-bob-closing="true"] {
+    animation: bob-drawer-top-out 200ms ease-in forwards;
+}
 
 [data-bob-component="drawer"] .bob-drawer[data-bob-position="bottom"] {
     bottom: 0;
@@ -77,9 +77,9 @@
     animation: bob-drawer-bottom-in 250ms ease-out forwards;
 }
 
-    [data-bob-component="drawer"] .bob-drawer[data-bob-position="bottom"][data-bob-closing="true"] {
-        animation: bob-drawer-bottom-out 200ms ease-in forwards;
-    }
+[data-bob-component="drawer"] .bob-drawer[data-bob-position="bottom"][data-bob-closing="true"] {
+    animation: bob-drawer-bottom-out 200ms ease-in forwards;
+}
 
 [data-bob-component="drawer"] .bob-drawer__header {
     display: flex;

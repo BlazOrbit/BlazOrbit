@@ -26,7 +26,7 @@ public class BOBGridSnapshotTests
                 .Add(c => c.Gap, "8px")),
             ("WithMaxWidth", p => p
                 .Add(c => c.MaxWidth, "1200px")
-                .Add(c => c.Columns, 12)),
+                .Add(c => c.Columns, 12))
         ];
 
         var results = testCases.Select(tc =>
@@ -35,6 +35,6 @@ public class BOBGridSnapshotTests
             return new { tc.Name, Html = cut.GetNormalizedMarkup() };
         }).ToArray();
 
-        await Verifier.Verify(results).UseParameters(scenario.Name);
+        await Verify(results).UseParameters(scenario.Name);
     }
 }

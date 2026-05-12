@@ -14,7 +14,11 @@ internal sealed class BehaviorJsInterop : ModuleJsInteropBase, IBehaviorJsIntero
     public async ValueTask<IJSObjectReference?> AttachBehaviorsAsync(BehaviorConfiguration configuration)
     {
         IJSObjectReference? module = await TryGetModuleAsync();
-        if (module is null) return null;
+        if (module is null)
+        {
+            return null;
+        }
+
         return await module.InvokeAsync<IJSObjectReference>(
             "initialize", configuration);
     }

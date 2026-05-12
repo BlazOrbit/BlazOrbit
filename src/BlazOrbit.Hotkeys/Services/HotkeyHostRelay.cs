@@ -12,10 +12,7 @@ public sealed class HotkeyHostRelay
     private readonly IHotkeyService _service;
 
     /// <summary>Initializes a new <see cref="HotkeyHostRelay"/>.</summary>
-    public HotkeyHostRelay(IHotkeyService service)
-    {
-        _service = service;
-    }
+    public HotkeyHostRelay(IHotkeyService service) => _service = service;
 
     /// <summary>Invoked by the JS bridge for every keydown event. Returns whether the original event should be cancelled.</summary>
     [JSInvokable]

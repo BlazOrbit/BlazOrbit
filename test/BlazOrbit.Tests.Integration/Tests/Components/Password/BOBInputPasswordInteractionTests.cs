@@ -88,7 +88,11 @@ public class BOBInputPasswordInteractionTests
         int fireCount = 0;
         IRenderedComponent<BOBInputPassword> cut = ctx.Render<BOBInputPassword>(p => p
             .Add(c => c.MinLength, 4)
-            .Add(c => c.OnStrengthChanged, s => { reported = s; fireCount++; }));
+            .Add(c => c.OnStrengthChanged, s =>
+            {
+                reported = s;
+                fireCount++;
+            }));
 
         cut.Find("input.bob-input__field").Input("Abcd");
         reported.Should().Be(BOBPasswordStrength.Fair);

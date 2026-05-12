@@ -27,7 +27,7 @@ public class CssScopedAuditTests
     private static readonly HashSet<string> CssFreeAllowlist = new(StringComparer.Ordinal)
     {
         // Internal helpers — no public visual surface
-        "_BOBCheckMark",
+        "_BOBInCheckMark",
         "_BOBFieldHelper",
         "_BOBInputLoading",
         "_BOBInputOutline",
@@ -60,7 +60,7 @@ public class CssScopedAuditTests
         "BOBDropdownContainer",
         "BOBDateTimePattern",
         "BOBSplitterPane",
-        "BOBStep",
+        "BOBStep"
     };
 
     [Fact]
@@ -93,9 +93,9 @@ public class CssScopedAuditTests
         }
 
         violations.Should().BeEmpty(
-            because: "every public component with a visual surface must ship a scoped .razor.css file. " +
-                     "If a component intentionally has no CSS, add it to CssFreeAllowlist with a justification. " +
-                     "See CSS-SCOPED-09.\n\nMissing .razor.css files:\n  " +
-                     string.Join("\n  ", violations));
+            "every public component with a visual surface must ship a scoped .razor.css file. " +
+            "If a component intentionally has no CSS, add it to CssFreeAllowlist with a justification. " +
+            "See CSS-SCOPED-09.\n\nMissing .razor.css files:\n  " +
+            string.Join("\n  ", violations));
     }
 }

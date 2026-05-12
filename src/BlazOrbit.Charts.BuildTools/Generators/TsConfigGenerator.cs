@@ -17,19 +17,19 @@ public class TsConfigGenerator : IAssetGenerator
     public string Name => "tsconfig.json";
 
     public Task<string> GetContent() => Task.FromResult("""
-{
-  "compilerOptions": {
-    "target": "ES2020",
-    "module": "ESNext",
-    "moduleResolution": "Bundler",
-    "lib": ["ES2020", "DOM", "DOM.Iterable"],
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true
-  },
-  "include": ["Types/**/*.ts"]
-}
-""");
+                                                        {
+                                                          "compilerOptions": {
+                                                            "target": "ES2020",
+                                                            "module": "ESNext",
+                                                            "moduleResolution": "Bundler",
+                                                            "lib": ["ES2020", "DOM", "DOM.Iterable"],
+                                                            "strict": true,
+                                                            "noEmit": true,
+                                                            "esModuleInterop": true,
+                                                            "skipLibCheck": true,
+                                                            "forceConsistentCasingInFileNames": true
+                                                          },
+                                                          "include": ["Types/**/*.ts"]
+                                                        }
+                                                        """);
 }

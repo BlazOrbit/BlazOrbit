@@ -34,7 +34,11 @@ internal sealed class ModalJsInterop : ModuleJsInteropBase, IModalJsInterop
     public async ValueTask LockScrollAsync()
     {
         IJSObjectReference? module = await TryGetModuleAsync();
-        if (module is null) return;
+        if (module is null)
+        {
+            return;
+        }
+
         await module.InvokeVoidAsync("lockScroll");
     }
 
@@ -48,7 +52,11 @@ internal sealed class ModalJsInterop : ModuleJsInteropBase, IModalJsInterop
     public async ValueTask TrapFocusAsync(ElementReference element, string trapId)
     {
         IJSObjectReference? module = await TryGetModuleAsync();
-        if (module is null) return;
+        if (module is null)
+        {
+            return;
+        }
+
         await module.InvokeVoidAsync("trapFocus", element, trapId);
     }
 
@@ -62,7 +70,11 @@ internal sealed class ModalJsInterop : ModuleJsInteropBase, IModalJsInterop
     public async ValueTask WaitForAnimationEndAsync(ElementReference element, int fallbackMs)
     {
         IJSObjectReference? module = await TryGetModuleAsync();
-        if (module is null) return;
+        if (module is null)
+        {
+            return;
+        }
+
         await module.InvokeVoidAsync("waitForAnimationEnd", element, fallbackMs);
     }
 }

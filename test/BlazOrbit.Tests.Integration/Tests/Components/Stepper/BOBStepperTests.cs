@@ -1,3 +1,4 @@
+using AngleSharp.Dom;
 using BlazOrbit.Components.Navigation;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -14,17 +15,20 @@ public class BOBStepperRenderingTests
     {
         b.OpenComponent<BOBStep>(0);
         b.AddAttribute(1, "Title", "Account");
-        b.AddAttribute(2, "ChildContent", (RenderFragment)(c => c.AddMarkupContent(0, "<span class='step-body s1'>account</span>")));
+        b.AddAttribute(2, "ChildContent",
+            (RenderFragment)(c => c.AddMarkupContent(0, "<span class='step-body s1'>account</span>")));
         b.CloseComponent();
 
         b.OpenComponent<BOBStep>(3);
         b.AddAttribute(4, "Title", "Plan");
-        b.AddAttribute(5, "ChildContent", (RenderFragment)(c => c.AddMarkupContent(0, "<span class='step-body s2'>plan</span>")));
+        b.AddAttribute(5, "ChildContent",
+            (RenderFragment)(c => c.AddMarkupContent(0, "<span class='step-body s2'>plan</span>")));
         b.CloseComponent();
 
         b.OpenComponent<BOBStep>(6);
         b.AddAttribute(7, "Title", "Confirm");
-        b.AddAttribute(8, "ChildContent", (RenderFragment)(c => c.AddMarkupContent(0, "<span class='step-body s3'>confirm</span>")));
+        b.AddAttribute(8, "ChildContent",
+            (RenderFragment)(c => c.AddMarkupContent(0, "<span class='step-body s3'>confirm</span>")));
         b.CloseComponent();
     };
 
@@ -52,7 +56,7 @@ public class BOBStepperRenderingTests
         IRenderedComponent<BOBStepper> cut = ctx.Render<BOBStepper>(p => p
             .Add(c => c.ChildContent, ThreeSteps()));
 
-        var entries = cut.FindAll(".bob-stepper__entry");
+        IReadOnlyList<IElement> entries = cut.FindAll(".bob-stepper__entry");
         entries[0].GetAttribute("data-bob-state").Should().Be("active");
         entries[1].GetAttribute("data-bob-state").Should().Be("pending");
         entries[2].GetAttribute("data-bob-state").Should().Be("pending");
@@ -68,7 +72,7 @@ public class BOBStepperRenderingTests
             .Add(c => c.ChildContent, ThreeSteps())
             .Add(c => c.CurrentStep, 2));
 
-        var entries = cut.FindAll(".bob-stepper__entry");
+        IReadOnlyList<IElement> entries = cut.FindAll(".bob-stepper__entry");
         entries[0].GetAttribute("data-bob-state").Should().Be("complete");
         entries[1].GetAttribute("data-bob-state").Should().Be("complete");
         entries[2].GetAttribute("data-bob-state").Should().Be("active");
@@ -109,7 +113,7 @@ public class BOBStepperRenderingTests
         IRenderedComponent<BOBStepper> cut = ctx.Render<BOBStepper>(p => p
             .Add(c => c.ChildContent, children));
 
-        var entries = cut.FindAll(".bob-stepper__entry");
+        IReadOnlyList<IElement> entries = cut.FindAll(".bob-stepper__entry");
         entries[1].GetAttribute("data-bob-state").Should().Be("error");
     }
 
@@ -153,7 +157,7 @@ public class BOBStepperInteractionTests
             .Add(c => c.ChildContent, ThreeSteps())
             .Add(c => c.CurrentStep, 0));
 
-        var headers = cut.FindAll(".bob-stepper__header");
+        IReadOnlyList<IElement> headers = cut.FindAll(".bob-stepper__header");
         headers[2].GetAttribute("disabled").Should().NotBeNull();
     }
 
@@ -183,7 +187,8 @@ public class BOBStepperInteractionTests
         IRenderedComponent<BOBStepper> cut = ctx.Render<BOBStepper>(p => p
             .Add(c => c.ChildContent, ThreeSteps())
             .Add(c => c.AllowSkip, true)
-            .Add(c => c.OnStepChange, EventCallback.Factory.Create<BOBStepChangeEventArgs>(this, args => args.Cancel = true))
+            .Add(c => c.OnStepChange,
+                EventCallback.Factory.Create<BOBStepChangeEventArgs>(this, args => args.Cancel = true))
             .Add(c => c.CurrentStepChanged, v => captured = v));
 
         cut.FindAll(".bob-stepper__header")[2].Click();
@@ -254,7 +259,7 @@ public class BOBStepperAccessibilityTests
         IRenderedComponent<BOBStepper> cut = ctx.Render<BOBStepper>(p => p
             .Add(c => c.ChildContent, TwoSteps()));
 
-        var headers = cut.FindAll(".bob-stepper__header");
+        IReadOnlyList<IElement> headers = cut.FindAll(".bob-stepper__header");
         headers[0].GetAttribute("aria-current").Should().Be("step");
         headers[1].GetAttribute("aria-current").Should().BeNull();
     }
@@ -285,21 +290,33 @@ public class BOBStepperSnapshotTests
 
         var testCases = new[]
         {
-            new { Name = "Default", Builder = (Action<ComponentParameterCollectionBuilder<BOBStepper>>)(p => p
-                .Add(c => c.ChildContent, ThreeSteps())) },
-            new { Name = "Middle", Builder = (Action<ComponentParameterCollectionBuilder<BOBStepper>>)(p => p
-                .Add(c => c.ChildContent, ThreeSteps())
-                .Add(c => c.CurrentStep, 1)) },
-            new { Name = "Vertical", Builder = (Action<ComponentParameterCollectionBuilder<BOBStepper>>)(p => p
-                .Add(c => c.ChildContent, ThreeSteps())
-                .Add(c => c.Orientation, BOBStepperOrientation.Vertical)) },
+            new
+            {
+                Name = "Default",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBStepper>>)(p => p
+                    .Add(c => c.ChildContent, ThreeSteps()))
+            },
+            new
+            {
+                Name = "Middle",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBStepper>>)(p => p
+                    .Add(c => c.ChildContent, ThreeSteps())
+                    .Add(c => c.CurrentStep, 1))
+            },
+            new
+            {
+                Name = "Vertical",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBStepper>>)(p => p
+                    .Add(c => c.ChildContent, ThreeSteps())
+                    .Add(c => c.Orientation, BOBStepperOrientation.Vertical))
+            }
         };
 
         var results = testCases.Select(tc =>
         {
             IRenderedComponent<BOBStepper> cut = ctx.Render<BOBStepper>(tc.Builder);
             return new { tc.Name, Html = cut.GetNormalizedMarkup() };
-        });
+        }).ToList();
 
         await Verify(results).UseParameters(scenario.Name);
     }

@@ -10,10 +10,13 @@ public sealed class BOBChartGaugeSegment
 {
     /// <summary>Inclusive lower bound on the gauge domain.</summary>
     public double From { get; init; }
+
     /// <summary>Inclusive upper bound on the gauge domain.</summary>
     public double To { get; init; }
+
     /// <summary>Fill / stroke color (CSS).</summary>
     public string Color { get; init; } = "var(--palette-primary, #2563eb)";
+
     /// <summary>Optional label for accessibility / tooltip.</summary>
     public string? Label { get; init; }
 }

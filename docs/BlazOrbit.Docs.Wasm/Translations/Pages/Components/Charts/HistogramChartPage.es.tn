@@ -1,0 +1,35 @@
+// Auto-migrated from HistogramChartPage.es.resx. Edit freely from now on.
+
+# BOBHistogramChart
+BOBHistogramChart
+
+# Chart
+Gráfico
+
+# Distribution of a single numeric variable. Auto-bins raw observations using Sturges / Scott / Freedman-Diaconis rules and renders each bin as a vertical bar. Optional median + p95 quantile guide lines.
+Distribución de una variable numérica única. Agrupa automáticamente observaciones en intervalos usando las reglas de Sturges / Scott / Freedman-Diaconis y representa cada intervalo como una barra vertical. Líneas guía opcionales de mediana + cuantil p95.
+
+# Extra package required
+Paquete adicional requerido
+
+# FD scales bin width by the IQR — the histogram resolution stays stable when a few extreme values would otherwise compress the bulk of the data into a single bar.
+FD escala el ancho del intervalo por el IQR: la resolución del histograma se mantiene estable cuando unos pocos valores extremos de otro modo comprimirían la mayor parte de los datos en una sola barra.
+
+# Fixed bin count
+Conteo de bins fijo
+
+# Freedman-Diaconis (outlier-robust)
+Freedman-Diaconis (robusto a outliers)
+
+# ShowQuantileLines overlays vertical guides at the median and p95 — useful for SLO discussions where the long tail matters more than the average.
+ShowQuantileLines superpone guías verticales en la mediana y p95: útil para discusiones de SLO donde la cola larga importa más que el promedio.
+
+# Sturges (default)
+Sturges (predeterminado)
+
+# This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs.
+Este gráfico requiere el paquete NuGet BlazOrbit.Charts. Instálalo con dotnet add package BlazOrbit.Charts y registra AddBlazOrbitCharts() en Program.cs.
+
+# With quantile guide lines
+Con líneas guía de cuantiles
+

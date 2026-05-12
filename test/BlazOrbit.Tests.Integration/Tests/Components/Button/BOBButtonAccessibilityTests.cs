@@ -192,7 +192,11 @@ public class BOBButtonAccessibilityTests
             .Add(c => c.OnClick, _ => clickCount++));
 
         // Act — click on a disabled button should not fire the callback
-        try { cut.Find("button").Click(); } catch { /* bunit may throw for disabled */ }
+        try { cut.Find("button").Click(); }
+        catch
+        {
+            /* bunit may throw for disabled */
+        }
 
         // Assert
         clickCount.Should().Be(0);

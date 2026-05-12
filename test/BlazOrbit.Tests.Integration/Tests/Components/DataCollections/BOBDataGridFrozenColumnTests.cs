@@ -1,3 +1,4 @@
+using AngleSharp.Dom;
 using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -15,7 +16,7 @@ public class BOBDataGridFrozenColumnTests
     private static IEnumerable<Person> Items =>
     [
         new("Alice", 30, "ES"),
-        new("Bob", 25, "DE"),
+        new("Bob", 25, "DE")
     ];
 
     [Theory]
@@ -37,7 +38,8 @@ public class BOBDataGridFrozenColumnTests
 
                 b.OpenComponent<BOBDataColumn<Person>>(5);
                 b.AddAttribute(6, "Header", "Age");
-                b.AddAttribute(7, "Template", (RenderFragment<Person>)(item => b2 => b2.AddContent(0, item.Age.ToString())));
+                b.AddAttribute(7, "Template",
+                    (RenderFragment<Person>)(item => b2 => b2.AddContent(0, item.Age.ToString())));
                 b.CloseComponent();
             }));
 
@@ -70,7 +72,8 @@ public class BOBDataGridFrozenColumnTests
                 b.AddAttribute(6, "Header", "Age");
                 b.AddAttribute(7, "Width", "100px");
                 b.AddAttribute(8, "Freeze", ColumnFreeze.Start);
-                b.AddAttribute(9, "Template", (RenderFragment<Person>)(item => b2 => b2.AddContent(0, item.Age.ToString())));
+                b.AddAttribute(9, "Template",
+                    (RenderFragment<Person>)(item => b2 => b2.AddContent(0, item.Age.ToString())));
                 b.CloseComponent();
 
                 b.OpenComponent<BOBDataColumn<Person>>(10);
@@ -80,7 +83,7 @@ public class BOBDataGridFrozenColumnTests
             }));
 
         // Second frozen-start column should pick up the cumulative offset (180px).
-        var headers = cut.FindAll(".bob-datagrid__header-cell");
+        IReadOnlyList<IElement> headers = cut.FindAll(".bob-datagrid__header-cell");
         headers[0].GetAttribute("style").Should().Contain("left: 0px");
         headers[1].GetAttribute("style").Should().Contain("left: 180px");
     }
@@ -109,7 +112,7 @@ public class BOBDataGridFrozenColumnTests
             }));
 
         // Last column frozen at end gets right:0 (nothing further right is frozen).
-        var headers = cut.FindAll(".bob-datagrid__header-cell");
+        IReadOnlyList<IElement> headers = cut.FindAll(".bob-datagrid__header-cell");
         AngleSharp.Dom.IElement endHeader = headers[headers.Count - 1];
         endHeader.ClassList.Should().Contain("bob-datagrid__cell--frozen-end");
         endHeader.GetAttribute("style").Should().Contain("right: 0px");
@@ -134,13 +137,14 @@ public class BOBDataGridFrozenColumnTests
 
                 b.OpenComponent<BOBDataColumn<Person>>(5);
                 b.AddAttribute(6, "Header", "Age");
-                b.AddAttribute(7, "Template", (RenderFragment<Person>)(item => b2 => b2.AddContent(0, item.Age.ToString())));
+                b.AddAttribute(7, "Template",
+                    (RenderFragment<Person>)(item => b2 => b2.AddContent(0, item.Age.ToString())));
                 b.CloseComponent();
             }));
 
         // Every body cell in the frozen column carries the modifier so sticky positioning
         // applies row-by-row, not just on the header.
-        var bodyCells = cut.FindAll("tbody [role='gridcell']");
+        IReadOnlyList<IElement> bodyCells = cut.FindAll("tbody [role='gridcell']");
         // 2 rows × 2 cols = 4 cells; the first cell of each row is the frozen one.
         bodyCells[0].ClassList.Should().Contain("bob-datagrid__cell--frozen-start");
         bodyCells[2].ClassList.Should().Contain("bob-datagrid__cell--frozen-start");

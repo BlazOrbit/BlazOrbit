@@ -16,23 +16,26 @@ public class BOBInputOutlineSnapshotTests
 
         var testCases = new[]
         {
-            new { Name = "NoLabel", Builder = (Action<ComponentParameterCollectionBuilder<BOBInputOutline>>)(p => p
-                .Add(c => c.For, "input-1")) },
-
-            new { Name = "WithLabel", Builder = (Action<ComponentParameterCollectionBuilder<BOBInputOutline>>)(p => p
-                .Add(c => c.Label, "Full Name")
-                .Add(c => c.For, "input-1")) }
+            new
+            {
+                Name = "NoLabel",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBInputOutline>>)(p => p
+                    .Add(c => c.For, "input-1"))
+            },
+            new
+            {
+                Name = "WithLabel",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBInputOutline>>)(p => p
+                    .Add(c => c.Label, "Full Name")
+                    .Add(c => c.For, "input-1"))
+            }
         };
 
         var results = testCases.Select(testCase =>
         {
             IRenderedComponent<BOBInputOutline> cut = ctx.Render<BOBInputOutline>(testCase.Builder);
-            return new
-            {
-                testCase.Name,
-                Html = cut.GetNormalizedMarkup()
-            };
-        });
+            return new { testCase.Name, Html = cut.GetNormalizedMarkup() };
+        }).ToList();
 
         await Verify(results).UseParameters(scenario.Name);
     }

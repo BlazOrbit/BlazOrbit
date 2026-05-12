@@ -5,6 +5,7 @@ public enum SidebarSide
 {
     /// <summary>Inline-start side — left in LTR, right in RTL.</summary>
     Start,
+
     /// <summary>Inline-end side — right in LTR, left in RTL.</summary>
     End
 }

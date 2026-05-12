@@ -11,12 +11,16 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Dropdown;
 [Trait("Component Interaction", "BOBInputDropdown")]
 public class BOBInputDropdownInteractionTests
 {
+    private class DummyModel
+    {
+        public string? Value { get; set; }
+    }
 
-    private class DummyModel { public string? Value { get; set; } }
     private static readonly DummyModel _dm = new();
     private static readonly Expression<Func<string?>> _expr = () => _dm.Value;
 
-    private static Action<ComponentParameterCollectionBuilder<BOBInputDropdown<string>>> WithOptions(string? value = null)
+    private static Action<ComponentParameterCollectionBuilder<BOBInputDropdown<string>>> WithOptions(
+        string? value = null)
         => p =>
         {
             p.Add(c => c.ValueExpression, _expr);

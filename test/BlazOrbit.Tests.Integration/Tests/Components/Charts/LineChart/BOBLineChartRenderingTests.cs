@@ -15,13 +15,13 @@ public class BOBLineChartRenderingTests
         yield return new BOBChartSeries<DateTime, decimal>
         {
             Label = "Sales",
-            Points = new[]
-            {
+            Points =
+            [
                 new BOBChartPoint<DateTime, decimal>(new DateTime(2026, 01, 01), 120m),
                 new BOBChartPoint<DateTime, decimal>(new DateTime(2026, 02, 01), 95m),
                 new BOBChartPoint<DateTime, decimal>(new DateTime(2026, 03, 01), 140m),
-                new BOBChartPoint<DateTime, decimal>(new DateTime(2026, 04, 01), 180m),
-            }
+                new BOBChartPoint<DateTime, decimal>(new DateTime(2026, 04, 01), 180m)
+            ]
         };
     }
 
@@ -30,13 +30,11 @@ public class BOBLineChartRenderingTests
         yield return new BOBChartSeries<int, double>
         {
             Label = "Trend",
-            Points = new[]
-            {
-                new BOBChartPoint<int, double>(1, 10.0),
-                new BOBChartPoint<int, double>(2, 15.5),
-                new BOBChartPoint<int, double>(3, 12.0),
-                new BOBChartPoint<int, double>(4, 18.7),
-            }
+            Points =
+            [
+                new BOBChartPoint<int, double>(1, 10.0), new BOBChartPoint<int, double>(2, 15.5),
+                new BOBChartPoint<int, double>(3, 12.0), new BOBChartPoint<int, double>(4, 18.7)
+            ]
         };
     }
 
@@ -45,12 +43,12 @@ public class BOBLineChartRenderingTests
         yield return new BOBChartSeries<string, decimal>
         {
             Label = "By region",
-            Points = new[]
-            {
+            Points =
+            [
                 new BOBChartPoint<string, decimal>("EMEA", 120m),
                 new BOBChartPoint<string, decimal>("APAC", 95m),
-                new BOBChartPoint<string, decimal>("Americas", 140m),
-            }
+                new BOBChartPoint<string, decimal>("Americas", 140m)
+            ]
         };
     }
 
@@ -93,7 +91,7 @@ public class BOBLineChartRenderingTests
                 .Add(c => c.Series, NumericSeries()));
 
         cut.FindAll("circle.bob-line-chart__marker").Should().HaveCount(4,
-            because: "the sample series has 4 data points");
+            "the sample series has 4 data points");
     }
 
     [Theory]
@@ -123,8 +121,8 @@ public class BOBLineChartRenderingTests
 
         // Smooth path uses 'C' (cubic) commands; polyline uses 'L' commands.
         string d = cut.Find("path.bob-line-chart__line").GetAttribute("d") ?? string.Empty;
-        d.Should().Contain(" C ", because: "Smooth=true emits cubic bezier segments");
-        d.Should().NotContain(" L ", because: "smooth path does not use polyline L commands");
+        d.Should().Contain(" C ", "Smooth=true emits cubic bezier segments");
+        d.Should().NotContain(" L ", "smooth path does not use polyline L commands");
     }
 
     [Theory]
@@ -157,7 +155,7 @@ public class BOBLineChartRenderingTests
         IEnumerable<string> labels = cut.FindAll(".bob-line-chart__axis--x text")
             .Select(t => t.TextContent);
         labels.Should().Contain(l => l.StartsWith("2026-"),
-            because: "the X axis ticks are projected back to DateTime via Numeric.FormatContinuous");
+            "the X axis ticks are projected back to DateTime via Numeric.FormatContinuous");
     }
 
     [Theory]

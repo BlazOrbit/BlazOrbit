@@ -1,20 +1,27 @@
-@page "/components/charts/area"
+﻿@page "/components/charts/area"
 
 @inject IStringLocalizer<AreaChartPage> Loc
 
 <DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBAreaChart"]"
-         Lede="@Loc["Line chart with the region between the line and the X axis baseline filled. Each series renders its own filled region (overlapping when they intersect). Inherits everything from BOBLineChart — Smooth, ShowMarkers, axes, temporal X auto-detect."]"
+         Lede="@Loc["Area chart with filled regions between the line and the baseline. Supports overlapping series, smooth curves, and per-point markers."]"
          PageInstance="this"
-         ApiType="@typeof(BOBAreaChart<,>)">
+         ApiType="@typeof(BOBAreaChart<,>)"
+         Keywords="@(["area chart", "filled", "trend", "time series"])">
+
+    <section class="doc-section">
+        <p class="doc-section__description">
+                        @Loc.Html("Internally, the area chart inherits the full rendering pipeline from <code>BOBLineChart</code>. This means all line features — <code>Smooth</code> interpolation, <code>ShowMarkers</code>, automatic temporal-X detection, and configurable axes — work identically. The only addition is the filled region between the stroke and the baseline, with per-series opacity control via <code>FillOpacity</code>.")
+        </p>
+    </section>
 
     <BOBBanner Severity="BOBBannerSeverity.Warning"
                Title="@Loc["Extra package required"]"
-               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]" />
+               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]"/>
 
     <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
         <BOBAreaChart TX="int" TY="double"
                       Series="_singleSeries"
-                      Width="600" Height="320" />
+                      Width="600" Height="320"/>
     </DocDemo>
 
     <DocDemo Key="Smooth" Title="@Loc["Smooth fill"]"
@@ -22,7 +29,7 @@
         <BOBAreaChart TX="int" TY="double"
                       Series="_singleSeries"
                       Smooth="true"
-                      Width="600" Height="320" />
+                      Width="600" Height="320"/>
     </DocDemo>
 
     <DocDemo Key="MultiSeries" Title="@Loc["Overlapping multi-series"]"
@@ -30,7 +37,7 @@
         <BOBAreaChart TX="int" TY="double"
                       Series="_multiSeries"
                       Smooth="true"
-                      Width="600" Height="320" />
+                      Width="600" Height="320"/>
     </DocDemo>
 
     <DocDemo Key="Markers" Title="@Loc["With markers"]"
@@ -38,7 +45,7 @@
         <BOBAreaChart TX="int" TY="double"
                       Series="_singleSeries"
                       ShowMarkers="true"
-                      Width="600" Height="320" />
+                      Width="600" Height="320"/>
     </DocDemo>
 
     <DocDemo Key="StackedArea" Title="@Loc["Stacked area"]"
@@ -46,7 +53,7 @@
         <BOBAreaChart TX="int" TY="double"
                       Series="_stackableSeries"
                       Stacked="true"
-                      Width="600" Height="320" />
+                      Width="600" Height="320"/>
     </DocDemo>
 
     <DocDemo Key="FillOpacity" Title="@Loc["Custom fill opacity"]"
@@ -54,7 +61,7 @@
         <BOBAreaChart TX="int" TY="double"
                       Series="_multiSeries"
                       FillOpacity="0.55"
-                      Width="600" Height="320" />
+                      Width="600" Height="320"/>
     </DocDemo>
 
     <DocDemo Key="Crosshair" Title="@Loc["Crosshair"]"
@@ -62,7 +69,7 @@
         <BOBAreaChart TX="int" TY="double"
                       Series="_multiSeries"
                       ShowCrosshair="true"
-                      Width="600" Height="320" />
+                      Width="600" Height="320"/>
     </DocDemo>
 
     <DocDemo Key="ReferenceLines" Title="@Loc["Reference lines"]"
@@ -70,7 +77,7 @@
         <BOBAreaChart TX="int" TY="double"
                       Series="_singleSeries"
                       Width="600" Height="320"
-                      ReferenceLines="_referenceLines" />
+                      ReferenceLines="_referenceLines"/>
     </DocDemo>
 
     <DocDemo Key="Annotations" Title="@Loc["Annotations"]"
@@ -80,7 +87,7 @@
                       Smooth="true"
                       FillOpacity="0.35"
                       Annotations="_annotations"
-                      Width="600" Height="320" />
+                      Width="600" Height="320"/>
     </DocDemo>
 
     <DocDemo Key="ZoomBrush" Title="@Loc["Zoom and brush"]"
@@ -90,7 +97,7 @@
                       Smooth="true"
                       ZoomEnabled="true"
                       BrushEnabled="true"
-                      Width="600" Height="320" />
+                      Width="600" Height="320"/>
     </DocDemo>
 
 </DocPage>
@@ -98,21 +105,19 @@
 @code {
 
     private static readonly IEnumerable<BOBChartSeries<int, double>> _singleSeries =
-        new[]
-        {
-            new BOBChartSeries<int, double>
+    [
+        new BOBChartSeries<int, double>
             {
                 Label = "Throughput",
                 Points = Enumerable.Range(1, 14)
                     .Select(i => new BOBChartPoint<int, double>(i, 40 + Math.Sin(i * 0.5) * 18 + i * 1.2))
                     .ToArray()
             }
-        };
+    ];
 
     private static readonly IEnumerable<BOBChartSeries<int, double>> _multiSeries =
-        new[]
-        {
-            new BOBChartSeries<int, double>
+    [
+        new BOBChartSeries<int, double>
             {
                 Label = "Service A",
                 Points = Enumerable.Range(1, 14)
@@ -126,12 +131,11 @@
                     .Select(i => new BOBChartPoint<int, double>(i, 22 + Math.Cos(i * 0.45) * 10 + i * 0.8))
                     .ToArray()
             }
-        };
+    ];
 
     private static readonly IEnumerable<BOBChartSeries<int, double>> _stackableSeries =
-        new[]
-        {
-            new BOBChartSeries<int, double>
+    [
+        new BOBChartSeries<int, double>
             {
                 Label = "Web",
                 Points = Enumerable.Range(1, 10)
@@ -152,13 +156,12 @@
                     .Select(i => new BOBChartPoint<int, double>(i, 8 + i * 0.8))
                     .ToArray()
             }
-        };
+    ];
 
     // Mix of band + text + shape annotations for the area page demo.
     private static readonly IEnumerable<BOBChartAnnotation> _annotations =
-        new BOBChartAnnotation[]
-        {
-            new BOBChartBandAnnotation<int>
+    [
+        new BOBChartBandAnnotation<int>
             {
                 FromX = 5,
                 ToX = 7,
@@ -182,13 +185,12 @@
                 DxPx = -16,
                 DyPx = -14,
                 Color = "var(--palette-success)"
-            },
-        };
+            }
+    ];
 
     private static readonly IEnumerable<BOBChartReferenceLine> _referenceLines =
-        new[]
-        {
-            new BOBChartReferenceLine
+    [
+        new BOBChartReferenceLine
             {
                 Value = 50,
                 Label = "Capacity",
@@ -196,5 +198,6 @@
                 Style = BOBChartReferenceLineStyle.Dashed,
                 StrokeWidth = 2
             }
-        };
+    ];
+
 }

@@ -41,8 +41,8 @@
 /* IHasElevation in dark theme: lift the dialog surface via tint overlay. */
 [data-bob-theme="dark"] [data-bob-component="dialog"][data-bob-elevation] .bob-dialog {
     --_dialog-background: color-mix(in oklab,
-        var(--palette-surface),
-        var(--palette-surface-contrast) var(--bob-inline-elevation-tint, 0%));
+    var(--palette-surface),
+    var(--palette-surface-contrast) var(--bob-inline-elevation-tint, 0%));
 }
 
 [data-bob-component="dialog"] .bob-dialog[data-bob-closing="true"] {

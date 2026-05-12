@@ -12,9 +12,9 @@ public class TransitionsCssGenerator : IAssetGenerator
 {
     private static readonly (string Name, string ChildPseudo, string SelfPseudo)[] TriggerPseudos =
     [
-        ("hover",  ":hover:not(:has(:disabled))",  ":hover:not(:disabled)"),
-        ("focus",  ":focus-within",                 ":focus-visible"),
-        ("active", ":active:not(:has(:disabled))",  ":active:not(:disabled)")
+        ("hover", ":hover:not(:has(:disabled))", ":hover:not(:disabled)"),
+        ("focus", ":focus-within", ":focus-visible"),
+        ("active", ":active:not(:has(:disabled))", ":active:not(:disabled)")
     ];
 
     public string FileName => "_transition-classes.css";
@@ -30,18 +30,18 @@ public class TransitionsCssGenerator : IAssetGenerator
         StringBuilder sb = new();
 
         sb.AppendLine($$"""
-/* ========================================
-   Transition Classes
-   Auto-generated - Do not edit manually
-   ======================================== */
+                        /* ========================================
+                           Transition Classes
+                           Auto-generated - Do not edit manually
+                           ======================================== */
 
-/* === BASE: apply transition shorthand to target element === */
+                        /* === BASE: apply transition shorthand to target element === */
 
-{{tag}}[{{attr}}] .{{target}},
-{{tag}}[{{attr}}].{{target}} {
-    transition: var({{shorthand}});
-}
-""");
+                        {{tag}}[{{attr}}] .{{target}},
+                        {{tag}}[{{attr}}].{{target}} {
+                            transition: var({{shorthand}});
+                        }
+                        """);
 
         foreach ((string triggerName, string childPseudo, string selfPseudo) in TriggerPseudos)
         {
@@ -54,12 +54,12 @@ public class TransitionsCssGenerator : IAssetGenerator
                 string variable = FeatureDefinitions.Tokens.Transitions.VariableFor(triggerName, prop);
 
                 sb.AppendLine(
-$$"""
-{{tag}}[{{attr}}~="{{token}}"]{{childPseudo}} .{{target}},
-{{tag}}[{{attr}}~="{{token}}"].{{target}}{{selfPseudo}} {
-    {{prop}}: var({{variable}});
-}
-""");
+                    $$"""
+                        {{tag}}[{{attr}}~="{{token}}"]{{childPseudo}} .{{target}},
+                        {{tag}}[{{attr}}~="{{token}}"].{{target}}{{selfPseudo}} {
+                          {{prop}}: var({{variable}});
+                      }
+                      """);
             }
         }
 

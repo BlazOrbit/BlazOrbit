@@ -16,16 +16,16 @@
     cursor: pointer;
 }
 
-    ._bob-simple-select:focus {
-        border-color: var(--palette-highlight);
-    }
+._bob-simple-select:focus {
+    border-color: var(--palette-highlight);
+}
 
-    ._bob-simple-select:focus-visible {
-        outline: var(--bob-highlight-outline);
-        outline-offset: var(--bob-highlight-outline-offset);
-    }
+._bob-simple-select:focus-visible {
+    outline: var(--bob-highlight-outline);
+    outline-offset: var(--bob-highlight-outline-offset);
+}
 
-    ._bob-simple-select:disabled {
-        cursor: not-allowed;
-        opacity: var(--bob-opacity-disabled);
-    }
+._bob-simple-select:disabled {
+    cursor: not-allowed;
+    opacity: var(--bob-opacity-disabled);
+}

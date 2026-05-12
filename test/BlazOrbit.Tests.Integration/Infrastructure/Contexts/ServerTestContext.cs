@@ -6,5 +6,6 @@ public sealed class ServerTestContext : BlazorTestContextBase
 {
     public override string Scenario => "Server";
 
-    protected override void ConfigureScenarioServices(IServiceCollection services) => services.AddBlazOrbitLocalizationServer();
+    protected override void ConfigureScenarioServices(IServiceCollection services) =>
+        services.AddBlazOrbitLocalizationServer();
 }

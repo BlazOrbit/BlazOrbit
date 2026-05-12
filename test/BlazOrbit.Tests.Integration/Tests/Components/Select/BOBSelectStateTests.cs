@@ -98,11 +98,8 @@ public class BOBSelectStateTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         IRenderedComponent<BOBSelect<string>> cut = ctx.Render<BOBSelect<string>>(p => p
-            .Add(c => c.AdditionalAttributes, new Dictionary<string, object>
-            {
-                ["data-testid"] = "country-select",
-                ["class"] = "my-select"
-            }));
+            .Add(c => c.AdditionalAttributes,
+                new Dictionary<string, object> { ["data-testid"] = "country-select", ["class"] = "my-select" }));
 
         IElement root = cut.Find("bob-component");
         root.GetAttribute("data-testid").Should().Be("country-select");

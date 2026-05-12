@@ -12,7 +12,8 @@ public class CultureEndpointStartupFilter : IStartupFilter
     {
         return app =>
         {
-            ServerLocalizationSettings settings = app.ApplicationServices.GetRequiredService<ServerLocalizationSettings>();
+            ServerLocalizationSettings settings =
+                app.ApplicationServices.GetRequiredService<ServerLocalizationSettings>();
 
             app.UseRequestLocalization(o =>
             {
@@ -20,10 +21,10 @@ public class CultureEndpointStartupFilter : IStartupFilter
                 o.SupportedUICultures = settings.SupportedCultures;
                 o.DefaultRequestCulture = new RequestCulture(settings.DefaultCulture);
                 o.ApplyCurrentCultureToResponseHeaders = true;
-                o.RequestCultureProviders = new IRequestCultureProvider[]
-                {
+                o.RequestCultureProviders =
+                [
                     new CookieRequestCultureProvider { CookieName = settings.CultureCookieName }
-                };
+                ];
             });
 
             app.Use(async (context, nextMiddleware) =>

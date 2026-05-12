@@ -1,96 +1,96 @@
-@using Microsoft.AspNetCore.Components.Web
+﻿@using Microsoft.AspNetCore.Components.Web
 @inject NavigationManager Nav
-
-@*
-    Single source of truth for per-page SEO. Renders ONLY tags that vary per route:
-    title, description, keywords, robots, canonical, og:title/description/url, twitter:title/description.
-
-    Tags that are constant across the site (og:site_name, og:image*, og:locale, twitter:card,
-    twitter:site, twitter:image*, JSON-LD, favicons, PWA meta) live in `wwwroot/index.html`.
-    Duplicating any of them here would result in two copies in the prerendered HTML — Blazor's
-    `<HeadContent>` APPENDS to <head>, it does not replace existing tags. Keep this contract
-    intact: tags that vary go here, constants stay in index.html.
-*@
+@inject IStringLocalizer<DocSeo> Loc
 
 @if (!string.IsNullOrEmpty(Title))
 {
     <PageTitle>@(GetPageTitle())</PageTitle>
 }
 <HeadContent>
-    @if (Robots != DefaultRobots)
+    @if (!string.IsNullOrEmpty(Robots))
     {
-        <meta name="robots" content="@Robots" />
+        <meta name="robots" content="@Robots"/>
+    }
+    else
+    {
+        <meta name="robots" content="index, follow">
+        <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+        <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
     }
 
-    <meta name="description" content="@GetDescription()" />
+    <meta name="description" content="@GetDescription()"/>
     @{
-        string keywords = GetKeywords();
+        var keywords = GetKeywords();
     }
     @if (!string.IsNullOrEmpty(keywords))
     {
-        <meta name="keywords" content="@keywords" />
+        <meta name="keywords" content="@keywords"/>
     }
 
-    <link rel="canonical" href="@GetCanonicalUrl()" />
+    <link rel="canonical" href="@GetCanonicalUrl()"/>
 
     @* Open Graph: type + title + description + url are per-page. og:site_name / og:image* / og:locale stay in index.html. *@
-    <meta property="og:type" content="@OgType" />
-    <meta property="og:title" content="@GetPageTitle()" />
-    <meta property="og:description" content="@GetDescription()" />
-    <meta property="og:url" content="@GetCanonicalUrl()" />
+    <meta property="og:type" content="@OgType"/>
+    <meta property="og:title" content="@GetPageTitle()"/>
+    <meta property="og:description" content="@GetDescription()"/>
+    <meta property="og:url" content="@GetCanonicalUrl()"/>
 
     @* Twitter: title + description are per-page. twitter:card / twitter:site / twitter:image* stay in index.html. *@
-    <meta name="twitter:title" content="@GetPageTitle()" />
-    <meta name="twitter:description" content="@GetDescription()" />
+    <meta name="twitter:title" content="@GetPageTitle()"/>
+    <meta name="twitter:description" content="@GetDescription()"/>
 </HeadContent>
 
 @code {
+
     /// <summary>Page-level title fragment. Composed with the site name as <c>"{Title} — BlazOrbit"</c>.</summary>
-    [Parameter] public string? Title { get; set; }
+    [Parameter]
+    public string? Title { get; set; }
 
     /// <summary>Description tag content. Falls back to the site-wide description when empty.</summary>
-    [Parameter] public string? Description { get; set; }
+    [Parameter]
+    public string? Description { get; set; }
 
     /// <summary>
     /// Explicit keywords for the page. These are merged with site-base keywords and the
     /// URL-derived segments. Pass meaningful search terms (e.g. <c>["table", "sorting", "pagination"]</c>),
     /// not the component type name — the page title is intentionally not duplicated here.
     /// </summary>
-    [Parameter] public IEnumerable<string> Keywords { get; set; } = Array.Empty<string>();
-
-    /// <summary>Robots directive. Defaults to <c>"index, follow"</c>; emitted only when overridden.</summary>
-    [Parameter] public string Robots { get; set; } = DefaultRobots;
+    [Parameter]
+    public IEnumerable<string> Keywords { get; set; } = [];
 
     /// <summary>
     /// Open Graph object type. Defaults to <c>"article"</c> — semantically correct for docs
     /// pages. Override to <c>"website"</c> for landing pages (Home) or other top-level entries.
     /// </summary>
-    [Parameter] public string OgType { get; set; } = "article";
+    [Parameter]
+    public string OgType { get; set; } = "article";
+
+    [Parameter] public string? Robots { get; set; }
 
     private const string SiteName = "BlazOrbit";
-    private const string DefaultRobots = "index, follow";
-    private const string DefaultDescription =
-        "A modern, lightweight Blazor component library for .NET 10 that extends native capabilities and improves developer productivity.";
+
+    private string DefaultDescription =>
+        Loc["Blazor Component Library. C# first, high-performance, and accessible UI design. Lightweight, customizable, open source, and 100% free."];
 
     private string GetPageTitle()
-        => string.IsNullOrEmpty(Title) ? SiteName : $"{Title} — {SiteName}";
+    {
+        return string.IsNullOrEmpty(Title) ? SiteName : $"BlazOrbit | {Title}";
+    }
 
     private string GetDescription()
-        => !string.IsNullOrEmpty(Description)
-            ? Description.TrimEnd('.', ' ')
-            : DefaultDescription;
+    {
+        return string.IsNullOrEmpty(Description)
+            ? DefaultDescription
+            : $"{Loc["Blazor Component Library."]} {Description.TrimEnd('.', ' ')}";
+    }
 
     private string GetKeywords()
     {
-        // Site-base identity keywords. Component pages and area pages get URL-segment hints
-        // appended automatically so that `/components/data/datagrid` surfaces "data, datagrid"
-        // without every page having to author them by hand. Caller-supplied keywords win on
-        // ordering and overrides duplicates via OrdinalIgnoreCase distinct.
-        List<string> keywords = ["BlazOrbit", "Blazor", ".NET 10"];
+        List<string> keywords = ["BlazOrbit", "Blazor", ".NET", "WebAssembly"];
 
         // URL path segments — skip empties, the leading `/`, and very short segments.
         Uri uri = new(Nav.Uri);
-        foreach (string segment in uri.AbsolutePath.Split('/', StringSplitOptions.RemoveEmptyEntries))
+        foreach (var segment in uri.AbsolutePath.Split('/', StringSplitOptions.RemoveEmptyEntries))
         {
             if (segment.Length <= 2) continue;
             keywords.Add(segment.Replace('-', ' '));
@@ -107,4 +107,5 @@
         Uri uri = new(Nav.Uri);
         return $"{uri.Scheme}://{uri.Host}{uri.AbsolutePath}";
     }
+
 }

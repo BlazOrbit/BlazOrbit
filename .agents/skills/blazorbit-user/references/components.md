@@ -104,7 +104,6 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `SuffixColor` | `string` | `BOBAutoComplete` |
 | `SuffixIcon` | `IconKey?` | `BOBAutoComplete` |
 | `SuffixText` | `string` | `BOBAutoComplete` |
-| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `UnresolvedStringError` | `string` | `BOBAutoComplete` |
 | `Value` | `TItem` | `InputBase` |
 | `ValueChanged` | `EventCallback<TItem>` | `InputBase` |
@@ -466,6 +465,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `Columns` | `RenderFragment` | `BOBDataCollectionBase` |
 | `ColumnsCount` | `int` | `BOBDataCards` |
 | `CustomFilter` | `Func<TItem, string, bool>` | `BOBDataCollectionBase` |
+| `DataSource` | `IDataCollectionDataSource<TItem>` | `BOBDataCollectionBase` |
 | `DefaultSortColumn` | `string` | `BOBDataCollectionBase` |
 | `DefaultSortDirection` | `SortDirection` | `BOBDataCollectionBase` |
 | `Density` | `BOBDensity` | `BOBDataCollectionBase` |
@@ -524,6 +524,8 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `CustomAggregate` | `Func<IEnumerable<TItem>, object>` | `BOBDataColumn` |
 | `CustomComparer` | `Func<TItem, TItem, int>` | `BOBDataColumn` |
 | `CustomFilter` | `Func<TItem, string, bool>` | `BOBDataColumn` |
+| `Editable` | `bool` | `BOBDataColumn` |
+| `EditTemplate` | `RenderFragment<TItem>` | `BOBDataColumn` |
 | `Filterable` | `bool` | `BOBDataColumn` |
 | `FilterMode` | `ColumnFilterMode` | `BOBDataColumn` |
 | `Format` | `string` | `BOBDataColumn` |
@@ -537,6 +539,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `Resizable` | `bool` | `BOBDataColumn` |
 | `Sortable` | `bool` | `BOBDataColumn` |
 | `Template` | `RenderFragment<TItem>` | `BOBDataColumn` |
+| `Validator` | `Func<TItem, object, string>` | `BOBDataColumn` |
 | `Visible` | `bool` | `BOBDataColumn` |
 | `Width` | `string` | `BOBDataColumn` |
 
@@ -556,10 +559,13 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `BulkActions` | `IReadOnlyList<DataCollectionBulkAction<TItem>>` | `BOBDataCollectionBase` |
 | `CellBorder` | `BorderStyle` | `BOBDataGrid` |
 | `Columns` | `RenderFragment` | `BOBDataCollectionBase` |
+| `Copyable` | `bool` | `BOBDataGrid` |
 | `CustomFilter` | `Func<TItem, string, bool>` | `BOBDataCollectionBase` |
+| `DataSource` | `IDataCollectionDataSource<TItem>` | `BOBDataCollectionBase` |
 | `DefaultSortColumn` | `string` | `BOBDataCollectionBase` |
 | `DefaultSortDirection` | `SortDirection` | `BOBDataCollectionBase` |
 | `Density` | `BOBDensity` | `BOBDataCollectionBase` |
+| `EditMode` | `BOBDataGridEditMode` | `BOBDataGrid` |
 | `EmptyActionTemplate` | `RenderFragment` | `BOBDataCollectionBase` |
 | `EmptyContent` | `RenderFragment` | `BOBDataCollectionBase` |
 | `EnableVirtualization` | `bool` | `BOBDataCollectionBase` |
@@ -576,9 +582,12 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `Loading` | `bool` | `BOBDataCollectionBase` |
 | `LoadingContent` | `RenderFragment` | `BOBDataCollectionBase` |
 | `LoadingMode` | `LoadingMode` | `BOBDataCollectionBase` |
+| `OnCopy` | `EventCallback<BOBDataGridCopyEventArgs<TItem>>` | `BOBDataGrid` |
 | `OnFilter` | `EventCallback<DataCollectionFilterEventArgs>` | `BOBDataCollectionBase` |
 | `OnPageChange` | `EventCallback<DataCollectionPageChangeEventArgs>` | `BOBDataCollectionBase` |
+| `OnRowCancel` | `EventCallback<TItem>` | `BOBDataGrid` |
 | `OnRowClick` | `EventCallback<TItem>` | `BOBDataCollectionBase` |
+| `OnRowSave` | `EventCallback<TItem>` | `BOBDataGrid` |
 | `OnSort` | `EventCallback<DataCollectionSortEventArgs>` | `BOBDataCollectionBase` |
 | `PageSize` | `int?` | `BOBDataCollectionBase` |
 | `PageSizeOptions` | `int[]` | `BOBDataCollectionBase` |
@@ -774,7 +783,6 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `SuffixColor` | `string` | `BOBDropdownContainer` |
 | `SuffixIcon` | `IconKey?` | `BOBDropdownContainer` |
 | `SuffixText` | `string` | `BOBDropdownContainer` |
-| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `Value` | `TValue` | `InputBase` |
 | `ValueChanged` | `EventCallback<TValue>` | `InputBase` |
 | `ValueExpression` | `Expression<Func<TValue>>` | `InputBase` |
@@ -957,7 +965,6 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `ReadOnly` | `bool` | `BOBInputComponentBase` |
 | `Required` | `bool` | `BOBInputComponentBase` |
 | `Size` | `BOBSize` | `BOBInputCheckbox` |
-| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `UncheckedIcon` | `IconKey?` | `BOBInputCheckbox` |
 | `Value` | `TValue` | `InputBase` |
 | `ValueChanged` | `EventCallback<TValue>` | `InputBase` |
@@ -1002,7 +1009,6 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `SuffixColor` | `string` | `BOBInputColor` |
 | `SuffixIcon` | `IconKey?` | `BOBInputColor` |
 | `SuffixText` | `string` | `BOBInputColor` |
-| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `Value` | `CssColor` | `InputBase` |
 | `ValueChanged` | `EventCallback<CssColor>` | `InputBase` |
 | `ValueExpression` | `Expression<Func<CssColor>>` | `InputBase` |
@@ -1044,7 +1050,6 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `SuffixColor` | `string` | `BOBInputDateRange` |
 | `SuffixIcon` | `IconKey?` | `BOBInputDateRange` |
 | `SuffixText` | `string` | `BOBInputDateRange` |
-| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `Value` | `DateRange` | `InputBase` |
 | `ValueChanged` | `EventCallback<DateRange>` | `InputBase` |
 | `ValueExpression` | `Expression<Func<DateRange>>` | `InputBase` |
@@ -1083,7 +1088,6 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `SuffixColor` | `string` | `BOBInputDateTime` |
 | `SuffixIcon` | `IconKey?` | `BOBInputDateTime` |
 | `SuffixText` | `string` | `BOBInputDateTime` |
-| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `Value` | `TValue` | `InputBase` |
 | `ValueChanged` | `EventCallback<TValue>` | `InputBase` |
 | `ValueExpression` | `Expression<Func<TValue>>` | `InputBase` |
@@ -1270,7 +1274,6 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `SuffixColor` | `string` | `BOBInputNumber` |
 | `SuffixIcon` | `IconKey?` | `BOBInputNumber` |
 | `SuffixText` | `string` | `BOBInputNumber` |
-| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `UseThousandsSeparator` | `bool` | `BOBInputNumber` |
 | `Value` | `TValue` | `InputBase` |
 | `ValueChanged` | `EventCallback<TValue>` | `InputBase` |
@@ -1310,7 +1313,6 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `Size` | `BOBSize` | `BOBInputNumberSlider` |
 | `Step` | `TValue` | `BOBInputNumberSlider` |
 | `TickInterval` | `TValue?` | `BOBInputNumberSlider` |
-| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `Value` | `TValue` | `InputBase` |
 | `ValueChanged` | `EventCallback<TValue>` | `InputBase` |
 | `ValueExpression` | `Expression<Func<TValue>>` | `InputBase` |
@@ -1342,7 +1344,6 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `ReadOnly` | `bool` | `BOBInputComponentBase` |
 | `Required` | `bool` | `BOBInputComponentBase` |
 | `Size` | `BOBSize` | `BOBInputOtp` |
-| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `Value` | `string` | `InputBase` |
 | `ValueChanged` | `EventCallback<string>` | `InputBase` |
 | `ValueExpression` | `Expression<Func<string>>` | `InputBase` |
@@ -1402,7 +1403,6 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `SuffixColor` | `string` | `BOBInputPassword` |
 | `SuffixIcon` | `IconKey?` | `BOBInputPassword` |
 | `SuffixText` | `string` | `BOBInputPassword` |
-| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `UpdateOnInput` | `bool` | `BOBInputPassword` |
 | `Value` | `string` | `InputBase` |
 | `ValueChanged` | `EventCallback<string>` | `InputBase` |
@@ -1447,7 +1447,6 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `ReadOnly` | `bool` | `BOBInputComponentBase` |
 | `Required` | `bool` | `BOBInputComponentBase` |
 | `Size` | `BOBSize` | `BOBInputRadio` |
-| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `UncheckedIcon` | `IconKey?` | `BOBInputRadio` |
 | `Value` | `TValue` | `InputBase` |
 | `ValueChanged` | `EventCallback<TValue>` | `InputBase` |
@@ -1488,7 +1487,6 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `Size` | `BOBSize` | `BOBInputRangeSlider` |
 | `Step` | `TValue` | `BOBInputRangeSlider` |
 | `TickInterval` | `TValue?` | `BOBInputRangeSlider` |
-| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `Value` | `BOBNumericRange<TValue>` | `InputBase` |
 | `ValueChanged` | `EventCallback<BOBNumericRange<TValue>>` | `InputBase` |
 | `ValueExpression` | `Expression<Func<BOBNumericRange<TValue>>>` | `InputBase` |
@@ -1532,7 +1530,6 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `Size` | `BOBSize` | `BOBInputSwitch` |
 | `TrackColorActive` | `string` | `BOBInputSwitch` |
 | `TrackColorInactive` | `string` | `BOBInputSwitch` |
-| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `Value` | `bool` | `InputBase` |
 | `ValueChanged` | `EventCallback<bool>` | `InputBase` |
 | `ValueExpression` | `Expression<Func<bool>>` | `InputBase` |
@@ -1574,7 +1571,6 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `SuffixColor` | `string` | `BOBInputText` |
 | `SuffixIcon` | `IconKey?` | `BOBInputText` |
 | `SuffixText` | `string` | `BOBInputText` |
-| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `UpdateOnInput` | `bool` | `BOBInputText` |
 | `Value` | `string` | `InputBase` |
 | `ValueChanged` | `EventCallback<string>` | `InputBase` |
@@ -1621,7 +1617,6 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `SuffixColor` | `string` | `BOBInputTextArea` |
 | `SuffixIcon` | `IconKey?` | `BOBInputTextArea` |
 | `SuffixText` | `string` | `BOBInputTextArea` |
-| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `UpdateOnInput` | `bool` | `BOBInputTextArea` |
 | `Value` | `string` | `InputBase` |
 | `ValueChanged` | `EventCallback<string>` | `InputBase` |
@@ -2169,6 +2164,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `OnNodeClick` | `EventCallback<TreeNodeEventArgs<TreeMenuNode<TItem>>>` | `BOBTreeMenu` |
 | `Orientation` | `TreeMenuOrientation` | `BOBTreeMenu` |
 | `Size` | `BOBSize` | `BOBTreeMenu` |
+| `TextBehavior` | `TreeMenuTextBehavior` | `BOBTreeMenu` |
 | `Trigger` | `TreeMenuTrigger` | `BOBTreeMenu` |
 
 ## `BOBTreeMenuItem`

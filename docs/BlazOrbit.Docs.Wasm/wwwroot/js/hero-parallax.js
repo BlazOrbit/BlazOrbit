@@ -47,9 +47,9 @@ export function attach(el) {
     detach();
     hero = el;
     active = true;
-    window.addEventListener('mousemove', onMove, { passive: true });
+    window.addEventListener('mousemove', onMove, {passive: true});
     hero.addEventListener('mouseleave', onLeave);
-    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('scroll', onScroll, {passive: true});
     onScroll();
     rafId = requestAnimationFrame(tick);
 }

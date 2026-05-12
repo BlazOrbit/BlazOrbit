@@ -11,19 +11,17 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Charts.Common;
 [Trait("Component Interaction", "Charts.Legend")]
 public class LegendTests
 {
-    private static IEnumerable<BOBChartSeries<string, decimal>> Series2() => new[]
-    {
+    private static IEnumerable<BOBChartSeries<string, decimal>> Series2() =>
+    [
         new BOBChartSeries<string, decimal>
         {
-            Label = "EMEA",
-            Points = new[] { new BOBChartPoint<string, decimal>("Q1", 100m) }
+            Label = "EMEA", Points = [new BOBChartPoint<string, decimal>("Q1", 100m)]
         },
         new BOBChartSeries<string, decimal>
         {
-            Label = "APAC",
-            Points = new[] { new BOBChartPoint<string, decimal>("Q1", 60m) }
+            Label = "APAC", Points = [new BOBChartPoint<string, decimal>("Q1", 60m)]
         }
-    };
+    ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -99,7 +97,7 @@ public class LegendTests
         cut.Find("button.bob-chart__legend-button").Click();
 
         cut.FindAll("rect.bob-bar-chart__bar").Should().HaveCount(1,
-            because: "the first series was toggled hidden via the legend");
+            "the first series was toggled hidden via the legend");
         cut.FindAll("li.bob-chart__legend-item[data-bob-hidden]").Should().HaveCount(1);
     }
 
@@ -159,12 +157,12 @@ public class LegendTests
 
         IRenderedComponent<BOBPieChart<decimal>> cut =
             ctx.Render<BOBPieChart<decimal>>(p => p
-                .Add(c => c.Slices, new[]
-                {
+                .Add(c => c.Slices,
+                [
                     new BOBChartSlice<decimal> { Label = "A", Value = 30m },
-                    new BOBChartSlice<decimal> { Label = "B", Value = 40m },
-                    new BOBChartSlice<decimal> { Label = "C", Value = 30m },
-                }));
+                        new BOBChartSlice<decimal> { Label = "B", Value = 40m },
+                        new BOBChartSlice<decimal> { Label = "C", Value = 30m }
+                ]));
 
         cut.FindAll("ul.bob-chart__legend > li.bob-chart__legend-item")
             .Should().HaveCount(3);
@@ -178,12 +176,12 @@ public class LegendTests
 
         IRenderedComponent<BOBPieChart<decimal>> cut =
             ctx.Render<BOBPieChart<decimal>>(p => p
-                .Add(c => c.Slices, new[]
-                {
+                .Add(c => c.Slices,
+                [
                     new BOBChartSlice<decimal> { Label = "A", Value = 30m },
-                    new BOBChartSlice<decimal> { Label = "B", Value = 40m },
-                    new BOBChartSlice<decimal> { Label = "C", Value = 30m },
-                }));
+                        new BOBChartSlice<decimal> { Label = "B", Value = 40m },
+                        new BOBChartSlice<decimal> { Label = "C", Value = 30m }
+                ]));
 
         // 3 arcs visible.
         cut.FindAll("path.bob-pie-chart__arc").Should().HaveCount(3);

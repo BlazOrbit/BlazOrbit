@@ -11,7 +11,10 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.TextArea;
 [Trait("Component Rendering", "BOBInputTextArea")]
 public class BOBInputTextAreaRenderingTests
 {
-    private class Model { public string? Value { get; set; } }
+    private class Model
+    {
+        public string? Value { get; set; }
+    }
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]

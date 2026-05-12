@@ -29,7 +29,8 @@ public static class IconKeysClassGenerator
         CompilationUnitSyntax root = tree.GetCompilationUnitRoot();
 
         // Extract namespace and class declarations
-        BaseNamespaceDeclarationSyntax? namespaceDecl = root.Members.OfType<BaseNamespaceDeclarationSyntax>().FirstOrDefault();
+        BaseNamespaceDeclarationSyntax? namespaceDecl =
+            root.Members.OfType<BaseNamespaceDeclarationSyntax>().FirstOrDefault();
 
         if (namespaceDecl == null)
         {
@@ -74,7 +75,8 @@ public static class IconKeysClassGenerator
 
         // Build output class
         ClassDeclarationSyntax outputClass = SyntaxFactory.ClassDeclaration(targetClassName)
-            .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.PartialKeyword));
+            .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword),
+                SyntaxFactory.Token(SyntaxKind.PartialKeyword));
 
         foreach (ClassDeclarationSyntax nested in nestedClasses)
         {
@@ -97,7 +99,8 @@ public static class IconKeysClassGenerator
                 foreach (VariableDeclaratorSyntax variable in field.Declaration.Variables)
                 {
                     string memberName = variable.Identifier.Text;
-                    PropertyDeclarationSyntax prop = BuildIconKeyProperty(memberName, nested.Identifier.Text, iconsClass.Identifier.Text);
+                    PropertyDeclarationSyntax prop = BuildIconKeyProperty(memberName, nested.Identifier.Text,
+                        iconsClass.Identifier.Text);
                     keysNested = keysNested.AddMembers(prop);
                 }
             }
@@ -116,7 +119,8 @@ public static class IconKeysClassGenerator
                 }
 
                 string memberName = prop.Identifier.Text;
-                PropertyDeclarationSyntax keyProp = BuildIconKeyProperty(memberName, nested.Identifier.Text, iconsClass.Identifier.Text);
+                PropertyDeclarationSyntax keyProp =
+                    BuildIconKeyProperty(memberName, nested.Identifier.Text, iconsClass.Identifier.Text);
                 keysNested = keysNested.AddMembers(keyProp);
             }
 
@@ -134,11 +138,12 @@ public static class IconKeysClassGenerator
         Console.WriteLine($"  Generated: {outputPath}");
     }
 
-    private static PropertyDeclarationSyntax BuildIconKeyProperty(string memberName, string nestedClassName, string iconsClassName)
+    private static PropertyDeclarationSyntax BuildIconKeyProperty(string memberName, string nestedClassName,
+        string iconsClassName)
     {
         // new IconKey("Name") { SvgContent = BOBIcons.NestedClass.Name }
         ObjectCreationExpressionSyntax creation = SyntaxFactory.ObjectCreationExpression(
-            SyntaxFactory.IdentifierName("IconKey"))
+                SyntaxFactory.IdentifierName("IconKey"))
             .WithArgumentList(SyntaxFactory.ArgumentList(
                 SyntaxFactory.SingletonSeparatedList(
                     SyntaxFactory.Argument(
@@ -155,7 +160,8 @@ public static class IconKeysClassGenerator
                             SyntaxFactory.IdentifierName(memberName))))));
 
         return SyntaxFactory.PropertyDeclaration(SyntaxFactory.IdentifierName("IconKey"), memberName)
-            .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.StaticKeyword), SyntaxFactory.Token(SyntaxKind.ReadOnlyKeyword))
+            .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.StaticKeyword),
+                SyntaxFactory.Token(SyntaxKind.ReadOnlyKeyword))
             .WithInitializer(SyntaxFactory.EqualsValueClause(creation))
             .WithSemicolonToken(SyntaxFactory.Token(SyntaxKind.SemicolonToken));
     }

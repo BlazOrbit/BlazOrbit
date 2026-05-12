@@ -46,7 +46,7 @@ public sealed class HtmlRenderOptions
             [TokenType.CssPseudo] = "#d7ba7d",
             [TokenType.RazorDelimiter] = "#c586c0",
             [TokenType.RazorExpression] = "#c586c0",
-            [TokenType.RazorCodeBlock] = "#c586c0",
+            [TokenType.RazorCodeBlock] = "#c586c0"
         }
     };
 
@@ -94,7 +94,7 @@ public sealed class HtmlRenderOptions
             [TokenType.CssPseudo] = "#800000",
             [TokenType.RazorDelimiter] = "#af00db",
             [TokenType.RazorExpression] = "#af00db",
-            [TokenType.RazorCodeBlock] = "#af00db",
+            [TokenType.RazorCodeBlock] = "#af00db"
         }
     };
 

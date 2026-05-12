@@ -41,7 +41,7 @@ public class BOBSelectSnapshotTests
                 .Add(c => c.Value, "a")
                 .Add(c => c.FullWidth, true)
                 .Add(c => c.ChildContent, b => b.AddMarkupContent(0,
-                    "<option value='a'>A</option>"))),
+                    "<option value='a'>A</option>")))
         ];
 
         var results = testCases.Select(tc =>

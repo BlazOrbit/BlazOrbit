@@ -1,4 +1,4 @@
-@page "/components/layout/container"
+﻿@page "/components/layout/container"
 
 @using BlazOrbit.Components.Layout
 
@@ -8,10 +8,11 @@
 <DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBContainer / BOBSection"]"
          Lede="@Loc["Semantic max-width wrappers with shared container size tiers."]"
          PageInstance="this"
-         ApiType="@typeof(BOBContainer)">
+         ApiType="@typeof(BOBContainer)"
+         Keywords="@(["container", "wrapper", "width", "layout"])">
 
     <DocDemo Key="Container" Title="@Loc["Container sizes"]">
-        @foreach (BOBContainerSize size in System.Enum.GetValues<BOBContainerSize>())
+        @foreach (var size in Enum.GetValues<BOBContainerSize>())
         {
             <BOBContainer Size="@size">
                 <div class="doc-demo__placeholder">@size</div>
@@ -30,12 +31,12 @@
 
     <section class="doc-section">
         <h2 class="doc-section__title">@Loc["Container properties"]</h2>
-        <PropertyTable Properties="@BOBContainerComponentInfo.Parameters" />
+        <PropertyTable Properties="@BOBContainerComponentInfo.Parameters"/>
     </section>
 
     <section class="doc-section">
         <h2 class="doc-section__title">@Loc["Section properties"]</h2>
-        <PropertyTable Properties="@BOBSectionComponentInfo.Parameters" />
+        <PropertyTable Properties="@BOBSectionComponentInfo.Parameters"/>
     </section>
 
 </DocPage>

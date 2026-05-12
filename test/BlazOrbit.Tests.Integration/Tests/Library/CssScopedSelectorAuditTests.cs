@@ -26,7 +26,7 @@ public class CssScopedSelectorAuditTests
         // JS-driven transition classes
         "transition-target",
         // Classes added by Blazor event handling infrastructure
-        "blazor-error-boundary",
+        "blazor-error-boundary"
     };
 
     /// <summary>
@@ -92,10 +92,10 @@ public class CssScopedSelectorAuditTests
         }
 
         violations.Should().BeEmpty(
-            because: "every class selector in a .razor.css must reference a class that is " +
-                     "literally applied in the corresponding .razor file. Dead selectors bloat " +
-                     "the bundle and hide refactoring drift. See CSS-SCOPED-09.\n\n" +
-                     string.Join("\n", violations));
+            "every class selector in a .razor.css must reference a class that is " +
+            "literally applied in the corresponding .razor file. Dead selectors bloat " +
+            "the bundle and hide refactoring drift. See CSS-SCOPED-09.\n\n" +
+            string.Join("\n", violations));
     }
 
     private static HashSet<string> ExtractClassNamesFromCss(string content)
@@ -144,7 +144,8 @@ public class CssScopedSelectorAuditTests
         }
 
         // C# string literals that look like CSS classes (e.g. inside .razor.cs inline)
-        foreach (Match m in Regex.Matches(content, "\"(bob-[a-zA-Z0-9_-]+(?:__[a-zA-Z0-9_-]+)?(?:--[a-zA-Z0-9_-]+)?)\""))
+        foreach (Match m in Regex.Matches(content,
+                     "\"(bob-[a-zA-Z0-9_-]+(?:__[a-zA-Z0-9_-]+)?(?:--[a-zA-Z0-9_-]+)?)\""))
         {
             result.Add(m.Groups[1].Value);
         }

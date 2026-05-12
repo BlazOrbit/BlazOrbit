@@ -56,15 +56,15 @@ public class BOBInputNumberVariantTests
 
         ctx.Services.AddBlazOrbitVariants(builder =>
             builder.ForComponent<BOBInputNumber<int>>()
-                   .AddVariant(
-                       customVariant,
-                       input => builder =>
-                       {
-                           builder.OpenElement(0, "bob-component");
-                           builder.AddAttribute(1, "class", "neon-number");
-                           builder.AddContent(2, input.Label);
-                           builder.CloseElement();
-                       }));
+                .AddVariant(
+                    customVariant,
+                    input => builder =>
+                    {
+                        builder.OpenElement(0, "bob-component");
+                        builder.AddAttribute(1, "class", "neon-number");
+                        builder.AddContent(2, input.Label);
+                        builder.CloseElement();
+                    }));
 
         // Act
         IRenderedComponent<BOBInputNumber<int>> cut = ctx.Render<BOBInputNumber<int>>(p => p

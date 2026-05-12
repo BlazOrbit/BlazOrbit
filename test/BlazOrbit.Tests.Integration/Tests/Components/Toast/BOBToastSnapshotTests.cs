@@ -17,21 +17,33 @@ public class BOBToastSnapshotTests
 
         (string Name, ToastState State)[] testCases =
         [
-            ("Default_Closable", new ToastState
-            {
-                Content = b => b.AddContent(0, "Hello World"),
-                Options = new ToastOptions { Closable = true, AutoDismiss = false, Position = ToastPosition.TopRight }
-            }),
-            ("TopLeft_NoClose", new ToastState
-            {
-                Content = b => b.AddContent(0, "Top Left"),
-                Options = new ToastOptions { Closable = false, AutoDismiss = false, Position = ToastPosition.TopLeft }
-            }),
-            ("BottomRight_NoClose", new ToastState
-            {
-                Content = b => b.AddContent(0, "Bottom Right"),
-                Options = new ToastOptions { Closable = false, AutoDismiss = false, Position = ToastPosition.BottomRight }
-            }),
+            ("Default_Closable",
+                new ToastState
+                {
+                    Content = b => b.AddContent(0, "Hello World"),
+                    Options = new ToastOptions
+                    {
+                        Closable = true, AutoDismiss = false, Position = ToastPosition.TopRight
+                    }
+                }),
+            ("TopLeft_NoClose",
+                new ToastState
+                {
+                    Content = b => b.AddContent(0, "Top Left"),
+                    Options = new ToastOptions
+                    {
+                        Closable = false, AutoDismiss = false, Position = ToastPosition.TopLeft
+                    }
+                }),
+            ("BottomRight_NoClose",
+                new ToastState
+                {
+                    Content = b => b.AddContent(0, "Bottom Right"),
+                    Options = new ToastOptions
+                    {
+                        Closable = false, AutoDismiss = false, Position = ToastPosition.BottomRight
+                    }
+                })
         ];
 
         var results = testCases.Select(tc =>
@@ -41,6 +53,6 @@ public class BOBToastSnapshotTests
             return new { tc.Name, Html = cut.GetNormalizedMarkup() };
         }).ToArray();
 
-        await Verifier.Verify(results).UseParameters(scenario.Name);
+        await Verify(results).UseParameters(scenario.Name);
     }
 }

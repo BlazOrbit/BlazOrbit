@@ -13,13 +13,11 @@ public class BOBDataGridMultiSortTests
 {
     private sealed record Person(string Department, string Name, int Age);
 
-    private static IEnumerable<Person> Items => new[]
-    {
-        new Person("Eng", "Carol", 35),
-        new Person("Sales", "Alice", 30),
-        new Person("Eng", "Bob", 25),
-        new Person("Sales", "Dan", 40),
-    };
+    private static IEnumerable<Person> Items =>
+    [
+        new Person("Eng", "Carol", 35), new Person("Sales", "Alice", 30), new Person("Eng", "Bob", 25),
+        new Person("Sales", "Dan", 40)
+    ];
 
     private static RenderFragment Columns => b =>
     {
@@ -69,8 +67,8 @@ public class BOBDataGridMultiSortTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         DataCollectionState<Person> state = new();
-        state.ToggleSort("Department", append: false);
-        state.ToggleSort("Name", append: true);
+        state.ToggleSort("Department", false);
+        state.ToggleSort("Name", true);
 
         state.SortDescriptors.Should().HaveCount(2);
         state.SortDescriptors[0].ColumnName.Should().Be("Department");

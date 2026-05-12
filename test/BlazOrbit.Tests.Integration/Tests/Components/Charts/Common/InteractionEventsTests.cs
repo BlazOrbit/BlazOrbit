@@ -10,38 +10,37 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Charts.Common;
 [Trait("Component Interaction", "Charts.Events")]
 public class InteractionEventsTests
 {
-    private static IEnumerable<BOBChartSeries<string, decimal>> BarSeries() => new[]
-    {
+    private static IEnumerable<BOBChartSeries<string, decimal>> BarSeries() =>
+    [
         new BOBChartSeries<string, decimal>
         {
             Label = "Sales",
-            Points = new[]
-            {
+            Points =
+            [
                 new BOBChartPoint<string, decimal>("Q1", 100m),
-                new BOBChartPoint<string, decimal>("Q2", 150m),
-            }
+                new BOBChartPoint<string, decimal>("Q2", 150m)
+            ]
         }
-    };
+    ];
 
-    private static IEnumerable<BOBChartSeries<int, double>> LineSeries() => new[]
-    {
+    private static IEnumerable<BOBChartSeries<int, double>> LineSeries() =>
+    [
         new BOBChartSeries<int, double>
         {
             Label = "Latency",
-            Points = new[]
-            {
-                new BOBChartPoint<int, double>(1, 10.0),
-                new BOBChartPoint<int, double>(2, 22.5),
-                new BOBChartPoint<int, double>(3, 18.0),
-            }
+            Points =
+            [
+                new BOBChartPoint<int, double>(1, 10.0), new BOBChartPoint<int, double>(2, 22.5),
+                new BOBChartPoint<int, double>(3, 18.0)
+            ]
         }
-    };
+    ];
 
-    private static IEnumerable<BOBChartSlice<decimal>> Slices() => new[]
-    {
-        new BOBChartSlice<decimal> { Label = "EMEA",     Value = 60m },
-        new BOBChartSlice<decimal> { Label = "Americas", Value = 40m },
-    };
+    private static IEnumerable<BOBChartSlice<decimal>> Slices() =>
+    [
+        new BOBChartSlice<decimal> { Label = "EMEA", Value = 60m },
+        new BOBChartSlice<decimal> { Label = "Americas", Value = 40m }
+    ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -213,7 +212,7 @@ public class InteractionEventsTests
         IRenderedComponent<BOBAreaChart<int, double>> cut =
             ctx.Render<BOBAreaChart<int, double>>(p => p
                 .Add(c => c.Series, LineSeries())
-                .Add(c => c.ShowMarkers, true)            // Area defaults markers off; turn on for click.
+                .Add(c => c.ShowMarkers, true) // Area defaults markers off; turn on for click.
                 .Add(c => c.OnPointClick, args => captured = args));
 
         cut.Find("circle.bob-line-chart__marker").Click();

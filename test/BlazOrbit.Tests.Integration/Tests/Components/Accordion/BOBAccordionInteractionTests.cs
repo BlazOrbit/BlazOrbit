@@ -144,7 +144,7 @@ public class BOBAccordionInteractionTests
 
         // Arrange — middle item disabled
         IRenderedComponent<BOBAccordion> cut = ctx.Render<BOBAccordion>(p => p
-            .Add(c => c.ChildContent, BuildThreeItems(middleDisabled: true)));
+            .Add(c => c.ChildContent, BuildThreeItems(true)));
 
         // Act — click via JS event (browser would block disabled but bUnit may dispatch)
         cut.FindAll(".bob-accordion-item__header")[1].Click();
@@ -221,7 +221,7 @@ public class BOBAccordionInteractionTests
 
         // Arrange — middle disabled
         IRenderedComponent<BOBAccordion> cut = ctx.Render<BOBAccordion>(p => p
-            .Add(c => c.ChildContent, BuildThreeItems(middleDisabled: true)));
+            .Add(c => c.ChildContent, BuildThreeItems(true)));
 
         // Act — should skip disabled middle without exception
         cut.FindAll(".bob-accordion-item__header")[0].KeyDown(new KeyboardEventArgs { Key = "ArrowDown" });

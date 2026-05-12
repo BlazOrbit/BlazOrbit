@@ -19,7 +19,11 @@ public class BOBChunkedUploaderTests
         {
             ChunkSize = 16,
             MaxAllowedSize = payload.Length,
-            SendChunk = (c, _) => { seen.Add(c); return Task.CompletedTask; },
+            SendChunk = (c, _) =>
+            {
+                seen.Add(c);
+                return Task.CompletedTask;
+            }
         };
 
         // Act
@@ -51,7 +55,11 @@ public class BOBChunkedUploaderTests
         {
             ChunkSize = 16,
             MaxAllowedSize = payload.Length,
-            SendChunk = (c, _) => { seen.Add(c); return Task.CompletedTask; },
+            SendChunk = (c, _) =>
+            {
+                seen.Add(c);
+                return Task.CompletedTask;
+            }
         };
 
         // Act
@@ -77,7 +85,7 @@ public class BOBChunkedUploaderTests
             ChunkSize = 16,
             MaxAllowedSize = payload.Length,
             SendChunk = (_, _) => Task.CompletedTask,
-            Progress = new TestProgress<BOBChunkedUploadProgress>(snapshots.Add),
+            Progress = new TestProgress<BOBChunkedUploadProgress>(snapshots.Add)
         };
 
         // Act
@@ -106,7 +114,11 @@ public class BOBChunkedUploaderTests
         {
             ChunkSize = 16,
             MaxAllowedSize = 50,
-            SendChunk = (_, _) => { sendCalled = true; return Task.CompletedTask; },
+            SendChunk = (_, _) =>
+            {
+                sendCalled = true;
+                return Task.CompletedTask;
+            }
         };
 
         // Act
@@ -134,9 +146,13 @@ public class BOBChunkedUploaderTests
             SendChunk = (_, _) =>
             {
                 callCount++;
-                if (callCount == 2) throw new InvalidOperationException("transport down");
+                if (callCount == 2)
+                {
+                    throw new InvalidOperationException("transport down");
+                }
+
                 return Task.CompletedTask;
-            },
+            }
         };
 
         // Act
@@ -155,7 +171,7 @@ public class BOBChunkedUploaderTests
         byte[] payload = new byte[48];
         FakeBrowserFile file = new("cancel.bin", "application/octet-stream", payload);
 
-        using CancellationTokenSource cts = new();
+        CancellationTokenSource cts = new();
         int callCount = 0;
         BOBChunkedUploader uploader = new()
         {
@@ -164,9 +180,13 @@ public class BOBChunkedUploaderTests
             SendChunk = (_, _) =>
             {
                 callCount++;
-                if (callCount == 1) cts.Cancel();
+                if (callCount == 1)
+                {
+                    cts.Cancel();
+                }
+
                 return Task.CompletedTask;
-            },
+            }
         };
 
         // Act
@@ -189,7 +209,11 @@ public class BOBChunkedUploaderTests
         {
             ChunkSize = 16,
             MaxAllowedSize = 0,
-            SendChunk = (_, _) => { sendCalled = true; return Task.CompletedTask; },
+            SendChunk = (_, _) =>
+            {
+                sendCalled = true;
+                return Task.CompletedTask;
+            }
         };
 
         // Act
@@ -216,7 +240,8 @@ public class BOBChunkedUploaderTests
             {
                 throw new IOException($"Supplied file with size {Size} exceeds max {maxAllowedSize}.");
             }
-            return new MemoryStream(data, writable: false);
+
+            return new MemoryStream(data, false);
         }
     }
 

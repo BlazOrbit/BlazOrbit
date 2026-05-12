@@ -28,32 +28,30 @@ public class BOBFluentValidatorTests
     [Fact]
     public void Should_Throw_When_Not_Inside_EditForm()
     {
-        using BunitContext ctx = new();
+        BunitContext ctx = new();
         ctx.JSInterop.Mode = JSRuntimeMode.Loose;
 
-        Action act = () => ctx.Render<BOBFluentValidator>();
-
-        act.Should().Throw<InvalidOperationException>()
+        FluentActions.Invoking(() => ctx.Render<BOBFluentValidator>())
+            .Should().Throw<InvalidOperationException>()
             .WithMessage($"*{nameof(BOBFluentValidator)}*inside an*{nameof(EditForm)}*");
     }
 
     [Fact]
     public void Should_Throw_When_No_Validator_Resolved()
     {
-        using BunitContext ctx = new();
+        BunitContext ctx = new();
         ctx.JSInterop.Mode = JSRuntimeMode.Loose;
 
         TestModel model = new();
 
-        Action act = () => ctx.Render<EditForm>(p => p
-            .Add(c => c.Model, model)
-            .Add(c => c.ChildContent, (EditContext _) => b =>
-            {
-                b.OpenComponent<BOBFluentValidator>(0);
-                b.CloseComponent();
-            }));
-
-        act.Should().Throw<InvalidOperationException>()
+        FluentActions.Invoking(() => ctx.Render<EditForm>(p => p
+                .Add(c => c.Model, model)
+                .Add(c => c.ChildContent, (EditContext _) => b =>
+                {
+                    b.OpenComponent<BOBFluentValidator>(0);
+                    b.CloseComponent();
+                })))
+            .Should().Throw<InvalidOperationException>()
             .WithMessage("*No se encontró un validador*");
     }
 
@@ -106,7 +104,8 @@ public class BOBFluentValidatorTests
 
         editContext.NotifyFieldChanged(new FieldIdentifier(model, nameof(TestModel.Age)));
 
-        IEnumerable<string> ageErrors = editContext.GetValidationMessages(new FieldIdentifier(model, nameof(TestModel.Age)));
+        IEnumerable<string> ageErrors =
+            editContext.GetValidationMessages(new FieldIdentifier(model, nameof(TestModel.Age)));
         ageErrors.Should().ContainSingle()
             .Which.Should().Contain("0").And.Contain("120");
 

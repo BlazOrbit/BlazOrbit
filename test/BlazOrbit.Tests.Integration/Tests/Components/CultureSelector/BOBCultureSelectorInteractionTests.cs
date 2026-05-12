@@ -42,8 +42,8 @@ public class BOBCultureSelectorInteractionTests
 
         // Act — pick the option whose label is es-ES
         IElement target = options.First(o => o.TextContent.Contains("es-ES")
-            || o.TextContent.Contains("español", StringComparison.OrdinalIgnoreCase)
-            || o.TextContent.Contains("Spanish", StringComparison.OrdinalIgnoreCase));
+                                             || o.TextContent.Contains("español", StringComparison.OrdinalIgnoreCase)
+                                             || o.TextContent.Contains("Spanish", StringComparison.OrdinalIgnoreCase));
         target.Click();
 
         // Assert

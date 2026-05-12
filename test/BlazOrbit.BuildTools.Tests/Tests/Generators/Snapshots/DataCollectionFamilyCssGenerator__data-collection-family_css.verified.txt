@@ -146,6 +146,42 @@ bob-component[data-bob-data-collection][data-bob-density="comfortable"] {
     --_dc-padding-y: 1rem;
 }
 
+/* === BATCH-EDIT TOOLBAR ===
+   Save / Cancel surface only when the grid is in EditMode=Batch with
+   at least one staged row. The counter sits inline with the buttons so
+   the user sees how many rows are pending before they commit. */
+bob-component[data-bob-data-collection] .bob-dc__batch-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+bob-component[data-bob-data-collection] .bob-dc__batch-count {
+    font-size: 0.85em;
+    opacity: 0.75;
+    white-space: nowrap;
+}
+
+/* Validation error count — surfaces beside the pending-rows
+   counter so the user knows why Save is disabled. Uses the
+   palette's error token for affordance consistency with the
+   invalid-cell border. */
+bob-component[data-bob-data-collection] .bob-dc__batch-errors {
+    font-size: 0.85em;
+    color: var(--palette-error);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Copy-to-clipboard action — rendered as the right-most slot
+   of the toolbar when Copyable=true. Wrapper exists so future
+   additions (export menu, share, etc.) can collect under one
+   flex item without disturbing surrounding spacing. */
+bob-component[data-bob-data-collection] .bob-dc__copy-action {
+    display: inline-flex;
+    align-items: center;
+}
+
 /* === REDUCED MOTION ===
    Skeleton / spinner CSS reads --bob-dc-anim-duration and
    --bob-dc-spinner-duration. Zeroing them here turns the animations

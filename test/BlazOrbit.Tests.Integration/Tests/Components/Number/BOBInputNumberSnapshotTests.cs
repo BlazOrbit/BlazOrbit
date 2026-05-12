@@ -16,44 +16,62 @@ public class BOBInputNumberSnapshotTests
 
         var testCases = new[]
         {
-            new { Name = "Default_Empty", Builder = (Action<ComponentParameterCollectionBuilder<BOBInputNumber<int?>>>)(p => p
-                .Add(c => c.Label, "Qty")) },
-
-            new { Name = "With_Value", Builder = (Action<ComponentParameterCollectionBuilder<BOBInputNumber<int?>>>)(p => p
-                .Add(c => c.Label, "Qty")
-                .Add(c => c.Value, 42)) },
-
-            new { Name = "Disabled", Builder = (Action<ComponentParameterCollectionBuilder<BOBInputNumber<int?>>>)(p => p
-                .Add(c => c.Label, "Qty")
-                .Add(c => c.Disabled, true)) },
-
-            new { Name = "Loading", Builder = (Action<ComponentParameterCollectionBuilder<BOBInputNumber<int?>>>)(p => p
-                .Add(c => c.Label, "Qty")
-                .Add(c => c.Loading, true)) },
-
-            new { Name = "No_Step_Buttons", Builder = (Action<ComponentParameterCollectionBuilder<BOBInputNumber<int?>>>)(p => p
-                .Add(c => c.Label, "Qty")
-                .Add(c => c.ShowStepButtons, false)) },
-
-            new { Name = "Left_Buttons", Builder = (Action<ComponentParameterCollectionBuilder<BOBInputNumber<int?>>>)(p => p
-                .Add(c => c.Label, "Qty")
-                .Add(c => c.ButtonPlacement, StepButtonPlacement.Left)) },
-
-            new { Name = "With_Prefix_Suffix", Builder = (Action<ComponentParameterCollectionBuilder<BOBInputNumber<int?>>>)(p => p
-                .Add(c => c.Label, "Price")
-                .Add(c => c.PrefixText, "$")
-                .Add(c => c.SuffixText, "USD")) }
+            new
+            {
+                Name = "Default_Empty",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBInputNumber<int?>>>)(p => p
+                    .Add(c => c.Label, "Qty"))
+            },
+            new
+            {
+                Name = "With_Value",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBInputNumber<int?>>>)(p => p
+                    .Add(c => c.Label, "Qty")
+                    .Add(c => c.Value, 42))
+            },
+            new
+            {
+                Name = "Disabled",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBInputNumber<int?>>>)(p => p
+                    .Add(c => c.Label, "Qty")
+                    .Add(c => c.Disabled, true))
+            },
+            new
+            {
+                Name = "Loading",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBInputNumber<int?>>>)(p => p
+                    .Add(c => c.Label, "Qty")
+                    .Add(c => c.Loading, true))
+            },
+            new
+            {
+                Name = "No_Step_Buttons",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBInputNumber<int?>>>)(p => p
+                    .Add(c => c.Label, "Qty")
+                    .Add(c => c.ShowStepButtons, false))
+            },
+            new
+            {
+                Name = "Left_Buttons",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBInputNumber<int?>>>)(p => p
+                    .Add(c => c.Label, "Qty")
+                    .Add(c => c.ButtonPlacement, StepButtonPlacement.Left))
+            },
+            new
+            {
+                Name = "With_Prefix_Suffix",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBInputNumber<int?>>>)(p => p
+                    .Add(c => c.Label, "Price")
+                    .Add(c => c.PrefixText, "$")
+                    .Add(c => c.SuffixText, "USD"))
+            }
         };
 
         var results = testCases.Select(testCase =>
         {
             IRenderedComponent<BOBInputNumber<int?>> cut = ctx.Render<BOBInputNumber<int?>>(testCase.Builder);
-            return new
-            {
-                testCase.Name,
-                Html = cut.GetNormalizedMarkup()
-            };
-        });
+            return new { testCase.Name, Html = cut.GetNormalizedMarkup() };
+        }).ToList();
 
         await Verify(results).UseParameters(scenario.Name);
     }

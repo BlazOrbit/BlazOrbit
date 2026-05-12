@@ -11,7 +11,7 @@
 @if (ShowValidation && EditContext != null && For != null)
 {
     <div class="bob-field-helper" data-bob-error="true" role="alert">
-        <ValidationMessage For="For" />
+        <ValidationMessage For="For"/>
     </div>
 }
 
@@ -23,14 +23,25 @@
 }
 
 @code {
+
     /// <summary>Unique identifier for the component.</summary>
-    [Parameter] public string? Id { get; set; }
+    [Parameter]
+    public string? Id { get; set; }
+
     /// <summary>Helper text displayed below the component for additional context.</summary>
-    [Parameter] public string? HelperText { get; set; }
+    [Parameter]
+    public string? HelperText { get; set; }
+
     /// <summary>When <see langword="true" />, the Validation is shown.</summary>
-    [Parameter] public bool ShowValidation { get; set; }
+    [Parameter]
+    public bool ShowValidation { get; set; }
+
     /// <summary>EditContext.</summary>
-    [Parameter] public EditContext? EditContext { get; set; }
+    [Parameter]
+    public EditContext? EditContext { get; set; }
+
     /// <summary>For.</summary>
-    [Parameter] public Expression<Func<TValue>>? For { get; set; }
+    [Parameter]
+    public Expression<Func<TValue>>? For { get; set; }
+
 }

@@ -37,7 +37,7 @@ public class BOBConfirmDialogSnapshotTests
                 .Add(c => c.Title, "Delete")
                 .Add(c => c.Message, "Remove this item?")
                 .Add(c => c.YesLabel, "Delete")
-                .Add(c => c.NoLabel, "Keep")),
+                .Add(c => c.NoLabel, "Keep"))
         ];
 
         var results = testCases.Select(tc =>

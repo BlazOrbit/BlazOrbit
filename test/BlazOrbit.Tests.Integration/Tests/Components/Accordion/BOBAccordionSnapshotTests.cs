@@ -41,7 +41,7 @@ public class BOBAccordionSnapshotTests
             {
                 Name = "Multiple_First_Expanded",
                 Html = ctx.Render<BOBAccordion>(p => p
-                    .Add(c => c.ExpandedItems, new[] { "i1" })
+                    .Add(c => c.ExpandedItems, ["i1"])
                     .Add(c => c.ChildContent, TwoItems())).GetNormalizedMarkup()
             },
             new
@@ -50,7 +50,7 @@ public class BOBAccordionSnapshotTests
                 Html = ctx.Render<BOBAccordion>(p => p
                     .Add(c => c.Mode, BOBAccordionMode.SingleStrict)
                     .Add(c => c.ChildContent, TwoItems())).GetNormalizedMarkup()
-            },
+            }
         };
 
         await Verify(testCases).UseParameters(scenario.Name);

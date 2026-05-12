@@ -38,7 +38,7 @@
    (BackgroundColor=) still wins via the var() fallback chain. */
 [data-bob-theme="dark"] [data-bob-component="dropdown-container"][data-bob-elevation] .bob-input__wrapper .bob-dropdown__menu {
     --_dropdown-menu-background: var(--bob-inline-background,
-        color-mix(in oklab,
+    color-mix(in oklab,
             var(--palette-surface),
             var(--palette-surface-contrast) var(--bob-inline-elevation-tint, 0%)));
 }

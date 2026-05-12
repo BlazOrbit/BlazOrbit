@@ -13,14 +13,22 @@
 }
 
 @code {
+
     /// <summary>AvailableThemes.</summary>
-    [Parameter] public string[] AvailableThemes { get; set; } = new[] { "light", "dark" };
+    [Parameter]
+    public string[] AvailableThemes { get; set; } = ["light", "dark"];
+
     /// <summary>Raised when the ThemeChanged event occurs.</summary>
-    [Parameter] public EventCallback<string> OnThemeChanged { get; set; }
+    [Parameter]
+    public EventCallback<string> OnThemeChanged { get; set; }
+
     /// <summary>Material icon name for the Show.</summary>
-    [Parameter] public bool ShowIcon { get; set; } = true;
+    [Parameter]
+    public bool ShowIcon { get; set; } = true;
+
     /// <summary>Override map of theme name → Material icon. Falls back to a built-in default when <see langword="null"/>.</summary>
-    [Parameter] public Dictionary<string, string>? ThemeIcons { get; set; }
+    [Parameter]
+    public Dictionary<string, string>? ThemeIcons { get; set; }
 
     private string _currentTheme = "light";
     private bool _isTransitioning = false;
@@ -73,7 +81,7 @@
                    IconInactive="@BOBIconKeys.MaterialIconsTwoTone.i_light_mode"
                    IconActive="@BOBIconKeys.MaterialIconsTwoTone.i_dark_mode"
                    Value="_currentTheme"
-                   ValueChanged="OnSunMoonSwitchChanged" />
+                   ValueChanged="@(EventCallback.Factory.Create<string?>(this, OnSunMoonSwitchChanged))"/>
     };
 
     private async Task SwitchTheme()
@@ -84,7 +92,7 @@
         // Small delay for animation start
         await Task.Delay(TimeSpan.FromMilliseconds(50), TimeProvider);
 
-        string newTheme = await ThemeInterop.ToggleThemeAsync(AvailableThemes);
+        var newTheme = await ThemeInterop.ToggleThemeAsync(AvailableThemes);
         _currentTheme = newTheme;
 
         if (OnThemeChanged.HasDelegate)
@@ -98,15 +106,15 @@
         StateHasChanged();
     }
 
-    private async Task OnSunMoonSwitchChanged(string requestedTheme)
+    private async Task OnSunMoonSwitchChanged(string? requestedTheme)
     {
         // Evita doble toggle si por algún motivo llega el mismo valor
         if (requestedTheme == _currentTheme)
             return;
 
-        string[] themes = { "light", "dark" };
+        string[] themes = ["light", "dark"];
 
-        string newTheme = await ThemeInterop.ToggleThemeAsync(themes);
+        var newTheme = await ThemeInterop.ToggleThemeAsync(themes);
         _currentTheme = newTheme;
 
         if (OnThemeChanged.HasDelegate)
@@ -117,7 +125,7 @@
 
     private string GetThemeIcon(string theme)
     {
-        if (ThemeIcons?.TryGetValue(theme, out string? icon) == true)
+        if (ThemeIcons?.TryGetValue(theme, out var icon) == true)
         {
             return icon;
         }
@@ -140,4 +148,5 @@
     {
         return _currentTheme == "light" ? "dark" : "light";
     }
+
 }

@@ -24,7 +24,7 @@ public class BOBToastAccessibilityTests
 
         // Arrange & Act
         IRenderedComponent<BOBToast> cut = ctx.Render<BOBToast>(p => p
-            .Add(c => c.State, CreateState(closable: true)));
+            .Add(c => c.State, CreateState(true)));
 
         // Assert
         cut.Find("[aria-label='Close']").Should().NotBeNull();

@@ -9,27 +9,40 @@
 
 
 <DocPage Eyebrow="@Loc["Service"]" Title="@Loc["BOBNotificationCenter"]"
-         Lede="@Loc["Persistent inbox-style notifications with a paired BOBNotificationBell badge."]">
+         Lede="@Loc["Persistent inbox-style notifications with a paired bell badge. View, dismiss, and manage alerts in a centralized panel."]"
+         PageInstance="this"
+         ApiType="@typeof(INotificationCenter)"
+         Keywords="@(["notification center", "bell", "inbox", "alerts"])">
+
+    <section class="doc-section">
+        <p class="doc-section__description">
+            @Loc.Html("            The service is paired with the <code>BOBNotificationBell</code> badge component, which displays the unread count and opens the inbox panel. Both components read from the same <code>INotificationCenter</code> store, so the UI stays synchronized regardless of how notifications are added or dismissed.")
+        </p>
+    </section>
 
     <BOBBanner Severity="BOBBannerSeverity.Warning"
                Title="@Loc["Extra package required"]"
-               Message="@Loc["This service requires the BlazOrbit.Notifications NuGet package. Install it with dotnet add package BlazOrbit.Notifications and register AddBlazOrbitNotifications() in Program.cs."]" />
+               Message="@Loc["This service requires the BlazOrbit.Notifications NuGet package. Install it with dotnet add package BlazOrbit.Notifications and register AddBlazOrbitNotifications() in Program.cs."]"/>
 
     <BOBBanner Severity="BOBBannerSeverity.Info"
                Title="@Loc["About BOBNotificationCenter"]"
-               Message="@Loc["The BOBNotificationCenter service manages notifications in a persistent inbox-style manner. It works in tandem with the BOBNotificationBell component, which displays a badge with the count of unread notifications."]" />
+               Message="@Loc["The BOBNotificationCenter service manages notifications in a persistent inbox-style manner. It works in tandem with the BOBNotificationBell component, which displays a badge with the count of unread notifications."]"/>
 
     <BOBBanner Severity="BOBBannerSeverity.Info"
                Title="@Loc["Custom persistence"]"
-               Message="@Loc["Persistence is managed by INotificationStore. The default implementation stores notifications in memory, but you can implement your own (e.g. using local storage or server-side database) and register it via builder.Services.AddBlazOrbitNotifications<TStore>()."]" />
+               Message="@Loc["Persistence is managed by INotificationStore. The default implementation stores notifications in memory, but you can implement your own (e.g. using local storage or server-side database) and register it via builder.Services.AddBlazOrbitNotifications<TStore>()."]"/>
 
     <DocDemo Key="Push" Title="@Loc["Push notifications"]">
         <div style="display:flex;gap:.5rem;align-items:center;">
-            <BOBButton Text="@Loc["Push info"]" OnClick="@(() => PushAsync(NotificationSeverity.Info, "Info", "Plain message."))" />
-            <BOBButton Text="@Loc["Push success"]" OnClick="@(() => PushAsync(NotificationSeverity.Success, "Deploy OK", "v2.4.1 is live."))" />
-            <BOBButton Text="@Loc["Push warning"]" OnClick="@(() => PushAsync(NotificationSeverity.Warning, "Quota", "85% of disk used."))" />
-            <BOBButton Text="@Loc["Push error"]" OnClick="@(() => PushAsync(NotificationSeverity.Error, "Failed", "Job 42 crashed."))" />
-            <BOBNotificationBell />
+            <BOBButton Text="@Loc["Push info"]"
+                       OnClick="@(() => PushAsync(NotificationSeverity.Info, "Info", "Plain message."))"/>
+            <BOBButton Text="@Loc["Push success"]"
+                       OnClick="@(() => PushAsync(NotificationSeverity.Success, "Deploy OK", "v2.4.1 is live."))"/>
+            <BOBButton Text="@Loc["Push warning"]"
+                       OnClick="@(() => PushAsync(NotificationSeverity.Warning, "Quota", "85% of disk used."))"/>
+            <BOBButton Text="@Loc["Push error"]"
+                       OnClick="@(() => PushAsync(NotificationSeverity.Error, "Failed", "Job 42 crashed."))"/>
+            <BOBNotificationBell/>
         </div>
     </DocDemo>
 
@@ -41,14 +54,14 @@
         else
         {
             <div style="display:flex;gap:.5rem;align-items:center;margin-block-end:.5rem;">
-                <BOBButton Text="@Loc["Mark all read"]" OnClick="@(() => Center.MarkAllReadAsync())" />
-                <BOBButton Text="@Loc["Clear"]" OnClick="@(() => Center.ClearAsync())" />
+                <BOBButton Text="@Loc["Mark all read"]" OnClick="@(() => Center.MarkAllReadAsync())"/>
+                <BOBButton Text="@Loc["Clear"]" OnClick="@(() => Center.ClearAsync())"/>
                 <span>@Loc["Unread:"] @Center.UnreadCount</span>
             </div>
             <ul class="doc-inbox">
-                @foreach (BOBNotification entry in Center.All)
+                @foreach (var entry in Center.All)
                 {
-                    string capturedId = entry.Id;
+                    var capturedId = entry.Id;
                     <li class="doc-inbox__row" data-bob-read="@(entry.IsRead ? "true" : null)">
                         <span class="doc-inbox__title">@entry.Title</span>
                         @if (!string.IsNullOrEmpty(entry.Body))
@@ -61,9 +74,9 @@
                         <span class="doc-inbox__actions">
                             @if (!entry.IsRead)
                             {
-                                <BOBButton Text="@Loc["Read"]" OnClick="@(() => Center.MarkReadAsync(capturedId))" />
+                                <BOBButton Text="@Loc["Read"]" OnClick="@(() => Center.MarkReadAsync(capturedId))"/>
                             }
-                            <BOBButton Text="@Loc["Remove"]" OnClick="@(() => Center.RemoveAsync(capturedId))" />
+                            <BOBButton Text="@Loc["Remove"]" OnClick="@(() => Center.RemoveAsync(capturedId))"/>
                         </span>
                     </li>
                 }
@@ -74,12 +87,16 @@
 </DocPage>
 
 @code {
+
     protected override void OnInitialized()
     {
         Center.OnChangeAsync += OnCenterChangedAsync;
     }
 
-    private Task OnCenterChangedAsync() => InvokeAsync(StateHasChanged);
+    private Task OnCenterChangedAsync()
+    {
+        return InvokeAsync(StateHasChanged);
+    }
 
     private Task PushAsync(NotificationSeverity severity, string title, string body)
     {
@@ -87,7 +104,7 @@
         {
             Title = title,
             Body = body,
-            Severity = severity,
+            Severity = severity
         });
     }
 
@@ -95,4 +112,5 @@
     {
         Center.OnChangeAsync -= OnCenterChangedAsync;
     }
+
 }

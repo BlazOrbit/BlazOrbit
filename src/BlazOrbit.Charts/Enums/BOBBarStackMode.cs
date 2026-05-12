@@ -47,5 +47,5 @@ public enum BOBBarStackMode
     /// (P&amp;L bridges, budget actuals vs plan, fund flow). Multi-series
     /// input is rejected — only the first series is rendered.
     /// </summary>
-    Waterfall,
+    Waterfall
 }

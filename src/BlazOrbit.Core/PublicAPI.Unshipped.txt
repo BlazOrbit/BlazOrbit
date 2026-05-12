@@ -391,6 +391,7 @@ BlazOrbit.Components.DateRange.IsComplete.get -> bool
 BlazOrbit.Components.DateRange.IsEmpty.get -> bool
 BlazOrbit.Components.DateRange.Start.get -> System.DateOnly?
 BlazOrbit.Components.DateRange.Start.init -> void
+BlazOrbit.Components.IHasRipple.GetRippleContainer() -> Microsoft.AspNetCore.Components.ElementReference?
 override BlazOrbit.Components.DateRange.GetHashCode() -> int
 static BlazOrbit.Components.CssColor.implicit operator string!(BlazOrbit.Components.CssColor? color) -> string!
 ~override BlazOrbit.Components.DateRange.Equals(object obj) -> bool
@@ -480,7 +481,6 @@ BlazOrbit.Components.IHasRequired.Required.get -> bool
 BlazOrbit.Components.IHasRipple
 BlazOrbit.Components.IHasRipple.DisableRipple.get -> bool
 BlazOrbit.Components.IHasRipple.DisableRipple.set -> void
-BlazOrbit.Components.IHasRipple.GetRippleContainer() -> Microsoft.AspNetCore.Components.ElementReference
 BlazOrbit.Components.IHasRipple.RippleColor.get -> string?
 BlazOrbit.Components.IHasRipple.RippleColor.set -> void
 BlazOrbit.Components.IHasRipple.RippleDurationMs.get -> int?
@@ -608,11 +608,8 @@ BlazOrbit.Localization.LocalizationSettings
 BlazOrbit.Localization.LocalizationSettings.DefaultCulture.get -> string!
 BlazOrbit.Localization.LocalizationSettings.DefaultCulture.set -> void
 BlazOrbit.Localization.LocalizationSettings.LocalizationSettings() -> void
-BlazOrbit.Localization.LocalizationSettings.ResourcesPath.get -> string!
-BlazOrbit.Localization.LocalizationSettings.ResourcesPath.set -> void
 BlazOrbit.Localization.LocalizationSettings.SupportedCultures.get -> System.Collections.Generic.List<System.Globalization.CultureInfo!>!
 BlazOrbit.Localization.LocalizationSettings.SupportedCultures.set -> void
-BlazOrbit.Localization.LocalizationSettings.TranslationsAssemblies.get -> System.Collections.Generic.Dictionary<string!, string!>!
 static BlazOrbit.Core.Utilities.StringExtensions.ToKebabCase(this string! propertyName) -> string!
 static BlazOrbit.Localization.CultureFlags.GetFlag(string? cultureName) -> string!
 static BlazOrbit.Localization.CultureFlags.GetFlag(System.Globalization.CultureInfo! culture) -> string!
@@ -23326,3 +23323,124 @@ static BlazOrbit.Components.TimelineItem.operator ==(BlazOrbit.Components.Timeli
 ~override BlazOrbit.Components.TimelineItem.Equals(object obj) -> bool
 ~override BlazOrbit.Components.TimelineItem.ToString() -> string
 BlazOrbit.Abstractions.ModuleJsInteropBase.TryGetModuleAsync() -> System.Threading.Tasks.ValueTask<Microsoft.JSInterop.IJSObjectReference?>
+BlazOrbit.Localization.BobLocalizationBundleAttribute
+BlazOrbit.Localization.BobLocalizationBundleAttribute.BobLocalizationBundleAttribute(System.Type! resourceType) -> void
+BlazOrbit.Localization.BobLocalizationBundleAttribute.Chain.get -> System.Type![]!
+BlazOrbit.Localization.BobLocalizationBundleAttribute.Chain.init -> void
+BlazOrbit.Localization.BobLocalizationBundleAttribute.DefaultCulture.get -> string!
+BlazOrbit.Localization.BobLocalizationBundleAttribute.DefaultCulture.init -> void
+BlazOrbit.Localization.BobLocalizationBundleAttribute.ResourceType.get -> System.Type!
+BlazOrbit.Localization.BobLocalizationBundleAttribute.TranslationsFolder.get -> string!
+BlazOrbit.Localization.BobLocalizationBundleAttribute.TranslationsFolder.init -> void
+BlazOrbit.Localization.BobLocalizationBundleSpec
+BlazOrbit.Localization.BobLocalizationBundleSpec.<Clone>$() -> BlazOrbit.Localization.BobLocalizationBundleSpec!
+BlazOrbit.Localization.BobLocalizationBundleSpec.BobLocalizationBundleSpec(System.Type! ResourceType, string! DefaultCulture, System.Collections.Generic.IReadOnlyList<System.Type!>! Chain, System.Collections.Generic.IReadOnlyList<BlazOrbit.Localization.BobLocalizationKeyRoute!>! KeyRoutes, System.Collections.Frozen.FrozenDictionary<string!, System.Collections.Frozen.FrozenDictionary<ulong, string!>!>? Translations, System.Collections.Frozen.FrozenDictionary<ulong, string!>? SourceLiterals) -> void
+BlazOrbit.Localization.BobLocalizationBundleSpec.Chain.get -> System.Collections.Generic.IReadOnlyList<System.Type!>!
+BlazOrbit.Localization.BobLocalizationBundleSpec.Chain.init -> void
+BlazOrbit.Localization.BobLocalizationBundleSpec.Deconstruct(out System.Type! ResourceType, out string! DefaultCulture, out System.Collections.Generic.IReadOnlyList<System.Type!>! Chain, out System.Collections.Generic.IReadOnlyList<BlazOrbit.Localization.BobLocalizationKeyRoute!>! KeyRoutes, out System.Collections.Frozen.FrozenDictionary<string!, System.Collections.Frozen.FrozenDictionary<ulong, string!>!>? Translations, out System.Collections.Frozen.FrozenDictionary<ulong, string!>? SourceLiterals) -> void
+BlazOrbit.Localization.BobLocalizationBundleSpec.DefaultCulture.get -> string!
+BlazOrbit.Localization.BobLocalizationBundleSpec.DefaultCulture.init -> void
+BlazOrbit.Localization.BobLocalizationBundleSpec.Equals(BlazOrbit.Localization.BobLocalizationBundleSpec? other) -> bool
+BlazOrbit.Localization.BobLocalizationBundleSpec.KeyRoutes.get -> System.Collections.Generic.IReadOnlyList<BlazOrbit.Localization.BobLocalizationKeyRoute!>!
+BlazOrbit.Localization.BobLocalizationBundleSpec.KeyRoutes.init -> void
+BlazOrbit.Localization.BobLocalizationBundleSpec.ResourceType.get -> System.Type!
+BlazOrbit.Localization.BobLocalizationBundleSpec.ResourceType.init -> void
+BlazOrbit.Localization.BobLocalizationBundleSpec.SourceLiterals.get -> System.Collections.Frozen.FrozenDictionary<ulong, string!>?
+BlazOrbit.Localization.BobLocalizationBundleSpec.SourceLiterals.init -> void
+BlazOrbit.Localization.BobLocalizationBundleSpec.Translations.get -> System.Collections.Frozen.FrozenDictionary<string!, System.Collections.Frozen.FrozenDictionary<ulong, string!>!>?
+BlazOrbit.Localization.BobLocalizationBundleSpec.Translations.init -> void
+BlazOrbit.Localization.BobLocalizationHash
+BlazOrbit.Localization.BobLocalizationKeyRoute
+BlazOrbit.Localization.BobLocalizationKeyRoute.<Clone>$() -> BlazOrbit.Localization.BobLocalizationKeyRoute!
+BlazOrbit.Localization.BobLocalizationKeyRoute.BobLocalizationKeyRoute(string! Prefix, System.Type! ProviderType) -> void
+BlazOrbit.Localization.BobLocalizationKeyRoute.Deconstruct(out string! Prefix, out System.Type! ProviderType) -> void
+BlazOrbit.Localization.BobLocalizationKeyRoute.Equals(BlazOrbit.Localization.BobLocalizationKeyRoute? other) -> bool
+BlazOrbit.Localization.BobLocalizationKeyRoute.Prefix.get -> string!
+BlazOrbit.Localization.BobLocalizationKeyRoute.Prefix.init -> void
+BlazOrbit.Localization.BobLocalizationKeyRoute.ProviderType.get -> System.Type!
+BlazOrbit.Localization.BobLocalizationKeyRoute.ProviderType.init -> void
+BlazOrbit.Localization.BobLocalizationKeyRouteAttribute
+BlazOrbit.Localization.BobLocalizationKeyRouteAttribute.BobLocalizationKeyRouteAttribute(System.Type! resourceType, string! prefix, System.Type! providerType) -> void
+BlazOrbit.Localization.BobLocalizationKeyRouteAttribute.Prefix.get -> string!
+BlazOrbit.Localization.BobLocalizationKeyRouteAttribute.ProviderType.get -> System.Type!
+BlazOrbit.Localization.BobLocalizationKeyRouteAttribute.ResourceType.get -> System.Type!
+BlazOrbit.Localization.BobLocalizationOptions
+BlazOrbit.Localization.BobLocalizationOptions.BobLocalizationOptions() -> void
+BlazOrbit.Localization.BobLocalizationOptions.DefaultCulture.get -> string?
+BlazOrbit.Localization.BobLocalizationOptions.DefaultCulture.set -> void
+BlazOrbit.Localization.BobLocalizationOptions.EnableFallbackDiagnostics.get -> bool
+BlazOrbit.Localization.BobLocalizationOptions.EnableFallbackDiagnostics.set -> void
+BlazOrbit.Localization.BobLocalize
+BlazOrbit.Localization.BobLocalizer<T>
+BlazOrbit.Localization.BobLocalizerHtmlExtensions
+BlazOrbit.Localization.BobLocalizer<T>.BobLocalizer(System.IServiceProvider! services) -> void
+BlazOrbit.Localization.BobLocalizer<T>.GetAllStrings(bool includeParentCultures) -> System.Collections.Generic.IEnumerable<Microsoft.Extensions.Localization.LocalizedString!>!
+BlazOrbit.Localization.BobLocalizer<T>.this[string! name, params object![]! arguments].get -> Microsoft.Extensions.Localization.LocalizedString!
+BlazOrbit.Localization.BobLocalizer<T>.this[string! name].get -> Microsoft.Extensions.Localization.LocalizedString!
+BlazOrbit.Localization.IBobLocalizationBuilder
+BlazOrbit.Localization.IBobLocalizationBuilder.AddProvider<TProvider>(Microsoft.Extensions.DependencyInjection.ServiceLifetime lifetime = Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton) -> BlazOrbit.Localization.IBobLocalizationBuilder!
+BlazOrbit.Localization.IBobLocalizationBuilder.Services.get -> Microsoft.Extensions.DependencyInjection.IServiceCollection!
+BlazOrbit.Localization.IBobLocalizationProvider
+BlazOrbit.Localization.IBobLocalizationProvider.TryGet(ulong hash, System.Globalization.CultureInfo! culture, out string? value) -> bool
+BlazOrbit.Localization.Providers.BundleProvider
+BlazOrbit.Localization.Providers.BundleProvider.BundleProvider() -> void
+BlazOrbit.Localization.Providers.BundleProvider.TryGet(ulong hash, System.Globalization.CultureInfo! culture, out string? value) -> bool
+BlazOrbit.Localization.Providers.LiteralProvider
+BlazOrbit.Localization.Providers.LiteralProvider.LiteralProvider() -> void
+BlazOrbit.Localization.Providers.LiteralProvider.TryGet(ulong hash, System.Globalization.CultureInfo! culture, out string? value) -> bool
+BlazOrbit.Localization.ServiceCollectionExtensions
+override BlazOrbit.Localization.BobLocalizationBundleSpec.Equals(object? obj) -> bool
+override BlazOrbit.Localization.BobLocalizationBundleSpec.GetHashCode() -> int
+override BlazOrbit.Localization.BobLocalizationBundleSpec.ToString() -> string!
+override BlazOrbit.Localization.BobLocalizationKeyRoute.Equals(object? obj) -> bool
+override BlazOrbit.Localization.BobLocalizationKeyRoute.GetHashCode() -> int
+override BlazOrbit.Localization.BobLocalizationKeyRoute.ToString() -> string!
+static BlazOrbit.Localization.BobLocalizationBundleSpec.operator !=(BlazOrbit.Localization.BobLocalizationBundleSpec? left, BlazOrbit.Localization.BobLocalizationBundleSpec? right) -> bool
+static BlazOrbit.Localization.BobLocalizationBundleSpec.operator ==(BlazOrbit.Localization.BobLocalizationBundleSpec? left, BlazOrbit.Localization.BobLocalizationBundleSpec? right) -> bool
+static BlazOrbit.Localization.BobLocalizationHash.Compute(string! source) -> ulong
+static BlazOrbit.Localization.BobLocalizationKeyRoute.operator !=(BlazOrbit.Localization.BobLocalizationKeyRoute? left, BlazOrbit.Localization.BobLocalizationKeyRoute? right) -> bool
+static BlazOrbit.Localization.BobLocalizationKeyRoute.operator ==(BlazOrbit.Localization.BobLocalizationKeyRoute? left, BlazOrbit.Localization.BobLocalizationKeyRoute? right) -> bool
+static BlazOrbit.Localization.BobLocalize.AllBundles.get -> System.Collections.Generic.IReadOnlyCollection<BlazOrbit.Localization.BobLocalizationBundleSpec!>!
+static BlazOrbit.Localization.BobLocalize.CultureChanged -> System.Action<System.Globalization.CultureInfo!>?
+static BlazOrbit.Localization.BobLocalize.NotifyCultureChanged(System.Globalization.CultureInfo! culture) -> void
+static BlazOrbit.Localization.BobLocalize.RegisterBundle(BlazOrbit.Localization.BobLocalizationBundleSpec! spec) -> void
+static BlazOrbit.Localization.BobLocalize.TryGetBundle(System.Type! resourceType, out BlazOrbit.Localization.BobLocalizationBundleSpec? spec) -> bool
+static BlazOrbit.Localization.BobLocalize.UnregisterBundle(System.Type! resourceType) -> bool
+static BlazOrbit.Localization.BobLocalizerHtmlExtensions.Html<T>(this Microsoft.Extensions.Localization.IStringLocalizer<T>! localizer, string! name, params object?[]! args) -> Microsoft.AspNetCore.Components.MarkupString
+static BlazOrbit.Localization.ServiceCollectionExtensions.AddBlazOrbitLocalization(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services, System.Action<BlazOrbit.Localization.BobLocalizationOptions!>? configure = null) -> BlazOrbit.Localization.IBobLocalizationBuilder!
+BlazOrbit.Localization.TnFormat.TnDiagnostic
+BlazOrbit.Localization.TnFormat.TnDiagnostic.<Clone>$() -> BlazOrbit.Localization.TnFormat.TnDiagnostic!
+BlazOrbit.Localization.TnFormat.TnDiagnostic.Deconstruct(out BlazOrbit.Localization.TnFormat.TnDiagnosticSeverity Severity, out string! Message, out int LineNumber) -> void
+BlazOrbit.Localization.TnFormat.TnDiagnostic.Equals(BlazOrbit.Localization.TnFormat.TnDiagnostic? other) -> bool
+BlazOrbit.Localization.TnFormat.TnDiagnostic.LineNumber.get -> int
+BlazOrbit.Localization.TnFormat.TnDiagnostic.LineNumber.init -> void
+BlazOrbit.Localization.TnFormat.TnDiagnostic.Message.get -> string!
+BlazOrbit.Localization.TnFormat.TnDiagnostic.Message.init -> void
+BlazOrbit.Localization.TnFormat.TnDiagnostic.Severity.get -> BlazOrbit.Localization.TnFormat.TnDiagnosticSeverity
+BlazOrbit.Localization.TnFormat.TnDiagnostic.Severity.init -> void
+BlazOrbit.Localization.TnFormat.TnDiagnostic.TnDiagnostic(BlazOrbit.Localization.TnFormat.TnDiagnosticSeverity Severity, string! Message, int LineNumber) -> void
+BlazOrbit.Localization.TnFormat.TnDiagnosticSeverity
+BlazOrbit.Localization.TnFormat.TnDiagnosticSeverity.Error = 1 -> BlazOrbit.Localization.TnFormat.TnDiagnosticSeverity
+BlazOrbit.Localization.TnFormat.TnDiagnosticSeverity.Info = 2 -> BlazOrbit.Localization.TnFormat.TnDiagnosticSeverity
+BlazOrbit.Localization.TnFormat.TnDiagnosticSeverity.Warning = 0 -> BlazOrbit.Localization.TnFormat.TnDiagnosticSeverity
+BlazOrbit.Localization.TnFormat.TnDocument
+BlazOrbit.Localization.TnFormat.TnDocument.<Clone>$() -> BlazOrbit.Localization.TnFormat.TnDocument!
+BlazOrbit.Localization.TnFormat.TnDocument.Deconstruct(out System.Collections.Frozen.FrozenDictionary<string!, System.Collections.Frozen.FrozenDictionary<ulong, string!>!>! Translations, out System.Collections.Generic.IReadOnlyList<BlazOrbit.Localization.TnFormat.TnDiagnostic!>! Diagnostics) -> void
+BlazOrbit.Localization.TnFormat.TnDocument.Diagnostics.get -> System.Collections.Generic.IReadOnlyList<BlazOrbit.Localization.TnFormat.TnDiagnostic!>!
+BlazOrbit.Localization.TnFormat.TnDocument.Diagnostics.init -> void
+BlazOrbit.Localization.TnFormat.TnDocument.Equals(BlazOrbit.Localization.TnFormat.TnDocument? other) -> bool
+BlazOrbit.Localization.TnFormat.TnDocument.TnDocument(System.Collections.Frozen.FrozenDictionary<string!, System.Collections.Frozen.FrozenDictionary<ulong, string!>!>! Translations, System.Collections.Generic.IReadOnlyList<BlazOrbit.Localization.TnFormat.TnDiagnostic!>! Diagnostics) -> void
+BlazOrbit.Localization.TnFormat.TnDocument.Translations.get -> System.Collections.Frozen.FrozenDictionary<string!, System.Collections.Frozen.FrozenDictionary<ulong, string!>!>!
+BlazOrbit.Localization.TnFormat.TnDocument.Translations.init -> void
+BlazOrbit.Localization.TnFormat.TnParser
+override BlazOrbit.Localization.TnFormat.TnDiagnostic.Equals(object? obj) -> bool
+override BlazOrbit.Localization.TnFormat.TnDiagnostic.GetHashCode() -> int
+override BlazOrbit.Localization.TnFormat.TnDiagnostic.ToString() -> string!
+override BlazOrbit.Localization.TnFormat.TnDocument.Equals(object? obj) -> bool
+override BlazOrbit.Localization.TnFormat.TnDocument.GetHashCode() -> int
+override BlazOrbit.Localization.TnFormat.TnDocument.ToString() -> string!
+static BlazOrbit.Localization.TnFormat.TnDiagnostic.operator !=(BlazOrbit.Localization.TnFormat.TnDiagnostic? left, BlazOrbit.Localization.TnFormat.TnDiagnostic? right) -> bool
+static BlazOrbit.Localization.TnFormat.TnDiagnostic.operator ==(BlazOrbit.Localization.TnFormat.TnDiagnostic? left, BlazOrbit.Localization.TnFormat.TnDiagnostic? right) -> bool
+static BlazOrbit.Localization.TnFormat.TnDocument.operator !=(BlazOrbit.Localization.TnFormat.TnDocument? left, BlazOrbit.Localization.TnFormat.TnDocument? right) -> bool
+static BlazOrbit.Localization.TnFormat.TnDocument.operator ==(BlazOrbit.Localization.TnFormat.TnDocument? left, BlazOrbit.Localization.TnFormat.TnDocument? right) -> bool
+static BlazOrbit.Localization.TnFormat.TnParser.Parse(string! content, string! defaultCulture = "") -> BlazOrbit.Localization.TnFormat.TnDocument!

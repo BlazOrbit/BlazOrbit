@@ -28,7 +28,7 @@ public class BOBDataGridStateContentTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         IRenderedComponent<BOBDataGrid<Item>> cut = ctx.Render<BOBDataGrid<Item>>(p => p
-            .Add(c => c.Items, Array.Empty<Item>())
+            .Add(c => c.Items, [])
             .Add(c => c.Columns, Cols)
             .Add(c => c.Loading, true));
 
@@ -43,7 +43,7 @@ public class BOBDataGridStateContentTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         IRenderedComponent<BOBDataGrid<Item>> cut = ctx.Render<BOBDataGrid<Item>>(p => p
-            .Add(c => c.Items, Array.Empty<Item>())
+            .Add(c => c.Items, [])
             .Add(c => c.Columns, Cols)
             .Add(c => c.Loading, true)
             .Add(c => c.LoadingMode, LoadingMode.Skeleton)
@@ -60,7 +60,7 @@ public class BOBDataGridStateContentTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         IRenderedComponent<BOBDataGrid<Item>> cut = ctx.Render<BOBDataGrid<Item>>(p => p
-            .Add(c => c.Items, Array.Empty<Item>())
+            .Add(c => c.Items, [])
             .Add(c => c.Columns, Cols)
             .Add(c => c.Loading, true)
             .Add(c => c.LoadingMode, LoadingMode.Skeleton)
@@ -78,7 +78,7 @@ public class BOBDataGridStateContentTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         IRenderedComponent<BOBDataGrid<Item>> cut = ctx.Render<BOBDataGrid<Item>>(p => p
-            .Add(c => c.Items, Array.Empty<Item>())
+            .Add(c => c.Items, [])
             .Add(c => c.Columns, Cols)
             .Add(c => c.Error, "Something went wrong"));
 
@@ -95,7 +95,7 @@ public class BOBDataGridStateContentTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         IRenderedComponent<BOBDataGrid<Item>> cut = ctx.Render<BOBDataGrid<Item>>(p => p
-            .Add(c => c.Items, Array.Empty<Item>())
+            .Add(c => c.Items, [])
             .Add(c => c.Columns, Cols)
             .Add(c => c.Error, "x")
             .Add(c => c.ErrorContent,
@@ -112,7 +112,7 @@ public class BOBDataGridStateContentTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         IRenderedComponent<BOBDataGrid<Item>> cut = ctx.Render<BOBDataGrid<Item>>(p => p
-            .Add(c => c.Items, Array.Empty<Item>())
+            .Add(c => c.Items, [])
             .Add(c => c.Columns, Cols)
             .Add(c => c.EmptyActionTemplate,
                 (RenderFragment)(b => b.AddMarkupContent(0, "<button class=\"my-cta\">Create first</button>"))));

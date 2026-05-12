@@ -108,9 +108,7 @@ public class BOBInputSwitchStateTests
 
         Dictionary<string, object> extra = new()
         {
-            { "data-testid", "toggle-switch" },
-            { "class", "my-switch" },
-            { "style", "margin: 4px;" }
+            { "data-testid", "toggle-switch" }, { "class", "my-switch" }, { "style", "margin: 4px;" }
         };
 
         IRenderedComponent<BOBInputSwitch> cut = ctx.Render<BOBInputSwitch>(p => p

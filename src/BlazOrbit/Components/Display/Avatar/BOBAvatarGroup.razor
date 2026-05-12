@@ -12,7 +12,7 @@
        that's what feeds the auto-counted overflow badge. IsFixed=true because
        the group reference never swaps mid-lifetime; cuts re-render cost on each
        cascading parameter pass. *@
-    <CascadingValue Value="@this" IsFixed="true">
+    <CascadingValue Value="@(this)" IsFixed="true">
         <div class="bob-avatar-group"
              role="group"
              aria-label="@ResolvedAriaLabel"
@@ -27,7 +27,7 @@
 
             @if (ResolvedOverflow > 0)
             {
-                int overflow = ResolvedOverflow;
+                var overflow = ResolvedOverflow;
                 <span class="bob-avatar-group__overflow"
                       aria-label="@($"+{overflow} more")">+@overflow</span>
             }
@@ -41,14 +41,23 @@
     private readonly HashSet<BOBAvatar> _registeredAvatars = [];
 
     /// <summary>Avatar children. Items past <see cref="MaxVisible"/> are hidden via CSS.</summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     /// <summary>Maximum number of avatars to render before hiding the rest. Defaults to <c>5</c>.</summary>
-    [Parameter] public int MaxVisible { get; set; } = 5;
+    [Parameter]
+    public int MaxVisible { get; set; } = 5;
+
     /// <summary>Visual size of the group (applied via CSS scoped attributes; children pick their own).</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
+
     /// <summary>Aria-label for the group container.</summary>
-    [Parameter] public string? AriaLabel { get; set; }
+    [Parameter]
+    public string? AriaLabel { get; set; }
+
     private string ResolvedAriaLabel => AriaLabel ?? Localizer["Avatars"];
+
     /// <summary>
     /// Total number of avatars represented (visible + hidden). When set, takes precedence over
     /// the auto-derived count from registered children — useful when the data source is larger
@@ -56,7 +65,8 @@
     /// <see langword="null"/>, the badge reflects the count of nested BOBAvatar children minus
     /// <see cref="MaxVisible"/>.
     /// </summary>
-    [Parameter] public int? TotalOverride { get; set; }
+    [Parameter]
+    public int? TotalOverride { get; set; }
 
     /// <summary>
     /// Effective total used to derive the overflow count. Returns <see cref="TotalOverride"/>
@@ -68,8 +78,8 @@
     {
         get
         {
-            int total = TotalOverride ?? _registeredAvatars.Count;
-            int overflow = total - MaxVisible;
+            var total = TotalOverride ?? _registeredAvatars.Count;
+            var overflow = total - MaxVisible;
             return overflow > 0 ? overflow : 0;
         }
     }
@@ -95,4 +105,5 @@
             StateHasChanged();
         }
     }
+
 }

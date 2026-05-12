@@ -37,64 +37,100 @@
 
     // IHasSize
     /// <summary>Visual size of the input.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
 
     // IHasLoading
     /// <summary>When <see langword="true" />, the input shows a loading indicator.</summary>
-    [Parameter] public bool Loading { get; set; }
+    [Parameter]
+    public bool Loading { get; set; }
+
     /// <summary>Variant of the loading indicator shown when <see cref="Loading"/> is <see langword="true"/>.</summary>
     [Parameter]
     public BOBProgressIconVariant LoadingIndicatorVariant { get; set; } = BOBProgressIconVariant.Ring;
 
     // IHasShadow
     /// <summary>Shadow style applied to the input container.</summary>
-    [Parameter] public ShadowStyle? Shadow { get; set; }
+    [Parameter]
+    public ShadowStyle? Shadow { get; set; }
 
     // IHasBackgroundColor
     /// <summary>Background color of the input. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? BackgroundColor { get; set; }
+    [Parameter]
+    public string? BackgroundColor { get; set; }
 
     // IHasColor
     /// <summary>Text color of the input. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? Color { get; set; }
+    [Parameter]
+    public string? Color { get; set; }
 
     // IHasPrefix
     /// <summary>Text displayed before the input value.</summary>
-    [Parameter] public string? PrefixText { get; set; }
+    [Parameter]
+    public string? PrefixText { get; set; }
+
     /// <summary>Material icon name for the Prefix.</summary>
-    [Parameter] public IconKey? PrefixIcon { get; set; }
+    [Parameter]
+    public IconKey? PrefixIcon { get; set; }
+
     /// <summary>Prefix color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? PrefixColor { get; set; }
+    [Parameter]
+    public string? PrefixColor { get; set; }
+
     /// <summary>PrefixBackground color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? PrefixBackgroundColor { get; set; }
+    [Parameter]
+    public string? PrefixBackgroundColor { get; set; }
 
     // IHasSuffix
     /// <summary>Text displayed after the input value.</summary>
-    [Parameter] public string? SuffixText { get; set; }
+    [Parameter]
+    public string? SuffixText { get; set; }
+
     /// <summary>Material icon name for the Suffix.</summary>
-    [Parameter] public IconKey? SuffixIcon { get; set; }
+    [Parameter]
+    public IconKey? SuffixIcon { get; set; }
+
     /// <summary>Suffix color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? SuffixColor { get; set; }
+    [Parameter]
+    public string? SuffixColor { get; set; }
+
     /// <summary>SuffixBackground color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? SuffixBackgroundColor { get; set; }
+    [Parameter]
+    public string? SuffixBackgroundColor { get; set; }
 
     // Component-specific
     /// <summary>Floating label displayed above the input when it has a value or focus.</summary>
-    [Parameter] public string? Label { get; set; }
+    [Parameter]
+    public string? Label { get; set; }
+
     /// <summary>Helper text displayed below the component for additional context.</summary>
-    [Parameter] public string? HelperText { get; set; }
+    [Parameter]
+    public string? HelperText { get; set; }
+
     /// <summary>Placeholder text shown when the component is empty.</summary>
-    [Parameter] public string? Placeholder { get; set; } = "#000000";
+    [Parameter]
+    public string? Placeholder { get; set; } = "#000000";
+
     /// <summary>When <see langword="true" />, the CopyButton is shown.</summary>
-    [Parameter] public bool ShowCopyButton { get; set; }
+    [Parameter]
+    public bool ShowCopyButton { get; set; }
+
     /// <summary>When <see langword="true" />, a clear button reverts the value to <see langword="null"/>.</summary>
-    [Parameter] public bool Clearable { get; set; }
+    [Parameter]
+    public bool Clearable { get; set; }
+
     /// <summary>Layout used to expose the color editor: dropdown, popover, or inline panel.</summary>
-    [Parameter] public ColorPickerDisplayMode DisplayMode { get; set; } = ColorPickerDisplayMode.Dropdown;
+    [Parameter]
+    public ColorPickerDisplayMode DisplayMode { get; set; } = ColorPickerDisplayMode.Dropdown;
+
     /// <summary>String format used to serialize the picked color (hex, rgb(a), hsl(a), etc.).</summary>
-    [Parameter] public ColorOutputFormats OutputFormat { get; set; }
+    [Parameter]
+    public ColorOutputFormats OutputFormat { get; set; }
+
     /// <summary>Text displayed as the Revert.</summary>
-    [Parameter] public string? RevertText { get; set; }
+    [Parameter]
+    public string? RevertText { get; set; }
+
     private string ResolvedRevertText => RevertText ?? Localizer["Revert"];
 
     public override BOBInputVariant DefaultVariant => BOBInputVariant.Outlined;
@@ -111,7 +147,9 @@
             dataAttributes.Remove(FeatureDefinitions.DataAttributes.Floated);
     }
 
-    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables) { }
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    {
+    }
 
     protected override void OnInitialized()
     {
@@ -149,41 +187,45 @@
 
             <div class="bob-input__wrapper">
 
-                <BOBInputOutline Label="@Label" For="@_inputId" Required="@IsRequired" />
-                <BOBInputPrefix PrefixText="@PrefixText" PrefixIcon="@PrefixIcon" Size="@Size" />
+                <BOBInputOutline Label="@Label" For="@_inputId" Required="@IsRequired"/>
+                <BOBInputPrefix PrefixText="@PrefixText" PrefixIcon="@PrefixIcon" Size="@Size"/>
 
                 <input type="text" id="@_inputId" class="bob-input__field" value="@_rawInput"
-                       placeholder="@(IsFloated? Placeholder : null)" readonly="@IsReadOnly" disabled="@IsDisabled"
-                       @oninput="HandleRawInput" @onchange="HandleInputChange" @onfocus="HandleFocus" @onblur="HandleBlur"
-                       aria-label="@(string.IsNullOrWhiteSpace(Label) ? Placeholder : null)" aria-describedby="@_helperTextId"
+                       placeholder="@(IsFloated ? Placeholder : null)" readonly="@IsReadOnly" disabled="@IsDisabled"
+                       @oninput="HandleRawInput" @onchange="HandleInputChange" @onfocus="HandleFocus"
+                       @onblur="HandleBlur"
+                       aria-label="@(string.IsNullOrWhiteSpace(Label) ? Placeholder : null)"
+                       aria-describedby="@_helperTextId"
                        aria-invalid="@IsError.ToString().ToLowerInvariant()"
-                       aria-required="@IsRequired.ToString().ToLowerInvariant()" />
+                       aria-required="@IsRequired.ToString().ToLowerInvariant()"/>
 
                 @if (ShowCopyButton && HasValue)
                 {
                     <BOBTooltip AutoCloseAfterMs="1500" Trigger="TooltipTrigger.Click" Placement="TooltipPlacement.Top"
-                                Text="@Localizer["Copied"]">
-                        <_BOBBtn Icon="@BOBIconKeys.UI.Copy" AriaLabel="Copy color" OnClick="(e) => CopyToClipboard()"
-                                 OnClickStopPropagation="false" />
+                                Text="@Localizer["Copied!"]">
+                        <_BOBInBtn Icon="@BOBIconKeys.UI.Copy" AriaLabel="Copy color" OnClick="@((e) => CopyToClipboard())"
+                                   OnClickStopPropagation="false"/>
                     </BOBTooltip>
                 }
 
                 @if (Clearable && HasValue && !Disabled)
                 {
-                    <_BOBBtn Icon="@BOBIconKeys.UI.Close" Variant="BOBBtnVariant.Ghost" AriaLabel="Clear" OnClick="(e) => Clear()" OnClickStopPropagation="true" />
+                    <_BOBInBtn Icon="@BOBIconKeys.UI.Close" Variant="BOBInBtnVariant.Ghost" AriaLabel="Clear"
+                               OnClick="@((e) => Clear())" OnClickStopPropagation="true"/>
                 }
 
-                <_BOBBtn Icon="@BOBIconKeys.MaterialIconsRound.i_palette" Disabled="@IsDisabled" AriaLabel="Open color picker"
-                         OnClick="(e)=> TogglePicker()">
+                <_BOBInBtn Icon="@BOBIconKeys.MaterialIconsRound.i_palette" Disabled="@IsDisabled"
+                           AriaLabel="Open color picker"
+                           OnClick="@((e) => TogglePicker())">
                     <div class="bob-input-color__preview-chess">
                         <div class="bob-input-color__preview-color"
                              style="background-color: @(CurrentValue?.ToString(ColorOutputFormats.Rgba) ?? "transparent")">
                         </div>
                     </div>
-                </_BOBBtn>
+                </_BOBInBtn>
 
-                <BOBInputSuffix SuffixText="@SuffixText" SuffixIcon="@SuffixIcon" Size="@Size" />
-                <BOBInputLoading Loading="@Loading" LoadingIndicatorVariant="@LoadingIndicatorVariant" Size="@Size" />
+                <BOBInputSuffix SuffixText="@SuffixText" SuffixIcon="@SuffixIcon" Size="@Size"/>
+                <BOBInputLoading Loading="@Loading" LoadingIndicatorVariant="@LoadingIndicatorVariant" Size="@Size"/>
 
             </div>
 
@@ -191,11 +233,12 @@
             {
                 @if (DisplayMode == ColorPickerDisplayMode.Modal)
                 {
-                    <BOBDialog @bind-Open="_isOpen" Closable="false" CloseOnOverlayClick="true" CloseOnEscape="true" MinWidth="auto"
+                    <BOBDialog @bind-Open="_isOpen" Closable="false" CloseOnOverlayClick="true" CloseOnEscape="true"
+                               MinWidth="auto"
                                MaxWidth="fit-content">
                         <Content>
                             <BOBColorPicker @bind-Value="CurrentValue" ShowActions="true"
-                                            RevertText="@ResolvedRevertText" OnRevert="HandleRevert" />
+                                            RevertText="@ResolvedRevertText" OnRevert="@(EventCallback.Factory.Create(this, HandleRevert))"/>
                         </Content>
                     </BOBDialog>
                 }
@@ -204,13 +247,13 @@
                     <div class="bob-input-color__dropdown-overlay" @onclick="ClosePicker"></div>
                     <div class="bob-input-color__dropdown" @onclick:stopPropagation="true">
                         <BOBColorPicker @bind-Value="CurrentValue" ShowActions="true"
-                                        RevertText="@ResolvedRevertText" OnRevert="HandleRevert" />
+                                        RevertText="@ResolvedRevertText" OnRevert="@(EventCallback.Factory.Create(this, HandleRevert))"/>
                     </div>
                 }
             }
 
             <_BOBFieldHelper TValue="CssColor" Id="@_helperTextId" HelperText="@HelperText" ShowValidation="@IsError"
-                             EditContext="@EditContext" For="@ValueExpression" />
+                             EditContext="@EditContext" For="@ValueExpression"/>
 
         </bob-component>
     };
@@ -248,7 +291,7 @@
     {
         if (IsReadOnly) return;
 
-        string? value = e.Value?.ToString();
+        var value = e.Value?.ToString();
         _rawInput = value ?? string.Empty;
 
         if (string.IsNullOrWhiteSpace(value))
@@ -278,10 +321,14 @@
         {
             _valueBeforeOpen = CurrentValue;
         }
+
         _isOpen = !_isOpen;
     }
 
-    private void ClosePicker() => _isOpen = false;
+    private void ClosePicker()
+    {
+        _isOpen = false;
+    }
 
     private void HandleRevert()
     {
@@ -326,4 +373,5 @@
             return false;
         }
     }
+
 }

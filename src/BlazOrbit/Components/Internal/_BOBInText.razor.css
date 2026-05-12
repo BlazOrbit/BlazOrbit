@@ -18,20 +18,20 @@
     transition: border-color var(--bob-input-transition-duration) var(--bob-input-transition-easing);
 }
 
-    ._bob-simple-input:focus {
-        border-color: var(--palette-highlight);
-    }
+._bob-simple-input:focus {
+    border-color: var(--palette-highlight);
+}
 
-    ._bob-simple-input:focus-visible {
-        outline: var(--bob-highlight-outline);
-        outline-offset: var(--bob-highlight-outline-offset);
-    }
+._bob-simple-input:focus-visible {
+    outline: var(--bob-highlight-outline);
+    outline-offset: var(--bob-highlight-outline-offset);
+}
 
-    ._bob-simple-input:disabled {
-        cursor: not-allowed;
-        opacity: var(--bob-opacity-disabled);
-    }
+._bob-simple-input:disabled {
+    cursor: not-allowed;
+    opacity: var(--bob-opacity-disabled);
+}
 
-    ._bob-simple-input::placeholder {
-        opacity: var(--bob-opacity-placeholder);
-    }
+._bob-simple-input::placeholder {
+    opacity: var(--bob-opacity-placeholder);
+}

@@ -104,18 +104,18 @@
     font-weight: 400;
     cursor: pointer;
     transition: background-color var(--_tree-menu-transition),
-                color var(--_tree-menu-transition),
-                border-color var(--_tree-menu-transition);
+    color var(--_tree-menu-transition),
+    border-color var(--_tree-menu-transition);
     width: 100%;
     text-align: left;
     position: relative;
 }
 
-    [data-bob-component="tree-menu"] .bob-tree-menu__link:hover,
-    [data-bob-component="tree-menu"] .bob-tree-menu__button:hover {
-        background: var(--_tree-menu-hover-bg);
-        color: var(--palette-surface-contrast);
-    }
+[data-bob-component="tree-menu"] .bob-tree-menu__link:hover,
+[data-bob-component="tree-menu"] .bob-tree-menu__button:hover {
+    background: var(--_tree-menu-hover-bg);
+    color: var(--palette-surface-contrast);
+}
 
 [data-bob-component="tree-menu"] .bob-tree-menu__item[data-bob-active="true"] > .bob-tree-menu__link,
 [data-bob-component="tree-menu"] .bob-tree-menu__item[data-bob-active="true"] > .bob-tree-menu__button {
@@ -125,11 +125,11 @@
     font-weight: 600;
 }
 
-    [data-bob-component="tree-menu"] .bob-tree-menu__item[data-bob-active="true"] > .bob-tree-menu__link .bob-tree-menu__icon,
-    [data-bob-component="tree-menu"] .bob-tree-menu__item[data-bob-active="true"] > .bob-tree-menu__button .bob-tree-menu__icon {
-        opacity: 1;
-        color: var(--_tree-menu-active-color);
-    }
+[data-bob-component="tree-menu"] .bob-tree-menu__item[data-bob-active="true"] > .bob-tree-menu__link .bob-tree-menu__icon,
+[data-bob-component="tree-menu"] .bob-tree-menu__item[data-bob-active="true"] > .bob-tree-menu__button .bob-tree-menu__icon {
+    opacity: 1;
+    color: var(--_tree-menu-active-color);
+}
 
 /* === Split affordance: link + dedicated chevron toggle ============
    Container nodes that also navigate render an <a> for the label and a
@@ -145,27 +145,27 @@
     border-left: 2px solid transparent;
     border-radius: var(--_tree-menu-border-radius);
     transition: background-color var(--_tree-menu-transition),
-                border-color var(--_tree-menu-transition);
+    border-color var(--_tree-menu-transition);
 }
 
-    [data-bob-component="tree-menu"] .bob-tree-menu__row:hover {
-        background: var(--_tree-menu-hover-bg);
-    }
+[data-bob-component="tree-menu"] .bob-tree-menu__row:hover {
+    background: var(--_tree-menu-hover-bg);
+}
 
 [data-bob-component="tree-menu"] .bob-tree-menu__item[data-bob-active="true"] > .bob-tree-menu__row {
     background: var(--_tree-menu-active-bg);
     border-left-color: var(--_tree-menu-active-rail);
 }
 
-    [data-bob-component="tree-menu"] .bob-tree-menu__item[data-bob-active="true"] > .bob-tree-menu__row .bob-tree-menu__link {
-        color: var(--_tree-menu-active-color);
-        font-weight: 600;
-    }
+[data-bob-component="tree-menu"] .bob-tree-menu__item[data-bob-active="true"] > .bob-tree-menu__row .bob-tree-menu__link {
+    color: var(--_tree-menu-active-color);
+    font-weight: 600;
+}
 
-    [data-bob-component="tree-menu"] .bob-tree-menu__item[data-bob-active="true"] > .bob-tree-menu__row .bob-tree-menu__icon,
-    [data-bob-component="tree-menu"] .bob-tree-menu__item[data-bob-active="true"] > .bob-tree-menu__row .bob-tree-menu__toggle-btn {
-        color: var(--_tree-menu-active-color);
-    }
+[data-bob-component="tree-menu"] .bob-tree-menu__item[data-bob-active="true"] > .bob-tree-menu__row .bob-tree-menu__icon,
+[data-bob-component="tree-menu"] .bob-tree-menu__item[data-bob-active="true"] > .bob-tree-menu__row .bob-tree-menu__toggle-btn {
+    color: var(--_tree-menu-active-color);
+}
 
 /* Inside a row, the link no longer carries its own rail / radius — the
    row owns those — and grows to fill the available space. */
@@ -176,9 +176,9 @@
     background: transparent;
 }
 
-    [data-bob-component="tree-menu"] .bob-tree-menu__row > .bob-tree-menu__link--with-toggle:hover {
-        background: transparent;
-    }
+[data-bob-component="tree-menu"] .bob-tree-menu__row > .bob-tree-menu__link--with-toggle:hover {
+    background: transparent;
+}
 
 [data-bob-component="tree-menu"] .bob-tree-menu__toggle-btn {
     flex: 0 0 auto;
@@ -192,23 +192,23 @@
     cursor: pointer;
     border-radius: 0 var(--_tree-menu-border-radius) var(--_tree-menu-border-radius) 0;
     transition: background-color var(--_tree-menu-transition),
-                color var(--_tree-menu-transition);
+    color var(--_tree-menu-transition);
 }
 
-    [data-bob-component="tree-menu"] .bob-tree-menu__toggle-btn:hover {
-        background: color-mix(in oklab, var(--palette-surface-contrast) 6%, transparent);
-        color: var(--palette-surface-contrast);
-    }
+[data-bob-component="tree-menu"] .bob-tree-menu__toggle-btn:hover {
+    background: color-mix(in oklab, var(--palette-surface-contrast) 6%, transparent);
+    color: var(--palette-surface-contrast);
+}
 
-    [data-bob-component="tree-menu"] .bob-tree-menu__toggle-btn:focus-visible {
-        outline: var(--bob-highlight-outline);
-        outline-offset: var(--bob-highlight-outline-offset);
-    }
+[data-bob-component="tree-menu"] .bob-tree-menu__toggle-btn:focus-visible {
+    outline: var(--bob-highlight-outline);
+    outline-offset: var(--bob-highlight-outline-offset);
+}
 
-    [data-bob-component="tree-menu"] .bob-tree-menu__toggle-btn:disabled {
-        cursor: not-allowed;
-        opacity: 0.5;
-    }
+[data-bob-component="tree-menu"] .bob-tree-menu__toggle-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+}
 
 [data-bob-component="tree-menu"] .bob-tree-menu__item[data-bob-disabled="true"] > .bob-tree-menu__link,
 [data-bob-component="tree-menu"] .bob-tree-menu__item[data-bob-disabled="true"] > .bob-tree-menu__button {
@@ -227,7 +227,14 @@
     flex: 1;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+[data-bob-component="tree-menu"][data-bob-text-behavior="nowrap"] .bob-tree-menu__text{
     white-space: nowrap;
+}
+
+[data-bob-component="tree-menu"][data-bob-text-behavior="breakspaces"] .bob-tree-menu__text{
+    white-space: break-spaces;
 }
 
 [data-bob-component="tree-menu"] .bob-tree-menu__submenu--inline {

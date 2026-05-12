@@ -34,7 +34,6 @@ public sealed class HotkeyOptions
         _registrations.Add(new HotkeyRegistration(combo, description ?? string.Empty, handler, scope, preventDefault));
         return this;
     }
-
 }
 
 internal sealed record HotkeyRegistration(

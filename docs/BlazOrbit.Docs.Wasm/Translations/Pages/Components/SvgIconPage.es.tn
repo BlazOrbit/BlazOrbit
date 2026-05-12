@@ -1,0 +1,50 @@
+// Auto-migrated from SvgIconPage.es.resx. Edit freely from now on.
+
+# A curated set for UI chrome: BOBIconKeys.UI.*.
+Un conjunto seleccionado para la interfaz: BOBIconKeys.UI.*.
+
+# Basic usage
+Uso básico
+
+# BOBSvgIcon
+BOBSvgIcon
+
+# Clickable
+Clicable
+
+# Clicked
+Clicado
+
+# Colors
+Colores
+
+# Component
+Componente
+
+# Material Icons
+Material Icons
+
+# Properties
+Propiedades
+
+# Render SVG icons from bundled Material or UI sets, or provide your own custom vector path. Inherits theme color and scales with size.
+Renderiza iconos SVG de los conjuntos Material o UI incluidos, o proporciona tu propia ruta vectorial personalizada. Hereda el color del tema y escala con el tamaño.
+
+# See Icon Gallery Here
+Ver la galería de iconos aquí
+
+# Sizes
+Tamaños
+
+# times
+veces
+
+# UI Icons
+Iconos de interfaz
+
+# Use BOBIconKeys.MaterialIconsOutlined, .MaterialIconsRound, .MaterialIconsSharp, or .MaterialIconsFilled.
+Usa BOBIconKeys.MaterialIconsOutlined, .MaterialIconsRound, .MaterialIconsSharp o .MaterialIconsFilled.
+
+
+#             You can reference icons from the bundled Material or UI sets by key, or provide any raw SVG path string via the <code>Icon</code> parameter. The component inherits the current CSS color and scales according to the <code>Size</code> parameter, so it behaves like a native font icon without the font overhead.
+Puedes referenciar iconos de los conjuntos Material o UI incluidos por clave, o proporcionar cualquier cadena de ruta SVG raw a través del parámetro <code>Icon</code>. El componente hereda el color CSS actual y escala según el parámetro <code>Size</code>, por lo que se comporta como un icono de fuente nativo sin la sobrecarga de la fuente.
