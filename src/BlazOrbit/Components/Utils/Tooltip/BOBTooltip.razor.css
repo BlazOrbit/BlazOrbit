@@ -3,9 +3,9 @@
     display: inline-flex;
     --bob-tooltip-max-width: 300px;
     --_tooltip-radius: 4px;
-    --_tooltip-background: var(--bob-inline-background, color-mix(in srgb, var(--palette-shadow) 80%, var(--palette-surface-contrast) 20%));
-    --_tooltip-color: var(--bob-inline-color, var(--palette-surface));
-    --_tooltip-shadow: var(--bob-inline-shadow, 0 2px 8px color-mix(in srgb, var(--palette-shadow) 15%, transparent));
+    --_tooltip-background: var(--bob-inline-background, color-mix(in oklch, var(--palette-shadow) 50%, var(--palette-surface) 50%));
+    --_tooltip-color: var(--bob-inline-color, var(--palette-surface-contrast));
+    --_tooltip-shadow: var(--bob-inline-shadow, 0 2px 8px color-mix(in oklab, var(--palette-shadow) 15%, transparent));
 }
 
 [data-bob-component="tooltip"] .bob-tooltip {

@@ -12,83 +12,33 @@ public class BOBInputDateRangeRenderingTests
 {
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
-    public async Task Should_Render_With_Base_DataAttributes(BlazorScenario scenario)
+    public async Task Should_Render_Two_Composed_DateTime_Inputs(BlazorScenario scenario)
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<BOBInputDateRange> cut = ctx.Render<BOBInputDateRange>();
+        // The redesign composes two BOBInputDateTime instances under a single
+        // <bob-component data-bob-component="input-date-range"> root, with the
+        // separator glyph between them.
+        IRenderedComponent<BOBInputDateRange> cut = ctx.Render<BOBInputDateRange>(p => p
+            .Add(c => c.Value, new BlazOrbit.Components.DateRange(new DateOnly(2026, 1, 1), new DateOnly(2026, 1, 31))));
 
-        cut.Find("bob-component").GetAttribute("data-bob-component").Should().Be("input-date-range");
+        cut.Find("bob-component[data-bob-component='input-date-range']").Should().NotBeNull();
+        cut.FindAll("[data-bob-component='input-date-time']").Should().HaveCount(2);
+        cut.Find(".bob-daterange__separator").TextContent.Should().Be("→");
     }
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
-    public async Task Should_Render_Two_Date_Picker_Panes(BlazorScenario scenario)
-    {
-        await using BlazorTestContextBase ctx = scenario.CreateContext();
-
-        IRenderedComponent<BOBInputDateRange> cut = ctx.Render<BOBInputDateRange>();
-
-        cut.FindAll(".bob-daterange__pane").Should().HaveCount(2);
-    }
-
-    [Theory]
-    [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
-    public async Task Should_Render_Presets_By_Default(BlazorScenario scenario)
-    {
-        await using BlazorTestContextBase ctx = scenario.CreateContext();
-
-        IRenderedComponent<BOBInputDateRange> cut = ctx.Render<BOBInputDateRange>();
-
-        cut.FindAll(".bob-daterange__presets").Should().HaveCount(1);
-    }
-
-    [Theory]
-    [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
-    public async Task Should_Hide_Presets_When_Disabled(BlazorScenario scenario)
+    public async Task Should_Render_Label_With_Required_Marker_When_Bound_To_Required_Field(BlazorScenario scenario)
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         IRenderedComponent<BOBInputDateRange> cut = ctx.Render<BOBInputDateRange>(p => p
-            .Add(c => c.ShowPresets, false));
+            .Add(c => c.Label, "Range")
+            .Add(c => c.Required, true)
+            .Add(c => c.Value, default(BlazOrbit.Components.DateRange)));
 
-        cut.FindAll(".bob-daterange__presets").Should().BeEmpty();
-    }
-
-    [Theory]
-    [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
-    public async Task Should_Render_Summary_When_Range_Complete(BlazorScenario scenario)
-    {
-        await using BlazorTestContextBase ctx = scenario.CreateContext();
-
-        DateOnly start = new(2026, 1, 1);
-        DateOnly end = new(2026, 1, 7);
-        IRenderedComponent<BOBInputDateRange> cut = ctx.Render<BOBInputDateRange>(p => p
-            .Add(c => c.Value, new global::BlazOrbit.Components.DateRange(start, end)));
-
-        cut.Find(".bob-daterange__summary").TextContent.Should().Contain("7");
-    }
-
-    [Theory]
-    [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
-    public async Task Should_Skip_Summary_When_Range_Incomplete(BlazorScenario scenario)
-    {
-        await using BlazorTestContextBase ctx = scenario.CreateContext();
-
-        IRenderedComponent<BOBInputDateRange> cut = ctx.Render<BOBInputDateRange>();
-
-        cut.FindAll(".bob-daterange__summary").Should().BeEmpty();
-    }
-
-    [Theory]
-    [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
-    public async Task Should_Render_Label_When_Provided(BlazorScenario scenario)
-    {
-        await using BlazorTestContextBase ctx = scenario.CreateContext();
-
-        IRenderedComponent<BOBInputDateRange> cut = ctx.Render<BOBInputDateRange>(p => p
-            .Add(c => c.Label, "Reporting period"));
-
-        cut.Find(".bob-daterange__label").TextContent.Should().Contain("Reporting period");
+        cut.Find("label.bob-daterange__label").TextContent.Should().Contain("Range");
+        cut.Find(".bob-field__required").TextContent.Should().Be("*");
     }
 }

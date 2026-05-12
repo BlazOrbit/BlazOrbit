@@ -78,9 +78,7 @@
 
     private RenderFragment RenderCard() => __builder =>
     {
-        <bob-component @attributes="ComputedAttributes"
-                       data-bob-clickable="@(Clickable ? "true" : null)"
-                       data-bob-media-position="@MediaPosition.ToString().ToLowerInvariant()">
+        <bob-component @attributes="ComputedAttributes">
 
             <div class="bob-card"
                  @onclick="HandleClick">
@@ -166,5 +164,9 @@
         }
     }
 
-    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes) { }
+    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    {
+        if (Clickable) dataAttributes["data-bob-clickable"] = "true";
+        dataAttributes["data-bob-media-position"] = MediaPosition.ToString().ToLowerInvariant();
+    }
 }

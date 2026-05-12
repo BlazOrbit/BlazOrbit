@@ -23325,3 +23325,4 @@ static BlazOrbit.Components.TimelineItem.operator !=(BlazOrbit.Components.Timeli
 static BlazOrbit.Components.TimelineItem.operator ==(BlazOrbit.Components.TimelineItem left, BlazOrbit.Components.TimelineItem right) -> bool
 ~override BlazOrbit.Components.TimelineItem.Equals(object obj) -> bool
 ~override BlazOrbit.Components.TimelineItem.ToString() -> string
+BlazOrbit.Abstractions.ModuleJsInteropBase.TryGetModuleAsync() -> System.Threading.Tasks.ValueTask<Microsoft.JSInterop.IJSObjectReference?>

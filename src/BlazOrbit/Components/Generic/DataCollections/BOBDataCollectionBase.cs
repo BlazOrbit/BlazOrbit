@@ -2,6 +2,7 @@
 using BlazOrbit.Utilities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.Extensions.Localization;
 
 namespace BlazOrbit.Components;
 
@@ -72,6 +73,9 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
     [Parameter] public bool Filterable { get; set; }
     /// <summary>Placeholder text for the filter search box.</summary>
     [Parameter] public string FilterPlaceholder { get; set; } = "Search...";
+
+    /// <summary>Localized placeholder when the caller does not override <see cref="FilterPlaceholder"/>.</summary>
+    protected string ResolvedFilterPlaceholder => FilterPlaceholder == "Search..." ? Localizer["SearchPlaceholder"] : FilterPlaceholder;
     /// <summary>Custom predicate used to filter items. Receives the item and the search text.</summary>
     [Parameter] public Func<TItem, string, bool>? CustomFilter { get; set; }
 
@@ -116,6 +120,9 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
     /// persistence by registering <see cref="LocalStorageStatePersistence"/> on top.
     /// </summary>
     [Inject] internal IDataCollectionStatePersistence StatePersistence { get; set; } = default!;
+
+    /// <summary>Localized strings for data-collection UI text (filter placeholders, aria-labels, live-region messages).</summary>
+    [Inject] protected IStringLocalizer<BOBDataCollectionResources> Localizer { get; set; } = default!;
 
     private bool _persistenceLoaded;
 
@@ -386,7 +393,7 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
     {
         if (!FilteredItems.Any())
         {
-            LiveRegionMessage = "No data available.";
+            LiveRegionMessage = Localizer["NoDataAvailableLive"];
             return;
         }
 
@@ -394,17 +401,21 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
 
         if (!string.IsNullOrEmpty(State.SortColumn))
         {
-            string direction = State.SortDirection == SortDirection.Ascending ? "ascending" : "descending";
-            parts.Add($"Sorted by {State.SortColumn} ({direction})");
+            string direction = State.SortDirection == SortDirection.Ascending
+                ? Localizer["Ascending"]
+                : Localizer["Descending"];
+            parts.Add(string.Format(Localizer["SortedBy"], State.SortColumn, direction));
         }
 
         int filteredCount = FilteredItems.Count;
         int totalCount = Items?.Count() ?? 0;
-        string rowWord = filteredCount == 1 ? "row" : "rows";
+        string rowWord = filteredCount == 1
+            ? Localizer["Row"]
+            : Localizer["Rows"];
 
         if (!string.IsNullOrWhiteSpace(State.FilterText))
         {
-            parts.Add($"{filteredCount} {rowWord} visible of {totalCount} total");
+            parts.Add(string.Format(Localizer["RowsVisibleOfTotal"], filteredCount, rowWord, totalCount));
         }
         else
         {
@@ -413,11 +424,22 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
 
         if (PageSize.HasValue && TotalPages > 0)
         {
-            parts.Add($"Page {State.CurrentPage} of {TotalPages}");
+            parts.Add(string.Format(Localizer["PageXOfY"], State.CurrentPage, TotalPages));
         }
 
         LiveRegionMessage = string.Join(". ", parts) + ".";
     }
+
+    /// <summary>Returns the localized lower-case label for an aggregate function (e.g. "sum", "average").</summary>
+    protected string GetAggregateLabel(AggregateFunction function) => function switch
+    {
+        AggregateFunction.Count => Localizer["AggregateCount"],
+        AggregateFunction.Sum => Localizer["AggregateSum"],
+        AggregateFunction.Average => Localizer["AggregateAverage"],
+        AggregateFunction.Min => Localizer["AggregateMin"],
+        AggregateFunction.Max => Localizer["AggregateMax"],
+        _ => function.ToString().ToLowerInvariant(),
+    };
 
     protected IEnumerable<TItem> ApplyFilter(IEnumerable<TItem> items)
     {
@@ -861,6 +883,24 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
     }
 
     /// <summary>
+    /// String-valued adapter wired to the internal select primitive's
+    /// <see cref="EventCallback{T}"/> contract — converts the bare value into a
+    /// <see cref="ChangeEventArgs"/> and delegates to
+    /// <see cref="HandleColumnFilterOperator(string, ChangeEventArgs)"/>.
+    /// </summary>
+    protected void HandleColumnFilterOperatorString(string columnName, string? value)
+        => HandleColumnFilterOperator(columnName, new ChangeEventArgs { Value = value });
+
+    /// <summary>
+    /// String-valued adapter wired to the internal text / date input primitives'
+    /// <see cref="EventCallback{T}"/> contract — converts the bare value into a
+    /// <see cref="ChangeEventArgs"/> and delegates to
+    /// <see cref="HandleColumnFilterInput(string, ChangeEventArgs)"/>.
+    /// </summary>
+    protected async Task HandleColumnFilterInputText(string columnName, string? value)
+        => await HandleColumnFilterInput(columnName, new ChangeEventArgs { Value = value });
+
+    /// <summary>
     /// Returns the operator labels relevant to the column's <see cref="ColumnFilterMode"/>.
     /// Drives the operator <c>&lt;select&gt;</c> options rendered next to the filter input.
     /// </summary>
@@ -892,6 +932,13 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         ],
     };
 
+    // Razor reads this at render time, so the flag here suppresses the BROWSER default
+    // for the *next* matching keystroke (mirrors the BOBInputCheckbox `_preventKeyDefault`
+    // pattern). First Alt+Arrow may still navigate browser history; subsequent presses
+    // are suppressed once the flag has been committed.
+    /// <summary>Backs the conditional <c>@onkeydown:preventDefault</c> binding on header cells.</summary>
+    protected bool _preventHeaderKeyDefault;
+
     /// <summary>
     /// Header keydown handler invoked when <see cref="Reorderable"/> is on.
     /// <c>Alt+ArrowLeft</c> shifts the column one position toward the start, <c>Alt+ArrowRight</c>
@@ -900,7 +947,14 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
     /// </summary>
     protected void HandleHeaderKeyDown(string columnName, KeyboardEventArgs e)
     {
-        if (!Reorderable || !e.AltKey) return;
+        // Flag set unconditionally for every Alt+Arrow combo we recognise — suppresses
+        // the browser default (back/forward navigation on most platforms) on repeat.
+        bool isReorderCombo = Reorderable
+            && e.AltKey
+            && e.Key is "ArrowLeft" or "Left" or "ArrowRight" or "Right";
+        _preventHeaderKeyDefault = isReorderCombo;
+
+        if (!isReorderCombo) return;
 
         int delta = e.Key switch
         {

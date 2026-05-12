@@ -112,6 +112,21 @@
     /// <summary>Raised when the user picks a suggestion.</summary>
     [Parameter] public EventCallback<TItem> OnSelected { get; set; }
 
+    /// <summary>
+    /// Optional resolver lifting a raw search string back to a <typeparamref name="TItem"/>.
+    /// Wires the EditContext path so the bound model can round-trip values that the user
+    /// committed via Enter / blur without picking a suggestion (e.g. free-text addresses
+    /// where the autocomplete suggests known matches but the field still accepts novel
+    /// entries). Return <see langword="null"/> to reject the string with a validation error.
+    /// When <see langword="null"/> the component keeps its historical SelectAsync-only contract.
+    /// </summary>
+    [Parameter] public Func<string, TItem?>? StringToItem { get; set; }
+    /// <summary>
+    /// Validation message surfaced when <see cref="StringToItem"/> returns <see langword="null"/>
+    /// for a non-empty input. Defaults to a generic "value not recognised" string.
+    /// </summary>
+    [Parameter] public string? UnresolvedStringError { get; set; }
+
     private bool HasValue => CurrentValue is not null;
     private bool IsFloated => _isFocused || HasValue || _isDirty || !string.IsNullOrEmpty(_searchText);
     private bool IsBusy => Loading || _isLoading;
@@ -346,6 +361,13 @@
                 {
                     await SelectAsync(_items[_focusedIndex]);
                 }
+                else if (StringToItem is not null)
+                {
+                    // No suggestion focused — commit the raw text via the resolver. Without
+                    // StringToItem the historical contract is "Enter on free text is a no-op",
+                    // preserve that to avoid surfacing spurious validation errors.
+                    CommitFreeText();
+                }
                 break;
             case "Escape":
                 _isOpen = false;
@@ -392,6 +414,26 @@
         // browsers) can resolve. Closing happens via the option's @onmousedown handler instead.
         _isOpen = false;
         _isDirty = false;
+
+        // Commit the typed text via the EditContext path when a resolver is wired AND the
+        // search text doesn't already reflect the current selection. The option's
+        // @onmousedown:preventDefault keeps focus on the input through the click so an
+        // option-driven blur still skips this branch (CurrentValue was set in SelectAsync,
+        // _searchText was updated to match ItemText, so the equality check below short-circuits).
+        if (StringToItem is null) return;
+        string committed = HasValue && ItemText is not null ? ItemText(CurrentValue!) : string.Empty;
+        if (_searchText != committed)
+        {
+            CommitFreeText();
+        }
+    }
+
+    private void CommitFreeText()
+    {
+        // CurrentValueAsString routes through TryParseValueFromString which honours
+        // StringToItem when set. Without a resolver the method returns false and the
+        // EditContext records a validation error rather than silently dropping the input.
+        CurrentValueAsString = _searchText;
     }
 
     public override async ValueTask DisposeAsync()
@@ -404,10 +446,40 @@
 
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TItem result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
-        // BOBAutoComplete<TItem> binds to the picked item, not to the search string. Direct
-        // parse-from-string is therefore not supported; selection happens via SelectAsync.
+        // Empty input clears the bound value — treated as success with default(TItem) so the
+        // EditContext records the change without a validation error. The Required attribute
+        // (when applied) surfaces the empty state via its own message.
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            result = default!;
+            validationErrorMessage = null;
+            return true;
+        }
+
+        // SelectAsync remains the canonical path — when the user picks a suggestion we set
+        // CurrentValue directly without round-tripping through this method. EditContext
+        // binding to a string therefore only matters when consumers opt in via StringToItem.
+        if (StringToItem is not null)
+        {
+            TItem? resolved = StringToItem(value);
+            if (resolved is not null)
+            {
+                result = resolved;
+                validationErrorMessage = null;
+                return true;
+            }
+
+            result = default!;
+            validationErrorMessage = UnresolvedStringError ?? $"The value '{value}' was not recognised.";
+            return false;
+        }
+
+        // No resolver supplied — keep the historical contract: free-text commits don't
+        // round-trip to TItem, and EditContext only sees values that flowed through
+        // SelectAsync. Tell the analyzer the input couldn't be converted.
         result = default!;
-        validationErrorMessage = "BOBAutoComplete does not support direct string parsing.";
+        validationErrorMessage = "BOBAutoComplete does not support direct string parsing. "
+            + "Provide a StringToItem resolver to opt in.";
         return false;
     }
 }

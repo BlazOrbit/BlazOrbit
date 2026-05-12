@@ -2,6 +2,7 @@
 @using System.Diagnostics.CodeAnalysis
 @using BlazOrbit.Components.Layout
 @using BlazOrbit.Components.Utils
+@using Microsoft.Extensions.Localization
 
 @namespace BlazOrbit.Components.Forms
 @attribute [GenerateComponentInfo]
@@ -24,6 +25,8 @@
 }
 
 @code {
+    [Inject] internal IStringLocalizer<BOBFormsResources> Localizer { get; set; } = default!;
+
     private string _inputId = $"bob-datetime-{Guid.NewGuid():N}";
     private string _helperTextId = $"bob-helper-{Guid.NewGuid():N}";
     private bool _isPickerOpen;
@@ -144,7 +147,8 @@
                 @if (CanClear && !ReadOnly)
                 {
                     <_BOBBtn Icon="@BOBIconKeys.UI.Close"
-                             AriaLabel="Clear"
+                             Variant="BOBBtnVariant.Ghost"
+                             AriaLabel="@Localizer["Clear"]"
                              OnClick="(e)=> Clear()"
                              OnClickPreventDefault="true"
                              OnClickStopPropagation="true" />
@@ -154,7 +158,7 @@
                          Disabled="@(IsDisabled || ReadOnly)"
                          Loading="@Loading"
                          LoadingIndicatorVariant="@LoadingIndicatorVariant"
-                         AriaLabel="Open picker"
+                         AriaLabel="@Localizer["OpenPicker"]"
                          OnClick="(e)=> OpenPicker()"
                          OnClickPreventDefault="true"
                          OnClickStopPropagation="true" />
@@ -195,10 +199,10 @@
                     </div>
                 </Content>
                 <Footer>
-                    <BOBButton Text="Cancel"
+                    <BOBButton Text="@Localizer["Cancel"]"
                                OnClick="() => _isPickerOpen = false"
                                Variant="BOBButtonVariant.Default" />
-                    <BOBButton Text="Apply"
+                    <BOBButton Text="@Localizer["Apply"]"
                                OnClick="ApplyPickerValue" />
                 </Footer>
             </BOBDialog>

@@ -1,6 +1,7 @@
 ﻿@using BlazOrbit.Components.Layout
 @using BlazOrbit.Components.Utils
 @using BlazOrbit.Abstractions
+@using Microsoft.Extensions.Localization
 
 @namespace BlazOrbit.Components.Forms
 @attribute [GenerateComponentInfo]
@@ -32,6 +33,7 @@
     private string _rawInput = string.Empty;
 
     [Inject] private IClipboardJsInterop ClipboardJs { get; set; } = default!;
+    [Inject] internal IStringLocalizer<BOBFormsResources> Localizer { get; set; } = default!;
 
     // IHasSize
     /// <summary>Visual size of the input.</summary>
@@ -92,7 +94,8 @@
     /// <summary>String format used to serialize the picked color (hex, rgb(a), hsl(a), etc.).</summary>
     [Parameter] public ColorOutputFormats OutputFormat { get; set; }
     /// <summary>Text displayed as the Revert.</summary>
-    [Parameter] public string RevertText { get; set; } = "Revert";
+    [Parameter] public string? RevertText { get; set; }
+    private string ResolvedRevertText => RevertText ?? Localizer["Revert"];
 
     public override BOBInputVariant DefaultVariant => BOBInputVariant.Outlined;
 
@@ -159,7 +162,7 @@
                 @if (ShowCopyButton && HasValue)
                 {
                     <BOBTooltip AutoCloseAfterMs="1500" Trigger="TooltipTrigger.Click" Placement="TooltipPlacement.Top"
-                                Text="Copied!">
+                                Text="@Localizer["Copied"]">
                         <_BOBBtn Icon="@BOBIconKeys.UI.Copy" AriaLabel="Copy color" OnClick="(e) => CopyToClipboard()"
                                  OnClickStopPropagation="false" />
                     </BOBTooltip>
@@ -167,7 +170,7 @@
 
                 @if (Clearable && HasValue && !Disabled)
                 {
-                    <_BOBBtn Icon="@BOBIconKeys.UI.Close" AriaLabel="Clear" OnClick="(e) => Clear()" OnClickStopPropagation="true" />
+                    <_BOBBtn Icon="@BOBIconKeys.UI.Close" Variant="BOBBtnVariant.Ghost" AriaLabel="Clear" OnClick="(e) => Clear()" OnClickStopPropagation="true" />
                 }
 
                 <_BOBBtn Icon="@BOBIconKeys.MaterialIconsRound.i_palette" Disabled="@IsDisabled" AriaLabel="Open color picker"
@@ -192,7 +195,7 @@
                                MaxWidth="fit-content">
                         <Content>
                             <BOBColorPicker @bind-Value="CurrentValue" ShowActions="true"
-                                            RevertText="@RevertText" OnRevert="HandleRevert" />
+                                            RevertText="@ResolvedRevertText" OnRevert="HandleRevert" />
                         </Content>
                     </BOBDialog>
                 }
@@ -201,7 +204,7 @@
                     <div class="bob-input-color__dropdown-overlay" @onclick="ClosePicker"></div>
                     <div class="bob-input-color__dropdown" @onclick:stopPropagation="true">
                         <BOBColorPicker @bind-Value="CurrentValue" ShowActions="true"
-                                        RevertText="@RevertText" OnRevert="HandleRevert" />
+                                        RevertText="@ResolvedRevertText" OnRevert="HandleRevert" />
                     </div>
                 }
             }

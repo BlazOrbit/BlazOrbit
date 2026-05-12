@@ -49,11 +49,24 @@
         <BOBAvatar Label="L" Size="BOBSize.Large" />
     </DocDemo>
 
-    <DocDemo Key="Group" Title="@Loc["Group with overflow"]">
+    <DocDemo Key="Group" Title="@Loc["Group with overflow (manual total)"]"
+             Description="@Loc["TotalOverride pins the count when the trailing avatars aren't rendered at all (e.g. virtualised lists)."]">
         <BOBAvatarGroup MaxVisible="3" TotalOverride="8">
             <BOBAvatar Label="Ada Lovelace" />
             <BOBAvatar Label="Alan Turing" />
             <BOBAvatar Label="Grace Hopper" />
+        </BOBAvatarGroup>
+    </DocDemo>
+
+    <DocDemo Key="GroupAuto" Title="@Loc["Group with overflow (auto count)"]"
+             Description="@Loc["By default the group counts its registered children — any avatar past MaxVisible is hidden via CSS and the overflow bubble appears with the remaining count."]">
+        <BOBAvatarGroup MaxVisible="3">
+            <BOBAvatar Label="Ada Lovelace" />
+            <BOBAvatar Label="Alan Turing" />
+            <BOBAvatar Label="Grace Hopper" />
+            <BOBAvatar Label="Linus Torvalds" />
+            <BOBAvatar Label="Margaret Hamilton" />
+            <BOBAvatar Label="Donald Knuth" />
         </BOBAvatarGroup>
     </DocDemo>
 

@@ -1,4 +1,6 @@
-﻿@namespace BlazOrbit.Components
+﻿@using Microsoft.Extensions.Localization
+
+@namespace BlazOrbit.Components
 @attribute [GenerateComponentInfo]
 @inherits BOBVariantComponentBase<BOBProgressIcon, BOBProgressIconVariant>
 @implements IHasSize
@@ -7,7 +9,7 @@
     base.BuildRenderTree(__builder);
 }
 @code {
-    private const string DefaultLoadingLabel = "Loading";
+    [Inject] internal IStringLocalizer<BOBDisplayResources> Localizer { get; set; } = default!;
 
     /// <summary>Text or foreground color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? Color { get; set; }
@@ -19,7 +21,7 @@
     /// <summary>Visual size of the loading indicator.</summary>
     [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
 
-    private string ResolvedAriaLabel => AriaLabel ?? DefaultLoadingLabel;
+    private string ResolvedAriaLabel => AriaLabel ?? Localizer["Loading"];
 
     /* ========= Variant ========= */
     public override BOBProgressIconVariant DefaultVariant => BOBProgressIconVariant.Spinner;

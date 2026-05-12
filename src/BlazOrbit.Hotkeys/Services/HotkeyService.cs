@@ -19,11 +19,17 @@ public sealed class HotkeyService : IHotkeyService
             {
                 return _entries.Values
                     .SelectMany(list => list)
-                    .Select(e => new HotkeyDescriptor(e.Combo, e.Description, e.Scope))
+                    .Select(e => new HotkeyDescriptor(e.Combo, e.Description, e.Scope, e.PreventDefault))
                     .ToList();
             }
         }
     }
+
+    /// <inheritdoc />
+    public event Action<HotkeyDescriptor>? Registered;
+
+    /// <inheritdoc />
+    public event Action<HotkeyDescriptor>? Unregistered;
 
     /// <inheritdoc />
     public IDisposable Register(
@@ -48,6 +54,11 @@ public sealed class HotkeyService : IHotkeyService
             }
             bucket.Add(entry);
         }
+
+        // Notify outside the lock — subscribers (BOBHotkeyHost) push to JS via async
+        // interop and we don't want their continuation work serialized against further
+        // Register calls.
+        Registered?.Invoke(new HotkeyDescriptor(normalized, entry.Description, entry.Scope, entry.PreventDefault));
 
         return new Registration(this, normalized, entry);
     }
@@ -87,6 +98,7 @@ public sealed class HotkeyService : IHotkeyService
 
     private void Remove(string combo, Entry entry)
     {
+        bool comboGone;
         lock (_lock)
         {
             if (_entries.TryGetValue(combo, out List<Entry>? bucket))
@@ -95,8 +107,24 @@ public sealed class HotkeyService : IHotkeyService
                 if (bucket.Count == 0)
                 {
                     _entries.Remove(combo);
+                    comboGone = true;
+                }
+                else
+                {
+                    // Other entries still hold this combo — JS bridge should keep the
+                    // sync preventDefault set, so don't notify Unregistered yet.
+                    return;
                 }
             }
+            else
+            {
+                return;
+            }
+        }
+
+        if (comboGone)
+        {
+            Unregistered?.Invoke(new HotkeyDescriptor(combo, entry.Description, entry.Scope, entry.PreventDefault));
         }
     }
 

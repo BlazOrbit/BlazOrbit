@@ -2,6 +2,7 @@
 @using BlazOrbit.Components.Utils
 @using BlazOrbit.SyntaxHighlight
 @using Microsoft.Extensions.Logging
+@using Microsoft.Extensions.Localization
 
 @namespace BlazOrbit.Components
 @attribute [GenerateComponentInfo]
@@ -22,11 +23,11 @@
 
         <BOBTooltip AutoCloseAfterMs="1500" Trigger="TooltipTrigger.Click"
                     Placement="TooltipPlacement.Top"
-                    Text="Copied!">
+                    Text="@Localizer["Copied"]">
             <_BOBBtn Disabled="@_copied"
-                     AriaLabel="Copy code"
+                     AriaLabel="@Localizer["CopyCode"]"
                      OnClick="CopyClicked">
-                <span>Copy</span>
+                <span>@Localizer["CopyCode"]</span>
             </_BOBBtn>
         </BOBTooltip>
     </div>
@@ -37,6 +38,8 @@
 </bob-component>
 
 @code {
+    [Inject] internal IStringLocalizer<BOBDisplayResources> Localizer { get; set; } = default!;
+
     /// <summary>Source code to render and highlight. Required.</summary>
     [Parameter, EditorRequired] public string Code { get; set; } = string.Empty;
     /// <summary>Language.</summary>

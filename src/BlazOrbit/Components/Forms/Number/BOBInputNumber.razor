@@ -2,6 +2,7 @@
 @using System.Text
 @using System.Diagnostics.CodeAnalysis
 @using BlazOrbit.Abstractions
+@using Microsoft.Extensions.Localization
 
 @namespace BlazOrbit.Components.Forms
 @attribute [GenerateComponentInfo]
@@ -25,6 +26,8 @@
 }
 
 @code {
+    [Inject] internal IStringLocalizer<BOBFormsResources> Localizer { get; set; } = default!;
+
     private ElementReference _inputRef;
     private string _inputId = $"bob-number-{Guid.NewGuid():N}";
     private string _helperTextId = $"bob-helper-{Guid.NewGuid():N}";
@@ -260,13 +263,13 @@
         <div class="bob-input__step-buttons">
             <_BOBBtn Icon="@BOBIconKeys.UI.ChevronUp"
                         Disabled="@(Disabled || IsAtMax())"
-                        AriaLabel="Increment"
+                        AriaLabel="@Localizer["Increment"]"
                         @onmousedown="StartIncrement"
                         @onmouseup="StopIncrement"
                         @onmouseleave="StopIncrement" />
             <_BOBBtn Icon="@BOBIconKeys.UI.ChevronDown"
                         Disabled="@(Disabled || IsAtMin())"
-                        AriaLabel="Decrement"
+                        AriaLabel="@Localizer["Decrement"]"
                         @onmousedown="StartDecrement"
                         @onmouseup="StopDecrement"
                         @onmouseleave="StopDecrement" />

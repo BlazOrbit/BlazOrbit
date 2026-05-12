@@ -41,25 +41,25 @@
                 <_BOBInNumber Value="@GetCurrentColor().R"
                               Min="0"
                               Max="255"
-                              AriaLabel="Red"
+                              AriaLabel="@Localizer["Red"]"
                               class="bob-picker__input"
                               ValueChanged="v => SetRgbChannel(v, 0)" />
                 <_BOBInNumber Value="@GetCurrentColor().G"
                               Min="0"
                               Max="255"
-                              AriaLabel="Green"
+                              AriaLabel="@Localizer["Green"]"
                               class="bob-picker__input"
                               ValueChanged="v => SetRgbChannel(v, 1)" />
                 <_BOBInNumber Value="@GetCurrentColor().B"
                               Min="0"
                               Max="255"
-                              AriaLabel="Blue"
+                              AriaLabel="@Localizer["Blue"]"
                               class="bob-picker__input"
                               ValueChanged="v => SetRgbChannel(v, 2)" />
                 <_BOBInNumber Value="@((int)_alpha)"
                               Min="0"
                               Max="255"
-                              AriaLabel="Alpha"
+                              AriaLabel="@Localizer["Alpha"]"
                               class="bob-picker__input"
                               ValueChanged="SetAlphaChannel" />
                 break;
@@ -74,7 +74,7 @@
     @if (ShowActions)
     {
         <div class="bob-picker__row bob-colorpicker__footer">
-            <_BOBBtn OnClick="HandleRevert">@RevertText</_BOBBtn>
+            <_BOBBtn OnClick="HandleRevert">@ResolvedRevertText</_BOBBtn>
         </div>
     }
 </bob-component>
@@ -90,6 +90,7 @@
     private readonly BOBThrottler<CssColor?> _valueThrottler = new(TimeSpan.FromMilliseconds(50));
 
     [Inject] private IColorPickerJsInterop JsInterop { get; set; } = default!;
+    [Inject] internal IStringLocalizer<BOBFormsResources> Localizer { get; set; } = default!;
 
     /// <summary>Current value of the component.</summary>
     [Parameter] public CssColor? Value { get; set; }
@@ -102,7 +103,8 @@
     /// <summary>When <see langword="true" />, the Actions is shown.</summary>
     [Parameter] public bool ShowActions { get; set; } = true;
     /// <summary>Text displayed as the Revert.</summary>
-    [Parameter] public string RevertText { get; set; } = "Revert";
+    [Parameter] public string? RevertText { get; set; }
+    private string ResolvedRevertText => RevertText ?? Localizer["Revert"];
 
     private string SelectionStyle
     {

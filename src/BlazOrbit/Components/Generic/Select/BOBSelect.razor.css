@@ -120,7 +120,7 @@
    ════════════════════════════════════════ */
 
     [data-bob-component="select"][data-bob-variant="filled"] {
-        --_select-bg: color-mix(in srgb, var(--palette-surface-contrast) 6%, transparent);
+        --_select-bg: color-mix(in oklab, var(--palette-surface-contrast) 6%, transparent);
     }
 
         [data-bob-component="select"][data-bob-variant="filled"] .bob-select__native {

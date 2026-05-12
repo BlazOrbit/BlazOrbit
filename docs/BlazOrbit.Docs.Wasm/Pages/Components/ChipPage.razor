@@ -45,9 +45,42 @@
         <BOBChip Label="@Loc["Active"]" Selectable="true" Selected="true" />
     </DocDemo>
 
+    <DocDemo Key="GroupSingle" Title="@Loc["Group — single select"]"
+             Description="@Loc["BOBChipGroup<TValue> cascades selection across nested chips. Single mode keeps at most one Value selected; tapping the active chip again clears it."]">
+        <BOBChipGroup TValue="string"
+                      @bind-SelectedValues="_priority"
+                      Mode="ChipGroupSelectionMode.Single"
+                      Label="@Loc["Priority"]">
+            <BOBChip Label="@Loc["Low"]" Value="@("low")" />
+            <BOBChip Label="@Loc["Medium"]" Value="@("medium")" />
+            <BOBChip Label="@Loc["High"]" Value="@("high")" />
+        </BOBChipGroup>
+        <p class="doc-demo__caption">@Loc["Selected:"] <code>@(_priority.FirstOrDefault() ?? "(none)")</code></p>
+    </DocDemo>
+
+    <DocDemo Key="GroupMultiple" Title="@Loc["Group — multi select"]"
+             Description="@Loc["Multiple mode accumulates selections; tapping a selected chip removes it."]">
+        <BOBChipGroup TValue="string"
+                      @bind-SelectedValues="_languages"
+                      Mode="ChipGroupSelectionMode.Multiple"
+                      Label="@Loc["Languages"]"
+                      HelperText="@Loc["Pick any combination."]">
+            <BOBChip Label="C#" Value="@("csharp")" LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_code" />
+            <BOBChip Label="TypeScript" Value="@("ts")" LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_code" />
+            <BOBChip Label="Rust" Value="@("rust")" LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_code" />
+            <BOBChip Label="Go" Value="@("go")" LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_code" />
+        </BOBChipGroup>
+        <p class="doc-demo__caption">@Loc["Selected:"] <code>@(_languages.Count == 0 ? "(none)" : string.Join(", ", _languages))</code></p>
+    </DocDemo>
+
     <section class="doc-section">
-        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <h2 class="doc-section__title">@Loc["BOBChip Properties"]</h2>
         <PropertyTable Properties="@BOBChipComponentInfo.Parameters" />
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["BOBChipGroup Properties"]</h2>
+        <PropertyTable Properties="@BOBChipGroupComponentInfo.Parameters" />
     </section>
 
 </DocPage>
@@ -58,4 +91,7 @@
     private bool _csSelected = true;
     private int _clicks;
     private readonly List<string> _tags = new() { "alpha", "beta", "gamma" };
+
+    private IReadOnlyList<string> _priority = ["medium"];
+    private IReadOnlyList<string> _languages = ["csharp"];
 }

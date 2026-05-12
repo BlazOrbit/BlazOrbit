@@ -85,7 +85,7 @@
                 <input type="text" id="bob-input-<ID>" class="bob-input__field" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" aria-describedby="bob-helper-<ID>" aria-invalid="false" aria-required="false" disabled b-<SCOPE> />
 
                 
-                <div class="bob-addon" b-<SCOPE>><bob-component data-bob-component="progress-icon" data-bob-variant="ring" data-bob-size="medium" role="status" aria-live="polite" aria-label="Loading" b-<SCOPE>><svg viewBox="0 0 50 50" role="img" aria-hidden="true" focusable="false" b-<SCOPE>><circle cx="25" cy="25" r="20" b-<SCOPE>></circle></svg></bob-component></div></div>
+                <div class="_bob-addon" b-<SCOPE>><bob-component data-bob-component="progress-icon" data-bob-variant="ring" data-bob-size="medium" role="status" aria-live="polite" aria-label="Loading" b-<SCOPE>><svg viewBox="0 0 50 50" role="img" aria-hidden="true" focusable="false" b-<SCOPE>><circle cx="25" cy="25" r="20" b-<SCOPE>></circle></svg></bob-component></div></div>
 
             </bob-component>
   },
@@ -110,11 +110,11 @@
 <bob-component data-bob-component="input-text" data-bob-variant="outlined" data-bob-input-base="true" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE>><div class="bob-input__outline" aria-hidden="true"><span class="bob-input__outline-leading"></span>
         <span class="bob-input__outline-notch"><label for="bob-input-<ID>" class="bob-input__label">Website</label></span>
         <span class="bob-input__outline-trailing"></span></div>
-                <div class="bob-addon bob-input__addon--prefix" b-<SCOPE>><span>https://</span></div>
+                <div class="_bob-addon bob-input__addon--prefix" b-<SCOPE>><span>https://</span></div>
 
                 <input type="text" id="bob-input-<ID>" class="bob-input__field" blazor:onchange="<EVENT>" blazor:oninput="<EVENT>" blazor:onfocus="<EVENT>" blazor:onblur="<EVENT>" aria-describedby="bob-helper-<ID>" aria-invalid="false" aria-required="false" b-<SCOPE> />
 
-                <div class="bob-addon bob-input__addon--suffix" b-<SCOPE>><span>.com</span></div>
+                <div class="_bob-addon bob-input__addon--suffix" b-<SCOPE>><span>.com</span></div>
                 </div>
 
             </bob-component>

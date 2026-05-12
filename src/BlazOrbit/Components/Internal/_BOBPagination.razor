@@ -11,7 +11,7 @@
     <div class="_bob-pagination__controls">
         <_BOBBtn Icon="@BOBIconKeys.UI.ChevronLeft"
                  Disabled="@(CurrentPage == 1)"
-                 AriaLabel="Previous page"
+                 AriaLabel="@Localizer["PreviousPage"]"
                  OnClick="HandlePrevious" />
 
         @foreach (int currentPage in GetVisiblePages())
@@ -32,12 +32,14 @@
 
         <_BOBBtn Icon="@BOBIconKeys.UI.ChevronRight"
                  Disabled="@(CurrentPage == TotalPages)"
-                 AriaLabel="Next page"
+                 AriaLabel="@Localizer["NextPage"]"
                  OnClick="HandleNext" />
     </div>
 </div>
 
 @code {
+    [Inject] internal IStringLocalizer<BOBLayoutResources> Localizer { get; set; } = default!;
+
     /// <summary>CurrentPage.</summary>
     [Parameter] public int CurrentPage { get; set; } = 1;
     /// <summary>TotalPages.</summary>

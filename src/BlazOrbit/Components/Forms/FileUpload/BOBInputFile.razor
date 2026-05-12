@@ -1,5 +1,7 @@
 @using BlazOrbit.Abstractions
+@using BlazOrbit.Components.Display
 @using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.Extensions.Localization
 
 @namespace BlazOrbit.Components.Forms
 @attribute [GenerateComponentInfo]
@@ -33,7 +35,7 @@
             <span class="bob-file-upload__icon" aria-hidden="true">
                 <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_cloud_upload" Size="@Size" />
             </span>
-            <span class="bob-file-upload__title">@DropZoneText</span>
+            <span class="bob-file-upload__title">@ResolvedDropZoneText</span>
             <span class="bob-file-upload__hint">@DropZoneHint</span>
         }
     </label>
@@ -62,14 +64,34 @@
                     <span class="bob-file-upload__entry-meta">
                         <span class="bob-file-upload__entry-name">@entry.File.Name</span>
                         <span class="bob-file-upload__entry-size">@FormatBytes(entry.File.Size)</span>
+                        @if (entry.Status == BOBFileStatus.Uploading)
+                        {
+                            <BOBProgressBar Value="@entry.ProgressPercent" Max="100" Size="@Size" />
+                        }
                     </span>
-                    <button type="button"
-                            class="bob-file-upload__remove"
-                            aria-label="@RemoveText"
-                            disabled="@Disabled"
-                            @onclick="() => RemoveAsync(entry)">
-                        <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_close" Size="@Size" />
-                    </button>
+                    @* Per-entry status glyph — fades in when status is terminal.
+                       Reflects consumer-side calls to SetStatus() during/after upload. *@
+                    @if (entry.Status == BOBFileStatus.Uploaded)
+                    {
+                        <span class="bob-file-upload__entry-status" aria-label="@ResolvedUploadedText">
+                            <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_check_circle" Size="@Size" />
+                        </span>
+                    }
+                    else if (entry.Status == BOBFileStatus.Failed)
+                    {
+                        <span class="bob-file-upload__entry-status" aria-label="@ResolvedFailedText" title="@entry.StatusMessage">
+                            <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_error" Size="@Size" />
+                        </span>
+                    }
+                    @* Per-entry remove affordance — Ghost variant matches the dismiss pattern
+                       used in Banner + Chip. No extra class — parent flex pushes it to the
+                       trailing edge of the entry row. *@
+                    <_BOBBtn Icon="@BOBIconKeys.MaterialIconsOutlined.i_close"
+                             Variant="BOBBtnVariant.Ghost"
+                             Size="@Size"
+                             AriaLabel="@ResolvedRemoveText"
+                             Disabled="@(Disabled || entry.Status == BOBFileStatus.Uploading)"
+                             OnClick="@(_ => RemoveAsync(entry))" />
                 </li>
             }
         </ul>
@@ -90,6 +112,8 @@
 </bob-component>
 
 @code {
+    [Inject] internal IStringLocalizer<BOBFormsResources> Localizer { get; set; } = default!;
+
     private readonly List<BOBFileEntry> _files = [];
     private readonly List<BOBFileValidationError> _errors = [];
 
@@ -121,17 +145,28 @@
     [Parameter] public long PreviewMaxBytes { get; set; } = 5 * 1024 * 1024;
 
     /// <summary>Text rendered as the drop-zone title when no <see cref="ChildContent"/> is provided.</summary>
-    [Parameter] public string DropZoneText { get; set; } = "Drag files here or click to browse";
+    [Parameter] public string? DropZoneText { get; set; }
+    private string ResolvedDropZoneText => DropZoneText ?? Localizer["DropZoneText"];
     /// <summary>Hint rendered below the drop-zone title.</summary>
     [Parameter] public string DropZoneHint { get; set; } = "";
     /// <summary>Aria label for the per-row remove button.</summary>
-    [Parameter] public string RemoveText { get; set; } = "Remove file";
+    [Parameter] public string? RemoveText { get; set; }
+    private string ResolvedRemoveText => RemoveText ?? Localizer["RemoveFile"];
     /// <summary>Localised label rendered for the <c>TooLarge</c> error kind.</summary>
-    [Parameter] public string TooLargeText { get; set; } = "exceeds maximum size";
+    [Parameter] public string? TooLargeText { get; set; }
+    private string ResolvedTooLargeText => TooLargeText ?? Localizer["TooLarge"];
     /// <summary>Localised label rendered for the <c>DisallowedType</c> error kind.</summary>
-    [Parameter] public string DisallowedTypeText { get; set; } = "file type not allowed";
+    [Parameter] public string? DisallowedTypeText { get; set; }
+    private string ResolvedDisallowedTypeText => DisallowedTypeText ?? Localizer["DisallowedType"];
     /// <summary>Localised label rendered for the <c>TooManyFiles</c> error kind.</summary>
-    [Parameter] public string TooManyFilesText { get; set; } = "too many files";
+    [Parameter] public string? TooManyFilesText { get; set; }
+    private string ResolvedTooManyFilesText => TooManyFilesText ?? Localizer["TooManyFiles"];
+    /// <summary>Aria-label rendered on the success indicator after an upload completes.</summary>
+    [Parameter] public string? UploadedText { get; set; }
+    private string ResolvedUploadedText => UploadedText ?? Localizer["Uploaded"];
+    /// <summary>Aria-label rendered on the failure indicator after an upload fails.</summary>
+    [Parameter] public string? FailedText { get; set; }
+    private string ResolvedFailedText => FailedText ?? Localizer["Failed"];
 
     /// <summary>Raised after a selection completes, with the validated files.</summary>
     [Parameter] public EventCallback<IReadOnlyList<IBrowserFile>> OnFilesSelected { get; set; }
@@ -243,11 +278,33 @@
         }
     }
 
+    /// <summary>
+    /// Reports upload progress for a previously selected file. The consumer drives the
+    /// upload (typically via <see cref="BOBChunkedUploader"/>) and calls this method on
+    /// every chunk to advance the per-entry progress bar. The lookup is by reference
+    /// against the original <see cref="IBrowserFile"/> returned by
+    /// <see cref="OnFilesSelected"/>. No-op when the file is no longer in the list.
+    /// </summary>
+    /// <param name="file">The browser file whose entry should update.</param>
+    /// <param name="status">New terminal or in-flight status.</param>
+    /// <param name="progressPercent">0–100 progress for <see cref="BOBFileStatus.Uploading"/>; ignored otherwise.</param>
+    /// <param name="statusMessage">Optional message — surfaced as a tooltip on the status glyph (typically used for <see cref="BOBFileStatus.Failed"/>).</param>
+    public void SetStatus(IBrowserFile file, BOBFileStatus status, double progressPercent = 0, string? statusMessage = null)
+    {
+        BOBFileEntry? entry = _files.FirstOrDefault(e => ReferenceEquals(e.File, file));
+        if (entry is null) return;
+
+        entry.Status = status;
+        entry.ProgressPercent = status == BOBFileStatus.Uploading ? Math.Clamp(progressPercent, 0, 100) : 0;
+        entry.StatusMessage = statusMessage;
+        StateHasChanged();
+    }
+
     private string ErrorText(BOBFileValidationError err) => err.Kind switch
     {
-        BOBFileValidationErrorKind.TooLarge => $"{TooLargeText} ({FormatBytes(err.Size)} > {FormatBytes(MaxSize)})",
-        BOBFileValidationErrorKind.DisallowedType => DisallowedTypeText,
-        BOBFileValidationErrorKind.TooManyFiles => TooManyFilesText,
+        BOBFileValidationErrorKind.TooLarge => $"{ResolvedTooLargeText} ({FormatBytes(err.Size)} > {FormatBytes(MaxSize)})",
+        BOBFileValidationErrorKind.DisallowedType => ResolvedDisallowedTypeText,
+        BOBFileValidationErrorKind.TooManyFiles => ResolvedTooManyFilesText,
         _ => string.Empty
     };
 
@@ -268,13 +325,7 @@
         public IBrowserFile File { get; set; } = default!;
         public BOBFileStatus Status { get; set; } = BOBFileStatus.Accepted;
         public string? PreviewUrl { get; set; }
-    }
-
-    private enum BOBFileStatus
-    {
-        Accepted,
-        Uploading,
-        Uploaded,
-        Failed
+        public double ProgressPercent { get; set; }
+        public string? StatusMessage { get; set; }
     }
 }

@@ -27,14 +27,15 @@
                 {
                     <div class="bob-dc__filter">
                         <_BOBInText Value="@State.FilterText"
-                                    Placeholder="@FilterPlaceholder"
-                                    AriaLabel="@FilterPlaceholder"
+                                    Placeholder="@ResolvedFilterPlaceholder"
+                                    AriaLabel="@ResolvedFilterPlaceholder"
                                     UpdateOnInput="true"
                                     OnInput="HandleFilterInputChange" />
                         @if (!string.IsNullOrEmpty(State.FilterText))
                         {
                             <_BOBBtn Icon="@BOBIconKeys.UI.Close"
-                                     AriaLabel="Clear filter"
+                                     Variant="BOBBtnVariant.Ghost"
+                                     AriaLabel="@Localizer["ClearFilter"]"
                                      OnClick="ClearFilterClicked" />
                         }
                     </div>
@@ -45,9 +46,9 @@
                 @if (SelectionMode != SelectionMode.None && State.SelectedItems.Any())
                 {
                     <div class="bob-dc__selection-info">
-                        <span>@State.SelectedItems.Count selected</span>
+                        <span>@string.Format(Localizer["ItemsSelected"], State.SelectedItems.Count)</span>
                         <_BOBBtn OnClick="ClearSelectionClicked">
-                            Clear
+                            @Localizer["Clear"]
                         </_BOBBtn>
                         @foreach (DataCollectionBulkAction<TItem> bulk in VisibleBulkActions())
                         {
@@ -66,11 +67,11 @@
                 @if (Sortable && CachedSortableColumns.Any())
                 {
                     <div class="bob-datacards__sort">
-                        <label>Sort by</label>
+                        <label>@Localizer["SortBy"]</label>
                         <_BOBInSelect Value="@State.SortColumn"
-                                      AriaLabel="Sort by column"
+                                      AriaLabel="@Localizer["SortByColumn"]""
                                       ValueChanged="HandleSortSelectChange">
-                            <option value="">None</option>
+                            <option value="">@Localizer["None"]</option>
                             @foreach (DataColumnRegistration<TItem> col in CachedSortableColumns)
                             {
                                 <option value="@col.Header">
@@ -88,7 +89,7 @@
                         @if (!string.IsNullOrEmpty(State.SortColumn))
                         {
                             <_BOBBtn Icon="@(State.SortDirection == SortDirection.Ascending ? BOBIconKeys.UI.ArrowUpward : BOBIconKeys.UI.ArrowDownward)"
-                                     AriaLabel="Toggle sort direction"
+                                     AriaLabel="@Localizer["ToggleSortDirection"]"
                                      OnClick="ToggleSortDirectionClicked" />
                         }
                     </div>
@@ -97,9 +98,9 @@
                 @if (ShowPageSizeSelector)
                 {
                     <div class="bob-dc__page-size">
-                        <label>Show</label>
+                        <label>@Localizer["Show"]</label>
                         <_BOBInSelect Value="@State.PageSize.ToString()"
-                                      AriaLabel="Items per page"
+                                      AriaLabel="@Localizer["ItemsPerPage"]""
                                       ValueChanged="HandlePageSizeSelectChange">
                             @foreach (int size in PageSizeOptions)
                             {
@@ -122,7 +123,7 @@
                 int skeletonCards = PageSize ?? 6;
                 <div class="bob-datacards__grid bob-datacards__grid--skeleton"
                      style="@GetGridStyle()"
-                     role="status" aria-live="polite" aria-label="Loading data">
+                     role="status" aria-live="polite" aria-label="@Localizer["LoadingData"]">
                     @for (int s = 0; s < skeletonCards; s++)
                     {
                         <div class="bob-datacards__card bob-dc__skeleton-card">
@@ -136,7 +137,7 @@
             }
             else
             {
-                <div class="bob-dc__loading bob-dc__loading--spinner" role="status" aria-live="polite" aria-label="Loading">
+                <div class="bob-dc__loading bob-dc__loading--spinner" role="status" aria-live="polite" aria-label="@Localizer["Loading"]">
                     <div class="bob-dc__spinner" aria-hidden="true"></div>
                 </div>
             }
@@ -179,13 +180,13 @@
 
             @if (HasAggregates)
             {
-                <div class="bob-datacards__summary" role="group" aria-label="Aggregate totals">
+                <div class="bob-datacards__summary" role="group" aria-label="@Localizer["AggregateTotals"]">
                     @foreach (DataColumnRegistration<TItem> col in VisibleColumns.Where(c => c.Aggregate != AggregateFunction.None))
                     {
                         string? aggregate = ComputeAggregate(col, FilteredItems);
                         if (aggregate is null) continue;
                         <div class="bob-datacards__summary-cell"
-                             aria-label="@($"{col.Header} {col.Aggregate.ToString().ToLowerInvariant()}")">
+                             aria-label="@($"{col.Header} {GetAggregateLabel(col.Aggregate)}")">
                             <span class="bob-datacards__summary-label">@col.Header</span>
                             <span class="bob-datacards__summary-value">@aggregate</span>
                         </div>
@@ -203,7 +204,7 @@
             {
                 <div class="bob-dc__empty">
                     <span class="bob-dc__empty-icon">📋</span>
-                    <p class="bob-dc__empty-text">No data available</p>
+                    <p class="bob-dc__empty-text">@Localizer["NoDataAvailable"]</p>
                     @if (EmptyActionTemplate != null)
                     {
                         <div class="bob-dc__empty-actions">@EmptyActionTemplate</div>
@@ -400,7 +401,7 @@
                         TItem capturedExpItem = item;
                         bool capturedExpState = isExpanded;
                         <_BOBBtn Icon="@(capturedExpState ? BOBIconKeys.UI.ArrowDownward : BOBIconKeys.UI.ArrowForward)"
-                                 AriaLabel="@(capturedExpState ? "Collapse details" : "Expand details")"
+                                 AriaLabel="@(capturedExpState ? Localizer["CollapseDetails"] : Localizer["ExpandDetails"])"
                                  Size="BOBSize.Small"
                                  OnClick="@(_ => { ToggleExpanded(capturedExpItem); StateHasChanged(); return Task.CompletedTask; })" />
                     }
@@ -409,7 +410,7 @@
 
             @if (isExpanded && RowDetailTemplate != null)
             {
-                <section class="bob-datacards__card-detail" role="region" aria-label="Details">
+                <section class="bob-datacards__card-detail" role="region" aria-label="@Localizer["Details"]">
                     @RowDetailTemplate(item)
                 </section>
             }

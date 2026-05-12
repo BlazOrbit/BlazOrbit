@@ -2,9 +2,9 @@
 @attribute [GenerateComponentInfo]
 
 @inherits BOBComponentBase
+@implements IBuiltComponent
 
-<bob-component @attributes="ComputedAttributes"
-               style="@RatioStyle()">
+<bob-component @attributes="ComputedAttributes">
     <div class="bob-aspect-ratio__inner">
         @ChildContent
     </div>
@@ -21,13 +21,14 @@
     /// <summary>Inner content stretched to fill the constrained box.</summary>
     [Parameter] public RenderFragment? ChildContent { get; set; }
 
-    private string RatioStyle()
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
     {
         // Custom-property surface so consumers can override via CSS without re-rendering.
-        // Quoting/escaping the input: aspect-ratio only accepts a tightly bounded grammar so
-        // a stray ;/{ would produce an invalid value and the browser would discard it. No
-        // need for extra sanitisation but keep a stable default fallback.
+        // aspect-ratio only accepts a tightly bounded grammar; a stray ;/{ would yield an
+        // invalid declaration that the browser discards — no extra sanitisation required.
         string ratio = string.IsNullOrWhiteSpace(Ratio) ? "16 / 9" : Ratio;
-        return $"{FeatureDefinitions.InlineVariables.AspectRatio}:{ratio};";
+        cssVariables[FeatureDefinitions.InlineVariables.AspectRatio] = ratio;
     }
+
+    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes) { }
 }

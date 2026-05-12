@@ -1,4 +1,5 @@
 @using BlazOrbit.Abstractions
+@using Microsoft.Extensions.Localization
 
 @namespace BlazOrbit.Components.Display
 @attribute [GenerateComponentInfo]
@@ -43,12 +44,13 @@
 
             @if (Dismissible)
             {
-                <button type="button"
-                        class="bob-banner__dismiss"
-                        aria-label="@DismissText"
-                        @onclick="DismissAsync">
-                    <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_close" Size="@Size" />
-                </button>
+                @* No extra class — banner relies on the parent flex layout for positioning
+                   and the Ghost variant carries appearance + hover/focus state. *@
+                <_BOBBtn Icon="@BOBIconKeys.MaterialIconsOutlined.i_close"
+                         Variant="BOBBtnVariant.Ghost"
+                         Size="@Size"
+                         AriaLabel="@ResolvedDismissText"
+                         OnClick="DismissAsync" />
             }
         </div>
     </bob-component>
@@ -56,6 +58,8 @@
 
 @code {
     private bool _dismissed;
+
+    [Inject] internal IStringLocalizer<BOBDisplayResources> Localizer { get; set; } = default!;
 
     /// <summary>Severity tone — drives icon and palette accent.</summary>
     [Parameter] public BOBBannerSeverity Severity { get; set; } = BOBBannerSeverity.Info;
@@ -71,7 +75,8 @@
     /// <summary>When <see langword="true"/>, render an X button that hides the banner client-side.</summary>
     [Parameter] public bool Dismissible { get; set; }
     /// <summary>Aria-label for the dismiss button.</summary>
-    [Parameter] public string DismissText { get; set; } = "Dismiss";
+    [Parameter] public string? DismissText { get; set; }
+    private string ResolvedDismissText => DismissText ?? Localizer["Dismiss"];
     /// <summary>Raised after the user dismisses the banner.</summary>
     [Parameter] public EventCallback OnDismissed { get; set; }
 

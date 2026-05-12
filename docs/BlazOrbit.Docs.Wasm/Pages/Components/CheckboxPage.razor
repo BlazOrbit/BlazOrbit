@@ -14,7 +14,7 @@
 
     <DocDemo Key="Indeterminate" Title="@Loc["Indeterminate"]">
         <BOBInputCheckbox TValue="bool?" @bind-Value="_indeterminateValue" Label="@Loc["Tristate Checkbox"]"
-                          HelperText="Nullability activates tri-state" />
+                          HelperText="@Loc["Nullability activates tri-state"]" />
     </DocDemo>
 
     <DocDemo Key="Sizes" Title="@Loc["Sizes"]">
@@ -41,9 +41,9 @@
 
     <DocDemo Key="Icons" Title="@Loc["Custom Icons"]">
         <BOBInputCheckbox @bind-Value="_heart" CheckedIcon="@BOBIconKeys.MaterialIconsOutlined.i_favorite"
-                          UncheckedIcon="@BOBIconKeys.MaterialIconsOutlined.i_favorite_border" Color="@PaletteColor.Error" Label="Favorite" />
+                          UncheckedIcon="@BOBIconKeys.MaterialIconsOutlined.i_favorite_border" Color="@PaletteColor.Error" Label="@Loc["Favorite"]" />
         <BOBInputCheckbox @bind-Value="_star" CheckedIcon="@BOBIconKeys.MaterialIconsOutlined.i_star"
-                          UncheckedIcon="@BOBIconKeys.MaterialIconsOutlined.i_star_border" Color="@PaletteColor.Warning" Label="Starred" />
+                          UncheckedIcon="@BOBIconKeys.MaterialIconsOutlined.i_star_border" Color="@PaletteColor.Warning" Label="@Loc["Starred"]" />
     </DocDemo>
 
     <DocDemo Key="States" Title="@Loc["States"]">

@@ -5,7 +5,12 @@ namespace BlazOrbit.Components;
 
 internal interface IBehaviorJsInterop
 {
-    ValueTask<IJSObjectReference> AttachBehaviorsAsync(BehaviorConfiguration configuration);
+    /// <summary>
+    /// Attaches the configured behaviors to the underlying root element. Returns
+    /// <see langword="null"/> when the JS module fails to load (5-tuple swallow) or
+    /// during prerender/circuit-tear-down — callers must null-check before storing.
+    /// </summary>
+    ValueTask<IJSObjectReference?> AttachBehaviorsAsync(BehaviorConfiguration configuration);
 }
 
 internal sealed class BehaviorConfiguration

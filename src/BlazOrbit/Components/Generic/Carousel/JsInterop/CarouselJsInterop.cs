@@ -29,12 +29,14 @@ internal sealed class CarouselJsInterop : ModuleJsInteropBase, ICarouselJsIntero
         string componentId,
         int swipeThresholdPx)
     {
-        IJSObjectReference module = await ModuleTask.Value;
+        IJSObjectReference? module = await TryGetModuleAsync();
+        if (module is null) return;
         await module.InvokeVoidAsync("initialize", element, dotnetReference, componentId, swipeThresholdPx);
     }
 
     public async ValueTask DetachAsync(string componentId)
     {
+        // Dispose path: 4-tuple only.
         IJSObjectReference module = await ModuleTask.Value;
         await module.InvokeVoidAsync("dispose", componentId);
     }

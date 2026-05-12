@@ -1,0 +1,23 @@
+[data-bob-component="chip-group"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+[data-bob-component="chip-group"] .bob-chip-group__label {
+    font-size: 0.875rem;
+    color: var(--palette-surface-contrast);
+    opacity: 0.85;
+}
+
+[data-bob-component="chip-group"] .bob-chip-group__items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+[data-bob-component="chip-group"] .bob-chip-group__helper {
+    font-size: 0.75rem;
+    color: var(--palette-surface-contrast);
+    opacity: 0.65;
+}

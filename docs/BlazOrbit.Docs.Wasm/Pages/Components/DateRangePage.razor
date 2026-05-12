@@ -4,7 +4,7 @@
 
 
 <DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBInputDateRange"]"
-         Lede="@Loc["Two-pane date range picker with built-in presets and start/end constraint enforcement."]"
+         Lede="@Loc["Form input bound to a DateRange value, composed of two BOBInputDateTime fields plus a calendar picker dialog."]"
          PageInstance="this"
          ApiType="@typeof(BOBInputDateRange)">
 
@@ -16,18 +16,15 @@
         }
     </DocDemo>
 
-    <DocDemo Key="Presets" Title="@Loc["Presets only"]">
-        <BOBInputDateRange @bind-Value="_presets" ShowSummary="false" Label="@Loc["Pick a preset"]" />
-    </DocDemo>
-
-    <DocDemo Key="NoPresets" Title="@Loc["Without preset shortcuts"]">
-        <BOBInputDateRange @bind-Value="_noPresets" ShowPresets="false" Label="@Loc["Manual selection"]" />
-    </DocDemo>
-
     <DocDemo Key="Sizes" Title="@Loc["Sizes"]">
         <BOBInputDateRange @bind-Value="_small" Size="BOBSize.Small" Label="@Loc["Small"]" />
         <br />
         <BOBInputDateRange @bind-Value="_large" Size="BOBSize.Large" Label="@Loc["Large"]" />
+    </DocDemo>
+
+    <DocDemo Key="Picker" Title="@Loc["Standalone picker"]"
+             Description="@Loc["BOBDateRangePicker is the calendar-pane companion. The input wraps it inside a dialog opened by the calendar button; mount it directly to expose presets + day-count summary inline."]">
+        <BOBDateRangePicker @bind-Value="_pickerOnly" Label="@Loc["Pick a range"]" />
     </DocDemo>
 
     <section class="doc-section">
@@ -39,8 +36,7 @@
 
 @code {
     private DateRange _basic;
-    private DateRange _presets;
-    private DateRange _noPresets;
+    private DateRange _pickerOnly;
     private DateRange _small;
     private DateRange _large;
 }

@@ -1,5 +1,7 @@
 @typeparam TValue
 
+@using Microsoft.Extensions.Localization
+
 @namespace BlazOrbit.Components.Forms
 @attribute [GenerateComponentInfo]
 
@@ -46,6 +48,8 @@
 </bob-component>
 
 @code {
+    [Inject] internal IStringLocalizer<BOBDisplayResources> Localizer { get; set; } = default!;
+
     private string _generatedInputId = $"bob-switch-{Guid.NewGuid():N}";
 
     /* ===== Design ===== */
@@ -71,7 +75,7 @@
     private string? ResolvedAriaLabel =>
         !string.IsNullOrWhiteSpace(AriaLabel) ? AriaLabel
         : !string.IsNullOrWhiteSpace(Label) ? null
-        : "Toggle";
+        : Localizer["Toggle"].Value;
 
     /* ===== Switch behavior ===== */
 

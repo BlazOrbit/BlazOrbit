@@ -37,9 +37,10 @@ public sealed class ChartJsInterop : ModuleJsInteropBase, IChartJsInterop
     /// <inheritdoc />
     public async ValueTask<string> ObserveResizeAsync(ElementReference container, DotNetObjectReference<object> callbackTarget)
     {
+        IJSObjectReference? module = await TryGetModuleAsync();
+        if (module is null) return string.Empty;
         try
         {
-            IJSObjectReference module = await ModuleTask.Value;
             return await module.InvokeAsync<string>("observeResize", container, callbackTarget);
         }
         catch (JSDisconnectedException) { return string.Empty; }
@@ -56,9 +57,12 @@ public sealed class ChartJsInterop : ModuleJsInteropBase, IChartJsInterop
             return;
         }
 
+        // Teardown path: callers reach this during dispose. Use the protected helper for
+        // load-time 5-tuple swallow, then method-level 4-tuple for the InvokeVoidAsync call.
+        IJSObjectReference? module = await TryGetModuleAsync();
+        if (module is null) return;
         try
         {
-            IJSObjectReference module = await ModuleTask.Value;
             await module.InvokeVoidAsync("unobserveResize", handle);
         }
         catch (JSDisconnectedException) { }
@@ -70,9 +74,10 @@ public sealed class ChartJsInterop : ModuleJsInteropBase, IChartJsInterop
     /// <inheritdoc />
     public async ValueTask ExportSvgAsPngAsync(ElementReference svg, string fileName, int? width = null, int? height = null)
     {
+        IJSObjectReference? module = await TryGetModuleAsync();
+        if (module is null) return;
         try
         {
-            IJSObjectReference module = await ModuleTask.Value;
             await module.InvokeVoidAsync("exportSvgAsPng", svg, fileName, width, height);
         }
         catch (JSDisconnectedException) { }

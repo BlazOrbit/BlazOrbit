@@ -44,11 +44,11 @@
         border-radius: 0.5rem;
         min-width: 120px;
         height: 40px;
-        box-shadow: 0 2px 4px color-mix(in srgb, var(--palette-shadow) 10%, transparent);
+        box-shadow: 0 2px 4px color-mix(in oklab, var(--palette-shadow) 10%, transparent);
     }
 
         [data-bob-component="theme-selector"][data-bob-variant="default"] button:hover {
-            box-shadow: 0 4px 8px color-mix(in srgb, var(--palette-shadow) 15%, transparent);
+            box-shadow: 0 4px 8px color-mix(in oklab, var(--palette-shadow) 15%, transparent);
         }
 
     [data-bob-component="theme-selector"][data-bob-variant="default"] .bob-theme-switch__content {
@@ -106,7 +106,7 @@ html[data-bob-theme="light"] [data-bob-component="theme-selector"][data-bob-vari
     justify-content: center;
     position: absolute;
     transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
-    box-shadow: 0 2px 4px color-mix(in srgb, var(--palette-shadow) 20%, transparent);
+    box-shadow: 0 2px 4px color-mix(in oklab, var(--palette-shadow) 20%, transparent);
 }
 
 html[data-bob-theme="light"] [data-bob-component="theme-selector"][data-bob-variant="sunmoon"] .bob-theme-switch__icon-wrapper {
@@ -135,7 +135,7 @@ html[data-bob-theme="dark"] [data-bob-component="theme-selector"][data-bob-varia
 }
 
 [data-bob-component="theme-selector"][data-bob-variant="sunmoon"] button:hover .bob-theme-switch__icon-wrapper {
-    box-shadow: 0 3px 6px color-mix(in srgb, var(--palette-shadow) 30%, transparent);
+    box-shadow: 0 3px 6px color-mix(in oklab, var(--palette-shadow) 30%, transparent);
 }
 
 @keyframes bob-theme-rotate-in {

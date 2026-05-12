@@ -109,8 +109,10 @@ public class BOBDataGridFilterOperatorsTests
             }));
 
         // Type "1990-01-01" + LessThan → Charlie (1985-12-20) matches. Body cell renders
-        // the formatted date (single-column grid), so assert on that.
-        cut.Find(".bob-datagrid__column-filter").Input("1990-01-01");
+        // the formatted date (single-column grid), so assert on that. Date inputs commit
+        // via onchange (picker / blur) rather than oninput, mirroring browser semantics —
+        // partial entries never make it to the filter pipeline.
+        cut.Find(".bob-datagrid__column-filter").Change("1990-01-01");
         cut.Find(".bob-datagrid__column-filter-op").Change(ColumnFilterOperator.LessThan.ToString());
 
         RowCount(cut).Should().Be(1);

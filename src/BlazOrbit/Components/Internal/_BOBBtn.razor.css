@@ -1,4 +1,16 @@
-﻿.bob-btn {
+/* Internal button primitive — size + color shifts driven by tokens so the same
+   element blends into toolbars, pickers and pagination without per-site overrides.
+
+   Two visual modes via data-bob-variant:
+     - "default" : solid text color, color-shift on hover (toolbar / pagination feel).
+     - "ghost"   : transparent + opacity dim, hover restores opacity + soft tint
+                   background (dismiss / close affordance feel). */
+._bob-btn {
+    --_btn-fg: var(--palette-surface-contrast);
+    --_btn-fg-hover: color-mix(in oklab, var(--palette-surface-contrast) 80%, var(--palette-primary) 20%);
+    --_btn-bg-active: color-mix(in oklab, var(--palette-primary) 90%, var(--palette-hover-tint) 10%);
+    --_btn-ghost-bg-hover: color-mix(in oklab, var(--palette-primary) 14%, transparent);
+    --_btn-ghost-opacity: 0.7;
     display: inline-flex;
     align-items: center;
     vertical-align: middle;
@@ -13,47 +25,66 @@
     border-radius: 0;
     overflow: hidden;
     font-size: calc(1rem * var(--bob-size-multiplier, 1));
-    color: var(--palette-surface-contrast);
+    color: var(--_btn-fg);
+    background: transparent;
+    transition: color var(--bob-input-transition-duration) var(--bob-input-transition-easing),
+                background-color var(--bob-input-transition-duration) var(--bob-input-transition-easing),
+                opacity var(--bob-input-transition-duration) var(--bob-input-transition-easing);
 }
 
     /* Disabled */
-    .bob-btn:disabled {
+    ._bob-btn:disabled {
         opacity: var(--bob-opacity-disabled);
         cursor: not-allowed;
     }
 
     /* Focus state */
-    .bob-btn:focus-visible {
+    ._bob-btn:focus-visible {
         outline: var(--bob-highlight-outline);
         outline-offset: var(--bob-highlight-outline-offset);
     }
 
-    /* Press state */
-    .bob-btn:active:not(:disabled) {
-        /*background: color-mix(in oklab, var(--palette-primary) 80%, var(--palette-active-tint) 20%);*/
-        color: color-mix(in oklab, var(--palette-surface-contrast) 80%, var(--palette-primary) 20%);
+    /* === DEFAULT VARIANT === */
+
+    ._bob-btn[data-bob-variant="default"]:active:not(:disabled),
+    ._bob-btn[data-bob-variant="default"]:hover:not(:active):not(:disabled) {
+        color: var(--_btn-fg-hover);
     }
 
-    /* Hover state */
-    .bob-btn:hover:not(:active):not(:disabled) {
-        /*background: color-mix(in oklab, var(--palette-primary) 90%, var(--palette-hover-tint) 10%);*/
-        color: color-mix(in oklab, var(--palette-surface-contrast) 80%, var(--palette-primary) 20%);
+    /* Active (data-attribute) — visually a soft tinted background. */
+    ._bob-btn[data-bob-variant="default"][data-bob-active="true"] {
+        background: var(--_btn-bg-active);
     }
 
-    /* Active */
-    .bob-btn[data-bob-active="true"] {
-        background: color-mix(in oklab, var(--palette-primary) 90%, var(--palette-hover-tint) 10%);
+    /* === GHOST VARIANT === */
+
+    ._bob-btn[data-bob-variant="ghost"] {
+        opacity: var(--_btn-ghost-opacity);
+        padding: 0.25rem;
+        border-radius: 0.25rem;
     }
 
-    /* Sizes */
-    .bob-btn[data-bob-size="small"] {
+    ._bob-btn[data-bob-variant="ghost"]:hover:not(:disabled),
+    ._bob-btn[data-bob-variant="ghost"]:focus-visible:not(:disabled) {
+        opacity: 1;
+        background: var(--_btn-ghost-bg-hover);
+    }
+
+    ._bob-btn[data-bob-variant="ghost"][data-bob-active="true"] {
+        opacity: 1;
+        background: var(--_btn-ghost-bg-hover);
+    }
+
+    /* === SIZES (variant-agnostic) === */
+
+    ._bob-btn[data-bob-size="small"] {
         --bob-size-multiplier: var(--bob-small-multiplier);
     }
 
-    .bob-btn[data-bob-size="medium"] {
+    ._bob-btn[data-bob-size="medium"] {
         --bob-size-multiplier: var(--bob-medium-multiplier);
     }
 
-    .bob-btn[data-bob-size="large"] {
+    ._bob-btn[data-bob-size="large"] {
         --bob-size-multiplier: var(--bob-large-multiplier);
     }

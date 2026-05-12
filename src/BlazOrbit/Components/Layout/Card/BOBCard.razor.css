@@ -77,7 +77,7 @@
         height: var(--_card-media-height);
         overflow: hidden;
         position: relative;
-        background: color-mix(in srgb, var(--palette-shadow) 4%, transparent);
+        background: color-mix(in oklab, var(--palette-shadow) 4%, transparent);
     }
 
         [data-bob-component="card"] .bob-card__media > * {

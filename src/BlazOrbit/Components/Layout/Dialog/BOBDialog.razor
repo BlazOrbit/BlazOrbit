@@ -43,7 +43,8 @@
                     @if (Closable)
                     {
                         <_BOBBtn Icon="@BOBIconKeys.UI.Close"
-                                    AriaLabel="Close"
+                                    Variant="BOBBtnVariant.Ghost"
+                                    AriaLabel="@Localizer["Close"]"
                                     OnClick="CloseAsync" />
                     }
                 </div>
@@ -100,6 +101,8 @@
     [Parameter] public bool CloseOnOverlayClick { get; set; } = true;
     /// <summary>When <see langword="true" /> (default), pressing Escape closes the dialog.</summary>
     [Parameter] public bool CloseOnEscape { get; set; } = true;
+
+    [Inject] internal IStringLocalizer<BOBLayoutResources> Localizer { get; set; } = default!;
 
     /// <summary>Minimum width of the dialog. Accepts any valid CSS length.</summary>
     [Parameter] public string? MinWidth { get; set; } = "300px";

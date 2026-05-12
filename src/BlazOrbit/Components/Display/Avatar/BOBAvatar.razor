@@ -55,6 +55,35 @@
     /// <summary>Background color of the avatar. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     [Parameter] public string? BackgroundColor { get; set; }
 
+    /// <summary>
+    /// Set when the avatar is nested inside a <see cref="BOBAvatarGroup"/>. Powers the group's
+    /// auto-counted overflow badge — the avatar registers on init and unregisters on dispose
+    /// so the badge stays accurate when consumers toggle visibility via <c>@if</c> guards.
+    /// </summary>
+    [CascadingParameter] internal BOBAvatarGroup? ParentGroup { get; set; }
+
+    private bool _registered;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        if (ParentGroup is not null)
+        {
+            ParentGroup.Register(this);
+            _registered = true;
+        }
+    }
+
+    public override async ValueTask DisposeAsync()
+    {
+        if (_registered && ParentGroup is not null)
+        {
+            ParentGroup.Unregister(this);
+            _registered = false;
+        }
+        await base.DisposeAsync();
+    }
+
     private string Initials()
     {
         if (string.IsNullOrWhiteSpace(Label)) return "?";

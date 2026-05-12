@@ -1,6 +1,7 @@
 ﻿@namespace BlazOrbit.Components.Forms
 @attribute [GenerateComponentInfo]
 @using System.Globalization
+@using Microsoft.Extensions.Localization
 
 @inherits BOBComponentBase
 @implements IHasSize
@@ -16,14 +17,14 @@
         <div class="bob-picker__row bob-time-picker__fields">
             <div class="bob-time-picker__column">
                 <_BOBBtn Icon="@BOBIconKeys.UI.ChevronUp"
-                                     AriaLabel="Increment hour"
+                                     AriaLabel="@Localizer["IncrementHour"]"
                                      OnClick="IncrementHourClicked" />
                 <_BOBInText Value="@DisplayHour.ToString("00")"
                                           ValueChanged="OnHourInputChanged"
                                           class="bob-picker__input"
                                           maxlength="2" />
                 <_BOBBtn Icon="@BOBIconKeys.UI.ChevronDown"
-                                     AriaLabel="Decrement hour"
+                                     AriaLabel="@Localizer["DecrementHour"]"
                                      OnClick="DecrementHourClicked" />
             </div>
 
@@ -31,14 +32,14 @@
 
             <div class="bob-time-picker__column">
                 <_BOBBtn Icon="@BOBIconKeys.UI.ChevronUp"
-                                     AriaLabel="Increment minute"
+                                     AriaLabel="@Localizer["IncrementMinute"]"
                                      OnClick="IncrementMinuteClicked" />
                 <_BOBInText Value="@Minute.ToString("00")"
                                           ValueChanged="OnMinuteInputChanged"
                                           class="bob-picker__input"
                                           maxlength="2" />
                 <_BOBBtn Icon="@BOBIconKeys.UI.ChevronDown"
-                                     AriaLabel="Decrement minute"
+                                     AriaLabel="@Localizer["DecrementMinute"]"
                                      OnClick="DecrementMinuteClicked" />
             </div>
         </div>
@@ -53,6 +54,8 @@
 </bob-component>
 
 @code {
+    [Inject] internal IStringLocalizer<BOBFormsResources> Localizer { get; set; } = default!;
+
     /// <summary>Current value of the component.</summary>
     [Parameter] public TimeOnly? Value { get; set; }
     /// <summary>Raised when the value changes.</summary>

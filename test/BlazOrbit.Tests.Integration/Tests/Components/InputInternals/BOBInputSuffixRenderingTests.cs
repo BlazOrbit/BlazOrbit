@@ -36,7 +36,7 @@ public class BOBInputSuffixRenderingTests
 
         // Assert
         IElement addon = cut.Find(".bob-input__addon--suffix");
-        addon.ClassList.Should().Contain("bob-addon");
+        addon.ClassList.Should().Contain("_bob-addon");
         addon.QuerySelector("span")!.TextContent.Should().Be(".com");
     }
 

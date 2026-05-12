@@ -1,4 +1,5 @@
 ﻿@using BlazOrbit.Abstractions
+@using Microsoft.Extensions.Localization
 
 @namespace BlazOrbit.Components.Display
 @attribute [GenerateComponentInfo]
@@ -13,7 +14,7 @@
          aria-valuenow="@(Indeterminate ? null : Math.Round(NormalisedValue * 100, 0).ToString())"
          aria-valuemin="0"
          aria-valuemax="100"
-         aria-label="@(string.IsNullOrWhiteSpace(Label) ? AriaLabel : Label)"
+         aria-label="@(string.IsNullOrWhiteSpace(Label) ? ResolvedAriaLabel : Label)"
          data-bob-indeterminate="@(Indeterminate ? "true" : null)">
 
         @if (!string.IsNullOrWhiteSpace(Label) || ShowPercentage)
@@ -52,6 +53,8 @@
 </bob-component>
 
 @code {
+    [Inject] internal IStringLocalizer<BOBDisplayResources> Localizer { get; set; } = default!;
+
     /// <summary>Current progress value, in <see cref="Min"/>–<see cref="Max"/>. Ignored when <see cref="Indeterminate"/>.</summary>
     [Parameter] public double Value { get; set; }
     /// <summary>Minimum value (default <c>0</c>).</summary>
@@ -69,7 +72,8 @@
     /// <summary>When <see langword="true"/>, render a "<c>NN%</c>" label on the right of the head row.</summary>
     [Parameter] public bool ShowPercentage { get; set; }
     /// <summary>Aria-label fallback when <see cref="Label"/> is empty.</summary>
-    [Parameter] public string AriaLabel { get; set; } = "Progress";
+    [Parameter] public string? AriaLabel { get; set; }
+    private string ResolvedAriaLabel => AriaLabel ?? Localizer["Progress"];
 
     /// <summary>Visual size of the bar.</summary>
     [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;

@@ -19,9 +19,13 @@
         <div class="doc-callout">
             <span class="doc-callout__icon">💡</span>
             <div>
-                <strong>Optional packages.</strong> Install <code>BlazOrbit.Localization.Server</code>
-                or <code>BlazOrbit.Localization.Wasm</code> if you need multi-culture support.
-                <a href="/features/localization">See Localization Feature</a>
+                <strong>Optional packages.</strong> Install additional packages on demand:
+                <ul style="margin: 0.5rem 0 0 1.25rem;">
+                    <li><code>BlazOrbit.Charts</code> — <a href="/components/charts/bar">15 SVG chart types</a></li>
+                    <li><code>BlazOrbit.Hotkeys</code> — <a href="/components/services/hotkey">global keyboard shortcuts</a></li>
+                    <li><code>BlazOrbit.Notifications</code> — <a href="/components/services/notifications">notification center + bell badge</a></li>
+                    <li><code>BlazOrbit.Localization.Server</code> / <code>.Wasm</code> — <a href="/features/localization">multi-culture support</a></li>
+                </ul>
             </div>
         </div>
     </section>
@@ -79,7 +83,8 @@
         <p class="doc-section__description">
             For <code>BOBModalHost</code> and <code>BOBToastHost</code> to render your modals
             and toasts globally, place them in your <code>MainLayout.razor</code> (outside the
-            <code>@@Body</code> block):
+            <code>@@Body</code> block).
+            If you installed <code>BlazOrbit.Hotkeys</code>, add <code>BOBHotkeyHost</code> here as well:
         </p>
 
         <BOBCodeBlock Title="Layout/MainLayout.razor"
@@ -119,6 +124,9 @@
     <BOBInitializer DefaultTheme="dark">
         @Body
     </BOBInitializer>
+    
+    @* Optional: only when BlazOrbit.Hotkeys is installed *@
+    <BOBHotkeyHost />
     
     <BOBModalHost />
     <BOBToastHost MaxVisiblePerPosition="5" />

@@ -1,8 +1,10 @@
-﻿._bob-simple-number {
+/* Simple numeric input primitive — same token wiring as _bob-simple-input plus
+   tabular-nums and native spinner suppression so the cell stays a clean rectangle. */
+._bob-simple-number {
     min-width: calc(3rem * var(--bob-size-multiplier, 1));
     min-height: calc(2rem * var(--bob-size-multiplier, 1));
     padding: 0.25rem;
-    border: var(--bob-border-width) var(--bob-border-style) var(--palette-border);
+    border: var(--bob-input-border-width) var(--bob-input-border-style) var(--bob-input-border-color);
     border-radius: var(--bob-border-radius);
     background: var(--palette-surface);
     color: var(--palette-surface-contrast);
@@ -12,11 +14,12 @@
     font-variant-numeric: tabular-nums;
     text-align: center;
     outline: none;
+    transition: border-color var(--bob-input-transition-duration) var(--bob-input-transition-easing);
     -moz-appearance: textfield;
 }
 
     ._bob-simple-number:focus {
-        border-color: var(--palette-surface-contrast);
+        border-color: var(--palette-highlight);
     }
 
     ._bob-simple-number:focus-visible {
@@ -30,7 +33,7 @@
     }
 
     ._bob-simple-number::placeholder {
-        opacity: var(--bob-opacity-placeholder, 0.5);
+        opacity: var(--bob-opacity-placeholder);
     }
 
     ._bob-simple-number::-webkit-outer-spin-button,

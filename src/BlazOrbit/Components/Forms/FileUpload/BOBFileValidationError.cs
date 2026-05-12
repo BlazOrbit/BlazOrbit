@@ -1,6 +1,22 @@
 namespace BlazOrbit.Components.Forms;
 
 /// <summary>
+/// Lifecycle status of a selected file inside <see cref="BOBInputFile"/>. Mutated by the
+/// consumer via <see cref="BOBInputFile.SetStatus"/> while an upload is in flight.
+/// </summary>
+public enum BOBFileStatus
+{
+    /// <summary>Selection passed client-side validation; awaiting any consumer-driven action.</summary>
+    Accepted,
+    /// <summary>Upload in progress — progress bar visible while <c>ProgressPercent</c> &gt; 0.</summary>
+    Uploading,
+    /// <summary>Terminal success — green check glyph rendered.</summary>
+    Uploaded,
+    /// <summary>Terminal failure — error glyph rendered; tooltip carries the status message.</summary>
+    Failed
+}
+
+/// <summary>
 /// Reason a file was rejected by <see cref="BOBInputFile"/>'s client-side filters.
 /// </summary>
 public enum BOBFileValidationErrorKind

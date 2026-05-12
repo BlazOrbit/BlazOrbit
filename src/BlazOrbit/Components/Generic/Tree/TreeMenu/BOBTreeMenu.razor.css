@@ -8,19 +8,19 @@
     --_tree-menu-transition: 160ms ease;
     --_tree-menu-bg: transparent;
     /* Subtle hover — text shift, not a button surface. */
-    --_tree-menu-hover-bg: color-mix(in srgb, var(--palette-surface-contrast) 5%, transparent);
+    --_tree-menu-hover-bg: color-mix(in oklab, var(--palette-surface-contrast) 5%, transparent);
     /* Active state: tinted bg + accent rail (left border) instead of full
        primary fill so the menu reads as a tree, not a row of buttons. */
-    --_tree-menu-active-bg: color-mix(in srgb, var(--palette-primary) 32%, transparent);
+    --_tree-menu-active-bg: color-mix(in oklab, var(--palette-primary) 32%, transparent);
     --_tree-menu-active-color: var(--palette-primary-contrast);
     --_tree-menu-active-rail: var(--palette-primary);
-    --_tree-menu-text-color: color-mix(in srgb, var(--palette-surface-contrast) 80%, transparent);
-    --_tree-menu-icon-color: color-mix(in srgb, var(--palette-surface-contrast) 60%, transparent);
+    --_tree-menu-text-color: color-mix(in oklab, var(--palette-surface-contrast) 80%, transparent);
+    --_tree-menu-icon-color: color-mix(in oklab, var(--palette-surface-contrast) 60%, transparent);
     /* Indent guide rendered on submenus. */
-    --_tree-menu-guide-color: color-mix(in srgb, var(--palette-border) 70%, transparent);
+    --_tree-menu-guide-color: color-mix(in oklab, var(--palette-border) 70%, transparent);
     --_tree-menu-flyout-bg: var(--palette-surface);
-    --_tree-menu-flyout-shadow: 0 4px 12px color-mix(in srgb, var(--palette-shadow) 15%, transparent);
-    --_tree-menu-flyout-border: 1px solid color-mix(in srgb, var(--palette-border) 8%, transparent);
+    --_tree-menu-flyout-shadow: 0 4px 12px color-mix(in oklab, var(--palette-shadow) 15%, transparent);
+    --_tree-menu-flyout-border: 1px solid color-mix(in oklab, var(--palette-border) 8%, transparent);
     display: block;
     font-family: inherit;
     font-size: 0.9rem;
@@ -29,10 +29,10 @@
 }
 
 [data-bob-theme="dark"] [data-bob-component="tree-menu"] {
-    --_tree-menu-hover-bg: color-mix(in srgb, var(--palette-surface-contrast) 8%, transparent);
-    --_tree-menu-active-bg: color-mix(in srgb, var(--palette-primary) 38%, transparent);
-    --_tree-menu-flyout-shadow: 0 4px 12px color-mix(in srgb, var(--palette-shadow) 30%, transparent);
-    --_tree-menu-flyout-border: 1px solid color-mix(in srgb, var(--palette-border) 10%, transparent);
+    --_tree-menu-hover-bg: color-mix(in oklab, var(--palette-surface-contrast) 8%, transparent);
+    --_tree-menu-active-bg: color-mix(in oklab, var(--palette-primary) 38%, transparent);
+    --_tree-menu-flyout-shadow: 0 4px 12px color-mix(in oklab, var(--palette-shadow) 30%, transparent);
+    --_tree-menu-flyout-border: 1px solid color-mix(in oklab, var(--palette-border) 10%, transparent);
 }
 
 [data-bob-component="tree-menu"][data-bob-size="small"] {
@@ -196,7 +196,7 @@
 }
 
     [data-bob-component="tree-menu"] .bob-tree-menu__toggle-btn:hover {
-        background: color-mix(in srgb, var(--palette-surface-contrast) 6%, transparent);
+        background: color-mix(in oklab, var(--palette-surface-contrast) 6%, transparent);
         color: var(--palette-surface-contrast);
     }
 

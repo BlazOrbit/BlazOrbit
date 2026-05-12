@@ -7,7 +7,7 @@
 
 A modern, accessible, and customizable component library for **Blazor** on **.NET 8 / .NET 10**.
 
-BlazOrbit ships **50+ production-ready components** — forms, layouts, navigation, overlays, data grid / cards, **15 chart types** (incl. finance candlestick, gauges, radar, heatmap), drag-and-drop — on top of a reflective styling pipeline (`data-bob-*` attributes + CSS custom properties), a design-token system, a variant registry, light/dark theming, and optional localization. SVG-rendered charts (no Chart.js / D3 dependency), JS-light architecture, full `EditContext` form integration, and a `.skill` bundle that teaches AI coding agents the canonical API.
+BlazOrbit ships **60+ production-ready components** — forms, layouts, navigation, overlays, data grid / cards, **15 chart types** (incl. finance candlestick, gauges, radar, heatmap), drag-and-drop, global hotkeys, and a notification center — on top of a reflective styling pipeline (`data-bob-*` attributes + CSS custom properties), a design-token system, a variant registry, light/dark theming, and optional localization. SVG-rendered charts (no Chart.js / D3 dependency), JS-light architecture, full `EditContext` form integration, and a `.skill` bundle that teaches AI coding agents the canonical API.
 
 BlazOrbit is built on several key principles:
 
@@ -153,6 +153,78 @@ Then drop a chart anywhere — the `blazorbit-charts.css` link is auto-injected 
               Width="640" Height="280" />
 ```
 
+### Add hotkeys (optional)
+
+Global keyboard shortcuts with scope-aware registration:
+
+```bash
+dotnet add package BlazOrbit.Hotkeys
+```
+
+Register the service and mount the host:
+
+```csharp
+using BlazOrbit.Hotkeys;
+
+builder.Services.AddBlazOrbit();
+builder.Services.AddBlazOrbitHotkeys();
+```
+
+```razor
+@using BlazOrbit.Hotkeys.Components
+
+<BOBHotkeyHost />
+```
+
+Register shortcuts from any component:
+
+```csharp
+@inject IHotkeyService Hotkeys
+
+protected override void OnInitialized()
+{
+    Hotkeys.Register("ctrl+k", _ => ShowSearch(), HotkeyScope.Global);
+}
+```
+
+### Add notifications (optional)
+
+Inbox-style notification center with persistent storage:
+
+```bash
+dotnet add package BlazOrbit.Notifications
+```
+
+Register the service:
+
+```csharp
+using BlazOrbit.Notifications;
+
+builder.Services.AddBlazOrbit();
+builder.Services.AddBlazOrbitNotifications();
+```
+
+Push notifications from any component:
+
+```csharp
+@inject INotificationCenter Center
+
+await Center.PushAsync(new BOBNotification
+{
+    Title = "Welcome",
+    Body = "You have a new message.",
+    Severity = NotificationSeverity.Info
+});
+```
+
+Drop the bell badge into your navbar:
+
+```razor
+@using BlazOrbit.Notifications.Components
+
+<BOBNotificationBell />
+```
+
 ---
 
 ## Packages
@@ -162,15 +234,17 @@ Then drop a chart anywhere — the `blazorbit-charts.css` link is auto-injected 
 | `BlazOrbit` | Main component library — 35+ components, variants, theming, JS behaviors. |
 | `BlazOrbit.Core` | Framework-agnostic primitives — base component types, behavior interfaces (`IHas*`), palette and theme types. |
 | `BlazOrbit.Charts` | SVG-rendered chart family — 15 chart types with zoom, brush, crosshair, live streaming, annotations. No Chart.js / D3. |
+| `BlazOrbit.Hotkeys` | Global keyboard shortcut registry — document-level keydown listener, modifier-aware combo grammar, scope-aware registration (Global / Page) with auto-cleanup. |
+| `BlazOrbit.Notifications` | Persistent inbox-style notification center with `BOBNotificationBell` badge and swappable `INotificationStore` strategy. |
 | `BlazOrbit.SyntaxHighlight` | Dependency-free syntax highlighter used by `BOBCodeBlock`. |
 | `BlazOrbit.Localization.Server` | Cookie-based culture persistence and `BOBCultureSelector` for Blazor Server. |
 | `BlazOrbit.Localization.Wasm` | `localStorage`-based culture persistence and `BOBCultureSelector` for Blazor WebAssembly. |
 | `BlazOrbit.Localization.Shared` | Shared `BOBCultureSelector` markup + types reused by both Server and Wasm localization integrations. Pulled in transitively. |
 | `BlazOrbit.Translations` | Localized `.resx` resource bundle (culture satellites) consumed by the rerouted `IStringLocalizerFactory`. Pulled in transitively. |
 | `BlazOrbit.FormsFluentValidation` | Integration with `FluentValidation` for BlazOrbit forms. |
-| `BlazOrbit.Templates` | `dotnet new` templates — `blazorbit-server` and `blazorbit-wasm` with optional localization + charts dashboard. |
+| `BlazOrbit.Templates` | `dotnet new` templates — `blazorbit-server` and `blazorbit-wasm` with optional localization, charts, notifications, and hotkeys. |
 
-> `BlazOrbit.BuildTools` and `BlazOrbit.Charts.BuildTools` live in the monorepo as build-time scaffolding (CSS + TypeScript pipelines) and are **not** published to NuGet — consumers receive the pre-built CSS / `.min.js` as static web assets and never need Node, npm, esbuild or these tools installed.
+> `BlazOrbit.BuildTools`, `BlazOrbit.Charts.BuildTools`, and `BlazOrbit.Hotkeys.BuildTools` live in the monorepo as build-time scaffolding (CSS + TypeScript pipelines) and are **not** published to NuGet — consumers receive the pre-built CSS / `.min.js` as static web assets and never need Node, npm, esbuild or these tools installed.
 
 ## Localization: Server vs. WASM
 
@@ -258,7 +332,7 @@ For prerendered WASM (hosted WASM with Server prerender), install **both** packa
 
 ### Build & tooling
 
-- **`.dotnet new` templates** — `blazorbit-server` + `blazorbit-wasm` with `IncludeLocalization` and `IncludeCharts` flags. The Charts opt-in replaces the showcase Home with a dashboard sample (KPIs + sparklines + line + bar + heatmap + candlestick).
+- **`.dotnet new` templates** — `blazorbit-server` + `blazorbit-wasm` with `IncludeLocalization`, `IncludeCharts`, `UseNotificationsCenter`, `UseHotKeys`, and `Theme` flags. Optional packages replace the showcase Home with targeted demos (dashboard for charts, inbox for notifications, shortcuts for hotkeys).
 - **`BlazOrbit.BuildTools`** — generates `CssBundle/`, `package.json`, `tsconfig.json`, Vite config, and `wwwroot/css/blazorbit.css` at consumer build time. No Node required; the tool ships a packed esbuild.
 - **`BlazOrbit.Charts.BuildTools`** — same pattern for the chart-family TypeScript interop.
 - **Public API tracking** — `RoslynAnalyzers.PublicApi` enabled on every package; no symbol leaks across releases.

@@ -1,4 +1,5 @@
 @using BlazOrbit.Abstractions
+@using Microsoft.Extensions.Localization
 
 @namespace BlazOrbit.Components.Display
 @attribute [GenerateComponentInfo]
@@ -12,7 +13,7 @@
 <bob-component @attributes="ComputedAttributes">
     <div class="bob-rating"
          role="radiogroup"
-         aria-label="@(string.IsNullOrWhiteSpace(Label) ? AriaLabel : Label)"
+         aria-label="@(string.IsNullOrWhiteSpace(Label) ? ResolvedAriaLabel : Label)"
          @onmouseleave="HandleHoverLeave">
 
         @if (!string.IsNullOrWhiteSpace(Label))
@@ -29,7 +30,7 @@
                     class="bob-rating__cell"
                     role="radio"
                     aria-checked="@(((int)Math.Ceiling(CurrentValue) == slot).ToString().ToLowerInvariant())"
-                    aria-label="@($"{slot} {(slot == 1 ? "star" : "stars")}")"
+                    aria-label="@($"{slot} {(slot == 1 ? Localizer["Star"] : Localizer["Stars"])}")"
                     data-bob-fill="@fill.ToString().ToLowerInvariant()"
                     tabindex="@(IsDisabled ? -1 : (slot == 1 ? 0 : -1))"
                     disabled="@IsDisabled"
@@ -59,6 +60,8 @@
 </bob-component>
 
 @code {
+    [Inject] internal IStringLocalizer<BOBDisplayResources> Localizer { get; set; } = default!;
+
     private readonly string _labelId = $"bob-label-{Guid.NewGuid():N}";
     private double? _hoverValue;
 
@@ -84,7 +87,8 @@
     /// <summary>Helper text rendered below the row.</summary>
     [Parameter] public string? HelperText { get; set; }
     /// <summary>Aria-label fallback when <see cref="Label"/> is empty.</summary>
-    [Parameter] public string AriaLabel { get; set; } = "Rating";
+    [Parameter] public string? AriaLabel { get; set; }
+    private string ResolvedAriaLabel => AriaLabel ?? Localizer["Rating"];
     /// <summary>Icon rendered for the "filled" state. Defaults to <c>i_star</c>.</summary>
     [Parameter] public IconKey FullIcon { get; set; } = BOBIconKeys.MaterialIconsOutlined.i_star;
     /// <summary>Icon rendered for the "half-filled" state. Defaults to <c>i_star_half</c>.</summary>

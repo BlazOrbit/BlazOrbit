@@ -1,4 +1,5 @@
 ﻿@using System.Globalization
+@using Microsoft.Extensions.Localization
 @namespace BlazOrbit.Components.Forms
 @attribute [GenerateComponentInfo]
 
@@ -10,17 +11,17 @@
 <bob-component @attributes="ComputedAttributes">
     <div class="bob-picker__row">
         <_BOBBtn Icon="@BOBIconKeys.UI.ChevronLeft"
-                    AriaLabel="Previous year"
+                    AriaLabel="@Localizer["PreviousYear"]"
                     OnClick="PrevYearClicked" />
         <_BOBBtn Icon="@BOBIconKeys.UI.ChevronLeft"
-                    AriaLabel="Previous month"
+                    AriaLabel="@Localizer["PreviousMonth"]"
                     OnClick="PrevMonthClicked" />
         <span class="bob-picker__title">@CurrentMonth.ToString("MMMM yyyy", CultureInfo.CurrentCulture)</span>
         <_BOBBtn Icon="@BOBIconKeys.UI.ChevronRight"
-                    AriaLabel="Next month"
+                    AriaLabel="@Localizer["NextMonth"]"
                     OnClick="NextMonthClicked" />
         <_BOBBtn Icon="@BOBIconKeys.UI.ChevronRight"
-                    AriaLabel="Next year"
+                    AriaLabel="@Localizer["NextYear"]"
                     OnClick="NextYearClicked" />
     </div>
 
@@ -42,6 +43,8 @@
 </bob-component>
 
 @code {
+    [Inject] internal IStringLocalizer<BOBFormsResources> Localizer { get; set; } = default!;
+
     /// <summary>Current value of the component.</summary>
     [Parameter] public DateOnly? Value { get; set; }
     /// <summary>Raised when the value changes.</summary>

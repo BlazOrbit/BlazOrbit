@@ -7,6 +7,10 @@
          PageInstance="this"
          ApiType="@typeof(BOBGaugeChart)">
 
+    <BOBBanner Severity="BOBBannerSeverity.Warning"
+               Title="@Loc["Extra package required"]"
+               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]" />
+
     <DocDemo Key="Semi" Title="@Loc["Semicircle gauge"]">
         <BOBGaugeChart Value="62" Caption="@Loc["CPU usage"]" Unit="%" Width="320" Height="220" />
     </DocDemo>

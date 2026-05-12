@@ -7,6 +7,10 @@
          PageInstance="this"
          ApiType="@typeof(BOBScatterChart<,>)">
 
+    <BOBBanner Severity="BOBBannerSeverity.Warning"
+               Title="@Loc["Extra package required"]"
+               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]" />
+
     <DocDemo Key="Basic" Title="@Loc["Basic scatter"]">
         <BOBScatterChart TX="double" TY="double"
                          Series="_clusters"

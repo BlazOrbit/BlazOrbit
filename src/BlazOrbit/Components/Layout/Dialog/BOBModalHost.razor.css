@@ -13,7 +13,7 @@
 .bob-modal-overlay {
     position: absolute;
     inset: 0;
-    background: color-mix(in srgb, var(--palette-shadow) 50%, transparent);
+    background: color-mix(in oklab, var(--palette-shadow) 50%, transparent);
     backdrop-filter: blur(2px);
     animation: bob-modal-overlay-in 200ms ease-out forwards;
 }

@@ -1,0 +1,12 @@
+#nullable enable
+BlazOrbit.FormsFluentValidation.BOBFluentValidator
+BlazOrbit.FormsFluentValidation.BOBFluentValidator.BOBFluentValidator() -> void
+BlazOrbit.FormsFluentValidation.BOBFluentValidator.Dispose() -> void
+BlazOrbit.FormsFluentValidation.BOBFluentValidator.ValidateOnFieldChanged.get -> bool
+BlazOrbit.FormsFluentValidation.BOBFluentValidator.ValidateOnFieldChanged.set -> void
+BlazOrbit.FormsFluentValidation.BOBFluentValidator.ValidatorType.get -> System.Type?
+BlazOrbit.FormsFluentValidation.BOBFluentValidator.ValidatorType.set -> void
+Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions
+override BlazOrbit.FormsFluentValidation.BOBFluentValidator.OnInitialized() -> void
+static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddBOBFluentValidation(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services, System.Reflection.Assembly? assembly = null, Microsoft.Extensions.DependencyInjection.ServiceLifetime lifetime = Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped, System.Func<FluentValidation.AssemblyScanner.AssemblyScanResult!, bool>? filter = null, bool includeInternalTypes = false) -> Microsoft.Extensions.DependencyInjection.IServiceCollection!
+static Microsoft.Extensions.DependencyInjection.ServiceCollectionExtensions.AddBOBFluentValidation<TEntry>(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services, Microsoft.Extensions.DependencyInjection.ServiceLifetime lifetime = Microsoft.Extensions.DependencyInjection.ServiceLifetime.Scoped, System.Func<FluentValidation.AssemblyScanner.AssemblyScanResult!, bool>? filter = null, bool includeInternalTypes = false) -> Microsoft.Extensions.DependencyInjection.IServiceCollection!

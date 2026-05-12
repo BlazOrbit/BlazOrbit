@@ -1,12 +1,13 @@
 ﻿@page "/concepts/theming"
+@inject IStringLocalizer<Theming> Loc
 
 <DocPage Eyebrow="Guide"
          Title="Theming"
          Lede="Every visible color and every dimensional rhythm in the library is a CSS custom property. Override one variable to re-skin the UI; override a token to retune sizing, motion, or typography globally.">
 
-    <section class="doc-section">
-        <p>You can use <a href="/utils/themegenerator">Theme Generator</a> to create custom themes — both the color palette and the design tokens.</p>
-    </section>
+    <BOBBanner Severity="BOBBannerSeverity.Info"
+               Title="@Loc["About BOBNotificationCenter"]"
+               Message="@Loc["""<p>You can use <a href="/utils/themegenerator">Theme Generator</a> to create custom themes — both the color palette and the design tokens.</p>"""]" />
 
     <section class="doc-section">
         <h2 class="doc-section__title">Two override surfaces</h2>

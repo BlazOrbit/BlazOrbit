@@ -1,5 +1,6 @@
 ﻿@namespace BlazOrbit.Components.Forms
 @attribute [GenerateComponentInfo]
+@using Microsoft.Extensions.Localization
 @inherits BOBInputComponentBase<TValue, BOBInputRadio<TValue>, BOBInputRadioVariant>
 @implements IPureBuiltComponent
 @implements IRadioContainer
@@ -16,6 +17,8 @@
 </CascadingValue>
 
 @code {
+    [Inject] internal IStringLocalizer<BOBFormsResources> Localizer { get; set; } = default!;
+
     private readonly List<IRadioOption> _options = [];
     private readonly string _groupName = $"radio-{Guid.NewGuid():N}";
     private string _helperTextId = $"bob-helper-{Guid.NewGuid():N}";
@@ -40,7 +43,8 @@
     /// <summary>Clearable.</summary>
     [Parameter] public bool Clearable { get; set; }
     /// <summary>Text displayed as the Clear.</summary>
-    [Parameter] public string ClearText { get; set; } = "Clear";
+    [Parameter] public string? ClearText { get; set; }
+    private string ResolvedClearText => ClearText ?? Localizer["Clear"];
     /// <summary>Material icon name for the Checked.</summary>
     [Parameter] public IconKey? CheckedIcon { get; set; }
     /// <summary>Material icon name for the Unchecked.</summary>
@@ -163,7 +167,7 @@
             @if (ShowClearButton)
             {
                 <_BOBBtn OnClick="ClearClicked">
-                    @ClearText
+                    @ResolvedClearText
                 </_BOBBtn>
             }
     

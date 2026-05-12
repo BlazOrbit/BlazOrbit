@@ -120,5 +120,5 @@
     };
 
     private static string? MarkerStyle(TimelineItem item) =>
-        string.IsNullOrEmpty(item.Color) ? null : $"--bob-inline-color:{item.Color};";
+        string.IsNullOrEmpty(item.Color) ? null : $"{FeatureDefinitions.InlineVariables.Color}:{item.Color};";
 }

@@ -7,7 +7,7 @@
 @implements IHasSize
 
 <bob-component @attributes="ComputedAttributes">
-    <nav class="bob-breadcrumbs" aria-label="@AriaLabel">
+    <nav class="bob-breadcrumbs" aria-label="@ResolvedAriaLabel">
         <ol class="bob-breadcrumbs__list" role="list">
             @{
                 IReadOnlyList<BreadcrumbItem> visible = ResolveVisibleItems();
@@ -95,7 +95,11 @@
     [Parameter] public int MaxVisible { get; set; } = 0;
 
     /// <summary>Aria label rendered on the root <c>&lt;nav&gt;</c>.</summary>
-    [Parameter] public string AriaLabel { get; set; } = "Breadcrumb";
+    [Parameter] public string? AriaLabel { get; set; }
+
+    [Inject] internal IStringLocalizer<BOBLayoutResources> Localizer { get; set; } = default!;
+
+    private string ResolvedAriaLabel => AriaLabel ?? Localizer["Breadcrumb"];
 
     /// <summary>Visual size shared by separator + entry icons.</summary>
     [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;

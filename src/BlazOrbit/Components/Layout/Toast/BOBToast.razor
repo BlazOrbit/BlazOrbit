@@ -37,6 +37,8 @@
     [CascadingParameter]
     private ToastService? ToastService { get; set; }
 
+    [Inject] internal IStringLocalizer<BOBLayoutResources> Localizer { get; set; } = default!;
+
     public override BOBToastVariant DefaultVariant => BOBToastVariant.Default;
 
     protected override Dictionary<BOBToastVariant, Func<BOBToast, RenderFragment>> BuiltInTemplates { get; } = new()
@@ -144,7 +146,8 @@
             @if (State.Options.Closable)
             {
                 <_BOBBtn Icon="@BOBIconKeys.UI.Close"
-                         AriaLabel="Close"
+                         Variant="BOBBtnVariant.Ghost"
+                         AriaLabel="@Localizer["Close"]"
                          OnClick="HandleClose"
                          OnClickStopPropagation="true" />
             }

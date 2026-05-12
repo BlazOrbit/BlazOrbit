@@ -1,7 +1,12 @@
 @namespace BlazOrbit.Components.Layout
 
 @inherits BOBComponentBase
-@implements IPureBuiltComponent
+@* IBuiltComponent (downgraded from IPureBuiltComponent): `_navOpen` is mutable
+   internal state — the Pure marker would freeze it in the fingerprint cache.
+   Root data-bob attrs stay inline so they re-emit on every event-driven render
+   (Blazor's `@attributes` spread does not diff dictionary contents reliably
+   when the dict reference is stable across renders). *@
+@implements IBuiltComponent
 
 <bob-component @attributes="ComputedAttributes"
                data-bob-sticky-header="@(StickyHeader ? "true" : null)"
@@ -13,7 +18,7 @@
         {
             <button type="button"
                     class="bob-stacked-layout__toggle"
-                    aria-label="Toggle navigation"
+                    aria-label="@Localizer["ToggleNavigation"]"
                     aria-expanded="@_navOpen.ToString().ToLowerInvariant()"
                     @onclick="ToggleNav">
                 <span class="bob-stacked-layout__toggle-bar"></span>
@@ -47,6 +52,8 @@
 
 @code {
     private bool _navOpen;
+
+    [Inject] internal IStringLocalizer<BOBLayoutResources> Localizer { get; set; } = default!;
 
     /// <summary>Header.</summary>
     [Parameter] public RenderFragment? Header { get; set; }

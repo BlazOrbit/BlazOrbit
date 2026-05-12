@@ -21,7 +21,8 @@ internal sealed class ClipboardJsInterop
 
     public async ValueTask CopyTextAsync(string text)
     {
-        IJSObjectReference module = await ModuleTask.Value;
+        IJSObjectReference? module = await TryGetModuleAsync();
+        if (module is null) return;
 
         await module.InvokeVoidAsync("copyText", text);
     }

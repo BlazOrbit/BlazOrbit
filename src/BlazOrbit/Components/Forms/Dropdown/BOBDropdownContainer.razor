@@ -139,6 +139,10 @@
 
     private RenderFragment RenderDropdown() => __builder =>
     {
+        @* IsOpen + placement stay inline: `@attributes` dict-spread does not re-emit
+           when the dict ref is stable across event-driven renders (toggle click →
+           StateHasChanged → BuildRenderTree). Inline `@()` directives always
+           re-evaluate from the current field. *@
         <bob-component @attributes="ComputedAttributes"
                        data-bob-dropdown-open="@(IsOpen ? "true" : null)"
                        data-bob-placement="@GetEffectivePlacement().ToString().ToLowerInvariant()">

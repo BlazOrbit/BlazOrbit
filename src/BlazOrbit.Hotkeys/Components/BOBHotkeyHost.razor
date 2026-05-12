@@ -26,6 +26,18 @@
         {
             await HotkeyJsInterop.AttachAsync(_hostId, _relay);
             _attached = true;
+
+            // Subscribe before we replay so we don't double-push a combo that lands
+            // between the snapshot and the wiring.
+            HotkeyService.Registered += HandleRegistered;
+            HotkeyService.Unregistered += HandleUnregistered;
+
+            // Replay any combos registered before the host mounted (typical for
+            // page-level Register calls in OnInitialized that fire on prerender).
+            foreach (HotkeyDescriptor descriptor in HotkeyService.RegisteredHotkeys)
+            {
+                await PushRegisterAsync(descriptor);
+            }
         }
         catch (JSDisconnectedException)
         {
@@ -48,8 +60,45 @@
         }
     }
 
+    private void HandleRegistered(HotkeyDescriptor descriptor)
+        => BlazOrbit.Utilities.BOBAsyncHelper.SafeFireAndForget(() => PushRegisterAsync(descriptor).AsTask());
+
+    private void HandleUnregistered(HotkeyDescriptor descriptor)
+        => BlazOrbit.Utilities.BOBAsyncHelper.SafeFireAndForget(() => PushUnregisterAsync(descriptor.Combo).AsTask());
+
+    private async ValueTask PushRegisterAsync(HotkeyDescriptor descriptor)
+    {
+        if (!_attached) return;
+        try
+        {
+            await HotkeyJsInterop.RegisterComboAsync(_hostId, descriptor.Combo, descriptor.PreventDefault);
+        }
+        catch (JSDisconnectedException) { }
+        catch (ObjectDisposedException) { }
+        catch (InvalidOperationException) { }
+        catch (TaskCanceledException) { }
+        catch (JSException) { }
+    }
+
+    private async ValueTask PushUnregisterAsync(string combo)
+    {
+        if (!_attached) return;
+        try
+        {
+            await HotkeyJsInterop.UnregisterComboAsync(_hostId, combo);
+        }
+        catch (JSDisconnectedException) { }
+        catch (ObjectDisposedException) { }
+        catch (InvalidOperationException) { }
+        catch (TaskCanceledException) { }
+        catch (JSException) { }
+    }
+
     public async ValueTask DisposeAsync()
     {
+        HotkeyService.Registered -= HandleRegistered;
+        HotkeyService.Unregistered -= HandleUnregistered;
+
         if (_attached)
         {
             try

@@ -2,6 +2,7 @@
 @using BlazOrbit.Abstractions
 @using BlazOrbit.Components
 @using System.Linq.Expressions
+@using Microsoft.Extensions.Localization
 
 @namespace BlazOrbit.Components.Forms
 @attribute [GenerateComponentInfo]
@@ -58,10 +59,10 @@
     {
         <div class="bob-dropdown__select-all">
             <_BOBBtn OnClick="SelectAllClicked" OnClickStopPropagation="true">
-                @SelectAllText
+                @ResolvedSelectAllText
             </_BOBBtn>
             <_BOBBtn OnClick="DeselectAllClicked" OnClickStopPropagation="true">
-                @DeselectAllText
+                @ResolvedDeselectAllText
             </_BOBBtn>
         </div>
     }
@@ -125,6 +126,8 @@
 </BOBDropdownContainer>
 
 @code {
+    [Inject] internal IStringLocalizer<BOBFormsResources> Localizer { get; set; } = default!;
+
     private BOBDropdownContainer<TValue>? _container;
     private readonly List<ISelectionOption> _options = [];
     private readonly SelectionState<TValue> _selectionState;
@@ -191,9 +194,11 @@
     /// <summary>When <see langword="true" /> and in multi-select mode, shows buttons to select or deselect all options.</summary>
     [Parameter] public bool ShowSelectAll { get; set; } = true;
     /// <summary>Label of the "Select All" button.</summary>
-    [Parameter] public string SelectAllText { get; set; } = "Select All";
+    [Parameter] public string? SelectAllText { get; set; }
+    private string ResolvedSelectAllText => SelectAllText ?? Localizer["SelectAll"];
     /// <summary>Label of the "Deselect All" button.</summary>
-    [Parameter] public string DeselectAllText { get; set; } = "Deselect All";
+    [Parameter] public string? DeselectAllText { get; set; }
+    private string ResolvedDeselectAllText => DeselectAllText ?? Localizer["DeselectAll"];
 
     /// <summary>Custom template rendered when the dropdown has no options.</summary>
     [Parameter] public RenderFragment? NoOptionsTemplate { get; set; }

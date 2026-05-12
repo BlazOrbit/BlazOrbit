@@ -47,11 +47,11 @@ public static class VerifyConfig
     // when it lands on a `bob-picker__cell` element so the snapshot becomes date-stable.
     // The `\s+` keeps the leading space the attribute sits on consistent across days.
     private static readonly Regex PickerActiveCellRegex =
-        new(@"(?<=class=""bob-btn bob-picker__cell"") data-bob-active=""true""",
+        new(@"(?<=class=""_bob-btn bob-picker__cell"") data-bob-active=""true""",
             RegexOptions.Compiled);
 
     private static readonly Regex PickerActiveCellRegexAlt =
-        new(@" data-bob-active=""true""(?= class=""bob-btn bob-picker__cell"")",
+        new(@" data-bob-active=""true""(?= class=""_bob-btn bob-picker__cell"")",
             RegexOptions.Compiled);
 
     [ModuleInitializer]

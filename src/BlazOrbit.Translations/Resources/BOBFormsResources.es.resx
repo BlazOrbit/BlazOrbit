@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DigitXOfY" xml:space="preserve">
+    <value>Dígito {0} de {1}</value>
+  </data>
+  <data name="Uploaded" xml:space="preserve">
+    <value>Subido</value>
+  </data>
+  <data name="Failed" xml:space="preserve">
+    <value>Fallido</value>
+  </data>
+  <data name="HidePassword" xml:space="preserve">
+    <value>Ocultar contraseña</value>
+  </data>
+  <data name="ShowPassword" xml:space="preserve">
+    <value>Mostrar contraseña</value>
+  </data>
+  <data name="Revert" xml:space="preserve">
+    <value>Revertir</value>
+  </data>
+  <data name="Alpha" xml:space="preserve">
+    <value>Alfa</value>
+  </data>
+  <data name="Blue" xml:space="preserve">
+    <value>Azul</value>
+  </data>
+  <data name="Green" xml:space="preserve">
+    <value>Verde</value>
+  </data>
+  <data name="Red" xml:space="preserve">
+    <value>Rojo</value>
+  </data>
+  <data name="NextMonth" xml:space="preserve">
+    <value>Mes siguiente</value>
+  </data>
+  <data name="NextYear" xml:space="preserve">
+    <value>Año siguiente</value>
+  </data>
+  <data name="PreviousMonth" xml:space="preserve">
+    <value>Mes anterior</value>
+  </data>
+  <data name="PreviousYear" xml:space="preserve">
+    <value>Año anterior</value>
+  </data>
+  <data name="Clear" xml:space="preserve">
+    <value>Borrar</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>días</value>
+  </data>
+  <data name="End" xml:space="preserve">
+    <value>Fin</value>
+  </data>
+  <data name="Last30Days" xml:space="preserve">
+    <value>Últimos 30 días</value>
+  </data>
+  <data name="Last7Days" xml:space="preserve">
+    <value>Últimos 7 días</value>
+  </data>
+  <data name="Start" xml:space="preserve">
+    <value>Inicio</value>
+  </data>
+  <data name="ThisMonth" xml:space="preserve">
+    <value>Este mes</value>
+  </data>
+  <data name="Copied" xml:space="preserve">
+    <value>¡Copiado!</value>
+  </data>
+  <data name="Apply" xml:space="preserve">
+    <value>Aplicar</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancelar</value>
+  </data>
+  <data name="ClearRange" xml:space="preserve">
+    <value>Borrar rango</value>
+  </data>
+  <data name="OpenRangePicker" xml:space="preserve">
+    <value>Abrir selector de rango</value>
+  </data>
+  <data name="OpenPicker" xml:space="preserve">
+    <value>Abrir selector</value>
+  </data>
+  <data name="DeselectAll" xml:space="preserve">
+    <value>Deseleccionar todo</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Seleccionar todo</value>
+  </data>
+  <data name="FileTypeNotAllowed" xml:space="preserve">
+    <value>tipo de archivo no permitido</value>
+  </data>
+  <data name="DragFilesHere" xml:space="preserve">
+    <value>Arrastra archivos aquí o haz clic para explorar</value>
+  </data>
+  <data name="RemoveFile" xml:space="preserve">
+    <value>Eliminar archivo</value>
+  </data>
+  <data name="ExceedsMaximumSize" xml:space="preserve">
+    <value>excede el tamaño máximo</value>
+  </data>
+  <data name="TooManyFiles" xml:space="preserve">
+    <value>demasiados archivos</value>
+  </data>
+  <data name="Decrement" xml:space="preserve">
+    <value>Disminuir</value>
+  </data>
+  <data name="Increment" xml:space="preserve">
+    <value>Incrementar</value>
+  </data>
+  <data name="Maximum" xml:space="preserve">
+    <value>Máximo</value>
+  </data>
+  <data name="Minimum" xml:space="preserve">
+    <value>Mínimo</value>
+  </data>
+  <data name="AM" xml:space="preserve">
+    <value>AM</value>
+  </data>
+  <data name="PM" xml:space="preserve">
+    <value>PM</value>
+  </data>
+  <data name="DecrementHour" xml:space="preserve">
+    <value>Disminuir hora</value>
+  </data>
+  <data name="DecrementMinute" xml:space="preserve">
+    <value>Disminuir minuto</value>
+  </data>
+  <data name="IncrementHour" xml:space="preserve">
+    <value>Incrementar hora</value>
+  </data>
+  <data name="IncrementMinute" xml:space="preserve">
+    <value>Incrementar minuto</value>
+  </data>
+  <data name="DropZoneText" xml:space="preserve">
+    <value>Arrastra archivos aquí o haz clic para explorar</value>
+  </data>
+  <data name="TooLarge" xml:space="preserve">
+    <value>excede el tamaño máximo</value>
+  </data>
+  <data name="DisallowedType" xml:space="preserve">
+    <value>tipo de archivo no permitido</value>
+  </data>
+</root>

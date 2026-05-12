@@ -129,13 +129,13 @@
             <Columns>
                 <BOBDataColumn TItem="Order" Property="@(o => o.Region)" Header="@Loc["Region"]"
                                Filterable="true"
-                               Aggregate="AggregateFunction.Count" AggregateLabel="Total: " />
+                               Aggregate="AggregateFunction.Count" AggregateLabel="@(Loc["Total:"] + " ")" />
                 <BOBDataColumn TItem="Order" Property="@(o => o.Amount)" Header="@Loc["Amount"]"
                                Align="ColumnAlign.Right"
                                Format="C0" Aggregate="AggregateFunction.Sum" AggregateFormat="C0" AggregateLabel="Σ " />
                 <BOBDataColumn TItem="Order" Property="@(o => o.Quantity)" Header="@Loc["Quantity"]"
                                Align="ColumnAlign.Right"
-                               Aggregate="AggregateFunction.Average" AggregateFormat="F1" AggregateLabel="Avg: " />
+                               Aggregate="AggregateFunction.Average" AggregateFormat="F1" AggregateLabel="@(Loc["Avg:"] + " ")" />
             </Columns>
         </BOBDataGrid>
     </DocDemo>
@@ -245,7 +245,7 @@
     </DocDemo>
 
     <DocDemo Key="FilterOperators" Title="@Loc["Filter operators (text / numeric / date)"]"
-             Description="@Loc["FilterMode picks the operator vocabulary rendered next to the column input. Text columns expose Contains / StartsWith / EndsWith / = / ≠. Numeric and Date columns expose = / ≠ / > / < / ≥ / ≤. The operator <select> sits beside the typed input and AND-combines with global Filterable text and other column filters."]">
+             Description="@_filterOperatorsDesc">
         <BOBDataGrid Items="_employees" ShowColumnFilters="true">
             <Columns>
                 <BOBDataColumn TItem="Employee" Property="@(p => p.Name)" Header="@Loc["Name"]" Filterable="true" />
@@ -277,7 +277,7 @@
     </DocDemo>
 
     <DocDemo Key="ResizeColumns" Title="@Loc["Column resize"]"
-             Description="@Loc["Resizable on the grid + Resizable on a column adds a small drag handle on the trailing edge of the header. Pointerdown captures the column and a full-grid overlay listens for pointermove / pointerup so the cursor can leave the handle mid-drag without losing the gesture. The new width is written to DataCollectionState.ColumnWidths and persists via PersistenceKey when configured. MinWidth / MaxWidth clamp the drag."]">
+             Description="@_resizeColumnsDesc">
         <BOBDataGrid Items="_people" Resizable="true">
             <Columns>
                 <BOBDataColumn TItem="Person" Property="@(p => p.Id)" Header="ID" Width="80px" />
@@ -289,7 +289,7 @@
     </DocDemo>
 
     <DocDemo Key="ReorderColumns" Title="@Loc["Column reorder (keyboard + drag)"]"
-             Description="@Loc["Reorderable enables both interactions on every header: focus + Alt+ArrowLeft / Alt+ArrowRight shifts the column for keyboard users, and HTML5 drag-and-drop on the th lets the user pick a header up and drop it onto a peer to take that peer's slot. Both paths write to DataCollectionState.ColumnOrder, so the drag survives the persistence round-trip alongside the keyboard nudges."]">
+             Description="@_reorderColumnsDesc">
         <BOBDataGrid Items="_people" Reorderable="true">
             <Columns>
                 <BOBDataColumn TItem="Person" Property="@(p => p.Id)" Header="ID" />
@@ -301,7 +301,7 @@
     </DocDemo>
 
     <DocDemo Key="StatePersistence" Title="@Loc["State persistence"]"
-             Description="@Loc["Set PersistenceKey to round-trip filter / sort / page / column-order / column-filters through the registered IDataCollectionStatePersistence. Default registration is a no-op; consumers opt in to localStorage with builder.Services.AddBlazOrbitDataCollectionLocalStorage(). Register a custom IDataCollectionStatePersistence implementation for query-string or server-side stores."]">
+             Description="@_statePersistenceDesc">
         <BOBDataGrid Items="_people"
                      PersistenceKey="docs-datagrid-demo"
                      Filterable="true"
@@ -416,6 +416,20 @@
             OnClick = sel => { _bulkLog = $"Deleting {sel.Count} person(s)"; return Task.CompletedTask; },
         },
     };
+
+    private string _filterOperatorsDesc = string.Empty;
+    private string _resizeColumnsDesc = string.Empty;
+    private string _reorderColumnsDesc = string.Empty;
+    private string _statePersistenceDesc = string.Empty;
+
+    override protected void OnInitialized()
+    {
+        base.OnInitialized();
+        _filterOperatorsDesc = Loc["FilterMode picks the operator vocabulary rendered next to the column input. Text columns expose Contains / StartsWith / EndsWith / = / ≠. Numeric and Date columns expose = / ≠ / > / < / ≥ / ≤. The operator <select> sits beside the typed input and AND-combines with global Filterable text and other column filters."];
+        _resizeColumnsDesc = Loc["Resizable on the grid + Resizable on a column adds a small drag handle on the trailing edge of the header. Pointerdown captures the column and a full-grid overlay listens for pointermove / pointerup so the cursor can leave the handle mid-drag without losing the gesture. The new width is written to DataCollectionState.ColumnWidths and persists via PersistenceKey when configured. MinWidth / MaxWidth clamp the drag."];
+        _reorderColumnsDesc = Loc["Reorderable enables both interactions on every header: focus + Alt+ArrowLeft / Alt+ArrowRight shifts the column for keyboard users, and HTML5 drag-and-drop on the th lets the user pick a header up and drop it onto a peer to take that peer's slot. Both paths write to DataCollectionState.ColumnOrder, so the drag survives the persistence round-trip alongside the keyboard nudges."];
+        _statePersistenceDesc = Loc["Set PersistenceKey to round-trip filter / sort / page / column-order / column-filters through the registered IDataCollectionStatePersistence. Default registration is a no-op; consumers opt in to localStorage with builder.Services.AddBlazOrbitDataCollectionLocalStorage(). Register a custom IDataCollectionStatePersistence implementation for query-string or server-side stores."];
+    }
 
     private void ToggleLoading() => _demoLoading = !_demoLoading;
 }

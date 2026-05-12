@@ -2,7 +2,7 @@
 
 [data-bob-component="toast"] {
     --_toast-background: var(--palette-surface);
-    --_toast-shadow: var(--bob-inline-shadow, 0 4px 12px color-mix(in srgb, var(--palette-shadow) 15%, transparent));
+    --_toast-shadow: var(--bob-inline-shadow, 0 4px 12px color-mix(in oklab, var(--palette-shadow) 15%, transparent));
     --bob-toast-animation-duration: 300ms;
     --bob-toast-animation-easing: ease-out;
     position: relative;
@@ -22,7 +22,7 @@
 }
 
 [data-bob-theme="dark"] [data-bob-component="toast"] {
-    --_toast-shadow: var(--bob-inline-shadow, 0 4px 12px color-mix(in srgb, var(--palette-shadow) 40%, transparent));
+    --_toast-shadow: var(--bob-inline-shadow, 0 4px 12px color-mix(in oklab, var(--palette-shadow) 40%, transparent));
 }
 
 /* IHasElevation in dark theme: lift the toast surface via tint overlay. */
@@ -46,11 +46,11 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: color-mix(in srgb, var(--palette-shadow) 10%, transparent);
+    background: color-mix(in oklab, var(--palette-shadow) 10%, transparent);
 }
 
 [data-bob-theme="dark"] [data-bob-component="toast"] .bob-toast__progress {
-    background: color-mix(in srgb, var(--palette-surface-contrast) 10%, transparent);
+    background: color-mix(in oklab, var(--palette-surface-contrast) 10%, transparent);
 }
 
 [data-bob-component="toast"] .bob-toast__progress-bar {

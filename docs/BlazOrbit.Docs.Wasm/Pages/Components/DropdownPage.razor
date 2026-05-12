@@ -110,16 +110,16 @@
 
     <DocDemo Key="Searchable" Title="@Loc["Searchable"]" Description="@_searchableDesc">
         <BOBInputDropdown TValue="string" @bind-Value="_searchable" Label="@Loc["Country"]" Searchable="true" SearchPlaceholder="@Loc["Type a country..."]">
-            <DropdownOption TOption="string" Value="@("us")">United States</DropdownOption>
-            <DropdownOption TOption="string" Value="@("mx")">Mexico</DropdownOption>
-            <DropdownOption TOption="string" Value="@("ca")">Canada</DropdownOption>
-            <DropdownOption TOption="string" Value="@("br")">Brazil</DropdownOption>
-            <DropdownOption TOption="string" Value="@("ar")">Argentina</DropdownOption>
-            <DropdownOption TOption="string" Value="@("es")">Spain</DropdownOption>
-            <DropdownOption TOption="string" Value="@("fr")">France</DropdownOption>
-            <DropdownOption TOption="string" Value="@("de")">Germany</DropdownOption>
-            <DropdownOption TOption="string" Value="@("uk")">United Kingdom</DropdownOption>
-            <DropdownOption TOption="string" Value="@("jp")">Japan</DropdownOption>
+            <DropdownOption TOption="string" Value="@("us")">@Loc["United States"]</DropdownOption>
+            <DropdownOption TOption="string" Value="@("mx")">@Loc["Mexico"]</DropdownOption>
+            <DropdownOption TOption="string" Value="@("ca")">@Loc["Canada"]</DropdownOption>
+            <DropdownOption TOption="string" Value="@("br")">@Loc["Brazil"]</DropdownOption>
+            <DropdownOption TOption="string" Value="@("ar")">@Loc["Argentina"]</DropdownOption>
+            <DropdownOption TOption="string" Value="@("es")">@Loc["Spain"]</DropdownOption>
+            <DropdownOption TOption="string" Value="@("fr")">@Loc["France"]</DropdownOption>
+            <DropdownOption TOption="string" Value="@("de")">@Loc["Germany"]</DropdownOption>
+            <DropdownOption TOption="string" Value="@("uk")">@Loc["United Kingdom"]</DropdownOption>
+            <DropdownOption TOption="string" Value="@("jp")">@Loc["Japan"]</DropdownOption>
         </BOBInputDropdown>
     </DocDemo>
 
@@ -218,16 +218,16 @@
         base.OnInitialized();
         _optionsStrings = [Loc["Option 1"], Loc["Option 2"], Loc["Option 3"], Loc["Option 4"], Loc["Option 5"]];
 
-        _boxPlacementDesc =
+        _boxPlacementDesc = Loc[
         """
         <p class="doc-section__description">Placement supports <code>Top, Bottom, TopStart, TopEnd, BottomStart, BottomEnd or Auto</code></p>
         <p class="doc-section__description">Auto mode will position the box in the bottom if it has space. Otherwise it will position the box on top.</p>
-        """;
+        """];
 
-        _searchableDesc =
+        _searchableDesc = Loc[
         """
         <p class="doc-section__description">Set <code>Searchable</code> to filter options by typing.</p>
-        """;
+        """];
     }
 
 }

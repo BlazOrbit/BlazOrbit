@@ -5,32 +5,33 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- PRIMARY META -->
+    <!--
+        Per-page SEO (title, description, keywords, robots, canonical, og:title/description/url,
+        og:type, twitter:title/description) lives in Shared/DocSeo.razor. Anything per-page
+        declared here would be APPENDED — not replaced — by Blazor's <HeadContent>, producing
+        duplicate tags in the prerendered HTML. Keep this file restricted to site-wide constants.
+
+        The <title> below is only ever seen during the splash boot (before WASM hydrates); it is
+        replaced by <PageTitle> from DocSeo on every navigation.
+    -->
     <title>BlazOrbit | Modern Open Source Blazor Components for .NET</title>
+
     <!-- BASE & PRELOAD -->
     <base href="/" />
     <link rel="preload" id="webassembly" />
-    <meta name="description" content="Blazor Component Library by BlazOrbit. C# first, high-performance, and accessible UI design. Lightweight, customizable, open source, and 100% free." />
     <meta name="author" content="BlazOrbit" />
-    <link rel="canonical" href="https://blazorbit.com/" />
 
-    <!-- OPEN GRAPH -->
-    <meta property="og:type" content="website" />
+    <!-- OPEN GRAPH — site-wide constants only. og:title / og:description / og:url / og:type come from DocSeo. -->
     <meta property="og:site_name" content="BlazOrbit" />
-    <meta property="og:url" content="https://blazorbit.com/" />
-    <meta property="og:title" content="BlazOrbit | Modern Open Source Blazor Components for .NET" />
-    <meta property="og:description" content="Blazor Component Library by BlazOrbit. C# first, high-performance, and accessible UI design. Lightweight, customizable, open source, and 100% free." />
     <meta property="og:image" content="https://blazorbit.com/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="BlazOrbit — Modern Blazor Component Library" />
     <meta property="og:locale" content="en_US" />
 
-    <!-- TWITTER / X CARDS -->
+    <!-- TWITTER / X CARDS — constants only. twitter:title / twitter:description come from DocSeo. -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@blazorbit" />
-    <meta name="twitter:title" content="BlazOrbit | Modern Open Source Blazor Components for .NET" />
-    <meta name="twitter:description" content="Blazor Component Library by BlazOrbit. C# first, high-performance, and accessible UI design. Lightweight, customizable, open source, and 100% free." />
     <meta name="twitter:image" content="https://blazorbit.com/og-image.png" />
     <meta name="twitter:image:alt" content="BlazOrbit — Modern Blazor Component Library" />
 

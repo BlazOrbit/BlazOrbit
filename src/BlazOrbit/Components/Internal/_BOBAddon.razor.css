@@ -1,4 +1,7 @@
-﻿.bob-addon {
+/* Pure layout primitive — sits next to inputs/buttons as an icon or loading slot.
+   No interactive state of its own; sizing rides the multiplier so it scales with
+   the surrounding family. */
+._bob-addon {
     display: inline-flex;
     align-items: center;
     justify-content: center;

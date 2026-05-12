@@ -10,7 +10,7 @@
 [data-bob-component="drawer"] .bob-drawer-overlay {
     position: absolute;
     inset: 0;
-    background: color-mix(in srgb, var(--palette-shadow) 50%, transparent);
+    background: color-mix(in oklab, var(--palette-shadow) 50%, transparent);
     backdrop-filter: blur(2px);
     animation: bob-drawer-overlay-in 200ms ease-out forwards;
 }
@@ -21,7 +21,7 @@
 
 [data-bob-component="drawer"] .bob-drawer {
     --_drawer-background: var(--palette-surface);
-    --_drawer-shadow: var(--bob-inline-shadow, 0 0 24px color-mix(in srgb, var(--palette-shadow) 20%, transparent));
+    --_drawer-shadow: var(--bob-inline-shadow, 0 0 24px color-mix(in oklab, var(--palette-shadow) 20%, transparent));
     position: absolute;
     background: var(--_drawer-background);
     box-shadow: var(--_drawer-shadow);
@@ -86,11 +86,11 @@
     align-items: center;
     justify-content: space-between;
     padding: 1rem;
-    border-bottom: 1px solid color-mix(in srgb, var(--palette-border) 10%, transparent);
+    border-bottom: 1px solid color-mix(in oklab, var(--palette-border) 10%, transparent);
 }
 
 [data-bob-theme="dark"] .bob-drawer__header {
-    border-bottom-color: color-mix(in srgb, var(--palette-border) 10%, transparent);
+    border-bottom-color: color-mix(in oklab, var(--palette-border) 10%, transparent);
 }
 
 [data-bob-component="drawer"] .bob-drawer__header-content {
@@ -105,11 +105,11 @@
 
 [data-bob-component="drawer"] .bob-drawer__footer {
     padding: 1rem;
-    border-top: 1px solid color-mix(in srgb, var(--palette-border) 10%, transparent);
+    border-top: 1px solid color-mix(in oklab, var(--palette-border) 10%, transparent);
 }
 
 [data-bob-theme="dark"] .bob-drawer__footer {
-    border-top-color: color-mix(in srgb, var(--palette-border) 10%, transparent);
+    border-top-color: color-mix(in oklab, var(--palette-border) 10%, transparent);
 }
 
 @keyframes bob-drawer-overlay-in {

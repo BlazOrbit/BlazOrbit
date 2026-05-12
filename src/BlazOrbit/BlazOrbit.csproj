@@ -29,6 +29,7 @@
 	<ItemGroup>
 		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(BlazOrbitAspNetCoreVersion)" />
 		<PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="4.14.0" PrivateAssets="all" />
+		<PackageReference Include="Microsoft.Extensions.Localization" Version="$(BlazOrbitAspNetCoreVersion)" />
 	</ItemGroup>
 	<ItemGroup>
 		<AdditionalFiles Include="Components\Display\Progress\BOBProgressIcon.razor" />
@@ -38,6 +39,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\BlazOrbit.Core\BlazOrbit.Core.csproj" />
+		<ProjectReference Include="..\BlazOrbit.Translations\BlazOrbit.Translations.csproj" />
 	</ItemGroup>
 
 	<!--

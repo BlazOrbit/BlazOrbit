@@ -10,6 +10,8 @@
                          @bind-Value="_model.Country"
                          SearchAsync="Search"
                          ItemText="@(c => c)"
+                         StringToItem="@StringToItem"
+                         UnresolvedStringError="@UnresolvedStringError"
                          DebounceMs="0"
                          Label="Country"
                          HelperText="Pick a country" />
@@ -31,6 +33,11 @@
     private CountryModel _model = new();
     private EditContext? _editContext;
     private string _submitResult = string.Empty;
+
+    /// <summary>Optional resolver passed through to BOBAutoComplete to exercise the free-text EditContext path.</summary>
+    [Parameter] public Func<string, string?>? StringToItem { get; set; }
+    /// <summary>Optional validation message for the unresolved-string case.</summary>
+    [Parameter] public string? UnresolvedStringError { get; set; }
 
     protected override void OnInitialized()
     {

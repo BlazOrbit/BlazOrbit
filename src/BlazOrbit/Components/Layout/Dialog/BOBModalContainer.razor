@@ -16,7 +16,8 @@
                     @if (Modal.Options.Closable)
                     {
                         <_BOBBtn Icon="@BOBIconKeys.UI.Close"
-                                    AriaLabel="Close"
+                                    Variant="BOBBtnVariant.Ghost"
+                                    AriaLabel="@Localizer["Close"]"
                                     OnClick="HandleClose" />
                     }
                 </div>
@@ -25,7 +26,8 @@
             {
                 <div class="bob-modal-dialog__header bob-modal-dialog__header--close-only">
                     <_BOBBtn Icon="@BOBIconKeys.UI.Close"
-                                AriaLabel="Close"
+                                Variant="BOBBtnVariant.Ghost"
+                                AriaLabel="@Localizer["Close"]"
                                 OnClick="HandleClose" />
                 </div>
             }
@@ -44,7 +46,8 @@
             {
                 <div class="bob-modal-drawer__header">
                     <_BOBBtn Icon="@BOBIconKeys.UI.Close"
-                                AriaLabel="Close"
+                                Variant="BOBBtnVariant.Ghost"
+                                AriaLabel="@Localizer["Close"]"
                                 OnClick="HandleClose" />
                 </div>
             }
@@ -57,6 +60,8 @@
 </div>
 
 @code {
+    [Inject] internal IStringLocalizer<BOBLayoutResources> Localizer { get; set; } = default!;
+
     /// <summary>Modal state describing what to render and how to animate it. Required.</summary>
     [Parameter, EditorRequired]
     public ModalState Modal { get; set; } = default!;
@@ -127,7 +132,7 @@
         int level = System.Math.Clamp(rawLevel, 0, 24);
         int tint = BOBElevationPresets.SurfaceTintPercent(level);
         string shadow = BOBShadowPresets.Elevation(level).ToCss();
-        return $"--bob-inline-elevation-tint: {tint}%; --bob-inline-shadow: {shadow}";
+        return $"{FeatureDefinitions.InlineVariables.ElevationTint}: {tint}%; {FeatureDefinitions.InlineVariables.Shadow}: {shadow}";
     }
 
     private async Task HandleClose()

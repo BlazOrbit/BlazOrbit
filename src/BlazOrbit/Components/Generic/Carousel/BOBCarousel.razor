@@ -45,7 +45,7 @@
         {
             <button type="button"
                     class="bob-carousel__arrow bob-carousel__arrow--prev"
-                    aria-label="@PreviousLabel"
+                    aria-label="@ResolvedPreviousLabel"
                     disabled="@(!Loop && activeIndex == 0)"
                     @onclick="GoPreviousAsync">
                 <BOBSvgIcon Icon="ArrowIconLeft ?? BOBIconKeys.UI.ChevronLeft" Size="BOBSize.Medium" />
@@ -163,7 +163,7 @@
         {
             <button type="button"
                     class="bob-carousel__arrow bob-carousel__arrow--next"
-                    aria-label="@NextLabel"
+                    aria-label="@ResolvedNextLabel"
                     disabled="@(!Loop && activeIndex == slideCount - 1)"
                     @onclick="GoNextAsync">
                 <BOBSvgIcon Icon="ArrowIconRight ?? BOBIconKeys.UI.ChevronRight" Size="BOBSize.Medium" />
@@ -262,10 +262,15 @@
     [Parameter] public BOBCarouselTransition Transition { get; set; } = BOBCarouselTransition.Slide;
 
     /// <summary>Accessible label for the previous-slide arrow. Defaults to "Previous slide".</summary>
-    [Parameter] public string PreviousLabel { get; set; } = "Previous slide";
+    [Parameter] public string? PreviousLabel { get; set; }
 
     /// <summary>Accessible label for the next-slide arrow. Defaults to "Next slide".</summary>
-    [Parameter] public string NextLabel { get; set; } = "Next slide";
+    [Parameter] public string? NextLabel { get; set; }
+
+    [Inject] internal IStringLocalizer<BOBLayoutResources> Localizer { get; set; } = default!;
+
+    private string ResolvedPreviousLabel => PreviousLabel ?? Localizer["PreviousSlide"];
+    private string ResolvedNextLabel => NextLabel ?? Localizer["NextSlide"];
 
     /// <summary>Pixel distance a horizontal swipe must cover before it triggers slide navigation. Defaults to 50.</summary>
     [Parameter] public int SwipeThresholdPx { get; set; } = 50;

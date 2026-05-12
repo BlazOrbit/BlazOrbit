@@ -19,9 +19,9 @@
     <p class="bob-confirm__message">@Message</p>
 
     <div class="bob-confirm__actions">
-        <BOBButton Text="@NoLabel"
+        <BOBButton Text="@ResolvedNoLabel"
                    OnClick="@CancelAsync" />
-        <BOBButton Text="@YesLabel"
+        <BOBButton Text="@ResolvedYesLabel"
                    OnClick="@AcceptAsync"
                    Color="@AcceptColor" />
     </div>
@@ -41,10 +41,15 @@
     [Parameter] public ConfirmSeverity Severity { get; set; } = ConfirmSeverity.Info;
 
     /// <summary>Accept-button label.</summary>
-    [Parameter] public string YesLabel { get; set; } = "Yes";
+    [Parameter] public string? YesLabel { get; set; }
 
     /// <summary>Cancel-button label.</summary>
-    [Parameter] public string NoLabel { get; set; } = "Cancel";
+    [Parameter] public string? NoLabel { get; set; }
+
+    [Inject] internal IStringLocalizer<BOBLayoutResources> Localizer { get; set; } = default!;
+
+    private string ResolvedYesLabel => YesLabel ?? Localizer["Yes"];
+    private string ResolvedNoLabel => NoLabel ?? Localizer["Cancel"];
 
     private string SeverityToken => Severity.ToString().ToLowerInvariant();
 

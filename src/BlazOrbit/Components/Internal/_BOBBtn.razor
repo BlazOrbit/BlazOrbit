@@ -2,6 +2,7 @@
 
 <button type="button"
         data-bob-size="@Size.ToString().ToLowerInvariant()"
+        data-bob-variant="@Variant.ToString().ToLowerInvariant()"
         data-bob-active="@(Active ? "true" : null)"
         class="@ComputedClass"
         disabled="@IsDisabled"
@@ -37,6 +38,8 @@
     [Parameter] public bool Loading { get; set; }
     /// <summary>Visual size of the component.</summary>
     [Parameter] public BOBSize Size { get; set; }
+    /// <summary>Visual variant — Default is the color-shift solid treatment, Ghost is the transparent dismiss-style treatment.</summary>
+    [Parameter] public BOBBtnVariant Variant { get; set; } = BOBBtnVariant.Default;
     /// <summary>Variant of the loading indicator shown when <see cref="Loading"/> is <see langword="true"/>.</summary>
     [Parameter] public BOBProgressIconVariant LoadingIndicatorVariant { get; set; } = BOBProgressIconVariant.Ring;
     /// <summary>IconRotation.</summary>
@@ -58,7 +61,7 @@
     {
         get
         {
-            List<string> classes = ["bob-btn"];
+            List<string> classes = ["_bob-btn"];
 
             if (AdditionalAttributes?.TryGetValue("class", out object? extraClass) == true)
                 classes.Add(extraClass.ToString() ?? "");

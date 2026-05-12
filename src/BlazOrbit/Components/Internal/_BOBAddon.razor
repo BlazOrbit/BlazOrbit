@@ -36,7 +36,7 @@
     {
         get
         {
-            List<string> classes = ["bob-addon"];
+            List<string> classes = ["_bob-addon"];
 
             if (AdditionalAttributes?.TryGetValue("class", out object? extraClass) == true)
                 classes.Add(extraClass.ToString() ?? "");

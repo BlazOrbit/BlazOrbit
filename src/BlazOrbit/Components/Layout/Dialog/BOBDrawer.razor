@@ -42,7 +42,8 @@
                     @if (Closable)
                     {
                         <_BOBBtn Icon="@BOBIconKeys.UI.Close"
-                                    AriaLabel="Close"
+                                    Variant="BOBBtnVariant.Ghost"
+                                    AriaLabel="@Localizer["Close"]"
                                     OnClick="CloseAsync" />
                     }
                 </div>
@@ -91,6 +92,8 @@
     [Parameter] public DrawerPosition Position { get; set; } = DrawerPosition.Right;
     /// <summary>Visual size of the component.</summary>
     [Parameter] public string Size { get; set; } = "300px";
+
+    [Inject] internal IStringLocalizer<BOBLayoutResources> Localizer { get; set; } = default!;
 
     /// <summary>Closable.</summary>
     [Parameter] public bool Closable { get; set; } = true;

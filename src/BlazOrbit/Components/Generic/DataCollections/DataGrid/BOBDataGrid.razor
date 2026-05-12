@@ -28,14 +28,15 @@
                 {
                     <div class="bob-dc__filter">
                         <_BOBInText Value="@State.FilterText"
-                                    Placeholder="@FilterPlaceholder"
-                                    AriaLabel="@FilterPlaceholder"
+                                    Placeholder="@ResolvedFilterPlaceholder"
+                                    AriaLabel="@ResolvedFilterPlaceholder"
                                     UpdateOnInput="true"
                                     OnInput="HandleFilterInputChange" />
                         @if (!string.IsNullOrEmpty(State.FilterText))
                         {
                             <_BOBBtn Icon="@BOBIconKeys.UI.Close"
-                                     AriaLabel="Clear filter"
+                                     Variant="BOBBtnVariant.Ghost"
+                                     AriaLabel="@Localizer["ClearFilter"]"
                                      OnClick="ClearFilterClicked" />
                         }
                     </div>
@@ -46,9 +47,9 @@
                 @if (SelectionMode != SelectionMode.None && State.SelectedItems.Any())
                 {
                     <div class="bob-dc__selection-info">
-                        <span>@State.SelectedItems.Count selected</span>
+                        <span>@string.Format(Localizer["ItemsSelected"], State.SelectedItems.Count)</span>
                         <_BOBBtn OnClick="ClearSelectionClicked">
-                            Clear
+                            @Localizer["Clear"]
                         </_BOBBtn>
                         @foreach (DataCollectionBulkAction<TItem> bulk in VisibleBulkActions())
                         {
@@ -67,9 +68,9 @@
                 @if (ShowPageSizeSelector)
                 {
                     <div class="bob-dc__page-size">
-                        <label>Show</label>
+                        <label>@Localizer["Show"]</label>
                         <_BOBInSelect Value="@State.PageSize.ToString()"
-                                      AriaLabel="Items per page"
+                                      AriaLabel="@Localizer["ItemsPerPage"]""
                                       ValueChanged="HandlePageSizeSelectChange">
                             @foreach (int size in PageSizeOptions)
                             {
@@ -94,7 +95,7 @@
                     + (HasRowDetail ? 1 : 0)
                     + (HasRowActions ? 1 : 0);
                 int skeletonRows = PageSize ?? 6;
-                <div class="bob-dc__skeleton" role="status" aria-live="polite" aria-label="Loading data">
+                <div class="bob-dc__skeleton" role="status" aria-live="polite" aria-label="@Localizer["LoadingData"]">
                     @for (int r = 0; r < skeletonRows; r++)
                     {
                         <div class="bob-dc__skeleton-row">
@@ -108,7 +109,7 @@
             }
             else
             {
-                <div class="bob-dc__loading bob-dc__loading--spinner" role="status" aria-live="polite" aria-label="Loading">
+                <div class="bob-dc__loading bob-dc__loading--spinner" role="status" aria-live="polite" aria-label="@Localizer["Loading"]">
                     <div class="bob-dc__spinner" aria-hidden="true"></div>
                 </div>
             }
@@ -136,7 +137,7 @@
                             @if (HasRowDetail)
                             {
                                 <th class="bob-datagrid__header-cell bob-datagrid__expand-cell"
-                                    role="columnheader" scope="col" aria-label="Expand row"></th>
+                                    role="columnheader" scope="col" aria-label="@Localizer["ExpandRow"]"></th>
                             }
                             @if (SelectionMode != SelectionMode.None)
                             {
@@ -145,28 +146,48 @@
                                     {
                                         <_BOBBtn Icon="@GetSelectAllIcon()"
                                                  Size="BOBSize.Small"
-                                                 AriaLabel="@(IsAllSelected() ? "Deselect all" : "Select all")"
+                                                 AriaLabel="@(IsAllSelected() ? Localizer["DeselectAll"] : Localizer["SelectAll"])"
                                                  OnClick="HandleSelectAllClick" />
                                     }
                                 </th>
                             }
                             @foreach (DataColumnRegistration<TItem> col in VisibleColumns)
                             {
+                                @* Drag attrs are inlined (not splatted via @attributes) because Blazor
+                                   directive modifiers like `ondragover:preventDefault` and event handlers
+                                   for drag events only wire up correctly when declared as Razor markup
+                                   directives — passing them through a Dictionary leaks the raw key as a
+                                   literal DOM attribute and the browser silently ignores it. *@
                                 <th class="bob-datagrid__header-cell @GetAlignClass(col.Align, "bob-datagrid__cell") @GetFrozenClass(col) @col.HeaderClass"
                                     style="@BuildHeaderCellStyle(col)"
                                     role="columnheader"
                                     scope="col"
                                     tabindex="@(Reorderable ? 0 : (int?)null)"
-                                    @attributes="BuildHeaderDragAttributes(col)"
+                                    draggable="@(Reorderable ? "true" : null)"
+                                    data-bob-drag-source="@(Reorderable && string.Equals(DraggingColumnHeader, col.Header, StringComparison.OrdinalIgnoreCase) ? "true" : null)"
+                                    @ondragstart="@(e => HandleHeaderDragStart(col.Header ?? string.Empty, e))"
+                                    @ondragover="@(e => HandleHeaderDragOver(col.Header ?? string.Empty, e))"
+                                    @ondragover:preventDefault="@Reorderable"
+                                    @ondrop="@(e => HandleHeaderDrop(col.Header ?? string.Empty, e))"
+                                    @ondragend="HandleHeaderDragEnd"
                                     @onkeydown="@(e => HandleHeaderKeyDown(col.Header ?? string.Empty, e))"
+                                    @onkeydown:preventDefault="_preventHeaderKeyDefault"
                                     aria-sort="@GetAriaSort(col)">
                                     @if (col.Sortable && Sortable)
                                     {
                                         SortDirection dir = GetSortDirection(col);
                                         int? priority = GetSortPriority(col);
+                                        @* draggable="@Reorderable" lets the sort button act as the drag
+                                           source — otherwise a pointerdown on the button consumes the
+                                           gesture for click semantics and the parent <th draggable="true">
+                                           never sees a dragstart. dragstart bubbles up to the <th>'s
+                                           handler so HandleHeaderDragStart still fires with the right
+                                           column header. A pure click without drag motion still triggers
+                                           the onclick sort handler — both gestures cohabit. *@
                                         <button type="button"
                                                 class="bob-datagrid__sort-btn"
-                                                title="@(priority != null ? $"Sort priority {priority}" : "Sort column")"
+                                                title="@(priority != null ? string.Format(Localizer["SortPriority"], priority) : Localizer["SortColumn"])"
+                                                draggable="@(Reorderable ? "true" : "false")"
                                                 @onclick="@((MouseEventArgs e) => HandleSortClick(col, e))">
                                             <span>
                                                 @if (col.HeaderTemplate != null)
@@ -191,7 +212,7 @@
                                             @if (priority is not null)
                                             {
                                                 <span class="bob-datagrid__sort-priority"
-                                                      aria-label="@($"Sort priority {priority}")">@priority</span>
+                                                      aria-label="@string.Format(Localizer["SortPriority"], priority)">@priority</span>
                                             }
                                         </button>
                                     }
@@ -210,12 +231,19 @@
                                     @if (Resizable && col.Resizable && !string.IsNullOrEmpty(col.Header))
                                     {
                                         DataColumnRegistration<TItem> capturedCol = col;
+                                        @* draggable="false" + ondragstart:stopPropagation keep the resizer from
+                                           hijacking the <th draggable="true"> gesture when the user grabs the
+                                           trailing edge — without them, a pointerdown on the resizer starts a
+                                           column-reorder drag instead of a resize. *@
                                         <div class="bob-datagrid__col-resizer"
                                              role="separator"
                                              aria-orientation="vertical"
-                                             aria-label="@($"Resize column {col.Header}")"
+                                             aria-label="@string.Format(Localizer["ResizeColumn"], col.Header)"
+                                             draggable="false"
                                              @onpointerdown="@(e => StartColumnResize(capturedCol, e))"
-                                             @onpointerdown:stopPropagation="true"></div>
+                                             @onpointerdown:stopPropagation="true"
+                                             @ondragstart:stopPropagation="true"
+                                             @ondragover:preventDefault="true"></div>
                                     }
 
                                     @if (ShowColumnFilters && col.Filterable && col.ValueSelector != null && !string.IsNullOrEmpty(col.Header))
@@ -226,31 +254,55 @@
                                         ColumnFilterOperator currentOp = currentValue.Text is { Length: > 0 }
                                             ? currentValue.Operator
                                             : DefaultOperatorFor(mode);
-                                        string inputType = mode switch
-                                        {
-                                            ColumnFilterMode.Numeric => "number",
-                                            ColumnFilterMode.Date => "date",
-                                            _ => "search",
-                                        };
 
-                                        <div class="bob-datagrid__column-filter-wrap">
-                                            <select class="bob-datagrid__column-filter-op"
-                                                    aria-label="@($"Operator {columnKey}")"
-                                                    value="@currentOp"
-                                                    @onchange="@(e => HandleColumnFilterOperator(columnKey, e))"
-                                                    @onclick:stopPropagation="true">
+                                        @* The wrap opts out of the parent <th draggable="true"> gesture so
+                                           a pointerdown on the operator <select> or filter <input> doesn't
+                                           start a column-reorder drag. Clicks already stop propagation to
+                                           keep header sort-click out of the picture. *@
+                                        <div class="bob-datagrid__column-filter-wrap"
+                                             draggable="false"
+                                             @onclick:stopPropagation="true"
+                                             @ondragstart:stopPropagation="true"
+                                             @ondragover:preventDefault="true">
+                                            <_BOBInSelect Value="@currentOp.ToString()"
+                                                          AriaLabel="@($"Operator {columnKey}")"
+                                                          class="bob-datagrid__column-filter-op"
+                                                          ValueChanged="@(v => HandleColumnFilterOperatorString(columnKey, v))">
                                                 @foreach (ColumnFilterOperator op in GetOperatorsFor(mode))
                                                 {
                                                     <option value="@op" selected="@(op == currentOp)">@OperatorLabel(op)</option>
                                                 }
-                                            </select>
-                                            <input type="@inputType"
-                                                   class="bob-datagrid__column-filter"
-                                                   placeholder="@FilterPlaceholder"
-                                                   aria-label="@($"Filter {columnKey}")"
-                                                   value="@currentValue.Text"
-                                                   @oninput="@(e => HandleColumnFilterInput(columnKey, e))"
-                                                   @onclick:stopPropagation="true" />
+                                            </_BOBInSelect>
+                                            @switch (mode)
+                                            {
+                                                case ColumnFilterMode.Date:
+                                                    @* Date inputs commit on picker selection / blur, not per keystroke — bind via
+                                                       ValueChanged (onchange) so a partial calendar entry doesn't churn the filter
+                                                       pipeline with empty strings while the user is mid-edit. *@
+                                                    <_BOBInDate Value="@currentValue.Text"
+                                                                Placeholder="@FilterPlaceholder"
+                                                                AriaLabel="@($"Filter {columnKey}")"
+                                                                ValueChanged="@(v => HandleColumnFilterInputText(columnKey, v))"
+                                                                class="bob-datagrid__column-filter" />
+                                                    break;
+                                                case ColumnFilterMode.Numeric:
+                                                    <_BOBInText Value="@currentValue.Text"
+                                                                Placeholder="@FilterPlaceholder"
+                                                                AriaLabel="@($"Filter {columnKey}")"
+                                                                UpdateOnInput="true"
+                                                                OnInput="@(v => HandleColumnFilterInputText(columnKey, v))"
+                                                                class="bob-datagrid__column-filter"
+                                                                inputmode="decimal" />
+                                                    break;
+                                                default:
+                                                    <_BOBInText Value="@currentValue.Text"
+                                                                Placeholder="@FilterPlaceholder"
+                                                                AriaLabel="@($"Filter {columnKey}")"
+                                                                UpdateOnInput="true"
+                                                                OnInput="@(v => HandleColumnFilterInputText(columnKey, v))"
+                                                                class="bob-datagrid__column-filter" />
+                                                    break;
+                                            }
                                         </div>
                                     }
                                 </th>
@@ -260,7 +312,7 @@
                                 <th class="bob-datagrid__header-cell bob-datagrid__actions-cell"
                                     role="columnheader"
                                     scope="col"
-                                    aria-label="Row actions"></th>
+                                    aria-label="@Localizer["RowActions"]"></th>
                             }
                         </tr>
                     </thead>
@@ -293,7 +345,7 @@
                                     {
                                         <div class="bob-dc__empty">
                                             <span class="bob-dc__empty-icon">📋</span>
-                                            <p class="bob-dc__empty-text">No data available</p>
+                                            <p class="bob-dc__empty-text">@Localizer["NoDataAvailable"]</p>
                                             @if (EmptyActionTemplate != null)
                                             {
                                                 <div class="bob-dc__empty-actions">@EmptyActionTemplate</div>
@@ -323,7 +375,7 @@
                                     <td class="bob-datagrid__cell bob-datagrid__aggregate-cell @GetAlignClass(col.Align, "bob-datagrid__cell") @GetFrozenClass(col) @col.CellClass"
                                         style="@(col.Freeze != ColumnFreeze.None ? GetFrozenStyle(col) : null)"
                                         role="gridcell"
-                                        aria-label="@(aggregate != null ? $"{col.Header} {col.Aggregate.ToString().ToLowerInvariant()}" : null)">
+                                        aria-label="@(aggregate != null ? $"{col.Header} {GetAggregateLabel(col.Aggregate)}" : null)">
                                         @aggregate
                                     </td>
                                 }
@@ -447,7 +499,7 @@
                 bool capturedExpState = isExpanded;
                 <td class="bob-datagrid__cell bob-datagrid__expand-cell" role="gridcell" @onclick:stopPropagation="true">
                     <_BOBBtn Icon="@(capturedExpState ? BOBIconKeys.UI.ArrowDownward : BOBIconKeys.UI.ArrowForward)"
-                             AriaLabel="@(capturedExpState ? "Collapse row" : "Expand row")"
+                             AriaLabel="@(capturedExpState ? Localizer["CollapseRow"] : Localizer["ExpandRow"])"
                              Size="BOBSize.Small"
                              OnClick="@(_ => { ToggleExpanded(capturedExpItem); StateHasChanged(); return Task.CompletedTask; })" />
                 </td>
@@ -640,27 +692,6 @@
             trimmed = trimmed[..^2];
         }
         return int.TryParse(trimmed, out int value) ? value : 0;
-    }
-
-    private IReadOnlyDictionary<string, object>? BuildHeaderDragAttributes(DataColumnRegistration<TItem> col)
-    {
-        // Only emit drag-related attributes when Reorderable is on. Mounting them
-        // unconditionally would leak event handler bindings into the snapshot output for
-        // every grid that opted out of reorder, breaking the Phase 1 baselines.
-        if (!Reorderable) return null;
-        string header = col.Header ?? string.Empty;
-        bool isSource = string.Equals(DraggingColumnHeader, header, StringComparison.OrdinalIgnoreCase);
-        Dictionary<string, object> attrs = new()
-        {
-            ["draggable"] = "true",
-            ["ondragstart"] = EventCallback.Factory.Create<DragEventArgs>(this, e => HandleHeaderDragStart(header, e)),
-            ["ondragover"] = EventCallback.Factory.Create<DragEventArgs>(this, e => HandleHeaderDragOver(header, e)),
-            ["ondragover:preventDefault"] = true,
-            ["ondrop"] = EventCallback.Factory.Create<DragEventArgs>(this, e => HandleHeaderDrop(header, e)),
-            ["ondragend"] = EventCallback.Factory.Create<DragEventArgs>(this, HandleHeaderDragEnd),
-        };
-        if (isSource) attrs["data-bob-drag-source"] = "true";
-        return attrs;
     }
 
     private static ColumnFilterOperator DefaultOperatorFor(ColumnFilterMode mode) => mode switch

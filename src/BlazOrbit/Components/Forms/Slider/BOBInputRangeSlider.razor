@@ -3,6 +3,7 @@
 @using System.Numerics
 @using BlazOrbit.Abstractions
 @using BlazOrbit.Components.Forms.Internal
+@using Microsoft.Extensions.Localization
 
 @namespace BlazOrbit.Components.Forms
 @attribute [GenerateComponentInfo]
@@ -36,6 +37,7 @@
     private _BOBSliderTrack? _trackComponent;
 
     [Inject] private ISliderJsInterop SliderJsInterop { get; set; } = default!;
+    [Inject] internal IStringLocalizer<BOBFormsResources> Localizer { get; set; } = default!;
 
     // IHasSize
     /// <summary>Visual size of the slider.</summary>
@@ -85,9 +87,11 @@
     /// <summary>Culture used to format <see cref="ValueLabelFormat"/>. Defaults to <see cref="CultureInfo.CurrentCulture"/>.</summary>
     [Parameter] public CultureInfo? Culture { get; set; }
     /// <summary>Accessible label for the lower thumb.</summary>
-    [Parameter] public string AriaLabelMin { get; set; } = "Minimum";
+    [Parameter] public string? AriaLabelMin { get; set; }
+    private string ResolvedAriaLabelMin => AriaLabelMin ?? Localizer["Minimum"];
     /// <summary>Accessible label for the upper thumb.</summary>
-    [Parameter] public string AriaLabelMax { get; set; } = "Maximum";
+    [Parameter] public string? AriaLabelMax { get; set; }
+    private string ResolvedAriaLabelMax => AriaLabelMax ?? Localizer["Maximum"];
 
     public override BOBInputVariant DefaultVariant => BOBInputVariant.Standard;
 
@@ -157,7 +161,7 @@
                                          ReadOnly="IsReadOnly"
                                          ShowValueLabel="ShowValueLabel"
                                          ValueLabel="@formattedMin"
-                                         AriaLabel="@AriaLabelMin"
+                                         AriaLabel="@ResolvedAriaLabelMin"
                                          AriaValueMin="@FormatInvariant(Min)"
                                          AriaValueMax="@FormatInvariant(Max)"
                                          AriaValueNow="@FormatInvariant(range.Min)"
@@ -175,7 +179,7 @@
                                          ReadOnly="IsReadOnly"
                                          ShowValueLabel="ShowValueLabel"
                                          ValueLabel="@formattedMax"
-                                         AriaLabel="@AriaLabelMax"
+                                         AriaLabel="@ResolvedAriaLabelMax"
                                          AriaValueMin="@FormatInvariant(Min)"
                                          AriaValueMax="@FormatInvariant(Max)"
                                          AriaValueNow="@FormatInvariant(range.Max)"

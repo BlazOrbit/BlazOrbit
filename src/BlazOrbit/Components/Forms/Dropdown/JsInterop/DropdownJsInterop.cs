@@ -29,6 +29,7 @@ internal sealed class DropdownJsInterop : ModuleJsInteropBase, IDropdownJsIntero
 
     public async ValueTask DisposeAsync(string componentId)
     {
+        // Dispose path: 4-tuple only — JSException surfaces installation bugs.
         IJSObjectReference module = await ModuleTask.Value;
 
         await module.InvokeVoidAsync("dispose", componentId);
@@ -36,14 +37,16 @@ internal sealed class DropdownJsInterop : ModuleJsInteropBase, IDropdownJsIntero
 
     public async ValueTask FocusSearchInputAsync(string componentId)
     {
-        IJSObjectReference module = await ModuleTask.Value;
+        IJSObjectReference? module = await TryGetModuleAsync();
+        if (module is null) return;
 
         await module.InvokeVoidAsync("focusSearchInput", componentId);
     }
 
     public async ValueTask<DropdownPosition> GetPositionAsync(string componentId)
     {
-        IJSObjectReference module = await ModuleTask.Value;
+        IJSObjectReference? module = await TryGetModuleAsync();
+        if (module is null) return default;
 
         return await module.InvokeAsync<DropdownPosition>("getPosition", componentId);
     }
@@ -54,7 +57,8 @@ internal sealed class DropdownJsInterop : ModuleJsInteropBase, IDropdownJsIntero
         DotNetObjectReference<DropdownCallbacksRelay> dotnetReference,
         string componentId)
     {
-        IJSObjectReference module = await ModuleTask.Value;
+        IJSObjectReference? module = await TryGetModuleAsync();
+        if (module is null) return;
 
         await module.InvokeVoidAsync(
             "initialize",

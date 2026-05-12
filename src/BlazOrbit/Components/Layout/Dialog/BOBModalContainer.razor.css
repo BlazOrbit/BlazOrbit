@@ -20,7 +20,7 @@
 /* Dialog */
 .bob-modal-dialog {
     --_modal-dialog-background: var(--bob-inline-background, var(--palette-surface));
-    --_modal-dialog-shadow: var(--bob-inline-shadow, 0 8px 32px color-mix(in srgb, var(--palette-shadow) 20%, transparent));
+    --_modal-dialog-shadow: var(--bob-inline-shadow, 0 8px 32px color-mix(in oklab, var(--palette-shadow) 20%, transparent));
     background: var(--_modal-dialog-background);
     border-radius: 8px;
     box-shadow: var(--_modal-dialog-shadow);
@@ -51,11 +51,11 @@
     align-items: center;
     justify-content: space-between;
     padding: 1rem 1.5rem;
-    border-bottom: 1px solid color-mix(in srgb, var(--palette-border) 10%, transparent);
+    border-bottom: 1px solid color-mix(in oklab, var(--palette-border) 10%, transparent);
 }
 
 [data-bob-theme="dark"] .bob-modal-dialog__header {
-    border-bottom-color: color-mix(in srgb, var(--palette-border) 10%, transparent);
+    border-bottom-color: color-mix(in oklab, var(--palette-border) 10%, transparent);
 }
 
 .bob-modal-dialog__header--close-only {
@@ -79,7 +79,7 @@
 /* Drawer */
 .bob-modal-drawer {
     --_modal-drawer-background: var(--bob-inline-background, var(--palette-surface));
-    --_modal-drawer-shadow: var(--bob-inline-shadow, 0 0 24px color-mix(in srgb, var(--palette-shadow) 20%, transparent));
+    --_modal-drawer-shadow: var(--bob-inline-shadow, 0 0 24px color-mix(in oklab, var(--palette-shadow) 20%, transparent));
     position: fixed;
     background: var(--_modal-drawer-background);
     box-shadow: var(--_modal-drawer-shadow);

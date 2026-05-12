@@ -1,11 +1,14 @@
 ﻿@using BlazOrbit.Abstractions
 @using System.Diagnostics.CodeAnalysis
+@using Microsoft.Extensions.Localization
 
 @namespace BlazOrbit.Components.Forms
 @attribute [GenerateComponentInfo]
 
 @inherits BOBInputComponentBase<string, BOBInputOtp, BOBInputOtpVariant>
-@implements IBuiltComponent
+@* Pure marker: both hooks below are no-ops so the fingerprint cache can fold them
+   into the cache key and short-circuit BuildStyles on identical parameter sets. *@
+@implements IPureBuiltComponent
 @implements IHasSize
 @implements IHasColor
 @implements IHasDensity
@@ -15,6 +18,8 @@
 }
 
 @code {
+    [Inject] internal IStringLocalizer<BOBFormsResources> Localizer { get; set; } = default!;
+
     private readonly string _groupId = $"bob-otp-{Guid.NewGuid():N}";
     private readonly string _helperTextId = $"bob-helper-{Guid.NewGuid():N}";
     private ElementReference[] _slotRefs = [];
@@ -245,7 +250,7 @@
                            class="bob-otp__slot"
                            maxlength="@(index == 0 ? Length : 1)"
                            value="@display"
-                           aria-label="@($"Digit {index + 1} of {Length}")"
+                           aria-label="@string.Format(Localizer["DigitXOfY"], index + 1, Length)"
                            aria-invalid="@IsError.ToString().ToLowerInvariant()"
                            aria-required="@IsRequired.ToString().ToLowerInvariant()"
                            disabled="@IsDisabled"

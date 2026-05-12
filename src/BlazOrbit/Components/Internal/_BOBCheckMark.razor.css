@@ -1,7 +1,12 @@
-﻿/*
+/*
  * State is expressed via data-bob-* attributes on the root span
  * (._bob-checkmark[data-bob-checked="true"], etc.) instead of BEM modifier
  * classes. The class is purely an identification anchor.
+ *
+ * Tokens:
+ *   --bob-inline-color  → consumer-side color override (forwarded by IHasColor).
+ *   --bob-opacity-disabled / --bob-input-transition-*  → shared family vocabulary
+ *   so the checkbox/radio state animates in step with sibling inputs.
  */
 ._bob-checkmark {
     --_checkmark-color: var(--bob-inline-color, var(--palette-primary));
@@ -11,6 +16,7 @@
     vertical-align: middle;
     flex-shrink: 0;
     color: var(--palette-surface-contrast);
+    transition: color var(--bob-input-transition-duration) var(--bob-input-transition-easing);
 }
 
 ._bob-checkmark[data-bob-checked="true"],

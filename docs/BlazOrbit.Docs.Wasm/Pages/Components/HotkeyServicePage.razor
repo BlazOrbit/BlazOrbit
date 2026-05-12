@@ -10,6 +10,10 @@
 <DocPage Eyebrow="@Loc["Service"]" Title="@Loc["BOBHotkeyService"]"
          Lede="@Loc["Global keyboard shortcut registry with auto-cleanup, modifier-aware combos, and an opt-in cheat-sheet."]">
 
+    <BOBBanner Severity="BOBBannerSeverity.Warning"
+               Title="@Loc["Extra package required"]"
+               Message="@Loc["This service requires the BlazOrbit.Hotkeys NuGet package. Install it with dotnet add package BlazOrbit.Hotkeys and register AddBlazOrbitHotkeys() in Program.cs."]" />
+
     <DocDemo Key="Setup" Title="@Loc["Setup"]">
         <p>
             @Loc["1. Call AddBlazOrbitHotkeys() in Program.cs."]

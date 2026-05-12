@@ -7,6 +7,10 @@
          PageInstance="this"
          ApiType="@typeof(BOBBoxplotChart<>)">
 
+    <BOBBanner Severity="BOBBannerSeverity.Warning"
+               Title="@Loc["Extra package required"]"
+               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]" />
+
     <DocDemo Key="Basic" Title="@Loc["Compute from raw data"]"
              Description="@Loc["BOBChartBoxStat<TX>.FromValues runs the five-number summary + outlier extraction (1.5·IQR rule) for you. Pass pre-computed stats directly when the data lives server-side."]">
         <BOBBoxplotChart TX="string"

@@ -34,7 +34,7 @@
 }
 
     .bob-pattern__editable:focus {
-        background: color-mix(in srgb, var(--palette-primary) 15%, transparent);
+        background: color-mix(in oklab, var(--palette-primary) 15%, transparent);
     }
 
     /* WCAG 2.4.7 — keyboard-only focus restores the design-system outline. */
@@ -65,12 +65,12 @@
 }
 
     .bob-pattern__toggle:hover {
-        background: color-mix(in srgb, var(--palette-surface-contrast) 8%, transparent);
+        background: color-mix(in oklab, var(--palette-surface-contrast) 8%, transparent);
     }
 
     .bob-pattern__toggle:focus {
         outline: none;
-        background: color-mix(in srgb, var(--palette-primary) 15%, transparent);
+        background: color-mix(in oklab, var(--palette-primary) 15%, transparent);
     }
 
     /* WCAG 2.4.7 — keyboard-only focus restores the design-system outline. */

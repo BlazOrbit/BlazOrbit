@@ -1,4 +1,4 @@
-@page "/components/utilities/draggable"
+﻿@page "/components/utilities/draggable"
 
 @inject IStringLocalizer<DraggablePage> Loc
 
@@ -53,7 +53,7 @@
     private int _dragTicks;
 
     private string BasicBoxStyle =>
-        $"position: absolute; left: {_x}px; top: {_y}px; user-select: none; " +
+        $"left: {_x}px; top: {_y}px; user-select: none; " +
         "padding: .75rem 1rem; border-radius: .5rem; cursor: grab; " +
         "background: var(--palette-primary); color: var(--palette-primary-contrast); " +
         "box-shadow: 0 4px 14px rgba(0,0,0,.15);";

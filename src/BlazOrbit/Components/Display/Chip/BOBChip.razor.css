@@ -1,4 +1,4 @@
-[data-bob-component="chip"] {
+﻿[data-bob-component="chip"] {
     --_chip-h: calc(1.75rem * var(--bob-size-multiplier, 1));
     --_chip-px: 0.625rem;
     --_chip-radius: 999px;
@@ -74,25 +74,15 @@
     font-variant-numeric: tabular-nums;
 }
 
-[data-bob-component="chip"] .bob-chip__remove {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    color: currentColor;
-    opacity: 0.6;
-    padding: 0;
+/* Chip remove affordance: appearance + opacity/hover state flow through the
+   internal _BOBBtn Ghost variant. The overrides below shape it as a tiny round
+   pip nested at the trailing edge — width/height/border-radius/margin tighter
+   than the Ghost defaults. ::deep reaches the button rendered inside _BOBBtn. */
+[data-bob-component="chip"] ::deep .bob-chip__remove {
+    min-width: 0;
     width: 1rem;
-    height: 1rem;
+    height: 100%;
+    padding: 0;
     border-radius: 50%;
     margin-inline-end: -0.25rem;
-    transition: opacity 100ms ease, background 100ms ease;
-}
-
-[data-bob-component="chip"] .bob-chip__remove:hover,
-[data-bob-component="chip"] .bob-chip__remove:focus-visible {
-    opacity: 1;
-    background: color-mix(in oklab, currentColor 20%, transparent);
 }

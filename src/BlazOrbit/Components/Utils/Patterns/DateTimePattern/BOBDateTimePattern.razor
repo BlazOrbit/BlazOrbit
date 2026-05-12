@@ -3,8 +3,7 @@
 
 @using System.ComponentModel
 @using System.Globalization
-@using Microsoft.JSInterop
-@inject IJSRuntime JS
+@inject IPatternJsInterop PatternJs
 
 @namespace BlazOrbit.Components.Utils
 
@@ -88,9 +87,7 @@
     {
         await Task.Yield();
 
-        bool stillInside = await JS.InvokeAsync<bool>(
-            "eval",
-            $"document.activeElement?.closest('[data-bob-pattern-id=\"{ComponentId}\"]') !== null");
+        bool stillInside = await PatternJs.IsFocusInsideAsync(ComponentId);
 
         if (_hasFocus && !stillInside)
         {

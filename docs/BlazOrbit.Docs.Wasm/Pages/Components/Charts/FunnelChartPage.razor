@@ -7,6 +7,10 @@
          PageInstance="this"
          ApiType="@typeof(BOBFunnelChart<>)">
 
+    <BOBBanner Severity="BOBBannerSeverity.Warning"
+               Title="@Loc["Extra package required"]"
+               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]" />
+
     <DocDemo Key="Tapered" Title="@Loc["Sales funnel"]">
         <BOBFunnelChart TY="int"
                         Steps="_pipeline"

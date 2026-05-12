@@ -38,7 +38,7 @@ public class BOBAddonRenderingTests
         IRenderedComponent<_BOBAddon> cut = ctx.Render<_BOBAddon>(p => p
             .Add(c => c.Loading, true));
 
-        cut.Find(".bob-addon bob-component").Should().NotBeNull();
+        cut.Find("._bob-addon bob-component").Should().NotBeNull();
     }
 
     [Theory]
@@ -50,7 +50,7 @@ public class BOBAddonRenderingTests
         IRenderedComponent<_BOBAddon> cut = ctx.Render<_BOBAddon>(p => p
             .Add(c => c.ChildContent, b => b.AddContent(0, "text")));
 
-        cut.Find(".bob-addon").TextContent.Should().Be("text");
+        cut.Find("._bob-addon").TextContent.Should().Be("text");
     }
 
     [Theory]
@@ -63,7 +63,7 @@ public class BOBAddonRenderingTests
             .Add(c => c.Icon, BOBIconKeys.UI.ExpandMore)
             .Add(c => c.IconRotation, 180));
 
-        cut.Find(".bob-addon").InnerHtml.Should().Contain("rotate(180deg)");
+        cut.Find("._bob-addon").InnerHtml.Should().Contain("rotate(180deg)");
     }
 }
 

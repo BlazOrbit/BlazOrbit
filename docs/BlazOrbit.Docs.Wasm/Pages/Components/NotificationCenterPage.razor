@@ -1,6 +1,7 @@
 ﻿@page "/components/services/notifications"
 
 @using BlazOrbit.Notifications
+@using BlazOrbit.Components.Display
 
 @inject IStringLocalizer<NotificationCenterPage> Loc
 @inject INotificationCenter Center
@@ -10,15 +11,17 @@
 <DocPage Eyebrow="@Loc["Service"]" Title="@Loc["BOBNotificationCenter"]"
          Lede="@Loc["Persistent inbox-style notifications with a paired BOBNotificationBell badge."]">
 
-         <p>
-             The <code>BOBNotificationCenter</code> service provides a way to manage notifications in a persistent inbox-style manner. It is designed to work in tandem with the 
-             <code>BOBNotificationBell</code> component, which displays a badge with the count of unread notifications and can be clicked to reveal the inbox.
-         </p>
+    <BOBBanner Severity="BOBBannerSeverity.Warning"
+               Title="@Loc["Extra package required"]"
+               Message="@Loc["This service requires the BlazOrbit.Notifications NuGet package. Install it with dotnet add package BlazOrbit.Notifications and register AddBlazOrbitNotifications() in Program.cs."]" />
 
-         <p>
-             Persistence is managed by <code>INotificationStore</code>. Default implementation stores notifications in memory but you can implement your own 
-             (e.g. using local storage or server-side database) and register it using <code>@("builder.Services.AddBlazOrbitNotifications<TStore>")</code>
-         </p>
+    <BOBBanner Severity="BOBBannerSeverity.Info"
+               Title="@Loc["About BOBNotificationCenter"]"
+               Message="@Loc["The BOBNotificationCenter service manages notifications in a persistent inbox-style manner. It works in tandem with the BOBNotificationBell component, which displays a badge with the count of unread notifications."]" />
+
+    <BOBBanner Severity="BOBBannerSeverity.Info"
+               Title="@Loc["Custom persistence"]"
+               Message="@Loc["Persistence is managed by INotificationStore. The default implementation stores notifications in memory, but you can implement your own (e.g. using local storage or server-side database) and register it via builder.Services.AddBlazOrbitNotifications<TStore>()."]" />
 
     <DocDemo Key="Push" Title="@Loc["Push notifications"]">
         <div style="display:flex;gap:.5rem;align-items:center;">

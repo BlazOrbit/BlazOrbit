@@ -1,7 +1,12 @@
 @namespace BlazOrbit.Components.Layout
 
 @inherits BOBComponentBase
-@implements IPureBuiltComponent
+@* IBuiltComponent (downgraded from IPureBuiltComponent): `_sidebarOpen` is mutable
+   internal state — the Pure marker would freeze it in the fingerprint cache.
+   Root data-bob attrs stay inline so they re-emit on event-driven renders
+   (the `@attributes` dict-spread does not reliably diff additions across stable
+   dict references in the click → StateHasChanged → BuildRenderTree path). *@
+@implements IBuiltComponent
 
 <bob-component @attributes="ComputedAttributes"
                data-bob-sidebar-side="@SidebarSide.ToString().ToLowerInvariant()"
@@ -14,7 +19,7 @@
         {
             <button type="button"
                     class="bob-sidebar-layout__toggle"
-                    aria-label="Toggle navigation"
+                    aria-label="@Localizer["ToggleNavigation"]"
                     aria-expanded="@_sidebarOpen.ToString().ToLowerInvariant()"
                     @onclick="ToggleSidebar">
                 <span class="bob-sidebar-layout__toggle-bar"></span>
@@ -50,6 +55,8 @@
 
 @code {
     private bool _sidebarOpen;
+
+    [Inject] internal IStringLocalizer<BOBLayoutResources> Localizer { get; set; } = default!;
 
     /// <summary>Header.</summary>
     [Parameter] public RenderFragment? Header { get; set; }
