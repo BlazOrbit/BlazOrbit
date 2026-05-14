@@ -307,9 +307,18 @@ jobs:
               "README.md" \
               "icon.png"
 
-            PKG=./artifacts/BlazOrbit.Translations.${VERSION}.nupkg
+            PKG=./artifacts/BlazOrbit.Notifications.${VERSION}.nupkg
             assert_in_pkg "$PKG" \
-              "lib/$tfm/BlazOrbit.Translations.dll" \
+              "lib/$tfm/BlazOrbit.Notifications.dll" \
+              "lib/$tfm/BlazOrbit.Notifications.xml" \
+              "README.md" \
+              "icon.png"
+
+            PKG=./artifacts/BlazOrbit.Hotkeys.${VERSION}.nupkg
+            assert_in_pkg "$PKG" \
+              "lib/$tfm/BlazOrbit.Hotkeys.dll" \
+              "lib/$tfm/BlazOrbit.Hotkeys.xml" \
+              "staticwebassets/js/Hotkey/HotkeyInterop.min.js" \
               "README.md" \
               "icon.png"
           done
@@ -323,7 +332,8 @@ jobs:
             BlazOrbit.Localization.Server
             BlazOrbit.Localization.Shared
             BlazOrbit.Localization.Wasm
-            BlazOrbit.Translations
+            BlazOrbit.Notifications
+            BlazOrbit.Hotkeys
             BlazOrbit.Templates
           )
           unknown=0

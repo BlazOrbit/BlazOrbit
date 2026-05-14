@@ -8,11 +8,13 @@
           "files": [
             "BlazOrbit/bin/Release/net10.0/BlazOrbit.dll",
             "BlazOrbit.Core/bin/Release/net10.0/BlazOrbit.Core.dll",
+            "BlazOrbit.Charts/bin/Release/net10.0/BlazOrbit.Charts.dll",
             "BlazOrbit.SyntaxHighlight/bin/Release/net10.0/BlazOrbit.SyntaxHighlight.dll",
             "BlazOrbit.Localization.Shared/bin/Release/net10.0/BlazOrbit.Localization.Shared.dll",
             "BlazOrbit.Localization.Server/bin/Release/net10.0/BlazOrbit.Localization.Server.dll",
             "BlazOrbit.Localization.Wasm/bin/Release/net10.0/BlazOrbit.Localization.Wasm.dll",
-            "BlazOrbit.Translations/bin/Release/net10.0/BlazOrbit.Translations.dll",
+            "BlazOrbit.Notifications/bin/Release/net10.0/BlazOrbit.Notifications.dll",
+            "BlazOrbit.Hotkeys/bin/Release/net10.0/BlazOrbit.Hotkeys.dll",
             "BlazOrbit.FormsFluentValidation/bin/Release/net10.0/BlazOrbit.FormsFluentValidation.dll"
           ]
         }
