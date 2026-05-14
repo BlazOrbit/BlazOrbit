@@ -1,8 +1,7 @@
-using System.Collections.Concurrent;
-using System.Globalization;
-using BlazOrbit.Localization.Providers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Localization;
+using System.Collections.Concurrent;
+using System.Globalization;
 
 namespace BlazOrbit.Localization;
 
@@ -23,7 +22,7 @@ namespace BlazOrbit.Localization;
 /// When the generator is active for the consumer assembly, call sites of the form
 /// <c>Loc["literal"]</c> are intercepted into direct accessor methods that bypass this
 /// adapter entirely — measured in single-digit nanoseconds. This adapter is the dynamic
-/// fallback for runtime-supplied names and for the legacy path during migration.
+/// fallback for runtime-supplied names.
 /// </para>
 /// </remarks>
 /// <typeparam name="T">Bundle marker type — see <see cref="BobLocalizationBundleAttribute"/>.</typeparam>
@@ -81,7 +80,7 @@ public sealed class BobLocalizer<T> : IStringLocalizer<T>
             if (name.StartsWith(route.Prefix, StringComparison.Ordinal))
             {
                 IBobLocalizationProvider routed = ResolveProvider(route.ProviderType);
-                if (routed.TryGet(hash, culture, out string? routedValue))
+                if (routed.TryGet(spec, hash, culture, out string? routedValue))
                 {
                     return routedValue;
                 }
@@ -93,7 +92,7 @@ public sealed class BobLocalizer<T> : IStringLocalizer<T>
         foreach (Type providerType in spec.Chain)
         {
             IBobLocalizationProvider provider = ResolveProvider(providerType);
-            if (provider.TryGet(hash, culture, out string? chainValue))
+            if (provider.TryGet(spec, hash, culture, out string? chainValue))
             {
                 return chainValue;
             }

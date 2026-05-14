@@ -1,5 +1,5 @@
 using BlazOrbit.Charts.Services;
-﻿using BlazOrbit.Docs.Wasm;
+using BlazOrbit.Docs.Wasm;
 using BlazOrbit.Docs.Wasm.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;

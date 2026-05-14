@@ -19,6 +19,10 @@ public class BobLocalizerTests : IDisposable
     {
     }
 
+    private sealed class OtherResources
+    {
+    }
+
     private void Register(BobLocalizationBundleSpec spec) => _snapshot.RegisterFake(spec);
 
     [Fact]
@@ -214,6 +218,55 @@ public class BobLocalizerTests : IDisposable
     }
 
     [Fact]
+    public void Should_Not_Leak_Translation_Across_Bundles_With_Same_Hash()
+    {
+        // Two bundles share a source literal — same hash, divergent translations.
+        // Each BobLocalizer<T> must resolve only against T's own bundle. Regression
+        // for non-deterministic cross-bundle leakage produced by iterating the global
+        // bundle registry inside BundleProvider.
+        ulong hash = BobLocalizationHash.Compute("Basic usage");
+        const string culture = "es-ES";
+
+        _snapshot.RegisterFake(new BobLocalizationBundleSpec(
+            typeof(TestResources),
+            "en-US",
+            [typeof(BundleProvider), typeof(LiteralProvider)],
+            [],
+            new Dictionary<string, FrozenDictionary<ulong, string>>
+            {
+                [culture] = new Dictionary<ulong, string> { [hash] = "Uso básico" }.ToFrozenDictionary()
+            }.ToFrozenDictionary(),
+            null));
+
+        _snapshot.RegisterFake(new BobLocalizationBundleSpec(
+            typeof(OtherResources),
+            "en-US",
+            [typeof(BundleProvider), typeof(LiteralProvider)],
+            [],
+            new Dictionary<string, FrozenDictionary<ulong, string>>
+            {
+                [culture] = new Dictionary<ulong, string> { [hash] = "Uso DIFERENTE" }.ToFrozenDictionary()
+            }.ToFrozenDictionary(),
+            null));
+
+        CultureInfo prev = CultureInfo.CurrentUICulture;
+        CultureInfo.CurrentUICulture = new CultureInfo(culture);
+        try
+        {
+            IServiceProvider sp = BuildServices();
+            BobLocalizer<TestResources> locA = new(sp);
+            BobLocalizer<OtherResources> locB = new(sp);
+
+            locA["Basic usage"].Value.Should().Be("Uso básico");
+            locB["Basic usage"].Value.Should().Be("Uso DIFERENTE");
+        }
+        finally
+        {
+            CultureInfo.CurrentUICulture = prev;
+        }
+    }
+
+    [Fact]
     public void Should_Return_Literal_When_Bundle_Not_Registered()
     {
         // Arrange — no bundle registered for TestResources.
@@ -302,7 +355,7 @@ public class BobLocalizerTests : IDisposable
             _value = value;
         }
 
-        public bool TryGet(ulong hash, CultureInfo culture, out string? value)
+        public bool TryGet(BobLocalizationBundleSpec spec, ulong hash, CultureInfo culture, out string? value)
         {
             if (hash == _hash)
             {

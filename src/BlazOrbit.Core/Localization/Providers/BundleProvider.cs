@@ -5,39 +5,33 @@ namespace BlazOrbit.Localization.Providers;
 
 /// <summary>
 /// Built-in provider that resolves a hash against the per-culture translation tables baked
-/// into each <see cref="BobLocalizationBundleSpec"/> by the source generator. Stateless,
-/// thread-safe, singleton.
+/// into the calling <see cref="BobLocalizationBundleSpec"/> by the source generator.
+/// Stateless, thread-safe, singleton.
 /// </summary>
 /// <remarks>
 /// <para>
-/// Lookup strategy per call: walk the registered bundles, and for each test the requested
-/// culture, its parent chain, and finally the bundle's <c>DefaultCulture</c>. The first
-/// matching entry wins.
+/// Lookup strategy per call: test the requested culture against the calling bundle's
+/// translation table, then its parent chain, then the bundle's <c>DefaultCulture</c>. The
+/// first matching entry wins. The lookup is strictly scoped to the calling bundle — other
+/// registered bundles are never consulted, even when they happen to share the same source
+/// literal (and therefore the same hash).
 /// </para>
 /// <para>
 /// In the fast path (call sites the source generator can resolve at build time) the accessor
 /// method skips this provider entirely — the generator emits a per-bundle static class with a
 /// direct <see cref="System.Collections.Frozen.FrozenDictionary{TKey, TValue}"/> lookup. This
-/// runtime provider serves the dynamic-key slow path and the bundle-discovery fallback.
+/// runtime provider serves the dynamic-key slow path.
 /// </para>
 /// </remarks>
 public sealed class BundleProvider : IBobLocalizationProvider
 {
     /// <inheritdoc />
-    public bool TryGet(ulong hash, CultureInfo culture, out string? value)
+    public bool TryGet(BobLocalizationBundleSpec spec, ulong hash, CultureInfo culture, out string? value)
     {
+        ArgumentNullException.ThrowIfNull(spec);
         ArgumentNullException.ThrowIfNull(culture);
 
-        foreach (BobLocalizationBundleSpec spec in BobLocalize.AllBundles)
-        {
-            if (TryLookupInBundle(spec, hash, culture, out value))
-            {
-                return true;
-            }
-        }
-
-        value = null;
-        return false;
+        return TryLookupInBundle(spec, hash, culture, out value);
     }
 
     private static bool TryLookupInBundle(

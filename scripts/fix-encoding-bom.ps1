@@ -130,9 +130,17 @@ foreach ($file in $files) {
 
         if ($Check) {
             # Gate scope: blocks anything that breaks tooling at runtime.
-            #   1. BOM present (repo-wide no-BOM policy).
+            #   1. BOM at byte 0 (repo-wide no-BOM policy).
             #   2. Double BOM (corruption signal).
-            #   3. Invalid UTF-8 byte sequences (mojibake, Latin-1/CP1252
+            #   3. BOM embedded mid-content — happens when an editor merges or
+            #      auto-formats a previously BOM'd file: the leading BOM gets
+            #      pushed mid-file by an inserted line. Invisible in IDEs and
+            #      undetectable by leading-byte checks but the C# parser
+            #      tokenises U+FEFF as identifier-class char and corrupts
+            #      lookups; runtime string baked from a file with mid-BOM can
+            #      surface as mojibake after assembly reload (seen on docs
+            #      Wasm Program.cs after the no-BOM flip).
+            #   4. Invalid UTF-8 byte sequences (mojibake, Latin-1/CP1252
             #      from editors with wrong defaults).
             # Empty / BOM-only files trivially valid — skip the payload
             # decode (PowerShell array-slice on len<=3 produces a reversed
@@ -150,13 +158,27 @@ foreach ($file in $files) {
             } elseif ($hasBom) {
                 $drifts.Add("$relPath  -> unexpected BOM (repo policy is UTF-8 without BOM)")
             } else {
-                $skippedNoChange++
+                # Inline BOM scan (skip the leading 3 bytes already covered above).
+                $inlineHit = $false
+                $startScan = if ($hasBom) { 3 } else { 0 }
+                for ($i = $startScan; $i -le $bytes.Length - 3; $i++) {
+                    if ($bytes[$i] -eq 0xEF -and $bytes[$i + 1] -eq 0xBB -and $bytes[$i + 2] -eq 0xBF) {
+                        $drifts.Add("$relPath  -> BOM embedded at byte offset $i (likely a leftover from a merge/auto-format on a previously BOM'd file)")
+                        $inlineHit = $true
+                        break
+                    }
+                }
+                if (-not $inlineHit) { $skippedNoChange++ }
             }
             continue
         }
 
         # Normalize mode: re-write as UTF-8 without BOM.
+        # ReadAllText with Encoding.UTF8 strips a leading BOM. To also strip
+        # inline BOMs (mid-content U+FEFF from merge/auto-format mishaps),
+        # remove the U+FEFF code point from the decoded string before writing.
         $content = [System.IO.File]::ReadAllText($file.FullName, [System.Text.Encoding]::UTF8)
+        $content = $content.Replace([char]0xFEFF, '')
         if ($PSCmdlet.ShouldProcess($file.FullName, "Normalize UTF-8 without BOM")) {
             [System.IO.File]::WriteAllText($file.FullName, $content, $utf8NoBom)
         }

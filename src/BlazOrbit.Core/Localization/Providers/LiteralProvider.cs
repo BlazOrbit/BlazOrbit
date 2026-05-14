@@ -18,7 +18,7 @@ namespace BlazOrbit.Localization.Providers;
 public sealed class LiteralProvider : IBobLocalizationProvider
 {
     /// <inheritdoc />
-    public bool TryGet(ulong hash, CultureInfo culture, out string? value)
+    public bool TryGet(BobLocalizationBundleSpec spec, ulong hash, CultureInfo culture, out string? value)
     {
         value = null;
         return false;

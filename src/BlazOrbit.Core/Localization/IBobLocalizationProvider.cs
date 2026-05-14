@@ -28,11 +28,16 @@ public interface IBobLocalizationProvider
 {
     /// <summary>
     /// Attempts to resolve a translation for the given <paramref name="hash"/> in the
-    /// requested <paramref name="culture"/>.
+    /// requested <paramref name="culture"/>, scoped to <paramref name="spec"/>'s bundle.
     /// </summary>
+    /// <param name="spec">
+    /// Calling bundle's spec. Providers MUST scope their lookup to this bundle — querying a
+    /// global registry would allow another bundle that happens to share the same source
+    /// literal (and therefore the same hash) to leak its translation back to the caller.
+    /// </param>
     /// <param name="hash">FNV-1a 64-bit hash of the source literal, precomputed at build time.</param>
     /// <param name="culture">Culture to resolve against; provider applies its own fallback rules within.</param>
     /// <param name="value">Receives the translation when this provider has a hit; <see langword="null"/> otherwise.</param>
     /// <returns><see langword="true"/> when the provider served a value; <see langword="false"/> to defer to the next provider in the chain.</returns>
-    bool TryGet(ulong hash, CultureInfo culture, out string? value);
+    bool TryGet(BobLocalizationBundleSpec spec, ulong hash, CultureInfo culture, out string? value);
 }

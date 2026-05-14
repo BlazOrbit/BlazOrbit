@@ -22,15 +22,15 @@ public class BundleProviderTests : IDisposable
     {
         // Arrange
         ulong hash = BobLocalizationHash.Compute("Hello");
-        _snapshot.RegisterFake(BuildSpec(
+        BobLocalizationBundleSpec spec = BuildSpec(
             new Dictionary<string, Dictionary<ulong, string>>
             {
                 ["en-US"] = new() { [hash] = "Hello" }, ["es-ES"] = new() { [hash] = "Hola" }
-            }));
+            });
         BundleProvider provider = new();
 
         // Act
-        provider.TryGet(hash, new CultureInfo("es-ES"), out string? value).Should().BeTrue();
+        provider.TryGet(spec, hash, new CultureInfo("es-ES"), out string? value).Should().BeTrue();
 
         // Assert
         value.Should().Be("Hola");
@@ -41,12 +41,12 @@ public class BundleProviderTests : IDisposable
     {
         // Arrange — es-MX should fall back to es (no es-MX entry).
         ulong hash = BobLocalizationHash.Compute("Welcome");
-        _snapshot.RegisterFake(BuildSpec(
-            new Dictionary<string, Dictionary<ulong, string>> { ["es"] = new() { [hash] = "Bienvenido" } }));
+        BobLocalizationBundleSpec spec = BuildSpec(
+            new Dictionary<string, Dictionary<ulong, string>> { ["es"] = new() { [hash] = "Bienvenido" } });
         BundleProvider provider = new();
 
         // Act
-        provider.TryGet(hash, new CultureInfo("es-MX"), out string? value).Should().BeTrue();
+        provider.TryGet(spec, hash, new CultureInfo("es-MX"), out string? value).Should().BeTrue();
 
         // Assert
         value.Should().Be("Bienvenido");
@@ -57,16 +57,16 @@ public class BundleProviderTests : IDisposable
     {
         // Arrange — ko-KR resolves nothing along its chain; bundle default en-US wins.
         ulong hash = BobLocalizationHash.Compute("Goodbye");
-        _snapshot.RegisterFake(BuildSpec(
+        BobLocalizationBundleSpec spec = BuildSpec(
             defaultCulture: "en-US",
             translations: new Dictionary<string, Dictionary<ulong, string>>
             {
                 ["en-US"] = new() { [hash] = "Goodbye" }
-            }));
+            });
         BundleProvider provider = new();
 
         // Act
-        provider.TryGet(hash, new CultureInfo("ko-KR"), out string? value).Should().BeTrue();
+        provider.TryGet(spec, hash, new CultureInfo("ko-KR"), out string? value).Should().BeTrue();
 
         // Assert
         value.Should().Be("Goodbye");
@@ -75,32 +75,59 @@ public class BundleProviderTests : IDisposable
     [Fact]
     public void Should_Return_False_When_Hash_Is_Unknown()
     {
-        _snapshot.RegisterFake(BuildSpec(new Dictionary<string, Dictionary<ulong, string>>()));
+        BobLocalizationBundleSpec spec = BuildSpec(new Dictionary<string, Dictionary<ulong, string>>());
         BundleProvider provider = new();
 
-        provider.TryGet(0xDEADBEEFUL, new CultureInfo("en-US"), out string? value).Should().BeFalse();
+        provider.TryGet(spec, 0xDEADBEEFUL, new CultureInfo("en-US"), out string? value).Should().BeFalse();
         value.Should().BeNull();
     }
 
     [Fact]
-    public void Should_Return_False_When_No_Bundles_Registered()
+    public void Should_Return_False_When_Bundle_Has_No_Translations()
+    {
+        // Regression: a bundle declared without `.tn` data (Translations == null) must yield
+        // a clean miss instead of leaking a translation from another registered bundle that
+        // happens to share the same hash.
+        ulong hash = BobLocalizationHash.Compute("Hello");
+        _snapshot.RegisterFake(BuildSpec(
+            new Dictionary<string, Dictionary<ulong, string>>
+            {
+                ["en-US"] = new() { [hash] = "Hello-from-other-bundle" }
+            },
+            resourceType: typeof(OtherResources)));
+
+        BobLocalizationBundleSpec emptySpec = BuildSpec(translations: null);
+        BundleProvider provider = new();
+
+        provider.TryGet(emptySpec, hash, new CultureInfo("en-US"), out string? value).Should().BeFalse();
+        value.Should().BeNull();
+    }
+
+    [Fact]
+    public void Should_Throw_On_Null_Spec()
     {
         BundleProvider provider = new();
-        provider.TryGet(0x123UL, new CultureInfo("en-US"), out string? value).Should().BeFalse();
-        value.Should().BeNull();
+        Action act = () => provider.TryGet(null!, 0x1UL, new CultureInfo("en-US"), out _);
+        act.Should().Throw<ArgumentNullException>();
     }
 
     [Fact]
     public void Should_Throw_On_Null_Culture()
     {
+        BobLocalizationBundleSpec spec = BuildSpec(new Dictionary<string, Dictionary<ulong, string>>());
         BundleProvider provider = new();
-        Action act = () => provider.TryGet(0x1UL, null!, out _);
+        Action act = () => provider.TryGet(spec, 0x1UL, null!, out _);
         act.Should().Throw<ArgumentNullException>();
+    }
+
+    private sealed class OtherResources
+    {
     }
 
     private static BobLocalizationBundleSpec BuildSpec(
         Dictionary<string, Dictionary<ulong, string>>? translations = null,
-        string defaultCulture = "en-US")
+        string defaultCulture = "en-US",
+        Type? resourceType = null)
     {
         FrozenDictionary<string, FrozenDictionary<ulong, string>>? frozen = translations is null
             ? null
@@ -109,7 +136,7 @@ public class BundleProviderTests : IDisposable
                 kv => kv.Value.ToFrozenDictionary()).ToFrozenDictionary();
 
         return new BobLocalizationBundleSpec(
-            typeof(TestResources),
+            resourceType ?? typeof(TestResources),
             defaultCulture,
             [],
             [],

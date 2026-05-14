@@ -23381,13 +23381,13 @@ BlazOrbit.Localization.IBobLocalizationBuilder
 BlazOrbit.Localization.IBobLocalizationBuilder.AddProvider<TProvider>(Microsoft.Extensions.DependencyInjection.ServiceLifetime lifetime = Microsoft.Extensions.DependencyInjection.ServiceLifetime.Singleton) -> BlazOrbit.Localization.IBobLocalizationBuilder!
 BlazOrbit.Localization.IBobLocalizationBuilder.Services.get -> Microsoft.Extensions.DependencyInjection.IServiceCollection!
 BlazOrbit.Localization.IBobLocalizationProvider
-BlazOrbit.Localization.IBobLocalizationProvider.TryGet(ulong hash, System.Globalization.CultureInfo! culture, out string? value) -> bool
+BlazOrbit.Localization.IBobLocalizationProvider.TryGet(BlazOrbit.Localization.BobLocalizationBundleSpec! spec, ulong hash, System.Globalization.CultureInfo! culture, out string? value) -> bool
 BlazOrbit.Localization.Providers.BundleProvider
 BlazOrbit.Localization.Providers.BundleProvider.BundleProvider() -> void
-BlazOrbit.Localization.Providers.BundleProvider.TryGet(ulong hash, System.Globalization.CultureInfo! culture, out string? value) -> bool
+BlazOrbit.Localization.Providers.BundleProvider.TryGet(BlazOrbit.Localization.BobLocalizationBundleSpec! spec, ulong hash, System.Globalization.CultureInfo! culture, out string? value) -> bool
 BlazOrbit.Localization.Providers.LiteralProvider
 BlazOrbit.Localization.Providers.LiteralProvider.LiteralProvider() -> void
-BlazOrbit.Localization.Providers.LiteralProvider.TryGet(ulong hash, System.Globalization.CultureInfo! culture, out string? value) -> bool
+BlazOrbit.Localization.Providers.LiteralProvider.TryGet(BlazOrbit.Localization.BobLocalizationBundleSpec! spec, ulong hash, System.Globalization.CultureInfo! culture, out string? value) -> bool
 BlazOrbit.Localization.ServiceCollectionExtensions
 override BlazOrbit.Localization.BobLocalizationBundleSpec.Equals(object? obj) -> bool
 override BlazOrbit.Localization.BobLocalizationBundleSpec.GetHashCode() -> int

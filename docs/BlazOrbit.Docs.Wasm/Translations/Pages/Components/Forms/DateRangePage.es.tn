@@ -1,7 +1,7 @@
 // Auto-migrated from DateRangePage.es.resx. Edit freely from now on.
 
 # Basic usage
-Uso bÃ¡sico
+Uso básico
 
 # BOBInputDateRange
 BOBInputDateRange
@@ -13,16 +13,16 @@ Componente
 Rango de fechas
 
 # Date range picker with two date fields and a calendar dialog. Select start and end dates with validation support.
-Selector de rango de fechas con dos campos de fecha y un diÃ¡logo de calendario. Selecciona fechas de inicio y fin con soporte de validaciÃ³n.
+Selector de rango de fechas con dos campos de fecha y un diálogo de calendario. Selecciona fechas de inicio y fin con soporte de validación.
 
 # days
-dÃ­as
+días
 
 # Large
 Grande
 
 # Manual selection
-SelecciÃ³n manual
+Selección manual
 
 # Pick a preset
 Elige un preset
@@ -37,10 +37,10 @@ Propiedades
 Seleccionado:
 
 # Sizes
-TamaÃ±os
+Tamaños
 
 # Small
-PequeÃ±o
+Pequeño
 
 # Without preset shortcuts
 Sin atajos de preset

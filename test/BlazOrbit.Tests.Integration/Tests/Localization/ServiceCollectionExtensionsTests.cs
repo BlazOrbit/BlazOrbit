@@ -75,7 +75,7 @@ public class ServiceCollectionExtensionsTests
 
     private sealed class DummyProvider : IBobLocalizationProvider
     {
-        public bool TryGet(ulong hash, System.Globalization.CultureInfo culture, out string? value)
+        public bool TryGet(BobLocalizationBundleSpec spec, ulong hash, System.Globalization.CultureInfo culture, out string? value)
         {
             value = null;
             return false;
