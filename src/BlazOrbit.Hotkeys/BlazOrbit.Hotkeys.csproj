@@ -5,7 +5,7 @@
         <IsPackable>true</IsPackable>
         <PackageType>Dependency</PackageType>
         <PackageId>BlazOrbit.Hotkeys</PackageId>
-        <Description>Global keyboard shortcut registry for BlazOrbit. Document-level keydown listener (skips inputs / textareas / contentEditable), modifier-aware combo grammar, scope-aware registration (Global / Page) with auto-cleanup, and Program.cs-time wiring through `AddBlazOrbitHotkeys(opts =&gt; opts.Register(...))`. Ships its own JS interop module so the main library stays free of keyboard-handling overhead when not used.</Description>
+        <Description>Global keyboard shortcut registry for BlazOrbit. Document-level keydown listener.</Description>
         <PackageTags>blazor;hotkeys;keyboard;shortcuts;keybinding;blazorbit</PackageTags>
     </PropertyGroup>
 

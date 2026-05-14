@@ -7,7 +7,7 @@
         <Nullable>enable</Nullable>
         <PackageId>BlazOrbit.Localization.Shared</PackageId>
         <NoWarn>$(NoWarn);RS0016;RS0017;RS0037</NoWarn>
-        <Description>Shared localization components and resources for BlazOrbit. Contains the common UI markup for BOBCultureSelector used by both Server and WASM hosting integrations.</Description>
+        <Description>Shared localization components and resources for BlazOrbit.</Description>
         <PackageTags>blazor;localization;i18n;culture;blazorbit</PackageTags>
     </PropertyGroup>
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env pwsh
+﻿#!/usr/bin/env pwsh
 #requires -Version 7.0
 <#
 .SYNOPSIS
@@ -101,6 +101,39 @@
     ./scripts/test-templates.ps1 -SkipE2E
     Quick smoke: pack + build only. Skips Playwright (no browser spin-up).
 
+.PARAMETER PublicFeed
+    Validate the templates + libraries that are LIVE on nuget.org instead of
+    packing locally. Implies -SkipBlazOrbitPack. The matrix is generated
+    using `dotnet new install BlazOrbit.Templates::<Version>`, the workspace
+    gets a `nuget.config` that pins resolution to `https://api.nuget.org/v3/index.json`
+    (the local feed is bypassed even if registered globally), every generated
+    csproj has `Version="*"` pinned to the resolved version (so prereleases
+    are picked too — `*` only matches stable), and build + E2E run normally.
+    Use this as a post-publish smoke against the bits real users will install.
+
+.PARAMETER Version
+    Specific package version to test under -PublicFeed (e.g. `1.0.0-preview.46`
+    or `1.0.0`). Empty → auto-resolve the latest version from nuget.org
+    according to -IncludePrerelease.
+
+.PARAMETER IncludePrerelease
+    Under -PublicFeed with no explicit -Version, pick the latest preview
+    instead of the latest stable from nuget.org.
+
+.EXAMPLE
+    ./scripts/test-templates.ps1 -PublicFeed -IncludePrerelease
+    Resolve the latest preview from nuget.org and run the full matrix
+    against it. The canary for "did the preview ship cleanly?".
+
+.EXAMPLE
+    ./scripts/test-templates.ps1 -PublicFeed -Version 1.0.0-preview.46
+    Pin a specific preview. Useful when chasing a regression report against
+    a known shipped version without rebuilding locally.
+
+.EXAMPLE
+    ./scripts/test-templates.ps1 -PublicFeed
+    Resolve the latest STABLE from nuget.org and run the full matrix.
+
 .EXAMPLE
     ./scripts/test-templates.ps1 -Help
     Show this help message and exit.
@@ -110,7 +143,22 @@
     before reinstalling. Local feed source is added if missing, left in place
     so subsequent runs are faster.
 #>
+<#
+.SAMPLE USAGE SCENARIOS
+# Post-publish smoke contra el preview más reciente
+  ./scripts/test-templates.ps1 -PublicFeed -IncludePrerelease
 
+  ./scripts/test-templates.ps1 -PublicFeed -IncludePrerelease -SkipE2E -KeepWorkDir
+
+  # Reproducir un bug reportado contra una versión concreta
+  ./scripts/test-templates.ps1 -PublicFeed -Version 1.0.0-preview.46
+
+  # Validar latest stable (release)
+  ./scripts/test-templates.ps1 -PublicFeed
+
+  # Combinable con flags existentes
+  ./scripts/test-templates.ps1 -PublicFeed -IncludePrerelease -SkipE2E -KeepWorkDir
+#>
 [CmdletBinding()]
 param(
     [string]$Configuration = "Release",
@@ -122,6 +170,9 @@ param(
     [switch]$KeepWorkDir,
     [switch]$KeepInstalled,
     [hashtable[]]$Matrix,
+    [switch]$PublicFeed,
+    [string]$Version = "",
+    [switch]$IncludePrerelease,
     [Alias("h")]
     [switch]$Help
 )
@@ -213,22 +264,124 @@ function Invoke-DotNet {
     }
 }
 
-# ---------- Ensure feed directory + nuget source ----------
-Write-Step "Preparing local feed at $FeedDir"
-if (-not (Test-Path $FeedDir)) {
-    New-Item -ItemType Directory -Path $FeedDir -Force | Out-Null
-    Write-Ok "created"
-} else {
-    Write-Ok "exists"
+function Get-LatestNuGetVersion {
+    <#
+    .SYNOPSIS
+    Resolve the latest version of a package id on nuget.org via the v3
+    flat-container index. Filters prereleases out unless -AllowPrerelease.
+
+    .DESCRIPTION
+    Hits `https://api.nuget.org/v3-flatcontainer/<id>/index.json` (lowercase
+    id, per the v3 spec) and returns the max version. NuGet's flat-container
+    returns versions sorted oldest-first; we filter and pick the last.
+    Uses semver-aware comparison via [System.Management.Automation.SemanticVersion]
+    when available (PowerShell 7+) to keep `1.0.0-preview.40` < `1.0.0-preview.41`
+    < `1.0.0` ordering right.
+    #>
+    param(
+        [Parameter(Mandatory)][string]$PackageId,
+        [switch]$AllowPrerelease
+    )
+
+    $url = "https://api.nuget.org/v3-flatcontainer/$($PackageId.ToLowerInvariant())/index.json"
+    try {
+        $response = Invoke-RestMethod -Uri $url -ErrorAction Stop
+    } catch {
+        throw "Failed to query nuget.org for '$PackageId' at $url : $($_.Exception.Message)"
+    }
+    if (-not $response.versions -or $response.versions.Count -eq 0) {
+        throw "nuget.org reports no versions for package '$PackageId'."
+    }
+
+    $candidates = $response.versions
+    if (-not $AllowPrerelease) {
+        $candidates = $candidates | Where-Object { $_ -notmatch '-' }
+    }
+    if (-not $candidates) {
+        $kind = if ($AllowPrerelease) { "any" } else { "stable" }
+        throw "nuget.org has no $kind version for '$PackageId'."
+    }
+
+    # Sort with semver-aware comparator. PowerShell's `[semver]` (System.Management.Automation.SemanticVersion)
+    # treats `-preview.41` < `1.0.0`, which is what NuGet does at resolve time.
+    $sorted = $candidates | Sort-Object -Property @{ Expression = {
+        try { [System.Management.Automation.SemanticVersion]$_ } catch { [version]($_ -split '-')[0] }
+    } }
+    return ($sorted | Select-Object -Last 1)
 }
 
+function Set-CsprojPackageVersion {
+    <#
+    .SYNOPSIS
+    Replace `Version="*"` with `Version="<pinned>"` on every
+    `<PackageReference Include="BlazOrbit*">` in the given csproj.
+
+    .DESCRIPTION
+    Templates ship `Version="*"` so consumers can float to the latest stable
+    from nuget.org. Under -PublicFeed we test a SPECIFIC version (often a
+    preview), and `*` does not match prereleases. This helper pins every
+    BlazOrbit.* PackageReference to the target version in-place.
+    Non-BlazOrbit packages (Microsoft.AspNetCore.*, FluentValidation, …)
+    keep their templated version spec untouched.
+    #>
+    param(
+        [Parameter(Mandatory)][string]$CsprojPath,
+        [Parameter(Mandatory)][string]$PinnedVersion
+    )
+
+    $content = Get-Content $CsprojPath -Raw
+    $pattern = '<PackageReference Include="(BlazOrbit[^"]*)" Version="\*"'
+    $replacement = '<PackageReference Include="$1" Version="' + $PinnedVersion + '"'
+    $updated = [regex]::Replace($content, $pattern, $replacement)
+
+    if ($updated -ne $content) {
+        Set-Content -Path $CsprojPath -Value $updated -Encoding UTF8 -NoNewline
+        return $true
+    }
+    return $false
+}
+
+# ---------- 0. PublicFeed resolution (when validating live nuget.org bits) ----------
+# When -PublicFeed is set we override several knobs up-front:
+#   - SkipBlazOrbitPack ← always true (we want the LIVE nupkg, not a fresh local pack).
+#   - $Version resolves via nuget.org if not provided explicitly.
+#   - A workspace nuget.config is written later (step 5) to pin restore to
+#     api.nuget.org regardless of any local-feed source registered globally.
+if ($PublicFeed) {
+    $SkipBlazOrbitPack = $true
+
+    if ([string]::IsNullOrWhiteSpace($Version)) {
+        Write-Step "Resolving latest BlazOrbit version on nuget.org (prerelease=$IncludePrerelease)"
+        $Version = Get-LatestNuGetVersion -PackageId "BlazOrbit" -AllowPrerelease:$IncludePrerelease
+        Write-Ok "resolved: $Version"
+    } else {
+        Write-Step "Using explicit version: $Version"
+    }
+}
+
+# ---------- Ensure feed directory + nuget source ----------
+# Skipped under -PublicFeed: we don't need the local feed at all, and the
+# workspace nuget.config written later forces resolution to api.nuget.org
+# regardless of any source registered globally.
 $feedSourceName = "blazorbit-local-test"
-$existingSource = & dotnet nuget list source 2>&1 | Select-String -Pattern $feedSourceName
-if (-not $existingSource) {
-    Invoke-DotNet @("nuget", "add", "source", $FeedDir, "-n", $feedSourceName) "register local feed"
-    Write-Ok "registered NuGet source '$feedSourceName'"
+if (-not $PublicFeed) {
+    Write-Step "Preparing local feed at $FeedDir"
+    if (-not (Test-Path $FeedDir)) {
+        New-Item -ItemType Directory -Path $FeedDir -Force | Out-Null
+        Write-Ok "created"
+    } else {
+        Write-Ok "exists"
+    }
+
+    $existingSource = & dotnet nuget list source 2>&1 | Select-String -Pattern $feedSourceName
+    if (-not $existingSource) {
+        Invoke-DotNet @("nuget", "add", "source", $FeedDir, "-n", $feedSourceName) "register local feed"
+        Write-Ok "registered NuGet source '$feedSourceName'"
+    } else {
+        Write-Ok "NuGet source '$feedSourceName' already registered"
+    }
 } else {
-    Write-Ok "NuGet source '$feedSourceName' already registered"
+    Write-Step "Skipping local feed prep (-PublicFeed → resolving from nuget.org)"
 }
 
 # ---------- 1. Pack BlazOrbit library (optional) ----------
@@ -241,15 +394,27 @@ if (-not $SkipBlazOrbitPack) {
     Invoke-DotNet @("pack", $mainSln, "-c", $Configuration, "-o", $FeedDir, "--nologo") "pack BlazOrbit.slnx"
     Write-Ok "library packed"
 } else {
-    Write-Step "Skipping BlazOrbit pack (-SkipBlazOrbitPack)"
+    if ($PublicFeed) {
+        Write-Step "Skipping BlazOrbit pack (-PublicFeed → using version $Version from nuget.org)"
+    } else {
+        Write-Step "Skipping BlazOrbit pack (-SkipBlazOrbitPack)"
+    }
 }
 
 # ---------- 2. Pack templates ----------
-Write-Step "Packing BlazOrbit.Templates"
-Invoke-DotNet @("pack", $templatesProj, "-c", $Configuration, "-o", $FeedDir, "--nologo") "pack templates"
-$templatePkg = Get-ChildItem $FeedDir -Filter "BlazOrbit.Templates.*.nupkg" | Sort-Object LastWriteTime -Descending | Select-Object -First 1
-if (-not $templatePkg) { throw "BlazOrbit.Templates.*.nupkg not found in $FeedDir" }
-Write-Ok "templates packed: $($templatePkg.Name)"
+# Under -PublicFeed we install BlazOrbit.Templates directly from nuget.org
+# (no local pack). $templatePkg stays $null and the install step branches
+# on $PublicFeed below.
+$templatePkg = $null
+if (-not $PublicFeed) {
+    Write-Step "Packing BlazOrbit.Templates"
+    Invoke-DotNet @("pack", $templatesProj, "-c", $Configuration, "-o", $FeedDir, "--nologo") "pack templates"
+    $templatePkg = Get-ChildItem $FeedDir -Filter "BlazOrbit.Templates.*.nupkg" | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+    if (-not $templatePkg) { throw "BlazOrbit.Templates.*.nupkg not found in $FeedDir" }
+    Write-Ok "templates packed: $($templatePkg.Name)"
+} else {
+    Write-Step "Skipping BlazOrbit.Templates pack (-PublicFeed → installing $Version from nuget.org)"
+}
 
 # ---------- 3. Clear caches so the new pkgs are picked up ----------
 Write-Step "Clearing NuGet caches"
@@ -273,7 +438,14 @@ if ($installed -match "BlazOrbit\.Templates") {
     Write-Warn2 "previous BlazOrbit.Templates install detected — uninstalling first"
     Invoke-DotNet @("new", "uninstall", "BlazOrbit.Templates") "uninstall previous"
 }
-Invoke-DotNet @("new", "install", $templatePkg.FullName, "--force") "install templates"
+if ($PublicFeed) {
+    # `Package@Version` syntax pins the version fetched from configured
+    # nuget sources (nuget.org). `Package::Version` works today but emits
+    # a deprecation warning; `@` is the documented replacement.
+    Invoke-DotNet @("new", "install", "BlazOrbit.Templates@$Version", "--force") "install templates from nuget.org"
+} else {
+    Invoke-DotNet @("new", "install", $templatePkg.FullName, "--force") "install templates"
+}
 Write-Ok "installed"
 
 # ---------- 5. Prep work dir ----------
@@ -287,6 +459,26 @@ if (Test-Path $WorkDir) {
     }
 }
 New-Item -ItemType Directory -Path $WorkDir -Force | Out-Null
+
+# ---------- 5b. Workspace nuget.config when -PublicFeed ----------
+# Forces every `dotnet restore` under $WorkDir to resolve packages only from
+# nuget.org. `<clear/>` discards any source inherited from the user-level
+# nuget.config (where the local-feed source typically lives), guaranteeing
+# the matrix consumes the LIVE published bits rather than whatever was last
+# packed locally.
+if ($PublicFeed) {
+    $workspaceNuGetConfig = Join-Path $WorkDir "nuget.config"
+    @"
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <packageSources>
+    <clear />
+    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
+  </packageSources>
+</configuration>
+"@ | Set-Content -Path $workspaceNuGetConfig -Encoding UTF8
+    Write-Ok "wrote nuget.config pinning resolution to nuget.org → $workspaceNuGetConfig"
+}
 
 # ---------- 6. Run matrix ----------
 $results = New-Object System.Collections.Generic.List[object]
@@ -347,6 +539,18 @@ foreach ($case in $Matrix) {
         Write-Err "generation failed: $($_.Exception.Message)"
         $results.Add($caseResult)
         continue
+    }
+
+    # Pin BlazOrbit.* PackageReferences to the resolved version under -PublicFeed.
+    # Templates ship `Version="*"` which only matches stable — without this pin,
+    # `dotnet restore` against a preview would resolve to the latest *stable*
+    # (or fail if none exists) instead of the version we're trying to validate.
+    if ($PublicFeed) {
+        $csproj = Get-ChildItem $caseDir -Filter "*.csproj" -Recurse | Select-Object -First 1
+        if ($csproj) {
+            $changed = Set-CsprojPackageVersion -CsprojPath $csproj.FullName -PinnedVersion $Version
+            if ($changed) { Write-Ok "pinned BlazOrbit.* → $Version in $($csproj.Name)" }
+        }
     }
 
     if ($SkipBuild) {
@@ -448,6 +652,11 @@ if ($RunE2E) {
 
 # ---------- 9. Summary ----------
 Write-Step "Summary"
+if ($PublicFeed) {
+    Write-Host ("Source: nuget.org (PublicFeed mode, version $Version)") -ForegroundColor Cyan
+} else {
+    Write-Host ("Source: local feed ($FeedDir)") -ForegroundColor DarkGray
+}
 $results | Format-Table Name, Template, Framework, Localization, Charts, Notifications, HotKeys, Generate, Build -AutoSize | Out-String | Write-Host
 
 if ($failures.Count -gt 0) {

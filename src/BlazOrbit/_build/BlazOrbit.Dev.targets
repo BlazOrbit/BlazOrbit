@@ -7,15 +7,42 @@
         <BuildToolsDll>$(MSBuildProjectDirectory)\..\BlazOrbit.BuildTools\bin\$(Configuration)\net10.0\BlazOrbit.BuildTools.dll</BuildToolsDll>
     </PropertyGroup>
 
-    <!-- Main build target -->
     <!--
-        Run asset generation once in the outer build (multi-TFM) or in any single-TFM build.
-        This avoids parallel races when TargetFrameworks contains multiple values.
+        Inputs that drive BuildTools' regeneration of CssBundle/ + wwwroot/css/* + wwwroot/js/**/*.min.js.
+        Listed here so MSBuild's Inputs/Outputs incrementality on BuildBlazOrbitAssets can decide whether
+        regeneration is actually needed. Missing one of these means: maintainer edits the file, runs
+        `dotnet build`, and gets stale wwwroot — symptom is hard to attribute, so prefer over-listing.
+
+        Why a comprehensive Input list matters (regression preview.46):
+        Previously this target ran in BOTH the outer multi-TFM build AND in every inner build (because
+        the condition matched `$(TargetFrameworks)==''`, which is true for single-TFM AND for inner-of-
+        multi-TFM). Inner net8 + inner net10 raced on `wwwroot/js/**/*.min.js`, and
+        `GenerateStaticWebAssetsEndpointsManifest` captured an integrity hash from one snapshot while
+        the .nupkg shipped bytes from a different snapshot. Browsers blocked the JS module via SRI, and
+        the WASM net10 templates crashed in `BOBInitializer.LoadPaletteAsync` with
+        `KeyNotFoundException` on the `palette-background` CSS variable. Inputs/Outputs incrementality makes the inner
+        builds skip the target naturally (outer wrote the files; inner sees them up-to-date relative to
+        inputs), eliminating the race without needing a sentinel file or context-detection hack.
+    -->
+    <ItemGroup>
+        <_BlazOrbitAssetInput Include="$(BlazOrbitProjectPath)\**\*.razor.css" Exclude="$(BlazOrbitProjectPath)\bin\**;$(BlazOrbitProjectPath)\obj\**;$(BlazOrbitProjectPath)\node_modules\**;$(BlazOrbitProjectPath)\wwwroot\**"/>
+        <_BlazOrbitAssetInput Include="$(BlazOrbitProjectPath)\Types\**\*.ts"/>
+        <_BlazOrbitAssetInput Include="$(BuildToolsExe)" Condition="Exists('$(BuildToolsExe)')"/>
+        <_BlazOrbitAssetInput Include="$(BuildToolsDll)" Condition="!Exists('$(BuildToolsExe)') AND Exists('$(BuildToolsDll)')"/>
+    </ItemGroup>
+
+    <!--
+        Use `wwwroot/css/blazorbit.css` as the single Output proxy: BuildTools writes
+        every asset in one synchronous pass, so any newer-than-Inputs Output proves the
+        whole set was regenerated. `VerifyBlazOrbitAssets` (below) still validates the
+        full output set, catching partial failures.
     -->
     <Target Name="BuildBlazOrbitAssets"
             BeforeTargets="DispatchToInnerBuilds;BeforeBuild"
             DependsOnTargets="EnsureBuildToolsCompiled"
-            Condition="'$(BlazOrbitBuildEnabled)' == 'true' AND ('$(IsCrossTargetingBuild)' == 'true' OR '$(TargetFrameworks)' == '')">
+            Inputs="@(_BlazOrbitAssetInput)"
+            Outputs="$(BlazOrbitProjectPath)\wwwroot\css\blazorbit.css"
+            Condition="'$(BlazOrbitBuildEnabled)' == 'true'">
 
         <Message Text="Building BlazOrbit assets..." Importance="high"/>
 

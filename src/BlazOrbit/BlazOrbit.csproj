@@ -4,7 +4,7 @@
         <IsPackable>true</IsPackable>
         <PackageType>Dependency</PackageType>
         <PackageId>BlazOrbit</PackageId>
-        <Description>A dual-host (Blazor Server and Blazor WebAssembly) component library for .NET 10. Ships styled, themeable, accessible components driven by a reflective `data-bob-*` + CSS-custom-property pipeline, with variants, design tokens, and JS-behavior interop for features like ripples, transitions, and dropdowns.</Description>
+        <Description>A dual-host (Blazor Server and Blazor WebAssembly) component library. C# first, high-performance, and accessible UI design. Lightweight, customizable, open source.</Description>
         <PackageTags>blazor;blazor-server;blazor-wasm;components;ui;design-system;material;theming</PackageTags>
     </PropertyGroup>
     <!--
