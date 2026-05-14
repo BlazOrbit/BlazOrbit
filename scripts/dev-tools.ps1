@@ -630,7 +630,11 @@ function New-PullRequest {
         $owner = $matches[1]
         $repo = $matches[2]
         
-        $prUrl = "https://github.com/$owner/$repo/compare/$($Config.DevelopBranch)...$currentBranch?expand=1"
+        # `${currentBranch}` rather than `$currentBranch` so PowerShell 7's parser
+        # doesn't fold the trailing `?expand=1` into the variable name (the `?`
+        # interacts with the null-conditional operator and produces
+        # "The variable '$currentBranch?expand' cannot be retrieved...").
+        $prUrl = "https://github.com/$owner/$repo/compare/$($Config.DevelopBranch)...${currentBranch}?expand=1"
         
         Write-Info "Opening browser to create PR for branch '$currentBranch'..."
         Start-Process $prUrl

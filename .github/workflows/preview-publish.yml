@@ -216,6 +216,16 @@ jobs:
           fi
           echo "No NU5xxx warnings."
 
+      - name: Install unzip
+        # `mcr.microsoft.com/dotnet/sdk:10.0` is Debian-based but ships without
+        # unzip — the next step's `assert_in_pkg` shells out to `unzip -l` to
+        # inspect nupkg contents (a nupkg is a zip). Without this install,
+        # every assertion in "Validate package structure" reports "missing"
+        # because `unzip` exits with 127 and `grep -Fxq` on empty input fails.
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends unzip
+
       - name: Validate package structure
         run: |
           # Per-package structural assertions. Mirror of release-publish.yml so
