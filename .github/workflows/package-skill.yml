@@ -87,7 +87,12 @@ jobs:
           dotnet restore src/BlazOrbit/BlazOrbit.csproj
 
       - name: Build (Debug)
-        run: dotnet build src/BlazOrbit/BlazOrbit.csproj -c Debug --no-restore
+        # `-p:BlazOrbitBuildEnabled=false` skips the BuildBlazOrbitAssets target
+        # (vite/esbuild via BuildTools). The regenerator only reflects over the
+        # compiled BlazOrbit.dll for component metadata — it never touches the
+        # wwwroot css/js artefacts, so we don't need Node on the runner.
+        # Matches the same opt-out used by docs-api.yml.
+        run: dotnet build src/BlazOrbit/BlazOrbit.csproj -c Debug --no-restore -p:BlazOrbitBuildEnabled=false
 
       - name: Regenerate skill references
         shell: pwsh

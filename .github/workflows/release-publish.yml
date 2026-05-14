@@ -120,6 +120,18 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
+      - name: Setup Node
+        # `dotnet pack BlazOrbit.slnx` implicitly builds, which fires the
+        # BlazOrbit.Dev.targets `BuildBlazOrbitAssets` target on every TFM.
+        # That target invokes BuildTools, which currently requires Node.js
+        # even when the wwwroot/css and wwwroot/js artifacts are already
+        # committed in the repo. Mirror the build-and-test job's setup so
+        # the pack runs in the same toolchain instead of crashing with
+        # "Node.js is required to build BlazorUI".
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6
+        with:
+          node-version: '20'
+
       - name: Install WASM workload
         run: dotnet workload install wasm-tools
 
