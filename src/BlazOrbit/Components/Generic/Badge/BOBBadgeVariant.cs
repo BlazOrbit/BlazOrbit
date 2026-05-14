@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 /// <summary>
 /// Represents a variant definition for the <see cref="BOBBadge"/> component.

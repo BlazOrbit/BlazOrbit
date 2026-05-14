@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 /// <summary>
 /// Defines a styling pattern for rows (DataGrid) or cards (DataCards).

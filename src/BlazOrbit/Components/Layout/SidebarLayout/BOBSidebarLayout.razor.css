@@ -1,4 +1,4 @@
-﻿[data-bob-component="sidebar-layout"] {
+[data-bob-component="sidebar-layout"] {
     --_sidebar-layout-header-height: var(--bob-inline-header-height, 64px);
     --_sidebar-layout-sidebar-width: var(--bob-inline-sidebar-width, 280px);
     --_sidebar-layout-collapse: var(--bob-inline-collapse-breakpoint, 960px);

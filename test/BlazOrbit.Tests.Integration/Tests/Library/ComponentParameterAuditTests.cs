@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using Microsoft.AspNetCore.Components;
 using System.Reflection;
 using System.Runtime.CompilerServices;

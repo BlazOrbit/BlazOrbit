@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components.Layout;
+namespace BlazOrbit.Components.Layout;
 
 /// <summary>Configuration for a single toast: duration, position, animation, severity.</summary>
 public sealed class ToastOptions

@@ -1,4 +1,4 @@
-﻿[data-bob-component="chip"] {
+[data-bob-component="chip"] {
     --_chip-h: calc(1.75rem * var(--bob-size-multiplier, 1));
     --_chip-px: 0.625rem;
     --_chip-radius: 999px;

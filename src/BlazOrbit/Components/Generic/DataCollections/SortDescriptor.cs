@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 /// <summary>
 /// Single sort step inside a multi-column sort. Lower

@@ -1,4 +1,4 @@
-﻿# Icons
+# Icons
 
 Auto-generated catalog of every `IconKey` exposed under
 `BlazOrbit.Components.BOBIconKeys`. Always pass `IconKey?` parameters via

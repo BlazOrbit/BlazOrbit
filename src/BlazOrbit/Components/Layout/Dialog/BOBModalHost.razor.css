@@ -1,4 +1,4 @@
-﻿.bob-modal-host {
+.bob-modal-host {
     position: fixed;
     inset: 0;
     z-index: var(--bob-z-modal);

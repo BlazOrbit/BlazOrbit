@@ -1,4 +1,4 @@
-﻿# ADR-0001: Runtime State via `data-bob-*` Attributes Instead of BEM Modifiers
+# ADR-0001: Runtime State via `data-bob-*` Attributes Instead of BEM Modifiers
 
 **Status**: Accepted  
 **Date**: 2026-03-03  

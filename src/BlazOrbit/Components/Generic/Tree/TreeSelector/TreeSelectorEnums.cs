@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 /// <summary>Selection arity for a <c>BOBTreeSelector</c>.</summary>
 public enum TreeSelectionMode

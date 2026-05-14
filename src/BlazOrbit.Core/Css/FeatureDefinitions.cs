@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 /// <summary>
 /// Central definition of all CSS-related constants used by the BOB component library. Organized by

@@ -1,4 +1,4 @@
-﻿<bob-component data-bob-component="culture-selector" data-bob-variant="dropdown" data-bob-size="medium" class="bob-culture-selector" role="group" aria-label="Select language" b-<SCOPE>>
+<bob-component data-bob-component="culture-selector" data-bob-variant="dropdown" data-bob-size="medium" class="bob-culture-selector" role="group" aria-label="Select language" b-<SCOPE>>
 
 <bob-component data-bob-floated="true" data-bob-component="dropdown-container" data-bob-variant="flat" data-bob-input-base="true" data-bob-size="medium" data-bob-placement="auto" b-<SCOPE>><div class="bob-input__wrapper" b-<SCOPE> blazor:elementReference="">
                 

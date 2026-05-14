@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 /// <summary>
 /// Indicates the component supports a <see cref="BackgroundColor" /> parameter.

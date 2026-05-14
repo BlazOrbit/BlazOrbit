@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components.Utils.Patterns.DateTimePattern;
+namespace BlazOrbit.Components.Utils.Patterns.DateTimePattern;
 
 internal enum DateComponentType
 {

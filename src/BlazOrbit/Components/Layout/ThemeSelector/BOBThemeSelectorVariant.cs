@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components.Layout;
+namespace BlazOrbit.Components.Layout;
 
 /// <summary>Variant definition for the <c>BOBThemeSelector</c> component.</summary>
 public sealed class BOBThemeSelectorVariant : Variant

@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using System.Text.RegularExpressions;
 
 namespace BlazOrbit.Tests.Integration.Tests.Core;

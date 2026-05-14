@@ -1,4 +1,4 @@
-﻿# ADR-0004: Two-Tier CSS Architecture (Global Generated Bundle + Scoped Component CSS)
+# ADR-0004: Two-Tier CSS Architecture (Global Generated Bundle + Scoped Component CSS)
 
 **Status**: Accepted  
 **Date**: 2026-03-03  

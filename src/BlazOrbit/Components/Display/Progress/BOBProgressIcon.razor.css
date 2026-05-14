@@ -1,4 +1,4 @@
-﻿/* === BASE === */
+/* === BASE === */
 [data-bob-component="progress-icon"] {
     --_loading-size: 1.5rem;
     --_loading-color: var(--bob-inline-color, currentColor);

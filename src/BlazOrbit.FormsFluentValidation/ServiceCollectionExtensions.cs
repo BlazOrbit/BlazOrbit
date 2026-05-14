@@ -1,4 +1,4 @@
-﻿using FluentValidation;
+using FluentValidation;
 using System.Reflection;
 
 namespace Microsoft.Extensions.DependencyInjection;

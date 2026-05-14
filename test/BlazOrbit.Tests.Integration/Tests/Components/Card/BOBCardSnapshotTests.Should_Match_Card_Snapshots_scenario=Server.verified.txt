@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Name: Default,
     Html: <bob-component data-bob-media-position="top" data-bob-component="card" data-bob-variant="default" b-<SCOPE>><div class="bob-card" blazor:onclick="<EVENT>" b-<SCOPE>><div class="bob-card__content" b-<SCOPE>>Card body</div></div></bob-component>

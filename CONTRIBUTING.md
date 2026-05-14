@@ -1,4 +1,4 @@
-﻿# Contributing to BlazOrbit
+# Contributing to BlazOrbit
 
 Thank you for considering a contribution. This document covers everything you need to get started: local setup,
 architecture conventions, commit style, and the pull-request workflow.
@@ -22,6 +22,18 @@ the right to close threads that derail.
 
 No JavaScript toolchain is required. CSS and JS interop assets ship as committed hand-written source files; there is
 no Node, npm, Vite, esbuild or TypeScript step. `dotnet build` is enough.
+
+### File Encoding
+
+All text files in this repository are **UTF-8 without BOM**. `.editorconfig` declares `charset = utf-8` globally so
+IDEs (VS, Rider, VS Code) honor the policy on save. CI gates this via
+`pwsh ./scripts/fix-encoding-bom.ps1 -Check` in `preview-gate.yml`; the gate fails on:
+
+- Any file with a leading UTF-8 BOM (`EF BB BF`).
+- Any file whose bytes aren't valid UTF-8 (Latin-1 / CP1252 / mojibake).
+- Double BOM.
+
+To fix drift locally: `pwsh ./scripts/fix-encoding-bom.ps1` (rewrites every text file as UTF-8 no-BOM).
 
 ### Build & Test
 

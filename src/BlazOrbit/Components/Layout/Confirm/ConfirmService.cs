@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components.Layout.Services;
+using BlazOrbit.Components.Layout.Services;
 
 namespace BlazOrbit.Components.Layout;
 

@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components.Layout;
+namespace BlazOrbit.Components.Layout;
 
 /// <summary>Animation descriptor for toast enter/exit transitions.</summary>
 public sealed class ToastAnimation

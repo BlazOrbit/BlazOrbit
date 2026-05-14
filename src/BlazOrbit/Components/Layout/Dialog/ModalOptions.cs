@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components.Layout;
+namespace BlazOrbit.Components.Layout;
 
 /// <summary>
 /// Options for configuring a dialog modal.

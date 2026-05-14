@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Utilities;
+using BlazOrbit.Utilities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 

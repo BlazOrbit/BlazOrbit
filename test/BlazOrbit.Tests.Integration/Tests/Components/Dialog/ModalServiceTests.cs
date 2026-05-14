@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components.Layout;
+using BlazOrbit.Components.Layout;
 using BlazOrbit.Components.Layout.Services;
 using FluentAssertions;
 

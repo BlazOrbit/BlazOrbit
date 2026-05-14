@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Name: Empty,
     Html: <bob-component data-bob-component="toast-host" b-<SCOPE>></bob-component>

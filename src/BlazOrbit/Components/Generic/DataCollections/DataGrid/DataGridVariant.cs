@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 /// <summary>Variant definition for the <see cref="BOBDataGrid{TItem}"/> component.</summary>
 public sealed class DataGridVariant : Variant

@@ -1,4 +1,4 @@
-﻿# Component Catalog
+# Component Catalog
 
 Auto-generated from compiled assemblies. Lists every public component derived
 from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its

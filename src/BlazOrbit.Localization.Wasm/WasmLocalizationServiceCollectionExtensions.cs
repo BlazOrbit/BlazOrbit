@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Localization;
+using BlazOrbit.Localization;
 using BlazOrbit.Localization.Wasm;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using System.Globalization;

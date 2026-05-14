@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Charts.Components.Internal;
+namespace BlazOrbit.Charts.Components.Internal;
 
 /// <summary>
 /// Linear numeric scale: maps a domain interval [<see cref="DomainMin"/>,

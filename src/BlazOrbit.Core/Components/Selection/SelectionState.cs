@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Abstractions;
+namespace BlazOrbit.Abstractions;
 
 public sealed class SelectionState<TValue>
 {

@@ -1,4 +1,4 @@
-﻿[data-bob-component="button"] {
+[data-bob-component="button"] {
     --_button-height: calc(2.5rem * var(--bob-size-multiplier, 1));
     --_button-padding-x: 1rem;
     --_button-padding-y: 0.5rem;

@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Name: Default_Closed,
     Html:

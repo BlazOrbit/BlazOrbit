@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components.Layout;
+namespace BlazOrbit.Components.Layout;
 
 /// <summary>
 /// Represents a variant definition for the <see cref="BOBCard"/> component.

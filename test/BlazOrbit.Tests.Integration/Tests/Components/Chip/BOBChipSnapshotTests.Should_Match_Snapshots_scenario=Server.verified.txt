@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Name: Static,
     Html: <bob-component data-bob-component="chip" data-bob-size="medium" b-<SCOPE>><span class="bob-chip" b-<SCOPE>><span class="bob-chip__label" b-<SCOPE>>tag</span></span></bob-component>

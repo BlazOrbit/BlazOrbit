@@ -1,4 +1,4 @@
-﻿<Project>
+<Project>
     <!--
       Inherits root Directory.Build.props and elevates every warning to an error
       for all shipping code under src/.  Tests, docs, samples and tools live

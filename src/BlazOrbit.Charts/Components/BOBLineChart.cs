@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Charts.Abstractions;
+using BlazOrbit.Charts.Abstractions;
 using BlazOrbit.Charts.Components.Internal;
 using BlazOrbit.Charts.Models;
 using Microsoft.AspNetCore.Components;

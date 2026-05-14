@@ -1,5 +1,13 @@
-﻿# Remove the line below if you want to inherit .editorconfig settings from higher directories
+# Remove the line below if you want to inherit .editorconfig settings from higher directories
 root = true
+
+# Repo-wide encoding policy: UTF-8 without BOM.
+# Enforced by `scripts/fix-encoding-bom.ps1 -Check` in CI (preview-gate.yml).
+# Reason: BOM is neither required nor recommended by Unicode for UTF-8, breaks
+# shebangs on Linux/macOS, and `TnParser` / `JSON.parse` mis-handle the leading
+# U+FEFF byte.
+[*]
+charset = utf-8
 
 # C# files
 [*.cs]

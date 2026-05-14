@@ -1,4 +1,4 @@
-﻿[data-bob-component="tooltip"] {
+[data-bob-component="tooltip"] {
     position: relative;
     display: inline-flex;
     --bob-tooltip-max-width: 300px;

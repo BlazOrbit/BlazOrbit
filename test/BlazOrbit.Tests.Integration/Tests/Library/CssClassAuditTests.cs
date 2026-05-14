@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 

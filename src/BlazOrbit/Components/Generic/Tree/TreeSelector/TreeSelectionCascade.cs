@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 /// <summary>How selection toggles propagate across a tree.</summary>
 public enum TreeSelectionCascade

@@ -1,4 +1,4 @@
-﻿<Project>
+<Project>
     <!--
         Consumer-facing targets file. Shipped inside the NuGet package under `build/` and
         imported automatically by MSBuild on restore.

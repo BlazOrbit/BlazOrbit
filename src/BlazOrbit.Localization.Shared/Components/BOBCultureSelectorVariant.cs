@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 
 namespace BlazOrbit.Localization.Shared;
 

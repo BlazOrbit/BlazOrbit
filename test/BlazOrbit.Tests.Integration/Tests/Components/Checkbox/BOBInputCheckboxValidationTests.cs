@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Tests.Integration.Infrastructure;
+using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using BlazOrbit.Tests.Integration.Templates.Components.Consumers;
 using Bunit;

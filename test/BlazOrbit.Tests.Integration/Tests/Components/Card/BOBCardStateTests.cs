@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components;
 using BlazOrbit.Components.Layout;
 using BlazOrbit.Tests.Integration.Infrastructure;

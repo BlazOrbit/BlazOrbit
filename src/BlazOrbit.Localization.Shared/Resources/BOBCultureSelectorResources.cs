@@ -1,3 +1,3 @@
-﻿namespace BlazOrbit.Localization.Shared;
+namespace BlazOrbit.Localization.Shared;
 
 public sealed class BOBCultureSelectorResources;

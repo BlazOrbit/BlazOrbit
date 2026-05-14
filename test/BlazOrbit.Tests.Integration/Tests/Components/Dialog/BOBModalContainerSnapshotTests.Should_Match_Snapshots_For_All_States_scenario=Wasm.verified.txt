@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Name: Dialog_Default,
     Html: <div class="bob-modal-container" data-bob-visible="true" blazor:onclick:stopPropagation b-<SCOPE>><div class="bob-modal-dialog" style="min-width: 300px; max-width: 90vw; max-height: 90vh" b-<SCOPE>><div class="bob-modal-dialog__header" b-<SCOPE>><h2 class="bob-modal-dialog__title" b-<SCOPE>>Plain Dialog</h2></div><div class="bob-modal-dialog__content" b-<SCOPE>></div></div></div>

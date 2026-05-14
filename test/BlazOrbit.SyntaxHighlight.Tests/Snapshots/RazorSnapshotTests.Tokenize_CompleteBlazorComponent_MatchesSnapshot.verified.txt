@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Type: Directive,
     Value: @page

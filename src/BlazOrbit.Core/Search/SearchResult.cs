@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 public readonly record struct SearchResult<T>(T Item, double Score, SearchMatchType MatchType);
 

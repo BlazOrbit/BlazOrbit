@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Docs.Wasm.Layout;
+using BlazOrbit.Docs.Wasm.Layout;
 using BlazOrbit.Docs.Wasm.Models;
 using Microsoft.Extensions.Localization;
 using System.Text.RegularExpressions;

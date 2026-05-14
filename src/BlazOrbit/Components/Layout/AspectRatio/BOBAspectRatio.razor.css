@@ -1,4 +1,4 @@
-﻿[data-bob-component="aspect-ratio"] {
+[data-bob-component="aspect-ratio"] {
     --_aspect-ratio: var(--bob-inline-aspect-ratio, 16 / 9);
     display: block;
     /* aspect-ratio is supported across all evergreen browsers; we keep a flex inner box so

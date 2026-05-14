@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Diagnostics;

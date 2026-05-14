@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Name: ContainerLarge,
     Html: <bob-component data-bob-component="container" data-bob-size="large" b-<SCOPE>><p>body</p></bob-component>

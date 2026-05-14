@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.SyntaxHighlight.Tokens;
+namespace BlazOrbit.SyntaxHighlight.Tokens;
 
 /// <summary>
 /// Defines the types of tokens that can be produced by the syntax highlighter.

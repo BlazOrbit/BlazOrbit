@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Three modes:
  * 1. Default (no span, no auto): flex: 0 0 auto - fits content naturally
  * 2. Sized (has span): flex: 0 0 calc(...) - fixed column-based width

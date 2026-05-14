@@ -1,4 +1,4 @@
-﻿// BlazOrbit.Core\SourceGenerators\ColorClassGenerator.cs
+// BlazOrbit.Core\SourceGenerators\ColorClassGenerator.cs
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;

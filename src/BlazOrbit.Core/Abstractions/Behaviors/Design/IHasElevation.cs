@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 /// <summary>
 /// Indicates the component supports an <see cref="Elevation" /> parameter — a Material Design

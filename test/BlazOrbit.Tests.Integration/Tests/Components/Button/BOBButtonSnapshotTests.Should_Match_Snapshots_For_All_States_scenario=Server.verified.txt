@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Name: Default,
     Html: <bob-component data-bob-component="button" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><button type="button" blazor:onclick="<EVENT>" class="transition-target" b-<SCOPE> blazor:elementReference="<GUID>"><span class="bob-button__text" b-<SCOPE>>Default Button</span></button></bob-component>

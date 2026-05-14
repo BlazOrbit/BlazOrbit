@@ -1,4 +1,4 @@
-﻿# ADR-0003: Fingerprint Cache with Volatile Attribute Patching
+# ADR-0003: Fingerprint Cache with Volatile Attribute Patching
 
 **Status**: Accepted  
 **Date**: 2026-03-03 (revised 2026-05-06)  

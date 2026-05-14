@@ -1,4 +1,4 @@
-﻿[data-bob-component="grid"] {
+[data-bob-component="grid"] {
     --columns: 12;
     --gap: 1rem;
     display: flex;

@@ -1,4 +1,4 @@
-﻿[data-bob-component="tabs"] {
+[data-bob-component="tabs"] {
     display: flex;
     flex-direction: column;
 }

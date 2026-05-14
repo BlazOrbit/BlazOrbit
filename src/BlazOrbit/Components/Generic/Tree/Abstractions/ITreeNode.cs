@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 /// <summary>Non-generic projection of a tree node — used by infrastructure that walks heterogeneous trees.</summary>
 public interface ITreeNode

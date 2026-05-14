@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 
 namespace BlazOrbit.Tests.Integration.Tests.Library;
 

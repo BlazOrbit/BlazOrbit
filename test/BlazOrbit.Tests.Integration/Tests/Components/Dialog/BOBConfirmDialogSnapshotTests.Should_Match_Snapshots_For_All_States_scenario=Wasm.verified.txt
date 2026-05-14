@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Name: Info_Default,
     Html:

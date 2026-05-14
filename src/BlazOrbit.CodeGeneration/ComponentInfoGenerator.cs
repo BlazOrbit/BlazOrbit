@@ -1,4 +1,4 @@
-﻿// ComponentInfoGenerator.cs
+// ComponentInfoGenerator.cs
 // Proyecto: BlazOrbit.Generator  (netstandard2.0)
 //
 // PIPELINE OVERVIEW

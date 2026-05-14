@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Charts.Components;
+namespace BlazOrbit.Charts.Components;
 
 /// <summary>
 /// Donut chart — annular distribution. Identical to <see cref="BOBPieChart{TY}"/>

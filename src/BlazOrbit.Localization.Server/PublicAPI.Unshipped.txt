@@ -1,4 +1,4 @@
-﻿#nullable enable
+#nullable enable
 BlazOrbit.Localization.Server.Components._Imports
 BlazOrbit.Localization.Server.Components._Imports.Execute() -> void
 BlazOrbit.Localization.Server.Components._Imports._Imports() -> void

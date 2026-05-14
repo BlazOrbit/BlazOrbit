@@ -1,4 +1,4 @@
-﻿[data-bob-component="input-number"] .bob-input__field {
+[data-bob-component="input-number"] .bob-input__field {
     font-variant-numeric: tabular-nums;
     font-feature-settings: 'tnum';
 }

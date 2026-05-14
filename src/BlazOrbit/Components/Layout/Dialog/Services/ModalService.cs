@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components.Layout.Services;
+namespace BlazOrbit.Components.Layout.Services;
 
 /// <summary>Coordinates dialog and drawer modals — opening, closing, and stack ordering.</summary>
 public interface IModalService

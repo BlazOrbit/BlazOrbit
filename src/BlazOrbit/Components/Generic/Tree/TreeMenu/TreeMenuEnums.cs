@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 /// <summary>Layout orientation for a <c>BOBTreeMenu</c>.</summary>
 public enum TreeMenuOrientation

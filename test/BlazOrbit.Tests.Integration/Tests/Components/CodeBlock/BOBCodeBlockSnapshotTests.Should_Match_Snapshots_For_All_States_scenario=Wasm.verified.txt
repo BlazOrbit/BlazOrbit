@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Name: CSharp_Default,
     Html:

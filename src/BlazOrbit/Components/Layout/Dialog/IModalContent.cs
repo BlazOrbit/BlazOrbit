@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components.Layout;
+namespace BlazOrbit.Components.Layout;
 
 /// <summary>Contract implemented by components hosted inside a dialog or drawer modal.</summary>
 public interface IModalContent

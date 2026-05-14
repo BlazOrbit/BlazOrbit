@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Tests.Integration.Infrastructure;
+using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
 using ServerSelector = BlazOrbit.Components.Server.BOBCultureSelector;

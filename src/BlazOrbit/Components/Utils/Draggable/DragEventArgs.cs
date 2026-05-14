@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components.Utils.Draggable;
+namespace BlazOrbit.Components.Utils.Draggable;
 
 /// <summary>Pointer position payload for drag events raised by <c>BOBDraggable</c>.</summary>
 public readonly struct DragEventArgs

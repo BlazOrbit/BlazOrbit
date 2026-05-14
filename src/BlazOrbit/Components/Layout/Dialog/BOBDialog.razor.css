@@ -1,4 +1,4 @@
-﻿[data-bob-component="dialog"] {
+[data-bob-component="dialog"] {
     position: fixed;
     inset: 0;
     z-index: var(--bob-z-modal);

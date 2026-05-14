@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Abstractions;
+namespace BlazOrbit.Abstractions;
 
 internal sealed class DelayedActionHandler : IDisposable
 {

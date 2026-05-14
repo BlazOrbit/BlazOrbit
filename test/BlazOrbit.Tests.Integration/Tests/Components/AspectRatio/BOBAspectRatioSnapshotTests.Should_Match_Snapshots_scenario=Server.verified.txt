@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Name: Default,
     Html: <bob-component data-bob-component="aspect-ratio" style="--bob-inline-aspect-ratio: 16 / 9" b-<SCOPE>><div class="bob-aspect-ratio__inner" b-<SCOPE>><div>x</div></div></bob-component>

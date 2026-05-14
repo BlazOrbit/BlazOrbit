@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Localization.Server;
+using BlazOrbit.Localization.Server;
 using FluentAssertions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

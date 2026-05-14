@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 /// <summary>Variant definition for the <see cref="BOBDataCards{TItem}"/> component.</summary>
 public sealed class DataCardsVariant : Variant

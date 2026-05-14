@@ -1,4 +1,4 @@
-﻿[data-bob-component="input-radio"] {
+[data-bob-component="input-radio"] {
     --_color: var(--bob-inline-color, var(--palette-primary));
     --_size: calc(1.25rem * var(--bob-size-multiplier, 1));
     --_gap: calc(0.5rem * var(--bob-density-multiplier));

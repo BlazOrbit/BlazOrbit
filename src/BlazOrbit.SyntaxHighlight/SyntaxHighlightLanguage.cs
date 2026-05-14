@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.SyntaxHighlight;
+namespace BlazOrbit.SyntaxHighlight;
 
 /// <summary>
 /// Defines the languages supported by the syntax highlighter.

@@ -1,4 +1,4 @@
-﻿// Captures the `beforeinstallprompt` event so the docs site can offer a
+// Captures the `beforeinstallprompt` event so the docs site can offer a
 // custom "Install app" CTA instead of the browser's default. Lives as an
 // external file (rather than inline in index.html) so it works under a
 // strict CSP `script-src 'self'` directive.

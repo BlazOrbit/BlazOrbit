@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components.Layout;
+namespace BlazOrbit.Components.Layout;
 
 /// <summary>
 /// Represents a reference to an open modal, allowing programmatic control over its lifecycle.

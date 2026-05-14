@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 /// <summary>
 /// Public, stable subset of the BlazOrbit CSS/DOM contract that consumers can reference

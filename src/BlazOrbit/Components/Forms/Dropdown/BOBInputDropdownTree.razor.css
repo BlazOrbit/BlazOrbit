@@ -1,4 +1,4 @@
-﻿.bob-dropdown__tree-content {
+.bob-dropdown__tree-content {
     padding: calc(0.5rem * var(--bob-size-multiplier, 1));
 }
 

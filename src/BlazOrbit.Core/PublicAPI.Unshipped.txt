@@ -1,4 +1,4 @@
-﻿#nullable enable
+#nullable enable
 BlazOrbit.Abstractions.BOBComponentBase
 BlazOrbit.Abstractions.BOBComponentBase.AdditionalAttributes.get -> System.Collections.Generic.IReadOnlyDictionary<string!, object!>?
 BlazOrbit.Abstractions.BOBComponentBase.AdditionalAttributes.set -> void

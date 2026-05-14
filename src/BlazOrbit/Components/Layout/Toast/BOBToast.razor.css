@@ -1,4 +1,4 @@
-﻿/* === Feedback/Toast/BOBToast.razor.css === */
+/* === Feedback/Toast/BOBToast.razor.css === */
 
 [data-bob-component="toast"] {
     --_toast-background: var(--palette-surface);

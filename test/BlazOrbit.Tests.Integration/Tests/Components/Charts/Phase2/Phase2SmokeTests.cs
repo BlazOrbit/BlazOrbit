@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Charts.Components;
+using BlazOrbit.Charts.Components;
 using BlazOrbit.Charts.Enums;
 using BlazOrbit.Charts.Models;
 using BlazOrbit.Tests.Integration.Infrastructure;

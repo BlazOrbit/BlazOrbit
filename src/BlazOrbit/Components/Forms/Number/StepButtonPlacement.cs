@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components.Forms;
+namespace BlazOrbit.Components.Forms;
 
 /// <summary>
 /// Defines the placement of step buttons in numeric input components.

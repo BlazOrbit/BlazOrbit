@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Charts.Components.Internal;
+namespace BlazOrbit.Charts.Components.Internal;
 
 /// <summary>
 /// Discrete categorical scale: each distinct domain value gets an equally

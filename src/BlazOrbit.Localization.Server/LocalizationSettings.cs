@@ -1,4 +1,4 @@
-﻿using BaseLocalizationSettings = BlazOrbit.Localization.LocalizationSettings;
+using BaseLocalizationSettings = BlazOrbit.Localization.LocalizationSettings;
 
 namespace BlazOrbit.Localization.Server;
 

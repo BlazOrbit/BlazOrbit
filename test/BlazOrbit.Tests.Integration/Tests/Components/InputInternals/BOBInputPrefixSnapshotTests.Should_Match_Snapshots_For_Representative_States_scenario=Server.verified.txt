@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Name: TextOnly,
     Html: <div class="_bob-addon bob-input__addon--prefix" b-<SCOPE>><span>$</span></div>

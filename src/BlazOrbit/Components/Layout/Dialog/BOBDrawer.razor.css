@@ -1,4 +1,4 @@
-﻿[data-bob-component="drawer"] {
+[data-bob-component="drawer"] {
     position: fixed;
     inset: 0;
     z-index: var(--bob-z-modal);

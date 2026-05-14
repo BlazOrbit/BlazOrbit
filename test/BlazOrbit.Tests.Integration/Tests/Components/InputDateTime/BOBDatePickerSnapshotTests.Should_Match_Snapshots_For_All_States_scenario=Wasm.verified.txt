@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Name: With_Value_June_15_2024,
     Html:

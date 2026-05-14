@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Abstractions;
+using BlazOrbit.Abstractions;
 using BlazOrbit.Utilities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;

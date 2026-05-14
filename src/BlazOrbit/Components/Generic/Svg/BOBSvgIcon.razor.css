@@ -1,4 +1,4 @@
-﻿[data-bob-component="svg-icon"] {
+[data-bob-component="svg-icon"] {
     --_svg-icon-color: var(--bob-inline-color, currentColor);
     min-width: 1em;
     min-height: 1em;

@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 /// <summary>Event payload raised by tree components for node-level interactions.</summary>
 public sealed class TreeNodeEventArgs<TNode> : EventArgs

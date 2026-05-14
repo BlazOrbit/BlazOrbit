@@ -1,4 +1,4 @@
-﻿// SnapshotTests/CssSnapshotTests.cs
+// SnapshotTests/CssSnapshotTests.cs
 
 using BlazOrbit.SyntaxHighlight.Languages;
 using BlazOrbit.SyntaxHighlight.Tokens;

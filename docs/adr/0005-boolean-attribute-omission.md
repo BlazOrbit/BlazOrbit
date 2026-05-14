@@ -1,4 +1,4 @@
-﻿# ADR-0005: Boolean Attribute Omission Convention
+# ADR-0005: Boolean Attribute Omission Convention
 
 **Status**: Accepted  
 **Date**: 2026-03-03  

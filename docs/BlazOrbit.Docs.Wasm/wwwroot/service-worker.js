@@ -1,4 +1,4 @@
-﻿// Network-first service worker for the BlazOrbit docs site.
+// Network-first service worker for the BlazOrbit docs site.
 //
 // Bump CACHE_VERSION on every shell change. The `activate` handler deletes
 // any cache that does not match — old shells are evicted on the next visit.

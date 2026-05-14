@@ -1,4 +1,4 @@
-﻿let hero = null;
+let hero = null;
 let rafId = 0;
 let targetMx = 0, targetMy = 0;
 let curMx = 0, curMy = 0;

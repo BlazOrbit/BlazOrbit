@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Abstractions;
+using BlazOrbit.Abstractions;
 using BlazOrbit.Charts.Abstractions;
 using BlazOrbit.Charts.Enums;
 using BlazOrbit.Charts.Services.JsInterop;

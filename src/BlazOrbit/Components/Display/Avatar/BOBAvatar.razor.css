@@ -1,4 +1,4 @@
-﻿[data-bob-component="avatar"] {
+[data-bob-component="avatar"] {
     --_avatar-size: calc(2.5rem * var(--bob-size-multiplier, 1));
     --_avatar-radius-circle: 50%;
     --_avatar-radius-rounded: 0.5rem;

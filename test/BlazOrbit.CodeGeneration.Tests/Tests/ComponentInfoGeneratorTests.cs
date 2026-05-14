@@ -1,4 +1,4 @@
-﻿using BlazOrbit.CodeGeneration.Tests.Infrastructure;
+using BlazOrbit.CodeGeneration.Tests.Infrastructure;
 using BlazOrbit.Generator;
 using FluentAssertions;
 
