@@ -51,16 +51,16 @@ public class BlazOrbitStaticWebAssetsPackTests
         // BlazOrbit — main design system. Loaded via BOBInitializer + every template's
         // App.razor / index.html through `_content/BlazOrbit/css/blazorbit.css` and
         // the JSModulesReference constants.
-        new object[] { "BlazOrbit", "net8.0",  new[] { "css/blazorbit.css", "js/Types/Theme/ThemeInterop.min.js" } },
-        new object[] { "BlazOrbit", "net10.0", new[] { "css/blazorbit.css", "js/Types/Theme/ThemeInterop.min.js" } },
+        new object[] { "BlazOrbit", "net8.0",  new[] { "css/blazorbit.css", "js/Types/Theme/ThemeInterop.js" } },
+        new object[] { "BlazOrbit", "net10.0", new[] { "css/blazorbit.css", "js/Types/Theme/ThemeInterop.js" } },
 
         // BlazOrbit.Charts — SVG-native charts. `_content/BlazOrbit.Charts/...` paths.
-        new object[] { "BlazOrbit.Charts", "net8.0",  new[] { "css/blazorbit-charts.css", "js/Types/Chart/ChartInterop.min.js" } },
-        new object[] { "BlazOrbit.Charts", "net10.0", new[] { "css/blazorbit-charts.css", "js/Types/Chart/ChartInterop.min.js" } },
+        new object[] { "BlazOrbit.Charts", "net8.0",  new[] { "css/blazorbit-charts.css", "js/Types/Chart/ChartInterop.js" } },
+        new object[] { "BlazOrbit.Charts", "net10.0", new[] { "css/blazorbit-charts.css", "js/Types/Chart/ChartInterop.js" } },
 
         // BlazOrbit.Hotkeys — keyboard registry. JS-only (no scoped CSS).
-        new object[] { "BlazOrbit.Hotkeys", "net8.0",  new[] { "js/Hotkey/HotkeyInterop.min.js" } },
-        new object[] { "BlazOrbit.Hotkeys", "net10.0", new[] { "js/Hotkey/HotkeyInterop.min.js" } },
+        new object[] { "BlazOrbit.Hotkeys", "net8.0",  new[] { "js/Hotkey/HotkeyInterop.js" } },
+        new object[] { "BlazOrbit.Hotkeys", "net10.0", new[] { "js/Hotkey/HotkeyInterop.js" } },
     };
 
     [Theory]

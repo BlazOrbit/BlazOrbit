@@ -306,22 +306,29 @@ impossible because the rule only fires on properties whose reflected type is `Ev
 
 Two layers ship with the library:
 
-1. **Global bundle** (generated) — `src/BlazOrbit.BuildTools/Generators/` write into `src/BlazOrbit/CssBundle/`; Vite
-   bundles them into `wwwroot/css/blazorbit.css`. Edit the generator, never the generated `.css`.
+1. **Global bundle** — hand-written `src/BlazOrbit/wwwroot/css/blazorbit.css`. Single source of truth, no minify,
+   no transpile, no generator. Edit the file directly in the matching section.
 2. **Scoped component CSS** (hand-written `.razor.css` next to the `.razor`) — scoped per-component by Blazor CSS
    isolation.
 
-The bundle's `@import` chain is fixed in `BuildTemplates.GetMainCssTemplate()`:
+The bundle's canonical section order:
 
 ```
-1. Reset & Base       → _reset.css, _typography.css
-2. Theme Variables    → _themes.css, _initialize-themes.css
-3. Universal styles   → _tokens.css, _base.css, _scrollbar.css, _transition-classes.css
-4. Family-based       → _input-family.css, _picker-family.css, _data-collection-family.css
+1. Reset
+2. Typography
+3. Themes              → palette tokens (default + light)
+4. Body + palette utility classes
+5. Component tokens    → z-index, opacity, sizes, density, borders, ripple
+6. Base component shell (bob-component + size/density/state)
+7. Scrollbar (opt-in)
+8. Transition utilities (hover/focus/active)
+9. Input family        → variants: outlined / filled / standard / flat
+10. Picker family
+11. Data collection family
 ```
 
-Order matters — later layers depend on tokens / variables emitted by earlier ones. When adding a new generator, place
-its `@import` in the correct phase and update `BuildTemplates.GetMainCssTemplate()` in the same change.
+Order matters — later sections depend on tokens / variables emitted by earlier ones. When adding a new rule, place
+it in the matching section; introduce a new section only when the existing ones genuinely don't fit.
 
 > See ADR-0004 for the trade-off analysis that led to the global + scoped CSS split.
 
@@ -449,12 +456,15 @@ lets consumers edit both surfaces live and export JSON / CSS / C#.
 
 ### Behavior Module Pattern
 
-JavaScript-backed enhancements ship as TypeScript modules under `src/BlazOrbit/Types/<Feature>/<Feature>Interop.ts`,
-bundled by Vite into `wwwroot/js/Types/<Feature>/<Feature>Interop.min.js`. Conventions:
+JavaScript-backed enhancements ship as hand-written JSDoc-typed ESM modules at
+`src/BlazOrbit/wwwroot/js/Types/<Feature>/<Feature>Interop.js`. No transpile step, no bundler — the file on disk is
+the file the browser loads. Conventions:
 
-- **Source location**: one folder per feature under `Types/`. Filename is always `<Feature>Interop.ts`.
-- **Reference constant**: every module gets a `public const string` in `BlazOrbit.Types.JSModulesReference` pointing to
-  the `_content/BlazOrbit/js/Types/<Feature>/<Feature>Interop.min.js` static asset.
+- **Source location**: one folder per feature under `wwwroot/js/Types/`. Filename is always `<Feature>Interop.js`.
+- **Typing**: use JSDoc `@typedef` for shape types, `@param`/`@returns` on every exported function. IDEs and `tsc`
+  in `checkJs` mode can lint these without a build step.
+- **Reference constant**: every module gets a `public const string` in `BlazOrbit.Types.JSModulesReference` pointing
+  to the `_content/BlazOrbit/js/Types/<Feature>/<Feature>Interop.js` static asset.
 - **Component entry**: components import the module via
   `IJSObjectReference module = await JS.InvokeAsync<IJSObjectReference>("import", JSModulesReference.<Name>)` inside
   `OnAfterRenderAsync(firstRender: true)`, guarded by the 5-tuple catch (4-tuple + `JSException`).
@@ -591,17 +601,18 @@ to stay in sync. If you add a new public component, build once, then run the aut
 
 ## Build Pipeline
 
-CI build order: `CodeGeneration` → `Core` → `Main` → `BuildTools`. Mirror this when building incrementally if
-analyzers/generators behave oddly.
+CI build order: `CodeGeneration` → `Core` → `Main` → satellites (`Charts`, `Hotkeys`, `Localization.*`,
+`Notifications`, `FormsFluentValidation`). Mirror this when building incrementally if analyzers/generators behave
+oddly.
 
-Generated assets (do not hand-edit):
+Static assets are **hand-written source files**, committed to the repo and shipped as `staticwebassets/` in each
+nupkg:
 
-- `src/BlazOrbit/CssBundle/*.css`
-- `src/BlazOrbit/wwwroot/css/*`
-- `src/BlazOrbit/wwwroot/js/*`
-- `src/BlazOrbit/package.json`, `tsconfig.json`, `vite.config*.js`, `.npmrc`
+- `src/BlazOrbit/wwwroot/css/blazorbit.css` — single global bundle.
+- `src/BlazOrbit/wwwroot/js/Types/<Feature>/<Feature>Interop.js` — JSDoc-typed ESM modules, one per feature.
+- Same pattern in `src/BlazOrbit.Charts/wwwroot/` and `src/BlazOrbit.Hotkeys/wwwroot/`.
 
-Edit the corresponding `[AssetGenerator]` or `[BuildTemplate]` under `src/BlazOrbit.BuildTools/` instead.
+No transpile step, no bundler, no Node, no Vite. `dotnet build` is all consumers and contributors need.
 
 ### `[AssetGenerator]` vs `[BuildTemplate]`
 

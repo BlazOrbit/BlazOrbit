@@ -19,4 +19,4 @@ For tutorials, live examples, and theming guides, see the official documentation
 | [`BlazOrbit.Hotkeys`](xref:BlazOrbit.Hotkeys) | Global keyboard shortcut registry (document-level keydown, scope-aware registration). |
 | `BlazOrbit.FormsFluentValidation` | FluentValidation adapter for `EditContext`. |
 
-Source generators (`BlazOrbit.CodeGeneration`, `BlazOrbit.Core.CodeGeneration`) and the build-time tool (`BlazOrbit.BuildTools`) are intentionally omitted — consumers do not reference them directly.
+Source generators (`BlazOrbit.CodeGeneration`, `BlazOrbit.Core.CodeGeneration`) are intentionally omitted — consumers do not reference them directly.

@@ -433,6 +433,8 @@ content lives. Warm white-pink hue echoes the brand gradient.
 /* ── Hero content ────────────────────────────────────────────────*/
 
 .hero__content {
+    display: flex;
+    flex-direction: column;
     position: relative;
     z-index: 1;
     max-width: 640px;
@@ -456,6 +458,8 @@ content lives. Warm white-pink hue echoes the brand gradient.
     font-weight: 600;
     letter-spacing: 0.05em;
     color: color-mix(in oklab, var(--palette-surface-contrast) 55%, var(--palette-surface));
+    width: fit-content;
+    align-self: center;
 }
 
 .hero__badge-dot {

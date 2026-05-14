@@ -258,9 +258,8 @@ Drop the bell badge into your navbar:
 | `BlazOrbit.FormsFluentValidation` | Integration with `FluentValidation` for BlazOrbit forms.                                                                                                       |
 | `BlazOrbit.Templates`             | `dotnet new` templates — `blazorbit-server` and `blazorbit-wasm` with optional localization, charts, notifications, and hotkeys.                               |
 
-> `BlazOrbit.BuildTools`, `BlazOrbit.Charts.BuildTools`, and `BlazOrbit.Hotkeys.BuildTools` live in the monorepo as
-> build-time scaffolding (CSS + TypeScript pipelines) and are **not** published to NuGet — consumers receive the pre-built
-> CSS / `.min.js` as static web assets and never need Node, npm, esbuild or these tools installed.
+> CSS and JS assets ship pre-built (hand-written, committed) as static web assets. Consumers never need Node, npm,
+> Vite, esbuild or any JS toolchain installed; `dotnet build` is enough.
 
 ## Localization (BOBLocalize)
 
@@ -380,9 +379,8 @@ request culture and WASM takes over after boot.
 - **`.dotnet new` templates** — `blazorbit-server` + `blazorbit-wasm` with `IncludeLocalization`, `IncludeCharts`,
   `UseNotificationsCenter`, `UseHotKeys`, and `Theme` flags. Optional packages replace the showcase Home with targeted
   demos (dashboard for charts, inbox for notifications, shortcuts for hotkeys).
-- **`BlazOrbit.BuildTools`** — generates `CssBundle/`, `package.json`, `tsconfig.json`, Vite config, and
-  `wwwroot/css/blazorbit.css` at consumer build time. No Node required; the tool ships a packed esbuild.
-- **`BlazOrbit.Charts.BuildTools`** — same pattern for the chart-family TypeScript interop.
+- **Hand-written assets** — `wwwroot/css/blazorbit.css` and `wwwroot/js/Types/**/*.js` are committed source files
+  in every BlazOrbit package. No CSS generator, no TypeScript transpile, no Node, no Vite. `dotnet build` is enough.
 - **Public API tracking** — `RoslynAnalyzers.PublicApi` enabled on every package; no symbol leaks across releases.
 - **`scripts/`** — one-shot helpers for testing templates end-to-end (`test-templates.ps1`), seeding local NuGet feeds,
   dev / release builds.

@@ -1,6 +1,4 @@
-﻿// Auto-migrated from ChartsPage.es.resx. Edit freely from now on.
-
-# Active users
+﻿# Active users
 Usuarios activos
 
 # All charts are rendered as pure SVG with no external JavaScript dependencies. They support responsive sizing, tooltips, export to PNG, and full keyboard accessibility.

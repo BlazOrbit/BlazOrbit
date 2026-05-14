@@ -1,9 +1,7 @@
 /*
  * BlazOrbit.Charts — family-shared stylesheet.
  *
- * Hand-authored for now; once `BlazOrbit.Charts.BuildTools` lands (planned for
- * a later phase) this file will be generated from `CssBundle/*.css` sources
- * via the same generator pattern that BlazOrbit.BuildTools uses.
+ * Hand-written, single source of truth. No generator, no bundler.
  *
  * Selector convention:
  *   - [data-bob-data-visualization-base] scopes everything to the chart family.

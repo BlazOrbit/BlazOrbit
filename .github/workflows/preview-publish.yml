@@ -1,4 +1,4 @@
-# .github/workflows/preview-publish.yml
+﻿# .github/workflows/preview-publish.yml
 # Publishes preview NuGet packages + matching .skill from develop on demand.
 # Version is read from <VersionPrefix> in Directory.Build.props and suffixed
 # with -preview.<run-number>.
@@ -112,27 +112,18 @@ jobs:
           cache: true
           cache-dependency-path: '**/*.csproj'
 
-      - name: Setup Node
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6
-        with:
-          node-version: '20'
-
       - name: Install WASM workload
         run: dotnet workload install wasm-tools
 
       - name: Restore dependencies
         run: dotnet restore BlazOrbit.slnx
 
-      - name: Build BuildTools (Release)
-        run: dotnet build src/BlazOrbit.BuildTools/BlazOrbit.BuildTools.csproj -c Release --no-restore -p:TreatWarningsAsErrors=true
-
       - name: Build (Release)
         run: dotnet build BlazOrbit.slnx -c Release --no-restore -p:TreatWarningsAsErrors=true
 
       - name: Test
-        # Category!=Perf excludes timing-based perf guards (e.g. PERF-05) that flake
-        # on shared/self-hosted CI runners due to JIT/GC noise. Maintainers still run
-        # the full set locally via tests-release.ps1 / tests-debug.ps1.
+        # Category!=Perf excludes timing-based perf guards that flake
+        # on shared/self-hosted CI runners due to JIT/GC noise.
         run: dotnet test BlazOrbit.slnx -c Release --no-build --verbosity normal --filter "Category!=Perf"
 
   pack:
@@ -150,18 +141,6 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Setup Node
-        # `dotnet pack BlazOrbit.slnx` implicitly builds, which fires the
-        # BlazOrbit.Dev.targets `BuildBlazOrbitAssets` target on every TFM.
-        # That target invokes BuildTools, which currently requires Node.js
-        # even when the wwwroot/css and wwwroot/js artifacts are already
-        # committed in the repo. Mirror the build-and-test job's setup so
-        # the pack runs in the same toolchain instead of crashing with
-        # "Node.js is required to build BlazorUI".
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6
-        with:
-          node-version: '20'
-
       - name: Install WASM workload
         run: dotnet workload install wasm-tools
 
@@ -171,9 +150,9 @@ jobs:
       - name: Pack packages
         shell: bash
         run: |
-          # Capture pack output to scan for NU5xxx packaging warnings (PKG-07).
+          # Capture pack output to scan for NU5xxx packaging warnings.
           # Mirror the audit policy of release-publish.yml — preview is the
-          # canary that must surface structural regressions before they reach
+          # canary that surfaces structural regressions before they reach
           # the stable feed.
           set -o pipefail
           dotnet pack BlazOrbit.slnx \
@@ -272,7 +251,7 @@ jobs:
               "lib/$tfm/BlazOrbit.Charts.dll" \
               "lib/$tfm/BlazOrbit.Charts.xml" \
               "staticwebassets/css/blazorbit-charts.css" \
-              "staticwebassets/js/Types/Chart/ChartInterop.min.js" \
+              "staticwebassets/js/Types/Chart/ChartInterop.js" \
               "README.md" \
               "icon.png"
 
@@ -324,7 +303,7 @@ jobs:
             assert_in_pkg "$PKG" \
               "lib/$tfm/BlazOrbit.Hotkeys.dll" \
               "lib/$tfm/BlazOrbit.Hotkeys.xml" \
-              "staticwebassets/js/Hotkey/HotkeyInterop.min.js" \
+              "staticwebassets/js/Hotkey/HotkeyInterop.js" \
               "README.md" \
               "icon.png"
           done

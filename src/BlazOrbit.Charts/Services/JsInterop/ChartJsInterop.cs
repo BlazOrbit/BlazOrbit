@@ -9,10 +9,6 @@ namespace BlazOrbit.Charts.Services.JsInterop;
 /// <c>_content/BlazOrbit.Charts/js/Types/Chart/ChartInterop.js</c> on the
 /// first call and forwards every member to the underlying ES module.
 /// <para>
-/// The TypeScript source for the bundled module lives at
-/// <c>src/BlazOrbit.Charts/wwwroot/js/Types/Chart/ChartInterop.ts</c> and is
-/// shipped pre-bundled via the BlazOrbit.Charts.BuildTools chain (added in
-/// the bar-chart phase, when JS interop becomes useful).
 /// </para>
 /// <para>
 /// All public methods follow the BlazOrbit teardown contract: each call is
@@ -22,7 +18,7 @@ namespace BlazOrbit.Charts.Services.JsInterop;
 /// </summary>
 public sealed class ChartJsInterop : ModuleJsInteropBase, IChartJsInterop
 {
-    private const string ModulePath = "./_content/BlazOrbit.Charts/js/Types/Chart/ChartInterop.min.js";
+    private const string ModulePath = "./_content/BlazOrbit.Charts/js/Types/Chart/ChartInterop.js";
 
     /// <summary>
     /// Initializes a new <see cref="ChartJsInterop"/> bound to the supplied

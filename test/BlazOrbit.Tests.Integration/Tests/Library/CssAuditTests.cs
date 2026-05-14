@@ -45,10 +45,10 @@ public class CssAuditTests
     private static readonly Regex DataAttrSelector =
         new(@"\[data-bob-" + NamePart, RegexOptions.Compiled);
 
-    // TypeScript references can appear inside quotes, backticks (template literals),
+    // JS references can appear inside quotes, backticks (template literals),
     // or even concatenated strings. We use the same extractor as C#/Razor since the
-    // literal prefix 'data-bob-' is unambiguous inside .ts files.
-    private static readonly Regex DataAttrInTypeScript = DataAttrLiteral;
+    // literal prefix 'data-bob-' is unambiguous inside .js files.
+    private static readonly Regex DataAttrInJs = DataAttrLiteral;
 
     private static readonly Regex InlineVarReference =
         new(@"var\(\s*--bob-inline-" + NamePart, RegexOptions.Compiled);
@@ -96,24 +96,25 @@ public class CssAuditTests
     {
         HashSet<string> dom = ExtractFromCode();
         HashSet<string> css = ExtractFromCss();
-        HashSet<string> ts = ExtractFromTypeScript();
+        HashSet<string> js = ExtractFromJs();
 
-        // Any attribute referenced in TS is considered a legitimate JS sink;
+        // Any attribute referenced in JS is considered a legitimate JS sink;
         // it does not need a CSS selector and does not need a manual allowlist entry.
         IEnumerable<string> orphans = dom
             .Except(css)
-            .Except(ts)
+            .Except(js)
             .Except(DomOnlyAllowlist.Keys)
             .OrderBy(s => s, StringComparer.Ordinal);
 
         orphans.Should().BeEmpty(
             "every data-bob-* the code writes onto the DOM must be selected by at least one " +
-            "CSS rule, or be consumed by TypeScript under src/BlazOrbit/Types. " +
+            "CSS rule, or be consumed by JS under src/BlazOrbit/wwwroot/js. " +
             "Otherwise the attribute is dead weight or styling is missing. Add the " +
-            "matching selector under src/BlazOrbit/CssBundle (global) or alongside " +
+            "matching selector to wwwroot/css/blazorbit.css (global) or alongside " +
             "the component's .razor.css (scoped). If the attribute is a pure JS sink, " +
-            "reference it in TypeScript so the auto-detector picks it up, or add a " +
-            "justified entry to DomOnlyAllowlist.\n\nOffending attributes:\n  " +
+            "reference it in the matching wwwroot/js/Types/<Feature>/<Feature>Interop.js " +
+            "so the auto-detector picks it up, or add a justified entry to " +
+            "DomOnlyAllowlist.\n\nOffending attributes:\n  " +
             string.Join("\n  ", orphans.Select(o => $"data-bob-{o}")));
     }
 
@@ -174,13 +175,13 @@ public class CssAuditTests
 
         List<string> stale = [];
 
-        HashSet<string> ts = ExtractFromTypeScript();
+        HashSet<string> js = ExtractFromJs();
 
         foreach (string key in DomOnlyAllowlist.Keys)
         {
             // A DOM-only entry is stale if (a) the code no longer emits it, OR
             // (b) CSS now selects on it (gap closed), OR
-            // (c) TS now references it (auto-detected JS sink — no manual entry needed).
+            // (c) JS now references it (auto-detected JS sink — no manual entry needed).
             if (!dom.Contains(key))
             {
                 stale.Add($"DomOnlyAllowlist[\"{key}\"] — code no longer emits data-bob-{key}");
@@ -190,10 +191,10 @@ public class CssAuditTests
                 stale.Add(
                     $"DomOnlyAllowlist[\"{key}\"] — CSS now selects on [data-bob-{key}]; remove the allowlist entry");
             }
-            else if (ts.Contains(key))
+            else if (js.Contains(key))
             {
                 stale.Add(
-                    $"DomOnlyAllowlist[\"{key}\"] — TypeScript now references data-bob-{key}; remove the allowlist entry (auto-detected)");
+                    $"DomOnlyAllowlist[\"{key}\"] — JS now references data-bob-{key}; remove the allowlist entry (auto-detected)");
             }
         }
 
@@ -370,15 +371,16 @@ public class CssAuditTests
         return result;
     }
 
-    private static HashSet<string> ExtractFromTypeScript()
+    private static HashSet<string> ExtractFromJs()
     {
         HashSet<string> result = new(StringComparer.Ordinal);
-        if (!Directory.Exists(SrcBlazOrbit))
+        string jsRoot = Path.Combine(SrcBlazOrbit, "wwwroot", "js");
+        if (!Directory.Exists(jsRoot))
         {
             return result;
         }
 
-        foreach (string file in Directory.EnumerateFiles(SrcBlazOrbit, "*.ts", SearchOption.AllDirectories))
+        foreach (string file in Directory.EnumerateFiles(jsRoot, "*.js", SearchOption.AllDirectories))
         {
             if (file.Contains($"{Path.DirectorySeparatorChar}obj{Path.DirectorySeparatorChar}")
                 || file.Contains($"{Path.DirectorySeparatorChar}bin{Path.DirectorySeparatorChar}")

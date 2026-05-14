@@ -81,15 +81,15 @@ public class CssArchitectureLintTests
     [Fact]
     public void Base_Css_Should_Declare_Prefers_Reduced_Motion_Override()
     {
-        string baseCssPath = Path.GetFullPath(Path.Combine(
+        string bundlePath = Path.GetFullPath(Path.Combine(
             Directory.GetCurrentDirectory(),
             "..", "..", "..", "..", "..",
-            "src", "BlazOrbit", "CssBundle", "_base.css"));
+            "src", "BlazOrbit", "wwwroot", "css", "blazorbit.css"));
 
-        File.Exists(baseCssPath).Should().BeTrue(
-            "BaseComponentGenerator must regenerate _base.css before tests run");
+        File.Exists(bundlePath).Should().BeTrue(
+            "the hand-written global bundle wwwroot/css/blazorbit.css must exist");
 
-        string content = File.ReadAllText(baseCssPath);
+        string content = File.ReadAllText(bundlePath);
 
         content.Should().Contain("@media (prefers-reduced-motion: reduce)");
         content.Should().MatchRegex(@"animation-duration:\s*0\.01ms\s*!important");

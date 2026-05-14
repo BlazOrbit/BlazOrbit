@@ -18,14 +18,14 @@ We needed both: a shared token layer that consumers can theme, plus per-componen
 
 **Ship two CSS layers:**
 
-1. **Global bundle** (generated at build time) — lives in `wwwroot/css/blazorbit.css`. Contains:
+1. **Global bundle** — hand-written `src/BlazOrbit/wwwroot/css/blazorbit.css`. Contains:
    - CSS reset and typography
    - Theme tokens (`--palette-*`) and base variables (`--bob-size-multiplier`, `--bob-density-multiplier`)
-   - Base component styles and family shared styles (`_input-family.css`, `_picker-family.css`, `_data-collection-family.css`)
+   - Base component styles and family shared styles (input / picker / data-collection)
    - Transition classes and animation keyframes
    - `data-bob-size` / `data-bob-density` multiplier mapping
 
-   Produced by `[AssetGenerator]` classes in `src/BlazOrbit.BuildTools/Generators/` written to `src/BlazOrbit/CssBundle/`, then bundled by Vite.
+   Single source of truth. No generator, no bundler, no transpile step.
 
 2. **Scoped component CSS** (hand-written `.razor.css`) — one file per `.razor`. Contains:
    - Component-specific layout
@@ -33,7 +33,7 @@ We needed both: a shared token layer that consumers can theme, plus per-componen
    - Child-element BEM selectors
    - State reactions on `[data-bob-component="<kebab-name>"]`
 
-**Rule**: edit the generator or `.razor.css`, never the generated output.
+**Rule**: edit `blazorbit.css` in its matching section, or the per-component `.razor.css` next to its `.razor`.
 
 ## Consequences
 
@@ -46,13 +46,10 @@ We needed both: a shared token layer that consumers can theme, plus per-componen
 
 ### Negative
 
-- **Build complexity**: the generator + Vite pipeline adds a build step. Contributors must have Node.js installed.
-- **Indirection**: to change a family style, you edit a C# generator and rebuild, not a CSS file. There is a learning curve.
-- **No PurgeCSS**: because many selectors are dynamic (`data-bob-*`, variants, consumer fragments), we do not run PurgeCSS. The bundle is larger than a tree-shaken alternative, but safe.
+- **Bundle size**: because many selectors are dynamic (`data-bob-*`, variants, consumer fragments), we don't run any tree-shaker / PurgeCSS. The bundle is larger than a tree-shaken alternative, but safe and predictable. Consumers compress at the HTTP layer.
+- **No mechanical reuse**: family-shared rules cannot be regenerated from a single C# source. Maintainers keep token names in sync with `FeatureDefinitions` by convention; `CssArchitectureLintTests` catches the cases that matter.
 
 ## References
 
-- `src/BlazOrbit.BuildTools/Generators/` — `[AssetGenerator]` classes
-- `src/BlazOrbit/CssBundle/` — generated intermediate CSS
-- `src/BlazOrbit/wwwroot/css/blazorbit.css` — final Vite bundle
-- `CONTRIBUTING.md` — "Generated Assets" section
+- `src/BlazOrbit/wwwroot/css/blazorbit.css` — global bundle, single source of truth
+- `CONTRIBUTING.md` — "Static Assets" section

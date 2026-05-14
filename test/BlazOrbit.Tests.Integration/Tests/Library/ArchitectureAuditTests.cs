@@ -316,8 +316,8 @@ public class ArchitectureAuditTests
     [Fact]
     public void Input_Family_Wrapper_Bg_Should_Consume_Inline_Background_Across_All_Variants()
     {
-        string bundlePath = Path.Combine(SrcBlazOrbit, "CssBundle", "_input-family.css");
-        File.Exists(bundlePath).Should().BeTrue("InputFamilyGenerator must regenerate the bundle before tests run");
+        string bundlePath = Path.Combine(SrcBlazOrbit, "wwwroot", "css", "blazorbit.css");
+        File.Exists(bundlePath).Should().BeTrue("blazorbit.css must exist for the input-family audit to run");
 
         Regex wrapperBgSetter = new(@"--_wrapper-bg:\s*([^;]+);", RegexOptions.Compiled);
         string content = File.ReadAllText(bundlePath);
@@ -329,12 +329,12 @@ public class ArchitectureAuditTests
             if (!rhs.Contains("--bob-inline-background", StringComparison.Ordinal))
             {
                 int line = content[..m.Index].Count(c => c == '\n') + 1;
-                violations.Add($"_input-family.css:{line}  --_wrapper-bg: {rhs};");
+                violations.Add($"blazorbit.css:{line}  --_wrapper-bg: {rhs};");
             }
         }
 
         violations.Should().BeEmpty(
-            "every assignment to --_wrapper-bg in the input-family bundle must consume " +
+            "every assignment to --_wrapper-bg in the input-family section must consume " +
             "--bob-inline-background so the BackgroundColor parameter applies regardless of " +
             "variant. Wrap the literal in `var(--bob-inline-background, <fallback>)`. " +
             "See INPUT-BG-01.\n\nViolations:\n  " +
@@ -351,8 +351,8 @@ public class ArchitectureAuditTests
     [Fact]
     public void Input_Family_Field_Should_Consume_Inline_Color()
     {
-        string bundlePath = Path.Combine(SrcBlazOrbit, "CssBundle", "_input-family.css");
-        File.Exists(bundlePath).Should().BeTrue("InputFamilyGenerator must regenerate the bundle before tests run");
+        string bundlePath = Path.Combine(SrcBlazOrbit, "wwwroot", "css", "blazorbit.css");
+        File.Exists(bundlePath).Should().BeTrue("blazorbit.css must exist for the input-family audit to run");
 
         string content = File.ReadAllText(bundlePath);
 
@@ -361,8 +361,8 @@ public class ArchitectureAuditTests
             RegexOptions.Compiled | RegexOptions.Singleline);
 
         fieldColor.IsMatch(content).Should().BeTrue(
-            "the input-family bundle must consume --bob-inline-color on .bob-input__field " +
-            "so the Color parameter paints the native <input>/<textarea> text. " +
+            "the input-family section in blazorbit.css must consume --bob-inline-color on " +
+            ".bob-input__field so the Color parameter paints the native <input>/<textarea> text. " +
             "See INPUT-COLOR-01.");
     }
 

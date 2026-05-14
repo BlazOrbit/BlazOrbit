@@ -7,7 +7,7 @@ internal sealed class HotkeyJsInterop : ModuleJsInteropBase, IHotkeyJsInterop
 {
     // Static-asset URL of the bundled module shipped inside the BlazOrbit.Hotkeys NuGet
     // package. Mirrors the convention used by other peripheral packages (e.g. Charts).
-    private const string ModulePath = "./_content/BlazOrbit.Hotkeys/js/Hotkey/HotkeyInterop.min.js";
+    private const string ModulePath = "./_content/BlazOrbit.Hotkeys/js/Hotkey/HotkeyInterop.js";
 
     public HotkeyJsInterop(IJSRuntime jsRuntime)
         : base(jsRuntime, ModulePath)

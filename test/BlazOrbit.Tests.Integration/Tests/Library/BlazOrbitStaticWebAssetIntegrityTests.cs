@@ -12,23 +12,24 @@ namespace BlazOrbit.Tests.Integration.Tests.Library;
 ///
 /// Regression context (1.0.0-preview.46): the published BlazOrbit nupkg shipped
 /// with <c>build/Microsoft.AspNetCore.StaticWebAssetEndpoints.props</c> declaring
-/// integrity values that did <i>not</i> match the bytes of the
-/// <c>staticwebassets/js/.../*.min.js</c> files inside the same nupkg. .NET 10
-/// consumers enforce SRI on RCL JS modules loaded via importmap (Blazor WASM in
-/// particular), so the browser blocked <c>ThemeInterop.min.js</c> and
-/// <c>LocalStorageInterop.min.js</c>, which in turn made <c>BOBPalette</c>'s
-/// constructor throw <c>KeyNotFoundException("--palette-background")</c> from
+/// integrity values that did <i>not</i> match the bytes of the JS modules
+/// inside the same nupkg. .NET 10 consumers enforce SRI on RCL JS modules
+/// loaded via importmap (Blazor WASM in particular), so the browser blocked
+/// <c>ThemeInterop</c> and <c>LocalStorageInterop</c>, which in turn made
+/// <c>BOBPalette</c>'s constructor throw
+/// <c>KeyNotFoundException("--palette-background")</c> from
 /// <c>BOBInitializer.OnAfterRenderAsync</c> and prevented <c>ChildContent</c>
 /// from ever rendering — i.e. all WASM net10 template E2E tests timed out.
 ///
-/// Root cause: <c>BuildBlazOrbitAssets</c> (in <c>BlazOrbit.Dev.targets</c>)
-/// ran in the outer multi-TFM build <i>and</i> re-ran in every inner build
-/// because its condition matched both contexts. The inner builds raced on
-/// <c>wwwroot/js/**/*.min.js</c> while <c>GenerateStaticWebAssetsEndpointsManifest</c>
-/// captured the integrity hash from one snapshot — the file bytes that ended up
-/// in the .nupkg came from a different snapshot.
+/// Root cause: the pre-refactor maintainer pipeline (now removed) regenerated
+/// <c>wwwroot/js/**/*.min.js</c> via Vite during both the outer multi-TFM
+/// build and every inner build, racing the integrity capture against the
+/// bytes shipped in the .nupkg. After the build-tools refactor, those JS
+/// modules are committed JSDoc-typed <c>.js</c> source files — no regeneration
+/// step, no race surface — but this test stays as a permanent guard against
+/// any future drift between manifest integrity and asset bytes.
 ///
-/// This test fails fast whenever any future change reintroduces that drift: it
+/// The test fails fast whenever any future change reintroduces that drift: it
 /// parses <c>obj/&lt;Config&gt;/&lt;TFM&gt;/staticwebassets.build.endpoints.json</c>
 /// (the source the Pack step consumes) and asserts integrity == SHA-256(asset
 /// bytes) for every endpoint that declares one.
@@ -136,7 +137,7 @@ public class BlazOrbitStaticWebAssetIntegrityTests
     private static string ResolveAssetPath(string projectDir, string assetFileRelative)
     {
         // .NET 10 emits AssetFile relative to the project's wwwroot/ for build-time
-        // assets (e.g. "js/Types/Theme/ThemeInterop.min.js"). For scoped CSS bundles
+        // assets (e.g. "js/Types/Theme/ThemeInterop.js"). For scoped CSS bundles
         // and gzip companions it sometimes emits paths relative to the project
         // intermediate output. Try wwwroot first, then obj.
         var wwwrootCandidate = Path.Combine(RepoRoot, "src", projectDir, "wwwroot", assetFileRelative);
