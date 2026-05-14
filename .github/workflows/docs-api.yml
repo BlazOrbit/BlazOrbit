@@ -45,25 +45,33 @@ jobs:
           cache-dependency-path: '**/*.csproj'
 
       - name: Restore documented projects
+        # Keep this list aligned with the `src.files` array in docs/api/docfx.json
+        # and with the packable project set under src/. `BlazOrbit.Translations`
+        # was removed from the repo; Notifications/Hotkeys/Charts are packable
+        # libraries that ship their own public API.
         run: |
           dotnet restore src/BlazOrbit.Core/BlazOrbit.Core.csproj
           dotnet restore src/BlazOrbit/BlazOrbit.csproj
+          dotnet restore src/BlazOrbit.Charts/BlazOrbit.Charts.csproj
           dotnet restore src/BlazOrbit.SyntaxHighlight/BlazOrbit.SyntaxHighlight.csproj
           dotnet restore src/BlazOrbit.Localization.Shared/BlazOrbit.Localization.Shared.csproj
           dotnet restore src/BlazOrbit.Localization.Server/BlazOrbit.Localization.Server.csproj
           dotnet restore src/BlazOrbit.Localization.Wasm/BlazOrbit.Localization.Wasm.csproj
-          dotnet restore src/BlazOrbit.Translations/BlazOrbit.Translations.csproj
+          dotnet restore src/BlazOrbit.Notifications/BlazOrbit.Notifications.csproj
+          dotnet restore src/BlazOrbit.Hotkeys/BlazOrbit.Hotkeys.csproj
           dotnet restore src/BlazOrbit.FormsFluentValidation/BlazOrbit.FormsFluentValidation.csproj
 
       - name: Build documented projects (Release)
         run: |
           dotnet build src/BlazOrbit.Core/BlazOrbit.Core.csproj -c Release --no-restore -p:BlazOrbitBuildEnabled=false
           dotnet build src/BlazOrbit/BlazOrbit.csproj -c Release --no-restore -p:BlazOrbitBuildEnabled=false
+          dotnet build src/BlazOrbit.Charts/BlazOrbit.Charts.csproj -c Release --no-restore -p:BlazOrbitBuildEnabled=false
           dotnet build src/BlazOrbit.SyntaxHighlight/BlazOrbit.SyntaxHighlight.csproj -c Release --no-restore -p:BlazOrbitBuildEnabled=false
           dotnet build src/BlazOrbit.Localization.Shared/BlazOrbit.Localization.Shared.csproj -c Release --no-restore -p:BlazOrbitBuildEnabled=false
           dotnet build src/BlazOrbit.Localization.Server/BlazOrbit.Localization.Server.csproj -c Release --no-restore -p:BlazOrbitBuildEnabled=false
           dotnet build src/BlazOrbit.Localization.Wasm/BlazOrbit.Localization.Wasm.csproj -c Release --no-restore -p:BlazOrbitBuildEnabled=false
-          dotnet build src/BlazOrbit.Translations/BlazOrbit.Translations.csproj -c Release --no-restore -p:BlazOrbitBuildEnabled=false
+          dotnet build src/BlazOrbit.Notifications/BlazOrbit.Notifications.csproj -c Release --no-restore -p:BlazOrbitBuildEnabled=false
+          dotnet build src/BlazOrbit.Hotkeys/BlazOrbit.Hotkeys.csproj -c Release --no-restore -p:BlazOrbitBuildEnabled=false
           dotnet build src/BlazOrbit.FormsFluentValidation/BlazOrbit.FormsFluentValidation.csproj -c Release --no-restore -p:BlazOrbitBuildEnabled=false
 
       - name: Install DocFX

@@ -280,14 +280,22 @@ jobs:
               "README.md" \
               "icon.png"
 
-            # Translations: resource-only assembly + culture satellites under
-            # lib/$tfm/<culture>/. We only assert the main DLL; the satellite
-            # set is iterated frequently as we add cultures, so locking specific
-            # culture filenames here would be churny. The csproj's resx → satellite
-            # pipeline is a pack-time invariant; absence would surface elsewhere.
-            PKG=./artifacts/BlazOrbit.Translations.${VERSION}.nupkg
+            # Notifications: in-memory inbox + bell component. No JS interop
+            # (just scoped CSS via Razor SDK), so we only assert the lib + xml.
+            PKG=./artifacts/BlazOrbit.Notifications.${VERSION}.nupkg
             assert_in_pkg "$PKG" \
-              "lib/$tfm/BlazOrbit.Translations.dll" \
+              "lib/$tfm/BlazOrbit.Notifications.dll" \
+              "lib/$tfm/BlazOrbit.Notifications.xml" \
+              "README.md" \
+              "icon.png"
+
+            # Hotkeys: ships its own JS interop module (document-level keydown
+            # listener) as a static web asset, so consumers don't need Node.
+            PKG=./artifacts/BlazOrbit.Hotkeys.${VERSION}.nupkg
+            assert_in_pkg "$PKG" \
+              "lib/$tfm/BlazOrbit.Hotkeys.dll" \
+              "lib/$tfm/BlazOrbit.Hotkeys.xml" \
+              "staticwebassets/js/Hotkey/HotkeyInterop.min.js" \
               "README.md" \
               "icon.png"
           done
@@ -305,7 +313,8 @@ jobs:
             BlazOrbit.Localization.Server
             BlazOrbit.Localization.Shared
             BlazOrbit.Localization.Wasm
-            BlazOrbit.Translations
+            BlazOrbit.Notifications
+            BlazOrbit.Hotkeys
             BlazOrbit.Templates
           )
           unknown=0

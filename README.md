@@ -254,8 +254,7 @@ Drop the bell badge into your navbar:
 | `BlazOrbit.SyntaxHighlight`       | Dependency-free syntax highlighter used by `BOBCodeBlock`.                                                                                                     |
 | `BlazOrbit.Localization.Server`   | Cookie-based culture persistence and `BOBCultureSelector` for Blazor Server. Integrates with `RequestLocalization`.                                           |
 | `BlazOrbit.Localization.Wasm`     | `localStorage`-based culture persistence and `BOBCultureSelector` for Blazor WebAssembly.                                                                      |
-| `BlazOrbit.Localization.Shared`   | Shared `BOBCultureSelector` markup + types reused by both Server and Wasm localization integrations. Pulled in transitively.                                   |
-| `BlazOrbit.Translations`          | Compile-time `.tn` translation bundles consumed by the BOBLocalize source generator. Pulled in transitively.                                                  |
+| `BlazOrbit.Localization.Shared`   | Shared `BOBCultureSelector` markup + types reused by both Server and Wasm localization integrations. Ships the BOBLocalize source generator under `analyzers/dotnet/cs/` so consumer `[BobLocalizationBundle]` attributes emit registrations automatically. Pulled in transitively. |
 | `BlazOrbit.FormsFluentValidation` | Integration with `FluentValidation` for BlazOrbit forms.                                                                                                       |
 | `BlazOrbit.Templates`             | `dotnet new` templates — `blazorbit-server` and `blazorbit-wasm` with optional localization, charts, notifications, and hotkeys.                               |
 
