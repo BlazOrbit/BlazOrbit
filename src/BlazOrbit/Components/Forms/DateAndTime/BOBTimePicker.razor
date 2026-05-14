@@ -1,6 +1,7 @@
 ﻿@namespace BlazOrbit.Components.Forms
 @attribute [GenerateComponentInfo]
 @using System.Globalization
+@using Microsoft.Extensions.Localization
 
 @inherits BOBComponentBase
 @implements IHasSize
@@ -9,65 +10,74 @@
 
 <bob-component @attributes="ComputedAttributes">
     <div class="bob-picker__row">
-        <_BOBBtn Size="Size" OnClick="ToggleFormatClicked">
+        <_BOBInBtn Size="Size" OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, ToggleFormatClicked))">
             @(Format == "24" ? "24h" : "12h")
-        </_BOBBtn>
+        </_BOBInBtn>
 
         <div class="bob-picker__row bob-time-picker__fields">
             <div class="bob-time-picker__column">
-                <_BOBBtn Icon="@BOBIconKeys.UI.ChevronUp"
-                                     AriaLabel="Increment hour"
-                                     OnClick="IncrementHourClicked" />
+                <_BOBInBtn Icon="@BOBIconKeys.UI.ChevronUp"
+                           AriaLabel="@Localizer["Increment hour"]"
+                           OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, IncrementHourClicked))"/>
                 <_BOBInText Value="@DisplayHour.ToString("00")"
-                                          ValueChanged="OnHourInputChanged"
-                                          class="bob-picker__input"
-                                          maxlength="2" />
-                <_BOBBtn Icon="@BOBIconKeys.UI.ChevronDown"
-                                     AriaLabel="Decrement hour"
-                                     OnClick="DecrementHourClicked" />
+                            ValueChanged="@(EventCallback.Factory.Create<string?>(this, OnHourInputChanged))"
+                            class="bob-picker__input"
+                            maxlength="2"/>
+                <_BOBInBtn Icon="@BOBIconKeys.UI.ChevronDown"
+                           AriaLabel="@Localizer["Decrement hour"]"
+                           OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, DecrementHourClicked))"/>
             </div>
 
             <span class="bob-picker__separator">:</span>
 
             <div class="bob-time-picker__column">
-                <_BOBBtn Icon="@BOBIconKeys.UI.ChevronUp"
-                                     AriaLabel="Increment minute"
-                                     OnClick="IncrementMinuteClicked" />
+                <_BOBInBtn Icon="@BOBIconKeys.UI.ChevronUp"
+                           AriaLabel="@Localizer["Increment minute"]"
+                           OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, IncrementMinuteClicked))"/>
                 <_BOBInText Value="@Minute.ToString("00")"
-                                          ValueChanged="OnMinuteInputChanged"
-                                          class="bob-picker__input"
-                                          maxlength="2" />
-                <_BOBBtn Icon="@BOBIconKeys.UI.ChevronDown"
-                                     AriaLabel="Decrement minute"
-                                     OnClick="DecrementMinuteClicked" />
+                            ValueChanged="@(EventCallback.Factory.Create<string?>(this, OnMinuteInputChanged))"
+                            class="bob-picker__input"
+                            maxlength="2"/>
+                <_BOBInBtn Icon="@BOBIconKeys.UI.ChevronDown"
+                           AriaLabel="@Localizer["Decrement minute"]"
+                           OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, DecrementMinuteClicked))"/>
             </div>
         </div>
 
         @if (Format == "12")
         {
-            <_BOBBtn OnClick="ToggleAmPmClicked">
+            <_BOBInBtn OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, ToggleAmPmClicked))">
                 @AmPm
-            </_BOBBtn>
+            </_BOBInBtn>
         }
     </div>
 </bob-component>
 
 @code {
+    [Inject] internal IStringLocalizer<BOBFormsResources> Localizer { get; set; } = default!;
+
     /// <summary>Current value of the component.</summary>
-    [Parameter] public TimeOnly? Value { get; set; }
+    [Parameter]
+    public TimeOnly? Value { get; set; }
+
     /// <summary>Raised when the value changes.</summary>
-    [Parameter] public EventCallback<TimeOnly?> ValueChanged { get; set; }
+    [Parameter]
+    public EventCallback<TimeOnly?> ValueChanged { get; set; }
+
     /// <summary>Visual size of the component.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
+
     /// <summary>Vertical density (gap) of the component.</summary>
-    [Parameter] public BOBDensity Density { get; set; } = BOBDensity.Standard;
+    [Parameter]
+    public BOBDensity Density { get; set; } = BOBDensity.Standard;
 
     private int Hour;
     private int Minute;
     private string Format = "24";
     private string AmPm = "AM";
 
-    private int DisplayHour => Format == "24" ? Hour : (Hour % 12 == 0 ? 12 : Hour % 12);
+    private int DisplayHour => Format == "24" ? Hour : Hour % 12 == 0 ? 12 : Hour % 12;
 
     protected override void OnInitialized()
     {
@@ -86,20 +96,35 @@
         }
     }
 
-    private async Task IncrementHourClicked(MouseEventArgs e) => await UpdateHour((Hour + 1) % 24);
-    private async Task DecrementHourClicked(MouseEventArgs e) => await UpdateHour((Hour + 23) % 24);
-    private async Task IncrementMinuteClicked(MouseEventArgs e) => await UpdateMinute((Minute + 1) % 60);
-    private async Task DecrementMinuteClicked(MouseEventArgs e) => await UpdateMinute((Minute + 59) % 60);
+    private async Task IncrementHourClicked(MouseEventArgs e)
+    {
+        await UpdateHour((Hour + 1) % 24);
+    }
+
+    private async Task DecrementHourClicked(MouseEventArgs e)
+    {
+        await UpdateHour((Hour + 23) % 24);
+    }
+
+    private async Task IncrementMinuteClicked(MouseEventArgs e)
+    {
+        await UpdateMinute((Minute + 1) % 60);
+    }
+
+    private async Task DecrementMinuteClicked(MouseEventArgs e)
+    {
+        await UpdateMinute((Minute + 59) % 60);
+    }
 
     private async Task OnHourInputChanged(string? value)
     {
-        if (int.TryParse(value, out int h))
+        if (int.TryParse(value, out var h))
         {
             if (Format == "12")
             {
                 if (h >= 1 && h <= 12)
                 {
-                    int newHour = h == 12 ? 0 : h;
+                    var newHour = h == 12 ? 0 : h;
                     if (AmPm == "PM") newHour += 12;
                     await UpdateHour(newHour);
                 }
@@ -113,7 +138,7 @@
 
     private async Task OnMinuteInputChanged(string? value)
     {
-        if (int.TryParse(value, out int m) && m >= 0 && m < 60)
+        if (int.TryParse(value, out var m) && m >= 0 && m < 60)
             await UpdateMinute(m);
     }
 
@@ -152,6 +177,7 @@
             AmPm = "AM";
             if (Hour >= 12) Hour -= 12;
         }
+
         await NotifyValueChanged();
     }
 

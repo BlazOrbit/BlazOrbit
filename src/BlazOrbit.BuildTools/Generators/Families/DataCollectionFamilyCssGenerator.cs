@@ -33,165 +33,201 @@ public class DataCollectionFamilyCssGenerator : IAssetGenerator
         string loading = FeatureDefinitions.CssClasses.DataCollection.Loading;
 
         return Task.FromResult($$"""
-/* ========================================
-   Data Collection Family Styles
-   Auto-generated - Do not edit manually
-   ======================================== */
+                                 /* ========================================
+                                    Data Collection Family Styles
+                                    Auto-generated - Do not edit manually
+                                    ======================================== */
 
-{{root}}[{{dc}}] {
-    --_dc-padding-x: 1rem;
-    --_dc-padding-y: 0.75rem;
-    /* Animation tokens consumed by scoped skeleton / spinner CSS so
-       reduced-motion handling lives in this single family-level
-       @media block (per CSS-MEDIA-01: scoped CSS may not host
-       @media queries; layout-only exceptions). */
-    --bob-dc-anim-duration: 1.4s;
-    --bob-dc-spinner-duration: 0.9s;
-    --_dc-header-bg: color-mix(in oklab, var(--palette-surface) 95%, var(--palette-primary));
-    --_dc-hover-bg: color-mix(in oklab, var(--_dc-background) 90%, var(--palette-hover-tint) 10%);
-    --_dc-selected-bg: color-mix(in oklab, var(--_dc-background) 80%, var(--palette-primary) 20%);
-    --_dc-background: var(--bob-inline-background, var(--palette-surface));
-    --_dc-border-radius: var(--bob-inline-border-radius, var(--bob-border-radius));
-    --_dc-border: var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border));
-    --_dc-border-top: var(--bob-inline-border-top, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
-    --_dc-border-right: var(--bob-inline-border-right, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
-    --_dc-border-bottom: var(--bob-inline-border-bottom, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
-    --_dc-border-left: var(--bob-inline-border-left, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+                                 {{root}}[{{dc}}] {
+                                     --_dc-padding-x: 1rem;
+                                     --_dc-padding-y: 0.75rem;
+                                     /* Animation tokens consumed by scoped skeleton / spinner CSS so
+                                        reduced-motion handling lives in this single family-level
+                                        @media block (per CSS-MEDIA-01: scoped CSS may not host
+                                        @media queries; layout-only exceptions). */
+                                     --bob-dc-anim-duration: 1.4s;
+                                     --bob-dc-spinner-duration: 0.9s;
+                                     --_dc-header-bg: color-mix(in oklab, var(--palette-surface) 95%, var(--palette-primary));
+                                     --_dc-hover-bg: color-mix(in oklab, var(--_dc-background) 90%, var(--palette-hover-tint) 10%);
+                                     --_dc-selected-bg: color-mix(in oklab, var(--_dc-background) 80%, var(--palette-primary) 20%);
+                                     --_dc-background: var(--bob-inline-background, var(--palette-surface));
+                                     --_dc-border-radius: var(--bob-inline-border-radius, var(--bob-border-radius));
+                                     --_dc-border: var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border));
+                                     --_dc-border-top: var(--bob-inline-border-top, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+                                     --_dc-border-right: var(--bob-inline-border-right, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+                                     --_dc-border-bottom: var(--bob-inline-border-bottom, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
+                                     --_dc-border-left: var(--bob-inline-border-left, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
 
-    display: block;
-    width: 100%;
-    background-color: var(--_dc-background);
-    border: var(--_dc-border);
-    border-top: var(--_dc-border-top);
-    border-right: var(--_dc-border-right);
-    border-bottom: var(--_dc-border-bottom);
-    border-left: var(--_dc-border-left);
-    border-radius: var(--_dc-border-radius);
-}
+                                     display: block;
+                                     width: 100%;
+                                     background-color: var(--_dc-background);
+                                     border: var(--_dc-border);
+                                     border-top: var(--_dc-border-top);
+                                     border-right: var(--_dc-border-right);
+                                     border-bottom: var(--_dc-border-bottom);
+                                     border-left: var(--_dc-border-left);
+                                     border-radius: var(--_dc-border-radius);
+                                 }
 
-/* === TOOLBAR === */
-{{root}}[{{dc}}] .{{toolbar}} {
-    display: flex;
-    align-items: center;
-    gap: calc(1rem * var(--bob-density-multiplier, 1));
-    padding: var(--_dc-padding-y) var(--_dc-padding-x);
-    background: var(--_dc-header-bg);
-    border-bottom: 1px solid var(--palette-border);
-}
+                                 /* === TOOLBAR === */
+                                 {{root}}[{{dc}}] .{{toolbar}} {
+                                     display: flex;
+                                     align-items: center;
+                                     gap: calc(1rem * var(--bob-density-multiplier, 1));
+                                     padding: var(--_dc-padding-y) var(--_dc-padding-x);
+                                     background: var(--_dc-header-bg);
+                                     border-bottom: 1px solid var(--palette-border);
+                                 }
 
-{{root}}[{{dc}}] .{{toolbarSpacer}} {
-    flex: 1;
-}
+                                 {{root}}[{{dc}}] .{{toolbarSpacer}} {
+                                     flex: 1;
+                                 }
 
-/* === FILTER === */
-{{root}}[{{dc}}] .{{filter}} {
-    position: relative;
-    display: flex;
-    align-items: center;
-    gap: calc(0.5rem * var(--bob-density-multiplier, 1));
-    flex: 0 1 300px;
-}
+                                 /* === FILTER === */
+                                 {{root}}[{{dc}}] .{{filter}} {
+                                     position: relative;
+                                     display: flex;
+                                     align-items: center;
+                                     gap: calc(0.5rem * var(--bob-density-multiplier, 1));
+                                     flex: 0 1 300px;
+                                 }
 
-/* === SELECTION INFO === */
-{{root}}[{{dc}}] .{{selectionInfo}} {
-    display: flex;
-    align-items: center;
-    gap: calc(0.5rem * var(--bob-density-multiplier, 1));
-    font-size: 0.875rem;
-    color: var(--palette-primary);
-}
+                                 /* === SELECTION INFO === */
+                                 {{root}}[{{dc}}] .{{selectionInfo}} {
+                                     display: flex;
+                                     align-items: center;
+                                     gap: calc(0.5rem * var(--bob-density-multiplier, 1));
+                                     font-size: 0.875rem;
+                                     color: var(--palette-primary);
+                                 }
 
-/* === PAGE SIZE SELECTOR === */
-{{root}}[{{dc}}] .{{pageSize}} {
-    display: flex;
-    align-items: center;
-    gap: calc(0.5rem * var(--bob-density-multiplier, 1));
-    font-size: 0.875rem;
-}
+                                 /* === PAGE SIZE SELECTOR === */
+                                 {{root}}[{{dc}}] .{{pageSize}} {
+                                     display: flex;
+                                     align-items: center;
+                                     gap: calc(0.5rem * var(--bob-density-multiplier, 1));
+                                     font-size: 0.875rem;
+                                 }
 
-/* === PAGINATION === */
-{{root}}[{{dc}}] .{{pagination}} {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: var(--_dc-padding-y) var(--_dc-padding-x);
-    border-top: 1px solid var(--palette-border);
-    background: var(--_dc-header-bg);
-}
+                                 /* === PAGINATION === */
+                                 {{root}}[{{dc}}] .{{pagination}} {
+                                     display: flex;
+                                     align-items: center;
+                                     justify-content: space-between;
+                                     padding: var(--_dc-padding-y) var(--_dc-padding-x);
+                                     border-top: 1px solid var(--palette-border);
+                                     background: var(--_dc-header-bg);
+                                 }
 
-{{root}}[{{dc}}] .{{paginationInfo}} {
-    font-size: 0.875rem;
-    color: var(--palette-surface-contrast);
-    opacity: 0.8;
-}
+                                 {{root}}[{{dc}}] .{{paginationInfo}} {
+                                     font-size: 0.875rem;
+                                     color: var(--palette-surface-contrast);
+                                     opacity: 0.8;
+                                 }
 
-{{root}}[{{dc}}] .{{paginationControls}} {
-    display: flex;
-    align-items: center;
-    gap: calc(0.25rem * var(--bob-density-multiplier, 1));
-}
+                                 {{root}}[{{dc}}] .{{paginationControls}} {
+                                     display: flex;
+                                     align-items: center;
+                                     gap: calc(0.25rem * var(--bob-density-multiplier, 1));
+                                 }
 
-/* === CHECKBOX (shared) === */
-{{root}}[{{dc}}] .{{checkbox}} {
-    cursor: pointer;
-    width: 1.125rem;
-    height: 1.125rem;
-    accent-color: var(--palette-primary);
-}
+                                 /* === CHECKBOX (shared) === */
+                                 {{root}}[{{dc}}] .{{checkbox}} {
+                                     cursor: pointer;
+                                     width: 1.125rem;
+                                     height: 1.125rem;
+                                     accent-color: var(--palette-primary);
+                                 }
 
-/* === EMPTY STATE === */
-{{root}}[{{dc}}] .{{empty}} {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: calc(0.5rem * var(--bob-density-multiplier, 1));
-    padding: calc(var(--_dc-padding-y) * 4) var(--_dc-padding-x);
-    color: var(--palette-surface-contrast);
-    opacity: 0.6;
-    text-align: center;
-}
+                                 /* === EMPTY STATE === */
+                                 {{root}}[{{dc}}] .{{empty}} {
+                                     display: flex;
+                                     flex-direction: column;
+                                     align-items: center;
+                                     justify-content: center;
+                                     gap: calc(0.5rem * var(--bob-density-multiplier, 1));
+                                     padding: calc(var(--_dc-padding-y) * 4) var(--_dc-padding-x);
+                                     color: var(--palette-surface-contrast);
+                                     opacity: 0.6;
+                                     text-align: center;
+                                 }
 
-{{root}}[{{dc}}] .{{emptyIcon}} {
-    font-size: 3rem;
-    opacity: 0.5;
-}
+                                 {{root}}[{{dc}}] .{{emptyIcon}} {
+                                     font-size: 3rem;
+                                     opacity: 0.5;
+                                 }
 
-{{root}}[{{dc}}] .{{emptyText}} {
-    margin: 0;
-    font-size: 1rem;
-}
+                                 {{root}}[{{dc}}] .{{emptyText}} {
+                                     margin: 0;
+                                     font-size: 1rem;
+                                 }
 
-/* === LOADING STATE === */
-{{root}}[{{dc}}] .{{loading}} {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: calc(var(--_dc-padding-y) * 4) var(--_dc-padding-x);
-}
+                                 /* === LOADING STATE === */
+                                 {{root}}[{{dc}}] .{{loading}} {
+                                     display: flex;
+                                     align-items: center;
+                                     justify-content: center;
+                                     padding: calc(var(--_dc-padding-y) * 4) var(--_dc-padding-x);
+                                 }
 
-/* === DENSITY: Padding overrides === */
-{{root}}[{{dc}}][{{density}}="compact"] {
-    --_dc-padding-x: 0.5rem;
-    --_dc-padding-y: 0.375rem;
-}
+                                 /* === DENSITY: Padding overrides === */
+                                 {{root}}[{{dc}}][{{density}}="compact"] {
+                                     --_dc-padding-x: 0.5rem;
+                                     --_dc-padding-y: 0.375rem;
+                                 }
 
-{{root}}[{{dc}}][{{density}}="comfortable"] {
-    --_dc-padding-x: 1.5rem;
-    --_dc-padding-y: 1rem;
-}
+                                 {{root}}[{{dc}}][{{density}}="comfortable"] {
+                                     --_dc-padding-x: 1.5rem;
+                                     --_dc-padding-y: 1rem;
+                                 }
 
-/* === REDUCED MOTION ===
-   Skeleton / spinner CSS reads --bob-dc-anim-duration and
-   --bob-dc-spinner-duration. Zeroing them here turns the animations
-   into static placeholders for users who prefer reduced motion,
-   without scoped CSS having to host its own @media query. */
-@media (prefers-reduced-motion: reduce) {
-    {{root}}[{{dc}}] {
-        --bob-dc-anim-duration: 0s;
-        --bob-dc-spinner-duration: 0s;
-    }
-}
-""");
+                                 /* === BATCH-EDIT TOOLBAR ===
+                                    Save / Cancel surface only when the grid is in EditMode=Batch with
+                                    at least one staged row. The counter sits inline with the buttons so
+                                    the user sees how many rows are pending before they commit. */
+                                 {{root}}[{{dc}}] .bob-dc__batch-actions {
+                                     display: inline-flex;
+                                     align-items: center;
+                                     gap: 0.5rem;
+                                 }
+
+                                 {{root}}[{{dc}}] .bob-dc__batch-count {
+                                     font-size: 0.85em;
+                                     opacity: 0.75;
+                                     white-space: nowrap;
+                                 }
+
+                                 /* Validation error count — surfaces beside the pending-rows
+                                    counter so the user knows why Save is disabled. Uses the
+                                    palette's error token for affordance consistency with the
+                                    invalid-cell border. */
+                                 {{root}}[{{dc}}] .bob-dc__batch-errors {
+                                     font-size: 0.85em;
+                                     color: var(--palette-error);
+                                     font-weight: 600;
+                                     white-space: nowrap;
+                                 }
+
+                                 /* Copy-to-clipboard action — rendered as the right-most slot
+                                    of the toolbar when Copyable=true. Wrapper exists so future
+                                    additions (export menu, share, etc.) can collect under one
+                                    flex item without disturbing surrounding spacing. */
+                                 {{root}}[{{dc}}] .bob-dc__copy-action {
+                                     display: inline-flex;
+                                     align-items: center;
+                                 }
+
+                                 /* === REDUCED MOTION ===
+                                    Skeleton / spinner CSS reads --bob-dc-anim-duration and
+                                    --bob-dc-spinner-duration. Zeroing them here turns the animations
+                                    into static placeholders for users who prefer reduced motion,
+                                    without scoped CSS having to host its own @media query. */
+                                 @media (prefers-reduced-motion: reduce) {
+                                     {{root}}[{{dc}}] {
+                                         --bob-dc-anim-duration: 0s;
+                                         --bob-dc-spinner-duration: 0s;
+                                     }
+                                 }
+                                 """);
     }
 }

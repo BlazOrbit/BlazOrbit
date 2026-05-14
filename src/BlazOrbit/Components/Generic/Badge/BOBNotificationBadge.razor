@@ -13,30 +13,48 @@
 }
 
 @code {
+
     /// <summary>Content rendered inside the component.</summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     /// <summary>BadgeContent.</summary>
-    [Parameter] public RenderFragment? BadgeContent { get; set; }
+    [Parameter]
+    public RenderFragment? BadgeContent { get; set; }
+
     /// <summary>Position.</summary>
-    [Parameter] public BadgePosition Position { get; set; } = BadgePosition.TopRight;
+    [Parameter]
+    public BadgePosition Position { get; set; } = BadgePosition.TopRight;
+
     /// <summary>Circular.</summary>
-    [Parameter] public bool Circular { get; set; } = true;
+    [Parameter]
+    public bool Circular { get; set; } = true;
+
     /// <summary>Visual size of the component.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Small;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Small;
+
     /// <summary>Text or foreground color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? Color { get; set; }
+    [Parameter]
+    public string? Color { get; set; }
+
     /// <summary>Background color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? BackgroundColor { get; set; }
+    [Parameter]
+    public string? BackgroundColor { get; set; }
+
     /// <summary>Border style applied to the component.</summary>
-    [Parameter] public BorderStyle? Border { get; set; }
+    [Parameter]
+    public BorderStyle? Border { get; set; }
+
     /// <summary>Shadow style applied to the component.</summary>
-    [Parameter] public ShadowStyle? Shadow { get; set; }
+    [Parameter]
+    public ShadowStyle? Shadow { get; set; }
 
     public override BOBBadgeVariant DefaultVariant => BOBBadgeVariant.Default;
 
     protected override Dictionary<BOBBadgeVariant, Func<BOBNotificationBadge, RenderFragment>> BuiltInTemplates { get; } = new()
     {
-        [BOBBadgeVariant.Default] = b => b.RenderNotificationBadge(),
+        [BOBBadgeVariant.Default] = b => b.RenderNotificationBadge()
     };
 
     public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
@@ -44,7 +62,9 @@
         dataAttributes[FeatureDefinitions.DataAttributes.Position] = Position.ToString().ToLowerInvariant();
     }
 
-    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables) { }
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    {
+    }
 
     private RenderFragment RenderNotificationBadge() => __builder =>
     {
@@ -63,4 +83,5 @@
             </div>
         </bob-component>
     };
+
 }

@@ -117,7 +117,7 @@ public class BOBDataGridStateTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         // Arrange — 3 items, page size 2
-        IEnumerable<Person> items = [new Person("A", 1), new Person("B", 2), new Person("C", 3)];
+        IEnumerable<Person> items = [new("A", 1), new("B", 2), new("C", 3)];
 
         // Act
         IRenderedComponent<BOBDataGrid<Person>> cut = ctx.Render<BOBDataGrid<Person>>(p => p

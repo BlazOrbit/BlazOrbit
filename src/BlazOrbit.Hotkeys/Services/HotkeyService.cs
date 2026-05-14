@@ -19,11 +19,17 @@ public sealed class HotkeyService : IHotkeyService
             {
                 return _entries.Values
                     .SelectMany(list => list)
-                    .Select(e => new HotkeyDescriptor(e.Combo, e.Description, e.Scope))
+                    .Select(e => new HotkeyDescriptor(e.Combo, e.Description, e.Scope, e.PreventDefault))
                     .ToList();
             }
         }
     }
+
+    /// <inheritdoc />
+    public event Action<HotkeyDescriptor>? Registered;
+
+    /// <inheritdoc />
+    public event Action<HotkeyDescriptor>? Unregistered;
 
     /// <inheritdoc />
     public IDisposable Register(
@@ -46,8 +52,14 @@ public sealed class HotkeyService : IHotkeyService
                 bucket = [];
                 _entries[normalized] = bucket;
             }
+
             bucket.Add(entry);
         }
+
+        // Notify outside the lock — subscribers (BOBHotkeyHost) push to JS via async
+        // interop and we don't want their continuation work serialized against further
+        // Register calls.
+        Registered?.Invoke(new HotkeyDescriptor(normalized, entry.Description, entry.Scope, entry.PreventDefault));
 
         return new Registration(this, normalized, entry);
     }
@@ -64,13 +76,18 @@ public sealed class HotkeyService : IHotkeyService
             {
                 return false;
             }
+
             matches = [.. bucket];
         }
 
         bool preventDefault = false;
         foreach (Entry entry in matches)
         {
-            if (entry.PreventDefault) preventDefault = true;
+            if (entry.PreventDefault)
+            {
+                preventDefault = true;
+            }
+
             try
             {
                 await entry.Handler();
@@ -82,11 +99,13 @@ public sealed class HotkeyService : IHotkeyService
                 _ = ex; // prevent CS0168 / mark intentional swallow.
             }
         }
+
         return preventDefault;
     }
 
     private void Remove(string combo, Entry entry)
     {
+        bool comboGone;
         lock (_lock)
         {
             if (_entries.TryGetValue(combo, out List<Entry>? bucket))
@@ -95,8 +114,24 @@ public sealed class HotkeyService : IHotkeyService
                 if (bucket.Count == 0)
                 {
                     _entries.Remove(combo);
+                    comboGone = true;
+                }
+                else
+                {
+                    // Other entries still hold this combo — JS bridge should keep the
+                    // sync preventDefault set, so don't notify Unregistered yet.
+                    return;
                 }
             }
+            else
+            {
+                return;
+            }
+        }
+
+        if (comboGone)
+        {
+            Unregistered?.Invoke(new HotkeyDescriptor(combo, entry.Description, entry.Scope, entry.PreventDefault));
         }
     }
 
@@ -113,19 +148,45 @@ public sealed class HotkeyService : IHotkeyService
             string t = raw.ToLowerInvariant();
             switch (t)
             {
-                case "ctrl": case "control": ctrl = true; break;
-                case "meta": case "cmd": case "command": case "win": meta = true; break;
-                case "alt": case "option": alt = true; break;
+                case "ctrl":
+                case "control": ctrl = true; break;
+                case "meta":
+                case "cmd":
+                case "command":
+                case "win": meta = true; break;
+                case "alt":
+                case "option": alt = true; break;
                 case "shift": shift = true; break;
                 default: key = t; break;
             }
         }
+
         List<string> parts = [];
-        if (ctrl) parts.Add("ctrl");
-        if (meta) parts.Add("meta");
-        if (alt) parts.Add("alt");
-        if (shift) parts.Add("shift");
-        if (!string.IsNullOrEmpty(key)) parts.Add(key);
+        if (ctrl)
+        {
+            parts.Add("ctrl");
+        }
+
+        if (meta)
+        {
+            parts.Add("meta");
+        }
+
+        if (alt)
+        {
+            parts.Add("alt");
+        }
+
+        if (shift)
+        {
+            parts.Add("shift");
+        }
+
+        if (!string.IsNullOrEmpty(key))
+        {
+            parts.Add(key);
+        }
+
         return string.Join('+', parts);
     }
 
@@ -152,7 +213,11 @@ public sealed class HotkeyService : IHotkeyService
 
         public void Dispose()
         {
-            if (_disposed) return;
+            if (_disposed)
+            {
+                return;
+            }
+
             _disposed = true;
             _service.Remove(_combo, _entry);
         }

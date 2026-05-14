@@ -65,7 +65,7 @@ export function dispose(textareaId: string): void {
         return;
     }
 
-    const { textarea, inputHandler } = instance;
+    const {textarea, inputHandler} = instance;
 
     // Remove event listener
     if (textarea && inputHandler) {

@@ -12,11 +12,12 @@ public class BOBTreeMenuStateTests
     private sealed record MenuItem(string Key, string Label, IEnumerable<MenuItem>? Children = null);
 
     private static IEnumerable<MenuItem> NestedItems
-    => [
-        new MenuItem("parent", "Parent", [
-            new MenuItem("child1", "Child 1"),
-        ]),
-    ];
+        =>
+        [
+            new("parent", "Parent", [
+                new MenuItem("child1", "Child 1")
+            ])
+        ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]

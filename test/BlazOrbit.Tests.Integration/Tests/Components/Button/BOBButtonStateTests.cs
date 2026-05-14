@@ -117,9 +117,7 @@ public class BOBButtonStateTests
         // Arrange
         Dictionary<string, object> customAttributes = new()
         {
-            { "data-testid", "my-button" },
-            { "class", "custom-class" },
-            { "style", "margin: 10px;" }
+            { "data-testid", "my-button" }, { "class", "custom-class" }, { "style", "margin: 10px;" }
         };
 
         IRenderedComponent<BOBButton> cut = ctx.Render<BOBButton>(p => p

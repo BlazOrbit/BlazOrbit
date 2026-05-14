@@ -20,5 +20,5 @@ public enum BOBAccordionMode
     /// it; collapse only happens implicitly when another item is expanded. The first registered item
     /// is auto-expanded.
     /// </summary>
-    SingleStrict = 2,
+    SingleStrict = 2
 }

@@ -15,17 +15,21 @@ public sealed class BOBChartBoxStat<TX>
 
     /// <summary>Whisker minimum (often <c>Q1 − 1.5·IQR</c>).</summary>
     public double Min { get; init; }
+
     /// <summary>First quartile.</summary>
     public double Q1 { get; init; }
+
     /// <summary>Median.</summary>
     public double Median { get; init; }
+
     /// <summary>Third quartile.</summary>
     public double Q3 { get; init; }
+
     /// <summary>Whisker maximum (often <c>Q3 + 1.5·IQR</c>).</summary>
     public double Max { get; init; }
 
     /// <summary>Outliers — observations beyond the whiskers, drawn as dots.</summary>
-    public IEnumerable<double> Outliers { get; init; } = Array.Empty<double>();
+    public IEnumerable<double> Outliers { get; init; } = [];
 
     /// <summary>Optional explicit color for this box.</summary>
     public string? Color { get; init; }
@@ -42,12 +46,13 @@ public sealed class BOBChartBoxStat<TX>
         {
             return new BOBChartBoxStat<TX> { X = x, Color = color };
         }
+
         double q1 = Quantile(sorted, 0.25);
         double med = Quantile(sorted, 0.5);
         double q3 = Quantile(sorted, 0.75);
         double iqr = q3 - q1;
-        double lo = q1 - 1.5 * iqr;
-        double hi = q3 + 1.5 * iqr;
+        double lo = q1 - (1.5 * iqr);
+        double hi = q3 + (1.5 * iqr);
         double whiskMin = sorted.First(v => v >= lo);
         double whiskMax = sorted.Last(v => v <= hi);
         double[] outliers = sorted.Where(v => v < lo || v > hi).ToArray();
@@ -60,18 +65,26 @@ public sealed class BOBChartBoxStat<TX>
             Q3 = q3,
             Max = whiskMax,
             Outliers = outliers,
-            Color = color,
+            Color = color
         };
     }
 
     private static double Quantile(double[] sorted, double q)
     {
-        if (sorted.Length == 1) return sorted[0];
+        if (sorted.Length == 1)
+        {
+            return sorted[0];
+        }
+
         double pos = q * (sorted.Length - 1);
         int lo = (int)Math.Floor(pos);
         int hi = (int)Math.Ceiling(pos);
-        if (lo == hi) return sorted[lo];
+        if (lo == hi)
+        {
+            return sorted[lo];
+        }
+
         double t = pos - lo;
-        return sorted[lo] * (1 - t) + sorted[hi] * t;
+        return (sorted[lo] * (1 - t)) + (sorted[hi] * t);
     }
 }

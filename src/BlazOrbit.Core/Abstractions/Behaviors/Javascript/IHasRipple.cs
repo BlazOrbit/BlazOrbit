@@ -17,5 +17,5 @@ public interface IHasRipple : IJsBehavior
     int? RippleDurationMs { get; set; }
 
     /// <summary>Gets the <see cref="ElementReference" /> that hosts the ripple effect.</summary>
-    ElementReference GetRippleContainer();
+    ElementReference? GetRippleContainer();
 }

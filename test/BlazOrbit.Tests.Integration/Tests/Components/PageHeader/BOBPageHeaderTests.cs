@@ -74,6 +74,48 @@ public class BOBPageHeaderRenderingTests
         cut.FindAll("h1.bob-page-header__title").Should().BeEmpty();
         cut.Find(".bob-page-header__lead").TextContent.Should().Be("lead-only");
     }
+
+    [Theory]
+    [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
+    public async Task Should_Render_Breadcrumbs_Slot_Above_Title(BlazorScenario scenario)
+    {
+        await using BlazorTestContextBase ctx = scenario.CreateContext();
+
+        IRenderedComponent<BOBPageHeader> cut = ctx.Render<BOBPageHeader>(p => p
+            .Add(c => c.Title, "Orders")
+            .Add(c => c.Breadcrumbs, (RenderFragment)(b => b.AddMarkupContent(0, "<nav>Home / Orders</nav>"))));
+
+        cut.Find(".bob-page-header__breadcrumbs").TextContent.Should().Contain("Home / Orders");
+    }
+
+    [Theory]
+    [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
+    public async Task Should_Omit_Sticky_Attribute_By_Default(BlazorScenario scenario)
+    {
+        await using BlazorTestContextBase ctx = scenario.CreateContext();
+
+        IRenderedComponent<BOBPageHeader> cut = ctx.Render<BOBPageHeader>(p => p
+            .Add(c => c.Title, "Static"));
+
+        cut.Find("bob-component").HasAttribute("data-bob-sticky").Should().BeFalse();
+    }
+
+    [Theory]
+    [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
+    public async Task Should_Render_Eyebrow_Before_Title_In_Markup_Order(BlazorScenario scenario)
+    {
+        await using BlazorTestContextBase ctx = scenario.CreateContext();
+
+        IRenderedComponent<BOBPageHeader> cut = ctx.Render<BOBPageHeader>(p => p
+            .Add(c => c.Title, "Title")
+            .Add(c => c.Eyebrow, (RenderFragment)(b => b.AddMarkupContent(0, "context"))));
+
+        string markup = cut.Markup;
+        int eyebrowIdx = markup.IndexOf("page-header__eyebrow", StringComparison.Ordinal);
+        int titleIdx = markup.IndexOf("page-header__title", StringComparison.Ordinal);
+        eyebrowIdx.Should().BeGreaterThanOrEqualTo(0);
+        titleIdx.Should().BeGreaterThan(eyebrowIdx);
+    }
 }
 
 [Trait("Component Accessibility", "BOBPageHeader")]
@@ -104,22 +146,34 @@ public class BOBPageHeaderSnapshotTests
 
         var testCases = new[]
         {
-            new { Name = "TitleOnly", Builder = (Action<ComponentParameterCollectionBuilder<BOBPageHeader>>)(p => p
-                .Add(c => c.Title, "Dashboard")) },
-            new { Name = "TitleEyebrowLead", Builder = (Action<ComponentParameterCollectionBuilder<BOBPageHeader>>)(p => p
-                .Add(c => c.Title, "Users")
-                .Add(c => c.Eyebrow, (RenderFragment)(b => b.AddMarkupContent(0, "ops")))
-                .Add(c => c.Lead, (RenderFragment)(b => b.AddMarkupContent(0, "lead text")))) },
-            new { Name = "TitleAndActions", Builder = (Action<ComponentParameterCollectionBuilder<BOBPageHeader>>)(p => p
-                .Add(c => c.Title, "Orders")
-                .Add(c => c.Actions, (RenderFragment)(b => b.AddMarkupContent(0, "<button>Refresh</button>")))) },
+            new
+            {
+                Name = "TitleOnly",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBPageHeader>>)(p => p
+                    .Add(c => c.Title, "Dashboard"))
+            },
+            new
+            {
+                Name = "TitleEyebrowLead",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBPageHeader>>)(p => p
+                    .Add(c => c.Title, "Users")
+                    .Add(c => c.Eyebrow, (RenderFragment)(b => b.AddMarkupContent(0, "ops")))
+                    .Add(c => c.Lead, (RenderFragment)(b => b.AddMarkupContent(0, "lead text"))))
+            },
+            new
+            {
+                Name = "TitleAndActions",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBPageHeader>>)(p => p
+                    .Add(c => c.Title, "Orders")
+                    .Add(c => c.Actions, (RenderFragment)(b => b.AddMarkupContent(0, "<button>Refresh</button>"))))
+            }
         };
 
         var results = testCases.Select(tc =>
         {
             IRenderedComponent<BOBPageHeader> cut = ctx.Render<BOBPageHeader>(tc.Builder);
             return new { tc.Name, Html = cut.GetNormalizedMarkup() };
-        });
+        }).ToList();
 
         await Verify(results).UseParameters(scenario.Name);
     }

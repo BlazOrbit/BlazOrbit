@@ -17,657 +17,783 @@ using System.Diagnostics.CodeAnalysis;
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.BOBBadge.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.BOBBadge.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.BOBButton.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.BOBButton.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.BOBCodeBlock.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.BOBCodeBlock.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.BOBDataCards`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.BOBDataCards`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.BOBDataColumn`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.BOBDataColumn`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.BOBDataGrid`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.BOBDataGrid`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.BOBDraggable.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.BOBDraggable.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.BOBProgressIcon.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.BOBProgressIcon.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.BOBNotificationBadge.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.BOBNotificationBadge.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.BOBSelect`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.BOBSelect`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.BOBSvgIcon.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.BOBSvgIcon.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.BOBTab.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.BOBTab.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.BOBTabs.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.BOBTabs.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.BOBTooltip.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.BOBTooltip.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.BOBTreeMenuItem.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.BOBTreeMenuItem.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.BOBTreeMenu`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.BOBTreeMenu`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.BOBTreeSelectorItem.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.BOBTreeSelectorItem.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.BOBTreeSelector`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.BOBTreeSelector`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Diagnostics.BOBPerformanceDashboard.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Diagnostics.BOBPerformanceDashboard.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Display.BOBAvatar.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Display.BOBAvatar.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Display.BOBAvatarGroup.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Display.BOBAvatarGroup.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Display.BOBBanner.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Display.BOBBanner.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Display.BOBChip.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Display.BOBChip.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Navigation.BOBBreadcrumbs.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Navigation.BOBBreadcrumbs.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Navigation.BOBTimeline.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Navigation.BOBTimeline.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Navigation.BOBStepper.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Navigation.BOBStepper.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Navigation.BOBStep.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Navigation.BOBStep.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Layout.BOBAspectRatio.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Layout.BOBAspectRatio.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Layout.BOBPageHeader.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Layout.BOBPageHeader.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Layout.BOBContainer.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Layout.BOBContainer.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Layout.BOBSection.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Layout.BOBSection.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Layout.BOBSplitter.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Layout.BOBSplitter.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Layout.BOBSplitterPane.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Layout.BOBSplitterPane.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Layout.BOBConfirmDialog.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Layout.BOBConfirmDialog.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Display.BOBRating.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Display.BOBRating.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Display.BOBStatCard.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Display.BOBStatCard.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Display.BOBProgressBar.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Display.BOBProgressBar.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Display.BOBProgressRing.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Display.BOBProgressRing.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.BOBAutoComplete`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBAutoComplete`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.BOBColorPicker.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBColorPicker.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.BOBDatePicker.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBDatePicker.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.BOBInputCheckbox`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBInputCheckbox`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.BOBInputDateRange.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBInputDateRange.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.BOBInputFile.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBInputFile.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.BOBInputColor.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBInputColor.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.BOBInputDateTime`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBInputDateTime`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.BOBInputDropdownTree`2.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBInputDropdownTree`2.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.BOBInputDropdown`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBInputDropdown`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.BOBInputLoading.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBInputLoading.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.BOBInputNumber`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBInputNumber`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.BOBInputOtp.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBInputOtp.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.BOBInputPassword.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBInputPassword.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.BOBInputOutline.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBInputOutline.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.BOBInputPrefix.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBInputPrefix.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.BOBInputRadio`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBInputRadio`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.BOBInputSuffix.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBInputSuffix.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.BOBInputSwitch.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBInputSwitch.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.BOBInputText.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBInputText.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.BOBInputTextArea.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBInputTextArea.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.BOBSwitch`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBSwitch`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.BOBTimePicker.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBTimePicker.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.Dropdown.BOBDropdownContainer`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Internal._BOBAddon.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Internal._BOBInAddon.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Internal._BOBBtn.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Internal._BOBInBtn.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Internal._BOBCheckMark.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Internal._BOBInCheckMark.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Internal._BOBFieldHelper`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Internal._BOBFieldHelper`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Internal._BOBInNumber.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Internal._BOBInNumber.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Internal._BOBInSelect.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Internal._BOBInSelect.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Internal._BOBInText.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Internal._BOBInDate.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Internal._BOBPagination.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBDateRangePicker.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Layout.BOBBlazorLayout.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Display.BOBChipGroup`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Layout.BOBCard.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Internal._BOBInText.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Layout.BOBDialog.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Internal._BOBInPagination.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Layout.BOBDrawer.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Layout.BOBBlazorLayout.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Layout.BOBFlexStack.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Layout.BOBCard.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Layout.BOBGrid.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Layout.BOBDialog.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Layout.BOBGridItem.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Layout.BOBDrawer.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Layout.BOBInitializer.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Layout.BOBFlexStack.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Layout.BOBModalContainer.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Layout.BOBGrid.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Layout.BOBModalHost.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Layout.BOBGridItem.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Layout.BOBSidebarLayout.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Layout.BOBInitializer.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Layout.BOBStackedLayout.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Layout.BOBModalContainer.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Layout.BOBThemeSelector.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Layout.BOBModalHost.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Layout.BOBToast.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Layout.BOBSidebarLayout.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Layout.BOBToastHost.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Layout.BOBStackedLayout.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Utils.BOBDateTimePattern.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Layout.BOBThemeSelector.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.Internal._BOBSliderTrack.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Layout.BOBToast.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.Internal._BOBSliderThumb.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Layout.BOBToastHost.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.BOBInputNumberSlider`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Utils.BOBDateTimePattern.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.Forms.BOBInputRangeSlider`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.Internal._BOBSliderTrack.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.BOBAccordion.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.Internal._BOBSliderThumb.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.BOBAccordionItem.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBInputNumberSlider`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.BOBCarousel.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.Forms.BOBInputRangeSlider`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Components.BOBCarouselItem.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Components.BOBAccordion.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+
+[assembly: SuppressMessage(
+    "Microsoft.CodeAnalysis.PublicApiAnalyzers",
+    "RS0041:PublicApiFilesInvalid",
+    Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
+    Scope = "member",
+    Target =
+        "~M:BlazOrbit.Components.BOBAccordionItem.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+
+[assembly: SuppressMessage(
+    "Microsoft.CodeAnalysis.PublicApiAnalyzers",
+    "RS0041:PublicApiFilesInvalid",
+    Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
+    Scope = "member",
+    Target =
+        "~M:BlazOrbit.Components.BOBCarousel.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+
+[assembly: SuppressMessage(
+    "Microsoft.CodeAnalysis.PublicApiAnalyzers",
+    "RS0041:PublicApiFilesInvalid",
+    Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
+    Scope = "member",
+    Target =
+        "~M:BlazOrbit.Components.BOBCarouselItem.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+
+[assembly: SuppressMessage(
+    "Microsoft.CodeAnalysis.PublicApiAnalyzers",
+    "RS0041:PublicApiFilesInvalid",
+    Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
+    Scope = "member",
+    Target =
+        "~M:BlazOrbit.Components._BOBDataGridCellEditor`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 #endregion

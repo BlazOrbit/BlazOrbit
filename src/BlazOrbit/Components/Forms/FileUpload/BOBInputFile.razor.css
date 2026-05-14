@@ -151,29 +151,26 @@
     opacity: 0.7;
 }
 
-[data-bob-component="input-file"] .bob-file-upload__remove {
+/* Per-entry status glyph — flush against the remove button, colour reflects
+   terminal status (Uploaded → success, Failed → error). Consumers drive the
+   underlying `entry.Status` via `BOBInputFile.SetStatus(file, status, ...)`. */
+[data-bob-component="input-file"] .bob-file-upload__entry-status {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background: transparent;
-    border: none;
-    cursor: pointer;
     color: var(--palette-surface-contrast);
-    opacity: 0.6;
-    padding: 0.25rem;
-    border-radius: 0.25rem;
-    transition: opacity 100ms ease;
 }
 
-[data-bob-component="input-file"] .bob-file-upload__remove:hover,
-[data-bob-component="input-file"] .bob-file-upload__remove:focus-visible {
-    opacity: 1;
+[data-bob-component="input-file"] .bob-file-upload__entry[data-bob-status="uploaded"] .bob-file-upload__entry-status {
+    color: var(--palette-success);
 }
 
-[data-bob-component="input-file"] .bob-file-upload__remove:disabled {
-    cursor: not-allowed;
-    opacity: 0.3;
+[data-bob-component="input-file"] .bob-file-upload__entry[data-bob-status="failed"] .bob-file-upload__entry-status {
+    color: var(--palette-error);
 }
+
+/* Per-entry remove affordance: appearance + hover/focus + disabled state flow
+   through the internal _BOBInBtn Ghost variant. */
 
 [data-bob-component="input-file"] .bob-file-upload__errors {
     list-style: none;

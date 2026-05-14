@@ -63,7 +63,7 @@ public class TriggerTransitionBuilder
     // === Shadows ===
 
     public TriggerTransitionBuilder BoxShadow(ShadowStyle shadow, Action<TransitionTiming>? timing = null)
-    => AddEntry("box-shadow", shadow.ToCss(), timing);
+        => AddEntry("box-shadow", shadow.ToCss(), timing);
 
     public TriggerTransitionBuilder TextShadow(string value, Action<TransitionTiming>? timing = null)
         => AddEntry("text-shadow", value, timing);

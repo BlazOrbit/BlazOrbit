@@ -54,8 +54,10 @@ public class BOBToastHostRenderingTests
         IToastService toastService = ctx.Services.GetRequiredService<IToastService>();
 
         // Act — show toasts in multiple positions
-        await toastService.ShowAsync(b => b.AddContent(0, "tl"), new ToastOptions { AutoDismiss = false, Position = ToastPosition.TopLeft });
-        await toastService.ShowAsync(b => b.AddContent(0, "br"), new ToastOptions { AutoDismiss = false, Position = ToastPosition.BottomRight });
+        await toastService.ShowAsync(b => b.AddContent(0, "tl"),
+            new ToastOptions { AutoDismiss = false, Position = ToastPosition.TopLeft });
+        await toastService.ShowAsync(b => b.AddContent(0, "br"),
+            new ToastOptions { AutoDismiss = false, Position = ToastPosition.BottomRight });
 
         // Assert — only one <bob-component> root (not one per position)
         cut.FindAll("[data-bob-component='toast-host']").Should().HaveCount(1);

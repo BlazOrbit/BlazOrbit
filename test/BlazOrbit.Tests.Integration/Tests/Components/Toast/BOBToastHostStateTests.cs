@@ -57,7 +57,8 @@ public class BOBToastHostStateTests
         }
 
         // Assert — only MaxVisiblePerPosition rendered
-        cut.FindAll(".bob-toast-host__position[data-bob-position='top-right'] [data-bob-component='toast']").Should().HaveCount(2);
+        cut.FindAll(".bob-toast-host__position[data-bob-position='top-right'] [data-bob-component='toast']").Should()
+            .HaveCount(2);
         toastService.ActiveToasts.Should().HaveCount(4);
     }
 

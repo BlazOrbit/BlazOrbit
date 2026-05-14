@@ -45,7 +45,11 @@ public class BOBDraggableInteractionTests
 
         bool fired = false;
         IRenderedComponent<BOBDraggable> cut = ctx.Render<BOBDraggable>(p => p
-            .Add(c => c.OnDragStart, _ => { fired = true; return Task.CompletedTask; }));
+            .Add(c => c.OnDragStart, _ =>
+            {
+                fired = true;
+                return Task.CompletedTask;
+            }));
 
         cut.Find(".bob-draggable").MouseDown(new MouseEventArgs { ClientX = 10, ClientY = 20 });
 
@@ -61,7 +65,11 @@ public class BOBDraggableInteractionTests
         bool fired = false;
         IRenderedComponent<BOBDraggable> cut = ctx.Render<BOBDraggable>(p => p
             .Add(c => c.Disabled, true)
-            .Add(c => c.OnDragStart, _ => { fired = true; return Task.CompletedTask; }));
+            .Add(c => c.OnDragStart, _ =>
+            {
+                fired = true;
+                return Task.CompletedTask;
+            }));
 
         cut.Find(".bob-draggable").MouseDown(new MouseEventArgs { ClientX = 0, ClientY = 0 });
 

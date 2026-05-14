@@ -13,23 +13,28 @@ namespace BlazOrbit.Charts.Components;
 /// preserve uniform angular slots and let the radii do the talking.
 /// </summary>
 /// <typeparam name="TY">Numeric value type.</typeparam>
-public class BOBPolarAreaChart<TY> : BOBChartBase<int, TY>
+public sealed class BOBPolarAreaChart<TY> : BOBChartBase<int, TY>
     where TY : struct
 {
     /// <summary>Slice values (one wedge per item, equal angular width).</summary>
-    [Parameter] public IEnumerable<BOBChartSlice<TY>>? Slices { get; set; }
+    [Parameter]
+    public IEnumerable<BOBChartSlice<TY>>? Slices { get; set; }
 
     /// <summary>Pixel padding from SVG edge to the outer radius. Default 32.</summary>
-    [Parameter] public double Padding { get; set; } = 32;
+    [Parameter]
+    public double Padding { get; set; } = 32;
 
     /// <summary>Number of concentric grid rings drawn for reference.</summary>
-    [Parameter] public int RingCount { get; set; } = 4;
+    [Parameter]
+    public int RingCount { get; set; } = 4;
 
     /// <summary>Slice fill opacity (0..1). Default 0.7.</summary>
-    [Parameter] public double FillOpacity { get; set; } = 0.7;
+    [Parameter]
+    public double FillOpacity { get; set; } = 0.7;
 
     /// <summary>Render the slice value at its centroid. Default <c>true</c>.</summary>
-    [Parameter] public bool ShowValues { get; set; } = true;
+    [Parameter]
+    public bool ShowValues { get; set; } = true;
 
     /// <inheritdoc />
     protected override string BuildAriaLabel() => $"Polar area chart with {Slices?.Count() ?? 0} slices";
@@ -37,19 +42,29 @@ public class BOBPolarAreaChart<TY> : BOBChartBase<int, TY>
     /// <inheritdoc />
     protected override void RenderSvg(RenderTreeBuilder builder)
     {
-        if (Slices is null) return;
+        if (Slices is null)
+        {
+            return;
+        }
+
         BOBChartSlice<TY>[] slices = Slices.ToArray();
-        if (slices.Length == 0) return;
+        if (slices.Length == 0)
+        {
+            return;
+        }
 
         double[] vals = slices.Select(s => Convert.ToDouble(s.Value, CultureInfo.InvariantCulture)).ToArray();
         double maxV = vals.Max();
-        if (maxV <= 0) return;
+        if (maxV <= 0)
+        {
+            return;
+        }
 
         double w = EffectiveWidth;
         double h = EffectiveHeight;
         double cx = w / 2;
         double cy = h / 2;
-        double radius = Math.Min(w, h) / 2 - Padding;
+        double radius = (Math.Min(w, h) / 2) - Padding;
         double slot = 2 * Math.PI / slices.Length;
 
         int seq = 100;
@@ -73,12 +88,12 @@ public class BOBPolarAreaChart<TY> : BOBChartBase<int, TY>
         for (int i = 0; i < slices.Length; i++)
         {
             double rPx = radius * vals[i] / maxV;
-            double a0 = -Math.PI / 2 + i * slot;
+            double a0 = (-Math.PI / 2) + (i * slot);
             double a1 = a0 + slot;
-            double x0 = cx + rPx * Math.Cos(a0);
-            double y0 = cy + rPx * Math.Sin(a0);
-            double x1 = cx + rPx * Math.Cos(a1);
-            double y1 = cy + rPx * Math.Sin(a1);
+            double x0 = cx + (rPx * Math.Cos(a0));
+            double y0 = cy + (rPx * Math.Sin(a0));
+            double x1 = cx + (rPx * Math.Cos(a1));
+            double y1 = cy + (rPx * Math.Sin(a1));
             int large = slot > Math.PI ? 1 : 0;
             string color = slices[i].Color ?? Palette.ColorAt(i);
 
@@ -99,10 +114,10 @@ public class BOBPolarAreaChart<TY> : BOBChartBase<int, TY>
 
             if (ShowValues)
             {
-                double aMid = a0 + slot / 2;
+                double aMid = a0 + (slot / 2);
                 double rLabel = rPx * 0.65;
-                double xL = cx + rLabel * Math.Cos(aMid);
-                double yL = cy + rLabel * Math.Sin(aMid);
+                double xL = cx + (rLabel * Math.Cos(aMid));
+                double yL = cy + (rLabel * Math.Sin(aMid));
                 builder.OpenElement(seq++, "text");
                 builder.AddAttribute(seq++, "class", "bob-polar-area-chart__value");
                 builder.AddAttribute(seq++, "x", ChartLayout.ToInvariant(xL));
@@ -119,7 +134,11 @@ public class BOBPolarAreaChart<TY> : BOBChartBase<int, TY>
     /// <inheritdoc />
     private protected override IEnumerable<LegendEntry> GetLegendEntries()
     {
-        if (Slices is null) yield break;
+        if (Slices is null)
+        {
+            yield break;
+        }
+
         int i = 0;
         foreach (BOBChartSlice<TY> s in Slices)
         {

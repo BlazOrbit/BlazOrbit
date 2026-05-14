@@ -1,4 +1,4 @@
-@page "/components/layout/accordion"
+﻿@page "/components/layout/accordion"
 
 @inject IStringLocalizer<AccordionPage> Loc
 
@@ -6,7 +6,8 @@
 <DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBAccordion"]"
          Lede="@Loc["Vertically stacked, expandable panels. Choose between multi-open, single-open, or always-one-open modes."]"
          PageInstance="this"
-         ApiType="@typeof(BOBAccordion)">
+         ApiType="@typeof(BOBAccordion)"
+         Keywords="@(["accordion", "collapse", "expand", "panel"])">
 
     <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
         <BOBAccordion>
@@ -25,7 +26,8 @@
         </BOBAccordion>
     </DocDemo>
 
-    <DocDemo Key="SingleMode" Title="@Loc["Single mode"]" Description="@Loc["Only one panel can be open at a time. Click an open panel to collapse it."]">
+    <DocDemo Key="SingleMode" Title="@Loc["Single mode"]"
+             Description="@Loc["Only one panel can be open at a time. Click an open panel to collapse it."]">
         <BOBAccordion Mode="BOBAccordionMode.Single">
             <BOBAccordionItem Id="step-1">
                 <Header>@Loc["Step 1 — Pick a plan"]</Header>
@@ -42,7 +44,8 @@
         </BOBAccordion>
     </DocDemo>
 
-    <DocDemo Key="SingleStrict" Title="@Loc["Always one open"]" Description="@Loc["The first panel auto-expands and at least one panel is always visible."]">
+    <DocDemo Key="SingleStrict" Title="@Loc["Always one open"]"
+             Description="@Loc["The first panel auto-expands and at least one panel is always visible."]">
         <BOBAccordion Mode="BOBAccordionMode.SingleStrict">
             <BOBAccordionItem Id="overview">
                 <Header>@Loc["Overview"]</Header>
@@ -72,7 +75,8 @@
         </BOBAccordion>
     </DocDemo>
 
-    <DocDemo Key="GapAndBorder" Title="@Loc["Gap + border"]" Description="@Loc["Default gap is 0 (items flush). Combine Gap with a Border preset for a card-like grouping."]">
+    <DocDemo Key="GapAndBorder" Title="@Loc["Gap + border"]"
+             Description="@Loc["Default gap is 0 (items flush). Combine Gap with a Border preset for a card-like grouping."]">
         <BOBAccordion Gap="0.5rem" Border="@BOBBorderPresets.Rounded">
             <BOBAccordionItem Id="gap-a">
                 <Header>@Loc["Item A"]</Header>
@@ -89,10 +93,11 @@
         </BOBAccordion>
     </DocDemo>
 
-    <DocDemo Key="Separator" Title="@Loc["Custom separator"]" Description="@Loc["Render any markup between items via the Separator slot. Combine with Gap=0 for a hairline divider."]">
+    <DocDemo Key="Separator" Title="@Loc["Custom separator"]"
+             Description="@Loc["Render any markup between items via the Separator slot. Combine with Gap=0 for a hairline divider."]">
         <BOBAccordion>
             <Separator>
-                <hr style="border: none; border-top: 1px solid var(--palette-border); margin: 0;" />
+                <hr style="border: none; border-top: 1px solid var(--palette-border); margin: 0;"/>
             </Separator>
             <ChildContent>
                 <BOBAccordionItem Id="sep-a">
@@ -111,7 +116,8 @@
         </BOBAccordion>
     </DocDemo>
 
-    <DocDemo Key="CustomIcon" Title="@Loc["Custom expand icon"]" Description="@Loc["Override the icon per item. Default Plus rotates 45° on open; for chevrons set --_accordion-icon-rotation: 180deg in your CSS."]">
+    <DocDemo Key="CustomIcon" Title="@Loc["Custom expand icon"]"
+             Description="@Loc["Override the icon per item. Default Plus rotates 45° on open; for chevrons set --_accordion-icon-rotation: 180deg in your CSS."]">
         <BOBAccordion>
             <BOBAccordionItem Id="info" ExpandIcon="@BOBIconKeys.UI.ChevronDown" InitiallyExpanded="true">
                 <Header>@Loc["Info"]</Header>
@@ -128,10 +134,10 @@
         <h2 class="doc-section__title">@Loc["Properties"]</h2>
 
         <h3 class="doc-section__subtitle">BOBAccordion</h3>
-        <PropertyTable Properties="@BOBAccordionComponentInfo.Parameters" />
+        <PropertyTable Properties="@BOBAccordionComponentInfo.Parameters"/>
 
         <h3 class="doc-section__subtitle">BOBAccordionItem</h3>
-        <PropertyTable Properties="@BOBAccordionItemComponentInfo.Parameters" />
+        <PropertyTable Properties="@BOBAccordionItemComponentInfo.Parameters"/>
     </section>
 
 </DocPage>

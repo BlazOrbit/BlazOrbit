@@ -60,9 +60,9 @@ internal sealed class LinearScale
             rawMax += 1;
         }
 
-        double step = NiceTickStep(rawMin, rawMax, targetTicks: 5);
-        DomainMin = explicitMin ?? (Math.Floor(rawMin / step) * step);
-        DomainMax = explicitMax ?? (Math.Ceiling(rawMax / step) * step);
+        double step = NiceTickStep(rawMin, rawMax, 5);
+        DomainMin = explicitMin ?? Math.Floor(rawMin / step) * step;
+        DomainMax = explicitMax ?? Math.Ceiling(rawMax / step) * step;
         TickStep = step;
     }
 
@@ -108,7 +108,11 @@ internal sealed class LinearScale
     {
         get
         {
-            if (TickStep >= 1) return 0;
+            if (TickStep >= 1)
+            {
+                return 0;
+            }
+
             // -log10(0.1) = 1, -log10(0.01) = 2, -log10(0.05) ≈ 1.3 → 2.
             return Math.Min(10, Math.Max(0, (int)Math.Ceiling(-Math.Log10(TickStep))));
         }

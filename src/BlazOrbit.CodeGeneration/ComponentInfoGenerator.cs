@@ -57,11 +57,11 @@ public sealed record ComponentData(
 /// <summary>Toda la información extraída de un único archivo .razor.</summary>
 public sealed record RazorFileData(
     string FilePath,
-    string ComponentName,        // del nombre de archivo
-    string? DeclaredNamespace,    // de @namespace
-    string? InheritsRaw,          // de @inherits (texto en crudo)
-    ImmutableArray<ParameterData> OwnParameters,        // [Parameter] propios del @code
-    bool GenerateInfo);        // true si @attribute [GenerateComponentInfo]
+    string ComponentName, // del nombre de archivo
+    string? DeclaredNamespace, // de @namespace
+    string? InheritsRaw, // de @inherits (texto en crudo)
+    ImmutableArray<ParameterData> OwnParameters, // [Parameter] propios del @code
+    bool GenerateInfo); // true si @attribute [GenerateComponentInfo]
 
 // ─────────────────────────────────────────────────────────────
 //  Shared sources — se inyectan en la compilación de BlazOrbit
@@ -108,20 +108,20 @@ internal static class SharedSources
 internal static class Diagnostics
 {
     public static readonly DiagnosticDescriptor ComponentNameCollision = new(
-        id: "BOBGEN001",
-        title: "Multiple .razor components share the same simple name",
-        messageFormat: "Multiple .razor files named '{0}' exist in different folders/namespaces ({1}); @inherits resolution prefers the same-namespace match and otherwise picks deterministically by file path. Rename one of them or fully-qualify @inherits to silence this warning.",
-        category: "BlazOrbit.CodeGeneration",
-        defaultSeverity: DiagnosticSeverity.Warning,
-        isEnabledByDefault: true);
+        "BOBGEN001",
+        "Multiple .razor components share the same simple name",
+        "Multiple .razor files named '{0}' exist in different folders/namespaces ({1}); @inherits resolution prefers the same-namespace match and otherwise picks deterministically by file path. Rename one of them or fully-qualify @inherits to silence this warning.",
+        "BlazOrbit.CodeGeneration",
+        DiagnosticSeverity.Warning,
+        true);
 
     public static readonly DiagnosticDescriptor AmbiguousBaseType = new(
-        id: "BOBGEN002",
-        title: "Ambiguous @inherits base type",
-        messageFormat: "@inherits '{0}' matches multiple types in the compilation ({1}); resolution picked '{2}'. Fully-qualify @inherits with the namespace to silence this warning.",
-        category: "BlazOrbit.CodeGeneration",
-        defaultSeverity: DiagnosticSeverity.Warning,
-        isEnabledByDefault: true);
+        "BOBGEN002",
+        "Ambiguous @inherits base type",
+        "@inherits '{0}' matches multiple types in the compilation ({1}); resolution picked '{2}'. Fully-qualify @inherits with the namespace to silence this warning.",
+        "BlazOrbit.CodeGeneration",
+        DiagnosticSeverity.Warning,
+        true);
 }
 
 // ─────────────────────────────────────────────────────────────
@@ -220,10 +220,11 @@ public sealed class ComponentInfoGenerator : IIncrementalGenerator
         //    Se necesitan todos para resolver cadenas de herencia entre .razor.
         IncrementalValuesProvider<RazorFileData> razorFiles = context.AdditionalTextsProvider
             .Where(static f => f.Path.EndsWith(".razor", StringComparison.OrdinalIgnoreCase)
-                && !Path.GetFileName(f.Path).Equals("_Imports.razor", StringComparison.OrdinalIgnoreCase))
+                               && !Path.GetFileName(f.Path)
+                                   .Equals("_Imports.razor", StringComparison.OrdinalIgnoreCase))
             .Select(static (file, ct) => RazorParser.Parse(file, ct))
             .Where(static x => x is not null)
-            .Select(static (x, _) => x!);          // assert non-null para tipar el provider
+            .Select(static (x, _) => x!); // assert non-null para tipar el provider
 
         // Índice global de herencia .razor (se invalida solo cuando cambia algún .razor).
         IncrementalValueProvider<RazorIndex> razorIndex = razorFiles
@@ -240,7 +241,7 @@ public sealed class ComponentInfoGenerator : IIncrementalGenerator
                     .Distinct(StringComparer.Ordinal));
                 spc.ReportDiagnostic(Diagnostic.Create(
                     Diagnostics.ComponentNameCollision,
-                    location: null,
+                    null,
                     collision.Key,
                     namespaces));
             }
@@ -271,30 +272,31 @@ public sealed class ComponentInfoGenerator : IIncrementalGenerator
         context.RegisterSourceOutput(pipelineA, static (spc, data) =>
         {
             (RazorFileData razor, RazorIndex index) = data;
-            EmitComponentInfo(spc, razor, index, compilation: null);
+            EmitComponentInfo(spc, razor, index, null);
         });
 
         // ── Pipeline B ───────────────────────────────────────────
         // Componentes cuya base es un tipo .cs → requieren Compilation.
-        IncrementalValuesProvider<((RazorFileData Razor, RazorIndex Index) Left, Compilation Right)> pipelineB = razorFiles
-            .Combine(razorIndex)
-            .Combine(context.CompilationProvider)
-            .Where(static pair =>
-            {
-                ((RazorFileData razor, RazorIndex index), _) = pair;
-                if (!razor.GenerateInfo)
+        IncrementalValuesProvider<((RazorFileData Razor, RazorIndex Index) Left, Compilation Right)> pipelineB =
+            razorFiles
+                .Combine(razorIndex)
+                .Combine(context.CompilationProvider)
+                .Where(static pair =>
                 {
-                    return false;
-                }
+                    ((RazorFileData razor, RazorIndex index), _) = pair;
+                    if (!razor.GenerateInfo)
+                    {
+                        return false;
+                    }
 
-                if (razor.InheritsRaw is null)
-                {
-                    return false;
-                }
+                    if (razor.InheritsRaw is null)
+                    {
+                        return false;
+                    }
 
-                string baseName = InheritanceResolver.ExtractSimpleName(razor.InheritsRaw);
-                return index.PickBest(baseName, razor.DeclaredNamespace) is null;
-            });
+                    string baseName = InheritanceResolver.ExtractSimpleName(razor.InheritsRaw);
+                    return index.PickBest(baseName, razor.DeclaredNamespace) is null;
+                });
 
         context.RegisterSourceOutput(pipelineB, static (spc, data) =>
         {
@@ -363,19 +365,19 @@ public static class RazorParser
             return null;
         }
 
-        string fileName = System.IO.Path.GetFileNameWithoutExtension(file.Path);
+        string fileName = Path.GetFileNameWithoutExtension(file.Path);
         string? ns = s_nsRx.Match(text!) is { Success: true } nm ? nm.Groups[1].Value.Trim() : null;
         string? inheritsRaw = s_inheritsRx.Match(text!) is { Success: true } im ? im.Groups[1].Value.Trim() : null;
         bool generateInfo = s_generateRx.IsMatch(text!);
         ImmutableArray<ParameterData> ownParams = ParseCodeBlock(text!, ct);
 
         return new RazorFileData(
-            FilePath: file.Path,
-            ComponentName: fileName,
-            DeclaredNamespace: ns,
-            InheritsRaw: inheritsRaw,
-            OwnParameters: ownParams,
-            GenerateInfo: generateInfo);
+            file.Path,
+            fileName,
+            ns,
+            inheritsRaw,
+            ownParams,
+            generateInfo);
     }
 
     // ── Parseo del bloque @code { } ──────────────────────────
@@ -400,8 +402,8 @@ public static class RazorParser
         CompilationUnitSyntax root = syntaxTree.GetCompilationUnitRoot(ct);
 
         ClassDeclarationSyntax? classDecl = root.DescendantNodes()
-                             .OfType<ClassDeclarationSyntax>()
-                             .FirstOrDefault();
+            .OfType<ClassDeclarationSyntax>()
+            .FirstOrDefault();
 
         if (classDecl is null)
         {
@@ -417,13 +419,13 @@ public static class RazorParser
             }
 
             result.Add(new ParameterData(
-                Name: prop.Identifier.Text,
-                Type: prop.Type.ToString(),
-                Default: prop.Initializer?.Value.ToString(),
-                Description: XmlSummary(prop)));
+                prop.Identifier.Text,
+                prop.Type.ToString(),
+                prop.Initializer?.Value.ToString(),
+                XmlSummary(prop)));
         }
 
-        return result.ToImmutableArray();
+        return [..result];
     }
 
     /// <summary>
@@ -575,7 +577,7 @@ internal static class InheritanceResolver
         HashSet<string> visited = new(StringComparer.Ordinal); // protección anti-ciclo
 
         CollectFromRazor(root, razorIndex, compilation, seen, result, visited, reportDiagnostic);
-        return result.ToImmutableArray();
+        return [..result];
     }
 
     // ── Recolección desde un nodo .razor ────────────────────
@@ -658,10 +660,10 @@ internal static class InheritanceResolver
                 }
 
                 result.Add(new ParameterData(
-                    Name: member.Name,
-                    Type: TypeString(member),
-                    Default: DefaultValue(member),
-                    Description: XmlSummaryFromSymbol(member)));
+                    member.Name,
+                    TypeString(member),
+                    DefaultValue(member),
+                    XmlSummaryFromSymbol(member)));
             }
 
             current = current.BaseType;
@@ -752,7 +754,7 @@ internal static class InheritanceResolver
             string candidates = string.Join(", ", matches.Select(s => s.ToDisplayString()));
             reportDiagnostic(Diagnostic.Create(
                 Diagnostics.AmbiguousBaseType,
-                location: null,
+                null,
                 simpleName,
                 candidates,
                 matches[0].ToDisplayString()));
@@ -775,9 +777,9 @@ internal static class InheritanceResolver
     }
 
     private static readonly SymbolDisplayFormat s_typeFormat = new(
-        globalNamespaceStyle: SymbolDisplayGlobalNamespaceStyle.Omitted,
-        typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameOnly,
-        genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters,
+        SymbolDisplayGlobalNamespaceStyle.Omitted,
+        SymbolDisplayTypeQualificationStyle.NameOnly,
+        SymbolDisplayGenericsOptions.IncludeTypeParameters,
         miscellaneousOptions: SymbolDisplayMiscellaneousOptions.IncludeNullableReferenceTypeModifier);
 
     private static string TypeString(IPropertySymbol prop)

@@ -5,11 +5,11 @@
 
 <div class="test-color-consumer">
     <EditForm EditContext="_editContext" OnValidSubmit="HandleValid" OnInvalidSubmit="HandleInvalid">
-        <DataAnnotationsValidator />
+        <DataAnnotationsValidator/>
 
         <BOBInputColor @bind-Value="_model.Color"
                        Label="Color"
-                       HelperText="Choose a color." />
+                       HelperText="Choose a color."/>
 
         <button type="submit" class="submit-btn">Submit</button>
     </EditForm>
@@ -17,6 +17,7 @@
 </div>
 
 @code {
+
     public class Model
     {
         [Required(ErrorMessage = "Color is required")]
@@ -35,8 +36,19 @@
     public EditContext EditContext => _editContext!;
     public Model BoundModel => _model;
 
-    public void ForceValidate() => _editContext?.Validate();
+    public void ForceValidate()
+    {
+        _editContext?.Validate();
+    }
 
-    private void HandleValid() => _submitResult = "valid";
-    private void HandleInvalid() => _submitResult = "invalid";
+    private void HandleValid()
+    {
+        _submitResult = "valid";
+    }
+
+    private void HandleInvalid()
+    {
+        _submitResult = "invalid";
+    }
+
 }

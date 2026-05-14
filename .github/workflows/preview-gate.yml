@@ -1,4 +1,4 @@
-﻿# .github/workflows/preview-gate.yml
+# .github/workflows/preview-gate.yml
 # Quality gates for previews - runs on PRs to develop
 # Verifies build, test and public API before merging to develop
 
@@ -6,8 +6,8 @@ name: '[Quality] Preview Gate'
 
 on:
   pull_request:
-    branches: [develop]
-    types: [opened, synchronize, reopened]
+    branches: [ develop ]
+    types: [ opened, synchronize, reopened ]
 
   workflow_dispatch:
 
@@ -40,10 +40,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@c2fa09f4bde5ebb9d1777cf28262a3eb3db3ced7  # v5
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           global-json-file: global.json
@@ -51,7 +51,7 @@ jobs:
           cache-dependency-path: '**/*.csproj'
 
       - name: Setup Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6
         with:
           node-version: '20'
 
@@ -73,10 +73,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@c2fa09f4bde5ebb9d1777cf28262a3eb3db3ced7  # v5
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           global-json-file: global.json
@@ -84,7 +84,7 @@ jobs:
           cache-dependency-path: '**/*.csproj'
 
       - name: Setup Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6
         with:
           node-version: '20'
 
@@ -109,10 +109,10 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@c2fa09f4bde5ebb9d1777cf28262a3eb3db3ced7  # v5
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           global-json-file: global.json
@@ -120,7 +120,7 @@ jobs:
           cache-dependency-path: '**/*.csproj'
 
       - name: Setup Node
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6
         with:
           node-version: '20'
 
@@ -148,7 +148,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
         with:
           fetch-depth: 0
 
@@ -173,12 +173,12 @@ jobs:
   summary:
     name: Preview Gate Summary
     runs-on: ubuntu-latest
-    needs: [build-linux, build-windows, tests, public-api-shipped-check]
+    needs: [ build-linux, build-windows, tests, public-api-shipped-check ]
     if: always()
 
     steps:
       - name: Generate summary
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9
         with:
           script: |
             const jobs = {

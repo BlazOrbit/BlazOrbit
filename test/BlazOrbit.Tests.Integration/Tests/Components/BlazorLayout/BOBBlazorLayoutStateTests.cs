@@ -32,7 +32,7 @@ public class BOBBlazorLayoutStateTests
         ["--palette-surface"] = "#F5F5F5",
         ["--palette-surface-contrast"] = "#000000",
         ["--palette-warning"] = "#FB8C00",
-        ["--palette-warning-contrast"] = "#000000",
+        ["--palette-warning-contrast"] = "#000000"
     };
 
     private static IThemeJsInterop RegisterFakeTheme(

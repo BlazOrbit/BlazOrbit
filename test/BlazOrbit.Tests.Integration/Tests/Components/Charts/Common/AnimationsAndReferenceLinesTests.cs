@@ -10,18 +10,18 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Charts.Common;
 [Trait("Component Interaction", "Charts.AnimationsRefLines")]
 public class AnimationsAndReferenceLinesTests
 {
-    private static IEnumerable<BOBChartSeries<string, decimal>> Series() => new[]
-    {
+    private static IEnumerable<BOBChartSeries<string, decimal>> Series() =>
+    [
         new BOBChartSeries<string, decimal>
         {
             Label = "Latency",
-            Points = new[]
-            {
+            Points =
+            [
                 new BOBChartPoint<string, decimal>("Q1", 100m),
-                new BOBChartPoint<string, decimal>("Q2", 150m),
-            }
+                new BOBChartPoint<string, decimal>("Q2", 150m)
+            ]
         }
-    };
+    ];
 
     // ---------- Animations ----------
 
@@ -79,14 +79,11 @@ public class AnimationsAndReferenceLinesTests
         IRenderedComponent<BOBBarChart<string, decimal>> cut =
             ctx.Render<BOBBarChart<string, decimal>>(p => p
                 .Add(c => c.Series, Series())
-                .Add(c => c.ReferenceLines, new[]
-                {
-                    new BOBChartReferenceLine { Value = 120, Label = "SLO 99.9%" }
-                }));
+                .Add(c => c.ReferenceLines, [new BOBChartReferenceLine { Value = 120, Label = "SLO 99.9%" }]));
 
         AngleSharp.Dom.IElement line = cut.Find("line.bob-chart__reference-line");
         line.GetAttribute("stroke-dasharray").Should().Be("6,4",
-            because: "Dashed is the default style");
+            "Dashed is the default style");
 
         cut.Find("text.bob-chart__reference-label").TextContent.Should().Be("SLO 99.9%");
     }
@@ -100,14 +97,8 @@ public class AnimationsAndReferenceLinesTests
         IRenderedComponent<BOBBarChart<string, decimal>> cut =
             ctx.Render<BOBBarChart<string, decimal>>(p => p
                 .Add(c => c.Series, Series())
-                .Add(c => c.ReferenceLines, new[]
-                {
-                    new BOBChartReferenceLine
-                    {
-                        Value = 100,
-                        Style = BOBChartReferenceLineStyle.Solid,
-                    }
-                }));
+                .Add(c => c.ReferenceLines,
+                    [new BOBChartReferenceLine { Value = 100, Style = BOBChartReferenceLineStyle.Solid }]));
 
         cut.Find("line.bob-chart__reference-line")
             .HasAttribute("stroke-dasharray").Should().BeFalse();
@@ -122,14 +113,8 @@ public class AnimationsAndReferenceLinesTests
         IRenderedComponent<BOBBarChart<string, decimal>> cut =
             ctx.Render<BOBBarChart<string, decimal>>(p => p
                 .Add(c => c.Series, Series())
-                .Add(c => c.ReferenceLines, new[]
-                {
-                    new BOBChartReferenceLine
-                    {
-                        Value = 100,
-                        Style = BOBChartReferenceLineStyle.Dotted,
-                    }
-                }));
+                .Add(c => c.ReferenceLines,
+                    [new BOBChartReferenceLine { Value = 100, Style = BOBChartReferenceLineStyle.Dotted }]));
 
         cut.Find("line.bob-chart__reference-line")
             .GetAttribute("stroke-dasharray").Should().Be("2,3");
@@ -144,10 +129,7 @@ public class AnimationsAndReferenceLinesTests
         IRenderedComponent<BOBBarChart<string, decimal>> cut =
             ctx.Render<BOBBarChart<string, decimal>>(p => p
                 .Add(c => c.Series, Series())
-                .Add(c => c.ReferenceLines, new[]
-                {
-                    new BOBChartReferenceLine { Value = 100, Color = "red" }
-                }));
+                .Add(c => c.ReferenceLines, [new BOBChartReferenceLine { Value = 100, Color = "red" }]));
 
         cut.Find("line.bob-chart__reference-line")
             .GetAttribute("stroke").Should().Be("red");
@@ -162,10 +144,9 @@ public class AnimationsAndReferenceLinesTests
         IRenderedComponent<BOBBarChart<string, decimal>> cut =
             ctx.Render<BOBBarChart<string, decimal>>(p => p
                 .Add(c => c.Series, Series())
-                .Add(c => c.ReferenceLines, new[]
-                {
-                    new BOBChartReferenceLine { Value = 100 }     // no Label
-                }));
+                .Add(c => c.ReferenceLines, [
+                    new BOBChartReferenceLine { Value = 100 } // no Label
+                ]));
 
         cut.FindAll("text.bob-chart__reference-label").Should().BeEmpty();
         cut.FindAll("line.bob-chart__reference-line").Should().HaveCount(1);
@@ -180,12 +161,12 @@ public class AnimationsAndReferenceLinesTests
         IRenderedComponent<BOBBarChart<string, decimal>> cut =
             ctx.Render<BOBBarChart<string, decimal>>(p => p
                 .Add(c => c.Series, Series())
-                .Add(c => c.ReferenceLines, new[]
-                {
-                    new BOBChartReferenceLine { Value = 80,  Label = "Low" },
-                    new BOBChartReferenceLine { Value = 120, Label = "High" },
-                    new BOBChartReferenceLine { Value = 150, Label = "Critical" },
-                }));
+                .Add(c => c.ReferenceLines,
+                [
+                    new BOBChartReferenceLine { Value = 80, Label = "Low" },
+                        new BOBChartReferenceLine { Value = 120, Label = "High" },
+                        new BOBChartReferenceLine { Value = 150, Label = "Critical" }
+                ]));
 
         cut.FindAll("line.bob-chart__reference-line").Should().HaveCount(3);
         cut.FindAll("text.bob-chart__reference-label").Should().HaveCount(3);
@@ -199,18 +180,14 @@ public class AnimationsAndReferenceLinesTests
 
         IRenderedComponent<BOBLineChart<int, double>> cut =
             ctx.Render<BOBLineChart<int, double>>(p => p
-                .Add(c => c.Series, new[]
-                {
+                .Add(c => c.Series,
+                [
                     new BOBChartSeries<int, double>
-                    {
-                        Label = "L",
-                        Points = new[] { new BOBChartPoint<int, double>(1, 5.0) }
-                    }
-                })
-                .Add(c => c.ReferenceLines, new[]
-                {
-                    new BOBChartReferenceLine { Value = 10, Label = "Target" }
-                }));
+                        {
+                            Label = "L", Points = [new BOBChartPoint<int, double>(1, 5.0)]
+                        }
+                ])
+                .Add(c => c.ReferenceLines, [new BOBChartReferenceLine { Value = 10, Label = "Target" }]));
 
         cut.FindAll("line.bob-chart__reference-line").Should().HaveCount(1);
     }
@@ -223,22 +200,19 @@ public class AnimationsAndReferenceLinesTests
 
         IRenderedComponent<BOBAreaChart<int, double>> cut =
             ctx.Render<BOBAreaChart<int, double>>(p => p
-                .Add(c => c.Series, new[]
-                {
+                .Add(c => c.Series,
+                [
                     new BOBChartSeries<int, double>
-                    {
-                        Label = "A",
-                        Points = new[]
                         {
-                            new BOBChartPoint<int, double>(1, 5.0),
-                            new BOBChartPoint<int, double>(2, 10.0),
+                            Label = "A",
+                            Points =
+                            [
+                                new BOBChartPoint<int, double>(1, 5.0),
+                                new BOBChartPoint<int, double>(2, 10.0)
+                            ]
                         }
-                    }
-                })
-                .Add(c => c.ReferenceLines, new[]
-                {
-                    new BOBChartReferenceLine { Value = 7.5, Label = "Avg" }
-                }));
+                ])
+                .Add(c => c.ReferenceLines, [new BOBChartReferenceLine { Value = 7.5, Label = "Avg" }]));
 
         cut.FindAll("line.bob-chart__reference-line").Should().HaveCount(1);
     }

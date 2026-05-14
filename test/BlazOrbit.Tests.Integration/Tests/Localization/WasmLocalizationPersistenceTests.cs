@@ -19,10 +19,10 @@ public class WasmLocalizationPersistenceTests
         IJSObjectReference module = Substitute.For<IJSObjectReference>();
 
         jsRuntime.InvokeAsync<IJSObjectReference>(
-            "import",
-            Arg.Is<object[]>(args =>
-                args.Length == 1 &&
-                args[0]!.ToString()!.Contains("LocalStorageInterop")))
+                "import",
+                Arg.Is<object[]>(args =>
+                    args.Length == 1 &&
+                    args[0]!.ToString()!.Contains("LocalStorageInterop")))
             .Returns(_ => new ValueTask<IJSObjectReference>(module));
 
         module.InvokeAsync<string?>("get", Arg.Any<object[]>())
@@ -45,7 +45,7 @@ public class WasmLocalizationPersistenceTests
         IJSObjectReference module = Substitute.For<IJSObjectReference>();
 
         jsRuntime.InvokeAsync<IJSObjectReference>(
-            "import", Arg.Any<object[]>())
+                "import", Arg.Any<object[]>())
             .Returns(_ => new ValueTask<IJSObjectReference>(module));
 
         module.InvokeAsync<string?>("get", Arg.Any<object[]>())
@@ -68,7 +68,7 @@ public class WasmLocalizationPersistenceTests
         IJSObjectReference module = Substitute.For<IJSObjectReference>();
 
         jsRuntime.InvokeAsync<IJSObjectReference>(
-            "import", Arg.Any<object[]>())
+                "import", Arg.Any<object[]>())
             .Returns(_ => new ValueTask<IJSObjectReference>(module));
 
         WasmLocalizationPersistence persistence = CreatePersistence(jsRuntime);

@@ -3,6 +3,7 @@ using BlazOrbit.Components;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Components.Layout;
 using BlazOrbit.Components.Layout.Services;
+using BlazOrbit.Localization;
 using BlazOrbit.Services;
 using Microsoft.AspNetCore.Components;
 using System.ComponentModel;
@@ -15,6 +16,15 @@ public static class ServiceCollectionExtensions
     {
         services.AddMemoryCache();
         services.AddSingleton(TimeProvider.System);
+
+        // BOBLocalize runtime — registers IStringLocalizer<T> => BobLocalizer<T> so the ~35
+        // built-in components that inject IStringLocalizer<BOBFormsResources> /
+        // <BOBLayoutResources> / ... resolve without the consumer having to call
+        // AddBlazOrbitLocalizationServer/Wasm explicitly. BobLocalizer falls back to literal
+        // when no [BobLocalizationBundle] spec is registered for the marker, so the no-loc
+        // template path stays functional. AddBlazOrbitLocalizationServer/Wasm later layer
+        // request/wasm-specific wiring on top of this idempotent base.
+        services.AddBlazOrbitLocalization();
 
         // Un solo registry para todo
         services.AddSingleton<IVariantRegistry, VariantRegistry>();
@@ -67,15 +77,14 @@ public static class ServiceCollectionExtensions
     }
 
     public static IServiceCollection AddBlazOrbitVariants(
-    this IServiceCollection services,
-    Action<VariantBuilder> configure)
+        this IServiceCollection services,
+        Action<VariantBuilder> configure)
     {
         services.AddSingleton<IVariantRegistryInitializer>(
             new VariantRegistryInitializer(configure));
 
         return services;
     }
-
 }
 
 #region Variant Registry Builders
@@ -133,4 +142,5 @@ public sealed class VariantBuilder
     public ComponentVariantBuilder<TComponent> ForComponent<TComponent>()
         where TComponent : ComponentBase => new(_registry);
 }
+
 #endregion

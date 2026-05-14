@@ -13,7 +13,7 @@ public class BOBDataCardsAccessibilityTests
 {
     private sealed record Person(string Name, int Age);
 
-    private static IEnumerable<Person> Items => [new Person("Alice", 30), new Person("Bob", 25)];
+    private static IEnumerable<Person> Items => [new("Alice", 30), new("Bob", 25)];
 
     private static RenderFragment Columns => b =>
     {
@@ -66,7 +66,7 @@ public class BOBDataCardsAccessibilityTests
             .Add(c => c.SelectionMode, SelectionMode.Single));
 
         // Assert
-        foreach (AngleSharp.Dom.IElement card in cut.FindAll(".bob-datacards__card"))
+        foreach (IElement card in cut.FindAll(".bob-datacards__card"))
         {
             card.GetAttribute("role").Should().Be("option");
             card.GetAttribute("aria-selected").Should().Be("false");
@@ -152,7 +152,8 @@ public class BOBDataCardsAccessibilityTests
             {
                 b.OpenComponent<BOBDataColumn<Person>>(0);
                 b.AddAttribute(1, "Header", "Name");
-                b.AddAttribute(2, "Property", (System.Linq.Expressions.Expression<System.Func<Person, object?>>)(p => (object?)p.Name));
+                b.AddAttribute(2, "Property",
+                    (System.Linq.Expressions.Expression<Func<Person, object?>>)(p => (object?)p.Name));
                 b.AddAttribute(3, "Filterable", true);
                 b.AddAttribute(4, "Template", (RenderFragment<Person>)(item => b2 => b2.AddContent(0, item.Name)));
                 b.CloseComponent();

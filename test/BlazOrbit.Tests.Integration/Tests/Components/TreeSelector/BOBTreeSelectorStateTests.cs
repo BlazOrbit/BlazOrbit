@@ -12,17 +12,19 @@ public class BOBTreeSelectorStateTests
     private sealed record SelectItem(string Key, string Label, IEnumerable<SelectItem>? Children = null);
 
     private static IEnumerable<SelectItem> FlatItems
-    => [
-        new SelectItem("a", "Alpha"),
-        new SelectItem("b", "Beta"),
-    ];
+        =>
+        [
+            new("a", "Alpha"),
+            new("b", "Beta")
+        ];
 
     private static IEnumerable<SelectItem> NestedItems
-    => [
-        new SelectItem("parent", "Parent", [
-            new SelectItem("child1", "Child 1"),
-        ]),
-    ];
+        =>
+        [
+            new("parent", "Parent", [
+                new SelectItem("child1", "Child 1")
+            ])
+        ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]

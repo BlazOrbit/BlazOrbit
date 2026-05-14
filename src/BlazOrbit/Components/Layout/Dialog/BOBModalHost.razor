@@ -14,15 +14,15 @@
          @onkeydown="HandleKeyDown"
          tabindex="-1"
          @ref="_hostRef">
-        
+
         <div class="bob-modal-overlay"
              data-bob-closing="@(_isClosing ? "true" : null)"
              @onclick="HandleOverlayClick">
         </div>
 
-        @foreach (ModalState modal in _modals)
+        @foreach (var modal in _modals)
         {
-            <BOBModalContainer Modal="modal" />
+            <BOBModalContainer Modal="modal"/>
         }
     </div>
 }
@@ -58,17 +58,25 @@
 
             await InvokeAsync(StateHasChanged);
         }
-        catch (ObjectDisposedException) { }
-        catch (JSDisconnectedException) { }
-        catch (InvalidOperationException) { }
-        catch (TaskCanceledException) { }
+        catch (ObjectDisposedException)
+        {
+        }
+        catch (JSDisconnectedException)
+        {
+        }
+        catch (InvalidOperationException)
+        {
+        }
+        catch (TaskCanceledException)
+        {
+        }
     }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (_modals.Count > 0)
         {
-            ModalState? current = _modals.LastOrDefault(m => m.IsVisible && !m.IsAnimatingOut);
+            var current = _modals.LastOrDefault(m => m.IsVisible && !m.IsAnimatingOut);
             if (current != null)
             {
                 await _hostRef.FocusAsync();
@@ -80,7 +88,7 @@
     {
         if (e.Key == "Escape")
         {
-            ModalState? current = _modals.LastOrDefault(m => m.IsVisible && !m.IsAnimatingOut);
+            var current = _modals.LastOrDefault(m => m.IsVisible && !m.IsAnimatingOut);
             if (current?.Options.CloseOnEscape == true)
             {
                 await current.Reference.CloseAsync();
@@ -90,7 +98,7 @@
 
     private async Task HandleOverlayClick()
     {
-        ModalState? current = _modals.LastOrDefault(m => m.IsVisible && !m.IsAnimatingOut);
+        var current = _modals.LastOrDefault(m => m.IsVisible && !m.IsAnimatingOut);
         if (current?.Options.CloseOnOverlayClick == true)
         {
             await current.Reference.CloseAsync();
@@ -106,4 +114,5 @@
             await JsInterop.UnlockScrollAsync();
         }
     }
+
 }

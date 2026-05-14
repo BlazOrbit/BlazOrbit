@@ -21,7 +21,6 @@ public class BOBButtonRenderingTests
             .Add(c => c.Size, BOBSize.Large)
             .Add(c => c.BackgroundColor, PaletteColor.Background)
             .Add(c => c.Color, PaletteColor.BackgroundContrast)
-
             .Add(c => c.Shadow, BOBShadowPresets.Elevation(4)));
 
         // Assert

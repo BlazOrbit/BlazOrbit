@@ -4,12 +4,12 @@
 
 <div class="test-otp-consumer">
     <EditForm EditContext="_editContext" OnValidSubmit="HandleValid" OnInvalidSubmit="HandleInvalid">
-        <DataAnnotationsValidator />
+        <DataAnnotationsValidator/>
 
         <BOBInputOtp @bind-Value="_model.Code"
                      Length="6"
                      Label="Verification code"
-                     HelperText="Enter the 6-digit code." />
+                     HelperText="Enter the 6-digit code."/>
 
         <button type="submit" class="submit-btn">Submit</button>
     </EditForm>
@@ -17,6 +17,7 @@
 </div>
 
 @code {
+
     public class OtpModel
     {
         [Required(ErrorMessage = "Code is required")]
@@ -35,6 +36,14 @@
 
     public OtpModel BoundModel => _model;
 
-    private void HandleValid() => _submitResult = "valid";
-    private void HandleInvalid() => _submitResult = "invalid";
+    private void HandleValid()
+    {
+        _submitResult = "valid";
+    }
+
+    private void HandleInvalid()
+    {
+        _submitResult = "invalid";
+    }
+
 }

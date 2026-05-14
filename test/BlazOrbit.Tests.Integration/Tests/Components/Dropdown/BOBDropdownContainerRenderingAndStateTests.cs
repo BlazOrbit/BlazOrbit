@@ -12,7 +12,11 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Dropdown;
 [Trait("Component Rendering", "BOBDropdownContainer")]
 public class BOBDropdownContainerRenderingTests
 {
-    private class DummyModel { public string? Value { get; set; } }
+    private class DummyModel
+    {
+        public string? Value { get; set; }
+    }
+
     private static readonly DummyModel _dm = new();
     private static readonly Expression<Func<string?>> _expr = () => _dm.Value;
 
@@ -89,7 +93,11 @@ public class BOBDropdownContainerRenderingTests
 [Trait("Component State", "BOBDropdownContainer")]
 public class BOBDropdownContainerStateTests
 {
-    private class DummyModel { public string? Value { get; set; } }
+    private class DummyModel
+    {
+        public string? Value { get; set; }
+    }
+
     private static readonly DummyModel _dm = new();
     private static readonly Expression<Func<string?>> _expr = () => _dm.Value;
 
@@ -150,7 +158,11 @@ public class BOBDropdownContainerStateTests
 [Trait("Component Accessibility", "BOBDropdownContainer")]
 public class BOBDropdownContainerAccessibilityTests
 {
-    private class DummyModel { public string? Value { get; set; } }
+    private class DummyModel
+    {
+        public string? Value { get; set; }
+    }
+
     private static readonly DummyModel _dm = new();
     private static readonly Expression<Func<string?>> _expr = () => _dm.Value;
 
@@ -200,7 +212,11 @@ public class BOBDropdownContainerAccessibilityTests
 [Trait("Component Interaction", "BOBDropdownContainer")]
 public class BOBDropdownContainerInteractionTests
 {
-    private class DummyModel { public string? Value { get; set; } }
+    private class DummyModel
+    {
+        public string? Value { get; set; }
+    }
+
     private static readonly DummyModel _dm = new();
     private static readonly Expression<Func<string?>> _expr = () => _dm.Value;
 

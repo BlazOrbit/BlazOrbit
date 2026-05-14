@@ -1,10 +1,10 @@
 ﻿[
   {
     Name: Default,
-    Html: <bob-component data-bob-component="aspect-ratio" style="--bob-inline-aspect-ratio:16 / 9;" b-<SCOPE>><div class="bob-aspect-ratio__inner" b-<SCOPE>><div>x</div></div></bob-component>
+    Html: <bob-component data-bob-component="aspect-ratio" style="--bob-inline-aspect-ratio: 16 / 9" b-<SCOPE>><div class="bob-aspect-ratio__inner" b-<SCOPE>><div>x</div></div></bob-component>
   },
   {
     Name: Square,
-    Html: <bob-component data-bob-component="aspect-ratio" style="--bob-inline-aspect-ratio:1 / 1;" b-<SCOPE>><div class="bob-aspect-ratio__inner" b-<SCOPE>><div>x</div></div></bob-component>
+    Html: <bob-component data-bob-component="aspect-ratio" style="--bob-inline-aspect-ratio: 1 / 1" b-<SCOPE>><div class="bob-aspect-ratio__inner" b-<SCOPE>><div>x</div></div></bob-component>
   }
 ]

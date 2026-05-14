@@ -19,8 +19,7 @@ public class AxisFormatTests
 
         IRenderedComponent<BOBLineChart<int, double>> cut =
             ctx.Render<BOBLineChart<int, double>>(p => p
-                .Add(c => c.Series, new[]
-                {
+                .Add(c => c.Series, [
                     new BOBChartSeries<int, double>
                     {
                         Label = "S",
@@ -28,13 +27,13 @@ public class AxisFormatTests
                             .Select(i => new BOBChartPoint<int, double>(i, i * 10.0))
                             .ToArray()
                     }
-                }));
+                ]));
 
         IEnumerable<string> labels = cut.FindAll("text").Select(t => t.TextContent);
         labels.Where(l => double.TryParse(l, System.Globalization.NumberStyles.Any,
                 System.Globalization.CultureInfo.InvariantCulture, out _))
             .Should().NotContain(l => l.Contains('.'),
-                because: "an integer-only domain should never produce decimal-suffixed labels");
+                "an integer-only domain should never produce decimal-suffixed labels");
     }
 
     [Theory]
@@ -46,19 +45,19 @@ public class AxisFormatTests
         // Domain 0..1 with 5 ticks → step 0.2 → 1 decimal expected.
         IRenderedComponent<BOBLineChart<double, double>> cut =
             ctx.Render<BOBLineChart<double, double>>(p => p
-                .Add(c => c.Series, new[]
-                {
+                .Add(c => c.Series,
+                [
                     new BOBChartSeries<double, double>
-                    {
-                        Label = "S",
-                        Points = new[]
                         {
-                            new BOBChartPoint<double, double>(0.0, 0.1),
-                            new BOBChartPoint<double, double>(0.5, 0.5),
-                            new BOBChartPoint<double, double>(1.0, 1.0),
+                            Label = "S",
+                            Points =
+                            [
+                                new BOBChartPoint<double, double>(0.0, 0.1),
+                                new BOBChartPoint<double, double>(0.5, 0.5),
+                                new BOBChartPoint<double, double>(1.0, 1.0)
+                            ]
                         }
-                    }
-                }));
+                ]));
 
         // No label should have more than 4 chars after the decimal point —
         // protects against the previous "0.20000000000000001" output.
@@ -66,9 +65,13 @@ public class AxisFormatTests
         foreach (string label in labels)
         {
             int dot = label.IndexOf('.');
-            if (dot < 0) continue;
+            if (dot < 0)
+            {
+                continue;
+            }
+
             (label.Length - dot - 1).Should().BeLessThan(5,
-                because: $"label '{label}' should not show floating-point noise");
+                $"label '{label}' should not show floating-point noise");
         }
     }
 
@@ -80,8 +83,7 @@ public class AxisFormatTests
 
         IRenderedComponent<BOBLineChart<int, double>> cut =
             ctx.Render<BOBLineChart<int, double>>(p => p
-                .Add(c => c.Series, new[]
-                {
+                .Add(c => c.Series, [
                     new BOBChartSeries<int, double>
                     {
                         Label = "S",
@@ -89,7 +91,7 @@ public class AxisFormatTests
                             .Select(i => new BOBChartPoint<int, double>(i, i * 1.0))
                             .ToArray()
                     }
-                })
+                ])
                 .Add(c => c.ZoomEnabled, true));
 
         // <defs><clipPath id="..."><rect …/></clipPath></defs> should exist.

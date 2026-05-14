@@ -17,7 +17,7 @@ public class DataCollectionStatePersistenceTests
         source.SetColumnFilter("Age", "30");
         source.SetColumnOrder(["Age", "Name"]);
         source.ToggleSort("Name");
-        source.ToggleSort("Age", append: true);
+        source.ToggleSort("Age", true);
         source.CurrentPage = 3;
         source.PageSize = 25;
 
@@ -29,7 +29,7 @@ public class DataCollectionStatePersistenceTests
         target.FilterText.Should().Be("global");
         target.ColumnFilters.Should().ContainKey("Name").WhoseValue.Text.Should().Be("alice");
         target.ColumnFilters.Should().ContainKey("Age").WhoseValue.Text.Should().Be("30");
-        target.ColumnOrder.Should().BeEquivalentTo(new[] { "Age", "Name" }, o => o.WithStrictOrdering());
+        target.ColumnOrder.Should().BeEquivalentTo(["Age", "Name"], o => o.WithStrictOrdering());
         target.SortDescriptors.Should().HaveCount(2);
         target.SortDescriptors[0].ColumnName.Should().Be("Name");
         target.SortDescriptors[1].ColumnName.Should().Be("Age");
@@ -44,16 +44,16 @@ public class DataCollectionStatePersistenceTests
         // Hand-crafted payload that contains a whitespace-only value for one column. The
         // persistence layer treats whitespace as empty and skips the entry on load.
         state.LoadFromJson("""
-            {
-              "filterText": "",
-              "currentPage": 1,
-              "pageSize": 20,
-              "columnFilters": {
-                "Name": { "text": "alice", "operator": 0, "mode": 0 },
-                "Age":  { "text": "   ",   "operator": 0, "mode": 0 }
-              }
-            }
-            """);
+                           {
+                             "filterText": "",
+                             "currentPage": 1,
+                             "pageSize": 20,
+                             "columnFilters": {
+                               "Name": { "text": "alice", "operator": 0, "mode": 0 },
+                               "Age":  { "text": "   ",   "operator": 0, "mode": 0 }
+                             }
+                           }
+                           """);
 
         state.ColumnFilters.Should().HaveCount(1);
         state.ColumnFilters.Should().ContainKey("Name");

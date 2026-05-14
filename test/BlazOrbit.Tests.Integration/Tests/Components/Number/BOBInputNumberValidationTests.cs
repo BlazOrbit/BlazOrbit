@@ -16,7 +16,8 @@ public class BOBInputNumberValidationTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut = ctx.Render<TestBOBInputNumberValidationConsumer>();
+        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut =
+            ctx.Render<TestBOBInputNumberValidationConsumer>();
 
         cut.Find("bob-component").GetAttribute("data-bob-error").Should().BeNull();
         cut.FindAll("[data-bob-error=\"true\"]").Should().BeEmpty();
@@ -28,7 +29,8 @@ public class BOBInputNumberValidationTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut = ctx.Render<TestBOBInputNumberValidationConsumer>();
+        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut =
+            ctx.Render<TestBOBInputNumberValidationConsumer>();
 
         // Trigger validation on empty required field
         cut.Find("button.submit-btn").Click();
@@ -44,7 +46,8 @@ public class BOBInputNumberValidationTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut = ctx.Render<TestBOBInputNumberValidationConsumer>();
+        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut =
+            ctx.Render<TestBOBInputNumberValidationConsumer>();
 
         cut.Find("button.submit-btn").Click();
 
@@ -58,7 +61,8 @@ public class BOBInputNumberValidationTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut = ctx.Render<TestBOBInputNumberValidationConsumer>();
+        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut =
+            ctx.Render<TestBOBInputNumberValidationConsumer>();
 
         cut.Find("input.bob-input__field").Input("99");
         cut.Find("button.submit-btn").Click();
@@ -73,7 +77,8 @@ public class BOBInputNumberValidationTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut = ctx.Render<TestBOBInputNumberValidationConsumer>();
+        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut =
+            ctx.Render<TestBOBInputNumberValidationConsumer>();
 
         // Provoke failure
         cut.Find("button.submit-btn").Click();
@@ -94,7 +99,8 @@ public class BOBInputNumberValidationTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut = ctx.Render<TestBOBInputNumberValidationConsumer>();
+        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut =
+            ctx.Render<TestBOBInputNumberValidationConsumer>();
 
         cut.Find("input.bob-input__field").Input("7");
 
@@ -107,7 +113,8 @@ public class BOBInputNumberValidationTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut = ctx.Render<TestBOBInputNumberValidationConsumer>();
+        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut =
+            ctx.Render<TestBOBInputNumberValidationConsumer>();
 
         cut.Find("input.bob-input__field").Input("5");
         cut.Find("button.submit-btn").Click();

@@ -108,10 +108,12 @@ public enum ColumnFreeze
 {
     /// <summary>Column scrolls with the rest of the grid (default).</summary>
     None = 0,
+
     /// <summary>Column pins to the inline-start edge (left in LTR).</summary>
     Start = 1,
+
     /// <summary>Column pins to the inline-end edge (right in LTR).</summary>
-    End = 2,
+    End = 2
 }
 
 /// <summary>
@@ -124,18 +126,24 @@ public enum AggregateFunction
 {
     /// <summary>No aggregate is rendered for this column.</summary>
     None = 0,
+
     /// <summary>Sum of every value in the column. Numeric columns only.</summary>
     Sum,
+
     /// <summary>Arithmetic mean. Numeric columns only.</summary>
     Average,
+
     /// <summary>Number of items in the filtered set.</summary>
     Count,
+
     /// <summary>Minimum comparable value.</summary>
     Min,
+
     /// <summary>Maximum comparable value.</summary>
     Max,
+
     /// <summary>Use the column's custom aggregate delegate.</summary>
-    Custom,
+    Custom
 }
 
 /// <summary>
@@ -148,6 +156,7 @@ public enum LoadingMode
 {
     /// <summary>Inline spinner / loader content.</summary>
     Spinner = 0,
+
     /// <summary>Animated rows / cards with placeholder lines.</summary>
-    Skeleton,
+    Skeleton
 }

@@ -55,7 +55,7 @@ public class BOBSectionSnapshotTests
                 .Add(c => c.ChildContent, b => b.AddContent(0, "Body"))),
             ("Small_Size", p => p
                 .Add(c => c.Size, BOBContainerSize.Small)
-                .Add(c => c.ChildContent, b => b.AddContent(0, "Body"))),
+                .Add(c => c.ChildContent, b => b.AddContent(0, "Body")))
         ];
 
         var results = testCases.Select(tc =>

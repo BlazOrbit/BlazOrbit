@@ -51,7 +51,9 @@ BlazOrbit.Components.BOBButton.Disabled.get -> bool
 BlazOrbit.Components.BOBButton.Disabled.set -> void
 BlazOrbit.Components.BOBButton.FullWidth.get -> bool
 BlazOrbit.Components.BOBButton.FullWidth.set -> void
+BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.HandleColumnFilterInputText(string! columnName, string? value) -> System.Threading.Tasks.Task!
 BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.HandleColumnFilterOperator(string! columnName, Microsoft.AspNetCore.Components.ChangeEventArgs! e) -> void
+BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.HandleColumnFilterOperatorString(string! columnName, string? value) -> void
 BlazOrbit.Components.ColumnFilterEntry
 BlazOrbit.Components.ColumnFilterEntry.ColumnFilterEntry() -> void
 BlazOrbit.Components.ColumnFilterEntry.ColumnFilterEntry(string! Text, BlazOrbit.Components.ColumnFilterOperator Operator = BlazOrbit.Components.ColumnFilterOperator.Contains, BlazOrbit.Components.ColumnFilterMode Mode = BlazOrbit.Components.ColumnFilterMode.Text) -> void
@@ -95,17 +97,20 @@ BlazOrbit.Components.SortAppendBehavior.CtrlKey = 3 -> BlazOrbit.Components.Sort
 BlazOrbit.Components.SortAppendBehavior.CtrlOrShiftKey = 4 -> BlazOrbit.Components.SortAppendBehavior
 BlazOrbit.Components.SortAppendBehavior.None = 0 -> BlazOrbit.Components.SortAppendBehavior
 BlazOrbit.Components.SortAppendBehavior.ShiftKey = 2 -> BlazOrbit.Components.SortAppendBehavior
+BlazOrbit.Components.TreeMenuTextBehavior
+BlazOrbit.Components.TreeMenuTextBehavior.BreakSpaces = 1 -> BlazOrbit.Components.TreeMenuTextBehavior
+BlazOrbit.Components.TreeMenuTextBehavior.NoWrap = 0 -> BlazOrbit.Components.TreeMenuTextBehavior
 override BlazOrbit.Components.ColumnFilterEntry.GetHashCode() -> int
 static BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.GetOperatorsFor(BlazOrbit.Components.ColumnFilterMode mode) -> System.Collections.Generic.IEnumerable<BlazOrbit.Components.ColumnFilterOperator>!
 static BlazOrbit.Components.ColumnFilterEntry.operator !=(BlazOrbit.Components.ColumnFilterEntry left, BlazOrbit.Components.ColumnFilterEntry right) -> bool
 static BlazOrbit.Components.ColumnFilterEntry.operator ==(BlazOrbit.Components.ColumnFilterEntry left, BlazOrbit.Components.ColumnFilterEntry right) -> bool
-virtual BlazOrbit.Components.BOBButton.GetRippleContainer() -> Microsoft.AspNetCore.Components.ElementReference
+virtual BlazOrbit.Components.BOBButton.GetRippleContainer() -> Microsoft.AspNetCore.Components.ElementReference?
 BlazOrbit.Components.BOBButton.IsDisabled.get -> bool
 BlazOrbit.Components.BOBButton.LeadingIcon.get -> BlazOrbit.Components.IconKey?
 BlazOrbit.Components.BOBButton.LeadingIcon.set -> void
 BlazOrbit.Components.BOBButton.Loading.get -> bool
 BlazOrbit.Components.BOBButton.Loading.set -> void
-BlazOrbit.Components.BOBButton.LoadingIndicatorVariant.get -> BlazOrbit.Components.BOBProgressIconVariant?
+BlazOrbit.Components.BOBButton.LoadingIndicatorVariant.get -> BlazOrbit.Components.BOBProgressIconVariant!
 BlazOrbit.Components.BOBButton.LoadingIndicatorVariant.set -> void
 BlazOrbit.Components.BOBButton.OnClick.get -> Microsoft.AspNetCore.Components.EventCallback<Microsoft.AspNetCore.Components.Web.MouseEventArgs!>
 BlazOrbit.Components.BOBButton.OnClick.set -> void
@@ -487,6 +492,8 @@ BlazOrbit.Components.BOBTreeMenu<TItem>.ExpandAll.set -> void
 BlazOrbit.Components.BOBTreeMenu<TItem>.ExpandAllNodes() -> void
 BlazOrbit.Components.BOBTreeMenu<TItem>.ExpandMode.get -> BlazOrbit.Components.TreeMenuExpandMode
 BlazOrbit.Components.BOBTreeMenu<TItem>.ExpandMode.set -> void
+BlazOrbit.Components.BOBTreeMenu<TItem>.TextBehavior.get -> BlazOrbit.Components.TreeMenuTextBehavior
+BlazOrbit.Components.BOBTreeMenu<TItem>.TextBehavior.set -> void
 BlazOrbit.Components.BOBTreeMenu<TItem>.ExpandedKeys.get -> System.Collections.Generic.HashSet<string!>?
 BlazOrbit.Components.BOBTreeMenu<TItem>.ExpandedKeys.set -> void
 BlazOrbit.Components.BOBTreeMenu<TItem>.ExpandedKeysChanged.get -> Microsoft.AspNetCore.Components.EventCallback<System.Collections.Generic.HashSet<string!>!>
@@ -721,7 +728,7 @@ BlazOrbit.Components.Display.BOBAvatar.Status.get -> BlazOrbit.Components.Displa
 BlazOrbit.Components.Display.BOBAvatar.Status.set -> void
 BlazOrbit.Components.Display.BOBAvatarComponentInfo
 BlazOrbit.Components.Display.BOBAvatarGroup
-BlazOrbit.Components.Display.BOBAvatarGroup.AriaLabel.get -> string!
+BlazOrbit.Components.Display.BOBAvatarGroup.AriaLabel.get -> string?
 BlazOrbit.Components.Display.BOBAvatarGroup.AriaLabel.set -> void
 BlazOrbit.Components.Display.BOBAvatarGroup.BOBAvatarGroup() -> void
 BlazOrbit.Components.Display.BOBAvatarGroup.ChildContent.get -> Microsoft.AspNetCore.Components.RenderFragment?
@@ -730,8 +737,11 @@ BlazOrbit.Components.Display.BOBAvatarGroup.MaxVisible.get -> int
 BlazOrbit.Components.Display.BOBAvatarGroup.MaxVisible.set -> void
 BlazOrbit.Components.Display.BOBAvatarGroup.Size.get -> BlazOrbit.Components.BOBSize
 BlazOrbit.Components.Display.BOBAvatarGroup.Size.set -> void
+BlazOrbit.Components.Display.BOBAvatarGroup.RegisteredCount.get -> int
 BlazOrbit.Components.Display.BOBAvatarGroup.TotalOverride.get -> int?
 BlazOrbit.Components.Display.BOBAvatarGroup.TotalOverride.set -> void
+override BlazOrbit.Components.Display.BOBAvatar.OnInitialized() -> void
+override BlazOrbit.Components.Display.BOBAvatar.DisposeAsync() -> System.Threading.Tasks.ValueTask
 BlazOrbit.Components.Display.BOBAvatarGroupComponentInfo
 BlazOrbit.Components.Display.BOBAvatarShape
 BlazOrbit.Components.Display.BOBAvatarShape.Circle = 0 -> BlazOrbit.Components.Display.BOBAvatarShape
@@ -751,7 +761,7 @@ BlazOrbit.Components.Display.BOBBanner.ChildContent.get -> Microsoft.AspNetCore.
 BlazOrbit.Components.Display.BOBBanner.ChildContent.set -> void
 BlazOrbit.Components.Display.BOBBanner.Dismissible.get -> bool
 BlazOrbit.Components.Display.BOBBanner.Dismissible.set -> void
-BlazOrbit.Components.Display.BOBBanner.DismissText.get -> string!
+BlazOrbit.Components.Display.BOBBanner.DismissText.get -> string?
 BlazOrbit.Components.Display.BOBBanner.DismissText.set -> void
 BlazOrbit.Components.Display.BOBBanner.Icon.get -> BlazOrbit.Components.IconKey?
 BlazOrbit.Components.Display.BOBBanner.Icon.set -> void
@@ -800,7 +810,7 @@ BlazOrbit.Components.Display.BOBChip.OnRemoved.get -> Microsoft.AspNetCore.Compo
 BlazOrbit.Components.Display.BOBChip.OnRemoved.set -> void
 BlazOrbit.Components.Display.BOBChip.Removable.get -> bool
 BlazOrbit.Components.Display.BOBChip.Removable.set -> void
-BlazOrbit.Components.Display.BOBChip.RemoveText.get -> string!
+BlazOrbit.Components.Display.BOBChip.RemoveText.get -> string?
 BlazOrbit.Components.Display.BOBChip.RemoveText.set -> void
 BlazOrbit.Components.Display.BOBChip.Selectable.get -> bool
 BlazOrbit.Components.Display.BOBChip.Selectable.set -> void
@@ -810,9 +820,47 @@ BlazOrbit.Components.Display.BOBChip.SelectedChanged.get -> Microsoft.AspNetCore
 BlazOrbit.Components.Display.BOBChip.SelectedChanged.set -> void
 BlazOrbit.Components.Display.BOBChip.Size.get -> BlazOrbit.Components.BOBSize
 BlazOrbit.Components.Display.BOBChip.Size.set -> void
+BlazOrbit.Components.Display.BOBChip.Value.get -> object?
+BlazOrbit.Components.Display.BOBChip.Value.set -> void
 BlazOrbit.Components.Display.BOBChipComponentInfo
+BlazOrbit.Components.Display.BOBChipGroup<TValue>
+BlazOrbit.Components.Display.BOBChipGroup<TValue>.AriaLabel.get -> string?
+BlazOrbit.Components.Display.BOBChipGroup<TValue>.AriaLabel.set -> void
+BlazOrbit.Components.Display.BOBChipGroup<TValue>.BOBChipGroup() -> void
+BlazOrbit.Components.Display.BOBChipGroup<TValue>.ChildContent.get -> Microsoft.AspNetCore.Components.RenderFragment?
+BlazOrbit.Components.Display.BOBChipGroup<TValue>.ChildContent.set -> void
+BlazOrbit.Components.Display.BOBChipGroup<TValue>.Color.get -> string?
+BlazOrbit.Components.Display.BOBChipGroup<TValue>.Color.set -> void
+BlazOrbit.Components.Display.BOBChipGroup<TValue>.Disabled.get -> bool
+BlazOrbit.Components.Display.BOBChipGroup<TValue>.Disabled.set -> void
+BlazOrbit.Components.Display.BOBChipGroup<TValue>.HelperText.get -> string?
+BlazOrbit.Components.Display.BOBChipGroup<TValue>.HelperText.set -> void
+BlazOrbit.Components.Display.BOBChipGroup<TValue>.IsDisabled.get -> bool
+BlazOrbit.Components.Display.BOBChipGroup<TValue>.Label.get -> string?
+BlazOrbit.Components.Display.BOBChipGroup<TValue>.Label.set -> void
+BlazOrbit.Components.Display.BOBChipGroup<TValue>.Mode.get -> BlazOrbit.Components.Display.ChipGroupSelectionMode
+BlazOrbit.Components.Display.BOBChipGroup<TValue>.Mode.set -> void
+BlazOrbit.Components.Display.BOBChipGroup<TValue>.Required.get -> bool
+BlazOrbit.Components.Display.BOBChipGroup<TValue>.Required.set -> void
+BlazOrbit.Components.Display.BOBChipGroup<TValue>.SelectedValues.get -> System.Collections.Generic.IReadOnlyList<TValue>?
+BlazOrbit.Components.Display.BOBChipGroup<TValue>.SelectedValues.set -> void
+BlazOrbit.Components.Display.BOBChipGroup<TValue>.SelectedValuesChanged.get -> Microsoft.AspNetCore.Components.EventCallback<System.Collections.Generic.IReadOnlyList<TValue>!>
+BlazOrbit.Components.Display.BOBChipGroup<TValue>.SelectedValuesChanged.set -> void
+BlazOrbit.Components.Display.BOBChipGroup<TValue>.Size.get -> BlazOrbit.Components.BOBSize
+BlazOrbit.Components.Display.BOBChipGroup<TValue>.Size.set -> void
+BlazOrbit.Components.Display.BOBChipGroupComponentInfo
+BlazOrbit.Components.Display.ChipGroupSelectionMode
+BlazOrbit.Components.Display.ChipGroupSelectionMode.Multiple = 1 -> BlazOrbit.Components.Display.ChipGroupSelectionMode
+BlazOrbit.Components.Display.ChipGroupSelectionMode.Single = 0 -> BlazOrbit.Components.Display.ChipGroupSelectionMode
+BlazOrbit.Components.Display.IChipGroupContainer
+BlazOrbit.Components.Display.IChipGroupContainer.IsGroupDisabled.get -> bool
+BlazOrbit.Components.Display.IChipGroupContainer.IsValueSelected(object? value) -> bool
+BlazOrbit.Components.Display.IChipGroupContainer.Mode.get -> BlazOrbit.Components.Display.ChipGroupSelectionMode
+BlazOrbit.Components.Display.IChipGroupContainer.ToggleAsync(object? value) -> System.Threading.Tasks.Task!
+static readonly BlazOrbit.Components.Display.BOBChipGroupComponentInfo.Parameters -> BlazOrbit.ComponentParameterInfo![]!
+~override BlazOrbit.Components.Display.BOBChipGroup<TValue>.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
 BlazOrbit.Components.Display.BOBProgressBar
-BlazOrbit.Components.Display.BOBProgressBar.AriaLabel.get -> string!
+BlazOrbit.Components.Display.BOBProgressBar.AriaLabel.get -> string?
 BlazOrbit.Components.Display.BOBProgressBar.AriaLabel.set -> void
 BlazOrbit.Components.Display.BOBProgressBar.BOBProgressBar() -> void
 BlazOrbit.Components.Display.BOBProgressBar.Color.get -> string?
@@ -835,7 +883,7 @@ BlazOrbit.Components.Display.BOBProgressBar.Value.get -> double
 BlazOrbit.Components.Display.BOBProgressBar.Value.set -> void
 BlazOrbit.Components.Display.BOBProgressBarComponentInfo
 BlazOrbit.Components.Display.BOBProgressRing
-BlazOrbit.Components.Display.BOBProgressRing.AriaLabel.get -> string!
+BlazOrbit.Components.Display.BOBProgressRing.AriaLabel.get -> string?
 BlazOrbit.Components.Display.BOBProgressRing.AriaLabel.set -> void
 BlazOrbit.Components.Display.BOBProgressRing.BOBProgressRing() -> void
 BlazOrbit.Components.Display.BOBProgressRing.Color.get -> string?
@@ -858,7 +906,7 @@ BlazOrbit.Components.Display.BOBProgressRingComponentInfo
 BlazOrbit.Components.Display.BOBRating
 BlazOrbit.Components.Display.BOBRating.AllowHalf.get -> bool
 BlazOrbit.Components.Display.BOBRating.AllowHalf.set -> void
-BlazOrbit.Components.Display.BOBRating.AriaLabel.get -> string!
+BlazOrbit.Components.Display.BOBRating.AriaLabel.get -> string?
 BlazOrbit.Components.Display.BOBRating.AriaLabel.set -> void
 BlazOrbit.Components.Display.BOBRating.BOBRating() -> void
 BlazOrbit.Components.Display.BOBRating.Color.get -> string?
@@ -969,6 +1017,10 @@ BlazOrbit.Components.Forms.BOBAutoComplete<TItem>.PrefixText.get -> string?
 BlazOrbit.Components.Forms.BOBAutoComplete<TItem>.PrefixText.set -> void
 BlazOrbit.Components.Forms.BOBAutoComplete<TItem>.SearchAsync.get -> System.Func<string!, System.Threading.CancellationToken, System.Threading.Tasks.Task<System.Collections.Generic.IEnumerable<TItem>!>!>?
 BlazOrbit.Components.Forms.BOBAutoComplete<TItem>.SearchAsync.set -> void
+BlazOrbit.Components.Forms.BOBAutoComplete<TItem>.StringToItem.get -> System.Func<string!, TItem?>?
+BlazOrbit.Components.Forms.BOBAutoComplete<TItem>.StringToItem.set -> void
+BlazOrbit.Components.Forms.BOBAutoComplete<TItem>.UnresolvedStringError.get -> string?
+BlazOrbit.Components.Forms.BOBAutoComplete<TItem>.UnresolvedStringError.set -> void
 BlazOrbit.Components.Forms.BOBAutoComplete<TItem>.Shadow.get -> BlazOrbit.Components.ShadowStyle?
 BlazOrbit.Components.Forms.BOBAutoComplete<TItem>.Shadow.set -> void
 BlazOrbit.Components.Forms.BOBAutoComplete<TItem>.Size.get -> BlazOrbit.Components.BOBSize
@@ -988,7 +1040,7 @@ BlazOrbit.Components.Forms.BOBColorPicker.OnRevert.get -> Microsoft.AspNetCore.C
 BlazOrbit.Components.Forms.BOBColorPicker.OnRevert.set -> void
 BlazOrbit.Components.Forms.BOBColorPicker.OutputFormat.get -> BlazOrbit.Components.ColorOutputFormats
 BlazOrbit.Components.Forms.BOBColorPicker.OutputFormat.set -> void
-BlazOrbit.Components.Forms.BOBColorPicker.RevertText.get -> string!
+BlazOrbit.Components.Forms.BOBColorPicker.RevertText.get -> string?
 BlazOrbit.Components.Forms.BOBColorPicker.RevertText.set -> void
 BlazOrbit.Components.Forms.BOBColorPicker.ShowActions.get -> bool
 BlazOrbit.Components.Forms.BOBColorPicker.ShowActions.set -> void
@@ -1085,7 +1137,7 @@ BlazOrbit.Components.Forms.BOBInputColor.PrefixIcon.get -> BlazOrbit.Components.
 BlazOrbit.Components.Forms.BOBInputColor.PrefixIcon.set -> void
 BlazOrbit.Components.Forms.BOBInputColor.PrefixText.get -> string?
 BlazOrbit.Components.Forms.BOBInputColor.PrefixText.set -> void
-BlazOrbit.Components.Forms.BOBInputColor.RevertText.get -> string!
+BlazOrbit.Components.Forms.BOBInputColor.RevertText.get -> string?
 BlazOrbit.Components.Forms.BOBInputColor.RevertText.set -> void
 BlazOrbit.Components.Forms.BOBInputColor.Shadow.get -> BlazOrbit.Components.ShadowStyle?
 BlazOrbit.Components.Forms.BOBInputColor.Shadow.set -> void
@@ -1102,36 +1154,63 @@ BlazOrbit.Components.Forms.BOBInputColor.SuffixIcon.set -> void
 BlazOrbit.Components.Forms.BOBInputColor.SuffixText.get -> string?
 BlazOrbit.Components.Forms.BOBInputColor.SuffixText.set -> void
 BlazOrbit.Components.Forms.BOBInputColorComponentInfo
+BlazOrbit.Components.Forms.BOBDateRangePicker
+BlazOrbit.Components.Forms.BOBDateRangePicker.BOBDateRangePicker() -> void
+BlazOrbit.Components.Forms.BOBDateRangePicker.ClearText.get -> string?
+BlazOrbit.Components.Forms.BOBDateRangePicker.ClearText.set -> void
+BlazOrbit.Components.Forms.BOBDateRangePicker.DaysText.get -> string?
+BlazOrbit.Components.Forms.BOBDateRangePicker.DaysText.set -> void
+BlazOrbit.Components.Forms.BOBDateRangePicker.Density.get -> BlazOrbit.Components.BOBDensity
+BlazOrbit.Components.Forms.BOBDateRangePicker.Density.set -> void
+BlazOrbit.Components.Forms.BOBDateRangePicker.EndLabel.get -> string?
+BlazOrbit.Components.Forms.BOBDateRangePicker.EndLabel.set -> void
+BlazOrbit.Components.Forms.BOBDateRangePicker.Label.get -> string?
+BlazOrbit.Components.Forms.BOBDateRangePicker.Label.set -> void
+BlazOrbit.Components.Forms.BOBDateRangePicker.Last30DaysText.get -> string?
+BlazOrbit.Components.Forms.BOBDateRangePicker.Last30DaysText.set -> void
+BlazOrbit.Components.Forms.BOBDateRangePicker.Last7DaysText.get -> string?
+BlazOrbit.Components.Forms.BOBDateRangePicker.Last7DaysText.set -> void
+BlazOrbit.Components.Forms.BOBDateRangePicker.ShowPresets.get -> bool
+BlazOrbit.Components.Forms.BOBDateRangePicker.ShowPresets.set -> void
+BlazOrbit.Components.Forms.BOBDateRangePicker.ShowSummary.get -> bool
+BlazOrbit.Components.Forms.BOBDateRangePicker.ShowSummary.set -> void
+BlazOrbit.Components.Forms.BOBDateRangePicker.Size.get -> BlazOrbit.Components.BOBSize
+BlazOrbit.Components.Forms.BOBDateRangePicker.Size.set -> void
+BlazOrbit.Components.Forms.BOBDateRangePicker.StartLabel.get -> string?
+BlazOrbit.Components.Forms.BOBDateRangePicker.StartLabel.set -> void
+BlazOrbit.Components.Forms.BOBDateRangePicker.ThisMonthText.get -> string?
+BlazOrbit.Components.Forms.BOBDateRangePicker.ThisMonthText.set -> void
+BlazOrbit.Components.Forms.BOBDateRangePicker.Value.get -> BlazOrbit.Components.DateRange
+BlazOrbit.Components.Forms.BOBDateRangePicker.Value.set -> void
+BlazOrbit.Components.Forms.BOBDateRangePicker.ValueChanged.get -> Microsoft.AspNetCore.Components.EventCallback<BlazOrbit.Components.DateRange>
+BlazOrbit.Components.Forms.BOBDateRangePicker.ValueChanged.set -> void
+BlazOrbit.Components.Forms.BOBDateRangePickerComponentInfo
 BlazOrbit.Components.Forms.BOBInputDateRange
 BlazOrbit.Components.Forms.BOBInputDateRange.BOBInputDateRange() -> void
-BlazOrbit.Components.Forms.BOBInputDateRange.ClearText.get -> string!
-BlazOrbit.Components.Forms.BOBInputDateRange.ClearText.set -> void
-BlazOrbit.Components.Forms.BOBInputDateRange.DaysText.get -> string!
-BlazOrbit.Components.Forms.BOBInputDateRange.DaysText.set -> void
+BlazOrbit.Components.Forms.BOBInputDateRange.BackgroundColor.get -> string?
+BlazOrbit.Components.Forms.BOBInputDateRange.BackgroundColor.set -> void
+BlazOrbit.Components.Forms.BOBInputDateRange.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.Forms.BOBInputDateRange.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
+BlazOrbit.Components.Forms.BOBInputDateRange.Color.get -> string?
+BlazOrbit.Components.Forms.BOBInputDateRange.Color.set -> void
 BlazOrbit.Components.Forms.BOBInputDateRange.Density.get -> BlazOrbit.Components.BOBDensity
 BlazOrbit.Components.Forms.BOBInputDateRange.Density.set -> void
-BlazOrbit.Components.Forms.BOBInputDateRange.EndLabel.get -> string!
-BlazOrbit.Components.Forms.BOBInputDateRange.EndLabel.set -> void
+BlazOrbit.Components.Forms.BOBInputDateRange.EndPlaceholder.get -> string?
+BlazOrbit.Components.Forms.BOBInputDateRange.EndPlaceholder.set -> void
+BlazOrbit.Components.Forms.BOBInputDateRange.HelperText.get -> string?
+BlazOrbit.Components.Forms.BOBInputDateRange.HelperText.set -> void
 BlazOrbit.Components.Forms.BOBInputDateRange.Label.get -> string?
 BlazOrbit.Components.Forms.BOBInputDateRange.Label.set -> void
-BlazOrbit.Components.Forms.BOBInputDateRange.Last30DaysText.get -> string!
-BlazOrbit.Components.Forms.BOBInputDateRange.Last30DaysText.set -> void
-BlazOrbit.Components.Forms.BOBInputDateRange.Last7DaysText.get -> string!
-BlazOrbit.Components.Forms.BOBInputDateRange.Last7DaysText.set -> void
-BlazOrbit.Components.Forms.BOBInputDateRange.ShowPresets.get -> bool
-BlazOrbit.Components.Forms.BOBInputDateRange.ShowPresets.set -> void
-BlazOrbit.Components.Forms.BOBInputDateRange.ShowSummary.get -> bool
-BlazOrbit.Components.Forms.BOBInputDateRange.ShowSummary.set -> void
+BlazOrbit.Components.Forms.BOBInputDateRange.Loading.get -> bool
+BlazOrbit.Components.Forms.BOBInputDateRange.Loading.set -> void
+BlazOrbit.Components.Forms.BOBInputDateRange.LoadingIndicatorVariant.get -> BlazOrbit.Components.BOBProgressIconVariant!
+BlazOrbit.Components.Forms.BOBInputDateRange.LoadingIndicatorVariant.set -> void
+BlazOrbit.Components.Forms.BOBInputDateRange.Separator.get -> string!
+BlazOrbit.Components.Forms.BOBInputDateRange.Separator.set -> void
 BlazOrbit.Components.Forms.BOBInputDateRange.Size.get -> BlazOrbit.Components.BOBSize
 BlazOrbit.Components.Forms.BOBInputDateRange.Size.set -> void
-BlazOrbit.Components.Forms.BOBInputDateRange.StartLabel.get -> string!
-BlazOrbit.Components.Forms.BOBInputDateRange.StartLabel.set -> void
-BlazOrbit.Components.Forms.BOBInputDateRange.ThisMonthText.get -> string!
-BlazOrbit.Components.Forms.BOBInputDateRange.ThisMonthText.set -> void
-BlazOrbit.Components.Forms.BOBInputDateRange.Value.get -> BlazOrbit.Components.DateRange
-BlazOrbit.Components.Forms.BOBInputDateRange.Value.set -> void
-BlazOrbit.Components.Forms.BOBInputDateRange.ValueChanged.get -> Microsoft.AspNetCore.Components.EventCallback<BlazOrbit.Components.DateRange>
-BlazOrbit.Components.Forms.BOBInputDateRange.ValueChanged.set -> void
+BlazOrbit.Components.Forms.BOBInputDateRange.StartPlaceholder.get -> string?
+BlazOrbit.Components.Forms.BOBInputDateRange.StartPlaceholder.set -> void
 BlazOrbit.Components.Forms.BOBInputDateRangeComponentInfo
 BlazOrbit.Components.Forms.BOBInputDateTime<TValue>
 BlazOrbit.Components.Forms.BOBInputDateTime<TValue>.BOBInputDateTime() -> void
@@ -1182,7 +1261,7 @@ BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.Color.get -> string?
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.Color.set -> void
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.Density.get -> BlazOrbit.Components.BOBDensity
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.Density.set -> void
-BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.DeselectAllText.get -> string!
+BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.DeselectAllText.get -> string?
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.DeselectAllText.set -> void
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.Disabled.get -> bool
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.Disabled.set -> void
@@ -1195,7 +1274,7 @@ BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.IsLoading.get -> bool
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.IsLoading.set -> void
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.Label.get -> string?
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.Label.set -> void
-BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.LoadingIndicatorVariant.get -> BlazOrbit.Components.BOBProgressIconVariant?
+BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.LoadingIndicatorVariant.get -> BlazOrbit.Components.BOBProgressIconVariant!
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.LoadingIndicatorVariant.set -> void
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.NoOptionsTemplate.get -> Microsoft.AspNetCore.Components.RenderFragment?
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.NoOptionsTemplate.set -> void
@@ -1215,7 +1294,7 @@ BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.SearchPlaceholder.get -> str
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.SearchPlaceholder.set -> void
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.Searchable.get -> bool
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.Searchable.set -> void
-BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.SelectAllText.get -> string!
+BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.SelectAllText.get -> string?
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.SelectAllText.set -> void
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.Shadow.get -> BlazOrbit.Components.ShadowStyle?
 BlazOrbit.Components.Forms.BOBInputDropdown<TValue>.Shadow.set -> void
@@ -1277,7 +1356,7 @@ BlazOrbit.Components.Forms.BOBInputDropdownTree<TItem, TValue>.KeySelector.get -
 BlazOrbit.Components.Forms.BOBInputDropdownTree<TItem, TValue>.KeySelector.set -> void
 BlazOrbit.Components.Forms.BOBInputDropdownTree<TItem, TValue>.Label.get -> string?
 BlazOrbit.Components.Forms.BOBInputDropdownTree<TItem, TValue>.Label.set -> void
-BlazOrbit.Components.Forms.BOBInputDropdownTree<TItem, TValue>.LoadingIndicatorVariant.get -> BlazOrbit.Components.BOBProgressIconVariant?
+BlazOrbit.Components.Forms.BOBInputDropdownTree<TItem, TValue>.LoadingIndicatorVariant.get -> BlazOrbit.Components.BOBProgressIconVariant!
 BlazOrbit.Components.Forms.BOBInputDropdownTree<TItem, TValue>.LoadingIndicatorVariant.set -> void
 BlazOrbit.Components.Forms.BOBInputDropdownTree<TItem, TValue>.NoOptionsTemplate.get -> Microsoft.AspNetCore.Components.RenderFragment?
 BlazOrbit.Components.Forms.BOBInputDropdownTree<TItem, TValue>.NoOptionsTemplate.set -> void
@@ -1319,11 +1398,11 @@ BlazOrbit.Components.Forms.BOBInputFile.Density.get -> BlazOrbit.Components.BOBD
 BlazOrbit.Components.Forms.BOBInputFile.Density.set -> void
 BlazOrbit.Components.Forms.BOBInputFile.Disabled.get -> bool
 BlazOrbit.Components.Forms.BOBInputFile.Disabled.set -> void
-BlazOrbit.Components.Forms.BOBInputFile.DisallowedTypeText.get -> string!
+BlazOrbit.Components.Forms.BOBInputFile.DisallowedTypeText.get -> string?
 BlazOrbit.Components.Forms.BOBInputFile.DisallowedTypeText.set -> void
 BlazOrbit.Components.Forms.BOBInputFile.DropZoneHint.get -> string!
 BlazOrbit.Components.Forms.BOBInputFile.DropZoneHint.set -> void
-BlazOrbit.Components.Forms.BOBInputFile.DropZoneText.get -> string!
+BlazOrbit.Components.Forms.BOBInputFile.DropZoneText.get -> string?
 BlazOrbit.Components.Forms.BOBInputFile.DropZoneText.set -> void
 BlazOrbit.Components.Forms.BOBInputFile.GeneratePreviews.get -> bool
 BlazOrbit.Components.Forms.BOBInputFile.GeneratePreviews.set -> void
@@ -1345,13 +1424,13 @@ BlazOrbit.Components.Forms.BOBInputFile.OnRemoved.get -> Microsoft.AspNetCore.Co
 BlazOrbit.Components.Forms.BOBInputFile.OnRemoved.set -> void
 BlazOrbit.Components.Forms.BOBInputFile.PreviewMaxBytes.get -> long
 BlazOrbit.Components.Forms.BOBInputFile.PreviewMaxBytes.set -> void
-BlazOrbit.Components.Forms.BOBInputFile.RemoveText.get -> string!
+BlazOrbit.Components.Forms.BOBInputFile.RemoveText.get -> string?
 BlazOrbit.Components.Forms.BOBInputFile.RemoveText.set -> void
 BlazOrbit.Components.Forms.BOBInputFile.Size.get -> BlazOrbit.Components.BOBSize
 BlazOrbit.Components.Forms.BOBInputFile.Size.set -> void
-BlazOrbit.Components.Forms.BOBInputFile.TooLargeText.get -> string!
+BlazOrbit.Components.Forms.BOBInputFile.TooLargeText.get -> string?
 BlazOrbit.Components.Forms.BOBInputFile.TooLargeText.set -> void
-BlazOrbit.Components.Forms.BOBInputFile.TooManyFilesText.get -> string!
+BlazOrbit.Components.Forms.BOBInputFile.TooManyFilesText.get -> string?
 BlazOrbit.Components.Forms.BOBInputFile.TooManyFilesText.set -> void
 BlazOrbit.Components.Forms.BOBInputFileComponentInfo
 BlazOrbit.Components.Forms.BOBInputLoading
@@ -1539,7 +1618,7 @@ BlazOrbit.Components.Forms.BOBInputRadio<TValue>.CheckedIcon.get -> BlazOrbit.Co
 BlazOrbit.Components.Forms.BOBInputRadio<TValue>.CheckedIcon.set -> void
 BlazOrbit.Components.Forms.BOBInputRadio<TValue>.ChildContent.get -> Microsoft.AspNetCore.Components.RenderFragment?
 BlazOrbit.Components.Forms.BOBInputRadio<TValue>.ChildContent.set -> void
-BlazOrbit.Components.Forms.BOBInputRadio<TValue>.ClearText.get -> string!
+BlazOrbit.Components.Forms.BOBInputRadio<TValue>.ClearText.get -> string?
 BlazOrbit.Components.Forms.BOBInputRadio<TValue>.ClearText.set -> void
 BlazOrbit.Components.Forms.BOBInputRadio<TValue>.Clearable.get -> bool
 BlazOrbit.Components.Forms.BOBInputRadio<TValue>.Clearable.set -> void
@@ -1920,6 +1999,7 @@ BlazOrbit.Components.Forms._Imports.Execute() -> void
 BlazOrbit.Components.Forms._Imports._Imports() -> void
 BlazOrbit.Components.IClipboardJsInterop
 BlazOrbit.Components.IClipboardJsInterop.CopyTextAsync(string! text) -> System.Threading.Tasks.ValueTask
+BlazOrbit.Components.IClipboardJsInterop.CopyRichAsync(string! text, string! html) -> System.Threading.Tasks.ValueTask
 BlazOrbit.Components.IDraggableJsCallback
 BlazOrbit.Components.IDraggableJsCallback.OnMouseMove(double clientX, double clientY) -> System.Threading.Tasks.Task!
 BlazOrbit.Components.IDraggableJsCallback.OnMouseUp(double clientX, double clientY) -> System.Threading.Tasks.Task!
@@ -1938,71 +2018,76 @@ BlazOrbit.Components.ITreeNode<TItem>.Item.get -> TItem?
 BlazOrbit.Components.ITreeNode<TItem>.Parent.get -> BlazOrbit.Components.ITreeNode<TItem>?
 BlazOrbit.Components.ITreeNodeRegistry<TRegistration>
 BlazOrbit.Components.ITreeNodeRegistry<TRegistration>.Register(TRegistration! registration) -> void
-BlazOrbit.Components.Internal._BOBAddon
-BlazOrbit.Components.Internal._BOBAddon.AdditionalAttributes.get -> System.Collections.Generic.Dictionary<string!, object!>?
-BlazOrbit.Components.Internal._BOBAddon.AdditionalAttributes.set -> void
-BlazOrbit.Components.Internal._BOBAddon.ChildContent.get -> Microsoft.AspNetCore.Components.RenderFragment?
-BlazOrbit.Components.Internal._BOBAddon.ChildContent.set -> void
-BlazOrbit.Components.Internal._BOBAddon.Icon.get -> BlazOrbit.Components.IconKey?
-BlazOrbit.Components.Internal._BOBAddon.Icon.set -> void
-BlazOrbit.Components.Internal._BOBAddon.IconRotation.get -> int
-BlazOrbit.Components.Internal._BOBAddon.IconRotation.set -> void
-BlazOrbit.Components.Internal._BOBAddon.Loading.get -> bool
-BlazOrbit.Components.Internal._BOBAddon.Loading.set -> void
-BlazOrbit.Components.Internal._BOBAddon.LoadingIndicatorVariant.get -> BlazOrbit.Components.BOBProgressIconVariant!
-BlazOrbit.Components.Internal._BOBAddon.LoadingIndicatorVariant.set -> void
-BlazOrbit.Components.Internal._BOBAddon.Size.get -> BlazOrbit.Components.BOBSize
-BlazOrbit.Components.Internal._BOBAddon.Size.set -> void
-BlazOrbit.Components.Internal._BOBAddon._BOBAddon() -> void
-BlazOrbit.Components.Internal._BOBBtn
-BlazOrbit.Components.Internal._BOBBtn.Active.get -> bool
-BlazOrbit.Components.Internal._BOBBtn.Active.set -> void
-BlazOrbit.Components.Internal._BOBBtn.AdditionalAttributes.get -> System.Collections.Generic.Dictionary<string!, object!>?
-BlazOrbit.Components.Internal._BOBBtn.AdditionalAttributes.set -> void
-BlazOrbit.Components.Internal._BOBBtn.AriaLabel.get -> string?
-BlazOrbit.Components.Internal._BOBBtn.AriaLabel.set -> void
-BlazOrbit.Components.Internal._BOBBtn.ChildContent.get -> Microsoft.AspNetCore.Components.RenderFragment?
-BlazOrbit.Components.Internal._BOBBtn.ChildContent.set -> void
-BlazOrbit.Components.Internal._BOBBtn.Disabled.get -> bool
-BlazOrbit.Components.Internal._BOBBtn.Disabled.set -> void
-BlazOrbit.Components.Internal._BOBBtn.Icon.get -> BlazOrbit.Components.IconKey?
-BlazOrbit.Components.Internal._BOBBtn.Icon.set -> void
-BlazOrbit.Components.Internal._BOBBtn.IconRotation.get -> int
-BlazOrbit.Components.Internal._BOBBtn.IconRotation.set -> void
-BlazOrbit.Components.Internal._BOBBtn.Loading.get -> bool
-BlazOrbit.Components.Internal._BOBBtn.Loading.set -> void
-BlazOrbit.Components.Internal._BOBBtn.LoadingIndicatorVariant.get -> BlazOrbit.Components.BOBProgressIconVariant!
-BlazOrbit.Components.Internal._BOBBtn.LoadingIndicatorVariant.set -> void
-BlazOrbit.Components.Internal._BOBBtn.OnClick.get -> Microsoft.AspNetCore.Components.EventCallback<Microsoft.AspNetCore.Components.Web.MouseEventArgs!>
-BlazOrbit.Components.Internal._BOBBtn.OnClick.set -> void
-BlazOrbit.Components.Internal._BOBBtn.OnClickPreventDefault.get -> bool
-BlazOrbit.Components.Internal._BOBBtn.OnClickPreventDefault.set -> void
-BlazOrbit.Components.Internal._BOBBtn.OnClickStopPropagation.get -> bool
-BlazOrbit.Components.Internal._BOBBtn.OnClickStopPropagation.set -> void
-BlazOrbit.Components.Internal._BOBBtn.Size.get -> BlazOrbit.Components.BOBSize
-BlazOrbit.Components.Internal._BOBBtn.Size.set -> void
-BlazOrbit.Components.Internal._BOBBtn._BOBBtn() -> void
-BlazOrbit.Components.Internal._BOBCheckMark
-BlazOrbit.Components.Internal._BOBCheckMark.CheckMarkMode
-BlazOrbit.Components.Internal._BOBCheckMark.CheckMarkMode.Checkbox = 0 -> BlazOrbit.Components.Internal._BOBCheckMark.CheckMarkMode
-BlazOrbit.Components.Internal._BOBCheckMark.CheckMarkMode.Radio = 1 -> BlazOrbit.Components.Internal._BOBCheckMark.CheckMarkMode
-BlazOrbit.Components.Internal._BOBCheckMark.Checked.get -> bool?
-BlazOrbit.Components.Internal._BOBCheckMark.Checked.set -> void
-BlazOrbit.Components.Internal._BOBCheckMark.CheckedIcon.get -> BlazOrbit.Components.IconKey?
-BlazOrbit.Components.Internal._BOBCheckMark.CheckedIcon.set -> void
-BlazOrbit.Components.Internal._BOBCheckMark.Disabled.get -> bool
-BlazOrbit.Components.Internal._BOBCheckMark.Disabled.set -> void
-BlazOrbit.Components.Internal._BOBCheckMark.IndeterminateIcon.get -> BlazOrbit.Components.IconKey?
-BlazOrbit.Components.Internal._BOBCheckMark.IndeterminateIcon.set -> void
-BlazOrbit.Components.Internal._BOBCheckMark.Mode.get -> BlazOrbit.Components.Internal._BOBCheckMark.CheckMarkMode
-BlazOrbit.Components.Internal._BOBCheckMark.Mode.set -> void
-BlazOrbit.Components.Internal._BOBCheckMark.ReadOnly.get -> bool
-BlazOrbit.Components.Internal._BOBCheckMark.ReadOnly.set -> void
-BlazOrbit.Components.Internal._BOBCheckMark.Size.get -> BlazOrbit.Components.BOBSize
-BlazOrbit.Components.Internal._BOBCheckMark.Size.set -> void
-BlazOrbit.Components.Internal._BOBCheckMark.UncheckedIcon.get -> BlazOrbit.Components.IconKey?
-BlazOrbit.Components.Internal._BOBCheckMark.UncheckedIcon.set -> void
-BlazOrbit.Components.Internal._BOBCheckMark._BOBCheckMark() -> void
+BlazOrbit.Components.Internal._BOBInAddon
+BlazOrbit.Components.Internal._BOBInAddon.AdditionalAttributes.get -> System.Collections.Generic.Dictionary<string!, object!>?
+BlazOrbit.Components.Internal._BOBInAddon.AdditionalAttributes.set -> void
+BlazOrbit.Components.Internal._BOBInAddon.ChildContent.get -> Microsoft.AspNetCore.Components.RenderFragment?
+BlazOrbit.Components.Internal._BOBInAddon.ChildContent.set -> void
+BlazOrbit.Components.Internal._BOBInAddon.Icon.get -> BlazOrbit.Components.IconKey?
+BlazOrbit.Components.Internal._BOBInAddon.Icon.set -> void
+BlazOrbit.Components.Internal._BOBInAddon.IconRotation.get -> int
+BlazOrbit.Components.Internal._BOBInAddon.IconRotation.set -> void
+BlazOrbit.Components.Internal._BOBInAddon.Loading.get -> bool
+BlazOrbit.Components.Internal._BOBInAddon.Loading.set -> void
+BlazOrbit.Components.Internal._BOBInAddon.LoadingIndicatorVariant.get -> BlazOrbit.Components.BOBProgressIconVariant!
+BlazOrbit.Components.Internal._BOBInAddon.LoadingIndicatorVariant.set -> void
+BlazOrbit.Components.Internal._BOBInAddon.Size.get -> BlazOrbit.Components.BOBSize
+BlazOrbit.Components.Internal._BOBInAddon.Size.set -> void
+BlazOrbit.Components.Internal._BOBInAddon._BOBInAddon() -> void
+BlazOrbit.Components.Internal._BOBInBtn
+BlazOrbit.Components.Internal._BOBInBtn.Active.get -> bool
+BlazOrbit.Components.Internal._BOBInBtn.Active.set -> void
+BlazOrbit.Components.Internal._BOBInBtn.AdditionalAttributes.get -> System.Collections.Generic.Dictionary<string!, object!>?
+BlazOrbit.Components.Internal._BOBInBtn.AdditionalAttributes.set -> void
+BlazOrbit.Components.Internal._BOBInBtn.AriaLabel.get -> string?
+BlazOrbit.Components.Internal._BOBInBtn.AriaLabel.set -> void
+BlazOrbit.Components.Internal._BOBInBtn.ChildContent.get -> Microsoft.AspNetCore.Components.RenderFragment?
+BlazOrbit.Components.Internal._BOBInBtn.ChildContent.set -> void
+BlazOrbit.Components.Internal._BOBInBtn.Disabled.get -> bool
+BlazOrbit.Components.Internal._BOBInBtn.Disabled.set -> void
+BlazOrbit.Components.Internal._BOBInBtn.Icon.get -> BlazOrbit.Components.IconKey?
+BlazOrbit.Components.Internal._BOBInBtn.Icon.set -> void
+BlazOrbit.Components.Internal._BOBInBtn.IconRotation.get -> int
+BlazOrbit.Components.Internal._BOBInBtn.IconRotation.set -> void
+BlazOrbit.Components.Internal._BOBInBtn.Loading.get -> bool
+BlazOrbit.Components.Internal._BOBInBtn.Loading.set -> void
+BlazOrbit.Components.Internal._BOBInBtn.LoadingIndicatorVariant.get -> BlazOrbit.Components.BOBProgressIconVariant!
+BlazOrbit.Components.Internal._BOBInBtn.LoadingIndicatorVariant.set -> void
+BlazOrbit.Components.Internal._BOBInBtn.OnClick.get -> Microsoft.AspNetCore.Components.EventCallback<Microsoft.AspNetCore.Components.Web.MouseEventArgs!>
+BlazOrbit.Components.Internal._BOBInBtn.OnClick.set -> void
+BlazOrbit.Components.Internal._BOBInBtn.OnClickPreventDefault.get -> bool
+BlazOrbit.Components.Internal._BOBInBtn.OnClickPreventDefault.set -> void
+BlazOrbit.Components.Internal._BOBInBtn.OnClickStopPropagation.get -> bool
+BlazOrbit.Components.Internal._BOBInBtn.OnClickStopPropagation.set -> void
+BlazOrbit.Components.Internal._BOBInBtn.Size.get -> BlazOrbit.Components.BOBSize
+BlazOrbit.Components.Internal._BOBInBtn.Size.set -> void
+BlazOrbit.Components.Internal._BOBInBtn.Variant.get -> BlazOrbit.Components.Internal.BOBInBtnVariant
+BlazOrbit.Components.Internal._BOBInBtn.Variant.set -> void
+BlazOrbit.Components.Internal._BOBInBtn._BOBInBtn() -> void
+BlazOrbit.Components.Internal.BOBInBtnVariant
+BlazOrbit.Components.Internal.BOBInBtnVariant.Default = 0 -> BlazOrbit.Components.Internal.BOBInBtnVariant
+BlazOrbit.Components.Internal.BOBInBtnVariant.Ghost = 1 -> BlazOrbit.Components.Internal.BOBInBtnVariant
+BlazOrbit.Components.Internal._BOBInCheckMark
+BlazOrbit.Components.Internal._BOBInCheckMark.CheckMarkMode
+BlazOrbit.Components.Internal._BOBInCheckMark.CheckMarkMode.Checkbox = 0 -> BlazOrbit.Components.Internal._BOBInCheckMark.CheckMarkMode
+BlazOrbit.Components.Internal._BOBInCheckMark.CheckMarkMode.Radio = 1 -> BlazOrbit.Components.Internal._BOBInCheckMark.CheckMarkMode
+BlazOrbit.Components.Internal._BOBInCheckMark.Checked.get -> bool?
+BlazOrbit.Components.Internal._BOBInCheckMark.Checked.set -> void
+BlazOrbit.Components.Internal._BOBInCheckMark.CheckedIcon.get -> BlazOrbit.Components.IconKey?
+BlazOrbit.Components.Internal._BOBInCheckMark.CheckedIcon.set -> void
+BlazOrbit.Components.Internal._BOBInCheckMark.Disabled.get -> bool
+BlazOrbit.Components.Internal._BOBInCheckMark.Disabled.set -> void
+BlazOrbit.Components.Internal._BOBInCheckMark.IndeterminateIcon.get -> BlazOrbit.Components.IconKey?
+BlazOrbit.Components.Internal._BOBInCheckMark.IndeterminateIcon.set -> void
+BlazOrbit.Components.Internal._BOBInCheckMark.Mode.get -> BlazOrbit.Components.Internal._BOBInCheckMark.CheckMarkMode
+BlazOrbit.Components.Internal._BOBInCheckMark.Mode.set -> void
+BlazOrbit.Components.Internal._BOBInCheckMark.ReadOnly.get -> bool
+BlazOrbit.Components.Internal._BOBInCheckMark.ReadOnly.set -> void
+BlazOrbit.Components.Internal._BOBInCheckMark.Size.get -> BlazOrbit.Components.BOBSize
+BlazOrbit.Components.Internal._BOBInCheckMark.Size.set -> void
+BlazOrbit.Components.Internal._BOBInCheckMark.UncheckedIcon.get -> BlazOrbit.Components.IconKey?
+BlazOrbit.Components.Internal._BOBInCheckMark.UncheckedIcon.set -> void
+BlazOrbit.Components.Internal._BOBInCheckMark._BOBInCheckMark() -> void
 BlazOrbit.Components.Internal._BOBFieldHelper<TValue>
 BlazOrbit.Components.Internal._BOBFieldHelper<TValue>.EditContext.get -> Microsoft.AspNetCore.Components.Forms.EditContext?
 BlazOrbit.Components.Internal._BOBFieldHelper<TValue>.EditContext.set -> void
@@ -2015,6 +2100,28 @@ BlazOrbit.Components.Internal._BOBFieldHelper<TValue>.Id.set -> void
 BlazOrbit.Components.Internal._BOBFieldHelper<TValue>.ShowValidation.get -> bool
 BlazOrbit.Components.Internal._BOBFieldHelper<TValue>.ShowValidation.set -> void
 BlazOrbit.Components.Internal._BOBFieldHelper<TValue>._BOBFieldHelper() -> void
+BlazOrbit.Components.Internal._BOBInDate
+BlazOrbit.Components.Internal._BOBInDate.AdditionalAttributes.get -> System.Collections.Generic.Dictionary<string!, object!>?
+BlazOrbit.Components.Internal._BOBInDate.AdditionalAttributes.set -> void
+BlazOrbit.Components.Internal._BOBInDate.AriaLabel.get -> string?
+BlazOrbit.Components.Internal._BOBInDate.AriaLabel.set -> void
+BlazOrbit.Components.Internal._BOBInDate.Disabled.get -> bool
+BlazOrbit.Components.Internal._BOBInDate.Disabled.set -> void
+BlazOrbit.Components.Internal._BOBInDate.Max.get -> string?
+BlazOrbit.Components.Internal._BOBInDate.Max.set -> void
+BlazOrbit.Components.Internal._BOBInDate.Min.get -> string?
+BlazOrbit.Components.Internal._BOBInDate.Min.set -> void
+BlazOrbit.Components.Internal._BOBInDate.OnInput.get -> Microsoft.AspNetCore.Components.EventCallback<string?>
+BlazOrbit.Components.Internal._BOBInDate.OnInput.set -> void
+BlazOrbit.Components.Internal._BOBInDate.Placeholder.get -> string?
+BlazOrbit.Components.Internal._BOBInDate.Placeholder.set -> void
+BlazOrbit.Components.Internal._BOBInDate.UpdateOnInput.get -> bool
+BlazOrbit.Components.Internal._BOBInDate.UpdateOnInput.set -> void
+BlazOrbit.Components.Internal._BOBInDate.Value.get -> string?
+BlazOrbit.Components.Internal._BOBInDate.Value.set -> void
+BlazOrbit.Components.Internal._BOBInDate.ValueChanged.get -> Microsoft.AspNetCore.Components.EventCallback<string?>
+BlazOrbit.Components.Internal._BOBInDate.ValueChanged.set -> void
+BlazOrbit.Components.Internal._BOBInDate._BOBInDate() -> void
 BlazOrbit.Components.Internal._BOBInNumber
 BlazOrbit.Components.Internal._BOBInNumber.AdditionalAttributes.get -> System.Collections.Generic.Dictionary<string!, object!>?
 BlazOrbit.Components.Internal._BOBInNumber.AdditionalAttributes.set -> void
@@ -2071,22 +2178,22 @@ BlazOrbit.Components.Internal._BOBInText.Value.set -> void
 BlazOrbit.Components.Internal._BOBInText.ValueChanged.get -> Microsoft.AspNetCore.Components.EventCallback<string?>
 BlazOrbit.Components.Internal._BOBInText.ValueChanged.set -> void
 BlazOrbit.Components.Internal._BOBInText._BOBInText() -> void
-BlazOrbit.Components.Internal._BOBPagination
-BlazOrbit.Components.Internal._BOBPagination.CurrentPage.get -> int
-BlazOrbit.Components.Internal._BOBPagination.CurrentPage.set -> void
-BlazOrbit.Components.Internal._BOBPagination.MaxVisiblePages.get -> int
-BlazOrbit.Components.Internal._BOBPagination.MaxVisiblePages.set -> void
-BlazOrbit.Components.Internal._BOBPagination.OnPageChange.get -> Microsoft.AspNetCore.Components.EventCallback<int>
-BlazOrbit.Components.Internal._BOBPagination.OnPageChange.set -> void
-BlazOrbit.Components.Internal._BOBPagination.PageSize.get -> int
-BlazOrbit.Components.Internal._BOBPagination.PageSize.set -> void
-BlazOrbit.Components.Internal._BOBPagination.ShowInfo.get -> bool
-BlazOrbit.Components.Internal._BOBPagination.ShowInfo.set -> void
-BlazOrbit.Components.Internal._BOBPagination.TotalItems.get -> int
-BlazOrbit.Components.Internal._BOBPagination.TotalItems.set -> void
-BlazOrbit.Components.Internal._BOBPagination.TotalPages.get -> int
-BlazOrbit.Components.Internal._BOBPagination.TotalPages.set -> void
-BlazOrbit.Components.Internal._BOBPagination._BOBPagination() -> void
+BlazOrbit.Components.Internal._BOBInPagination
+BlazOrbit.Components.Internal._BOBInPagination.CurrentPage.get -> int
+BlazOrbit.Components.Internal._BOBInPagination.CurrentPage.set -> void
+BlazOrbit.Components.Internal._BOBInPagination.MaxVisiblePages.get -> int
+BlazOrbit.Components.Internal._BOBInPagination.MaxVisiblePages.set -> void
+BlazOrbit.Components.Internal._BOBInPagination.OnPageChange.get -> Microsoft.AspNetCore.Components.EventCallback<int>
+BlazOrbit.Components.Internal._BOBInPagination.OnPageChange.set -> void
+BlazOrbit.Components.Internal._BOBInPagination.PageSize.get -> int
+BlazOrbit.Components.Internal._BOBInPagination.PageSize.set -> void
+BlazOrbit.Components.Internal._BOBInPagination.ShowInfo.get -> bool
+BlazOrbit.Components.Internal._BOBInPagination.ShowInfo.set -> void
+BlazOrbit.Components.Internal._BOBInPagination.TotalItems.get -> int
+BlazOrbit.Components.Internal._BOBInPagination.TotalItems.set -> void
+BlazOrbit.Components.Internal._BOBInPagination.TotalPages.get -> int
+BlazOrbit.Components.Internal._BOBInPagination.TotalPages.set -> void
+BlazOrbit.Components.Internal._BOBInPagination._BOBInPagination() -> void
 BlazOrbit.Components.Layout.BOBBlazorLayout
 BlazOrbit.Components.Layout.BOBBlazorLayout.BOBBlazorLayout() -> void
 BlazOrbit.Components.Layout.BOBCard
@@ -3148,6 +3255,10 @@ override BlazOrbit.Components.Forms.BOBInputColor.OnParametersSet() -> void
 override BlazOrbit.Components.Forms.BOBInputColor.TryParseValueFromString(string? value, out BlazOrbit.Components.CssColor! result, out string! validationErrorMessage) -> bool
 BlazOrbit.Components.Forms.BOBInputDateTime<TValue>.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
 BlazOrbit.Components.Forms.BOBInputDateTime<TValue>.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
+override BlazOrbit.Components.Forms.BOBInputDateRange.BuiltInTemplates.get -> System.Collections.Generic.IReadOnlyDictionary<BlazOrbit.Components.Forms.BOBInputVariant!, System.Func<BlazOrbit.Components.Forms.BOBInputDateRange!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
+override BlazOrbit.Components.Forms.BOBInputDateRange.DefaultVariant.get -> BlazOrbit.Components.Forms.BOBInputVariant!
+override BlazOrbit.Components.Forms.BOBInputDateRange.FormatValueAsString(BlazOrbit.Components.DateRange value) -> string?
+override BlazOrbit.Components.Forms.BOBInputDateRange.TryParseValueFromString(string? value, out BlazOrbit.Components.DateRange result, out string? validationErrorMessage) -> bool
 override BlazOrbit.Components.Forms.BOBInputDateTime<TValue>.BuiltInTemplates.get -> System.Collections.Generic.IReadOnlyDictionary<BlazOrbit.Components.Forms.BOBInputVariant!, System.Func<BlazOrbit.Components.Forms.BOBInputDateTime<TValue>!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
 override BlazOrbit.Components.Forms.BOBInputDateTime<TValue>.DefaultVariant.get -> BlazOrbit.Components.Forms.BOBInputVariant!
 override BlazOrbit.Components.Forms.BOBInputDateTime<TValue>.FormatValueAsString(TValue? value) -> string?
@@ -3346,6 +3457,7 @@ static readonly BlazOrbit.Components.Forms.BOBColorPickerComponentInfo.Parameter
 static readonly BlazOrbit.Components.Forms.BOBDatePickerComponentInfo.Parameters -> BlazOrbit.ComponentParameterInfo![]!
 static readonly BlazOrbit.Components.Forms.BOBInputCheckboxComponentInfo.Parameters -> BlazOrbit.ComponentParameterInfo![]!
 static readonly BlazOrbit.Components.Forms.BOBInputCheckboxVariant.Default -> BlazOrbit.Components.Forms.BOBInputCheckboxVariant!
+static readonly BlazOrbit.Components.Forms.BOBDateRangePickerComponentInfo.Parameters -> BlazOrbit.ComponentParameterInfo![]!
 static readonly BlazOrbit.Components.Forms.BOBInputColorComponentInfo.Parameters -> BlazOrbit.ComponentParameterInfo![]!
 static readonly BlazOrbit.Components.Forms.BOBInputDateRangeComponentInfo.Parameters -> BlazOrbit.ComponentParameterInfo![]!
 static readonly BlazOrbit.Components.Forms.BOBInputDateTimeComponentInfo.Parameters -> BlazOrbit.ComponentParameterInfo![]!
@@ -3414,6 +3526,7 @@ virtual BlazOrbit.Components.Utils.Patterns.Abstractions.BOBBasePattern.ToggleVa
 ~override BlazOrbit.Components.Display.BOBStatCard.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
 ~override BlazOrbit.Components.Forms.BOBAutoComplete<TItem>.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
 ~override BlazOrbit.Components.Forms.BOBColorPicker.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
+~override BlazOrbit.Components.Forms.BOBDateRangePicker.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
 ~override BlazOrbit.Components.Forms.BOBInputDateRange.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
 ~override BlazOrbit.Components.Forms.BOBInputFile.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
 ~override BlazOrbit.Components.Forms.BOBDatePicker.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
@@ -3442,14 +3555,15 @@ virtual BlazOrbit.Components.Utils.Patterns.Abstractions.BOBBasePattern.ToggleVa
 ~override BlazOrbit.Components.Forms.DropdownKeyboardEventArgs.ToString() -> string
 ~override BlazOrbit.Components.Forms.DropdownPosition.Equals(object obj) -> bool
 ~override BlazOrbit.Components.Forms.DropdownPosition.ToString() -> string
-~override BlazOrbit.Components.Internal._BOBAddon.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
-~override BlazOrbit.Components.Internal._BOBBtn.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
-~override BlazOrbit.Components.Internal._BOBCheckMark.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
+~override BlazOrbit.Components.Internal._BOBInAddon.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
+~override BlazOrbit.Components.Internal._BOBInBtn.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
+~override BlazOrbit.Components.Internal._BOBInCheckMark.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
 ~override BlazOrbit.Components.Internal._BOBFieldHelper<TValue>.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
+~override BlazOrbit.Components.Internal._BOBInDate.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
 ~override BlazOrbit.Components.Internal._BOBInNumber.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
 ~override BlazOrbit.Components.Internal._BOBInSelect.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
 ~override BlazOrbit.Components.Internal._BOBInText.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
-~override BlazOrbit.Components.Internal._BOBPagination.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
+~override BlazOrbit.Components.Internal._BOBInPagination.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
 ~override BlazOrbit.Components.Layout.BOBBlazorLayout.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
 ~override BlazOrbit.Components.Layout.BOBCard.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
 ~override BlazOrbit.Components.Layout.BOBDialog.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
@@ -3581,9 +3695,9 @@ BlazOrbit.Components.Forms.BOBInputNumberSliderComponentInfo
 override BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>.BuiltInTemplates.get -> System.Collections.Generic.IReadOnlyDictionary<BlazOrbit.Components.Forms.BOBInputVariant!, System.Func<BlazOrbit.Components.Forms.BOBInputNumberSlider<TValue>!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
 static readonly BlazOrbit.Components.Forms.BOBInputNumberSliderComponentInfo.Parameters -> BlazOrbit.ComponentParameterInfo![]!
 BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>
-BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.AriaLabelMax.get -> string!
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.AriaLabelMax.get -> string?
 BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.AriaLabelMax.set -> void
-BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.AriaLabelMin.get -> string!
+BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.AriaLabelMin.get -> string?
 BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.AriaLabelMin.set -> void
 BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.BOBInputRangeSlider() -> void
 BlazOrbit.Components.Forms.BOBInputRangeSlider<TValue>.BackgroundColor.get -> string?
@@ -3730,9 +3844,9 @@ BlazOrbit.Components.BOBCarousel.IndicatorIconColor.get -> string?
 BlazOrbit.Components.BOBCarousel.IndicatorIconColor.set -> void
 BlazOrbit.Components.BOBCarousel.Loop.get -> bool
 BlazOrbit.Components.BOBCarousel.Loop.set -> void
-BlazOrbit.Components.BOBCarousel.NextLabel.get -> string!
+BlazOrbit.Components.BOBCarousel.NextLabel.get -> string?
 BlazOrbit.Components.BOBCarousel.NextLabel.set -> void
-BlazOrbit.Components.BOBCarousel.PreviousLabel.get -> string!
+BlazOrbit.Components.BOBCarousel.PreviousLabel.get -> string?
 BlazOrbit.Components.BOBCarousel.PreviousLabel.set -> void
 BlazOrbit.Components.BOBCarousel.ShowArrows.get -> bool
 BlazOrbit.Components.BOBCarousel.ShowArrows.set -> void
@@ -3857,7 +3971,7 @@ BlazOrbit.Components.DataCollectionState<TItem>.ClearSort() -> void
 BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.HandleSort(BlazOrbit.Components.DataColumnRegistration<TItem>! column, bool append) -> System.Threading.Tasks.Task!
 BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.HandleSortClick(BlazOrbit.Components.DataColumnRegistration<TItem>! column, Microsoft.AspNetCore.Components.Web.MouseEventArgs! e) -> System.Threading.Tasks.Task!
 BlazOrbit.Components.Navigation.BOBBreadcrumbs
-BlazOrbit.Components.Navigation.BOBBreadcrumbs.AriaLabel.get -> string!
+BlazOrbit.Components.Navigation.BOBBreadcrumbs.AriaLabel.get -> string?
 BlazOrbit.Components.Navigation.BOBBreadcrumbs.AriaLabel.set -> void
 BlazOrbit.Components.Navigation.BOBBreadcrumbs.BOBBreadcrumbs() -> void
 BlazOrbit.Components.Navigation.BOBBreadcrumbs.ItemTemplate.get -> Microsoft.AspNetCore.Components.RenderFragment<BlazOrbit.Components.BreadcrumbItem>?
@@ -4050,13 +4164,13 @@ BlazOrbit.Components.Layout.BOBConfirmDialog.Message.get -> string!
 BlazOrbit.Components.Layout.BOBConfirmDialog.Message.set -> void
 BlazOrbit.Components.Layout.BOBConfirmDialog.ModalReference.get -> BlazOrbit.Components.Layout.ModalReference!
 BlazOrbit.Components.Layout.BOBConfirmDialog.ModalReference.set -> void
-BlazOrbit.Components.Layout.BOBConfirmDialog.NoLabel.get -> string!
+BlazOrbit.Components.Layout.BOBConfirmDialog.NoLabel.get -> string?
 BlazOrbit.Components.Layout.BOBConfirmDialog.NoLabel.set -> void
 BlazOrbit.Components.Layout.BOBConfirmDialog.Severity.get -> BlazOrbit.Components.Layout.ConfirmSeverity
 BlazOrbit.Components.Layout.BOBConfirmDialog.Severity.set -> void
 BlazOrbit.Components.Layout.BOBConfirmDialog.Title.get -> string!
 BlazOrbit.Components.Layout.BOBConfirmDialog.Title.set -> void
-BlazOrbit.Components.Layout.BOBConfirmDialog.YesLabel.get -> string!
+BlazOrbit.Components.Layout.BOBConfirmDialog.YesLabel.get -> string?
 BlazOrbit.Components.Layout.BOBConfirmDialog.YesLabel.set -> void
 BlazOrbit.Components.Layout.BOBConfirmDialogComponentInfo
 BlazOrbit.Components.Layout.ConfirmService
@@ -4137,3 +4251,228 @@ BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.HandleHe
 BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.HandleHeaderDragOver(string! columnName, Microsoft.AspNetCore.Components.Web.DragEventArgs! e) -> void
 BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.HandleHeaderDrop(string! targetHeader, Microsoft.AspNetCore.Components.Web.DragEventArgs! e) -> void
 BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.HandleHeaderDragEnd(Microsoft.AspNetCore.Components.Web.DragEventArgs! e) -> void
+BlazOrbit.BOBDataCollectionResources
+BlazOrbit.BOBDataCollectionResources.BOBDataCollectionResources() -> void
+BlazOrbit.BOBDisplayResources
+BlazOrbit.BOBDisplayResources.BOBDisplayResources() -> void
+BlazOrbit.BOBFormsResources
+BlazOrbit.BOBFormsResources.BOBFormsResources() -> void
+BlazOrbit.BOBLayoutResources
+BlazOrbit.BOBLayoutResources.BOBLayoutResources() -> void
+BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.ResolvedFilterPlaceholder.get -> string!
+BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.Localizer.get -> Microsoft.Extensions.Localization.IStringLocalizer<BlazOrbit.BOBDataCollectionResources!>!
+BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.Localizer.set -> void
+BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.GetAggregateLabel(BlazOrbit.Components.AggregateFunction function) -> string!
+BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>._preventHeaderKeyDefault -> bool
+BlazOrbit.Components.Forms.BOBChunkContext
+BlazOrbit.Components.Forms.BOBChunkContext.BOBChunkContext() -> void
+BlazOrbit.Components.Forms.BOBChunkContext.BOBChunkContext(string! FileName, string! ContentType, long FileSize, int Index, int TotalChunks, long Offset, System.ReadOnlyMemory<byte> Data) -> void
+BlazOrbit.Components.Forms.BOBChunkContext.ContentType.get -> string!
+BlazOrbit.Components.Forms.BOBChunkContext.ContentType.init -> void
+BlazOrbit.Components.Forms.BOBChunkContext.Data.get -> System.ReadOnlyMemory<byte>
+BlazOrbit.Components.Forms.BOBChunkContext.Data.init -> void
+BlazOrbit.Components.Forms.BOBChunkContext.Deconstruct(out string! FileName, out string! ContentType, out long FileSize, out int Index, out int TotalChunks, out long Offset, out System.ReadOnlyMemory<byte> Data) -> void
+BlazOrbit.Components.Forms.BOBChunkContext.Equals(BlazOrbit.Components.Forms.BOBChunkContext other) -> bool
+BlazOrbit.Components.Forms.BOBChunkContext.FileName.get -> string!
+BlazOrbit.Components.Forms.BOBChunkContext.FileName.init -> void
+BlazOrbit.Components.Forms.BOBChunkContext.FileSize.get -> long
+BlazOrbit.Components.Forms.BOBChunkContext.FileSize.init -> void
+BlazOrbit.Components.Forms.BOBChunkContext.Index.get -> int
+BlazOrbit.Components.Forms.BOBChunkContext.Index.init -> void
+BlazOrbit.Components.Forms.BOBChunkContext.Offset.get -> long
+BlazOrbit.Components.Forms.BOBChunkContext.Offset.init -> void
+BlazOrbit.Components.Forms.BOBChunkContext.TotalChunks.get -> int
+BlazOrbit.Components.Forms.BOBChunkContext.TotalChunks.init -> void
+BlazOrbit.Components.Forms.BOBChunkedUploadProgress
+BlazOrbit.Components.Forms.BOBChunkedUploadProgress.BOBChunkedUploadProgress() -> void
+BlazOrbit.Components.Forms.BOBChunkedUploadProgress.BOBChunkedUploadProgress(string! FileName, long BytesSent, long FileSize, int ChunkIndex, int TotalChunks) -> void
+BlazOrbit.Components.Forms.BOBChunkedUploadProgress.BytesSent.get -> long
+BlazOrbit.Components.Forms.BOBChunkedUploadProgress.BytesSent.init -> void
+BlazOrbit.Components.Forms.BOBChunkedUploadProgress.ChunkIndex.get -> int
+BlazOrbit.Components.Forms.BOBChunkedUploadProgress.ChunkIndex.init -> void
+BlazOrbit.Components.Forms.BOBChunkedUploadProgress.Deconstruct(out string! FileName, out long BytesSent, out long FileSize, out int ChunkIndex, out int TotalChunks) -> void
+BlazOrbit.Components.Forms.BOBChunkedUploadProgress.Equals(BlazOrbit.Components.Forms.BOBChunkedUploadProgress other) -> bool
+BlazOrbit.Components.Forms.BOBChunkedUploadProgress.FileName.get -> string!
+BlazOrbit.Components.Forms.BOBChunkedUploadProgress.FileName.init -> void
+BlazOrbit.Components.Forms.BOBChunkedUploadProgress.FileSize.get -> long
+BlazOrbit.Components.Forms.BOBChunkedUploadProgress.FileSize.init -> void
+BlazOrbit.Components.Forms.BOBChunkedUploadProgress.TotalChunks.get -> int
+BlazOrbit.Components.Forms.BOBChunkedUploadProgress.TotalChunks.init -> void
+BlazOrbit.Components.Forms.BOBChunkedUploadResult
+BlazOrbit.Components.Forms.BOBChunkedUploadResult.<Clone>$() -> BlazOrbit.Components.Forms.BOBChunkedUploadResult!
+BlazOrbit.Components.Forms.BOBChunkedUploadResult.BOBChunkedUploadResult(string! FileName, long FileSize, int TotalChunks, bool Success, System.Exception? Error) -> void
+BlazOrbit.Components.Forms.BOBChunkedUploadResult.Deconstruct(out string! FileName, out long FileSize, out int TotalChunks, out bool Success, out System.Exception? Error) -> void
+BlazOrbit.Components.Forms.BOBChunkedUploadResult.Equals(BlazOrbit.Components.Forms.BOBChunkedUploadResult? other) -> bool
+BlazOrbit.Components.Forms.BOBChunkedUploadResult.Error.get -> System.Exception?
+BlazOrbit.Components.Forms.BOBChunkedUploadResult.Error.init -> void
+BlazOrbit.Components.Forms.BOBChunkedUploadResult.FileName.get -> string!
+BlazOrbit.Components.Forms.BOBChunkedUploadResult.FileName.init -> void
+BlazOrbit.Components.Forms.BOBChunkedUploadResult.FileSize.get -> long
+BlazOrbit.Components.Forms.BOBChunkedUploadResult.FileSize.init -> void
+BlazOrbit.Components.Forms.BOBChunkedUploadResult.Success.get -> bool
+BlazOrbit.Components.Forms.BOBChunkedUploadResult.Success.init -> void
+BlazOrbit.Components.Forms.BOBChunkedUploadResult.TotalChunks.get -> int
+BlazOrbit.Components.Forms.BOBChunkedUploadResult.TotalChunks.init -> void
+BlazOrbit.Components.Forms.BOBChunkedUploader
+BlazOrbit.Components.Forms.BOBChunkedUploader.BOBChunkedUploader() -> void
+BlazOrbit.Components.Forms.BOBChunkedUploader.ChunkSize.get -> int
+BlazOrbit.Components.Forms.BOBChunkedUploader.ChunkSize.init -> void
+BlazOrbit.Components.Forms.BOBChunkedUploader.MaxAllowedSize.get -> long
+BlazOrbit.Components.Forms.BOBChunkedUploader.MaxAllowedSize.init -> void
+BlazOrbit.Components.Forms.BOBChunkedUploader.Progress.get -> System.IProgress<BlazOrbit.Components.Forms.BOBChunkedUploadProgress>?
+BlazOrbit.Components.Forms.BOBChunkedUploader.Progress.init -> void
+BlazOrbit.Components.Forms.BOBChunkedUploader.SendChunk.get -> System.Func<BlazOrbit.Components.Forms.BOBChunkContext, System.Threading.CancellationToken, System.Threading.Tasks.Task!>!
+BlazOrbit.Components.Forms.BOBChunkedUploader.SendChunk.init -> void
+BlazOrbit.Components.Forms.BOBChunkedUploader.UploadAsync(Microsoft.AspNetCore.Components.Forms.IBrowserFile! file, System.Threading.CancellationToken ct = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<BlazOrbit.Components.Forms.BOBChunkedUploadResult!>!
+override BlazOrbit.Components.Forms.BOBChunkContext.GetHashCode() -> int
+override BlazOrbit.Components.Forms.BOBChunkedUploadProgress.GetHashCode() -> int
+override BlazOrbit.Components.Forms.BOBChunkedUploadResult.Equals(object? obj) -> bool
+override BlazOrbit.Components.Forms.BOBChunkedUploadResult.GetHashCode() -> int
+override BlazOrbit.Components.Forms.BOBChunkedUploadResult.ToString() -> string!
+static BlazOrbit.Components.Forms.BOBChunkContext.operator !=(BlazOrbit.Components.Forms.BOBChunkContext left, BlazOrbit.Components.Forms.BOBChunkContext right) -> bool
+static BlazOrbit.Components.Forms.BOBChunkContext.operator ==(BlazOrbit.Components.Forms.BOBChunkContext left, BlazOrbit.Components.Forms.BOBChunkContext right) -> bool
+static BlazOrbit.Components.Forms.BOBChunkedUploadProgress.operator !=(BlazOrbit.Components.Forms.BOBChunkedUploadProgress left, BlazOrbit.Components.Forms.BOBChunkedUploadProgress right) -> bool
+static BlazOrbit.Components.Forms.BOBChunkedUploadProgress.operator ==(BlazOrbit.Components.Forms.BOBChunkedUploadProgress left, BlazOrbit.Components.Forms.BOBChunkedUploadProgress right) -> bool
+static BlazOrbit.Components.Forms.BOBChunkedUploadResult.operator !=(BlazOrbit.Components.Forms.BOBChunkedUploadResult? left, BlazOrbit.Components.Forms.BOBChunkedUploadResult? right) -> bool
+static BlazOrbit.Components.Forms.BOBChunkedUploadResult.operator ==(BlazOrbit.Components.Forms.BOBChunkedUploadResult? left, BlazOrbit.Components.Forms.BOBChunkedUploadResult? right) -> bool
+~override BlazOrbit.Components.Forms.BOBChunkContext.Equals(object obj) -> bool
+~override BlazOrbit.Components.Forms.BOBChunkContext.ToString() -> string
+~override BlazOrbit.Components.Forms.BOBChunkedUploadProgress.Equals(object obj) -> bool
+~override BlazOrbit.Components.Forms.BOBChunkedUploadProgress.ToString() -> string
+BlazOrbit.Components.Layout.BOBAspectRatio.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
+BlazOrbit.Components.Layout.BOBAspectRatio.BuildComponentDataAttributes(System.Collections.Generic.Dictionary<string!, object!>! dataAttributes) -> void
+BlazOrbit.Components.Forms.BOBInputDateRange.PrefixBackgroundColor.get -> string?
+BlazOrbit.Components.Forms.BOBInputDateRange.PrefixBackgroundColor.set -> void
+BlazOrbit.Components.Forms.BOBInputDateRange.PrefixColor.get -> string?
+BlazOrbit.Components.Forms.BOBInputDateRange.PrefixColor.set -> void
+BlazOrbit.Components.Forms.BOBInputDateRange.PrefixIcon.get -> BlazOrbit.Components.IconKey?
+BlazOrbit.Components.Forms.BOBInputDateRange.PrefixIcon.set -> void
+BlazOrbit.Components.Forms.BOBInputDateRange.PrefixText.get -> string?
+BlazOrbit.Components.Forms.BOBInputDateRange.PrefixText.set -> void
+BlazOrbit.Components.Forms.BOBInputDateRange.Shadow.get -> BlazOrbit.Components.ShadowStyle?
+BlazOrbit.Components.Forms.BOBInputDateRange.Shadow.set -> void
+BlazOrbit.Components.Forms.BOBInputDateRange.SuffixBackgroundColor.get -> string?
+BlazOrbit.Components.Forms.BOBInputDateRange.SuffixBackgroundColor.set -> void
+BlazOrbit.Components.Forms.BOBInputDateRange.SuffixColor.get -> string?
+BlazOrbit.Components.Forms.BOBInputDateRange.SuffixColor.set -> void
+BlazOrbit.Components.Forms.BOBInputDateRange.SuffixIcon.get -> BlazOrbit.Components.IconKey?
+BlazOrbit.Components.Forms.BOBInputDateRange.SuffixIcon.set -> void
+BlazOrbit.Components.Forms.BOBInputDateRange.SuffixText.get -> string?
+BlazOrbit.Components.Forms.BOBInputDateRange.SuffixText.set -> void
+BlazOrbit.Components.Forms.BOBFileStatus
+BlazOrbit.Components.Forms.BOBFileStatus.Accepted = 0 -> BlazOrbit.Components.Forms.BOBFileStatus
+BlazOrbit.Components.Forms.BOBFileStatus.Failed = 3 -> BlazOrbit.Components.Forms.BOBFileStatus
+BlazOrbit.Components.Forms.BOBFileStatus.Uploaded = 2 -> BlazOrbit.Components.Forms.BOBFileStatus
+BlazOrbit.Components.Forms.BOBFileStatus.Uploading = 1 -> BlazOrbit.Components.Forms.BOBFileStatus
+BlazOrbit.Components.Forms.BOBInputFile.FailedText.get -> string?
+BlazOrbit.Components.Forms.BOBInputFile.FailedText.set -> void
+BlazOrbit.Components.Forms.BOBInputFile.SetStatus(Microsoft.AspNetCore.Components.Forms.IBrowserFile! file, BlazOrbit.Components.Forms.BOBFileStatus status, double progressPercent = 0, string? statusMessage = null) -> void
+BlazOrbit.Components.Forms.BOBInputFile.UploadedText.get -> string?
+BlazOrbit.Components.Forms.BOBInputFile.UploadedText.set -> void
+BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.DataSource.get -> BlazOrbit.Components.IDataCollectionDataSource<TItem>?
+BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.DataSource.set -> void
+BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.Dispose() -> void
+virtual BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.Dispose(bool disposing) -> void
+BlazOrbit.Components.DataRequest
+BlazOrbit.Components.DataRequest.<Clone>$() -> BlazOrbit.Components.DataRequest!
+BlazOrbit.Components.DataRequest.ColumnFilters.get -> System.Collections.Generic.IReadOnlyDictionary<string!, BlazOrbit.Components.ColumnFilterEntry>!
+BlazOrbit.Components.DataRequest.ColumnFilters.init -> void
+BlazOrbit.Components.DataRequest.Count.get -> int?
+BlazOrbit.Components.DataRequest.Count.init -> void
+BlazOrbit.Components.DataRequest.DataRequest(int StartIndex, int? Count, string? GlobalFilter, System.Collections.Generic.IReadOnlyList<BlazOrbit.Components.SortDescriptor!>! Sorts, System.Collections.Generic.IReadOnlyDictionary<string!, BlazOrbit.Components.ColumnFilterEntry>! ColumnFilters) -> void
+BlazOrbit.Components.DataRequest.Deconstruct(out int StartIndex, out int? Count, out string? GlobalFilter, out System.Collections.Generic.IReadOnlyList<BlazOrbit.Components.SortDescriptor!>! Sorts, out System.Collections.Generic.IReadOnlyDictionary<string!, BlazOrbit.Components.ColumnFilterEntry>! ColumnFilters) -> void
+BlazOrbit.Components.DataRequest.Equals(BlazOrbit.Components.DataRequest? other) -> bool
+BlazOrbit.Components.DataRequest.GlobalFilter.get -> string?
+BlazOrbit.Components.DataRequest.GlobalFilter.init -> void
+BlazOrbit.Components.DataRequest.Page.get -> int
+BlazOrbit.Components.DataRequest.Sorts.get -> System.Collections.Generic.IReadOnlyList<BlazOrbit.Components.SortDescriptor!>!
+BlazOrbit.Components.DataRequest.StartIndex.get -> int
+BlazOrbit.Components.DataRequest.StartIndex.init -> void
+BlazOrbit.Components.DataRequest.Sorts.init -> void
+override BlazOrbit.Components.DataRequest.Equals(object? obj) -> bool
+override BlazOrbit.Components.DataRequest.GetHashCode() -> int
+override BlazOrbit.Components.DataRequest.ToString() -> string!
+static BlazOrbit.Components.DataRequest.operator !=(BlazOrbit.Components.DataRequest? left, BlazOrbit.Components.DataRequest? right) -> bool
+static BlazOrbit.Components.DataRequest.operator ==(BlazOrbit.Components.DataRequest? left, BlazOrbit.Components.DataRequest? right) -> bool
+BlazOrbit.Components.DataResult<TItem>
+BlazOrbit.Components.DataResult<TItem>.<Clone>$() -> BlazOrbit.Components.DataResult<TItem>!
+BlazOrbit.Components.DataResult<TItem>.DataResult(System.Collections.Generic.IReadOnlyList<TItem>! Items, int TotalCount) -> void
+BlazOrbit.Components.DataResult<TItem>.Deconstruct(out System.Collections.Generic.IReadOnlyList<TItem>! Items, out int TotalCount) -> void
+BlazOrbit.Components.DataResult<TItem>.Equals(BlazOrbit.Components.DataResult<TItem>? other) -> bool
+BlazOrbit.Components.DataResult<TItem>.Items.get -> System.Collections.Generic.IReadOnlyList<TItem>!
+BlazOrbit.Components.DataResult<TItem>.Items.init -> void
+BlazOrbit.Components.DataResult<TItem>.TotalCount.get -> int
+BlazOrbit.Components.DataResult<TItem>.TotalCount.init -> void
+override BlazOrbit.Components.DataResult<TItem>.Equals(object? obj) -> bool
+override BlazOrbit.Components.DataResult<TItem>.GetHashCode() -> int
+override BlazOrbit.Components.DataResult<TItem>.ToString() -> string!
+static BlazOrbit.Components.DataResult<TItem>.operator !=(BlazOrbit.Components.DataResult<TItem>? left, BlazOrbit.Components.DataResult<TItem>? right) -> bool
+static BlazOrbit.Components.DataResult<TItem>.operator ==(BlazOrbit.Components.DataResult<TItem>? left, BlazOrbit.Components.DataResult<TItem>? right) -> bool
+BlazOrbit.Components.IDataCollectionDataSource<TItem>
+BlazOrbit.Components.IDataCollectionDataSource<TItem>.LoadAsync(BlazOrbit.Components.DataRequest! request, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<BlazOrbit.Components.DataResult<TItem>!>!
+BlazOrbit.Components.InMemoryDataSource<TItem>
+BlazOrbit.Components.InMemoryDataSource<TItem>.InMemoryDataSource(System.Collections.Generic.IEnumerable<TItem>! items) -> void
+BlazOrbit.Components.InMemoryDataSource<TItem>.Items.get -> System.Collections.Generic.IEnumerable<TItem>!
+BlazOrbit.Components.InMemoryDataSource<TItem>.LoadAsync(BlazOrbit.Components.DataRequest! request, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<BlazOrbit.Components.DataResult<TItem>!>!
+BlazOrbit.Components.RemoteDataSource<TItem>
+BlazOrbit.Components.RemoteDataSource<TItem>.LoadAsync(BlazOrbit.Components.DataRequest! request, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken)) -> System.Threading.Tasks.Task<BlazOrbit.Components.DataResult<TItem>!>!
+BlazOrbit.Components.RemoteDataSource<TItem>.RemoteDataSource(System.Func<BlazOrbit.Components.DataRequest!, System.Threading.CancellationToken, System.Threading.Tasks.Task<BlazOrbit.Components.DataResult<TItem>!>!>! provider) -> void
+BlazOrbit.Components.RemoteDataSource<TItem>.RemoteDataSource(System.Func<BlazOrbit.Components.DataRequest!, System.Threading.Tasks.Task<BlazOrbit.Components.DataResult<TItem>!>!>! provider) -> void
+BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.UsesItemsProvider.get -> bool
+BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.ProvideVirtualizedItemsAsync(Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderRequest request) -> System.Threading.Tasks.ValueTask<Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderResult<TItem>>
+BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.VirtualizeRef.get -> Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize<TItem>?
+BlazOrbit.Components.BOBDataCollectionBase<TItem, TComponent, TVariant>.VirtualizeRef.set -> void
+BlazOrbit.Components.BOBDataGridEditMode
+BlazOrbit.Components.BOBDataGridEditMode.None = 0 -> BlazOrbit.Components.BOBDataGridEditMode
+BlazOrbit.Components.BOBDataGridEditMode.Cell = 1 -> BlazOrbit.Components.BOBDataGridEditMode
+BlazOrbit.Components.BOBDataGridEditMode.Batch = 2 -> BlazOrbit.Components.BOBDataGridEditMode
+BlazOrbit.Components.BOBDataGrid<TItem>.EditMode.get -> BlazOrbit.Components.BOBDataGridEditMode
+BlazOrbit.Components.BOBDataGrid<TItem>.EditMode.set -> void
+BlazOrbit.Components.BOBDataGrid<TItem>.OnRowSave.get -> Microsoft.AspNetCore.Components.EventCallback<TItem>
+BlazOrbit.Components.BOBDataGrid<TItem>.OnRowSave.set -> void
+BlazOrbit.Components.BOBDataGrid<TItem>.OnRowCancel.get -> Microsoft.AspNetCore.Components.EventCallback<TItem>
+BlazOrbit.Components.BOBDataGrid<TItem>.OnRowCancel.set -> void
+BlazOrbit.Components.BOBDataColumn<TItem>.Editable.get -> bool
+BlazOrbit.Components.BOBDataColumn<TItem>.Editable.set -> void
+BlazOrbit.Components.BOBDataColumn<TItem>.EditTemplate.get -> Microsoft.AspNetCore.Components.RenderFragment<TItem>?
+BlazOrbit.Components.BOBDataColumn<TItem>.EditTemplate.set -> void
+BlazOrbit.Components.DataColumnRegistration<TItem>.ValueSetter.get -> System.Action<TItem, object?>?
+BlazOrbit.Components.DataColumnRegistration<TItem>.ValueSetter.set -> void
+BlazOrbit.Components.DataColumnRegistration<TItem>.Editable.get -> bool
+BlazOrbit.Components.DataColumnRegistration<TItem>.Editable.set -> void
+BlazOrbit.Components.DataColumnRegistration<TItem>.EditTemplate.get -> Microsoft.AspNetCore.Components.RenderFragment<TItem>?
+BlazOrbit.Components.DataColumnRegistration<TItem>.EditTemplate.set -> void
+BlazOrbit.Components._BOBDataGridCellEditor<TItem>
+BlazOrbit.Components._BOBDataGridCellEditor<TItem>._BOBDataGridCellEditor() -> void
+BlazOrbit.Components._BOBDataGridCellEditor<TItem>.Item.get -> TItem
+BlazOrbit.Components._BOBDataGridCellEditor<TItem>.Item.set -> void
+BlazOrbit.Components._BOBDataGridCellEditor<TItem>.Column.get -> BlazOrbit.Components.DataColumnRegistration<TItem>!
+BlazOrbit.Components._BOBDataGridCellEditor<TItem>.Column.set -> void
+BlazOrbit.Components._BOBDataGridCellEditor<TItem>.OnCommit.get -> Microsoft.AspNetCore.Components.EventCallback<TItem>
+BlazOrbit.Components._BOBDataGridCellEditor<TItem>.OnCommit.set -> void
+BlazOrbit.Components._BOBDataGridCellEditor<TItem>.OnCancel.get -> Microsoft.AspNetCore.Components.EventCallback<TItem>
+BlazOrbit.Components._BOBDataGridCellEditor<TItem>.OnCancel.set -> void
+override BlazOrbit.Components._BOBDataGridCellEditor<TItem>.OnInitialized() -> void
+override BlazOrbit.Components._BOBDataGridCellEditor<TItem>.OnAfterRenderAsync(bool firstRender) -> System.Threading.Tasks.Task!
+~override BlazOrbit.Components._BOBDataGridCellEditor<TItem>.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
+BlazOrbit.Components.DataColumnRegistration<TItem>.Validator.get -> System.Func<TItem, object?, string?>?
+BlazOrbit.Components.DataColumnRegistration<TItem>.Validator.set -> void
+BlazOrbit.Components.BOBDataColumn<TItem>.Validator.get -> System.Func<TItem, object?, string?>?
+BlazOrbit.Components.BOBDataColumn<TItem>.Validator.set -> void
+BlazOrbit.Components._BOBDataGridCellEditor<TItem>.OnValidate.get -> Microsoft.AspNetCore.Components.EventCallback<(TItem Item, string? Error)>
+BlazOrbit.Components._BOBDataGridCellEditor<TItem>.OnValidate.set -> void
+BlazOrbit.Components.BOBDataCollectionClipboardSerializer<TItem>
+static BlazOrbit.Components.BOBDataCollectionClipboardSerializer<TItem>.BuildTsv(System.Collections.Generic.IEnumerable<TItem>! items, System.Collections.Generic.IEnumerable<BlazOrbit.Components.DataColumnRegistration<TItem>!>! columns, bool includeHeaders = true) -> string!
+static BlazOrbit.Components.BOBDataCollectionClipboardSerializer<TItem>.BuildHtml(System.Collections.Generic.IEnumerable<TItem>! items, System.Collections.Generic.IEnumerable<BlazOrbit.Components.DataColumnRegistration<TItem>!>! columns, bool includeHeaders = true) -> string!
+BlazOrbit.Components.BOBDataGridCopyEventArgs<TItem>
+BlazOrbit.Components.BOBDataGridCopyEventArgs<TItem>.BOBDataGridCopyEventArgs() -> void
+BlazOrbit.Components.BOBDataGridCopyEventArgs<TItem>.Items.get -> System.Collections.Generic.IReadOnlyList<TItem>!
+BlazOrbit.Components.BOBDataGridCopyEventArgs<TItem>.Items.init -> void
+BlazOrbit.Components.BOBDataGridCopyEventArgs<TItem>.Tsv.get -> string!
+BlazOrbit.Components.BOBDataGridCopyEventArgs<TItem>.Tsv.init -> void
+BlazOrbit.Components.BOBDataGridCopyEventArgs<TItem>.Html.get -> string!
+BlazOrbit.Components.BOBDataGridCopyEventArgs<TItem>.Html.init -> void
+BlazOrbit.Components.BOBDataGrid<TItem>.Copyable.get -> bool
+BlazOrbit.Components.BOBDataGrid<TItem>.Copyable.set -> void
+BlazOrbit.Components.BOBDataGrid<TItem>.OnCopy.get -> Microsoft.AspNetCore.Components.EventCallback<BlazOrbit.Components.BOBDataGridCopyEventArgs<TItem>!>
+BlazOrbit.Components.BOBDataGrid<TItem>.OnCopy.set -> void

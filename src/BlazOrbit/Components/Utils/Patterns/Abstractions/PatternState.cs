@@ -24,8 +24,8 @@ public sealed class PatternState
         return !IsComplete
             ? null
             : string.Join("", Spans.Select(s =>
-            s.IsEditable ? s.Value : s.Placeholder
-        ));
+                s.IsEditable ? s.Value : s.Placeholder
+            ));
     }
 
     /// <summary>Returns the visible text (value when present, placeholder otherwise) across every span.</summary>

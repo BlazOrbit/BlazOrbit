@@ -1,0 +1,188 @@
+// Auto-migrated from TooltipPage.es.resx. Edit freely from now on.
+
+# 20px away from trigger
+20px del disparador
+
+# 20px offset
+Desplazamiento 20px
+
+# 500ms leave delay
+Retraso de salida 500ms
+
+# Auto-close 2s
+Auto-cierre 2s
+
+# Basic usage
+Uso básico
+
+# BOBTooltip
+BOBTooltip
+
+# Bottom
+Inferior
+
+# BottomEnd
+Inferior final
+
+# BottomStart
+Inferior inicio
+
+# Branded primary surface
+Superficie primaria de marca
+
+# Click
+Clic
+
+# Click to toggle
+Clic para alternar
+
+# Closes in 2s
+Se cierra en 2s
+
+# Color paints the text and arrow fill via currentColor; BackgroundColor paints the surface and arrow background. Both fall back to the palette default when null.
+Color pinta el texto y el relleno de la flecha vía currentColor; BackgroundColor pinta la superficie y el fondo de la flecha. Ambos recaen al predeterminado de la paleta cuando son nulos.
+
+# Component
+Componente
+
+# Context popups with 12 placements, five triggers, interactive content, delays, auto-close, and custom markup.
+Ventanas emergentes contextuales con 12 posiciones, cinco disparadores, contenido interactivo, retrasos, auto-cierre y marcado personalizado.
+
+# Custom colors
+Colores personalizados
+
+# Delays + offset
+Retrasos + desplazamiento
+
+# Elevation
+Elevación
+
+# Elevation 2
+Elevación 2
+
+# Elevation 8
+Elevación 8
+
+# Focus (Tab)
+Enfoque (Tab)
+
+# Focus via keyboard
+Enfoque vía teclado
+
+# Four sides × three alignments (Start, center, End).
+Cuatro lados × tres alineaciones (Inicio, centro, Fin).
+
+# Hover
+Pasar el cursor
+
+# Hover (default)
+Pasar el ratón (predeterminado)
+
+# Hover + Focus
+Hover + Enfoque
+
+# Hover into tooltip to keep it open
+Pasa el cursor dentro del tooltip para mantenerlo abierto
+
+# Hover me
+Pasa el cursor aquí
+
+# Hover or focus
+Hover o enfoque
+
+# Information
+Información
+
+# Instant show
+Mostrar instantáneo
+
+# Interactive + auto-close
+Interactivo + auto-cierre
+
+# Keyboard shortcuts
+Atajos de teclado
+
+# Left
+Izquierda
+
+# Material Design elevation level (0–24). Derives shadow and dark-mode surface tint automatically.
+Nivel de elevación Material Design (0–24). Deriva sombra y tinte de superficie para modo oscuro automáticamente.
+
+# No arrow
+Sin flecha
+
+# No show delay
+Sin retraso de mostrado
+
+# Placements
+Posiciones
+
+# Primary tooltip
+Tooltip primario
+
+# Properties
+Propiedades
+
+# Redo
+Rehacer
+
+# Rich content
+Contenido enriquecido
+
+# Rich tooltip content.
+Contenido de tooltip enriquecido.
+
+# Right
+Derecha
+
+# Save
+Guardar
+
+# Shortcuts
+Atajos
+
+# Sticky leave
+Salida persistente
+
+# Subtle surface
+Superficie sutil
+
+# Subtle tooltip
+Tooltip sutil
+
+# This is a basic tooltip
+Este es un tooltip básico
+
+# Tooltip with high elevation
+Tooltip con elevación alta
+
+# Tooltip with low elevation
+Tooltip con elevación baja
+
+# Top
+Arriba
+
+# TopEnd
+Superior final
+
+# TopStart
+InicioSuperior
+
+# Triggers
+Activadores
+
+# Undo
+Deshacer
+
+# Use TooltipContent and ChildContent slots.
+Usa las ranuras TooltipContent y ChildContent.
+
+# Warning surface
+Superficie de advertencia
+
+# Warning tooltip
+Tooltip de advertencia
+
+# With icon + text
+Con icono + texto
+

@@ -64,7 +64,8 @@ public class BOBInputRangeSliderRenderingTests
 
         cut.Find("bob-component").GetAttribute("data-bob-orientation").Should().Be("vertical");
         cut.Find("._bob-slider-track").GetAttribute("data-orientation").Should().Be("vertical");
-        cut.FindAll("._bob-slider-thumb").Should().AllSatisfy(t => t.GetAttribute("data-orientation").Should().Be("vertical"));
+        cut.FindAll("._bob-slider-thumb").Should()
+            .AllSatisfy(t => t.GetAttribute("data-orientation").Should().Be("vertical"));
     }
 
     [Theory]

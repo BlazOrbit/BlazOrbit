@@ -37,7 +37,8 @@ public class BOBInputFileAccessibilityTests
         InputFileContent file = InputFileContent.CreateFromText("x", "x.txt");
         cut.FindComponent<InputFile>().UploadFiles(file);
 
-        cut.Find(".bob-file-upload__remove").GetAttribute("aria-label").Should().Be("Quitar archivo");
+        cut.Find(".bob-file-upload__entry ._bob-btn[data-bob-variant='ghost']").GetAttribute("aria-label").Should()
+            .Be("Quitar archivo");
     }
 
     [Theory]

@@ -9,11 +9,14 @@
 </bob-component>
 
 @code {
+
     /// <summary>Max-width tier. Use <see cref="BOBContainerSize.Full"/> to opt out.</summary>
-    [Parameter] public BOBContainerSize Size { get; set; } = BOBContainerSize.Large;
+    [Parameter]
+    public BOBContainerSize Size { get; set; } = BOBContainerSize.Large;
 
     /// <summary>Inner content of the container.</summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     private string SizeToken => Size.ToString().ToLowerInvariant();
 }

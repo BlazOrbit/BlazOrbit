@@ -1,4 +1,4 @@
-@page "/components/navigation/breadcrumbs"
+﻿@page "/components/navigation/breadcrumbs"
 
 @using BlazOrbit.Components
 @using BlazOrbit.Components.Navigation
@@ -9,14 +9,15 @@
 <DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBBreadcrumbs"]"
          Lede="@Loc["Compact trail showing where the user is and how to walk back up the route."]"
          PageInstance="this"
-         ApiType="@typeof(BOBBreadcrumbs)">
+         ApiType="@typeof(BOBBreadcrumbs)"
+         Keywords="@(["breadcrumbs", "navigation path", "hierarchy"])">
 
     <DocDemo Key="Basic" Title="@Loc["Basic"]">
-        <BOBBreadcrumbs Items="@_basicItems" />
+        <BOBBreadcrumbs Items="@_basicItems"/>
     </DocDemo>
 
     <DocDemo Key="WithIcons" Title="@Loc["With leading icons"]">
-        <BOBBreadcrumbs Items="@_iconItems" />
+        <BOBBreadcrumbs Items="@_iconItems"/>
     </DocDemo>
 
     <DocDemo Key="CustomSeparator" Title="@Loc["Custom separator"]">
@@ -28,7 +29,7 @@
     </DocDemo>
 
     <DocDemo Key="Truncated" Title="@Loc["Truncated trail"]">
-        <BOBBreadcrumbs Items="@_longItems" MaxVisible="3" />
+        <BOBBreadcrumbs Items="@_longItems" MaxVisible="3"/>
         <p class="doc-demo__caption">@Loc["MaxVisible=3 hides the middle entries behind an ellipsis."]</p>
     </DocDemo>
 
@@ -49,25 +50,26 @@
 
     <section class="doc-section">
         <h2 class="doc-section__title">@Loc["Properties"]</h2>
-        <PropertyTable Properties="@BOBBreadcrumbsComponentInfo.Parameters" />
+        <PropertyTable Properties="@BOBBreadcrumbsComponentInfo.Parameters"/>
     </section>
 
 </DocPage>
 
 @code {
+
     private readonly IReadOnlyList<BreadcrumbItem> _basicItems =
     [
         new("Home", "/"),
         new("Components", "/components"),
         new("Navigation", "/components/navigation"),
-        new("Breadcrumbs"),
+        new("Breadcrumbs")
     ];
 
     private readonly IReadOnlyList<BreadcrumbItem> _iconItems =
     [
         new("Home", "/", BOBIconKeys.MaterialIconsOutlined.i_home),
         new("Settings", "/settings", BOBIconKeys.MaterialIconsOutlined.i_settings),
-        new("Profile"),
+        new("Profile")
     ];
 
     private readonly IReadOnlyList<BreadcrumbItem> _longItems =
@@ -77,6 +79,7 @@
         new("Project", "/workspace/project"),
         new("Folder", "/workspace/project/folder"),
         new("Subfolder", "/workspace/project/folder/sub"),
-        new("Document"),
+        new("Document")
     ];
+
 }

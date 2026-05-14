@@ -5,6 +5,7 @@ public enum TreeSelectionMode
 {
     /// <summary>Only one node may be selected at a time.</summary>
     Single,
+
     /// <summary>Multiple nodes may be selected simultaneously.</summary>
     Multiple
 }

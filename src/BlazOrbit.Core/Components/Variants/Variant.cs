@@ -19,8 +19,8 @@ public abstract class Variant : IVariant
 
     public override bool Equals(object? obj)
         => obj is Variant other &&
-        GetType() == other.GetType() &&
-        Name == other.Name;
+           GetType() == other.GetType() &&
+           Name == other.Name;
 
     public override int GetHashCode()
         => HashCode.Combine(GetType(), Name);

@@ -54,7 +54,7 @@ public class ScopedCssLintTests
     private static readonly Dictionary<string, string> HardcodedColorAllowlist = new()
     {
         ["BOBColorPicker.razor.css"] =
-            "Picker UI: gradient stops del canvas saturación/luminosidad (#000/#fff) y la rampa hue (hsl(0..360, 100%, 50%)) son intrínsecos al contrato del color picker, no temáticos.",
+            "Picker UI: gradient stops del canvas saturación/luminosidad (#000/#fff) y la rampa hue (hsl(0..360, 100%, 50%)) son intrínsecos al contrato del color picker, no temáticos."
     };
 
     private static readonly Regex LongFormRootSelector = new(
@@ -93,15 +93,16 @@ public class ScopedCssLintTests
             foreach (Match m in LongFormRootSelector.Matches(content))
             {
                 int line = LineOf(content, m.Index);
-                violations.Add($"{fileName}:{line}: long-form '{m.Value}' (use the short form [data-bob-component=\"...\"])");
+                violations.Add(
+                    $"{fileName}:{line}: long-form '{m.Value}' (use the short form [data-bob-component=\"...\"])");
             }
         }
 
         violations.Should().BeEmpty(
-            because: "scoped CSS already runs inside Blazor's per-component [b-xxx] scope; " +
-                     "the short form [data-bob-component=\"...\"] is canonical. " +
-                     "The long form is reserved for global bundles in CssBundle/.\n\n" +
-                     string.Join("\n", violations));
+            "scoped CSS already runs inside Blazor's per-component [b-xxx] scope; " +
+            "the short form [data-bob-component=\"...\"] is canonical. " +
+            "The long form is reserved for global bundles in CssBundle/.\n\n" +
+            string.Join("\n", violations));
     }
 
     [Fact]
@@ -139,14 +140,15 @@ public class ScopedCssLintTests
                 }
 
                 int line = LineOf(content, startIndex);
-                violations.Add($"{fileName}:{line}: '{propertyName}' consumes var(--bob-inline-...) directly (declare a private --_X variable first)");
+                violations.Add(
+                    $"{fileName}:{line}: '{propertyName}' consumes var(--bob-inline-...) directly (declare a private --_X variable first)");
             }
         }
 
         violations.Should().BeEmpty(
-            because: "the override surface is the private-var pattern: declare --_<comp>-X: var(--bob-inline-Y, default), " +
-                     "then reference --_<comp>-X in the actual property. " +
-                     string.Join("\n", violations));
+            "the override surface is the private-var pattern: declare --_<comp>-X: var(--bob-inline-Y, default), " +
+            "then reference --_<comp>-X in the actual property. " +
+            string.Join("\n", violations));
     }
 
     [Fact]
@@ -173,10 +175,10 @@ public class ScopedCssLintTests
         }
 
         violations.Should().BeEmpty(
-            because: "non-layout components resolve sizing via the multiplier system (--bob-size-multiplier / --bob-density-multiplier). " +
-                     "@media queries are only allowed in Layout/* components where they switch flow primitives " +
-                     "(grid template columns, drawer activation, toast positioning). " +
-                     string.Join("\n", violations));
+            "non-layout components resolve sizing via the multiplier system (--bob-size-multiplier / --bob-density-multiplier). " +
+            "@media queries are only allowed in Layout/* components where they switch flow primitives " +
+            "(grid template columns, drawer activation, toast positioning). " +
+            string.Join("\n", violations));
     }
 
     [Fact]
@@ -203,9 +205,9 @@ public class ScopedCssLintTests
         }
 
         violations.Should().BeEmpty(
-            because: "scoped CSS must consume var(--palette-*) tokens (or color-mix() over them) so theming works. " +
-                     "Hardcoded #hex / rgb() / rgba() / hsl() / hsla() literals bypass theme variables. " +
-                     string.Join("\n", violations));
+            "scoped CSS must consume var(--palette-*) tokens (or color-mix() over them) so theming works. " +
+            "Hardcoded #hex / rgb() / rgba() / hsl() / hsla() literals bypass theme variables. " +
+            string.Join("\n", violations));
     }
 
     private static string StripComments(string content)

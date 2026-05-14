@@ -18,19 +18,19 @@ public class EsbuildPackageJsonGenerator : IAssetGenerator
     public string Name => "esbuild package.json";
 
     public Task<string> GetContent() => Task.FromResult("""
-{
-  "name": "blazorbit-charts-js",
-  "version": "1.0.0",
-  "description": "Chart-family TypeScript interop bundles for BlazOrbit.Charts. Built into wwwroot/js/ at MSBuild time.",
-  "private": true,
-  "type": "module",
-  "scripts": {
-    "build:js": "esbuild Types/Chart/ChartInterop.ts --bundle --minify --format=esm --target=es2020 --outfile=wwwroot/js/Types/Chart/ChartInterop.min.js"
-  },
-  "devDependencies": {
-    "esbuild": "latest",
-    "typescript": "latest"
-  }
-}
-""");
+                                                        {
+                                                          "name": "blazorbit-charts-js",
+                                                          "version": "1.0.0",
+                                                          "description": "Chart-family TypeScript interop bundles for BlazOrbit.Charts. Built into wwwroot/js/ at MSBuild time.",
+                                                          "private": true,
+                                                          "type": "module",
+                                                          "scripts": {
+                                                            "build:js": "esbuild Types/Chart/ChartInterop.ts --bundle --minify --format=esm --target=es2020 --outfile=wwwroot/js/Types/Chart/ChartInterop.min.js"
+                                                          },
+                                                          "devDependencies": {
+                                                            "esbuild": "latest",
+                                                            "typescript": "latest"
+                                                          }
+                                                        }
+                                                        """);
 }

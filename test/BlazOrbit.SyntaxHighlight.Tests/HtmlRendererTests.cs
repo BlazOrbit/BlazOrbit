@@ -10,7 +10,7 @@ public class HtmlRendererTests
     [Fact]
     public void Render_DarkTheme_HasCorrectColors()
     {
-        List<Token> tokens = [new Token(TokenType.Keyword, "test", 0, 4)];
+        List<Token> tokens = [new(TokenType.Keyword, "test", 0, 4)];
 
         string result = _renderer.Render(tokens, HtmlRenderOptions.DarkTheme);
 
@@ -31,7 +31,7 @@ public class HtmlRendererTests
     [Fact]
     public void Render_EscapesAmpersand()
     {
-        List<Token> tokens = [new Token(TokenType.Operator, "&&", 0, 2)];
+        List<Token> tokens = [new(TokenType.Operator, "&&", 0, 2)];
 
         string result = _renderer.Render(tokens, new HtmlRenderOptions { IncludeStyles = false });
 
@@ -41,7 +41,7 @@ public class HtmlRendererTests
     [Fact]
     public void Render_EscapesHtmlCharacters()
     {
-        List<Token> tokens = [new Token(TokenType.Operator, "<", 0, 1)];
+        List<Token> tokens = [new(TokenType.Operator, "<", 0, 1)];
 
         string result = _renderer.Render(tokens, new HtmlRenderOptions { IncludeStyles = false });
 
@@ -52,7 +52,7 @@ public class HtmlRendererTests
     [Fact]
     public void Render_EscapesQuotes()
     {
-        List<Token> tokens = [new Token(TokenType.String, "\"hello\"", 0, 7)];
+        List<Token> tokens = [new(TokenType.String, "\"hello\"", 0, 7)];
 
         string result = _renderer.Render(tokens, new HtmlRenderOptions { IncludeStyles = false });
 
@@ -62,7 +62,7 @@ public class HtmlRendererTests
     [Fact]
     public void Render_ExcludesStyles_WhenDisabled()
     {
-        List<Token> tokens = [new Token(TokenType.Keyword, "test", 0, 4)];
+        List<Token> tokens = [new(TokenType.Keyword, "test", 0, 4)];
 
         string result = _renderer.Render(tokens, new HtmlRenderOptions { IncludeStyles = false });
 
@@ -72,7 +72,7 @@ public class HtmlRendererTests
     [Fact]
     public void Render_IncludesStyles_WhenEnabled()
     {
-        List<Token> tokens = [new Token(TokenType.Keyword, "test", 0, 4)];
+        List<Token> tokens = [new(TokenType.Keyword, "test", 0, 4)];
 
         string result = _renderer.Render(tokens, new HtmlRenderOptions { IncludeStyles = true });
 
@@ -83,7 +83,7 @@ public class HtmlRendererTests
     [Fact]
     public void Render_LightTheme_HasCorrectColors()
     {
-        List<Token> tokens = [new Token(TokenType.Keyword, "test", 0, 4)];
+        List<Token> tokens = [new(TokenType.Keyword, "test", 0, 4)];
 
         string result = _renderer.Render(tokens, HtmlRenderOptions.LightTheme);
 
@@ -96,18 +96,18 @@ public class HtmlRendererTests
     {
         List<Token> tokens =
         [
-            new Token(TokenType.Keyword, "public", 0, 6),
-        new Token(TokenType.Text, " ", 6, 1),
-        new Token(TokenType.Keyword, "class", 7, 5),
-        new Token(TokenType.Text, " ", 12, 1),
-        new Token(TokenType.Text, "Foo", 13, 3),
-    ];
+            new(TokenType.Keyword, "public", 0, 6),
+            new(TokenType.Text, " ", 6, 1),
+            new(TokenType.Keyword, "class", 7, 5),
+            new(TokenType.Text, " ", 12, 1),
+            new(TokenType.Text, "Foo", 13, 3)
+        ];
 
         string result = _renderer.Render(tokens, new HtmlRenderOptions { IncludeStyles = false });
 
-        int publicIndex = result.IndexOf(">public<");
-        int classIndex = result.IndexOf(">class<");
-        int fooIndex = result.IndexOf("Foo");
+        int publicIndex = result.IndexOf(">public<", StringComparison.Ordinal);
+        int classIndex = result.IndexOf(">class<", StringComparison.Ordinal);
+        int fooIndex = result.IndexOf("Foo", StringComparison.Ordinal);
 
         Assert.True(publicIndex < classIndex);
         Assert.True(classIndex < fooIndex);
@@ -116,7 +116,7 @@ public class HtmlRendererTests
     [Fact]
     public void Render_PreservesNewlines()
     {
-        List<Token> tokens = [new Token(TokenType.Text, "line1\nline2\nline3", 0, 17)];
+        List<Token> tokens = [new(TokenType.Text, "line1\nline2\nline3", 0, 17)];
 
         string result = _renderer.Render(tokens, new HtmlRenderOptions { IncludeStyles = false });
 
@@ -126,7 +126,7 @@ public class HtmlRendererTests
     [Fact]
     public void Render_PreservesWhitespace()
     {
-        List<Token> tokens = [new Token(TokenType.Text, "    indented", 0, 12)];
+        List<Token> tokens = [new(TokenType.Text, "    indented", 0, 12)];
 
         string result = _renderer.Render(tokens, new HtmlRenderOptions { IncludeStyles = false });
 
@@ -136,7 +136,7 @@ public class HtmlRendererTests
     [Fact]
     public void Render_SingleToken_WrapsInSpan()
     {
-        List<Token> tokens = [new Token(TokenType.Keyword, "class", 0, 5)];
+        List<Token> tokens = [new(TokenType.Keyword, "class", 0, 5)];
 
         string result = _renderer.Render(tokens, new HtmlRenderOptions { IncludeStyles = false });
 
@@ -147,11 +147,7 @@ public class HtmlRendererTests
     public void Render_StylesContainBackgroundColor()
     {
         List<Token> tokens = [];
-        HtmlRenderOptions options = new()
-        {
-            IncludeStyles = true,
-            BackgroundColor = "#123456"
-        };
+        HtmlRenderOptions options = new() { IncludeStyles = true, BackgroundColor = "#123456" };
 
         string result = _renderer.Render(tokens, options);
 
@@ -162,11 +158,7 @@ public class HtmlRendererTests
     public void Render_StylesContainDefaultColor()
     {
         List<Token> tokens = [];
-        HtmlRenderOptions options = new()
-        {
-            IncludeStyles = true,
-            DefaultColor = "#abcdef"
-        };
+        HtmlRenderOptions options = new() { IncludeStyles = true, DefaultColor = "#abcdef" };
 
         string result = _renderer.Render(tokens, options);
 
@@ -177,11 +169,7 @@ public class HtmlRendererTests
     public void Render_StylesContainFontFamily()
     {
         List<Token> tokens = [];
-        HtmlRenderOptions options = new()
-        {
-            IncludeStyles = true,
-            FontFamily = "monospace"
-        };
+        HtmlRenderOptions options = new() { IncludeStyles = true, FontFamily = "monospace" };
 
         string result = _renderer.Render(tokens, options);
 
@@ -192,11 +180,7 @@ public class HtmlRendererTests
     public void Render_StylesContainFontSize()
     {
         List<Token> tokens = [];
-        HtmlRenderOptions options = new()
-        {
-            IncludeStyles = true,
-            FontSize = "16px"
-        };
+        HtmlRenderOptions options = new() { IncludeStyles = true, FontSize = "16px" };
 
         string result = _renderer.Render(tokens, options);
 
@@ -206,14 +190,11 @@ public class HtmlRendererTests
     [Fact]
     public void Render_StylesContainTokenColors()
     {
-        List<Token> tokens = [new Token(TokenType.Keyword, "test", 0, 4)];
+        List<Token> tokens = [new(TokenType.Keyword, "test", 0, 4)];
         HtmlRenderOptions options = new()
         {
             IncludeStyles = true,
-            TokenColors = new Dictionary<TokenType, string>
-            {
-                [TokenType.Keyword] = "#ff0000"
-            }
+            TokenColors = new Dictionary<TokenType, string> { [TokenType.Keyword] = "#ff0000" }
         };
 
         string result = _renderer.Render(tokens, options);
@@ -224,7 +205,7 @@ public class HtmlRendererTests
     [Fact]
     public void Render_TextToken_NotWrappedInSpan()
     {
-        List<Token> tokens = [new Token(TokenType.Text, " ", 0, 1)];
+        List<Token> tokens = [new(TokenType.Text, " ", 0, 1)];
 
         string result = _renderer.Render(tokens, new HtmlRenderOptions { IncludeStyles = false });
 
@@ -250,7 +231,7 @@ public class HtmlRendererTests
     [InlineData(TokenType.RazorExpression, "SH-rexp")]
     public void Render_TokenTypes_HaveCorrectClassNames(TokenType tokenType, string expectedClass)
     {
-        List<Token> tokens = [new Token(tokenType, "x", 0, 1)];
+        List<Token> tokens = [new(tokenType, "x", 0, 1)];
 
         string result = _renderer.Render(tokens, new HtmlRenderOptions { IncludeStyles = false });
 

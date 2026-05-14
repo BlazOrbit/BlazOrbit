@@ -1,12 +1,20 @@
 ﻿@page "/utils/themegenerator"
 
+@inject IStringLocalizer<ThemeGeneratorPage> Loc
 
-<DocPage Eyebrow="Tool"
-         Title="Theme Generator"
-         Lede="A live editor for both palettes (dark / light) AND every design token the library exposes — typography, sizing, density, borders, outline, opacity, z-index, ripple, scrollbar, input/picker family. Tweak any value and preview how real BlazOrbit components respond in real time. Export the result as JSON, CSS, or C#.">
+<DocPage Eyebrow="@Loc["Tool"]"
+         Title="@Loc["Theme Generator"]"
+         Lede="@Loc["Live visual editor for color palettes and design tokens. Tweak colors, typography, spacing, borders, and more, then preview changes on real components instantly. Export as CSS, JSON, or C#."]"
+         Keywords="@(["theme generator", "palette builder", "design tool", "custom theme"])">
 
     <section class="doc-section">
-        <ThemeGenerator />
+        <p class="doc-section__description">
+            @Loc.Html("The editor exposes every design token the library consumes: palette colors, typography scales, spacing multipliers, border radius, opacity curves, z-index layers, ripple duration, scrollbar styling, and input-family defaults. Changing a token updates the live preview immediately because the components read CSS variables directly.")
+        </p>
+    </section>
+
+    <section class="doc-section">
+        <ThemeGenerator/>
     </section>
 
 </DocPage>

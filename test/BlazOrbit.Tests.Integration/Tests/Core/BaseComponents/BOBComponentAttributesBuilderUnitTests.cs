@@ -90,11 +90,7 @@ public class BOBComponentAttributesBuilderUnitTests
     public void BuildStyles_Should_Emit_Color_And_Background_Inline_Variables()
     {
         BOBComponentAttributesBuilder builder = new();
-        ColoredStub component = new()
-        {
-            Color = "rgba(10,20,30,1)",
-            BackgroundColor = "rgba(40,50,60,1)"
-        };
+        ColoredStub component = new() { Color = "rgba(10,20,30,1)", BackgroundColor = "rgba(40,50,60,1)" };
 
         builder.BuildStyles(component, null);
 
@@ -109,9 +105,7 @@ public class BOBComponentAttributesBuilderUnitTests
         BOBComponentAttributesBuilder builder = new();
         RippleStub component = new()
         {
-            DisableRipple = false,
-            RippleColor = "rgba(255,255,255,0.5)",
-            RippleDurationMs = 250
+            DisableRipple = false, RippleColor = "rgba(255,255,255,0.5)", RippleDurationMs = 250
         };
 
         builder.BuildStyles(component, null);
@@ -130,9 +124,7 @@ public class BOBComponentAttributesBuilderUnitTests
         BOBComponentAttributesBuilder builder = new();
         RippleStub component = new()
         {
-            DisableRipple = true,
-            RippleColor = "rgba(255,255,255,0.5)",
-            RippleDurationMs = 250
+            DisableRipple = true, RippleColor = "rgba(255,255,255,0.5)", RippleDurationMs = 250
         };
 
         builder.BuildStyles(component, null);
@@ -211,11 +203,7 @@ public class BOBComponentAttributesBuilderUnitTests
     public void BuildStyles_Should_Give_Shadow_Precedence_Over_Elevation()
     {
         BOBComponentAttributesBuilder builder = new();
-        ShadowAndElevationStub component = new()
-        {
-            Shadow = BOBShadowPresets.Elevation(8),
-            Elevation = 2
-        };
+        ShadowAndElevationStub component = new() { Shadow = BOBShadowPresets.Elevation(8), Elevation = 2 };
 
         builder.BuildStyles(component, null);
 
@@ -271,10 +259,7 @@ public class BOBComponentAttributesBuilderUnitTests
     public void BuildStyles_Should_Emit_Transitions_DataAttribute_And_Variables()
     {
         BOBComponentAttributesBuilder builder = new();
-        TransitionsStub component = new()
-        {
-            Transitions = BOBTransitionPresets.HoverFade
-        };
+        TransitionsStub component = new() { Transitions = BOBTransitionPresets.HoverFade };
 
         builder.BuildStyles(component, null);
 
@@ -371,11 +356,7 @@ public class BOBComponentAttributesBuilderUnitTests
     {
         BOBComponentAttributesBuilder b1 = new();
         BOBComponentAttributesBuilder b2 = new();
-        ColoredStub c = new()
-        {
-            Color = "rgba(10,20,30,1)",
-            BackgroundColor = "rgba(40,50,60,1)"
-        };
+        ColoredStub c = new() { Color = "rgba(10,20,30,1)", BackgroundColor = "rgba(40,50,60,1)" };
 
         b1.BuildStyles(c, null);
         b2.BuildStyles(c, null);
@@ -523,11 +504,7 @@ public class BOBComponentAttributesBuilderUnitTests
     public void BuildStyles_Should_Hit_Fingerprint_Cache_On_Second_Call_With_Identical_Inputs()
     {
         BOBComponentAttributesBuilder builder = new();
-        ColoredStub component = new()
-        {
-            Color = "rgba(10,20,30,1)",
-            BackgroundColor = "rgba(40,50,60,1)"
-        };
+        ColoredStub component = new() { Color = "rgba(10,20,30,1)", BackgroundColor = "rgba(40,50,60,1)" };
 
         // First call: cold cache → must rebuild.
         builder.BuildStyles(component, null);
@@ -547,11 +524,7 @@ public class BOBComponentAttributesBuilderUnitTests
         // descendant was flag-Built and the cache never applied. After the marker became opt-in,
         // a stub that does not declare IBuiltComponent must be cache-eligible.
         BOBComponentAttributesBuilder builder = new();
-        FullFeaturedStub component = new()
-        {
-            Size = BOBSize.Medium,
-            Density = BOBDensity.Standard
-        };
+        FullFeaturedStub component = new() { Size = BOBSize.Medium, Density = BOBDensity.Standard };
 
         builder.BuildStyles(component, null);
         builder.LastBuildSkipped.Should().BeFalse();
@@ -703,8 +676,8 @@ public class BOBComponentAttributesBuilderUnitTests
 
         double speedup = (double)cold.ElapsedTicks / Math.Max(hot.ElapsedTicks, 1);
         speedup.Should().BeGreaterThan(2.0,
-            because: $"cache hit must be measurably faster than cold rebuild. Measured: cold={cold.ElapsedMilliseconds}ms, " +
-                     $"warm={hot.ElapsedMilliseconds}ms, speedup={speedup:F1}× over {iterations} iterations.");
+            $"cache hit must be measurably faster than cold rebuild. Measured: cold={cold.ElapsedMilliseconds}ms, " +
+            $"warm={hot.ElapsedMilliseconds}ms, speedup={speedup:F1}× over {iterations} iterations.");
     }
 
     /// <summary>
@@ -770,7 +743,7 @@ public class BOBComponentAttributesBuilderUnitTests
         public bool DisableRipple { get; set; }
         public string? RippleColor { get; set; }
         public int? RippleDurationMs { get; set; }
-        public ElementReference GetRippleContainer() => default;
+        public ElementReference? GetRippleContainer() => default;
     }
 
     private sealed class ShadowStub : ComponentBase, IHasShadow

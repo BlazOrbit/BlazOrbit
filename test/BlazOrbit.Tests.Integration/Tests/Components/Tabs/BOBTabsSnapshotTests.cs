@@ -60,7 +60,7 @@ public class BOBTabsSnapshotTests
                     .Add(c => c.ChildContent, TwoTabs())
                     .Add(c => c.Variant, BOBTabsVariant.Enclosed)
                     .Add(c => c.ActiveTab, "tab1")).GetNormalizedMarkup()
-            },
+            }
         };
 
         await Verify(testCases).UseParameters(scenario.Name);

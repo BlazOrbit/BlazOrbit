@@ -11,21 +11,27 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.TreeSelector;
 [Trait("Component Accessibility", "BOBTreeSelector")]
 public class BOBTreeSelectorAccessibilityTests
 {
-    private sealed record SelectItem(string Key, string Label, IEnumerable<SelectItem>? Children = null, bool Disabled = false);
+    private sealed record SelectItem(
+        string Key,
+        string Label,
+        IEnumerable<SelectItem>? Children = null,
+        bool Disabled = false);
 
     private static IEnumerable<SelectItem> FlatItems
-    => [
-        new SelectItem("a", "Alpha"),
-        new SelectItem("b", "Beta"),
-    ];
+        =>
+        [
+            new("a", "Alpha"),
+            new("b", "Beta")
+        ];
 
     private static IEnumerable<SelectItem> NestedItems
-    => [
-        new SelectItem("parent", "Parent", [
-            new SelectItem("child1", "Child 1"),
-            new SelectItem("child2", "Child 2"),
-        ]),
-    ];
+        =>
+        [
+            new("parent", "Parent", [
+                new SelectItem("child1", "Child 1"),
+                new SelectItem("child2", "Child 2")
+            ])
+        ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]

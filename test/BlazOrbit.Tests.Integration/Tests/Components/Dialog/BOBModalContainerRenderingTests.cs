@@ -17,7 +17,7 @@ public class BOBModalContainerRenderingTests
             ComponentType = typeof(DummyModalContent),
             Reference = new ModalReference("test-modal-1", _ => Task.CompletedTask),
             Options = new DialogOptions { Title = title },
-            IsVisible = true,
+            IsVisible = true
         };
 
     private static ModalState CreateDrawerState(DrawerPosition position = DrawerPosition.Right)
@@ -28,7 +28,7 @@ public class BOBModalContainerRenderingTests
             ComponentType = typeof(DummyModalContent),
             Reference = new ModalReference("test-drawer-1", _ => Task.CompletedTask),
             Options = new DrawerOptions { Position = position },
-            IsVisible = true,
+            IsVisible = true
         };
 
     private sealed class DummyModalContent : Microsoft.AspNetCore.Components.ComponentBase, IModalContent

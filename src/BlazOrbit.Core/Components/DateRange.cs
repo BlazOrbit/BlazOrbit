@@ -40,12 +40,12 @@ public readonly record struct DateRange(DateOnly? Start, DateOnly? End)
         DateOnly today = DateOnly.FromDateTime(DateTime.Today);
         DateOnly start = new(today.Year, today.Month, 1);
         DateOnly end = start.AddMonths(1).AddDays(-1);
-        return new(start, end);
+        return new DateRange(start, end);
     }
 
     private static DateRange FromTodayMinusDays(int days)
     {
         DateOnly today = DateOnly.FromDateTime(DateTime.Today);
-        return new(today.AddDays(-days), today);
+        return new DateRange(today.AddDays(-days), today);
     }
 }

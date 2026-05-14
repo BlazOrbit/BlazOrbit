@@ -33,9 +33,8 @@ public class BOBToastHostSnapshotTests
 
         var testCases = new[]
         {
-            new { Name = "Empty", Html = emptyMarkup },
-            new { Name = "Single_TopRight", Html = singleTopRight },
-            new { Name = "Two_Positions", Html = twoPositions },
+            new { Name = "Empty", Html = emptyMarkup }, new { Name = "Single_TopRight", Html = singleTopRight },
+            new { Name = "Two_Positions", Html = twoPositions }
         };
 
         await Verify(testCases).UseParameters(scenario.Name);

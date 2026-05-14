@@ -10,8 +10,8 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Charts.Common;
 [Trait("Component Interaction", "Charts.Streaming")]
 public class StreamingTests
 {
-    private static IEnumerable<BOBChartSeries<int, double>> SeedSeries(int count = 3) => new[]
-    {
+    private static IEnumerable<BOBChartSeries<int, double>> SeedSeries(int count = 3) =>
+    [
         new BOBChartSeries<int, double>
         {
             Label = "S",
@@ -19,7 +19,7 @@ public class StreamingTests
                 .Select(i => new BOBChartPoint<int, double>(i, i * 1.0))
                 .ToArray()
         }
-    };
+    ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -116,7 +116,7 @@ public class StreamingTests
         captured.Should().NotBeNull();
         captured!.SeriesLabel.Should().Be("S");
         captured.AppendedCount.Should().Be(3);
-        captured.TotalCount.Should().Be(4, because: "window trimmed 6 down to 4");
+        captured.TotalCount.Should().Be(4, "window trimmed 6 down to 4");
         captured.DroppedByWindow.Should().Be(2);
     }
 
@@ -129,11 +129,8 @@ public class StreamingTests
         IRenderedComponent<BOBLineChart<int, double>> cut =
             ctx.Render<BOBLineChart<int, double>>(p => p.Add(c => c.Series, SeedSeries(5)));
 
-        await cut.InvokeAsync(() => cut.Instance.ResetSeriesAsync("S", new[]
-        {
-            new BOBChartPoint<int, double>(100, 1.0),
-            new BOBChartPoint<int, double>(101, 2.0),
-        }));
+        await cut.InvokeAsync(() => cut.Instance.ResetSeriesAsync("S",
+            [new BOBChartPoint<int, double>(100, 1.0), new BOBChartPoint<int, double>(101, 2.0)]));
 
         cut.FindAll("circle.bob-line-chart__marker").Should().HaveCount(2);
     }
@@ -154,7 +151,7 @@ public class StreamingTests
 
         await cut.InvokeAsync(() => cut.Instance.ClearStreamingAsync());
         cut.FindAll("circle.bob-line-chart__marker").Should().HaveCount(3,
-            because: "after clear, render falls back to the Series parameter");
+            "after clear, render falls back to the Series parameter");
     }
 
     [Theory]
@@ -173,7 +170,7 @@ public class StreamingTests
             new BOBChartPoint<int, double>(5, 5.0)));
 
         cut.FindAll("circle.bob-line-chart__marker").Should().HaveCount(3,
-            because: "paused stream buffers writes silently");
+            "paused stream buffers writes silently");
 
         // Un-pause + tiny additional append flushes the held state.
         cut.Render(p => p.Add(c => c.StreamingPaused, false));
@@ -208,14 +205,13 @@ public class StreamingTests
 
         IRenderedComponent<BOBLineChart<int, double>> cut =
             ctx.Render<BOBLineChart<int, double>>(p => p
-                .Add(c => c.Series, new[]
-                {
+                .Add(c => c.Series,
+                [
                     new BOBChartSeries<int, double>
-                    {
-                        Label = "T",
-                        Points = Array.Empty<BOBChartPoint<int, double>>()
-                    }
-                }));
+                        {
+                            Label = "T", Points = []
+                        }
+                ]));
 
         await cut.InvokeAsync(() => cut.Instance.AppendPointsAsync("T",
             new BOBChartPoint<int, double>(1, 1.0),

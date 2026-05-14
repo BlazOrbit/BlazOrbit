@@ -55,7 +55,7 @@ bob-component[data-bob-picker-base] .bob-picker__cell {
 }
 
 bob-component[data-bob-picker-base] .bob-picker__cell:hover:not(.bob-picker__cell--selected) {
-    background: color-mix(in srgb, var(--palette-surface-contrast) 8%, transparent);
+    background: color-mix(in oklab, var(--palette-surface-contrast) 8%, transparent);
 }
 
 bob-component[data-bob-picker-base] .bob-picker__cell--selected {

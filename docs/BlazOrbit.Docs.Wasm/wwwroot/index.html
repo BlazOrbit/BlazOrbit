@@ -2,135 +2,125 @@
 <html lang="en" data-bob-scrollbars>
 <head>
     <!-- CHARSET & VIEWPORT  -->
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-    <!-- PRIMARY META -->
-    <title>BlazOrbit | Modern Open Source Blazor Components for .NET</title>
     <!-- BASE & PRELOAD -->
-    <base href="/" />
-    <link rel="preload" id="webassembly" />
-    <meta name="description" content="Blazor Component Library by BlazOrbit. C# first, high-performance, and accessible UI design. Lightweight, customizable, open source, and 100% free." />
-    <meta name="author" content="BlazOrbit" />
-    <link rel="canonical" href="https://blazorbit.com/" />
+    <base href="/"/>
+    <link rel="preload" id="webassembly"/>
+    <meta name="author" content="BlazOrbit"/>
 
-    <!-- OPEN GRAPH -->
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="BlazOrbit" />
-    <meta property="og:url" content="https://blazorbit.com/" />
-    <meta property="og:title" content="BlazOrbit | Modern Open Source Blazor Components for .NET" />
-    <meta property="og:description" content="Blazor Component Library by BlazOrbit. C# first, high-performance, and accessible UI design. Lightweight, customizable, open source, and 100% free." />
-    <meta property="og:image" content="https://blazorbit.com/og-image.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="BlazOrbit — Modern Blazor Component Library" />
-    <meta property="og:locale" content="en_US" />
+    <!-- OPEN GRAPH — site-wide constants only. og:title / og:description / og:url / og:type come from DocSeo. -->
+    <meta property="og:site_name" content="BlazOrbit"/>
+    <meta property="og:image" content="https://blazorbit.com/og-image.png"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="630"/>
+    <meta property="og:image:alt" content="BlazOrbit | Modern Open Source Blazor Components on .NET"/>
+    <meta property="og:locale" content="en_US"/>
 
-    <!-- TWITTER / X CARDS -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:site" content="@blazorbit" />
-    <meta name="twitter:title" content="BlazOrbit | Modern Open Source Blazor Components for .NET" />
-    <meta name="twitter:description" content="Blazor Component Library by BlazOrbit. C# first, high-performance, and accessible UI design. Lightweight, customizable, open source, and 100% free." />
-    <meta name="twitter:image" content="https://blazorbit.com/og-image.png" />
-    <meta name="twitter:image:alt" content="BlazOrbit — Modern Blazor Component Library" />
+    <!-- TWITTER / X CARDS — constants only. twitter:title / twitter:description come from DocSeo. -->
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:site" content="@blazorbit"/>
+    <meta name="twitter:image" content="https://blazorbit.com/og-image.png"/>
+    <meta name="twitter:image:alt" content="BlazOrbit | Modern Open Source Blazor Components on .NET"/>
 
     <!-- PWA / BROWSER -->
-    <meta name="theme-color" content="#c41236" />
-    <meta name="application-name" content="BlazOrbit" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="apple-mobile-web-app-title" content="BlazOrbit" />
+    <meta name="theme-color" content="#c41236"/>
+    <meta name="application-name" content="BlazOrbit"/>
+    <meta name="mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+    <meta name="apple-mobile-web-app-title" content="BlazOrbit"/>
 
     <!-- STRUCTURED DATA (JSON-LD) -->
     <script type="application/ld+json">
         [
-          {
-            "@context": "https://schema.org",
-            "@type": "Organization",
-            "name": "BlazOrbit",
-            "url": "https://blazorbit.com",
-            "logo": {
-              "@type": "ImageObject",
-              "url": "https://blazorbit.com/icon-512.png",
-              "width": 512,
-              "height": 512
+            {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": "BlazOrbit",
+                "url": "https://blazorbit.com",
+                "logo": {
+                    "@type": "ImageObject",
+                    "url": "https://blazorbit.com/icon-512.png",
+                    "width": 512,
+                    "height": 512
+                },
+                "sameAs": [
+                    "https://github.com/blazorbit"
+                ]
             },
-            "sameAs": [
-              "https://github.com/blazorbit"
-            ]
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            "name": "BlazOrbit",
-            "url": "https://blazorbit.com",
-            "applicationCategory": "DeveloperApplication",
-            "operatingSystem": "Web, Windows, macOS, Linux",
-            "softwareRequirements": "Blazor, .NET",
-            "softwareVersion": "1.0",
-            "author": {
-              "@type": "Organization",
-              "name": "BlazOrbit"
+            {
+                "@context": "https://schema.org",
+                "@type": "SoftwareApplication",
+                "name": "BlazOrbit",
+                "url": "https://blazorbit.com",
+                "applicationCategory": "DeveloperApplication",
+                "operatingSystem": "Web, Windows, macOS, Linux",
+                "softwareRequirements": "Blazor, .NET",
+                "softwareVersion": "1.0",
+                "author": {
+                    "@type": "Organization",
+                    "name": "BlazOrbit"
+                },
+                "offers": {
+                    "@type": "Offer",
+                    "price": "0",
+                    "priceCurrency": "USD"
+                },
+                "description": "Blazor Component Library by BlazOrbit. C# first, high-performance, and accessible UI design. Lightweight, customizable, open source, and 100% free."
             },
-            "offers": {
-              "@type": "Offer",
-              "price": "0",
-              "priceCurrency": "USD"
-            },
-            "description": "Blazor Component Library by BlazOrbit. C# first, high-performance, and accessible UI design. Lightweight, customizable, open source, and 100% free."
-          },
-          {
-            "@context": "https://schema.org",
-            "@type": "WebSite",
-            "name": "BlazOrbit",
-            "url": "https://blazorbit.com",
-            "potentialAction": {
-              "@type": "SearchAction",
-              "target": {
-                "@type": "EntryPoint",
-                "urlTemplate": "https://blazorbit.com/search?q={search_term_string}"
-              },
-              "query-input": "required name=search_term_string"
+            {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "name": "BlazOrbit",
+                "url": "https://blazorbit.com",
+                "potentialAction": {
+                    "@type": "SearchAction",
+                    "target": {
+                        "@type": "EntryPoint",
+                        "urlTemplate": "https://blazorbit.com/search?q={search_term_string}"
+                    },
+                    "query-input": "required name=search_term_string"
+                }
             }
-          }
         ]
     </script>
 
     <!-- FAVICONS & MANIFEST -->
-    <link rel="manifest" href="manifest.webmanifest" />
-    <link rel="icon" href="icon-144.png" type="image/png" sizes="144x144" />
-    <link rel="apple-touch-icon" href="icon-144.png" />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
+    <link rel="manifest" href="manifest.webmanifest"/>
+    <link rel="icon" href="icon-144.png" type="image/png" sizes="144x144"/>
+    <link rel="apple-touch-icon" href="icon-144.png"/>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml"/>
 
     <!-- STYLESHEETS -->
-    <link href="_content/BlazOrbit/css/blazorbit.css" rel="stylesheet" />
-    <link href="_content/BlazOrbit.Charts/css/blazorbit-charts.css" rel="stylesheet" />
-    <link href="BlazOrbit.Docs.Wasm.styles.css" rel="stylesheet" />
-    <link rel="stylesheet" href="css/app.css" />
-    <link rel="stylesheet" href="css/splash.css" />
-    <link rel="stylesheet" href="css/docs.css" />
+    <link href="_content/BlazOrbit/css/blazorbit.css" rel="stylesheet"/>
+    <link href="_content/BlazOrbit.Charts/css/blazorbit-charts.css" rel="stylesheet"/>
+    <link href="BlazOrbit.Docs.Wasm.styles.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/app.css"/>
+    <link rel="stylesheet" href="css/splash.css"/>
+    <link rel="stylesheet" href="css/docs.css"/>
 
     <!-- IMPORTMAP FOR _framework/dotnet.js fingerprinted -->
     <script type="importmap"></script>
 </head>
 <body>
-    <div id="app">
-        <div class="docs-splash">
-            <div class="docs-splash__logo">
-                <span class="docs-splash__spark"></span>
-            </div>
-            <div class="docs-splash__text">
-                <strong>BlazOrbit</strong>
-                <span>Booting documentation&hellip;</span>
-            </div>
+<div id="app">
+    <div class="docs-splash">
+        <div class="docs-splash__logo">
+            <span class="docs-splash__spark"></span>
+        </div>
+        <div class="docs-splash__text">
+            <strong>BlazOrbit</strong>
+            <span>Booting documentation&hellip;</span>
         </div>
     </div>
+</div>
 
-    <script src="js/doc-search.js"></script>
-    <script src="js/pwa-install.js" defer></script>
-    <script src="_framework/blazor.webassembly#[.{fingerprint}].js"></script>
-    <script src="js/sw-register.js" defer></script>
+<script src="js/doc-search.js"></script>
+<script src="js/pwa-install.js" defer></script>
+<script src="_framework/blazor.webassembly#[.{fingerprint}].js"></script>
+<script src="js/sw-register.js" defer></script>
 </body>
 </html>

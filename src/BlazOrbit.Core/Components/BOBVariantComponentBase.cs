@@ -14,8 +14,10 @@ public abstract class BOBVariantComponentBase<TComponent, TVariant> : BOBCompone
     Variant IVariantComponent.CurrentVariant => CurrentVariant;
     public TVariant CurrentVariant => Variant ?? DefaultVariant;
     public abstract TVariant DefaultVariant { get; }
+
     /// <summary>Selected variant. <see langword="null"/> falls back to <see cref="DefaultVariant"/>.</summary>
-    [Parameter] public TVariant? Variant { get; set; }
+    [Parameter]
+    public TVariant? Variant { get; set; }
 
     Type IVariantComponent.VariantType => typeof(TVariant);
     protected abstract IReadOnlyDictionary<TVariant, Func<TComponent, RenderFragment>> BuiltInTemplates { get; }

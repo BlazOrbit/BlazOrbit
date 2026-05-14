@@ -32,7 +32,7 @@
         }
 
         <nav class="bob-tree-menu__nav" role="menubar" aria-orientation="@Orientation.ToString().ToLowerInvariant()">
-            @foreach (TreeMenuNode<TItem> node in _tree.RootNodes)
+            @foreach (var node in _tree.RootNodes)
             {
                 @RenderNode(node)
             }
@@ -50,60 +50,104 @@
     private string _currentUri = string.Empty;
 
     /// <summary>Content rendered inside the component.</summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>Root items the menu renders.</summary>
-    [Parameter] public IEnumerable<TItem>? Items { get; set; }
+    [Parameter]
+    public IEnumerable<TItem>? Items { get; set; }
+
     /// <summary>Returns a stable key for an item. Required for keyboard navigation and lazy loading.</summary>
-    [Parameter] public Func<TItem, string>? KeySelector { get; set; }
+    [Parameter]
+    public Func<TItem, string>? KeySelector { get; set; }
+
     /// <summary>Returns the children of an item.</summary>
-    [Parameter] public Func<TItem, IEnumerable<TItem>?>? ChildrenSelector { get; set; }
+    [Parameter]
+    public Func<TItem, IEnumerable<TItem>?>? ChildrenSelector { get; set; }
+
     /// <summary>Returns whether an item has children without loading them. Enables lazy expansion via <see cref="OnLoadChildren"/>.</summary>
-    [Parameter] public Func<TItem, bool>? HasChildrenSelector { get; set; }
+    [Parameter]
+    public Func<TItem, bool>? HasChildrenSelector { get; set; }
+
     /// <summary>Called the first time a node is expanded with no in-memory children. Result is cached on the menu.</summary>
-    [Parameter] public Func<TItem, Task<IEnumerable<TItem>>>? OnLoadChildren { get; set; }
+    [Parameter]
+    public Func<TItem, Task<IEnumerable<TItem>>>? OnLoadChildren { get; set; }
+
     /// <summary>Custom template for rendering the Node.</summary>
-    [Parameter] public RenderFragment<TreeMenuNode<TItem>>? NodeTemplate { get; set; }
+    [Parameter]
+    public RenderFragment<TreeMenuNode<TItem>>? NodeTemplate { get; set; }
+
     /// <summary>Cache.</summary>
-    [Parameter] public TreeNodeCache<TItem>? Cache { get; set; }
+    [Parameter]
+    public TreeNodeCache<TItem>? Cache { get; set; }
 
     /// <summary>ExpandedKeys.</summary>
-    [Parameter] public HashSet<string>? ExpandedKeys { get; set; }
+    [Parameter]
+    public HashSet<string>? ExpandedKeys { get; set; }
+
     /// <summary>ExpandedKeysChanged.</summary>
-    [Parameter] public EventCallback<HashSet<string>> ExpandedKeysChanged { get; set; }
+    [Parameter]
+    public EventCallback<HashSet<string>> ExpandedKeysChanged { get; set; } = EventCallback<HashSet<string>>.Empty;
+
     /// <summary>ExpandAll.</summary>
-    [Parameter] public bool ExpandAll { get; set; }
+    [Parameter]
+    public bool ExpandAll { get; set; }
 
     /// <summary>Orientation.</summary>
-    [Parameter] public TreeMenuOrientation Orientation { get; set; } = TreeMenuOrientation.Vertical;
+    [Parameter]
+    public TreeMenuOrientation Orientation { get; set; } = TreeMenuOrientation.Vertical;
+
     /// <summary>Trigger.</summary>
-    [Parameter] public TreeMenuTrigger Trigger { get; set; } = TreeMenuTrigger.Click;
+    [Parameter]
+    public TreeMenuTrigger Trigger { get; set; } = TreeMenuTrigger.Click;
+
     /// <summary>ExpandMode.</summary>
-    [Parameter] public TreeMenuExpandMode ExpandMode { get; set; } = TreeMenuExpandMode.Inline;
+    [Parameter]
+    public TreeMenuExpandMode ExpandMode { get; set; } = TreeMenuExpandMode.Inline;
+
+    /// <summary>ExpandMode.</summary>
+    [Parameter]
+    public TreeMenuTextBehavior TextBehavior { get; set; } = TreeMenuTextBehavior.BreakSpaces;
+
     /// <summary>Visual size of the component.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
+
     /// <summary>Collapsible.</summary>
-    [Parameter] public bool Collapsible { get; set; } = true;
+    [Parameter]
+    public bool Collapsible { get; set; } = true;
+
     /// <summary>Overrides the default NavLinkMatch for all the child menu items.</summary>
-    [Parameter] public NavLinkMatch? Match { get; set; }
+    [Parameter]
+    public NavLinkMatch? Match { get; set; }
+
     /// <summary>HoverOpenDelay.</summary>
-    [Parameter] public int HoverOpenDelay { get; set; } = 150;
+    [Parameter]
+    public int HoverOpenDelay { get; set; } = 150;
+
     /// <summary>HoverCloseDelay.</summary>
-    [Parameter] public int HoverCloseDelay { get; set; } = 300;
+    [Parameter]
+    public int HoverCloseDelay { get; set; } = 300;
 
     /// <summary>Raised when the NodeClick event occurs.</summary>
-    [Parameter] public EventCallback<TreeNodeEventArgs<TreeMenuNode<TItem>>> OnNodeClick { get; set; }
+    [Parameter]
+    public EventCallback<TreeNodeEventArgs<TreeMenuNode<TItem>>> OnNodeClick { get; set; }
+
     /// <summary>Raised when the Navigate event occurs.</summary>
-    [Parameter] public EventCallback<string> OnNavigate { get; set; }
+    [Parameter]
+    public EventCallback<string> OnNavigate { get; set; }
 
     public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
     {
         dataAttributes[FeatureDefinitions.DataAttributes.Orientation] = Orientation.ToString().ToLowerInvariant();
         dataAttributes[FeatureDefinitions.DataAttributes.Trigger] = Trigger.ToString().ToLowerInvariant();
         dataAttributes[FeatureDefinitions.DataAttributes.ExpandMode] = ExpandMode.ToString().ToLowerInvariant();
+        dataAttributes[FeatureDefinitions.DataAttributes.TextBehavior] = TextBehavior.ToString().ToLowerInvariant();
     }
 
-    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables) { }
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    {
+    }
 
     protected override void OnInitialized()
     {
@@ -189,27 +233,28 @@
 
     private void BuildFromDeclarativeRegistrations()
     {
-        IReadOnlyList<TreeMenuNodeRegistration> registrations = _registry.GetRegistrations();
+        var registrations = _registry.GetRegistrations();
         _registry.Clear();
 
         Dictionary<string, List<TreeMenuNodeRegistration>> childrenByParent = new();
 
-        foreach (TreeMenuNodeRegistration reg in registrations)
+        foreach (var reg in registrations)
         {
-            string parentKey = reg.ParentKey ?? string.Empty;
+            var parentKey = reg.ParentKey ?? string.Empty;
 
             if (!childrenByParent.ContainsKey(parentKey))
             {
-                childrenByParent[parentKey] = new List<TreeMenuNodeRegistration>();
+                childrenByParent[parentKey] = [];
             }
+
             childrenByParent[parentKey].Add(reg);
         }
 
-        if (childrenByParent.TryGetValue(string.Empty, out List<TreeMenuNodeRegistration>? roots))
+        if (childrenByParent.TryGetValue(string.Empty, out var roots))
         {
-            foreach (TreeMenuNodeRegistration reg in roots)
+            foreach (var reg in roots)
             {
-                TreeMenuNode<TItem> node = BuildNodeFromRegistration(reg, null, 0, childrenByParent);
+                var node = BuildNodeFromRegistration(reg, null, 0, childrenByParent);
                 _tree.RootNodes.Add(node);
             }
         }
@@ -221,8 +266,8 @@
         int depth,
         Dictionary<string, List<TreeMenuNodeRegistration>> childrenByParent)
     {
-        bool hasChildren = childrenByParent.ContainsKey(reg.Key);
-        TreeMenuNode<TItem> node = CreateNodeFromRegistration(reg, parent, depth, hasChildren);
+        var hasChildren = childrenByParent.ContainsKey(reg.Key);
+        var node = CreateNodeFromRegistration(reg, parent, depth, hasChildren);
         node.HasChildrenFlag = hasChildren;
 
         _tree.RegisterNode(node);
@@ -232,11 +277,11 @@
             _tree.Expand(node.Key);
         }
 
-        if (childrenByParent.TryGetValue(reg.Key, out List<TreeMenuNodeRegistration>? children))
+        if (childrenByParent.TryGetValue(reg.Key, out var children))
         {
-            foreach (TreeMenuNodeRegistration childReg in children)
+            foreach (var childReg in children)
             {
-                TreeMenuNode<TItem> childNode = BuildNodeFromRegistration(childReg, node, depth + 1, childrenByParent);
+                var childNode = BuildNodeFromRegistration(childReg, node, depth + 1, childrenByParent);
                 node.ChildrenInternal.Add(childNode);
             }
         }
@@ -266,12 +311,12 @@
 
     private RenderFragment RenderNode(TreeMenuNode<TItem> node) => __builder =>
     {
-        bool isExpanded = _tree.IsExpanded(node.Key);
-        bool isLoading = _tree.IsLoading(node.Key);
-        bool isActive = IsActive(node.Navigation.Href);
-        bool hasChildren = node.HasChildren;
-        bool isFlyout = ExpandMode == TreeMenuExpandMode.Flyout;
-        bool isHoverTrigger = Trigger == TreeMenuTrigger.Hover;
+        var isExpanded = _tree.IsExpanded(node.Key);
+        var isLoading = _tree.IsLoading(node.Key);
+        var isActive = IsActive(node.Navigation.Href);
+        var hasChildren = node.HasChildren;
+        var isFlyout = ExpandMode == TreeMenuExpandMode.Flyout;
+        var isHoverTrigger = Trigger == TreeMenuTrigger.Hover;
 
         <div class="bob-tree-menu__item"
              role="none"
@@ -288,7 +333,7 @@
                 // and Blazor's router intercepts internal hrefs for SPA
                 // navigation) and the chevron is a separate <button> that
                 // stops propagation, so toggling expand never navigates.
-                string? rowAriaCurrent = isActive ? "page" : null;
+                var rowAriaCurrent = isActive ? "page" : null;
                 <div class="bob-tree-menu__row" role="none">
                     <a class="bob-tree-menu__link bob-tree-menu__link--with-toggle"
                        href="@node.Navigation.Href"
@@ -308,11 +353,11 @@
                             disabled="@node.IsDisabled"
                             @onclick="() => ToggleExpandAsync(node.Key)"
                             @onclick:stopPropagation="true">
-                        <_BOBAddon Icon="@GetExpandIcon()"
-                                   IconRotation="@(isExpanded ? 90 : 0)"
-                                   Loading="@isLoading"
-                                   LoadingIndicatorVariant="BOBProgressIconVariant.Spinner"
-                                   Size="Size" />
+                        <_BOBInAddon Icon="@GetExpandIcon()"
+                                     IconRotation="@(isExpanded ? 90 : 0)"
+                                     Loading="@isLoading"
+                                     LoadingIndicatorVariant="BOBProgressIconVariant.Spinner"
+                                     Size="Size"/>
                     </button>
                 </div>
             }
@@ -331,8 +376,8 @@
             }
             else
             {
-                string? ariaHaspopup = hasChildren ? "true" : null;
-                string? ariaExpanded = hasChildren ? isExpanded.ToString().ToLowerInvariant() : null;
+                var ariaHaspopup = hasChildren ? "true" : null;
+                var ariaExpanded = hasChildren ? isExpanded.ToString().ToLowerInvariant() : null;
                 <button type="button"
                         class="bob-tree-menu__button"
                         role="menuitem"
@@ -347,11 +392,12 @@
 
             @if (hasChildren && isExpanded)
             {
-                <div class="bob-tree-menu__submenu @(isFlyout ? "bob-tree-menu__submenu--flyout" : "bob-tree-menu__submenu--inline")"
-                     role="menu"
-                     @onmouseenter="@(isHoverTrigger ? (Action<MouseEventArgs>)(_ => HandleHoverEnterSubmenu()) : null!)"
-                     @onmouseleave="@(isHoverTrigger && isFlyout ? (Func<MouseEventArgs, Task>)(_ => HandleHoverLeave(node.Key)) : null!)">
-                    @foreach (TreeMenuNode<TItem> child in node.ChildrenInternal)
+                <div
+                    class="bob-tree-menu__submenu @(isFlyout ? "bob-tree-menu__submenu--flyout" : "bob-tree-menu__submenu--inline")"
+                    role="menu"
+                    @onmouseenter="@(isHoverTrigger ? (Action<MouseEventArgs>)(_ => HandleHoverEnterSubmenu()) : null!)"
+                    @onmouseleave="@(isHoverTrigger && isFlyout ? (Func<MouseEventArgs, Task>)(_ => HandleHoverLeave(node.Key)) : null!)">
+                    @foreach (var child in node.ChildrenInternal)
                     {
                         @RenderNode(child)
                     }
@@ -379,8 +425,9 @@
         {
             @if (node.Icon.HasValue)
             {
-                <BOBSvgIcon Icon="@node.Icon.Value" Size="Size" class="bob-tree-menu__icon" />
+                <BOBSvgIcon Icon="@node.Icon.Value" Size="Size" class="bob-tree-menu__icon"/>
             }
+
             <span class="bob-tree-menu__text">@(node.Text ?? node.Item?.ToString() ?? node.Key)</span>
         }
     };
@@ -399,18 +446,19 @@
         {
             @if (node.Icon.HasValue)
             {
-                <BOBSvgIcon Icon="@node.Icon.Value" Size="Size" class="bob-tree-menu__icon" />
+                <BOBSvgIcon Icon="@node.Icon.Value" Size="Size" class="bob-tree-menu__icon"/>
             }
+
             <span class="bob-tree-menu__text">@(node.Text ?? node.Item?.ToString() ?? node.Key)</span>
         }
 
         @if (hasChildren)
         {
-            <_BOBAddon Icon="@GetExpandIcon()"
-                       IconRotation="@(isExpanded ? 90 : 0)"
-                       Loading="@isLoading"
-                       LoadingIndicatorVariant="BOBProgressIconVariant.Spinner"
-                       Size="Size" />
+            <_BOBInAddon Icon="@GetExpandIcon()"
+                         IconRotation="@(isExpanded ? 90 : 0)"
+                         Loading="@isLoading"
+                         LoadingIndicatorVariant="BOBProgressIconVariant.Spinner"
+                         Size="Size"/>
         }
     };
 
@@ -446,7 +494,7 @@
             IsExpanded = _tree.IsExpanded(node.Key)
         });
 
-        bool hasNav = node.Navigation.HasNavigation && !string.IsNullOrEmpty(node.Navigation.Href);
+        var hasNav = node.Navigation.HasNavigation && !string.IsNullOrEmpty(node.Navigation.Href);
 
         // Pure container (no Href): toggle the subtree.
         if (node.HasChildren)
@@ -523,7 +571,7 @@
         if (_tree.NodeMap.Count == 0) return;
 
         TreeMenuNode<TItem>? activeNode = null;
-        foreach (TreeMenuNode<TItem> n in _tree.NodeMap.Values)
+        foreach (var n in _tree.NodeMap.Values)
         {
             if (!string.IsNullOrEmpty(n.Navigation.Href) && IsActive(n.Navigation.Href))
             {
@@ -538,7 +586,7 @@
 
         if (activeNode is null) return;
 
-        TreeMenuNode<TItem>? cursor = activeNode.ParentNode;
+        var cursor = activeNode.ParentNode;
         while (cursor is not null)
         {
             _tree.Expand(cursor.Key);
@@ -560,7 +608,7 @@
 
     private async Task HandleExpandAsync(string key)
     {
-        TreeMenuNode<TItem>? node = _tree.GetNode(key);
+        var node = _tree.GetNode(key);
         if (node == null) return;
 
         if (ExpandMode == TreeMenuExpandMode.Flyout)
@@ -602,7 +650,7 @@
             ? node.ParentNode.ChildrenInternal
             : _tree.RootNodes;
 
-        foreach (TreeMenuNode<TItem> sibling in siblings)
+        foreach (var sibling in siblings)
         {
             if (sibling.Key != node.Key)
             {
@@ -614,7 +662,7 @@
     private void CollapseNodeAndDescendants(TreeMenuNode<TItem> node)
     {
         _tree.Collapse(node.Key);
-        foreach (TreeMenuNode<TItem> child in node.ChildrenInternal)
+        foreach (var child in node.ChildrenInternal)
         {
             CollapseNodeAndDescendants(child);
         }
@@ -632,7 +680,7 @@
     {
         if (Trigger != TreeMenuTrigger.Hover) return;
 
-        TreeMenuNode<TItem>? node = _tree.GetNode(key);
+        var node = _tree.GetNode(key);
         if (node == null || !node.HasChildren) return;
 
         _hoverDelayHandler.Cancel();
@@ -652,7 +700,7 @@
         {
             if (IsDisposed) return;
 
-            TreeMenuNode<TItem>? node = _tree.GetNode(key);
+            var node = _tree.GetNode(key);
             if (node != null)
             {
                 CollapseNodeAndDescendants(node);
@@ -678,14 +726,14 @@
     {
         if (string.IsNullOrEmpty(href)) return false;
 
-        string currentPath = NavigationManager.ToBaseRelativePath(_currentUri);
-        string targetPath = NavigationManager.ToBaseRelativePath(NavigationManager.ToAbsoluteUri(href).AbsoluteUri);
+        var currentPath = NavigationManager.ToBaseRelativePath(_currentUri);
+        var targetPath = NavigationManager.ToBaseRelativePath(NavigationManager.ToAbsoluteUri(href).AbsoluteUri);
 
         if (string.IsNullOrEmpty(currentPath)) currentPath = "/";
         if (string.IsNullOrEmpty(targetPath)) targetPath = "/";
 
-        TreeMenuNode<TItem>? node = _tree.NodeMap.Values.FirstOrDefault(n => n.Navigation.Href == href);
-        NavLinkMatch match = Match ?? node?.Navigation.Match ?? NavLinkMatch.All;
+        var node = _tree.NodeMap.Values.FirstOrDefault(n => n.Navigation.Href == href);
+        var match = Match ?? node?.Navigation.Match ?? NavLinkMatch.All;
 
         if (match == NavLinkMatch.All)
             return string.Equals(currentPath, targetPath, StringComparison.OrdinalIgnoreCase);
@@ -697,7 +745,7 @@
     {
         if (ExpandedKeysChanged.HasDelegate)
         {
-            await ExpandedKeysChanged.InvokeAsync(new HashSet<string>(_tree.ExpandedKeys));
+            await ExpandedKeysChanged.InvokeAsync([.._tree.ExpandedKeys]);
         }
     }
 
@@ -726,4 +774,5 @@
         _registry.Clear();
         _tree?.Clear();
     }
+
 }

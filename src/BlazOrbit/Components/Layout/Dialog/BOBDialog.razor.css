@@ -15,7 +15,7 @@
 [data-bob-component="dialog"] .bob-dialog-overlay {
     position: absolute;
     inset: 0;
-    background: color-mix(in srgb, var(--palette-shadow) 50%, transparent);
+    background: color-mix(in oklab, var(--palette-shadow) 50%, transparent);
     backdrop-filter: blur(2px);
     animation: bob-dialog-overlay-in 200ms ease-out forwards;
 }
@@ -27,7 +27,7 @@
 [data-bob-component="dialog"] .bob-dialog {
     --_dialog-radius: 8px;
     --_dialog-background: var(--palette-surface);
-    --_dialog-shadow: var(--bob-inline-shadow, 0 8px 32px color-mix(in srgb, var(--palette-shadow) 20%, transparent));
+    --_dialog-shadow: var(--bob-inline-shadow, 0 8px 32px color-mix(in oklab, var(--palette-shadow) 20%, transparent));
     position: relative;
     background: var(--_dialog-background);
     border-radius: var(--_dialog-radius);
@@ -41,8 +41,8 @@
 /* IHasElevation in dark theme: lift the dialog surface via tint overlay. */
 [data-bob-theme="dark"] [data-bob-component="dialog"][data-bob-elevation] .bob-dialog {
     --_dialog-background: color-mix(in oklab,
-        var(--palette-surface),
-        var(--palette-surface-contrast) var(--bob-inline-elevation-tint, 0%));
+    var(--palette-surface),
+    var(--palette-surface-contrast) var(--bob-inline-elevation-tint, 0%));
 }
 
 [data-bob-component="dialog"] .bob-dialog[data-bob-closing="true"] {

@@ -12,9 +12,10 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.DataCollections;
 public class BOBDataCardsInteractionTests
 {
     private sealed record Person(string Name, int Age);
+
     private static readonly Expression<Func<Person, object?>> NameExpr = p => (object?)p.Name;
 
-    private static IEnumerable<Person> TwoItems => [new Person("Alice", 30), new Person("Bob", 25)];
+    private static IEnumerable<Person> TwoItems => [new("Alice", 30), new("Bob", 25)];
 
     private static RenderFragment SimpleColumns => b =>
     {

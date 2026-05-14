@@ -1,14 +1,22 @@
-@page "/components/layout/grid"
+﻿@page "/components/layout/grid"
 
 @inject IStringLocalizer<GridPage> Loc
 
 
 <DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBGrid"]"
-         Lede="@Loc["A 12-column responsive layout using BOBGrid + BOBGridItem. Breakpoint-aware spans, gaps, directions, offsets, and spacing."]"
+         Lede="@Loc["12-column responsive grid layout with breakpoint-aware column spans, gaps, directions, offsets, and spacing."]"
          PageInstance="this"
-         ApiType="@typeof(BOBGrid)">
+         ApiType="@typeof(BOBGrid)"
+         Keywords="@(["grid", "layout", "columns", "rows", "responsive"])">
 
-    <DocDemo Key="Basic" Title="@Loc["Basic usage"]" Description="@Loc["Use integer Span (out of Columns, default 12) to size each item."]">
+    <section class="doc-section">
+        <p class="doc-section__description">
+            @Loc.Html("            The layout system is built from two types: <code>BOBGrid</code> (the container) and <code>BOBGridItem</code> (the cell). Breakpoints, spans, gaps, directions, and offsets are all declared as parameters rather than CSS classes, so the grid remains strongly typed and refactor-safe.")
+        </p>
+    </section>
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]"
+             Description="@Loc["Use integer Span (out of Columns, default 12) to size each item."]">
         <BOBGrid Gap="1rem">
             <BOBGridItem Span="6">@Loc["Span 6"]</BOBGridItem>
             <BOBGridItem Span="6">@Loc["Span 6"]</BOBGridItem>
@@ -18,7 +26,8 @@
         </BOBGrid>
     </DocDemo>
 
-    <DocDemo Key="Responsive" Title="@Loc["Responsive spans"]" Description="@Loc["Per-breakpoint spans (Xs, Sm, Md, Lg, Xl) override Span."]">
+    <DocDemo Key="Responsive" Title="@Loc["Responsive spans"]"
+             Description="@Loc["Per-breakpoint spans (Xs, Sm, Md, Lg, Xl) override Span."]">
         <BOBGrid Gap="1rem">
             <BOBGridItem Xs="12" Sm="6" Md="4" Lg="3">xs:12 sm:6 md:4 lg:3</BOBGridItem>
             <BOBGridItem Xs="12" Sm="6" Md="4" Lg="3">xs:12 sm:6 md:4 lg:3</BOBGridItem>
@@ -47,7 +56,8 @@
     </DocDemo>
 
     <DocDemo Key="Gaps" Title="@Loc["Gaps & spacing"]">
-        <BOBGrid RowGap="2rem" ColumnGap="0.5rem" P="1rem" style="background: color-mix(in oklab, var(--palette-primary) 6%, transparent); border-radius: 0.5rem;">
+        <BOBGrid RowGap="2rem" ColumnGap="0.5rem" P="1rem"
+                 style="background: color-mix(in oklab, var(--palette-primary) 6%, transparent); border-radius: 0.5rem;">
             <BOBGridItem Span="3">3</BOBGridItem>
             <BOBGridItem Span="3">3</BOBGridItem>
             <BOBGridItem Span="3">3</BOBGridItem>
@@ -61,10 +71,10 @@
         <h2 class="doc-section__title">@Loc["Properties"]</h2>
 
         <h3 class="doc-section__subtitle">BOBGrid</h3>
-        <PropertyTable Properties="@BOBGridComponentInfo.Parameters" />
+        <PropertyTable Properties="@BOBGridComponentInfo.Parameters"/>
 
         <h3 class="doc-section__subtitle">BOBGridItem</h3>
-        <PropertyTable Properties="@BOBGridItemComponentInfo.Parameters" />
+        <PropertyTable Properties="@BOBGridItemComponentInfo.Parameters"/>
     </section>
 
 </DocPage>

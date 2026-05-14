@@ -5,6 +5,7 @@ public enum TreeMenuOrientation
 {
     /// <summary>Stacked top-to-bottom.</summary>
     Vertical,
+
     /// <summary>Laid out left-to-right.</summary>
     Horizontal
 }
@@ -14,6 +15,7 @@ public enum TreeMenuTrigger
 {
     /// <summary>Submenu opens on click.</summary>
     Click,
+
     /// <summary>Submenu opens on hover.</summary>
     Hover
 }
@@ -23,6 +25,17 @@ public enum TreeMenuExpandMode
 {
     /// <summary>Children are pushed into the document flow underneath the parent.</summary>
     Inline,
+
     /// <summary>Children float over surrounding content as a flyout.</summary>
     Flyout
+}
+
+/// <summary>How node text behaves.</summary>
+public enum TreeMenuTextBehavior
+{
+    /// <summary>Text doesn't wrap.</summary>
+    NoWrap,
+
+    /// <summary>Text break words</summary>
+    BreakSpaces
 }

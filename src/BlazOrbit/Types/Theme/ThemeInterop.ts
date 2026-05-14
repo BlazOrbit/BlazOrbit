@@ -82,7 +82,7 @@ function waitForStyles(): Promise<void> {
         return Promise.resolve();
     }
     return new Promise(resolve => {
-        window.addEventListener('load', () => resolve(), { once: true });
+        window.addEventListener('load', () => resolve(), {once: true});
     });
 }
 

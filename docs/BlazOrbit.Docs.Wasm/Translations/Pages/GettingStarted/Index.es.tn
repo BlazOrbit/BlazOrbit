@@ -1,0 +1,86 @@
+# Guide
+Guía
+
+# Getting started
+Empezar
+
+# Install the package, register the services, link the stylesheet, and you're shipping.
+Instala el paquete, registra los servicios, vincula la hoja de estilos y ya estás enviando.
+
+# 1. Install the NuGet package
+1. Instalar el paquete NuGet
+
+# BlazOrbit targets <code>net8.0</code> and <code>net10.0</code> and runs on both Blazor Server and Blazor WebAssembly. Add the package to your project:
+BlazOrbit tiene como objetivo <code>net8.0</code> y <code>net10.0</code> y se ejecuta tanto en Blazor Server como en Blazor WebAssembly. Agrega el paquete a tu proyecto:
+
+# Terminal
+Terminal
+
+# Optional packages.
+Paquetes opcionales.
+
+# Install additional packages on demand:
+Instala paquetes adicionales bajo demanda:
+
+# <code>BlazOrbit.Charts</code> — <a href="/components/charts/bar">15 SVG chart types</a>
+<code>BlazOrbit.Charts</code> — <a href="/components/charts/bar">15 tipos de gráficos SVG</a>
+
+# <code>BlazOrbit.Hotkeys</code> — <a href="/components/services/hotkey">global keyboard shortcuts</a>
+<code>BlazOrbit.Hotkeys</code> — <a href="/components/services/hotkey">atajos de teclado globales</a>
+
+# <code>BlazOrbit.Notifications</code> — <a href="/components/services/notifications">notification center + bell badge</a>
+<code>BlazOrbit.Notifications</code> — <a href="/components/services/notifications">centro de notificaciones + insignia de campana</a>
+
+# <code>BlazOrbit.Localization.Server</code> / <code>.Wasm</code> — <a href="/features/localization">multi-culture support</a>
+<code>BlazOrbit.Localization.Server</code> / <code>.Wasm</code> — <a href="/features/localization">soporte multi-cultura</a>
+
+# 2. Register the services
+2. Registrar los servicios
+
+# Call <code>AddBlazOrbit()</code> in your <code>Program.cs</code>. This wires up the JS interop services, the variant registry, and the modal/toast services.
+Llama <code>AddBlazOrbit()</code> en tu <code>Program.cs</code>. Esto conecta los servicios de interoperabilidad JS, el registro de variantes, y los servicios de modal/toast.
+
+# Program.cs
+Program.cs
+
+# 3. Link the stylesheet
+3. Vincular la hoja de estilos
+
+# The library ships a pre-built, vendor-prefixed CSS bundle. Add it to your <code>index.html</code> (WASM) or <code>App.razor</code> <code>&lt;head&gt;</code> (Server).
+La biblioteca incluye un paquete CSS prefabricado con prefijo de vendor. Agrégalo a tu <code>index.html</code> (WASM) o <code>App.razor</code> <code>&lt;head&gt;</code> (Server).
+
+# wwwroot/index.html
+wwwroot/index.html
+
+# Since .NET 8, scoped CSS bundles are included automatically — you do not need to link the <code>.bundle.scp.css</code> file.
+Desde .NET 8, los paquetes de CSS con ámbito se incluyen automáticamente: no necesitas vincular el archivo <code>.bundle.scp.css</code>.
+
+# 4. Import the namespaces
+4. Importar los espacios de nombres
+
+# Add these to <code>_Imports.razor</code> so you can use components without fully-qualified names:
+Agrega estos a <code>_Imports.razor</code> para poder usar componentes sin nombres completamente calificados:
+
+# _Imports.razor
+_Imports.razor
+
+# 5. Theme Manager, Modal Host and Toast Host
+5. Gestor de temas, Host de modales y Host de toasts
+
+# Wrap the <code>@@Body</code> with <code>BOBInitializer</code> for theme management.
+Envuelve <code>@@Body</code> con <code>BOBInitializer</code> para la gestión de temas.
+
+# For <code>BOBModalHost</code> and <code>BOBToastHost</code> to render your modals and toasts globally, place them in your <code>MainLayout.razor</code> (outside the <code>@@Body</code> block). If you installed <code>BlazOrbit.Hotkeys</code>, add <code>BOBHotkeyHost</code> here as well:
+Para que <code>BOBModalHost</code> y <code>BOBToastHost</code> rendericen tus modales y toasts globalmente, colócalos en tu <code>MainLayout.razor</code> (fuera del bloque <code>@@Body</code>). Si instalaste <code>BlazOrbit.Hotkeys</code>, agrega <code>BOBHotkeyHost</code> aquí también:
+
+# Layout/MainLayout.razor
+Layout/MainLayout.razor
+
+# That's it — you're ready to use <a href="/components/actions/button">Button</a>, <a href="/components/layout/card">Card</a>, <a href="/components/forms/text">InputText</a>, and the rest.
+Eso es todo: estás listo para usar <a href="/components/actions/button">Button</a>, <a href="/components/layout/card">Card</a>, <a href="/components/forms/text">InputText</a>, y el resto.
+
+# Your first component
+Tu primer componente
+
+# Drop a <code>BOBButton</code> into any page:
+Suelta un <code>BOBButton</code> en cualquier página:

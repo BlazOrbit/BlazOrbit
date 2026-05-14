@@ -23,7 +23,7 @@ public class BOBInputRangeSliderInteractionTests
             .Add(c => c.Value, value)
             .Add(c => c.ValueChanged, v => value = v));
 
-        cut.FindAll("._bob-slider-thumb")[0].KeyDown(key: "ArrowRight");
+        cut.FindAll("._bob-slider-thumb")[0].KeyDown("ArrowRight");
 
         value.Min.Should().Be(21);
         value.Max.Should().Be(80);
@@ -42,7 +42,7 @@ public class BOBInputRangeSliderInteractionTests
             .Add(c => c.Value, value)
             .Add(c => c.ValueChanged, v => value = v));
 
-        cut.FindAll("._bob-slider-thumb")[1].KeyDown(key: "ArrowRight");
+        cut.FindAll("._bob-slider-thumb")[1].KeyDown("ArrowRight");
 
         value.Min.Should().Be(20);
         value.Max.Should().Be(81);
@@ -61,7 +61,7 @@ public class BOBInputRangeSliderInteractionTests
             .Add(c => c.Value, value)
             .Add(c => c.ValueChanged, v => value = v));
 
-        cut.FindAll("._bob-slider-thumb")[0].KeyDown(key: "ArrowRight");
+        cut.FindAll("._bob-slider-thumb")[0].KeyDown("ArrowRight");
 
         value.Min.Should().Be(50);
         value.Max.Should().Be(50);
@@ -80,7 +80,7 @@ public class BOBInputRangeSliderInteractionTests
             .Add(c => c.Value, value)
             .Add(c => c.ValueChanged, v => value = v));
 
-        cut.FindAll("._bob-slider-thumb")[1].KeyDown(key: "ArrowLeft");
+        cut.FindAll("._bob-slider-thumb")[1].KeyDown("ArrowLeft");
 
         value.Min.Should().Be(50);
         value.Max.Should().Be(50);
@@ -99,7 +99,7 @@ public class BOBInputRangeSliderInteractionTests
             .Add(c => c.Value, value)
             .Add(c => c.ValueChanged, v => value = v));
 
-        cut.FindAll("._bob-slider-thumb")[0].KeyDown(key: "Home");
+        cut.FindAll("._bob-slider-thumb")[0].KeyDown("Home");
 
         value.Min.Should().Be(0);
         value.Max.Should().Be(80);
@@ -118,7 +118,7 @@ public class BOBInputRangeSliderInteractionTests
             .Add(c => c.Value, value)
             .Add(c => c.ValueChanged, v => value = v));
 
-        cut.FindAll("._bob-slider-thumb")[1].KeyDown(key: "End");
+        cut.FindAll("._bob-slider-thumb")[1].KeyDown("End");
 
         value.Min.Should().Be(40);
         value.Max.Should().Be(100);
@@ -136,7 +136,7 @@ public class BOBInputRangeSliderInteractionTests
             .Add(c => c.Disabled, true)
             .Add(c => c.ValueChanged, v => value = v));
 
-        cut.FindAll("._bob-slider-thumb")[0].KeyDown(key: "ArrowRight");
+        cut.FindAll("._bob-slider-thumb")[0].KeyDown("ArrowRight");
 
         value.Min.Should().Be(20);
         value.Max.Should().Be(80);

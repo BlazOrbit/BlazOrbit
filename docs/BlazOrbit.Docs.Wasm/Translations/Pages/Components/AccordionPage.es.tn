@@ -1,0 +1,164 @@
+// Auto-migrated from AccordionPage.es.resx. Edit freely from now on.
+
+# Active
+Activo
+
+# Advanced
+Avanzado
+
+# Advanced configuration. In the default Multiple mode you can keep both panels open.
+Configuración avanzada. En el modo Múltiple predeterminado puedes mantener ambos paneles abiertos.
+
+# Always one open
+Siempre uno abierto
+
+# Auto-expanded on first render.
+Auto-expandido en la primera renderización.
+
+# Basic usage
+Uso básico
+
+# Billing form.
+Formulario de facturación.
+
+# BOBAccordion
+BOBAccordion
+
+# Click to swap which panel is open.
+Clic para intercambiar qué panel está abierto.
+
+# Component
+Componente
+
+# Content one.
+Contenido uno.
+
+# Content three.
+Contenido tres.
+
+# Content two.
+Contenido dos.
+
+# Custom chevron icon.
+Icono de chevrón personalizado.
+
+# Custom expand icon
+Icono de expandir personalizado
+
+# Custom separator
+Separador personalizado
+
+# Default gap is 0 (items flush). Combine Gap with a Border preset for a card-like grouping.
+El espacio predeterminado es 0 (elementos juntos). Combina Gap con un preset de Border para una agrupación tipo tarjeta.
+
+# Diagnostic tools and logs.
+Herramientas de diagnóstico y registros.
+
+# Diagnostics
+Diagnósticos
+
+# Disabled item
+Elemento deshabilitado
+
+# Features
+Funciones
+
+# Final review.
+Revisión final.
+
+# Gap + border
+Espacio + borde
+
+# General
+General
+
+# General settings appear here. Click again to collapse.
+La configuración general aparece aquí. Clic de nuevo para colapsar.
+
+# Info
+Información
+
+# Item A
+Elemento A
+
+# Item B
+Elemento B
+
+# Item C
+Elemento C
+
+# Items separated by 0.5rem and grouped inside a rounded border.
+Elementos separados por 0.5rem y agrupados dentro de un borde redondeado.
+
+# Keyboard arrow navigation skips disabled items.
+La navegación con flechas de teclado salta elementos deshabilitados.
+
+# Locked (disabled)
+Bloqueado (deshabilitado)
+
+# More
+Más
+
+# More content.
+Más contenido.
+
+# Next
+Siguiente
+
+# Only one panel can be open at a time. Click an open panel to collapse it.
+Solo un panel puede estar abierto a la vez. Clic en un panel abierto para colapsarlo.
+
+# Override the icon per item. Default Plus rotates 45° on open; for chevrons set --_accordion-icon-rotation: 180deg in your CSS.
+Sobrescribe el icono por elemento. El Plus predeterminado rota 45° al abrir; para chevrons establece --_accordion-icon-rotation: 180deg en tu CSS.
+
+# Overview
+Vista general
+
+# Plan selection content.
+Contenido de selección de plan.
+
+# Properties
+Propiedades
+
+# Render any markup between items via the Separator slot. Combine with Gap=0 for a hairline divider.
+Renderiza cualquier marcado entre elementos mediante el slot Separator. Combina con Gap=0 para un divisor de línea fina.
+
+# Section one
+Sección uno
+
+# Section three
+Sección tres
+
+# Section two
+Sección dos
+
+# Single mode
+Modo único
+
+# Step 1 — Pick a plan
+Paso 1 — Elige un plan
+
+# Step 2 — Add billing
+Paso 2 — Añade facturación
+
+# Step 3 — Confirm
+Paso 3 — Confirmar
+
+# The border is on the parent. Individual items never carry their own border.
+El borde está en el padre. Los elementos individuales nunca llevan su propio borde.
+
+# The first panel auto-expands and at least one panel is always visible.
+El primer panel se expande automáticamente y al menos un panel siempre es visible.
+
+# This panel works as usual.
+Este panel funciona como de costumbre.
+
+# Try other presets: BOBBorderPresets.Subtle, .Pill, .RoundedLarge...
+Prueba otros presets: BOBBorderPresets.Subtle, .Pill, .RoundedLarge...
+
+# Unreachable.
+Inalcanzable.
+
+# Vertically stacked, expandable panels. Choose between multi-open, single-open, or always-one-open modes.
+Paneles apilados verticalmente y expandibles. Elige entre modos multi-abierto, único o siempre-uno-abierto.
+

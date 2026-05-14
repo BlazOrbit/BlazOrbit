@@ -92,7 +92,7 @@ public class BOBCodeBlockRenderingTests
         IRenderedComponent<BOBCodeBlock> cut = ctx.Render<BOBCodeBlock>(p => p
             .Add(c => c.Code, "var x = 1;"));
 
-        // Assert — _BOBBtn renders a <button>
+        // Assert — _BOBInBtn renders a <button>
         cut.Find("button").Should().NotBeNull();
     }
 

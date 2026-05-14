@@ -15,14 +15,21 @@
 
 
 @code {
+
     /// <summary>Floating label displayed above the component.</summary>
-    [Parameter] public string? Label { get; set; }
+    [Parameter]
+    public string? Label { get; set; }
+
     /// <summary>For.</summary>
-    [Parameter] public string? For { get; set; }
+    [Parameter]
+    public string? For { get; set; }
+
     /// <summary>
     /// Kept for binary compatibility — the asterisk is now rendered by the
     /// input-family CSS via <c>[data-bob-required="true"] .bob-input__label::after</c>.
     /// Consumers can still pass it without effect.
     /// </summary>
-    [Parameter] public bool Required { get; set; }
+    [Parameter]
+    public bool Required { get; set; }
+
 }

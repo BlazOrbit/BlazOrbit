@@ -308,6 +308,11 @@ internal static class FeatureDefinitions
         /// </summary>
         public const string ExpandMode = "data-bob-expand-mode";
 
+        /// <summary>
+        /// Whether expanding a menu node collapses siblings.
+        /// </summary>
+        public const string TextBehavior = "data-bob-text-behavior";
+
         // --- Toast attributes ---
         /// <summary>
         /// Toast is currently running its close animation.
@@ -462,7 +467,6 @@ internal static class FeatureDefinitions
             public const string ToastValue = "1500";
             public const string Tooltip = "--bob-z-tooltip";
             public const string TooltipValue = "1400";
-
         }
 
         /// <summary>
@@ -613,7 +617,8 @@ internal static class FeatureDefinitions
                 "padding", "gap"
             ];
 
-            public static string VariableFor(string trigger, string property) => $"{VariablePrefix}{trigger}-{property}";
+            public static string VariableFor(string trigger, string property) =>
+                $"{VariablePrefix}{trigger}-{property}";
         }
     }
 
@@ -622,12 +627,17 @@ internal static class FeatureDefinitions
         public const string FontFamily = "--bob-font-family";
         public const string FontFamilyHeading = "--bob-font-family-heading";
         public const string FontFamilyHeadingValue = "var(--bob-font-family)";
-        public const string FontFamilyValue = "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif";
+
+        public const string FontFamilyValue =
+            "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif";
+
         public const string FontMono = "--bob-font-mono";
         public const string FontMonoValue = "ui-monospace, \"Cascadia Mono\", \"SF Mono\", Consolas, monospace";
         public const string FontSizeBase = "--bob-font-size-base";
+
         /// <summary>Fluid typography: scales from 0.875rem (≈640px viewport) to 1.125rem (≈1536px viewport).</summary>
         public const string FontSizeBaseValue = "clamp(0.875rem, 0.75rem + 0.25vw, 1.125rem)";
+
         public const string LineHeight = "--bob-line-height";
         public const string LineHeightHeading = "--bob-line-height-heading";
         public const string LineHeightHeadingValue = "1.2";
@@ -635,6 +645,7 @@ internal static class FeatureDefinitions
 
         /// <summary>Heading scale based on 1.25 ratio (Major Third).</summary>
         public const string H1FontSize = "2.441em";
+
         public const string H2FontSize = "1.953em";
         public const string H3FontSize = "1.563em";
         public const string H4FontSize = "1.25em";
@@ -644,10 +655,12 @@ internal static class FeatureDefinitions
 
         /// <summary>Shared small/secondary text font-size (small, code, kbd, samp, pre).</summary>
         public const string SmallFontSize = "0.875em";
+
         public const string BoldFontWeight = "700";
 
         /// <summary>Inline/preformatted code style tokens.</summary>
         public const string CodeFontWeight = "500";
+
         public const string PreLineHeight = "1.6";
 
         /// <summary>Anchor/link color transition.</summary>

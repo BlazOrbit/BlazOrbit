@@ -16,7 +16,7 @@ public class BOBTimelineRenderingTests
     [
         new(Anchor, "Kickoff", "scope agreed"),
         new(Anchor.AddHours(2), "Build"),
-        new(Anchor.AddHours(5), "Done"),
+        new(Anchor.AddHours(5), "Done")
     ];
 
     [Theory]
@@ -97,7 +97,7 @@ public class BOBTimelineRenderingTests
         [
             new(Anchor, "Mon morning"),
             new(Anchor.AddHours(4), "Mon noon"),
-            new(Anchor.AddDays(1), "Tue morning"),
+            new(Anchor.AddDays(1), "Tue morning")
         ];
 
         IRenderedComponent<BOBTimeline> cut = ctx.Render<BOBTimeline>(p => p
@@ -115,7 +115,7 @@ public class BOBTimelineRenderingTests
 
         IReadOnlyList<TimelineItem> colored =
         [
-            new(Anchor, "Marker", Color: "#ff00ff"),
+            new(Anchor, "Marker", Color: "#ff00ff")
         ];
 
         IRenderedComponent<BOBTimeline> cut = ctx.Render<BOBTimeline>(p => p
@@ -176,29 +176,45 @@ public class BOBTimelineSnapshotTests
         [
             new(Anchor, "Kickoff", "scope agreed", BOBIconKeys.MaterialIconsOutlined.i_flag),
             new(Anchor.AddHours(4), "Build"),
-            new(Anchor.AddDays(1), "Done", null, null, "#00aa00"),
+            new(Anchor.AddDays(1), "Done", null, null, "#00aa00")
         ];
 
         var testCases = new[]
         {
-            new { Name = "Vertical", Builder = (Action<ComponentParameterCollectionBuilder<BOBTimeline>>)(p => p
-                .Add(c => c.Items, items)) },
-            new { Name = "Alternating", Builder = (Action<ComponentParameterCollectionBuilder<BOBTimeline>>)(p => p
-                .Add(c => c.Items, items)
-                .Add(c => c.Alternating, true)) },
-            new { Name = "Horizontal", Builder = (Action<ComponentParameterCollectionBuilder<BOBTimeline>>)(p => p
-                .Add(c => c.Items, items)
-                .Add(c => c.Orientation, BOBTimelineOrientation.Horizontal)) },
-            new { Name = "GroupByDate", Builder = (Action<ComponentParameterCollectionBuilder<BOBTimeline>>)(p => p
-                .Add(c => c.Items, items)
-                .Add(c => c.GroupByDate, true)) },
+            new
+            {
+                Name = "Vertical",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBTimeline>>)(p => p
+                    .Add(c => c.Items, items))
+            },
+            new
+            {
+                Name = "Alternating",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBTimeline>>)(p => p
+                    .Add(c => c.Items, items)
+                    .Add(c => c.Alternating, true))
+            },
+            new
+            {
+                Name = "Horizontal",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBTimeline>>)(p => p
+                    .Add(c => c.Items, items)
+                    .Add(c => c.Orientation, BOBTimelineOrientation.Horizontal))
+            },
+            new
+            {
+                Name = "GroupByDate",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBTimeline>>)(p => p
+                    .Add(c => c.Items, items)
+                    .Add(c => c.GroupByDate, true))
+            }
         };
 
         var results = testCases.Select(tc =>
         {
             IRenderedComponent<BOBTimeline> cut = ctx.Render<BOBTimeline>(tc.Builder);
             return new { tc.Name, Html = cut.GetNormalizedMarkup() };
-        });
+        }).ToList();
 
         await Verify(results).UseParameters(scenario.Name);
     }

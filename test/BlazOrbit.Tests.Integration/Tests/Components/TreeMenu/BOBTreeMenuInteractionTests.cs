@@ -9,7 +9,11 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.TreeMenu;
 [Trait("Component Interaction", "BOBTreeMenu")]
 public class BOBTreeMenuInteractionTests
 {
-    private sealed record MenuItem(string Key, string Label, IEnumerable<MenuItem>? Children = null, bool Disabled = false);
+    private sealed record MenuItem(
+        string Key,
+        string Label,
+        IEnumerable<MenuItem>? Children = null,
+        bool Disabled = false);
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -19,7 +23,7 @@ public class BOBTreeMenuInteractionTests
 
         // Arrange
         TreeNodeEventArgs<TreeMenuNode<MenuItem>>? captured = null;
-        IEnumerable<MenuItem> items = [new MenuItem("a", "Alpha")];
+        IEnumerable<MenuItem> items = [new("a", "Alpha")];
 
         IRenderedComponent<BOBTreeMenu<MenuItem>> cut = ctx.Render<BOBTreeMenu<MenuItem>>(p => p
             .Add(c => c.Items, items)
@@ -91,10 +95,11 @@ public class BOBTreeMenuInteractionTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         // Arrange
-        IEnumerable<MenuItem> items = [
-            new MenuItem("parent", "Parent", [
-                new MenuItem("child", "Child"),
-            ]),
+        IEnumerable<MenuItem> items =
+        [
+            new("parent", "Parent", [
+                new MenuItem("child", "Child")
+            ])
         ];
 
         IRenderedComponent<BOBTreeMenu<MenuItem>> cut = ctx.Render<BOBTreeMenu<MenuItem>>(p => p

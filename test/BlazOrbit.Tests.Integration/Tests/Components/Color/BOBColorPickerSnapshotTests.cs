@@ -18,32 +18,40 @@ public class BOBColorPickerSnapshotTests
         var testCases = new[]
         {
             new { Name = "Default", Builder = (Action<ComponentParameterCollectionBuilder<BOBColorPicker>>)(p => { }) },
-
-            new { Name = "With_Hex_Value", Builder = (Action<ComponentParameterCollectionBuilder<BOBColorPicker>>)(p => p
-                .Add(c => c.Value, new CssColor("#ff0000"))
-                .Add(c => c.OutputFormat, ColorOutputFormats.Hex)) },
-
-            new { Name = "With_Rgba_Value", Builder = (Action<ComponentParameterCollectionBuilder<BOBColorPicker>>)(p => p
-                .Add(c => c.Value, new CssColor("#00ff00"))
-                .Add(c => c.OutputFormat, ColorOutputFormats.Rgba)) },
-
-            new { Name = "Hidden_Actions", Builder = (Action<ComponentParameterCollectionBuilder<BOBColorPicker>>)(p => p
-                .Add(c => c.ShowActions, false)) },
-
-            new { Name = "Custom_Revert_Text", Builder = (Action<ComponentParameterCollectionBuilder<BOBColorPicker>>)(p => p
-                .Add(c => c.ShowActions, true)
-                .Add(c => c.RevertText, "Undo")) }
+            new
+            {
+                Name = "With_Hex_Value",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBColorPicker>>)(p => p
+                    .Add(c => c.Value, new CssColor("#ff0000"))
+                    .Add(c => c.OutputFormat, ColorOutputFormats.Hex))
+            },
+            new
+            {
+                Name = "With_Rgba_Value",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBColorPicker>>)(p => p
+                    .Add(c => c.Value, new CssColor("#00ff00"))
+                    .Add(c => c.OutputFormat, ColorOutputFormats.Rgba))
+            },
+            new
+            {
+                Name = "Hidden_Actions",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBColorPicker>>)(p => p
+                    .Add(c => c.ShowActions, false))
+            },
+            new
+            {
+                Name = "Custom_Revert_Text",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBColorPicker>>)(p => p
+                    .Add(c => c.ShowActions, true)
+                    .Add(c => c.RevertText, "Undo"))
+            }
         };
 
         var results = testCases.Select(testCase =>
         {
             IRenderedComponent<BOBColorPicker> cut = ctx.Render<BOBColorPicker>(testCase.Builder);
-            return new
-            {
-                testCase.Name,
-                Html = cut.GetNormalizedMarkup()
-            };
-        });
+            return new { testCase.Name, Html = cut.GetNormalizedMarkup() };
+        }).ToList();
 
         await Verify(results).UseParameters(scenario.Name);
     }

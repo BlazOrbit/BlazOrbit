@@ -37,6 +37,29 @@ public abstract class ModuleJsInteropBase : IAsyncDisposable
     }
 
     /// <summary>
+    /// First-access module loader hardened against the 5-tuple of terminal failures:
+    /// <see cref="JSDisconnectedException"/>, <see cref="ObjectDisposedException"/>,
+    /// <see cref="InvalidOperationException"/>, <see cref="TaskCanceledException"/>, and the
+    /// load-specific <see cref="JSException"/> (404, parse error, module-side throw). Returns
+    /// <see langword="null"/> on failure so call sites can early-out cleanly instead of
+    /// duplicating the try/catch boilerplate. Use this in preference to <c>await ModuleTask.Value</c>
+    /// for non-disposal call paths; the dispose path intentionally swallows only the 4-tuple per
+    /// the contract in <see cref="DisposeAsync"/>.
+    /// </summary>
+    protected async ValueTask<IJSObjectReference?> TryGetModuleAsync()
+    {
+        try
+        {
+            return await ModuleTask.Value;
+        }
+        catch (JSDisconnectedException) { return null; }
+        catch (ObjectDisposedException) { return null; }
+        catch (InvalidOperationException) { return null; }
+        catch (TaskCanceledException) { return null; }
+        catch (JSException) { return null; }
+    }
+
+    /// <summary>
     /// Asynchronously disposes of the resources used by the module.
     /// The following exceptions are swallowed intentionally — all four are raised on non-actionable
     /// teardown paths (prerender without a circuit, circuit shutdown, runtime disposal, or cancellation

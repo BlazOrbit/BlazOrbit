@@ -1,4 +1,4 @@
-@page "/components/layout/aspect-ratio"
+﻿@page "/components/layout/aspect-ratio"
 
 @using BlazOrbit.Components.Layout
 
@@ -8,7 +8,8 @@
 <DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBAspectRatio"]"
          Lede="@Loc["Layout box that locks any child to a fixed width-to-height ratio."]"
          PageInstance="this"
-         ApiType="@typeof(BOBAspectRatio)">
+         ApiType="@typeof(BOBAspectRatio)"
+         Keywords="@(["aspect ratio", "responsive", "media", "image"])">
 
     <DocDemo Key="Default" Title="@Loc["Default 16/9"]">
         <BOBAspectRatio>
@@ -30,7 +31,7 @@
 
     <section class="doc-section">
         <h2 class="doc-section__title">@Loc["Properties"]</h2>
-        <PropertyTable Properties="@BOBAspectRatioComponentInfo.Parameters" />
+        <PropertyTable Properties="@BOBAspectRatioComponentInfo.Parameters"/>
     </section>
 
 </DocPage>

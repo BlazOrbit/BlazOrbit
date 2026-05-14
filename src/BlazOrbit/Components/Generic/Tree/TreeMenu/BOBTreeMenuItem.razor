@@ -8,31 +8,45 @@
 }
 
 @code {
+
     /// <summary>Href.</summary>
-    [Parameter] public string? Href { get; set; }
+    [Parameter]
+    public string? Href { get; set; }
+
     /// <summary>Target.</summary>
-    [Parameter] public string? Target { get; set; }
+    [Parameter]
+    public string? Target { get; set; }
+
     /// <summary>Match.</summary>
-    [Parameter] public NavLinkMatch Match { get; set; } = NavLinkMatch.All;
+    [Parameter]
+    public NavLinkMatch Match { get; set; } = NavLinkMatch.All;
+
     /// <summary>Raised when the component is clicked.</summary>
-    [Parameter] public EventCallback OnClick { get; set; }
+    [Parameter]
+    public EventCallback OnClick { get; set; }
 
     protected override string GenerateDefaultKey()
-        => Href ?? $"menu-item-{Guid.NewGuid():N}";
-
-    protected override TreeMenuNodeRegistration CreateRegistration() => new()
     {
-        Key = ResolvedKey,
-        Text = Text,
-        Icon = Icon,
-        IsDisabled = Disabled,
-        InitiallyExpanded = InitiallyExpanded,
-        Data = Data,
-        NodeContent = NodeContent,
-        ParentKey = ParentNodeKey,
-        Href = Href,
-        Target = Target,
-        Match = Match,
-        OnClick = OnClick
-    };
+        return Href ?? $"menu-item-{Guid.NewGuid():N}";
+    }
+
+    protected override TreeMenuNodeRegistration CreateRegistration()
+    {
+        return new TreeMenuNodeRegistration
+        {
+            Key = ResolvedKey,
+            Text = Text,
+            Icon = Icon,
+            IsDisabled = Disabled,
+            InitiallyExpanded = InitiallyExpanded,
+            Data = Data,
+            NodeContent = NodeContent,
+            ParentKey = ParentNodeKey,
+            Href = Href,
+            Target = Target,
+            Match = Match,
+            OnClick = OnClick
+        };
+    }
+
 }

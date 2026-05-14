@@ -1,4 +1,5 @@
 ﻿// BlazOrbit.Core\SourceGenerators\ColorClassGenerator.cs
+
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -18,13 +19,13 @@ namespace BlazOrbit.Core.CodeGeneration;
 public class ColorClassGenerator : IIncrementalGenerator
 {
     internal static readonly DiagnosticDescriptor MustBePartialStaticRule = new(
-        id: "BOBGEN010",
-        title: "AutogenerateCssColorsAttribute requires a partial static class",
-        messageFormat: "Class '{0}' is decorated with [AutogenerateCssColors] but is not declared as 'public static partial'. Add the missing modifier(s).",
-        category: "Usage",
-        defaultSeverity: DiagnosticSeverity.Error,
-        isEnabledByDefault: true,
-        description: "The ColorClassGenerator emits per-color nested classes as a partial extension of the target type; the target must therefore be declared 'static partial' so the generated file can merge with the user-authored source.");
+        "BOBGEN010",
+        "AutogenerateCssColorsAttribute requires a partial static class",
+        "Class '{0}' is decorated with [AutogenerateCssColors] but is not declared as 'public static partial'. Add the missing modifier(s).",
+        "Usage",
+        DiagnosticSeverity.Error,
+        true,
+        "The ColorClassGenerator emits per-color nested classes as a partial extension of the target type; the target must therefore be declared 'static partial' so the generated file can merge with the user-authored source.");
 
     private readonly record struct NamedColor(string Name, byte R, byte G, byte B, byte A);
 
@@ -55,8 +56,8 @@ public class ColorClassGenerator : IIncrementalGenerator
         IncrementalValuesProvider<ClassToGenerate> classDeclarations = context.SyntaxProvider
             .ForAttributeWithMetadataName(
                 AttributeMetadataName,
-                predicate: static (node, _) => node is ClassDeclarationSyntax,
-                transform: static (ctx, ct) => GetSemanticTargetFromAttribute(ctx, ct))
+                static (node, _) => node is ClassDeclarationSyntax,
+                static (ctx, ct) => GetSemanticTargetFromAttribute(ctx, ct))
             .Where(static m => m is not null)
             .Select(static (m, _) => m!.Value);
 
@@ -150,7 +151,7 @@ public class ColorClassGenerator : IIncrementalGenerator
         string namespaceName = classToGenerate.NamespaceName;
         string className = classToGenerate.ClassName;
 
-        StringBuilder sb = new(capacity: 64 * 1024);
+        StringBuilder sb = new(64 * 1024);
         sb.AppendLine("#nullable enable");
         sb.AppendLine();
         sb.AppendLine("using BlazOrbit.Components;");
@@ -176,15 +177,15 @@ public class ColorClassGenerator : IIncrementalGenerator
 
             sb.Append("    public static class ").Append(color.Name).Append("\r\n");
             sb.Append("    {\r\n");
-            AppendProperty(sb, "Default", color, variant: null);
+            AppendProperty(sb, "Default", color, null);
             for (int i = 1; i <= variantLevels; i++)
             {
-                AppendProperty(sb, $"Darken{i}", color, variant: $"CssColorVariant.Darken({i})");
+                AppendProperty(sb, $"Darken{i}", color, $"CssColorVariant.Darken({i})");
             }
 
             for (int i = 1; i <= variantLevels; i++)
             {
-                AppendProperty(sb, $"Lighten{i}", color, variant: $"CssColorVariant.Lighten({i})");
+                AppendProperty(sb, $"Lighten{i}", color, $"CssColorVariant.Lighten({i})");
             }
 
             sb.Append("    }\r\n");

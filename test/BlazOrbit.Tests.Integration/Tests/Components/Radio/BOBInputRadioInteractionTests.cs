@@ -83,7 +83,7 @@ public class BOBInputRadioInteractionTests
         IRenderedComponent<TestBOBInputRadioConsumer> cut = ctx.Render<TestBOBInputRadioConsumer>();
 
         // Act
-        cut.FindAll(".bob-radio__option")[0].KeyDown(key: " ");
+        cut.FindAll(".bob-radio__option")[0].KeyDown(" ");
 
         // Assert
         cut.Find(".selected-value").TextContent.Should().Be("opt1");
@@ -98,7 +98,7 @@ public class BOBInputRadioInteractionTests
         IRenderedComponent<TestBOBInputRadioConsumer> cut = ctx.Render<TestBOBInputRadioConsumer>();
 
         // Act
-        cut.FindAll(".bob-radio__option")[1].KeyDown(key: "Enter");
+        cut.FindAll(".bob-radio__option")[1].KeyDown("Enter");
 
         // Assert
         cut.Find(".selected-value").TextContent.Should().Be("opt2");

@@ -12,6 +12,7 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.DataCollections;
 public class BOBDataCardsStateTests
 {
     private sealed record Person(string Name, int Age);
+
     private static readonly Expression<Func<Person, object?>> NameExpr = p => (object?)p.Name;
 
     private static RenderFragment Columns => b =>

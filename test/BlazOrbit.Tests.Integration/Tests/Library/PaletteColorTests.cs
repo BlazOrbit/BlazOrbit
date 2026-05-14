@@ -68,7 +68,7 @@ public class PaletteColorTests
         foreach (string css in values)
         {
             css.Should().StartWith("var(--palette-",
-                because: $"PaletteColor '{css}' must reference a --palette-* CSS variable");
+                $"PaletteColor '{css}' must reference a --palette-* CSS variable");
         }
     }
 }

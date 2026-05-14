@@ -30,9 +30,8 @@ public class BOBModalHostSnapshotTests
 
         var testCases = new[]
         {
-            new { Name = "Empty", Html = emptyMarkup },
-            new { Name = "Single_Modal", Html = singleModalMarkup },
-            new { Name = "Stacked_Modals", Html = stackedMarkup },
+            new { Name = "Empty", Html = emptyMarkup }, new { Name = "Single_Modal", Html = singleModalMarkup },
+            new { Name = "Stacked_Modals", Html = stackedMarkup }
         };
 
         await Verify(testCases).UseParameters(scenario.Name);

@@ -22,7 +22,11 @@ public class ToastServiceTests
     {
         ToastService sut = new();
         bool notified = false;
-        sut.OnChangeAsync += () => { notified = true; return Task.CompletedTask; };
+        sut.OnChangeAsync += () =>
+        {
+            notified = true;
+            return Task.CompletedTask;
+        };
 
         await sut.ShowAsync(_ => { });
 
@@ -122,5 +126,7 @@ public class ToastServiceTests
         sut.ActiveToasts.Should().ContainSingle();
     }
 
-    private sealed class EmptyComponent : ComponentBase { }
+    private sealed class EmptyComponent : ComponentBase
+    {
+    }
 }

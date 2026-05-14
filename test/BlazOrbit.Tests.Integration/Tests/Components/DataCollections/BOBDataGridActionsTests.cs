@@ -13,12 +13,10 @@ public class BOBDataGridActionsTests
 {
     private sealed record Person(string Name, int Age, bool ReadOnly = false);
 
-    private static IEnumerable<Person> Items => new[]
-    {
-        new Person("Alice", 30),
-        new Person("Bob", 25, ReadOnly: true),
-        new Person("Carol", 35),
-    };
+    private static IEnumerable<Person> Items =>
+    [
+        new Person("Alice", 30), new Person("Bob", 25, true), new Person("Carol", 35)
+    ];
 
     private static RenderFragment SimpleColumns => b =>
     {
@@ -57,22 +55,22 @@ public class BOBDataGridActionsTests
         IRenderedComponent<BOBDataGrid<Person>> cut = ctx.Render<BOBDataGrid<Person>>(p => p
             .Add(c => c.Items, Items)
             .Add(c => c.Columns, SimpleColumns)
-            .Add(c => c.RowActions, new[]
-            {
+            .Add(c => c.RowActions,
+            [
                 new DataCollectionRowAction<Person>
-                {
-                    Label = "Edit",
-                    Icon = BOBIconKeys.MaterialIconsOutlined.i_edit,
-                    OnClick = _ => Task.CompletedTask,
-                },
-                new DataCollectionRowAction<Person>
-                {
-                    Label = "Delete",
-                    Icon = BOBIconKeys.MaterialIconsOutlined.i_delete,
-                    Color = PaletteColor.Error,
-                    OnClick = _ => Task.CompletedTask,
-                },
-            }));
+                    {
+                        Label = "Edit",
+                        Icon = BOBIconKeys.MaterialIconsOutlined.i_edit,
+                        OnClick = _ => Task.CompletedTask
+                    },
+                    new DataCollectionRowAction<Person>
+                    {
+                        Label = "Delete",
+                        Icon = BOBIconKeys.MaterialIconsOutlined.i_delete,
+                        Color = PaletteColor.Error,
+                        OnClick = _ => Task.CompletedTask
+                    }
+            ]));
 
         // 3 rows × 2 actions each = 6 buttons, plus 1 header action cell.
         cut.FindAll("th.bob-datagrid__actions-cell").Should().HaveCount(1);
@@ -89,15 +87,13 @@ public class BOBDataGridActionsTests
         IRenderedComponent<BOBDataGrid<Person>> cut = ctx.Render<BOBDataGrid<Person>>(p => p
             .Add(c => c.Items, Items)
             .Add(c => c.Columns, SimpleColumns)
-            .Add(c => c.RowActions, new[]
-            {
+            .Add(c => c.RowActions,
+            [
                 new DataCollectionRowAction<Person>
-                {
-                    Label = "Delete",
-                    Visible = item => !item.ReadOnly,
-                    OnClick = _ => Task.CompletedTask,
-                },
-            }));
+                    {
+                        Label = "Delete", Visible = item => !item.ReadOnly, OnClick = _ => Task.CompletedTask
+                    }
+            ]));
 
         // 3 rows but Bob is ReadOnly → only 2 buttons.
         cut.FindAll("td.bob-datagrid__actions-cell button").Should().HaveCount(2);
@@ -113,14 +109,17 @@ public class BOBDataGridActionsTests
         IRenderedComponent<BOBDataGrid<Person>> cut = ctx.Render<BOBDataGrid<Person>>(p => p
             .Add(c => c.Items, Items)
             .Add(c => c.Columns, SimpleColumns)
-            .Add(c => c.RowActions, new[]
-            {
+            .Add(c => c.RowActions, [
                 new DataCollectionRowAction<Person>
                 {
                     Label = "Edit",
-                    OnClick = item => { captured = item; return Task.CompletedTask; },
-                },
-            }));
+                    OnClick = item =>
+                    {
+                        captured = item;
+                        return Task.CompletedTask;
+                    }
+                }
+            ]));
 
         cut.FindAll("td.bob-datagrid__actions-cell button").First().Click();
 
@@ -139,16 +138,19 @@ public class BOBDataGridActionsTests
             .Add(c => c.Items, Items)
             .Add(c => c.Columns, SimpleColumns)
             .Add(c => c.SelectionMode, SelectionMode.Multiple)
-            .Add(c => c.BulkActions, new[]
-            {
+            .Add(c => c.BulkActions, [
                 new DataCollectionBulkAction<Person>
                 {
                     Label = "Delete selected",
                     Icon = BOBIconKeys.MaterialIconsOutlined.i_delete,
                     Color = PaletteColor.Error,
-                    OnClick = sel => { captured = sel; return Task.CompletedTask; },
-                },
-            }));
+                    OnClick = sel =>
+                    {
+                        captured = sel;
+                        return Task.CompletedTask;
+                    }
+                }
+            ]));
 
         // Toolbar empty before selection.
         cut.FindAll(".bob-dc__selection-info button").Should().HaveCount(0);

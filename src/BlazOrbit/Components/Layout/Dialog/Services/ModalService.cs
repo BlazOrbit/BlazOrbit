@@ -17,7 +17,7 @@ public interface IModalService
 
     /// <summary>Opens a dialog and awaits a typed result.</summary>
     Task<TResult?> ShowDialogAsync<TComponent, TResult>(
-                object? parameters = null,
+        object? parameters = null,
         DialogOptions? options = null)
         where TComponent : IModalContent;
 
@@ -74,7 +74,7 @@ public sealed class ModalService : IModalService
 
     /// <inheritdoc />
     public async Task<TResult?> ShowDialogAsync<TComponent, TResult>(
-                object? parameters = null,
+        object? parameters = null,
         DialogOptions? options = null)
         where TComponent : IModalContent
     {
@@ -140,8 +140,15 @@ public sealed class ModalService : IModalService
         await NotifyChangeAsync();
     }
 
+    // AOT note: `parameters` is enumerated by reflection (GetProperties) to splat each
+    // public property as a named Blazor parameter on the modal component. The trimmer
+    // must therefore preserve the public properties of the concrete type the caller
+    // passes — typically an anonymous type the compiler emits with the right shape, so
+    // it is preserved by usage, but apps that synthesise parameter objects from arbitrary
+    // CLR types must root those types via DynamicDependency or similar.
+    [System.Diagnostics.CodeAnalysis.RequiresUnreferencedCode("The parameters object is enumerated by reflection; the trimmer cannot prove which properties on its concrete runtime type to preserve.")]
     private ModalState CreateModalState<TComponent>(
-            ModalType type,
+        ModalType type,
         object? parameters,
         ModalOptionsBase options)
         where TComponent : IModalContent

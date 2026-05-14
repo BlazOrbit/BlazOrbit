@@ -1,0 +1,128 @@
+// Auto-migrated from StepperPage.es.resx. Edit freely from now on.
+
+# Account
+Cuenta
+
+# Account form…
+Formulario de cuenta…
+
+# Allow advancing to step 3
+Permitir avanzar al paso 3
+
+# Allow skipping ahead
+Permitir saltar adelante
+
+# Alpha
+Alfa
+
+# Already done.
+Ya hecho.
+
+# Back
+Atrás
+
+# Beta
+Beta
+
+# BOBStepper
+BOBStepper
+
+# Cancellable transition
+Transición cancelable
+
+# Component
+Componente
+
+# Confirm
+Confirmar
+
+# Done
+Hecho
+
+# Finish
+Finalizar
+
+# First
+Primero
+
+# Gamma
+Gamma
+
+# Going to step 3 is blocked until you tick the checkbox.
+Ir al paso 3 está bloqueado hasta que marques la casilla.
+
+# Horizontal (default)
+Horizontal (predeterminado)
+
+# Map
+Mapa
+
+# Match the columns
+Coincidir las columnas
+
+# Multi-step flow with header rail, body slot, and cancellable step transitions.
+Flujo multi-paso con raíl de encabezado, slot de cuerpo y transiciones de paso cancelables.
+
+# Next
+Siguiente
+
+# One
+Uno
+
+# Pending.
+Pendiente.
+
+# Pick a plan…
+Elige un plan…
+
+# Pick the input file
+Selecciona el archivo de entrada
+
+# Plan
+Plan
+
+# Properties
+Propiedades
+
+# Review and confirm.
+Revisar y confirmar.
+
+# Review and import
+Revisar e importar
+
+# Source
+Fuente
+
+# Step 1 body.
+Cuerpo del paso 1.
+
+# Step 2 body.
+Cuerpo del paso 2.
+
+# Step 3 body.
+Cuerpo del paso 3.
+
+# Step with error
+Paso con error
+
+# Step:
+Paso:
+
+# Three
+Tres
+
+# Two
+Dos
+
+# Validate
+Validar
+
+# Validation failed — fix the form below.
+Validación fallida — corrige el formulario de abajo.
+
+# Vertical
+Vertical
+
+# With AllowSkip, every header is reachable directly.
+Con AllowSkip, cada encabezado es accesible directamente.
+

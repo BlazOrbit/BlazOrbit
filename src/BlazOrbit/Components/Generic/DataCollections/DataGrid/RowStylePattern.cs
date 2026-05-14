@@ -81,9 +81,15 @@ internal sealed class AlternatingRowStylePattern : RowStylePattern
 
     internal override string? GetItemInlineStyle(int index)
     {
-        if (index % 2 == 0 && _evenBackground != null) { return $"{FeatureDefinitions.InlineVariables.RowPatternBackground}: {_evenBackground}"; }
+        if (index % 2 == 0 && _evenBackground != null)
+        {
+            return $"{FeatureDefinitions.InlineVariables.RowPatternBackground}: {_evenBackground}";
+        }
 
-        if (index % 2 != 0 && _oddBackground != null) { return $"{FeatureDefinitions.InlineVariables.RowPatternBackground}: {_oddBackground}"; }
+        if (index % 2 != 0 && _oddBackground != null)
+        {
+            return $"{FeatureDefinitions.InlineVariables.RowPatternBackground}: {_oddBackground}";
+        }
 
         return null;
     }
@@ -116,7 +122,9 @@ internal sealed class EveryNthRowStylePattern : RowStylePattern
             };
     }
 
-    internal override string? GetItemInlineStyle(int index) => index % _n == 0 ? $"{FeatureDefinitions.InlineVariables.RowPatternBackground}: {_backgroundColor}" : null;
+    internal override string? GetItemInlineStyle(int index) => index % _n == 0
+        ? $"{FeatureDefinitions.InlineVariables.RowPatternBackground}: {_backgroundColor}"
+        : null;
 }
 
 internal sealed class AllRowStylePattern : RowStylePattern
@@ -227,7 +235,7 @@ public static class BOBRowPatternPresets
     /// </summary>
     public static RowStylePattern Striped
         => RowStylePattern.Alternating(
-            evenBackground: "var(--_dc-header-bg)");
+            "var(--_dc-header-bg)");
 
     /// <summary>
     /// A preset that stripes rows using the header background color for odd rows.

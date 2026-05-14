@@ -21,7 +21,7 @@ public class BOBAspectRatioRenderingTests
 
         IElement root = cut.Find("bob-component");
         root.GetAttribute("data-bob-component").Should().Be("aspect-ratio");
-        root.GetAttribute("style").Should().Contain("--bob-inline-aspect-ratio:16 / 9");
+        root.GetAttribute("style").Should().Contain("--bob-inline-aspect-ratio: 16 / 9");
         cut.Find(".bob-aspect-ratio__inner").TextContent.Should().Be("fill");
     }
 
@@ -34,7 +34,7 @@ public class BOBAspectRatioRenderingTests
         IRenderedComponent<BOBAspectRatio> cut = ctx.Render<BOBAspectRatio>(p => p
             .Add(c => c.Ratio, "1 / 1"));
 
-        cut.Find("bob-component").GetAttribute("style").Should().Contain("--bob-inline-aspect-ratio:1 / 1");
+        cut.Find("bob-component").GetAttribute("style").Should().Contain("--bob-inline-aspect-ratio: 1 / 1");
     }
 
     [Theory]
@@ -46,7 +46,7 @@ public class BOBAspectRatioRenderingTests
         IRenderedComponent<BOBAspectRatio> cut = ctx.Render<BOBAspectRatio>(p => p
             .Add(c => c.Ratio, ""));
 
-        cut.Find("bob-component").GetAttribute("style").Should().Contain("--bob-inline-aspect-ratio:16 / 9");
+        cut.Find("bob-component").GetAttribute("style").Should().Contain("--bob-inline-aspect-ratio: 16 / 9");
     }
 }
 
@@ -61,18 +61,26 @@ public class BOBAspectRatioSnapshotTests
 
         var testCases = new[]
         {
-            new { Name = "Default", Builder = (Action<ComponentParameterCollectionBuilder<BOBAspectRatio>>)(p => p
-                .AddChildContent("<div>x</div>")) },
-            new { Name = "Square", Builder = (Action<ComponentParameterCollectionBuilder<BOBAspectRatio>>)(p => p
-                .Add(c => c.Ratio, "1 / 1")
-                .AddChildContent("<div>x</div>")) },
+            new
+            {
+                Name = "Default",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBAspectRatio>>)(p => p
+                    .AddChildContent("<div>x</div>"))
+            },
+            new
+            {
+                Name = "Square",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBAspectRatio>>)(p => p
+                    .Add(c => c.Ratio, "1 / 1")
+                    .AddChildContent("<div>x</div>"))
+            }
         };
 
         var results = testCases.Select(tc =>
         {
             IRenderedComponent<BOBAspectRatio> cut = ctx.Render<BOBAspectRatio>(tc.Builder);
             return new { tc.Name, Html = cut.GetNormalizedMarkup() };
-        });
+        }).ToList();
 
         await Verify(results).UseParameters(scenario.Name);
     }

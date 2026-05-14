@@ -37,7 +37,7 @@ internal sealed class BOBComponentAttributesBuilder
         PureBuiltComponent = 1u << 23,
 
         VolatileMask =
-            Active | Disabled | Loading | Error | ReadOnly | Required,
+            Active | Disabled | Loading | Error | ReadOnly | Required
     }
 
     private readonly record struct TypeInfo(string ComponentName, ComponentFeatures Features);
@@ -471,22 +471,26 @@ internal sealed class BOBComponentAttributesBuilder
 
         if ((flags & ComponentFeatures.Size) != 0)
         {
-            ComputedAttributes[FeatureDefinitions.DataAttributes.Size] = ((IHasSize)component).Size.ToString().ToLowerInvariant();
+            ComputedAttributes[FeatureDefinitions.DataAttributes.Size] =
+                ((IHasSize)component).Size.ToString().ToLowerInvariant();
         }
 
         if ((flags & ComponentFeatures.Density) != 0)
         {
-            ComputedAttributes[FeatureDefinitions.DataAttributes.Density] = ((IHasDensity)component).Density.ToString().ToLowerInvariant();
+            ComputedAttributes[FeatureDefinitions.DataAttributes.Density] =
+                ((IHasDensity)component).Density.ToString().ToLowerInvariant();
         }
 
         if ((flags & ComponentFeatures.FullWidth) != 0)
         {
-            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.FullWidth, ((IHasFullWidth)component).FullWidth);
+            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.FullWidth,
+                ((IHasFullWidth)component).FullWidth);
         }
 
         if ((flags & ComponentFeatures.Loading) != 0)
         {
-            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.Loading, ((IHasLoading)component).Loading);
+            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.Loading,
+                ((IHasLoading)component).Loading);
         }
 
         if ((flags & ComponentFeatures.Error) != 0)
@@ -496,7 +500,8 @@ internal sealed class BOBComponentAttributesBuilder
 
         if ((flags & ComponentFeatures.Disabled) != 0)
         {
-            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.Disabled, ((IHasDisabled)component).IsDisabled);
+            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.Disabled,
+                ((IHasDisabled)component).IsDisabled);
         }
 
         if ((flags & ComponentFeatures.Active) != 0)
@@ -506,12 +511,14 @@ internal sealed class BOBComponentAttributesBuilder
 
         if ((flags & ComponentFeatures.ReadOnly) != 0)
         {
-            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.ReadOnly, ((IHasReadOnly)component).IsReadOnly);
+            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.ReadOnly,
+                ((IHasReadOnly)component).IsReadOnly);
         }
 
         if ((flags & ComponentFeatures.Required) != 0)
         {
-            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.Required, ((IHasRequired)component).IsRequired);
+            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.Required,
+                ((IHasRequired)component).IsRequired);
         }
 
         if ((flags & ComponentFeatures.Prefix) != 0)
@@ -561,7 +568,8 @@ internal sealed class BOBComponentAttributesBuilder
                 ComputedAttributes[FeatureDefinitions.DataAttributes.Elevation] =
                     level.ToString(System.Globalization.CultureInfo.InvariantCulture);
                 cssVariables[FeatureDefinitions.InlineVariables.ElevationTint] =
-                    BOBElevationPresets.SurfaceTintPercent(level).ToString(System.Globalization.CultureInfo.InvariantCulture) + "%";
+                    BOBElevationPresets.SurfaceTintPercent(level)
+                        .ToString(System.Globalization.CultureInfo.InvariantCulture) + "%";
 
                 // Shadow precedence: an explicit IHasShadow.Shadow already populated
                 // --bob-inline-shadow above. Only emit the elevation-derived shadow when
@@ -660,7 +668,8 @@ internal sealed class BOBComponentAttributesBuilder
                     cssVariables[kv.Key] = kv.Value;
                 }
 
-                ComputedAttributes[FeatureDefinitions.DataAttributes.Transitions] = transitions.Transitions.GetDataAttributeValue();
+                ComputedAttributes[FeatureDefinitions.DataAttributes.Transitions] =
+                    transitions.Transitions.GetDataAttributeValue();
             }
         }
 
@@ -690,12 +699,14 @@ internal sealed class BOBComponentAttributesBuilder
 
         if ((flags & ComponentFeatures.Disabled) != 0)
         {
-            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.Disabled, ((IHasDisabled)component).IsDisabled);
+            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.Disabled,
+                ((IHasDisabled)component).IsDisabled);
         }
 
         if ((flags & ComponentFeatures.Loading) != 0)
         {
-            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.Loading, ((IHasLoading)component).Loading);
+            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.Loading,
+                ((IHasLoading)component).Loading);
         }
 
         if ((flags & ComponentFeatures.Error) != 0)
@@ -705,12 +716,14 @@ internal sealed class BOBComponentAttributesBuilder
 
         if ((flags & ComponentFeatures.ReadOnly) != 0)
         {
-            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.ReadOnly, ((IHasReadOnly)component).IsReadOnly);
+            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.ReadOnly,
+                ((IHasReadOnly)component).IsReadOnly);
         }
 
         if ((flags & ComponentFeatures.Required) != 0)
         {
-            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.Required, ((IHasRequired)component).IsRequired);
+            SetBoolAttr(ComputedAttributes, FeatureDefinitions.DataAttributes.Required,
+                ((IHasRequired)component).IsRequired);
         }
     }
 

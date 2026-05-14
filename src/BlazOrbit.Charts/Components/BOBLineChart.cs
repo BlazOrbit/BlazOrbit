@@ -31,37 +31,44 @@ public class BOBLineChart<TX, TY> :
     where TX : notnull
 {
     /// <inheritdoc />
-    [Parameter] public IEnumerable<BOBChartSeries<TX, TY>>? Series { get; set; }
+    [Parameter]
+    public IEnumerable<BOBChartSeries<TX, TY>>? Series { get; set; }
 
     /// <inheritdoc />
-    [Parameter] public BOBChartAxis XAxis { get; set; } = new();
+    [Parameter]
+    public BOBChartAxis XAxis { get; set; } = new();
 
     /// <inheritdoc />
-    [Parameter] public BOBChartAxis YAxis { get; set; } = new();
+    [Parameter]
+    public BOBChartAxis YAxis { get; set; } = new();
 
     /// <summary>
     /// When <c>true</c> the line is drawn as a smooth Catmull-Rom curve
     /// instead of a straight polyline. Defaults to <c>false</c> (polyline)
     /// because abrupt changes in data are visually clearer that way.
     /// </summary>
-    [Parameter] public bool Smooth { get; set; }
+    [Parameter]
+    public bool Smooth { get; set; }
 
     /// <summary>
     /// When <c>true</c> a small filled circle is drawn at each data point
     /// (also serves as the hover target for the native SVG <c>&lt;title&gt;</c>
     /// tooltip). Defaults to <c>true</c>.
     /// </summary>
-    [Parameter] public bool ShowMarkers { get; set; } = true;
+    [Parameter]
+    public bool ShowMarkers { get; set; } = true;
 
     /// <summary>Pixel radius of the per-point markers when <see cref="ShowMarkers"/> is on.</summary>
-    [Parameter] public double MarkerRadius { get; set; } = 3.5;
+    [Parameter]
+    public double MarkerRadius { get; set; } = 3.5;
 
     /// <summary>
     /// Horizontal reference / threshold lines drawn across the plot area
     /// (e.g. SLO targets, baselines, regulatory caps). Inherited by
     /// <see cref="BOBAreaChart{TX, TY}"/> automatically.
     /// </summary>
-    [Parameter] public IEnumerable<BOBChartReferenceLine>? ReferenceLines { get; set; }
+    [Parameter]
+    public IEnumerable<BOBChartReferenceLine>? ReferenceLines { get; set; }
 
     /// <summary>
     /// Free-form annotations rendered on top of the series: text labels
@@ -69,7 +76,8 @@ public class BOBLineChart<TX, TY> :
     /// (<see cref="BOBChartBandAnnotation{TX}"/>), and symbol markers
     /// (<see cref="BOBChartShapeAnnotation{TX, TY}"/>).
     /// </summary>
-    [Parameter] public IEnumerable<BOBChartAnnotation>? Annotations { get; set; }
+    [Parameter]
+    public IEnumerable<BOBChartAnnotation>? Annotations { get; set; }
 
     /// <summary>
     /// When <c>true</c>, series are stacked: each series' Y at every X is
@@ -84,7 +92,8 @@ public class BOBLineChart<TX, TY> :
     /// <see cref="BOBBarChart{TX, TY}.StackMode"/> parameter.
     /// </para>
     /// </summary>
-    [Parameter] public bool Stacked { get; set; }
+    [Parameter]
+    public bool Stacked { get; set; }
 
     /// <summary>
     /// When <c>true</c>, the chart enables wheel-to-zoom and double-click-
@@ -96,7 +105,8 @@ public class BOBLineChart<TX, TY> :
     /// categorical X axes have no continuous coordinate to zoom into.
     /// </para>
     /// </summary>
-    [Parameter] public bool ZoomEnabled { get; set; }
+    [Parameter]
+    public bool ZoomEnabled { get; set; }
 
     /// <summary>
     /// When <c>true</c>, drag on the plot area paints a translucent
@@ -106,20 +116,23 @@ public class BOBLineChart<TX, TY> :
     /// drag = brush; wheel zoom + double-click reset still work.
     /// Default <c>false</c>. Continuous X axes only.
     /// </summary>
-    [Parameter] public bool BrushEnabled { get; set; }
+    [Parameter]
+    public bool BrushEnabled { get; set; }
 
     /// <summary>
     /// When <c>true</c> (default), a finished brush drag automatically
     /// zooms to the selected X range. Disable to use brush purely as a
     /// "select range" callback for master/detail layouts.
     /// </summary>
-    [Parameter] public bool BrushAutoZoom { get; set; } = true;
+    [Parameter]
+    public bool BrushAutoZoom { get; set; } = true;
 
     /// <summary>
     /// Fired when the user releases a brush drag. Carries the selected
     /// range in the original <typeparamref name="TX"/> domain.
     /// </summary>
-    [Parameter] public EventCallback<BOBChartBrushArgs<TX>> OnBrush { get; set; }
+    [Parameter]
+    public EventCallback<BOBChartBrushArgs<TX>> OnBrush { get; set; }
 
     // Active brush drag state — pixels in plot-space (same coord as scale.Range).
     private bool _brushActive;
@@ -149,7 +162,8 @@ public class BOBLineChart<TX, TY> :
     /// (markers above the overlay still receive their own events; bare
     /// plot space drives the crosshair).
     /// </summary>
-    [Parameter] public bool ShowCrosshair { get; set; }
+    [Parameter]
+    public bool ShowCrosshair { get; set; }
 
     /// <summary>
     /// Active crosshair snapshot — set on mousemove over the plot overlay,
@@ -185,13 +199,15 @@ public class BOBLineChart<TX, TY> :
     /// <see cref="ShowMarkers"/> = <c>true</c> — when markers are off the
     /// line itself has no per-point hit targets.
     /// </summary>
-    [Parameter] public EventCallback<BOBChartClickArgs<TX, TY>> OnPointClick { get; set; }
+    [Parameter]
+    public EventCallback<BOBChartClickArgs<TX, TY>> OnPointClick { get; set; }
 
     /// <summary>
     /// Fired when the user hovers a point marker (mouseenter). Requires
     /// <see cref="ShowMarkers"/> = <c>true</c>.
     /// </summary>
-    [Parameter] public EventCallback<BOBChartHoverArgs<TX, TY>> OnDataHover { get; set; }
+    [Parameter]
+    public EventCallback<BOBChartHoverArgs<TX, TY>> OnDataHover { get; set; }
 
     /// <summary>
     /// Sparkline mode: hides axes, grid, tick labels, legend and tooltip
@@ -199,7 +215,8 @@ public class BOBLineChart<TX, TY> :
     /// with a small <c>Width</c> / <c>Height</c> (e.g. 120×32) to embed
     /// inline in tables, KPI cards, or list rows. Default <c>false</c>.
     /// </summary>
-    [Parameter] public bool Sparkline { get; set; }
+    [Parameter]
+    public bool Sparkline { get; set; }
 
     /// <summary>
     /// Maximum number of points kept per series in the streaming buffer
@@ -208,23 +225,26 @@ public class BOBLineChart<TX, TY> :
     /// FIFO. <c>null</c> = unlimited. Effective only after the first
     /// streaming append; pure parameter-driven series ignore the window.
     /// </summary>
-    [Parameter] public int? StreamingWindow { get; set; }
+    [Parameter]
+    public int? StreamingWindow { get; set; }
 
     /// <summary>
-    /// When <c>true</c>, <see cref="AppendPointsAsync(string,
-    /// System.Collections.Generic.IEnumerable{BOBChartPoint{TX, TY}})"/>
+    /// When <c>true</c>,
+    /// <see cref="AppendPointsAsync(string,System.Collections.Generic.IEnumerable{BOBChartPoint{TX, TY}})" />
     /// still updates the internal buffer but the chart does NOT re-render
     /// (the next non-paused append flushes the visible state). Use to
     /// freeze the view while inspecting a moving target. Default <c>false</c>.
     /// </summary>
-    [Parameter] public bool StreamingPaused { get; set; }
+    [Parameter]
+    public bool StreamingPaused { get; set; }
 
     /// <summary>
     /// When the user has zoomed in and a streaming append produces an X
     /// past the current visible window, slide the zoom range forward by
     /// the overflow so the newest point stays in view. Default <c>true</c>.
     /// </summary>
-    [Parameter] public bool StreamingFollow { get; set; } = true;
+    [Parameter]
+    public bool StreamingFollow { get; set; } = true;
 
     /// <summary>
     /// Optional debounce window: when set, rapid back-to-back
@@ -232,20 +252,22 @@ public class BOBLineChart<TX, TY> :
     /// after this delay since the last append. <c>null</c> (default)
     /// re-renders immediately on every append.
     /// </summary>
-    [Parameter] public TimeSpan? StreamingThrottle { get; set; }
+    [Parameter]
+    public TimeSpan? StreamingThrottle { get; set; }
 
     /// <summary>
     /// Fired after every streaming buffer mutation (append / reset /
     /// window-trim). Carries per-series counters for status banners.
     /// </summary>
-    [Parameter] public EventCallback<BOBChartStreamArgs<TX, TY>> OnStreamUpdate { get; set; }
+    [Parameter]
+    public EventCallback<BOBChartStreamArgs<TX, TY>> OnStreamUpdate { get; set; }
 
     // Per-series streaming buffer. Lazily created on first append. When a
     // series has an entry here, RenderSvg uses the buffer instead of the
     // parameter's Points (still gated by Series enumeration so toggling a
     // hidden series via the legend works as before).
     private Dictionary<string, List<BOBChartPoint<TX, TY>>>? _streamBuffer;
-    private System.Threading.CancellationTokenSource? _throttleCts;
+    private CancellationTokenSource? _throttleCts;
 
     /// <inheritdoc />
     protected override string BuildAriaLabel()
@@ -255,7 +277,7 @@ public class BOBLineChart<TX, TY> :
         {
             0 => "Line chart with no data",
             1 => "Line chart with one series",
-            _ => $"Line chart with {seriesCount} series",
+            _ => $"Line chart with {seriesCount} series"
         };
     }
 
@@ -282,6 +304,7 @@ public class BOBLineChart<TX, TY> :
                 originalIndices.Add(i);
             }
         }
+
         _originalSeriesIndices = originalIndices;
         if (seriesList.Count == 0)
         {
@@ -294,7 +317,8 @@ public class BOBLineChart<TX, TY> :
         // Points (the parameter became the seed; appends are the truth).
         List<List<BOBChartPoint<TX, TY>>> pointsBySeries =
             seriesList.Select(s =>
-                _streamBuffer is not null && _streamBuffer.TryGetValue(s.Label, out List<BOBChartPoint<TX, TY>>? buffered)
+                _streamBuffer is not null &&
+                _streamBuffer.TryGetValue(s.Label, out List<BOBChartPoint<TX, TY>>? buffered)
                     ? buffered.ToList()
                     : s.Points.ToList()).ToList();
 
@@ -322,12 +346,12 @@ public class BOBLineChart<TX, TY> :
         {
             cumulativeYBySeries = new List<double[]>(seriesList.Count);
             baselineYBySeries = new List<double[]>(seriesList.Count);
-            var running = new Dictionary<TX, double>();
+            Dictionary<TX, double> running = new();
             for (int s = 0; s < seriesList.Count; s++)
             {
                 List<BOBChartPoint<TX, TY>> pts = pointsBySeries[s];
-                var cumulative = new double[pts.Count];
-                var baseline = new double[pts.Count];
+                double[] cumulative = new double[pts.Count];
+                double[] baseline = new double[pts.Count];
                 for (int i = 0; i < pts.Count; i++)
                 {
                     // Negatives clamped to 0 in stacked mode (waterfall = v2).
@@ -337,6 +361,7 @@ public class BOBLineChart<TX, TY> :
                     cumulative[i] = prev + rawY;
                     running[pts[i].X] = cumulative[i];
                 }
+
                 cumulativeYBySeries.Add(cumulative);
                 baselineYBySeries.Add(baseline);
             }
@@ -709,7 +734,7 @@ public class BOBLineChart<TX, TY> :
                                 SeriesLabel = capturedSeries.Label,
                                 X = capturedPoint.X,
                                 Y = capturedPoint.Y,
-                                PointIndex = capturedIndex,
+                                PointIndex = capturedIndex
                             })));
                     builder.AddAttribute(seq++, "cursor", "pointer");
                 }
@@ -733,16 +758,17 @@ public class BOBLineChart<TX, TY> :
                                             SeriesLabel = capturedSeries.Label,
                                             X = capturedPoint.X,
                                             Y = capturedPoint.Y,
-                                            Color = capturedColor,
+                                            Color = capturedColor
                                         });
                                 }
+
                                 return fireHover
                                     ? OnDataHover.InvokeAsync(new BOBChartHoverArgs<TX, TY>
                                     {
                                         SeriesLabel = capturedSeries.Label,
                                         X = capturedPoint.X,
                                         Y = capturedPoint.Y,
-                                        PointIndex = capturedIndex,
+                                        PointIndex = capturedIndex
                                     })
                                     : Task.CompletedTask;
                             }));
@@ -785,11 +811,11 @@ public class BOBLineChart<TX, TY> :
 
         StringBuilder sb = new(points.Count * 16);
         sb.Append("M ").Append(ChartLayout.ToInvariant(points[0].X))
-          .Append(',').Append(ChartLayout.ToInvariant(points[0].Y));
+            .Append(',').Append(ChartLayout.ToInvariant(points[0].Y));
         for (int i = 1; i < points.Count; i++)
         {
             sb.Append(" L ").Append(ChartLayout.ToInvariant(points[i].X))
-              .Append(',').Append(ChartLayout.ToInvariant(points[i].Y));
+                .Append(',').Append(ChartLayout.ToInvariant(points[i].Y));
         }
 
         return sb.ToString();
@@ -813,7 +839,7 @@ public class BOBLineChart<TX, TY> :
 
         StringBuilder sb = new(points.Count * 32);
         sb.Append("M ").Append(ChartLayout.ToInvariant(points[0].X))
-          .Append(',').Append(ChartLayout.ToInvariant(points[0].Y));
+            .Append(',').Append(ChartLayout.ToInvariant(points[0].Y));
 
         for (int i = 0; i < points.Count - 1; i++)
         {
@@ -828,11 +854,11 @@ public class BOBLineChart<TX, TY> :
             double cp2y = y2 - ((y3 - y1) * tension);
 
             sb.Append(" C ")
-              .Append(ChartLayout.ToInvariant(cp1x)).Append(',').Append(ChartLayout.ToInvariant(cp1y))
-              .Append(' ')
-              .Append(ChartLayout.ToInvariant(cp2x)).Append(',').Append(ChartLayout.ToInvariant(cp2y))
-              .Append(' ')
-              .Append(ChartLayout.ToInvariant(x2)).Append(',').Append(ChartLayout.ToInvariant(y2));
+                .Append(ChartLayout.ToInvariant(cp1x)).Append(',').Append(ChartLayout.ToInvariant(cp1y))
+                .Append(' ')
+                .Append(ChartLayout.ToInvariant(cp2x)).Append(',').Append(ChartLayout.ToInvariant(cp2y))
+                .Append(' ')
+                .Append(ChartLayout.ToInvariant(x2)).Append(',').Append(ChartLayout.ToInvariant(y2));
         }
 
         return sb.ToString();
@@ -841,7 +867,11 @@ public class BOBLineChart<TX, TY> :
     /// <inheritdoc />
     private protected override IEnumerable<LegendEntry> GetLegendEntries()
     {
-        if (Series is null || Sparkline) yield break;
+        if (Series is null || Sparkline)
+        {
+            yield break;
+        }
+
         int i = 0;
         foreach (BOBChartSeries<TX, TY> s in Series)
         {
@@ -897,11 +927,13 @@ public class BOBLineChart<TX, TY> :
                             UpdateBrush(e.OffsetX + capturedLayout.PlotLeft, capturedLayout);
                             return;
                         }
+
                         if (_isPanning && capturedXLinear is not null)
                         {
                             HandlePan(e.OffsetX + capturedLayout.PlotLeft, capturedXLinear);
                             return;
                         }
+
                         if (wantsCrosshair)
                         {
                             UpdateCrosshair(e.OffsetX, capturedSeries, capturedPoints, capturedY,
@@ -916,7 +948,10 @@ public class BOBLineChart<TX, TY> :
                         // Clear all transient states so the next entry starts clean.
                         _isPanning = false;
                         _brushActive = false;
-                        if (wantsCrosshair) ClearCrosshair();
+                        if (wantsCrosshair)
+                        {
+                            ClearCrosshair();
+                        }
                     }));
         }
 
@@ -948,13 +983,13 @@ public class BOBLineChart<TX, TY> :
                             await CommitBrush(capturedXLinear);
                             return;
                         }
+
                         _isPanning = false;
                     }));
         }
 
         if (wantsZoom)
         {
-
             // Wheel zoom anchored at cursor X. The "@onwheel:preventDefault"
             // sugar isn't available from a manual RenderTreeBuilder, so we
             // emit the lowered attribute Blazor's compiler produces:
@@ -991,7 +1026,10 @@ public class BOBLineChart<TX, TY> :
 
     private async Task CommitBrush(LinearScale xScale)
     {
-        if (!_brushActive) return;
+        if (!_brushActive)
+        {
+            return;
+        }
 
         double leftPx = Math.Min(_brushStartPxX, _brushEndPxX);
         double rightPx = Math.Max(_brushStartPxX, _brushEndPxX);
@@ -1021,8 +1059,7 @@ public class BOBLineChart<TX, TY> :
         {
             await OnBrush.InvokeAsync(new BOBChartBrushArgs<TX>
             {
-                MinX = Numeric.FromDouble<TX>(minDomain),
-                MaxX = Numeric.FromDouble<TX>(maxDomain),
+                MinX = Numeric.FromDouble<TX>(minDomain), MaxX = Numeric.FromDouble<TX>(maxDomain)
             });
         }
     }
@@ -1039,7 +1076,11 @@ public class BOBLineChart<TX, TY> :
     {
         // Δpixels → Δdomain (inverted via the scale's pixels-per-unit).
         double pxRange = xScale.RangeMax - xScale.RangeMin;
-        if (pxRange <= 0) return;
+        if (pxRange <= 0)
+        {
+            return;
+        }
+
         double startRange = _panStartDomainMax - _panStartDomainMin;
         double pxDelta = cursorPxX - _panStartPxX;
         double domainDelta = -pxDelta * (startRange / pxRange);
@@ -1067,7 +1108,10 @@ public class BOBLineChart<TX, TY> :
         double currentMin = _zoomXMin ?? xScale.DomainMin;
         double currentMax = _zoomXMax ?? xScale.DomainMax;
         double currentRange = currentMax - currentMin;
-        if (currentRange <= 0) return;
+        if (currentRange <= 0)
+        {
+            return;
+        }
 
         double newRange = currentRange * factor;
         // Anchor: keep cursorDomainX at the same fractional position in
@@ -1080,7 +1124,10 @@ public class BOBLineChart<TX, TY> :
         // out past the data extent (use the underlying xScale's domain as
         // proxy — it was built without the zoom override the first render,
         // but here it includes the zoom; OK either way for the upper bound).
-        if (newRange < 1e-9) return; // numerical floor
+        if (newRange < 1e-9)
+        {
+            return; // numerical floor
+        }
 
         _zoomXMin = newMin;
         _zoomXMax = newMax;
@@ -1093,7 +1140,11 @@ public class BOBLineChart<TX, TY> :
     /// </summary>
     public void ResetZoom()
     {
-        if (_zoomXMin is null && _zoomXMax is null) return;
+        if (_zoomXMin is null && _zoomXMax is null)
+        {
+            return;
+        }
+
         _zoomXMin = null;
         _zoomXMax = null;
         StateHasChanged();
@@ -1112,12 +1163,15 @@ public class BOBLineChart<TX, TY> :
         // edge in some browsers with sub-pixel offset).
         double cursorX = Math.Clamp(mouseX, layout.PlotLeft, layout.PlotRight);
 
-        var entries = new List<CrosshairEntry>(seriesList.Count);
+        List<CrosshairEntry> entries = new(seriesList.Count);
         for (int s = 0; s < seriesList.Count; s++)
         {
             BOBChartSeries<TX, TY> series = seriesList[s];
             List<BOBChartPoint<TX, TY>> pts = pointsBySeries[s];
-            if (pts.Count == 0) continue;
+            if (pts.Count == 0)
+            {
+                continue;
+            }
 
             // Find the point whose projected X is closest to the cursor.
             int bestIdx = 0;
@@ -1154,7 +1208,7 @@ public class BOBLineChart<TX, TY> :
             return;
         }
 
-        var newState = new CrosshairState(cursorX, entries);
+        CrosshairState newState = new(cursorX, entries);
         if (_crosshair is { } prev && Math.Abs(prev.PixelX - cursorX) < 0.5)
         {
             // Sub-pixel jitter — skip re-render.
@@ -1167,7 +1221,11 @@ public class BOBLineChart<TX, TY> :
 
     private void ClearCrosshair()
     {
-        if (_crosshair is null) return;
+        if (_crosshair is null)
+        {
+            return;
+        }
+
         _crosshair = null;
         StateHasChanged();
     }
@@ -1176,7 +1234,10 @@ public class BOBLineChart<TX, TY> :
     private protected override void RenderHtmlOverlays(RenderTreeBuilder builder)
     {
         base.RenderHtmlOverlays(builder);
-        if (_crosshair is not { } cross) return;
+        if (_crosshair is not { } cross)
+        {
+            return;
+        }
 
         // Readout panel pinned at the cursor X with per-series rows.
         builder.OpenElement(80, "div");
@@ -1299,6 +1360,7 @@ public class BOBLineChart<TX, TY> :
         {
             return;
         }
+
         double leftPx = Math.Min(fromPx.Value, toPx.Value);
         double width = Math.Max(0, Math.Abs(toPx.Value - fromPx.Value));
         string fill = band.Color ?? "var(--palette-primary, #2563eb)";
@@ -1320,7 +1382,7 @@ public class BOBLineChart<TX, TY> :
         {
             builder.OpenElement(seq++, "text");
             builder.AddAttribute(seq++, "class", "bob-chart__annotation-band-label");
-            builder.AddAttribute(seq++, "x", ChartLayout.ToInvariant(leftPx + width / 2));
+            builder.AddAttribute(seq++, "x", ChartLayout.ToInvariant(leftPx + (width / 2)));
             builder.AddAttribute(seq++, "y", ChartLayout.ToInvariant(layout.PlotTop + 12));
             builder.AddAttribute(seq++, "text-anchor", "middle");
             builder.AddAttribute(seq++, "fill", fill);
@@ -1343,6 +1405,7 @@ public class BOBLineChart<TX, TY> :
         {
             return;
         }
+
         double cy = yScale.Project(Numeric.ToDouble(text.Y));
         string color = text.Color ?? "var(--palette-surface-contrast, #1f2937)";
 
@@ -1371,6 +1434,7 @@ public class BOBLineChart<TX, TY> :
         {
             return;
         }
+
         double cy = yScale.Project(Numeric.ToDouble(shape.Y));
         double r = shape.SizePx / 2;
         string fill = shape.Color ?? "var(--palette-primary, #2563eb)";
@@ -1439,15 +1503,16 @@ public class BOBLineChart<TX, TY> :
                     StringBuilder sb = new();
                     for (int i = 0; i < 10; i++)
                     {
-                        double angle = -Math.PI / 2 + i * Math.PI / 5;
+                        double angle = (-Math.PI / 2) + (i * Math.PI / 5);
                         double rad = (i & 1) == 0 ? r : inner;
-                        double px = cx.Value + Math.Cos(angle) * rad;
-                        double py = cy + Math.Sin(angle) * rad;
+                        double px = cx.Value + (Math.Cos(angle) * rad);
+                        double py = cy + (Math.Sin(angle) * rad);
                         sb.Append(i == 0 ? "M " : " L ");
                         sb.Append(px.ToString("G", CultureInfo.InvariantCulture));
                         sb.Append(' ');
                         sb.Append(py.ToString("G", CultureInfo.InvariantCulture));
                     }
+
                     sb.Append(" Z");
                     builder.OpenElement(seq++, "path");
                     builder.AddAttribute(seq++, "class", css);
@@ -1498,7 +1563,7 @@ public class BOBLineChart<TX, TY> :
                 SeriesLabel = seriesLabel,
                 AppendedCount = batch.Count,
                 TotalCount = buffer.Count,
-                DroppedByWindow = dropped,
+                DroppedByWindow = dropped
             });
         }
 
@@ -1528,10 +1593,7 @@ public class BOBLineChart<TX, TY> :
         {
             await OnStreamUpdate.InvokeAsync(new BOBChartStreamArgs<TX, TY>
             {
-                SeriesLabel = seriesLabel,
-                AppendedCount = 0,
-                TotalCount = buffer.Count,
-                DroppedByWindow = 0,
+                SeriesLabel = seriesLabel, AppendedCount = 0, TotalCount = buffer.Count, DroppedByWindow = 0
             });
         }
 
@@ -1561,9 +1623,10 @@ public class BOBLineChart<TX, TY> :
             // Seed from the Series parameter so the first append doesn't
             // wipe pre-existing static points.
             BOBChartSeries<TX, TY>? seed = Series?.FirstOrDefault(s => s.Label == label);
-            existing = seed?.Points.ToList() ?? new List<BOBChartPoint<TX, TY>>();
+            existing = seed?.Points.ToList() ?? [];
             _streamBuffer[label] = existing;
         }
+
         return existing;
     }
 
@@ -1573,6 +1636,7 @@ public class BOBLineChart<TX, TY> :
         {
             return 0;
         }
+
         int excess = buffer.Count - window;
         buffer.RemoveRange(0, excess);
         return excess;
@@ -1584,11 +1648,13 @@ public class BOBLineChart<TX, TY> :
         {
             return;
         }
+
         double newestX = batch.Max(p => Numeric.ToDouble(p.X));
         if (newestX <= _zoomXMax.Value)
         {
             return;
         }
+
         double overflow = newestX - _zoomXMax.Value;
         _zoomXMin += overflow;
         _zoomXMax += overflow;
@@ -1606,8 +1672,8 @@ public class BOBLineChart<TX, TY> :
         // schedules a new one. The fence between cancellation and a fresh
         // CTS is racy by design (we WANT the latest append's timer to win).
         _throttleCts?.Cancel();
-        _throttleCts = new System.Threading.CancellationTokenSource();
-        System.Threading.CancellationToken token = _throttleCts.Token;
+        _throttleCts = new CancellationTokenSource();
+        CancellationToken token = _throttleCts.Token;
 
         try
         {
@@ -1622,6 +1688,7 @@ public class BOBLineChart<TX, TY> :
         {
             return;
         }
+
         await InvokeAsync(StateHasChanged);
     }
 }

@@ -9,7 +9,8 @@ namespace BlazOrbit.Components;
 /// </summary>
 internal static partial class SvgMarkupSanitizer
 {
-    [GeneratedRegex(@"<\s*(script|iframe|object|embed|foreignObject)\b[^>]*>[\s\S]*?<\s*/\s*\1\s*>", RegexOptions.IgnoreCase)]
+    [GeneratedRegex(@"<\s*(script|iframe|object|embed|foreignObject)\b[^>]*>[\s\S]*?<\s*/\s*\1\s*>",
+        RegexOptions.IgnoreCase)]
     private static partial Regex DisallowedBlockTagRegex();
 
     [GeneratedRegex(@"<\s*(script|iframe|object|embed|foreignObject)\b[^>]*/?>", RegexOptions.IgnoreCase)]
@@ -18,7 +19,8 @@ internal static partial class SvgMarkupSanitizer
     [GeneratedRegex(@"\s+on[a-z]+\s*=\s*(?:""[^""]*""|'[^']*'|[^\s>]+)", RegexOptions.IgnoreCase)]
     private static partial Regex EventHandlerAttributeRegex();
 
-    [GeneratedRegex(@"(href|xlink:href)\s*=\s*(?:""\s*javascript:[^""]*""|'\s*javascript:[^']*')", RegexOptions.IgnoreCase)]
+    [GeneratedRegex(@"(href|xlink:href)\s*=\s*(?:""\s*javascript:[^""]*""|'\s*javascript:[^']*')",
+        RegexOptions.IgnoreCase)]
     private static partial Regex JavaScriptUriRegex();
 
     public static string Sanitize(string? markup)

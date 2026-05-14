@@ -5,10 +5,13 @@ public enum BOBStepState
 {
     /// <summary>Step lies ahead of the current position.</summary>
     Pending = 0,
+
     /// <summary>Step is the active position.</summary>
     Active = 1,
+
     /// <summary>Step lies behind the current position.</summary>
     Complete = 2,
+
     /// <summary>Step is flagged with an error (renders regardless of position).</summary>
-    Error = 3,
+    Error = 3
 }

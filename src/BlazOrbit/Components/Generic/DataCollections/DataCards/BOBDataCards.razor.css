@@ -14,139 +14,139 @@
     --_dc-card-background: var(--bob-inline-dc-card-background, var(--_dc-background));
 }
 
-    /* Sort Selector */
-    [data-bob-component="data-cards"] .bob-datacards__sort {
-        display: flex;
-        align-items: center;
-        gap: calc(0.5rem * var(--bob-density-multiplier, 1));
-        font-size: 0.875rem;
-    }
+/* Sort Selector */
+[data-bob-component="data-cards"] .bob-datacards__sort {
+    display: flex;
+    align-items: center;
+    gap: calc(0.5rem * var(--bob-density-multiplier, 1));
+    font-size: 0.875rem;
+}
 
-    /* Grid */
-    [data-bob-component="data-cards"] .bob-datacards__grid {
-        display: grid;
-        padding: var(--_dc-padding-y) var(--_dc-padding-x);
-    }
+/* Grid */
+[data-bob-component="data-cards"] .bob-datacards__grid {
+    display: grid;
+    padding: var(--_dc-padding-y) var(--_dc-padding-x);
+}
 
-    /* Card */
-    [data-bob-component="data-cards"] .bob-datacards__card {
-        --_dc-card-pattern-bg: var(--bob-inline-row-pattern-bg, var(--_dc-card-background));
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        background: var(--_dc-card-pattern-bg);
-        border: var(--_dc-card-border);
-        border-top: var(--_dc-card-border-top);
-        border-right: var(--_dc-card-border-right);
-        border-bottom: var(--_dc-card-border-bottom);
-        border-left: var(--_dc-card-border-left);
-        border-radius: var(--_dc-card-border-radius);
-        box-shadow: var(--_dc-card-shadow);
-        overflow: hidden;
-        transition: box-shadow 150ms ease, transform 150ms ease, background-color 150ms ease;
-    }
+/* Card */
+[data-bob-component="data-cards"] .bob-datacards__card {
+    --_dc-card-pattern-bg: var(--bob-inline-row-pattern-bg, var(--_dc-card-background));
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: var(--_dc-card-pattern-bg);
+    border: var(--_dc-card-border);
+    border-top: var(--_dc-card-border-top);
+    border-right: var(--_dc-card-border-right);
+    border-bottom: var(--_dc-card-border-bottom);
+    border-left: var(--_dc-card-border-left);
+    border-radius: var(--_dc-card-border-radius);
+    box-shadow: var(--_dc-card-shadow);
+    overflow: hidden;
+    transition: box-shadow 150ms ease, transform 150ms ease, background-color 150ms ease;
+}
 
-    [data-bob-component="data-cards"][data-bob-hoverable="true"] .bob-datacards__card:hover {
-        background: var(--_dc-hover-bg);
-    }
+[data-bob-component="data-cards"][data-bob-hoverable="true"] .bob-datacards__card:hover {
+    background: var(--_dc-hover-bg);
+}
 
-    [data-bob-component="data-cards"] .bob-datacards__card[data-bob-selected="true"] {
-        background: var(--_dc-selected-bg);
-        outline: 2px solid var(--palette-primary);
-        outline-offset: -2px;
-    }
+[data-bob-component="data-cards"] .bob-datacards__card[data-bob-selected="true"] {
+    background: var(--_dc-selected-bg);
+    outline: 2px solid var(--palette-primary);
+    outline-offset: -2px;
+}
 
-    [data-bob-component="data-cards"] .bob-datacards__card[data-bob-interactive="true"] {
-        cursor: pointer;
-    }
+[data-bob-component="data-cards"] .bob-datacards__card[data-bob-interactive="true"] {
+    cursor: pointer;
+}
 
-        [data-bob-component="data-cards"] .bob-datacards__card[data-bob-interactive="true"]:focus-visible {
-            outline: var(--bob-highlight-outline);
-            outline-offset: var(--bob-highlight-outline-offset);
-        }
+[data-bob-component="data-cards"] .bob-datacards__card[data-bob-interactive="true"]:focus-visible {
+    outline: var(--bob-highlight-outline);
+    outline-offset: var(--bob-highlight-outline-offset);
+}
 
-    /* Card Select */
-    [data-bob-component="data-cards"] .bob-datacards__card-select {
-        position: absolute;
-        top: 0.75rem;
-        right: 0.75rem;
-        /* Local stacking within the card — only needs to sit above sibling
-           card content. Not part of the global z-index scale. */
-        z-index: 1;
-    }
+/* Card Select */
+[data-bob-component="data-cards"] .bob-datacards__card-select {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    /* Local stacking within the card — only needs to sit above sibling
+       card content. Not part of the global z-index scale. */
+    z-index: 1;
+}
 
-    /* Card Header */
-    [data-bob-component="data-cards"] .bob-datacards__card-header {
-        padding: var(--_dc-padding-y) var(--_dc-padding-x);
-        border-bottom: 1px solid var(--palette-border);
-        font-weight: 600;
-    }
+/* Card Header */
+[data-bob-component="data-cards"] .bob-datacards__card-header {
+    padding: var(--_dc-padding-y) var(--_dc-padding-x);
+    border-bottom: 1px solid var(--palette-border);
+    font-weight: 600;
+}
 
-    /* Card Body */
-    [data-bob-component="data-cards"] .bob-datacards__card-body {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        gap: calc(0.5rem * var(--bob-density-multiplier, 1));
-        padding: var(--_dc-padding-y) var(--_dc-padding-x);
-    }
+/* Card Body */
+[data-bob-component="data-cards"] .bob-datacards__card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: calc(0.5rem * var(--bob-density-multiplier, 1));
+    padding: var(--_dc-padding-y) var(--_dc-padding-x);
+}
 
-    /* Card Footer */
-    [data-bob-component="data-cards"] .bob-datacards__card-footer {
-        padding: var(--_dc-padding-y) var(--_dc-padding-x);
-        border-top: 1px solid var(--palette-border);
-    }
+/* Card Footer */
+[data-bob-component="data-cards"] .bob-datacards__card-footer {
+    padding: var(--_dc-padding-y) var(--_dc-padding-x);
+    border-top: 1px solid var(--palette-border);
+}
 
-    /* Field */
-    [data-bob-component="data-cards"] .bob-datacards__field {
-        display: flex;
-        flex-direction: column;
-        gap: 0.125rem;
-    }
+/* Field */
+[data-bob-component="data-cards"] .bob-datacards__field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+}
 
-    [data-bob-component="data-cards"] .bob-datacards__field-label {
-        font-size: 0.75rem;
-        font-weight: 500;
-        color: var(--palette-surface-contrast);
-        opacity: 0.7;
-        text-transform: uppercase;
-        letter-spacing: 0.025em;
-    }
+[data-bob-component="data-cards"] .bob-datacards__field-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--palette-surface-contrast);
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 0.025em;
+}
 
-    [data-bob-component="data-cards"] .bob-datacards__field-value {
-        font-size: 0.875rem;
-    }
+[data-bob-component="data-cards"] .bob-datacards__field-value {
+    font-size: 0.875rem;
+}
 
-    /* ========================================
-   Card Patterns - CSS-expressible
-   ======================================== */
+/* ========================================
+Card Patterns - CSS-expressible
+======================================== */
 
-    /* Alternating pattern */
-    [data-bob-component="data-cards"][data-bob-row-pattern="alternating"] .bob-datacards__card:nth-child(even) {
-        --_dc-card-pattern-bg: var(--bob-inline-row-pattern-even-bg, var(--_dc-card-background));
-    }
+/* Alternating pattern */
+[data-bob-component="data-cards"][data-bob-row-pattern="alternating"] .bob-datacards__card:nth-child(even) {
+    --_dc-card-pattern-bg: var(--bob-inline-row-pattern-even-bg, var(--_dc-card-background));
+}
 
-    [data-bob-component="data-cards"][data-bob-row-pattern="alternating"] .bob-datacards__card:nth-child(odd) {
-        --_dc-card-pattern-bg: var(--bob-inline-row-pattern-odd-bg, var(--_dc-card-background));
-    }
+[data-bob-component="data-cards"][data-bob-row-pattern="alternating"] .bob-datacards__card:nth-child(odd) {
+    --_dc-card-pattern-bg: var(--bob-inline-row-pattern-odd-bg, var(--_dc-card-background));
+}
 
-    /* Every-Nth patterns */
-    [data-bob-component="data-cards"][data-bob-row-pattern="every-3"] .bob-datacards__card:nth-child(3n) {
-        --_dc-card-pattern-bg: var(--bob-inline-row-pattern-nth-bg, var(--_dc-card-background));
-    }
+/* Every-Nth patterns */
+[data-bob-component="data-cards"][data-bob-row-pattern="every-3"] .bob-datacards__card:nth-child(3n) {
+    --_dc-card-pattern-bg: var(--bob-inline-row-pattern-nth-bg, var(--_dc-card-background));
+}
 
-    [data-bob-component="data-cards"][data-bob-row-pattern="every-4"] .bob-datacards__card:nth-child(4n) {
-        --_dc-card-pattern-bg: var(--bob-inline-row-pattern-nth-bg, var(--_dc-card-background));
-    }
+[data-bob-component="data-cards"][data-bob-row-pattern="every-4"] .bob-datacards__card:nth-child(4n) {
+    --_dc-card-pattern-bg: var(--bob-inline-row-pattern-nth-bg, var(--_dc-card-background));
+}
 
-    [data-bob-component="data-cards"][data-bob-row-pattern="every-5"] .bob-datacards__card:nth-child(5n) {
-        --_dc-card-pattern-bg: var(--bob-inline-row-pattern-nth-bg, var(--_dc-card-background));
-    }
+[data-bob-component="data-cards"][data-bob-row-pattern="every-5"] .bob-datacards__card:nth-child(5n) {
+    --_dc-card-pattern-bg: var(--bob-inline-row-pattern-nth-bg, var(--_dc-card-background));
+}
 
-    /* All pattern */
-    [data-bob-component="data-cards"][data-bob-row-pattern="all"] .bob-datacards__card {
-        --_dc-card-pattern-bg: var(--bob-inline-row-pattern-all-bg, var(--_dc-card-background));
-    }
+/* All pattern */
+[data-bob-component="data-cards"][data-bob-row-pattern="all"] .bob-datacards__card {
+    --_dc-card-pattern-bg: var(--bob-inline-row-pattern-all-bg, var(--_dc-card-background));
+}
 
 /* === Row actions strip inside each card === */
 [data-bob-component="data-cards"] .bob-datacards__card-actions {
@@ -226,10 +226,10 @@
     height: 1rem;
     border-radius: 4px;
     background: linear-gradient(
-        90deg,
-        color-mix(in oklab, var(--palette-surface-contrast) 6%, transparent) 0%,
-        color-mix(in oklab, var(--palette-surface-contrast) 14%, transparent) 50%,
-        color-mix(in oklab, var(--palette-surface-contrast) 6%, transparent) 100%);
+            90deg,
+            color-mix(in oklab, var(--palette-surface-contrast) 6%, transparent) 0%,
+            color-mix(in oklab, var(--palette-surface-contrast) 14%, transparent) 50%,
+            color-mix(in oklab, var(--palette-surface-contrast) 6%, transparent) 100%);
     background-size: 200% 100%;
     /* Duration sourced from --bob-dc-anim-duration on the family bundle so
        reduced-motion is centralised (per CSS-MEDIA-01). */
@@ -246,8 +246,12 @@
 }
 
 @keyframes bob-dc-skeleton-pulse {
-    0%   { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
 }
 
 /* === Spinner fallback === */
@@ -268,7 +272,9 @@
 }
 
 @keyframes bob-dc-spinner {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /* === Error state === */
@@ -298,4 +304,32 @@
     display: flex;
     gap: 0.5rem;
     justify-content: center;
+}
+
+/* Virtualize ItemsProvider placeholder cards render while a slice is being fetched from
+   the data source. Shimmer mirrors the grid's --loading rows so the data-collection
+   family has a consistent affordance across hosts. */
+[data-bob-component="data-cards"] .bob-datacards__card--loading {
+    background: linear-gradient(
+        90deg,
+        var(--palette-surface) 0%,
+        color-mix(in oklab, var(--palette-surface) 92%, var(--palette-surface-contrast) 8%) 50%,
+        var(--palette-surface) 100%
+    );
+    background-size: 200% 100%;
+    animation: bob-datacards-shimmer 1.4s ease-in-out infinite;
+    min-height: 6rem;
+    border-radius: 0.5rem;
+}
+
+[data-bob-component="data-cards"] .bob-datacards__placeholder {
+    display: block;
+    height: 1em;
+    border-radius: 0.25rem;
+    background: color-mix(in oklab, var(--palette-surface) 85%, var(--palette-surface-contrast) 15%);
+}
+
+@keyframes bob-datacards-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
 }

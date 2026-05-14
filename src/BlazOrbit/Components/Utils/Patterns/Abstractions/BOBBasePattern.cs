@@ -24,7 +24,8 @@ public abstract class BOBBasePattern : ComponentBase, IPatternJsCallback, IAsync
     public bool Editable { get; set; } = true;
 
     /// <summary>Format string that defines the pattern (delegated to derived classes for parsing).</summary>
-    [Parameter, EditorRequired]
+    [Parameter]
+    [EditorRequired]
     public string Format { get; set; } = string.Empty;
 
     /// <summary>Current pattern value, two-way bound through <c>@bind-Text</c>. <see langword="null"/> means no complete value yet.</summary>
@@ -41,8 +42,7 @@ public abstract class BOBBasePattern : ComponentBase, IPatternJsCallback, IAsync
 
     protected string ComponentId { get; } = $"pattern_{Guid.NewGuid():N}";
 
-    [Inject]
-    private IPatternJsInterop Js { get; set; } = default!;
+    [Inject] private IPatternJsInterop Js { get; set; } = default!;
 
     public async ValueTask DisposeAsync()
     {
@@ -53,6 +53,7 @@ public abstract class BOBBasePattern : ComponentBase, IPatternJsCallback, IAsync
             catch (ObjectDisposedException) { }
             catch (InvalidOperationException) { }
             catch (TaskCanceledException) { }
+
             _jsCallbacksRelay.Dispose();
         }
 

@@ -109,7 +109,7 @@ public class BOBInputComponentBaseTests
         ctx.Services.AddSingleton(_jsInterop);
         // Arrange
         _jsInterop.AttachBehaviorsAsync(Arg.Any<BehaviorConfiguration>())
-                  .Returns(_jsModule);
+            .Returns(_jsModule);
 
         // Act
         TestModel model = new();
@@ -127,16 +127,16 @@ public class BOBInputComponentBaseTests
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
     public async Task Should_Render_When_ValueExpression_Is_Missing(BlazorScenario scenario)
     {
-        await using BlazorTestContextBase ctx = scenario.CreateContext();
-
-        // Act
-        Action act = () => ctx.Render<BOBInputComponentBase_TestStub>(p => p
-            .Add(c => c.Value, "No Expression"));
-
         // BOBInputComponentBase relaxes the InputBase contract: rendering outside an
         // EditForm without ValueExpression must not throw. A synthetic ValueExpression
         // is injected so the component renders standalone.
-        act.Should().NotThrow();
+        
+        await using BlazorTestContextBase ctx = scenario.CreateContext();
+
+        // Act & Assert
+        ctx.Invoking(x => x.Render<BOBInputComponentBase_TestStub>(p => p
+                .Add(c => c.Value, "No Expression")))
+            .Should().NotThrow();
     }
 
     [Theory]
@@ -249,9 +249,7 @@ public class BOBInputComponentBaseTests
         IRenderedComponent<BOBInputComponentBase_TestStub> cut = ctx.Render<BOBInputComponentBase_TestStub>(p => p
             .Add(c => c.ValueExpression, () => model.Value));
 
-        Action dispose = () => ctx.Renderer.Dispatcher.InvokeAsync(() => cut.Dispose()).GetAwaiter().GetResult();
-
-        dispose.Should().NotThrow();
+        await ctx.Renderer.Dispatcher.InvokeAsync(cut.Dispose);
     }
 
     #region Behavioral Tests (Design & Style)
@@ -308,8 +306,7 @@ public class BOBInputComponentBaseTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
         TestModel model = new();
-        Dictionary<string, object> additionalAttrs = new()
-        { { "style", "margin-top: 10px;" } };
+        Dictionary<string, object> additionalAttrs = new() { { "style", "margin-top: 10px;" } };
 
         IRenderedComponent<BOBInputComponentBase_TestStub> cut = ctx.Render<BOBInputComponentBase_TestStub>(p => p
             .Add(c => c.ValueExpression, () => model.Value)
@@ -356,7 +353,7 @@ public class BOBInputComponentBaseTests
         });
 
         cut.WaitForState(() => cut.Find("input").GetAttribute("data-bob-error") == "false"
-                            || !cut.Find("input").HasAttribute("data-bob-error"));
+                               || !cut.Find("input").HasAttribute("data-bob-error"));
     }
 
     [Theory]

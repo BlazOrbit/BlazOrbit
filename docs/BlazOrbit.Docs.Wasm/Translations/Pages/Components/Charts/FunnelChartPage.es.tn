@@ -1,0 +1,29 @@
+// Auto-migrated from FunnelChartPage.es.resx. Edit freely from now on.
+
+# BOBFunnelChart
+BOBFunnelChart
+
+# Chart
+Gráfico
+
+# Extra package required
+Paquete adicional requerido
+
+# Multi-stage drop-off visualization. Each row's width auto-scales to the largest value; the per-row label shows the absolute number plus its percentage of the top of the funnel.
+Visualización de abandono por etapas. El ancho de cada fila se escala automáticamente al valor más grande; la etiqueta por fila muestra el número absoluto más su porcentaje respecto a la cima del embudo.
+
+# Onboarding completion flow
+Flujo de finalización de incorporación
+
+# Rectangular bars
+Barras rectangulares
+
+# Sales funnel
+Embudo de ventas
+
+# Tapered=false drops the trapezoid shape and renders horizontal bars — better when the values are nearly equal.
+Tapered=false elimina la forma trapezoidal y renderiza barras horizontales: mejor cuando los valores son casi iguales.
+
+# This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs.
+Este gráfico requiere el paquete NuGet BlazOrbit.Charts. Instálalo con dotnet add package BlazOrbit.Charts y registra AddBlazOrbitCharts() en Program.cs.
+

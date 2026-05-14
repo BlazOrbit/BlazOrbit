@@ -9,30 +9,30 @@ namespace BlazOrbit.Core.CodeGeneration.Tests.Tests;
 public class ColorClassGeneratorTests
 {
     private const string AttributeSource = """
-        using System;
+                                           using System;
 
-        namespace BlazOrbit.Components;
+                                           namespace BlazOrbit.Components;
 
-        [AttributeUsage(AttributeTargets.Class)]
-        public sealed class AutogenerateCssColorsAttribute : Attribute
-        {
-            public AutogenerateCssColorsAttribute() { }
-            public AutogenerateCssColorsAttribute(int variantLevels) { }
-        }
-        """;
+                                           [AttributeUsage(AttributeTargets.Class)]
+                                           public sealed class AutogenerateCssColorsAttribute : Attribute
+                                           {
+                                               public AutogenerateCssColorsAttribute() { }
+                                               public AutogenerateCssColorsAttribute(int variantLevels) { }
+                                           }
+                                           """;
 
     [Fact]
     public async Task Should_Generate_Nothing_When_No_Attribute()
     {
         const string source = """
-            namespace TestNs;
+                              namespace TestNs;
 
-            public static partial class Colors { }
-            """;
+                              public static partial class Colors { }
+                              """;
 
         string output = GeneratorTestHarness.Run(
             new ColorClassGenerator(),
-            sources: [AttributeSource, source]);
+            [AttributeSource, source]);
 
         await Verify(output);
     }
@@ -41,17 +41,17 @@ public class ColorClassGeneratorTests
     public async Task Should_Generate_With_Default_Variant_Levels()
     {
         const string source = """
-            using BlazOrbit.Components;
+                              using BlazOrbit.Components;
 
-            namespace TestNs;
+                              namespace TestNs;
 
-            [AutogenerateCssColors]
-            public static partial class Colors { }
-            """;
+                              [AutogenerateCssColors]
+                              public static partial class Colors { }
+                              """;
 
         string output = GeneratorTestHarness.Run(
             new ColorClassGenerator(),
-            sources: [AttributeSource, source]);
+            [AttributeSource, source]);
 
         await Verify(output);
     }
@@ -60,17 +60,17 @@ public class ColorClassGeneratorTests
     public async Task Should_Generate_With_Custom_Variant_Levels()
     {
         const string source = """
-            using BlazOrbit.Components;
+                              using BlazOrbit.Components;
 
-            namespace TestNs;
+                              namespace TestNs;
 
-            [AutogenerateCssColors(2)]
-            public static partial class Colors { }
-            """;
+                              [AutogenerateCssColors(2)]
+                              public static partial class Colors { }
+                              """;
 
         string output = GeneratorTestHarness.Run(
             new ColorClassGenerator(),
-            sources: [AttributeSource, source]);
+            [AttributeSource, source]);
 
         await Verify(output);
     }
@@ -79,24 +79,24 @@ public class ColorClassGeneratorTests
     public async Task Should_Not_Generate_For_Attribute_With_Colliding_Substring_Name()
     {
         const string collidingAttribute = """
-            using System;
+                                          using System;
 
-            namespace TestNs;
+                                          namespace TestNs;
 
-            [AttributeUsage(AttributeTargets.Class)]
-            public sealed class FakeAutogenerateCssColorsHelperAttribute : Attribute { }
-            """;
+                                          [AttributeUsage(AttributeTargets.Class)]
+                                          public sealed class FakeAutogenerateCssColorsHelperAttribute : Attribute { }
+                                          """;
 
         const string source = """
-            namespace TestNs;
+                              namespace TestNs;
 
-            [FakeAutogenerateCssColorsHelper]
-            public static partial class NotAPalette { }
-            """;
+                              [FakeAutogenerateCssColorsHelper]
+                              public static partial class NotAPalette { }
+                              """;
 
         string output = GeneratorTestHarness.Run(
             new ColorClassGenerator(),
-            sources: [AttributeSource, collidingAttribute, source]);
+            [AttributeSource, collidingAttribute, source]);
 
         await Verify(output);
     }
@@ -106,34 +106,32 @@ public class ColorClassGeneratorTests
     public void Should_Reuse_Incremental_Cache_When_Source_Unchanged()
     {
         const string source = """
-            using BlazOrbit.Components;
+                              using BlazOrbit.Components;
 
-            namespace TestNs;
+                              namespace TestNs;
 
-            [AutogenerateCssColors(1)]
-            public static partial class Colors { }
-            """;
+                              [AutogenerateCssColors(1)]
+                              public static partial class Colors { }
+                              """;
 
         CSharpCompilation compilation = CSharpCompilation.Create(
-            assemblyName: "GeneratorCacheTest",
-            syntaxTrees: new[]
-            {
+            "GeneratorCacheTest",
+            [
                 CSharpSyntaxTree.ParseText(AttributeSource, new CSharpParseOptions(LanguageVersion.Latest)),
                 CSharpSyntaxTree.ParseText(source, new CSharpParseOptions(LanguageVersion.Latest))
-            },
-            references: new[]
-            {
+            ],
+            [
                 MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
                 MetadataReference.CreateFromFile(typeof(Attribute).Assembly.Location)
-            },
-            options: new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
+            ],
+            new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
 
         GeneratorDriver driver = CSharpGeneratorDriver.Create(
-            generators: new[] { new ColorClassGenerator().AsSourceGenerator() },
-            additionalTexts: null,
-            parseOptions: new CSharpParseOptions(LanguageVersion.Latest),
-            optionsProvider: null,
-            driverOptions: new GeneratorDriverOptions(IncrementalGeneratorOutputKind.None, trackIncrementalGeneratorSteps: true));
+            [new ColorClassGenerator().AsSourceGenerator()],
+            null,
+            new CSharpParseOptions(LanguageVersion.Latest),
+            null,
+            new GeneratorDriverOptions(IncrementalGeneratorOutputKind.None, true));
 
         driver = driver.RunGenerators(compilation);
 
@@ -148,10 +146,12 @@ public class ColorClassGeneratorTests
         IEnumerable<IncrementalGeneratorRunStep> outputSteps = run.TrackedOutputSteps.SelectMany(kv => kv.Value);
 
         // Act
-        IEnumerable<IncrementalStepRunReason> outputReasons = outputSteps.SelectMany(s => s.Outputs.Select(o => o.Reason));
+        IEnumerable<IncrementalStepRunReason> outputReasons =
+            outputSteps.SelectMany(s => s.Outputs.Select(o => o.Reason));
 
         // Assert
-        outputReasons.Should().OnlyContain(r => r == IncrementalStepRunReason.Cached || r == IncrementalStepRunReason.Unchanged);
+        outputReasons.Should()
+            .OnlyContain(r => r == IncrementalStepRunReason.Cached || r == IncrementalStepRunReason.Unchanged);
     }
 #pragma warning restore xUnit1051
 
@@ -159,17 +159,17 @@ public class ColorClassGeneratorTests
     public void Should_Report_BOBGEN010_When_Target_Is_Not_Partial()
     {
         const string source = """
-            using BlazOrbit.Components;
+                              using BlazOrbit.Components;
 
-            namespace TestNs;
+                              namespace TestNs;
 
-            [AutogenerateCssColors]
-            public static class NonPartialColors { }
-            """;
+                              [AutogenerateCssColors]
+                              public static class NonPartialColors { }
+                              """;
 
         string output = GeneratorTestHarness.Run(
             new ColorClassGenerator(),
-            sources: [AttributeSource, source]);
+            [AttributeSource, source]);
 
         output.Should().Contain("// Diagnostic: BOBGEN010");
         output.Should().Contain("NonPartialColors");
@@ -180,17 +180,17 @@ public class ColorClassGeneratorTests
     public void Should_Report_BOBGEN010_When_Target_Is_Not_Static()
     {
         const string source = """
-            using BlazOrbit.Components;
+                              using BlazOrbit.Components;
 
-            namespace TestNs;
+                              namespace TestNs;
 
-            [AutogenerateCssColors]
-            public partial class NonStaticColors { }
-            """;
+                              [AutogenerateCssColors]
+                              public partial class NonStaticColors { }
+                              """;
 
         string output = GeneratorTestHarness.Run(
             new ColorClassGenerator(),
-            sources: [AttributeSource, source]);
+            [AttributeSource, source]);
 
         output.Should().Contain("// Diagnostic: BOBGEN010");
         output.Should().Contain("NonStaticColors");
@@ -201,17 +201,17 @@ public class ColorClassGeneratorTests
     public void Should_Report_BOBGEN010_When_Target_Misses_Both_Modifiers()
     {
         const string source = """
-            using BlazOrbit.Components;
+                              using BlazOrbit.Components;
 
-            namespace TestNs;
+                              namespace TestNs;
 
-            [AutogenerateCssColors]
-            public class BareColors { }
-            """;
+                              [AutogenerateCssColors]
+                              public class BareColors { }
+                              """;
 
         string output = GeneratorTestHarness.Run(
             new ColorClassGenerator(),
-            sources: [AttributeSource, source]);
+            [AttributeSource, source]);
 
         output.Should().Contain("// Diagnostic: BOBGEN010");
         output.Should().Contain("BareColors");
@@ -221,24 +221,24 @@ public class ColorClassGeneratorTests
     public async Task Should_Generate_For_Multiple_Classes()
     {
         const string source = """
-            using BlazOrbit.Components;
+                              using BlazOrbit.Components;
 
-            namespace TestNs.A
-            {
-                [AutogenerateCssColors(1)]
-                public static partial class PaletteA { }
-            }
+                              namespace TestNs.A
+                              {
+                                  [AutogenerateCssColors(1)]
+                                  public static partial class PaletteA { }
+                              }
 
-            namespace TestNs.B
-            {
-                [AutogenerateCssColors(1)]
-                public static partial class PaletteB { }
-            }
-            """;
+                              namespace TestNs.B
+                              {
+                                  [AutogenerateCssColors(1)]
+                                  public static partial class PaletteB { }
+                              }
+                              """;
 
         string output = GeneratorTestHarness.Run(
             new ColorClassGenerator(),
-            sources: [AttributeSource, source]);
+            [AttributeSource, source]);
 
         await Verify(output);
     }

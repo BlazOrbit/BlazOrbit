@@ -154,9 +154,7 @@ public class BOBInputCheckboxStateTests
 
         Dictionary<string, object> extra = new()
         {
-            { "data-testid", "accept-cb" },
-            { "class", "my-class" },
-            { "style", "margin: 8px;" }
+            { "data-testid", "accept-cb" }, { "class", "my-class" }, { "style", "margin: 8px;" }
         };
 
         IRenderedComponent<BOBInputCheckbox<bool>> cut = ctx.Render<BOBInputCheckbox<bool>>(p => p

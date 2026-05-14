@@ -1,0 +1,146 @@
+@page "/components/charts/mixed"
+
+@inject IStringLocalizer<MixedChartPage> Loc
+
+<DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBMixedChart"]"
+         Lede="@Loc["Combined-series chart that blends bar + line + area in a single plot. Series share the X axis and can optionally bind to a secondary Y axis on the right edge — handy for actual vs target reports or value vs ratio comparisons."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBMixedChart<>)"
+         Keywords="@(["mixed", "combo", "bar", "line", "area", "secondary axis", "dual axis", "actual vs target"])">
+
+    <BOBBanner Severity="BOBBannerSeverity.Warning"
+               Title="@Loc["Extra package required"]"
+               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]"/>
+
+    <DocDemo Key="BarPlusLine" Title="@Loc["Bars with trend line"]"
+             Description="@Loc["Bars carry the actuals; the line sits on top showing the rolling target. Both share the primary Y axis (same unit)."]">
+        <BOBMixedChart TX="string"
+                       Series="_actualVsTarget"
+                       Width="640" Height="320"/>
+    </DocDemo>
+
+    <DocDemo Key="DualAxis" Title="@Loc["Secondary axis"]"
+             Description="@Loc["Set UseSecondaryAxis on a series to project it against the right-side scale instead of the primary one — required when the series belongs to a different domain (e.g. revenue in $ vs conversion in %)."]">
+        <BOBMixedChart TX="string"
+                       Series="_revenueAndRatio"
+                       SecondaryAxisLabel="%"
+                       Width="640" Height="320"/>
+    </DocDemo>
+
+    <DocDemo Key="Triple" Title="@Loc["Bar + Area + Line"]"
+             Description="@Loc["All three visual types coexist on the same plot. Render order is bars → areas → lines so lines always sit on top."]">
+        <BOBMixedChart TX="string"
+                       Series="_triple"
+                       BarGroupRatio="0.55"
+                       Width="640" Height="320"/>
+    </DocDemo>
+
+</DocPage>
+
+@code {
+
+    private static readonly BOBChartMixedSeries<string>[] _actualVsTarget =
+    [
+        new BOBChartMixedSeries<string>
+        {
+            Label = "Actual",
+            Type = BOBChartMixedSeriesType.Bar,
+            Points =
+            [
+                new BOBChartPoint<string, double>("Jan", 120),
+                new BOBChartPoint<string, double>("Feb", 150),
+                new BOBChartPoint<string, double>("Mar", 138),
+                new BOBChartPoint<string, double>("Apr", 168),
+                new BOBChartPoint<string, double>("May", 192),
+                new BOBChartPoint<string, double>("Jun", 215)
+            ]
+        },
+        new BOBChartMixedSeries<string>
+        {
+            Label = "Target",
+            Type = BOBChartMixedSeriesType.Line,
+            Points =
+            [
+                new BOBChartPoint<string, double>("Jan", 130),
+                new BOBChartPoint<string, double>("Feb", 145),
+                new BOBChartPoint<string, double>("Mar", 160),
+                new BOBChartPoint<string, double>("Apr", 175),
+                new BOBChartPoint<string, double>("May", 190),
+                new BOBChartPoint<string, double>("Jun", 205)
+            ]
+        }
+    ];
+
+    private static readonly BOBChartMixedSeries<string>[] _revenueAndRatio =
+    [
+        new BOBChartMixedSeries<string>
+        {
+            Label = "Revenue",
+            Type = BOBChartMixedSeriesType.Bar,
+            Points =
+            [
+                new BOBChartPoint<string, double>("Q1", 1.2),
+                new BOBChartPoint<string, double>("Q2", 1.5),
+                new BOBChartPoint<string, double>("Q3", 1.8),
+                new BOBChartPoint<string, double>("Q4", 2.1)
+            ]
+        },
+        new BOBChartMixedSeries<string>
+        {
+            Label = "Conversion",
+            Type = BOBChartMixedSeriesType.Line,
+            UseSecondaryAxis = true,
+            Points =
+            [
+                new BOBChartPoint<string, double>("Q1", 3.2),
+                new BOBChartPoint<string, double>("Q2", 3.6),
+                new BOBChartPoint<string, double>("Q3", 4.1),
+                new BOBChartPoint<string, double>("Q4", 4.4)
+            ]
+        }
+    ];
+
+    private static readonly BOBChartMixedSeries<string>[] _triple =
+    [
+        new BOBChartMixedSeries<string>
+        {
+            Label = "Revenue",
+            Type = BOBChartMixedSeriesType.Bar,
+            Points =
+            [
+                new BOBChartPoint<string, double>("Mon", 22),
+                new BOBChartPoint<string, double>("Tue", 28),
+                new BOBChartPoint<string, double>("Wed", 26),
+                new BOBChartPoint<string, double>("Thu", 32),
+                new BOBChartPoint<string, double>("Fri", 38)
+            ]
+        },
+        new BOBChartMixedSeries<string>
+        {
+            Label = "Backlog",
+            Type = BOBChartMixedSeriesType.Area,
+            Points =
+            [
+                new BOBChartPoint<string, double>("Mon", 15),
+                new BOBChartPoint<string, double>("Tue", 18),
+                new BOBChartPoint<string, double>("Wed", 22),
+                new BOBChartPoint<string, double>("Thu", 20),
+                new BOBChartPoint<string, double>("Fri", 24)
+            ]
+        },
+        new BOBChartMixedSeries<string>
+        {
+            Label = "Forecast",
+            Type = BOBChartMixedSeriesType.Line,
+            Points =
+            [
+                new BOBChartPoint<string, double>("Mon", 24),
+                new BOBChartPoint<string, double>("Tue", 27),
+                new BOBChartPoint<string, double>("Wed", 30),
+                new BOBChartPoint<string, double>("Thu", 34),
+                new BOBChartPoint<string, double>("Fri", 36)
+            ]
+        }
+    ];
+
+}

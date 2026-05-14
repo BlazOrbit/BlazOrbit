@@ -1,3 +1,4 @@
+using AngleSharp.Dom;
 using BlazOrbit.Components;
 using BlazOrbit.Components.Navigation;
 using BlazOrbit.Tests.Integration.Infrastructure;
@@ -14,7 +15,7 @@ public class BOBBreadcrumbsRenderingTests
     [
         new("Home", "/"),
         new("Components", "/components"),
-        new("Breadcrumbs"),
+        new("Breadcrumbs")
     ];
 
     [Theory]
@@ -27,7 +28,7 @@ public class BOBBreadcrumbsRenderingTests
             .Add(c => c.Items, SampleItems));
 
         cut.Find("bob-component").GetAttribute("data-bob-component").Should().Be("breadcrumbs");
-        var entries = cut.FindAll(".bob-breadcrumbs__entry");
+        IReadOnlyList<IElement> entries = cut.FindAll(".bob-breadcrumbs__entry");
         entries.Count.Should().Be(SampleItems.Count);
         entries[0].TextContent.Trim().Should().Be("Home");
         entries[2].TextContent.Trim().Should().Be("Breadcrumbs");
@@ -55,7 +56,7 @@ public class BOBBreadcrumbsRenderingTests
         IRenderedComponent<BOBBreadcrumbs> cut = ctx.Render<BOBBreadcrumbs>(p => p
             .Add(c => c.Items, SampleItems));
 
-        var current = cut.FindAll(".bob-breadcrumbs__entry").Last();
+        IElement current = cut.FindAll(".bob-breadcrumbs__entry").Last();
         current.GetAttribute("data-bob-current").Should().Be("true");
         current.QuerySelector("a").Should().BeNull();
         current.QuerySelector("[aria-current='page']").Should().NotBeNull();
@@ -99,7 +100,7 @@ public class BOBBreadcrumbsRenderingTests
             new("A", "/a"),
             new("B", "/a/b"),
             new("C", "/a/b/c"),
-            new("D"),
+            new("D")
         ];
 
         IRenderedComponent<BOBBreadcrumbs> cut = ctx.Render<BOBBreadcrumbs>(p => p
@@ -134,10 +135,10 @@ public class BOBBreadcrumbsAccessibilityTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         IRenderedComponent<BOBBreadcrumbs> cut = ctx.Render<BOBBreadcrumbs>(p => p
-            .Add(c => c.Items, [new("Home", "/"), new("Now")])
+            .Add(c => c.Items, [new BreadcrumbItem("Home", "/"), new BreadcrumbItem("Now")])
             .Add(c => c.AriaLabel, "Sitio"));
 
-        var nav = cut.Find("nav.bob-breadcrumbs");
+        IElement nav = cut.Find("nav.bob-breadcrumbs");
         nav.GetAttribute("aria-label").Should().Be("Sitio");
     }
 
@@ -148,9 +149,9 @@ public class BOBBreadcrumbsAccessibilityTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         IRenderedComponent<BOBBreadcrumbs> cut = ctx.Render<BOBBreadcrumbs>(p => p
-            .Add(c => c.Items, [new("Home", "/"), new("Now")]));
+            .Add(c => c.Items, [new BreadcrumbItem("Home", "/"), new BreadcrumbItem("Now")]));
 
-        var separator = cut.Find(".bob-breadcrumbs__separator");
+        IElement separator = cut.Find(".bob-breadcrumbs__separator");
         separator.GetAttribute("aria-hidden").Should().Be("true");
     }
 }
@@ -168,7 +169,7 @@ public class BOBBreadcrumbsSnapshotTests
         [
             new("Home", "/"),
             new("Components", "/components"),
-            new("Breadcrumbs"),
+            new("Breadcrumbs")
         ];
 
         IReadOnlyList<BreadcrumbItem> longTrail =
@@ -177,29 +178,41 @@ public class BOBBreadcrumbsSnapshotTests
             new("A", "/a"),
             new("B", "/a/b"),
             new("C", "/a/b/c"),
-            new("D"),
+            new("D")
         ];
 
         var testCases = new[]
         {
-            new { Name = "Basic", Builder = (Action<ComponentParameterCollectionBuilder<BOBBreadcrumbs>>)(p => p
-                .Add(c => c.Items, basic)) },
-            new { Name = "Truncated", Builder = (Action<ComponentParameterCollectionBuilder<BOBBreadcrumbs>>)(p => p
-                .Add(c => c.Items, longTrail)
-                .Add(c => c.MaxVisible, 3)) },
-            new { Name = "WithIcons", Builder = (Action<ComponentParameterCollectionBuilder<BOBBreadcrumbs>>)(p => p
-                .Add(c => c.Items, new[]
-                {
-                    new BreadcrumbItem("Home", "/", BOBIconKeys.MaterialIconsOutlined.i_home),
-                    new BreadcrumbItem("Now"),
-                })) },
+            new
+            {
+                Name = "Basic",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBBreadcrumbs>>)(p => p
+                    .Add(c => c.Items, basic))
+            },
+            new
+            {
+                Name = "Truncated",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBBreadcrumbs>>)(p => p
+                    .Add(c => c.Items, longTrail)
+                    .Add(c => c.MaxVisible, 3))
+            },
+            new
+            {
+                Name = "WithIcons",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBBreadcrumbs>>)(p => p
+                    .Add(c => c.Items,
+                    [
+                        new BreadcrumbItem("Home", "/", BOBIconKeys.MaterialIconsOutlined.i_home),
+                            new BreadcrumbItem("Now")
+                    ]))
+            }
         };
 
         var results = testCases.Select(tc =>
         {
             IRenderedComponent<BOBBreadcrumbs> cut = ctx.Render<BOBBreadcrumbs>(tc.Builder);
             return new { tc.Name, Html = cut.GetNormalizedMarkup() };
-        });
+        }).ToList();
 
         await Verify(results).UseParameters(scenario.Name);
     }

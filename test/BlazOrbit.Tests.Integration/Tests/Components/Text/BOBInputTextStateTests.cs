@@ -11,7 +11,10 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Text;
 [Trait("Component State", "BOBInputText")]
 public class BOBInputTextStateTests
 {
-    private class Model { public string? Value { get; set; } }
+    private class Model
+    {
+        public string? Value { get; set; }
+    }
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -188,9 +191,7 @@ public class BOBInputTextStateTests
         Model model = new();
         Dictionary<string, object> extra = new()
         {
-            { "data-testid", "email-field" },
-            { "class", "my-class" },
-            { "style", "margin: 4px;" }
+            { "data-testid", "email-field" }, { "class", "my-class" }, { "style", "margin: 4px;" }
         };
 
         IRenderedComponent<BOBInputText> cut = ctx.Render<BOBInputText>(p => p

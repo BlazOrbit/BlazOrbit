@@ -12,13 +12,11 @@ public class BOBDataGridAggregateTests
 {
     private sealed record Order(string Region, decimal Amount, int Quantity);
 
-    private static IEnumerable<Order> Orders => new[]
-    {
-        new Order("EMEA",     120m, 3),
-        new Order("Americas", 240m, 5),
-        new Order("APAC",     180m, 4),
-        new Order("EMEA",      60m, 2),
-    };
+    private static IEnumerable<Order> Orders =>
+    [
+        new Order("EMEA", 120m, 3), new Order("Americas", 240m, 5), new Order("APAC", 180m, 4),
+        new Order("EMEA", 60m, 2)
+    ];
 
     private static RenderFragment ColumnsWithAggregates(
         AggregateFunction amountAgg = AggregateFunction.Sum,
@@ -40,7 +38,11 @@ public class BOBDataGridAggregateTests
             (System.Linq.Expressions.Expression<Func<Order, object?>>)(o => o.Amount));
         b.AddAttribute(13, "Aggregate", amountAgg);
         b.AddAttribute(14, "AggregateFormat", amountFormat);
-        if (amountLabel is not null) b.AddAttribute(15, "AggregateLabel", amountLabel);
+        if (amountLabel is not null)
+        {
+            b.AddAttribute(15, "AggregateLabel", amountLabel);
+        }
+
         b.CloseComponent();
 
         b.OpenComponent<BOBDataColumn<Order>>(20);

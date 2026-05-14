@@ -1,0 +1,32 @@
+# BOBStockChart
+BOBStockChart
+
+# Bollinger Bands overlay
+Overlay de Bandas de Bollinger
+
+# Bollinger Bands sit on the price pane (they don't claim their own pane). The price scale auto-expands to fit the bands so they never clip on volatile rallies.
+Las Bandas de Bollinger se dibujan en el panel de precio (no reclaman panel propio). La escala de precio se expande automáticamente para encajar las bandas y que no se recorten en rallies volátiles.
+
+# Chart
+Gráfico
+
+# Extra package required
+Paquete adicional requerido
+
+# Multi-pane: Volume + RSI + MACD
+Multi-panel: Volume + RSI + MACD
+
+# Multi-pane candlestick chart with technical indicators. Stacks RSI / MACD / Volume panes below the price pane and overlays Bollinger Bands on the price itself. All panes share the X axis so price action and momentum / volume signals line up.
+Gráfico de velas multi-panel con indicadores técnicos. Apila paneles RSI / MACD / Volume bajo el panel de precio y superpone Bandas de Bollinger sobre el propio precio. Todos los paneles comparten el eje X, así la acción del precio y las señales de momentum / volumen quedan alineadas.
+
+# Price-only pane
+Solo panel de precio
+
+# Stacked indicator panes share the X axis with the price pane above. Each pane gets an equal share of the remaining 30% of the vertical space.
+Los paneles de indicadores apilados comparten el eje X con el panel de precio superior. Cada panel recibe una porción igual del 30% restante del espacio vertical.
+
+# This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs.
+Este gráfico requiere el paquete NuGet BlazOrbit.Charts. Instálalo con dotnet add package BlazOrbit.Charts y registra AddBlazOrbitCharts() en Program.cs.
+
+# With no indicators set, the chart renders a single price pane. Up / down candles use the success / error palette colors by default; override via UpColor / DownColor.
+Sin indicadores configurados, el gráfico renderiza un único panel de precio. Las velas alcistas / bajistas usan los colores success / error de la paleta por defecto; sobrescribe con UpColor / DownColor.

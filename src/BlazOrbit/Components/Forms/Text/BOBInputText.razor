@@ -29,61 +29,93 @@
 
     // IHasSize
     /// <summary>Visual size of the input.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
 
     // IHasLoading
     /// <summary>When <see langword="true" />, the input shows a loading indicator.</summary>
-    [Parameter] public bool Loading { get; set; }
+    [Parameter]
+    public bool Loading { get; set; }
+
     /// <summary>Variant of the loading indicator shown when <see cref="Loading"/> is <see langword="true"/>.</summary>
-    [Parameter] public BOBProgressIconVariant LoadingIndicatorVariant { get; set; } = BOBProgressIconVariant.Ring;
+    [Parameter]
+    public BOBProgressIconVariant LoadingIndicatorVariant { get; set; } = BOBProgressIconVariant.Ring;
 
     // IHasDensity
     /// <summary>Vertical density (gap) of the input.</summary>
-    [Parameter] public BOBDensity Density { get; set; } = BOBDensity.Standard;
+    [Parameter]
+    public BOBDensity Density { get; set; } = BOBDensity.Standard;
 
     // IHasShadow
     /// <summary>Shadow style applied to the input container.</summary>
-    [Parameter] public ShadowStyle? Shadow { get; set; }
+    [Parameter]
+    public ShadowStyle? Shadow { get; set; }
 
     // IHasBackgroundColor
     /// <summary>Background color of the input. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? BackgroundColor { get; set; }
+    [Parameter]
+    public string? BackgroundColor { get; set; }
 
     // IHasColor
     /// <summary>Text color of the input. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? Color { get; set; }
+    [Parameter]
+    public string? Color { get; set; }
 
     // IHasPrefix
     /// <summary>Text displayed before the input value.</summary>
-    [Parameter] public string? PrefixText { get; set; }
+    [Parameter]
+    public string? PrefixText { get; set; }
+
     /// <summary>Material icon name displayed before the input value.</summary>
-    [Parameter] public IconKey? PrefixIcon { get; set; }
+    [Parameter]
+    public IconKey? PrefixIcon { get; set; }
+
     /// <summary>Color of the prefix text or icon.</summary>
-    [Parameter] public string? PrefixColor { get; set; }
+    [Parameter]
+    public string? PrefixColor { get; set; }
+
     /// <summary>Background color of the prefix area.</summary>
-    [Parameter] public string? PrefixBackgroundColor { get; set; }
+    [Parameter]
+    public string? PrefixBackgroundColor { get; set; }
 
     // IHasSuffix
     /// <summary>Text displayed after the input value.</summary>
-    [Parameter] public string? SuffixText { get; set; }
+    [Parameter]
+    public string? SuffixText { get; set; }
+
     /// <summary>Material icon name displayed after the input value.</summary>
-    [Parameter] public IconKey? SuffixIcon { get; set; }
+    [Parameter]
+    public IconKey? SuffixIcon { get; set; }
+
     /// <summary>Color of the suffix text or icon.</summary>
-    [Parameter] public string? SuffixColor { get; set; }
+    [Parameter]
+    public string? SuffixColor { get; set; }
+
     /// <summary>Background color of the suffix area.</summary>
-    [Parameter] public string? SuffixBackgroundColor { get; set; }
+    [Parameter]
+    public string? SuffixBackgroundColor { get; set; }
 
     // Component-specific
     /// <summary>Placeholder text shown when the input is empty.</summary>
-    [Parameter] public string? Placeholder { get; set; }
+    [Parameter]
+    public string? Placeholder { get; set; }
+
     /// <summary>Floating label displayed above the input when it has a value or focus.</summary>
-    [Parameter] public string? Label { get; set; }
+    [Parameter]
+    public string? Label { get; set; }
+
     /// <summary>Helper text displayed below the input for additional context.</summary>
-    [Parameter] public string? HelperText { get; set; }
+    [Parameter]
+    public string? HelperText { get; set; }
+
     /// <summary>When <see langword="true" />, the bound value is updated on every keystroke instead of only on blur.</summary>
-    [Parameter] public bool UpdateOnInput { get; set; }
+    [Parameter]
+    public bool UpdateOnInput { get; set; }
+
     /// <summary>Raised on every keystroke when <see cref="UpdateOnInput"/> is enabled.</summary>
-    [Parameter] public EventCallback<string> OnInput { get; set; }
+    [Parameter]
+    public EventCallback<string> OnInput { get; set; }
+
     /// <summary>
     /// Trailing-edge debounce delay applied to <see cref="OnInput"/> only. When
     /// greater than <c>0</c>, the callback fires after this many milliseconds of
@@ -93,7 +125,8 @@
     /// bound <see cref="InputBase{TValue}.Value"/> still propagates immediately
     /// per keystroke.
     /// </summary>
-    [Parameter] public int OnInputDebounceMs { get; set; }
+    [Parameter]
+    public int OnInputDebounceMs { get; set; }
 
     private BOBDebouncer<string>? _onInputDebouncer;
 
@@ -108,7 +141,9 @@
             dataAttributes.Remove(FeatureDefinitions.DataAttributes.Floated);
     }
 
-    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables) { }
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    {
+    }
 
     public override BOBInputVariant DefaultVariant => BOBInputVariant.Outlined;
 
@@ -126,8 +161,8 @@
 
             <div class="bob-input__wrapper">
 
-                <BOBInputOutline Label="@Label" For="@_inputId" Required="@IsRequired" />
-                <BOBInputPrefix PrefixText="@PrefixText" PrefixIcon="@PrefixIcon" Size="@Size" />
+                <BOBInputOutline Label="@Label" For="@_inputId" Required="@IsRequired"/>
+                <BOBInputPrefix PrefixText="@PrefixText" PrefixIcon="@PrefixIcon" Size="@Size"/>
 
                 <input type="text"
                        id="@_inputId"
@@ -141,13 +176,13 @@
                        aria-describedby="@_helperTextId"
                        aria-invalid="@IsError.ToString().ToLower()"
                        aria-required="@IsRequired.ToString().ToLower()"
-                       placeholder="@(IsFloated? Placeholder : null)"
+                       placeholder="@(IsFloated ? Placeholder : null)"
                        disabled="@IsDisabled"
                        readonly="@IsReadOnly"
-                       required="@IsRequired" />
+                       required="@IsRequired"/>
 
-                <BOBInputSuffix SuffixText="@SuffixText" SuffixIcon="@SuffixIcon" Size="@Size" />
-                <BOBInputLoading Loading="@Loading" LoadingIndicatorVariant="@LoadingIndicatorVariant" Size="@Size" />
+                <BOBInputSuffix SuffixText="@SuffixText" SuffixIcon="@SuffixIcon" Size="@Size"/>
+                <BOBInputLoading Loading="@Loading" LoadingIndicatorVariant="@LoadingIndicatorVariant" Size="@Size"/>
 
             </div>
 
@@ -156,7 +191,7 @@
                              HelperText="@HelperText"
                              ShowValidation="@IsError"
                              EditContext="@EditContext"
-                             For="@ValueExpression" />
+                             For="@ValueExpression"/>
 
         </bob-component>
     };
@@ -168,7 +203,7 @@
 
     private async Task HandleInput(ChangeEventArgs e)
     {
-        string inputValue = e.Value?.ToString() ?? string.Empty;
+        var inputValue = e.Value?.ToString() ?? string.Empty;
         _isDirty = !string.IsNullOrEmpty(inputValue);
 
         if (UpdateOnInput)
@@ -216,4 +251,5 @@
         validationErrorMessage = null;
         return true;
     }
+
 }

@@ -1,0 +1,26 @@
+// Auto-migrated from PolarAreaChartPage.es.resx. Edit freely from now on.
+
+# BOBPolarAreaChart
+BOBPolarAreaChart
+
+# Chart
+Gráfico
+
+# Cyclic phenomena (wind direction, hour-of-day usage, week-of-year) read more naturally on uniform angular slots than on a pie.
+Los fenómenos cíclicos (dirección del viento, uso por hora del día, semana del año) se leen más naturalmente en ranuras angulares uniformes que en un pastel.
+
+# Extra package required
+Paquete adicional requerido
+
+# Monthly distribution
+Distribución mensual
+
+# Polar-area / Coxcomb / Rose chart — pie variant where every slice has the same angular width and the radius encodes the magnitude. Ideal for cyclic data (months, hours-of-day) or when you want uniform angular slots.
+Gráfico de área polar / Coxcomb / Rosa: variante de pastel donde cada porción tiene el mismo ancho angular y el radio codifica la magnitud. Ideal para datos cíclicos (meses, horas del día) o cuando deseas ranuras angulares uniformes.
+
+# This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs.
+Este gráfico requiere el paquete NuGet BlazOrbit.Charts. Instálalo con dotnet add package BlazOrbit.Charts y registra AddBlazOrbitCharts() en Program.cs.
+
+# Wind rose
+Rosa de los vientos
+

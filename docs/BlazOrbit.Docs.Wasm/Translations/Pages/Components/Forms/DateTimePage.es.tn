@@ -1,0 +1,104 @@
+// Auto-migrated from DateTimePage.es.resx. Edit freely from now on.
+
+# Basic
+Básico
+
+# Basic usage
+Uso básico
+
+# BOBInputDateTime
+BOBInputDateTime
+
+# Color & Background
+Color y fondo
+
+# Component
+Componente
+
+# Custom Color & Background
+Color y fondo personalizado
+
+# Custom Shadow
+Sombra personalizada
+
+# Date and time picker with culture-aware formatting. Supports date-only, time-only, or combined date-time input with standalone calendar and clock pickers.
+Selector de fecha y hora con formato adaptable a la cultura. Soporta entrada solo de fecha, solo de hora o combinada, con selectores de calendario y reloj independientes.
+
+# Date Input
+Entrada de fecha
+
+# Date Picker
+Selector de fecha
+
+# Disabled
+Deshabilitado
+
+# Elevation Shadow
+Sombra de elevación
+
+# Filled
+Relleno
+
+# Large
+Grande
+
+# Medium (Default)
+Mediano (predeterminado)
+
+# Only Date
+Solo fecha
+
+# Only time
+Solo hora
+
+# Outlined
+Contorno
+
+# Prefix & Suffix
+Prefijo y sufijo
+
+# Properties
+Propiedades
+
+# Read Only
+Solo lectura
+
+# ReadOnly
+Solo lectura
+
+# Required
+Requerido
+
+# Select date and time
+Seleccionar fecha y hora
+
+# Shadow
+Sombra
+
+# Sizes
+Tamaños
+
+# Small
+Pequeño
+
+# Standard
+Estándar
+
+# States
+Estados
+
+# Time Input
+Entrada de hora
+
+# Time Picker
+Selector de hora
+
+# Variants
+Variantes
+
+# With Prefix Icon
+Con icono de prefijo
+
+
+# The picker is generic over <code>DateOnly</code>, <code>TimeOnly</code>, <code>DateTime</code>, and <code>DateTimeOffset</code>. The correct input mask and parsing rules are selected automatically based on the bound type, and the standalone calendar/clock pickers can be used independently of the form field.
+El selector es genérico sobre <code>DateOnly</code>, <code>TimeOnly</code>, <code>DateTime</code> y <code>DateTimeOffset</code>. La máscara de entrada correcta y las reglas de análisis se seleccionan automáticamente según el tipo vinculado, y los selectores independientes de calendario/reloj pueden usarse independientemente del campo de formulario.

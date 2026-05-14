@@ -1,0 +1,47 @@
+// Auto-migrated from GaugeChartPage.es.resx. Edit freely from now on.
+
+# BOBGaugeChart
+BOBGaugeChart
+
+# Chart
+Gráfico
+
+# Conversion
+Conversión
+
+# CPU usage
+Uso de CPU
+
+# Custom domain (latency ms)
+Dominio personalizado (latencia ms)
+
+# Extra package required
+Paquete adicional requerido
+
+# Full-circle KPI ring
+Anillo KPI de círculo completo
+
+# KPI gauge — single value rendered as an arc fill against a track. Semi (180°), three-quarter (270°) and full (360°) shapes. Optional zone segments highlight thresholds (green / amber / red).
+Medidor KPI: un único valor representado como un relleno de arco sobre una pista. Formas semicircular (180°), tres cuartos (270°) y completa (360°). Segmentos de zona opcionales resaltan umbrales (verde / ámbar / rojo).
+
+# Memory
+Memoria
+
+# Min / Max can model any numeric domain — KPIs that aren't 0..100% percentages, currency, latency milliseconds, etc.
+Min / Max pueden modelar cualquier dominio numérico: KPIs que no son porcentajes 0..100%, moneda, latencia en milisegundos, etc.
+
+# p95 latency
+latencia p95
+
+# Segments paint a colored band over the track between From..To values. Combine with the value arc to highlight whether the KPI sits in the safe (green) or critical (red) range.
+Los segmentos pintan una banda de color sobre la pista entre los valores From..To. Combínalos con el arco del valor para resaltar si el KPI está en el rango seguro (verde) o crítico (rojo).
+
+# Semicircle gauge
+Indicador semicircular
+
+# This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs.
+Este gráfico requiere el paquete NuGet BlazOrbit.Charts. Instálalo con dotnet add package BlazOrbit.Charts y registra AddBlazOrbitCharts() en Program.cs.
+
+# Three-quarter gauge with zones
+Medidor de tres cuartos con zonas
+

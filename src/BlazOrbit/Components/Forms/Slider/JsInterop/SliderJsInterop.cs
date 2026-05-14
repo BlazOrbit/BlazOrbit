@@ -39,7 +39,12 @@ internal sealed class SliderJsInterop : ModuleJsInteropBase, ISliderJsInterop
         double initialClientX,
         double initialClientY)
     {
-        IJSObjectReference module = await ModuleTask.Value;
+        IJSObjectReference? module = await TryGetModuleAsync();
+        if (module is null)
+        {
+            return;
+        }
+
         await module.InvokeVoidAsync(
             "startDrag",
             trackElement,
@@ -52,6 +57,7 @@ internal sealed class SliderJsInterop : ModuleJsInteropBase, ISliderJsInterop
 
     public async ValueTask StopDragAsync(string componentId)
     {
+        // Dispose-like teardown: 4-tuple only.
         IJSObjectReference module = await ModuleTask.Value;
         await module.InvokeVoidAsync("stopDrag", componentId);
     }
@@ -62,7 +68,12 @@ internal sealed class SliderJsInterop : ModuleJsInteropBase, ISliderJsInterop
         double clientX,
         double clientY)
     {
-        IJSObjectReference module = await ModuleTask.Value;
+        IJSObjectReference? module = await TryGetModuleAsync();
+        if (module is null)
+        {
+            return 0;
+        }
+
         return await module.InvokeAsync<double>(
             "computePercent",
             trackElement,

@@ -28,7 +28,7 @@ public class BOBStackedLayoutSnapshotTests
                 .Add(c => c.Header, b => b.AddContent(0, "Header"))
                 .Add(c => c.Nav, b => b.AddContent(0, "Nav"))
                 .Add(c => c.ChildContent, b => b.AddContent(0, "Content"))
-                .Add(c => c.NavOpen, true)),
+                .Add(c => c.NavOpen, true))
         ];
 
         var results = testCases.Select(tc =>
@@ -37,6 +37,6 @@ public class BOBStackedLayoutSnapshotTests
             return new { tc.Name, Html = cut.GetNormalizedMarkup() };
         }).ToArray();
 
-        await Verifier.Verify(results).UseParameters(scenario.Name);
+        await Verify(results).UseParameters(scenario.Name);
     }
 }

@@ -4,10 +4,11 @@
 @inject IJSRuntime _js
 @inject IStringLocalizer<Home> Loc
 
-<DocSeo Title="Modern Blazor components for .NET 10"
-        Description="A lightweight component library that extends native Blazor capabilities and improves your productivity. Install via NuGet and start building modern .NET web apps."
-        Keywords="@(new[] { "Blazor", "components", "UI library", ".NET 10", "NuGet", "WASM", "SPA" })" />
-<InstallAppHint />
+<DocSeo Title="@Loc["Modern Open Source Blazor Components on .NET"]"
+        Description="@Loc["C# first, high-performance, and accessible UI design. Lightweight, customizable, open source, and 100% free."]"
+        Keywords="@(["UI library", "NuGet", "Server", "SPA", "open source", "blazor table", "blazor datagrid", "charts", "components", "mudblazor alternative", "blazorise alternative"])"
+        OgType="website"/>
+<InstallAppHint/>
 
 <section class="hero" @ref="_heroRef">
     <div class="hero__puzzle">
@@ -28,11 +29,12 @@
         </span>
 
         <h1 class="hero__title">
-            <div class="b-svg" />laz<span class="hero__title-accent-gradient">O</span>rbit
+            <div class="b-svg"/>
+            laz<span class="hero__title-accent-gradient">O</span>rbit
         </h1>
 
         <p class="hero__lede">
-            @Loc["A lightweight component library that extends native capabilities and improves your productivity"]<br />
+            @Loc["A lightweight component library that extends native capabilities and improves your productivity"]<br/>
         </p>
 
         <a href="/getting-started" class="hero__cta">
@@ -44,7 +46,7 @@
             <code>dotnet add package BlazOrbit</code>
         </div>
 
-        <DocSearch />
+        <DocSearch/>
 
     </div>
 </section>
@@ -64,10 +66,19 @@
                 _parallaxModule = await _js.InvokeAsync<IJSObjectReference>("import", "./js/hero-parallax.js");
                 await _parallaxModule.InvokeVoidAsync("attach", _heroRef);
             }
-            catch (JSDisconnectedException) { }
-            catch (ObjectDisposedException) { }
-            catch (TaskCanceledException) { }
-            catch (JSException) { /* module load 404 / parse error — fall back to no parallax */ }
+            catch (JSDisconnectedException)
+            {
+            }
+            catch (ObjectDisposedException)
+            {
+            }
+            catch (TaskCanceledException)
+            {
+            }
+            catch (JSException)
+            {
+                /* module load 404 / parse error — fall back to no parallax */
+            }
         }
     }
 
@@ -80,10 +91,18 @@
                 await _parallaxModule.InvokeVoidAsync("detach");
                 await _parallaxModule.DisposeAsync();
             }
-            catch (JSDisconnectedException) { }
-            catch (ObjectDisposedException) { }
-            catch (InvalidOperationException) { }
-            catch (TaskCanceledException) { }
+            catch (JSDisconnectedException)
+            {
+            }
+            catch (ObjectDisposedException)
+            {
+            }
+            catch (InvalidOperationException)
+            {
+            }
+            catch (TaskCanceledException)
+            {
+            }
         }
     }
 

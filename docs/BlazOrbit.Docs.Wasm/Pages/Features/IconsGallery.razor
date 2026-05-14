@@ -4,17 +4,18 @@
 @inject IStringLocalizer<IconsGallery> Loc
 
 
-<DocPage Eyebrow="Feature"
-         Title="Icons"
-         Lede="All available SVG icons. Click any row to copy its full reference path.">
+<DocPage Eyebrow="@Loc["Feature"]"
+         Title="@Loc["Icons"]"
+         Lede="@Loc["All available SVG icons. Click any row to copy its full reference path."]"
+         Keywords="@(["icons", "SVG", "Material Design", "glyph", "symbol"])">
 
     <section class="doc-section">
         <BOBInputText UpdateOnInput="true"
-                      OnInput="OnFilterChanged"
+                      OnInput="@(EventCallback.Factory.Create<string>(this, OnFilterChanged))"
                       OnInputDebounceMs="200"
-                      Label="Search"
-                      Placeholder="Filter by name or category..." />
-        <p class="icons-gallery__count">@_filteredIcons.Count icons</p>
+                      Label="@Loc["Search"]"
+                      Placeholder="@Loc["Filter by name or category..."]"/>
+        <p class="icons-gallery__count">@_filteredIcons.Count @Loc["icons"]</p>
     </section>
 
     <section class="doc-section icons-gallery__list">
@@ -23,7 +24,7 @@
                 <button type="button"
                         class="icons-gallery__row"
                         @onclick="() => CopyReference(icon)">
-                    <BOBSvgIcon Icon="@icon.Value" Size="BOBSize.Large" />
+                    <BOBSvgIcon Icon="@icon.Value" Size="BOBSize.Large"/>
                     <code class="icons-gallery__path">@($"{nameof(BOBIconKeys)}.{icon.CategoryName}.{icon.Name}")</code>
                     <span class="icons-gallery__hint">@Loc["Click to copy"]</span>
                 </button>
@@ -37,8 +38,8 @@
 
 @code {
     private string _filter = "";
-    private List<IconInfo> _allIcons = new();
-    private List<IconInfo> _filteredIcons = new();
+    private List<IconInfo> _allIcons = [];
+    private List<IconInfo> _filteredIcons = [];
 
     protected override void OnInitialized()
     {
@@ -53,7 +54,7 @@
             ? _allIcons
             : _allIcons
                 .Where(i => i.Name.Contains(_filter, StringComparison.OrdinalIgnoreCase)
-                         || i.CategoryName.Contains(_filter, StringComparison.OrdinalIgnoreCase))
+                            || i.CategoryName.Contains(_filter, StringComparison.OrdinalIgnoreCase))
                 .ToList();
     }
 
@@ -84,13 +85,10 @@
 
     private async Task CopyReference(IconInfo icon)
     {
-        string key = $"{nameof(BOBIconKeys)}.{icon.CategoryName}.{icon.Name}";
+        var key = $"{nameof(BOBIconKeys)}.{icon.CategoryName}.{icon.Name}";
         await Clipboard.CopyTextAsync(key);
         await ToastService.ShowAsync(
-            builder =>
-            {
-                builder.AddContent(0, Loc["Copied to clipboard!"]);
-            },
+            builder => { builder.AddContent(0, Loc["Copied to clipboard!"]); },
             new ToastOptions
             {
                 Severity = ToastSeverity.Success,
@@ -106,4 +104,5 @@
         public string Name { get; set; } = "";
         public required IconKey Value { get; set; }
     }
+
 }

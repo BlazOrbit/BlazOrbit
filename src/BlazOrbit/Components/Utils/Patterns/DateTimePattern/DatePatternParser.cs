@@ -4,14 +4,22 @@ internal static class DatePatternParser
 {
     private static readonly Dictionary<string, DateComponentType> ComponentMap = new()
     {
-        { "d", DateComponentType.Day }, { "dd", DateComponentType.Day },
-        { "M", DateComponentType.Month }, { "MM", DateComponentType.Month },
-        { "yy", DateComponentType.Year }, { "yyyy", DateComponentType.Year },
-        { "h", DateComponentType.Hour12 }, { "hh", DateComponentType.Hour12 },
-        { "H", DateComponentType.Hour24 }, { "HH", DateComponentType.Hour24 },
-        { "m", DateComponentType.Minute }, { "mm", DateComponentType.Minute },
-        { "s", DateComponentType.Second }, { "ss", DateComponentType.Second },
-        { "t", DateComponentType.AmPm }, { "tt", DateComponentType.AmPm }
+        { "d", DateComponentType.Day },
+        { "dd", DateComponentType.Day },
+        { "M", DateComponentType.Month },
+        { "MM", DateComponentType.Month },
+        { "yy", DateComponentType.Year },
+        { "yyyy", DateComponentType.Year },
+        { "h", DateComponentType.Hour12 },
+        { "hh", DateComponentType.Hour12 },
+        { "H", DateComponentType.Hour24 },
+        { "HH", DateComponentType.Hour24 },
+        { "m", DateComponentType.Minute },
+        { "mm", DateComponentType.Minute },
+        { "s", DateComponentType.Second },
+        { "ss", DateComponentType.Second },
+        { "t", DateComponentType.AmPm },
+        { "tt", DateComponentType.AmPm }
     };
 
     public static ParsedDatePattern Parse(string format)
@@ -47,9 +55,7 @@ internal static class DatePatternParser
                 string sep = format[start..i];
                 parsed.Components.Add(new DateComponent
                 {
-                    Type = DateComponentType.Separator,
-                    SeparatorValue = sep,
-                    DefaultValue = sep
+                    Type = DateComponentType.Separator, SeparatorValue = sep, DefaultValue = sep
                 });
             }
         }
@@ -67,8 +73,8 @@ internal static class DatePatternParser
         int maxDigits = type switch
         {
             DateComponentType.Day or DateComponentType.Month or
-            DateComponentType.Hour12 or DateComponentType.Hour24 or
-            DateComponentType.Minute or DateComponentType.Second => 2,
+                DateComponentType.Hour12 or DateComponentType.Hour24 or
+                DateComponentType.Minute or DateComponentType.Second => 2,
             DateComponentType.Year => spec.Length == 2 ? 2 : 4,
             DateComponentType.AmPm => spec.Length == 1 ? 1 : 2,
             _ => spec.Length

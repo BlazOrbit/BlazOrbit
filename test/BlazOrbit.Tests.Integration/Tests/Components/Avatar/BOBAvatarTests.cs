@@ -155,22 +155,34 @@ public class BOBAvatarSnapshotTests
 
         var avatars = new[]
         {
-            new { Name = "Initials", Builder = (Action<ComponentParameterCollectionBuilder<BOBAvatar>>)(p => p
-                .Add(c => c.Label, "Ada Lovelace")) },
-            new { Name = "Image", Builder = (Action<ComponentParameterCollectionBuilder<BOBAvatar>>)(p => p
-                .Add(c => c.ImageUrl, "/me.png")
-                .Add(c => c.Label, "Me")) },
-            new { Name = "Square_Online", Builder = (Action<ComponentParameterCollectionBuilder<BOBAvatar>>)(p => p
-                .Add(c => c.Label, "John Doe")
-                .Add(c => c.Shape, BOBAvatarShape.Square)
-                .Add(c => c.Status, BOBAvatarStatus.Online)) }
+            new
+            {
+                Name = "Initials",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBAvatar>>)(p => p
+                    .Add(c => c.Label, "Ada Lovelace"))
+            },
+            new
+            {
+                Name = "Image",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBAvatar>>)(p => p
+                    .Add(c => c.ImageUrl, "/me.png")
+                    .Add(c => c.Label, "Me"))
+            },
+            new
+            {
+                Name = "Square_Online",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBAvatar>>)(p => p
+                    .Add(c => c.Label, "John Doe")
+                    .Add(c => c.Shape, BOBAvatarShape.Square)
+                    .Add(c => c.Status, BOBAvatarStatus.Online))
+            }
         };
 
         var results = avatars.Select(tc =>
         {
             IRenderedComponent<BOBAvatar> cut = ctx.Render<BOBAvatar>(tc.Builder);
             return new { tc.Name, Html = cut.GetNormalizedMarkup() };
-        });
+        }).ToList();
 
         await Verify(results).UseParameters(scenario.Name);
     }

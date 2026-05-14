@@ -19,20 +19,31 @@
 }
 
 @code {
+
     /// <summary>Visual size of the culture selector.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
+
     /// <summary>When <see langword="true" />, the flag glyph is rendered next to each culture entry.</summary>
-    [Parameter] public bool ShowFlag { get; set; } = true;
+    [Parameter]
+    public bool ShowFlag { get; set; } = true;
+
     /// <summary>When <see langword="true" />, the human-readable culture name is rendered next to each entry.</summary>
-    [Parameter] public bool ShowName { get; set; } = true;
+    [Parameter]
+    public bool ShowName { get; set; } = true;
+
     /// <summary>Raised after the active culture has changed.</summary>
-    [Parameter] public EventCallback<CultureInfo> OnCultureChanged { get; set; }
+    [Parameter]
+    public EventCallback<CultureInfo> OnCultureChanged { get; set; }
+
     /// <summary>
     /// Optional override for the flag emoji/glyph shown next to each culture.
     /// Receives the <see cref="CultureInfo"/> and returns the rendered string;
     /// when <see langword="null"/>, falls back to <see cref="CultureFlags.GetFlag(CultureInfo)"/>.
     /// </summary>
-    [Parameter] public Func<CultureInfo, string>? FlagResolver { get; set; }
+    [Parameter]
+    public Func<CultureInfo, string>? FlagResolver { get; set; }
+
     /// <summary>
     /// When <see langword="true"/>, switching culture triggers a full-page reload
     /// (<c>Navigation.NavigateTo(forceLoad: true)</c>). When <see langword="false"/>
@@ -45,7 +56,8 @@
     /// during their next render — it does not retroactively re-format already-rendered DOM.
     /// Set this to <see langword="true"/> if your app caches culture-dependent values eagerly.
     /// </remarks>
-    [Parameter] public virtual bool ForceReload { get; set; }
+    [Parameter]
+    public virtual bool ForceReload { get; set; }
 
     [Inject] protected LocalizationSettings Settings { get; set; } = default!;
     [Inject] protected IStringLocalizer<BOBCultureSelectorResources> Localizer { get; set; } = default!;
@@ -64,15 +76,16 @@
     protected virtual RenderFragment RenderDropdown() => __builder =>
     {
         <bob-component @attributes="ComputedAttributes"
+                       class="bob-culture-selector"
                        role="group"
-                       aria-label="@Localizer["SelectLanguage"]">
+                       aria-label="@Localizer["Select language"]">
             <BOBInputDropdown TValue="string"
                               Value="@_currentCulture.Name"
                               ValueChanged="@OnDropdownCultureChanged"
                               ValueExpression="@(() => _currentCulture.Name)"
-                              Size="@Size"  
+                              Size="@Size"
                               Variant="BOBInputVariant.Flat">
-                @foreach (CultureInfo culture in Settings.SupportedCultures)
+                @foreach (var culture in Settings.SupportedCultures)
                 {
                     <DropdownOption TOption="string" Value="@culture.Name" Text="@culture.DisplayName">
                         <span class="bob-culture-selector__option">
@@ -101,15 +114,15 @@
 
     protected virtual RenderFragment RenderFlags() => __builder =>
     {
-        <bob-component @attributes="ComputedAttributes">
+        <bob-component @attributes="ComputedAttributes" class="bob-culture-selector">
             <div class="bob-culture-selector__flag-list"
                  role="radiogroup"
-                 aria-label="@Localizer["SelectLanguage"]">
-                @foreach (CultureInfo culture in Settings.SupportedCultures)
+                 aria-label="@Localizer["Select language"]">
+                @foreach (var culture in Settings.SupportedCultures)
                 {
-                    bool isActive = culture.Name == _currentCulture.Name;
-                    string title = isActive
-                        ? Localizer["CurrentLanguage", culture.DisplayName]
+                    var isActive = culture.Name == _currentCulture.Name;
+                    var title = isActive
+                        ? Localizer["Current language: {0}", culture.DisplayName]
                         : culture.DisplayName;
                     <button class="bob-culture-selector__flag-button @(isActive ? "active" : "")"
                             @onclick="() => SetCultureAsync(culture.Name)"
@@ -139,7 +152,7 @@
         if (string.IsNullOrEmpty(cultureName) || cultureName == _currentCulture.Name)
             return;
 
-        CultureInfo? newCulture = Settings.SupportedCultures
+        var newCulture = Settings.SupportedCultures
             .FirstOrDefault(c => c.Name == cultureName);
 
         if (newCulture == null)
@@ -158,6 +171,9 @@
         }
     }
 
-    protected string GetFlag(CultureInfo culture) =>
-        FlagResolver?.Invoke(culture) ?? CultureFlags.GetFlag(culture);
+    protected string GetFlag(CultureInfo culture)
+    {
+        return FlagResolver?.Invoke(culture) ?? CultureFlags.GetFlag(culture);
+    }
+
 }

@@ -30,7 +30,10 @@ public class CubicBezierBuilder
 
     public CubicBezierBuilder WithControlPoints(double x1, double y1, double x2, double y2)
     {
-        _x1 = x1; _y1 = y1; _x2 = x2; _y2 = y2;
+        _x1 = x1;
+        _y1 = y1;
+        _x2 = x2;
+        _y2 = y2;
         return this;
     }
 }
@@ -40,7 +43,8 @@ public class EasingBuilder
     private string _value = "ease";
 
     internal EasingBuilder()
-    { }
+    {
+    }
 
     // Implicit conversion
     public static implicit operator string(EasingBuilder builder)
@@ -55,23 +59,41 @@ public class EasingBuilder
 
     // Custom
     public EasingBuilder Custom(string value)
-    { _value = value; return this; }
+    {
+        _value = value;
+        return this;
+    }
 
     public EasingBuilder Ease()
-    { _value = "ease"; return this; }
+    {
+        _value = "ease";
+        return this;
+    }
 
     public EasingBuilder EaseIn()
-    { _value = "ease-in"; return this; }
+    {
+        _value = "ease-in";
+        return this;
+    }
 
     public EasingBuilder EaseInOut()
-    { _value = "ease-in-out"; return this; }
+    {
+        _value = "ease-in-out";
+        return this;
+    }
 
     public EasingBuilder EaseOut()
-    { _value = "ease-out"; return this; }
+    {
+        _value = "ease-out";
+        return this;
+    }
 
     // Predefined easings
     public EasingBuilder Linear()
-    { _value = "linear"; return this; }
+    {
+        _value = "linear";
+        return this;
+    }
 
     // Steps
     public StepsBuilder Steps(int count) => new(this, count);
@@ -98,22 +120,40 @@ public class StepsBuilder
     }
 
     public StepsBuilder End()
-    { _position = "end"; return this; }
+    {
+        _position = "end";
+        return this;
+    }
 
     public StepsBuilder JumpBoth()
-    { _position = "jump-both"; return this; }
+    {
+        _position = "jump-both";
+        return this;
+    }
 
     public StepsBuilder JumpEnd()
-    { _position = "jump-end"; return this; }
+    {
+        _position = "jump-end";
+        return this;
+    }
 
     public StepsBuilder JumpNone()
-    { _position = "jump-none"; return this; }
+    {
+        _position = "jump-none";
+        return this;
+    }
 
     public StepsBuilder JumpStart()
-    { _position = "jump-start"; return this; }
+    {
+        _position = "jump-start";
+        return this;
+    }
 
     public StepsBuilder Start()
-    { _position = "start"; return this; }
+    {
+        _position = "start";
+        return this;
+    }
 }
 
 public static class Easing

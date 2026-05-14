@@ -1,4 +1,5 @@
 @using BlazOrbit.Abstractions
+@using Microsoft.Extensions.Localization
 
 @namespace BlazOrbit.Components.Display
 @attribute [GenerateComponentInfo]
@@ -7,40 +8,102 @@
 @implements IHasSize
 
 <bob-component @attributes="ComputedAttributes">
-    <div class="bob-avatar-group"
-         role="group"
-         aria-label="@AriaLabel"
-         style="@($"--_group-max-visible: {MaxVisible};")">
+    @* Cascade `this` so nested BOBAvatar children can self-register on mount —
+       that's what feeds the auto-counted overflow badge. IsFixed=true because
+       the group reference never swaps mid-lifetime; cuts re-render cost on each
+       cascading parameter pass. *@
+    <CascadingValue Value="@(this)" IsFixed="true">
+        <div class="bob-avatar-group"
+             role="group"
+             aria-label="@ResolvedAriaLabel"
+             style="@($"--_group-max-visible: {MaxVisible};")">
 
-        <div class="bob-avatar-group__inner">
-            @if (ChildContent is not null)
+            <div class="bob-avatar-group__inner">
+                @if (ChildContent is not null)
+                {
+                    @ChildContent
+                }
+            </div>
+
+            @if (ResolvedOverflow > 0)
             {
-                @ChildContent
+                var overflow = ResolvedOverflow;
+                <span class="bob-avatar-group__overflow"
+                      aria-label="@($"+{overflow} more")">+@overflow</span>
             }
         </div>
-
-        @if (TotalOverride.HasValue && TotalOverride.Value > MaxVisible)
-        {
-            int overflow = TotalOverride.Value - MaxVisible;
-            <span class="bob-avatar-group__overflow"
-                  aria-label="@($"+{overflow} more")">+@overflow</span>
-        }
-    </div>
+    </CascadingValue>
 </bob-component>
 
 @code {
+    [Inject] internal IStringLocalizer<BOBDisplayResources> Localizer { get; set; } = default!;
+
+    private readonly HashSet<BOBAvatar> _registeredAvatars = [];
+
     /// <summary>Avatar children. Items past <see cref="MaxVisible"/> are hidden via CSS.</summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     /// <summary>Maximum number of avatars to render before hiding the rest. Defaults to <c>5</c>.</summary>
-    [Parameter] public int MaxVisible { get; set; } = 5;
+    [Parameter]
+    public int MaxVisible { get; set; } = 5;
+
     /// <summary>Visual size of the group (applied via CSS scoped attributes; children pick their own).</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
+
     /// <summary>Aria-label for the group container.</summary>
-    [Parameter] public string AriaLabel { get; set; } = "Avatars";
+    [Parameter]
+    public string? AriaLabel { get; set; }
+
+    private string ResolvedAriaLabel => AriaLabel ?? Localizer["Avatars"];
+
     /// <summary>
-    /// Total number of avatars represented (visible + hidden). Drives the "+N" overflow badge.
-    /// Set this when the data source is larger than what's actually rendered (e.g. virtualised
-    /// or pre-truncated lists). When <c>null</c>, no overflow badge is rendered.
+    /// Total number of avatars represented (visible + hidden). When set, takes precedence over
+    /// the auto-derived count from registered children — useful when the data source is larger
+    /// than what's actually rendered (e.g. virtualised lists or pre-truncated arrays). When
+    /// <see langword="null"/>, the badge reflects the count of nested BOBAvatar children minus
+    /// <see cref="MaxVisible"/>.
     /// </summary>
-    [Parameter] public int? TotalOverride { get; set; }
+    [Parameter]
+    public int? TotalOverride { get; set; }
+
+    /// <summary>
+    /// Effective total used to derive the overflow count. Returns <see cref="TotalOverride"/>
+    /// when supplied, otherwise the count of registered <see cref="BOBAvatar"/> children.
+    /// </summary>
+    public int RegisteredCount => _registeredAvatars.Count;
+
+    private int ResolvedOverflow
+    {
+        get
+        {
+            var total = TotalOverride ?? _registeredAvatars.Count;
+            var overflow = total - MaxVisible;
+            return overflow > 0 ? overflow : 0;
+        }
+    }
+
+    /// <summary>Internal hook called by nested <see cref="BOBAvatar"/> children on mount.</summary>
+    internal void Register(BOBAvatar avatar)
+    {
+        if (avatar is null) return;
+        if (_registeredAvatars.Add(avatar))
+        {
+            // Re-render so the overflow badge reflects the new count. The cascaded reference
+            // is fixed so this doesn't fan out into children — only the group root re-renders.
+            StateHasChanged();
+        }
+    }
+
+    /// <summary>Internal hook called by nested <see cref="BOBAvatar"/> children on dispose.</summary>
+    internal void Unregister(BOBAvatar avatar)
+    {
+        if (avatar is null) return;
+        if (_registeredAvatars.Remove(avatar))
+        {
+            StateHasChanged();
+        }
+    }
+
 }

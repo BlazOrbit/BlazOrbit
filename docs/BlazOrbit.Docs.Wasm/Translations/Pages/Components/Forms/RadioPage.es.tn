@@ -1,0 +1,92 @@
+// Auto-migrated from RadioPage.es.resx. Edit freely from now on.
+
+# Basic usage
+Uso básico
+
+# BOBInputRadio
+BOBInputRadio
+
+# Choose a shirt size.
+Elige una talla de camiseta.
+
+# Clear
+Limpiar
+
+# Clearable
+Borrable
+
+# Color
+Color
+
+# Component
+Componente
+
+# Custom Icons
+Iconos personalizados
+
+# Disabled
+Deshabilitado
+
+# Heart
+Corazón
+
+# Horizontal
+Horizontal
+
+# Large
+Grande
+
+# Medium
+Mediano
+
+# Option A
+Opción A
+
+# Option B
+Opción B
+
+# Orientation
+Orientación
+
+# Primary
+Primario
+
+# Properties
+Propiedades
+
+# Radio button group for single selection. Supports vertical or horizontal layout, clearable selection, and custom labels.
+Grupo de botones de radio para selección única. Soporta diseño vertical u horizontal, selección despejable y etiquetas personalizadas.
+
+# ReadOnly
+Solo lectura
+
+# Required
+Requerido
+
+# Size
+Tamaño
+
+# Sizes
+Tamaños
+
+# Small
+Pequeño
+
+# Star
+Estrella
+
+# States
+Estados
+
+# Success
+Éxito
+
+# Vertical
+Vertical
+
+# Warning
+Advertencia
+
+
+#             Options are declared as child <code>RadioOption</code> elements, which makes the component strongly typed at compile time. The selected value is bound directly to the generic <code>TValue</code> parameter, so there is no boxing or string conversion involved.
+Las opciones se declaran como elementos hijos <code>RadioOption</code>, lo que hace que el componente tenga tipado fuerte en tiempo de compilación. El valor seleccionado se vincula directamente al parámetro genérico <code>TValue</code>, por lo que no hay boxing ni conversión de cadenas involucrada.

@@ -31,14 +31,14 @@
 [data-bob-component="dropdown-container"] .bob-input__wrapper .bob-dropdown__menu {
     --_dropdown-menu-background: var(--bob-inline-background, var(--palette-surface));
     --_dropdown-menu-border: var(--bob-inline-border, 1px solid var(--palette-border));
-    --_dropdown-menu-shadow: var(--bob-inline-shadow, 0 4px 12px color-mix(in srgb, var(--palette-shadow) 15%, transparent));
+    --_dropdown-menu-shadow: var(--bob-inline-shadow, 0 4px 12px color-mix(in oklab, var(--palette-shadow) 15%, transparent));
 }
 
 /* IHasElevation in dark theme: lift the menu panel via surface-tint overlay. Inline background
    (BackgroundColor=) still wins via the var() fallback chain. */
 [data-bob-theme="dark"] [data-bob-component="dropdown-container"][data-bob-elevation] .bob-input__wrapper .bob-dropdown__menu {
     --_dropdown-menu-background: var(--bob-inline-background,
-        color-mix(in oklab,
+    color-mix(in oklab,
             var(--palette-surface),
             var(--palette-surface-contrast) var(--bob-inline-elevation-tint, 0%)));
 }

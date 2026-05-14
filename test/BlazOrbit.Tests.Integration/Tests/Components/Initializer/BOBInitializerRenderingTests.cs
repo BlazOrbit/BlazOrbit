@@ -29,7 +29,7 @@ public class BOBInitializerRenderingTests
         ["--palette-surface"] = "#1E1E1E",
         ["--palette-surface-contrast"] = "#FFFFFF",
         ["--palette-warning"] = "#FFD54F",
-        ["--palette-warning-contrast"] = "#000000",
+        ["--palette-warning-contrast"] = "#000000"
     };
 
     internal static IThemeJsInterop RegisterFakeTheme(BlazorTestContextBase ctx)

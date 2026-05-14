@@ -13,15 +13,20 @@ public class BOBInputDropdownTreeRenderingTests
 {
     private record TreeNode(string Key, string Name, List<TreeNode>? Children = null);
 
-    private class DummyModel { public string? Value { get; set; } }
+    private class DummyModel
+    {
+        public string? Value { get; set; }
+    }
+
     private static readonly DummyModel _dm = new();
     private static readonly Expression<Func<string?>> _expr = () => _dm.Value;
 
     private static List<TreeNode> SampleItems
-    => [
-        new("1", "Node 1", [new("1.1", "Child 1.1"), new("1.2", "Child 1.2")]),
-        new("2", "Node 2")
-    ];
+        =>
+        [
+            new("1", "Node 1", [new TreeNode("1.1", "Child 1.1"), new TreeNode("1.2", "Child 1.2")]),
+            new("2", "Node 2")
+        ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]

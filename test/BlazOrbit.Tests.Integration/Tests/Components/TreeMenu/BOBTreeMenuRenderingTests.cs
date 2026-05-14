@@ -9,21 +9,27 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.TreeMenu;
 [Trait("Component Rendering", "BOBTreeMenu")]
 public class BOBTreeMenuRenderingTests
 {
-    private sealed record MenuItem(string Key, string Label, IEnumerable<MenuItem>? Children = null, bool Disabled = false);
+    private sealed record MenuItem(
+        string Key,
+        string Label,
+        IEnumerable<MenuItem>? Children = null,
+        bool Disabled = false);
 
     private static IEnumerable<MenuItem> FlatItems
-    => [
-        new MenuItem("a", "Alpha"),
-        new MenuItem("b", "Beta"),
-    ];
+        =>
+        [
+            new("a", "Alpha"),
+            new("b", "Beta")
+        ];
 
     private static IEnumerable<MenuItem> NestedItems
-    => [
-        new MenuItem("parent", "Parent", [
-            new MenuItem("child1", "Child 1"),
-            new MenuItem("child2", "Child 2"),
-        ]),
-    ];
+        =>
+        [
+            new("parent", "Parent", [
+                new MenuItem("child1", "Child 1"),
+                new MenuItem("child2", "Child 2")
+            ])
+        ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]

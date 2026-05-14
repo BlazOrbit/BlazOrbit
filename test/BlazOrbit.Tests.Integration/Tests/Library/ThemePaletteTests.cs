@@ -13,11 +13,10 @@ namespace BlazOrbit.Tests.Integration.Tests.Library;
 [Trait("Core", "ThemePalettes")]
 public class ThemePaletteTests
 {
-    public static IEnumerable<object[]> AllThemes => new[]
-    {
-        new object[] { new LightTheme() },
-        new object[] { new DarkTheme() }
-    };
+    public static IEnumerable<object[]> AllThemes =>
+    [
+        [new LightTheme()], [new DarkTheme()]
+    ];
 
     // CSS-BUNDLE-04: every shipped theme must declare exactly the same
     // set of palette variables (after stripping the per-theme prefix).

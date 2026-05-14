@@ -13,8 +13,7 @@ public class BOBToastVariantTests
 {
     private static ToastState DefaultState() => new()
     {
-        Content = b => b.AddContent(0, "msg"),
-        Options = ToastOptions.Default
+        Content = b => b.AddContent(0, "msg"), Options = ToastOptions.Default
     };
 
     [Theory]

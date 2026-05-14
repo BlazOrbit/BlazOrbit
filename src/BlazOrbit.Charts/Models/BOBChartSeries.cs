@@ -17,7 +17,7 @@ public sealed class BOBChartSeries<TX, TY>
 
     /// <summary>The data points, in plot order.</summary>
     public IEnumerable<BOBChartPoint<TX, TY>> Points { get; init; }
-        = Array.Empty<BOBChartPoint<TX, TY>>();
+        = [];
 
     /// <summary>
     /// Optional explicit color for the series. When <c>null</c> the color is

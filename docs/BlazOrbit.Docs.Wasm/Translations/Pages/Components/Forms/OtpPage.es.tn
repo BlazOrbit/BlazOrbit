@@ -1,0 +1,92 @@
+// Auto-migrated from OtpPage.es.resx. Edit freely from now on.
+
+# 4 digits
+4 dígitos
+
+# 8 digits
+8 dígitos
+
+# Alphanumeric
+Alfanumérico
+
+# Alphanumeric code
+Código alfanumérico
+
+# Basic usage
+Uso básico
+
+# BOBInputOtp
+BOBInputOtp
+
+# Boxed (default)
+En caja (predeterminado)
+
+# Completion callback
+Callback de finalización
+
+# Component
+Componente
+
+# Current value:
+Valor actual:
+
+# Custom length
+Longitud personalizada
+
+# Disabled
+Deshabilitado
+
+# Disabling Numeric accepts any printable character.
+Deshabilitar Numeric acepta cualquier carácter imprimible.
+
+# Enter the 6-digit code sent to your phone.
+Introduce el código de 6 dígitos enviado a tu teléfono.
+
+# Error
+Error
+
+# Invalid code.
+Código inválido.
+
+# Last completed code:
+Último código completado:
+
+# Masked
+Enmascarado
+
+# Multi-slot one-time-code input with auto-advance, backspace navigation, paste distribution and IME-safe handling.
+Entrada de código de un solo uso multi-slot con auto-avance, navegación por retroceso, distribución de pegado y manejo seguro de IME.
+
+# PIN
+PIN
+
+# Properties
+Propiedades
+
+# ReadOnly
+Solo lectura
+
+# Required
+Requerido
+
+# Sizes
+Tamaños
+
+# Slots are obscured for sensitive codes.
+Las ranuras se ocultan para códigos sensibles.
+
+# States
+Estados
+
+# Type 6 digits
+Escribe 6 dígitos
+
+# Underlined
+Subrayado
+
+# Variants
+Variantes
+
+# Verification code
+Código de verificación
+

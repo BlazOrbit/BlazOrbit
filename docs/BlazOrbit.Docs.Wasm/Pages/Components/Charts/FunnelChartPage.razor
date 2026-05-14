@@ -1,16 +1,21 @@
-@page "/components/charts/funnel"
+﻿@page "/components/charts/funnel"
 
 @inject IStringLocalizer<FunnelChartPage> Loc
 
 <DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBFunnelChart"]"
          Lede="@Loc["Multi-stage drop-off visualization. Each row's width auto-scales to the largest value; the per-row label shows the absolute number plus its percentage of the top of the funnel."]"
          PageInstance="this"
-         ApiType="@typeof(BOBFunnelChart<>)">
+         ApiType="@typeof(BOBFunnelChart<>)"
+         Keywords="@(["funnel chart", "pipeline", "stages", "conversion"])">
+
+    <BOBBanner Severity="BOBBannerSeverity.Warning"
+               Title="@Loc["Extra package required"]"
+               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]"/>
 
     <DocDemo Key="Tapered" Title="@Loc["Sales funnel"]">
         <BOBFunnelChart TY="int"
                         Steps="_pipeline"
-                        Width="640" Height="360" />
+                        Width="640" Height="360"/>
     </DocDemo>
 
     <DocDemo Key="Rectangular" Title="@Loc["Rectangular bars"]"
@@ -18,13 +23,13 @@
         <BOBFunnelChart TY="int"
                         Steps="_pipeline"
                         Tapered="false"
-                        Width="640" Height="360" />
+                        Width="640" Height="360"/>
     </DocDemo>
 
     <DocDemo Key="OnboardingFlow" Title="@Loc["Onboarding completion flow"]">
         <BOBFunnelChart TY="int"
                         Steps="_onboarding"
-                        Width="640" Height="380" />
+                        Width="640" Height="380"/>
     </DocDemo>
 
 </DocPage>
@@ -32,22 +37,21 @@
 @code {
 
     private static readonly IEnumerable<BOBChartFunnelStep<int>> _pipeline =
-        new[]
-        {
-            new BOBChartFunnelStep<int> { Label = "Visitors", Value = 12_400 },
+    [
+        new BOBChartFunnelStep<int> { Label = "Visitors", Value = 12_400 },
             new BOBChartFunnelStep<int> { Label = "Sign-ups", Value = 5_180 },
-            new BOBChartFunnelStep<int> { Label = "Trials",   Value = 2_650 },
-            new BOBChartFunnelStep<int> { Label = "Paid",     Value = 940 },
-            new BOBChartFunnelStep<int> { Label = "Renewed",  Value = 760 },
-        };
+            new BOBChartFunnelStep<int> { Label = "Trials", Value = 2_650 },
+            new BOBChartFunnelStep<int> { Label = "Paid", Value = 940 },
+            new BOBChartFunnelStep<int> { Label = "Renewed", Value = 760 }
+    ];
 
     private static readonly IEnumerable<BOBChartFunnelStep<int>> _onboarding =
-        new[]
-        {
-            new BOBChartFunnelStep<int> { Label = "Account created",   Value = 850 },
-            new BOBChartFunnelStep<int> { Label = "Email verified",    Value = 720 },
+    [
+        new BOBChartFunnelStep<int> { Label = "Account created", Value = 850 },
+            new BOBChartFunnelStep<int> { Label = "Email verified", Value = 720 },
             new BOBChartFunnelStep<int> { Label = "Profile completed", Value = 590 },
-            new BOBChartFunnelStep<int> { Label = "First action",      Value = 480 },
-            new BOBChartFunnelStep<int> { Label = "Activated (D7)",    Value = 320 },
-        };
+            new BOBChartFunnelStep<int> { Label = "First action", Value = 480 },
+            new BOBChartFunnelStep<int> { Label = "Activated (D7)", Value = 320 }
+    ];
+
 }

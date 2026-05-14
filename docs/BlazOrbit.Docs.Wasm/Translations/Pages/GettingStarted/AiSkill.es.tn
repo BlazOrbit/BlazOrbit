@@ -1,0 +1,300 @@
+# Guide
+Guía
+
+
+
+
+
+# AI Assistant Skill
+Habilidad del asistente de IA
+
+
+
+
+
+# Drop a self-contained reference bundle into your AI coding agent so it writes idiomatic BlazOrbit code without re-explaining the project on every prompt.
+Coloque un paquete de referencia autónomo en su agente de codificación de IA para que escriba código BlazOrbit idiomático sin volver a explicar el proyecto en cada solicitud.
+
+
+
+
+
+# What it provides
+Aportaciones
+
+
+
+
+
+# <code>blazorbit-user.skill</code> is a zip archive following the public <strong>Anthropic Skill</strong> format (a <code>SKILL.md</code> at the root with optional <code>references/</code> and <code>scripts/</code> folders). It teaches an agent how to:
+<code>blazorbit-user.skill</code> es un archivo zip que sigue el formato público <strong>de Anthropic Skill</strong> (<code>un</code> SKILL.md en la raíz con <code>referencias opcionales/</code>y <code>scripts/</code>carpetas). Enseña a un agente cómo:
+
+
+
+
+
+# Pick the right component for a task (buttons, inputs, dialogs, data-grid, …).
+Elija el componente adecuado para una tarea (botones, entradas, diálogos, cuadrícula de datos,...).
+
+
+
+
+
+# Use the canonical parameter names, types, and presets — no hallucinated APIs.
+Utilice los nombres, tipos y ajustes preestablecidos de los parámetros canónicos, sin API alucinadas.
+
+
+
+
+
+# Apply the BlazOrbit theming pipeline (<code>--palette-*</code>, <code>--bob-*</code>, <code>--bob-inline-*</code>).
+Aplicar el pipeline de tematización BlazOrbit<code> (--palette- *</code>, <code>--bob-*</code>, <code>--bob-inline-*</code>).
+
+
+
+
+
+# Register variants, wire forms with <code>EditContext</code>, and use the modal/toast services correctly.
+Registre variantes, envíe formularios con <code>EditContext</code> y use los servicios modales/Toast correctamente.
+
+
+
+
+
+# Honor accessibility rules baked into every component.
+Respeta las normas de accesibilidad incluidas en cada componente.
+
+
+
+
+
+# The bundle is regenerated against each release, so its component catalog stays in lock-step with the published library — no drift between the agent's mental model and the actual API surface.
+El paquete se regenera en cada versión, por lo que su catálogo de componentes se mantiene en sintonía con la biblioteca publicada, sin desviaciones entre el modelo mental del agente y la superficie real de la API.
+
+
+
+
+
+# Download
+Descargar
+
+
+
+
+
+# The skill bundle is attached to every BlazOrbit GitHub release/preview. Download the file matching version and keep it next to your agent configuration.
+El paquete de habilidades se adjunta a cada versión/vista previa de BlazOrbit GitHub. Descargue la versión del archivo que coincida y guárdela junto a la configuración de su agente.
+
+
+
+
+
+# Download blazorbit-user.skill ↗
+Descargar blazorbit-user.skill ↗
+
+
+
+
+
+# Terminal (cURL)
+Terminal (cURL)
+
+
+
+
+
+# Terminal (PowerShell)
+Terminal (PowerShell)
+
+
+
+
+
+# The <code>.skill</code> file is a regular zip archive. Rename to <code>.zip</code> if you want to inspect the contents before installing.
+El <code>archivo</code> .skill es un archivo ZIP normal. Cambie el nombre a <code>.zip</code> si desea inspeccionar el contenido antes de la instalación.
+
+
+
+
+
+# Install per agent
+Instalar por agente
+
+
+
+
+
+# Claude Code
+Código Claude
+
+
+
+
+
+# Claude Code reads skills from <code>~/.claude/skills/</code> on macOS/Linux or <code>%USERPROFILE%\.claude\skills\</code> on Windows. Extract the bundle into a folder named after the skill:
+Claude Code lee habilidades de <code>~/.claude/skills/</code>en macOS/Linux o <code>%USERPROFILE%\.claude\skills\</code> en Windows. Extraiga el paquete en una carpeta con el nombre de la habilidad:
+
+
+
+
+
+# Terminal
+Terminal
+
+
+
+
+
+# Restart Claude Code and confirm the skill is loaded with <code>/skills</code>. Trigger it by mentioning a BlazOrbit component in any prompt.
+Reinicie Claude Code y confirme que la habilidad está cargada con<code>/skills</code>. Activarlo mencionando un componente BlazOrbit en cualquier mensaje.
+
+
+
+
+
+# Kimi (Moonshot)
+Kimi (disparo a la luna)
+
+
+
+
+
+# Kimi consumes the same skill format. Upload the file through the "Skills" tab in the Kimi web UI, or drop the extracted folder under the Kimi configuration directory documented at <a href="https://kimi.moonshot.cn/docs" target="_blank" rel="noopener noreferrer">kimi.moonshot.cn/docs</a>.
+Kimi consume el mismo formato de habilidad. Cargue el archivo a través de la pestaña "Habilidades" en la interfaz de usuario web de Kimi, o coloque la carpeta extraída bajo el directorio de configuración de Kimi documentado en <a href="https://kimi.moonshot.cn/docs" target="_blank" rel="noopener noreferrer">kimi.moonshot.cn/docs</a>.
+
+
+
+
+
+# OpenCode
+Código abierto
+
+
+
+
+
+# OpenCode loads skills from its <code>skills/</code> workspace folder. Extract the bundle and reference the directory in your OpenCode configuration (<code>opencode.json</code>):
+OpenCode carga las habilidades desde su carpeta de <code>habilidades/</code>espacio de trabajo. Extraiga el paquete y haga referencia al directorio en su configuración de OpenCode (<code>opencode.json</code>):
+
+
+
+
+
+# Generic loader
+Cargador genérico
+
+
+
+
+
+# Any agent that can ingest the public <strong>Anthropic Skill</strong> format works. The contract is:
+Funciona cualquier agente que pueda ingerir el formato público <strong>de Habilidad Antrópica</strong>. El contrato es:
+
+
+
+
+
+# The archive root contains <code>SKILL.md</code> with YAML frontmatter (<code>name</code>, <code>description</code>).
+La raíz del archivo <code>contiene</code> SKILL.md con frontmatter YAML (<code>nombre</code>, <code>descripción</code>).
+
+
+
+
+
+# Side files live under <code>references/</code> (read on demand) and <code>scripts/</code> (executed on request).
+Los archivos laterales viven bajo <code>referencias/</code>(leídos a pedido) y <code>scripts/</code>(ejecutados a pedido).
+
+
+
+
+
+# The agent loads the skill when its <code>description</code> matches the user's request.
+El agente carga la habilidad cuando su <code>descripción</code> coincide con la solicitud del usuario.
+
+
+
+
+
+# Extract the archive somewhere your agent scans for skills, then point its loader at that directory.
+Extraiga el archivo en algún lugar donde su agente busque habilidades, luego apunte su cargador a ese directorio.
+
+
+
+
+
+# Terminal (any host — extract only)
+Terminal (cualquier host — solo extracción)
+
+
+
+
+
+# Verify the agent loaded it
+Verificar que el agente lo cargó
+
+
+
+
+
+# Drop this prompt into a fresh chat. A correctly-loaded skill answers with the canonical parameter names, not the agent's training-set guesses:
+Envía este mensaje a un nuevo chat. Una habilidad cargada correctamente responde con los nombres de los parámetros canónicos, no con las conjeturas del conjunto de entrenamiento del agente:
+
+
+
+
+
+# Prompt
+Inmediato
+
+
+
+
+
+# Expected answer mentions <code>LeadingIcon</code> of type <code>IconKey?</code>, and points to <code>BOBIconKeys.MaterialIconsOutlined</code>.
+La respuesta esperada <code>menciona</code> LeadingIcon del <code>tipo IconKey?</code>, y apunta a <code>BOBIconKeys.MaterialIconsOutlined</code>.
+
+
+
+
+
+# Update
+Actualiza
+
+
+
+
+
+# Every BlazOrbit release publishes a fresh skill bundle. Re-download and overwrite the extracted folder; no migration needed.
+Cada versión de BlazOrbit publica un nuevo paquete de habilidades. Vuelva a descargar y sobrescriba la carpeta extraída; no se necesita migración.
+
+
+
+
+
+
+
+
+
+
+# For contributors — build locally
+Para colaboradores — compilar localmente
+
+
+
+
+
+# The skill is generated by reflecting over the BlazOrbit assemblies, so it stays accurate without manual upkeep. Run the regenerator after building the library:
+La habilidad se genera al reflexionar sobre los conjuntos BlazOrbit, por lo que se mantiene precisa sin mantenimiento manual. Ejecute el regenerador después de construir la biblioteca:
+
+
+
+
+
+
+
+
+
+
+# Then zip the resulting <code>.agents/skills/blazorbit-user/</code> folder (excluding <code>scripts/*.ps1</code> and <code>scripts/*.cs</code>) to produce a custom <code>.skill</code> file. The <code>package-skill</code> CI workflow does this automatically on every release.
+A continuación, comprima la carpeta <code>.agents/skills/blazorbit-user/</code>resultante (excluyendo <code>scripts/*.ps1</code> y <code>scripts/*.cs</code>) para producir un archivo <code>.skill</code> personalizado. El flujo <code>de</code> trabajo de CI de habilidad de paquete hace esto automáticamente en cada versión.
+

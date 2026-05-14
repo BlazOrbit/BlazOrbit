@@ -1,0 +1,26 @@
+<Project>
+    <!--
+        Consumer-side wiring for BOBLocalize.
+
+        Auto-includes every `Translations/**/*.tn` file under the consumer project as an
+        `<AdditionalFiles>` item so the BlazOrbit.Localization.CodeGeneration source
+        generator (shipped under analyzers/dotnet/cs/ inside this same nupkg) can read
+        them at compile time and emit the `[ModuleInitializer]` that registers each
+        bundle via `BobLocalize.RegisterBundle(...)`.
+
+        Without this auto-include the generator runs but sees zero translations, so
+        every key resolves to its literal fallback — translations look wired up but
+        never apply at runtime.
+
+        Consumers can opt out by setting `<BlazOrbitLocalizationAutoIncludeTn>false`
+        in their csproj before adding their own AdditionalFiles entries for special
+        cases (e.g. .tn files outside the Translations/ root).
+    -->
+    <PropertyGroup>
+        <BlazOrbitLocalizationAutoIncludeTn Condition="'$(BlazOrbitLocalizationAutoIncludeTn)' == ''">true</BlazOrbitLocalizationAutoIncludeTn>
+    </PropertyGroup>
+
+    <ItemGroup Condition="'$(BlazOrbitLocalizationAutoIncludeTn)' == 'true'">
+        <AdditionalFiles Include="$(MSBuildProjectDirectory)\Translations\**\*.tn" Visible="false"/>
+    </ItemGroup>
+</Project>

@@ -14,15 +14,15 @@
     {
         @if (GroupByDate && Orientation == BOBTimelineOrientation.Vertical)
         {
-            int index = 0;
-            @foreach (IGrouping<DateOnly, TimelineItem> group in GroupedItems)
+            var index = 0;
+            @foreach (var group in GroupedItems)
             {
                 <div class="bob-timeline__group">
                     <div class="bob-timeline__group-header">
                         @group.Key.ToString(DateFormat, CultureInfo.CurrentCulture)
                     </div>
                     <ol class="bob-timeline__list" role="list">
-                        @foreach (TimelineItem item in group)
+                        @foreach (var item in group)
                         {
                             @RenderEntry(item, index++)
                         }
@@ -33,8 +33,8 @@
         else
         {
             <ol class="bob-timeline__list" role="list">
-                @{ int index = 0; }
-                @foreach (TimelineItem item in Items)
+                @{ var index = 0; }
+                @foreach (var item in Items)
                 {
                     @RenderEntry(item, index++)
                 }
@@ -44,35 +44,44 @@
 </bob-component>
 
 @code {
+
     /// <summary>Sequence of events rendered along the timeline rail.</summary>
-    [Parameter] public IReadOnlyList<TimelineItem>? Items { get; set; }
+    [Parameter]
+    public IReadOnlyList<TimelineItem>? Items { get; set; }
 
     /// <summary>Layout direction. Defaults to <see cref="BOBTimelineOrientation.Vertical"/>.</summary>
-    [Parameter] public BOBTimelineOrientation Orientation { get; set; } = BOBTimelineOrientation.Vertical;
+    [Parameter]
+    public BOBTimelineOrientation Orientation { get; set; } = BOBTimelineOrientation.Vertical;
 
     /// <summary>
     /// When <see langword="true"/> and <see cref="Orientation"/> is vertical, alternate
     /// odd/even entries to opposite sides of the rail. Ignored for horizontal layouts.
     /// </summary>
-    [Parameter] public bool Alternating { get; set; }
+    [Parameter]
+    public bool Alternating { get; set; }
 
     /// <summary>Custom rendering for the body of an entry. Defaults to title + description.</summary>
-    [Parameter] public RenderFragment<TimelineItem>? ItemTemplate { get; set; }
+    [Parameter]
+    public RenderFragment<TimelineItem>? ItemTemplate { get; set; }
 
     /// <summary>
     /// When <see langword="true"/> and the orientation is vertical, group entries under a
     /// per-day header derived from <see cref="TimelineItem.Timestamp"/>.
     /// </summary>
-    [Parameter] public bool GroupByDate { get; set; }
+    [Parameter]
+    public bool GroupByDate { get; set; }
 
     /// <summary>Custom format for the per-day header. Defaults to <c>yyyy-MM-dd</c>.</summary>
-    [Parameter] public string DateFormat { get; set; } = "yyyy-MM-dd";
+    [Parameter]
+    public string DateFormat { get; set; } = "yyyy-MM-dd";
 
     /// <summary>Custom format for each entry's timestamp label. Defaults to <c>HH:mm</c>.</summary>
-    [Parameter] public string TimeFormat { get; set; } = "HH:mm";
+    [Parameter]
+    public string TimeFormat { get; set; } = "HH:mm";
 
     /// <summary>Visual size of the marker dots and inner icons.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
 
     private bool IsAlternating => Alternating && Orientation == BOBTimelineOrientation.Vertical;
 
@@ -80,14 +89,14 @@
 
     private IEnumerable<IGrouping<DateOnly, TimelineItem>> GroupedItems =>
         (Items ?? [])
-            .GroupBy(item => DateOnly.FromDateTime(item.Timestamp.LocalDateTime))
-            .OrderBy(g => g.Key);
+        .GroupBy(item => DateOnly.FromDateTime(item.Timestamp.LocalDateTime))
+        .OrderBy(g => g.Key);
 
     private RenderFragment RenderEntry(TimelineItem item, int index) => __builder =>
     {
         // Side calculation only matters when alternating; otherwise the CSS just keeps the
         // standard rail-on-the-left shape.
-        string? side = IsAlternating ? (index % 2 == 0 ? "start" : "end") : null;
+        var side = IsAlternating ? index % 2 == 0 ? "start" : "end" : null;
 
         <li class="bob-timeline__entry"
             data-bob-side="@side"
@@ -95,7 +104,7 @@
             <div class="bob-timeline__marker" aria-hidden="true">
                 @if (item.Icon.HasValue)
                 {
-                    <BOBSvgIcon Icon="@item.Icon.Value" Size="@Size" />
+                    <BOBSvgIcon Icon="@item.Icon.Value" Size="@Size"/>
                 }
             </div>
             <div class="bob-timeline__content">
@@ -120,5 +129,6 @@
     };
 
     private static string? MarkerStyle(TimelineItem item) =>
-        string.IsNullOrEmpty(item.Color) ? null : $"--bob-inline-color:{item.Color};";
+        string.IsNullOrEmpty(item.Color) ? null : $"{FeatureDefinitions.InlineVariables.Color}:{item.Color};";
+
 }

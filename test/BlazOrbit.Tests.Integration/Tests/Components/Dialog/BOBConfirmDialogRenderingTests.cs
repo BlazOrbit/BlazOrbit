@@ -1,3 +1,4 @@
+using AngleSharp.Dom;
 using BlazOrbit.Components.Layout;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -50,7 +51,7 @@ public class BOBConfirmDialogRenderingTests
             .Add(c => c.Title, "T")
             .Add(c => c.Message, "M"));
 
-        var buttons = cut.FindAll(".bob-confirm__actions button");
+        IReadOnlyList<IElement> buttons = cut.FindAll(".bob-confirm__actions button");
         buttons.Should().HaveCount(2);
         buttons[0].TextContent.Should().Be("Cancel");
         buttons[1].TextContent.Should().Be("Yes");
@@ -69,7 +70,7 @@ public class BOBConfirmDialogRenderingTests
             .Add(c => c.YesLabel, "Delete")
             .Add(c => c.NoLabel, "Keep"));
 
-        var buttons = cut.FindAll(".bob-confirm__actions button");
+        IReadOnlyList<IElement> buttons = cut.FindAll(".bob-confirm__actions button");
         buttons[0].TextContent.Should().Be("Keep");
         buttons[1].TextContent.Should().Be("Delete");
     }

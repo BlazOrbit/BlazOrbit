@@ -46,7 +46,11 @@ public sealed class BOBPerformanceService : IBOBPerformanceService
         _metrics.AddOrUpdate(
             componentType,
             key => new BOBComponentMetrics { ComponentType = key, InitTimeMs = elapsedMs },
-            (_, existing) => { existing.InitTimeMs = elapsedMs; return existing; });
+            (_, existing) =>
+            {
+                existing.InitTimeMs = elapsedMs;
+                return existing;
+            });
 
         MetricsUpdated?.Invoke();
     }

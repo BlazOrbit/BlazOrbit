@@ -17,7 +17,7 @@ if ('serviceWorker' in navigator) {
                         // controllerchange listener below will reload the page
                         // once the new worker takes control.
                         if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                            newWorker.postMessage({ type: 'SKIP_WAITING' });
+                            newWorker.postMessage({type: 'SKIP_WAITING'});
                         }
                     });
                 });

@@ -15,5 +15,5 @@ public enum BOBChartTheme
     Light,
 
     /// <summary>Force the dark palette tokens.</summary>
-    Dark,
+    Dark
 }

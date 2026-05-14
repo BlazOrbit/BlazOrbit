@@ -26,8 +26,10 @@ public interface IRadioOption
 {
     /// <summary>Content rendered inside the option (label and any custom markup).</summary>
     RenderFragment? Content { get; }
+
     /// <summary><see langword="true"/> when the option cannot be selected.</summary>
     bool IsDisabled { get; }
+
     /// <summary>Underlying value carried by the option, boxed to <see cref="object"/>.</summary>
     object? RawValue { get; }
 }

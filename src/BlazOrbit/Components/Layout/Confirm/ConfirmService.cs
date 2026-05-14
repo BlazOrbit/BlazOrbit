@@ -29,7 +29,7 @@ public sealed class ConfirmService : IConfirmService
                 Message = message,
                 Severity = severity,
                 YesLabel = yesLabel,
-                NoLabel = noLabel,
+                NoLabel = noLabel
             },
             new DialogOptions
             {
@@ -37,7 +37,7 @@ public sealed class ConfirmService : IConfirmService
                 CloseOnOverlayClick = false,
                 CloseOnEscape = true,
                 MinWidth = "22rem",
-                MaxWidth = "32rem",
+                MaxWidth = "32rem"
             });
 
         if (timeout is null)

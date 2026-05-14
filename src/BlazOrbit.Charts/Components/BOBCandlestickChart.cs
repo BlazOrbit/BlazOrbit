@@ -23,37 +23,45 @@ public class BOBCandlestickChart<TX> :
     where TX : notnull
 {
     /// <summary>The OHLC data, in plot order (oldest first).</summary>
-    [Parameter] public IEnumerable<BOBChartCandlePoint<TX>>? Candles { get; set; }
+    [Parameter]
+    public IEnumerable<BOBChartCandlePoint<TX>>? Candles { get; set; }
 
     /// <inheritdoc />
-    [Parameter] public BOBChartAxis XAxis { get; set; } = new();
+    [Parameter]
+    public BOBChartAxis XAxis { get; set; } = new();
 
     /// <inheritdoc />
-    [Parameter] public BOBChartAxis YAxis { get; set; } = new();
+    [Parameter]
+    public BOBChartAxis YAxis { get; set; } = new();
 
     /// <summary>Bullish (Close ≥ Open) candle color. Default green.</summary>
-    [Parameter] public string UpColor { get; set; } = "var(--palette-success, #16a34a)";
+    [Parameter]
+    public string UpColor { get; set; } = "var(--palette-success, #16a34a)";
 
     /// <summary>Bearish (Close &lt; Open) candle color. Default red.</summary>
-    [Parameter] public string DownColor { get; set; } = "var(--palette-error, #dc2626)";
+    [Parameter]
+    public string DownColor { get; set; } = "var(--palette-error, #dc2626)";
 
     /// <summary>
     /// When <c>true</c>, the bottom 20% of the plot is reserved for a
     /// volume bar pane (one bar per candle, colored by direction). The
     /// Y axis labels apply to the price pane only. Default <c>false</c>.
     /// </summary>
-    [Parameter] public bool ShowVolumePane { get; set; }
+    [Parameter]
+    public bool ShowVolumePane { get; set; }
 
     /// <summary>
     /// Body width fraction (0..1) of the per-candle band. Default 0.7.
     /// </summary>
-    [Parameter] public double BodyRatio { get; set; } = 0.7;
+    [Parameter]
+    public double BodyRatio { get; set; } = 0.7;
 
     /// <summary>
     /// Optional moving averages drawn on top of the candles (label,
     /// window, color). Useful for SMA / EMA overlays.
     /// </summary>
-    [Parameter] public IEnumerable<BOBChartReferenceLine>? ReferenceLines { get; set; }
+    [Parameter]
+    public IEnumerable<BOBChartReferenceLine>? ReferenceLines { get; set; }
 
     /// <inheritdoc />
     protected override string BuildAriaLabel()
@@ -65,32 +73,40 @@ public class BOBCandlestickChart<TX> :
     /// <inheritdoc />
     protected override void RenderSvg(RenderTreeBuilder builder)
     {
-        if (Candles is null) return;
+        if (Candles is null)
+        {
+            return;
+        }
+
         BOBChartCandlePoint<TX>[] candles = Candles.ToArray();
-        if (candles.Length == 0) return;
+        if (candles.Length == 0)
+        {
+            return;
+        }
 
         ChartLayout layout = ChartLayout.Default(EffectiveWidth, EffectiveHeight);
 
         // Split layout when volume pane is on: top 78% price, bottom 20% volume, 2% gap.
         double priceTop = layout.PlotTop;
         double priceBottom = ShowVolumePane
-            ? layout.PlotTop + layout.PlotHeight * 0.78
+            ? layout.PlotTop + (layout.PlotHeight * 0.78)
             : layout.PlotBottom;
-        double volTop = ShowVolumePane ? layout.PlotTop + layout.PlotHeight * 0.80 : 0;
+        double volTop = ShowVolumePane ? layout.PlotTop + (layout.PlotHeight * 0.80) : 0;
         double volBottom = layout.PlotBottom;
 
         // Price scale spans observed High..Low (with margin).
         double priceMin = candles.Min(c => c.Low);
         double priceMax = candles.Max(c => c.High);
         LinearScale yPrice = new(
-            new[] { priceMin, priceMax },
+            [priceMin, priceMax],
             priceBottom, priceTop, YAxis.Min, YAxis.Max);
 
         // Volume scale 0..max.
         double volMax = ShowVolumePane && candles.Any(c => c.Volume > 0)
-            ? candles.Max(c => c.Volume) : 1;
+            ? candles.Max(c => c.Volume)
+            : 1;
         LinearScale? yVol = ShowVolumePane
-            ? new LinearScale(new[] { 0.0, volMax }, volBottom, volTop, includeZero: true)
+            ? new LinearScale([0.0, volMax], volBottom, volTop, includeZero: true)
             : null;
 
         // X scale — categorical by index so candles render evenly spaced.
@@ -116,6 +132,7 @@ public class BOBCandlestickChart<TX> :
                 builder.AddAttribute(seq++, "y2", ChartLayout.ToInvariant(y));
                 builder.CloseElement();
             }
+
             builder.CloseElement();
         }
 
@@ -134,6 +151,7 @@ public class BOBCandlestickChart<TX> :
                 builder.AddContent(seq++, tick.ToString(format, CultureInfo.InvariantCulture));
                 builder.CloseElement();
             }
+
             builder.CloseElement();
         }
 
@@ -159,8 +177,11 @@ public class BOBCandlestickChart<TX> :
             double bodyBot = yPrice.Project(Math.Min(c.Open, c.Close));
             double bodyH = Math.Max(1, bodyBot - bodyTop);
             builder.OpenElement(seq++, "rect");
-            builder.AddAttribute(seq++, "class", up ? "bob-candle-chart__body bob-candle-chart__body--up" : "bob-candle-chart__body bob-candle-chart__body--down");
-            builder.AddAttribute(seq++, "x", ChartLayout.ToInvariant(cx - bodyWidth / 2));
+            builder.AddAttribute(seq++, "class",
+                up
+                    ? "bob-candle-chart__body bob-candle-chart__body--up"
+                    : "bob-candle-chart__body bob-candle-chart__body--down");
+            builder.AddAttribute(seq++, "x", ChartLayout.ToInvariant(cx - (bodyWidth / 2)));
             builder.AddAttribute(seq++, "y", ChartLayout.ToInvariant(bodyTop));
             builder.AddAttribute(seq++, "width", ChartLayout.ToInvariant(bodyWidth));
             builder.AddAttribute(seq++, "height", ChartLayout.ToInvariant(bodyH));
@@ -177,7 +198,7 @@ public class BOBCandlestickChart<TX> :
                 double vBot = yVol.Project(0);
                 builder.OpenElement(seq++, "rect");
                 builder.AddAttribute(seq++, "class", "bob-candle-chart__volume");
-                builder.AddAttribute(seq++, "x", ChartLayout.ToInvariant(cx - bodyWidth / 2));
+                builder.AddAttribute(seq++, "x", ChartLayout.ToInvariant(cx - (bodyWidth / 2)));
                 builder.AddAttribute(seq++, "y", ChartLayout.ToInvariant(vTop));
                 builder.AddAttribute(seq++, "width", ChartLayout.ToInvariant(bodyWidth));
                 builder.AddAttribute(seq++, "height", ChartLayout.ToInvariant(vBot - vTop));
@@ -194,7 +215,11 @@ public class BOBCandlestickChart<TX> :
             foreach (BOBChartReferenceLine rl in ReferenceLines)
             {
                 double y = yPrice.Project(rl.Value);
-                if (y < priceTop || y > priceBottom) continue;
+                if (y < priceTop || y > priceBottom)
+                {
+                    continue;
+                }
+
                 builder.OpenElement(seq++, "line");
                 builder.AddAttribute(seq++, "class", "bob-chart__reference-line");
                 builder.AddAttribute(seq++, "x1", ChartLayout.ToInvariant(layout.PlotLeft));
@@ -204,9 +229,14 @@ public class BOBCandlestickChart<TX> :
                 builder.AddAttribute(seq++, "stroke", rl.Color ?? "var(--palette-warning, #f59e0b)");
                 builder.AddAttribute(seq++, "stroke-width", ChartLayout.ToInvariant(rl.StrokeWidth));
                 if (rl.Style == BOBChartReferenceLineStyle.Dashed)
+                {
                     builder.AddAttribute(seq++, "stroke-dasharray", "6 4");
+                }
                 else if (rl.Style == BOBChartReferenceLineStyle.Dotted)
+                {
                     builder.AddAttribute(seq++, "stroke-dasharray", "2 3");
+                }
+
                 builder.CloseElement();
                 if (!string.IsNullOrEmpty(rl.Label))
                 {
@@ -230,7 +260,11 @@ public class BOBCandlestickChart<TX> :
             builder.AddAttribute(seq++, "class", "bob-candle-chart__axis bob-candle-chart__axis--x");
             for (int i = 0; i < candles.Length; i++)
             {
-                if (i % sampleEvery != 0 && i != candles.Length - 1) continue;
+                if (i % sampleEvery != 0 && i != candles.Length - 1)
+                {
+                    continue;
+                }
+
                 double cx = xScale.Center(candles[i].X);
                 builder.OpenElement(seq++, "text");
                 builder.AddAttribute(seq++, "x", ChartLayout.ToInvariant(cx));
@@ -240,10 +274,11 @@ public class BOBCandlestickChart<TX> :
                 {
                     DateTime dt => dt.ToString(XAxis.Format ?? "yyyy-MM-dd", CultureInfo.InvariantCulture),
                     DateTimeOffset dto => dto.ToString(XAxis.Format ?? "yyyy-MM-dd", CultureInfo.InvariantCulture),
-                    _ => candles[i].X?.ToString() ?? string.Empty,
+                    _ => candles[i].X?.ToString() ?? string.Empty
                 });
                 builder.CloseElement();
             }
+
             builder.CloseElement();
         }
     }

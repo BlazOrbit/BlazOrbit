@@ -16,34 +16,46 @@ public class BOBRatingSnapshotTests
 
         var testCases = new[]
         {
-            new { Name = "Empty", Builder = (Action<ComponentParameterCollectionBuilder<BOBRating>>)(p => p
-                .Add(c => c.Label, "Rate me")) },
-
-            new { Name = "Three_Stars", Builder = (Action<ComponentParameterCollectionBuilder<BOBRating>>)(p => p
-                .Add(c => c.Value, 3)) },
-
-            new { Name = "Half_Step", Builder = (Action<ComponentParameterCollectionBuilder<BOBRating>>)(p => p
-                .Add(c => c.AllowHalf, true)
-                .Add(c => c.Value, 2.5)) },
-
-            new { Name = "ReadOnly_Four", Builder = (Action<ComponentParameterCollectionBuilder<BOBRating>>)(p => p
-                .Add(c => c.Value, 4)
-                .Add(c => c.ReadOnly, true)) },
-
-            new { Name = "Disabled", Builder = (Action<ComponentParameterCollectionBuilder<BOBRating>>)(p => p
-                .Add(c => c.Value, 2)
-                .Add(c => c.Disabled, true)) }
+            new
+            {
+                Name = "Empty",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBRating>>)(p => p
+                    .Add(c => c.Label, "Rate me"))
+            },
+            new
+            {
+                Name = "Three_Stars",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBRating>>)(p => p
+                    .Add(c => c.Value, 3))
+            },
+            new
+            {
+                Name = "Half_Step",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBRating>>)(p => p
+                    .Add(c => c.AllowHalf, true)
+                    .Add(c => c.Value, 2.5))
+            },
+            new
+            {
+                Name = "ReadOnly_Four",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBRating>>)(p => p
+                    .Add(c => c.Value, 4)
+                    .Add(c => c.ReadOnly, true))
+            },
+            new
+            {
+                Name = "Disabled",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBRating>>)(p => p
+                    .Add(c => c.Value, 2)
+                    .Add(c => c.Disabled, true))
+            }
         };
 
         var results = testCases.Select(testCase =>
         {
             IRenderedComponent<BOBRating> cut = ctx.Render<BOBRating>(testCase.Builder);
-            return new
-            {
-                testCase.Name,
-                Html = cut.GetNormalizedMarkup()
-            };
-        });
+            return new { testCase.Name, Html = cut.GetNormalizedMarkup() };
+        }).ToList();
 
         await Verify(results).UseParameters(scenario.Name);
     }

@@ -1,0 +1,50 @@
+# BOBChartFilterContext
+BOBChartFilterContext
+
+# (all regions)
+(todas las regiones)
+
+# API surface
+Superficie API
+
+# Chart
+Gráfico
+
+# Clear All
+Limpiar todo
+
+# Click to filter sibling charts
+Pulsa para filtrar los gráficos hermanos
+
+# Cross-filtering container. Wrap several charts inside a BOBChartFilterContext to let them coordinate: a click on one chart sets a named filter on the context, and sibling charts read it via GetFilter / Matches to dim non-matching geometry without removing it.
+Contenedor de filtrado cruzado. Envuelve varios gráficos dentro de un BOBChartFilterContext para que se coordinen: un click en un gráfico fija un filtro con nombre en el contexto, y los gráficos hermanos lo leen vía GetFilter / Matches para atenuar la geometría que no coincide sin eliminarla.
+
+# EventCallback raised after every mutation, carrying the snapshot of active filters
+EventCallback emitido tras cada mutación, con el snapshot de los filtros activos
+
+# Extra package required
+Paquete adicional requerido
+
+# Pie slice click → SetFilter("region", label). The bar chart subscribes via the filter context and reflects the active region in the title. Clear All resets every active filter at once.
+Click en un sector de pie → SetFilter("region", label). El gráfico de barras se suscribe al contexto y refleja la región activa en el título. "Limpiar todo" reinicia todos los filtros activos a la vez.
+
+# Sales
+Ventas
+
+# This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs.
+Este gráfico requiere el paquete NuGet BlazOrbit.Charts. Instálalo con dotnet add package BlazOrbit.Charts y registra AddBlazOrbitCharts() en Program.cs.
+
+# activate or update a filter (null value clears)
+activa o actualiza un filtro (valor null lo limpia)
+
+# drop every active filter
+elimina todos los filtros activos
+
+# read the active value or null
+lee el valor activo o null
+
+# remove one dimension
+elimina una dimensión
+
+# true when value matches the active filter (or when no filter is set)
+true cuando el valor coincide con el filtro activo (o cuando no hay filtro)

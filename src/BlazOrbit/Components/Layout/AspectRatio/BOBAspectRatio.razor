@@ -2,32 +2,39 @@
 @attribute [GenerateComponentInfo]
 
 @inherits BOBComponentBase
+@implements IBuiltComponent
 
-<bob-component @attributes="ComputedAttributes"
-               style="@RatioStyle()">
+<bob-component @attributes="ComputedAttributes">
     <div class="bob-aspect-ratio__inner">
         @ChildContent
     </div>
 </bob-component>
 
 @code {
+
     /// <summary>
     /// CSS <c>aspect-ratio</c> value. Accepts ratios in slash form (<c>"16/9"</c>,
     /// <c>"4/3"</c>, <c>"1/1"</c>) or any other valid <c>aspect-ratio</c> token. Defaults to
     /// <c>"16 / 9"</c>.
     /// </summary>
-    [Parameter] public string Ratio { get; set; } = "16 / 9";
+    [Parameter]
+    public string Ratio { get; set; } = "16 / 9";
 
     /// <summary>Inner content stretched to fill the constrained box.</summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
-    private string RatioStyle()
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
     {
         // Custom-property surface so consumers can override via CSS without re-rendering.
-        // Quoting/escaping the input: aspect-ratio only accepts a tightly bounded grammar so
-        // a stray ;/{ would produce an invalid value and the browser would discard it. No
-        // need for extra sanitisation but keep a stable default fallback.
-        string ratio = string.IsNullOrWhiteSpace(Ratio) ? "16 / 9" : Ratio;
-        return $"{FeatureDefinitions.InlineVariables.AspectRatio}:{ratio};";
+        // aspect-ratio only accepts a tightly bounded grammar; a stray ;/{ would yield an
+        // invalid declaration that the browser discards — no extra sanitisation required.
+        var ratio = string.IsNullOrWhiteSpace(Ratio) ? "16 / 9" : Ratio;
+        cssVariables[FeatureDefinitions.InlineVariables.AspectRatio] = ratio;
     }
+
+    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    {
+    }
+
 }

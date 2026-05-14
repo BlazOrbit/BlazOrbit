@@ -16,14 +16,13 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Charts.Common;
 [Trait("Component Integration", "Charts.ExportButton")]
 public class ExportButtonTests
 {
-    private static IEnumerable<BOBChartSeries<string, decimal>> SampleBarSeries() => new[]
-    {
+    private static IEnumerable<BOBChartSeries<string, decimal>> SampleBarSeries() =>
+    [
         new BOBChartSeries<string, decimal>
         {
-            Label = "Sales",
-            Points = new[] { new BOBChartPoint<string, decimal>("Q1", 100m) }
+            Label = "Sales", Points = [new BOBChartPoint<string, decimal>("Q1", 100m)]
         }
-    };
+    ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -67,14 +66,13 @@ public class ExportButtonTests
 
         IRenderedComponent<BOBLineChart<int, double>> cut =
             ctx.Render<BOBLineChart<int, double>>(p => p
-                .Add(c => c.Series, new[]
-                {
+                .Add(c => c.Series,
+                [
                     new BOBChartSeries<int, double>
-                    {
-                        Label = "T",
-                        Points = new[] { new BOBChartPoint<int, double>(1, 1.0) }
-                    }
-                })
+                        {
+                            Label = "T", Points = [new BOBChartPoint<int, double>(1, 1.0)]
+                        }
+                ])
                 .Add(c => c.ShowExportButton, true));
 
         cut.FindAll("button.bob-chart__export-button").Should().HaveCount(1);
@@ -88,11 +86,11 @@ public class ExportButtonTests
 
         IRenderedComponent<BOBPieChart<decimal>> cut =
             ctx.Render<BOBPieChart<decimal>>(p => p
-                .Add(c => c.Slices, new[]
-                {
+                .Add(c => c.Slices,
+                [
                     new BOBChartSlice<decimal> { Label = "A", Value = 30m },
-                    new BOBChartSlice<decimal> { Label = "B", Value = 70m }
-                })
+                        new BOBChartSlice<decimal> { Label = "B", Value = 70m }
+                ])
                 .Add(c => c.ShowExportButton, true));
 
         cut.FindAll("button.bob-chart__export-button").Should().HaveCount(1);

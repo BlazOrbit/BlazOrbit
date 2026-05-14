@@ -1,0 +1,77 @@
+// Auto-migrated from AreaChartPage.es.resx. Edit freely from now on.
+
+# Annotations
+Anotaciones
+
+# Area chart with filled regions between the line and the baseline. Supports overlapping series, smooth curves, and per-point markers.
+Gráfico de área con regiones rellenas entre la línea y la línea base. Soporta series superpuestas, curvas suaves y marcadores por punto.
+
+# Area charts default ShowMarkers to false (the filled volume carries the visual weight). Set ShowMarkers=true if you need the per-point hit targets.
+Los gráficos de área establecen ShowMarkers en false por defecto (el volumen relleno aporta el peso visual). Establece ShowMarkers=true si necesitas objetivos de selección por punto.
+
+# Basic usage
+Uso básico
+
+# BOBAreaChart
+BOBAreaChart
+
+# BOBAreaChart inherits ZoomEnabled (wheel + double-click reset) and BrushEnabled (drag-to-select range with auto-zoom). The series fills clip cleanly to the plot rect even when zoomed past the data extent.
+BOBAreaChart hereda ZoomEnabled (rueda + doble clic para restablecer) y BrushEnabled (arrastrar para seleccionar rango con zoom automático). Los rellenos de la serie se recortan limpiamente al rectángulo de trazado incluso cuando se hace zoom más allá de la extensión de los datos.
+
+# Chart
+Gráfico
+
+# Crosshair
+Cursor cruzado
+
+# Custom fill opacity
+Opacidad de relleno personalizada
+
+# Extra package required
+Paquete adicional requerido
+
+# FillOpacity controls the area fill transparency. Lower values make overlaps easier to read; higher values make individual series more prominent.
+FillOpacity controla la transparencia del relleno del área. Valores más bajos hacen que las superposiciones sean más legibles; valores más altos hacen que cada serie sea más prominente.
+
+# FillOpacity defaults to 0.25 so overlapping fills stay visually distinguishable.
+FillOpacity es 0,25 por defecto para que los rellenos superpuestos sigan siendo visualmente distinguibles.
+
+# Inherited from BOBLineChart: combine text, vertical band and shape annotations to call out incidents, milestones and peaks directly on the area.
+Heredado de BOBLineChart: combina anotaciones de texto, banda vertical y forma para señalar incidentes, hitos y picos directamente en el área.
+
+# Inherited from BOBLineChart: ShowCrosshair tracks the mouse and highlights the nearest point per series with an HTML readout.
+Heredado de BOBLineChart: ShowCrosshair sigue el ratón y resalta el punto más cercano por serie con una lectura HTML.
+
+# Overlapping multi-series
+Multi-serie superpuesta
+
+# Reference lines
+Líneas de referencia
+
+# Reference lines work exactly as in BOBLineChart and BOBBarChart.
+Las líneas de referencia funcionan exactamente como en BOBLineChart y BOBBarChart.
+
+# Smooth fill
+Relleno suave
+
+# Smooth=true applies the cubic bezier engine to both the stroke and the fill, producing a soft contour.
+Smooth=true aplica el motor de bezier cúbico tanto al trazo como al relleno, produciendo un contorno suave.
+
+# Stacked area
+Área apilada
+
+# Stacked=true fills the band between adjacent cumulative totals rather than the zero line. Ideal for showing part-to-whole evolution over time.
+Stacked=true rellena la banda entre totales acumulados adyacentes en lugar de la línea cero. Ideal para mostrar la evolución de parte a todo a lo largo del tiempo.
+
+# This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs.
+Este gráfico requiere el paquete NuGet BlazOrbit.Charts. Instálalo con dotnet add package BlazOrbit.Charts y registra AddBlazOrbitCharts() en Program.cs.
+
+# With markers
+Con marcadores
+
+# Zoom and brush
+Zoom y pincel
+
+
+# Internally, the area chart inherits the full rendering pipeline from <code>BOBLineChart</code>. This means all line features — <code>Smooth</code> interpolation, <code>ShowMarkers</code>, automatic temporal-X detection, and configurable axes — work identically. The only addition is the filled region between the stroke and the baseline, with per-series opacity control via <code>FillOpacity</code>.
+Internamente, el gráfico de área hereda la canalización de renderizado completa de <code>BOBLineChart</code>. Esto significa que todas las funciones de línea (interpolación <code>Smooth</code>, <code>ShowMarkers</code>, detección automática de eje X temporal y ejes configurables) funcionan de forma idéntica. La única adición es la región rellena entre el trazo y la línea base, con control de opacidad por serie a través de <code>FillOpacity</code>.

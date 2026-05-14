@@ -31,15 +31,15 @@ public class BOBInputCheckboxVariantTests
 
         ctx.Services.AddBlazOrbitVariants(builder =>
             builder.ForComponent<BOBInputCheckbox<bool>>()
-                   .AddVariant(
-                       customVariant,
-                       cb => builder =>
-                       {
-                           builder.OpenElement(0, "bob-component");
-                           builder.AddAttribute(1, "class", "toggle-checkbox");
-                           builder.AddContent(2, cb.Label);
-                           builder.CloseElement();
-                       }));
+                .AddVariant(
+                    customVariant,
+                    cb => builder =>
+                    {
+                        builder.OpenElement(0, "bob-component");
+                        builder.AddAttribute(1, "class", "toggle-checkbox");
+                        builder.AddContent(2, cb.Label);
+                        builder.CloseElement();
+                    }));
 
         // Act
         IRenderedComponent<BOBInputCheckbox<bool>> cut = ctx.Render<BOBInputCheckbox<bool>>(p => p

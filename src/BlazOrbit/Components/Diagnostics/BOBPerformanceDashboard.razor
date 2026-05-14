@@ -9,7 +9,8 @@
 
 <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
     <h3 style="margin: 0;">BOB Performance Monitor</h3>
-    <BOBButton TrackPerformanceEnabled="false" Text="Reset" Size="BOBSize.Small" OnClick="@(() => PerformanceService.Reset())" />
+    <BOBButton TrackPerformanceEnabled="false" Text="Reset" Size="BOBSize.Small"
+               OnClick="@(() => PerformanceService.Reset())"/>
 </div>
 
 <BOBDataGrid Items="_metrics" Sortable="true" TrackPerformanceEnabled="false">
@@ -17,7 +18,8 @@
         <BOBDataColumn TItem="BOBComponentMetrics" Property="@(m => m.ComponentType)"
                        Sortable="true">
             <HeaderTemplate>
-                <BOBTooltip Text="Nombre del tipo de componente Blazor" Placement="TooltipPlacement.Bottom" Trigger="TooltipTrigger.Click"
+                <BOBTooltip Text="Nombre del tipo de componente Blazor" Placement="TooltipPlacement.Bottom"
+                            Trigger="TooltipTrigger.Click"
                             TrackPerformanceEnabled="false">
                     Component
                 </BOBTooltip>
@@ -27,8 +29,9 @@
         <BOBDataColumn TItem="BOBComponentMetrics" Property="@(m => m.RenderCount)"
                        Align="ColumnAlign.Right" Width="90px" Sortable="true">
             <HeaderTemplate>
-                <BOBTooltip Text="Número de veces que BuildRenderTree ha sido invocado desde que se inició la sesión o el último reset."
-                            Placement="TooltipPlacement.Bottom" Trigger="TooltipTrigger.Click" TrackPerformanceEnabled="false">
+                <BOBTooltip
+                    Text="Número de veces que BuildRenderTree ha sido invocado desde que se inició la sesión o el último reset."
+                    Placement="TooltipPlacement.Bottom" Trigger="TooltipTrigger.Click" TrackPerformanceEnabled="false">
                     Renders
                 </BOBTooltip>
             </HeaderTemplate>
@@ -37,8 +40,9 @@
         <BOBDataColumn TItem="BOBComponentMetrics" Property="@(m => m.InitTimeMs)"
                        Align="ColumnAlign.Right" Width="100px" Sortable="true">
             <HeaderTemplate>
-                <BOBTooltip Text="Tiempo total desde OnInitialized hasta el primer OnAfterRenderAsync. Refleja el coste real de crear la instancia incluyendo JS interop inicial."
-                            Placement="TooltipPlacement.Bottom" Trigger="TooltipTrigger.Click" TrackPerformanceEnabled="false">
+                <BOBTooltip
+                    Text="Tiempo total desde OnInitialized hasta el primer OnAfterRenderAsync. Refleja el coste real de crear la instancia incluyendo JS interop inicial."
+                    Placement="TooltipPlacement.Bottom" Trigger="TooltipTrigger.Click" TrackPerformanceEnabled="false">
                     Init (ms)
                 </BOBTooltip>
             </HeaderTemplate>
@@ -52,8 +56,9 @@
         <BOBDataColumn TItem="BOBComponentMetrics" Align="ColumnAlign.Right" Width="130px"
                        Sortable="true" Property="@(m => m.AverageRenderTreeBuildTimeMs)">
             <HeaderTemplate>
-                <BOBTooltip Text="Media de tiempo empleado en BuildRenderTree sobre todos los renders. Un valor alto aquí suele indicar lógica compleja en el árbol de render."
-                            Placement="TooltipPlacement.Bottom" Trigger="TooltipTrigger.Click" TrackPerformanceEnabled="false">
+                <BOBTooltip
+                    Text="Media de tiempo empleado en BuildRenderTree sobre todos los renders. Un valor alto aquí suele indicar lógica compleja en el árbol de render."
+                    Placement="TooltipPlacement.Bottom" Trigger="TooltipTrigger.Click" TrackPerformanceEnabled="false">
                     Avg Render (ms)
                 </BOBTooltip>
             </HeaderTemplate>
@@ -67,8 +72,9 @@
         <BOBDataColumn TItem="BOBComponentMetrics" Property="@(m => m.LastRenderTreeBuildTimeMs)"
                        Align="ColumnAlign.Right" Width="130px" Sortable="true">
             <HeaderTemplate>
-                <BOBTooltip Text="Tiempo del último BuildRenderTree registrado. Útil para detectar renders puntuales costosos tras interacciones."
-                            Placement="TooltipPlacement.Bottom" Trigger="TooltipTrigger.Click" TrackPerformanceEnabled="false">
+                <BOBTooltip
+                    Text="Tiempo del último BuildRenderTree registrado. Útil para detectar renders puntuales costosos tras interacciones."
+                    Placement="TooltipPlacement.Bottom" Trigger="TooltipTrigger.Click" TrackPerformanceEnabled="false">
                     Last Render (ms)
                 </BOBTooltip>
             </HeaderTemplate>
@@ -82,8 +88,9 @@
         <BOBDataColumn TItem="BOBComponentMetrics" Property="@(m => m.ParametersSetCount)"
                        Align="ColumnAlign.Right" Width="110px" Sortable="true">
             <HeaderTemplate>
-                <BOBTooltip Text="Cuántas veces OnParametersSet fue llamado. Si este número crece mucho más rápido que Renders, el componente padre está re-renderizando innecesariamente."
-                            Placement="TooltipPlacement.Bottom" Trigger="TooltipTrigger.Click" TrackPerformanceEnabled="false">
+                <BOBTooltip
+                    Text="Cuántas veces OnParametersSet fue llamado. Si este número crece mucho más rápido que Renders, el componente padre está re-renderizando innecesariamente."
+                    Placement="TooltipPlacement.Bottom" Trigger="TooltipTrigger.Click" TrackPerformanceEnabled="false">
                     ParamsSet #
                 </BOBTooltip>
             </HeaderTemplate>
@@ -92,8 +99,9 @@
         <BOBDataColumn TItem="BOBComponentMetrics" Align="ColumnAlign.Right" Width="130px"
                        Sortable="true" Property="@(m => m.AverageParametersSetTimeMs)">
             <HeaderTemplate>
-                <BOBTooltip Text="Media de tiempo empleado en OnParametersSet. Incluye el coste de BuildStyles y la resolución de atributos adicionales."
-                            Placement="TooltipPlacement.Bottom" Trigger="TooltipTrigger.Click" TrackPerformanceEnabled="false">
+                <BOBTooltip
+                    Text="Media de tiempo empleado en OnParametersSet. Incluye el coste de BuildStyles y la resolución de atributos adicionales."
+                    Placement="TooltipPlacement.Bottom" Trigger="TooltipTrigger.Click" TrackPerformanceEnabled="false">
                     Avg Params (ms)
                 </BOBTooltip>
             </HeaderTemplate>
@@ -121,7 +129,10 @@
     private CancellationTokenSource? _debounceCts;
     private bool _disposed;
 
-    private void OnMetricsUpdated() => BOBAsyncHelper.SafeFireAndForget(OnMetricsUpdatedSafeAsync);
+    private void OnMetricsUpdated()
+    {
+        BOBAsyncHelper.SafeFireAndForget(OnMetricsUpdatedSafeAsync);
+    }
 
     private async Task OnMetricsUpdatedSafeAsync()
     {
@@ -129,12 +140,19 @@
         lock (_debounceLock)
         {
             if (_disposed) return;
-            CancellationTokenSource? previous = _debounceCts;
+            var previous = _debounceCts;
             cts = new CancellationTokenSource();
             _debounceCts = cts;
             if (previous is not null)
             {
-                try { previous.Cancel(); } catch (ObjectDisposedException) { }
+                try
+                {
+                    previous.Cancel();
+                }
+                catch (ObjectDisposedException)
+                {
+                }
+
                 previous.Dispose();
             }
         }
@@ -145,10 +163,18 @@
             RefreshMetrics();
             await InvokeAsync(StateHasChanged);
         }
-        catch (TaskCanceledException) { }
-        catch (JSDisconnectedException) { }
-        catch (ObjectDisposedException) { }
-        catch (InvalidOperationException) { }
+        catch (TaskCanceledException)
+        {
+        }
+        catch (JSDisconnectedException)
+        {
+        }
+        catch (ObjectDisposedException)
+        {
+        }
+        catch (InvalidOperationException)
+        {
+        }
     }
 
     public void Dispose()
@@ -157,7 +183,14 @@
         {
             if (_disposed) return;
             _disposed = true;
-            try { _debounceCts?.Cancel(); } catch (ObjectDisposedException) { }
+            try
+            {
+                _debounceCts?.Cancel();
+            }
+            catch (ObjectDisposedException)
+            {
+            }
+
             _debounceCts?.Dispose();
             _debounceCts = null;
         }
@@ -165,14 +198,20 @@
         PerformanceService.MetricsUpdated -= OnMetricsUpdated;
     }
 
-    private void RefreshMetrics() =>
+    private void RefreshMetrics()
+    {
         _metrics = PerformanceService.GetAll().ToList();
+    }
 
     // Verde < 1ms · Naranja 1-5ms · Rojo > 5ms
-    private static string GetTimeColor(double ms) => ms switch
+    private static string GetTimeColor(double ms)
     {
-        > 5.0 => "var(--bob-color-danger)",
-        > 1.0 => "var(--bob-color-warning)",
-        _ => "var(--bob-color-success)"
-    };
+        return ms switch
+        {
+            > 5.0 => "var(--bob-color-danger)",
+            > 1.0 => "var(--bob-color-warning)",
+            _ => "var(--bob-color-success)"
+        };
+    }
+
 }

@@ -4,11 +4,11 @@
 
 <div class="test-checkbox-consumer">
     <EditForm EditContext="_editContext" OnValidSubmit="HandleValid" OnInvalidSubmit="HandleInvalid">
-        <DataAnnotationsValidator />
+        <DataAnnotationsValidator/>
 
         <BOBInputCheckbox @bind-Value="_model.Accepted"
                           Label="Accept terms"
-                          HelperText="You must accept to continue." />
+                          HelperText="You must accept to continue."/>
 
         <button type="submit" class="submit-btn">Submit</button>
     </EditForm>
@@ -16,6 +16,7 @@
 </div>
 
 @code {
+
     public class CheckboxModel
     {
         [Range(typeof(bool), "true", "true", ErrorMessage = "You must accept the terms")]
@@ -33,6 +34,14 @@
 
     public CheckboxModel BoundModel => _model;
 
-    private void HandleValid() => _submitResult = "valid";
-    private void HandleInvalid() => _submitResult = "invalid";
+    private void HandleValid()
+    {
+        _submitResult = "valid";
+    }
+
+    private void HandleInvalid()
+    {
+        _submitResult = "invalid";
+    }
+
 }

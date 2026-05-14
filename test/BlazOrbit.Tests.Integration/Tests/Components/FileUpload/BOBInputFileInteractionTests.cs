@@ -86,7 +86,7 @@ public class BOBInputFileInteractionTests
 
         cut.FindAll(".bob-file-upload__entry").Should().HaveCount(1);
 
-        cut.Find(".bob-file-upload__remove").Click();
+        cut.Find(".bob-file-upload__entry ._bob-btn[data-bob-variant='ghost']").Click();
 
         cut.FindAll(".bob-file-upload__entry").Should().BeEmpty();
         removed.Should().NotBeNull();

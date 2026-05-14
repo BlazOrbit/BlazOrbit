@@ -24,9 +24,12 @@
 @code{
 
     /// <summary>Content rendered inside the component.</summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     /// <summary>DefaultTheme.</summary>
-    [Parameter] public string DefaultTheme { get; set; } = "dark";
+    [Parameter]
+    public string DefaultTheme { get; set; } = "dark";
 
     private BOBPalette? _palette;
 
@@ -44,7 +47,10 @@
         StateHasChanged();
     }
 
-    private void HandleThemeChanged(string theme) => BOBAsyncHelper.SafeFireAndForget(HandleThemeChangedSafeAsync);
+    private void HandleThemeChanged(string theme)
+    {
+        BOBAsyncHelper.SafeFireAndForget(HandleThemeChangedSafeAsync);
+    }
 
     private async Task HandleThemeChangedSafeAsync()
     {
@@ -53,15 +59,23 @@
             await LoadPaletteAsync();
             await InvokeAsync(StateHasChanged);
         }
-        catch (JSDisconnectedException) { }
-        catch (ObjectDisposedException) { }
-        catch (InvalidOperationException) { }
-        catch (TaskCanceledException) { }
+        catch (JSDisconnectedException)
+        {
+        }
+        catch (ObjectDisposedException)
+        {
+        }
+        catch (InvalidOperationException)
+        {
+        }
+        catch (TaskCanceledException)
+        {
+        }
     }
 
     private async Task LoadPaletteAsync()
     {
-        Dictionary<string, string> colors = await ThemeInterop.GetPaletteAsync();
+        var colors = await ThemeInterop.GetPaletteAsync();
         _palette = new BOBPalette(colors);
     }
 
@@ -69,4 +83,5 @@
     {
         ThemeInterop.OnThemeChanged -= HandleThemeChanged;
     }
+
 }

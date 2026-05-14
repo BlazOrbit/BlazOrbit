@@ -1,9 +1,11 @@
 ﻿using BlazOrbit.Components;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 using System.Text;
 
 namespace BlazOrbit.Themes;
 
+[DynamicallyAccessedMembers(DynamicallyAccessedMemberTypes.PublicProperties)]
 public abstract class BOBThemePaletteBase
 {
     public CssColor Background { get; set; } = new("#0F172A");

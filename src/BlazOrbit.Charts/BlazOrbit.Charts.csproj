@@ -1,115 +1,115 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
-  <PropertyGroup>
-    <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
-    <IsPackable>true</IsPackable>
-    <PackageId>BlazOrbit.Charts</PackageId>
-    <Description>SVG-native chart components for BlazOrbit. Bar, Line, Pie/Donut and Area charts with linear, categorical and DateTime axes. Pure C# API, no Chart.js or external chart libraries — just SVG, CSS and the BlazOrbit theming system.</Description>
-    <PackageTags>blazor;charts;svg;data-visualization;blazorbit</PackageTags>
-  </PropertyGroup>
+    <PropertyGroup>
+        <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+        <IsPackable>true</IsPackable>
+        <PackageId>BlazOrbit.Charts</PackageId>
+        <Description>SVG-native chart components for BlazOrbit. Bar, Line, Pie/Donut and Area charts with linear, categorical and DateTime axes. Pure C# API, no Chart.js or external chart libraries — just SVG, CSS and the BlazOrbit theming system.</Description>
+        <PackageTags>blazor;charts;svg;data-visualization;blazorbit</PackageTags>
+    </PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components" Version="$(BlazOrbitAspNetCoreVersion)" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(BlazOrbitAspNetCoreVersion)" />
-    <PackageReference Include="Microsoft.JSInterop" Version="$(BlazOrbitJsInteropVersion)" />
-    <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="4.14.0" PrivateAssets="all" />
-  </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components" Version="$(BlazOrbitAspNetCoreVersion)"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(BlazOrbitAspNetCoreVersion)"/>
+        <PackageReference Include="Microsoft.JSInterop" Version="$(BlazOrbitJsInteropVersion)"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="4.14.0" PrivateAssets="all"/>
+    </ItemGroup>
 
-  <ItemGroup>
+    <ItemGroup>
+        <!--
+          Charts depends on the main BlazOrbit library for shared primitives:
+          BOBSvgIcon (legend marker, export button), BOBButton (export trigger),
+          BOBTooltip (chart tooltips), and the `BOBComponentBase` lifecycle pipeline.
+          Pulling these in transitively is acceptable because consumers who reach
+          for `BlazOrbit.Charts` already depend on `BlazOrbit` itself in practice.
+        -->
+        <ProjectReference Include="..\BlazOrbit\BlazOrbit.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="PublicAPI.Shipped.txt"/>
+        <AdditionalFiles Include="PublicAPI.Unshipped.txt"/>
+    </ItemGroup>
+
     <!--
-      Charts depends on the main BlazOrbit library for shared primitives:
-      BOBSvgIcon (legend marker, export button), BOBButton (export trigger),
-      BOBTooltip (chart tooltips), and the `BOBComponentBase` lifecycle pipeline.
-      Pulling these in transitively is acceptable because consumers who reach
-      for `BlazOrbit.Charts` already depend on `BlazOrbit` itself in practice.
+      Exclude TypeScript / Node tooling artefacts from compilation, packing
+      and Razor static-web-assets: these live in-repo as build-time inputs
+      only. The compiled `.min.js` under `wwwroot/js/` ships as a normal
+      Razor static asset and remains committed.
     -->
-    <ProjectReference Include="..\BlazOrbit\BlazOrbit.csproj" />
-  </ItemGroup>
+    <ItemGroup>
+        <None Remove="Types\**\*.ts"/>
+        <None Remove="package.json"/>
+        <None Remove="tsconfig.json"/>
+        <None Remove="package-lock.json"/>
+        <Compile Remove="Types\**\*.ts"/>
+        <Content Remove="Types\**\*.ts"/>
+    </ItemGroup>
 
-  <ItemGroup>
-    <AdditionalFiles Include="PublicAPI.Shipped.txt" />
-    <AdditionalFiles Include="PublicAPI.Unshipped.txt" />
-  </ItemGroup>
+    <!--
+      TypeScript → minified ESM JS pipeline (BOBCharts.JS-01).
+  
+      Source-of-truth lives at `Types/**/*.ts`; the bundled output ships at
+      `wwwroot/js/Types/**/*.min.js` and is committed so consumers building
+      without Node still get the JS interop module.
+  
+      The MSBuild target below re-runs esbuild before each managed build IF a
+      local `node_modules/.bin/esbuild` is found. Otherwise it skips silently
+      — TS edits without `npm install` won't reach the bundle (tracked in
+      `Types/Chart/ChartInterop.ts`'s docs comment).
+  
+      Local regeneration:  npm install && npm run build:js
+      Watch mode:          npm run watch:js
+  
+      Future: a dedicated `BlazOrbit.Charts.BuildTools` DotnetTool can
+      replace this scaffolding with the same Vite pipeline used by
+      `BlazOrbit.BuildTools` for the main library, when the chart-side asset
+      surface grows beyond a single TS file.
+    -->
+    <PropertyGroup>
+        <_ChartsEsbuildBinaryUnix>$(MSBuildThisFileDirectory)node_modules\esbuild\bin\esbuild</_ChartsEsbuildBinaryUnix>
+        <_ChartsEsbuildBinaryWin>$(_ChartsEsbuildBinaryUnix).exe</_ChartsEsbuildBinaryWin>
+    </PropertyGroup>
 
-  <!--
-    Exclude TypeScript / Node tooling artefacts from compilation, packing
-    and Razor static-web-assets: these live in-repo as build-time inputs
-    only. The compiled `.min.js` under `wwwroot/js/` ships as a normal
-    Razor static asset and remains committed.
-  -->
-  <ItemGroup>
-    <None Remove="Types\**\*.ts" />
-    <None Remove="package.json" />
-    <None Remove="tsconfig.json" />
-    <None Remove="package-lock.json" />
-    <Compile Remove="Types\**\*.ts" />
-    <Content Remove="Types\**\*.ts" />
-  </ItemGroup>
+    <!--
+      Self-healing node_modules restore.
+      Runs once in the outer build (multi-TFM) or in single-TFM builds to avoid
+      parallel npm races. Checks the *real* esbuild binary, not the .bin wrapper,
+      because a corrupted node_modules (e.g. postinstall failure) can leave the
+      wrapper present while the executable is missing.
+    -->
+    <Target Name="EnsureChartNodeModules"
+            BeforeTargets="DispatchToInnerBuilds;BeforeBuild"
+            Condition="('$(IsCrossTargetingBuild)' == 'true' OR '$(TargetFrameworks)' == '') AND !Exists('$(_ChartsEsbuildBinaryUnix)') AND !Exists('$(_ChartsEsbuildBinaryWin)') AND Exists('$(MSBuildThisFileDirectory)package.json')">
+        <Message Text="[BlazOrbit.Charts] esbuild binary missing (corrupted node_modules). Purging esbuild and running npm install..." Importance="high"/>
+        <RemoveDir Directories="$(MSBuildThisFileDirectory)node_modules\esbuild"/>
+        <Exec Command="npm install" WorkingDirectory="$(MSBuildThisFileDirectory)" ContinueOnError="false"/>
+    </Target>
 
-  <!--
-    TypeScript → minified ESM JS pipeline (BOBCharts.JS-01).
-
-    Source-of-truth lives at `Types/**/*.ts`; the bundled output ships at
-    `wwwroot/js/Types/**/*.min.js` and is committed so consumers building
-    without Node still get the JS interop module.
-
-    The MSBuild target below re-runs esbuild before each managed build IF a
-    local `node_modules/.bin/esbuild` is found. Otherwise it skips silently
-    — TS edits without `npm install` won't reach the bundle (tracked in
-    `Types/Chart/ChartInterop.ts`'s docs comment).
-
-    Local regeneration:  npm install && npm run build:js
-    Watch mode:          npm run watch:js
-
-    Future: a dedicated `BlazOrbit.Charts.BuildTools` DotnetTool can
-    replace this scaffolding with the same Vite pipeline used by
-    `BlazOrbit.BuildTools` for the main library, when the chart-side asset
-    surface grows beyond a single TS file.
-  -->
-  <PropertyGroup>
-    <_ChartsEsbuildBinaryUnix>$(MSBuildThisFileDirectory)node_modules\esbuild\bin\esbuild</_ChartsEsbuildBinaryUnix>
-    <_ChartsEsbuildBinaryWin>$(_ChartsEsbuildBinaryUnix).exe</_ChartsEsbuildBinaryWin>
-  </PropertyGroup>
-
-  <!--
-    Self-healing node_modules restore.
-    Runs once in the outer build (multi-TFM) or in single-TFM builds to avoid
-    parallel npm races. Checks the *real* esbuild binary, not the .bin wrapper,
-    because a corrupted node_modules (e.g. postinstall failure) can leave the
-    wrapper present while the executable is missing.
-  -->
-  <Target Name="EnsureChartNodeModules"
-          BeforeTargets="DispatchToInnerBuilds;BeforeBuild"
-          Condition="('$(IsCrossTargetingBuild)' == 'true' OR '$(TargetFrameworks)' == '') AND !Exists('$(_ChartsEsbuildBinaryUnix)') AND !Exists('$(_ChartsEsbuildBinaryWin)') AND Exists('$(MSBuildThisFileDirectory)package.json')">
-    <Message Text="[BlazOrbit.Charts] esbuild binary missing (corrupted node_modules). Purging esbuild and running npm install..." Importance="high" />
-    <RemoveDir Directories="$(MSBuildThisFileDirectory)node_modules\esbuild" />
-    <Exec Command="npm install" WorkingDirectory="$(MSBuildThisFileDirectory)" ContinueOnError="false" />
-  </Target>
-
-  <!--
-    TypeScript → minified ESM JS pipeline (BOBCharts.JS-01).
-
-    Source-of-truth lives at Types/**/*.ts; the bundled output ships at
-    wwwroot/js/Types/**/*.min.js and is committed so consumers building
-    without Node still get the JS interop module.
-
-    This target runs once per managed build (outer build or single-TFM) to
-    avoid duplicate work and parallel npm/esbuild races when TargetFrameworks
-    contains multiple values.
-
-    Local regeneration:  npm run build:js
-    Watch mode:          npm run watch:js
-  -->
-  <Target Name="BundleChartInterop"
-          BeforeTargets="DispatchToInnerBuilds;BeforeBuild"
-          DependsOnTargets="EnsureChartNodeModules"
-          Condition="('$(IsCrossTargetingBuild)' == 'true' OR '$(TargetFrameworks)' == '') AND (Exists('$(_ChartsEsbuildBinaryUnix)') OR Exists('$(_ChartsEsbuildBinaryWin)'))"
-          Inputs="@(None);Types\**\*.ts;package.json"
-          Outputs="wwwroot\js\Types\Chart\ChartInterop.min.js">
-    <Message Text="[BlazOrbit.Charts] Bundling Types/Chart/ChartInterop.ts → wwwroot/js/Types/Chart/ChartInterop.min.js" Importance="high" />
-    <Exec Command="npm run build:js"
-          WorkingDirectory="$(MSBuildThisFileDirectory)"
-          ContinueOnError="false" />
-  </Target>
+    <!--
+      TypeScript → minified ESM JS pipeline (BOBCharts.JS-01).
+  
+      Source-of-truth lives at Types/**/*.ts; the bundled output ships at
+      wwwroot/js/Types/**/*.min.js and is committed so consumers building
+      without Node still get the JS interop module.
+  
+      This target runs once per managed build (outer build or single-TFM) to
+      avoid duplicate work and parallel npm/esbuild races when TargetFrameworks
+      contains multiple values.
+  
+      Local regeneration:  npm run build:js
+      Watch mode:          npm run watch:js
+    -->
+    <Target Name="BundleChartInterop"
+            BeforeTargets="DispatchToInnerBuilds;BeforeBuild"
+            DependsOnTargets="EnsureChartNodeModules"
+            Condition="('$(IsCrossTargetingBuild)' == 'true' OR '$(TargetFrameworks)' == '') AND (Exists('$(_ChartsEsbuildBinaryUnix)') OR Exists('$(_ChartsEsbuildBinaryWin)'))"
+            Inputs="@(None);Types\**\*.ts;package.json"
+            Outputs="wwwroot\js\Types\Chart\ChartInterop.min.js">
+        <Message Text="[BlazOrbit.Charts] Bundling Types/Chart/ChartInterop.ts → wwwroot/js/Types/Chart/ChartInterop.min.js" Importance="high"/>
+        <Exec Command="npm run build:js"
+              WorkingDirectory="$(MSBuildThisFileDirectory)"
+              ContinueOnError="false"/>
+    </Target>
 
 </Project>

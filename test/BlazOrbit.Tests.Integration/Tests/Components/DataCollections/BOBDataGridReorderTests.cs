@@ -16,7 +16,7 @@ public class BOBDataGridReorderTests
     private static IEnumerable<Person> Items =>
     [
         new("Alice", 30, "ES"),
-        new("Bob", 25, "DE"),
+        new("Bob", 25, "DE")
     ];
 
     private static RenderFragment ThreeColumns => b =>
@@ -50,7 +50,7 @@ public class BOBDataGridReorderTests
             .Add(c => c.Items, Items)
             .Add(c => c.Columns, ThreeColumns));
 
-        HeaderTexts(cut).Should().BeEquivalentTo(new[] { "Name", "Age", "Country" }, o => o.WithStrictOrdering());
+        HeaderTexts(cut).Should().BeEquivalentTo(["Name", "Age", "Country"], o => o.WithStrictOrdering());
     }
 
     [Theory]
@@ -85,13 +85,10 @@ public class BOBDataGridReorderTests
             .Add(c => c.Reorderable, true));
 
         // Focus the first header (Name) and press Alt+ArrowRight → Name moves to index 1.
-        cut.FindAll(".bob-datagrid__header-cell")[0].KeyDown(new KeyboardEventArgs
-        {
-            Key = "ArrowRight",
-            AltKey = true,
-        });
+        cut.FindAll(".bob-datagrid__header-cell")[0]
+            .KeyDown(new KeyboardEventArgs { Key = "ArrowRight", AltKey = true });
 
-        HeaderTexts(cut).Should().BeEquivalentTo(new[] { "Age", "Name", "Country" }, o => o.WithStrictOrdering());
+        HeaderTexts(cut).Should().BeEquivalentTo(["Age", "Name", "Country"], o => o.WithStrictOrdering());
     }
 
     [Theory]
@@ -108,11 +105,10 @@ public class BOBDataGridReorderTests
         // Focus the third header (Country) and press Alt+ArrowLeft → Country moves to index 1.
         cut.FindAll(".bob-datagrid__header-cell")[2].KeyDown(new KeyboardEventArgs
         {
-            Key = "ArrowLeft",
-            AltKey = true,
+            Key = "ArrowLeft", AltKey = true
         });
 
-        HeaderTexts(cut).Should().BeEquivalentTo(new[] { "Name", "Country", "Age" }, o => o.WithStrictOrdering());
+        HeaderTexts(cut).Should().BeEquivalentTo(["Name", "Country", "Age"], o => o.WithStrictOrdering());
     }
 
     [Theory]
@@ -128,13 +124,12 @@ public class BOBDataGridReorderTests
 
         cut.FindAll(".bob-datagrid__header-cell")[0].KeyDown(new KeyboardEventArgs
         {
-            Key = "ArrowRight",
-            AltKey = false,
+            Key = "ArrowRight", AltKey = false
         });
 
         // No reorder happened — the bare arrow keys are reserved for future native focus
         // navigation between headers.
-        HeaderTexts(cut).Should().BeEquivalentTo(new[] { "Name", "Age", "Country" }, o => o.WithStrictOrdering());
+        HeaderTexts(cut).Should().BeEquivalentTo(["Name", "Age", "Country"], o => o.WithStrictOrdering());
     }
 
     [Theory]
@@ -151,20 +146,16 @@ public class BOBDataGridReorderTests
         // Try to move the first column further left — clamped to index 0.
         cut.FindAll(".bob-datagrid__header-cell")[0].KeyDown(new KeyboardEventArgs
         {
-            Key = "ArrowLeft",
-            AltKey = true,
+            Key = "ArrowLeft", AltKey = true
         });
 
-        HeaderTexts(cut).Should().BeEquivalentTo(new[] { "Name", "Age", "Country" }, o => o.WithStrictOrdering());
+        HeaderTexts(cut).Should().BeEquivalentTo(["Name", "Age", "Country"], o => o.WithStrictOrdering());
 
         // Same for the last column moving right.
-        cut.FindAll(".bob-datagrid__header-cell")[2].KeyDown(new KeyboardEventArgs
-        {
-            Key = "ArrowRight",
-            AltKey = true,
-        });
+        cut.FindAll(".bob-datagrid__header-cell")[2]
+            .KeyDown(new KeyboardEventArgs { Key = "ArrowRight", AltKey = true });
 
-        HeaderTexts(cut).Should().BeEquivalentTo(new[] { "Name", "Age", "Country" }, o => o.WithStrictOrdering());
+        HeaderTexts(cut).Should().BeEquivalentTo(["Name", "Age", "Country"], o => o.WithStrictOrdering());
     }
 
     [Fact]
@@ -175,7 +166,7 @@ public class BOBDataGridReorderTests
 
         state.MoveColumn("Age", -1, reference);
 
-        state.ColumnOrder.Should().BeEquivalentTo(new[] { "Age", "Name", "Country" }, o => o.WithStrictOrdering());
+        state.ColumnOrder.Should().BeEquivalentTo(["Age", "Name", "Country"], o => o.WithStrictOrdering());
     }
 
     [Fact]

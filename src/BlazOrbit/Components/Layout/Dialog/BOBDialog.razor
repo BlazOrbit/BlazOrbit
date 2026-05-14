@@ -11,9 +11,9 @@
 @if (Open)
 {
     <bob-component @attributes="ComputedAttributes"
-         @onkeydown="HandleKeyDown"
-         tabindex="-1"
-         @ref="_hostRef">
+                   @onkeydown="HandleKeyDown"
+                   tabindex="-1"
+                   @ref="_hostRef">
         <div class="bob-dialog-overlay"
              data-bob-closing="@(_isClosing ? "true" : null)"
              @onclick="HandleOverlayClick">
@@ -42,9 +42,10 @@
 
                     @if (Closable)
                     {
-                        <_BOBBtn Icon="@BOBIconKeys.UI.Close"
-                                    AriaLabel="Close"
-                                    OnClick="CloseAsync" />
+                        <_BOBInBtn Icon="@BOBIconKeys.UI.Close"
+                                   Variant="BOBInBtnVariant.Ghost"
+                                   AriaLabel="@Localizer["Close"]"
+                                   OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, CloseAsync))"/>
                     }
                 </div>
             }
@@ -78,39 +79,66 @@
     /// <summary>Material Design elevation level (0–24) applied to the dialog surface. Sets a derived
     /// shadow and lifts the surface in dark mode via a tint overlay. <see langword="null"/> (default)
     /// keeps the component-default shadow defined in CSS.</summary>
-    [Parameter] public int? Elevation { get; set; }
+    [Parameter]
+    public int? Elevation { get; set; }
 
     /// <summary>When <see langword="true" />, the dialog is visible.</summary>
-    [Parameter] public bool Open { get; set; }
+    [Parameter]
+    public bool Open { get; set; }
+
     /// <summary>Raised when the dialog opens or closes.</summary>
-    [Parameter] public EventCallback<bool> OpenChanged { get; set; }
+    [Parameter]
+    public EventCallback<bool> OpenChanged { get; set; }
 
     /// <summary>Text displayed in the dialog header. Ignored when <see cref="Header"/> is provided.</summary>
-    [Parameter] public string? Title { get; set; }
+    [Parameter]
+    public string? Title { get; set; }
+
     /// <summary>Custom header content rendered above the dialog body.</summary>
-    [Parameter] public RenderFragment? Header { get; set; }
+    [Parameter]
+    public RenderFragment? Header { get; set; }
+
     /// <summary>Content rendered inside the dialog body.</summary>
-    [Parameter] public RenderFragment? Content { get; set; }
+    [Parameter]
+    public RenderFragment? Content { get; set; }
+
     /// <summary>Content rendered inside the dialog footer, typically action buttons.</summary>
-    [Parameter] public RenderFragment? Footer { get; set; }
+    [Parameter]
+    public RenderFragment? Footer { get; set; }
 
     /// <summary>When <see langword="true" /> (default), a close button is shown in the header.</summary>
-    [Parameter] public bool Closable { get; set; } = true;
+    [Parameter]
+    public bool Closable { get; set; } = true;
+
     /// <summary>When <see langword="true" /> (default), clicking the overlay closes the dialog.</summary>
-    [Parameter] public bool CloseOnOverlayClick { get; set; } = true;
+    [Parameter]
+    public bool CloseOnOverlayClick { get; set; } = true;
+
     /// <summary>When <see langword="true" /> (default), pressing Escape closes the dialog.</summary>
-    [Parameter] public bool CloseOnEscape { get; set; } = true;
+    [Parameter]
+    public bool CloseOnEscape { get; set; } = true;
+
+    [Inject] internal IStringLocalizer<BOBLayoutResources> Localizer { get; set; } = default!;
 
     /// <summary>Minimum width of the dialog. Accepts any valid CSS length.</summary>
-    [Parameter] public string? MinWidth { get; set; } = "300px";
+    [Parameter]
+    public string? MinWidth { get; set; } = "300px";
+
     /// <summary>Maximum width of the dialog. Accepts any valid CSS length.</summary>
-    [Parameter] public string? MaxWidth { get; set; } = "90vw";
+    [Parameter]
+    public string? MaxWidth { get; set; } = "90vw";
+
     /// <summary>Minimum height of the dialog. Accepts any valid CSS length.</summary>
-    [Parameter] public string? MinHeight { get; set; }
+    [Parameter]
+    public string? MinHeight { get; set; }
+
     /// <summary>Maximum height of the dialog. Accepts any valid CSS length.</summary>
-    [Parameter] public string? MaxHeight { get; set; } = "90vh";
+    [Parameter]
+    public string? MaxHeight { get; set; } = "90vh";
+
     /// <summary>When <see langword="true" />, the dialog fills the entire viewport.</summary>
-    [Parameter] public bool FullScreen { get; set; }
+    [Parameter]
+    public bool FullScreen { get; set; }
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
@@ -178,10 +206,18 @@
         {
             await JsInterop.WaitForAnimationEndAsync(_dialogRef, CloseAnimationFallbackMs);
         }
-        catch (JSDisconnectedException) { }
-        catch (ObjectDisposedException) { }
-        catch (InvalidOperationException) { }
-        catch (TaskCanceledException) { }
+        catch (JSDisconnectedException)
+        {
+        }
+        catch (ObjectDisposedException)
+        {
+        }
+        catch (InvalidOperationException)
+        {
+        }
+        catch (TaskCanceledException)
+        {
+        }
 
         if (IsDisposed) return;
 
@@ -206,4 +242,5 @@
         await CleanupAsync();
         await base.DisposeAsync();
     }
+
 }

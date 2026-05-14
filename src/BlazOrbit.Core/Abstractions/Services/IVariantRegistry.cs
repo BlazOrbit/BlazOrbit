@@ -11,7 +11,7 @@ public interface IVariantRegistry
         ComponentBase component);
 
     void Register<TComponent, TVariant>(
-            TVariant variant,
+        TVariant variant,
         Func<TComponent, RenderFragment> template)
         where TComponent : ComponentBase
         where TVariant : Variant;

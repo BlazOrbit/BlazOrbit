@@ -8,14 +8,14 @@
     position: relative;
 }
 
-    [data-bob-component="data-grid"] .bob-datagrid__container[style*="overflow-y"] .bob-datagrid__header {
-        position: sticky;
-        top: 0;
-        /* Header stays above scrolling rows; sticky token also keeps us below
-           any modal/tooltip/toast that opens on top. */
-        z-index: var(--bob-z-sticky);
-        background: var(--_dc-background);
-    }
+[data-bob-component="data-grid"] .bob-datagrid__container[style*="overflow-y"] .bob-datagrid__header {
+    position: sticky;
+    top: 0;
+    /* Header stays above scrolling rows; sticky token also keeps us below
+       any modal/tooltip/toast that opens on top. */
+    z-index: var(--bob-z-sticky);
+    background: var(--_dc-background);
+}
 
 /* Table */
 [data-bob-component="data-grid"] .bob-datagrid__table {
@@ -23,6 +23,7 @@
     border-collapse: collapse;
     background: var(--_dc-background);
     color: var(--palette-surface-contrast);
+    border-radius: var(--_dc-border-radius);
     /* Cell border variables */
     --_dg-cell-border: var(--bob-inline-dc-cell-border, none);
     --_dg-cell-border-top: var(--bob-inline-dc-cell-border-top, var(--_dg-cell-border));
@@ -52,6 +53,11 @@
     background: var(--_dc-header-bg);
 }
 
+[data-bob-component="data-grid"] .bob-datagrid__header tr:first-child {
+    border-top-left-radius: var(--_dc-border-radius);
+    border-top-right-radius: var(--_dc-border-radius);
+}
+
 [data-bob-component="data-grid"] .bob-datagrid__header-cell {
     text-align: left;
     font-weight: 600;
@@ -76,14 +82,14 @@
     gap: calc(0.5rem * var(--bob-density-multiplier, 1));
 }
 
-    [data-bob-component="data-grid"] .bob-datagrid__sort-btn:hover {
-        color: var(--palette-primary);
-    }
+[data-bob-component="data-grid"] .bob-datagrid__sort-btn:hover {
+    color: var(--palette-primary);
+}
 
-    [data-bob-component="data-grid"] .bob-datagrid__sort-btn:focus-visible {
-        outline: var(--bob-highlight-outline);
-        outline-offset: var(--bob-highlight-outline-offset);
-    }
+[data-bob-component="data-grid"] .bob-datagrid__sort-btn:focus-visible {
+    outline: var(--bob-highlight-outline);
+    outline-offset: var(--bob-highlight-outline-offset);
+}
 
 [data-bob-component="data-grid"] .bob-datagrid__sort-icon {
     display: flex;
@@ -123,9 +129,9 @@
     border-top: 2px solid var(--palette-border);
 }
 
-    [data-bob-component="data-grid"] .bob-datagrid__footer td {
-        font-weight: 600;
-    }
+[data-bob-component="data-grid"] .bob-datagrid__footer td {
+    font-weight: 600;
+}
 
 
 /* ========================================
@@ -188,10 +194,10 @@
     cursor: pointer;
 }
 
-    [data-bob-component="data-grid"] .bob-datagrid__row[data-bob-interactive="true"]:focus-visible {
-        outline: var(--bob-highlight-outline);
-        outline-offset: var(--bob-highlight-outline-offset);
-    }
+[data-bob-component="data-grid"] .bob-datagrid__row[data-bob-interactive="true"]:focus-visible {
+    outline: var(--bob-highlight-outline);
+    outline-offset: var(--bob-highlight-outline-offset);
+}
 
 /* Aggregate footer — semantic separation from the data rows. */
 [data-bob-component="data-grid"] .bob-datagrid__footer--aggregate {
@@ -258,11 +264,7 @@
 [data-bob-component="data-grid"] .bob-dc__skeleton-cell {
     height: 1.2rem;
     border-radius: 4px;
-    background: linear-gradient(
-        90deg,
-        color-mix(in oklab, var(--palette-surface-contrast) 6%, transparent) 0%,
-        color-mix(in oklab, var(--palette-surface-contrast) 14%, transparent) 50%,
-        color-mix(in oklab, var(--palette-surface-contrast) 6%, transparent) 100%);
+    background: linear-gradient(90deg, color-mix(in oklab, var(--palette-surface-contrast) 6%, transparent) 0%, color-mix(in oklab, var(--palette-surface-contrast) 14%, transparent) 50%, color-mix(in oklab, var(--palette-surface-contrast) 6%, transparent) 100%);
     background-size: 200% 100%;
     /* Animation duration sourced from the family-shared
        --bob-dc-anim-duration token so reduced-motion handling stays
@@ -272,8 +274,13 @@
 }
 
 @keyframes bob-dc-skeleton-pulse {
-    0%   { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
 }
 
 /* Spinner fallback for LoadingMode.Spinner without LoadingContent. */
@@ -294,7 +301,9 @@
 }
 
 @keyframes bob-dc-spinner {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 /* Error state. */
@@ -337,6 +346,7 @@
     gap: 0.5rem;
     justify-content: center;
 }
+
 /* Per-column filter wrap pairs the operator <select> with the typed input. Flex with
    gap so the two children sit on a single line under wide columns and wrap under
    narrow ones. */
@@ -347,45 +357,24 @@
     margin-block-start: 0.375rem;
 }
 
-[data-bob-component="data-grid"] .bob-datagrid__column-filter-op {
+/* Operator + typed filter render inside internal primitives (_BOBInSelect / _BOBInText /
+_BOBInDate) so the actual <select>/<input> live outside the grid's scope attribute.
+::deep punches through to them and the layout-only overrides win on specificity
+thanks to the [data-bob-component] prefix. */
+[data-bob-component="data-grid"] .bob-datagrid__column-filter-wrap ::deep .bob-datagrid__column-filter-op {
     flex: 0 0 auto;
     padding: 0.25rem 0.375rem;
+    min-width: 0;
     font-size: 0.75rem;
-    font: inherit;
-    color: var(--palette-surface-contrast);
-    background: color-mix(in oklab, var(--palette-surface-contrast) 4%, transparent);
-    border: 1px solid color-mix(in oklab, var(--palette-border) 40%, transparent);
-    border-radius: 0.25rem;
-    box-sizing: border-box;
     line-height: 1.1;
 }
 
-[data-bob-component="data-grid"] .bob-datagrid__column-filter-op:focus-visible {
-    outline: 2px solid var(--palette-highlight);
-    outline-offset: 1px;
-    border-color: transparent;
-}
-
-/* Per-column filter input rendered next to the operator dropdown when ShowColumnFilters=true.
-   Lives inside the <th> so it inherits header background + sticky positioning when
-   FixedHeader is on; sized small to avoid stealing visual weight from the data rows. */
-[data-bob-component="data-grid"] .bob-datagrid__column-filter {
+[data-bob-component="data-grid"] .bob-datagrid__column-filter-wrap ::deep .bob-datagrid__column-filter {
     flex: 1 1 6rem;
     min-width: 0;
     padding: 0.25rem 0.5rem;
     font-size: 0.8125rem;
-    font: inherit;
-    color: var(--palette-surface-contrast);
-    background: color-mix(in oklab, var(--palette-surface-contrast) 4%, transparent);
-    border: 1px solid color-mix(in oklab, var(--palette-border) 40%, transparent);
-    border-radius: 0.25rem;
-    box-sizing: border-box;
-}
-
-[data-bob-component="data-grid"] .bob-datagrid__column-filter:focus-visible {
-    outline: 2px solid var(--palette-highlight);
-    outline-offset: 1px;
-    border-color: transparent;
+    text-align: start;
 }
 
 /* Frozen / sticky columns. Cells are pinned via position:sticky on the inline-start
@@ -465,4 +454,65 @@
 
 [data-bob-component="data-grid"] .bob-datagrid__header-cell[draggable="true"] {
     cursor: grab;
+}
+
+/* Inline-edit affordances. The --editing modifier rings the active cell so the user
+   can see which input is in scope while typing; the --invalid modifier surfaces a
+   validator rejection with a contrasting border + tooltip set via the title attr. */
+[data-bob-component="data-grid"] .bob-datagrid__cell--editing {
+    background: color-mix(in oklab, var(--palette-surface) 90%, var(--palette-primary) 10%);
+    outline: 2px solid var(--palette-primary);
+    outline-offset: -2px;
+    padding: 0;
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__cell--invalid {
+    outline: 2px solid var(--palette-error);
+    outline-offset: -2px;
+    background: color-mix(in oklab, var(--palette-surface) 92%, var(--palette-error) 8%);
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__cell-input {
+    width: 100%;
+    height: 100%;
+    padding: 0.25rem 0.5rem;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    color: inherit;
+    outline: none;
+    box-sizing: border-box;
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__cell-input--checkbox {
+    width: auto;
+    height: auto;
+    cursor: pointer;
+}
+
+/* Virtualize ItemsProvider placeholder rows render while a slice is being fetched from
+   the data source. The shimmer gradient gives a "loading" hint without locking out
+   interactions on neighbouring rendered rows. */
+[data-bob-component="data-grid"] .bob-datagrid__row--loading,
+[data-bob-component="data-grid"] .bob-datagrid__cell--loading {
+    background: linear-gradient(
+        90deg,
+        var(--palette-surface) 0%,
+        color-mix(in oklab, var(--palette-surface) 92%, var(--palette-surface-contrast) 8%) 50%,
+        var(--palette-surface) 100%
+    );
+    background-size: 200% 100%;
+    animation: bob-datagrid-shimmer 1.4s ease-in-out infinite;
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__placeholder {
+    display: block;
+    height: 1em;
+    border-radius: 0.25rem;
+    background: color-mix(in oklab, var(--palette-surface) 85%, var(--palette-surface-contrast) 15%);
+}
+
+@keyframes bob-datagrid-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
 }

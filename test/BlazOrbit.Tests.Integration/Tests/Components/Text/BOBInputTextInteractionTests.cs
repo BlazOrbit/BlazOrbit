@@ -10,7 +10,10 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Text;
 [Trait("Component Interaction", "BOBInputText")]
 public class BOBInputTextInteractionTests
 {
-    private class Model { public string? Value { get; set; } }
+    private class Model
+    {
+        public string? Value { get; set; }
+    }
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]

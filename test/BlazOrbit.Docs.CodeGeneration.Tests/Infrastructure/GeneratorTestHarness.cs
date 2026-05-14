@@ -17,7 +17,7 @@ public static class GeneratorTestHarness
         IReadOnlyDictionary<string, string>? globalOptions = null,
         IEnumerable<MetadataReference>? extraReferences = null)
     {
-        IEnumerable<SyntaxTree> trees = (sources ?? Array.Empty<string>())
+        IEnumerable<SyntaxTree> trees = (sources ?? [])
             .Select(s => CSharpSyntaxTree.ParseText(s, new CSharpParseOptions(LanguageVersion.Latest)));
 
         List<MetadataReference> refs =
@@ -25,32 +25,33 @@ public static class GeneratorTestHarness
             MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
             MetadataReference.CreateFromFile(typeof(Attribute).Assembly.Location),
             MetadataReference.CreateFromFile(typeof(System.Runtime.CompilerServices.IsExternalInit).Assembly.Location),
-            MetadataReference.CreateFromFile(typeof(System.Collections.Generic.List<>).Assembly.Location),
+            MetadataReference.CreateFromFile(typeof(List<>).Assembly.Location)
         ];
-        string runtimeDir = System.IO.Path.GetDirectoryName(typeof(object).Assembly.Location)!;
-        refs.Add(MetadataReference.CreateFromFile(System.IO.Path.Combine(runtimeDir, "System.Runtime.dll")));
-        refs.Add(MetadataReference.CreateFromFile(System.IO.Path.Combine(runtimeDir, "netstandard.dll")));
+        string runtimeDir = Path.GetDirectoryName(typeof(object).Assembly.Location)!;
+        refs.Add(MetadataReference.CreateFromFile(Path.Combine(runtimeDir, "System.Runtime.dll")));
+        refs.Add(MetadataReference.CreateFromFile(Path.Combine(runtimeDir, "netstandard.dll")));
         if (extraReferences is not null)
         {
             refs.AddRange(extraReferences);
         }
 
         CSharpCompilation compilation = CSharpCompilation.Create(
-            assemblyName: "GeneratorTests",
-            syntaxTrees: trees,
-            references: refs,
-            options: new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
+            "GeneratorTests",
+            trees,
+            refs,
+            new CSharpCompilationOptions(OutputKind.DynamicallyLinkedLibrary));
 
-        ImmutableArray<AdditionalText> texts = (additionalTexts ?? Array.Empty<(string, string)>())
+        ImmutableArray<AdditionalText> texts = [
+            ..(additionalTexts ?? [])
             .Select(t => (AdditionalText)new InMemoryAdditionalText(t.Path, t.Content))
-            .ToImmutableArray();
+        ];
 
         GeneratorDriver driver = CSharpGeneratorDriver.Create(
-            generators: [generator.AsSourceGenerator()],
-            additionalTexts: texts,
-            parseOptions: (compilation.SyntaxTrees.FirstOrDefault()?.Options as CSharpParseOptions)
-                ?? new CSharpParseOptions(LanguageVersion.Latest),
-            optionsProvider: globalOptions is null ? null : new FakeAnalyzerConfigOptionsProvider(globalOptions));
+            [generator.AsSourceGenerator()],
+            texts,
+            compilation.SyntaxTrees.FirstOrDefault()?.Options as CSharpParseOptions
+            ?? new CSharpParseOptions(LanguageVersion.Latest),
+            globalOptions is null ? null : new FakeAnalyzerConfigOptionsProvider(globalOptions));
 
         driver = driver.RunGenerators(compilation);
         GeneratorDriverRunResult result = driver.GetRunResult();

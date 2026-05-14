@@ -12,26 +12,26 @@
     --_button-border-left: var(--bob-inline-border-left, var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border)));
 }
 
-    [data-bob-component="button"] button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: calc(0.5rem * var(--bob-density-multiplier));
-        cursor: pointer;
-        padding: var(--_button-padding-y) var(--_button-padding-x);
-        min-height: var(--_button-height);
-        position: relative;
-        overflow: hidden;
-        /* Consume inline overrides with fallback to defaults */
-        background-color: var(--_button-background);
-        color: var(--_button-color);
-        border-radius: var(--_button-border-radius);
-        border: var(--_button-border);
-        border-top: var(--_button-border-top);
-        border-right: var(--_button-border-right);
-        border-bottom: var(--_button-border-bottom);
-        border-left: var(--_button-border-left);
-    }
+[data-bob-component="button"] button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: calc(0.5rem * var(--bob-density-multiplier));
+    cursor: pointer;
+    padding: var(--_button-padding-y) var(--_button-padding-x);
+    min-height: var(--_button-height);
+    position: relative;
+    overflow: hidden;
+    /* Consume inline overrides with fallback to defaults */
+    background-color: var(--_button-background);
+    color: var(--_button-color);
+    border-radius: var(--_button-border-radius);
+    border: var(--_button-border);
+    border-top: var(--_button-border-top);
+    border-right: var(--_button-border-right);
+    border-bottom: var(--_button-border-bottom);
+    border-left: var(--_button-border-left);
+}
 
 .bob-button__text {
     white-space: nowrap;
@@ -54,5 +54,5 @@
 }
 
 [data-bob-component="button"][data-bob-fullwidth="true"] button {
-    width:100%;
+    width: 100%;
 }

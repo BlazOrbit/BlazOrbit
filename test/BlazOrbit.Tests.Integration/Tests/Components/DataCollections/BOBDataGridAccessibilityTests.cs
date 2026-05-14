@@ -13,9 +13,10 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.DataCollections;
 public class BOBDataGridAccessibilityTests
 {
     private sealed record Person(string Name, int Age);
+
     private static readonly Expression<Func<Person, object?>> NameExpr = p => (object?)p.Name;
 
-    private static IEnumerable<Person> Items => [new Person("Alice", 30), new Person("Bob", 25)];
+    private static IEnumerable<Person> Items => [new("Alice", 30), new("Bob", 25)];
 
     private static RenderFragment SimpleColumns => b =>
     {
@@ -191,7 +192,7 @@ public class BOBDataGridAccessibilityTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         // Arrange
-        IEnumerable<Person> items = [new Person("A", 1), new Person("B", 2), new Person("C", 3)];
+        IEnumerable<Person> items = [new("A", 1), new("B", 2), new("C", 3)];
         IRenderedComponent<BOBDataGrid<Person>> cut = ctx.Render<BOBDataGrid<Person>>(p => p
             .Add(c => c.Items, items)
             .Add(c => c.PageSize, 2)

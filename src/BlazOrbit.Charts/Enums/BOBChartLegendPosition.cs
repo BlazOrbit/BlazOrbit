@@ -18,5 +18,5 @@ public enum BOBChartLegendPosition
     Left,
 
     /// <summary>Render to the right of the plot area.</summary>
-    Right,
+    Right
 }

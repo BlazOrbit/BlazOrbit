@@ -1,4 +1,4 @@
-@page "/components/charts/pie"
+﻿@page "/components/charts/pie"
 
 @inject IStringLocalizer<PieChartPage> Loc
 
@@ -6,12 +6,16 @@
          Lede="@Loc["Full circular distribution chart. Each slice value is auto-normalized to 100% across the slice set; slice order goes clockwise from 12 o'clock following declaration order."]"
          PageInstance="this"
          ApiType="@typeof(BOBPieChart<>)"
->
+         Keywords="@(["pie chart", "proportion", "percentage", "slices"])">
+
+    <BOBBanner Severity="BOBBannerSeverity.Warning"
+               Title="@Loc["Extra package required"]"
+               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]"/>
 
     <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
         <BOBPieChart TY="decimal"
                      Slices="_revenueSlices"
-                     Width="380" Height="380" />
+                     Width="380" Height="380"/>
     </DocDemo>
 
     <DocDemo Key="WithoutPercentages" Title="@Loc["Without percentage labels"]"
@@ -19,7 +23,7 @@
         <BOBPieChart TY="decimal"
                      Slices="_revenueSlices"
                      ShowPercentages="false"
-                     Width="380" Height="380" />
+                     Width="380" Height="380"/>
     </DocDemo>
 
     <DocDemo Key="WithExport" Title="@Loc["With export button"]">
@@ -27,7 +31,7 @@
                      Slices="_revenueSlices"
                      Width="380" Height="380"
                      ShowExportButton="true"
-                     ExportFileName="revenue-distribution" />
+                     ExportFileName="revenue-distribution"/>
     </DocDemo>
 
     <DocDemo Key="SliceClick" Title="@Loc["Slice click handler"]"
@@ -35,7 +39,7 @@
         <BOBPieChart TY="decimal"
                      Slices="_revenueSlices"
                      Width="380" Height="380"
-                     OnSliceClick="HandleSliceClick" />
+                     OnSliceClick="@(EventCallback.Factory.Create<BOBChartSliceClickArgs<decimal>>(this, HandleSliceClick))"/>
         @if (!string.IsNullOrEmpty(_clickMessage))
         {
             <p class="doc-helper-text">@_clickMessage</p>
@@ -46,7 +50,7 @@
              Description="@Loc["Assign explicit Color values to each BOBChartSlice to override the default palette cycle."]">
         <BOBPieChart TY="decimal"
                      Slices="_coloredSlices"
-                     Width="380" Height="380" />
+                     Width="380" Height="380"/>
     </DocDemo>
 
     <DocDemo Key="LegendPosition" Title="@Loc["Legend on the right"]"
@@ -54,7 +58,7 @@
         <BOBPieChart TY="decimal"
                      Slices="_revenueSlices"
                      Width="380" Height="380"
-                     LegendPosition="BOBChartLegendPosition.Right" />
+                     LegendPosition="BOBChartLegendPosition.Right"/>
     </DocDemo>
 
 </DocPage>
@@ -69,19 +73,18 @@
     }
 
     private static readonly IEnumerable<BOBChartSlice<decimal>> _revenueSlices =
-        new[]
-        {
-            new BOBChartSlice<decimal> { Label = "EMEA",     Value = 45m },
+    [
+        new BOBChartSlice<decimal> { Label = "EMEA", Value = 45m },
             new BOBChartSlice<decimal> { Label = "Americas", Value = 35m },
-            new BOBChartSlice<decimal> { Label = "APAC",     Value = 15m },
-            new BOBChartSlice<decimal> { Label = "Other",    Value = 5m },
-        };
+            new BOBChartSlice<decimal> { Label = "APAC", Value = 15m },
+            new BOBChartSlice<decimal> { Label = "Other", Value = 5m }
+    ];
 
     private static readonly IEnumerable<BOBChartSlice<decimal>> _coloredSlices =
-        new[]
-        {
-            new BOBChartSlice<decimal> { Label = "Success", Value = 62m, Color = "var(--palette-success)" },
+    [
+        new BOBChartSlice<decimal> { Label = "Success", Value = 62m, Color = "var(--palette-success)" },
             new BOBChartSlice<decimal> { Label = "Warning", Value = 25m, Color = "var(--palette-warning)" },
-            new BOBChartSlice<decimal> { Label = "Error",   Value = 13m, Color = "var(--palette-error)" },
-        };
+            new BOBChartSlice<decimal> { Label = "Error", Value = 13m, Color = "var(--palette-error)" }
+    ];
+
 }

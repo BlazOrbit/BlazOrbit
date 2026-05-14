@@ -7,6 +7,7 @@ using System.Diagnostics.CodeAnalysis;
     "RS0041:PublicApiFilesInvalid",
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
-    Target = "~M:BlazOrbit.Notifications.BOBNotificationBell.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+    Target =
+        "~M:BlazOrbit.Notifications.BOBNotificationBell.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 #endregion

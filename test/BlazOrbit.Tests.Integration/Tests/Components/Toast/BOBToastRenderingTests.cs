@@ -18,12 +18,7 @@ public class BOBToastRenderingTests
         => new()
         {
             Content = b => b.AddContent(0, content),
-            Options = new ToastOptions
-            {
-                Closable = closable,
-                AutoDismiss = autoDismiss,
-                Position = position,
-            }
+            Options = new ToastOptions { Closable = closable, AutoDismiss = autoDismiss, Position = position }
         };
 
     [Theory]

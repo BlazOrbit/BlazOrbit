@@ -12,10 +12,13 @@ public sealed class NavigationInfo
 
     /// <summary><see langword="true"/> when <see cref="Href"/> is set and uses a safe scheme.</summary>
     public bool HasNavigation => IsSafeHref(Href);
+
     /// <summary>Anchor href the node navigates to.</summary>
     public string? Href { get; init; }
+
     /// <summary>Active-route match strategy used when rendering as a <see cref="Microsoft.AspNetCore.Components.Routing.NavLink"/>.</summary>
     public NavLinkMatch Match { get; init; } = NavLinkMatch.Prefix;
+
     /// <summary>Optional anchor target attribute (e.g. <c>_blank</c>).</summary>
     public string? Target { get; init; }
 

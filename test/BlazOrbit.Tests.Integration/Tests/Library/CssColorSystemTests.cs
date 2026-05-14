@@ -130,17 +130,17 @@ public class CssColorSystemTests
     }
 
     [Theory]
-    [InlineData(null)]                   // null
-    [InlineData("")]                     // empty
-    [InlineData("   ")]                  // whitespace
-    [InlineData("invalid")]              // random string
-    [InlineData("rgb()")]                // missing numbers
-    [InlineData("rgba()")]               // missing numbers
-    [InlineData("rgb(300,400,500)")]     // values out of range
-    [InlineData("rgba(0,0,0,2)")]        // alpha > 1
-    [InlineData("#GGHHII")]              // invalid hex characters
-    [InlineData("#12345")]               // invalid hex length
-    [InlineData("#123456789")]           // invalid hex length
+    [InlineData(null)] // null
+    [InlineData("")] // empty
+    [InlineData("   ")] // whitespace
+    [InlineData("invalid")] // random string
+    [InlineData("rgb()")] // missing numbers
+    [InlineData("rgba()")] // missing numbers
+    [InlineData("rgb(300,400,500)")] // values out of range
+    [InlineData("rgba(0,0,0,2)")] // alpha > 1
+    [InlineData("#GGHHII")] // invalid hex characters
+    [InlineData("#12345")] // invalid hex length
+    [InlineData("#123456789")] // invalid hex length
     public void CssColor_Constructor_Throws_ForInvalidStrings(string? invalidValue)
     {
         // Arrange
@@ -256,15 +256,15 @@ public class CssColorSystemTests
 
     [Theory]
     [InlineData("#FF0000")]
-    [InlineData("#ff0000")]           // lowercase
+    [InlineData("#ff0000")] // lowercase
     [InlineData("#F00")]
-    [InlineData("#F00F")]             // 4-digit HEX with alpha
-    [InlineData("#FF0000FF")]         // 8-digit HEX with alpha
+    [InlineData("#F00F")] // 4-digit HEX with alpha
+    [InlineData("#FF0000FF")] // 8-digit HEX with alpha
     [InlineData("rgb(255,0,0)")]
     [InlineData("rgb( 255 , 0 , 0 )")] // spaces
     [InlineData("rgba(255,0,0,1)")]
-    [InlineData("rgba(255,0,0,0.5)")]  // alpha decimal
-    [InlineData("RGBA(255,0,0,0.5)")]  // uppercase rgba
+    [InlineData("rgba(255,0,0,0.5)")] // alpha decimal
+    [InlineData("RGBA(255,0,0,0.5)")] // uppercase rgba
     public void CssColor_Parse_ValidFormats(string colorString)
     {
         // Act
@@ -307,7 +307,8 @@ public class CssColorSystemTests
         string result = color.ToString(format);
 
         // Assert
-        result.Should().StartWith(expectedStart, "Format {0} should produce output starting with {1}", format, expectedStart);
+        result.Should().StartWith(expectedStart, "Format {0} should produce output starting with {1}", format,
+            expectedStart);
     }
 
     [Fact]
@@ -358,13 +359,13 @@ public class CssColorSystemTests
     }
 
     [Theory]
-    [InlineData(0x00, 0x00, 0x00, 255, "#000")]        // Black - short hex
-    [InlineData(0xFF, 0xFF, 0xFF, 255, "#fff")]        // White - short hex
-    [InlineData(0xAA, 0xBB, 0xCC, 255, "#abc")]        // Pairs match - short hex
-    [InlineData(0x11, 0x22, 0x33, 255, "#123")]        // Pairs match - short hex
-    [InlineData(0xFF, 0x00, 0x00, 255, "#f00")]        // Red - short hex
-    [InlineData(0x00, 0xFF, 0x00, 255, "#0f0")]        // Green - short hex
-    [InlineData(0x00, 0x00, 0xFF, 255, "#00f")]        // Blue - short hex
+    [InlineData(0x00, 0x00, 0x00, 255, "#000")] // Black - short hex
+    [InlineData(0xFF, 0xFF, 0xFF, 255, "#fff")] // White - short hex
+    [InlineData(0xAA, 0xBB, 0xCC, 255, "#abc")] // Pairs match - short hex
+    [InlineData(0x11, 0x22, 0x33, 255, "#123")] // Pairs match - short hex
+    [InlineData(0xFF, 0x00, 0x00, 255, "#f00")] // Red - short hex
+    [InlineData(0x00, 0xFF, 0x00, 255, "#0f0")] // Green - short hex
+    [InlineData(0x00, 0x00, 0xFF, 255, "#00f")] // Blue - short hex
     public void CssColor_Optimized_ShouldReturn_ShortHex_WhenPairsMatch(byte r, byte g, byte b, byte a, string expected)
     {
         // Arrange
@@ -378,12 +379,13 @@ public class CssColorSystemTests
     }
 
     [Theory]
-    [InlineData(0x12, 0x34, 0x56, 255, "#123456")]     // No pairs match
-    [InlineData(0xAB, 0xCD, 0xEF, 255, "#abcdef")]     // No pairs match
-    [InlineData(0x10, 0x20, 0x30, 255, "#102030")]     // First nibble differs from second
-    [InlineData(0xFF, 0x00, 0x01, 255, "#ff0001")]     // Almost red but B=1
-    [InlineData(0x01, 0x23, 0x45, 255, "#012345")]     // Mixed values
-    public void CssColor_Optimized_ShouldReturn_FullHex_WhenPairsDontMatch(byte r, byte g, byte b, byte a, string expected)
+    [InlineData(0x12, 0x34, 0x56, 255, "#123456")] // No pairs match
+    [InlineData(0xAB, 0xCD, 0xEF, 255, "#abcdef")] // No pairs match
+    [InlineData(0x10, 0x20, 0x30, 255, "#102030")] // First nibble differs from second
+    [InlineData(0xFF, 0x00, 0x01, 255, "#ff0001")] // Almost red but B=1
+    [InlineData(0x01, 0x23, 0x45, 255, "#012345")] // Mixed values
+    public void CssColor_Optimized_ShouldReturn_FullHex_WhenPairsDontMatch(byte r, byte g, byte b, byte a,
+        string expected)
     {
         // Arrange
         CssColor color = new(r, g, b, a);
@@ -396,11 +398,12 @@ public class CssColorSystemTests
     }
 
     [Theory]
-    [InlineData(255, 0, 0, 128, "rgba(255,0,0,0.5)")]           // 50% alpha
-    [InlineData(0, 255, 0, 0, "rgba(0,255,0,0)")]               // Fully transparent
-    [InlineData(100, 150, 200, 25, "rgba(100,150,200,0.1)")]    // ~10% alpha
-    [InlineData(0, 0, 0, 254, "rgba(0,0,0,1)")]                 // Almost opaque (rounds to 1)
-    public void CssColor_Optimized_ShouldReturn_Rgba_WhenAlphaLessThan255(byte r, byte g, byte b, byte a, string expected)
+    [InlineData(255, 0, 0, 128, "rgba(255,0,0,0.5)")] // 50% alpha
+    [InlineData(0, 255, 0, 0, "rgba(0,255,0,0)")] // Fully transparent
+    [InlineData(100, 150, 200, 25, "rgba(100,150,200,0.1)")] // ~10% alpha
+    [InlineData(0, 0, 0, 254, "rgba(0,0,0,1)")] // Almost opaque (rounds to 1)
+    public void CssColor_Optimized_ShouldReturn_Rgba_WhenAlphaLessThan255(byte r, byte g, byte b, byte a,
+        string expected)
     {
         // Arrange
         CssColor color = new(r, g, b, a);
@@ -416,13 +419,13 @@ public class CssColorSystemTests
     public void CssColor_Optimized_OutputLength_ShouldBeShorterOrEqual_ToRgba()
     {
         // Arrange
-        CssColor[] testColors = new[]
-        {
-        new CssColor(255, 255, 255, 255),  // #fff vs rgba(255,255,255,1)
-        new CssColor(0, 0, 0, 255),        // #000 vs rgba(0,0,0,1)
-        new CssColor(170, 187, 204, 255),  // #abc vs rgba(170,187,204,1)
-        new CssColor(18, 52, 86, 255),     // #123456 vs rgba(18,52,86,1)
-    };
+        CssColor[] testColors =
+        [
+            new CssColor(255, 255, 255, 255), // #fff vs rgba(255,255,255,1)
+            new CssColor(0, 0, 0, 255), // #000 vs rgba(0,0,0,1)
+            new CssColor(170, 187, 204, 255), // #abc vs rgba(170,187,204,1)
+            new CssColor(18, 52, 86, 255) // #123456 vs rgba(18,52,86,1)
+        ];
 
         foreach (CssColor color in testColors)
         {
@@ -440,13 +443,11 @@ public class CssColorSystemTests
     public void CssColor_Optimized_ShouldProduce_ValidCssColors()
     {
         // Arrange
-        CssColor[] testColors = new[]
-        {
-        new CssColor("#abc"),
-        new CssColor("#123456"),
-        new CssColor("rgb(100,150,200)"),
-        new CssColor("rgba(50,100,150,0.5)"),
-    };
+        CssColor[] testColors =
+        [
+            new CssColor("#abc"), new CssColor("#123456"), new CssColor("rgb(100,150,200)"),
+            new CssColor("rgba(50,100,150,0.5)")
+        ];
 
         foreach (CssColor original in testColors)
         {
@@ -472,11 +473,11 @@ public class CssColorSystemTests
     // ---- LIB-01: HsvColor conversions ----
 
     [Theory]
-    [InlineData(255, 0, 0, 0, 1.0, 1.0)]       // red
-    [InlineData(0, 255, 0, 120, 1.0, 1.0)]     // green
-    [InlineData(0, 0, 255, 240, 1.0, 1.0)]     // blue
-    [InlineData(255, 255, 255, 0, 0.0, 1.0)]   // white
-    [InlineData(0, 0, 0, 0, 0.0, 0.0)]         // black
+    [InlineData(255, 0, 0, 0, 1.0, 1.0)] // red
+    [InlineData(0, 255, 0, 120, 1.0, 1.0)] // green
+    [InlineData(0, 0, 255, 240, 1.0, 1.0)] // blue
+    [InlineData(255, 255, 255, 0, 0.0, 1.0)] // white
+    [InlineData(0, 0, 0, 0, 0.0, 0.0)] // black
     public void HsvColor_FromCssColor_Should_Produce_Correct_HSV(
         int r, int g, int b, int expectedHue, double expectedSat, double expectedVal)
     {
@@ -489,11 +490,11 @@ public class CssColorSystemTests
     }
 
     [Theory]
-    [InlineData(0, 1.0, 1.0, 255, 0, 0)]       // red
-    [InlineData(120, 1.0, 1.0, 0, 255, 0)]     // green
-    [InlineData(240, 1.0, 1.0, 0, 0, 255)]     // blue
-    [InlineData(0, 0.0, 1.0, 255, 255, 255)]   // white
-    [InlineData(0, 0.0, 0.0, 0, 0, 0)]         // black
+    [InlineData(0, 1.0, 1.0, 255, 0, 0)] // red
+    [InlineData(120, 1.0, 1.0, 0, 255, 0)] // green
+    [InlineData(240, 1.0, 1.0, 0, 0, 255)] // blue
+    [InlineData(0, 0.0, 1.0, 255, 255, 255)] // white
+    [InlineData(0, 0.0, 0.0, 0, 0, 0)] // black
     public void HsvColor_ToCssColor_Should_Produce_Correct_RGB(
         int hue, double saturation, double value, int expectedR, int expectedG, int expectedB)
     {

@@ -1,11 +1,22 @@
-@page "/components/charts/sparkline"
+﻿@page "/components/charts/sparkline"
 
 @inject IStringLocalizer<SparklinePage> Loc
 
 <DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["Sparkline"]"
-         Lede="@Loc["Sparkline mode is a parameter on BOBLineChart that hides axes, grid, tick labels and legend — only the line stroke remains. Pair with a small Width / Height (e.g. 120×32) to embed inline in tables, KPI cards or list rows."]"
+         Lede="@Loc["Inline mini line chart without axes or legend. Perfect for embedding in tables, KPI cards, and list rows to show trends at a glance."]"
          PageInstance="this"
-         ApiType="@typeof(BOBLineChart<,>)">
+         ApiType="@typeof(BOBLineChart<,>)"
+         Keywords="@(["sparkline", "mini chart", "inline", "trend"])">
+
+    <section class="doc-section">
+        <p class="doc-section__description">
+            @Loc.Html(_sparklineDesc)
+        </p>
+    </section>
+
+    <BOBBanner Severity="BOBBannerSeverity.Warning"
+               Title="@Loc["Extra package required"]"
+               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]"/>
 
     <DocDemo Key="Inline" Title="@Loc["Inline KPI sparklines"]">
         <BOBFlexStack Gap="2rem" Direction="FlexStackDirection.Column">
@@ -15,7 +26,7 @@
                               Series="_latency"
                               Sparkline="true"
                               ShowMarkers="false"
-                              Width="160" Height="32" />
+                              Width="160" Height="32"/>
                 <span>32 ms</span>
             </BOBFlexStack>
             <BOBFlexStack Gap="1rem" Direction="FlexStackDirection.Row">
@@ -25,7 +36,7 @@
                               Sparkline="true"
                               ShowMarkers="false"
                               Smooth="true"
-                              Width="160" Height="32" />
+                              Width="160" Height="32"/>
                 <span>2 481</span>
             </BOBFlexStack>
             <BOBFlexStack Gap="1rem" Direction="FlexStackDirection.Row">
@@ -34,7 +45,7 @@
                               Series="_errorRate"
                               Sparkline="true"
                               ShowMarkers="false"
-                              Width="160" Height="32" />
+                              Width="160" Height="32"/>
                 <span>0.42%</span>
             </BOBFlexStack>
         </BOBFlexStack>
@@ -46,7 +57,7 @@
                       Series="_latency"
                       Sparkline="true"
                       MarkerRadius="2"
-                      Width="240" Height="48" />
+                      Width="240" Height="48"/>
     </DocDemo>
 
 </DocPage>
@@ -57,17 +68,23 @@
     {
         Random rng = new(seed);
         var pts = new List<BOBChartPoint<int, double>>();
-        for (int i = 0; i < n; i++)
+        for (var i = 0; i < n; i++)
         {
-            double u1 = 1 - rng.NextDouble();
-            double u2 = 1 - rng.NextDouble();
-            double z = Math.Sqrt(-2 * Math.Log(u1)) * Math.Cos(2 * Math.PI * u2);
+            var u1 = 1 - rng.NextDouble();
+            var u2 = 1 - rng.NextDouble();
+            var z = Math.Sqrt(-2 * Math.Log(u1)) * Math.Cos(2 * Math.PI * u2);
             pts.Add(new BOBChartPoint<int, double>(i, mean + z * stddev));
         }
-        return new[] { new BOBChartSeries<int, double> { Label = label, Points = pts.ToArray() } };
+
+        return [new BOBChartSeries<int, double> { Label = label, Points = pts.ToArray() }];
     }
 
     private static readonly IEnumerable<BOBChartSeries<int, double>> _latency = Synth("latency", 30, 6, 1);
     private static readonly IEnumerable<BOBChartSeries<int, double>> _activeUsers = Synth("users", 2400, 80, 2);
     private static readonly IEnumerable<BOBChartSeries<int, double>> _errorRate = Synth("errors", 0.5, 0.15, 3);
+
+    private const string _sparklineDesc =
+        """
+        Sparkline is exposed as a parameter set on <code>BOBLineChart</code>: setting <code>Variant="BOBLineChartVariant.Sparkline"</code> hides axes, grid, tick labels, and legend so only the stroke remains. Because it is the same component, all data-binding and animation features are preserved. Typical dimensions are around 120×32 pixels for inline embedding.
+        """;
 }

@@ -11,8 +11,11 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Dropdown;
 [Trait("Component State", "BOBInputDropdown")]
 public class BOBInputDropdownStateTests
 {
+    private class DummyModel
+    {
+        public string? Value { get; set; }
+    }
 
-    private class DummyModel { public string? Value { get; set; } }
     private static readonly DummyModel _dm = new();
     private static readonly Expression<Func<string?>> _expr = () => _dm.Value;
 

@@ -1,0 +1,126 @@
+﻿@page "/components/forms/file-upload"
+
+@using Microsoft.AspNetCore.Components.Forms
+
+@inject IStringLocalizer<FileUploadPage> Loc
+
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBInputFile"]"
+         Lede="@Loc["Drop-zone file picker with multi-select, MIME / size validation, image previews and a remove affordance."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBInputFile)"
+         Keywords="@(["file upload", "drag and drop", "attachment", "input"])">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic single-file"]">
+        <BOBInputFile OnFilesSelected="@(EventCallback.Factory.Create<IReadOnlyList<IBrowserFile>>(this, HandleSelected))"/>
+        @if (_lastFiles.Count > 0)
+        {
+            <p class="doc-demo__caption">@Loc["Last selected:"] <code>@_lastFiles[0].Name</code></p>
+        }
+    </DocDemo>
+
+    <DocDemo Key="Multiple" Title="@Loc["Multiple files"]">
+        <BOBInputFile Multiple="true"
+                      MaxFiles="5"
+                      MaxSize="2097152"
+                      Label="@Loc["Up to 5 files, 2 MB each"]"
+                      HelperText="@Loc["Drop or click to add"]"/>
+    </DocDemo>
+
+    <DocDemo Key="Accept" Title="@Loc["MIME filter — images + PDF"]">
+        <BOBInputFile Accept="image/*,.pdf"
+                      Multiple="true"
+                      Label="@Loc["Images or PDF only"]"/>
+    </DocDemo>
+
+    <DocDemo Key="Custom" Title="@Loc["Custom drop zone"]">
+        <BOBInputFile Multiple="true">
+            <span class="doc-fileupload-custom__title">@Loc["Drop your screenshots here"]</span>
+            <span class="doc-fileupload-custom__hint">@Loc["PNG, JPG, GIF up to 10 MB"]</span>
+        </BOBInputFile>
+    </DocDemo>
+
+    <DocDemo Key="States" Title="@Loc["States"]">
+        <BOBInputFile Disabled="true" Label="@Loc["Disabled"]"/>
+    </DocDemo>
+
+    <DocDemo Key="Chunked" Title="@Loc["Chunked upload (opt-in helper)"]"
+             Description="@Loc["BOBChunkedUploader is a transport-agnostic helper that streams an IBrowserFile in fixed-size chunks. The SendChunk callback owns the destination — HTTP / SignalR / file-system / mock — and the helper applies back-pressure by awaiting each callback before reading the next chunk. The progress event drives BOBInputFile.SetStatus so the per-entry progress bar lights up in place."]">
+        <BOBInputFile @ref="_chunkedHost"
+                      Multiple="true"
+                      MaxFiles="3"
+                      MaxSize="10485760"
+                      OnFilesSelected="@(EventCallback.Factory.Create<IReadOnlyList<IBrowserFile>>(this, HandleChunkedSelected))"
+                      Label="@Loc["Pick file(s) to stream"]"/>
+
+        <BOBButton Text="@Loc["Upload all"]"
+                   Disabled="@(_chunkedFiles.Count == 0 || _chunkedRunning)"
+                   OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, RunChunkedUploadAsync))"
+                   LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_cloud_upload"/>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBInputFileComponentInfo.Parameters"/>
+    </section>
+
+</DocPage>
+
+@code {
+    private IReadOnlyList<IBrowserFile> _lastFiles = [];
+
+    private void HandleSelected(IReadOnlyList<IBrowserFile> files)
+    {
+        _lastFiles = files;
+    }
+
+    private BOBInputFile? _chunkedHost;
+    private IReadOnlyList<IBrowserFile> _chunkedFiles = [];
+    private bool _chunkedRunning;
+
+    private void HandleChunkedSelected(IReadOnlyList<IBrowserFile> files)
+    {
+        _chunkedFiles = files;
+    }
+
+    private async Task RunChunkedUploadAsync()
+    {
+        if (_chunkedHost is null || _chunkedFiles.Count == 0) return;
+        _chunkedRunning = true;
+
+        foreach (var file in _chunkedFiles)
+        {
+            // Mock transport: a 25 ms delay per chunk imitates a slow upstream so the per-file
+            // progress bar inside BOBInputFile visibly advances. Swap SendChunk for HttpClient
+            // / SignalR in a real consumer — the helper itself is transport-agnostic.
+            BOBChunkedUploader uploader = new()
+            {
+                ChunkSize = 64 * 1024,
+                MaxAllowedSize = 10 * 1024 * 1024,
+                SendChunk = async (_, ct) => await Task.Delay(25, ct),
+                Progress = new ChunkProgressSink(p =>
+                {
+                    var pct = p.FileSize == 0 ? 100 : p.BytesSent * 100d / p.FileSize;
+                    _chunkedHost.SetStatus(file, BOBFileStatus.Uploading, pct);
+                })
+            };
+
+            var result = await uploader.UploadAsync(file);
+            _chunkedHost.SetStatus(
+                file,
+                result.Success ? BOBFileStatus.Uploaded : BOBFileStatus.Failed,
+                statusMessage: result.Error?.Message);
+        }
+
+        _chunkedRunning = false;
+    }
+
+    private sealed class ChunkProgressSink(Action<BOBChunkedUploadProgress> onReport) : IProgress<BOBChunkedUploadProgress>
+    {
+        public void Report(BOBChunkedUploadProgress value)
+        {
+            onReport(value);
+        }
+    }
+
+}

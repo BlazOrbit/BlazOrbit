@@ -21,10 +21,11 @@ public class BOBDataGridDragReorderTests
     private static IEnumerable<Person> Items =>
     [
         new("Alice", 30),
-        new("Bob", 25),
+        new("Bob", 25)
     ];
 
-    private static IRenderedComponent<BOBDataGrid<Person>> RenderGrid(BlazorTestContextBase ctx, bool reorderable = true) =>
+    private static IRenderedComponent<BOBDataGrid<Person>> RenderGrid(BlazorTestContextBase ctx,
+        bool reorderable = true) =>
         ctx.Render<BOBDataGrid<Person>>(p => p
             .Add(c => c.Items, Items)
             .Add(c => c.Reorderable, reorderable)
@@ -39,7 +40,8 @@ public class BOBDataGridDragReorderTests
                 b.OpenComponent<BOBDataColumn<Person>>(4);
                 b.AddAttribute(5, "Header", "Age");
                 b.AddAttribute(6, "Property", AgeExpr);
-                b.AddAttribute(7, "Template", (RenderFragment<Person>)(item => b2 => b2.AddContent(0, item.Age.ToString())));
+                b.AddAttribute(7, "Template",
+                    (RenderFragment<Person>)(item => b2 => b2.AddContent(0, item.Age.ToString())));
                 b.CloseComponent();
             }));
 
@@ -60,7 +62,7 @@ public class BOBDataGridDragReorderTests
     public async Task Should_Not_Mark_Header_Draggable_When_Reorderable_Off(BlazorScenario scenario)
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
-        IRenderedComponent<BOBDataGrid<Person>> cut = RenderGrid(ctx, reorderable: false);
+        IRenderedComponent<BOBDataGrid<Person>> cut = RenderGrid(ctx, false);
 
         cut.Find("th.bob-datagrid__header-cell").GetAttribute("draggable").Should().BeNull();
     }

@@ -10,30 +10,27 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Charts.ScatterChart;
 [Trait("Component Rendering", "BOBScatterChart")]
 public class BOBScatterChartTests
 {
-    private static IEnumerable<BOBChartSeries<double, double>> ScatterSeries() => new[]
-    {
+    private static IEnumerable<BOBChartSeries<double, double>> ScatterSeries() =>
+    [
         new BOBChartSeries<double, double>
         {
             Label = "Cluster A",
-            Points = new[]
-            {
-                new BOBChartPoint<double, double>(1.2, 3.4),
-                new BOBChartPoint<double, double>(2.6, 4.1),
-                new BOBChartPoint<double, double>(3.8, 5.5),
-                new BOBChartPoint<double, double>(4.5, 4.9),
-            }
+            Points =
+            [
+                new BOBChartPoint<double, double>(1.2, 3.4), new BOBChartPoint<double, double>(2.6, 4.1),
+                new BOBChartPoint<double, double>(3.8, 5.5), new BOBChartPoint<double, double>(4.5, 4.9)
+            ]
         },
         new BOBChartSeries<double, double>
         {
             Label = "Cluster B",
-            Points = new[]
-            {
-                new BOBChartPoint<double, double>(2.0, 1.0),
-                new BOBChartPoint<double, double>(3.5, 2.3),
-                new BOBChartPoint<double, double>(4.0, 1.7),
-            }
+            Points =
+            [
+                new BOBChartPoint<double, double>(2.0, 1.0), new BOBChartPoint<double, double>(3.5, 2.3),
+                new BOBChartPoint<double, double>(4.0, 1.7)
+            ]
         }
-    };
+    ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -75,26 +72,26 @@ public class BOBScatterChartTests
 
         IRenderedComponent<BOBScatterChart<double, double>> cut =
             ctx.Render<BOBScatterChart<double, double>>(p => p
-                .Add(c => c.BubbleSeries, new[]
-                {
+                .Add(c => c.BubbleSeries,
+                [
                     new BOBChartBubbleSeries<double, double>
-                    {
-                        Label = "Markets",
-                        Points = new[]
                         {
-                            new BOBChartBubblePoint<double, double>(1.0, 2.0, Size: 5),
-                            new BOBChartBubblePoint<double, double>(2.0, 4.0, Size: 50),
-                            new BOBChartBubblePoint<double, double>(3.0, 3.0, Size: 100),
+                            Label = "Markets",
+                            Points =
+                            [
+                                new BOBChartBubblePoint<double, double>(1.0, 2.0, 5),
+                                new BOBChartBubblePoint<double, double>(2.0, 4.0, 50),
+                                new BOBChartBubblePoint<double, double>(3.0, 3.0, 100)
+                            ]
                         }
-                    }
-                }));
+                ]));
 
         IReadOnlyList<AngleSharp.Dom.IElement> bubbles = cut.FindAll("circle.bob-scatter-chart__bubble");
         bubbles.Should().HaveCount(3);
 
         IEnumerable<double> radii = bubbles.Select(b =>
             double.Parse(b.GetAttribute("r")!, System.Globalization.CultureInfo.InvariantCulture));
-        radii.Distinct().Count().Should().Be(3, because: "different Size values map to different radii");
+        radii.Distinct().Count().Should().Be(3, "different Size values map to different radii");
     }
 
     [Theory]
@@ -131,6 +128,6 @@ public class BOBScatterChartTests
 
         cut.Find("button.bob-chart__legend-button").Click();
         cut.FindAll("circle.bob-scatter-chart__marker").Should().HaveCount(3,
-            because: "Cluster A hidden → only Cluster B's 3 points remain");
+            "Cluster A hidden → only Cluster B's 3 points remain");
     }
 }

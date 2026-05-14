@@ -16,12 +16,7 @@ public class BOBNotificationBadgeSnapshotTests
 
         var testCases = new[]
         {
-            new
-            {
-                Name = "Default_Dot_TopRight",
-                Html = ctx.Render<BOBNotificationBadge>().GetNormalizedMarkup()
-            },
-            new
+            new { Name = "Default_Dot_TopRight", Html = ctx.Render<BOBNotificationBadge>().GetNormalizedMarkup() }, new
             {
                 Name = "With_Count_3_TopRight",
                 Html = ctx.Render<BOBNotificationBadge>(p => p
@@ -66,7 +61,7 @@ public class BOBNotificationBadgeSnapshotTests
                         b.CloseElement();
                     })
                     .Add(c => c.BadgeContent, b => b.AddContent(0, "3"))).GetNormalizedMarkup()
-            },
+            }
         };
 
         await Verify(testCases).UseParameters(scenario.Name);

@@ -34,73 +34,113 @@
 
     // IHasSize
     /// <summary>Visual size of the textarea.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
 
     // IHasLoading
     /// <summary>When <see langword="true" />, the textarea shows a loading indicator.</summary>
-    [Parameter] public bool Loading { get; set; }
+    [Parameter]
+    public bool Loading { get; set; }
+
     /// <summary>Variant of the loading indicator shown when <see cref="Loading"/> is <see langword="true"/>.</summary>
-    [Parameter] public BOBProgressIconVariant LoadingIndicatorVariant { get; set; } = BOBProgressIconVariant.Ring;
+    [Parameter]
+    public BOBProgressIconVariant LoadingIndicatorVariant { get; set; } = BOBProgressIconVariant.Ring;
 
     // IHasDensity
     /// <summary>Vertical density (gap) of the textarea.</summary>
-    [Parameter] public BOBDensity Density { get; set; } = BOBDensity.Standard;
+    [Parameter]
+    public BOBDensity Density { get; set; } = BOBDensity.Standard;
 
     // IHasShadow
     /// <summary>Shadow style applied to the textarea container.</summary>
-    [Parameter] public ShadowStyle? Shadow { get; set; }
+    [Parameter]
+    public ShadowStyle? Shadow { get; set; }
 
     // IHasBackgroundColor
     /// <summary>Background color of the textarea. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? BackgroundColor { get; set; }
+    [Parameter]
+    public string? BackgroundColor { get; set; }
 
     // IHasColor
     /// <summary>Text color of the textarea. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? Color { get; set; }
+    [Parameter]
+    public string? Color { get; set; }
 
     // IHasPrefix
     /// <summary>Text displayed before the textarea value.</summary>
-    [Parameter] public string? PrefixText { get; set; }
+    [Parameter]
+    public string? PrefixText { get; set; }
+
     /// <summary>Material icon name for the Prefix.</summary>
-    [Parameter] public IconKey? PrefixIcon { get; set; }
+    [Parameter]
+    public IconKey? PrefixIcon { get; set; }
+
     /// <summary>Prefix color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? PrefixColor { get; set; }
+    [Parameter]
+    public string? PrefixColor { get; set; }
+
     /// <summary>PrefixBackground color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? PrefixBackgroundColor { get; set; }
+    [Parameter]
+    public string? PrefixBackgroundColor { get; set; }
 
     // IHasSuffix
     /// <summary>Text displayed after the textarea value.</summary>
-    [Parameter] public string? SuffixText { get; set; }
+    [Parameter]
+    public string? SuffixText { get; set; }
+
     /// <summary>Material icon name for the Suffix.</summary>
-    [Parameter] public IconKey? SuffixIcon { get; set; }
+    [Parameter]
+    public IconKey? SuffixIcon { get; set; }
+
     /// <summary>Suffix color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? SuffixColor { get; set; }
+    [Parameter]
+    public string? SuffixColor { get; set; }
+
     /// <summary>SuffixBackground color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? SuffixBackgroundColor { get; set; }
+    [Parameter]
+    public string? SuffixBackgroundColor { get; set; }
 
     // Component-specific
     /// <summary>Floating label displayed above the textarea when it has a value or focus.</summary>
-    [Parameter] public string? Label { get; set; }
+    [Parameter]
+    public string? Label { get; set; }
+
     /// <summary>Placeholder text shown when the component is empty.</summary>
-    [Parameter] public string? Placeholder { get; set; }
+    [Parameter]
+    public string? Placeholder { get; set; }
+
     /// <summary>Helper text displayed below the component for additional context.</summary>
-    [Parameter] public string? HelperText { get; set; }
+    [Parameter]
+    public string? HelperText { get; set; }
+
     /// <summary>Number of visible text rows.</summary>
-    [Parameter] public int Rows { get; set; } = 3;
+    [Parameter]
+    public int Rows { get; set; } = 3;
+
     /// <summary>
     /// Browser-enforced character cap, emitted as the <c>maxlength</c> HTML attribute.
     /// UI hint only — a malicious client (devtools, direct fetch, modified WASM) can
     /// bypass it. Always re-validate on the server before persisting the value.
     /// </summary>
-    [Parameter] public int? MaxLength { get; set; }
+    [Parameter]
+    public int? MaxLength { get; set; }
+
     /// <summary>When <see langword="true" />, the textarea grows vertically as content is added.</summary>
-    [Parameter] public bool AutoResize { get; set; }
+    [Parameter]
+    public bool AutoResize { get; set; }
+
     /// <summary>Direction the user is allowed to resize the textarea via the corner grip.</summary>
-    [Parameter] public TextAreaResize Resize { get; set; } = TextAreaResize.Vertical;
+    [Parameter]
+    public TextAreaResize Resize { get; set; } = TextAreaResize.Vertical;
+
     /// <summary>When <see langword="true" />, the bound value updates on every keystroke instead of on blur.</summary>
-    [Parameter] public bool UpdateOnInput { get; set; }
+    [Parameter]
+    public bool UpdateOnInput { get; set; }
+
     /// <summary>Raised on every keystroke when <see cref="UpdateOnInput"/> is enabled.</summary>
-    [Parameter] public EventCallback<string> OnInput { get; set; }
+    [Parameter]
+    public EventCallback<string> OnInput { get; set; }
+
     /// <summary>
     /// Trailing-edge debounce delay applied to <see cref="OnInput"/> only. When
     /// greater than <c>0</c>, the callback fires after this many milliseconds of
@@ -109,7 +149,8 @@
     /// unaffected: when enabled, the bound <see cref="InputBase{TValue}.Value"/>
     /// still propagates immediately per keystroke.
     /// </summary>
-    [Parameter] public int OnInputDebounceMs { get; set; }
+    [Parameter]
+    public int OnInputDebounceMs { get; set; }
 
     private BOBDebouncer<string>? _onInputDebouncer;
 
@@ -131,7 +172,9 @@
             dataAttributes.Remove(FeatureDefinitions.DataAttributes.Floated);
     }
 
-    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables) { }
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    {
+    }
 
     protected override IReadOnlyDictionary<BOBInputVariant, Func<BOBInputTextArea, RenderFragment>> BuiltInTemplates { get; } =
         new Dictionary<BOBInputVariant, Func<BOBInputTextArea, RenderFragment>>
@@ -152,10 +195,18 @@
                 await TextAreaJs.InitializeAutoResizeAsync(_textareaRef, _textareaId);
                 _jsInitialized = true;
             }
-            catch (JSDisconnectedException) { }
-            catch (ObjectDisposedException) { }
-            catch (InvalidOperationException) { }
-            catch (TaskCanceledException) { }
+            catch (JSDisconnectedException)
+            {
+            }
+            catch (ObjectDisposedException)
+            {
+            }
+            catch (InvalidOperationException)
+            {
+            }
+            catch (TaskCanceledException)
+            {
+            }
         }
     }
 
@@ -165,8 +216,8 @@
 
             <div class="bob-input__wrapper">
 
-                <BOBInputOutline Label="@Label" For="@_textareaId" Required="@IsRequired" />
-                <BOBInputPrefix PrefixText="@PrefixText" PrefixIcon="@PrefixIcon" Size="@Size" />
+                <BOBInputOutline Label="@Label" For="@_textareaId" Required="@IsRequired"/>
+                <BOBInputPrefix PrefixText="@PrefixText" PrefixIcon="@PrefixIcon" Size="@Size"/>
 
                 <textarea @ref="_textareaRef"
                           id="@_textareaId"
@@ -174,7 +225,7 @@
                           value="@CurrentValue"
                           rows="@Rows"
                           maxlength="@MaxLength"
-                          placeholder="@(IsFloated? Placeholder : null)"
+                          placeholder="@(IsFloated ? Placeholder : null)"
                           disabled="@IsDisabled"
                           readonly="@IsReadOnly"
                           required="@IsRequired"
@@ -187,8 +238,8 @@
                           aria-invalid="@IsError.ToString().ToLowerInvariant()"
                           aria-required="@IsRequired.ToString().ToLowerInvariant()"></textarea>
 
-                <BOBInputSuffix SuffixText="@SuffixText" SuffixIcon="@SuffixIcon" Size="@Size" />
-                <BOBInputLoading Loading="@Loading" LoadingIndicatorVariant="@LoadingIndicatorVariant" Size="@Size" />
+                <BOBInputSuffix SuffixText="@SuffixText" SuffixIcon="@SuffixIcon" Size="@Size"/>
+                <BOBInputLoading Loading="@Loading" LoadingIndicatorVariant="@LoadingIndicatorVariant" Size="@Size"/>
 
             </div>
 
@@ -197,7 +248,7 @@
                              HelperText="@HelperText"
                              ShowValidation="@IsError"
                              EditContext="@EditContext"
-                             For="@ValueExpression" />
+                             For="@ValueExpression"/>
 
         </bob-component>
     };
@@ -220,7 +271,7 @@
 
     private async Task HandleInput(ChangeEventArgs e)
     {
-        string inputValue = e.Value?.ToString() ?? string.Empty;
+        var inputValue = e.Value?.ToString() ?? string.Empty;
         _isDirty = !string.IsNullOrEmpty(inputValue);
 
         if (UpdateOnInput)
@@ -259,6 +310,8 @@
         {
             await TextAreaJs.DisposeAutoResizeAsync(_textareaId);
         }
+
         await base.DisposeAsync();
     }
+
 }

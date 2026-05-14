@@ -1,304 +1,294 @@
-﻿@page "/concepts/theming"
+@page "/concepts/theming"
+@inject IStringLocalizer<Theming> Loc
 
-<DocPage Eyebrow="Guide"
-         Title="Theming"
-         Lede="Every visible color and every dimensional rhythm in the library is a CSS custom property. Override one variable to re-skin the UI; override a token to retune sizing, motion, or typography globally.">
+<DocPage Eyebrow="@Loc["Guide"]"
+         Title="@Loc["Theming"]"
+         Lede="@Loc["Customize every color, size, and motion in the UI through CSS variables. Switch themes or override individual tokens to match your brand without touching component code."]"
+         Keywords="@(["theme", "design tokens", "CSS variables", "palette", "dark mode"])">
 
     <section class="doc-section">
-        <p>You can use <a href="/utils/themegenerator">Theme Generator</a> to create custom themes — both the color palette and the design tokens.</p>
+        <p class="doc-section__description">
+                        @Loc.Html("Every color is exposed as a CSS custom property (<code>--palette-*</code>) and every non-color primitive as a design token (<code>--bob-*</code>). Because the component library reads these variables at render time, changing a single token retunes the entire system — typography, sizing, motion, borders, focus outlines, and ripple effects — without recompiling.")
+        </p>
     </section>
 
+    <BOBBanner Severity="BOBBannerSeverity.Info"
+               Title="@Loc["About BOBNotificationCenter"]"
+               Message="@Loc[BannerMessage]"/>
+
     <section class="doc-section">
-        <h2 class="doc-section__title">Two override surfaces</h2>
+        <h2 class="doc-section__title">@Loc["Two override surfaces"]</h2>
         <p class="doc-section__description">
-            BlazOrbit exposes two complementary layers you can override from any consumer
-            stylesheet:
+            @Loc["BlazOrbit exposes two complementary layers you can override from any consumer stylesheet:"]
         </p>
         <ul class="feature-list">
-            <li><strong>Palette</strong> — semantic colors prefixed <code>--palette-*</code>. Drives every component automatically. Re-skin in seconds.</li>
-            <li><strong>Design tokens</strong> — non-color primitives prefixed <code>--bob-*</code>: typography, sizing, density, borders, z-index, opacity, focus outline, ripple, scrollbar, and family defaults (input/picker). Tweak to retune the entire system without touching components.</li>
+            <li>@Loc.Html("<strong>Palette</strong> — semantic colors prefixed <code>--palette-*</code>. Drives every component automatically. Re-skin in seconds.")</li>
+            <li>@Loc.Html("<strong>Design tokens</strong> — non-color primitives prefixed <code>--bob-*</code>: typography, sizing, density, borders, z-index, opacity, focus outline, ripple, scrollbar, and family defaults (input/picker). Tweak to retune the entire system without touching components.")</li>
         </ul>
         <p class="doc-section__description">
-            Per-instance overrides flow through <code>--bob-inline-*</code> vars set
-            automatically by <code>IHas*</code> parameters — you rarely touch those by hand.
+            @Loc.Html("Per-instance overrides flow through <code>--bob-inline-*</code> vars set automatically by <code>IHas*</code> parameters — you rarely touch those by hand.")
         </p>
     </section>
 
     <section class="doc-section">
-        <h2 class="doc-section__title">Palette tokens</h2>
+        <h2 class="doc-section__title">@Loc["Palette tokens"]</h2>
         <p class="doc-section__description">
-            The theme exposes a semantic palette: <code>primary</code>, <code>secondary</code>,
-            <code>background</code>, <code>surface</code>, <code>error</code>, <code>success</code>,
-            <code>warning</code>, <code>info</code>, each paired with a
-            <code>*-contrast</code> color for text. Structural extras —
-            <code>border</code>, <code>shadow</code>, <code>highlight</code>,
-            <code>hover-tint</code>, <code>active-tint</code> — control surfaces and states.
+            @Loc.Html("The theme exposes a semantic palette: <code>primary</code>, <code>secondary</code>, <code>background</code>, <code>surface</code>, <code>error</code>, <code>success</code>, <code>warning</code>, <code>info</code>, each paired with a <code>*-contrast</code> color for text. Structural extras — <code>border</code>, <code>shadow</code>, <code>highlight</code>, <code>hover-tint</code>, <code>active-tint</code> — control surfaces and states.")
         </p>
 
-        <BOBCodeBlock Title="Palette tokens"
+        <BOBCodeBlock Title="@Loc["Palette tokens"]"
                       Language="SyntaxHighlightLanguage.Css"
-                      Code="@_tokens" />
+                      Code="@Tokens"/>
     </section>
 
     <section class="doc-section">
-        <h2 class="doc-section__title">Design tokens</h2>
+        <h2 class="doc-section__title">@Loc["Design tokens"]</h2>
         <p class="doc-section__description">
-            Beyond color, BlazOrbit exposes a complete catalog of <code>--bob-*</code>
-            design tokens. Override at <code>:root</code> in your stylesheet to retune the
-            whole system. None of them require a theme switch — they are theme-agnostic
-            unless you scope them under a <code>html[data-bob-theme="&lt;id&gt;"]</code>
-            block on purpose.
+            @Loc.Html(DesignTokensDescription)
         </p>
 
-        <BOBCodeBlock Title="Design tokens (full catalog with shipped defaults)"
+        <BOBCodeBlock Title="@Loc["Design tokens (full catalog with shipped defaults)"]"
                       Language="SyntaxHighlightLanguage.Css"
-                      Code="@_designTokens" />
+                      Code="@DesignTokens"/>
 
         <p class="doc-section__description" style="margin-top: 1rem;">
-            Highlights:
+            @Loc["Highlights:"]
         </p>
         <ul class="feature-list">
-            <li><code>--bob-size-multiplier</code> / <code>--bob-density-multiplier</code> — scale every component without breakpoints. The <code>[data-bob-size]</code> and <code>[data-bob-density]</code> data-attributes pick the right anchor automatically.</li>
-            <li><code>--bob-font-family</code>, <code>--bob-font-family-heading</code>, <code>--bob-font-mono</code>, <code>--bob-font-size-base</code>, <code>--bob-line-height*</code> — typography stack and fluid base size.</li>
-            <li><code>--bob-border-width</code>, <code>--bob-border-style</code>, <code>--bob-border-radius</code> — global border defaults consumed by <code>IHasBorder</code>.</li>
-            <li><code>--bob-input-*</code>, <code>--bob-picker-*</code> — family-wide defaults applied across every input and picker component.</li>
-            <li><code>--bob-z-*</code> — full z-index scale for dropdown / sticky / modal / tooltip / toast.</li>
-            <li><code>--bob-opacity-disabled</code> / <code>--bob-opacity-placeholder</code> — visual state opacity.</li>
-            <li><code>--bob-highlight-outline</code> / <code>--bob-highlight-outline-offset</code> — focus-visible outline (WCAG 2.4.7).</li>
-            <li><code>--bob-ripple-color</code> / <code>--bob-ripple-duration</code> — ripple defaults; per-instance overrides via <code>IHasRipple</code>.</li>
-            <li><code>--bob-scrollbar-*</code> — opt-in scrollbar styling.</li>
+            <li>@Loc.Html("<code>--bob-size-multiplier</code> / <code>--bob-density-multiplier</code> — scale every component without breakpoints. The <code>[data-bob-size]</code> and <code>[data-bob-density]</code> data-attributes pick the right anchor automatically.")</li>
+            <li>@Loc.Html("<code>--bob-font-family</code>, <code>--bob-font-family-heading</code>, <code>--bob-font-mono</code>, <code>--bob-font-size-base</code>, <code>--bob-line-height*</code> — typography stack and fluid base size.")</li>
+            <li>@Loc.Html("<code>--bob-border-width</code>, <code>--bob-border-style</code>, <code>--bob-border-radius</code> — global border defaults consumed by <code>IHasBorder</code>.")</li>
+            <li>@Loc.Html("<code>--bob-input-*</code>, <code>--bob-picker-*</code> — family-wide defaults applied across every input and picker component.")</li>
+            <li>@Loc.Html("<code>--bob-z-*</code> — full z-index scale for dropdown / sticky / modal / tooltip / toast.")</li>
+            <li>@Loc.Html("<code>--bob-opacity-disabled</code> / <code>--bob-opacity-placeholder</code> — visual state opacity.")</li>
+            <li>@Loc.Html("<code>--bob-highlight-outline</code> / <code>--bob-highlight-outline-offset</code> — focus-visible outline (WCAG 2.4.7).")</li>
+            <li>@Loc.Html("<code>--bob-ripple-color</code> / <code>--bob-ripple-duration</code> — ripple defaults; per-instance overrides via <code>IHasRipple</code>.")</li>
+            <li>@Loc.Html("<code>--bob-scrollbar-*</code> — opt-in scrollbar styling.")</li>
         </ul>
     </section>
 
     <section class="doc-section">
-        <h2 class="doc-section__title">Switching light / dark</h2>
+        <h2 class="doc-section__title">@Loc["Switching light / dark"]</h2>
         <p class="doc-section__description">
-            The <code>data-bob-theme</code> attribute on <code>&lt;html&gt;</code> selects
-            the active theme. Drop a <code>BOBThemeSelector</code> anywhere to toggle it
-            interactively:
+            @Loc.Html("The <code>data-bob-theme</code> attribute on <code>&lt;html&gt;</code> selects the active theme. Drop a <code>BOBThemeSelector</code> anywhere to toggle it interactively:")
         </p>
         <i>
-            By default, uses two themes (dark, light). However, you can define alternative
-            themes and specify them using the <code>AvailableThemes</code> parameter in <code>BOBThemeSelector</code>.
-            In this case, the <code>SunMoon</code> variant becomes redundant, but the <code>Default</code> variant acts as a toggle
-            that switches between the defined themes. Alternatively, you can <a href="/concepts/variants">create your own variant of the selector</a>.
+            @Loc.Html(ThemeSelectorNote)
         </i>
 
-        <BOBCodeBlock Title="Theme Selector"
+        <BOBCodeBlock Title="@Loc["Theme Selector"]"
                       Language="SyntaxHighlightLanguage.Razor"
-                      Code=@_themeSelectorCode />
+                      Code="@ThemeSelectorCode"/>
 
         <p style="margin-top: 1rem;">
-            Under the hood, the selector writes to <code>localStorage</code> and sets
-            <code>data-bob-theme</code> on <code>&lt;html&gt;</code>. You can also set it yourself:
+            @Loc.Html("Under the hood, the selector writes to <code>localStorage</code> and sets <code>data-bob-theme</code> on <code>&lt;html&gt;</code>. You can also set it yourself:")
         </p>
 
-        <BOBCodeBlock Title="Manual theme switch"
+        <BOBCodeBlock Title="@Loc["Manual theme switch"]"
                       Language="SyntaxHighlightLanguage.Razor"
-                      Code='<html data-bob-theme="dark">' />
+                      Code="@ManualThemeCode"/>
     </section>
 
     <section class="doc-section">
-        <h2 class="doc-section__title">Custom palette</h2>
+        <h2 class="doc-section__title">@Loc["Custom palette"]</h2>
         <p class="doc-section__description">
-            The simplest way to re-skin the library is to override the CSS custom properties
-            in your own stylesheet, scoped to <code>:root</code> or a specific
-            <code>data-bob-theme</code>:
+            @Loc.Html("The simplest way to re-skin the library is to override the CSS custom properties in your own stylesheet, scoped to <code>:root</code> or a specific <code>data-bob-theme</code>:")
         </p>
 
-        <BOBCodeBlock Title="wwwroot/css/my-theme.css"
+        <BOBCodeBlock Title="@Loc["wwwroot/css/my-theme.css"]"
                       Language="SyntaxHighlightLanguage.Css"
-                      Code="@_customTheme" />
+                      Code="@CustomTheme"/>
 
         <div class="doc-callout">
             <span class="doc-callout__icon">🎨</span>
             <div>
-                <strong>This very site</strong> uses <code>#c41236</code> as its primary
-                color — achieved by overriding <code>--palette-primary</code> and a handful
-                of companion tokens. See
-                <code>wwwroot/css/docs.css</code> in the repository.
+                @Loc.Html("<strong>This very site</strong> uses <code>#c41236</code> as its primary color — achieved by overriding <code>--palette-primary</code> and a handful of companion tokens. See <code>wwwroot/css/docs.css</code> in the repository.")
             </div>
         </div>
     </section>
 
     <section class="doc-section">
-        <h2 class="doc-section__title">Custom design tokens</h2>
+        <h2 class="doc-section__title">@Loc["Custom design tokens"]</h2>
         <p class="doc-section__description">
-            Tokens override the same way the palette does — at <code>:root</code> for
-            global changes, or scoped under a theme selector if a token genuinely changes
-            per theme (rare; tokens are usually theme-agnostic).
+            @Loc.Html("Tokens override the same way the palette does — at <code>:root</code> for global changes, or scoped under a theme selector if a token genuinely changes per theme (rare; tokens are usually theme-agnostic).")
         </p>
 
-        <BOBCodeBlock Title="wwwroot/css/my-tokens.css"
+        <BOBCodeBlock Title="@Loc["wwwroot/css/my-tokens.css"]"
                       Language="SyntaxHighlightLanguage.Css"
-                      Code="@_customTokens" />
+                      Code="@CustomTokens"/>
     </section>
 
     <section class="doc-section">
-        <h2 class="doc-section__title">Component-level overrides</h2>
+        <h2 class="doc-section__title">@Loc["Component-level overrides"]</h2>
         <p class="doc-section__description">
-            Each component exposes per-instance parameters for <code>Color</code>,
-            <code>BackgroundColor</code>, <code>Border</code>, <code>Shadow</code>, etc.
-            Internally these are projected onto <code>--bob-inline-*</code> custom
-            properties on the component element.
+            @Loc.Html("Each component exposes per-instance parameters for <code>Color</code>, <code>BackgroundColor</code>, <code>Border</code>, <code>Shadow</code>, etc. Internally these are projected onto <code>--bob-inline-*</code> custom properties on the component element.")
         </p>
-        <BOBCodeBlock Title="Component Parameters"
+        <BOBCodeBlock Title="@Loc["Component Parameters"]"
                       Language="SyntaxHighlightLanguage.Razor"
-                      Code="@_overrideCode" />
+                      Code="@OverrideCode"/>
     </section>
 
     <section class="doc-section">
-        <h2 class="doc-section__title">Semantic colors</h2>
+        <h2 class="doc-section__title">@Loc["Semantic colors"]</h2>
         <p class="doc-section__description">
-            Use <code>PaletteColor</code> to feed theme-aware values into component
-            parameters. It renders to <code>var(--palette-*)</code> so the color follows
-            the active theme:
+            @Loc.Html("Use <code>PaletteColor</code> to feed theme-aware values into component parameters. It renders to <code>var(--palette-*)</code> so the color follows the active theme:")
         </p>
-        <BOBCodeBlock Title="Component Parameters Using Palette"
+        <BOBCodeBlock Title="@Loc["Component Parameters Using Palette"]"
                       Language="SyntaxHighlightLanguage.Razor"
-                      Code="@_paletteCode" />
+                      Code="@PaletteCode"/>
     </section>
 
 </DocPage>
 
 @code {
-    private const string _tokens = @":root {
-    --palette-primary: #c41236;
-    --palette-primary-contrast: #ffffff;
-    --palette-secondary: #2f1a1f;
-    --palette-secondary-contrast: #ffffff;
-    --palette-background: #fbf7f6;
-    --palette-background-contrast: #1a0c0e;
-    --palette-surface: #ffffff;
-    --palette-surface-contrast: #1a0c0e;
-    --palette-error: #b42318;
-    --palette-error-contrast: #ffffff;
-    --palette-success: #15803d;
-    --palette-success-contrast: #ffffff;
-    --palette-warning: #b45309;
-    --palette-warning-contrast: #ffffff;
-    --palette-info:  #0369a1;
-    --palette-info-contrast: #ffffff;
-    --palette-border: #e8ddde;
-    --palette-shadow: #1a0c0e;
-    --palette-highlight: #c41236;
-    --palette-hover-tint: rgba(196, 18, 54, 0.08);
-    --palette-active-tint: rgba(196, 18, 54, 0.16);
-}";
 
-    private const string _designTokens = @":root {
-    /* Typography */
-    --bob-font-family: system-ui, -apple-system, BlinkMacSystemFont, ""Segoe UI"", Roboto, sans-serif;
-    --bob-font-family-heading: var(--bob-font-family);
-    --bob-font-mono: ui-monospace, ""Cascadia Mono"", ""SF Mono"", Consolas, monospace;
-    --bob-font-size-base: clamp(0.875rem, 0.75rem + 0.25vw, 1.125rem);
-    --bob-line-height: 1.5;
-    --bob-line-height-heading: 1.2;
+    private const string Tokens = """
+                                  :root {
+                                      --palette-primary: #c41236;
+                                      --palette-primary-contrast: #ffffff;
+                                      --palette-secondary: #2f1a1f;
+                                      --palette-secondary-contrast: #ffffff;
+                                      --palette-background: #fbf7f6;
+                                      --palette-background-contrast: #1a0c0e;
+                                      --palette-surface: #ffffff;
+                                      --palette-surface-contrast: #1a0c0e;
+                                      --palette-error: #b42318;
+                                      --palette-error-contrast: #ffffff;
+                                      --palette-success: #15803d;
+                                      --palette-success-contrast: #ffffff;
+                                      --palette-warning: #b45309;
+                                      --palette-warning-contrast: #ffffff;
+                                      --palette-info:  #0369a1;
+                                      --palette-info-contrast: #ffffff;
+                                      --palette-border: #e8ddde;
+                                      --palette-shadow: #1a0c0e;
+                                      --palette-highlight: #c41236;
+                                      --palette-hover-tint: rgba(196, 18, 54, 0.08);
+                                      --palette-active-tint: rgba(196, 18, 54, 0.16);
+                                  }
+                                  """;
 
-    /* Size multipliers (anchor for [data-bob-size]) */
-    --bob-size-multiplier: 1;
-    --bob-small-multiplier: 0.75;
-    --bob-medium-multiplier: 1;
-    --bob-large-multiplier: 1.25;
+    private const string DesignTokens = """
+                                        :root {
+                                            /* Typography */
+                                            --bob-font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+                                            --bob-font-family-heading: var(--bob-font-family);
+                                            --bob-font-mono: ui-monospace, "Cascadia Mono", "SF Mono", Consolas, monospace;
+                                            --bob-font-size-base: clamp(0.875rem, 0.75rem + 0.25vw, 1.125rem);
+                                            --bob-line-height: 1.5;
+                                            --bob-line-height-heading: 1.2;
 
-    /* Density multipliers (anchor for [data-bob-density]) */
-    --bob-density-multiplier: 1;
-    --bob-compact-multiplier: 0.75;
-    --bob-standard-multiplier: 1;
-    --bob-comfortable-multiplier: 1.25;
+                                            /* Size multipliers (anchor for [data-bob-size]) */
+                                            --bob-size-multiplier: 1;
+                                            --bob-small-multiplier: 0.75;
+                                            --bob-medium-multiplier: 1;
+                                            --bob-large-multiplier: 1.25;
 
-    /* Borders */
-    --bob-border-width: 0px;
-    --bob-border-style: solid;
-    --bob-border-radius: 2px;
+                                            /* Density multipliers (anchor for [data-bob-density]) */
+                                            --bob-density-multiplier: 1;
+                                            --bob-compact-multiplier: 0.75;
+                                            --bob-standard-multiplier: 1;
+                                            --bob-comfortable-multiplier: 1.25;
 
-    /* Focus highlight outline (WCAG 2.4.7) */
-    --bob-highlight-outline: 2px solid var(--palette-highlight);
-    --bob-highlight-outline-offset: 0px;
+                                            /* Borders */
+                                            --bob-border-width: 0px;
+                                            --bob-border-style: solid;
+                                            --bob-border-radius: 2px;
 
-    /* Opacity states */
-    --bob-opacity-disabled: 0.5;
-    --bob-opacity-placeholder: 0.5;
+                                            /* Focus highlight outline (WCAG 2.4.7) */
+                                            --bob-highlight-outline: 2px solid var(--palette-highlight);
+                                            --bob-highlight-outline-offset: 0px;
 
-    /* Z-index scale */
-    --bob-z-dropdown: 1000;
-    --bob-z-sticky: 1100;
-    --bob-z-modal: 1300;
-    --bob-z-tooltip: 1400;
-    --bob-z-toast: 1500;
+                                            /* Opacity states */
+                                            --bob-opacity-disabled: 0.5;
+                                            --bob-opacity-placeholder: 0.5;
 
-    /* Ripple */
-    --bob-ripple-color: rgba(255, 255, 255, 0.4);
-    --bob-ripple-duration: 600ms;
+                                            /* Z-index scale */
+                                            --bob-z-dropdown: 1000;
+                                            --bob-z-sticky: 1100;
+                                            --bob-z-modal: 1300;
+                                            --bob-z-tooltip: 1400;
+                                            --bob-z-toast: 1500;
 
-    /* Scrollbar (opt-in via [data-bob-scrollbars]) */
-    --bob-scrollbar-width: 10px;
-    --bob-scrollbar-thumb-radius: 8px;
-    --bob-scrollbar-thumb-border-width: 2px;
+                                            /* Ripple */
+                                            --bob-ripple-color: rgba(255, 255, 255, 0.4);
+                                            --bob-ripple-duration: 600ms;
 
-    /* Input family */
-    --bob-input-border-width: 1px;
-    --bob-input-border-style: solid;
-    --bob-input-border-color: color-mix(in oklab, var(--palette-border) 40%, transparent);
-    --bob-input-border-radius: 0;
-    --bob-input-transition-duration: 150ms;
-    --bob-input-transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
-    --bob-input-floated-scale: 0.75;
+                                            /* Scrollbar (opt-in via [data-bob-scrollbars]) */
+                                            --bob-scrollbar-width: 10px;
+                                            --bob-scrollbar-thumb-radius: 8px;
+                                            --bob-scrollbar-thumb-border-width: 2px;
 
-    /* Picker family */
-    --bob-picker-radius: 8px;
-    --bob-picker-border-color: color-mix(in oklab, var(--palette-border) 40%, transparent);
-    --bob-picker-cell-size: 36px;
-    --bob-picker-padding: 0.75rem;
-}";
+                                            /* Input family */
+                                            --bob-input-border-width: 1px;
+                                            --bob-input-border-style: solid;
+                                            --bob-input-border-color: color-mix(in oklab, var(--palette-border) 40%, transparent);
+                                            --bob-input-border-radius: 0;
+                                            --bob-input-transition-duration: 150ms;
+                                            --bob-input-transition-easing: cubic-bezier(0.4, 0, 0.2, 1);
+                                            --bob-input-floated-scale: 0.75;
 
-    private const string _customTheme = @"/* Scoped to the light theme */
-html[data-bob-theme=""light""] {
-    --palette-primary: #c41236;       /* dark red */
-    --palette-primary-contrast: #fff;
-    --palette-background: #fbf7f6;
-    --palette-surface: #ffffff;
-}
+                                            /* Picker family */
+                                            --bob-picker-radius: 8px;
+                                            --bob-picker-border-color: color-mix(in oklab, var(--palette-border) 40%, transparent);
+                                            --bob-picker-cell-size: 36px;
+                                            --bob-picker-padding: 0.75rem;
+                                        }
+                                        """;
 
-/* And the dark variant */
-html[data-bob-theme=""dark""] {
-    --palette-primary: #ff4d6d;
-    --palette-primary-contrast: #1a0c0e;
-    --palette-background: #120508;
-    --palette-surface: #1e0c10;
-}";
+    private const string CustomTheme = """
+                                       /* Scoped to the light theme */
+                                       html[data-bob-theme="light"] {
+                                           --palette-primary: #c41236;       /* dark red */
+                                           --palette-primary-contrast: #fff;
+                                           --palette-background: #fbf7f6;
+                                           --palette-surface: #ffffff;
+                                       }
 
-    private const string _customTokens = @"/* Global token retune — no theme scoping needed */
-:root {
-    /* Punch up rhythm: bigger borders, more rounded corners */
-    --bob-border-width: 1px;
-    --bob-border-radius: 12px;
+                                       /* And the dark variant */
+                                       html[data-bob-theme="dark"] {
+                                           --palette-primary: #ff4d6d;
+                                           --palette-primary-contrast: #1a0c0e;
+                                           --palette-background: #120508;
+                                           --palette-surface: #1e0c10;
+                                       }
+                                       """;
 
-    /* Tighter density and slightly larger base */
-    --bob-density-multiplier: 0.9;
-    --bob-size-multiplier: 1.05;
+    private const string CustomTokens = """
+                                        /* Global token retune — no theme scoping needed */
+                                        :root {
+                                            /* Punch up rhythm: bigger borders, more rounded corners */
+                                            --bob-border-width: 1px;
+                                            --bob-border-radius: 12px;
 
-    /* Custom typography */
-    --bob-font-family: ""Inter"", system-ui, sans-serif;
-    --bob-font-family-heading: ""Sora"", var(--bob-font-family);
+                                            /* Tighter density and slightly larger base */
+                                            --bob-density-multiplier: 0.9;
+                                            --bob-size-multiplier: 1.05;
 
-    /* Slower, springier inputs */
-    --bob-input-transition-duration: 220ms;
-    --bob-input-transition-easing: cubic-bezier(0.34, 1.56, 0.64, 1);
+                                            /* Custom typography */
+                                            --bob-font-family: "Inter", system-ui, sans-serif;
+                                            --bob-font-family-heading: "Sora", var(--bob-font-family);
 
-    /* Bring focus outline forward */
-    --bob-highlight-outline: 3px solid var(--palette-highlight);
-    --bob-highlight-outline-offset: 2px;
-}";
+                                            /* Slower, springier inputs */
+                                            --bob-input-transition-duration: 220ms;
+                                            --bob-input-transition-easing: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-    private string _themeSelectorCode = """<BOBThemeSelector Variant="BOBThemeSelectorVariant.Default" />""";
-    private string _overrideCode =
+                                            /* Bring focus outline forward */
+                                            --bob-highlight-outline: 3px solid var(--palette-highlight);
+                                            --bob-highlight-outline-offset: 2px;
+                                        }
+                                        """;
+
+    private const string ThemeSelectorCode = """<BOBThemeSelector Variant="BOBThemeSelectorVariant.Default" />""";
+
+    private const string OverrideCode =
         """
         <BOBButton Text="Custom"
            BackgroundColor="rgba(26,12,14,1)"
            Color="rgba(255,255,255,1)" />
         """;
-    private string _paletteCode =
+
+    private const string PaletteCode =
         """
         <BOBButton Text="Primary"
            BackgroundColor="@PaletteColor.Primary"
@@ -310,4 +300,21 @@ html[data-bob-theme=""dark""] {
            BackgroundColor="@PaletteColor.Warning"
            Color="@PaletteColor.WarningContrast" />
         """;
+    
+    private const string ManualThemeCode = """
+                                      <html data-bob-theme="dark" 
+                                      """;
+
+    private const string BannerMessage = """
+<p>You can use <a href="/utils/themegenerator">Theme Generator</a> to create custom themes — both the color palette and the design tokens.</p>
+""";
+
+    private const string DesignTokensDescription = """
+Beyond color, BlazOrbit exposes a complete catalog of <code>--bob-*</code> design tokens. Override at <code>:root</code> in your stylesheet to retune the whole system. None of them require a theme switch — they are theme-agnostic unless you scope them under a <code>html[data-bob-theme="&lt;id&gt;"]</code> block on purpose.
+""";
+
+    private const string ThemeSelectorNote = """
+By default, uses two themes (dark, light). However, you can define alternative themes and specify them using the <code>AvailableThemes</code> parameter in <code>BOBThemeSelector</code>. In this case, the <code>SunMoon</code> variant becomes redundant, but the <code>Default</code> variant acts as a toggle that switches between the defined themes. Alternatively, you can <a href="/concepts/variants">create your own variant of the selector</a>.
+""";
+
 }

@@ -2,6 +2,7 @@
 @using BlazOrbit.Components.Utils
 @using BlazOrbit.SyntaxHighlight
 @using Microsoft.Extensions.Logging
+@using Microsoft.Extensions.Localization
 
 @namespace BlazOrbit.Components
 @attribute [GenerateComponentInfo]
@@ -22,12 +23,12 @@
 
         <BOBTooltip AutoCloseAfterMs="1500" Trigger="TooltipTrigger.Click"
                     Placement="TooltipPlacement.Top"
-                    Text="Copied!">
-            <_BOBBtn Disabled="@_copied"
-                     AriaLabel="Copy code"
-                     OnClick="CopyClicked">
-                <span>Copy</span>
-            </_BOBBtn>
+                    Text="@Localizer["Copied!"]">
+            <_BOBInBtn Disabled="@_copied"
+                       AriaLabel="@Localizer["Copy code"]"
+                       OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, CopyClicked))">
+                <span>@Localizer["Copy code"]</span>
+            </_BOBInBtn>
         </BOBTooltip>
     </div>
 
@@ -37,27 +38,37 @@
 </bob-component>
 
 @code {
+    [Inject] internal IStringLocalizer<BOBDisplayResources> Localizer { get; set; } = default!;
+
     /// <summary>Source code to render and highlight. Required.</summary>
-    [Parameter, EditorRequired] public string Code { get; set; } = string.Empty;
+    [Parameter][EditorRequired]
+    public string Code { get; set; } = string.Empty;
+
     /// <summary>Language.</summary>
-    [Parameter] public SyntaxHighlightLanguage Language { get; set; } = SyntaxHighlightLanguage.CSharp;
+    [Parameter]
+    public SyntaxHighlightLanguage Language { get; set; } = SyntaxHighlightLanguage.CSharp;
+
     /// <summary>Tooltip text displayed on hover.</summary>
-    [Parameter] public string? Title { get; set; }
+    [Parameter]
+    public string? Title { get; set; }
 
     // IHasSize
     /// <summary>Visual size of the code block.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
 
     // IHasBorder
     /// <summary>Border style applied to the code block edge.</summary>
-    [Parameter] public BorderStyle? Border { get; set; }
+    [Parameter]
+    public BorderStyle? Border { get; set; }
 
     // IHasBackgroundColor
     /// <summary>Background color of the code block. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? BackgroundColor { get; set; }
+    [Parameter]
+    public string? BackgroundColor { get; set; }
 
     private bool _copied;
-    private Highlighter _highlighter = new Highlighter();
+    private Highlighter _highlighter = new();
     private CancellationTokenSource _disposeCts = new();
 
     private MarkupString _highlightedCode;
@@ -80,7 +91,7 @@
     {
         if (Code == null) return (MarkupString)string.Empty;
 
-        string normalized = NormalizeIndentation(Code);
+        var normalized = NormalizeIndentation(Code);
         try
         {
             return (MarkupString)_highlighter.Highlight(Language.ToString(), normalized);
@@ -103,7 +114,11 @@
         }
     }
 
-    private async Task CopyClicked(MouseEventArgs e) => await CopyAsync();
+    private async Task CopyClicked(MouseEventArgs e)
+    {
+        await CopyAsync();
+    }
+
     private async Task CopyAsync()
     {
         await Clipboard.CopyTextAsync(NormalizeIndentation(Code));
@@ -133,9 +148,9 @@
     {
         if (string.IsNullOrWhiteSpace(code)) return string.Empty;
 
-        string[] lines = code.Split('\n');
+        var lines = code.Split('\n');
 
-        int minIndent = lines
+        var minIndent = lines
             .Where(l => !string.IsNullOrWhiteSpace(l))
             .Select(l => l.TakeWhile(char.IsWhiteSpace).Count())
             .DefaultIfEmpty(0)
@@ -146,4 +161,5 @@
             lines.Select(l => l.Length >= minIndent ? l[minIndent..] : l)
         ).Trim();
     }
+
 }

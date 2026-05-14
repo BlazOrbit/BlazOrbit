@@ -9,10 +9,10 @@ public class DocDemoGeneratorTests
     public async Task Should_Skip_When_No_DocDemo()
     {
         string razor = """
-            @namespace Docs.Pages
+                       @namespace Docs.Pages
 
-            <h1>Nothing to see</h1>
-            """;
+                       <h1>Nothing to see</h1>
+                       """;
 
         string output = GeneratorTestHarness.Run(
             new DocDemoGenerator(),
@@ -25,16 +25,16 @@ public class DocDemoGeneratorTests
     public async Task Should_Generate_For_Basic_DocDemo()
     {
         string razor = """
-            @namespace Docs.Pages
+                       @namespace Docs.Pages
 
-            <DocDemo Key="default">
-                <BOBButton Text="Hi" />
-            </DocDemo>
+                       <DocDemo Key="default">
+                           <BOBButton Text="Hi" />
+                       </DocDemo>
 
-            <DocDemo Key="disabled">
-                <BOBButton Text="Hi" Disabled="true" />
-            </DocDemo>
-            """;
+                       <DocDemo Key="disabled">
+                           <BOBButton Text="Hi" Disabled="true" />
+                       </DocDemo>
+                       """;
 
         string output = GeneratorTestHarness.Run(
             new DocDemoGenerator(),
@@ -47,18 +47,18 @@ public class DocDemoGeneratorTests
     public async Task Should_Ignore_SelfClosing_And_KeyLess_DocDemos()
     {
         string razor = """
-            @namespace Docs.Pages
+                       @namespace Docs.Pages
 
-            <DocDemo Key="kept">
-                <span>A</span>
-            </DocDemo>
+                       <DocDemo Key="kept">
+                           <span>A</span>
+                       </DocDemo>
 
-            <DocDemo Key="selfClose" />
+                       <DocDemo Key="selfClose" />
 
-            <DocDemo>
-                <span>unnamed</span>
-            </DocDemo>
-            """;
+                       <DocDemo>
+                           <span>unnamed</span>
+                       </DocDemo>
+                       """;
 
         string output = GeneratorTestHarness.Run(
             new DocDemoGenerator(),
@@ -71,16 +71,16 @@ public class DocDemoGeneratorTests
     public async Task Should_Only_Capture_TopLevel_When_Nested()
     {
         string razor = """
-            @namespace Docs.Pages
+                       @namespace Docs.Pages
 
-            <DocDemo Key="outer">
-                <div>
-                    <DocDemo Key="inner">
-                        <span>nested</span>
-                    </DocDemo>
-                </div>
-            </DocDemo>
-            """;
+                       <DocDemo Key="outer">
+                           <div>
+                               <DocDemo Key="inner">
+                                   <span>nested</span>
+                               </DocDemo>
+                           </div>
+                       </DocDemo>
+                       """;
 
         string output = GeneratorTestHarness.Run(
             new DocDemoGenerator(),
@@ -93,13 +93,13 @@ public class DocDemoGeneratorTests
     public async Task Should_Transform_Loc_Directives()
     {
         string razor = """
-            @namespace Docs.Pages
+                       @namespace Docs.Pages
 
-            <DocDemo Key="withLoc">
-                <h1>@Loc["title"]</h1>
-                <p>@Loc["body"]</p>
-            </DocDemo>
-            """;
+                       <DocDemo Key="withLoc">
+                           <h1>@Loc["title"]</h1>
+                           <p>@Loc["body"]</p>
+                       </DocDemo>
+                       """;
 
         string output = GeneratorTestHarness.Run(
             new DocDemoGenerator(),
@@ -112,15 +112,14 @@ public class DocDemoGeneratorTests
     public async Task Should_Resolve_Namespace_From_ProjectDir_Fallback()
     {
         string razor = """
-            <DocDemo Key="only">
-                <span>A</span>
-            </DocDemo>
-            """;
+                       <DocDemo Key="only">
+                           <span>A</span>
+                       </DocDemo>
+                       """;
 
         Dictionary<string, string> options = new()
         {
-            ["build_property.rootnamespace"] = "Docs.Root",
-            ["build_property.projectdir"] = "/docs/",
+            ["build_property.rootnamespace"] = "Docs.Root", ["build_property.projectdir"] = "/docs/"
         };
 
         string output = GeneratorTestHarness.Run(
@@ -135,10 +134,10 @@ public class DocDemoGeneratorTests
     public async Task Should_Skip_When_No_Namespace_And_No_ProjectDir()
     {
         string razor = """
-            <DocDemo Key="orphan">
-                <span>A</span>
-            </DocDemo>
-            """;
+                       <DocDemo Key="orphan">
+                           <span>A</span>
+                       </DocDemo>
+                       """;
 
         string output = GeneratorTestHarness.Run(
             new DocDemoGenerator(),

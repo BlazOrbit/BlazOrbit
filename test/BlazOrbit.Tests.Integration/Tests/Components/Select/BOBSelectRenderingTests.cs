@@ -1,3 +1,4 @@
+using AngleSharp.Dom;
 using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -75,7 +76,7 @@ public class BOBSelectRenderingTests
             .Add(c => c.ChildContent, b => b.AddMarkupContent(0,
                 "<option value='a'>A</option><option value='b'>B</option>")));
 
-        var options = cut.FindAll("select option");
+        IReadOnlyList<IElement> options = cut.FindAll("select option");
         options.Should().HaveCount(2);
         options[0].GetAttribute("value").Should().Be("a");
         options[1].GetAttribute("value").Should().Be("b");

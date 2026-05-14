@@ -2,7 +2,7 @@
 
 [data-bob-component="toast"] {
     --_toast-background: var(--palette-surface);
-    --_toast-shadow: var(--bob-inline-shadow, 0 4px 12px color-mix(in srgb, var(--palette-shadow) 15%, transparent));
+    --_toast-shadow: var(--bob-inline-shadow, 0 4px 12px color-mix(in oklab, var(--palette-shadow) 15%, transparent));
     --bob-toast-animation-duration: 300ms;
     --bob-toast-animation-easing: ease-out;
     position: relative;
@@ -22,14 +22,14 @@
 }
 
 [data-bob-theme="dark"] [data-bob-component="toast"] {
-    --_toast-shadow: var(--bob-inline-shadow, 0 4px 12px color-mix(in srgb, var(--palette-shadow) 40%, transparent));
+    --_toast-shadow: var(--bob-inline-shadow, 0 4px 12px color-mix(in oklab, var(--palette-shadow) 40%, transparent));
 }
 
 /* IHasElevation in dark theme: lift the toast surface via tint overlay. */
 [data-bob-theme="dark"] [data-bob-component="toast"][data-bob-elevation] {
     --_toast-background: color-mix(in oklab,
-        var(--palette-surface),
-        var(--palette-surface-contrast) var(--bob-inline-elevation-tint, 0%));
+    var(--palette-surface),
+    var(--palette-surface-contrast) var(--bob-inline-elevation-tint, 0%));
 }
 
 /* Content */
@@ -46,11 +46,11 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: color-mix(in srgb, var(--palette-shadow) 10%, transparent);
+    background: color-mix(in oklab, var(--palette-shadow) 10%, transparent);
 }
 
 [data-bob-theme="dark"] [data-bob-component="toast"] .bob-toast__progress {
-    background: color-mix(in srgb, var(--palette-surface-contrast) 10%, transparent);
+    background: color-mix(in oklab, var(--palette-surface-contrast) 10%, transparent);
 }
 
 [data-bob-component="toast"] .bob-toast__progress-bar {
@@ -68,18 +68,18 @@
     animation: none;
 }
 
-    [data-bob-component="toast"][data-bob-animation="none"][data-bob-closing="true"] {
-        display: none;
-    }
+[data-bob-component="toast"][data-bob-animation="none"][data-bob-closing="true"] {
+    display: none;
+}
 
 /* ========== Animation: Fade ========== */
 [data-bob-component="toast"][data-bob-animation="fade"] {
     animation: bob-toast-fade-in var(--bob-toast-animation-duration, 300ms) var(--bob-toast-animation-easing, ease-out) forwards;
 }
 
-    [data-bob-component="toast"][data-bob-animation="fade"][data-bob-closing="true"] {
-        animation: bob-toast-fade-out var(--bob-toast-animation-duration, 300ms) var(--bob-toast-animation-easing, ease-in) forwards;
-    }
+[data-bob-component="toast"][data-bob-animation="fade"][data-bob-closing="true"] {
+    animation: bob-toast-fade-out var(--bob-toast-animation-duration, 300ms) var(--bob-toast-animation-easing, ease-in) forwards;
+}
 
 /* ========== Animation: Slide - Top positions ========== */
 [data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="top-left"],
@@ -88,11 +88,11 @@
     animation: bob-toast-slide-in-top var(--bob-toast-animation-duration, 300ms) var(--bob-toast-animation-easing, ease-out) forwards;
 }
 
-    [data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="top-left"][data-bob-closing="true"],
-    [data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="top-center"][data-bob-closing="true"],
-    [data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="top-right"][data-bob-closing="true"] {
-        animation: bob-toast-slide-out-top var(--bob-toast-animation-duration, 300ms) var(--bob-toast-animation-easing, ease-in) forwards;
-    }
+[data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="top-left"][data-bob-closing="true"],
+[data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="top-center"][data-bob-closing="true"],
+[data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="top-right"][data-bob-closing="true"] {
+    animation: bob-toast-slide-out-top var(--bob-toast-animation-duration, 300ms) var(--bob-toast-animation-easing, ease-in) forwards;
+}
 
 /* ========== Animation: Slide - Bottom positions ========== */
 [data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="bottom-left"],
@@ -101,11 +101,11 @@
     animation: bob-toast-slide-in-bottom var(--bob-toast-animation-duration, 300ms) var(--bob-toast-animation-easing, ease-out) forwards;
 }
 
-    [data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="bottom-left"][data-bob-closing="true"],
-    [data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="bottom-center"][data-bob-closing="true"],
-    [data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="bottom-right"][data-bob-closing="true"] {
-        animation: bob-toast-slide-out-bottom var(--bob-toast-animation-duration, 300ms) var(--bob-toast-animation-easing, ease-in) forwards;
-    }
+[data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="bottom-left"][data-bob-closing="true"],
+[data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="bottom-center"][data-bob-closing="true"],
+[data-bob-component="toast"][data-bob-animation="slide"][data-bob-position="bottom-right"][data-bob-closing="true"] {
+    animation: bob-toast-slide-out-bottom var(--bob-toast-animation-duration, 300ms) var(--bob-toast-animation-easing, ease-in) forwards;
+}
 
 /* ========== Animation: SlideAndFade - Top positions ========== */
 [data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="top-left"],
@@ -114,11 +114,11 @@
     animation: bob-toast-slide-fade-in-top var(--bob-toast-animation-duration, 300ms) var(--bob-toast-animation-easing, ease-out) forwards;
 }
 
-    [data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="top-left"][data-bob-closing="true"],
-    [data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="top-center"][data-bob-closing="true"],
-    [data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="top-right"][data-bob-closing="true"] {
-        animation: bob-toast-slide-fade-out-top var(--bob-toast-animation-duration, 300ms) var(--bob-toast-animation-easing, ease-in) forwards;
-    }
+[data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="top-left"][data-bob-closing="true"],
+[data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="top-center"][data-bob-closing="true"],
+[data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="top-right"][data-bob-closing="true"] {
+    animation: bob-toast-slide-fade-out-top var(--bob-toast-animation-duration, 300ms) var(--bob-toast-animation-easing, ease-in) forwards;
+}
 
 /* ========== Animation: SlideAndFade - Bottom positions ========== */
 [data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="bottom-left"],
@@ -127,11 +127,11 @@
     animation: bob-toast-slide-fade-in-bottom var(--bob-toast-animation-duration, 300ms) var(--bob-toast-animation-easing, ease-out) forwards;
 }
 
-    [data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="bottom-left"][data-bob-closing="true"],
-    [data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="bottom-center"][data-bob-closing="true"],
-    [data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="bottom-right"][data-bob-closing="true"] {
-        animation: bob-toast-slide-fade-out-bottom var(--bob-toast-animation-duration, 300ms) var(--bob-toast-animation-easing, ease-in) forwards;
-    }
+[data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="bottom-left"][data-bob-closing="true"],
+[data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="bottom-center"][data-bob-closing="true"],
+[data-bob-component="toast"][data-bob-animation="slide-fade"][data-bob-position="bottom-right"][data-bob-closing="true"] {
+    animation: bob-toast-slide-fade-out-bottom var(--bob-toast-animation-duration, 300ms) var(--bob-toast-animation-easing, ease-in) forwards;
+}
 
 /* ========== Keyframes ========== */
 @keyframes bob-toast-fade-in {

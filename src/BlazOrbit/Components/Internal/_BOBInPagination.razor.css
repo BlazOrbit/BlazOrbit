@@ -1,0 +1,40 @@
+/* Pagination strip — info text + numbered controls. The opacity constants on
+   __info / __ellipsis are intentional UX dim levels (secondary + tertiary
+   typography) rather than disabled state, so they live as private vars rather
+   than reusing --bob-opacity-disabled which carries semantic weight. */
+._bob-pagination {
+    --_pagination-padding-x: 1rem;
+    --_pagination-padding-y: 0.75rem;
+    --_pagination-info-opacity: 0.8;
+    --_pagination-ellipsis-opacity: 0.6;
+    --_pagination-cell-size: calc(2rem * var(--bob-size-multiplier, 1));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: var(--_pagination-padding-y) var(--_pagination-padding-x);
+}
+
+._bob-pagination__info {
+    font-size: 0.875rem;
+    color: var(--palette-surface-contrast);
+    opacity: var(--_pagination-info-opacity);
+}
+
+._bob-pagination__controls {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+._bob-pagination__ellipsis {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--_pagination-cell-size);
+    height: var(--_pagination-cell-size);
+    font-size: 0.875rem;
+    color: var(--palette-surface-contrast);
+    opacity: var(--_pagination-ellipsis-opacity);
+}

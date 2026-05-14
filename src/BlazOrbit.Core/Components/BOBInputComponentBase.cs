@@ -22,7 +22,9 @@ public abstract class BOBInputComponentBase<TValue> :
     private readonly BOBComponentPipeline _pipeline = new();
     private FieldIdentifier _fieldIdentifier;
     private EditContext? _previousEditContext;
+
     private bool _lastValidationError;
+
     // Cache the synthetic ValueExpression for the no-EditContext path. The expression
     // captures `this`, so a single instance is valid for the component's lifetime and
     // re-uses the same Expression<Func<TValue>> across every SetParametersAsync call
@@ -32,13 +34,20 @@ public abstract class BOBInputComponentBase<TValue> :
     // Common parameters for all inputs — "force from outside": parent overrides the
     // computed state. The computed truth lives in IsX below.
     /// <summary>When <see langword="true" />, the input is disabled. Combined with internal state via <see cref="IsDisabled"/>.</summary>
-    [Parameter] public bool Disabled { get; set; }
+    [Parameter]
+    public bool Disabled { get; set; }
+
     /// <summary>When <see langword="true" />, the input is read-only. Combined with internal state via <see cref="IsReadOnly"/>.</summary>
-    [Parameter] public bool ReadOnly { get; set; }
+    [Parameter]
+    public bool ReadOnly { get; set; }
+
     /// <summary>When <see langword="true" />, the input is marked required for validation. Combined with internal state via <see cref="IsRequired"/>.</summary>
-    [Parameter] public bool Required { get; set; }
+    [Parameter]
+    public bool Required { get; set; }
+
     /// <summary>When <see langword="true" />, the input is forced into the error state. Combined with <c>EditContext</c> validation via <see cref="IsError"/>.</summary>
-    [Parameter] public bool Error { get; set; }
+    [Parameter]
+    public bool Error { get; set; }
 
     // Computed states — source of truth for gating, aria-* and the attributes builder.
     // IsDisabled is virtual so derived inputs can decouple Loading from Disabled — for
@@ -224,7 +233,7 @@ public abstract class BOBInputComponentBase<TValue> :
         }
 
         bool current = EditContext != null && ValueExpression != null
-            && EditContext.GetValidationMessages(_fieldIdentifier).Any();
+                                           && EditContext.GetValidationMessages(_fieldIdentifier).Any();
         if (current != _lastValidationError)
         {
             _lastValidationError = current;
@@ -252,8 +261,10 @@ public abstract class BOBInputComponentBase<TValue, TComponent, TVariant>
 
     public TVariant CurrentVariant => Variant ?? DefaultVariant;
     public abstract TVariant DefaultVariant { get; }
+
     /// <summary>Selected variant. <see langword="null"/> falls back to <see cref="DefaultVariant"/>.</summary>
-    [Parameter] public TVariant? Variant { get; set; }
+    [Parameter]
+    public TVariant? Variant { get; set; }
 
     Type IVariantComponent.VariantType => typeof(TVariant);
     protected abstract IReadOnlyDictionary<TVariant, Func<TComponent, RenderFragment>> BuiltInTemplates { get; }

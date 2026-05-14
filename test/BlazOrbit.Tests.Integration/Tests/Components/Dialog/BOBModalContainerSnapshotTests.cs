@@ -22,7 +22,7 @@ public class BOBModalContainerSnapshotTests
             ComponentType = typeof(DummyModalContent),
             Reference = new ModalReference("snap-dialog", _ => Task.CompletedTask),
             Options = new DialogOptions { Title = title, Closable = closable },
-            IsVisible = isVisible,
+            IsVisible = isVisible
         };
 
     private static ModalState DrawerState(DrawerPosition position)
@@ -33,7 +33,7 @@ public class BOBModalContainerSnapshotTests
             ComponentType = typeof(DummyModalContent),
             Reference = new ModalReference("snap-drawer", _ => Task.CompletedTask),
             Options = new DrawerOptions { Position = position },
-            IsVisible = true,
+            IsVisible = true
         };
 
     [Theory]
@@ -54,7 +54,7 @@ public class BOBModalContainerSnapshotTests
             {
                 Name = "Dialog_Closable",
                 Html = ctx.Render<BOBModalContainer>(p => p
-                    .Add(c => c.Modal, DialogState("Closable Dialog", closable: true))).GetNormalizedMarkup()
+                    .Add(c => c.Modal, DialogState("Closable Dialog", true))).GetNormalizedMarkup()
             },
             new
             {
@@ -67,7 +67,7 @@ public class BOBModalContainerSnapshotTests
                 Name = "Drawer_Left",
                 Html = ctx.Render<BOBModalContainer>(p => p
                     .Add(c => c.Modal, DrawerState(DrawerPosition.Left))).GetNormalizedMarkup()
-            },
+            }
         };
 
         await Verify(testCases).UseParameters(scenario.Name);

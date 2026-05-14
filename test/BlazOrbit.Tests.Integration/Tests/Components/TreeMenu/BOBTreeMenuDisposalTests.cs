@@ -23,7 +23,11 @@ public class BOBTreeMenuDisposalTests
             .Add(c => c.KeySelector, m => m.Key));
 
         // Act + Assert
-        Func<Task> act = () => { cut.Instance.Dispose(); return Task.CompletedTask; };
+        Func<Task> act = () =>
+        {
+            cut.Instance.Dispose();
+            return Task.CompletedTask;
+        };
         await act.Should().NotThrowAsync();
     }
 
@@ -44,7 +48,11 @@ public class BOBTreeMenuDisposalTests
         cut.Find("[role='menuitem']").Click(); // expand
 
         // Act + Assert — dispose unsubscribes LocationChanged, no exception
-        Func<Task> act = () => { cut.Instance.Dispose(); return Task.CompletedTask; };
+        Func<Task> act = () =>
+        {
+            cut.Instance.Dispose();
+            return Task.CompletedTask;
+        };
         await act.Should().NotThrowAsync();
     }
 }

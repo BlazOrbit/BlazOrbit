@@ -1,0 +1,116 @@
+// Auto-migrated from ToastPage.es.resx. Edit freely from now on.
+
+# Add toast-info / toast-success / toast-warning / toast-error CSS rules in your app, then pass CssClass.
+Añade reglas CSS toast-info / toast-success / toast-warning / toast-error en tu aplicación, luego pasa CssClass.
+
+# Animations
+Animaciones
+
+# Basic usage
+Uso básico
+
+# BOBToast
+BOBToast
+
+# Bottom Center
+Inferior centro
+
+# Bottom Left
+Inferior izquierda
+
+# Bottom Right
+Inferior derecha
+
+# Close all
+Cerrar todo
+
+# Component
+Componente
+
+# Default (4s)
+Predeterminado (4s)
+
+# Durations
+Duraciones
+
+# Elevation
+Elevación
+
+# Error
+Error
+
+# Fade only
+Solo desvanecer
+
+# Info
+Información
+
+# Long (8s)
+Largo (8s)
+
+# Manage
+Gestionar
+
+# Material Design elevation level (0–24). Derives shadow and dark-mode surface tint automatically.
+Nivel de elevación Material Design (0–24). Deriva sombra y tinte de superficie para modo oscuro automáticamente.
+
+# None
+Ninguno
+
+# Not closable
+No cerrable
+
+# Persistent (no dismiss)
+Persistente (sin descarte)
+
+# Persistent + closable
+Persistente + cerrable
+
+# Positions
+Posiciones
+
+# Properties
+Propiedades
+
+# Quick (2s)
+Rápido (2s)
+
+# Show 3 toasts
+Mostrar 3 toasts
+
+# Show toast
+Mostrar toast
+
+# Slide & Fade
+Deslizar y desvanecer
+
+# Slide only
+Solo deslizar
+
+# Success
+Éxito
+
+# Toast Elevation 2
+Toast Elevación 2
+
+# Toast Elevation 6
+Toast Elevación 6
+
+# Top Center
+Superior centro
+
+# Top Left
+Superior izquierda
+
+# Top Right
+Superior derecha
+
+# Transient toast notifications with six positions, configurable duration, animations, and custom content.
+Notificaciones toast transitorias con seis posiciones, duración configurable, animaciones y contenido personalizado.
+
+# Typed helpers
+Helpers tipados
+
+# Warning
+Advertencia
+

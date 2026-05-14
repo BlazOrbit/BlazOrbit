@@ -7,30 +7,78 @@ public sealed class DataColumnRegistration<TItem>
 {
     /// <summary>Horizontal alignment for the column's header and cells.</summary>
     public ColumnAlign Align { get; set; } = ColumnAlign.Left;
+
     /// <summary>Extra CSS class applied to every cell in the column.</summary>
     public string? CellClass { get; set; }
+
     /// <summary>Optional comparer used when sorting by this column.</summary>
     public Func<TItem, TItem, int>? CustomComparer { get; set; }
+
     /// <summary>Optional predicate used to evaluate filter matches for the column.</summary>
     public Func<TItem, string, bool>? CustomFilter { get; set; }
+
     /// <summary>When <see langword="true"/>, the column participates in free-text filtering.</summary>
     public bool Filterable { get; set; }
+
     /// <summary>Optional format string applied to <see cref="IFormattable"/> values.</summary>
     public string? Format { get; set; }
+
     /// <summary>Header label rendered when no <see cref="HeaderTemplate"/> is provided.</summary>
     public string? Header { get; set; }
+
     /// <summary>Custom render fragment used in place of <see cref="Header"/>.</summary>
     public RenderFragment? HeaderTemplate { get; set; }
+
     /// <summary>Extra CSS class applied to the header cell.</summary>
     public string? HeaderClass { get; set; }
+
     /// <summary>When <see langword="true"/>, the column header acts as a sort affordance.</summary>
     public bool Sortable { get; set; }
+
     /// <summary>Cell render template receiving the row item.</summary>
     public RenderFragment<TItem>? Template { get; set; }
+
     /// <summary>Selector used to project the cell value from the row item.</summary>
     public Func<TItem, object?>? ValueSelector { get; set; }
+
+    /// <summary>
+    /// Setter used by inline-edit mode to write the user's input back to the row item.
+    /// Derived from the column's <c>Property</c> expression when the body is a member
+    /// access against a writable property. <see langword="null"/> when the column has
+    /// no settable property (e.g. computed columns or read-only projections) — the grid
+    /// renders such columns as non-editable even if <see cref="Editable"/> is on.
+    /// </summary>
+    public Action<TItem, object?>? ValueSetter { get; set; }
+
+    /// <summary>
+    /// When <see langword="true"/> and the parent grid is in an inline-edit mode, the
+    /// column participates in editing — cells render an input on activation instead of
+    /// the static template. Requires <see cref="ValueSetter"/> to be non-null (auto-derived
+    /// from a writable <c>Property</c>) or a custom <see cref="EditTemplate"/>.
+    /// </summary>
+    public bool Editable { get; set; }
+
+    /// <summary>
+    /// Optional custom editor fragment rendered while a cell is in edit mode. Receives the
+    /// row item. When <see langword="null"/>, the grid picks a default input primitive
+    /// based on the value type (string → text, numeric → number, date → date, bool →
+    /// checkbox). Override for cases the auto-resolver can't handle (enum dropdowns,
+    /// lookup pickers, etc.).
+    /// </summary>
+    public RenderFragment<TItem>? EditTemplate { get; set; }
+
+    /// <summary>
+    /// Optional validator invoked on every cell commit when the column is editable.
+    /// Receives the row item and the proposed value (already coerced to the property type
+    /// via the column's setter pipeline). Returns the error message to surface in the
+    /// cell's tooltip when validation fails, or <see langword="null"/> to allow the
+    /// commit. The grid prevents the commit and keeps the editor open on failure.
+    /// </summary>
+    public Func<TItem, object?, string?>? Validator { get; set; }
+
     /// <summary>When <see langword="false"/>, the column is registered but not rendered.</summary>
     public bool Visible { get; set; } = true;
+
     /// <summary>Optional explicit column width (any valid CSS length).</summary>
     public string? Width { get; set; }
 

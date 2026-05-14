@@ -4,6 +4,7 @@ using FluentValidation.Results;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace BlazOrbit.FormsFluentValidation;
@@ -11,6 +12,20 @@ namespace BlazOrbit.FormsFluentValidation;
 /// <summary>
 /// Provides FluentValidation integration for Blazor <see cref="EditForm" /> components.
 /// </summary>
+/// <remarks>
+/// <para>
+/// <b>AOT / trimming.</b> This validator resolves <c>IValidator&lt;TModel&gt;</c> at runtime
+/// via <see cref="Type.MakeGenericType"/> and walks property paths via
+/// <see cref="Type.GetProperty(string)"/>. Both require members the linker would
+/// otherwise strip and code-gen the trimmer cannot anticipate, so the component is marked
+/// <see cref="RequiresUnreferencedCodeAttribute"/> + <see cref="RequiresDynamicCodeAttribute"/>.
+/// Apps targeting <c>PublishAot=true</c> should either avoid this component (prefer
+/// <c>DataAnnotationsValidator</c>) or root the model + validator types explicitly via
+/// <c>DynamicDependency</c>.
+/// </para>
+/// </remarks>
+[RequiresUnreferencedCode("BOBFluentValidator uses reflection to resolve IValidator<TModel> and to walk property paths. The model type, its public properties, and the matching IValidator<> must be preserved by the trimmer.")]
+[RequiresDynamicCode("BOBFluentValidator calls Type.MakeGenericType to instantiate IValidator<TModel> at runtime, which is unsupported by AOT.")]
 public class BOBFluentValidator : ComponentBase, IDisposable
 {
     [CascadingParameter] private EditContext? EditContext { get; set; }
@@ -19,12 +34,14 @@ public class BOBFluentValidator : ComponentBase, IDisposable
     /// Optional concrete <see cref="IValidator" /> type to use. When <see langword="null" />,
     /// the validator is resolved from DI via <c>IValidator&lt;TModel&gt;</c>.
     /// </summary>
-    [Parameter] public Type? ValidatorType { get; set; }
+    [Parameter]
+    public Type? ValidatorType { get; set; }
 
     /// <summary>
     /// When <see langword="true" /> (default), re-validates the model every time a field changes.
     /// </summary>
-    [Parameter] public bool ValidateOnFieldChanged { get; set; } = true;
+    [Parameter]
+    public bool ValidateOnFieldChanged { get; set; } = true;
 
     [Inject] private IServiceProvider ServiceProvider { get; set; } = default!;
 
@@ -45,7 +62,8 @@ public class BOBFluentValidator : ComponentBase, IDisposable
         // Resolve validator: by DI or by explicit type.
         _validator = ValidatorType is not null
             ? (IValidator?)ServiceProvider.GetService(ValidatorType)
-            : ServiceProvider.GetService(typeof(IValidator<>).MakeGenericType(EditContext.Model.GetType())) as IValidator;
+            : ServiceProvider.GetService(typeof(IValidator<>).MakeGenericType(EditContext.Model.GetType())) as
+                IValidator;
 
         if (_validator is null && ValidatorType is not null)
         {
@@ -90,7 +108,7 @@ public class BOBFluentValidator : ComponentBase, IDisposable
         _messageStore.Clear(fieldIdentifier);
 
         // Validate only changed field: FluentValidation does not support native field validation, so errors are filtered out after validating the entire model.
-        string[] properties = new[] { fieldIdentifier.FieldName };
+        string[] properties = [fieldIdentifier.FieldName];
         ValidationContext<object> context = new(
             fieldIdentifier.Model,
             new PropertyChain(),
@@ -119,13 +137,13 @@ public class BOBFluentValidator : ComponentBase, IDisposable
     private static FieldIdentifier ToFieldIdentifier(EditContext editContext, string propertyPath)
     {
         object? obj = editContext.Model;
-        string[] segments = propertyPath.Split(new[] { '.', '[' }, StringSplitOptions.RemoveEmptyEntries);
+        string[] segments = propertyPath.Split(['.', '['], StringSplitOptions.RemoveEmptyEntries);
 
         for (int i = 0; i < segments.Length - 1; i++)
         {
             string segment = segments[i].TrimEnd(']');
             PropertyInfo? prop = obj.GetType().GetProperty(segment)
-                ?? obj.GetType().GetProperty("Item"); // soporte indexadores básico
+                                 ?? obj.GetType().GetProperty("Item"); // soporte indexadores básico
 
             if (prop is null)
             {

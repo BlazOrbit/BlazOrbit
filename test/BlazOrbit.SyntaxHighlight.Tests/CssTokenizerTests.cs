@@ -60,7 +60,8 @@ public class CssTokenizerTests
     {
         IReadOnlyList<Token> tokens = CssLanguage.Instance.Tokenize(color);
 
-        Assert.Contains(tokens, t => (t.Type == TokenType.CssValue && t.Value.StartsWith("rgb")) || t.Value.StartsWith("hsl"));
+        Assert.Contains(tokens,
+            t => (t.Type == TokenType.CssValue && t.Value.StartsWith("rgb")) || t.Value.StartsWith("hsl"));
     }
 
     [Fact]

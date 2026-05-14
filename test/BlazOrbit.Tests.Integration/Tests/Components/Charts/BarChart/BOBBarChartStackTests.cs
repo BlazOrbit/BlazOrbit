@@ -11,36 +11,34 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Charts.BarChart;
 [Trait("Component Variant", "BOBBarChart.Stacked")]
 public class BOBBarChartStackTests
 {
-    private static IEnumerable<BOBChartSeries<string, decimal>> ThreeSeries() => new[]
-    {
+    private static IEnumerable<BOBChartSeries<string, decimal>> ThreeSeries() =>
+    [
         new BOBChartSeries<string, decimal>
         {
             Label = "EMEA",
-            Points = new[]
-            {
+            Points =
+            [
                 new BOBChartPoint<string, decimal>("Q1", 30m),
-                new BOBChartPoint<string, decimal>("Q2", 50m),
-            }
+                    new BOBChartPoint<string, decimal>("Q2", 50m)
+            ]
         },
         new BOBChartSeries<string, decimal>
         {
             Label = "Americas",
-            Points = new[]
-            {
-                new BOBChartPoint<string, decimal>("Q1", 20m),
-                new BOBChartPoint<string, decimal>("Q2", 40m),
-            }
+            Points =
+            [
+                new BOBChartPoint<string, decimal>("Q1", 20m), new BOBChartPoint<string, decimal>("Q2", 40m)
+            ]
         },
         new BOBChartSeries<string, decimal>
         {
             Label = "APAC",
-            Points = new[]
-            {
-                new BOBChartPoint<string, decimal>("Q1", 50m),
-                new BOBChartPoint<string, decimal>("Q2", 10m),
-            }
+            Points =
+            [
+                new BOBChartPoint<string, decimal>("Q1", 50m), new BOBChartPoint<string, decimal>("Q2", 10m)
+            ]
         }
-    };
+    ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -85,12 +83,12 @@ public class BOBBarChartStackTests
 
         // The 3 bars at category Q1 (first across each series) share the
         // same x and the same width (full groupWidth — not split).
-        IReadOnlyList<AngleSharp.Dom.IElement> q1Bars = new[]
-        {
-            cut.FindAll("rect.bob-bar-chart__bar")[0],   // EMEA Q1
-            cut.FindAll("rect.bob-bar-chart__bar")[2],   // Americas Q1
-            cut.FindAll("rect.bob-bar-chart__bar")[4],   // APAC Q1
-        };
+        IReadOnlyList<AngleSharp.Dom.IElement> q1Bars =
+        [
+            cut.FindAll("rect.bob-bar-chart__bar")[0], // EMEA Q1
+            cut.FindAll("rect.bob-bar-chart__bar")[2], // Americas Q1
+            cut.FindAll("rect.bob-bar-chart__bar")[4] // APAC Q1
+        ];
 
         string firstX = q1Bars[0].GetAttribute("x") ?? string.Empty;
         string firstW = q1Bars[0].GetAttribute("width") ?? string.Empty;
@@ -127,7 +125,7 @@ public class BOBBarChartStackTests
         // y2 ends at y2+h2 (bottom of the second segment).
         // Stack contiguously: top of first = bottom of second (within rounding).
         (y2 + h2).Should().BeApproximately(y1, 0.5,
-            because: "the segment above starts where the lower segment's top ends");
+            "the segment above starts where the lower segment's top ends");
     }
 
     [Theory]
@@ -144,13 +142,13 @@ public class BOBBarChartStackTests
         // Sum of the 3 segments at Q1 should span the full plot height
         // (PlotTop=12 → PlotBottom=PlotHeight-32 with default 600×400 layout
         // gives PlotHeight=356). Total stacked height ≈ 356.
-        var q1 = new[] { 0, 2, 4 }
+        double q1 = new[] { 0, 2, 4 }
             .Select(i => cut.FindAll("rect.bob-bar-chart__bar")[i])
             .Select(e => double.Parse(e.GetAttribute("height")!, System.Globalization.CultureInfo.InvariantCulture))
             .Sum();
 
         q1.Should().BeApproximately(356, 1,
-            because: "PercentStacked normalises every category to fill the full plot height");
+            "PercentStacked normalises every category to fill the full plot height");
     }
 
     [Theory]
@@ -183,6 +181,6 @@ public class BOBBarChartStackTests
         cut.Find("button.bob-chart__legend-button").Click();
 
         cut.FindAll("rect.bob-bar-chart__bar").Should().HaveCount(4,
-            because: "2 visible series × 2 categories = 4 segments");
+            "2 visible series × 2 categories = 4 segments");
     }
 }

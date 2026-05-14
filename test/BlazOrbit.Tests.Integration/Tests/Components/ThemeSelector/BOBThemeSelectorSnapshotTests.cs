@@ -32,7 +32,7 @@ public class BOBThemeSelectorSnapshotTests
                 .Add(c => c.ShowIcon, true)),
             ("Default_NoIcon", p => p
                 .Add(c => c.Variant, BOBThemeSelectorVariant.Default)
-                .Add(c => c.ShowIcon, false)),
+                .Add(c => c.ShowIcon, false))
         ];
 
         var results = testCases.Select(tc =>
@@ -41,6 +41,6 @@ public class BOBThemeSelectorSnapshotTests
             return new { tc.Name, Html = cut.GetNormalizedMarkup() };
         }).ToArray();
 
-        await Verifier.Verify(results).UseParameters(scenario.Name);
+        await Verify(results).UseParameters(scenario.Name);
     }
 }

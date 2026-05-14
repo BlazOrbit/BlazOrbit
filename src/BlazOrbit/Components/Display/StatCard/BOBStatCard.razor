@@ -13,7 +13,7 @@
             @if (Icon is not null)
             {
                 <span class="bob-statcard__icon" aria-hidden="true">
-                    <BOBSvgIcon Icon="@Icon.Value" Size="@Size" />
+                    <BOBSvgIcon Icon="@Icon.Value" Size="@Size"/>
                 </span>
             }
         </div>
@@ -35,7 +35,7 @@
                 @if (DeltaTrend != BOBStatTrend.None)
                 {
                     <span class="bob-statcard__delta-arrow" aria-hidden="true">
-                        <BOBSvgIcon Icon="@TrendIcon()" Size="BOBSize.Small" />
+                        <BOBSvgIcon Icon="@TrendIcon()" Size="BOBSize.Small"/>
                     </span>
                 }
                 @if (!string.IsNullOrWhiteSpace(Delta))
@@ -71,38 +71,60 @@
 </bob-component>
 
 @code {
+
     /// <summary>Headline label rendered above the value (e.g. "Active users").</summary>
-    [Parameter] public string? Label { get; set; }
+    [Parameter]
+    public string? Label { get; set; }
+
     /// <summary>Big stat value. Ignored when <see cref="ChildContent"/> is provided.</summary>
-    [Parameter] public string? Value { get; set; }
+    [Parameter]
+    public string? Value { get; set; }
+
     /// <summary>Custom value content (overrides <see cref="Value"/>).</summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     /// <summary>Optional icon rendered to the right of the label.</summary>
-    [Parameter] public IconKey? Icon { get; set; }
+    [Parameter]
+    public IconKey? Icon { get; set; }
 
     /// <summary>Delta string (e.g. "+12.4%"). Rendered next to the trend arrow.</summary>
-    [Parameter] public string? Delta { get; set; }
+    [Parameter]
+    public string? Delta { get; set; }
+
     /// <summary>Caption appended after the delta (e.g. "vs last week").</summary>
-    [Parameter] public string? DeltaCaption { get; set; }
+    [Parameter]
+    public string? DeltaCaption { get; set; }
+
     /// <summary>Trend direction. Drives palette accent + arrow icon.</summary>
-    [Parameter] public BOBStatTrend DeltaTrend { get; set; }
+    [Parameter]
+    public BOBStatTrend DeltaTrend { get; set; }
 
     /// <summary>Slot for an inline sparkline (e.g. <c>BOBLineChart Sparkline=true</c>).</summary>
-    [Parameter] public RenderFragment? Sparkline { get; set; }
+    [Parameter]
+    public RenderFragment? Sparkline { get; set; }
 
     /// <summary>Footnote text rendered at the bottom (e.g. "Updated 5 min ago").</summary>
-    [Parameter] public string? Footnote { get; set; }
+    [Parameter]
+    public string? Footnote { get; set; }
+
     /// <summary>Custom footnote content (overrides <see cref="Footnote"/>).</summary>
-    [Parameter] public RenderFragment? FootnoteContent { get; set; }
+    [Parameter]
+    public RenderFragment? FootnoteContent { get; set; }
 
     /// <summary>Visual size of the card.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
 
-    private IconKey TrendIcon() => DeltaTrend switch
+    private IconKey TrendIcon()
     {
-        BOBStatTrend.Up => BOBIconKeys.MaterialIconsOutlined.i_arrow_upward,
-        BOBStatTrend.Down => BOBIconKeys.MaterialIconsOutlined.i_arrow_downward,
-        BOBStatTrend.Flat => BOBIconKeys.MaterialIconsOutlined.i_arrow_forward,
-        _ => BOBIconKeys.MaterialIconsOutlined.i_remove
-    };
+        return DeltaTrend switch
+        {
+            BOBStatTrend.Up => BOBIconKeys.MaterialIconsOutlined.i_arrow_upward,
+            BOBStatTrend.Down => BOBIconKeys.MaterialIconsOutlined.i_arrow_downward,
+            BOBStatTrend.Flat => BOBIconKeys.MaterialIconsOutlined.i_arrow_forward,
+            _ => BOBIconKeys.MaterialIconsOutlined.i_remove
+        };
+    }
+
 }

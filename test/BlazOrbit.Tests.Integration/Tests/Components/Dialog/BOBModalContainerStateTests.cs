@@ -10,7 +10,8 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Dialog;
 [Trait("Component State", "BOBModalContainer")]
 public class BOBModalContainerStateTests
 {
-    private static ModalState CreateDialogState(bool isVisible = true, bool isAnimatingOut = false, int? elevation = null)
+    private static ModalState CreateDialogState(bool isVisible = true, bool isAnimatingOut = false,
+        int? elevation = null)
         => new()
         {
             Id = "test-state-modal",
@@ -19,10 +20,11 @@ public class BOBModalContainerStateTests
             Reference = new ModalReference("test-state-modal", _ => Task.CompletedTask),
             Options = new DialogOptions { Title = "State Test", Elevation = elevation },
             IsVisible = isVisible,
-            IsAnimatingOut = isAnimatingOut,
+            IsAnimatingOut = isAnimatingOut
         };
 
-    private static ModalState CreateDrawerState(bool isVisible = true, bool isAnimatingOut = false, int? elevation = null)
+    private static ModalState CreateDrawerState(bool isVisible = true, bool isAnimatingOut = false,
+        int? elevation = null)
         => new()
         {
             Id = "test-state-drawer",
@@ -31,7 +33,7 @@ public class BOBModalContainerStateTests
             Reference = new ModalReference("test-state-drawer", _ => Task.CompletedTask),
             Options = new DrawerOptions { Position = DrawerPosition.Right, Elevation = elevation },
             IsVisible = isVisible,
-            IsAnimatingOut = isAnimatingOut,
+            IsAnimatingOut = isAnimatingOut
         };
 
     private sealed class DummyModalContent : Microsoft.AspNetCore.Components.ComponentBase, IModalContent
@@ -48,7 +50,7 @@ public class BOBModalContainerStateTests
 
         // Arrange & Act
         IRenderedComponent<BOBModalContainer> cut = ctx.Render<BOBModalContainer>(p => p
-            .Add(c => c.Modal, CreateDialogState(isVisible: false)));
+            .Add(c => c.Modal, CreateDialogState(false)));
 
         // Assert
         cut.Find(".bob-modal-container[data-bob-hidden='true']").Should().NotBeNull();
@@ -76,12 +78,12 @@ public class BOBModalContainerStateTests
 
         // Arrange
         IRenderedComponent<BOBModalContainer> cut = ctx.Render<BOBModalContainer>(p => p
-            .Add(c => c.Modal, CreateDialogState(isVisible: true)));
+            .Add(c => c.Modal, CreateDialogState(true)));
         cut.Find(".bob-modal-container[data-bob-visible='true']").Should().NotBeNull();
 
         // Act — flip to hidden
         cut = ctx.Render<BOBModalContainer>(p => p
-            .Add(c => c.Modal, CreateDialogState(isVisible: false)));
+            .Add(c => c.Modal, CreateDialogState(false)));
 
         // Assert
         cut.Find(".bob-modal-container[data-bob-hidden='true']").Should().NotBeNull();

@@ -1,3 +1,4 @@
+using AngleSharp.Dom;
 using BlazOrbit.Components.Display;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -41,7 +42,7 @@ public class BOBRatingAccessibilityTests
         IRenderedComponent<BOBRating> cut = ctx.Render<BOBRating>(p => p
             .Add(c => c.Value, 3));
 
-        var cells = cut.FindAll(".bob-rating__cell");
+        IReadOnlyList<IElement> cells = cut.FindAll(".bob-rating__cell");
         cells[0].GetAttribute("aria-checked").Should().Be("false");
         cells[2].GetAttribute("aria-checked").Should().Be("true");
         cells[3].GetAttribute("aria-checked").Should().Be("false");
@@ -67,7 +68,7 @@ public class BOBRatingAccessibilityTests
 
         IRenderedComponent<BOBRating> cut = ctx.Render<BOBRating>();
 
-        var cells = cut.FindAll(".bob-rating__cell");
+        IReadOnlyList<IElement> cells = cut.FindAll(".bob-rating__cell");
         cells[0].GetAttribute("tabindex").Should().Be("0");
         cells[1].GetAttribute("tabindex").Should().Be("-1");
     }

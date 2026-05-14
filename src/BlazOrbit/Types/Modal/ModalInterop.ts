@@ -91,7 +91,7 @@ export function trapFocus(element: HTMLElement, id: string): void {
             if (!top) return;
 
             const active = document.activeElement as HTMLElement | null;
-            const { container, firstFocusable: first, lastFocusable: last } = top;
+            const {container, firstFocusable: first, lastFocusable: last} = top;
 
             // If focus escaped the dialog (e.g. host wrapper has tabindex=-1),
             // pull it back inside.
@@ -137,8 +137,8 @@ export function waitForAnimationEnd(element: HTMLElement, fallbackMs: number): P
             clearTimeout(timeoutId);
             resolve();
         };
-        element.addEventListener('animationend', finish, { once: true });
-        element.addEventListener('transitionend', finish, { once: true });
+        element.addEventListener('animationend', finish, {once: true});
+        element.addEventListener('transitionend', finish, {once: true});
         const timeoutId = window.setTimeout(finish, fallbackMs);
     });
 }

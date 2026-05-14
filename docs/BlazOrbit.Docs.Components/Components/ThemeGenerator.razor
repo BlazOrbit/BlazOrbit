@@ -8,10 +8,10 @@
 
 <BOBTabs @bind-ActiveTab="_activeTab" Variant="BOBTabsVariant.Underline">
     <BOBTab Id="dark" Label="Palette · Dark">
-        <ThemeEditor Palette="_darkPalette" OnPaletteChanged="p => _darkPalette = p" />
+        <ThemeEditor Palette="_darkPalette" OnPaletteChanged="p => _darkPalette = p"/>
     </BOBTab>
     <BOBTab Id="light" Label="Palette · Light">
-        <ThemeEditor Palette="_lightPalette" OnPaletteChanged="p => _lightPalette = p" />
+        <ThemeEditor Palette="_lightPalette" OnPaletteChanged="p => _lightPalette = p"/>
     </BOBTab>
     <BOBTab Id="tokens" Label="Design tokens">
         <p style="opacity: 0.8;">
@@ -19,26 +19,27 @@
             outline, opacity, z-index, ripple, scrollbar, and family defaults. Tokens
             are theme-agnostic by default — they apply to both themes.
         </p>
-        <TokensEditor Tokens="_tokens" OnTokensChanged="t => _tokens = t" />
+        <TokensEditor Tokens="_tokens" OnTokensChanged="t => _tokens = t"/>
     </BOBTab>
 </BOBTabs>
 
-<BOBFlexStack Direction="FlexStackDirection.Row" Wrap="FlexStackWrap.Wrap" Gap="0.75rem" AlignItems="FlexStackAlignItems.Center" My="1rem">
+<BOBFlexStack Direction="FlexStackDirection.Row" Wrap="FlexStackWrap.Wrap" Gap="0.75rem"
+              AlignItems="FlexStackAlignItems.Center" My="1rem">
     <BOBFlexStack Direction="FlexStackDirection.Row" Gap="0.5rem" AlignItems="FlexStackAlignItems.Center">
         <span>Import</span>
-        <BOBButton Text="JSON" OnClick="OpenImportDialog" Size="BOBSize.Small" />
+        <BOBButton Text="JSON" OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, OpenImportDialog))" Size="BOBSize.Small"/>
     </BOBFlexStack>
     <BOBFlexStack Direction="FlexStackDirection.Row" Gap="0.5rem" AlignItems="FlexStackAlignItems.Center">
         <span>Export</span>
-        <BOBButton Text="JSON" OnClick="@(() => ShowExport("JSON", GenerateJson()))" Size="BOBSize.Small" />
-        <BOBButton Text="CSS" OnClick="@(() => ShowExport("CSS", GenerateCss()))" Size="BOBSize.Small" />
-        <BOBButton Text="C#" OnClick="@(() => ShowExport("C#", GenerateCSharp()))" Size="BOBSize.Small" />
+        <BOBButton Text="JSON" OnClick="@(() => ShowExport("JSON", GenerateJson()))" Size="BOBSize.Small"/>
+        <BOBButton Text="CSS" OnClick="@(() => ShowExport("CSS", GenerateCss()))" Size="BOBSize.Small"/>
+        <BOBButton Text="C#" OnClick="@(() => ShowExport("C#", GenerateCSharp()))" Size="BOBSize.Small"/>
     </BOBFlexStack>
-    <BOBButton Text="Reset" OnClick="Reset" Size="BOBSize.Small" />
+    <BOBButton Text="Reset" OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, Reset))" Size="BOBSize.Small"/>
 </BOBFlexStack>
 
 <div class="preview" style="@GetPreviewStyles()">
-    <ThemePreview />
+    <ThemePreview/>
 </div>
 
 <BOBDialog @bind-Open="_importDialogOpen" Title="Import JSON" MaxWidth="600px">
@@ -46,24 +47,24 @@
         <BOBInputTextArea @bind-Value="_importContent"
                           Label="Paste JSON"
                           Rows="12"
-                          Placeholder="@_importPlaceholder" />
+                          Placeholder="@_importPlaceholder"/>
         @if (!string.IsNullOrEmpty(_importError))
         {
             <div class="import-error">@_importError</div>
         }
     </Content>
     <Footer>
-        <BOBButton Text="Cancel" OnClick="() => _importDialogOpen = false" />
-        <BOBButton Text="Import" OnClick="ImportJson" />
+        <BOBButton Text="Cancel" OnClick="() => _importDialogOpen = false"/>
+        <BOBButton Text="Import" OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, ImportJson))"/>
     </Footer>
 </BOBDialog>
 
 <BOBDialog @bind-Open="_exportDialogOpen" Title="@_exportTitle" MaxWidth="800px">
     <Content>
-        <BOBCodeBlock Language="@_exportLanguage" Code="@_exportContent" />
+        <BOBCodeBlock Language="@_exportLanguage" Code="@_exportContent"/>
     </Content>
     <Footer>
-        <BOBButton Text="Close" OnClick="() => _exportDialogOpen = false" />
+        <BOBButton Text="Close" OnClick="() => _exportDialogOpen = false"/>
     </Footer>
 </BOBDialog>
 
@@ -81,6 +82,7 @@
     private bool _importDialogOpen = false;
     private string _importContent = "";
     private string _importError = "";
+
     private const string _importPlaceholder = @"{
   ""dark"": { ""primary"": ""#8AB4F8"", ... },
   ""light"": { ""primary"": ""#1A73E8"", ... },
@@ -110,32 +112,33 @@
     private Dictionary<string, CssColor> ExtractPaletteColors(BOBThemePaletteBase palette)
     {
         Dictionary<string, CssColor> colors = new();
-        PropertyInfo[] properties = typeof(BOBThemePaletteBase)
+        var properties = typeof(BOBThemePaletteBase)
             .GetProperties(BindingFlags.Instance | BindingFlags.Public)
             .Where(p => p.PropertyType == typeof(CssColor))
             .ToArray();
 
-        foreach (PropertyInfo prop in properties)
+        foreach (var prop in properties)
         {
-            CssColor color = (CssColor)prop.GetValue(palette)!;
+            var color = (CssColor)prop.GetValue(palette)!;
             colors[prop.Name] = color;
         }
+
         return colors;
     }
 
     private string GetPreviewStyles()
     {
-        List<string> vars = new();
-        Dictionary<string, CssColor> palette = _activeTab == "light" ? _lightPalette : _darkPalette;
+        List<string> vars = [];
+        var palette = _activeTab == "light" ? _lightPalette : _darkPalette;
 
-        foreach (KeyValuePair<string, CssColor> kvp in palette)
+        foreach (var kvp in palette)
         {
-            string cssName = kvp.Key.ToKebabCase();
+            var cssName = kvp.Key.ToKebabCase();
             vars.Add($"--palette-{cssName}: {kvp.Value.ToString(ColorOutputFormats.Hex)}");
         }
 
         // Tokens apply to whichever tab is active so the preview reflects them everywhere.
-        foreach (KeyValuePair<string, string> kvp in _tokens)
+        foreach (var kvp in _tokens)
         {
             if (!string.IsNullOrWhiteSpace(kvp.Value))
             {
@@ -165,22 +168,22 @@
 
         try
         {
-            JsonDocument doc = JsonDocument.Parse(_importContent);
-            JsonElement root = doc.RootElement;
+            var doc = JsonDocument.Parse(_importContent);
+            var root = doc.RootElement;
 
-            List<string> failures = new();
+            List<string> failures = [];
 
-            if (root.TryGetProperty("dark", out JsonElement darkElement))
+            if (root.TryGetProperty("dark", out var darkElement))
             {
                 MergePalette(_darkPalette, darkElement, "dark", failures);
             }
 
-            if (root.TryGetProperty("light", out JsonElement lightElement))
+            if (root.TryGetProperty("light", out var lightElement))
             {
                 MergePalette(_lightPalette, lightElement, "light", failures);
             }
 
-            if (root.TryGetProperty("tokens", out JsonElement tokensElement) && tokensElement.ValueKind == JsonValueKind.Object)
+            if (root.TryGetProperty("tokens", out var tokensElement) && tokensElement.ValueKind == JsonValueKind.Object)
             {
                 MergeTokens(_tokens, tokensElement);
             }
@@ -201,12 +204,12 @@
 
     private void MergePalette(Dictionary<string, CssColor> target, JsonElement source, string paletteName, List<string> failures)
     {
-        foreach (JsonProperty prop in source.EnumerateObject())
+        foreach (var prop in source.EnumerateObject())
         {
-            string? key = FindMatchingKey(target, prop.Name);
+            var key = FindMatchingKey(target, prop.Name);
             if (key != null && prop.Value.ValueKind == JsonValueKind.String)
             {
-                string? colorValue = prop.Value.GetString();
+                var colorValue = prop.Value.GetString();
                 if (!string.IsNullOrEmpty(colorValue))
                 {
                     try
@@ -224,11 +227,11 @@
 
     private void MergeTokens(Dictionary<string, string> target, JsonElement source)
     {
-        foreach (JsonProperty prop in source.EnumerateObject())
+        foreach (var prop in source.EnumerateObject())
         {
             if (prop.Value.ValueKind != JsonValueKind.String) continue;
-            string cssVar = prop.Name.StartsWith("--", StringComparison.Ordinal) ? prop.Name : "--" + prop.Name;
-            string? value = prop.Value.GetString();
+            var cssVar = prop.Name.StartsWith("--", StringComparison.Ordinal) ? prop.Name : "--" + prop.Name;
+            var value = prop.Value.GetString();
             if (!string.IsNullOrEmpty(value))
             {
                 target[cssVar] = value;
@@ -238,13 +241,14 @@
 
     private string? FindMatchingKey(Dictionary<string, CssColor> palette, string jsonKey)
     {
-        foreach (string key in palette.Keys)
+        foreach (var key in palette.Keys)
         {
             if (string.Equals(key, jsonKey, StringComparison.OrdinalIgnoreCase))
             {
                 return key;
             }
         }
+
         return null;
     }
 
@@ -278,7 +282,7 @@
         System.Text.StringBuilder sb = new();
         sb.AppendLine(":root {");
         sb.AppendLine("  /* Palette (default / dark) */");
-        foreach (KeyValuePair<string, CssColor> kvp in _darkPalette)
+        foreach (var kvp in _darkPalette)
         {
             sb.AppendLine($"  --palette-{kvp.Key.ToLowerInvariant()}: {kvp.Value.ToString(ColorOutputFormats.Hex)};");
         }
@@ -287,12 +291,12 @@
         {
             sb.AppendLine();
             sb.AppendLine("  /* Design tokens (theme-agnostic) */");
-            foreach (TokensEditor.TokenCategory category in TokensEditor.Catalog)
+            foreach (var category in TokensEditor.Catalog)
             {
                 sb.AppendLine($"  /* {category.Name} */");
-                foreach (TokensEditor.DesignTokenSpec spec in category.Tokens)
+                foreach (var spec in category.Tokens)
                 {
-                    if (_tokens.TryGetValue(spec.CssVar, out string? value) && !string.IsNullOrWhiteSpace(value))
+                    if (_tokens.TryGetValue(spec.CssVar, out var value) && !string.IsNullOrWhiteSpace(value))
                     {
                         sb.AppendLine($"  {spec.CssVar}: {value};");
                     }
@@ -303,10 +307,11 @@
         sb.AppendLine("}");
         sb.AppendLine();
         sb.AppendLine("html[data-bob-theme=\"light\"] {");
-        foreach (KeyValuePair<string, CssColor> kvp in _lightPalette)
+        foreach (var kvp in _lightPalette)
         {
             sb.AppendLine($"  --palette-{kvp.Key.ToLowerInvariant()}: {kvp.Value.ToString(ColorOutputFormats.Hex)};");
         }
+
         sb.AppendLine("}");
         return sb.ToString();
     }
@@ -323,10 +328,11 @@
         sb.AppendLine("    {");
         sb.AppendLine("        Id = \"dark\";");
         sb.AppendLine("        Name = \"Dark\";");
-        foreach (KeyValuePair<string, CssColor> kvp in _darkPalette)
+        foreach (var kvp in _darkPalette)
         {
             sb.AppendLine($"        {kvp.Key} = new CssColor(\"{kvp.Value.ToString(ColorOutputFormats.Hex)}\");");
         }
+
         sb.AppendLine("    }");
         sb.AppendLine("}");
         sb.AppendLine();
@@ -336,10 +342,11 @@
         sb.AppendLine("    {");
         sb.AppendLine("        Id = \"light\";");
         sb.AppendLine("        Name = \"Light\";");
-        foreach (KeyValuePair<string, CssColor> kvp in _lightPalette)
+        foreach (var kvp in _lightPalette)
         {
             sb.AppendLine($"        {kvp.Key} = new CssColor(\"{kvp.Value.ToString(ColorOutputFormats.Hex)}\");");
         }
+
         sb.AppendLine("    }");
         sb.AppendLine("}");
 
@@ -351,16 +358,17 @@
             sb.AppendLine(" * wwwroot/css to apply them globally:");
             sb.AppendLine(" *");
             sb.AppendLine(" * :root {");
-            foreach (TokensEditor.TokenCategory category in TokensEditor.Catalog)
+            foreach (var category in TokensEditor.Catalog)
             {
-                foreach (TokensEditor.DesignTokenSpec spec in category.Tokens)
+                foreach (var spec in category.Tokens)
                 {
-                    if (_tokens.TryGetValue(spec.CssVar, out string? value) && !string.IsNullOrWhiteSpace(value))
+                    if (_tokens.TryGetValue(spec.CssVar, out var value) && !string.IsNullOrWhiteSpace(value))
                     {
                         sb.AppendLine($" *   {spec.CssVar}: {value};");
                     }
                 }
             }
+
             sb.AppendLine(" * }");
             sb.AppendLine(" */");
         }
@@ -373,4 +381,5 @@
         InitializePalettes();
         InitializeTokens();
     }
+
 }

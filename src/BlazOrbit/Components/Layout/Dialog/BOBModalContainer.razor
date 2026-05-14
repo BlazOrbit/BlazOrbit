@@ -15,18 +15,20 @@
                     <h2 class="bob-modal-dialog__title">@dialogOpts.Title</h2>
                     @if (Modal.Options.Closable)
                     {
-                        <_BOBBtn Icon="@BOBIconKeys.UI.Close"
-                                    AriaLabel="Close"
-                                    OnClick="HandleClose" />
+                        <_BOBInBtn Icon="@BOBIconKeys.UI.Close"
+                                   Variant="BOBInBtnVariant.Ghost"
+                                   AriaLabel="@Localizer["Close"]"
+                                   OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, HandleClose))"/>
                     }
                 </div>
             }
             else if (Modal.Options.Closable)
             {
                 <div class="bob-modal-dialog__header bob-modal-dialog__header--close-only">
-                    <_BOBBtn Icon="@BOBIconKeys.UI.Close"
-                                AriaLabel="Close"
-                                OnClick="HandleClose" />
+                    <_BOBInBtn Icon="@BOBIconKeys.UI.Close"
+                               Variant="BOBInBtnVariant.Ghost"
+                               AriaLabel="@Localizer["Close"]"
+                               OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, HandleClose))"/>
                 </div>
             }
 
@@ -43,9 +45,10 @@
             @if (Modal.Options.Closable)
             {
                 <div class="bob-modal-drawer__header">
-                    <_BOBBtn Icon="@BOBIconKeys.UI.Close"
-                                AriaLabel="Close"
-                                OnClick="HandleClose" />
+                    <_BOBInBtn Icon="@BOBIconKeys.UI.Close"
+                               Variant="BOBInBtnVariant.Ghost"
+                               AriaLabel="@Localizer["Close"]"
+                               OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, HandleClose))"/>
                 </div>
             }
 
@@ -57,8 +60,10 @@
 </div>
 
 @code {
+    [Inject] internal IStringLocalizer<BOBLayoutResources> Localizer { get; set; } = default!;
+
     /// <summary>Modal state describing what to render and how to animate it. Required.</summary>
-    [Parameter, EditorRequired]
+    [Parameter][EditorRequired]
     public ModalState Modal { get; set; } = default!;
 
     private string GetDialogStyle()
@@ -88,7 +93,7 @@
                 styles.Add($"max-height: {options.MaxHeight}");
         }
 
-        string elevationStyle = GetElevationStyle(Modal.Options.Elevation);
+        var elevationStyle = GetElevationStyle(Modal.Options.Elevation);
         if (!string.IsNullOrEmpty(elevationStyle))
             styles.Add(elevationStyle);
 
@@ -112,7 +117,7 @@
                 break;
         }
 
-        string elevationStyle = GetElevationStyle(Modal.Options.Elevation);
+        var elevationStyle = GetElevationStyle(Modal.Options.Elevation);
         if (!string.IsNullOrEmpty(elevationStyle))
             styles.Add(elevationStyle);
 
@@ -124,10 +129,10 @@
         if (elevation is not int rawLevel)
             return string.Empty;
 
-        int level = System.Math.Clamp(rawLevel, 0, 24);
-        int tint = BOBElevationPresets.SurfaceTintPercent(level);
-        string shadow = BOBShadowPresets.Elevation(level).ToCss();
-        return $"--bob-inline-elevation-tint: {tint}%; --bob-inline-shadow: {shadow}";
+        var level = Math.Clamp(rawLevel, 0, 24);
+        var tint = BOBElevationPresets.SurfaceTintPercent(level);
+        var shadow = BOBShadowPresets.Elevation(level).ToCss();
+        return $"{FeatureDefinitions.InlineVariables.ElevationTint}: {tint}%; {FeatureDefinitions.InlineVariables.Shadow}: {shadow}";
     }
 
     private async Task HandleClose()
@@ -135,20 +140,24 @@
         await Modal.Reference.CloseAsync();
     }
 
-    private RenderFragment RenderComponent() => builder =>
+    private RenderFragment RenderComponent()
     {
-        builder.OpenComponent(0, Modal.ComponentType);
-        builder.AddAttribute(1, "ModalReference", Modal.Reference);
-
-        if (Modal.Parameters != null)
+        return builder =>
         {
-            int seq = 2;
-            foreach (KeyValuePair<string, object?> param in Modal.Parameters)
-            {
-                builder.AddAttribute(seq++, param.Key, param.Value);
-            }
-        }
+            builder.OpenComponent(0, Modal.ComponentType);
+            builder.AddAttribute(1, "ModalReference", Modal.Reference);
 
-        builder.CloseComponent();
-    };
+            if (Modal.Parameters != null)
+            {
+                var seq = 2;
+                foreach (var param in Modal.Parameters)
+                {
+                    builder.AddAttribute(seq++, param.Key, param.Value);
+                }
+            }
+
+            builder.CloseComponent();
+        };
+    }
+
 }

@@ -60,7 +60,7 @@ public class BOBCarouselSnapshotTests
                     .Add(c => c.ShowArrows, false)
                     .Add(c => c.ShowIndicators, false)
                     .Add(c => c.ChildContent, ThreeSlides)).GetNormalizedMarkup()
-            },
+            }
         };
 
         await Verify(testCases).UseParameters(scenario.Name);

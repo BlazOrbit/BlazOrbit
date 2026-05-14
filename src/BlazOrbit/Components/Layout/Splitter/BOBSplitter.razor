@@ -12,12 +12,12 @@
            The actual pane DOM is emitted below using the captured snapshot. *@
         <div class="bob-splitter__sink">@ChildContent</div>
 
-        @{ List<BOBSplitterPane> snapshot = SnapshotPanes(); }
+        @{ var snapshot = SnapshotPanes(); }
 
-        @for (int i = 0; i < snapshot.Count; i++)
+        @for (var i = 0; i < snapshot.Count; i++)
         {
-            BOBSplitterPane pane = snapshot[i];
-            int captured = i;
+            var pane = snapshot[i];
+            var captured = i;
 
             <div class="bob-splitter__pane"
                  style="@PaneStyle(pane)">
@@ -50,20 +50,26 @@
 </bob-component>
 
 @code {
+
     /// <summary>Markup that emits the <c>&lt;BOBSplitterPane&gt;</c> children.</summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>Orientation of the rail. Defaults to <see cref="BOBSplitterOrientation.Horizontal"/>.</summary>
-    [Parameter] public BOBSplitterOrientation Orientation { get; set; } = BOBSplitterOrientation.Horizontal;
+    [Parameter]
+    public BOBSplitterOrientation Orientation { get; set; } = BOBSplitterOrientation.Horizontal;
 
     /// <summary>Increment in pixels applied when a focused gripper is moved with arrow keys.</summary>
-    [Parameter] public double KeyboardStep { get; set; } = 16;
+    [Parameter]
+    public double KeyboardStep { get; set; } = 16;
 
     private string OrientationToken => Orientation == BOBSplitterOrientation.Vertical ? "vertical" : "horizontal";
     private string AriaOrientation => Orientation == BOBSplitterOrientation.Vertical ? "horizontal" : "vertical";
 
-    private readonly List<BOBSplitterPane> _panes = new();
+    private readonly List<BOBSplitterPane> _panes = [];
+
     private readonly object _panesLock = new();
+
     // Live size per registered pane keyed by reference so we can adjust during drag without
     // losing the user-provided initial Size parameter.
     private readonly Dictionary<BOBSplitterPane, double> _liveSizes = new();
@@ -90,6 +96,7 @@
                 _liveSizes[pane] = pane.Size;
             }
         }
+
         if (added)
         {
             StateHasChanged();
@@ -106,6 +113,7 @@
             removed = _panes.Remove(pane);
             _liveSizes.Remove(pane);
         }
+
         if (removed)
         {
             StateHasChanged();
@@ -116,7 +124,7 @@
     {
         lock (_panesLock)
         {
-            return new List<BOBSplitterPane>(_panes);
+            return [.._panes];
         }
     }
 
@@ -130,24 +138,24 @@
             return "flex:1 1 0;min-width:0;min-height:0;";
         }
 
-        double size = _liveSizes.TryGetValue(pane, out double s) ? s : (pane.Size > 0 ? pane.Size : pane.MinSize);
-        string axis = Orientation == BOBSplitterOrientation.Vertical ? "height" : "width";
+        var size = _liveSizes.TryGetValue(pane, out var s) ? s : pane.Size > 0 ? pane.Size : pane.MinSize;
+        var axis = Orientation == BOBSplitterOrientation.Vertical ? "height" : "width";
         return $"flex:0 0 {size}px;{axis}:{size}px;min-width:0;min-height:0;";
     }
 
     private void StartDrag(PointerEventArgs e, int gripperIndex)
     {
-        List<BOBSplitterPane> snap = SnapshotPanes();
+        var snap = SnapshotPanes();
         if (gripperIndex < 0 || gripperIndex + 1 >= snap.Count) return;
 
-        BOBSplitterPane before = snap[gripperIndex];
-        BOBSplitterPane after = snap[gripperIndex + 1];
+        var before = snap[gripperIndex];
+        var after = snap[gripperIndex + 1];
 
         // The drag adjusts the pair adjacent to the gripper. Either side can be Flex; in
         // that case we still let the user resize by treating the flex pane's current
         // rendered size as a free-floating baseline (we only update the sized pane).
-        _startSizeBefore = before.Flex ? 0 : (_liveSizes.TryGetValue(before, out double sb) ? sb : before.Size);
-        _startSizeAfter = after.Flex ? 0 : (_liveSizes.TryGetValue(after, out double sa) ? sa : after.Size);
+        _startSizeBefore = before.Flex ? 0 : _liveSizes.TryGetValue(before, out var sb) ? sb : before.Size;
+        _startSizeAfter = after.Flex ? 0 : _liveSizes.TryGetValue(after, out var sa) ? sa : after.Size;
         _dragStart = Orientation == BOBSplitterOrientation.Vertical ? e.ClientY : e.ClientX;
         _dragGripperIndex = gripperIndex;
         _dragging = true;
@@ -158,18 +166,18 @@
     {
         if (!_dragging || _dragGripperIndex < 0) return;
 
-        List<BOBSplitterPane> snap = SnapshotPanes();
+        var snap = SnapshotPanes();
         if (_dragGripperIndex + 1 >= snap.Count) return;
 
-        BOBSplitterPane before = snap[_dragGripperIndex];
-        BOBSplitterPane after = snap[_dragGripperIndex + 1];
+        var before = snap[_dragGripperIndex];
+        var after = snap[_dragGripperIndex + 1];
 
-        double current = Orientation == BOBSplitterOrientation.Vertical ? e.ClientY : e.ClientX;
-        double delta = current - _dragStart;
+        var current = Orientation == BOBSplitterOrientation.Vertical ? e.ClientY : e.ClientX;
+        var delta = current - _dragStart;
 
         if (!before.Flex)
         {
-            double target = _startSizeBefore + delta;
+            var target = _startSizeBefore + delta;
             target = Math.Max(target, before.MinSize);
             if (before.MaxSize > 0) target = Math.Min(target, before.MaxSize);
             _liveSizes[before] = target;
@@ -177,7 +185,7 @@
 
         if (!after.Flex)
         {
-            double target = _startSizeAfter - delta;
+            var target = _startSizeAfter - delta;
             target = Math.Max(target, after.MinSize);
             if (after.MaxSize > 0) target = Math.Min(target, after.MaxSize);
             _liveSizes[after] = target;
@@ -197,33 +205,34 @@
     {
         // Keyboard nudges resize without going through the drag overlay. ArrowLeft/Up
         // shrinks the leading pane, ArrowRight/Down grows it. Step size is the parameter.
-        bool grow = Orientation == BOBSplitterOrientation.Horizontal
+        var grow = Orientation == BOBSplitterOrientation.Horizontal
             ? e.Key is "ArrowRight"
             : e.Key is "ArrowDown";
-        bool shrink = Orientation == BOBSplitterOrientation.Horizontal
+        var shrink = Orientation == BOBSplitterOrientation.Horizontal
             ? e.Key is "ArrowLeft"
             : e.Key is "ArrowUp";
         if (!grow && !shrink) return;
 
-        List<BOBSplitterPane> snap = SnapshotPanes();
+        var snap = SnapshotPanes();
         if (gripperIndex < 0 || gripperIndex + 1 >= snap.Count) return;
 
-        BOBSplitterPane before = snap[gripperIndex];
-        BOBSplitterPane after = snap[gripperIndex + 1];
-        double delta = (grow ? 1 : -1) * KeyboardStep;
+        var before = snap[gripperIndex];
+        var after = snap[gripperIndex + 1];
+        var delta = (grow ? 1 : -1) * KeyboardStep;
 
         if (!before.Flex)
         {
-            double currentBefore = _liveSizes.TryGetValue(before, out double sb) ? sb : before.Size;
-            double target = currentBefore + delta;
+            var currentBefore = _liveSizes.TryGetValue(before, out var sb) ? sb : before.Size;
+            var target = currentBefore + delta;
             target = Math.Max(target, before.MinSize);
             if (before.MaxSize > 0) target = Math.Min(target, before.MaxSize);
             _liveSizes[before] = target;
         }
+
         if (!after.Flex)
         {
-            double currentAfter = _liveSizes.TryGetValue(after, out double sa) ? sa : after.Size;
-            double target = currentAfter - delta;
+            var currentAfter = _liveSizes.TryGetValue(after, out var sa) ? sa : after.Size;
+            var target = currentAfter - delta;
             target = Math.Max(target, after.MinSize);
             if (after.MaxSize > 0) target = Math.Min(target, after.MaxSize);
             _liveSizes[after] = target;
@@ -239,6 +248,8 @@
             _panes.Clear();
             _liveSizes.Clear();
         }
+
         await base.DisposeAsync();
     }
+
 }

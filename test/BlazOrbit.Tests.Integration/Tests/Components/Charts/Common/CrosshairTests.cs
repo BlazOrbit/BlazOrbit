@@ -11,31 +11,27 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Charts.Common;
 [Trait("Component Interaction", "Charts.Crosshair")]
 public class CrosshairTests
 {
-    private static IEnumerable<BOBChartSeries<int, double>> TwoSeries() => new[]
-    {
+    private static IEnumerable<BOBChartSeries<int, double>> TwoSeries() =>
+    [
         new BOBChartSeries<int, double>
         {
             Label = "A",
-            Points = new[]
-            {
-                new BOBChartPoint<int, double>(1, 10.0),
-                new BOBChartPoint<int, double>(2, 22.5),
-                new BOBChartPoint<int, double>(3, 18.0),
-                new BOBChartPoint<int, double>(4, 30.7),
-            }
+            Points =
+            [
+                new BOBChartPoint<int, double>(1, 10.0), new BOBChartPoint<int, double>(2, 22.5),
+                new BOBChartPoint<int, double>(3, 18.0), new BOBChartPoint<int, double>(4, 30.7)
+            ]
         },
         new BOBChartSeries<int, double>
         {
             Label = "B",
-            Points = new[]
-            {
-                new BOBChartPoint<int, double>(1, 5.0),
-                new BOBChartPoint<int, double>(2, 12.5),
-                new BOBChartPoint<int, double>(3, 14.0),
-                new BOBChartPoint<int, double>(4, 8.0),
-            }
+            Points =
+            [
+                new BOBChartPoint<int, double>(1, 5.0), new BOBChartPoint<int, double>(2, 12.5),
+                new BOBChartPoint<int, double>(3, 14.0), new BOBChartPoint<int, double>(4, 8.0)
+            ]
         }
-    };
+    ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -99,7 +95,7 @@ public class CrosshairTests
 
         cut.FindAll("line.bob-chart__crosshair").Should().HaveCount(1);
         cut.FindAll("circle.bob-chart__crosshair-marker").Should().HaveCount(2,
-            because: "two series → two highlighted nearest-point markers");
+            "two series → two highlighted nearest-point markers");
         cut.FindAll(".bob-chart__crosshair-readout").Should().HaveCount(1);
     }
 
@@ -151,18 +147,18 @@ public class CrosshairTests
         // Use a single series with known X projection to validate snap math.
         IRenderedComponent<BOBLineChart<int, double>> cut =
             ctx.Render<BOBLineChart<int, double>>(p => p
-                .Add(c => c.Series, new[]
-                {
+                .Add(c => c.Series,
+                [
                     new BOBChartSeries<int, double>
-                    {
-                        Label = "S",
-                        Points = new[]
                         {
-                            new BOBChartPoint<int, double>(1, 10.0),
-                            new BOBChartPoint<int, double>(4, 20.0),
+                            Label = "S",
+                            Points =
+                            [
+                                new BOBChartPoint<int, double>(1, 10.0),
+                                new BOBChartPoint<int, double>(4, 20.0)
+                            ]
                         }
-                    }
-                })
+                ])
                 .Add(c => c.ShowCrosshair, true));
 
         // With default 600×400, plot width = 532, X domain = [1, 4],
@@ -173,7 +169,7 @@ public class CrosshairTests
 
         AngleSharp.Dom.IElement marker = cut.Find("circle.bob-chart__crosshair-marker");
         double cx = double.Parse(marker.GetAttribute("cx")!, System.Globalization.CultureInfo.InvariantCulture);
-        cx.Should().BeApproximately(56, 1, because: "cursor 100 is closer to X=1 → marker snaps to PlotLeft");
+        cx.Should().BeApproximately(56, 1, "cursor 100 is closer to X=1 → marker snaps to PlotLeft");
     }
 
     [Theory]
@@ -198,7 +194,7 @@ public class CrosshairTests
         string secondX = cut.Find("line.bob-chart__crosshair").GetAttribute("x1") ?? string.Empty;
 
         secondX.Should().Be(firstX,
-            because: "sub-pixel cursor jitter should not move the crosshair");
+            "sub-pixel cursor jitter should not move the crosshair");
     }
 
     [Theory]

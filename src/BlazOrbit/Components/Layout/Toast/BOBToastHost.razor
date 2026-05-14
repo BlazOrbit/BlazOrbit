@@ -10,18 +10,18 @@
 
 <CascadingValue Value="_toastService" IsFixed="true">
     <bob-component @attributes="ComputedAttributes">
-        @foreach (ToastPosition position in _allPositions)
+        @foreach (var position in _allPositions)
         {
-            IEnumerable<ToastState> toastsInPosition = GetToastsForPosition(position);
+            var toastsInPosition = GetToastsForPosition(position);
             @if (toastsInPosition.Any())
             {
                 <div class="bob-toast-host__position"
                      data-bob-position="@GetPositionValue(position)">
-                    @foreach (ToastState toast in toastsInPosition)
+                    @foreach (var toast in toastsInPosition)
                     {
                         <BOBToast @key="toast.Id"
                                   State="toast"
-                                  OnCloseAnimationComplete="HandleAnimationComplete" />
+                                  OnCloseAnimationComplete="@(EventCallback.Factory.Create<Guid>(this, HandleAnimationComplete))"/>
                     }
                 </div>
             }
@@ -57,9 +57,9 @@
 
     private IEnumerable<ToastState> GetToastsForPosition(ToastPosition position)
     {
-        IEnumerable<ToastState> toasts = _allToasts.Where(t => t.Options.Position == position);
+        var toasts = _allToasts.Where(t => t.Options.Position == position);
 
-        bool isBottomPosition = position is ToastPosition.BottomLeft
+        var isBottomPosition = position is ToastPosition.BottomLeft
             or ToastPosition.BottomCenter
             or ToastPosition.BottomRight;
 
@@ -67,12 +67,12 @@
             ? toasts.OrderByDescending(t => t.CreatedAt)
             : toasts.OrderBy(t => t.CreatedAt);
 
-        List<ToastState> visible = ordered
+        var visible = ordered
             .Where(t => !t.IsClosing)
             .Take(MaxVisiblePerPosition)
             .ToList();
 
-        IEnumerable<ToastState> closing = ordered.Where(t => t.IsClosing);
+        var closing = ordered.Where(t => t.IsClosing);
 
         return visible.Concat(closing);
     }
@@ -85,16 +85,19 @@
         }
     }
 
-    private string GetPositionValue(ToastPosition position) => position switch
+    private string GetPositionValue(ToastPosition position)
     {
-        ToastPosition.TopLeft => "top-left",
-        ToastPosition.TopCenter => "top-center",
-        ToastPosition.TopRight => "top-right",
-        ToastPosition.BottomLeft => "bottom-left",
-        ToastPosition.BottomCenter => "bottom-center",
-        ToastPosition.BottomRight => "bottom-right",
-        _ => throw new ArgumentOutOfRangeException(nameof(position), position, null)
-    };
+        return position switch
+        {
+            ToastPosition.TopLeft => "top-left",
+            ToastPosition.TopCenter => "top-center",
+            ToastPosition.TopRight => "top-right",
+            ToastPosition.BottomLeft => "bottom-left",
+            ToastPosition.BottomCenter => "bottom-center",
+            ToastPosition.BottomRight => "bottom-right",
+            _ => throw new ArgumentOutOfRangeException(nameof(position), position, null)
+        };
+    }
 
     public override async ValueTask DisposeAsync()
     {
@@ -102,4 +105,5 @@
         ToastService.OnChangeAsync -= HandleToastChangeAsync;
         await base.DisposeAsync();
     }
+
 }

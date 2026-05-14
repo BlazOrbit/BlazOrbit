@@ -61,7 +61,18 @@
     border: var(--_avatar-border);
 }
 
-[data-bob-component="avatar"] .bob-avatar__status[data-bob-status="online"] { background: var(--palette-success); }
-[data-bob-component="avatar"] .bob-avatar__status[data-bob-status="offline"] { background: color-mix(in oklab, var(--palette-surface-contrast) 50%, transparent); }
-[data-bob-component="avatar"] .bob-avatar__status[data-bob-status="busy"] { background: var(--palette-error); }
-[data-bob-component="avatar"] .bob-avatar__status[data-bob-status="away"] { background: var(--palette-warning); }
+[data-bob-component="avatar"] .bob-avatar__status[data-bob-status="online"] {
+    background: var(--palette-success);
+}
+
+[data-bob-component="avatar"] .bob-avatar__status[data-bob-status="offline"] {
+    background: color-mix(in oklab, var(--palette-surface-contrast) 50%, transparent);
+}
+
+[data-bob-component="avatar"] .bob-avatar__status[data-bob-status="busy"] {
+    background: var(--palette-error);
+}
+
+[data-bob-component="avatar"] .bob-avatar__status[data-bob-status="away"] {
+    background: var(--palette-warning);
+}

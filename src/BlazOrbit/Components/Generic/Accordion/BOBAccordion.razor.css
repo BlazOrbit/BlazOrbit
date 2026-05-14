@@ -60,19 +60,19 @@
     transition: background-color var(--_accordion-open-duration) var(--_accordion-open-easing);
 }
 
-    .bob-accordion-item__header:hover:not(:disabled) {
-        background: var(--_accordion-hover-tint);
-    }
+.bob-accordion-item__header:hover:not(:disabled) {
+    background: var(--_accordion-hover-tint);
+}
 
-    .bob-accordion-item__header:focus-visible {
-        outline: 2px solid var(--palette-primary);
-        outline-offset: -2px;
-    }
+.bob-accordion-item__header:focus-visible {
+    outline: 2px solid var(--palette-primary);
+    outline-offset: -2px;
+}
 
-    .bob-accordion-item__header:disabled {
-        opacity: var(--bob-opacity-disabled, 0.5);
-        cursor: not-allowed;
-    }
+.bob-accordion-item__header:disabled {
+    opacity: var(--bob-opacity-disabled, 0.5);
+    cursor: not-allowed;
+}
 
 .bob-accordion-item__header-content {
     flex: 1;

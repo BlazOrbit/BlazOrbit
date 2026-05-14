@@ -37,53 +37,82 @@
 
     // IHasSize
     /// <summary>Visual size of the slider.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
 
     // IHasDensity
     /// <summary>Vertical density (gap) of the slider.</summary>
-    [Parameter] public BOBDensity Density { get; set; } = BOBDensity.Standard;
+    [Parameter]
+    public BOBDensity Density { get; set; } = BOBDensity.Standard;
 
     // IHasShadow
     /// <summary>Shadow style applied to the slider container.</summary>
-    [Parameter] public ShadowStyle? Shadow { get; set; }
+    [Parameter]
+    public ShadowStyle? Shadow { get; set; }
 
     // IHasBackgroundColor
     /// <summary>Background color of the rail. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? BackgroundColor { get; set; }
+    [Parameter]
+    public string? BackgroundColor { get; set; }
 
     // IHasColor
     /// <summary>Filled-segment and thumb color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? Color { get; set; }
+    [Parameter]
+    public string? Color { get; set; }
 
     // IHasFullWidth
     /// <summary>When <see langword="true" />, the slider spans the full width (or height in vertical) of its container.</summary>
-    [Parameter] public bool FullWidth { get; set; } = true;
+    [Parameter]
+    public bool FullWidth { get; set; } = true;
 
     // Slider-specific parameters
     /// <summary>Floating label rendered above the slider.</summary>
-    [Parameter] public string? Label { get; set; }
+    [Parameter]
+    public string? Label { get; set; }
+
     /// <summary>Helper text rendered below the slider for additional context.</summary>
-    [Parameter] public string? HelperText { get; set; }
+    [Parameter]
+    public string? HelperText { get; set; }
+
     /// <summary>Lower bound. Defaults to <c>TValue.Zero</c>.</summary>
-    [Parameter] public TValue Min { get; set; } = TValue.Zero;
+    [Parameter]
+    public TValue Min { get; set; } = TValue.Zero;
+
     /// <summary>Upper bound. Defaults to 100.</summary>
-    [Parameter] public TValue Max { get; set; } = TValue.CreateChecked(100);
+    [Parameter]
+    public TValue Max { get; set; } = TValue.CreateChecked(100);
+
     /// <summary>Step size. Defaults to <c>TValue.One</c>.</summary>
-    [Parameter] public TValue Step { get; set; } = TValue.One;
+    [Parameter]
+    public TValue Step { get; set; } = TValue.One;
+
     /// <summary>Layout orientation of the track.</summary>
-    [Parameter] public BOBSliderOrientation Orientation { get; set; } = BOBSliderOrientation.Horizontal;
+    [Parameter]
+    public BOBSliderOrientation Orientation { get; set; } = BOBSliderOrientation.Horizontal;
+
     /// <summary>When <see langword="true" />, tick marks are rendered along the rail at <see cref="TickInterval"/> spacing.</summary>
-    [Parameter] public bool ShowTicks { get; set; }
+    [Parameter]
+    public bool ShowTicks { get; set; }
+
     /// <summary>Distance between rendered ticks. Falls back to <see cref="Step"/> when <see langword="null"/>.</summary>
-    [Parameter] public TValue? TickInterval { get; set; }
+    [Parameter]
+    public TValue? TickInterval { get; set; }
+
     /// <summary>When <see langword="true" />, a label surfaces over the thumb during drag or focus.</summary>
-    [Parameter] public bool ShowValueLabel { get; set; } = true;
+    [Parameter]
+    public bool ShowValueLabel { get; set; } = true;
+
     /// <summary>Format string applied to the value label and <c>aria-valuetext</c>. Standard or custom <see cref="IFormattable"/> format.</summary>
-    [Parameter] public string? ValueLabelFormat { get; set; }
+    [Parameter]
+    public string? ValueLabelFormat { get; set; }
+
     /// <summary>Culture used to format <see cref="ValueLabelFormat"/>. Defaults to <see cref="CultureInfo.CurrentCulture"/>.</summary>
-    [Parameter] public CultureInfo? Culture { get; set; }
+    [Parameter]
+    public CultureInfo? Culture { get; set; }
+
     /// <summary>Accessible label for the thumb. Falls back to <see cref="Label"/>.</summary>
-    [Parameter] public string? AriaLabel { get; set; }
+    [Parameter]
+    public string? AriaLabel { get; set; }
 
     public override BOBInputVariant DefaultVariant => BOBInputVariant.Standard;
 
@@ -95,7 +124,9 @@
         dataAttributes[FeatureDefinitions.DataAttributes.Orientation] = OrientationKey;
     }
 
-    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables) { }
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    {
+    }
 
     protected override IReadOnlyDictionary<BOBInputVariant, Func<BOBInputNumberSlider<TValue>, RenderFragment>> BuiltInTemplates { get; } =
         new Dictionary<BOBInputVariant, Func<BOBInputNumberSlider<TValue>, RenderFragment>>
@@ -108,10 +139,10 @@
 
     private RenderFragment RenderSlider() => __builder =>
     {
-        double percent = ValueToPercent(CurrentValue);
-        IReadOnlyList<double>? tickPercents = ShowTicks ? ComputeTickPercents() : null;
-        string formattedValue = FormatValue(CurrentValue);
-        string ariaLabel = AriaLabel ?? Label ?? string.Empty;
+        var percent = ValueToPercent(CurrentValue);
+        var tickPercents = ShowTicks ? ComputeTickPercents() : null;
+        var formattedValue = FormatValue(CurrentValue);
+        var ariaLabel = AriaLabel ?? Label ?? string.Empty;
 
         <bob-component @attributes="ComputedAttributes">
             <div class="bob-input-number-slider__wrapper">
@@ -142,7 +173,7 @@
                                      FillEndPercent="@percent"
                                      ShowTicks="ShowTicks"
                                      TickPercents="tickPercents"
-                                     OnPointerDown="HandleTrackPointerDown">
+                                     OnPointerDown="@(EventCallback.Factory.Create<PointerEventArgs>(this, HandleTrackPointerDown))">
                         <_BOBSliderThumb Percent="@percent"
                                          Orientation="Orientation"
                                          Dragging="_isDragging"
@@ -156,10 +187,10 @@
                                          AriaValueMax="@FormatInvariant(Max)"
                                          AriaValueNow="@FormatInvariant(CurrentValue)"
                                          AriaValueText="@formattedValue"
-                                         OnPointerDown="HandleThumbPointerDown"
-                                         OnKeyDown="HandleKeyDown"
-                                         OnFocus="HandleFocus"
-                                         OnBlur="HandleBlur" />
+                                         OnPointerDown="@(EventCallback.Factory.Create<PointerEventArgs>(this, HandleThumbPointerDown))"
+                                         OnKeyDown="@(EventCallback.Factory.Create<KeyboardEventArgs>(this, HandleKeyDown))"
+                                         OnFocus="@(EventCallback.Factory.Create<FocusEventArgs>(this, HandleFocus))"
+                                         OnBlur="@(EventCallback.Factory.Create<FocusEventArgs>(this, HandleBlur))"/>
                     </_BOBSliderTrack>
                 </div>
 
@@ -216,7 +247,7 @@
 
     private Task UpdateValueFromPercent(double percent)
     {
-        TValue newValue = PercentToValue(percent);
+        var newValue = PercentToValue(percent);
         if (!EqualityComparer<TValue>.Default.Equals(CurrentValue, newValue))
         {
             CurrentValue = newValue;
@@ -230,13 +261,11 @@
     {
         if (IsDisabled || IsReadOnly) return;
 
-        TValue stepLarge = Step + Step + Step + Step + Step + Step + Step + Step + Step + Step;
+        var stepLarge = Step + Step + Step + Step + Step + Step + Step + Step + Step + Step;
         TValue? delta = e.Key switch
         {
-            "ArrowRight" => Orientation == BOBSliderOrientation.Vertical ? Step : Step,
-            "ArrowUp" => Step,
-            "ArrowLeft" => Negate(Step),
-            "ArrowDown" => Negate(Step),
+            "ArrowRight" or "ArrowUp" => Step,
+            "ArrowLeft" or "ArrowDown" => Negate(Step),
             "PageUp" => stepLarge,
             "PageDown" => Negate(stepLarge),
             "Home" => Min - CurrentValue,
@@ -246,24 +275,32 @@
 
         if (delta is null) return;
 
-        TValue newValue = ClampValue(CurrentValue + delta.Value);
+        var newValue = ClampValue(CurrentValue + delta.Value);
         if (!EqualityComparer<TValue>.Default.Equals(CurrentValue, newValue))
         {
             CurrentValue = newValue;
             StateHasChanged();
         }
+
         await Task.CompletedTask;
     }
 
-    private void HandleFocus(FocusEventArgs e) => _isFocused = true;
-    private void HandleBlur(FocusEventArgs e) => _isFocused = false;
+    private void HandleFocus(FocusEventArgs e)
+    {
+        _isFocused = true;
+    }
+
+    private void HandleBlur(FocusEventArgs e)
+    {
+        _isFocused = false;
+    }
 
     private double ValueToPercent(TValue value)
     {
-        double range = double.CreateChecked(Max - Min);
+        var range = double.CreateChecked(Max - Min);
         if (range <= 0) return 0;
-        double v = double.CreateChecked(value - Min);
-        double percent = (v / range) * 100.0;
+        var v = double.CreateChecked(value - Min);
+        var percent = v / range * 100.0;
         if (percent < 0) return 0;
         if (percent > 100) return 100;
         return percent;
@@ -271,19 +308,25 @@
 
     private TValue PercentToValue(double percent)
     {
-        double minD = double.CreateChecked(Min);
-        double range = double.CreateChecked(Max - Min);
-        double rawValue = minD + (percent / 100.0) * range;
+        var minD = double.CreateChecked(Min);
+        var range = double.CreateChecked(Max - Min);
+        var rawValue = minD + percent / 100.0 * range;
 
-        double stepD = double.CreateChecked(Step);
+        var stepD = double.CreateChecked(Step);
         if (stepD > 0)
         {
             rawValue = minD + Math.Round((rawValue - minD) / stepD) * stepD;
         }
 
         TValue v;
-        try { v = TValue.CreateChecked(rawValue); }
-        catch (OverflowException) { v = rawValue < minD ? Min : Max; }
+        try
+        {
+            v = TValue.CreateChecked(rawValue);
+        }
+        catch (OverflowException)
+        {
+            v = rawValue < minD ? Min : Max;
+        }
 
         return ClampValue(v);
     }
@@ -295,20 +338,24 @@
         return value;
     }
 
-    private static TValue Negate(TValue value) => TValue.Zero - value;
+    private static TValue Negate(TValue value)
+    {
+        return TValue.Zero - value;
+    }
 
     private IReadOnlyList<double> ComputeTickPercents()
     {
-        TValue interval = TickInterval ?? Step;
+        var interval = TickInterval ?? Step;
         if (interval <= TValue.Zero) return [];
 
         List<double> ticks = [];
-        TValue current = Min;
+        var current = Min;
         while (current <= Max)
         {
             ticks.Add(ValueToPercent(current));
             current += interval;
         }
+
         return ticks;
     }
 
@@ -318,13 +365,16 @@
         {
             return formattable.ToString(ValueLabelFormat, CurrentCulture);
         }
+
         return value.ToString() ?? string.Empty;
     }
 
-    private static string FormatInvariant(TValue value) =>
-        value is IFormattable f
+    private static string FormatInvariant(TValue value)
+    {
+        return value is IFormattable f
             ? f.ToString(null, CultureInfo.InvariantCulture)
             : value.ToString() ?? string.Empty;
+    }
 
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out TValue result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
@@ -334,11 +384,13 @@
             result = default;
             return true;
         }
-        if (TValue.TryParse(value, NumberStyles.Any, CurrentCulture, out TValue parsed))
+
+        if (TValue.TryParse(value, NumberStyles.Any, CurrentCulture, out var parsed))
         {
             result = parsed;
             return true;
         }
+
         result = default;
         validationErrorMessage = $"'{value}' is not a valid number.";
         return false;
@@ -348,13 +400,26 @@
     {
         if (_isDragging)
         {
-            try { await SliderJsInterop.StopDragAsync(_componentId); }
-            catch (Microsoft.JSInterop.JSDisconnectedException) { }
-            catch (ObjectDisposedException) { }
-            catch (InvalidOperationException) { }
-            catch (TaskCanceledException) { }
+            try
+            {
+                await SliderJsInterop.StopDragAsync(_componentId);
+            }
+            catch (Microsoft.JSInterop.JSDisconnectedException)
+            {
+            }
+            catch (ObjectDisposedException)
+            {
+            }
+            catch (InvalidOperationException)
+            {
+            }
+            catch (TaskCanceledException)
+            {
+            }
         }
+
         _callbacksRelay?.Dispose();
         await base.DisposeAsync();
     }
+
 }

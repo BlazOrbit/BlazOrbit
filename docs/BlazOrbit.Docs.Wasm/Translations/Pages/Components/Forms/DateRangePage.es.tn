@@ -1,0 +1,51 @@
+// Auto-migrated from DateRangePage.es.resx. Edit freely from now on.
+
+# Basic usage
+Uso bÃ¡sico
+
+# BOBInputDateRange
+BOBInputDateRange
+
+# Component
+Componente
+
+# Date range
+Rango de fechas
+
+# Date range picker with two date fields and a calendar dialog. Select start and end dates with validation support.
+Selector de rango de fechas con dos campos de fecha y un diÃ¡logo de calendario. Selecciona fechas de inicio y fin con soporte de validaciÃ³n.
+
+# days
+dÃ­as
+
+# Large
+Grande
+
+# Manual selection
+SelecciÃ³n manual
+
+# Pick a preset
+Elige un preset
+
+# Presets only
+Solo presets
+
+# Properties
+Propiedades
+
+# Selected:
+Seleccionado:
+
+# Sizes
+TamaÃ±os
+
+# Small
+PequeÃ±o
+
+# Without preset shortcuts
+Sin atajos de preset
+
+
+# The component is composed of two <code>BOBInputDateTime</code> fields plus a calendar picker dialog. Both start and end values are bound to a single <code>DateRange</code> model that supports validation and culture-aware formatting out of the box.
+El componente está compuesto por dos campos <code>BOBInputDateTime</code> más un diálogo de selector de calendario. Tanto el valor de inicio como el de fin se vinculan a un único modelo <code>DateRange</code> que admite validación y formato consciente de la cultura sin configuración adicional.
+

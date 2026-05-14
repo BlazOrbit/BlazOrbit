@@ -3,13 +3,13 @@
     flex-direction: column;
 }
 
-    [data-bob-component="tabs"][data-bob-fullwidth="true"] .bob-tabs__header {
-        width: 100%;
-    }
+[data-bob-component="tabs"][data-bob-fullwidth="true"] .bob-tabs__header {
+    width: 100%;
+}
 
-    [data-bob-component="tabs"][data-bob-fullwidth="true"] .bob-tabs__tab {
-        flex: 1;
-    }
+[data-bob-component="tabs"][data-bob-fullwidth="true"] .bob-tabs__tab {
+    flex: 1;
+}
 
 .bob-tabs__header {
     display: flex;
@@ -31,14 +31,14 @@
     transition: color 0.2s, background-color 0.2s;
 }
 
-    .bob-tabs__tab:hover:not(:disabled) {
-        color: var(--palette-primary);
-    }
+.bob-tabs__tab:hover:not(:disabled) {
+    color: var(--palette-primary);
+}
 
-    .bob-tabs__tab:disabled {
-        opacity: var(--bob-opacity-disabled, 0.5);
-        cursor: not-allowed;
-    }
+.bob-tabs__tab:disabled {
+    opacity: var(--bob-opacity-disabled, 0.5);
+    cursor: not-allowed;
+}
 
 .bob-tabs__tab-icon {
     display: flex;
@@ -46,7 +46,7 @@
 }
 
 .bob-tabs__content {
-    padding-top: 1rem;
+    padding: 1rem;
 }
 
 /* Underline variant */
@@ -59,24 +59,24 @@
     margin-bottom: -1px;
 }
 
-    [data-bob-component="tabs"][data-bob-variant="underline"] .bob-tabs__tab::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 2px;
-        background: transparent;
-        transition: background-color 0.2s;
-    }
+[data-bob-component="tabs"][data-bob-variant="underline"] .bob-tabs__tab::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: transparent;
+    transition: background-color 0.2s;
+}
 
 [data-bob-component="tabs"][data-bob-variant="underline"] .bob-tabs__tab[data-bob-active="true"] {
     color: var(--palette-primary);
 }
 
-    [data-bob-component="tabs"][data-bob-variant="underline"] .bob-tabs__tab[data-bob-active="true"]::after {
-        background: var(--palette-primary);
-    }
+[data-bob-component="tabs"][data-bob-variant="underline"] .bob-tabs__tab[data-bob-active="true"]::after {
+    background: var(--palette-primary);
+}
 
 /* Pills variant */
 [data-bob-component="tabs"][data-bob-variant="pills"] .bob-tabs__tab {

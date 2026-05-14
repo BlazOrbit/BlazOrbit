@@ -1,4 +1,4 @@
-@page "/components/layout/page-header"
+﻿@page "/components/layout/page-header"
 
 @using BlazOrbit.Components
 @using BlazOrbit.Components.Layout
@@ -10,7 +10,8 @@
 <DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBPageHeader"]"
          Lede="@Loc["Title strip with eyebrow, lead paragraph, breadcrumbs and right-aligned action bar."]"
          PageInstance="this"
-         ApiType="@typeof(BOBPageHeader)">
+         ApiType="@typeof(BOBPageHeader)"
+         Keywords="@(["page header", "title bar", "toolbar", "heading"])">
 
     <DocDemo Key="Basic" Title="@Loc["Basic"]">
         <BOBPageHeader Title="@Loc["Dashboard"]">
@@ -23,8 +24,8 @@
             <Eyebrow>@Loc["Operations"]</Eyebrow>
             <Lead>@Loc["Manage active accounts and roles."]</Lead>
             <Actions>
-                <BOBButton Text="@Loc["Refresh"]" />
-                <BOBButton Text="@Loc["New user"]" />
+                <BOBButton Text="@Loc["Refresh"]"/>
+                <BOBButton Text="@Loc["New user"]"/>
             </Actions>
         </BOBPageHeader>
     </DocDemo>
@@ -32,23 +33,25 @@
     <DocDemo Key="WithBreadcrumbs" Title="@Loc["With breadcrumbs"]">
         <BOBPageHeader Title="@Loc["Order #2421"]">
             <Breadcrumbs>
-                <BOBBreadcrumbs Items="@_crumbs" />
+                <BOBBreadcrumbs Items="@_crumbs"/>
             </Breadcrumbs>
         </BOBPageHeader>
     </DocDemo>
 
     <section class="doc-section">
         <h2 class="doc-section__title">@Loc["Properties"]</h2>
-        <PropertyTable Properties="@BOBPageHeaderComponentInfo.Parameters" />
+        <PropertyTable Properties="@BOBPageHeaderComponentInfo.Parameters"/>
     </section>
 
 </DocPage>
 
 @code {
+
     private readonly IReadOnlyList<BreadcrumbItem> _crumbs =
     [
         new("Home", "/"),
         new("Orders", "/orders"),
-        new("#2421"),
+        new("#2421")
     ];
+
 }

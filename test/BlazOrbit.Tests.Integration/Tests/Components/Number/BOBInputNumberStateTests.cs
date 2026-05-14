@@ -105,11 +105,7 @@ public class BOBInputNumberStateTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        Dictionary<string, object> extra = new()
-        {
-            { "data-testid", "qty-input" },
-            { "class", "my-num" }
-        };
+        Dictionary<string, object> extra = new() { { "data-testid", "qty-input" }, { "class", "my-num" } };
 
         IRenderedComponent<BOBInputNumber<int>> cut = ctx.Render<BOBInputNumber<int>>(p => p
             .Add(c => c.AdditionalAttributes, extra));

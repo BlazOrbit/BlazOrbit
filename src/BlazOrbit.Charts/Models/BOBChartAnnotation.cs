@@ -7,14 +7,18 @@ public enum BOBChartAnnotationShape
 {
     /// <summary>Filled circle.</summary>
     Circle,
+
     /// <summary>Filled square.</summary>
     Square,
+
     /// <summary>Equilateral triangle pointing up.</summary>
     Triangle,
+
     /// <summary>5-point star.</summary>
     Star,
+
     /// <summary>4-point diamond.</summary>
-    Diamond,
+    Diamond
 }
 
 /// <summary>

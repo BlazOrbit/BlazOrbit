@@ -16,28 +16,36 @@ public abstract class BOBTreeNodeBase<TRegistration> : ComponentBase
     private bool _registered;
 
     /// <summary>Child nodes nested inside this node. Each child registers itself recursively against the same tree.</summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>Arbitrary payload associated with the node and surfaced through the registration to consumers.</summary>
-    [Parameter] public object? Data { get; set; }
+    [Parameter]
+    public object? Data { get; set; }
 
     /// <summary>When <see langword="true" />, the node is rendered in a disabled state and ignores activation.</summary>
-    [Parameter] public bool Disabled { get; set; }
+    [Parameter]
+    public bool Disabled { get; set; }
 
     /// <summary>Material icon name displayed alongside the node text.</summary>
-    [Parameter] public IconKey? Icon { get; set; }
+    [Parameter]
+    public IconKey? Icon { get; set; }
 
     /// <summary>When <see langword="true" />, the node is expanded the first time the tree renders.</summary>
-    [Parameter] public bool InitiallyExpanded { get; set; }
+    [Parameter]
+    public bool InitiallyExpanded { get; set; }
 
     /// <summary>Stable identifier for the node. When omitted, a key is derived from the node's position in the tree.</summary>
-    [Parameter] public string? Key { get; set; }
+    [Parameter]
+    public string? Key { get; set; }
 
     /// <summary>Optional render fragment that replaces the default text/icon layout for this node.</summary>
-    [Parameter] public RenderFragment? NodeContent { get; set; }
+    [Parameter]
+    public RenderFragment? NodeContent { get; set; }
 
     /// <summary>Visible label of the node.</summary>
-    [Parameter] public string? Text { get; set; }
+    [Parameter]
+    public string? Text { get; set; }
 
     [CascadingParameter(Name = "ParentNodeKey")]
     internal string? ParentNodeKey { get; set; }

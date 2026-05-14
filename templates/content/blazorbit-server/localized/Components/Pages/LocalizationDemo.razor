@@ -1,0 +1,27 @@
+﻿@page "/localization-demo"
+@inject IStringLocalizer<LocalizationDemo> Loc
+
+<PageTitle>@Loc["Localization Demo"]</PageTitle>
+
+<section class="bob-showcase__section">
+    <h1>@Loc["Localization Demo"]</h1>
+    <p class="bob-showcase__lead">
+        @Loc["This page shows how BlazOrbit localization works with literal keys, translated keys, arguments, and HTML."]
+    </p>
+
+    <div class="bob-showcase__grid">
+        <BOBCard Header="@_cardHeader">
+            <p>@Loc["Hello, world!"]</p>
+            <p>@Loc["Welcome {0}!", _userName]</p>
+            <p>@Loc.Html("<strong>Bold</strong> text from translation.")</p>
+            <p>@Loc["This key has no Spanish translation - it falls back to the literal."]</p>
+        </BOBCard>
+    </div>
+</section>
+
+@code {
+    private string _userName = "Blazor";
+
+    private RenderFragment _cardHeader =>
+    @<span>@Loc["Card Example"]</span>;
+}

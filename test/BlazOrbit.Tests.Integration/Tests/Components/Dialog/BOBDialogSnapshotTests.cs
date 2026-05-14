@@ -27,7 +27,7 @@ public class BOBDialogSnapshotTests
             ("Open_WithFooter", p => p
                 .Add(c => c.Open, true)
                 .Add(c => c.Content, b => b.AddContent(0, "Body"))
-                .Add(c => c.Footer, b => b.AddContent(0, "OK | Cancel"))),
+                .Add(c => c.Footer, b => b.AddContent(0, "OK | Cancel")))
         ];
 
         var results = testCases.Select(tc =>
@@ -36,7 +36,7 @@ public class BOBDialogSnapshotTests
             return new { tc.Name, Html = cut.GetNormalizedMarkup() };
         }).ToArray();
 
-        await Verifier.Verify(results).UseParameters(scenario.Name);
+        await Verify(results).UseParameters(scenario.Name);
     }
 
     [Theory]
@@ -56,7 +56,7 @@ public class BOBDialogSnapshotTests
             ("Open_Left", p => p
                 .Add(c => c.Open, true)
                 .Add(c => c.Position, DrawerPosition.Left)
-                .Add(c => c.ChildContent, b => b.AddContent(0, "Left drawer"))),
+                .Add(c => c.ChildContent, b => b.AddContent(0, "Left drawer")))
         ];
 
         var results = testCases.Select(tc =>
@@ -65,6 +65,6 @@ public class BOBDialogSnapshotTests
             return new { tc.Name, Html = cut.GetNormalizedMarkup() };
         }).ToArray();
 
-        await Verifier.Verify(results).UseParameters(scenario.Name);
+        await Verify(results).UseParameters(scenario.Name);
     }
 }

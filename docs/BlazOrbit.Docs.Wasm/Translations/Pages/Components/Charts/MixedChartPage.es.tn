@@ -1,0 +1,32 @@
+# BOBMixedChart
+BOBMixedChart
+
+# All three visual types coexist on the same plot. Render order is bars → areas → lines so lines always sit on top.
+Los tres tipos visuales coexisten en el mismo plot. El orden de render es barras → áreas → líneas, así las líneas quedan siempre por encima.
+
+# Bar + Area + Line
+Barra + Área + Línea
+
+# Bars carry the actuals; the line sits on top showing the rolling target. Both share the primary Y axis (same unit).
+Las barras llevan los valores reales; la línea encima muestra el objetivo móvil. Ambas comparten el eje Y primario (misma unidad).
+
+# Bars with trend line
+Barras con línea de tendencia
+
+# Chart
+Gráfico
+
+# Combined-series chart that blends bar + line + area in a single plot. Series share the X axis and can optionally bind to a secondary Y axis on the right edge — handy for actual vs target reports or value vs ratio comparisons.
+Gráfico de series combinadas que mezcla barra + línea + área en un único plot. Las series comparten el eje X y pueden opcionalmente vincularse a un eje Y secundario en el lado derecho — útil para informes real vs objetivo o comparaciones valor vs ratio.
+
+# Extra package required
+Paquete adicional requerido
+
+# Secondary axis
+Eje secundario
+
+# Set UseSecondaryAxis on a series to project it against the right-side scale instead of the primary one — required when the series belongs to a different domain (e.g. revenue in $ vs conversion in %).
+Activa UseSecondaryAxis en una serie para proyectarla contra la escala del lado derecho en lugar de la primaria — necesario cuando la serie pertenece a un dominio distinto (p. ej. ingresos en $ vs conversión en %).
+
+# This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs.
+Este gráfico requiere el paquete NuGet BlazOrbit.Charts. Instálalo con dotnet add package BlazOrbit.Charts y registra AddBlazOrbitCharts() en Program.cs.

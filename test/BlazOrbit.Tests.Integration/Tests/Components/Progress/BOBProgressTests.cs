@@ -1,3 +1,4 @@
+using AngleSharp.Dom;
 using BlazOrbit.Components.Display;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -48,7 +49,7 @@ public class BOBProgressBarRenderingTests
             .Add(c => c.Value, 3)
             .Add(c => c.Segments, 5));
 
-        var segs = cut.FindAll(".bob-progress__segment");
+        IReadOnlyList<IElement> segs = cut.FindAll(".bob-progress__segment");
         segs.Should().HaveCount(5);
         segs[0].GetAttribute("data-bob-filled").Should().Be("true");
         segs[2].GetAttribute("data-bob-filled").Should().Be("true");
@@ -137,26 +138,46 @@ public class BOBProgressSnapshotTests
 
         var bars = new[]
         {
-            new { Name = "Bar_50", Builder = (Action<ComponentParameterCollectionBuilder<BOBProgressBar>>)(p => p
-                .Add(c => c.Value, 50)
-                .Add(c => c.Label, "Loading")
-                .Add(c => c.ShowPercentage, true)) },
-            new { Name = "Bar_Indeterminate", Builder = (Action<ComponentParameterCollectionBuilder<BOBProgressBar>>)(p => p
-                .Add(c => c.Indeterminate, true)) },
-            new { Name = "Bar_Segments", Builder = (Action<ComponentParameterCollectionBuilder<BOBProgressBar>>)(p => p
-                .Add(c => c.Min, 0)
-                .Add(c => c.Max, 4)
-                .Add(c => c.Value, 2)
-                .Add(c => c.Segments, 4)) }
+            new
+            {
+                Name = "Bar_50",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBProgressBar>>)(p => p
+                    .Add(c => c.Value, 50)
+                    .Add(c => c.Label, "Loading")
+                    .Add(c => c.ShowPercentage, true))
+            },
+            new
+            {
+                Name = "Bar_Indeterminate",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBProgressBar>>)(p => p
+                    .Add(c => c.Indeterminate, true))
+            },
+            new
+            {
+                Name = "Bar_Segments",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBProgressBar>>)(p => p
+                    .Add(c => c.Min, 0)
+                    .Add(c => c.Max, 4)
+                    .Add(c => c.Value, 2)
+                    .Add(c => c.Segments, 4))
+            }
         };
 
         var rings = new[]
         {
-            new { Name = "Ring_30", Builder = (Action<ComponentParameterCollectionBuilder<BOBProgressRing>>)(p => p
-                .Add(c => c.Value, 30)
-                .Add(c => c.ShowPercentage, true)) },
-            new { Name = "Ring_Indeterminate", Builder = (Action<ComponentParameterCollectionBuilder<BOBProgressRing>>)(p => p
-                .Add(c => c.Indeterminate, true)) }
+            new
+            {
+                Name = "Ring_30",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBProgressRing>>)(p => p
+                    .Add(c => c.Value, 30)
+                    .Add(c => c.ShowPercentage, true))
+            },
+            new
+            {
+                Name = "Ring_Indeterminate",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBProgressRing>>)(p => p
+                    .Add(c => c.Indeterminate, true))
+            }
         };
 
         var results = bars.Select(tc =>
@@ -167,7 +188,7 @@ public class BOBProgressSnapshotTests
         {
             IRenderedComponent<BOBProgressRing> cut = ctx.Render<BOBProgressRing>(tc.Builder);
             return new { tc.Name, Html = cut.GetNormalizedMarkup() };
-        }));
+        })).ToList();
 
         await Verify(results).UseParameters(scenario.Name);
     }

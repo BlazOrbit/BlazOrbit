@@ -1,41 +1,41 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
-	<PropertyGroup>
-		<TargetFrameworks>net8.0;net10.0</TargetFrameworks>
-		<IsPackable>true</IsPackable>
-		<PackageType>Dependency</PackageType>
-		<PackageId>BlazOrbit.Notifications</PackageId>
-		<Description>Persistent inbox-style notification center for BlazOrbit. Stores `BOBNotification` entries via a swappable `INotificationStore` strategy (default: in-memory; consumers can supply localStorage / IndexedDB / server-side persistence) and ships the `BOBNotificationBell` badge component for the unread count. Pairs with any consumer-supplied UI (drawer, popover, panel) for the list.</Description>
-		<PackageTags>blazor;notifications;inbox;bell;badge;blazorbit</PackageTags>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+        <IsPackable>true</IsPackable>
+        <PackageType>Dependency</PackageType>
+        <PackageId>BlazOrbit.Notifications</PackageId>
+        <Description>Persistent inbox-style notification center for BlazOrbit. Stores `BOBNotification` entries via a swappable `INotificationStore` strategy (default: in-memory; consumers can supply localStorage / IndexedDB / server-side persistence) and ships the `BOBNotificationBell` badge component for the unread count. Pairs with any consumer-supplied UI (drawer, popover, panel) for the list.</Description>
+        <PackageTags>blazor;notifications;inbox;bell;badge;blazorbit</PackageTags>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<InternalsVisibleTo Include="BlazOrbit.Tests.Integration" />
-	</ItemGroup>
+    <ItemGroup>
+        <InternalsVisibleTo Include="BlazOrbit.Tests.Integration"/>
+    </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components" Version="$(BlazOrbitAspNetCoreVersion)" />
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(BlazOrbitAspNetCoreVersion)" />
-		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(BlazOrbitExtensionsVersion)" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components" Version="$(BlazOrbitAspNetCoreVersion)"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(BlazOrbitAspNetCoreVersion)"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(BlazOrbitExtensionsVersion)"/>
+    </ItemGroup>
 
-	<ItemGroup>
-		<!--
-			Notifications consumes BOBSvgIcon from the main library for the bell glyph and
-			the IHasSize axis from the design system. Pulling BlazOrbit transitively keeps
-			the bell visually consistent with the rest of the lib while letting consumers
-			adopt the notification center without inventing their own icon contract.
-		-->
-		<ProjectReference Include="..\BlazOrbit\BlazOrbit.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <!--
+            Notifications consumes BOBSvgIcon from the main library for the bell glyph and
+            the IHasSize axis from the design system. Pulling BlazOrbit transitively keeps
+            the bell visually consistent with the rest of the lib while letting consumers
+            adopt the notification center without inventing their own icon contract.
+        -->
+        <ProjectReference Include="..\BlazOrbit\BlazOrbit.csproj"/>
+    </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="4.14.0" PrivateAssets="all" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="4.14.0" PrivateAssets="all"/>
+    </ItemGroup>
 
-	<ItemGroup>
-		<AdditionalFiles Include="PublicAPI.Shipped.txt" />
-		<AdditionalFiles Include="PublicAPI.Unshipped.txt" />
-	</ItemGroup>
+    <ItemGroup>
+        <AdditionalFiles Include="PublicAPI.Shipped.txt"/>
+        <AdditionalFiles Include="PublicAPI.Unshipped.txt"/>
+    </ItemGroup>
 
 </Project>

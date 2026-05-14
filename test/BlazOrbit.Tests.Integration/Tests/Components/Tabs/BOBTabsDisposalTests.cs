@@ -45,28 +45,29 @@ public class BOBTabsDisposalTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         // Arrange — start with two tabs
-        bool showSecond = true;
-        IRenderedComponent<BOBTabs> cut = null!;
-        cut = ctx.Render<BOBTabs>(p => p
+        bool[] showSecond = [true];
+        IRenderedComponent<BOBTabs> cut = ctx.Render<BOBTabs>(p => p
             .Add(c => c.ChildContent, b =>
             {
                 b.OpenComponent<BOBTab>(0);
                 b.AddAttribute(1, "Id", "t1");
                 b.AddAttribute(2, "Label", "T1");
                 b.CloseComponent();
-                if (showSecond)
+                if (!showSecond[0])
                 {
-                    b.OpenComponent<BOBTab>(3);
-                    b.AddAttribute(4, "Id", "t2");
-                    b.AddAttribute(5, "Label", "T2");
-                    b.CloseComponent();
+                    return;
                 }
+
+                b.OpenComponent<BOBTab>(3);
+                b.AddAttribute(4, "Id", "t2");
+                b.AddAttribute(5, "Label", "T2");
+                b.CloseComponent();
             }));
 
         cut.FindAll("[role='tab']").Should().HaveCount(2);
 
         // Act — remove second tab
-        showSecond = false;
+        showSecond[0] = false;
         cut.Render(p => p.Add(c => c.ChildContent, b =>
         {
             b.OpenComponent<BOBTab>(0);

@@ -1,7 +1,12 @@
 @namespace BlazOrbit.Components.Layout
 
 @inherits BOBComponentBase
-@implements IPureBuiltComponent
+@* IBuiltComponent (downgraded from IPureBuiltComponent): `_sidebarOpen` is mutable
+   internal state — the Pure marker would freeze it in the fingerprint cache.
+   Root data-bob attrs stay inline so they re-emit on event-driven renders
+   (the `@attributes` dict-spread does not reliably diff additions across stable
+   dict references in the click → StateHasChanged → BuildRenderTree path). *@
+@implements IBuiltComponent
 
 <bob-component @attributes="ComputedAttributes"
                data-bob-sidebar-side="@SidebarSide.ToString().ToLowerInvariant()"
@@ -14,7 +19,7 @@
         {
             <button type="button"
                     class="bob-sidebar-layout__toggle"
-                    aria-label="Toggle navigation"
+                    aria-label="@Localizer["Toggle navigation"]"
                     aria-expanded="@_sidebarOpen.ToString().ToLowerInvariant()"
                     @onclick="ToggleSidebar">
                 <span class="bob-sidebar-layout__toggle-bar"></span>
@@ -51,30 +56,51 @@
 @code {
     private bool _sidebarOpen;
 
+    [Inject] internal IStringLocalizer<BOBLayoutResources> Localizer { get; set; } = default!;
+
     /// <summary>Header.</summary>
-    [Parameter] public RenderFragment? Header { get; set; }
+    [Parameter]
+    public RenderFragment? Header { get; set; }
+
     /// <summary>Sidebar.</summary>
-    [Parameter] public RenderFragment? Sidebar { get; set; }
+    [Parameter]
+    public RenderFragment? Sidebar { get; set; }
+
     /// <summary>Content rendered inside the component.</summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>SidebarWidth.</summary>
-    [Parameter] public string? SidebarWidth { get; set; }
+    [Parameter]
+    public string? SidebarWidth { get; set; }
+
     /// <summary>HeaderHeight.</summary>
-    [Parameter] public string? HeaderHeight { get; set; }
+    [Parameter]
+    public string? HeaderHeight { get; set; }
+
     /// <summary>CollapseBreakpoint.</summary>
-    [Parameter] public string? CollapseBreakpoint { get; set; }
+    [Parameter]
+    public string? CollapseBreakpoint { get; set; }
+
     /// <summary>ContentMaxWidth.</summary>
-    [Parameter] public string? ContentMaxWidth { get; set; }
+    [Parameter]
+    public string? ContentMaxWidth { get; set; }
 
     /// <summary>SidebarSide.</summary>
-    [Parameter] public SidebarSide SidebarSide { get; set; } = SidebarSide.Start;
+    [Parameter]
+    public SidebarSide SidebarSide { get; set; } = SidebarSide.Start;
+
     /// <summary>StickyHeader.</summary>
-    [Parameter] public bool StickyHeader { get; set; } = true;
+    [Parameter]
+    public bool StickyHeader { get; set; } = true;
+
     /// <summary>StickySidebar.</summary>
-    [Parameter] public bool StickySidebar { get; set; } = true;
+    [Parameter]
+    public bool StickySidebar { get; set; } = true;
+
     /// <summary>When <see langword="true" />, the Toggle is shown.</summary>
-    [Parameter] public bool ShowToggle { get; set; } = true;
+    [Parameter]
+    public bool ShowToggle { get; set; } = true;
 
     /// <summary>Whether the sidebar is open. Two-way bound through <c>@bind-SidebarOpen</c>.</summary>
     [Parameter]
@@ -85,7 +111,8 @@
     }
 
     /// <summary>SidebarOpenChanged.</summary>
-    [Parameter] public EventCallback<bool> SidebarOpenChanged { get; set; }
+    [Parameter]
+    public EventCallback<bool> SidebarOpenChanged { get; set; }
 
     private async Task ToggleSidebar()
     {
@@ -114,5 +141,8 @@
             cssVariables[FeatureDefinitions.InlineVariables.LayoutContentMaxWidth] = ContentMaxWidth;
     }
 
-    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes) { }
+    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    {
+    }
+
 }

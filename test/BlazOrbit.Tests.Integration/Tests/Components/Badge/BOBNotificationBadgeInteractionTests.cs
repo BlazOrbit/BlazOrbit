@@ -22,7 +22,8 @@ public class BOBNotificationBadgeInteractionTests
             {
                 b.OpenElement(0, "button");
                 b.AddAttribute(1, "type", "button");
-                b.AddAttribute(2, "onclick", Microsoft.AspNetCore.Components.EventCallback.Factory.Create(this, () => clicks++));
+                b.AddAttribute(2, "onclick",
+                    Microsoft.AspNetCore.Components.EventCallback.Factory.Create(this, () => clicks++));
                 b.AddContent(3, "Host");
                 b.CloseElement();
             })
@@ -60,7 +61,8 @@ public class BOBNotificationBadgeInteractionTests
         int clicks = 0;
         IRenderedComponent<BOBNotificationBadge> cut = ctx.Render<BOBNotificationBadge>(p => p
             .Add(c => c.BadgeContent, b => b.AddContent(0, "3"))
-            .AddUnmatched("onclick", Microsoft.AspNetCore.Components.EventCallback.Factory.Create(this, () => clicks++)));
+            .AddUnmatched("onclick",
+                Microsoft.AspNetCore.Components.EventCallback.Factory.Create(this, () => clicks++)));
 
         // Act
         cut.Find("bob-component").Click();

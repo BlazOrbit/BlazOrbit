@@ -1,4 +1,4 @@
-@page "/components/layout/splitter"
+﻿@page "/components/layout/splitter"
 
 @using BlazOrbit.Components.Layout
 
@@ -8,7 +8,8 @@
 <DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBSplitter"]"
          Lede="@Loc["Resizable multi-pane layout with horizontal or vertical grippers."]"
          PageInstance="this"
-         ApiType="@typeof(BOBSplitter)">
+         ApiType="@typeof(BOBSplitter)"
+         Keywords="@(["splitter", "resize", "pane", "divider"])">
 
     <DocDemo Key="Horizontal" Title="@Loc["Horizontal sidebar + body"]">
         <div style="height:240px;border:1px solid var(--palette-border);">
@@ -54,7 +55,7 @@
 
     <section class="doc-section">
         <h2 class="doc-section__title">@Loc["Properties"]</h2>
-        <PropertyTable Properties="@BOBSplitterComponentInfo.Parameters" />
+        <PropertyTable Properties="@BOBSplitterComponentInfo.Parameters"/>
     </section>
 
 </DocPage>

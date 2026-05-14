@@ -1,0 +1,212 @@
+@namespace BlazOrbit.Components
+@typeparam TItem
+@using Microsoft.AspNetCore.Components.Web
+
+@* Internal cell editor used by BOBDataGrid in inline-edit mode. Picks an input
+   primitive based on the current value's CLR type, writes back through the column's
+   ValueSetter and signals the parent grid via OnCommit (save) / OnCancel (Escape).
+   Auto-focuses on first render so the user's typing target the cell directly. *@
+
+@if (_inputType == "checkbox")
+{
+    <input type="checkbox"
+           class="bob-datagrid__cell-input bob-datagrid__cell-input--checkbox"
+           checked="@_boolValue"
+           @ref="_inputRef"
+           @onchange="HandleCheckboxChange"
+           @onkeydown="HandleKeyDown"
+           @onkeydown:stopPropagation="true"
+           @onclick:stopPropagation="true" />
+}
+else
+{
+    <input type="@_inputType"
+           class="bob-datagrid__cell-input"
+           value="@_stringValue"
+           @ref="_inputRef"
+           @oninput="HandleInput"
+           @onblur="HandleBlur"
+           @onkeydown="HandleKeyDown"
+           @onkeydown:stopPropagation="true"
+           @onclick:stopPropagation="true" />
+}
+
+@code {
+    private ElementReference _inputRef;
+    private string _stringValue = string.Empty;
+    private bool _boolValue;
+    private string _inputType = "text";
+    private bool _firstRender = true;
+
+    /// <summary>Row item whose property the editor mutates via the column's <c>ValueSetter</c>.</summary>
+    [Parameter, EditorRequired]
+    public TItem Item { get; set; } = default!;
+
+    /// <summary>Column registration. <c>ValueSelector</c> seeds the input; <c>ValueSetter</c> writes back.</summary>
+    [Parameter, EditorRequired]
+    public DataColumnRegistration<TItem> Column { get; set; } = default!;
+
+    /// <summary>Raised when the user saves the change (blur, Enter, checkbox toggle).</summary>
+    [Parameter]
+    public EventCallback<TItem> OnCommit { get; set; }
+
+    /// <summary>Raised when the user discards the change (Escape).</summary>
+    [Parameter]
+    public EventCallback<TItem> OnCancel { get; set; }
+
+    /// <summary>
+    /// Raised when the column's <see cref="DataColumnRegistration{TItem}.Validator"/>
+    /// rejects the proposed value. Carries the error message so the grid can surface it
+    /// in the cell tooltip + apply the invalid-cell styling. When non-null, the editor
+    /// stays open so the user can fix the input.
+    /// </summary>
+    [Parameter]
+    public EventCallback<(TItem Item, string? Error)> OnValidate { get; set; }
+
+    protected override void OnInitialized()
+    {
+        // Seed the buffer ONCE from the row item's current value. We deliberately do this in
+        // OnInitialized (not OnParametersSet) so subsequent parent re-renders — which recreate
+        // the inline EventCallback lambdas as new struct instances and therefore trigger
+        // OnParametersSet — do not discard the user's in-flight typing. A new editor instance
+        // is created whenever the (item, column) pair changes, so initial seed happens fresh
+        // for each edit session.
+        object? value = Column.ValueSelector?.Invoke(Item);
+
+        _inputType = value switch
+        {
+            DateTime or DateTimeOffset or DateOnly => "date",
+            TimeSpan or TimeOnly => "time",
+            bool => "checkbox",
+            sbyte or byte or short or ushort or int or uint or long or ulong or float or double or decimal => "number",
+            _ => "text"
+        };
+
+        if (value is bool b)
+        {
+            _boolValue = b;
+            return;
+        }
+
+        _stringValue = value switch
+        {
+            null => string.Empty,
+            DateTime dt => dt.ToString("yyyy-MM-dd"),
+            DateTimeOffset dto => dto.ToString("yyyy-MM-dd"),
+            DateOnly d => d.ToString("yyyy-MM-dd"),
+            TimeOnly t => t.ToString("HH:mm"),
+            TimeSpan ts => $"{ts.Hours:D2}:{ts.Minutes:D2}",
+            IFormattable fmt => fmt.ToString(null, System.Globalization.CultureInfo.InvariantCulture),
+            _ => value.ToString() ?? string.Empty
+        };
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && _firstRender)
+        {
+            _firstRender = false;
+            try
+            {
+                await _inputRef.FocusAsync();
+            }
+            catch (Microsoft.JSInterop.JSException) { /* element unmounted before focus */ }
+            catch (InvalidOperationException) { /* prerender path */ }
+        }
+    }
+
+    private void HandleInput(ChangeEventArgs e)
+    {
+        // Buffer the input value so Enter / blur commit the most recent keystroke; the
+        // setter is only invoked on commit so cancelling via Escape leaves the original
+        // value intact in the row item.
+        _stringValue = e.Value?.ToString() ?? string.Empty;
+    }
+
+    private async Task HandleCheckboxChange(ChangeEventArgs e)
+    {
+        // Checkbox toggles commit immediately — there's no intermediate state to buffer
+        // and the user expects the change to land on click.
+        _boolValue = e.Value is bool b && b;
+
+        if (Column.Validator is not null)
+        {
+            string? error = Column.Validator(Item, _boolValue);
+            if (!string.IsNullOrEmpty(error))
+            {
+                if (OnValidate.HasDelegate)
+                {
+                    await OnValidate.InvokeAsync((Item, error));
+                }
+                return;
+            }
+        }
+
+        Column.ValueSetter?.Invoke(Item, _boolValue);
+        if (OnValidate.HasDelegate)
+        {
+            await OnValidate.InvokeAsync((Item, null));
+        }
+
+        if (OnCommit.HasDelegate)
+        {
+            await OnCommit.InvokeAsync(Item);
+        }
+    }
+
+    private async Task HandleBlur(FocusEventArgs e)
+    {
+        await CommitAsync();
+    }
+
+    private async Task HandleKeyDown(KeyboardEventArgs e)
+    {
+        switch (e.Key)
+        {
+            case "Enter":
+                await CommitAsync();
+                break;
+            case "Escape":
+                if (OnCancel.HasDelegate)
+                {
+                    await OnCancel.InvokeAsync(Item);
+                }
+                break;
+        }
+    }
+
+    private async Task CommitAsync()
+    {
+        // The validator runs against the buffered string (raw input from the DOM) — same
+        // value the setter would receive. Coercion happens inside the column's setter
+        // pipeline (see BOBDataColumn.CoerceValue) so the validator and the persisted
+        // value agree on the typed shape downstream.
+        if (Column.Validator is not null)
+        {
+            string? error = Column.Validator(Item, _stringValue);
+            if (!string.IsNullOrEmpty(error))
+            {
+                if (OnValidate.HasDelegate)
+                {
+                    await OnValidate.InvokeAsync((Item, error));
+                }
+                return;
+            }
+        }
+
+        if (_inputType != "checkbox")
+        {
+            Column.ValueSetter?.Invoke(Item, _stringValue);
+        }
+
+        if (OnValidate.HasDelegate)
+        {
+            await OnValidate.InvokeAsync((Item, null));
+        }
+
+        if (OnCommit.HasDelegate)
+        {
+            await OnCommit.InvokeAsync(Item);
+        }
+    }
+}

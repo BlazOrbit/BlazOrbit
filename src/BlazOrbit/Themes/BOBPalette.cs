@@ -26,7 +26,7 @@ public sealed class BOBPalette
     {
         CssColor C(string key)
         {
-            return new(palette[key]);
+            return new CssColor(palette[key]);
         }
 
         Background = C("--palette-background");

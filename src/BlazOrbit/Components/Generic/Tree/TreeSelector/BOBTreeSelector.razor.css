@@ -8,16 +8,16 @@
     --_tree-selector-transition: 160ms ease;
     --_tree-selector-bg: transparent;
     /* Subtle hover — text shift, not a button surface. */
-    --_tree-selector-hover-bg: color-mix(in srgb, var(--palette-surface-contrast) 5%, transparent);
+    --_tree-selector-hover-bg: color-mix(in oklab, var(--palette-surface-contrast) 5%, transparent);
     /* Selected state: tinted bg + accent rail (left border) instead of full
        primary fill so the tree reads as a list, not a row of buttons. */
-    --_tree-selector-selected-bg: color-mix(in srgb, var(--palette-primary) 32%, transparent);
+    --_tree-selector-selected-bg: color-mix(in oklab, var(--palette-primary) 32%, transparent);
     --_tree-selector-selected-color: var(--palette-primary-contrast);
     --_tree-selector-selected-rail: var(--palette-primary);
-    --_tree-selector-text-color: color-mix(in srgb, var(--palette-surface-contrast) 80%, transparent);
-    --_tree-selector-icon-color: color-mix(in srgb, var(--palette-surface-contrast) 60%, transparent);
+    --_tree-selector-text-color: color-mix(in oklab, var(--palette-surface-contrast) 80%, transparent);
+    --_tree-selector-icon-color: color-mix(in oklab, var(--palette-surface-contrast) 60%, transparent);
     /* Indent guide rendered on children containers. */
-    --_tree-selector-guide-color: color-mix(in srgb, var(--palette-border) 70%, transparent);
+    --_tree-selector-guide-color: color-mix(in oklab, var(--palette-border) 70%, transparent);
     display: block;
     font-family: inherit;
     font-size: 0.9rem;
@@ -26,8 +26,8 @@
 }
 
 [data-bob-theme="dark"] [data-bob-component="tree-selector"] {
-    --_tree-selector-hover-bg: color-mix(in srgb, var(--palette-surface-contrast) 8%, transparent);
-    --_tree-selector-selected-bg: color-mix(in srgb, var(--palette-primary) 38%, transparent);
+    --_tree-selector-hover-bg: color-mix(in oklab, var(--palette-surface-contrast) 8%, transparent);
+    --_tree-selector-selected-bg: color-mix(in oklab, var(--palette-primary) 38%, transparent);
 }
 
 [data-bob-component="tree-selector"][data-bob-size="small"] {
@@ -79,18 +79,18 @@
     font-weight: 400;
     cursor: pointer;
     transition: background-color var(--_tree-selector-transition),
-                color var(--_tree-selector-transition),
-                border-color var(--_tree-selector-transition);
+    color var(--_tree-selector-transition),
+    border-color var(--_tree-selector-transition);
     width: 100%;
     text-align: left;
     position: relative;
     user-select: none;
 }
 
-    [data-bob-component="tree-selector"] .bob-tree-selector__node-content:hover {
-        background: var(--_tree-selector-hover-bg);
-        color: var(--palette-surface-contrast);
-    }
+[data-bob-component="tree-selector"] .bob-tree-selector__node-content:hover {
+    background: var(--_tree-selector-hover-bg);
+    color: var(--palette-surface-contrast);
+}
 
 [data-bob-component="tree-selector"] .bob-tree-selector__node[data-bob-selected="true"] > .bob-tree-selector__node-content {
     background: var(--_tree-selector-selected-bg);
@@ -99,9 +99,9 @@
     font-weight: 600;
 }
 
-    [data-bob-component="tree-selector"] .bob-tree-selector__node[data-bob-selected="true"] > .bob-tree-selector__node-content .bob-tree-selector__node-icon {
-        color: var(--_tree-selector-selected-color);
-    }
+[data-bob-component="tree-selector"] .bob-tree-selector__node[data-bob-selected="true"] > .bob-tree-selector__node-content .bob-tree-selector__node-icon {
+    color: var(--_tree-selector-selected-color);
+}
 
 [data-bob-component="tree-selector"] .bob-tree-selector__node[data-bob-disabled="true"] .bob-tree-selector__node-content {
     opacity: 0.5;

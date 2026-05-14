@@ -73,10 +73,7 @@ public sealed class Tokenizer
                 {
                     foreach (Token nestedToken in match.Value.NestedTokens!)
                     {
-                        tokens.Add(nestedToken with
-                        {
-                            StartIndex = nestedToken.StartIndex + match.Value.StartIndex
-                        });
+                        tokens.Add(nestedToken with { StartIndex = nestedToken.StartIndex + match.Value.StartIndex });
                     }
                 }
                 else

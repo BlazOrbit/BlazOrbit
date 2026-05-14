@@ -14,15 +14,16 @@ public sealed class LocalStorageStatePersistence : IDataCollectionStatePersisten
     private readonly IJSRuntime _js;
 
     /// <summary>Initializes a new <see cref="LocalStorageStatePersistence"/>.</summary>
-    public LocalStorageStatePersistence(IJSRuntime js)
-    {
-        _js = js;
-    }
+    public LocalStorageStatePersistence(IJSRuntime js) => _js = js;
 
     /// <inheritdoc />
     public async ValueTask<string?> LoadAsync(string key)
     {
-        if (string.IsNullOrEmpty(key)) return null;
+        if (string.IsNullOrEmpty(key))
+        {
+            return null;
+        }
+
         try
         {
             return await _js.InvokeAsync<string?>("localStorage.getItem", key);
@@ -37,7 +38,11 @@ public sealed class LocalStorageStatePersistence : IDataCollectionStatePersisten
     /// <inheritdoc />
     public async ValueTask SaveAsync(string key, string payload)
     {
-        if (string.IsNullOrEmpty(key)) return;
+        if (string.IsNullOrEmpty(key))
+        {
+            return;
+        }
+
         try
         {
             await _js.InvokeVoidAsync("localStorage.setItem", key, payload);

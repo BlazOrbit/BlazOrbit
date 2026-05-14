@@ -16,7 +16,7 @@
 
         @if (!string.IsNullOrEmpty(ImageUrl))
         {
-            <img src="@ImageUrl" alt="@(AriaLabel ?? Label)" class="bob-avatar__img" />
+            <img src="@ImageUrl" alt="@(AriaLabel ?? Label)" class="bob-avatar__img"/>
         }
         else if (ChildContent is not null)
         {
@@ -38,28 +38,75 @@
 </bob-component>
 
 @code {
+
     /// <summary>Source URL of the avatar image. When empty, initials + gradient render instead.</summary>
-    [Parameter] public string? ImageUrl { get; set; }
+    [Parameter]
+    public string? ImageUrl { get; set; }
+
     /// <summary>Display label used to derive initials and gradient hash.</summary>
-    [Parameter] public string? Label { get; set; }
+    [Parameter]
+    public string? Label { get; set; }
+
     /// <summary>Custom child content (overrides initials).</summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     /// <summary>Shape outline.</summary>
-    [Parameter] public BOBAvatarShape Shape { get; set; } = BOBAvatarShape.Circle;
+    [Parameter]
+    public BOBAvatarShape Shape { get; set; } = BOBAvatarShape.Circle;
+
     /// <summary>Optional status indicator dot.</summary>
-    [Parameter] public BOBAvatarStatus Status { get; set; } = BOBAvatarStatus.None;
+    [Parameter]
+    public BOBAvatarStatus Status { get; set; } = BOBAvatarStatus.None;
+
     /// <summary>Visual size.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
+
     /// <summary>Aria-label override. Falls back to <see cref="Label"/>.</summary>
-    [Parameter] public string? AriaLabel { get; set; }
+    [Parameter]
+    public string? AriaLabel { get; set; }
+
     /// <summary>Background color of the avatar. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
-    [Parameter] public string? BackgroundColor { get; set; }
+    [Parameter]
+    public string? BackgroundColor { get; set; }
+
+    /// <summary>
+    /// Set when the avatar is nested inside a <see cref="BOBAvatarGroup"/>. Powers the group's
+    /// auto-counted overflow badge — the avatar registers on init and unregisters on dispose
+    /// so the badge stays accurate when consumers toggle visibility via <c>@if</c> guards.
+    /// </summary>
+    [CascadingParameter]
+    internal BOBAvatarGroup? ParentGroup { get; set; }
+
+    private bool _registered;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        if (ParentGroup is not null)
+        {
+            ParentGroup.Register(this);
+            _registered = true;
+        }
+    }
+
+    public override async ValueTask DisposeAsync()
+    {
+        if (_registered && ParentGroup is not null)
+        {
+            ParentGroup.Unregister(this);
+            _registered = false;
+        }
+
+        await base.DisposeAsync();
+    }
 
     private string Initials()
     {
         if (string.IsNullOrWhiteSpace(Label)) return "?";
         // Up to 2 chars: first + first of next word, uppercased.
-        string[] parts = Label.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+        var parts = Label.Split(' ', StringSplitOptions.RemoveEmptyEntries);
         if (parts.Length == 0) return "?";
         if (parts.Length == 1) return parts[0][..1].ToUpperInvariant();
         return $"{parts[0][0]}{parts[1][0]}".ToUpperInvariant();
@@ -68,9 +115,10 @@
     private string GenerateGradient()
     {
         // Deterministic hue from label hash so the same name always lights up the same way.
-        int hash = (Label ?? string.Empty).Aggregate(17, (a, c) => a * 31 + c) & 0x7fffffff;
-        int hue = hash % 360;
-        int hue2 = (hue + 35) % 360;
+        var hash = (Label ?? string.Empty).Aggregate(17, (a, c) => a * 31 + c) & 0x7fffffff;
+        var hue = hash % 360;
+        var hue2 = (hue + 35) % 360;
         return $"--_avatar-bg: linear-gradient(135deg, hsl({hue} 60% 50%) 0%, hsl({hue2} 60% 40%) 100%)";
     }
+
 }

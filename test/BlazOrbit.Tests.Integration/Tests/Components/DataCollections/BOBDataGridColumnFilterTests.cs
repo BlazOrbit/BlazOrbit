@@ -20,7 +20,7 @@ public class BOBDataGridColumnFilterTests
     [
         new("Alice", 30),
         new("Bob", 25),
-        new("Charlie", 40),
+        new("Charlie", 40)
     ];
 
     private static RenderFragment NameAndAgeColumns => b =>

@@ -16,38 +16,50 @@ public class BOBButtonSnapshotTests
 
         var testCases = new[]
         {
-            new { Name = "Default", Builder = (Action<ComponentParameterCollectionBuilder<BOBButton>>)(p => p
-                .Add(c => c.Text, "Default Button")) },
-
-            new { Name = "WithIcon", Builder = (Action<ComponentParameterCollectionBuilder<BOBButton>>)(p => p
-                .Add(c => c.Text, "Icon Button")
-                .Add(c => c.LeadingIcon, BOBIconKeys.MaterialIconsOutlined.i_check)) },
-
-            new { Name = "Loading", Builder = (Action<ComponentParameterCollectionBuilder<BOBButton>>)(p => p
-                .Add(c => c.Text, "Loading")
-                .Add(c => c.Loading, true)
-                .Add(c => c.LoadingIndicatorVariant, BOBProgressIconVariant.Spinner)) },
-
-            new { Name = "Disabled", Builder = (Action<ComponentParameterCollectionBuilder<BOBButton>>)(p => p
-                .Add(c => c.Text, "Disabled")
-                .Add(c => c.Disabled, true)) },
-
-            new { Name = "Elevated", Builder = (Action<ComponentParameterCollectionBuilder<BOBButton>>)(p => p
-                .Add(c => c.Text, "Elevated")
-                .Add(c => c.Shadow, BOBShadowPresets.Elevation(8))
-                .Add(c => c.Transitions, BOBTransitionPresets.HoverLift)) }
+            new
+            {
+                Name = "Default",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBButton>>)(p => p
+                    .Add(c => c.Text, "Default Button"))
+            },
+            new
+            {
+                Name = "WithIcon",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBButton>>)(p => p
+                    .Add(c => c.Text, "Icon Button")
+                    .Add(c => c.LeadingIcon, BOBIconKeys.MaterialIconsOutlined.i_check))
+            },
+            new
+            {
+                Name = "Loading",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBButton>>)(p => p
+                    .Add(c => c.Text, "Loading")
+                    .Add(c => c.Loading, true)
+                    .Add(c => c.LoadingIndicatorVariant, BOBProgressIconVariant.Spinner))
+            },
+            new
+            {
+                Name = "Disabled",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBButton>>)(p => p
+                    .Add(c => c.Text, "Disabled")
+                    .Add(c => c.Disabled, true))
+            },
+            new
+            {
+                Name = "Elevated",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBButton>>)(p => p
+                    .Add(c => c.Text, "Elevated")
+                    .Add(c => c.Shadow, BOBShadowPresets.Elevation(8))
+                    .Add(c => c.Transitions, BOBTransitionPresets.HoverLift))
+            }
         };
 
         var results = testCases.Select(testCase =>
         {
             IRenderedComponent<BOBButton> cut = ctx.Render<BOBButton>(testCase.Builder);
-            return new
-            {
-                testCase.Name,
-                Html = cut.GetNormalizedMarkup()
-            };
-        });
+            return new { testCase.Name, Html = cut.GetNormalizedMarkup() };
+        }).ToList();
 
-        await Verify(results).UseParameters(scenario.Name); ;
+        await Verify(results).UseParameters(scenario.Name);
     }
 }

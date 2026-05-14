@@ -1,121 +1,375 @@
+﻿@using System.Globalization
+@using System.Diagnostics.CodeAnalysis
 @using BlazOrbit.Abstractions
 @using BlazOrbit.Components
+@using BlazOrbit.Components.Layout
+@using BlazOrbit.Components.Utils
+@using Microsoft.Extensions.Localization
 
 @namespace BlazOrbit.Components.Forms
 @attribute [GenerateComponentInfo]
 
-@inherits BOBComponentBase
+@inherits BOBInputComponentBase<DateRange, BOBInputDateRange, BOBInputVariant>
+@implements IBuiltComponent
 @implements IHasSize
+@implements IHasLoading
 @implements IHasDensity
-@implements IPickerFamilyComponent
+@implements IHasColor
+@implements IHasBackgroundColor
+@implements IHasShadow
+@implements IHasPrefix
+@implements IHasSuffix
+@implements IInputFamilyComponent
 
-<bob-component @attributes="ComputedAttributes">
-
-    @if (!string.IsNullOrWhiteSpace(Label))
-    {
-        <span class="bob-daterange__label">@Label</span>
-    }
-
-    <div class="bob-daterange__row">
-        <div class="bob-daterange__pane">
-            <span class="bob-daterange__pane-title">@StartLabel</span>
-            <BOBDatePicker Value="@Value.Start"
-                           ValueChanged="HandleStartChanged"
-                           Size="@Size"
-                           Density="@Density" />
-        </div>
-        <div class="bob-daterange__pane">
-            <span class="bob-daterange__pane-title">@EndLabel</span>
-            <BOBDatePicker Value="@Value.End"
-                           ValueChanged="HandleEndChanged"
-                           Size="@Size"
-                           Density="@Density" />
-        </div>
-    </div>
-
-    @if (ShowPresets)
-    {
-        <div class="bob-daterange__presets">
-            <_BOBBtn OnClick="@(() => ApplyPreset(DateRange.Last7Days()))">@Last7DaysText</_BOBBtn>
-            <_BOBBtn OnClick="@(() => ApplyPreset(DateRange.Last30Days()))">@Last30DaysText</_BOBBtn>
-            <_BOBBtn OnClick="@(() => ApplyPreset(DateRange.ThisMonth()))">@ThisMonthText</_BOBBtn>
-            <_BOBBtn OnClick="@(() => ApplyPreset(default))">@ClearText</_BOBBtn>
-        </div>
-    }
-
-    @if (ShowSummary && Value.IsComplete)
-    {
-        <div class="bob-daterange__summary" aria-live="polite">
-            <span>@Value.Start!.Value.ToString(System.Globalization.CultureInfo.CurrentCulture)</span>
-            <span aria-hidden="true">→</span>
-            <span>@Value.End!.Value.ToString(System.Globalization.CultureInfo.CurrentCulture)</span>
-            <span class="bob-daterange__summary-count">(@Value.DayCount @DaysText)</span>
-        </div>
-    }
-</bob-component>
+@{
+    base.BuildRenderTree(__builder);
+}
 
 @code {
-    /// <summary>Currently selected range. Defaults to an empty range.</summary>
-    [Parameter] public DateRange Value { get; set; }
-    /// <summary>Raised when the user picks a date or applies a preset.</summary>
-    [Parameter] public EventCallback<DateRange> ValueChanged { get; set; }
+    [Inject] internal IStringLocalizer<BOBFormsResources> Localizer { get; set; } = default!;
 
-    /// <summary>Visual size of the component.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
-    /// <summary>Vertical density of the component.</summary>
-    [Parameter] public BOBDensity Density { get; set; } = BOBDensity.Standard;
+    private string _inputId = $"bob-daterange-{Guid.NewGuid():N}";
+    private string _helperTextId = $"bob-helper-{Guid.NewGuid():N}";
+    private bool _isPickerOpen;
+    private DateRange _pickerDraft;
 
-    /// <summary>Optional label rendered above the two pickers.</summary>
-    [Parameter] public string? Label { get; set; }
-    /// <summary>Caption for the start-date pane. Defaults to <c>"Start"</c>.</summary>
-    [Parameter] public string StartLabel { get; set; } = "Start";
-    /// <summary>Caption for the end-date pane. Defaults to <c>"End"</c>.</summary>
-    [Parameter] public string EndLabel { get; set; } = "End";
+    // IHasSize
+    /// <summary>Visual size of the input.</summary>
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
 
-    /// <summary>When <see langword="true" /> (default), render the preset shortcut buttons.</summary>
-    [Parameter] public bool ShowPresets { get; set; } = true;
-    /// <summary>When <see langword="true" /> (default), render the textual summary below the picker.</summary>
-    [Parameter] public bool ShowSummary { get; set; } = true;
+    // IHasLoading
+    /// <summary>When <see langword="true" />, the input shows a loading indicator.</summary>
+    [Parameter]
+    public bool Loading { get; set; }
 
-    /// <summary>Localised label for the "last 7 days" preset.</summary>
-    [Parameter] public string Last7DaysText { get; set; } = "Last 7 days";
-    /// <summary>Localised label for the "last 30 days" preset.</summary>
-    [Parameter] public string Last30DaysText { get; set; } = "Last 30 days";
-    /// <summary>Localised label for the "this month" preset.</summary>
-    [Parameter] public string ThisMonthText { get; set; } = "This month";
-    /// <summary>Localised label for the "clear" preset.</summary>
-    [Parameter] public string ClearText { get; set; } = "Clear";
-    /// <summary>Localised noun used in the summary day-count line ("days" by default).</summary>
-    [Parameter] public string DaysText { get; set; } = "days";
+    /// <summary>Variant of the loading indicator shown when <see cref="Loading"/> is <see langword="true"/>.</summary>
+    [Parameter]
+    public BOBProgressIconVariant LoadingIndicatorVariant { get; set; } = BOBProgressIconVariant.Ring;
+
+    // IHasDensity
+    /// <summary>Vertical density of the input.</summary>
+    [Parameter]
+    public BOBDensity Density { get; set; } = BOBDensity.Standard;
+
+    // IHasColor
+    /// <summary>Text color of the input. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
+    [Parameter]
+    public string? Color { get; set; }
+
+    // IHasBackgroundColor
+    /// <summary>Background color of the input. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
+    [Parameter]
+    public string? BackgroundColor { get; set; }
+
+    // IHasShadow
+    /// <summary>Shadow style forwarded to both inner <see cref="BOBInputDateTime{TValue}"/> inputs.</summary>
+    [Parameter]
+    public ShadowStyle? Shadow { get; set; }
+
+    // IHasPrefix — forwarded to the start input only; suffix lands on the end input.
+    /// <summary>Prefix text rendered before the start input.</summary>
+    [Parameter]
+    public string? PrefixText { get; set; }
+
+    /// <summary>Prefix icon rendered before the start input.</summary>
+    [Parameter]
+    public IconKey? PrefixIcon { get; set; }
+
+    /// <summary>Prefix foreground color.</summary>
+    [Parameter]
+    public string? PrefixColor { get; set; }
+
+    /// <summary>Prefix background color.</summary>
+    [Parameter]
+    public string? PrefixBackgroundColor { get; set; }
+
+    // IHasSuffix — landed on the end input so the calendar button isn't pushed.
+    /// <summary>Suffix text rendered after the end input.</summary>
+    [Parameter]
+    public string? SuffixText { get; set; }
+
+    /// <summary>Suffix icon rendered after the end input.</summary>
+    [Parameter]
+    public IconKey? SuffixIcon { get; set; }
+
+    /// <summary>Suffix foreground color.</summary>
+    [Parameter]
+    public string? SuffixColor { get; set; }
+
+    /// <summary>Suffix background color.</summary>
+    [Parameter]
+    public string? SuffixBackgroundColor { get; set; }
+
+    // Component-specific
+    /// <summary>Floating label displayed above the input.</summary>
+    [Parameter]
+    public string? Label { get; set; }
+
+    /// <summary>Helper text displayed below the input.</summary>
+    [Parameter]
+    public string? HelperText { get; set; }
+
+    /// <summary>
+    /// Placeholder shown in the start input when empty. Drives the floating-label slot of
+    /// the inner <see cref="BOBInputDateTime{TValue}"/> — its outline only renders when the
+    /// label is non-empty, so passing an empty string here hides the input's border.
+    /// </summary>
+    [Parameter]
+    public string? StartPlaceholder { get; set; }
+
+    private string ResolvedStartPlaceholder => StartPlaceholder ?? Localizer["Start"];
+
+    /// <summary>
+    /// Placeholder shown in the end input when empty. Same caveat as <see cref="StartPlaceholder"/>.
+    /// </summary>
+    [Parameter]
+    public string? EndPlaceholder { get; set; }
+
+    private string ResolvedEndPlaceholder => EndPlaceholder ?? Localizer["End"];
+
+    /// <summary>Separator glyph rendered between the start and end inputs. Defaults to <c>"→"</c>.</summary>
+    [Parameter]
+    public string Separator { get; set; } = "→";
+
+    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    {
+    }
+
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    {
+    }
+
+    public override BOBInputVariant DefaultVariant => BOBInputVariant.Outlined;
+
+    protected override IReadOnlyDictionary<BOBInputVariant, Func<BOBInputDateRange, RenderFragment>> BuiltInTemplates { get; } =
+        new Dictionary<BOBInputVariant, Func<BOBInputDateRange, RenderFragment>>
+        {
+            [BOBInputVariant.Outlined] = i => i.RenderInput(),
+            [BOBInputVariant.Filled] = i => i.RenderInput(),
+            [BOBInputVariant.Standard] = i => i.RenderInput()
+        };
+
+    private bool CanClear => CurrentValue.Start.HasValue || CurrentValue.End.HasValue;
+
+    private RenderFragment RenderInput() => __builder =>
+    {
+        <bob-component @attributes="ComputedAttributes">
+
+            @if (!string.IsNullOrWhiteSpace(Label))
+            {
+                <label class="bob-daterange__label" for="@_inputId">
+                    @Label
+                    @if (IsRequired)
+                    {
+                        <span class="bob-field__required">*</span>
+                    }
+                </label>
+            }
+
+            <div class="bob-daterange__row" id="@_inputId">
+                <BOBInputDateTime TValue="DateOnly?"
+                                  Value="@CurrentValue.Start"
+                                  ValueChanged="@(EventCallback.Factory.Create<DateOnly?>(this, HandleStartChanged))"
+                                  Size="@Size"
+                                  Density="@Density"
+                                  Color="@Color"
+                                  BackgroundColor="@BackgroundColor"
+                                  Shadow="@Shadow"
+                                  PrefixText="@PrefixText"
+                                  PrefixIcon="@PrefixIcon"
+                                  PrefixColor="@PrefixColor"
+                                  PrefixBackgroundColor="@PrefixBackgroundColor"
+                                  Disabled="@IsDisabled"
+                                  ReadOnly="@IsReadOnly"
+                                  Loading="@Loading"
+                                  LoadingIndicatorVariant="@LoadingIndicatorVariant"
+                                  Label="@ResolvedStartPlaceholder"
+                                  Variant="@Variant"/>
+
+                <span class="bob-daterange__separator" aria-hidden="true">@Separator</span>
+
+                <BOBInputDateTime TValue="DateOnly?"
+                                  Value="@CurrentValue.End"
+                                  ValueChanged="@(EventCallback.Factory.Create<DateOnly?>(this, HandleEndChanged))"
+                                  Size="@Size"
+                                  Density="@Density"
+                                  Color="@Color"
+                                  BackgroundColor="@BackgroundColor"
+                                  Shadow="@Shadow"
+                                  SuffixText="@SuffixText"
+                                  SuffixIcon="@SuffixIcon"
+                                  SuffixColor="@SuffixColor"
+                                  SuffixBackgroundColor="@SuffixBackgroundColor"
+                                  Disabled="@IsDisabled"
+                                  ReadOnly="@IsReadOnly"
+                                  Loading="@Loading"
+                                  LoadingIndicatorVariant="@LoadingIndicatorVariant"
+                                  Label="@ResolvedEndPlaceholder"
+                                  Variant="@Variant"/>
+
+                @if (CanClear && !IsReadOnly && !IsDisabled)
+                {
+                    <_BOBInBtn Icon="@BOBIconKeys.UI.Close"
+                               Variant="BOBInBtnVariant.Ghost"
+                               AriaLabel="@Localizer["Clear range"]"
+                               OnClick="@((e) => ClearAsync())"
+                               OnClickPreventDefault="true"
+                               OnClickStopPropagation="true"/>
+                }
+
+                <_BOBInBtn Icon="@BOBIconKeys.MaterialIconsOutlined.i_calendar_today"
+                           Disabled="@(IsDisabled || IsReadOnly)"
+                           Loading="@Loading"
+                           LoadingIndicatorVariant="@LoadingIndicatorVariant"
+                           AriaLabel="@Localizer["Open range picker"]"
+                           OnClick="@((e) => OpenPicker())"
+                           OnClickPreventDefault="true"
+                           OnClickStopPropagation="true"/>
+            </div>
+
+            <_BOBFieldHelper TValue="DateRange"
+                             Id="@_helperTextId"
+                             HelperText="@HelperText"
+                             ShowValidation="@IsError"
+                             EditContext="@EditContext"
+                             For="@ValueExpression"/>
+
+            <BOBDialog @bind-Open="_isPickerOpen"
+                       Closable="false"
+                       CloseOnOverlayClick="true"
+                       CloseOnEscape="true"
+                       MinWidth="auto"
+                       MaxWidth="fit-content">
+                <Content>
+                    <BOBDateRangePicker Value="@_pickerDraft"
+                                        ValueChanged="@(EventCallback.Factory.Create<DateRange>(this, OnPickerDraftChanged))"
+                                        Size="@Size"
+                                        Density="@Density"/>
+                </Content>
+                <Footer>
+                    <BOBButton Text="@Localizer["Cancel"]"
+                               OnClick="@(() => _isPickerOpen = false)"
+                               Variant="BOBButtonVariant.Default"/>
+                    <BOBButton Text="@Localizer["Apply"]"
+                               OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, ApplyPickerValue))"/>
+                </Footer>
+            </BOBDialog>
+
+        </bob-component>
+    };
 
     private async Task HandleStartChanged(DateOnly? newStart)
     {
-        DateOnly? newEnd = Value.End;
-        // Constraint: when the new start passes the existing end, drag the end forward to match
-        // so the resulting range remains valid. Open-ended ranges (null end) are left untouched.
+        var newEnd = CurrentValue.End;
+        // Drag the end forward when the new start passes it — keeps the range valid
+        // without surprising the user with an inverted pair.
         if (newStart.HasValue && newEnd.HasValue && newStart.Value > newEnd.Value)
         {
             newEnd = newStart;
         }
-        Value = new DateRange(newStart, newEnd);
-        await ValueChanged.InvokeAsync(Value);
+
+        CurrentValue = new DateRange(newStart, newEnd);
+        await Task.CompletedTask;
     }
 
     private async Task HandleEndChanged(DateOnly? newEnd)
     {
-        DateOnly? newStart = Value.Start;
-        // Mirror of HandleStartChanged: when end is dragged before start, pull the start backward.
+        var newStart = CurrentValue.Start;
         if (newEnd.HasValue && newStart.HasValue && newEnd.Value < newStart.Value)
         {
             newStart = newEnd;
         }
-        Value = new DateRange(newStart, newEnd);
-        await ValueChanged.InvokeAsync(Value);
+
+        CurrentValue = new DateRange(newStart, newEnd);
+        await Task.CompletedTask;
     }
 
-    private async Task ApplyPreset(DateRange preset)
+    private Task OnPickerDraftChanged(DateRange draft)
     {
-        Value = preset;
-        await ValueChanged.InvokeAsync(Value);
+        _pickerDraft = draft;
+        return Task.CompletedTask;
     }
+
+    private void OpenPicker()
+    {
+        if (IsDisabled || IsReadOnly) return;
+        _pickerDraft = CurrentValue;
+        _isPickerOpen = true;
+    }
+
+    private async Task ApplyPickerValue()
+    {
+        CurrentValue = _pickerDraft;
+        _isPickerOpen = false;
+        await Task.CompletedTask;
+    }
+
+    private async Task ClearAsync()
+    {
+        CurrentValue = default;
+        await Task.CompletedTask;
+    }
+
+    private const string DateFormat = "yyyy-MM-dd";
+    private const string RangeSeparator = "..";
+
+    protected override string? FormatValueAsString(DateRange value)
+    {
+        if (!value.Start.HasValue && !value.End.HasValue) return null;
+        var start = value.Start?.ToString(DateFormat, CultureInfo.InvariantCulture) ?? string.Empty;
+        var end = value.End?.ToString(DateFormat, CultureInfo.InvariantCulture) ?? string.Empty;
+        return $"{start}{RangeSeparator}{end}";
+    }
+
+    protected override bool TryParseValueFromString(
+        string? value,
+        [MaybeNullWhen(false)] out DateRange result,
+        [NotNullWhen(false)] out string? validationErrorMessage)
+    {
+        validationErrorMessage = null;
+        if (string.IsNullOrWhiteSpace(value))
+        {
+            result = default;
+            return true;
+        }
+
+        var parts = value.Split(RangeSeparator, 2, StringSplitOptions.TrimEntries);
+        if (parts.Length != 2)
+        {
+            result = default;
+            validationErrorMessage = $"Range must be '<start>{RangeSeparator}<end>' in {DateFormat} format.";
+            return false;
+        }
+
+        DateOnly? start = null;
+        DateOnly? end = null;
+        if (parts[0].Length > 0)
+        {
+            if (!DateOnly.TryParseExact(parts[0], DateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out var s))
+            {
+                result = default;
+                validationErrorMessage = $"Start date '{parts[0]}' does not match format {DateFormat}.";
+                return false;
+            }
+
+            start = s;
+        }
+
+        if (parts[1].Length > 0)
+        {
+            if (!DateOnly.TryParseExact(parts[1], DateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out var e))
+            {
+                result = default;
+                validationErrorMessage = $"End date '{parts[1]}' does not match format {DateFormat}.";
+                return false;
+            }
+
+            end = e;
+        }
+
+        result = new DateRange(start, end);
+        return true;
+    }
+
 }

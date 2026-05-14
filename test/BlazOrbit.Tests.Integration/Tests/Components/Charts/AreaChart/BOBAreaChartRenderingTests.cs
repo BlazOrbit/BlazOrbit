@@ -10,42 +10,32 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Charts.AreaChart;
 [Trait("Component Rendering", "BOBAreaChart")]
 public class BOBAreaChartRenderingTests
 {
-    private static IEnumerable<BOBChartSeries<int, double>> NumericSeries() => new[]
-    {
+    private static IEnumerable<BOBChartSeries<int, double>> NumericSeries() =>
+    [
         new BOBChartSeries<int, double>
         {
             Label = "Volume",
-            Points = new[]
-            {
-                new BOBChartPoint<int, double>(1, 10.0),
-                new BOBChartPoint<int, double>(2, 22.5),
-                new BOBChartPoint<int, double>(3, 18.0),
-                new BOBChartPoint<int, double>(4, 30.7),
-            }
+            Points =
+            [
+                new BOBChartPoint<int, double>(1, 10.0), new BOBChartPoint<int, double>(2, 22.5),
+                new BOBChartPoint<int, double>(3, 18.0), new BOBChartPoint<int, double>(4, 30.7)
+            ]
         }
-    };
+    ];
 
-    private static IEnumerable<BOBChartSeries<int, double>> TwoSeries() => new[]
-    {
+    private static IEnumerable<BOBChartSeries<int, double>> TwoSeries() =>
+    [
         new BOBChartSeries<int, double>
         {
             Label = "A",
-            Points = new[]
-            {
-                new BOBChartPoint<int, double>(1, 10),
-                new BOBChartPoint<int, double>(2, 20),
-            }
+            Points = [new BOBChartPoint<int, double>(1, 10), new BOBChartPoint<int, double>(2, 20)]
         },
         new BOBChartSeries<int, double>
         {
             Label = "B",
-            Points = new[]
-            {
-                new BOBChartPoint<int, double>(1, 15),
-                new BOBChartPoint<int, double>(2, 25),
-            }
+            Points = [new BOBChartPoint<int, double>(1, 15), new BOBChartPoint<int, double>(2, 25)]
         }
-    };
+    ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -88,7 +78,7 @@ public class BOBAreaChartRenderingTests
                 .Add(c => c.Series, NumericSeries()));
 
         cut.Instance.ShowMarkers.Should().BeFalse(
-            because: "area charts emphasize filled volume, not individual points");
+            "area charts emphasize filled volume, not individual points");
         cut.FindAll("circle.bob-line-chart__marker").Should().BeEmpty();
     }
 

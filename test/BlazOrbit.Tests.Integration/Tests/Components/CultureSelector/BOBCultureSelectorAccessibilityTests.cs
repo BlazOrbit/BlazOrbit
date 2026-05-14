@@ -22,9 +22,9 @@ public class BOBCultureSelectorAccessibilityTests
         // Arrange & Act
         IReadOnlyList<IElement> buttons = scenario.Name == "Server"
             ? ctx.Render<ServerSelector>(p => p.Add(c => c.Variant, SharedVariant.Flags))
-                  .FindAll(".bob-culture-selector__flag-button")
+                .FindAll(".bob-culture-selector__flag-button")
             : ctx.Render<WasmSelector>(p => p.Add(c => c.Variant, SharedVariant.Flags))
-                  .FindAll(".bob-culture-selector__flag-button");
+                .FindAll(".bob-culture-selector__flag-button");
 
         // Assert
         buttons.Should().NotBeEmpty();
@@ -43,9 +43,9 @@ public class BOBCultureSelectorAccessibilityTests
         // Arrange & Act
         IReadOnlyList<IElement> disabledButtons = scenario.Name == "Server"
             ? ctx.Render<ServerSelector>(p => p.Add(c => c.Variant, SharedVariant.Flags))
-                  .FindAll("button[disabled]")
+                .FindAll("button[disabled]")
             : ctx.Render<WasmSelector>(p => p.Add(c => c.Variant, SharedVariant.Flags))
-                  .FindAll("button[disabled]");
+                .FindAll("button[disabled]");
 
         // Assert
         disabledButtons.Should().HaveCount(1);
@@ -60,9 +60,9 @@ public class BOBCultureSelectorAccessibilityTests
         // Arrange & Act
         IElement trigger = scenario.Name == "Server"
             ? ctx.Render<ServerSelector>(p => p.Add(c => c.Variant, SharedVariant.Dropdown))
-                  .Find("button.bob-dropdown__trigger")
+                .Find("button.bob-dropdown__trigger")
             : ctx.Render<WasmSelector>(p => p.Add(c => c.Variant, SharedVariant.Dropdown))
-                  .Find("button.bob-dropdown__trigger");
+                .Find("button.bob-dropdown__trigger");
 
         // Assert
         trigger.GetAttribute("aria-haspopup").Should().Be("listbox");
@@ -82,9 +82,9 @@ public class BOBCultureSelectorAccessibilityTests
 
             IElement wrapper = scenario.Name == "Server"
                 ? ctx.Render<ServerSelector>(p => p.Add(c => c.Variant, SharedVariant.Dropdown))
-                      .Find("[data-bob-component=\"culture-selector\"]")
+                    .Find("[data-bob-component=\"culture-selector\"]")
                 : ctx.Render<WasmSelector>(p => p.Add(c => c.Variant, SharedVariant.Dropdown))
-                      .Find("[data-bob-component=\"culture-selector\"]");
+                    .Find("[data-bob-component=\"culture-selector\"]");
 
             wrapper.GetAttribute("role").Should().Be("group");
             wrapper.GetAttribute("aria-label").Should().Be("Seleccionar idioma");
@@ -110,9 +110,9 @@ public class BOBCultureSelectorAccessibilityTests
             // Act
             IElement flagList = scenario.Name == "Server"
                 ? ctx.Render<ServerSelector>(p => p.Add(c => c.Variant, SharedVariant.Flags))
-                      .Find(".bob-culture-selector__flag-list")
+                    .Find(".bob-culture-selector__flag-list")
                 : ctx.Render<WasmSelector>(p => p.Add(c => c.Variant, SharedVariant.Flags))
-                      .Find(".bob-culture-selector__flag-list");
+                    .Find(".bob-culture-selector__flag-list");
 
             // Assert
             flagList.GetAttribute("role").Should().Be("radiogroup");
@@ -138,9 +138,9 @@ public class BOBCultureSelectorAccessibilityTests
             // Act
             IElement flagList = scenario.Name == "Server"
                 ? ctx.Render<ServerSelector>(p => p.Add(c => c.Variant, SharedVariant.Flags))
-                      .Find(".bob-culture-selector__flag-list")
+                    .Find(".bob-culture-selector__flag-list")
                 : ctx.Render<WasmSelector>(p => p.Add(c => c.Variant, SharedVariant.Flags))
-                      .Find(".bob-culture-selector__flag-list");
+                    .Find(".bob-culture-selector__flag-list");
 
             // Assert
             flagList.GetAttribute("aria-label").Should().Be("Seleccionar idioma");

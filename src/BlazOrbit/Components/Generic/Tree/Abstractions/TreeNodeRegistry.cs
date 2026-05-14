@@ -19,7 +19,7 @@ internal sealed class TreeNodeRegistry<TRegistration> : ITreeNodeRegistry<TRegis
         => _registrations.ToList();
 
     public void Register(TRegistration registration)
-                => _registrations.Add(registration);
+        => _registrations.Add(registration);
 
     // Return a copy to prevent external modification or clear external by reference
 }

@@ -1,0 +1,54 @@
+﻿@page "/components/forms/daterange"
+
+@inject IStringLocalizer<DateRangePage> Loc
+
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBInputDateRange"]"
+         Lede="@Loc["Date range picker with two date fields and a calendar dialog. Select start and end dates with validation support."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBInputDateRange)"
+         Keywords="@(["date range", "calendar", "picker", "interval"])">
+
+    <section class="doc-section">
+        <p class="doc-section__description">
+            @Loc.Html("The component is composed of two <code>BOBInputDateTime</code> fields plus a calendar picker dialog. Both start and end values are bound to a single <code>DateRange</code> model that supports validation and culture-aware formatting out of the box.")
+        </p>
+    </section>
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+        <BOBInputDateRange @bind-Value="_basic" Label="@Loc["Date range"]"/>
+        @if (_basic.IsComplete)
+        {
+            <p class="doc-demo__caption">@Loc["Selected:"] <code>@_basic.Start → @_basic.End (@_basic.DayCount @Loc["days"])</code>
+            </p>
+        }
+    </DocDemo>
+
+    <DocDemo Key="Presets" Title="@Loc["Presets only"]">
+        <BOBInputDateRange @bind-Value="_presets" ShowSummary="false" Label="@Loc["Pick a preset"]"/>
+    </DocDemo>
+
+    <DocDemo Key="NoPresets" Title="@Loc["Without preset shortcuts"]">
+        <BOBInputDateRange @bind-Value="_noPresets" ShowPresets="false" Label="@Loc["Manual selection"]"/>
+    </DocDemo>
+
+    <DocDemo Key="Sizes" Title="@Loc["Sizes"]">
+        <BOBInputDateRange @bind-Value="_small" Size="BOBSize.Small" Label="@Loc["Small"]"/>
+        <br/>
+        <BOBInputDateRange @bind-Value="_large" Size="BOBSize.Large" Label="@Loc["Large"]"/>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBInputDateRangeComponentInfo.Parameters"/>
+    </section>
+
+</DocPage>
+
+@code {
+    private DateRange _basic;
+    private DateRange _presets;
+    private DateRange _noPresets;
+    private DateRange _small;
+    private DateRange _large;
+}

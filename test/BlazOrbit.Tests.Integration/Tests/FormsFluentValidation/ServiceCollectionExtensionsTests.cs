@@ -10,7 +10,7 @@ public class ServiceCollectionExtensionsTests
     [Fact]
     public void AddBOBFluentValidation_Generic_Should_Register_Validators_From_Containing_Assembly()
     {
-        ServiceCollection services = new();
+        ServiceCollection services = [];
 
         services.AddBOBFluentValidation<BOBFluentValidatorTests.TestModelValidator>();
 
@@ -21,7 +21,7 @@ public class ServiceCollectionExtensionsTests
     [Fact]
     public void AddBOBFluentValidation_Assembly_Should_Register_Validators_From_Provided_Assembly()
     {
-        ServiceCollection services = new();
+        ServiceCollection services = [];
 
         services.AddBOBFluentValidation(typeof(BOBFluentValidatorTests.TestModelValidator).Assembly);
 
@@ -32,7 +32,7 @@ public class ServiceCollectionExtensionsTests
     [Fact]
     public void AddBOBFluentValidation_Should_Return_Same_ServiceCollection()
     {
-        ServiceCollection services = new();
+        ServiceCollection services = [];
 
         IServiceCollection result = services.AddBOBFluentValidation<BOBFluentValidatorTests.TestModelValidator>();
 

@@ -31,9 +31,6 @@ builder.Services.AddBlazOrbitLocalizationWasm(options =>
         new CultureInfo("es-ES")
     ];
     options.DefaultCulture = "en-US";
-
-    // Route IStringLocalizer<T> for the docs site assembly to the docs translations sidecar.
-    options.TranslationsAssemblies["BlazOrbit.Docs.Wasm"] = "BlazOrbit.Docs.Translations";
 });
 
 builder.Services.AddBOBFluentValidation<Program>();

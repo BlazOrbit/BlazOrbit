@@ -75,7 +75,7 @@ public class SelectionStateTests
     {
         SelectionTypeInfo info = new(typeof(int));
 
-        int result = info.CreateValue<int>(new object[] { 42, 7 });
+        int result = info.CreateValue<int>([42, 7]);
 
         result.Should().Be(42);
     }
@@ -85,7 +85,7 @@ public class SelectionStateTests
     {
         SelectionTypeInfo info = new(typeof(string));
 
-        string? result = info.CreateValue<string?>(Array.Empty<object>());
+        string? result = info.CreateValue<string?>([]);
 
         result.Should().BeNull();
     }
@@ -95,7 +95,7 @@ public class SelectionStateTests
     {
         SelectionTypeInfo info = new(typeof(int[]));
 
-        int[] result = info.CreateValue<int[]>(new object[] { 1, 2, 3 });
+        int[] result = info.CreateValue<int[]>([1, 2, 3]);
 
         result.Should().Equal(1, 2, 3);
     }
@@ -105,7 +105,7 @@ public class SelectionStateTests
     {
         SelectionTypeInfo info = new(typeof(List<string>));
 
-        List<string> result = info.CreateValue<List<string>>(new object[] { "a", "b" });
+        List<string> result = info.CreateValue<List<string>>(["a", "b"]);
 
         result.Should().Equal("a", "b");
     }
@@ -115,9 +115,9 @@ public class SelectionStateTests
     {
         SelectionTypeInfo info = new(typeof(HashSet<int>));
 
-        HashSet<int> result = info.CreateValue<HashSet<int>>(new object[] { 1, 1, 2 });
+        HashSet<int> result = info.CreateValue<HashSet<int>>([1, 1, 2]);
 
-        result.Should().BeEquivalentTo(new[] { 1, 2 });
+        result.Should().BeEquivalentTo([1, 2]);
     }
 
     [Fact]
@@ -291,7 +291,7 @@ public class SelectionStateTests
     {
         SelectionState<int[]> state = new();
 
-        state.SelectAll(new object?[] { 1, 2, null, 3 });
+        state.SelectAll([1, 2, null, 3]);
 
         state.Count.Should().Be(3);
     }
@@ -301,7 +301,7 @@ public class SelectionStateTests
     {
         SelectionState<int> state = new();
 
-        state.SelectAll(new object?[] { 1, 2 });
+        state.SelectAll([1, 2]);
 
         state.Count.Should().Be(0);
     }
@@ -327,7 +327,7 @@ public class SelectionStateTests
 
         int[] result = state.GetValue();
 
-        result.Should().BeEquivalentTo(new[] { 1, 2 });
+        result.Should().BeEquivalentTo([1, 2]);
     }
 
     [Fact]
@@ -336,7 +336,7 @@ public class SelectionStateTests
         SelectionState<int[]> state = new();
         state.Select(99);
 
-        state.SetValue(new[] { 1, 2, 3 });
+        state.SetValue([1, 2, 3]);
 
         state.IsSelected(99).Should().BeFalse();
         state.Count.Should().Be(3);

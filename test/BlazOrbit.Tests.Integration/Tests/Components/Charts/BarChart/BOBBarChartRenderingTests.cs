@@ -15,12 +15,11 @@ public class BOBBarChartRenderingTests
         yield return new BOBChartSeries<string, decimal>
         {
             Label = "Sales",
-            Points = new[]
-            {
-                new BOBChartPoint<string, decimal>("Q1", 120m),
-                new BOBChartPoint<string, decimal>("Q2", 95m),
-                new BOBChartPoint<string, decimal>("Q3", 140m),
-            }
+            Points =
+            [
+                new BOBChartPoint<string, decimal>("Q1", 120m), new BOBChartPoint<string, decimal>("Q2", 95m),
+                new BOBChartPoint<string, decimal>("Q3", 140m)
+            ]
         };
     }
 
@@ -39,7 +38,7 @@ public class BOBBarChartRenderingTests
         AngleSharp.Dom.IElement root = cut.Find("bob-component");
         root.GetAttribute("data-bob-component").Should().Be("bar-chart");
         root.HasAttribute("data-bob-data-visualization-base").Should().BeTrue(
-            because: "every chart must opt into the data-visualization family for shared CSS");
+            "every chart must opt into the data-visualization family for shared CSS");
     }
 
     [Theory]
@@ -72,7 +71,7 @@ public class BOBBarChartRenderingTests
 
         // Assert
         cut.FindAll("rect.bob-bar-chart__bar").Should().HaveCount(3,
-            because: "three points were supplied in the single sample series");
+            "three points were supplied in the single sample series");
     }
 
     [Theory]
@@ -89,7 +88,7 @@ public class BOBBarChartRenderingTests
 
         // Assert
         cut.FindAll(".bob-bar-chart__grid line").Should().NotBeEmpty(
-            because: "the linear scale always emits at least 2 ticks (min + max)");
+            "the linear scale always emits at least 2 ticks (min + max)");
     }
 
     [Theory]
@@ -149,19 +148,17 @@ public class BOBBarChartRenderingTests
         // Arrange & Act
         IRenderedComponent<BOBBarChart<string, decimal>> cut =
             ctx.Render<BOBBarChart<string, decimal>>(p => p
-                .Add(c => c.Series, new[]
-                {
+                .Add(c => c.Series,
+                [
                     new BOBChartSeries<string, decimal>
-                    {
-                        Label = "A",
-                        Points = new[] { new BOBChartPoint<string, decimal>("X", 10m) }
-                    },
-                    new BOBChartSeries<string, decimal>
-                    {
-                        Label = "B",
-                        Points = new[] { new BOBChartPoint<string, decimal>("X", 20m) }
-                    }
-                }));
+                        {
+                            Label = "A", Points = [new BOBChartPoint<string, decimal>("X", 10m)]
+                        },
+                        new BOBChartSeries<string, decimal>
+                        {
+                            Label = "B", Points = [new BOBChartPoint<string, decimal>("X", 20m)]
+                        }
+                ]));
 
         // Assert
         cut.FindAll(".bob-bar-chart__series").Should().HaveCount(2);

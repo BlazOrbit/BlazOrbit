@@ -14,40 +14,51 @@ namespace BlazOrbit.Charts.Components;
 /// thresholds). The current <see cref="Value"/> drives the fill arc and
 /// the centered numeric readout.
 /// </summary>
-public class BOBGaugeChart : BOBChartBase<int, double>
+public sealed class BOBGaugeChart : BOBChartBase<int, double>
 {
     /// <summary>Current value to display.</summary>
-    [Parameter] public double Value { get; set; }
+    [Parameter]
+    public double Value { get; set; }
 
     /// <summary>Lower bound of the gauge domain. Default 0.</summary>
-    [Parameter] public double Min { get; set; } = 0;
+    [Parameter]
+    public double Min { get; set; } = 0;
 
     /// <summary>Upper bound of the gauge domain. Default 100.</summary>
-    [Parameter] public double Max { get; set; } = 100;
+    [Parameter]
+    public double Max { get; set; } = 100;
 
     /// <summary>Arc layout shape. Default <see cref="BOBGaugeShape.Semi"/>.</summary>
-    [Parameter] public BOBGaugeShape Shape { get; set; } = BOBGaugeShape.Semi;
+    [Parameter]
+    public BOBGaugeShape Shape { get; set; } = BOBGaugeShape.Semi;
 
     /// <summary>Track + value-arc thickness (px). Default 16.</summary>
-    [Parameter] public double Thickness { get; set; } = 16;
+    [Parameter]
+    public double Thickness { get; set; } = 16;
 
     /// <summary>Optional zone segments (color bands across the domain).</summary>
-    [Parameter] public IEnumerable<BOBChartGaugeSegment>? Segments { get; set; }
+    [Parameter]
+    public IEnumerable<BOBChartGaugeSegment>? Segments { get; set; }
 
     /// <summary>Format string for the centered value readout. Default <c>"0.#"</c>.</summary>
-    [Parameter] public string? ValueFormat { get; set; }
+    [Parameter]
+    public string? ValueFormat { get; set; }
 
     /// <summary>Optional unit suffix appended after the value (e.g. <c>"%"</c>, <c>"ms"</c>).</summary>
-    [Parameter] public string? Unit { get; set; }
+    [Parameter]
+    public string? Unit { get; set; }
 
     /// <summary>Optional caption rendered below the value (e.g. metric name).</summary>
-    [Parameter] public string? Caption { get; set; }
+    [Parameter]
+    public string? Caption { get; set; }
 
     /// <summary>Color of the value arc (when no <see cref="Segments"/>). Default palette[0].</summary>
-    [Parameter] public string? ValueColor { get; set; }
+    [Parameter]
+    public string? ValueColor { get; set; }
 
     /// <summary>Color of the track behind the value arc. Default surface-variant.</summary>
-    [Parameter] public string TrackColor { get; set; } = "var(--palette-border, #e5e7eb)";
+    [Parameter]
+    public string TrackColor { get; set; } = "var(--palette-border, #e5e7eb)";
 
     /// <inheritdoc />
     protected override string BuildAriaLabel() =>
@@ -64,19 +75,19 @@ public class BOBGaugeChart : BOBChartBase<int, double>
         {
             BOBGaugeShape.Semi => h * 0.78,
             BOBGaugeShape.ThreeQuarter => h * 0.62,
-            _ => h / 2,
+            _ => h / 2
         };
-        double radius = Math.Min(w, h) / 2 - Thickness;
+        double radius = (Math.Min(w, h) / 2) - Thickness;
 
         (double startAngle, double sweep) = Shape switch
         {
-            BOBGaugeShape.Semi => (-Math.PI, Math.PI),                  // 180° from left to right
-            BOBGaugeShape.ThreeQuarter => (-Math.PI * 1.25, Math.PI * 1.5),  // 270°
-            _ => (-Math.PI / 2, Math.PI * 2),                           // 360° starting at 12 o'clock
+            BOBGaugeShape.Semi => (-Math.PI, Math.PI), // 180° from left to right
+            BOBGaugeShape.ThreeQuarter => (-Math.PI * 1.25, Math.PI * 1.5), // 270°
+            _ => (-Math.PI / 2, Math.PI * 2) // 360° starting at 12 o'clock
         };
 
-        double t = Math.Clamp((Value - Min) / (Max - Min == 0 ? 1 : (Max - Min)), 0, 1);
-        double valueAngle = startAngle + t * sweep;
+        double t = Math.Clamp((Value - Min) / (Max - Min == 0 ? 1 : Max - Min), 0, 1);
+        double valueAngle = startAngle + (t * sweep);
         string valueColor = ValueColor ?? Palette.ColorAt(0);
 
         int seq = 100;
@@ -96,11 +107,15 @@ public class BOBGaugeChart : BOBChartBase<int, double>
         {
             foreach (BOBChartGaugeSegment seg in Segments)
             {
-                double t0 = Math.Clamp((seg.From - Min) / (Max - Min == 0 ? 1 : (Max - Min)), 0, 1);
-                double t1 = Math.Clamp((seg.To - Min) / (Max - Min == 0 ? 1 : (Max - Min)), 0, 1);
-                if (t1 <= t0) continue;
-                double a0 = startAngle + t0 * sweep;
-                double a1 = startAngle + t1 * sweep;
+                double t0 = Math.Clamp((seg.From - Min) / (Max - Min == 0 ? 1 : Max - Min), 0, 1);
+                double t1 = Math.Clamp((seg.To - Min) / (Max - Min == 0 ? 1 : Max - Min), 0, 1);
+                if (t1 <= t0)
+                {
+                    continue;
+                }
+
+                double a0 = startAngle + (t0 * sweep);
+                double a1 = startAngle + (t1 * sweep);
                 builder.OpenElement(seq++, "path");
                 builder.AddAttribute(seq++, "class", "bob-gauge-chart__segment");
                 builder.AddAttribute(seq++, "d", ArcPath(cx, cy, radius, a0, a1));
@@ -114,6 +129,7 @@ public class BOBGaugeChart : BOBChartBase<int, double>
                     builder.AddContent(seq++, seg.Label);
                     builder.CloseElement();
                 }
+
                 builder.CloseElement();
             }
         }
@@ -134,7 +150,7 @@ public class BOBGaugeChart : BOBChartBase<int, double>
         // Centered value text + caption.
         string format = ValueFormat ?? "0.#";
         string valueStr = Value.ToString(format, CultureInfo.InvariantCulture)
-            + (string.IsNullOrEmpty(Unit) ? string.Empty : Unit);
+                          + (string.IsNullOrEmpty(Unit) ? string.Empty : Unit);
         builder.OpenElement(seq++, "text");
         builder.AddAttribute(seq++, "class", "bob-gauge-chart__value");
         builder.AddAttribute(seq++, "x", ChartLayout.ToInvariant(cx));
@@ -162,10 +178,10 @@ public class BOBGaugeChart : BOBChartBase<int, double>
     /// <summary>SVG arc-path builder. Handles arcs &gt; 180° via the large-arc flag.</summary>
     private static string ArcPath(double cx, double cy, double r, double start, double end)
     {
-        double x0 = cx + r * Math.Cos(start);
-        double y0 = cy + r * Math.Sin(start);
-        double x1 = cx + r * Math.Cos(end);
-        double y1 = cy + r * Math.Sin(end);
+        double x0 = cx + (r * Math.Cos(start));
+        double y0 = cy + (r * Math.Sin(start));
+        double x1 = cx + (r * Math.Cos(end));
+        double y1 = cy + (r * Math.Sin(end));
         int largeArc = Math.Abs(end - start) > Math.PI ? 1 : 0;
         int sweep = end > start ? 1 : 0;
         return string.Format(CultureInfo.InvariantCulture,

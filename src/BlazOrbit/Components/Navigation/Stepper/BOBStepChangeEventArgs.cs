@@ -9,8 +9,10 @@ public sealed class BOBStepChangeEventArgs
 {
     /// <summary>Index of the step the user is leaving.</summary>
     public int From { get; }
+
     /// <summary>Index of the step the user is moving to.</summary>
     public int To { get; }
+
     /// <summary>When set to <see langword="true"/>, the transition is aborted.</summary>
     public bool Cancel { get; set; }
 

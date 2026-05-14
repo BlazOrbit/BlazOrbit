@@ -7,17 +7,17 @@
     <section>
         <h2>@category.Name</h2>
         <BOBGrid Columns="12" Gap="0.75rem">
-            @foreach (string propName in category.Properties)
+            @foreach (var propName in category.Properties)
             {
                 if (Palette.ContainsKey(propName))
                 {
-                    string key = propName;
+                    var key = propName;
                     <BOBGridItem Xs="12" Md="4">
                         <BOBInputColor Label="@key"
                                        Value="Palette[key]"
                                        ValueChanged="c => HandleColorChanged(key, c)"
                                        ValueExpression="@(() => Palette[key])"
-                                       Size="BOBSize.Small" />
+                                       Size="BOBSize.Small"/>
                     </BOBGridItem>
                 }
             }
@@ -30,15 +30,18 @@
 
     [Parameter] public EventCallback<Dictionary<string, CssColor>> OnPaletteChanged { get; set; }
 
-    protected override void OnParametersSet() => Palette ??= new();
-
-    private readonly List<ColorCategory> _categories = new()
+    protected override void OnParametersSet()
     {
-        new ColorCategory("Surface", new[] { "Background", "BackgroundContrast", "Surface", "SurfaceContrast" }),
-        new ColorCategory("Main", new[] { "Primary", "PrimaryContrast", "Secondary", "SecondaryContrast" }),
-        new ColorCategory("Status", new[] { "Error", "ErrorContrast", "Success", "SuccessContrast", "Warning", "WarningContrast", "Info", "InfoContrast" }),
-        new ColorCategory("Utility", new[] { "Black", "White", "Border", "Shadow", "Highlight" })
-    };
+        Palette ??= new Dictionary<string, CssColor>();
+    }
+
+    private readonly List<ColorCategory> _categories =
+    [
+        new ColorCategory("Surface", ["Background", "BackgroundContrast", "Surface", "SurfaceContrast"]),
+        new ColorCategory("Main", ["Primary", "PrimaryContrast", "Secondary", "SecondaryContrast"]),
+        new ColorCategory("Status", ["Error", "ErrorContrast", "Success", "SuccessContrast", "Warning", "WarningContrast", "Info", "InfoContrast"]),
+        new ColorCategory("Utility", ["Black", "White", "Border", "Shadow", "Highlight"])
+    ];
 
     private async Task HandleColorChanged(string propertyName, CssColor? newColor)
     {
@@ -48,4 +51,5 @@
     }
 
     private record ColorCategory(string Name, string[] Properties);
+
 }

@@ -53,6 +53,9 @@ param(
     [switch]$Force
 )
 
+Set-StrictMode -Version Latest
+$ErrorActionPreference = 'Stop'
+
 # Configuration
 $Config = @{
     DevelopBranch = "develop"

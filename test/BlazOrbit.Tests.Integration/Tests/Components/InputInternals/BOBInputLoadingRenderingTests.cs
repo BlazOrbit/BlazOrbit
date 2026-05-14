@@ -36,7 +36,7 @@ public class BOBInputLoadingRenderingTests
             .Add(c => c.Loading, true));
 
         // Assert
-        IElement addon = cut.Find(".bob-addon");
+        IElement addon = cut.Find("._bob-addon");
         addon.Should().NotBeNull();
         cut.FindComponents<BOBProgressIcon>().Should().HaveCount(1);
     }
@@ -88,7 +88,7 @@ public class BOBInputLoadingRenderingTests
         cut.Render(p => p.Add(c => c.Loading, true));
 
         // Assert
-        cut.FindAll(".bob-addon").Should().HaveCount(1);
+        cut.FindAll("._bob-addon").Should().HaveCount(1);
 
         // Act
         cut.Render(p => p.Add(c => c.Loading, false));

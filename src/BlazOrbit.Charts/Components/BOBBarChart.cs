@@ -25,13 +25,16 @@ public sealed class BOBBarChart<TX, TY> :
     where TX : notnull
 {
     /// <inheritdoc />
-    [Parameter] public IEnumerable<BOBChartSeries<TX, TY>>? Series { get; set; }
+    [Parameter]
+    public IEnumerable<BOBChartSeries<TX, TY>>? Series { get; set; }
 
     /// <inheritdoc />
-    [Parameter] public BOBChartAxis XAxis { get; set; } = new();
+    [Parameter]
+    public BOBChartAxis XAxis { get; set; } = new();
 
     /// <inheritdoc />
-    [Parameter] public BOBChartAxis YAxis { get; set; } = new();
+    [Parameter]
+    public BOBChartAxis YAxis { get; set; } = new();
 
     /// <summary>
     /// Width of each bar group as a fraction of the categorical band
@@ -39,14 +42,16 @@ public sealed class BOBBarChart<TX, TY> :
     /// padding on either side. Series within a group share that width
     /// equally.
     /// </summary>
-    [Parameter] public double BarGroupRatio { get; set; } = 0.8;
+    [Parameter]
+    public double BarGroupRatio { get; set; } = 0.8;
 
     /// <summary>
     /// Horizontal reference / threshold lines drawn across the plot area
     /// (e.g. SLO targets, budget caps). Rendered over the grid but under
     /// the bars so they stay visible without blocking hover.
     /// </summary>
-    [Parameter] public IEnumerable<BOBChartReferenceLine>? ReferenceLines { get; set; }
+    [Parameter]
+    public IEnumerable<BOBChartReferenceLine>? ReferenceLines { get; set; }
 
     /// <summary>
     /// Layout strategy for multi-series bars: <see cref="BOBBarStackMode.None"/>
@@ -55,21 +60,24 @@ public sealed class BOBBarChart<TX, TY> :
     /// <see cref="BOBBarStackMode.PercentStacked"/> (each category normalised
     /// to 100%).
     /// </summary>
-    [Parameter] public BOBBarStackMode StackMode { get; set; } = BOBBarStackMode.None;
+    [Parameter]
+    public BOBBarStackMode StackMode { get; set; } = BOBBarStackMode.None;
 
     /// <summary>
     /// Fired when the user clicks a bar. The argument carries the series
     /// label, the X / Y values and the point index — useful for drill-down
     /// navigation or row-selection patterns.
     /// </summary>
-    [Parameter] public EventCallback<BOBChartClickArgs<TX, TY>> OnPointClick { get; set; }
+    [Parameter]
+    public EventCallback<BOBChartClickArgs<TX, TY>> OnPointClick { get; set; }
 
     /// <summary>
     /// Fired when the user hovers a bar (mouseenter). Raised in addition to
     /// the native SVG <c>&lt;title&gt;</c> tooltip so callers can drive
     /// secondary UI off the same signal.
     /// </summary>
-    [Parameter] public EventCallback<BOBChartHoverArgs<TX, TY>> OnDataHover { get; set; }
+    [Parameter]
+    public EventCallback<BOBChartHoverArgs<TX, TY>> OnDataHover { get; set; }
 
     /// <inheritdoc />
     protected override string BuildAriaLabel()
@@ -79,7 +87,7 @@ public sealed class BOBBarChart<TX, TY> :
         {
             0 => "Bar chart with no data",
             1 => "Bar chart with one series",
-            _ => $"Bar chart with {seriesCount} series",
+            _ => $"Bar chart with {seriesCount} series"
         };
     }
 
@@ -106,6 +114,7 @@ public sealed class BOBBarChart<TX, TY> :
                 originalIndices.Add(i);
             }
         }
+
         if (seriesList.Count == 0)
         {
             return;
@@ -128,12 +137,12 @@ public sealed class BOBBarChart<TX, TY> :
         List<double> domainValues = StackMode switch
         {
             BOBBarStackMode.Stacked => CategoryTotals(seriesList, categories),
-            BOBBarStackMode.PercentStacked => new List<double> { 0, 100 },
+            BOBBarStackMode.PercentStacked => [0, 100],
             BOBBarStackMode.Bidirectional => CategoryBidirectionalExtremes(seriesList, categories),
             BOBBarStackMode.Waterfall => WaterfallExtremes(seriesList),
             _ => seriesList
                 .SelectMany(s => s.Points.Select(p => Numeric.ToDouble(p.Y)))
-                .ToList(),
+                .ToList()
         };
 
         // SVG viewport defaults when caller did not pin Width / Height.
@@ -145,17 +154,17 @@ public sealed class BOBBarChart<TX, TY> :
         // DomainMin and RangeMax = top (PlotTop) maps to DomainMax.
         // includeZero: bar heights only make sense against a zero baseline.
         // For PercentStacked we honor explicit Min/Max, but otherwise force [0, 100].
-        double? minOverride = StackMode == BOBBarStackMode.PercentStacked ? (YAxis.Min ?? 0) : YAxis.Min;
-        double? maxOverride = StackMode == BOBBarStackMode.PercentStacked ? (YAxis.Max ?? 100) : YAxis.Max;
+        double? minOverride = StackMode == BOBBarStackMode.PercentStacked ? YAxis.Min ?? 0 : YAxis.Min;
+        double? maxOverride = StackMode == BOBBarStackMode.PercentStacked ? YAxis.Max ?? 100 : YAxis.Max;
         LinearScale yScale = new(domainValues, layout.PlotBottom, layout.PlotTop,
-            minOverride, maxOverride, includeZero: true);
+            minOverride, maxOverride, true);
         CategoricalScale<TX> xScale = new(categories, layout.PlotLeft, layout.PlotRight);
 
         int seq = 100;
         RenderGrid(builder, ref seq, layout, yScale);
         RenderYAxisLabels(builder, ref seq, layout, yScale);
         RenderXAxisLabels(builder, ref seq, layout, xScale);
-        RenderBars(builder, ref seq, layout, xScale, yScale, seriesList, originalIndices);
+        RenderBars(builder, ref seq, xScale, yScale, seriesList, originalIndices);
         // Reference lines render last so they sit on top of the bars —
         // thresholds / SLOs are guidance, the data shouldn't occlude them.
         ReferenceLineRenderer.Render(builder, ref seq, layout, yScale, ReferenceLines);
@@ -214,7 +223,8 @@ public sealed class BOBBarChart<TX, TY> :
         builder.CloseElement(); // g
     }
 
-    private void RenderXAxisLabels(RenderTreeBuilder builder, ref int seq, ChartLayout layout, CategoricalScale<TX> xScale)
+    private void RenderXAxisLabels(RenderTreeBuilder builder, ref int seq, ChartLayout layout,
+        CategoricalScale<TX> xScale)
     {
         if (!XAxis.ShowLabels)
         {
@@ -241,7 +251,6 @@ public sealed class BOBBarChart<TX, TY> :
     private void RenderBars(
         RenderTreeBuilder builder,
         ref int seq,
-        ChartLayout layout,
         CategoricalScale<TX> xScale,
         LinearScale yScale,
         List<BOBChartSeries<TX, TY>> seriesList,
@@ -250,8 +259,8 @@ public sealed class BOBBarChart<TX, TY> :
         double bandWidth = xScale.BandWidth;
         double groupWidth = bandWidth * BarGroupRatio;
         double barWidth = StackMode == BOBBarStackMode.None
-            ? (seriesList.Count == 0 ? 0 : groupWidth / seriesList.Count)
-            : groupWidth;     // stacked modes: single full-width bar per category.
+            ? seriesList.Count == 0 ? 0 : groupWidth / seriesList.Count
+            : groupWidth; // stacked modes: single full-width bar per category.
         double zero = yScale.Project(0);
 
         // Waterfall: only the first series matters (semantically the deltas).
@@ -364,7 +373,7 @@ public sealed class BOBBarChart<TX, TY> :
                     else
                     {
                         double prev = runningNeg!.TryGetValue(pt.X, out double r) ? r : 0;
-                        double next = prev + displayY;  // displayY < 0
+                        double next = prev + displayY; // displayY < 0
                         runningNeg[pt.X] = next;
                         double topPx = yScale.Project(prev);
                         double bottomPx = yScale.Project(next);
@@ -413,7 +422,7 @@ public sealed class BOBBarChart<TX, TY> :
                                 SeriesLabel = capturedSeries.Label,
                                 X = capturedPoint.X,
                                 Y = capturedPoint.Y,
-                                PointIndex = capturedIndex,
+                                PointIndex = capturedIndex
                             })));
                     builder.AddAttribute(seq++, "cursor", "pointer");
                 }
@@ -439,16 +448,17 @@ public sealed class BOBBarChart<TX, TY> :
                                             SeriesLabel = capturedSeries.Label,
                                             X = capturedPoint.X,
                                             Y = capturedPoint.Y,
-                                            Color = capturedColor,
+                                            Color = capturedColor
                                         });
                                 }
+
                                 return fireHover
                                     ? OnDataHover.InvokeAsync(new BOBChartHoverArgs<TX, TY>
                                     {
                                         SeriesLabel = capturedSeries.Label,
                                         X = capturedPoint.X,
                                         Y = capturedPoint.Y,
-                                        PointIndex = capturedIndex,
+                                        PointIndex = capturedIndex
                                     })
                                     : Task.CompletedTask;
                             }));
@@ -486,7 +496,11 @@ public sealed class BOBBarChart<TX, TY> :
     /// <inheritdoc />
     private protected override IEnumerable<LegendEntry> GetLegendEntries()
     {
-        if (Series is null) yield break;
+        if (Series is null)
+        {
+            yield break;
+        }
+
         int i = 0;
         foreach (BOBChartSeries<TX, TY> s in Series)
         {
@@ -505,8 +519,11 @@ public sealed class BOBBarChart<TX, TY> :
         List<BOBChartSeries<TX, TY>> seriesList,
         List<TX> categories)
     {
-        var totals = new Dictionary<TX, double>(categories.Count);
-        foreach (TX cat in categories) totals[cat] = 0;
+        Dictionary<TX, double> totals = new(categories.Count);
+        foreach (TX cat in categories)
+        {
+            totals[cat] = 0;
+        }
 
         foreach (BOBChartSeries<TX, TY> s in seriesList)
         {
@@ -531,17 +548,29 @@ public sealed class BOBBarChart<TX, TY> :
     /// </summary>
     private static List<double> WaterfallExtremes(List<BOBChartSeries<TX, TY>> seriesList)
     {
-        if (seriesList.Count == 0) return new List<double> { 0 };
+        if (seriesList.Count == 0)
+        {
+            return [0];
+        }
+
         double running = 0;
         double min = 0, max = 0;
         foreach (BOBChartPoint<TX, TY> pt in seriesList[0].Points)
         {
             double v = Numeric.ToDouble(pt.Y);
             running += v;
-            if (running < min) min = running;
-            if (running > max) max = running;
+            if (running < min)
+            {
+                min = running;
+            }
+
+            if (running > max)
+            {
+                max = running;
+            }
         }
-        return new List<double> { min, max, 0 };
+
+        return [min, max, 0];
     }
 
     /// <summary>
@@ -555,8 +584,8 @@ public sealed class BOBBarChart<TX, TY> :
         List<BOBChartSeries<TX, TY>> seriesList,
         List<TX> categories)
     {
-        var posTotals = new Dictionary<TX, double>(categories.Count);
-        var negTotals = new Dictionary<TX, double>(categories.Count);
+        Dictionary<TX, double> posTotals = new(categories.Count);
+        Dictionary<TX, double> negTotals = new(categories.Count);
         foreach (TX cat in categories)
         {
             posTotals[cat] = 0;
@@ -567,14 +596,24 @@ public sealed class BOBBarChart<TX, TY> :
         {
             foreach (BOBChartPoint<TX, TY> pt in s.Points)
             {
-                if (!posTotals.ContainsKey(pt.X)) continue;
+                if (!posTotals.ContainsKey(pt.X))
+                {
+                    continue;
+                }
+
                 double y = Numeric.ToDouble(pt.Y);
-                if (y >= 0) posTotals[pt.X] += y;
-                else negTotals[pt.X] += y;
+                if (y >= 0)
+                {
+                    posTotals[pt.X] += y;
+                }
+                else
+                {
+                    negTotals[pt.X] += y;
+                }
             }
         }
 
-        var domain = new List<double>(categories.Count * 2);
+        List<double> domain = new(categories.Count * 2);
         domain.AddRange(posTotals.Values);
         domain.AddRange(negTotals.Values);
         return domain;

@@ -20,38 +20,44 @@ namespace BlazOrbit.Charts.Components;
 public abstract class BOBPieChartBase<TY> : BOBChartBase<object, TY>
 {
     /// <summary>The slices rendered by the chart, in declaration order (clockwise from 12 o'clock).</summary>
-    [Parameter] public IEnumerable<BOBChartSlice<TY>>? Slices { get; set; }
+    [Parameter]
+    public IEnumerable<BOBChartSlice<TY>>? Slices { get; set; }
 
     /// <summary>
     /// Inner-radius / outer-radius ratio in [0, 1).
     /// 0 → full pie. ~0.5–0.7 → donut. ≥1 invalid (clamped to 0.99).
     /// </summary>
-    [Parameter] public double InnerRadius { get; set; }
+    [Parameter]
+    public double InnerRadius { get; set; }
 
     /// <summary>
     /// When <c>true</c> (default), the slice's percentage is rendered at the
     /// arc's mid-radius. Skipped for slices smaller than 5% to avoid label
     /// collisions.
     /// </summary>
-    [Parameter] public bool ShowPercentages { get; set; } = true;
+    [Parameter]
+    public bool ShowPercentages { get; set; } = true;
 
     /// <summary>
     /// Pixel padding inside the SVG viewport so labels don't bump against
     /// the edge. 16px default.
     /// </summary>
-    [Parameter] public double Padding { get; set; } = 16;
+    [Parameter]
+    public double Padding { get; set; } = 16;
 
     /// <summary>
     /// Fired when the user clicks a slice. Carries the slice label, raw
     /// value, declaration index and the computed percentage.
     /// </summary>
-    [Parameter] public EventCallback<BOBChartSliceClickArgs<TY>> OnSliceClick { get; set; }
+    [Parameter]
+    public EventCallback<BOBChartSliceClickArgs<TY>> OnSliceClick { get; set; }
 
     /// <summary>
     /// Fired when the user hovers a slice (mouseenter). Raised in addition
     /// to the native SVG <c>&lt;title&gt;</c> tooltip.
     /// </summary>
-    [Parameter] public EventCallback<BOBChartSliceHoverArgs<TY>> OnSliceHover { get; set; }
+    [Parameter]
+    public EventCallback<BOBChartSliceHoverArgs<TY>> OnSliceHover { get; set; }
 
     /// <summary>
     /// Subclass-specific noun used in <see cref="BuildAriaLabel"/>
@@ -67,7 +73,7 @@ public abstract class BOBPieChartBase<TY> : BOBChartBase<object, TY>
         {
             0 => $"{ChartTypeNoun} chart with no data",
             1 => $"{ChartTypeNoun} chart with one slice",
-            _ => $"{ChartTypeNoun} chart with {sliceCount} slices",
+            _ => $"{ChartTypeNoun} chart with {sliceCount} slices"
         };
     }
 
@@ -169,11 +175,11 @@ public abstract class BOBPieChartBase<TY> : BOBChartBase<object, TY>
             // Annulus: outer circle minus inner via even-odd fill rule on a
             // composite path (two M+a subpaths).
             string d = $"M {ChartLayout.ToInvariant(cx - outerR)},{ChartLayout.ToInvariant(cy)} "
-                + $"a {ChartLayout.ToInvariant(outerR)},{ChartLayout.ToInvariant(outerR)} 0 1,0 {ChartLayout.ToInvariant(outerR * 2)},0 "
-                + $"a {ChartLayout.ToInvariant(outerR)},{ChartLayout.ToInvariant(outerR)} 0 1,0 {ChartLayout.ToInvariant(-outerR * 2)},0 Z "
-                + $"M {ChartLayout.ToInvariant(cx - innerR)},{ChartLayout.ToInvariant(cy)} "
-                + $"a {ChartLayout.ToInvariant(innerR)},{ChartLayout.ToInvariant(innerR)} 0 1,0 {ChartLayout.ToInvariant(innerR * 2)},0 "
-                + $"a {ChartLayout.ToInvariant(innerR)},{ChartLayout.ToInvariant(innerR)} 0 1,0 {ChartLayout.ToInvariant(-innerR * 2)},0 Z";
+                       + $"a {ChartLayout.ToInvariant(outerR)},{ChartLayout.ToInvariant(outerR)} 0 1,0 {ChartLayout.ToInvariant(outerR * 2)},0 "
+                       + $"a {ChartLayout.ToInvariant(outerR)},{ChartLayout.ToInvariant(outerR)} 0 1,0 {ChartLayout.ToInvariant(-outerR * 2)},0 Z "
+                       + $"M {ChartLayout.ToInvariant(cx - innerR)},{ChartLayout.ToInvariant(cy)} "
+                       + $"a {ChartLayout.ToInvariant(innerR)},{ChartLayout.ToInvariant(innerR)} 0 1,0 {ChartLayout.ToInvariant(innerR * 2)},0 "
+                       + $"a {ChartLayout.ToInvariant(innerR)},{ChartLayout.ToInvariant(innerR)} 0 1,0 {ChartLayout.ToInvariant(-innerR * 2)},0 Z";
 
             builder.OpenElement(seq++, "path");
             builder.AddAttribute(seq++, "d", d);
@@ -206,16 +212,16 @@ public abstract class BOBPieChartBase<TY> : BOBChartBase<object, TY>
         double outerStartY = cy + (outerR * Math.Sin(a0));
         double outerEndX = cx + (outerR * Math.Cos(a1));
         double outerEndY = cy + (outerR * Math.Sin(a1));
-        int largeArc = (endAngle - startAngle) > Math.PI ? 1 : 0;
+        int largeArc = endAngle - startAngle > Math.PI ? 1 : 0;
 
         string d;
         if (innerR <= 0)
         {
             // Pie wedge: M(centre) L(outerStart) A(outerEnd) Z.
             d = $"M {ChartLayout.ToInvariant(cx)},{ChartLayout.ToInvariant(cy)} "
-              + $"L {ChartLayout.ToInvariant(outerStartX)},{ChartLayout.ToInvariant(outerStartY)} "
-              + $"A {ChartLayout.ToInvariant(outerR)},{ChartLayout.ToInvariant(outerR)} 0 {largeArc},1 "
-              + $"{ChartLayout.ToInvariant(outerEndX)},{ChartLayout.ToInvariant(outerEndY)} Z";
+                + $"L {ChartLayout.ToInvariant(outerStartX)},{ChartLayout.ToInvariant(outerStartY)} "
+                + $"A {ChartLayout.ToInvariant(outerR)},{ChartLayout.ToInvariant(outerR)} 0 {largeArc},1 "
+                + $"{ChartLayout.ToInvariant(outerEndX)},{ChartLayout.ToInvariant(outerEndY)} Z";
         }
         else
         {
@@ -226,11 +232,11 @@ public abstract class BOBPieChartBase<TY> : BOBChartBase<object, TY>
             double innerEndY = cy + (innerR * Math.Sin(a1));
 
             d = $"M {ChartLayout.ToInvariant(outerStartX)},{ChartLayout.ToInvariant(outerStartY)} "
-              + $"A {ChartLayout.ToInvariant(outerR)},{ChartLayout.ToInvariant(outerR)} 0 {largeArc},1 "
-              + $"{ChartLayout.ToInvariant(outerEndX)},{ChartLayout.ToInvariant(outerEndY)} "
-              + $"L {ChartLayout.ToInvariant(innerEndX)},{ChartLayout.ToInvariant(innerEndY)} "
-              + $"A {ChartLayout.ToInvariant(innerR)},{ChartLayout.ToInvariant(innerR)} 0 {largeArc},0 "
-              + $"{ChartLayout.ToInvariant(innerStartX)},{ChartLayout.ToInvariant(innerStartY)} Z";
+                + $"A {ChartLayout.ToInvariant(outerR)},{ChartLayout.ToInvariant(outerR)} 0 {largeArc},1 "
+                + $"{ChartLayout.ToInvariant(outerEndX)},{ChartLayout.ToInvariant(outerEndY)} "
+                + $"L {ChartLayout.ToInvariant(innerEndX)},{ChartLayout.ToInvariant(innerEndY)} "
+                + $"A {ChartLayout.ToInvariant(innerR)},{ChartLayout.ToInvariant(innerR)} 0 {largeArc},0 "
+                + $"{ChartLayout.ToInvariant(innerStartX)},{ChartLayout.ToInvariant(innerStartY)} Z";
         }
 
         double percent = value / total * 100;
@@ -260,7 +266,7 @@ public abstract class BOBPieChartBase<TY> : BOBChartBase<object, TY>
                         SliceLabel = capturedSlice.Label,
                         Value = capturedSlice.Value,
                         SliceIndex = capturedIndex,
-                        Percentage = capturedPercent,
+                        Percentage = capturedPercent
                     })));
             builder.AddAttribute(seq++, "cursor", "pointer");
         }
@@ -275,7 +281,7 @@ public abstract class BOBPieChartBase<TY> : BOBChartBase<object, TY>
                         SliceLabel = capturedSlice.Label,
                         Value = capturedSlice.Value,
                         SliceIndex = capturedIndex,
-                        Percentage = capturedPercent,
+                        Percentage = capturedPercent
                     })));
         }
 
@@ -292,8 +298,8 @@ public abstract class BOBPieChartBase<TY> : BOBChartBase<object, TY>
         {
             double midAngle = ((startAngle + endAngle) / 2) - (Math.PI / 2);
             double midRadius = innerR <= 0
-                ? outerR * 0.6                    // Pie: 60% of outer.
-                : (outerR + innerR) / 2;          // Donut: midway between rings.
+                ? outerR * 0.6 // Pie: 60% of outer.
+                : (outerR + innerR) / 2; // Donut: midway between rings.
             double labelX = cx + (midRadius * Math.Cos(midAngle));
             double labelY = cy + (midRadius * Math.Sin(midAngle));
 
@@ -312,7 +318,11 @@ public abstract class BOBPieChartBase<TY> : BOBChartBase<object, TY>
     /// <inheritdoc />
     private protected override IEnumerable<LegendEntry> GetLegendEntries()
     {
-        if (Slices is null) yield break;
+        if (Slices is null)
+        {
+            yield break;
+        }
+
         int i = 0;
         foreach (BOBChartSlice<TY> s in Slices)
         {

@@ -5,68 +5,70 @@
 @inject IStringLocalizer<ProgressPage> Loc
 
 <DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBProgressBar / BOBProgressRing / BOBProgressIcon"]"
-         Lede="@Loc["3 different components for different situations used for linear and circular progress indicators with determinate, indeterminate and segmented modes."]"
+         Lede="@Loc["Linear and circular progress indicators with determinate, indeterminate, and segmented modes. Choose the style that fits your UI."]"
          PageInstance="this"
-         ApiType="@typeof(BOBProgressBar)">
+         ApiType="@typeof(BOBProgressBar)"
+         Keywords="@(["progress", "loading", "indicator", "bar", "spinner"])">
 
     <DocDemo Key="Bar" Title="@Loc["Linear bar"]">
-        <BOBProgressBar Value="40" Label="@Loc["Loading"]" ShowPercentage="true" />
-        <br />
-        <BOBProgressBar Value="80" Color="@PaletteColor.Success" />
-        <br />
-        <BOBProgressBar Indeterminate="true" Label="@Loc["Working…"]" />
+        <BOBProgressBar Value="40" Label="@Loc["Loading"]" ShowPercentage="true"/>
+        <br/>
+        <BOBProgressBar Value="80" Color="@PaletteColor.Success"/>
+        <br/>
+        <BOBProgressBar Indeterminate="true" Label="@Loc["Working…"]"/>
     </DocDemo>
 
     <DocDemo Key="Segments" Title="@Loc["Segmented (multi-step)"]">
-        <BOBProgressBar Value="3" Min="0" Max="5" Segments="5" Label="@Loc["Step 3 of 5"]" />
+        <BOBProgressBar Value="3" Min="0" Max="5" Segments="5" Label="@Loc["Step 3 of 5"]"/>
     </DocDemo>
 
     <DocDemo Key="Ring" Title="@Loc["Circular ring"]">
-        <BOBProgressRing Value="30" ShowPercentage="true" />
-        <BOBProgressRing Value="60" ShowPercentage="true" Color="@PaletteColor.Success" />
-        <BOBProgressRing Value="90" ShowPercentage="true" Color="@PaletteColor.Warning" />
-        <BOBProgressRing Indeterminate="true" />
+        <BOBProgressRing Value="30" ShowPercentage="true"/>
+        <BOBProgressRing Value="60" ShowPercentage="true" Color="@PaletteColor.Success"/>
+        <BOBProgressRing Value="90" ShowPercentage="true" Color="@PaletteColor.Warning"/>
+        <BOBProgressRing Indeterminate="true"/>
     </DocDemo>
 
     <DocDemo Key="Sizes" Title="@Loc["Sizes"]">
-        <BOBProgressRing Value="50" Size="BOBSize.Small" ShowPercentage="true" />
-        <BOBProgressRing Value="50" Size="BOBSize.Medium" ShowPercentage="true" />
-        <BOBProgressRing Value="50" Size="BOBSize.Large" ShowPercentage="true" />
+        <BOBProgressRing Value="50" Size="BOBSize.Small" ShowPercentage="true"/>
+        <BOBProgressRing Value="50" Size="BOBSize.Medium" ShowPercentage="true"/>
+        <BOBProgressRing Value="50" Size="BOBSize.Large" ShowPercentage="true"/>
     </DocDemo>
 
-    <DocDemo Key="IconVariants" Title="@Loc["Variants"]" Description="@Loc["Four built-in lightweight SVG icon animations covering every common case."]">
-        <BOBProgressIcon Variant="BOBProgressIconVariant.Spinner" />
-        <BOBProgressIcon Variant="BOBProgressIconVariant.Ring" />
-        <BOBProgressIcon Variant="BOBProgressIconVariant.Dots" />
-        <BOBProgressIcon Variant="BOBProgressIconVariant.Bars" />
+    <DocDemo Key="IconVariants" Title="@Loc["Variants"]"
+             Description="@Loc["Four built-in lightweight SVG icon animations covering every common case."]">
+        <BOBProgressIcon Variant="BOBProgressIconVariant.Spinner"/>
+        <BOBProgressIcon Variant="BOBProgressIconVariant.Ring"/>
+        <BOBProgressIcon Variant="BOBProgressIconVariant.Dots"/>
+        <BOBProgressIcon Variant="BOBProgressIconVariant.Bars"/>
     </DocDemo>
 
     <DocDemo Key="IconSizes" Title="@Loc["Sizes"]">
-        <BOBProgressIcon Size="BOBSize.Small" />
-        <BOBProgressIcon Size="BOBSize.Medium" />
-        <BOBProgressIcon Size="BOBSize.Large" />
+        <BOBProgressIcon Size="BOBSize.Small"/>
+        <BOBProgressIcon Size="BOBSize.Medium"/>
+        <BOBProgressIcon Size="BOBSize.Large"/>
     </DocDemo>
 
     <DocDemo Key="IconColors" Title="@Loc["Colors"]">
-        <BOBProgressIcon Variant="BOBProgressIconVariant.Spinner" Color="@PaletteColor.Secondary" />
-        <BOBProgressIcon Variant="BOBProgressIconVariant.Ring" Color="@PaletteColor.Error" />
-        <BOBProgressIcon Variant="BOBProgressIconVariant.Dots" Color="@PaletteColor.Success" />
-        <BOBProgressIcon Variant="BOBProgressIconVariant.Bars" Color="@PaletteColor.Warning" />
+        <BOBProgressIcon Variant="BOBProgressIconVariant.Spinner" Color="@PaletteColor.Secondary"/>
+        <BOBProgressIcon Variant="BOBProgressIconVariant.Ring" Color="@PaletteColor.Error"/>
+        <BOBProgressIcon Variant="BOBProgressIconVariant.Dots" Color="@PaletteColor.Success"/>
+        <BOBProgressIcon Variant="BOBProgressIconVariant.Bars" Color="@PaletteColor.Warning"/>
     </DocDemo>
 
     <section class="doc-section">
         <h2 class="doc-section__title">@Loc["BOBProgressBar Properties"]</h2>
-        <PropertyTable Properties="@BOBProgressBarComponentInfo.Parameters" />
+        <PropertyTable Properties="@BOBProgressBarComponentInfo.Parameters"/>
     </section>
 
     <section class="doc-section">
         <h2 class="doc-section__title">@Loc["BOBProgressRing Properties"]</h2>
-        <PropertyTable Properties="@BOBProgressRingComponentInfo.Parameters" />
+        <PropertyTable Properties="@BOBProgressRingComponentInfo.Parameters"/>
     </section>
 
     <section class="doc-section">
         <h2 class="doc-section__title">@Loc["Properties"]</h2>
-        <PropertyTable Properties="@BOBProgressIconComponentInfo.Parameters" />
+        <PropertyTable Properties="@BOBProgressIconComponentInfo.Parameters"/>
     </section>
 
 </DocPage>

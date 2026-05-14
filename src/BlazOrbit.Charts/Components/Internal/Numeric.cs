@@ -117,19 +117,19 @@ internal static class Numeric
     {
         Type t = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
         return t == typeof(double)
-            || t == typeof(float)
-            || t == typeof(decimal)
-            || t == typeof(int)
-            || t == typeof(long)
-            || t == typeof(short)
-            || t == typeof(uint)
-            || t == typeof(ulong)
-            || t == typeof(ushort)
-            || t == typeof(byte)
-            || t == typeof(sbyte)
-            || t == typeof(DateTime)
-            || t == typeof(DateTimeOffset)
-            || t == typeof(TimeSpan);
+               || t == typeof(float)
+               || t == typeof(decimal)
+               || t == typeof(int)
+               || t == typeof(long)
+               || t == typeof(short)
+               || t == typeof(uint)
+               || t == typeof(ulong)
+               || t == typeof(ushort)
+               || t == typeof(byte)
+               || t == typeof(sbyte)
+               || t == typeof(DateTime)
+               || t == typeof(DateTimeOffset)
+               || t == typeof(TimeSpan);
     }
 
     /// <summary>
@@ -143,21 +143,75 @@ internal static class Numeric
     {
         Type t = Nullable.GetUnderlyingType(typeof(T)) ?? typeof(T);
 
-        if (t == typeof(double)) return (T)(object)value;
-        if (t == typeof(float)) return (T)(object)(float)value;
-        if (t == typeof(decimal)) return (T)(object)(decimal)value;
-        if (t == typeof(int)) return (T)(object)(int)value;
-        if (t == typeof(long)) return (T)(object)(long)value;
-        if (t == typeof(short)) return (T)(object)(short)value;
-        if (t == typeof(uint)) return (T)(object)(uint)value;
-        if (t == typeof(ulong)) return (T)(object)(ulong)value;
-        if (t == typeof(ushort)) return (T)(object)(ushort)value;
-        if (t == typeof(byte)) return (T)(object)(byte)value;
-        if (t == typeof(sbyte)) return (T)(object)(sbyte)value;
-        if (t == typeof(DateTime)) return (T)(object)new DateTime((long)value);
+        if (t == typeof(double))
+        {
+            return (T)(object)value;
+        }
+
+        if (t == typeof(float))
+        {
+            return (T)(object)(float)value;
+        }
+
+        if (t == typeof(decimal))
+        {
+            return (T)(object)(decimal)value;
+        }
+
+        if (t == typeof(int))
+        {
+            return (T)(object)(int)value;
+        }
+
+        if (t == typeof(long))
+        {
+            return (T)(object)(long)value;
+        }
+
+        if (t == typeof(short))
+        {
+            return (T)(object)(short)value;
+        }
+
+        if (t == typeof(uint))
+        {
+            return (T)(object)(uint)value;
+        }
+
+        if (t == typeof(ulong))
+        {
+            return (T)(object)(ulong)value;
+        }
+
+        if (t == typeof(ushort))
+        {
+            return (T)(object)(ushort)value;
+        }
+
+        if (t == typeof(byte))
+        {
+            return (T)(object)(byte)value;
+        }
+
+        if (t == typeof(sbyte))
+        {
+            return (T)(object)(sbyte)value;
+        }
+
+        if (t == typeof(DateTime))
+        {
+            return (T)(object)new DateTime((long)value);
+        }
+
         if (t == typeof(DateTimeOffset))
+        {
             return (T)(object)new DateTimeOffset(new DateTime((long)value, DateTimeKind.Utc));
-        if (t == typeof(TimeSpan)) return (T)(object)TimeSpan.FromTicks((long)value);
+        }
+
+        if (t == typeof(TimeSpan))
+        {
+            return (T)(object)TimeSpan.FromTicks((long)value);
+        }
 
         throw new InvalidOperationException(
             $"Cannot project double back to type '{typeof(T).FullName}'.");

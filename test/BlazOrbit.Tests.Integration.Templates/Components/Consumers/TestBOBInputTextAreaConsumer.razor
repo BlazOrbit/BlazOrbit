@@ -4,11 +4,11 @@
 
 <div class="test-textarea-consumer">
     <EditForm EditContext="_editContext" OnValidSubmit="HandleValid" OnInvalidSubmit="HandleInvalid">
-        <DataAnnotationsValidator />
+        <DataAnnotationsValidator/>
 
         <BOBInputTextArea @bind-Value="_model.Bio"
                           Label="Bio"
-                          HelperText="Tell us about yourself." />
+                          HelperText="Tell us about yourself."/>
 
         <button type="submit" class="submit-btn">Submit</button>
     </EditForm>
@@ -16,6 +16,7 @@
 </div>
 
 @code {
+
     public class Model
     {
         [Required(ErrorMessage = "Bio is required")]
@@ -38,8 +39,19 @@
     public EditContext EditContext => _editContext!;
     public Model BoundModel => _model;
 
-    public void ForceValidate() => _editContext?.Validate();
+    public void ForceValidate()
+    {
+        _editContext?.Validate();
+    }
 
-    private void HandleValid() => _submitResult = "valid";
-    private void HandleInvalid() => _submitResult = "invalid";
+    private void HandleValid()
+    {
+        _submitResult = "valid";
+    }
+
+    private void HandleInvalid()
+    {
+        _submitResult = "invalid";
+    }
+
 }

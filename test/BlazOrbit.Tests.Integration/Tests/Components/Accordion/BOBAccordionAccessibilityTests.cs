@@ -48,7 +48,7 @@ public class BOBAccordionAccessibilityTests
 
         // Arrange & Act — first expanded via controlled
         IRenderedComponent<BOBAccordion> cut = ctx.Render<BOBAccordion>(p => p
-            .Add(c => c.ExpandedItems, new[] { "i1" })
+            .Add(c => c.ExpandedItems, ["i1"])
             .Add(c => c.ChildContent, TwoItems()));
 
         // Assert

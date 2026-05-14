@@ -53,5 +53,7 @@
 }
 
 @keyframes bob-progress-ring-rotate {
-    to { transform: rotate(360deg); }
+    to {
+        transform: rotate(360deg);
+    }
 }

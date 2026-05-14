@@ -22,8 +22,8 @@ public class AssetGeneratorSnapshotTests
 
             TheoryData<IAssetGenerator> data = [];
             foreach (Type type in targetAssembly.GetTypes()
-                .Where(t => t.IsClass && !t.IsAbstract && t.GetInterfaces().Any(i => i == assetGeneratorType))
-                .OrderBy(t => t.FullName, StringComparer.Ordinal))
+                         .Where(t => t.IsClass && !t.IsAbstract && t.GetInterfaces().Any(i => i == assetGeneratorType))
+                         .OrderBy(t => t.FullName, StringComparer.Ordinal))
             {
                 IAssetGenerator instance = (IAssetGenerator)Activator.CreateInstance(type)!;
                 data.Add(instance);
@@ -39,7 +39,7 @@ public class AssetGeneratorSnapshotTests
     {
         string content = await generator.GetContent();
         content.Should().NotBeNullOrWhiteSpace(
-            because: $"{generator.GetType().Name} must produce non-empty content");
+            $"{generator.GetType().Name} must produce non-empty content");
 
         await Verify(content)
             .UseFileName($"{generator.GetType().Name}_{generator.FileName.Replace('.', '_')}");

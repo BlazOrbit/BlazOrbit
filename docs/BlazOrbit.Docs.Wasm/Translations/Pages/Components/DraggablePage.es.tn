@@ -1,0 +1,44 @@
+// Auto-migrated from DraggablePage.es.resx. Edit freely from now on.
+
+# Basic usage
+Uso básico
+
+# BOBDraggable
+BOBDraggable
+
+# Component
+Componente
+
+# Disabled
+Deshabilitado
+
+# Drag me
+Arrástrame
+
+# Drag me and watch the counter
+Arrástrame y observa el contador
+
+# Fires OnDragStart on mousedown, OnDrag continuously, and OnDragEnd on release.
+Dispara OnDragStart en mousedown, OnDrag continuamente y OnDragEnd al soltar.
+
+# Last event
+Último evento
+
+# Lifecycle events
+Eventos del ciclo de vida
+
+# Locked — can't drag
+Bloqueado — no se puede arrastrar
+
+# Make any element mouse-draggable with fine-grained events. Renders its child content untouched — positioning is up to you.
+Hace cualquier elemento arrastrable con el ratón con eventos de grano fino. Renderiza su contenido hijo intacto: el posicionamiento depende de ti.
+
+# Properties
+Propiedades
+
+# Tick count
+Conteo de ticks
+
+# Wrap anything in BOBDraggable and listen to OnDrag. Client coordinates are reported in DragEventArgs.
+Envuelve cualquier cosa en BOBDraggable y escucha OnDrag. Las coordenadas del cliente se reportan en DragEventArgs.
+

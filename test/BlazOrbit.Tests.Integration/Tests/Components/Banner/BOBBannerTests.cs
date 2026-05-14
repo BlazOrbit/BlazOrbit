@@ -94,7 +94,7 @@ public class BOBBannerInteractionTests
 
         cut.FindAll(".bob-banner").Should().HaveCount(1);
 
-        cut.Find(".bob-banner__dismiss").Click();
+        cut.Find(".bob-banner ._bob-btn[data-bob-variant='ghost']").Click();
 
         fired.Should().BeTrue();
         cut.FindAll(".bob-banner").Should().BeEmpty();
@@ -110,7 +110,7 @@ public class BOBBannerInteractionTests
             .Add(c => c.Message, "x")
             .Add(c => c.Dismissible, true));
 
-        cut.Find(".bob-banner__dismiss").Click();
+        cut.Find(".bob-banner ._bob-btn[data-bob-variant='ghost']").Click();
         cut.FindAll(".bob-banner").Should().BeEmpty();
 
         await cut.InvokeAsync(() => cut.Instance.Reset());
@@ -162,7 +162,7 @@ public class BOBBannerAccessibilityTests
             .Add(c => c.Dismissible, true)
             .Add(c => c.DismissText, "Cerrar"));
 
-        cut.Find(".bob-banner__dismiss").GetAttribute("aria-label").Should().Be("Cerrar");
+        cut.Find(".bob-banner ._bob-btn[data-bob-variant='ghost']").GetAttribute("aria-label").Should().Be("Cerrar");
     }
 }
 
@@ -189,12 +189,8 @@ public class BOBBannerSnapshotTests
                 .Add(c => c.Severity, tc.Severity)
                 .Add(c => c.Title, "Heads up")
                 .Add(c => c.Message, "Sample message."));
-            return new
-            {
-                tc.Name,
-                Html = cut.GetNormalizedMarkup()
-            };
-        });
+            return new { tc.Name, Html = cut.GetNormalizedMarkup() };
+        }).ToList();
 
         await Verify(results).UseParameters(scenario.Name);
     }

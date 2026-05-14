@@ -13,30 +13,35 @@ namespace BlazOrbit.Charts.Components;
 /// and onboarding completion analyses.
 /// </summary>
 /// <typeparam name="TY">Numeric value type for each step.</typeparam>
-public class BOBFunnelChart<TY> : BOBChartBase<int, TY>
+public sealed class BOBFunnelChart<TY> : BOBChartBase<int, TY>
     where TY : struct
 {
     /// <summary>Funnel stages, in top-to-bottom order.</summary>
-    [Parameter] public IEnumerable<BOBChartFunnelStep<TY>>? Steps { get; set; }
+    [Parameter]
+    public IEnumerable<BOBChartFunnelStep<TY>>? Steps { get; set; }
 
     /// <summary>
     /// When <c>true</c> (default) the rows render as trapezoids that taper
     /// down (classic funnel). Set to <c>false</c> for a horizontal-bar
     /// look with rectangular rows.
     /// </summary>
-    [Parameter] public bool Tapered { get; set; } = true;
+    [Parameter]
+    public bool Tapered { get; set; } = true;
 
     /// <summary>
     /// Show the per-step value (and optional drop-off %) inside each row.
     /// Default <c>true</c>.
     /// </summary>
-    [Parameter] public bool ShowValues { get; set; } = true;
+    [Parameter]
+    public bool ShowValues { get; set; } = true;
 
     /// <summary>Pixel gap between consecutive rows. Default 2.</summary>
-    [Parameter] public double RowGap { get; set; } = 2;
+    [Parameter]
+    public double RowGap { get; set; } = 2;
 
     /// <summary>Fired when the user clicks a funnel row.</summary>
-    [Parameter] public EventCallback<BOBChartFunnelStep<TY>> OnStepClick { get; set; }
+    [Parameter]
+    public EventCallback<BOBChartFunnelStep<TY>> OnStepClick { get; set; }
 
     /// <inheritdoc />
     protected override string BuildAriaLabel()
@@ -48,33 +53,43 @@ public class BOBFunnelChart<TY> : BOBChartBase<int, TY>
     /// <inheritdoc />
     protected override void RenderSvg(RenderTreeBuilder builder)
     {
-        if (Steps is null) return;
+        if (Steps is null)
+        {
+            return;
+        }
+
         BOBChartFunnelStep<TY>[] steps = Steps.ToArray();
-        if (steps.Length == 0) return;
+        if (steps.Length == 0)
+        {
+            return;
+        }
 
         ChartLayout layout = ChartLayout.Default(EffectiveWidth, EffectiveHeight);
         double[] vals = steps.Select(s => Convert.ToDouble(s.Value, CultureInfo.InvariantCulture)).ToArray();
         double maxVal = vals.Max();
-        if (maxVal <= 0) return;
+        if (maxVal <= 0)
+        {
+            return;
+        }
 
-        double totalH = layout.PlotHeight - (steps.Length - 1) * RowGap;
+        double totalH = layout.PlotHeight - ((steps.Length - 1) * RowGap);
         double rowH = totalH / steps.Length;
         double midX = (layout.PlotLeft + layout.PlotRight) / 2;
 
         int seq = 100;
         for (int i = 0; i < steps.Length; i++)
         {
-            double topW = (vals[i] / maxVal) * layout.PlotWidth;
+            double topW = vals[i] / maxVal * layout.PlotWidth;
             double botW = Tapered && i < steps.Length - 1
-                ? (vals[i + 1] / maxVal) * layout.PlotWidth
+                ? vals[i + 1] / maxVal * layout.PlotWidth
                 : topW;
 
-            double y0 = layout.PlotTop + i * (rowH + RowGap);
+            double y0 = layout.PlotTop + (i * (rowH + RowGap));
             double y1 = y0 + rowH;
-            double x0L = midX - topW / 2;
-            double x0R = midX + topW / 2;
-            double x1L = midX - botW / 2;
-            double x1R = midX + botW / 2;
+            double x0L = midX - (topW / 2);
+            double x0R = midX + (topW / 2);
+            double x1L = midX - (botW / 2);
+            double x1R = midX + (botW / 2);
 
             string color = steps[i].Color ?? Palette.ColorAt(i);
             BOBChartFunnelStep<TY> capturedStep = steps[i];
@@ -93,6 +108,7 @@ public class BOBFunnelChart<TY> : BOBChartBase<int, TY>
                     EventCallback.Factory.Create<Microsoft.AspNetCore.Components.Web.MouseEventArgs>(
                         this, _ => OnStepClick.InvokeAsync(capturedStep)));
             }
+
             builder.OpenElement(seq++, "title");
             builder.AddContent(seq++, $"{steps[i].Label}: {steps[i].Value}");
             builder.CloseElement();
@@ -102,7 +118,7 @@ public class BOBFunnelChart<TY> : BOBChartBase<int, TY>
             builder.OpenElement(seq++, "text");
             builder.AddAttribute(seq++, "class", "bob-funnel-chart__label");
             builder.AddAttribute(seq++, "x", ChartLayout.ToInvariant(midX));
-            builder.AddAttribute(seq++, "y", ChartLayout.ToInvariant(y0 + rowH / 2 + 5));
+            builder.AddAttribute(seq++, "y", ChartLayout.ToInvariant(y0 + (rowH / 2) + 5));
             builder.AddAttribute(seq++, "text-anchor", "middle");
             builder.AddAttribute(seq++, "fill", "white");
             builder.AddAttribute(seq++, "pointer-events", "none");
@@ -119,6 +135,7 @@ public class BOBFunnelChart<TY> : BOBChartBase<int, TY>
         {
             return $"{label} — {value:N0}";
         }
+
         double pct = value / topValue.Value * 100;
         return $"{label} — {value:N0} ({pct:F1}%)";
     }

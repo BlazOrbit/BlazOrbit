@@ -1,7 +1,12 @@
 @namespace BlazOrbit.Components.Layout
 
 @inherits BOBComponentBase
-@implements IPureBuiltComponent
+@* IBuiltComponent (downgraded from IPureBuiltComponent): `_navOpen` is mutable
+   internal state — the Pure marker would freeze it in the fingerprint cache.
+   Root data-bob attrs stay inline so they re-emit on every event-driven render
+   (Blazor's `@attributes` spread does not diff dictionary contents reliably
+   when the dict reference is stable across renders). *@
+@implements IBuiltComponent
 
 <bob-component @attributes="ComputedAttributes"
                data-bob-sticky-header="@(StickyHeader ? "true" : null)"
@@ -13,7 +18,7 @@
         {
             <button type="button"
                     class="bob-stacked-layout__toggle"
-                    aria-label="Toggle navigation"
+                    aria-label="@Localizer["Toggle navigation"]"
                     aria-expanded="@_navOpen.ToString().ToLowerInvariant()"
                     @onclick="ToggleNav">
                 <span class="bob-stacked-layout__toggle-bar"></span>
@@ -48,30 +53,51 @@
 @code {
     private bool _navOpen;
 
+    [Inject] internal IStringLocalizer<BOBLayoutResources> Localizer { get; set; } = default!;
+
     /// <summary>Header.</summary>
-    [Parameter] public RenderFragment? Header { get; set; }
+    [Parameter]
+    public RenderFragment? Header { get; set; }
+
     /// <summary>Nav.</summary>
-    [Parameter] public RenderFragment? Nav { get; set; }
+    [Parameter]
+    public RenderFragment? Nav { get; set; }
+
     /// <summary>Content rendered inside the component.</summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>HeaderHeight.</summary>
-    [Parameter] public string? HeaderHeight { get; set; }
+    [Parameter]
+    public string? HeaderHeight { get; set; }
+
     /// <summary>NavMinColumnWidth.</summary>
-    [Parameter] public string? NavMinColumnWidth { get; set; }
+    [Parameter]
+    public string? NavMinColumnWidth { get; set; }
+
     /// <summary>NavGap.</summary>
-    [Parameter] public string? NavGap { get; set; }
+    [Parameter]
+    public string? NavGap { get; set; }
+
     /// <summary>ContentMaxWidth.</summary>
-    [Parameter] public string? ContentMaxWidth { get; set; }
+    [Parameter]
+    public string? ContentMaxWidth { get; set; }
 
     /// <summary>NavColumns.</summary>
-    [Parameter] public int? NavColumns { get; set; }
+    [Parameter]
+    public int? NavColumns { get; set; }
+
     /// <summary>StickyHeader.</summary>
-    [Parameter] public bool StickyHeader { get; set; } = true;
+    [Parameter]
+    public bool StickyHeader { get; set; } = true;
+
     /// <summary>StickyNav.</summary>
-    [Parameter] public bool StickyNav { get; set; } = false;
+    [Parameter]
+    public bool StickyNav { get; set; } = false;
+
     /// <summary>When <see langword="true" />, the Toggle is shown.</summary>
-    [Parameter] public bool ShowToggle { get; set; } = true;
+    [Parameter]
+    public bool ShowToggle { get; set; } = true;
 
     /// <summary>Whether the navigation drawer is open. Two-way bound through <c>@bind-NavOpen</c>.</summary>
     [Parameter]
@@ -82,7 +108,8 @@
     }
 
     /// <summary>NavOpenChanged.</summary>
-    [Parameter] public EventCallback<bool> NavOpenChanged { get; set; }
+    [Parameter]
+    public EventCallback<bool> NavOpenChanged { get; set; }
 
     private async Task ToggleNav()
     {
@@ -105,5 +132,8 @@
             cssVariables[FeatureDefinitions.InlineVariables.LayoutNavColumns] = NavColumns.Value.ToString();
     }
 
-    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes) { }
+    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    {
+    }
+
 }

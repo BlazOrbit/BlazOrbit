@@ -17,40 +17,55 @@ public class BOBInputRadioSnapshotTests
 
         var testCases = new[]
         {
-            new { Name = "Vertical_NoSelection", Builder = (Action<ComponentParameterCollectionBuilder<TestBOBInputRadioConsumer>>)(p => p
-                .Add(c => c.Label, "Choice")) },
-
-            new { Name = "Vertical_Selected", Builder = (Action<ComponentParameterCollectionBuilder<TestBOBInputRadioConsumer>>)(p => p
-                .Add(c => c.Label, "Choice")
-                .Add(c => c.SelectedValue, "opt2")) },
-
-            new { Name = "Horizontal", Builder = (Action<ComponentParameterCollectionBuilder<TestBOBInputRadioConsumer>>)(p => p
-                .Add(c => c.Label, "Choice")
-                .Add(c => c.Orientation, RadioOrientation.Horizontal)) },
-
-            new { Name = "Disabled", Builder = (Action<ComponentParameterCollectionBuilder<TestBOBInputRadioConsumer>>)(p => p
-                .Add(c => c.Label, "Choice")
-                .Add(c => c.Disabled, true)) },
-
-            new { Name = "Error", Builder = (Action<ComponentParameterCollectionBuilder<TestBOBInputRadioConsumer>>)(p => p
-                .Add(c => c.Label, "Choice")
-                .Add(c => c.Error, true)) },
-
-            new { Name = "Required_With_Helper", Builder = (Action<ComponentParameterCollectionBuilder<TestBOBInputRadioConsumer>>)(p => p
-                .Add(c => c.Label, "Choice")
-                .Add(c => c.Required, true)
-                .Add(c => c.HelperText, "You must pick one.")) }
+            new
+            {
+                Name = "Vertical_NoSelection",
+                Builder = (Action<ComponentParameterCollectionBuilder<TestBOBInputRadioConsumer>>)(p => p
+                    .Add(c => c.Label, "Choice"))
+            },
+            new
+            {
+                Name = "Vertical_Selected",
+                Builder = (Action<ComponentParameterCollectionBuilder<TestBOBInputRadioConsumer>>)(p => p
+                    .Add(c => c.Label, "Choice")
+                    .Add(c => c.SelectedValue, "opt2"))
+            },
+            new
+            {
+                Name = "Horizontal",
+                Builder = (Action<ComponentParameterCollectionBuilder<TestBOBInputRadioConsumer>>)(p => p
+                    .Add(c => c.Label, "Choice")
+                    .Add(c => c.Orientation, RadioOrientation.Horizontal))
+            },
+            new
+            {
+                Name = "Disabled",
+                Builder = (Action<ComponentParameterCollectionBuilder<TestBOBInputRadioConsumer>>)(p => p
+                    .Add(c => c.Label, "Choice")
+                    .Add(c => c.Disabled, true))
+            },
+            new
+            {
+                Name = "Error",
+                Builder = (Action<ComponentParameterCollectionBuilder<TestBOBInputRadioConsumer>>)(p => p
+                    .Add(c => c.Label, "Choice")
+                    .Add(c => c.Error, true))
+            },
+            new
+            {
+                Name = "Required_With_Helper",
+                Builder = (Action<ComponentParameterCollectionBuilder<TestBOBInputRadioConsumer>>)(p => p
+                    .Add(c => c.Label, "Choice")
+                    .Add(c => c.Required, true)
+                    .Add(c => c.HelperText, "You must pick one."))
+            }
         };
 
         var results = testCases.Select(testCase =>
         {
             IRenderedComponent<TestBOBInputRadioConsumer> cut = ctx.Render<TestBOBInputRadioConsumer>(testCase.Builder);
-            return new
-            {
-                testCase.Name,
-                Html = cut.GetNormalizedMarkup()
-            };
-        });
+            return new { testCase.Name, Html = cut.GetNormalizedMarkup() };
+        }).ToList();
 
         await Verify(results).UseParameters(scenario.Name);
     }

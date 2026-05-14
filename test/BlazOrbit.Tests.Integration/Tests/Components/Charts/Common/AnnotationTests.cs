@@ -10,8 +10,8 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Charts.Common;
 [Trait("Component Variant", "Charts.Annotations")]
 public class AnnotationTests
 {
-    private static IEnumerable<BOBChartSeries<int, double>> Series10() => new[]
-    {
+    private static IEnumerable<BOBChartSeries<int, double>> Series10() =>
+    [
         new BOBChartSeries<int, double>
         {
             Label = "S",
@@ -19,7 +19,7 @@ public class AnnotationTests
                 .Select(i => new BOBChartPoint<int, double>(i, i * 1.0))
                 .ToArray()
         }
-    };
+    ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -43,7 +43,7 @@ public class AnnotationTests
         IRenderedComponent<BOBLineChart<int, double>> cut =
             ctx.Render<BOBLineChart<int, double>>(p => p
                 .Add(c => c.Series, Series10())
-                .Add(c => c.Annotations, Array.Empty<BOBChartAnnotation>()));
+                .Add(c => c.Annotations, []));
 
         cut.FindAll("g.bob-chart__annotations").Should().HaveCount(1);
         cut.FindAll(".bob-chart__annotation-text").Should().BeEmpty();
@@ -58,13 +58,17 @@ public class AnnotationTests
         IRenderedComponent<BOBLineChart<int, double>> cut =
             ctx.Render<BOBLineChart<int, double>>(p => p
                 .Add(c => c.Series, Series10())
-                .Add(c => c.Annotations, new BOBChartAnnotation[]
-                {
+                .Add(c => c.Annotations,
+                [
                     new BOBChartTextAnnotation<int, double>
-                    {
-                        X = 5, Y = 5.0, Text = "Release v2", DxPx = 6, DyPx = -10
-                    }
-                }));
+                        {
+                            X = 5,
+                            Y = 5.0,
+                            Text = "Release v2",
+                            DxPx = 6,
+                            DyPx = -10
+                        }
+                ]));
 
         AngleSharp.Dom.IElement textEl = cut.Find(".bob-chart__annotation-text");
         textEl.TextContent.Should().Be("Release v2");
@@ -80,13 +84,17 @@ public class AnnotationTests
         IRenderedComponent<BOBLineChart<int, double>> cut =
             ctx.Render<BOBLineChart<int, double>>(p => p
                 .Add(c => c.Series, Series10())
-                .Add(c => c.Annotations, new BOBChartAnnotation[]
-                {
+                .Add(c => c.Annotations,
+                [
                     new BOBChartTextAnnotation<int, double>
-                    {
-                        X = 1, Y = 1.0, Text = "T", DxPx = 12, DyPx = 0
-                    }
-                }));
+                        {
+                            X = 1,
+                            Y = 1.0,
+                            Text = "T",
+                            DxPx = 12,
+                            DyPx = 0
+                        }
+                ]));
 
         AngleSharp.Dom.IElement textEl = cut.Find(".bob-chart__annotation-text");
         // The annotation's X attribute should equal the X=1 marker's cx + 12.
@@ -107,13 +115,10 @@ public class AnnotationTests
         IRenderedComponent<BOBLineChart<int, double>> cut =
             ctx.Render<BOBLineChart<int, double>>(p => p
                 .Add(c => c.Series, Series10())
-                .Add(c => c.Annotations, new BOBChartAnnotation[]
-                {
-                    new BOBChartBandAnnotation<int>
-                    {
-                        FromX = 3, ToX = 6, FillOpacity = 0.2, Label = "Outage"
-                    }
-                }));
+                .Add(c => c.Annotations,
+                [
+                    new BOBChartBandAnnotation<int> { FromX = 3, ToX = 6, FillOpacity = 0.2, Label = "Outage" }
+                ]));
 
         cut.FindAll("rect.bob-chart__annotation-band").Should().HaveCount(1);
         AngleSharp.Dom.IElement bandLabel = cut.Find(".bob-chart__annotation-band-label");
@@ -129,10 +134,10 @@ public class AnnotationTests
         IRenderedComponent<BOBLineChart<int, double>> cut =
             ctx.Render<BOBLineChart<int, double>>(p => p
                 .Add(c => c.Series, Series10())
-                .Add(c => c.Annotations, new BOBChartAnnotation[]
-                {
+                .Add(c => c.Annotations,
+                [
                     new BOBChartBandAnnotation<int> { FromX = 2, ToX = 4, FillOpacity = 0.42 }
-                }));
+                ]));
 
         AngleSharp.Dom.IElement band = cut.Find("rect.bob-chart__annotation-band");
         band.GetAttribute("fill-opacity").Should().Be("0.42");
@@ -147,13 +152,13 @@ public class AnnotationTests
         IRenderedComponent<BOBLineChart<int, double>> cut =
             ctx.Render<BOBLineChart<int, double>>(p => p
                 .Add(c => c.Series, Series10())
-                .Add(c => c.Annotations, new BOBChartAnnotation[]
-                {
+                .Add(c => c.Annotations,
+                [
                     new BOBChartShapeAnnotation<int, double>
-                    {
-                        X = 5, Y = 5.0, Shape = BOBChartAnnotationShape.Circle, SizePx = 16
-                    }
-                }));
+                        {
+                            X = 5, Y = 5.0, Shape = BOBChartAnnotationShape.Circle, SizePx = 16
+                        }
+                ]));
 
         AngleSharp.Dom.IElement circle = cut.Find("circle.bob-chart__annotation-shape");
         double r = double.Parse(circle.GetAttribute("r")!, System.Globalization.CultureInfo.InvariantCulture);
@@ -169,13 +174,13 @@ public class AnnotationTests
         IRenderedComponent<BOBLineChart<int, double>> cut =
             ctx.Render<BOBLineChart<int, double>>(p => p
                 .Add(c => c.Series, Series10())
-                .Add(c => c.Annotations, new BOBChartAnnotation[]
-                {
+                .Add(c => c.Annotations,
+                [
                     new BOBChartShapeAnnotation<int, double>
-                    {
-                        X = 5, Y = 5.0, Shape = BOBChartAnnotationShape.Square, SizePx = 14
-                    }
-                }));
+                        {
+                            X = 5, Y = 5.0, Shape = BOBChartAnnotationShape.Square, SizePx = 14
+                        }
+                ]));
 
         cut.FindAll("rect.bob-chart__annotation-shape").Should().HaveCount(1);
     }
@@ -189,13 +194,13 @@ public class AnnotationTests
         IRenderedComponent<BOBLineChart<int, double>> cut =
             ctx.Render<BOBLineChart<int, double>>(p => p
                 .Add(c => c.Series, Series10())
-                .Add(c => c.Annotations, new BOBChartAnnotation[]
-                {
+                .Add(c => c.Annotations,
+                [
                     new BOBChartShapeAnnotation<int, double>
-                    {
-                        X = 5, Y = 5.0, Shape = BOBChartAnnotationShape.Triangle, SizePx = 12
-                    }
-                }));
+                        {
+                            X = 5, Y = 5.0, Shape = BOBChartAnnotationShape.Triangle, SizePx = 12
+                        }
+                ]));
 
         AngleSharp.Dom.IElement path = cut.Find("path.bob-chart__annotation-shape");
         string d = path.GetAttribute("d") ?? string.Empty;
@@ -211,13 +216,13 @@ public class AnnotationTests
         IRenderedComponent<BOBLineChart<int, double>> cut =
             ctx.Render<BOBLineChart<int, double>>(p => p
                 .Add(c => c.Series, Series10())
-                .Add(c => c.Annotations, new BOBChartAnnotation[]
-                {
+                .Add(c => c.Annotations,
+                [
                     new BOBChartShapeAnnotation<int, double>
-                    {
-                        X = 5, Y = 5.0, Shape = BOBChartAnnotationShape.Star, SizePx = 18
-                    }
-                }));
+                        {
+                            X = 5, Y = 5.0, Shape = BOBChartAnnotationShape.Star, SizePx = 18
+                        }
+                ]));
 
         AngleSharp.Dom.IElement path = cut.Find("path.bob-chart__annotation-shape");
         string d = path.GetAttribute("d") ?? string.Empty;
@@ -236,13 +241,10 @@ public class AnnotationTests
         IRenderedComponent<BOBLineChart<int, double>> cut =
             ctx.Render<BOBLineChart<int, double>>(p => p
                 .Add(c => c.Series, Series10())
-                .Add(c => c.Annotations, new BOBChartAnnotation[]
-                {
-                    new BOBChartShapeAnnotation<int, double>
-                    {
-                        X = 3, Y = 3.0, Color = "#ff0000"
-                    }
-                }));
+                .Add(c => c.Annotations,
+                [
+                    new BOBChartShapeAnnotation<int, double> { X = 3, Y = 3.0, Color = "#ff0000" }
+                ]));
 
         AngleSharp.Dom.IElement circle = cut.Find("circle.bob-chart__annotation-shape");
         circle.GetAttribute("fill").Should().Be("#ff0000");
@@ -257,13 +259,13 @@ public class AnnotationTests
         IRenderedComponent<BOBLineChart<int, double>> cut =
             ctx.Render<BOBLineChart<int, double>>(p => p
                 .Add(c => c.Series, Series10())
-                .Add(c => c.Annotations, new BOBChartAnnotation[]
-                {
+                .Add(c => c.Annotations,
+                [
                     new BOBChartTextAnnotation<int, double>
-                    {
-                        X = 5, Y = 5.0, Text = "X", CssClass = "my-custom"
-                    }
-                }));
+                        {
+                            X = 5, Y = 5.0, Text = "X", CssClass = "my-custom"
+                        }
+                ]));
 
         AngleSharp.Dom.IElement textEl = cut.Find(".bob-chart__annotation-text");
         textEl.GetAttribute("class").Should().Contain("my-custom");
@@ -278,16 +280,19 @@ public class AnnotationTests
         IRenderedComponent<BOBLineChart<int, double>> cut =
             ctx.Render<BOBLineChart<int, double>>(p => p
                 .Add(c => c.Series, Series10())
-                .Add(c => c.Annotations, new BOBChartAnnotation[]
-                {
+                .Add(c => c.Annotations,
+                [
                     new BOBChartBandAnnotation<int> { FromX = 2, ToX = 4 },
-                    new BOBChartTextAnnotation<int, double> { X = 6, Y = 6.0, Text = "T" },
-                    new BOBChartShapeAnnotation<int, double> { X = 8, Y = 8.0, Shape = BOBChartAnnotationShape.Diamond },
-                }));
+                        new BOBChartTextAnnotation<int, double> { X = 6, Y = 6.0, Text = "T" },
+                        new BOBChartShapeAnnotation<int, double>
+                        {
+                            X = 8, Y = 8.0, Shape = BOBChartAnnotationShape.Diamond
+                        }
+                ]));
 
         cut.FindAll("rect.bob-chart__annotation-band").Should().HaveCount(1);
         cut.FindAll(".bob-chart__annotation-text").Should().HaveCount(1);
         cut.FindAll("path.bob-chart__annotation-shape").Should().HaveCount(1,
-            because: "diamond is a path shape");
+            "diamond is a path shape");
     }
 }

@@ -12,23 +12,29 @@
 }
 
 @code {
+
     /* ========= Public API ========= */
     /// <summary>Markup that emits the tab definitions (typically <c>&lt;BOBTab&gt;</c> children).</summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>ActiveTab.</summary>
-    [Parameter] public string? ActiveTab { get; set; }
+    [Parameter]
+    public string? ActiveTab { get; set; }
 
     /// <summary>ActiveTabChanged.</summary>
-    [Parameter] public EventCallback<string?> ActiveTabChanged { get; set; }
+    [Parameter]
+    public EventCallback<string?> ActiveTabChanged { get; set; }
 
     // IHasFullWidth
     /// <summary>When <see langword="true" />, the component spans the full width of its container.</summary>
-    [Parameter] public bool FullWidth { get; set; }
+    [Parameter]
+    public bool FullWidth { get; set; }
 
     // IHasSize
     /// <summary>Visual size of the tab bar.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
 
     /* ========= Variant ========= */
     public override BOBTabsVariant DefaultVariant => BOBTabsVariant.Underline;
@@ -37,11 +43,11 @@
     {
         [BOBTabsVariant.Underline] = t => t.RenderDefault(),
         [BOBTabsVariant.Pills] = t => t.RenderDefault(),
-        [BOBTabsVariant.Enclosed] = t => t.RenderDefault(),
+        [BOBTabsVariant.Enclosed] = t => t.RenderDefault()
     };
 
     /* ========= Private state ========= */
-    private readonly List<BOBTab> _tabs = new();
+    private readonly List<BOBTab> _tabs = [];
     private readonly object _tabsLock = new();
     private readonly Dictionary<string, ElementReference> _tabRefs = new();
     private string? _pendingFocusTabId;
@@ -92,7 +98,7 @@
     {
         lock (_tabsLock)
         {
-            return new List<BOBTab>(_tabs);
+            return [.._tabs];
         }
     }
 
@@ -103,23 +109,27 @@
         {
             _tabs.Clear();
         }
+
         _tabRefs.Clear();
         await base.DisposeAsync();
     }
 
-    internal bool IsActiveTab(string? tabId) => ActiveTab == tabId;
+    internal bool IsActiveTab(string? tabId)
+    {
+        return ActiveTab == tabId;
+    }
 
     /* ========= Render ========= */
     private RenderFragment RenderDefault() => __builder =>
     {
-        List<BOBTab> tabs = SnapshotTabs();
+        var tabs = SnapshotTabs();
         <CascadingValue Value="this">
             <bob-component @attributes="@ComputedAttributes">
                 <div class="bob-tabs__header" role="tablist">
-                    @foreach (BOBTab tab in tabs)
+                    @foreach (var tab in tabs)
                     {
-                        string tabId = tab.Id ?? string.Empty;
-                        bool isActive = tab.Id == ActiveTab;
+                        var tabId = tab.Id ?? string.Empty;
+                        var isActive = tab.Id == ActiveTab;
                         <button type="button"
                                 role="tab"
                                 id="@($"bob-tab-{tabId}")"
@@ -165,8 +175,8 @@
     {
         if (tabs.Count == 0) return;
 
-        int currentIndex = tabs.FindIndex(t => t.Id == currentId);
-        int targetIndex = -1;
+        var currentIndex = tabs.FindIndex(t => t.Id == currentId);
+        var targetIndex = -1;
 
         switch (e.Key)
         {
@@ -188,7 +198,7 @@
 
         if (targetIndex < 0 || targetIndex == currentIndex) return;
 
-        string? targetId = tabs[targetIndex].Id;
+        var targetId = tabs[targetIndex].Id;
         _pendingFocusTabId = targetId;
         await SelectTab(targetId);
     }
@@ -196,21 +206,23 @@
     private static int FindNextEnabled(List<BOBTab> tabs, int start, int step)
     {
         if (tabs.Count == 0) return -1;
-        int count = tabs.Count;
-        for (int i = 1; i <= count; i++)
+        var count = tabs.Count;
+        for (var i = 1; i <= count; i++)
         {
-            int idx = ((start + step * i) % count + count) % count;
+            var idx = ((start + step * i) % count + count) % count;
             if (!tabs[idx].Disabled) return idx;
         }
+
         return -1;
     }
 
     private static int FindFirstEnabled(List<BOBTab> tabs, int start, int step)
     {
-        for (int i = start; i >= 0 && i < tabs.Count; i += step)
+        for (var i = start; i >= 0 && i < tabs.Count; i += step)
         {
             if (!tabs[i].Disabled) return i;
         }
+
         return -1;
     }
 
@@ -219,7 +231,7 @@
         await base.OnAfterRenderAsync(firstRender);
 
         if (_pendingFocusTabId != null &&
-            _tabRefs.TryGetValue(_pendingFocusTabId, out ElementReference er))
+            _tabRefs.TryGetValue(_pendingFocusTabId, out var er))
         {
             _pendingFocusTabId = null;
             try
@@ -246,5 +258,8 @@
     {
     }
 
-    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables) { }
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    {
+    }
+
 }

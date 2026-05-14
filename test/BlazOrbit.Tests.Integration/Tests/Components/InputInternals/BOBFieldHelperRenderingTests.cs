@@ -12,7 +12,10 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.InputInternals;
 [Trait("Component Rendering", "_BOBFieldHelper")]
 public class BOBFieldHelperRenderingTests
 {
-    private class Model { public string? Value { get; set; } }
+    private class Model
+    {
+        public string? Value { get; set; }
+    }
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]

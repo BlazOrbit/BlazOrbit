@@ -10,12 +10,12 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Charts.PieChart;
 [Trait("Component Rendering", "BOBDonutChart")]
 public class BOBDonutChartRenderingTests
 {
-    private static IEnumerable<BOBChartSlice<decimal>> SampleSlices() => new[]
-    {
-        new BOBChartSlice<decimal> { Label = "Active",   Value = 60m },
-        new BOBChartSlice<decimal> { Label = "Idle",     Value = 25m },
-        new BOBChartSlice<decimal> { Label = "Error",    Value = 15m },
-    };
+    private static IEnumerable<BOBChartSlice<decimal>> SampleSlices() =>
+    [
+        new BOBChartSlice<decimal> { Label = "Active", Value = 60m },
+        new BOBChartSlice<decimal> { Label = "Idle", Value = 25m },
+        new BOBChartSlice<decimal> { Label = "Error", Value = 15m }
+    ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -43,7 +43,7 @@ public class BOBDonutChartRenderingTests
                 .Add(c => c.Slices, SampleSlices()));
 
         cut.Instance.InnerRadius.Should().Be(0.6,
-            because: "donut differs from pie by defaulting InnerRadius to 0.6 in its constructor");
+            "donut differs from pie by defaulting InnerRadius to 0.6 in its constructor");
     }
 
     [Theory]
@@ -62,9 +62,9 @@ public class BOBDonutChartRenderingTests
 
         // Two arcs in the path: outer + inner.
         int arcCount = System.Text.RegularExpressions.Regex.Matches(d, @"\bA\b").Count;
-        arcCount.Should().Be(2, because: "donut wedges have two arcs (outer rim + inner rim)");
+        arcCount.Should().Be(2, "donut wedges have two arcs (outer rim + inner rim)");
 
-        d.Should().Contain(" L ", because: "the L segment connects outer-end to inner-end");
+        d.Should().Contain(" L ", "the L segment connects outer-end to inner-end");
         d.Should().EndWith(" Z");
     }
 

@@ -7,18 +7,18 @@
 @implements IHasSize
 
 <bob-component @attributes="ComputedAttributes">
-    <nav class="bob-breadcrumbs" aria-label="@AriaLabel">
+    <nav class="bob-breadcrumbs" aria-label="@ResolvedAriaLabel">
         <ol class="bob-breadcrumbs__list" role="list">
             @{
-                IReadOnlyList<BreadcrumbItem> visible = ResolveVisibleItems();
-                int total = (Items ?? []).Count;
-                bool truncated = total > MaxVisible && MaxVisible > 0;
+                var visible = ResolveVisibleItems();
+                var total = (Items ?? []).Count;
+                var truncated = total > MaxVisible && MaxVisible > 0;
             }
 
-            @for (int i = 0; i < visible.Count; i++)
+            @for (var i = 0; i < visible.Count; i++)
             {
-                BreadcrumbItem item = visible[i];
-                bool isLast = i == visible.Count - 1;
+                var item = visible[i];
+                var isLast = i == visible.Count - 1;
 
                 @* When truncating we render an ellipsis tile between the head and the tail
                    slice. The dropdown is opt-in and consumer-driven; v1 keeps it as a
@@ -49,7 +49,7 @@
                             <span class="bob-breadcrumbs__text" aria-current="page">
                                 @if (item.Icon.HasValue)
                                 {
-                                    <BOBSvgIcon Icon="@item.Icon.Value" Size="@Size" />
+                                    <BOBSvgIcon Icon="@item.Icon.Value" Size="@Size"/>
                                 }
                                 @item.Text
                             </span>
@@ -59,7 +59,7 @@
                             <a class="bob-breadcrumbs__link" href="@item.Href">
                                 @if (item.Icon.HasValue)
                                 {
-                                    <BOBSvgIcon Icon="@item.Icon.Value" Size="@Size" />
+                                    <BOBSvgIcon Icon="@item.Icon.Value" Size="@Size"/>
                                 }
                                 @item.Text
                             </a>
@@ -79,26 +79,37 @@
 </bob-component>
 
 @code {
+
     /// <summary>Sequence of entries rendered left-to-right. Last entry without a <see cref="BreadcrumbItem.Href"/> is treated as the current page.</summary>
-    [Parameter] public IReadOnlyList<BreadcrumbItem>? Items { get; set; }
+    [Parameter]
+    public IReadOnlyList<BreadcrumbItem>? Items { get; set; }
 
     /// <summary>Custom separator rendered between entries. Falls back to a chevron icon.</summary>
-    [Parameter] public RenderFragment? Separator { get; set; }
+    [Parameter]
+    public RenderFragment? Separator { get; set; }
 
     /// <summary>Custom rendering for individual entries (overrides the default link/text logic).</summary>
-    [Parameter] public RenderFragment<BreadcrumbItem>? ItemTemplate { get; set; }
+    [Parameter]
+    public RenderFragment<BreadcrumbItem>? ItemTemplate { get; set; }
 
     /// <summary>
     /// Maximum entries to render at once. When <see cref="Items"/> exceeds this count the
     /// list collapses to first + ellipsis + last <c>(MaxVisible − 1)</c>. Set to <c>0</c> to disable.
     /// </summary>
-    [Parameter] public int MaxVisible { get; set; } = 0;
+    [Parameter]
+    public int MaxVisible { get; set; } = 0;
 
     /// <summary>Aria label rendered on the root <c>&lt;nav&gt;</c>.</summary>
-    [Parameter] public string AriaLabel { get; set; } = "Breadcrumb";
+    [Parameter]
+    public string? AriaLabel { get; set; }
+
+    [Inject] internal IStringLocalizer<BOBLayoutResources> Localizer { get; set; } = default!;
+
+    private string ResolvedAriaLabel => AriaLabel ?? Localizer["Breadcrumb"];
 
     /// <summary>Visual size shared by separator + entry icons.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
 
     private RenderFragment SeparatorContent() => __builder =>
     {
@@ -108,7 +119,7 @@
         }
         else
         {
-            <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_chevron_right" Size="BOBSize.Small" />
+            <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_chevron_right" Size="BOBSize.Small"/>
         }
     };
 
@@ -122,8 +133,9 @@
         // always sees where they are now and where they came from. The middle hidden
         // segment is summarised by the ellipsis tile in the markup.
         List<BreadcrumbItem> head = [Items[0]];
-        IEnumerable<BreadcrumbItem> tail = Items.Skip(Items.Count - (MaxVisible - 1));
+        var tail = Items.Skip(Items.Count - (MaxVisible - 1));
         head.AddRange(tail);
         return head;
     }
+
 }

@@ -26,7 +26,7 @@ public class BOBCultureSelectorSnapshotTests
                 .Add(c => c.ShowFlag, true)
                 .Add(c => c.ShowName, true)).GetNormalizedMarkup();
 
-        await Verifier.Verify(markup).UseParameters(scenario.Name);
+        await Verify(markup).UseParameters(scenario.Name);
     }
 
     [Theory]
@@ -45,6 +45,6 @@ public class BOBCultureSelectorSnapshotTests
                 .Add(c => c.ShowFlag, true)
                 .Add(c => c.ShowName, true)).GetNormalizedMarkup();
 
-        await Verifier.Verify(markup).UseParameters(scenario.Name);
+        await Verify(markup).UseParameters(scenario.Name);
     }
 }

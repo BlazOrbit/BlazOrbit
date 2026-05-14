@@ -49,7 +49,8 @@ public sealed class BOBThrottler<T> : IDisposable
     /// expires (using the most recent buffered argument).
     /// </summary>
     [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope",
-        Justification = "CancellationTokenSource ownership transfers to the awaiter; disposed in Dispose() / on coalesce reset.")]
+        Justification =
+            "CancellationTokenSource ownership transfers to the awaiter; disposed in Dispose() / on coalesce reset.")]
     public async Task InvokeAsync(T arg, Func<T, Task> action)
     {
         ArgumentNullException.ThrowIfNull(action);

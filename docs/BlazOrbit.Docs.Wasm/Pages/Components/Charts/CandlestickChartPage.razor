@@ -1,17 +1,28 @@
-@page "/components/charts/candlestick"
+﻿@page "/components/charts/candlestick"
 
 @inject IStringLocalizer<CandlestickChartPage> Loc
 
 <DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBCandlestickChart"]"
-         Lede="@Loc["OHLC / candlestick chart for financial time series. Wick from Low to High; body Open → Close colored bullish (Close ≥ Open) or bearish (Close < Open). Optional volume pane on the bottom 20% sharing the X axis."]"
+         Lede="@Loc["Candlestick chart for financial time series. Visualize open, high, low, and close prices with bullish and bearish coloring. Optional volume pane."]"
          PageInstance="this"
-         ApiType="@typeof(BOBCandlestickChart<>)">
+         ApiType="@typeof(BOBCandlestickChart<>)"
+         Keywords="@(["candlestick", "financial", "stock", "trading"])">
+
+    <section class="doc-section">
+        <p class="doc-section__description">
+                        @Loc.Html("Each candle encodes four price points: the wick spans from Low to High, while the body covers the Open-to-Close range. When Close ≥ Open the body is colored bullish; when Close &lt; Open it is colored bearish. The optional volume pane occupies the bottom 20% of the canvas and shares the same X axis, making price/volume divergence easy to spot.")
+        </p>
+    </section>
+
+    <BOBBanner Severity="BOBBannerSeverity.Warning"
+               Title="@Loc["Extra package required"]"
+               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]"/>
 
     <DocDemo Key="Basic" Title="@Loc["Basic OHLC"]">
         <BOBCandlestickChart TX="DateTime"
                              Candles="_ohlc"
                              XAxis="@(new BOBChartAxis { Format = "MM-dd" })"
-                             Width="640" Height="360" />
+                             Width="640" Height="360"/>
     </DocDemo>
 
     <DocDemo Key="WithVolume" Title="@Loc["With volume pane"]"
@@ -20,7 +31,7 @@
                              Candles="_ohlc"
                              ShowVolumePane="true"
                              XAxis="@(new BOBChartAxis { Format = "MM-dd" })"
-                             Width="640" Height="380" />
+                             Width="640" Height="380"/>
     </DocDemo>
 
     <DocDemo Key="ReferenceLines" Title="@Loc["With moving-average reference"]"
@@ -29,7 +40,7 @@
                              Candles="_ohlc"
                              ReferenceLines="_movingAverage"
                              XAxis="@(new BOBChartAxis { Format = "MM-dd" })"
-                             Width="640" Height="360" />
+                             Width="640" Height="360"/>
     </DocDemo>
 
     <DocDemo Key="CustomColors" Title="@Loc["Custom up / down colors"]">
@@ -38,7 +49,7 @@
                              UpColor="#0ea5e9"
                              DownColor="#f97316"
                              XAxis="@(new BOBChartAxis { Format = "MM-dd" })"
-                             Width="640" Height="360" />
+                             Width="640" Height="360"/>
     </DocDemo>
 
 </DocPage>
@@ -52,24 +63,24 @@
         Random rng = new(2026);
         var list = new List<BOBChartCandlePoint<DateTime>>();
         DateTime start = new(2026, 04, 01);
-        double last = 145.0;
-        for (int i = 0; i < 25; i++)
+        var last = 145.0;
+        for (var i = 0; i < 25; i++)
         {
-            double open = last;
-            double close = open + (rng.NextDouble() - 0.45) * 4;
-            double high = Math.Max(open, close) + rng.NextDouble() * 2;
-            double low = Math.Min(open, close) - rng.NextDouble() * 2;
-            double vol = 600_000 + rng.NextDouble() * 400_000;
+            var open = last;
+            var close = open + (rng.NextDouble() - 0.45) * 4;
+            var high = Math.Max(open, close) + rng.NextDouble() * 2;
+            var low = Math.Min(open, close) - rng.NextDouble() * 2;
+            var vol = 600_000 + rng.NextDouble() * 400_000;
             list.Add(new BOBChartCandlePoint<DateTime>(start.AddDays(i), open, high, low, close, vol));
             last = close;
         }
+
         return list.ToArray();
     }
 
     private static readonly IEnumerable<BOBChartReferenceLine> _movingAverage =
-        new[]
-        {
-            new BOBChartReferenceLine
+    [
+        new BOBChartReferenceLine
             {
                 Value = 145,
                 Label = "SMA(20)",
@@ -77,5 +88,6 @@
                 Style = BOBChartReferenceLineStyle.Dashed,
                 StrokeWidth = 1.5
             }
-        };
+    ];
+
 }

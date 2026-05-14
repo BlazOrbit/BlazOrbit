@@ -1,4 +1,4 @@
-@page "/components/display/carousel"
+﻿@page "/components/display/carousel"
 
 @inject IStringLocalizer<CarouselPage> Loc
 
@@ -6,7 +6,8 @@
 <DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBCarousel"]"
          Lede="@Loc["Slideshow with arrows, indicators, keyboard navigation, touch swipe, and optional auto-play. Slide / Fade / None / Coverflow transitions."]"
          PageInstance="this"
-         ApiType="@typeof(BOBCarousel)">
+         ApiType="@typeof(BOBCarousel)"
+         Keywords="@(["carousel", "slider", "gallery", "slideshow"])">
 
     <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
         <BOBCarousel @bind-ActiveIndex="_basicIndex">
@@ -22,7 +23,8 @@
         </BOBCarousel>
     </DocDemo>
 
-    <DocDemo Key="AutoPlay" Title="@Loc["Auto-play"]" Description="@Loc["Advances every 3 seconds. Pauses on hover or focus."]">
+    <DocDemo Key="AutoPlay" Title="@Loc["Auto-play"]"
+             Description="@Loc["Advances every 3 seconds. Pauses on hover or focus."]">
         <BOBCarousel AutoPlay="true" AutoPlayInterval="@TimeSpan.FromSeconds(3)" Loop="true">
             <BOBCarouselItem>
                 <div class="demo-slide demo-slide--blue">@Loc["Auto 1"]</div>
@@ -36,7 +38,8 @@
         </BOBCarousel>
     </DocDemo>
 
-    <DocDemo Key="LoopWrap" Title="@Loc["Seamless loop"]" Description="@Loc["With Loop=true and Slide transition, a clone of the first slide is rendered after the last (and vice versa). Going from the last to the first looks like a continuous wrap rather than a jump back."]">
+    <DocDemo Key="LoopWrap" Title="@Loc["Seamless loop"]"
+             Description="@Loc["With Loop=true and Slide transition, a clone of the first slide is rendered after the last (and vice versa). Going from the last to the first looks like a continuous wrap rather than a jump back."]">
         <BOBCarousel Loop="true" TransitionDurationMs="500">
             <BOBCarouselItem AriaLabel="@Loc["Wrap A"]">
                 <div class="demo-slide demo-slide--blue">@Loc["A — try clicking next from the last slide"]</div>
@@ -64,7 +67,8 @@
         </BOBCarousel>
     </DocDemo>
 
-    <DocDemo Key="Wheel" Title="@Loc["Wheel (3D cylinder)"]" Description="@Loc["Slides arranged on a vertical cylinder that rotates around the Y axis. Side slides peek in from behind the active one as the wheel spins. Tune WheelRadiusPx to change how deep the back slides sit."]">
+    <DocDemo Key="Wheel" Title="@Loc["Wheel (3D cylinder)"]"
+             Description="@Loc["Slides arranged on a vertical cylinder that rotates around the Y axis. Side slides peek in from behind the active one as the wheel spins. Tune WheelRadiusPx to change how deep the back slides sit."]">
         <BOBCarousel Transition="BOBCarouselTransition.Wheel" Loop="true" WheelRadiusPx="320">
             <BOBCarouselItem>
                 <div class="demo-slide demo-slide--blue">@Loc["Wheel 1"]</div>
@@ -87,7 +91,8 @@
         </BOBCarousel>
     </DocDemo>
 
-    <DocDemo Key="Wheel3D" Title="@Loc["Wheel 3D (continuous perspective)"]" Description="@Loc["Several slides visible at once with a fixed inward tilt. Side slides keep their size — the carousel always feels 3D, with depth at the sides instead of behind the active slide."]">
+    <DocDemo Key="Wheel3D" Title="@Loc["Wheel 3D (continuous perspective)"]"
+             Description="@Loc["Several slides visible at once with a fixed inward tilt. Side slides keep their size — the carousel always feels 3D, with depth at the sides instead of behind the active slide."]">
         <BOBCarousel Transition="BOBCarouselTransition.Wheel3D" Loop="true">
             <BOBCarouselItem>
                 <div class="demo-slide demo-slide--blue">@Loc["3D 1"]</div>
@@ -113,7 +118,8 @@
         </BOBCarousel>
     </DocDemo>
 
-    <DocDemo Key="Coverflow" Title="@Loc["Coverflow 3D"]" Description="@Loc["Side slides recede with a 3D rotation. The active slide stays in front; neighbours rotate, scale and fade."]">
+    <DocDemo Key="Coverflow" Title="@Loc["Coverflow 3D"]"
+             Description="@Loc["Side slides recede with a 3D rotation. The active slide stays in front; neighbours rotate, scale and fade."]">
         <BOBCarousel Transition="BOBCarouselTransition.Coverflow" Loop="true">
             <BOBCarouselItem>
                 <div class="demo-slide demo-slide--blue">@Loc["Cover 1"]</div>
@@ -133,7 +139,8 @@
         </BOBCarousel>
     </DocDemo>
 
-    <DocDemo Key="Indicators" Title="@Loc["Indicator icons"]" Description="@Loc["Inactive indicators use IndicatorIcon; the active one can override via ActiveIndicatorIcon + ActiveIndicatorIconColor."]">
+    <DocDemo Key="Indicators" Title="@Loc["Indicator icons"]"
+             Description="@Loc["Inactive indicators use IndicatorIcon; the active one can override via ActiveIndicatorIcon + ActiveIndicatorIconColor."]">
         <BOBCarousel IndicatorIcon="@BOBIconKeys.UI.Plus"
                      IndicatorIconColor="var(--palette-surface-contrast)"
                      ActiveIndicatorIcon="@BOBIconKeys.UI.Close"
@@ -154,10 +161,10 @@
         <h2 class="doc-section__title">@Loc["Properties"]</h2>
 
         <h3 class="doc-section__subtitle">BOBCarousel</h3>
-        <PropertyTable Properties="@BOBCarouselComponentInfo.Parameters" />
+        <PropertyTable Properties="@BOBCarouselComponentInfo.Parameters"/>
 
         <h3 class="doc-section__subtitle">BOBCarouselItem</h3>
-        <PropertyTable Properties="@BOBCarouselItemComponentInfo.Parameters" />
+        <PropertyTable Properties="@BOBCarouselItemComponentInfo.Parameters"/>
     </section>
 
 </DocPage>
@@ -173,11 +180,25 @@
         color: white;
     }
 
-    .demo-slide--blue { background: linear-gradient(135deg, #4f46e5, #2563eb); }
-    .demo-slide--green { background: linear-gradient(135deg, #059669, #10b981); }
-    .demo-slide--purple { background: linear-gradient(135deg, #7c3aed, #a855f7); }
-    .demo-slide--orange { background: linear-gradient(135deg, #ea580c, #f97316); }
-    .demo-slide--teal { background: linear-gradient(135deg, #0891b2, #06b6d4); }
+    .demo-slide--blue {
+        background: linear-gradient(135deg, #4f46e5, #2563eb);
+    }
+
+    .demo-slide--green {
+        background: linear-gradient(135deg, #059669, #10b981);
+    }
+
+    .demo-slide--purple {
+        background: linear-gradient(135deg, #7c3aed, #a855f7);
+    }
+
+    .demo-slide--orange {
+        background: linear-gradient(135deg, #ea580c, #f97316);
+    }
+
+    .demo-slide--teal {
+        background: linear-gradient(135deg, #0891b2, #06b6d4);
+    }
 </style>
 
 @code {

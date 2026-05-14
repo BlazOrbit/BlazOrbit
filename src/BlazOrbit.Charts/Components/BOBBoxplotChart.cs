@@ -12,19 +12,24 @@ namespace BlazOrbit.Charts.Components;
 /// (typically <c>±1.5·IQR</c>) and individual outlier dots.
 /// </summary>
 /// <typeparam name="TX">Categorical X key (group / segment).</typeparam>
-public class BOBBoxplotChart<TX> : BOBChartBase<TX, double>
+public sealed class BOBBoxplotChart<TX> : BOBChartBase<TX, double>
     where TX : notnull
 {
     /// <summary>Pre-computed box statistics, one per group.</summary>
-    [Parameter] public IEnumerable<BOBChartBoxStat<TX>>? Boxes { get; set; }
+    [Parameter]
+    public IEnumerable<BOBChartBoxStat<TX>>? Boxes { get; set; }
 
     /// <summary>Box width as a fraction of the per-group band. Default 0.55.</summary>
-    [Parameter] public double BoxRatio { get; set; } = 0.55;
+    [Parameter]
+    public double BoxRatio { get; set; } = 0.55;
 
     /// <summary>Y-axis explicit min override.</summary>
-    [Parameter] public double? YMin { get; set; }
+    [Parameter]
+    public double? YMin { get; set; }
+
     /// <summary>Y-axis explicit max override.</summary>
-    [Parameter] public double? YMax { get; set; }
+    [Parameter]
+    public double? YMax { get; set; }
 
     /// <inheritdoc />
     protected override string BuildAriaLabel() => $"Boxplot with {Boxes?.Count() ?? 0} groups";
@@ -32,9 +37,16 @@ public class BOBBoxplotChart<TX> : BOBChartBase<TX, double>
     /// <inheritdoc />
     protected override void RenderSvg(RenderTreeBuilder builder)
     {
-        if (Boxes is null) return;
+        if (Boxes is null)
+        {
+            return;
+        }
+
         BOBChartBoxStat<TX>[] boxes = Boxes.ToArray();
-        if (boxes.Length == 0) return;
+        if (boxes.Length == 0)
+        {
+            return;
+        }
 
         ChartLayout layout = ChartLayout.Default(EffectiveWidth, EffectiveHeight);
         IEnumerable<double> allValues = boxes.SelectMany(b =>
@@ -60,6 +72,7 @@ public class BOBBoxplotChart<TX> : BOBChartBase<TX, double>
             builder.AddAttribute(seq++, "y2", ChartLayout.ToInvariant(y));
             builder.CloseElement();
         }
+
         builder.CloseElement();
 
         builder.OpenElement(seq++, "g");
@@ -75,6 +88,7 @@ public class BOBBoxplotChart<TX> : BOBChartBase<TX, double>
             builder.AddContent(seq++, tick.ToString(yFormat, CultureInfo.InvariantCulture));
             builder.CloseElement();
         }
+
         builder.CloseElement();
 
         // Boxes.
@@ -83,7 +97,7 @@ public class BOBBoxplotChart<TX> : BOBChartBase<TX, double>
             BOBChartBoxStat<TX> box = boxes[i];
             string color = box.Color ?? Palette.ColorAt(i);
             double cx = xScale.Center(box.X);
-            double left = cx - boxWidth / 2;
+            double left = cx - (boxWidth / 2);
 
             double yMin = yScale.Project(box.Min);
             double yQ1 = yScale.Project(box.Q1);
@@ -106,8 +120,8 @@ public class BOBBoxplotChart<TX> : BOBChartBase<TX, double>
             {
                 builder.OpenElement(seq++, "line");
                 builder.AddAttribute(seq++, "class", "bob-boxplot-chart__cap");
-                builder.AddAttribute(seq++, "x1", ChartLayout.ToInvariant(cx - boxWidth / 4));
-                builder.AddAttribute(seq++, "x2", ChartLayout.ToInvariant(cx + boxWidth / 4));
+                builder.AddAttribute(seq++, "x1", ChartLayout.ToInvariant(cx - (boxWidth / 4)));
+                builder.AddAttribute(seq++, "x2", ChartLayout.ToInvariant(cx + (boxWidth / 4)));
                 builder.AddAttribute(seq++, "y1", ChartLayout.ToInvariant(y));
                 builder.AddAttribute(seq++, "y2", ChartLayout.ToInvariant(y));
                 builder.AddAttribute(seq++, "stroke", color);
@@ -171,6 +185,7 @@ public class BOBBoxplotChart<TX> : BOBChartBase<TX, double>
             builder.AddContent(seq++, cat?.ToString() ?? string.Empty);
             builder.CloseElement();
         }
+
         builder.CloseElement();
     }
 }

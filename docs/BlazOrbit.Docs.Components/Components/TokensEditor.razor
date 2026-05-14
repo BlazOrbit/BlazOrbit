@@ -1,6 +1,6 @@
 ﻿@namespace BlazOrbit.Docs.Components
 
-@foreach (TokenCategory category in Catalog)
+@foreach (var category in Catalog)
 {
     <section style="margin-bottom: 1rem;">
         <h2>@category.Name</h2>
@@ -9,16 +9,16 @@
             <p style="opacity: 0.75; margin-top: -0.25rem;">@category.Description</p>
         }
         <BOBGrid Columns="12" Gap="0.75rem">
-            @foreach (DesignTokenSpec token in category.Tokens)
+            @foreach (var token in category.Tokens)
             {
-                string cssVar = token.CssVar;
+                var cssVar = token.CssVar;
                 <BOBGridItem Xs="12" Md="6">
                     <BOBInputText Label="@cssVar"
                                   HelperText="@token.Description"
-                                  Value="@(Tokens.TryGetValue(cssVar, out string? v) ? v : token.DefaultValue)"
+                                  Value="@(Tokens.TryGetValue(cssVar, out var v) ? v : token.DefaultValue)"
                                   ValueChanged="(string next) => HandleTokenChanged(cssVar, next)"
                                   ValueExpression="@(() => Tokens[cssVar])"
-                                  Size="BOBSize.Small" />
+                                  Size="BOBSize.Small"/>
                 </BOBGridItem>
             }
         </BOBGrid>
@@ -26,15 +26,20 @@
 }
 
 @code {
+
     /// <summary>
     /// Map of css-var-name → current value. Caller owns the dictionary; the component
     /// notifies via <see cref="OnTokensChanged"/> after every edit.
     /// </summary>
-    [Parameter] public Dictionary<string, string> Tokens { get; set; } = new();
+    [Parameter]
+    public Dictionary<string, string> Tokens { get; set; } = new();
 
     [Parameter] public EventCallback<Dictionary<string, string>> OnTokensChanged { get; set; }
 
-    protected override void OnParametersSet() => Tokens ??= new();
+    protected override void OnParametersSet()
+    {
+        Tokens ??= new Dictionary<string, string>();
+    }
 
     private async Task HandleTokenChanged(string cssVar, string next)
     {
@@ -43,6 +48,7 @@
     }
 
     public record DesignTokenSpec(string CssVar, string DefaultValue, string? Description = null);
+
     public record TokenCategory(string Name, string? Description, IReadOnlyList<DesignTokenSpec> Tokens);
 
     /// <summary>
@@ -54,103 +60,95 @@
     {
         new("Typography",
             "Font stacks, fluid base size, and line heights consumed by the global typography layer.",
-            new[]
-            {
+            [
                 new DesignTokenSpec("--bob-font-family", "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif", "Default body font stack."),
                 new DesignTokenSpec("--bob-font-family-heading", "var(--bob-font-family)", "Headings font stack."),
                 new DesignTokenSpec("--bob-font-mono", "ui-monospace, \"Cascadia Mono\", \"SF Mono\", Consolas, monospace", "Monospace stack for code and kbd."),
                 new DesignTokenSpec("--bob-font-size-base", "clamp(0.875rem, 0.75rem + 0.25vw, 1.125rem)", "Fluid base font size (640px → 1536px)."),
                 new DesignTokenSpec("--bob-line-height", "1.5", "Body line height."),
-                new DesignTokenSpec("--bob-line-height-heading", "1.2", "Heading line height."),
-            }),
+                new DesignTokenSpec("--bob-line-height-heading", "1.2", "Heading line height.")
+            ]),
         new("Sizing",
             "Anchor multipliers picked up by [data-bob-size]. Components scale via calc(base * multiplier).",
-            new[]
-            {
+            [
                 new DesignTokenSpec("--bob-size-multiplier", "1", "Active multiplier (set automatically by [data-bob-size])."),
                 new DesignTokenSpec("--bob-small-multiplier", "0.75"),
                 new DesignTokenSpec("--bob-medium-multiplier", "1"),
-                new DesignTokenSpec("--bob-large-multiplier", "1.25"),
-            }),
+                new DesignTokenSpec("--bob-large-multiplier", "1.25")
+            ]),
         new("Density",
             "Anchor multipliers picked up by [data-bob-density]. Adjusts spacing, not type.",
-            new[]
-            {
+            [
                 new DesignTokenSpec("--bob-density-multiplier", "1", "Active multiplier (set automatically by [data-bob-density])."),
                 new DesignTokenSpec("--bob-compact-multiplier", "0.75"),
                 new DesignTokenSpec("--bob-standard-multiplier", "1"),
-                new DesignTokenSpec("--bob-comfortable-multiplier", "1.25"),
-            }),
+                new DesignTokenSpec("--bob-comfortable-multiplier", "1.25")
+            ]),
         new("Borders",
             "Defaults consumed by IHasBorder. Per-instance overrides flow through --bob-inline-border-*.",
-            new[]
-            {
+            [
                 new DesignTokenSpec("--bob-border-width", "0px"),
                 new DesignTokenSpec("--bob-border-style", "solid"),
-                new DesignTokenSpec("--bob-border-radius", "2px"),
-            }),
+                new DesignTokenSpec("--bob-border-radius", "2px")
+            ]),
         new("Focus outline",
             "Focus-visible outline (WCAG 2.4.7).",
-            new[]
-            {
+            [
                 new DesignTokenSpec("--bob-highlight-outline", "2px solid var(--palette-highlight)"),
-                new DesignTokenSpec("--bob-highlight-outline-offset", "0px"),
-            }),
+                new DesignTokenSpec("--bob-highlight-outline-offset", "0px")
+            ]),
         new("Opacity",
             "State opacities applied by the base components.",
-            new[]
-            {
+            [
                 new DesignTokenSpec("--bob-opacity-disabled", "0.5"),
-                new DesignTokenSpec("--bob-opacity-placeholder", "0.5"),
-            }),
+                new DesignTokenSpec("--bob-opacity-placeholder", "0.5")
+            ]),
         new("Z-index",
             "Stacking scale for overlays.",
-            new[]
-            {
+            [
                 new DesignTokenSpec("--bob-z-dropdown", "1000"),
                 new DesignTokenSpec("--bob-z-sticky", "1100"),
                 new DesignTokenSpec("--bob-z-modal", "1300"),
                 new DesignTokenSpec("--bob-z-tooltip", "1400"),
-                new DesignTokenSpec("--bob-z-toast", "1500"),
-            }),
+                new DesignTokenSpec("--bob-z-toast", "1500")
+            ]),
         new("Ripple",
             "Defaults for the ripple effect; per-instance overrides flow through IHasRipple.",
-            new[]
-            {
+            [
                 new DesignTokenSpec("--bob-ripple-color", "rgba(255, 255, 255, 0.4)"),
-                new DesignTokenSpec("--bob-ripple-duration", "600ms"),
-            }),
+                new DesignTokenSpec("--bob-ripple-duration", "600ms")
+            ]),
         new("Scrollbar",
             "Opt-in via [data-bob-scrollbars] or .bob-scrollbars.",
-            new[]
-            {
+            [
                 new DesignTokenSpec("--bob-scrollbar-width", "10px"),
                 new DesignTokenSpec("--bob-scrollbar-thumb-radius", "8px"),
-                new DesignTokenSpec("--bob-scrollbar-thumb-border-width", "2px"),
-            }),
+                new DesignTokenSpec("--bob-scrollbar-thumb-border-width", "2px")
+            ]),
         new("Input family",
             "Defaults applied across every input component.",
-            new[]
-            {
+            [
                 new DesignTokenSpec("--bob-input-border-width", "1px"),
                 new DesignTokenSpec("--bob-input-border-style", "solid"),
                 new DesignTokenSpec("--bob-input-border-color", "color-mix(in oklab, var(--palette-border) 40%, transparent)"),
                 new DesignTokenSpec("--bob-input-border-radius", "0"),
                 new DesignTokenSpec("--bob-input-transition-duration", "150ms"),
                 new DesignTokenSpec("--bob-input-transition-easing", "cubic-bezier(0.4, 0, 0.2, 1)"),
-                new DesignTokenSpec("--bob-input-floated-scale", "0.75"),
-            }),
+                new DesignTokenSpec("--bob-input-floated-scale", "0.75")
+            ]),
         new("Picker family",
             "Defaults applied across every picker component (date/color/etc.).",
-            new[]
-            {
+            [
                 new DesignTokenSpec("--bob-picker-radius", "8px"),
                 new DesignTokenSpec("--bob-picker-border-color", "color-mix(in oklab, var(--palette-border) 40%, transparent)"),
                 new DesignTokenSpec("--bob-picker-cell-size", "36px"),
-                new DesignTokenSpec("--bob-picker-padding", "0.75rem"),
-            }),
+                new DesignTokenSpec("--bob-picker-padding", "0.75rem")
+            ])
     };
 
-    public static Dictionary<string, string> BuildDefaults() =>
-        Catalog.SelectMany(c => c.Tokens).ToDictionary(t => t.CssVar, t => t.DefaultValue);
+    public static Dictionary<string, string> BuildDefaults()
+    {
+        return Catalog.SelectMany(c => c.Tokens).ToDictionary(t => t.CssVar, t => t.DefaultValue);
+    }
+
 }

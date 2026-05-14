@@ -11,8 +11,8 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Charts.Common;
 [Trait("Component Interaction", "Charts.Zoom")]
 public class ZoomTests
 {
-    private static IEnumerable<BOBChartSeries<int, double>> Series10() => new[]
-    {
+    private static IEnumerable<BOBChartSeries<int, double>> Series10() =>
+    [
         new BOBChartSeries<int, double>
         {
             Label = "S",
@@ -20,7 +20,7 @@ public class ZoomTests
                 .Select(i => new BOBChartPoint<int, double>(i, i * 1.0))
                 .ToArray()
         }
-    };
+    ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -75,8 +75,8 @@ public class ZoomTests
             .TriggerEvent("onwheel", new WheelEventArgs
             {
                 DeltaY = -100,
-                OffsetX = 266,            // halfway across PlotWidth (532)
-                OffsetY = 100,
+                OffsetX = 266, // halfway across PlotWidth (532)
+                OffsetY = 100
             });
 
         // After zoom, the rendered marker spread expands — points push out to
@@ -92,7 +92,7 @@ public class ZoomTests
         double newSpread = newLastCx - newFirstCx;
 
         newSpread.Should().BeGreaterThan(initialSpread,
-            because: "wheel-in shrinks the visible domain, so the same data X values map to a wider pixel spread");
+            "wheel-in shrinks the visible domain, so the same data X values map to a wider pixel spread");
     }
 
     [Theory]
@@ -113,21 +113,21 @@ public class ZoomTests
 
         IReadOnlyList<AngleSharp.Dom.IElement> markersIn = cut.FindAll("circle.bob-line-chart__marker");
         double inSpread = double.Parse(markersIn[9].GetAttribute("cx")!,
-            System.Globalization.CultureInfo.InvariantCulture)
-            - double.Parse(markersIn[0].GetAttribute("cx")!,
-                System.Globalization.CultureInfo.InvariantCulture);
+                              System.Globalization.CultureInfo.InvariantCulture)
+                          - double.Parse(markersIn[0].GetAttribute("cx")!,
+                              System.Globalization.CultureInfo.InvariantCulture);
 
         // Now wheel-down to zoom out.
         overlay.TriggerEvent("onwheel", new WheelEventArgs { DeltaY = 100, OffsetX = 266, OffsetY = 100 });
 
         IReadOnlyList<AngleSharp.Dom.IElement> markersOut = cut.FindAll("circle.bob-line-chart__marker");
         double outSpread = double.Parse(markersOut[9].GetAttribute("cx")!,
-            System.Globalization.CultureInfo.InvariantCulture)
-            - double.Parse(markersOut[0].GetAttribute("cx")!,
-                System.Globalization.CultureInfo.InvariantCulture);
+                               System.Globalization.CultureInfo.InvariantCulture)
+                           - double.Parse(markersOut[0].GetAttribute("cx")!,
+                               System.Globalization.CultureInfo.InvariantCulture);
 
         outSpread.Should().BeLessThan(inSpread,
-            because: "wheel-out widens the visible domain, compressing the same data into less pixel spread");
+            "wheel-out widens the visible domain, compressing the same data into less pixel spread");
     }
 
     [Theory]
@@ -230,7 +230,7 @@ public class ZoomTests
             System.Globalization.CultureInfo.InvariantCulture);
 
         cxAfter.Should().NotBe(cxBefore,
-            because: "drag-to-pan should translate the visible X domain, repositioning every marker");
+            "drag-to-pan should translate the visible X domain, repositioning every marker");
     }
 
     [Theory]
@@ -258,7 +258,7 @@ public class ZoomTests
 
         IReadOnlyList<AngleSharp.Dom.IElement> after = cut.FindAll("circle.bob-line-chart__marker");
         after[0].GetAttribute("cx").Should().Be(firstCxBefore,
-            because: "mousemove without an active drag should not pan the domain");
+            "mousemove without an active drag should not pan the domain");
     }
 
     [Theory]
@@ -315,7 +315,7 @@ public class ZoomTests
 
         // Crosshair line is still rendered but its X did not chase the cursor.
         cut.Find("line.bob-chart__crosshair").GetAttribute("x1").Should().Be(crossXBefore,
-            because: "during a drag the crosshair freezes — pan owns the mousemove");
+            "during a drag the crosshair freezes — pan owns the mousemove");
     }
 
     [Theory]

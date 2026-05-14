@@ -45,5 +45,5 @@ internal sealed class PatternCallbacksRelay : IDisposable
 
     [JSInvokable]
     public Task OnToggleClick(int index)
-    => _callback.OnToggleClick(index);
+        => _callback.OnToggleClick(index);
 }

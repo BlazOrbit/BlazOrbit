@@ -20,5 +20,5 @@ public enum BOBChartAxisType
     Categorical,
 
     /// <summary>Continuous temporal scale (DateTime / DateTimeOffset / TimeSpan).</summary>
-    DateTime,
+    DateTime
 }

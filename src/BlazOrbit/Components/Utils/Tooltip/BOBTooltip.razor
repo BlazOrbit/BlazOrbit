@@ -1,4 +1,5 @@
 ﻿@using BlazOrbit.Abstractions
+@using Microsoft.Extensions.Localization
 
 @namespace BlazOrbit.Components
 @attribute [GenerateComponentInfo]
@@ -9,12 +10,12 @@
 @implements IHasBackgroundColor
 
 <bob-component @attributes="ComputedAttributes"
-     aria-describedby="@(_isVisible ? _tooltipId : null)"
-     @onmouseenter="HandleMouseEnter"
-     @onmouseleave="HandleMouseLeave"
-     @onfocusin="HandleFocusIn"
-     @onfocusout="HandleFocusOut"
-     @onclick="HandleClick">
+               aria-describedby="@(_isVisible ? _tooltipId : null)"
+               @onmouseenter="HandleMouseEnter"
+               @onmouseleave="HandleMouseLeave"
+               @onfocusin="HandleFocusIn"
+               @onfocusout="HandleFocusOut"
+               @onclick="HandleClick">
 
     @ChildContent
 
@@ -40,11 +41,11 @@
                 }
                 @if (Trigger == TooltipTrigger.Permanent)
                 {
-                    <_BOBBtn Icon="@BOBIconKeys.UI.Close"
-                             AriaLabel="Close tooltip"
-                             OnClick="HandleCloseClicked"
-                             OnClickStopPropagation="true"
-                             Size="BOBSize.Small" />
+                    <_BOBInBtn Icon="@BOBIconKeys.UI.Close"
+                               AriaLabel="@Localizer["Close tooltip"]"
+                               OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, HandleCloseClicked))"
+                               OnClickStopPropagation="true"
+                               Size="BOBSize.Small"/>
                 }
             </div>
 
@@ -57,6 +58,8 @@
 </bob-component>
 
 @code {
+    [Inject] internal IStringLocalizer<BOBDisplayResources> Localizer { get; set; } = default!;
+
     // Per-instance id so the trigger wrapper's aria-describedby and the
     // tooltip's id stay paired across re-renders (WCAG 4.1.2 association).
     private readonly string _tooltipId = $"tooltip-{Guid.NewGuid():N}";
@@ -66,61 +69,93 @@
     private CancellationTokenSource? _autoCloseTokenSource;
 
     /// <summary>Content rendered inside the component.</summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>Material Design elevation level (0–24) applied to the tooltip surface. Sets a derived
     /// shadow and lifts the surface in dark mode via a tint overlay. <see langword="null"/> (default)
     /// keeps the component-default shadow defined in CSS.</summary>
-    [Parameter] public int? Elevation { get; set; }
+    [Parameter]
+    public int? Elevation { get; set; }
 
     /// <summary>Foreground color of the tooltip surface (text + arrow fill). Any valid CSS color.
     /// <see langword="null"/> (default) inherits the component-default from the palette.</summary>
-    [Parameter] public string? Color { get; set; }
+    [Parameter]
+    public string? Color { get; set; }
 
     /// <summary>Background color of the tooltip surface. Any valid CSS color. <see langword="null"/>
     /// (default) inherits the component-default from the palette.</summary>
-    [Parameter] public string? BackgroundColor { get; set; }
+    [Parameter]
+    public string? BackgroundColor { get; set; }
+
     /// <summary>TooltipContent.</summary>
-    [Parameter] public RenderFragment? TooltipContent { get; set; }
+    [Parameter]
+    public RenderFragment? TooltipContent { get; set; }
+
     /// <summary>Text displayed as the .</summary>
-    [Parameter] public string? Text { get; set; }
+    [Parameter]
+    public string? Text { get; set; }
+
     /// <summary>Placement.</summary>
-    [Parameter] public TooltipPlacement Placement { get; set; } = TooltipPlacement.Top;
+    [Parameter]
+    public TooltipPlacement Placement { get; set; } = TooltipPlacement.Top;
+
     /// <summary>Trigger.</summary>
-    [Parameter] public TooltipTrigger Trigger { get; set; } = TooltipTrigger.Hover;
+    [Parameter]
+    public TooltipTrigger Trigger { get; set; } = TooltipTrigger.Hover;
+
     /// <summary>When <see langword="true" />, the Delay is shown.</summary>
-    [Parameter] public int? ShowDelay { get; set; }
+    [Parameter]
+    public int? ShowDelay { get; set; }
+
     /// <summary>LeaveDelay.</summary>
-    [Parameter] public int? LeaveDelay { get; set; }
+    [Parameter]
+    public int? LeaveDelay { get; set; }
+
     /// <summary>AutoCloseAfterMs.</summary>
-    [Parameter] public int? AutoCloseAfterMs { get; set; }
+    [Parameter]
+    public int? AutoCloseAfterMs { get; set; }
+
     /// <summary>Arrow.</summary>
-    [Parameter] public bool Arrow { get; set; } = true;
+    [Parameter]
+    public bool Arrow { get; set; } = true;
+
     /// <summary>Interactive.</summary>
-    [Parameter] public bool Interactive { get; set; } = true;
+    [Parameter]
+    public bool Interactive { get; set; } = true;
+
     /// <summary>MaxWidth.</summary>
-    [Parameter] public int? MaxWidth { get; set; }
+    [Parameter]
+    public int? MaxWidth { get; set; }
+
     /// <summary>Offset.</summary>
-    [Parameter] public int Offset { get; set; } = 8;
+    [Parameter]
+    public int Offset { get; set; } = 8;
 
     private int EffectiveShowDelay => ShowDelay ?? GetDefaultShowDelay();
     private int EffectiveLeaveDelay => LeaveDelay ?? GetDefaultLeaveDelay();
 
-    private int GetDefaultShowDelay() => Trigger switch
+    private int GetDefaultShowDelay()
     {
-        TooltipTrigger.Hover or TooltipTrigger.Focus or TooltipTrigger.HoverAndFocus => 200,
-        TooltipTrigger.Click => 0,
-        TooltipTrigger.Permanent => 0,
-        _ => 200
-    };
+        return Trigger switch
+        {
+            TooltipTrigger.Hover or TooltipTrigger.Focus or TooltipTrigger.HoverAndFocus => 200,
+            TooltipTrigger.Click => 0,
+            TooltipTrigger.Permanent => 0,
+            _ => 200
+        };
+    }
 
-    private int GetDefaultLeaveDelay() => Trigger switch
+    private int GetDefaultLeaveDelay()
     {
-        TooltipTrigger.Hover or TooltipTrigger.Focus or TooltipTrigger.HoverAndFocus => 150,
-        TooltipTrigger.Click => 0,
-        TooltipTrigger.Permanent => 0,
-        _ => 150
-    };
+        return Trigger switch
+        {
+            TooltipTrigger.Hover or TooltipTrigger.Focus or TooltipTrigger.HoverAndFocus => 150,
+            TooltipTrigger.Click => 0,
+            TooltipTrigger.Permanent => 0,
+            _ => 150
+        };
+    }
 
     protected override void OnInitialized()
     {
@@ -224,7 +259,10 @@
         }
     }
 
-    private void HandleCloseClicked(MouseEventArgs e) => Hide();
+    private void HandleCloseClicked(MouseEventArgs e)
+    {
+        Hide();
+    }
 
     private async Task Show()
     {
@@ -244,7 +282,7 @@
     {
         CancelDelay();
 
-        int delay = EffectiveShowDelay;
+        var delay = EffectiveShowDelay;
         if (delay <= 0)
         {
             await Show();
@@ -253,7 +291,7 @@
 
         CancellationTokenSource cts = new();
         _delayTokenSource = cts;
-        CancellationToken token = cts.Token;
+        var token = cts.Token;
 
         try
         {
@@ -261,27 +299,32 @@
             if (IsDisposed) return;
             await Show();
         }
-        catch (TaskCanceledException) { }
-        catch (ObjectDisposedException) { }
+        catch (TaskCanceledException)
+        {
+        }
+        catch (ObjectDisposedException)
+        {
+        }
     }
 
     private async Task HideWithDelay()
     {
         CancelDelay();
 
-        int delay = EffectiveLeaveDelay;
+        var delay = EffectiveLeaveDelay;
         if (delay <= 0)
         {
             if (!_isTooltipHovered)
             {
                 Hide();
             }
+
             return;
         }
 
         CancellationTokenSource cts = new();
         _delayTokenSource = cts;
-        CancellationToken token = cts.Token;
+        var token = cts.Token;
 
         try
         {
@@ -293,8 +336,12 @@
                 await InvokeAsync(StateHasChanged);
             }
         }
-        catch (TaskCanceledException) { }
-        catch (ObjectDisposedException) { }
+        catch (TaskCanceledException)
+        {
+        }
+        catch (ObjectDisposedException)
+        {
+        }
     }
 
     private void StartAutoClose()
@@ -321,8 +368,12 @@
                 await InvokeAsync(StateHasChanged);
             }
         }
-        catch (TaskCanceledException) { }
-        catch (ObjectDisposedException) { }
+        catch (TaskCanceledException)
+        {
+        }
+        catch (ObjectDisposedException)
+        {
+        }
     }
 
     private void CancelDelay()
@@ -345,4 +396,5 @@
         CancelAutoClose();
         await base.DisposeAsync();
     }
+
 }

@@ -22,6 +22,6 @@ internal sealed class VariantHelper<TComponent, TVariant>
     {
         return builtInTemplates?.TryGetValue(variant, out Func<TComponent, RenderFragment>? builtIn) == true
             ? builtIn(_component)
-            : (_registry?.GetTemplate(_component.GetType(), variant, _component));
+            : _registry?.GetTemplate(_component.GetType(), variant, _component);
     }
 }

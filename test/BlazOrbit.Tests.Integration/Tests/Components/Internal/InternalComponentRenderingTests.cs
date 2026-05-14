@@ -1,3 +1,4 @@
+using AngleSharp.Dom;
 using BlazOrbit.Components;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Components.Forms.Internal;
@@ -11,10 +12,10 @@ using Microsoft.AspNetCore.Components.Web;
 namespace BlazOrbit.Tests.Integration.Tests.Components.Internal;
 
 /* ─────────────────────────────────────────────────────────────
- *  _BOBAddon
+ *  _BOBInAddon
  * ───────────────────────────────────────────────────────────── */
 
-[Trait("Component Rendering", "_BOBAddon")]
+[Trait("Component Rendering", "_BOBInAddon")]
 public class BOBAddonRenderingTests
 {
     [Theory]
@@ -23,7 +24,7 @@ public class BOBAddonRenderingTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<_BOBAddon> cut = ctx.Render<_BOBAddon>(p => p
+        IRenderedComponent<_BOBInAddon> cut = ctx.Render<_BOBInAddon>(p => p
             .Add(c => c.Icon, BOBIconKeys.UI.Close));
 
         cut.Find("bob-component").Should().NotBeNull();
@@ -35,10 +36,10 @@ public class BOBAddonRenderingTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<_BOBAddon> cut = ctx.Render<_BOBAddon>(p => p
+        IRenderedComponent<_BOBInAddon> cut = ctx.Render<_BOBInAddon>(p => p
             .Add(c => c.Loading, true));
 
-        cut.Find(".bob-addon bob-component").Should().NotBeNull();
+        cut.Find("._bob-addon bob-component").Should().NotBeNull();
     }
 
     [Theory]
@@ -47,10 +48,10 @@ public class BOBAddonRenderingTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<_BOBAddon> cut = ctx.Render<_BOBAddon>(p => p
+        IRenderedComponent<_BOBInAddon> cut = ctx.Render<_BOBInAddon>(p => p
             .Add(c => c.ChildContent, b => b.AddContent(0, "text")));
 
-        cut.Find(".bob-addon").TextContent.Should().Be("text");
+        cut.Find("._bob-addon").TextContent.Should().Be("text");
     }
 
     [Theory]
@@ -59,19 +60,19 @@ public class BOBAddonRenderingTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<_BOBAddon> cut = ctx.Render<_BOBAddon>(p => p
+        IRenderedComponent<_BOBInAddon> cut = ctx.Render<_BOBInAddon>(p => p
             .Add(c => c.Icon, BOBIconKeys.UI.ExpandMore)
             .Add(c => c.IconRotation, 180));
 
-        cut.Find(".bob-addon").InnerHtml.Should().Contain("rotate(180deg)");
+        cut.Find("._bob-addon").InnerHtml.Should().Contain("rotate(180deg)");
     }
 }
 
 /* ─────────────────────────────────────────────────────────────
- *  _BOBBtn
+ *  _BOBInBtn
  * ───────────────────────────────────────────────────────────── */
 
-[Trait("Component Rendering", "_BOBBtn")]
+[Trait("Component Rendering", "_BOBInBtn")]
 public class BOBBtnRenderingTests
 {
     [Theory]
@@ -80,7 +81,7 @@ public class BOBBtnRenderingTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<_BOBBtn> cut = ctx.Render<_BOBBtn>(p => p
+        IRenderedComponent<_BOBInBtn> cut = ctx.Render<_BOBInBtn>(p => p
             .Add(c => c.AriaLabel, "Close"));
 
         cut.Find("button").Should().NotBeNull();
@@ -93,7 +94,7 @@ public class BOBBtnRenderingTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<_BOBBtn> cut = ctx.Render<_BOBBtn>(p => p
+        IRenderedComponent<_BOBInBtn> cut = ctx.Render<_BOBInBtn>(p => p
             .Add(c => c.Icon, BOBIconKeys.UI.Close)
             .Add(c => c.AriaLabel, "Close"));
 
@@ -106,11 +107,11 @@ public class BOBBtnRenderingTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<_BOBBtn> cut = ctx.Render<_BOBBtn>(p => p
+        IRenderedComponent<_BOBInBtn> cut = ctx.Render<_BOBInBtn>(p => p
             .Add(c => c.Disabled, true)
             .Add(c => c.AriaLabel, "Close"));
 
-        var btn = cut.Find("button");
+        IElement btn = cut.Find("button");
         btn.HasAttribute("disabled").Should().BeTrue();
         btn.GetAttribute("tabindex").Should().Be("-1");
     }
@@ -121,7 +122,7 @@ public class BOBBtnRenderingTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<_BOBBtn> cut = ctx.Render<_BOBBtn>(p => p
+        IRenderedComponent<_BOBInBtn> cut = ctx.Render<_BOBInBtn>(p => p
             .Add(c => c.Active, true)
             .Add(c => c.AriaLabel, "Page 1"));
 
@@ -135,9 +136,13 @@ public class BOBBtnRenderingTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         bool fired = false;
-        IRenderedComponent<_BOBBtn> cut = ctx.Render<_BOBBtn>(p => p
+        IRenderedComponent<_BOBInBtn> cut = ctx.Render<_BOBInBtn>(p => p
             .Add(c => c.AriaLabel, "Action")
-            .Add(c => c.OnClick, _ => { fired = true; return Task.CompletedTask; }));
+            .Add(c => c.OnClick, _ =>
+            {
+                fired = true;
+                return Task.CompletedTask;
+            }));
 
         cut.Find("button").Click();
 
@@ -150,7 +155,7 @@ public class BOBBtnRenderingTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<_BOBBtn> cut = ctx.Render<_BOBBtn>(p => p
+        IRenderedComponent<_BOBInBtn> cut = ctx.Render<_BOBInBtn>(p => p
             .Add(c => c.Loading, true)
             .Add(c => c.AriaLabel, "Loading"));
 
@@ -160,10 +165,10 @@ public class BOBBtnRenderingTests
 }
 
 /* ─────────────────────────────────────────────────────────────
- *  _BOBCheckMark
+ *  _BOBInCheckMark
  * ───────────────────────────────────────────────────────────── */
 
-[Trait("Component Rendering", "_BOBCheckMark")]
+[Trait("Component Rendering", "_BOBInCheckMark")]
 public class BOBCheckMarkRenderingTests
 {
     [Theory]
@@ -172,7 +177,7 @@ public class BOBCheckMarkRenderingTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<_BOBCheckMark> cut = ctx.Render<_BOBCheckMark>();
+        IRenderedComponent<_BOBInCheckMark> cut = ctx.Render<_BOBInCheckMark>();
 
         cut.Find("span").GetAttribute("role").Should().Be("checkbox");
     }
@@ -183,8 +188,8 @@ public class BOBCheckMarkRenderingTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<_BOBCheckMark> cut = ctx.Render<_BOBCheckMark>(p => p
-            .Add(c => c.Mode, _BOBCheckMark.CheckMarkMode.Radio));
+        IRenderedComponent<_BOBInCheckMark> cut = ctx.Render<_BOBInCheckMark>(p => p
+            .Add(c => c.Mode, _BOBInCheckMark.CheckMarkMode.Radio));
 
         cut.Find("span").GetAttribute("role").Should().Be("radio");
     }
@@ -195,7 +200,7 @@ public class BOBCheckMarkRenderingTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<_BOBCheckMark> cut = ctx.Render<_BOBCheckMark>(p => p
+        IRenderedComponent<_BOBInCheckMark> cut = ctx.Render<_BOBInCheckMark>(p => p
             .Add(c => c.Checked, true));
 
         cut.Find("span").GetAttribute("data-bob-checked").Should().Be("true");
@@ -208,7 +213,7 @@ public class BOBCheckMarkRenderingTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<_BOBCheckMark> cut = ctx.Render<_BOBCheckMark>(p => p
+        IRenderedComponent<_BOBInCheckMark> cut = ctx.Render<_BOBInCheckMark>(p => p
             .Add(c => c.Checked, null));
 
         cut.Find("span").GetAttribute("data-bob-indeterminate").Should().Be("true");
@@ -221,7 +226,7 @@ public class BOBCheckMarkRenderingTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<_BOBCheckMark> cut = ctx.Render<_BOBCheckMark>(p => p
+        IRenderedComponent<_BOBInCheckMark> cut = ctx.Render<_BOBInCheckMark>(p => p
             .Add(c => c.Disabled, true));
 
         cut.Find("span").GetAttribute("data-bob-disabled").Should().Be("true");
@@ -246,7 +251,7 @@ public class BOBFieldHelperRenderingTests
             .Add(c => c.Id, "helper-1")
             .Add(c => c.HelperText, "This is a hint"));
 
-        var div = cut.Find(".bob-field-helper");
+        IElement div = cut.Find(".bob-field-helper");
         div.TextContent.Should().Be("This is a hint");
         div.GetAttribute("id").Should().Be("helper-1");
     }
@@ -279,7 +284,7 @@ public class BOBInNumberRenderingTests
         IRenderedComponent<_BOBInNumber> cut = ctx.Render<_BOBInNumber>(p => p
             .Add(c => c.Value, 42));
 
-        var input = cut.Find("input");
+        IElement input = cut.Find("input");
         input.GetAttribute("type").Should().Be("number");
         input.GetAttribute("value").Should().Be("42");
     }
@@ -292,7 +297,11 @@ public class BOBInNumberRenderingTests
 
         int? changed = null;
         IRenderedComponent<_BOBInNumber> cut = ctx.Render<_BOBInNumber>(p => p
-            .Add(c => c.ValueChanged, v => { changed = v; return Task.CompletedTask; }));
+            .Add(c => c.ValueChanged, v =>
+            {
+                changed = v;
+                return Task.CompletedTask;
+            }));
 
         cut.Find("input").Change("7");
 
@@ -307,7 +316,11 @@ public class BOBInNumberRenderingTests
 
         int? changed = -1;
         IRenderedComponent<_BOBInNumber> cut = ctx.Render<_BOBInNumber>(p => p
-            .Add(c => c.ValueChanged, v => { changed = v; return Task.CompletedTask; }));
+            .Add(c => c.ValueChanged, v =>
+            {
+                changed = v;
+                return Task.CompletedTask;
+            }));
 
         cut.Find("input").Change("not-a-number");
 
@@ -325,7 +338,7 @@ public class BOBInNumberRenderingTests
             .Add(c => c.Max, 100)
             .Add(c => c.Step, 5));
 
-        var input = cut.Find("input");
+        IElement input = cut.Find("input");
         input.GetAttribute("min").Should().Be("0");
         input.GetAttribute("max").Should().Be("100");
         input.GetAttribute("step").Should().Be("5");
@@ -350,7 +363,7 @@ public class BOBInSelectRenderingTests
             .Add(c => c.ChildContent, b => b.AddMarkupContent(0,
                 "<option value='a'>A</option><option value='b'>B</option>")));
 
-        var options = cut.FindAll("option");
+        IReadOnlyList<IElement> options = cut.FindAll("option");
         options.Should().HaveCount(2);
     }
 
@@ -362,7 +375,11 @@ public class BOBInSelectRenderingTests
 
         string? changed = null;
         IRenderedComponent<_BOBInSelect> cut = ctx.Render<_BOBInSelect>(p => p
-            .Add(c => c.ValueChanged, v => { changed = v; return Task.CompletedTask; }));
+            .Add(c => c.ValueChanged, v =>
+            {
+                changed = v;
+                return Task.CompletedTask;
+            }));
 
         cut.Find("select").Change("new-val");
 
@@ -398,7 +415,7 @@ public class BOBInTextRenderingTests
         IRenderedComponent<_BOBInText> cut = ctx.Render<_BOBInText>(p => p
             .Add(c => c.Value, "hello"));
 
-        var input = cut.Find("input");
+        IElement input = cut.Find("input");
         input.GetAttribute("type").Should().Be("text");
         input.GetAttribute("value").Should().Be("hello");
     }
@@ -411,7 +428,11 @@ public class BOBInTextRenderingTests
 
         string? changed = null;
         IRenderedComponent<_BOBInText> cut = ctx.Render<_BOBInText>(p => p
-            .Add(c => c.ValueChanged, v => { changed = v; return Task.CompletedTask; }));
+            .Add(c => c.ValueChanged, v =>
+            {
+                changed = v;
+                return Task.CompletedTask;
+            }));
 
         cut.Find("input").Change("world");
 
@@ -432,10 +453,10 @@ public class BOBInTextRenderingTests
 }
 
 /* ─────────────────────────────────────────────────────────────
- *  _BOBPagination
+ *  _BOBInPagination
  * ───────────────────────────────────────────────────────────── */
 
-[Trait("Component Rendering", "_BOBPagination")]
+[Trait("Component Rendering", "_BOBInPagination")]
 public class BOBPaginationRenderingTests
 {
     [Theory]
@@ -444,7 +465,7 @@ public class BOBPaginationRenderingTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<_BOBPagination> cut = ctx.Render<_BOBPagination>(p => p
+        IRenderedComponent<_BOBInPagination> cut = ctx.Render<_BOBInPagination>(p => p
             .Add(c => c.TotalPages, 5)
             .Add(c => c.TotalItems, 50)
             .Add(c => c.CurrentPage, 1));
@@ -459,7 +480,7 @@ public class BOBPaginationRenderingTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<_BOBPagination> cut = ctx.Render<_BOBPagination>(p => p
+        IRenderedComponent<_BOBInPagination> cut = ctx.Render<_BOBInPagination>(p => p
             .Add(c => c.TotalPages, 5)
             .Add(c => c.TotalItems, 50)
             .Add(c => c.PageSize, 10)
@@ -474,12 +495,12 @@ public class BOBPaginationRenderingTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<_BOBPagination> cut = ctx.Render<_BOBPagination>(p => p
+        IRenderedComponent<_BOBInPagination> cut = ctx.Render<_BOBInPagination>(p => p
             .Add(c => c.TotalPages, 5)
             .Add(c => c.TotalItems, 50)
             .Add(c => c.CurrentPage, 1));
 
-        var buttons = cut.FindAll("button");
+        IReadOnlyList<IElement> buttons = cut.FindAll("button");
         buttons[0].HasAttribute("disabled").Should().BeTrue(); // Previous
     }
 
@@ -489,12 +510,12 @@ public class BOBPaginationRenderingTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<_BOBPagination> cut = ctx.Render<_BOBPagination>(p => p
+        IRenderedComponent<_BOBInPagination> cut = ctx.Render<_BOBInPagination>(p => p
             .Add(c => c.TotalPages, 5)
             .Add(c => c.TotalItems, 50)
             .Add(c => c.CurrentPage, 5));
 
-        var buttons = cut.FindAll("button");
+        IReadOnlyList<IElement> buttons = cut.FindAll("button");
         buttons[^1].HasAttribute("disabled").Should().BeTrue(); // Next
     }
 
@@ -505,11 +526,15 @@ public class BOBPaginationRenderingTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         int? clickedPage = null;
-        IRenderedComponent<_BOBPagination> cut = ctx.Render<_BOBPagination>(p => p
+        IRenderedComponent<_BOBInPagination> cut = ctx.Render<_BOBInPagination>(p => p
             .Add(c => c.TotalPages, 5)
             .Add(c => c.TotalItems, 50)
             .Add(c => c.CurrentPage, 1)
-            .Add(c => c.OnPageChange, p => { clickedPage = p; return Task.CompletedTask; }));
+            .Add(c => c.OnPageChange, p =>
+            {
+                clickedPage = p;
+                return Task.CompletedTask;
+            }));
 
         // Click page 3 (index 3: prev + page1 + page2 + page3)
         cut.FindAll("button")[3].Click();
@@ -533,7 +558,7 @@ public class BOBSliderThumbRenderingTests
 
         IRenderedComponent<_BOBSliderThumb> cut = ctx.Render<_BOBSliderThumb>();
 
-        var thumb = cut.Find("[role='slider']");
+        IElement thumb = cut.Find("[role='slider']");
         thumb.Should().NotBeNull();
         thumb.GetAttribute("tabindex").Should().Be("0");
     }
@@ -550,7 +575,7 @@ public class BOBSliderThumbRenderingTests
             .Add(c => c.AriaValueNow, "50")
             .Add(c => c.AriaValueText, "Fifty percent"));
 
-        var thumb = cut.Find("[role='slider']");
+        IElement thumb = cut.Find("[role='slider']");
         thumb.GetAttribute("aria-valuemin").Should().Be("0");
         thumb.GetAttribute("aria-valuemax").Should().Be("100");
         thumb.GetAttribute("aria-valuenow").Should().Be("50");

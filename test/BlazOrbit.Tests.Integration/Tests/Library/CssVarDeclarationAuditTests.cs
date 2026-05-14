@@ -36,7 +36,7 @@ public class CssVarDeclarationAuditTests
     private static readonly Dictionary<string, string> Allowlist = new(StringComparer.Ordinal)
     {
         // Color picker canvas/alpha slider reads the current colour value from inline styles.
-        ["--color"] = "Injected by BOBColorPicker.razor via inline style on the alpha slider element.",
+        ["--color"] = "Injected by BOBColorPicker.razor via inline style on the alpha slider element."
     };
 
     /// <summary>
@@ -60,7 +60,8 @@ public class CssVarDeclarationAuditTests
             string content = File.ReadAllText(file);
             string fileName = Path.GetFileName(file);
             HashSet<string> localDecls = CollectDeclarations(content);
-            bool isLayoutComponent = file.Contains($"{Path.DirectorySeparatorChar}Layout{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase);
+            bool isLayoutComponent = file.Contains($"{Path.DirectorySeparatorChar}Layout{Path.DirectorySeparatorChar}",
+                StringComparison.OrdinalIgnoreCase);
 
             foreach (Match m in VarReference.Matches(content))
             {
@@ -81,11 +82,11 @@ public class CssVarDeclarationAuditTests
         }
 
         orphans.Should().BeEmpty(
-            because: "every CSS custom property referenced via var() in scoped CSS must be declared in the same file, " +
-                     "in a global CssBundle file, or as a FeatureDefinitions constant. " +
-                     "Undeclared variables silently fall back to inherited/invalid values, hiding typos " +
-                     "and stale prefixes.\n\n" +
-                     string.Join("\n", orphans));
+            "every CSS custom property referenced via var() in scoped CSS must be declared in the same file, " +
+            "in a global CssBundle file, or as a FeatureDefinitions constant. " +
+            "Undeclared variables silently fall back to inherited/invalid values, hiding typos " +
+            "and stale prefixes.\n\n" +
+            string.Join("\n", orphans));
     }
 
     /// <summary>
@@ -109,8 +110,8 @@ public class CssVarDeclarationAuditTests
         }
 
         stale.Should().BeEmpty(
-            because: "stale allowlist entries hide future drift. Remove the entries listed below.\n\n" +
-                     string.Join("\n", stale));
+            "stale allowlist entries hide future drift. Remove the entries listed below.\n\n" +
+            string.Join("\n", stale));
     }
 
     private static IEnumerable<string> EnumerateScopedCssFiles()
