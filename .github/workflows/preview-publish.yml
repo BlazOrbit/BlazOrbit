@@ -227,6 +227,12 @@ jobs:
           apt-get install -y --no-install-recommends unzip
 
       - name: Validate package structure
+        # `shell: bash` (rather than the GH Actions default `sh -e {0}` → dash)
+        # because the script below uses bash-specific syntax: `KNOWN_IDS=(...)`
+        # arrays, `local` in functions, and `[ "$found" -eq 0 ]` with the bash
+        # arithmetic context expectations. Dash hits `Syntax error: "("
+        # unexpected` on the array declaration.
+        shell: bash
         run: |
           # Per-package structural assertions. Mirror of release-publish.yml so
           # any new packable project landing in BlazOrbit.slnx without an entry
