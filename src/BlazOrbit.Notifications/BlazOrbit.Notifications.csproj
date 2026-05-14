@@ -5,7 +5,7 @@
         <IsPackable>true</IsPackable>
         <PackageType>Dependency</PackageType>
         <PackageId>BlazOrbit.Notifications</PackageId>
-        <Description>Persistent inbox-style notification center for BlazOrbit. Stores `BOBNotification` entries via a swappable `INotificationStore` strategy (default: in-memory; consumers can supply localStorage / IndexedDB / server-side persistence) and ships the `BOBNotificationBell` badge component for the unread count. Pairs with any consumer-supplied UI (drawer, popover, panel) for the list.</Description>
+        <Description>Persistent inbox-style notification center for BlazOrbit. Supplies in-memory store by default; consumers can supply localStorage / IndexedDB / server-side persistence.</Description>
         <PackageTags>blazor;notifications;inbox;bell;badge;blazorbit</PackageTags>
     </PropertyGroup>
 

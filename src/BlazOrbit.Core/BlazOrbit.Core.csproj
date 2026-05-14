@@ -5,7 +5,7 @@
         <IsPackable>true</IsPackable>
         <PackageType>Dependency</PackageType>
         <PackageId>BlazOrbit.Core</PackageId>
-        <Description>Framework-agnostic primitives shared by the BlazOrbit component library. Provides the base component types (`BOBComponentBase`, `BOBInputComponentBase`), the `IHas*` behavior interfaces, theme/palette types (`CssColor`, `PaletteColor`, `LightTheme`, `DarkTheme`), and the JS-interop service contracts.</Description>
+        <Description>Framework-agnostic primitives shared by the BlazOrbit component library.</Description>
         <PackageTags>blazor;components;core;abstractions;theming;design-system</PackageTags>
     </PropertyGroup>
 
