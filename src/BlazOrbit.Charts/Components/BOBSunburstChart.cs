@@ -8,7 +8,7 @@ namespace BlazOrbit.Charts.Components;
 
 /// <summary>
 /// Radial variant of <see cref="BOBTreemapChart{TY}"/>. Hierarchical nodes render as
-/// concentric arcs — innermost ring for root nodes, outer rings for their descendants.
+/// concentric arcs - innermost ring for root nodes, outer rings for their descendants.
 /// Shares <see cref="BOBChartTreemapNode{TY}"/> with the treemap so consumers can swap
 /// representations without rebuilding their dataset.
 /// </summary>
@@ -181,7 +181,7 @@ public sealed class BOBSunburstChart<TY> : BOBChartBase<object, TY>
                 builder.CloseElement();
             }
 
-            // Recurse into children — they occupy the same angle range on the next ring.
+            // Recurse into children - they occupy the same angle range on the next ring.
             if (node.Children is { Count: > 0 } children)
             {
                 RenderRing(builder, ref seq, children, cx, cy, baseRadius, ringWidth,
@@ -192,7 +192,7 @@ public sealed class BOBSunburstChart<TY> : BOBChartBase<object, TY>
 
     private static double AggregateValue(BOBChartTreemapNode<TY> node)
     {
-        // Branch nodes derive their magnitude from descendants — sum children first.
+        // Branch nodes derive their magnitude from descendants - sum children first.
         // See BOBTreemapChart.AggregateValue for the full rationale: TY is unconstrained
         // so an unset value-typed Value defaults to 0 and `is not null` can't tell
         // "no value" from "explicit 0".
@@ -242,7 +242,7 @@ public sealed class BOBSunburstChart<TY> : BOBChartBase<object, TY>
     }
 
     // SVG arc path: M outerStart → A outerEnd → L innerEnd → A innerStart → Z.
-    // Sweep flags are picked so the inner arc reverses direction (CCW) — that's what
+    // Sweep flags are picked so the inner arc reverses direction (CCW) - that's what
     // closes the wedge cleanly without rendering an inner cap.
     private static string ArcPath(double cx, double cy, double r0, double r1, double a0, double a1)
     {
@@ -254,7 +254,7 @@ public sealed class BOBSunburstChart<TY> : BOBChartBase<object, TY>
 
         if (r0 <= 0)
         {
-            // Pie-style wedge — straight line from outer end back to centre.
+            // Pie-style wedge - straight line from outer end back to centre.
             return string.Format(CultureInfo.InvariantCulture,
                 "M {0:F2} {1:F2} A {2:F2} {2:F2} 0 {3} 1 {4:F2} {5:F2} L {6:F2} {7:F2} Z",
                 x0Outer, y0Outer, r1, largeArc, x1Outer, y1Outer, cx, cy);

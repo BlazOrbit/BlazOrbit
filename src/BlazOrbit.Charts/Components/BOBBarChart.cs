@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Charts.Abstractions;
+using BlazOrbit.Charts.Abstractions;
 using BlazOrbit.Charts.Components.Internal;
 using BlazOrbit.Charts.Enums;
 using BlazOrbit.Charts.Models;
@@ -65,7 +65,7 @@ public sealed class BOBBarChart<TX, TY> :
 
     /// <summary>
     /// Fired when the user clicks a bar. The argument carries the series
-    /// label, the X / Y values and the point index — useful for drill-down
+    /// label, the X / Y values and the point index - useful for drill-down
     /// navigation or row-selection patterns.
     /// </summary>
     [Parameter]
@@ -165,7 +165,7 @@ public sealed class BOBBarChart<TX, TY> :
         RenderYAxisLabels(builder, ref seq, layout, yScale);
         RenderXAxisLabels(builder, ref seq, layout, xScale);
         RenderBars(builder, ref seq, xScale, yScale, seriesList, originalIndices);
-        // Reference lines render last so they sit on top of the bars —
+        // Reference lines render last so they sit on top of the bars -
         // thresholds / SLOs are guidance, the data shouldn't occlude them.
         ReferenceLineRenderer.Render(builder, ref seq, layout, yScale, ReferenceLines);
     }
@@ -205,7 +205,7 @@ public sealed class BOBBarChart<TX, TY> :
         builder.AddAttribute(seq++, "class", "bob-bar-chart__axis bob-bar-chart__axis--y");
 
         // Auto-derive a sensible format from the scale's tick step when the
-        // caller did not pin one — avoids 16-decimal "G" output on
+        // caller did not pin one - avoids 16-decimal "G" output on
         // fractional ticks (zoomed / data-driven domains).
         string format = YAxis.Format ?? yScale.SuggestedFormat();
 
@@ -268,7 +268,7 @@ public sealed class BOBBarChart<TX, TY> :
         // floats from prev → prev + delta.
         double waterfallRunning = 0;
 
-        // Per-category running cumulative total (in display units — raw for
+        // Per-category running cumulative total (in display units - raw for
         // Stacked, percent for PercentStacked). Allocated only when needed.
         Dictionary<TX, double>? running = StackMode == BOBBarStackMode.None
             ? null
@@ -396,7 +396,7 @@ public sealed class BOBBarChart<TX, TY> :
                     barHeight = Math.Max(0, bottomPx - topPx);
                 }
 
-                // Capture loop variables for the event handler closures —
+                // Capture loop variables for the event handler closures -
                 // C# foreach captures the iteration variables by reference
                 // in older runtimes; explicit copies keep us defensive and
                 // readable.
@@ -471,7 +471,7 @@ public sealed class BOBBarChart<TX, TY> :
                     }
                 }
 
-                // Native <title> only when no custom tooltip overlay is set —
+                // Native <title> only when no custom tooltip overlay is set -
                 // two tooltip systems on the same node compete for hover focus.
                 if (!fireTooltip)
                 {
@@ -531,7 +531,7 @@ public sealed class BOBBarChart<TX, TY> :
             {
                 if (totals.ContainsKey(pt.X))
                 {
-                    // Negative values are clamped to 0 in pure-Stacked mode —
+                    // Negative values are clamped to 0 in pure-Stacked mode -
                     // see Bidirectional for negatives stacking downward.
                     totals[pt.X] += Math.Max(0, Numeric.ToDouble(pt.Y));
                 }

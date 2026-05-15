@@ -6,7 +6,7 @@
 <strong>Texto alternativo en los iconos.</strong> <code>BOBSvgIcon</code> es decorativo por defecto. Si un icono transmite un significado que no está duplicado en el texto, establece una <code>etiqueta aria</code> en el elemento principal o envuélvelo con texto solo para el lector de pantalla.
 
 
-# <strong>Color contrast tokens.</strong> The palette pairs every semantic color with a <code>*contrast</code> token, so text-on-background pairings are always chosen deliberately — never accidentally.
+# <strong>Color contrast tokens.</strong> The palette pairs every semantic color with a <code>*contrast</code> token, so text-on-background pairings are always chosen deliberately - never accidentally.
 <strong>Tokens de contraste de color.</strong> La paleta empareja cada color semántico con un token de <code>contraste *</code>, por lo que los emparejamientos de texto en segundo plano siempre se eligen deliberadamente, nunca accidentalmente.
 
 
@@ -22,7 +22,7 @@
 <strong>Diálogo / Cajón:</strong> <code>Esc</code> se cierra, la pestaña se cicla dentro del modal (el foco está atrapado).
 
 
-# <strong>Disabled / required / readonly as real attributes.</strong> These are exposed through <code>IHasDisabled</code> / <code>IHasRequired</code> / <code>IHasReadOnly</code> and emitted as native HTML attributes on the underlying form element — screen readers announce them without extra work.
+# <strong>Disabled / required / readonly as real attributes.</strong> These are exposed through <code>IHasDisabled</code> / <code>IHasRequired</code> / <code>IHasReadOnly</code> and emitted as native HTML attributes on the underlying form element - screen readers announce them without extra work.
 <strong>Desactivado / requerido / solo lectura como atributos reales.</strong> Estos se exponen a través <code>de</code> IHasDisabled<code>/ IHasRequired</code>/<code>IHasReadOnly</code> y se emiten como atributos HTML nativos en el elemento de formulario subyacente: los lectores de pantalla los anuncian sin trabajo adicional.
 
 
@@ -46,8 +46,8 @@
 <strong>Asociación de etiquetas.</strong> Cada entrada expone un parámetro <code>Label</code> que se representa como una <code>&lt;label&gt;</code> adecuada con <code>for</code> vinculada al id de la entrada.
 
 
-# <strong>Landmarks.</strong> Use <code>&lt;main&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;aside&gt;</code> — BlazOrbit doesn't impose a layout; you wire those yourself.
-<strong>Puntos de referencia.</strong> Utilice <code>&lt;main&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;aside&gt;</code> — BlazOrbit no impone un diseño; usted mismo los conecta.
+# <strong>Landmarks.</strong> Use <code>&lt;main&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;aside&gt;</code> - BlazOrbit doesn't impose a layout; you wire those yourself.
+<strong>Puntos de referencia.</strong> Utilice <code>&lt;main&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;header&gt;</code>, <code>&lt;aside&gt;</code> - BlazOrbit no impone un diseño; usted mismo los conecta.
 
 
 # <strong>Meaningful labels.</strong> Every interactive control needs a <code>Label</code> or <code>aria-label</code>. Icon-only buttons (e.g. close, menu, delete) need an explicit <code>AriaLabel</code>.
@@ -58,11 +58,11 @@
 <strong>Movimiento.</strong> Las transiciones se definen con fotogramas clave. Honor prefiere <code>un</code> movimiento reducido en cualquier transición personalizada que añadas.
 
 
-# <strong>Native semantics.</strong> Inputs render actual <code>&lt;input&gt;</code> / <code>&lt;select&gt;</code> / <code>&lt;textarea&gt;</code> elements — not divs with handlers. Buttons are real <code>&lt;button&gt;</code> elements.
+# <strong>Native semantics.</strong> Inputs render actual <code>&lt;input&gt;</code> / <code>&lt;select&gt;</code> / <code>&lt;textarea&gt;</code> elements - not divs with handlers. Buttons are real <code>&lt;button&gt;</code> elements.
 <strong>Semántica nativa.</strong> Las entradas representan elementos <code>&lt;input&gt;</code>/<code>&lt;select&gt;</code>/<code>&lt;textarea&gt;</code> reales, no divs con controladores. Los botones son elementos <code>&lt;button&gt;</code> reales.
 
 
-# <strong>Switch / Checkbox / Radio:</strong> Space toggles — standard browser behavior.
+# <strong>Switch / Checkbox / Radio:</strong> Space toggles - standard browser behavior.
 <strong>Interruptor / casilla de verificación / radio: alternancia de espacio:</strong> comportamiento estándar del navegador.
 
 
@@ -78,11 +78,11 @@
 Accesibilidad
 
 
-# Accessibility features built into every component — keyboard navigation, focus management, ARIA roles, and color contrast. Learn what is handled automatically and what requires your attention.
+# Accessibility features built into every component - keyboard navigation, focus management, ARIA roles, and color contrast. Learn what is handled automatically and what requires your attention.
 Características de accesibilidad integradas en cada componente: navegación por teclado, gestión de enfoque, roles ARIA y contraste de color. Aprenda lo que se maneja automáticamente y lo que requiere su atención.
 
 
-# Check both themes — light and dark palettes have independent contrast.
+# Check both themes - light and dark palettes have independent contrast.
 Compruebe ambos temas: las paletas claras y oscuras tienen un contraste independiente.
 
 
@@ -98,7 +98,7 @@ Las relaciones de contraste, los estilos de anillo de enfoque y las opacidades d
 Atajos de teclado por componente
 
 
-# Navigate your entire page with Tab / Shift+Tab — every interactive element should be reachable and show a focus indicator.
+# Navigate your entire page with Tab / Shift+Tab - every interactive element should be reachable and show a focus indicator.
 Navegue por toda su página con Tab / Shift+Tab: cada elemento interactivo debe ser accesible y mostrar un indicador de enfoque.
 
 
@@ -118,5 +118,5 @@ Lo que obtienes automáticamente
 Donde todavía necesitas ayuda
 
 
-# Zoom to 200% — no clipping, no horizontal scroll.
-Zoom al 200% — sin recorte, sin desplazamiento horizontal.
+# Zoom to 200% - no clipping, no horizontal scroll.
+Zoom al 200% - sin recorte, sin desplazamiento horizontal.

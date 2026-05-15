@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Name: Horizontal,
     Html: <bob-component data-bob-component="splitter" data-bob-orientation="horizontal" b-<SCOPE>><div class="bob-splitter__sink" b-<SCOPE>></div><div class="bob-splitter__pane" style="flex:0 0 220px;width:220px;min-width:0;min-height:0;" b-<SCOPE>></div><div class="bob-splitter__gripper" role="separator" aria-orientation="vertical" tabindex="0" blazor:onpointerdown="1" blazor:onkeydown="<EVENT>" b-<SCOPE>></div><div class="bob-splitter__pane" style="flex:1 1 0;min-width:0;min-height:0;" b-<SCOPE>></div></bob-component>

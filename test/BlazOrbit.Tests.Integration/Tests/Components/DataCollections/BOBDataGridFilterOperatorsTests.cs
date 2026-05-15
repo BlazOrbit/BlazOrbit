@@ -80,7 +80,7 @@ public class BOBDataGridFilterOperatorsTests
         RowCount(cut).Should().Be(1);
         cut.Markup.Should().Contain(">30<");
 
-        // Switch operator to GreaterOrEqual on the same value — keeps Alice (30) and adds
+        // Switch operator to GreaterOrEqual on the same value - keeps Alice (30) and adds
         // Charlie (40). Bob (25) is still filtered out.
         cut.Find(".bob-datagrid__column-filter-op").Change(ColumnFilterOperator.GreaterOrEqual.ToString());
         RowCount(cut).Should().Be(2);
@@ -112,7 +112,7 @@ public class BOBDataGridFilterOperatorsTests
 
         // Type "1990-01-01" + LessThan → Charlie (1985-12-20) matches. Body cell renders
         // the formatted date (single-column grid), so assert on that. Date inputs commit
-        // via onchange (picker / blur) rather than oninput, mirroring browser semantics —
+        // via onchange (picker / blur) rather than oninput, mirroring browser semantics -
         // partial entries never make it to the filter pipeline.
         cut.Find(".bob-datagrid__column-filter").Change("1990-01-01");
         cut.Find(".bob-datagrid__column-filter-op").Change(ColumnFilterOperator.LessThan.ToString());
@@ -162,7 +162,7 @@ public class BOBDataGridFilterOperatorsTests
             new ColumnFilterEntry("alice", ColumnFilterOperator.StartsWith, ColumnFilterMode.Text));
 
         // Updating just the text via the simple overload must keep the previously
-        // configured operator + mode — typing should not reset the dropdown choice.
+        // configured operator + mode - typing should not reset the dropdown choice.
         state.SetColumnFilter("Name", "ali");
 
         state.ColumnFilters["Name"].Operator.Should().Be(ColumnFilterOperator.StartsWith);

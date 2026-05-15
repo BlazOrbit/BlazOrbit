@@ -1,11 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
         <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
         <IsPackable>true</IsPackable>
         <PackageType>Dependency</PackageType>
         <PackageId>BlazOrbit.SyntaxHighlight</PackageId>
-        <Description>Lightweight, dependency-free syntax highlighter used by the `BOBCodeBlock` component in BlazOrbit. Produces HTML token markup for a handful of common languages via a hand-rolled tokenizer and pluggable render options — no Blazor or ASP.NET Core references, so it can be consumed from any .NET host.</Description>
+        <Description>Lightweight, dependency-free syntax highlighter used by the `BOBCodeBlock` component in BlazOrbit. Produces HTML token markup for a handful of common languages via a hand-rolled tokenizer and pluggable render options - no Blazor or ASP.NET Core references, so it can be consumed from any .NET host.</Description>
         <PackageTags>syntax-highlight;code-block;tokenizer;html;blazorbit</PackageTags>
     </PropertyGroup>
 

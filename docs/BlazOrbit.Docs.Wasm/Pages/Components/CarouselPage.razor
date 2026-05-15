@@ -1,4 +1,4 @@
-﻿@page "/components/display/carousel"
+@page "/components/display/carousel"
 
 @inject IStringLocalizer<CarouselPage> Loc
 
@@ -42,7 +42,7 @@
              Description="@Loc["With Loop=true and Slide transition, a clone of the first slide is rendered after the last (and vice versa). Going from the last to the first looks like a continuous wrap rather than a jump back."]">
         <BOBCarousel Loop="true" TransitionDurationMs="500">
             <BOBCarouselItem AriaLabel="@Loc["Wrap A"]">
-                <div class="demo-slide demo-slide--blue">@Loc["A — try clicking next from the last slide"]</div>
+                <div class="demo-slide demo-slide--blue">@Loc["A - try clicking next from the last slide"]</div>
             </BOBCarouselItem>
             <BOBCarouselItem AriaLabel="@Loc["Wrap B"]">
                 <div class="demo-slide demo-slide--green">@Loc["B"]</div>
@@ -92,7 +92,7 @@
     </DocDemo>
 
     <DocDemo Key="Wheel3D" Title="@Loc["Wheel 3D (continuous perspective)"]"
-             Description="@Loc["Several slides visible at once with a fixed inward tilt. Side slides keep their size — the carousel always feels 3D, with depth at the sides instead of behind the active slide."]">
+             Description="@Loc["Several slides visible at once with a fixed inward tilt. Side slides keep their size - the carousel always feels 3D, with depth at the sides instead of behind the active slide."]">
         <BOBCarousel Transition="BOBCarouselTransition.Wheel3D" Loop="true">
             <BOBCarouselItem>
                 <div class="demo-slide demo-slide--blue">@Loc["3D 1"]</div>

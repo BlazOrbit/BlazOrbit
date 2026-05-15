@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Docs.CodeGeneration.Tests.Infrastructure;
+using BlazOrbit.Docs.CodeGeneration.Tests.Infrastructure;
 
 namespace BlazOrbit.Docs.CodeGeneration.Tests.Tests;
 

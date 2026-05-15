@@ -5,7 +5,7 @@ namespace BlazOrbit.Localization;
 /// <summary>
 /// FNV-1a 64-bit hash used to convert source literal strings to stable lookup keys at both
 /// build time (source generator) and runtime (dynamic-key slow path). The constants are the
-/// canonical reference values — do not "optimize" or change them or hashes computed in
+/// canonical reference values - do not "optimize" or change them or hashes computed in
 /// different builds will diverge.
 /// </summary>
 public static class BobLocalizationHash

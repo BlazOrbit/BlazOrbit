@@ -10,7 +10,7 @@ public class BOBChunkedUploaderTests
     [Fact]
     public async Task Should_Emit_All_Chunks_For_File_Aligned_To_ChunkSize()
     {
-        // Arrange — 4 chunks of exactly 16 bytes each.
+        // Arrange - 4 chunks of exactly 16 bytes each.
         byte[] payload = Enumerable.Range(0, 64).Select(i => (byte)i).ToArray();
         FakeBrowserFile file = new("aligned.bin", "application/octet-stream", payload);
 
@@ -38,7 +38,7 @@ public class BOBChunkedUploaderTests
         seen.Select(c => c.Offset).Should().Equal(0, 16, 32, 48);
         seen.Select(c => c.Data.Length).Should().Equal(16, 16, 16, 16);
 
-        // Round-trip the bytes — the chunks should reassemble the source verbatim.
+        // Round-trip the bytes - the chunks should reassemble the source verbatim.
         byte[] reassembled = seen.SelectMany(c => c.Data.ToArray()).ToArray();
         reassembled.Should().Equal(payload);
     }
@@ -46,7 +46,7 @@ public class BOBChunkedUploaderTests
     [Fact]
     public async Task Should_Emit_Last_Chunk_Smaller_When_File_Not_Aligned()
     {
-        // Arrange — 16 + 16 + 5 = 37 bytes. Final chunk is short.
+        // Arrange - 16 + 16 + 5 = 37 bytes. Final chunk is short.
         byte[] payload = Enumerable.Range(0, 37).Select(i => (byte)i).ToArray();
         FakeBrowserFile file = new("ragged.bin", "application/octet-stream", payload);
 
@@ -91,7 +91,7 @@ public class BOBChunkedUploaderTests
         // Act
         await uploader.UploadAsync(file, TestContext.Current.CancellationToken);
 
-        // Assert — one progress snapshot per chunk, monotonic bytes.
+        // Assert - one progress snapshot per chunk, monotonic bytes.
         snapshots.Should().HaveCount(3);
         snapshots.Select(p => p.BytesSent).Should().Equal(16, 32, 48);
         snapshots.Select(p => p.ChunkIndex).Should().Equal(0, 1, 2);
@@ -105,7 +105,7 @@ public class BOBChunkedUploaderTests
     [Fact]
     public async Task Should_Fail_When_File_Exceeds_MaxAllowedSize()
     {
-        // Arrange — 100 bytes against a 50-byte ceiling.
+        // Arrange - 100 bytes against a 50-byte ceiling.
         byte[] payload = new byte[100];
         FakeBrowserFile file = new("oversize.bin", "application/octet-stream", payload);
 
@@ -124,7 +124,7 @@ public class BOBChunkedUploaderTests
         // Act
         BOBChunkedUploadResult result = await uploader.UploadAsync(file, TestContext.Current.CancellationToken);
 
-        // Assert — bailed before opening the stream.
+        // Assert - bailed before opening the stream.
         result.Success.Should().BeFalse();
         result.Error.Should().BeOfType<InvalidOperationException>();
         result.TotalChunks.Should().Be(0);
@@ -134,7 +134,7 @@ public class BOBChunkedUploaderTests
     [Fact]
     public async Task Should_Propagate_Exception_From_SendChunk_As_Result_Failure()
     {
-        // Arrange — callback throws on the second chunk.
+        // Arrange - callback throws on the second chunk.
         byte[] payload = new byte[48];
         FakeBrowserFile file = new("explode.bin", "application/octet-stream", payload);
 
@@ -158,7 +158,7 @@ public class BOBChunkedUploaderTests
         // Act
         BOBChunkedUploadResult result = await uploader.UploadAsync(file, TestContext.Current.CancellationToken);
 
-        // Assert — captured, not rethrown.
+        // Assert - captured, not rethrown.
         result.Success.Should().BeFalse();
         result.Error.Should().BeOfType<InvalidOperationException>().Which.Message.Should().Be("transport down");
         callCount.Should().Be(2);
@@ -167,7 +167,7 @@ public class BOBChunkedUploaderTests
     [Fact]
     public async Task Should_Stop_When_CancellationToken_Cancelled()
     {
-        // Arrange — cancel after the first chunk.
+        // Arrange - cancel after the first chunk.
         byte[] payload = new byte[48];
         FakeBrowserFile file = new("cancel.bin", "application/octet-stream", payload);
 
@@ -219,7 +219,7 @@ public class BOBChunkedUploaderTests
         // Act
         BOBChunkedUploadResult result = await uploader.UploadAsync(file, TestContext.Current.CancellationToken);
 
-        // Assert — degenerate but valid: zero chunks, success.
+        // Assert - degenerate but valid: zero chunks, success.
         result.Success.Should().BeTrue();
         result.TotalChunks.Should().Be(0);
         sendCalled.Should().BeFalse();

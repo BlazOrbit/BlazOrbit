@@ -23,8 +23,8 @@ internal static class Palette
     [
         "var(--palette-primary, #4f46e5)", "var(--palette-secondary, #ec4899)", "var(--palette-success, #10b981)",
         "var(--palette-warning, #f59e0b)", "var(--palette-error, #ef4444)", "var(--palette-info, #06b6d4)",
-        "#8b5cf6", // violet — extension slot, no canonical token.
-        "#64748b" // slate  — extension slot, no canonical token.
+        "#8b5cf6", // violet - extension slot, no canonical token.
+        "#64748b" // slate  - extension slot, no canonical token.
     ];
 
     /// <summary>Color for the n-th series, cycling when the count exceeds the palette.</summary>

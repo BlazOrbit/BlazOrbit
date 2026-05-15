@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Name: Multiple_All_Collapsed,
     Html:

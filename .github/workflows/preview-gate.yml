@@ -30,11 +30,34 @@ jobs:
     uses: ./.github/workflows/_runner-router.yml
     secrets: inherit
 
+  encoding-check:
+    # Audit gate that fast-fails on file-encoding drift 
+    # Specifically catches:
+    #   - `.tn` files committed with a UTF-8 BOM (would mis-parse silently
+    #     at runtime: U+FEFF survives `TrimStart()` and breaks the culture
+    #     header check on the first line).
+    #   - `.json` files with BOM (some Node tools read JSON as raw bytes).
+    #   - Any text file with byte sequences that aren't valid UTF-8
+    #     (Latin-1 / CP1252 saved by editors with the wrong default,
+    #     mojibake from copy-paste through Windows-1252 tools).
+    # Runs outside a container - pwsh is preinstalled on ubuntu-latest and
+    # the script doesn't need .NET. Fix locally with:
+    #   pwsh ./scripts/fix-encoding-bom.ps1
+    name: Encoding Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
+
+      - name: Verify file encoding
+        shell: pwsh
+        run: ./scripts/fix-encoding-bom.ps1 -Check
+
   build-linux:
     name: Build Linux
     needs: router
     runs-on: ${{ needs.router.outputs.runner }}
-    # Each job runs inside a fresh container
+    # Fresh container
     container:
       image: mcr.microsoft.com/dotnet/sdk:10.0
 
@@ -50,19 +73,11 @@ jobs:
           cache: true
           cache-dependency-path: '**/*.csproj'
 
-      - name: Setup Node
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6
-        with:
-          node-version: '20'
-
       - name: Install WASM workload
         run: dotnet workload install wasm-tools
 
       - name: Restore dependencies
         run: dotnet restore BlazOrbit.slnx
-
-      - name: Build BuildTools (Release)
-        run: dotnet build src/BlazOrbit.BuildTools/BlazOrbit.BuildTools.csproj -c Release --no-restore -p:TreatWarningsAsErrors=true
 
       - name: Build (Release)
         run: dotnet build BlazOrbit.slnx -c Release --no-restore -p:TreatWarningsAsErrors=true
@@ -83,19 +98,11 @@ jobs:
           cache: true
           cache-dependency-path: '**/*.csproj'
 
-      - name: Setup Node
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6
-        with:
-          node-version: '20'
-
       - name: Install WASM workload
         run: dotnet workload install wasm-tools
 
       - name: Restore dependencies
         run: dotnet restore BlazOrbit.slnx
-
-      - name: Build BuildTools (Release)
-        run: dotnet build src/BlazOrbit.BuildTools/BlazOrbit.BuildTools.csproj -c Release --no-restore -p:TreatWarningsAsErrors=true
 
       - name: Build (Release)
         run: dotnet build BlazOrbit.slnx -c Release --no-restore -p:TreatWarningsAsErrors=true
@@ -119,27 +126,18 @@ jobs:
           cache: true
           cache-dependency-path: '**/*.csproj'
 
-      - name: Setup Node
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6
-        with:
-          node-version: '20'
-
       - name: Install WASM workload
         run: dotnet workload install wasm-tools
 
       - name: Restore dependencies
         run: dotnet restore BlazOrbit.slnx
 
-      - name: Build BuildTools (Release)
-        run: dotnet build src/BlazOrbit.BuildTools/BlazOrbit.BuildTools.csproj -c Release --no-restore -p:TreatWarningsAsErrors=true
-
       - name: Build (Release)
         run: dotnet build BlazOrbit.slnx -c Release --no-restore -p:TreatWarningsAsErrors=true
 
       - name: Test
-        # Category!=Perf excludes timing-based perf guards (e.g. PERF-05) that flake
-        # on shared/self-hosted CI runners due to JIT/GC noise. Maintainers still run
-        # the full set locally via tests-release.ps1 / tests-debug.ps1.
+        # Category!=Perf excludes timing-based perf guards that flake
+        # on shared/self-hosted CI runners due to JIT/GC noise.
         run: dotnet test BlazOrbit.slnx -c Release --no-build --verbosity normal --filter "Category!=Perf"
 
   public-api-shipped-check:
@@ -156,8 +154,7 @@ jobs:
         run: |
           echo "=== Verifying PublicAPI.Shipped.txt integrity ==="
 
-          # PublicAPI.Shipped.txt should only be modified during release
-          # by the admin-tools.ps1 Move-PublicApiToShipped function.
+          # PublicAPI.Shipped.txt should only be modified during release.
           SHIPPED_CHANGES=$(git diff --diff-filter=M --name-only origin/develop...HEAD | grep -i "PublicAPI.Shipped.txt" || true)
 
           if [ -n "$SHIPPED_CHANGES" ]; then

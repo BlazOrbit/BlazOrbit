@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components.Forms;
+namespace BlazOrbit.Components.Forms;
 
 [Flags]
 public enum PasswordStrengthFlags

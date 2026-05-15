@@ -75,24 +75,12 @@ jobs:
       # The regenerator only needs BlazOrbit.dll + BlazOrbit.Core.dll on disk
       # (it loads them via Assembly.LoadFrom and reflects). Building the full
       # solution would also build docs/BlazOrbit.Docs.Wasm which requires the
-      # `wasm-tools` workload — a slow, network-bound install we don't need.
-      #
-      # `dotnet restore src/BlazOrbit/BlazOrbit.csproj` walks ProjectReferences
-      # (Core, CodeGeneration analyzers, SyntaxHighlight) but BuildTools is
-      # invoked at build time via MSBuild import in `_build/BlazOrbit.Dev.targets`,
-      # not via ProjectReference, so it has to be restored separately.
+      # `wasm-tools` workload - a slow, network-bound install we don't need.
       - name: Restore dependencies
-        run: |
-          dotnet restore src/BlazOrbit.BuildTools/BlazOrbit.BuildTools.csproj
-          dotnet restore src/BlazOrbit/BlazOrbit.csproj
+        run: dotnet restore src/BlazOrbit/BlazOrbit.csproj
 
       - name: Build (Debug)
-        # `-p:BlazOrbitBuildEnabled=false` skips the BuildBlazOrbitAssets target
-        # (vite/esbuild via BuildTools). The regenerator only reflects over the
-        # compiled BlazOrbit.dll for component metadata — it never touches the
-        # wwwroot css/js artefacts, so we don't need Node on the runner.
-        # Matches the same opt-out used by docs-api.yml.
-        run: dotnet build src/BlazOrbit/BlazOrbit.csproj -c Debug --no-restore -p:BlazOrbitBuildEnabled=false
+        run: dotnet build src/BlazOrbit/BlazOrbit.csproj -c Debug --no-restore
 
       - name: Regenerate skill references
         shell: pwsh
@@ -113,7 +101,7 @@ jobs:
 
       - name: Package skill
         # Tooling lives under scripts/skills/<skill-name>/ so the skill payload
-        # under .agents/skills/<skill-name>/ is naturally clean — no excludes
+        # under .agents/skills/<skill-name>/ is naturally clean - no excludes
         # needed in the zip. Use absolute paths to avoid `../` arithmetic that
         # depends on $SKILL_DIR's depth.
         run: |
@@ -133,8 +121,20 @@ jobs:
         # creates a new release at the given tag with the .skill attached.
         # We don't pass `name` or `body` so the action falls back to its
         # defaults (preserving any existing release metadata).
+        #
+        # `target_commitish` pins the auto-created tag to the caller's SHA
+        # (`github.sha` propagates from the caller in a reusable workflow):
+        #   - preview-publish → develop HEAD at dispatch time (the state we
+        #     are actually shipping). Without this, GitHub falls back to the
+        #     repo's default branch (master) and the preview tag anchors to
+        #     a stale master commit instead of the develop snapshot.
+        #   - release-publish → the tag's existing commit (already on master
+        #     HEAD post-squash). GitHub ignores `target_commitish` when the
+        #     tag already exists, so this is a no-op in that path but stays
+        #     correct as a defensive default.
         with:
           tag_name: ${{ inputs.tag_name }}
+          target_commitish: ${{ github.sha }}
           prerelease: ${{ inputs.prerelease }}
           files: ./artifacts/${{ env.SKILL_NAME }}.skill
         env:

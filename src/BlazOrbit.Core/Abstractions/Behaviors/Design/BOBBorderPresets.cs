@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 /// <summary>
 /// Provides predefined <see cref="BorderStyle" /> instances for common border appearances.

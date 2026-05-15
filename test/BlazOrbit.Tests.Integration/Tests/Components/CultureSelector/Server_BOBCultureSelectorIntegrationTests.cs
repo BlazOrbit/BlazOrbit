@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using BlazOrbit.Tests.Integration.Infrastructure.Fakes;
@@ -46,7 +46,7 @@ public class Server_BOBCultureSelectorIntegrationTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
         FakeNavigationManager navigation = ctx.Services.GetRequiredService<FakeNavigationManager>();
 
-        // Arrange — navigate to a specific page first
+        // Arrange - navigate to a specific page first
         navigation.NavigateTo("/docs/getting-started");
 
         IRenderedComponent<ServerSelector> cut = ctx.Render<ServerSelector>(p => p

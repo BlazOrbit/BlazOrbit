@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -47,7 +47,7 @@ public class BOBTimePickerAccessibilityTests
         // Arrange & Act
         IRenderedComponent<BOBTimePicker> cut = ctx.Render<BOBTimePicker>();
 
-        // Assert — type="button" stops accidental form submission when used inside <form>
+        // Assert - type="button" stops accidental form submission when used inside <form>
         foreach (string label in new[] { "Increment hour", "Decrement hour", "Increment minute", "Decrement minute" })
         {
             IElement btn = cut.Find($"button[aria-label='{label}']");
@@ -65,7 +65,7 @@ public class BOBTimePickerAccessibilityTests
         // Arrange & Act
         IRenderedComponent<BOBTimePicker> cut = ctx.Render<BOBTimePicker>();
 
-        // Assert — maxlength keeps keyboard users from typing invalid 3-digit values
+        // Assert - maxlength keeps keyboard users from typing invalid 3-digit values
         IReadOnlyList<IElement> inputs = cut.FindAll("input");
         inputs.Should().HaveCountGreaterThanOrEqualTo(2);
         inputs.Should().OnlyContain(i => i.GetAttribute("maxlength") == "2");

@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Name: Dot_Mode,
     Html: <bob-component data-bob-dot="true" data-bob-component="badge" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><span class="bob-badge" b-<SCOPE>></span></bob-component>

@@ -1,4 +1,4 @@
-﻿using Microsoft.JSInterop;
+using Microsoft.JSInterop;
 
 namespace BlazOrbit.Abstractions;
 
@@ -61,7 +61,7 @@ public abstract class ModuleJsInteropBase : IAsyncDisposable
 
     /// <summary>
     /// Asynchronously disposes of the resources used by the module.
-    /// The following exceptions are swallowed intentionally — all four are raised on non-actionable
+    /// The following exceptions are swallowed intentionally - all four are raised on non-actionable
     /// teardown paths (prerender without a circuit, circuit shutdown, runtime disposal, or cancellation
     /// during the awaited module dispose).
     /// </summary>

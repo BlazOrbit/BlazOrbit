@@ -33,7 +33,7 @@ public static class HotkeyServiceCollectionExtensions
             HotkeyOptions opts = sp.GetRequiredService<HotkeyOptions>();
             foreach (HotkeyRegistration reg in opts.Registrations)
             {
-                // Discard the IDisposable — global handlers live for the whole circuit /
+                // Discard the IDisposable - global handlers live for the whole circuit /
                 // page lifetime. The scoped HotkeyService instance disposes naturally
                 // when DI tears down the scope.
                 _ = svc.Register(

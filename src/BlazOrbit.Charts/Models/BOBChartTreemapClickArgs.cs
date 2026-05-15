@@ -8,7 +8,7 @@ namespace BlazOrbit.Charts.Models;
 /// <typeparam name="TY">Numeric type of the node value.</typeparam>
 /// <param name="Node">The clicked node (leaf or branch).</param>
 /// <param name="Path">Ordered labels from the root down to the clicked node, inclusive.</param>
-/// <param name="Depth">0-based depth — root nodes at 0, their children at 1, etc.</param>
+/// <param name="Depth">0-based depth - root nodes at 0, their children at 1, etc.</param>
 public sealed record BOBChartTreemapClickArgs<TY>(
     BOBChartTreemapNode<TY> Node,
     IReadOnlyList<string> Path,

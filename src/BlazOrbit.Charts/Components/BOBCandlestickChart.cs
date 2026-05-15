@@ -109,7 +109,7 @@ public class BOBCandlestickChart<TX> :
             ? new LinearScale([0.0, volMax], volBottom, volTop, includeZero: true)
             : null;
 
-        // X scale — categorical by index so candles render evenly spaced.
+        // X scale - categorical by index so candles render evenly spaced.
         IEnumerable<TX> xCats = candles.Select(c => c.X);
         CategoricalScale<TX> xScale = new(xCats, layout.PlotLeft, layout.PlotRight);
         double bandWidth = xScale.BandWidth;
@@ -252,7 +252,7 @@ public class BOBCandlestickChart<TX> :
             }
         }
 
-        // X axis labels — sample evenly to avoid crowding.
+        // X axis labels - sample evenly to avoid crowding.
         if (XAxis.ShowLabels)
         {
             int sampleEvery = Math.Max(1, candles.Length / 8);

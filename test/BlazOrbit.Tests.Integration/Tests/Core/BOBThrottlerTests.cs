@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Utilities;
+using BlazOrbit.Utilities;
 using FluentAssertions;
 
 namespace BlazOrbit.Tests.Integration.Tests.Core;
@@ -27,11 +27,11 @@ public class BOBThrottlerTests
     [Fact]
     public async Task Should_Coalesce_Subsequent_Calls_During_Cooldown()
     {
-        // Arrange — use a short real interval so the test remains fast.
+        // Arrange - use a short real interval so the test remains fast.
         using BOBThrottler<string> throttler = new(TimeSpan.FromMilliseconds(10));
         List<string> captured = [];
 
-        // Act — first runs immediately and enters cooldown
+        // Act - first runs immediately and enters cooldown
         Task t1 = throttler.InvokeAsync("a", v =>
         {
             captured.Add(v);
@@ -53,7 +53,7 @@ public class BOBThrottlerTests
         // Wait for the first cooldown + trailing cooldown to expire
         await t1;
 
-        // Assert — only the first and the latest coalesced argument executed
+        // Assert - only the first and the latest coalesced argument executed
         captured.Should().Equal("a", "c");
     }
 
@@ -64,7 +64,7 @@ public class BOBThrottlerTests
         using BOBThrottler<int> throttler = new(TimeSpan.FromMilliseconds(100));
         List<int> captured = [];
 
-        // Act — start first invocation (enters cooldown)
+        // Act - start first invocation (enters cooldown)
         Task t1 = throttler.InvokeAsync(1, v =>
         {
             captured.Add(v);

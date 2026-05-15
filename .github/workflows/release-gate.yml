@@ -1,4 +1,4 @@
-# .github/workflows/release-gate.yml
+﻿# .github/workflows/release-gate.yml
 # Quality gates for releases - runs on PRs to master
 # Verifies build, test and public API before merging to master
 
@@ -55,19 +55,11 @@ jobs:
           cache: true
           cache-dependency-path: '**/*.csproj'
 
-      - name: Setup Node
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6
-        with:
-          node-version: '20'
-
       - name: Install WASM workload
         run: dotnet workload install wasm-tools
 
       - name: Restore dependencies
         run: dotnet restore BlazOrbit.slnx
-
-      - name: Build BuildTools (Release)
-        run: dotnet build src/BlazOrbit.BuildTools/BlazOrbit.BuildTools.csproj -c Release --no-restore -p:TreatWarningsAsErrors=true
 
       - name: Build (Release)
         run: dotnet build BlazOrbit.slnx -c Release --no-restore -p:TreatWarningsAsErrors=true
@@ -108,19 +100,11 @@ jobs:
           cache: true
           cache-dependency-path: '**/*.csproj'
 
-      - name: Setup Node
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6
-        with:
-          node-version: '20'
-
       - name: Install WASM workload
         run: dotnet workload install wasm-tools
 
       - name: Restore dependencies
         run: dotnet restore BlazOrbit.slnx
-
-      - name: Build BuildTools (Release)
-        run: dotnet build src/BlazOrbit.BuildTools/BlazOrbit.BuildTools.csproj -c Release --no-restore -p:TreatWarningsAsErrors=true
 
       - name: Build (Release)
         run: dotnet build BlazOrbit.slnx -c Release --no-restore -p:TreatWarningsAsErrors=true
@@ -146,27 +130,18 @@ jobs:
           cache: true
           cache-dependency-path: '**/*.csproj'
 
-      - name: Setup Node
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6
-        with:
-          node-version: '20'
-
       - name: Install WASM workload
         run: dotnet workload install wasm-tools
 
       - name: Restore dependencies
         run: dotnet restore BlazOrbit.slnx
 
-      - name: Build BuildTools (Release)
-        run: dotnet build src/BlazOrbit.BuildTools/BlazOrbit.BuildTools.csproj -c Release --no-restore -p:TreatWarningsAsErrors=true
-
       - name: Build (Release)
         run: dotnet build BlazOrbit.slnx -c Release --no-restore -p:TreatWarningsAsErrors=true
 
       - name: Test
-        # Category!=Perf excludes timing-based perf guards (e.g. PERF-05) that flake
-        # on shared/self-hosted CI runners due to JIT/GC noise. Maintainers still run
-        # the full set locally via tests-release.ps1 / tests-debug.ps1.
+        # Category!=Perf excludes timing-based perf guards that flake
+        # on shared/self-hosted CI runners due to JIT/GC noise.
         run: dotnet test BlazOrbit.slnx -c Release --no-build --verbosity normal --filter "Category!=Perf"
 
   public-api-shipped-check:
@@ -183,8 +158,7 @@ jobs:
         run: |
           echo "=== Verifying PublicAPI.Shipped.txt integrity ==="
 
-          # PublicAPI.Shipped.txt should only be modified during release
-          # by the admin-tools.ps1 Move-PublicApiToShipped function.
+          # PublicAPI.Shipped.txt should only be modified during release.
           SHIPPED_CHANGES=$(git diff --diff-filter=M --name-only origin/master...HEAD | grep -i "PublicAPI.Shipped.txt" || true)
 
           if [ -n "$SHIPPED_CHANGES" ]; then

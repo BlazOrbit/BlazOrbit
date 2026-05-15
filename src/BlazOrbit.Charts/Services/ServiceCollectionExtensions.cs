@@ -12,7 +12,7 @@ namespace BlazOrbit.Charts.Services;
 /// <para>
 /// <b>Stylesheet</b>: the chart-family CSS bundle
 /// (<c>_content/BlazOrbit.Charts/css/blazorbit-charts.css</c>) is auto-
-/// injected into <c>&lt;head&gt;</c> by the JS module on first import — no
+/// injected into <c>&lt;head&gt;</c> by the JS module on first import - no
 /// manual <c>&lt;link&gt;</c> in <c>index.html</c> / <c>App.razor</c> is
 /// required. Add one explicitly only if you need precise ordering against
 /// theme overrides; the auto-inject detects an existing link and skips.
@@ -22,7 +22,7 @@ public static class ServiceCollectionExtensions
 {
     /// <summary>
     /// Registers the <see cref="IChartJsInterop"/> implementation used by
-    /// every BOBCharts component. Idempotent — repeated calls add nothing.
+    /// every BOBCharts component. Idempotent - repeated calls add nothing.
     /// </summary>
     /// <param name="services">DI container to mutate.</param>
     /// <returns>The same <paramref name="services"/> for chaining.</returns>

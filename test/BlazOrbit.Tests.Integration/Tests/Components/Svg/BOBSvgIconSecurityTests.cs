@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -19,7 +19,7 @@ public class BOBSvgIconSecurityTests
         IRenderedComponent<BOBSvgIcon> cut = ctx.Render<BOBSvgIcon>(p => p
             .Add(c => c.Icon, new IconKey("xss1") { SvgContent = "<path d=\"M1 1h22\"/><script>alert(1)</script>" }));
 
-        // Assert — script stripped by SvgMarkupSanitizer
+        // Assert - script stripped by SvgMarkupSanitizer
         cut.Find("svg").InnerHtml.Should().NotContain("<script>");
         cut.Find("svg").InnerHtml.Should().NotContain("alert(1)");
     }
@@ -34,7 +34,7 @@ public class BOBSvgIconSecurityTests
         IRenderedComponent<BOBSvgIcon> cut = ctx.Render<BOBSvgIcon>(p => p
             .Add(c => c.Icon, new IconKey("xss2") { SvgContent = "<path d=\"M1 1\" onclick=\"evil()\"/>" }));
 
-        // Assert — event handler stripped
+        // Assert - event handler stripped
         cut.Find("svg").InnerHtml.Should().NotContain("onclick");
         cut.Find("svg").InnerHtml.Should().NotContain("evil()");
     }
@@ -53,7 +53,7 @@ public class BOBSvgIconSecurityTests
                     SvgContent = "<path d=\"M1 1\"/><foreignObject><div>XSS</div></foreignObject>"
                 }));
 
-        // Assert — foreignObject stripped
+        // Assert - foreignObject stripped
         cut.Find("svg").InnerHtml.Should().NotContain("foreignObject");
         cut.Find("svg").InnerHtml.Should().NotContain("XSS");
     }
@@ -69,7 +69,7 @@ public class BOBSvgIconSecurityTests
             .Add(c => c.Icon,
                 new IconKey("xss4") { SvgContent = "<a href=\"javascript:alert(1)\"><path d=\"M1 1\"/></a>" }));
 
-        // Assert — javascript: URI stripped
+        // Assert - javascript: URI stripped
         cut.Find("svg").InnerHtml.Should().NotContain("javascript:");
     }
 }

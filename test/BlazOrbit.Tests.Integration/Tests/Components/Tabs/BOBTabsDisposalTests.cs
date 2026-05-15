@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -33,7 +33,7 @@ public class BOBTabsDisposalTests
 
         cut.FindAll("[role='tab']").Should().HaveCount(2);
 
-        // Act + Assert — dispose does not throw
+        // Act + Assert - dispose does not throw
         Func<Task> act = async () => await cut.Instance.DisposeAsync();
         await act.Should().NotThrowAsync();
     }
@@ -44,7 +44,7 @@ public class BOBTabsDisposalTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — start with two tabs
+        // Arrange - start with two tabs
         bool[] showSecond = [true];
         IRenderedComponent<BOBTabs> cut = ctx.Render<BOBTabs>(p => p
             .Add(c => c.ChildContent, b =>
@@ -66,7 +66,7 @@ public class BOBTabsDisposalTests
 
         cut.FindAll("[role='tab']").Should().HaveCount(2);
 
-        // Act — remove second tab
+        // Act - remove second tab
         showSecond[0] = false;
         cut.Render(p => p.Add(c => c.ChildContent, b =>
         {

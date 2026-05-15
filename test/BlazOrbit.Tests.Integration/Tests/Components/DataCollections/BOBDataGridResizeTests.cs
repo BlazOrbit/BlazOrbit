@@ -47,7 +47,7 @@ public class BOBDataGridResizeTests
                 b.OpenComponent<BOBDataColumn<Person>>(6);
                 b.AddAttribute(7, "Header", "Age");
                 b.AddAttribute(8, "Property", AgeExpr);
-                // Second column is NOT Resizable — the grid renders the handle only on
+                // Second column is NOT Resizable - the grid renders the handle only on
                 // columns that explicitly opted in.
                 b.AddAttribute(9, "Template",
                     (RenderFragment<Person>)(item => b2 => b2.AddContent(0, item.Age.ToString())));
@@ -65,7 +65,7 @@ public class BOBDataGridResizeTests
 
         IRenderedComponent<BOBDataGrid<Person>> cut = ctx.Render<BOBDataGrid<Person>>(p => p
             .Add(c => c.Items, Items)
-            // Grid-level toggle is the master switch — even an opted-in column stays static
+            // Grid-level toggle is the master switch - even an opted-in column stays static
             // until the grid is also Resizable.
             .Add(c => c.Resizable, false)
             .Add(c => c.Columns, b =>
@@ -102,7 +102,7 @@ public class BOBDataGridResizeTests
             }));
 
         IElement resizer = cut.Find(".bob-datagrid__col-resizer");
-        // Pointerdown captures start X + start width (200) — the overlay then handles the move.
+        // Pointerdown captures start X + start width (200) - the overlay then handles the move.
         resizer.PointerDown(new PointerEventArgs { ClientX = 100 });
 
         // Drag overlay must materialise once the gesture starts so pointermove keeps firing
@@ -142,7 +142,7 @@ public class BOBDataGridResizeTests
             }));
 
         cut.Find(".bob-datagrid__col-resizer").PointerDown(new PointerEventArgs { ClientX = 500 });
-        // Drag 500px to the left — would land at -300, but the MinWidth=80 clamp kicks in.
+        // Drag 500px to the left - would land at -300, but the MinWidth=80 clamp kicks in.
         cut.Find(".bob-datagrid__resize-overlay").PointerMove(new PointerEventArgs { ClientX = 0 });
 
         cut.Find("th.bob-datagrid__header-cell").GetAttribute("style").Should().Contain("width: 80");
@@ -172,7 +172,7 @@ public class BOBDataGridResizeTests
         state.SetColumnWidth("Name", 200);
         state.ColumnWidths.Should().ContainKey("Name");
 
-        // 0 / negative is the documented "drop the override" signal — useful for a
+        // 0 / negative is the documented "drop the override" signal - useful for a
         // double-click "reset to default" affordance built on top of the same setter.
         state.SetColumnWidth("Name", 0);
         state.ColumnWidths.Should().NotContainKey("Name");

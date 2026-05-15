@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -51,7 +51,7 @@ public class BOBCodeBlockInteractionTests
         // Act
         cut.Find("button").Click();
 
-        // Assert — NormalizeIndentation strips leading 4 spaces
+        // Assert - NormalizeIndentation strips leading 4 spaces
         await clipboard.Received(1).CopyTextAsync(Arg.Is<string>(s => s.StartsWith("var x")));
     }
 
@@ -74,7 +74,7 @@ public class BOBCodeBlockInteractionTests
         // Act
         cut.Find("button").Click();
 
-        // Assert — _copied=true disables button
+        // Assert - _copied=true disables button
         cut.Find("button").HasAttribute("disabled").Should().BeTrue();
     }
 }

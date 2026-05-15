@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
@@ -95,7 +95,7 @@ public class BOBInputTextStateTests
             .Add(c => c.Required, true));
 
         // CSS-OPT-02 block B.5: required asterisk is rendered by CSS via
-        // [data-bob-required="true"] .bob-input__label::after — no DOM marker.
+        // [data-bob-required="true"] .bob-input__label::after - no DOM marker.
         IElement root = cut.Find("bob-component");
         root.GetAttribute("data-bob-required").Should().Be("true");
         cut.Find("input").HasAttribute("required").Should().BeTrue();

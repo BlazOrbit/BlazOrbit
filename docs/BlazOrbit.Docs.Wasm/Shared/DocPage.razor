@@ -1,4 +1,4 @@
-﻿@using BlazOrbit.Docs.Components
+@using BlazOrbit.Docs.Components
 
 @inject NavigationManager Nav
 @inject IStringLocalizer<DocPage> Loc
@@ -34,7 +34,7 @@
 
 @if (ShowPerformanceDashboard())
 {
-    <BlazOrbit.Components.Diagnostics.BOBPerformanceDashboard/>
+    <BOBPerformanceDashboard/>
 }
 
 @code {

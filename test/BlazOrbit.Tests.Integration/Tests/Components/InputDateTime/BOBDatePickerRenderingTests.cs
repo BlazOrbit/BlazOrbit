@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -62,7 +62,7 @@ public class BOBDatePickerRenderingTests
         // Arrange & Act
         IRenderedComponent<BOBDatePicker> cut = ctx.Render<BOBDatePicker>();
 
-        // Assert — 42 day buttons plus 7 week header spans = 49 .bob-picker__cell elements
+        // Assert - 42 day buttons plus 7 week header spans = 49 .bob-picker__cell elements
         IReadOnlyList<IElement> dayCells = cut.FindAll(".bob-picker__grid button.bob-picker__cell");
         dayCells.Should().HaveCount(42);
     }
@@ -76,7 +76,7 @@ public class BOBDatePickerRenderingTests
         // Arrange & Act
         IRenderedComponent<BOBDatePicker> cut = ctx.Render<BOBDatePicker>();
 
-        // Assert — 7 abbreviated weekday header spans
+        // Assert - 7 abbreviated weekday header spans
         IReadOnlyList<IElement> headers = cut.FindAll(".bob-picker__grid span.bob-picker__cell");
         headers.Should().HaveCount(7);
     }
@@ -90,7 +90,7 @@ public class BOBDatePickerRenderingTests
         // Arrange & Act
         IRenderedComponent<BOBDatePicker> cut = ctx.Render<BOBDatePicker>();
 
-        // Assert — title shows current month/year
+        // Assert - title shows current month/year
         string expected = DateTime.Today.ToString("MMMM yyyy", CultureInfo.CurrentCulture);
         cut.Find(".bob-picker__title").TextContent.Should().Contain(expected);
     }
@@ -106,7 +106,7 @@ public class BOBDatePickerRenderingTests
         IRenderedComponent<BOBDatePicker> cut = ctx.Render<BOBDatePicker>(p => p
             .Add(c => c.Value, selectedDate));
 
-        // Assert — selected day has data-bob-active attribute
+        // Assert - selected day has data-bob-active attribute
         IReadOnlyList<IElement> activeCells = cut.FindAll(".bob-picker__cell[data-bob-active='true']");
         activeCells.Should().HaveCount(1);
         activeCells[0].TextContent.Trim().Should().Be("15");

@@ -1,6 +1,6 @@
 @using BlazOrbit.Abstractions
 
-@namespace BlazOrbit.Components.Navigation
+@namespace BlazOrbit.Components
 @attribute [GenerateComponentInfo]
 
 @inherits BOBComponentBase
@@ -103,7 +103,7 @@
     [Parameter]
     public string? AriaLabel { get; set; }
 
-    [Inject] internal IStringLocalizer<BOBLayoutResources> Localizer { get; set; } = default!;
+    [Inject] internal IStringLocalizer<BOBNavigationResources> Localizer { get; set; } = default!;
 
     private string ResolvedAriaLabel => AriaLabel ?? Localizer["Breadcrumb"];
 

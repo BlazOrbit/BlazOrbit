@@ -1,4 +1,4 @@
-﻿#nullable enable
+#nullable enable
 BlazOrbit.SyntaxHighlight.Builder.LanguageDefinition
 BlazOrbit.SyntaxHighlight.Builder.LanguageDefinition.CaseSensitive.get -> bool
 BlazOrbit.SyntaxHighlight.Builder.LanguageDefinition.Name.get -> string!

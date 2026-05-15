@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Charts.Components.Internal;
+using BlazOrbit.Charts.Components.Internal;
 using BlazOrbit.Charts.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
@@ -94,7 +94,7 @@ public abstract class BOBPieChartBase<TY> : BOBChartBase<object, TY>
             return;
         }
 
-        // Total magnitude. Skip the chart entirely if zero or negative —
+        // Total magnitude. Skip the chart entirely if zero or negative -
         // a "100% of nothing" pie is more confusing than no chart.
         double total = slices.Sum(s => Math.Max(0, Numeric.ToDouble(s.Value)));
         if (total <= 0)
@@ -245,7 +245,7 @@ public abstract class BOBPieChartBase<TY> : BOBChartBase<object, TY>
         builder.AddAttribute(seq++, "class", "bob-pie-chart__slice");
         builder.AddAttribute(seq++, "data-bob-slice", slice.Label);
 
-        // Capture for closures (defensive — keeps the event handlers
+        // Capture for closures (defensive - keeps the event handlers
         // independent of any future loop-variable hoisting).
         BOBChartSlice<TY> capturedSlice = slice;
         int capturedIndex = index;

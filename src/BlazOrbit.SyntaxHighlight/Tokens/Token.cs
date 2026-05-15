@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.SyntaxHighlight.Tokens;
+namespace BlazOrbit.SyntaxHighlight.Tokens;
 
 /// <summary>
 /// Represents a single token produced by the tokenizer.

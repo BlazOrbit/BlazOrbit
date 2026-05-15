@@ -28,7 +28,7 @@ namespace BlazOrbit.Localization.CodeGeneration;
 /// <c>@ culture</c> headers are also accepted; the headers take precedence over the filename.
 /// </para>
 /// <para>
-/// This is the Phase 3 MVP — sufficient to wire <c>.tn</c> files end-to-end. Call-site
+/// This is the Phase 3 MVP - sufficient to wire <c>.tn</c> files end-to-end. Call-site
 /// rewriting (Interceptors for <c>Loc[literal]</c>) lands in a follow-up phase.
 /// </para>
 /// </remarks>
@@ -87,7 +87,7 @@ public sealed class BobLocalizationGenerator : IIncrementalGenerator
 
                     // Capture the using directives in scope where the attribute is written AND
                     // the exact `typeof(...)` text the consumer wrote. The generator prefers the
-                    // verbatim source text — it resolves correctly once every generator (Razor
+                    // verbatim source text - it resolves correctly once every generator (Razor
                     // SDK, custom ones) has finished, even when this generator's pass sees a
                     // partially-materialised symbol (Razor-generated partials can report a
                     // wrong namespace before sibling generators complete).
@@ -115,7 +115,7 @@ public sealed class BobLocalizationGenerator : IIncrementalGenerator
                         }
                     }
 
-                    // Prefer namespace segments parsed from the consumer-written verbatim text —
+                    // Prefer namespace segments parsed from the consumer-written verbatim text -
                     // Razor-generated partial classes show as global namespace at this generator's
                     // pass, which would empty the symbol's ContainingNamespace and break file
                     // matching. The verbatim arg ("BlazOrbit.Docs.Wasm.Layout.NavMenu") preserves
@@ -181,7 +181,7 @@ public sealed class BobLocalizationGenerator : IIncrementalGenerator
             return;
         }
 
-        // Aggregate consumer-side `using` directives once — Razor partials only resolve their
+        // Aggregate consumer-side `using` directives once - Razor partials only resolve their
         // final namespace after every generator has run, so re-emitting the consumer's usings in
         // each generated file keeps `typeof(...)` references resolvable across generator passes.
         HashSet<string> alreadyEmitted = new(StringComparer.Ordinal)
@@ -212,10 +212,10 @@ public sealed class BobLocalizationGenerator : IIncrementalGenerator
         int bundleIndex = 0;
         foreach (BundleDeclaration bundle in bundles)
         {
-            // Prefer the consumer-written typeof argument verbatim — once every generator
+            // Prefer the consumer-written typeof argument verbatim - once every generator
             // (Razor SDK, custom) has produced its output the C# compiler resolves it the
             // same way it would resolve the original attribute. Falls back to namespace-walk
-            // when the syntax wasn't recovered (defensive — should not happen in practice).
+            // when the syntax wasn't recovered (defensive - should not happen in practice).
             string typeFqn = !string.IsNullOrEmpty(bundle.VerbatimTypeofArg)
                 ? bundle.VerbatimTypeofArg
                 : bundle.NamespaceSegments.Length > 0
@@ -270,7 +270,7 @@ public sealed class BobLocalizationGenerator : IIncrementalGenerator
                 }
             }
 
-            // One file per bundle — keeps each generated source small and easy to inspect.
+            // One file per bundle - keeps each generated source small and easy to inspect.
             // Method name is unique per bundle (uses index suffix); file name is unique even
             // when two bundles share a simple type name (e.g. NavMenu in two namespaces).
             string methodSuffix = "_b" + bundleIndex;
@@ -474,7 +474,7 @@ public sealed class BobLocalizationGenerator : IIncrementalGenerator
         }
         else
         {
-            // Not inside the configured folder — skip.
+            // Not inside the configured folder - skip.
             return false;
         }
 

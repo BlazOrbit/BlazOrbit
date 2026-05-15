@@ -54,7 +54,7 @@ public class BOBSelectStateTests
         IRenderedComponent<BOBSelect<string>> cut = ctx.Render<BOBSelect<string>>(p => p
             .Add(c => c.ReadOnly, false));
 
-        // ReadOnly is handled in OnChangeAsync — no DOM attribute on the native select
+        // ReadOnly is handled in OnChangeAsync - no DOM attribute on the native select
         // Verify the component renders and the callback is suppressed via interaction tests
         cut.Find("select").Should().NotBeNull();
 

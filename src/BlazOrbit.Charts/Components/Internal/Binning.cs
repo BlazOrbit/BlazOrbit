@@ -3,11 +3,11 @@ namespace BlazOrbit.Charts.Components.Internal;
 /// <summary>
 /// Histogram binning helpers. Three rules supported:
 /// <list type="bullet">
-/// <item><description><b>Sturges</b> — <c>k = ⌈log2(n) + 1⌉</c>, classic
+/// <item><description><b>Sturges</b> - <c>k = ⌈log2(n) + 1⌉</c>, classic
 ///     default. Good for ≤200 normally-distributed values.</description></item>
-/// <item><description><b>Scott</b> — bin width <c>= 3.5σ / n^(1/3)</c>;
+/// <item><description><b>Scott</b> - bin width <c>= 3.5σ / n^(1/3)</c>;
 ///     well-behaved for unimodal data.</description></item>
-/// <item><description><b>FreedmanDiaconis</b> — bin width <c>= 2·IQR /
+/// <item><description><b>FreedmanDiaconis</b> - bin width <c>= 2·IQR /
 ///     n^(1/3)</c>; robust against outliers.</description></item>
 /// </list>
 /// </summary>

@@ -1,4 +1,4 @@
-﻿# Variants
+# Variants
 
 Auto-generated. Each variant is a sealed subclass of
 `BlazOrbit.Components.Variant` exposing its built-in instances as static fields

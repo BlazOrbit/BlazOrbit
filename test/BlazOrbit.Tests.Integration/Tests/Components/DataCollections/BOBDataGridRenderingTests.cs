@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -98,7 +98,7 @@ public class BOBDataGridRenderingTests
             .Add(c => c.Items, Items)
             .Add(c => c.Columns, Columns));
 
-        // Assert — 2 data rows + 1 header row
+        // Assert - 2 data rows + 1 header row
         cut.FindAll("[role='row']").Should().HaveCount(3);
     }
 

@@ -1,7 +1,6 @@
-﻿@page "/components/navigation/stepper"
+@page "/components/navigation/stepper"
 
 @using BlazOrbit.Components
-@using BlazOrbit.Components.Navigation
 
 @inject IStringLocalizer<StepperPage> Loc
 
@@ -51,7 +50,7 @@
                 <p>@Loc["Already done."]</p>
             </BOBStep>
             <BOBStep Title="@Loc["Validate"]" Error="true">
-                <p>@Loc["Validation failed — fix the form below."]</p>
+                <p>@Loc["Validation failed - fix the form below."]</p>
             </BOBStep>
             <BOBStep Title="@Loc["Finish"]">
                 <p>@Loc["Pending."]</p>

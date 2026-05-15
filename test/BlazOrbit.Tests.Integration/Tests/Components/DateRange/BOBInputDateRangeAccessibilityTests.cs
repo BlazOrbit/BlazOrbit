@@ -16,10 +16,10 @@ public class BOBInputDateRangeAccessibilityTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
         IRenderedComponent<BOBInputDateRange> cut = ctx.Render<BOBInputDateRange>(p => p
-            .Add(c => c.Separator, "—")
+            .Add(c => c.Separator, "-")
             .Add(c => c.Value, new BlazOrbit.Components.DateRange(new DateOnly(2026, 1, 1), new DateOnly(2026, 1, 31))));
 
-        cut.Find(".bob-daterange__separator").TextContent.Should().Be("—");
+        cut.Find(".bob-daterange__separator").TextContent.Should().Be("-");
     }
 
     [Theory]

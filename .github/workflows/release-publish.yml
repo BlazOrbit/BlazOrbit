@@ -47,7 +47,7 @@ jobs:
         run: |
           # Tag-driven only. Tag must match the `v[0-9]+.[0-9]+.[0-9]+` filter
           # in `on.push.tags`, so REF_NAME is guaranteed to start with `v`.
-          # `local` is only valid inside a function, hence the wrapper — top-level
+          # `local` is only valid inside a function, hence the wrapper - top-level
           # `local parts=...` aborts under `set -e` (default GH Actions bash flags).
           extract_assembly_version() {
             local v="$1"
@@ -67,7 +67,7 @@ jobs:
     name: Build and Test
     needs: [ router ]
     runs-on: ${{ needs.router.outputs.runner }}
-    # Each job runs inside a fresh container
+    # Fresh container
     container:
       image: mcr.microsoft.com/dotnet/sdk:10.0
     steps:
@@ -82,27 +82,18 @@ jobs:
           cache: true
           cache-dependency-path: '**/*.csproj'
 
-      - name: Setup Node
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6
-        with:
-          node-version: '20'
-
       - name: Install WASM workload
         run: dotnet workload install wasm-tools
 
       - name: Restore dependencies
         run: dotnet restore BlazOrbit.slnx
 
-      - name: Build BuildTools (Release)
-        run: dotnet build src/BlazOrbit.BuildTools/BlazOrbit.BuildTools.csproj -c Release --no-restore -p:TreatWarningsAsErrors=true
-
       - name: Build (Release)
         run: dotnet build BlazOrbit.slnx -c Release --no-restore -p:TreatWarningsAsErrors=true
 
       - name: Test
-        # Category!=Perf excludes timing-based perf guards (e.g. PERF-05) that flake
-        # on shared/self-hosted CI runners due to JIT/GC noise. Maintainers still run
-        # the full set locally via tests-release.ps1 / tests-debug.ps1.
+        # Category!=Perf excludes timing-based perf guards that flake
+        # on shared/self-hosted CI runners due to JIT/GC noise.
         run: dotnet test BlazOrbit.slnx -c Release --no-build --verbosity normal --filter "Category!=Perf"
 
   pack:
@@ -120,18 +111,6 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Setup Node
-        # `dotnet pack BlazOrbit.slnx` implicitly builds, which fires the
-        # BlazOrbit.Dev.targets `BuildBlazOrbitAssets` target on every TFM.
-        # That target invokes BuildTools, which currently requires Node.js
-        # even when the wwwroot/css and wwwroot/js artifacts are already
-        # committed in the repo. Mirror the build-and-test job's setup so
-        # the pack runs in the same toolchain instead of crashing with
-        # "Node.js is required to build BlazorUI".
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6
-        with:
-          node-version: '20'
-
       - name: Install WASM workload
         run: dotnet workload install wasm-tools
 
@@ -141,7 +120,7 @@ jobs:
       - name: Pack packages
         shell: bash
         run: |
-          # Capture pack output to scan for NU5xxx packaging warnings (PKG-07).
+          # Capture pack output to scan for NU5xxx packaging warnings.
           # Baseline today is clean; any new warning blocks the release until
           # justified or NoWarn'd in csproj with a comment.
           set -o pipefail
@@ -187,7 +166,7 @@ jobs:
 
       - name: Install unzip
         # `mcr.microsoft.com/dotnet/sdk:10.0` is Debian-based but ships without
-        # unzip — the next step's `assert_in_pkg` shells out to `unzip -l` to
+        # unzip - the next step's `assert_in_pkg` shells out to `unzip -l` to
         # inspect nupkg contents (a nupkg is a zip). Without this install,
         # every assertion in "Validate package structure" reports "missing"
         # because `unzip` exits with 127 and `grep -Fxq` on empty input fails.
@@ -237,15 +216,15 @@ jobs:
               "icon.png"
 
             # Charts: separate package, ships its own CSS bundle + pre-built
-            # ChartInterop.min.js as static web assets so consumers don't need
-            # Node/esbuild. CSS is auto-injected by the JS module on first use,
-            # so consumers never have to add a manual <link>.
+            # ChartInterop.js as a static web asset (hand-written JSDoc-typed
+            # ESM, no transpile step). CSS is auto-injected by the JS module on
+            # first use, so consumers never have to add a manual <link>.
             PKG=./artifacts/BlazOrbit.Charts.${VERSION}.nupkg
             assert_in_pkg "$PKG" \
               "lib/$tfm/BlazOrbit.Charts.dll" \
               "lib/$tfm/BlazOrbit.Charts.xml" \
               "staticwebassets/css/blazorbit-charts.css" \
-              "staticwebassets/js/Types/Chart/ChartInterop.min.js" \
+              "staticwebassets/js/Types/Chart/ChartInterop.js" \
               "README.md" \
               "icon.png"
 
@@ -296,12 +275,12 @@ jobs:
               "icon.png"
 
             # Hotkeys: ships its own JS interop module (document-level keydown
-            # listener) as a static web asset, so consumers don't need Node.
+            # listener) as a hand-written JSDoc-typed static web asset.
             PKG=./artifacts/BlazOrbit.Hotkeys.${VERSION}.nupkg
             assert_in_pkg "$PKG" \
               "lib/$tfm/BlazOrbit.Hotkeys.dll" \
               "lib/$tfm/BlazOrbit.Hotkeys.xml" \
-              "staticwebassets/js/Hotkey/HotkeyInterop.min.js" \
+              "staticwebassets/js/Hotkey/HotkeyInterop.js" \
               "README.md" \
               "icon.png"
           done
@@ -309,7 +288,7 @@ jobs:
           # Cross-cutting check: every produced .nupkg under ./artifacts must
           # match a known PackageId. Catches the inverse failure where a new
           # packable project lands in src/ without an entry in this validation
-          # block — the release would otherwise publish it un-checked.
+          # block - the release would otherwise publish it un-checked.
           KNOWN_IDS=(
             BlazOrbit
             BlazOrbit.Charts
@@ -342,7 +321,7 @@ jobs:
           done
           [ "$unknown" -eq 0 ] || exit 1
 
-          # Templates package — content-only (no lib/), so we just confirm the
+          # Templates package - content-only (no lib/), so we just confirm the
           # package shipped and that both template trees survived packing.
           # Specific filenames are intentionally not asserted because the
           # template content is iterated frequently; tighten only after the
@@ -392,7 +371,7 @@ jobs:
         # 1:1 invariant: every published NuGet version maps to exactly one
         # commit and exactly one skill. Re-publishing would either be blocked
         # by NuGet's immutability (`409`) or silently no-op the .nupkg push
-        # while overwriting the .skill on the GH release — drift. Probe the
+        # while overwriting the .skill on the GH release - drift. Probe the
         # flat-container endpoint and bail out before either side mutates.
         env:
           VERSION: ${{ needs.version.outputs.version }}
@@ -406,7 +385,7 @@ jobs:
               exit 1
               ;;
             404)
-              echo "✅ Version ${VERSION} not on NuGet — safe to publish."
+              echo "✅ Version ${VERSION} not on NuGet - safe to publish."
               ;;
             *)
               echo "::warning::Unexpected status $status from NuGet flat-container probe. Proceeding cautiously."
@@ -441,7 +420,7 @@ jobs:
           # Enumerate the packages we just packed (REL-09: no hardcoded list).
           # The `.nupkg` filenames are `<PackageId>.<Version>.nupkg`; strip the
           # version suffix to recover each id. `.snupkg` files are attached but
-          # not listed — symbol packages are not user-installable.
+          # not listed - symbol packages are not user-installable.
           {
             echo ''
             echo '### Packages'
@@ -460,8 +439,17 @@ jobs:
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda  # v3
+        # The workflow is triggered by a tag push (`on.push.tags`), so the tag
+        # already exists at the commit the maintainer tagged (master HEAD post
+        # admin-tools.ps1 squash). GitHub uses the existing tag's commit and
+        # ignores `target_commitish` in that case. We pass it anyway so that
+        # if the tag were ever deleted and re-created without the underlying
+        # commit being pushed yet, the release would still anchor to the SHA
+        # that fired this run (`github.sha` === tag commit on tag-push events)
+        # instead of falling back to the repo's default branch HEAD.
         with:
           tag_name: ${{ github.ref_name }}
+          target_commitish: ${{ github.sha }}
           name: Release ${{ needs.version.outputs.version }}
           body_path: RELEASE_NOTES.md
           draft: false

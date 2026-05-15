@@ -9,7 +9,7 @@ using System.Globalization;
 namespace BlazOrbit.Charts.Components;
 
 /// <summary>
-/// Histogram — distribution of a single numeric variable. Auto-bins the
+/// Histogram - distribution of a single numeric variable. Auto-bins the
 /// raw <see cref="Values"/> using <see cref="BinRule"/> and renders each
 /// bin as a vertical bar. Includes a quantile readout (<c>Median</c>,
 /// <c>P95</c>) optionally shown via the <see cref="ShowQuantileLines"/>
@@ -159,7 +159,7 @@ public class BOBHistogramChart<T> :
             builder.OpenElement(seq++, "title");
             builder.AddContent(seq++,
                 string.Format(CultureInfo.InvariantCulture,
-                    "[{0:" + format + "}, {1:" + format + "}) — {2}", bin.Lower, bin.Upper, bin.Count));
+                    "[{0:" + format + "}, {1:" + format + "}) - {2}", bin.Lower, bin.Upper, bin.Count));
             builder.CloseElement();
             builder.CloseElement();
         }
@@ -195,7 +195,7 @@ public class BOBHistogramChart<T> :
             double[] sorted = raw.OrderBy(v => v).ToArray();
             double median = Binning.Quantile(sorted, 0.5);
             double p95 = Binning.Quantile(sorted, 0.95);
-            // Both quantile lines map across the data extent — projected to
+            // Both quantile lines map across the data extent - projected to
             // pixel x using the same bin geometry: locate the bin then
             // interpolate within it.
             DrawQuantileLine(builder, ref seq, layout, bins, bandWidth, median, "Median",

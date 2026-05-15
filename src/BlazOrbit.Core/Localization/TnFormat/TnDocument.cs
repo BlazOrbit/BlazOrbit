@@ -4,13 +4,13 @@ namespace BlazOrbit.Localization.TnFormat;
 
 /// <summary>
 /// Parsed result of a single <c>.tn</c> translations document. A document either lives in a
-/// per-culture file (no header — culture inferred from the filename) or carries one-or-more
+/// per-culture file (no header - culture inferred from the filename) or carries one-or-more
 /// <c>@ culture</c> headers when packed as a multi-culture catalogue.
 /// </summary>
 /// <param name="Translations">
 /// Outer key = culture name (BCP-47, e.g. <c>"es-ES"</c>). Inner = hash → translation. When the
 /// document has no explicit <c>@ culture</c> header all entries are stored under the
-/// <see cref="string.Empty"/> key — the caller (typically the source generator) assigns the
+/// <see cref="string.Empty"/> key - the caller (typically the source generator) assigns the
 /// culture from the filename.
 /// </param>
 /// <param name="Diagnostics">Errors and warnings collected during parsing. Empty when the parse succeeded cleanly.</param>

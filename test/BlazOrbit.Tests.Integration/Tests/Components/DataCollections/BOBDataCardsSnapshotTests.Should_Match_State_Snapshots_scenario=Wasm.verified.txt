@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Name: Empty,
     Html:

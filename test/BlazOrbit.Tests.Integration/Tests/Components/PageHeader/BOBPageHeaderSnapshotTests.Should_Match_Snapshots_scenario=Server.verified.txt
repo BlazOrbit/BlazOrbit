@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Name: TitleOnly,
     Html: <bob-component data-bob-component="page-header" b-<SCOPE>><div class="bob-page-header__main" b-<SCOPE>><h1 class="bob-page-header__title" b-<SCOPE>>Dashboard</h1></div></bob-component>

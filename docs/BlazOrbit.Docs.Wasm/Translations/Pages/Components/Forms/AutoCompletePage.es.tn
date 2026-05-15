@@ -63,7 +63,7 @@ Requerido
 # States
 Estados
 
-# StringToItem promotes whatever the user typed into a TItem on blur or Enter — useful for tag-style inputs that accept ad-hoc values alongside the suggestion list.
+# StringToItem promotes whatever the user typed into a TItem on blur or Enter - useful for tag-style inputs that accept ad-hoc values alongside the suggestion list.
 StringToItem promueve lo que el usuario escribió a un TItem al perder el foco o presionar Enter: útil para entradas estilo etiqueta que aceptan valores ad hoc junto a la lista de sugerencias.
 
 # Type 3+ chars

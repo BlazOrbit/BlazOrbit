@@ -1,4 +1,4 @@
-﻿using BlazOrbit.SyntaxHighlight.Rendering;
+using BlazOrbit.SyntaxHighlight.Rendering;
 using BlazOrbit.SyntaxHighlight.Tokens;
 
 namespace BlazOrbit.SyntaxHighlight.Tests;

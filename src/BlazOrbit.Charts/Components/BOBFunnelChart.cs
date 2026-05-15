@@ -7,7 +7,7 @@ using System.Globalization;
 namespace BlazOrbit.Charts.Components;
 
 /// <summary>
-/// Funnel chart — visualizes a multi-stage drop-off pipeline. Each step's
+/// Funnel chart - visualizes a multi-stage drop-off pipeline. Each step's
 /// row width auto-scales to the largest value in the funnel; the row
 /// height is uniform. Useful for sales pipelines, ad attribution funnels
 /// and onboarding completion analyses.
@@ -133,10 +133,10 @@ public sealed class BOBFunnelChart<TY> : BOBChartBase<int, TY>
     {
         if (topValue is null || topValue.Value <= 0)
         {
-            return $"{label} — {value:N0}";
+            return $"{label} - {value:N0}";
         }
 
         double pct = value / topValue.Value * 100;
-        return $"{label} — {value:N0} ({pct:F1}%)";
+        return $"{label} - {value:N0} ({pct:F1}%)";
     }
 }

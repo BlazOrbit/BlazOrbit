@@ -7,7 +7,7 @@ using System.Globalization;
 namespace BlazOrbit.Charts.Components;
 
 /// <summary>
-/// Sankey flow diagram — visualises mass / energy / monetary movement between named
+/// Sankey flow diagram - visualises mass / energy / monetary movement between named
 /// nodes as variable-thickness ribbons. The chart auto-derives node columns from the
 /// edge graph (topological rank by reachability from sources) so consumers only
 /// describe the links; positions are computed.
@@ -147,7 +147,7 @@ public sealed class BOBSankeyChart<TY> : BOBChartBase<object, TY>
             list.Add(n);
         }
 
-        // Each column's nodes share the plot height — pixel scale derived from the
+        // Each column's nodes share the plot height - pixel scale derived from the
         // largest column's total magnitude so ribbons stay proportional across columns.
         double maxColumnFlow = byColumn.Values
             .Select(col => col.Sum(n => Math.Max(n.In, n.Out)))
@@ -206,7 +206,7 @@ public sealed class BOBSankeyChart<TY> : BOBChartBase<object, TY>
             double x1 = dst.X;
             double midX = (x0 + x1) / 2;
 
-            // Deterministic hash so snapshot tests stay stable across runs/processes —
+            // Deterministic hash so snapshot tests stay stable across runs/processes -
             // string.GetHashCode is randomised per-process since .NET Core. We fold the
             // label bytes through a simple FNV-1a step which is plenty for an 8-slot
             // palette index.
@@ -218,7 +218,7 @@ public sealed class BOBSankeyChart<TY> : BOBChartBase<object, TY>
             string color = link.Color ?? Palette.ColorAt(labelHash & 7);
             BOBChartSankeyLink<TY> capturedLink = link;
 
-            // Cubic Bezier with horizontal control points centred between columns — the
+            // Cubic Bezier with horizontal control points centred between columns - the
             // classic Sankey "smooth ribbon" path.
             string d = string.Format(CultureInfo.InvariantCulture,
                 "M {0:F2} {1:F2} C {2:F2} {1:F2} {2:F2} {3:F2} {4:F2} {3:F2}",
@@ -318,7 +318,7 @@ public sealed class BOBSankeyChart<TY> : BOBChartBase<object, TY>
         }
 
         // When enabled, promote sink nodes (no outgoing edges) to the rightmost column
-        // so terminal boxes align cleanly — common Sankey convention for energy-flow
+        // so terminal boxes align cleanly - common Sankey convention for energy-flow
         // diagrams. Disabled for funnel-like flows where drops should stay near the
         // step that produced them.
         if (alignSinksRight)

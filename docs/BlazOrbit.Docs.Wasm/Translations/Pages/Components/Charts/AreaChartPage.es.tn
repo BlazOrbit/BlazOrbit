@@ -73,5 +73,5 @@ Con marcadores
 Zoom y pincel
 
 
-# Internally, the area chart inherits the full rendering pipeline from <code>BOBLineChart</code>. This means all line features — <code>Smooth</code> interpolation, <code>ShowMarkers</code>, automatic temporal-X detection, and configurable axes — work identically. The only addition is the filled region between the stroke and the baseline, with per-series opacity control via <code>FillOpacity</code>.
+# Internally, the area chart inherits the full rendering pipeline from <code>BOBLineChart</code>. This means all line features - <code>Smooth</code> interpolation, <code>ShowMarkers</code>, automatic temporal-X detection, and configurable axes - work identically. The only addition is the filled region between the stroke and the baseline, with per-series opacity control via <code>FillOpacity</code>.
 Internamente, el gráfico de área hereda la canalización de renderizado completa de <code>BOBLineChart</code>. Esto significa que todas las funciones de línea (interpolación <code>Smooth</code>, <code>ShowMarkers</code>, detección automática de eje X temporal y ejes configurables) funcionan de forma idéntica. La única adición es la región rellena entre el trazo y la línea base, con control de opacidad por serie a través de <code>FillOpacity</code>.

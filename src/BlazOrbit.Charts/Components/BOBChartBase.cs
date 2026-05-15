@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Abstractions;
+using BlazOrbit.Abstractions;
 using BlazOrbit.Charts.Abstractions;
 using BlazOrbit.Charts.Enums;
 using BlazOrbit.Charts.Services.JsInterop;
@@ -45,7 +45,7 @@ public abstract class BOBChartBase<TX, TY> : BOBComponentBase, IDataVisualizatio
     //   2. Measured host dims via ResizeObserver (auto-sized).
     //   3. Fallback constants (600 × 400).
     // The observer is installed lazily on first render and only when the
-    // caller has NOT pinned both dimensions — explicit Width+Height skips
+    // caller has NOT pinned both dimensions - explicit Width+Height skips
     // the JS interop entirely.
     private DotNetObjectReference<BOBChartBase<TX, TY>>? _dotnetRef;
     private string? _resizeHandle;
@@ -53,7 +53,7 @@ public abstract class BOBChartBase<TX, TY> : BOBComponentBase, IDataVisualizatio
     private double? _measuredHeight;
 
     /// <summary>
-    /// Active tooltip state — set on data-point hover by concrete cartesian
+    /// Active tooltip state - set on data-point hover by concrete cartesian
     /// charts via <see cref="SetActiveTooltip"/>, cleared on mouseleave via
     /// <see cref="ClearActiveTooltip"/>. <c>null</c> when no point is hovered.
     /// </summary>
@@ -147,7 +147,7 @@ public abstract class BOBChartBase<TX, TY> : BOBComponentBase, IDataVisualizatio
     /// the active series label, X, Y and resolved color.
     /// <para>
     /// Pie / Donut continue to use the native <c>&lt;title&gt;</c> tooltip
-    /// — for custom slice UI use <c>OnSliceHover</c> + your own panel.
+    /// - for custom slice UI use <c>OnSliceHover</c> + your own panel.
     /// </para>
     /// </summary>
     [Parameter]
@@ -163,7 +163,7 @@ public abstract class BOBChartBase<TX, TY> : BOBComponentBase, IDataVisualizatio
     public string? TooltipFormat { get; set; }
 
     /// <summary>
-    /// Whether geometry transitions are animated when data changes — bar
+    /// Whether geometry transitions are animated when data changes - bar
     /// heights resize, line markers slide, pie slice arcs grow. Default
     /// <c>true</c>.
     /// <para>
@@ -270,7 +270,7 @@ public abstract class BOBChartBase<TX, TY> : BOBComponentBase, IDataVisualizatio
         }
 
         // Capture an ElementReference on the <svg> so the export button can
-        // hand it to the JS interop. Stored regardless of ShowExportButton —
+        // hand it to the JS interop. Stored regardless of ShowExportButton -
         // future hooks (resize observer, etc.) can reuse it.
         builder.AddElementReferenceCapture(11, r => _svgRef = r);
 
@@ -488,7 +488,7 @@ public abstract class BOBChartBase<TX, TY> : BOBComponentBase, IDataVisualizatio
 
         // Install ResizeObserver only when at least one dimension is auto.
         // When BOTH Width and Height are pinned the chart is fixed-size and
-        // does not need to react to container changes — skip the JS interop.
+        // does not need to react to container changes - skip the JS interop.
         if (Width is null || Height is null)
         {
             try
@@ -542,7 +542,7 @@ public abstract class BOBChartBase<TX, TY> : BOBComponentBase, IDataVisualizatio
             return Task.CompletedTask;
         }
 
-        // Only re-render when the rounded value actually changed — observers
+        // Only re-render when the rounded value actually changed - observers
         // can fire several times per second during a drag-resize.
         double w = Math.Round(width);
         double h = Math.Round(height);
@@ -620,7 +620,7 @@ public abstract class BOBChartBase<TX, TY> : BOBComponentBase, IDataVisualizatio
         builder.AddAttribute(23, "aria-label", "Export chart as PNG");
         builder.AddAttribute(24, "title", "Export PNG");
         builder.AddAttribute(25, "onclick", EventCallback.Factory.Create(this, ExportAsPngAsync));
-        // Minimal inline SVG icon — avoids depending on BOBSvgIcon for a single glyph.
+        // Minimal inline SVG icon - avoids depending on BOBSvgIcon for a single glyph.
         builder.AddMarkupContent(26,
             "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" width=\"16\" height=\"16\" aria-hidden=\"true\">"
             + "<path fill=\"currentColor\" d=\"M5 20h14v-2H5v2zM12 4l-5 5h3v6h4V9h3l-5-5z\"/>"

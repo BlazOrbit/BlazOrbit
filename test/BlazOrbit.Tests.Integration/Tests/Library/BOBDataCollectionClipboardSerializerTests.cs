@@ -92,7 +92,7 @@ public class BOBDataCollectionClipboardSerializerTests
             Seed().Take(1).ToList(), AllColumns(), includeHeaders: false);
 
         tsv.Should().NotContain("45000.50",
-            "the raw decimal must not appear — the C2 format was applied");
+            "the raw decimal must not appear - the C2 format was applied");
     }
 
     [Fact]
@@ -106,7 +106,7 @@ public class BOBDataCollectionClipboardSerializerTests
         // Bob's row: "Bob\t25\t<salary>\t" (trailing tab-empty for null Notes).
         string[] lines = tsv.Split('\n');
         lines[1].Should().EndWith("\t",
-            "a null cell renders as an empty TSV field — Excel reads it as blank");
+            "a null cell renders as an empty TSV field - Excel reads it as blank");
     }
 
     [Fact]

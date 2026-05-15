@@ -1,4 +1,4 @@
-namespace BlazOrbit.Components.Display;
+namespace BlazOrbit.Components;
 
 /// <summary>
 /// Direction of a <see cref="BOBStatCard.Delta"/>. Drives the trend icon and accent color.

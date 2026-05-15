@@ -1,10 +1,10 @@
-﻿@page "/components/layout/card"
+@page "/components/layout/card"
 
 @inject IStringLocalizer<CardPage> Loc
 
 
 <DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBCard"]"
-         Lede="@Loc["A flexible container for content — header, media, body, and actions in a single component."]"
+         Lede="@Loc["A flexible container for content - header, media, body, and actions in a single component."]"
          PageInstance="this"
          ApiType="@typeof(BOBCard)"
          Keywords="@(["card", "panel", "container", "content"])">
@@ -21,7 +21,7 @@
         <BOBCard>
             <Header><h3 style="margin: 0;">@Loc["Invoice #4213"]</h3></Header>
             <ChildContent>
-                <p>@Loc["Total: $240.00 — due April 30."]</p>
+                <p>@Loc["Total: $240.00 - due April 30."]</p>
             </ChildContent>
             <Actions>
                 <BOBButton Text="@Loc["Decline"]"/>
@@ -40,7 +40,7 @@
             </Media>
             <Header><h3 style="margin: 0;">@Loc["Featured"]</h3></Header>
             <ChildContent>
-                <p>@Loc["Media area can contain any RenderFragment — image, gradient, or video."]</p>
+                <p>@Loc["Media area can contain any RenderFragment - image, gradient, or video."]</p>
             </ChildContent>
         </BOBCard>
     </DocDemo>
@@ -68,13 +68,13 @@
     <DocDemo Key="Elevation" Title="@Loc["Elevation"]"
              Description="@Loc["Material Design elevation level (0–24). Derives shadow and dark-mode surface tint automatically."]">
         <BOBCard Elevation="1">
-            <ChildContent><p>@Loc["Elevation 1 — low emphasis."]</p></ChildContent>
+            <ChildContent><p>@Loc["Elevation 1 - low emphasis."]</p></ChildContent>
         </BOBCard>
         <BOBCard Elevation="4">
-            <ChildContent><p>@Loc["Elevation 4 — medium emphasis."]</p></ChildContent>
+            <ChildContent><p>@Loc["Elevation 4 - medium emphasis."]</p></ChildContent>
         </BOBCard>
         <BOBCard Elevation="8">
-            <ChildContent><p>@Loc["Elevation 8 — high emphasis."]</p></ChildContent>
+            <ChildContent><p>@Loc["Elevation 8 - high emphasis."]</p></ChildContent>
         </BOBCard>
     </DocDemo>
 

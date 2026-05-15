@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -31,7 +31,7 @@ public class BOBSwitchRenderingTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — Value not set, defaults to false which equals OptionInactive
+        // Arrange & Act - Value not set, defaults to false which equals OptionInactive
         IRenderedComponent<BOBSwitch<bool>> cut = ctx.Render<BOBSwitch<bool>>(p => p
             .Add(c => c.OptionInactive, false)
             .Add(c => c.OptionActive, true));
@@ -116,7 +116,7 @@ public class BOBSwitchRenderingTests
             .Add(c => c.TrackColorActive, "#00ff00")
             .Add(c => c.TrackColorInactive, "#ff0000"));
 
-        // Assert — inline CSS vars for track colors
+        // Assert - inline CSS vars for track colors
         string style = cut.Find("bob-component").GetAttribute("style") ?? string.Empty;
         style.Should().Contain("--bob-inline-track");
     }

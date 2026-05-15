@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -108,10 +108,10 @@ public class BOBInputDropdownStateTests
                 builder.CloseComponent();
             }));
 
-        // Assert initial — not floated
+        // Assert initial - not floated
         cut.Find("bob-component").GetAttribute("data-bob-floated").Should().BeNull();
 
-        // Act — set value
+        // Act - set value
         cut.Render(p => p
             .Add(c => c.ValueExpression, _expr)
             .Add(c => c.Value, "opt1")

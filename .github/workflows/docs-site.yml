@@ -39,18 +39,10 @@ jobs:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           global-json-file: global.json
 
-      - name: Setup Node.js (required for BuildTools/Vite)
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6
-        with:
-          node-version: '20'
-
       - name: Install wasm-tools workload
-        # Required even when AOT is disabled — wasm-tools provides icudt
+        # Required even when AOT is disabled - wasm-tools provides icudt
         # generation, wasm-opt and other publish-time tooling.
         run: dotnet workload install wasm-tools
-
-      - name: Restore BuildTools
-        run: dotnet restore src/BlazOrbit.BuildTools/BlazOrbit.BuildTools.csproj
 
       - name: Restore Docs.Wasm
         run: dotnet restore docs/BlazOrbit.Docs.Wasm/BlazOrbit.Docs.Wasm.csproj

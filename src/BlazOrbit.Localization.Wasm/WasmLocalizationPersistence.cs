@@ -1,4 +1,4 @@
-﻿using Microsoft.JSInterop;
+using Microsoft.JSInterop;
 
 namespace BlazOrbit.Localization.Wasm;
 
@@ -73,7 +73,7 @@ internal class WasmLocalizationPersistence : ILocalizationPersistence, IAsyncDis
     private async Task<IJSObjectReference> GetModuleAsync()
     {
         _module ??= await _jsRuntime.InvokeAsync<IJSObjectReference>(
-            "import", "./_content/BlazOrbit/js/Types/Storage/LocalStorageInterop.min.js");
+            "import", "./_content/BlazOrbit/js/Types/Storage/LocalStorageInterop.js");
         return _module;
     }
 }

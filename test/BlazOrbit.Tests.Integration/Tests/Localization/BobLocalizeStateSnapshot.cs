@@ -7,7 +7,7 @@ namespace BlazOrbit.Tests.Integration.Tests.Localization;
 /// Tests register fake bundles via <see cref="RegisterFake"/> instead of calling
 /// <see cref="BobLocalize.RegisterBundle"/> directly; on <see cref="Dispose"/> only those
 /// fakes are removed (any prior registration for the same type is restored). The registry
-/// is never cleared — clearing would race against component tests in parallel collections
+/// is never cleared - clearing would race against component tests in parallel collections
 /// that depend on <c>[ModuleInitializer]</c>-registered production bundles.
 ///
 /// Lazy-loaded module initializers also matter: a sibling test may load an assembly mid-run

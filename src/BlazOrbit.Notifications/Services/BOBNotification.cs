@@ -2,7 +2,7 @@ namespace BlazOrbit.Notifications;
 
 /// <summary>
 /// Single inbox entry consumed by <see cref="INotificationCenter"/>. Persistent (unlike
-/// <c>BOBToast</c>) — meant to live until the user marks it read or clears it.
+/// <c>BOBToast</c>) - meant to live until the user marks it read or clears it.
 /// </summary>
 public sealed class BOBNotification
 {
@@ -15,7 +15,7 @@ public sealed class BOBNotification
     /// <summary>Optional body line below the title.</summary>
     public string? Body { get; init; }
 
-    /// <summary>Severity tier — drives icon / accent colour.</summary>
+    /// <summary>Severity tier - drives icon / accent colour.</summary>
     public NotificationSeverity Severity { get; init; } = NotificationSeverity.Info;
 
     /// <summary>Optional category tag used for filtering.</summary>

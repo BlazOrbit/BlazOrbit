@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -46,7 +46,7 @@ public class BOBTreeSelectorDisposalTests
             .Add(c => c.ChildrenSelector, m => m.Children)
             .Add(c => c.SelectionMode, TreeSelectionMode.Multiple));
 
-        // Act — select item then dispose
+        // Act - select item then dispose
         cut.FindAll(".bob-tree-selector__node-content")[0].Click();
         Func<Task> act = () =>
         {

@@ -1,4 +1,4 @@
-namespace BlazOrbit.Components.Display;
+namespace BlazOrbit.Components;
 
 /// <summary>
 /// Bridge surfaced by <c>BOBChipGroup&lt;TValue&gt;</c> to nested <see cref="BOBChip"/>

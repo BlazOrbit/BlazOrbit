@@ -7,7 +7,7 @@ using System.Globalization;
 namespace BlazOrbit.Charts.Components;
 
 /// <summary>
-/// Polar-area / Coxcomb / Rose chart — variant of pie where every slice
+/// Polar-area / Coxcomb / Rose chart - variant of pie where every slice
 /// has the same angular width but the radius encodes the magnitude.
 /// Useful for cyclic data (months, hours-of-day) where you want to
 /// preserve uniform angular slots and let the radii do the talking.

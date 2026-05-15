@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 /// <summary>
 /// Opt-in contract for components that contribute extra data-attributes and CSS custom properties
@@ -21,7 +21,7 @@
 ///
 /// <para>
 /// Default no-op virtuals live on <c>BOBComponentBase</c> and <c>BOBInputComponentBase&lt;TValue&gt;</c>;
-/// declaring <c>IBuiltComponent</c> on a derived component is sufficient to opt in — the inherited
+/// declaring <c>IBuiltComponent</c> on a derived component is sufficient to opt in - the inherited
 /// virtuals satisfy the interface contract until the component overrides one of them.
 /// </para>
 /// </summary>

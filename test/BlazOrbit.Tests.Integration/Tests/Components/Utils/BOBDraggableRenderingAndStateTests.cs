@@ -91,7 +91,7 @@ public class BOBDraggableDisposalTests
         // Trigger a mouse down so internal _isDragging becomes true
         cut.Find(".bob-draggable").MouseDown(new MouseEventArgs { ClientX = 0, ClientY = 0 });
 
-        // Act & Assert — disposal must not throw even when dragging
+        // Act & Assert - disposal must not throw even when dragging
         Func<Task> dispose = async () => await cut.Instance.DisposeAsync();
         await dispose.Should().NotThrowAsync();
     }

@@ -12,7 +12,7 @@ Distribución de una variable numérica única. Agrupa automáticamente observac
 # Extra package required
 Paquete adicional requerido
 
-# FD scales bin width by the IQR — the histogram resolution stays stable when a few extreme values would otherwise compress the bulk of the data into a single bar.
+# FD scales bin width by the IQR - the histogram resolution stays stable when a few extreme values would otherwise compress the bulk of the data into a single bar.
 FD escala el ancho del intervalo por el IQR: la resolución del histograma se mantiene estable cuando unos pocos valores extremos de otro modo comprimirían la mayor parte de los datos en una sola barra.
 
 # Fixed bin count
@@ -21,7 +21,7 @@ Conteo de bins fijo
 # Freedman-Diaconis (outlier-robust)
 Freedman-Diaconis (robusto a outliers)
 
-# ShowQuantileLines overlays vertical guides at the median and p95 — useful for SLO discussions where the long tail matters more than the average.
+# ShowQuantileLines overlays vertical guides at the median and p95 - useful for SLO discussions where the long tail matters more than the average.
 ShowQuantileLines superpone guías verticales en la mediana y p95: útil para discusiones de SLO donde la cola larga importa más que el promedio.
 
 # Sturges (default)

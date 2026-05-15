@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Localization.Wasm;
+using BlazOrbit.Localization.Wasm;
 using FluentAssertions;
 using Microsoft.JSInterop;
 using NSubstitute;

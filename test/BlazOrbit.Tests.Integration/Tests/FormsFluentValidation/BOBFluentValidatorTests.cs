@@ -1,4 +1,4 @@
-﻿using BlazOrbit.FormsFluentValidation;
+using BlazOrbit.FormsFluentValidation;
 using Bunit;
 using FluentAssertions;
 using FluentValidation;

@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Charts.Components.Internal;
+namespace BlazOrbit.Charts.Components.Internal;
 
 /// <summary>
 /// Linear numeric scale: maps a domain interval [<see cref="DomainMin"/>,
@@ -99,7 +99,7 @@ internal sealed class LinearScale
     }
 
     /// <summary>
-    /// Suggested decimal-place count for tick labels — derived from the
+    /// Suggested decimal-place count for tick labels - derived from the
     /// magnitude of <see cref="TickStep"/>. Ensures zoomed-in axes (where
     /// step might be 0.1, 0.05, 0.01…) show enough precision while
     /// fully-extended axes (step = 1, 5, 10…) stay free of trailing zeros.

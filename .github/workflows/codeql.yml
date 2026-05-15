@@ -6,7 +6,7 @@ on:
   pull_request:
     branches: [ master, develop ]
   schedule:
-    # Weekly Monday 06:00 UTC — drift check independent of PR traffic.
+    # Weekly Monday 06:00 UTC - drift check independent of PR traffic.
     - cron: '0 6 * * 1'
 
 permissions:
@@ -41,15 +41,6 @@ jobs:
             8.0.x
             10.0.x
           global-json-file: global.json
-
-      - name: Setup Node
-        # CodeQL `Autobuild` triggers `dotnet build` on the slnx, which fires
-        # BlazOrbit's BuildBlazOrbitAssets target → BuildTools requires Node.js.
-        # Without this step the C# scan fails before CodeQL ever runs.
-        if: matrix.language == 'csharp'
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6
-        with:
-          node-version: '20'
 
       - name: Restore workloads
         # Explicit slnx

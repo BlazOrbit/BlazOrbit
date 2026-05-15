@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -49,7 +49,7 @@ public class BOBSvgIconRenderingTests
         IRenderedComponent<BOBSvgIcon> cut = ctx.Render<BOBSvgIcon>(p => p
             .Add(c => c.Icon, SimpleIcon));
 
-        // Assert — default viewBox is "0 0 24 24"
+        // Assert - default viewBox is "0 0 24 24"
         cut.Find("svg").GetAttribute("viewBox").Should().Be("0 0 24 24");
     }
 

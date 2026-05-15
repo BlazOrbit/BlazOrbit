@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
 public sealed class AutogenerateCssColorsAttribute : Attribute

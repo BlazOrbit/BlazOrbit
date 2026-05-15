@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using BlazOrbit.Charts.Services;
 using BlazOrbit.Tests.Integration.Infrastructure.Fakes;
 using Bunit;

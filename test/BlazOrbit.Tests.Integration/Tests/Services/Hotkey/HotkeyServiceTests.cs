@@ -136,7 +136,7 @@ public class BOBHotkeyServiceTests
         IHotkeyService svc = new HotkeyService();
         using IDisposable _ = svc.Register("ctrl+s", "Save", () => throw new InvalidOperationException("boom"));
 
-        // Must not throw — we don't want a buggy hotkey handler to crash the app shell.
+        // Must not throw - we don't want a buggy hotkey handler to crash the app shell.
         Func<Task> act = () => svc.DispatchAsync("ctrl+s");
         await act.Should().NotThrowAsync();
     }

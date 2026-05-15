@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using System.Reflection;
 using System.Text.RegularExpressions;
 
@@ -9,7 +9,7 @@ namespace BlazOrbit.Tests.Integration.Tests.Library;
 /// violation would otherwise drift back into the codebase silently:
 ///
 /// <list type="bullet">
-///   <item>ASYNC-01: never <c>_ = FooAsync()</c> — use <c>BOBAsyncHelper.SafeFireAndForget</c>.</item>
+///   <item>ASYNC-01: never <c>_ = FooAsync()</c> - use <c>BOBAsyncHelper.SafeFireAndForget</c>.</item>
 ///   <item>ASYNC-02: never <c>ConfigureAwait(false)</c> in library code (Blazor renderer relies on the sync context).</item>
 ///   <item>ASYNC-03: any teardown-path try/catch on <c>JSDisconnectedException</c> must include the canonical 4-tuple.</item>
 ///   <item>TEST-TRAIT-01: every test class under <c>Tests.Components.*</c> must be tagged with a <c>Component &lt;Context&gt;</c> Trait.</item>
@@ -39,7 +39,7 @@ public class ArchitectureAuditTests
 
     /// <summary>
     /// ASYNC-01. The pattern <c>_ = FooAsync(...)</c> drops the returned <c>Task</c> with no exception
-    /// handling and no logging — any failure becomes an <c>UnobservedTaskException</c>. Library code
+    /// handling and no logging - any failure becomes an <c>UnobservedTaskException</c>. Library code
     /// must route fire-and-forget through <c>BOBAsyncHelper.SafeFireAndForget</c>, which catches the
     /// 4-tuple silently and logs anything else.
     /// </summary>
@@ -79,7 +79,7 @@ public class ArchitectureAuditTests
 
     /// <summary>
     /// ASYNC-02. Blazor Server's renderer requires the synchronization context to remain attached
-    /// across awaits — <c>ConfigureAwait(false)</c> in library code can detach it and break
+    /// across awaits - <c>ConfigureAwait(false)</c> in library code can detach it and break
     /// downstream <c>StateHasChanged</c> / <c>InvokeAsync</c> calls. The only allowed exception is
     /// <c>BOBAsyncHelper</c>, which already isolates its work behind a fire-and-forget barrier.
     /// </summary>
@@ -119,7 +119,7 @@ public class ArchitectureAuditTests
     /// ASYNC-03. Any file that catches <c>JSDisconnectedException</c> on a teardown path must catch
     /// the full canonical 4-tuple (<c>JSDisconnectedException</c>, <c>ObjectDisposedException</c>,
     /// <c>InvalidOperationException</c>, <c>TaskCanceledException</c>). Module-load paths may add
-    /// <c>JSException</c> on top — that is permitted because <c>JSException</c> is a strict superset
+    /// <c>JSException</c> on top - that is permitted because <c>JSException</c> is a strict superset
     /// of the 4-tuple constraint.
     ///
     /// The check is file-level: as long as the file has all four exception types referenced inside
@@ -161,7 +161,7 @@ public class ArchitectureAuditTests
         violations.Should().BeEmpty(
             "any file that catches JSDisconnectedException is on a teardown path and must " +
             "also catch ObjectDisposedException, InvalidOperationException, and " +
-            "TaskCanceledException — the canonical 4-tuple. Use BOBAsyncHelper.SafeFireAndForget " +
+            "TaskCanceledException - the canonical 4-tuple. Use BOBAsyncHelper.SafeFireAndForget " +
             "instead of hand-writing teardown catches when the caller can't be async. " +
             "See ASYNC-03.\n\nViolations:\n  " +
             string.Join("\n  ", violations));
@@ -316,8 +316,8 @@ public class ArchitectureAuditTests
     [Fact]
     public void Input_Family_Wrapper_Bg_Should_Consume_Inline_Background_Across_All_Variants()
     {
-        string bundlePath = Path.Combine(SrcBlazOrbit, "CssBundle", "_input-family.css");
-        File.Exists(bundlePath).Should().BeTrue("InputFamilyGenerator must regenerate the bundle before tests run");
+        string bundlePath = Path.Combine(SrcBlazOrbit, "wwwroot", "css", "blazorbit.css");
+        File.Exists(bundlePath).Should().BeTrue("blazorbit.css must exist for the input-family audit to run");
 
         Regex wrapperBgSetter = new(@"--_wrapper-bg:\s*([^;]+);", RegexOptions.Compiled);
         string content = File.ReadAllText(bundlePath);
@@ -329,12 +329,12 @@ public class ArchitectureAuditTests
             if (!rhs.Contains("--bob-inline-background", StringComparison.Ordinal))
             {
                 int line = content[..m.Index].Count(c => c == '\n') + 1;
-                violations.Add($"_input-family.css:{line}  --_wrapper-bg: {rhs};");
+                violations.Add($"blazorbit.css:{line}  --_wrapper-bg: {rhs};");
             }
         }
 
         violations.Should().BeEmpty(
-            "every assignment to --_wrapper-bg in the input-family bundle must consume " +
+            "every assignment to --_wrapper-bg in the input-family section must consume " +
             "--bob-inline-background so the BackgroundColor parameter applies regardless of " +
             "variant. Wrap the literal in `var(--bob-inline-background, <fallback>)`. " +
             "See INPUT-BG-01.\n\nViolations:\n  " +
@@ -351,8 +351,8 @@ public class ArchitectureAuditTests
     [Fact]
     public void Input_Family_Field_Should_Consume_Inline_Color()
     {
-        string bundlePath = Path.Combine(SrcBlazOrbit, "CssBundle", "_input-family.css");
-        File.Exists(bundlePath).Should().BeTrue("InputFamilyGenerator must regenerate the bundle before tests run");
+        string bundlePath = Path.Combine(SrcBlazOrbit, "wwwroot", "css", "blazorbit.css");
+        File.Exists(bundlePath).Should().BeTrue("blazorbit.css must exist for the input-family audit to run");
 
         string content = File.ReadAllText(bundlePath);
 
@@ -361,8 +361,8 @@ public class ArchitectureAuditTests
             RegexOptions.Compiled | RegexOptions.Singleline);
 
         fieldColor.IsMatch(content).Should().BeTrue(
-            "the input-family bundle must consume --bob-inline-color on .bob-input__field " +
-            "so the Color parameter paints the native <input>/<textarea> text. " +
+            "the input-family section in blazorbit.css must consume --bob-inline-color on " +
+            ".bob-input__field so the Color parameter paints the native <input>/<textarea> text. " +
             "See INPUT-COLOR-01.");
     }
 
@@ -499,7 +499,7 @@ public class ArchitectureAuditTests
         }
 
         violations.Should().BeEmpty(
-            "IPureBuiltComponent hooks must not read instance fields — the cache folds the " +
+            "IPureBuiltComponent hooks must not read instance fields - the cache folds the " +
             "hook output into the fingerprint, so a non-parameter field would silently freeze " +
             "the stale value. Either remove the field read, or drop the IPureBuiltComponent " +
             "marker (revert to plain IBuiltComponent) to opt back out of the cache. " +

@@ -1,9 +1,9 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 
 namespace BlazOrbit.Themes;
 
 /// <summary>
-/// Dark theme — Carbon / Mineral. Technical, modern dark palette with mineral accents:
+/// Dark theme - Carbon / Mineral. Technical, modern dark palette with mineral accents:
 /// neutral carbon background, cool muted highlights, designed for low-fatigue prolonged reading.
 /// </summary>
 public sealed class DarkTheme : BOBThemePaletteBase
@@ -70,7 +70,7 @@ public sealed class DarkTheme : BOBThemePaletteBase
 
         Highlight = new CssColor("#FFB74D");
         // Ámbar cálido: focus outline con contraste ≈6.5:1 sobre #121417. El rojo no
-        // destaca lo suficiente en dark — WCAG 2.4.7 exige ≥3:1 para UI graphics.
+        // destaca lo suficiente en dark - WCAG 2.4.7 exige ≥3:1 para UI graphics.
 
         HoverTint = new CssColor("rgba(255,255,255,0.08)");
         ActiveTint = new CssColor("rgba(255,255,255,0.12)");

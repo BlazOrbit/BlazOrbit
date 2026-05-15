@@ -1,6 +1,6 @@
-﻿@page "/components/display/avatar"
+@page "/components/display/avatar"
 
-@using BlazOrbit.Components.Display
+@using BlazOrbit.Components
 
 @inject IStringLocalizer<AvatarPage> Loc
 
@@ -63,7 +63,7 @@
     </DocDemo>
 
     <DocDemo Key="GroupAuto" Title="@Loc["Group with overflow (auto count)"]"
-             Description="@Loc["By default the group counts its registered children — any avatar past MaxVisible is hidden via CSS and the overflow bubble appears with the remaining count."]">
+             Description="@Loc["By default the group counts its registered children - any avatar past MaxVisible is hidden via CSS and the overflow bubble appears with the remaining count."]">
         <BOBAvatarGroup MaxVisible="3">
             <BOBAvatar Label="Ada Lovelace"/>
             <BOBAvatar Label="Alan Turing"/>

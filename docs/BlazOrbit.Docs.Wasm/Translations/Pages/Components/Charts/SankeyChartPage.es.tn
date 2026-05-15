@@ -23,7 +23,7 @@ Flujo de energía
 Paquete adicional requerido
 
 # Flow diagram with variable-thickness ribbons between named nodes. The chart auto-derives node columns from the edge graph (topological rank) so consumers only describe the links. Use for energy flows, budget movements, conversion funnels and migrations between states.
-Diagrama de flujo con cintas de grosor variable entre nodos con nombre. El gráfico deriva automáticamente las columnas de los nodos a partir del grafo de aristas (rango topológico) — el consumidor solo describe los enlaces. Útil para flujos de energía, movimientos presupuestarios, embudos de conversión y migraciones entre estados.
+Diagrama de flujo con cintas de grosor variable entre nodos con nombre. El gráfico deriva automáticamente las columnas de los nodos a partir del grafo de aristas (rango topológico) - el consumidor solo describe los enlaces. Útil para flujos de energía, movimientos presupuestarios, embudos de conversión y migraciones entre estados.
 
 # Multi-column flow
 Flujo multi-columna

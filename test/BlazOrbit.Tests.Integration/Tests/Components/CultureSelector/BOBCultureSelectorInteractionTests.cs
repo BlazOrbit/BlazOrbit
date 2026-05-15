@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -40,7 +40,7 @@ public class BOBCultureSelectorInteractionTests
             options = cut.FindAll(".bob-dropdown__option");
         }
 
-        // Act — pick the option whose label is es-ES
+        // Act - pick the option whose label is es-ES
         IElement target = options.First(o => o.TextContent.Contains("es-ES")
                                              || o.TextContent.Contains("español", StringComparison.OrdinalIgnoreCase)
                                              || o.TextContent.Contains("Spanish", StringComparison.OrdinalIgnoreCase));
@@ -79,12 +79,12 @@ public class BOBCultureSelectorInteractionTests
             options = cut.FindAll(".bob-dropdown__option");
         }
 
-        // Act — click the option matching the already-active culture
+        // Act - click the option matching the already-active culture
         IElement? sameCultureOption = options
             .FirstOrDefault(o => o.GetAttribute("aria-selected") == "true");
         sameCultureOption?.Click();
 
-        // Assert — no culture change event for same culture
+        // Assert - no culture change event for same culture
         callCount.Should().Be(0);
     }
 
@@ -113,11 +113,11 @@ public class BOBCultureSelectorInteractionTests
             buttons = cut.FindAll("button");
         }
 
-        // Act — click a non-disabled (non-active) button
+        // Act - click a non-disabled (non-active) button
         IElement? clickable = buttons.FirstOrDefault(b => b.GetAttribute("disabled") == null);
         clickable?.Click();
 
-        // Assert — callback fired if there was a non-active button
+        // Assert - callback fired if there was a non-active button
         if (clickable != null)
         {
             captured.Should().NotBeNull();

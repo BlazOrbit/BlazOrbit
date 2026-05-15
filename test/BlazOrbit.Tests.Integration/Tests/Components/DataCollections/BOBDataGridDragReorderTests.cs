@@ -53,7 +53,7 @@ public class BOBDataGridDragReorderTests
         IRenderedComponent<BOBDataGrid<Person>> cut = RenderGrid(ctx);
 
         IReadOnlyList<IElement> headers = cut.FindAll("th.bob-datagrid__header-cell");
-        // Both columns participate — keyboard tab order + drag affordance are paired.
+        // Both columns participate - keyboard tab order + drag affordance are paired.
         headers.Should().AllSatisfy(h => h.GetAttribute("draggable").Should().Be("true"));
     }
 
@@ -79,12 +79,12 @@ public class BOBDataGridDragReorderTests
         before[0].TextContent.Should().Contain("Name");
         before[1].TextContent.Should().Contain("Age");
 
-        // Pick up "Age" and drop it onto "Name" — Age should land at index 0. We re-find
+        // Pick up "Age" and drop it onto "Name" - Age should land at index 0. We re-find
         // the drop target after DragStart so Bunit dispatches to the freshest element ref
         // (DragStart triggers a re-render that invalidates the previous handler IDs).
-        before[1].DragStart(new DragEventArgs { DataTransfer = new DataTransfer() });
+        before[1].DragStart(new Microsoft.AspNetCore.Components.Web.DragEventArgs { DataTransfer = new DataTransfer() });
         cut.FindAll("th.bob-datagrid__header-cell")[0]
-            .Drop(new DragEventArgs { DataTransfer = new DataTransfer() });
+            .Drop(new Microsoft.AspNetCore.Components.Web.DragEventArgs { DataTransfer = new DataTransfer() });
 
         IReadOnlyList<IElement> after = cut.FindAll("th.bob-datagrid__header-cell");
         after[0].TextContent.Should().Contain("Age");
@@ -99,11 +99,11 @@ public class BOBDataGridDragReorderTests
         IRenderedComponent<BOBDataGrid<Person>> cut = RenderGrid(ctx);
 
         IReadOnlyList<IElement> before = cut.FindAll("th.bob-datagrid__header-cell");
-        // Self-drop is a common UX accident — the grid should silently ignore it instead
+        // Self-drop is a common UX accident - the grid should silently ignore it instead
         // of looping the column through MoveColumn(0).
-        before[0].DragStart(new DragEventArgs { DataTransfer = new DataTransfer() });
+        before[0].DragStart(new Microsoft.AspNetCore.Components.Web.DragEventArgs { DataTransfer = new DataTransfer() });
         cut.FindAll("th.bob-datagrid__header-cell")[0]
-            .Drop(new DragEventArgs { DataTransfer = new DataTransfer() });
+            .Drop(new Microsoft.AspNetCore.Components.Web.DragEventArgs { DataTransfer = new DataTransfer() });
 
         IReadOnlyList<IElement> after = cut.FindAll("th.bob-datagrid__header-cell");
         after[0].TextContent.Should().Contain("Name");

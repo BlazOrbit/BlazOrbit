@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -131,7 +131,7 @@ public class BOBTreeSelectorRenderingTests
             .Add(c => c.KeySelector, m => m.Key)
             .Add(c => c.ChildrenSelector, m => m.Children));
 
-        // Assert — parent node has expander button
+        // Assert - parent node has expander button
         cut.Find(".bob-tree-selector__expander").Should().NotBeNull();
     }
 }

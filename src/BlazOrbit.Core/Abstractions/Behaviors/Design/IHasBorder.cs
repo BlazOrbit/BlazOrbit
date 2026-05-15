@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 #region Public API
 
@@ -39,7 +39,7 @@ public sealed class BorderStyle
     }
 
     /// <summary>
-    /// CssColor-typed overload — <see cref="BOBBorderPresets"/> and consumer fluent code can pass
+    /// CssColor-typed overload - <see cref="BOBBorderPresets"/> and consumer fluent code can pass
     /// <see cref="BOBColor.Gray.Default"/> / <see cref="PaletteColor.Primary"/> directly without an
     /// explicit cast to string.
     /// </summary>

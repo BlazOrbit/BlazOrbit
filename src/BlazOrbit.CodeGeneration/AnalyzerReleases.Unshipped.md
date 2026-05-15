@@ -1,4 +1,4 @@
-﻿; Unshipped diagnostics for BlazOrbit.CodeGeneration.
+; Unshipped diagnostics for BlazOrbit.CodeGeneration.
 ; Promoted into AnalyzerReleases.Shipped.md at release time.
 
 ### New Rules

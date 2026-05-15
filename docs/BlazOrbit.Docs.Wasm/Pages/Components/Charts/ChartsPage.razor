@@ -1,4 +1,4 @@
-﻿@page "/components/charts"
+@page "/components/charts"
 
 @inject IStringLocalizer<ChartsPage> Loc
 
@@ -43,7 +43,7 @@
         </p>
     </section>
 
-    @* KPI row — auto-fit grid keeps tiles equal-width and reflows to one column on narrow viewports. *@
+    @* KPI row - auto-fit grid keeps tiles equal-width and reflows to one column on narrow viewports. *@
     <section class="charts-preview__kpi-row">
         <BOBStatCard Label="@Loc["Revenue"]"
                      Value="$124K"
@@ -104,7 +104,7 @@
         </BOBStatCard>
     </section>
 
-    @* Main row — 2fr / 1fr keeps the trend chart wide and the donut compact.
+    @* Main row - 2fr / 1fr keeps the trend chart wide and the donut compact.
        Reflows to a single column under 960px. *@
     <section class="charts-preview__grid">
         <BOBCard>
@@ -150,7 +150,7 @@
         </BOBCard>
     </section>
 
-    @* Phase 3 row — hierarchical Treemap + Sankey flow. 1fr / 1fr because both
+    @* Phase 3 row - hierarchical Treemap + Sankey flow. 1fr / 1fr because both
        benefit from equal width to keep their interior cells legible. *@
     <section class="charts-preview__grid charts-preview__grid--even">
         <BOBCard>
@@ -355,7 +355,7 @@ builder.Services.AddBlazOrbitCharts();
         new BOBChartGaugeSegment { From = 85, To = 100, Color = "var(--palette-error)" }
     ];
 
-    // Phase 3 dashboard data — portfolio Treemap + conversion-funnel Sankey.
+    // Phase 3 dashboard data - portfolio Treemap + conversion-funnel Sankey.
     private static readonly BOBChartTreemapNode<decimal>[] _treemapNodes =
     [
         new BOBChartTreemapNode<decimal>

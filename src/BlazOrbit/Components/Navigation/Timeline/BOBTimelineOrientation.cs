@@ -1,4 +1,4 @@
-namespace BlazOrbit.Components.Navigation;
+namespace BlazOrbit.Components;
 
 /// <summary>Layout direction of the <c>BOBTimeline</c> timeline rail.</summary>
 public enum BOBTimelineOrientation

@@ -1,4 +1,4 @@
-﻿// ==== Colors.g.cs ====
+// ==== Colors.g.cs ====
 #nullable enable
 
 using BlazOrbit.Components;

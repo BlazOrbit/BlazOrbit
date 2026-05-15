@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components.Forms.Dropdown;
+namespace BlazOrbit.Components.Forms.Dropdown;
 
 /// <summary>
 /// Defines how tree nodes are displayed in a dropdown tree.

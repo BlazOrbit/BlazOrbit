@@ -7,7 +7,7 @@ using System.Globalization;
 namespace BlazOrbit.Charts.Components;
 
 /// <summary>
-/// Radar / spider chart — multi-dimensional comparison across N axes.
+/// Radar / spider chart - multi-dimensional comparison across N axes.
 /// Each <see cref="BOBChartSeries{TX, TY}"/> contributes one closed
 /// polygon, with one vertex per <typeparamref name="TX"/> category.
 /// Best for 3-12 axes; more becomes hard to read.
@@ -73,7 +73,7 @@ public sealed class BOBRadarChart<TX, TY> : BOBChartBase<TX, TY>
             return;
         }
 
-        // Categories — union across all series, declaration order from first series.
+        // Categories - union across all series, declaration order from first series.
         List<TX> categories = seriesList[0].Points.Select(p => p.X).ToList();
         if (categories.Count < 3)
         {
@@ -197,7 +197,7 @@ public sealed class BOBRadarChart<TX, TY> : BOBChartBase<TX, TY>
                     builder.AddAttribute(seq++, "r", "3.5");
                     builder.AddAttribute(seq++, "fill", color);
                     builder.OpenElement(seq++, "title");
-                    builder.AddContent(seq++, $"{series.Label} — {categories[i]}: {v}");
+                    builder.AddContent(seq++, $"{series.Label} - {categories[i]}: {v}");
                     builder.CloseElement();
                     builder.CloseElement();
                 }

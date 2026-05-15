@@ -34,7 +34,7 @@ public class BobLocalizerHtmlExtensionsTests : IDisposable
     [Fact]
     public void Html_Should_HtmlEncode_Format_Arguments()
     {
-        // Template is trusted (ships in .tn), but the {0} value can be hostile —
+        // Template is trusted (ships in .tn), but the {0} value can be hostile -
         // the encoder must neutralise it before substitution.
         Register("WelcomeUser", "Hello, <strong>{0}</strong>!");
 
@@ -60,7 +60,7 @@ public class BobLocalizerHtmlExtensionsTests : IDisposable
     [Fact]
     public void Html_Should_Fallback_To_Literal_Key_When_Translation_Missing()
     {
-        // No bundle registered for TestResources — BobLocalizer returns the key itself.
+        // No bundle registered for TestResources - BobLocalizer returns the key itself.
         BobLocalizer<TestResources> loc = new(BuildServices());
 
         MarkupString result = loc.Html("UnknownKey");

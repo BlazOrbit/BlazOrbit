@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Name: Underline_First_Active,
     Html:

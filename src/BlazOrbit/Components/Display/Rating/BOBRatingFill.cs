@@ -1,4 +1,4 @@
-namespace BlazOrbit.Components.Display;
+namespace BlazOrbit.Components;
 
 /// <summary>
 /// Fill state of a single rating slot rendered by <see cref="BOBRating"/>.

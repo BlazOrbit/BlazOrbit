@@ -33,7 +33,7 @@ public class BobLocalizationHashTests
     [Fact]
     public void Should_Handle_Empty_String()
     {
-        // Empty input collapses to the FNV offset basis — verifies the algorithm boundary.
+        // Empty input collapses to the FNV offset basis - verifies the algorithm boundary.
         ulong h = BobLocalizationHash.Compute(string.Empty);
         h.Should().Be(0xCBF29CE484222325UL);
     }

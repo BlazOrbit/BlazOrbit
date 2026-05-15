@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Abstractions;
 using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
@@ -36,7 +36,7 @@ namespace BlazOrbit.Tests.Integration.Tests.Core.BaseComponents;
 /// 5 - RIPPLE LIFECYCLE:
 /// - Ripple configuration MUST be exposed as CSS variables unless 'DisableRipple' is true.
 /// - When disabled, the inline ripple variables MUST be omitted (no data-bob-ripple
-///   attribute is emitted — the JS behavior reads IHasRipple state directly; see
+///   attribute is emitted - the JS behavior reads IHasRipple state directly; see
 ///   CSS-OPT-02 block B.6).
 ///
 /// 6 - JAVASCRIPT BEHAVIOR BRIDGE:
@@ -293,10 +293,10 @@ public class BOBComponentBaseTests
             .Add(c => c.Loading, false));
         cut.Find("div").GetAttribute("data-bob-loading").Should().BeNull();
 
-        // Act — flip volatile attribute
+        // Act - flip volatile attribute
         cut.Render(p => p.Add(c => c.Loading, true));
 
-        // Assert — attribute updated
+        // Assert - attribute updated
         cut.Find("div").GetAttribute("data-bob-loading").Should().Be("true");
     }
 
@@ -360,15 +360,15 @@ public class BOBComponentBaseTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — initial render with color
+        // Arrange - initial render with color
         IRenderedComponent<BOBComponentBase_TestStub> cut = ctx.Render<BOBComponentBase_TestStub>(p => p
             .Add(c => c.Color, "rgba(255,0,0,1)"));
         cut.Find("div").GetAttribute("style").Should().Contain("--bob-inline-color: rgba(255,0,0,1)");
 
-        // Act — change color
+        // Act - change color
         cut.Render(p => p.Add(c => c.Color, "rgba(0,0,255,1)"));
 
-        // Assert — updated inline var reflects new color
+        // Assert - updated inline var reflects new color
         cut.Find("div").GetAttribute("style").Should().Contain("--bob-inline-color: rgba(0,0,255,1)");
     }
 
@@ -380,7 +380,7 @@ public class BOBComponentBaseTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — initial render with a representative mix of style-affecting parameters
+        // Arrange - initial render with a representative mix of style-affecting parameters
         IRenderedComponent<BOBComponentBase_TestStub> cut = ctx.Render<BOBComponentBase_TestStub>(p => p
             .Add(c => c.Size, BOBSize.Large)
             .Add(c => c.Density, BOBDensity.Compact)
@@ -390,7 +390,7 @@ public class BOBComponentBaseTests
         string styleBefore = cut.Find("div").GetAttribute("style")!;
         string sizeBefore = cut.Find("div").GetAttribute("data-bob-size")!;
 
-        // Act — re-render with identical parameter values; the fingerprint cache should
+        // Act - re-render with identical parameter values; the fingerprint cache should
         // detect the no-op and short-circuit the full ComputedAttributes rebuild.
         cut.Render(p => p
             .Add(c => c.Size, BOBSize.Large)
@@ -399,7 +399,7 @@ public class BOBComponentBaseTests
             .Add(c => c.BackgroundColor, "rgba(0,255,0,1)")
             .Add(c => c.FullWidth, true));
 
-        // Assert — visible output is byte-identical (correctness preserved by the cache)
+        // Assert - visible output is byte-identical (correctness preserved by the cache)
         cut.Find("div").GetAttribute("style").Should().Be(styleBefore);
         cut.Find("div").GetAttribute("data-bob-size").Should().Be(sizeBefore);
     }
@@ -414,7 +414,7 @@ public class BOBComponentBaseTests
         IRenderedComponent<BOBComponentBase_TestStub> cut = ctx.Render<BOBComponentBase_TestStub>(p => p
             .Add(c => c.Color, "rgba(255,0,0,1)"));
 
-        // Act — flip a style-affecting parameter; fingerprint must diverge so the
+        // Act - flip a style-affecting parameter; fingerprint must diverge so the
         // rebuild path runs and the inline var picks up the new value.
         cut.Render(p => p.Add(c => c.Color, "rgba(0,0,255,1)"));
 

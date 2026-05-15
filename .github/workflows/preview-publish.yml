@@ -6,7 +6,7 @@
 # Manual trigger only. Pre-merge quality is enforced by preview-gate.yml
 # (build + test on every PR to develop). Once merged, develop is considered
 # already-validated; this workflow exists to ship a NuGet+skill snapshot
-# whenever the maintainer decides — typically batching several merges into
+# whenever the maintainer decides - typically batching several merges into
 # a single preview to keep the NuGet feed and the GH releases list tidy.
 
 name: '[Release] Preview Publish'
@@ -68,7 +68,7 @@ jobs:
             echo "${parts[0]:-0}.${parts[1]:-0}.${parts[2]:-0}.${parts[3]:-0}"
           }
 
-          # Version is fully derived from VersionPrefix + run number — no manual
+          # Version is fully derived from VersionPrefix + run number - no manual
           # override accepted. Each NuGet version is published exactly once,
           # 1:1 with its skill. To re-test something, push a new commit (run
           # number bumps) instead of forcing a duplicate version.
@@ -112,27 +112,18 @@ jobs:
           cache: true
           cache-dependency-path: '**/*.csproj'
 
-      - name: Setup Node
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6
-        with:
-          node-version: '20'
-
       - name: Install WASM workload
         run: dotnet workload install wasm-tools
 
       - name: Restore dependencies
         run: dotnet restore BlazOrbit.slnx
 
-      - name: Build BuildTools (Release)
-        run: dotnet build src/BlazOrbit.BuildTools/BlazOrbit.BuildTools.csproj -c Release --no-restore -p:TreatWarningsAsErrors=true
-
       - name: Build (Release)
         run: dotnet build BlazOrbit.slnx -c Release --no-restore -p:TreatWarningsAsErrors=true
 
       - name: Test
-        # Category!=Perf excludes timing-based perf guards (e.g. PERF-05) that flake
-        # on shared/self-hosted CI runners due to JIT/GC noise. Maintainers still run
-        # the full set locally via tests-release.ps1 / tests-debug.ps1.
+        # Category!=Perf excludes timing-based perf guards that flake
+        # on shared/self-hosted CI runners due to JIT/GC noise.
         run: dotnet test BlazOrbit.slnx -c Release --no-build --verbosity normal --filter "Category!=Perf"
 
   pack:
@@ -150,18 +141,6 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
-      - name: Setup Node
-        # `dotnet pack BlazOrbit.slnx` implicitly builds, which fires the
-        # BlazOrbit.Dev.targets `BuildBlazOrbitAssets` target on every TFM.
-        # That target invokes BuildTools, which currently requires Node.js
-        # even when the wwwroot/css and wwwroot/js artifacts are already
-        # committed in the repo. Mirror the build-and-test job's setup so
-        # the pack runs in the same toolchain instead of crashing with
-        # "Node.js is required to build BlazorUI".
-        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6
-        with:
-          node-version: '20'
-
       - name: Install WASM workload
         run: dotnet workload install wasm-tools
 
@@ -171,9 +150,9 @@ jobs:
       - name: Pack packages
         shell: bash
         run: |
-          # Capture pack output to scan for NU5xxx packaging warnings (PKG-07).
-          # Mirror the audit policy of release-publish.yml — preview is the
-          # canary that must surface structural regressions before they reach
+          # Capture pack output to scan for NU5xxx packaging warnings.
+          # Mirror the audit policy of release-publish.yml - preview is the
+          # canary that surfaces structural regressions before they reach
           # the stable feed.
           set -o pipefail
           dotnet pack BlazOrbit.slnx \
@@ -189,7 +168,7 @@ jobs:
 
       - name: Pack templates
         # Mirror the stable release flow so the preview feed exposes the
-        # templates package alongside the libraries — consumers can validate
+        # templates package alongside the libraries - consumers can validate
         # `dotnet new install BlazOrbit.Templates --version <preview>` against
         # unreleased library bits. Templates live in their own slnx, separate
         # from BlazOrbit.slnx, so we restore explicitly.
@@ -218,7 +197,7 @@ jobs:
 
       - name: Install unzip
         # `mcr.microsoft.com/dotnet/sdk:10.0` is Debian-based but ships without
-        # unzip — the next step's `assert_in_pkg` shells out to `unzip -l` to
+        # unzip - the next step's `assert_in_pkg` shells out to `unzip -l` to
         # inspect nupkg contents (a nupkg is a zip). Without this install,
         # every assertion in "Validate package structure" reports "missing"
         # because `unzip` exits with 127 and `grep -Fxq` on empty input fails.
@@ -272,7 +251,7 @@ jobs:
               "lib/$tfm/BlazOrbit.Charts.dll" \
               "lib/$tfm/BlazOrbit.Charts.xml" \
               "staticwebassets/css/blazorbit-charts.css" \
-              "staticwebassets/js/Types/Chart/ChartInterop.min.js" \
+              "staticwebassets/js/Types/Chart/ChartInterop.js" \
               "README.md" \
               "icon.png"
 
@@ -324,7 +303,7 @@ jobs:
             assert_in_pkg "$PKG" \
               "lib/$tfm/BlazOrbit.Hotkeys.dll" \
               "lib/$tfm/BlazOrbit.Hotkeys.xml" \
-              "staticwebassets/js/Hotkey/HotkeyInterop.min.js" \
+              "staticwebassets/js/Hotkey/HotkeyInterop.js" \
               "README.md" \
               "icon.png"
           done
@@ -389,7 +368,7 @@ jobs:
         # 1:1 invariant: every published NuGet version maps to exactly one
         # commit and exactly one skill. Re-publishing would either be blocked
         # by NuGet's immutability (`409`) or silently no-op the .nupkg push
-        # while overwriting the .skill on the GH release — drift. Probe the
+        # while overwriting the .skill on the GH release - drift. Probe the
         # flat-container endpoint and bail out before either side mutates.
         env:
           VERSION: ${{ needs.version.outputs.version }}
@@ -403,7 +382,7 @@ jobs:
               exit 1
               ;;
             404)
-              echo "✅ Version ${VERSION} not on NuGet — safe to publish."
+              echo "✅ Version ${VERSION} not on NuGet - safe to publish."
               ;;
             *)
               echo "::warning::Unexpected status $status from NuGet flat-container probe. Proceeding cautiously."

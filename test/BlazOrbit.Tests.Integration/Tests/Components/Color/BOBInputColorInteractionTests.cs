@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -64,7 +64,7 @@ public class BOBInputColorInteractionTests
 
         cut.FindAll(".bob-input-color__dropdown").Should().BeEmpty();
 
-        // Act — click the palette button (last _BOBInBtn inside wrapper)
+        // Act - click the palette button (last _BOBInBtn inside wrapper)
         cut.Find("[aria-label='Open color picker']").Click();
 
         cut.Find(".bob-input-color__dropdown").Should().NotBeNull();

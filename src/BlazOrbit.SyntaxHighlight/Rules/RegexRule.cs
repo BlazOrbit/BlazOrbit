@@ -1,4 +1,4 @@
-﻿using BlazOrbit.SyntaxHighlight.Tokens;
+using BlazOrbit.SyntaxHighlight.Tokens;
 using System.Text.RegularExpressions;
 
 namespace BlazOrbit.SyntaxHighlight.Rules;

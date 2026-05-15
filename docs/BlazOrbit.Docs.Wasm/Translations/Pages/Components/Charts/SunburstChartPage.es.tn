@@ -16,14 +16,14 @@ Sunburst con hueco tipo dónut
 # Extra package required
 Paquete adicional requerido
 
-# InnerRadius leaves a hollow centre — handy for embedding KPI text inside the chart. Range is [0, 0.9] of the outer radius.
-InnerRadius deja un centro hueco — útil para incrustar texto KPI dentro del gráfico. Rango [0, 0.9] del radio exterior.
+# InnerRadius leaves a hollow centre - handy for embedding KPI text inside the chart. Range is [0, 0.9] of the outer radius.
+InnerRadius deja un centro hueco - útil para incrustar texto KPI dentro del gráfico. Rango [0, 0.9] del radio exterior.
 
 # OnNodeClick carries the node, its root-to-self path and its depth so the consumer can drive a drill-down view or update a side panel.
 OnNodeClick lleva el nodo, su ruta desde la raíz y su profundidad, para que el consumidor pueda controlar una vista de drill-down o actualizar un panel lateral.
 
-# Radial variant of the treemap — hierarchical nodes render as concentric arcs. Inner ring shows root nodes, outer rings show their descendants. Shares the dataset with BOBTreemapChart so consumers can swap representations without rebuilding their data.
-Variante radial del treemap — los nodos jerárquicos se renderizan como arcos concéntricos. El anillo interior muestra los nodos raíz; los exteriores, sus descendientes. Comparte el dataset con BOBTreemapChart para que el consumidor pueda intercambiar representaciones sin reconstruir los datos.
+# Radial variant of the treemap - hierarchical nodes render as concentric arcs. Inner ring shows root nodes, outer rings show their descendants. Shares the dataset with BOBTreemapChart so consumers can swap representations without rebuilding their data.
+Variante radial del treemap - los nodos jerárquicos se renderizan como arcos concéntricos. El anillo interior muestra los nodos raíz; los exteriores, sus descendientes. Comparte el dataset con BOBTreemapChart para que el consumidor pueda intercambiar representaciones sin reconstruir los datos.
 
 # Solid-center sunburst
 Sunburst con centro sólido

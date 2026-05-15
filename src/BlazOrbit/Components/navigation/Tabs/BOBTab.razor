@@ -1,0 +1,46 @@
+@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+@implements IDisposable
+
+@if (Parent?.IsActiveTab(Id) == true)
+{
+    @ChildContent
+}
+
+@code {
+
+    /// <summary>Parent <see cref="BOBTabs"/> container that owns this tab. Cascaded automatically.</summary>
+    [CascadingParameter]
+    public BOBTabs? Parent { get; set; }
+
+    /// <summary>Stable identifier for the tab. Used to track activation. Required.</summary>
+    [Parameter][EditorRequired]
+    public string? Id { get; set; }
+
+    /// <summary>Visible tab label. Required.</summary>
+    [Parameter][EditorRequired]
+    public string? Label { get; set; }
+
+    /// <summary>Optional icon rendered next to the label.</summary>
+    [Parameter]
+    public RenderFragment? Icon { get; set; }
+
+    /// <summary>Content rendered inside the component.</summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>When <see langword="true" />, the component is non-interactive.</summary>
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Parent?.RegisterTab(this);
+    }
+
+    public void Dispose()
+    {
+        Parent?.UnregisterTab(this);
+    }
+
+}

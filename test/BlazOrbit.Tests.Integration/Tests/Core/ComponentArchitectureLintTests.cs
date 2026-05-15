@@ -14,8 +14,8 @@ namespace BlazOrbit.Tests.Integration.Tests.Core;
 /// src/BlazOrbit/**/*.razor and, for the typed-EventCallback parameters of that component, asserts
 /// the binding is one of:
 ///   • <c>@(EventCallback.Factory.Create…)</c>
-///   • <c>@(lambda)</c> — Razor emits Factory.Create with `this` for lambdas
-///   • <c>@AttrName</c> — same-name parameter forwarding
+///   • <c>@(lambda)</c> - Razor emits Factory.Create with `this` for lambdas
+///   • <c>@AttrName</c> - same-name parameter forwarding
 ///   • empty / not bound
 ///
 /// Bare method references (<c>OnClick="Handle"</c> / <c>OnClick="@Handle"</c>) and unwrapped
@@ -32,14 +32,14 @@ public class ComponentArchitectureLintTests
     [Fact]
     public void RazorSrc_Should_Bind_EventCallback_Parameters_Via_Factory_Create()
     {
-        // Stage 1 — reflect over the BlazOrbit assembly and build {componentName → EventCallback param names}.
+        // Stage 1 - reflect over the BlazOrbit assembly and build {componentName → EventCallback param names}.
         Dictionary<string, HashSet<string>> ecParamsByComponent =
             DiscoverEventCallbackParameters(typeof(BOBButton).Assembly);
 
         ecParamsByComponent.Should().NotBeEmpty(
             "BlazOrbit assembly must expose components with [Parameter] EventCallback properties");
 
-        // Stage 2 — scan every src/BlazOrbit Razor file and validate the bindings to those parameters.
+        // Stage 2 - scan every src/BlazOrbit Razor file and validate the bindings to those parameters.
         string[] razorFiles = Directory.GetFiles(SrcBlazOrbitPath, "*.razor", SearchOption.AllDirectories);
         razorFiles.Should().NotBeEmpty("there must be Razor source files to lint");
 

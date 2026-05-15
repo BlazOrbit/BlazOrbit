@@ -8,10 +8,10 @@ public enum BOBChartReferenceLineStyle
     /// <summary>Continuous solid line.</summary>
     Solid = 0,
 
-    /// <summary>Dashed line — useful for soft thresholds (forecasts, projections).</summary>
+    /// <summary>Dashed line - useful for soft thresholds (forecasts, projections).</summary>
     Dashed,
 
-    /// <summary>Dotted line — minimal visual weight; works well for grid-tier baselines.</summary>
+    /// <summary>Dotted line - minimal visual weight; works well for grid-tier baselines.</summary>
     Dotted
 }
 
@@ -41,7 +41,7 @@ public sealed class BOBChartReferenceLine
 
     /// <summary>
     /// Stroke color. Accepts any CSS color string. Falls back to
-    /// <c>var(--palette-warning)</c> when <c>null</c> — the conventional
+    /// <c>var(--palette-warning)</c> when <c>null</c> - the conventional
     /// "attention" tone for thresholds.
     /// </summary>
     public string? Color { get; init; }

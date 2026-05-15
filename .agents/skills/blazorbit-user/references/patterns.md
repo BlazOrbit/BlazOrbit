@@ -1,4 +1,4 @@
-﻿<!-- handcrafted: do NOT regenerate. The regenerator only writes
+<!-- handcrafted: do NOT regenerate. The regenerator only writes
      components.md / variants.md / icons.md. -->
 
 # Common Patterns

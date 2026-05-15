@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 /// <summary>
 /// Represents a color in HSV (Hue, Saturation, Value) color space. Used internally by the color

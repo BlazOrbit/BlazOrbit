@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -57,7 +57,7 @@ public class BOBTabsInteractionTests
             .Add(c => c.ChildContent, TwoTabs)
             .Add(c => c.ActiveTabChanged, t => capturedTab = t));
 
-        // Act — click second tab
+        // Act - click second tab
         cut.FindAll("[role='tab']")[1].Click();
 
         // Assert
@@ -77,7 +77,7 @@ public class BOBTabsInteractionTests
             .Add(c => c.ActiveTab, "tab1")
             .Add(c => c.ActiveTabChanged, t => capturedTab = t));
 
-        // Act — press ArrowRight on first tab
+        // Act - press ArrowRight on first tab
         cut.FindAll("[role='tab']")[0].KeyDown(new KeyboardEventArgs { Key = "ArrowRight" });
 
         // Assert
@@ -97,7 +97,7 @@ public class BOBTabsInteractionTests
             .Add(c => c.ActiveTab, "tab2")
             .Add(c => c.ActiveTabChanged, t => capturedTab = t));
 
-        // Act — press ArrowLeft on second tab
+        // Act - press ArrowLeft on second tab
         cut.FindAll("[role='tab']")[1].KeyDown(new KeyboardEventArgs { Key = "ArrowLeft" });
 
         // Assert
@@ -137,7 +137,7 @@ public class BOBTabsInteractionTests
             .Add(c => c.ActiveTab, "tab1")
             .Add(c => c.ActiveTabChanged, t => capturedTab = t));
 
-        // Act — ArrowRight should skip disabled tab2 → land on tab3
+        // Act - ArrowRight should skip disabled tab2 → land on tab3
         cut.FindAll("[role='tab']")[0].KeyDown(new KeyboardEventArgs { Key = "ArrowRight" });
 
         // Assert

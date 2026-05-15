@@ -123,7 +123,7 @@ public class Phase3AccessibilityTests
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
     public async Task All_New_Charts_Should_Set_Svg_Role_Img(BlazorScenario scenario)
     {
-        // WCAG 1.1.1 — SVG that conveys information needs role="img" + accessible name.
+        // WCAG 1.1.1 - SVG that conveys information needs role="img" + accessible name.
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         IRenderedComponent<BOBTreemapChart<double>> treemap =
@@ -169,7 +169,7 @@ public class Phase3InteractionTests
                 .Add(c => c.OnNodeClick, Microsoft.AspNetCore.Components.EventCallback.Factory.Create<BOBChartTreemapClickArgs<double>>(
                     this, args => captured = args)));
 
-        // Click the first leaf cell — the root rect is rendered first followed by
+        // Click the first leaf cell - the root rect is rendered first followed by
         // its children, so the second cell is the first leaf inside the branch.
         IReadOnlyList<AngleSharp.Dom.IElement> cells = cut.FindAll("rect.bob-treemap-chart__cell");
         cells.Count.Should().BeGreaterThan(1);

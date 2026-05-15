@@ -1,4 +1,4 @@
-﻿# ADR-0002: Interface-Driven Component Styling (`IHas*` Axes)
+# ADR-0002: Interface-Driven Component Styling (`IHas*` Axes)
 
 **Status**: Accepted  
 **Date**: 2026-03-03  

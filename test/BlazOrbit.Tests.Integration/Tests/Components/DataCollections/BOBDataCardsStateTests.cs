@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -65,7 +65,7 @@ public class BOBDataCardsStateTests
                 b.CloseComponent();
             }));
 
-        // Act — type in filter
+        // Act - type in filter
         cut.Find("[aria-label='Search...']").Input("Ali");
 
         // Assert

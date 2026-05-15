@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
     <PropertyGroup>
         <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
         <IsPackable>true</IsPackable>
@@ -7,20 +7,6 @@
         <Description>A dual-host (Blazor Server and Blazor WebAssembly) component library. C# first, high-performance, and accessible UI design. Lightweight, customizable, open source.</Description>
         <PackageTags>blazor;blazor-server;blazor-wasm;components;ui;design-system;material;theming</PackageTags>
     </PropertyGroup>
-    <!--
-        Exclude build-time scaffolding from the generated .nupkg. These files are created
-        by BuildTools at the project root during maintainer build and are only relevant
-        to the maintainer pipeline — consumers never need them.
-    -->
-    <ItemGroup>
-        <Content Remove="package.json"/>
-        <Content Remove="package-lock.json"/>
-        <Content Remove="tsconfig.json"/>
-        <Content Remove="vite.config.js"/>
-        <Content Remove="vite.config.css.js"/>
-        <Content Remove=".npmrc"/>
-    </ItemGroup>
-
     <ItemGroup>
         <InternalsVisibleTo Include="BlazOrbit.Tests.Integration"/>
         <InternalsVisibleTo Include="DynamicProxyGenAssembly2"/>
@@ -42,15 +28,14 @@
 
     <!--
         Ship the consumer-facing (no-op) targets file so MSBuild auto-imports it on restore.
-        The real build pipeline lives in BlazOrbit.Dev.targets, which is NOT packed
-        and is only imported for monorepo builds below.
+        Hand-written CSS (wwwroot/css/blazorbit.css) and JSDoc-typed .js modules under
+        wwwroot/js/Types/** are committed sources - no build-time generation, no Node,
+        no Vite. The targets file itself is a no-op and exists purely so MSBuild's
+        package-import convention has a file to find.
     -->
     <ItemGroup>
         <None Include="_build/BlazOrbit.targets" Pack="true" PackagePath="build/"/>
     </ItemGroup>
-
-    <!-- Dev-only import: regenerates CSS + JS assets for the maintainer build. -->
-    <Import Project="_build/BlazOrbit.Dev.targets" Condition="Exists('_build/BlazOrbit.Dev.targets')"/>
 
     <ItemGroup>
         <ProjectReference Include="..\BlazOrbit.CodeGeneration\BlazOrbit.CodeGeneration.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>

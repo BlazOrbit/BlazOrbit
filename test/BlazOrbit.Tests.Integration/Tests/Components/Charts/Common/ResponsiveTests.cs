@@ -10,7 +10,7 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Charts.Common;
 /// <summary>
 /// Tests for the ResizeObserver-driven responsive layout (US-007). The
 /// JS-side observer install is exercised by the templates E2E suite (real
-/// browser); these unit tests cover the C# state machine — measured
+/// browser); these unit tests cover the C# state machine - measured
 /// dims become effective dims, explicit Width/Height take priority, and
 /// <c>OnResize</c> only triggers re-render on rounded-pixel changes.
 /// </summary>
@@ -102,7 +102,7 @@ public class ResponsiveTests
         await cut.InvokeAsync(() => cut.Instance.OnResize(800, 500));
         int rendersAfterFirst = cut.RenderCount;
 
-        // Sub-pixel oscillation rounding to the same int — no re-render.
+        // Sub-pixel oscillation rounding to the same int - no re-render.
         await cut.InvokeAsync(() => cut.Instance.OnResize(800.3, 500.4));
         cut.RenderCount.Should().Be(rendersAfterFirst,
             "rounding to the same integer should suppress redundant renders");

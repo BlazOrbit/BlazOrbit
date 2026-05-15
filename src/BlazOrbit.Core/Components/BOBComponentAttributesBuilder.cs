@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using Microsoft.AspNetCore.Components;
 using System.Collections.Concurrent;
 using System.Text;
@@ -189,7 +189,7 @@ internal sealed class BOBComponentAttributesBuilder
     /// <summary>
     /// Order-independent hash for the <c>IPureBuiltComponent</c> contribution dictionaries.
     /// Each entry contributes <c>HashCode.Combine(key, value)</c> XORed into the running total
-    /// so enumeration order does not matter — different parameters still produce different
+    /// so enumeration order does not matter - different parameters still produce different
     /// fingerprints because each entry's hash is derived from both its key and its value.
     /// </summary>
     private static int OrderIndependentDictHash<TValue>(Dictionary<string, TValue> dict)
@@ -354,7 +354,7 @@ internal sealed class BOBComponentAttributesBuilder
         // and fold their contents into the fingerprint, so identical parameters → identical hash.
         // On cache miss we reuse the temp dicts to avoid invoking the hooks twice.
         //
-        // Components that do not implement the interface (the typical case — declaring it is opt-in)
+        // Components that do not implement the interface (the typical case - declaring it is opt-in)
         // hit the fingerprint cache directly without the hook detour.
         ComponentFeatures flags = GetTypeInfo(component.GetType()).Features;
         bool isBuilt = (flags & ComponentFeatures.BuiltComponent) != 0;

@@ -1,4 +1,4 @@
-﻿# Versioning Strategy
+# Versioning Strategy
 
 BlazOrbit follows **Semantic Versioning (SemVer)** with a simplified Git Flow built around two long-lived branches:
 `master` and `develop`.

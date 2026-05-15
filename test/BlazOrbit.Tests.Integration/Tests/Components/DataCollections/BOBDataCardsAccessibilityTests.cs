@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -49,7 +49,7 @@ public class BOBDataCardsAccessibilityTests
             .Add(c => c.Items, Items)
             .Add(c => c.Columns, Columns));
 
-        // Assert — cards use semantic <article> element
+        // Assert - cards use semantic <article> element
         cut.FindAll("article.bob-datacards__card").Should().HaveCount(2);
     }
 

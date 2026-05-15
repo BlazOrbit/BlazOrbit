@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components.Forms;
+using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -85,7 +85,7 @@ public class BOBTimePickerRenderingTests
         // Arrange & Act
         IRenderedComponent<BOBTimePicker> cut = ctx.Render<BOBTimePicker>();
 
-        // Assert — format button shows either "12h" or "24h"
+        // Assert - format button shows either "12h" or "24h"
         string buttonText = cut.FindAll("button").First().TextContent.Trim();
         buttonText.Should().BeOneOf("12h", "24h");
     }
@@ -100,7 +100,7 @@ public class BOBTimePickerRenderingTests
         IRenderedComponent<BOBTimePicker> cut = ctx.Render<BOBTimePicker>(p => p
             .Add(c => c.Value, new TimeOnly(14, 30)));
 
-        // Assert — markup contains hour and minute
+        // Assert - markup contains hour and minute
         cut.Markup.Should().Contain("30");
     }
 }

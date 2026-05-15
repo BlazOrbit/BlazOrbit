@@ -7,7 +7,7 @@ using System.Globalization;
 namespace BlazOrbit.Charts.Components;
 
 /// <summary>
-/// Hierarchical treemap — subdivides the chart area into nested rectangles whose size
+/// Hierarchical treemap - subdivides the chart area into nested rectangles whose size
 /// is proportional to each node's value. Uses the squarified algorithm
 /// (Bruls / Huijing / van Wijk, 2000) so rectangles stay close to square, making
 /// adjacent magnitudes easier to compare than the long thin strips of the classic
@@ -125,7 +125,7 @@ public sealed class BOBTreemapChart<TY> : BOBChartBase<object, TY>
             builder.CloseElement();
             builder.CloseElement();
 
-            // Children — recurse into the cell with the padded inner rect so the parent
+            // Children - recurse into the cell with the padded inner rect so the parent
             // border stays visible between nested levels.
             if (node.Children is { Count: > 0 } children)
             {
@@ -136,7 +136,7 @@ public sealed class BOBTreemapChart<TY> : BOBChartBase<object, TY>
                 }
             }
 
-            // Label — only draw when the cell is large enough to host readable text.
+            // Label - only draw when the cell is large enough to host readable text.
             if (cell.Width >= MinLabelSize && cell.Height >= MinLabelSize)
             {
                 builder.OpenElement(seq++, "text");
@@ -158,10 +158,10 @@ public sealed class BOBTreemapChart<TY> : BOBChartBase<object, TY>
 
     private static double AggregateValue(BOBChartTreemapNode<TY> node)
     {
-        // Branch nodes derive their magnitude from descendants — sum children first.
+        // Branch nodes derive their magnitude from descendants - sum children first.
         // We can't use `node.Value is not null` to detect "branch with explicit value"
         // because TY is unconstrained, so for value-typed TY (double, decimal, int)
-        // an unset Value defaults to 0 — indistinguishable from "explicit 0". Branch
+        // an unset Value defaults to 0 - indistinguishable from "explicit 0". Branch
         // nodes that want to override the descendant sum should leave Children null.
         if (node.Children is { Count: > 0 } kids)
         {

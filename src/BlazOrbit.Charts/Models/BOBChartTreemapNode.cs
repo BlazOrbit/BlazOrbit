@@ -14,7 +14,7 @@ public sealed record BOBChartTreemapNode<TY>
 
     /// <summary>
     /// Leaf magnitude. Required for leaves (nodes with null/empty <see cref="Children"/>).
-    /// Ignored on branch nodes — the renderer aggregates descendants instead, so set
+    /// Ignored on branch nodes - the renderer aggregates descendants instead, so set
     /// <see cref="Children"/> to drive a branch and leave <see cref="Value"/> at the
     /// default.
     /// </summary>

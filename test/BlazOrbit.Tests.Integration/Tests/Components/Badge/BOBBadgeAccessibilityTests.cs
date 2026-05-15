@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -20,7 +20,7 @@ public class BOBBadgeAccessibilityTests
             .Add(c => c.ChildContent, b => b.AddContent(0, "3 new messages"))
             .AddUnmatched("aria-label", "3 new messages"));
 
-        // Assert — aria-label applied via unmatched attributes to root
+        // Assert - aria-label applied via unmatched attributes to root
         cut.Find("bob-component").GetAttribute("aria-label").Should().Be("3 new messages");
     }
 
@@ -49,7 +49,7 @@ public class BOBBadgeAccessibilityTests
         IRenderedComponent<BOBBadge> cut = ctx.Render<BOBBadge>(p => p
             .Add(c => c.ChildContent, b => b.AddContent(0, "5")));
 
-        // Assert — content is in a span, not an interactive element
+        // Assert - content is in a span, not an interactive element
         cut.Find("span.bob-badge").Should().NotBeNull();
         cut.FindAll("button").Should().BeEmpty();
         cut.FindAll("a").Should().BeEmpty();

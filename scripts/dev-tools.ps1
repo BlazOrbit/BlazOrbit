@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env pwsh
+#!/usr/bin/env pwsh
 #requires -Version 7.0
 <#
 .SYNOPSIS
@@ -352,7 +352,7 @@ function New-FeatureBranch {
     }
 
     # Stash all working tree changes (tracked + untracked, via Save-Stash) once.
-    # We then pass -NoStash to Sync-Develop so it does not stash again on top —
+    # We then pass -NoStash to Sync-Develop so it does not stash again on top -
     # the prior cascade left an outer entry that pop later picked up the wrong
     # slot from when older stashes existed.
     $stashTag = $null
@@ -650,11 +650,11 @@ function Invoke-Cleanup {
     Write-Header "Cleaning Local Branches"
 
     # Squash-merge detection requires `gh` CLI. Without it, Test-BranchMergedViaPR silently
-    # returns $false and cleanup misses every squash-merged branch — which is the entire point
+    # returns $false and cleanup misses every squash-merged branch - which is the entire point
     # of running cleanup in a squash+rebase workflow. Warn loudly so the user knows nothing
     # is being deleted by silent fallback.
     if (-not (Get-Command gh -ErrorAction SilentlyContinue)) {
-        Write-Warning "gh CLI not found — squash-merged branches cannot be detected."
+        Write-Warning "gh CLI not found - squash-merged branches cannot be detected."
         Write-Warning "Install gh (https://cli.github.com/) and re-run cleanup, or delete branches manually."
     }
 

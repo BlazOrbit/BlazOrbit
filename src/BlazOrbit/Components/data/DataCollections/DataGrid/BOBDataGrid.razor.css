@@ -1,0 +1,518 @@
+/* ========================================
+   BOBDataGrid - Table-specific styles
+   ======================================== */
+
+/* Container */
+[data-bob-component="data-grid"] .bob-datagrid__container {
+    overflow-x: auto;
+    position: relative;
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__container[style*="overflow-y"] .bob-datagrid__header {
+    position: sticky;
+    top: 0;
+    /* Header stays above scrolling rows; sticky token also keeps us below
+       any modal/tooltip/toast that opens on top. */
+    z-index: var(--bob-z-sticky);
+    background: var(--_dc-background);
+}
+
+/* Table */
+[data-bob-component="data-grid"] .bob-datagrid__table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--_dc-background);
+    color: var(--palette-surface-contrast);
+    border-radius: var(--_dc-border-radius);
+    /* Cell border variables */
+    --_dg-cell-border: var(--bob-inline-dc-cell-border, none);
+    --_dg-cell-border-top: var(--bob-inline-dc-cell-border-top, var(--_dg-cell-border));
+    --_dg-cell-border-right: var(--bob-inline-dc-cell-border-right, var(--_dg-cell-border));
+    --_dg-cell-border-bottom: var(--bob-inline-dc-cell-border-bottom, var(--_dg-cell-border));
+    --_dg-cell-border-left: var(--bob-inline-dc-cell-border-left, var(--_dg-cell-border));
+    /* Row border variables */
+    --_dg-row-border: var(--bob-inline-dc-row-border, none);
+    --_dg-row-border-top: var(--bob-inline-dc-row-border-top, var(--_dg-row-border));
+    --_dg-row-border-right: var(--bob-inline-dc-row-border-right, var(--_dg-row-border));
+    --_dg-row-border-bottom: var(--bob-inline-dc-row-border-bottom, var(--_dg-row-border));
+    --_dg-row-border-left: var(--bob-inline-dc-row-border-left, var(--_dg-row-border));
+}
+
+/* Common cell styles */
+[data-bob-component="data-grid"] :is(th, td) {
+    padding: var(--_dc-padding-y) var(--_dc-padding-x);
+    border: var(--_dg-cell-border);
+    border-top: var(--_dg-cell-border-top);
+    border-right: var(--_dg-cell-border-right);
+    border-bottom: var(--_dg-cell-border-bottom);
+    border-left: var(--_dg-cell-border-left);
+}
+
+/* Header */
+[data-bob-component="data-grid"] .bob-datagrid__header {
+    background: var(--_dc-header-bg);
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__header tr:first-child {
+    border-top-left-radius: var(--_dc-border-radius);
+    border-top-right-radius: var(--_dc-border-radius);
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__header-cell {
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 2px solid var(--palette-border);
+    white-space: nowrap;
+    user-select: none;
+}
+
+/* Sort Button */
+[data-bob-component="data-grid"] .bob-datagrid__sort-btn {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    gap: calc(0.5rem * var(--bob-density-multiplier, 1));
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__sort-btn:hover {
+    color: var(--palette-primary);
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__sort-btn:focus-visible {
+    outline: var(--bob-highlight-outline);
+    outline-offset: var(--bob-highlight-outline-offset);
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__sort-icon {
+    display: flex;
+    align-items: center;
+    min-width: 1rem;
+}
+
+/* Cell alignment */
+[data-bob-component="data-grid"] .bob-datagrid__cell--center {
+    text-align: center;
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__cell--right {
+    text-align: right;
+}
+
+/* Select Cell */
+[data-bob-component="data-grid"] .bob-datagrid__select-cell {
+    width: 3rem;
+    text-align: center;
+}
+
+/* Empty Row */
+[data-bob-component="data-grid"] .bob-datagrid__empty-row {
+    background: transparent;
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__empty-cell {
+    padding: calc(var(--_dc-padding-y) * 3) var(--_dc-padding-x);
+    text-align: center;
+    border-bottom: none;
+}
+
+/* Footer */
+[data-bob-component="data-grid"] .bob-datagrid__footer {
+    background: var(--_dc-header-bg);
+    border-top: 2px solid var(--palette-border);
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__footer td {
+    font-weight: 600;
+}
+
+
+/* ========================================
+   Row Patterns - CSS-expressible
+   ======================================== */
+
+/* Default: per-item inline variable fallback */
+[data-bob-component="data-grid"] .bob-datagrid__row {
+    --_dg-row-pattern-bg: var(--bob-inline-row-pattern-bg, transparent);
+    --_dg-row-pattern-border: var(--bob-inline-row-pattern-border, var(--_dg-row-border));
+    --_dg-row-pattern-border-top: var(--bob-inline-row-pattern-border-top, var(--_dg-row-border-top));
+    --_dg-row-pattern-border-right: var(--bob-inline-row-pattern-border-right, var(--_dg-row-border-right));
+    --_dg-row-pattern-border-bottom: var(--bob-inline-row-pattern-border-bottom, var(--_dg-row-border-bottom));
+    --_dg-row-pattern-border-left: var(--bob-inline-row-pattern-border-left, var(--_dg-row-border-left));
+    background: var(--_dg-row-pattern-bg);
+    border: var(--_dg-row-pattern-border);
+    border-top: var(--_dg-row-pattern-border-top);
+    border-right: var(--_dg-row-pattern-border-right);
+    border-bottom: var(--_dg-row-pattern-border-bottom);
+    border-left: var(--_dg-row-pattern-border-left);
+}
+
+/* Alternating pattern */
+[data-bob-component="data-grid"][data-bob-row-pattern="alternating"] .bob-datagrid__row:nth-child(even) {
+    --_dg-row-pattern-bg: var(--bob-inline-row-pattern-even-bg, transparent);
+}
+
+[data-bob-component="data-grid"][data-bob-row-pattern="alternating"] .bob-datagrid__row:nth-child(odd) {
+    --_dg-row-pattern-bg: var(--bob-inline-row-pattern-odd-bg, transparent);
+}
+
+/* Every-Nth patterns */
+[data-bob-component="data-grid"][data-bob-row-pattern="every-3"] .bob-datagrid__row:nth-child(3n) {
+    --_dg-row-pattern-bg: var(--bob-inline-row-pattern-nth-bg, transparent);
+}
+
+[data-bob-component="data-grid"][data-bob-row-pattern="every-4"] .bob-datagrid__row:nth-child(4n) {
+    --_dg-row-pattern-bg: var(--bob-inline-row-pattern-nth-bg, transparent);
+}
+
+[data-bob-component="data-grid"][data-bob-row-pattern="every-5"] .bob-datagrid__row:nth-child(5n) {
+    --_dg-row-pattern-bg: var(--bob-inline-row-pattern-nth-bg, transparent);
+}
+
+/* All pattern */
+[data-bob-component="data-grid"][data-bob-row-pattern="all"] .bob-datagrid__row {
+    --_dg-row-pattern-bg: var(--bob-inline-row-pattern-all-bg, transparent);
+}
+
+/* Interactions */
+[data-bob-component="data-grid"][data-bob-hoverable="true"] .bob-datagrid__row:hover {
+    background: var(--_dc-hover-bg);
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__row[data-bob-selected="true"] {
+    background: var(--_dc-selected-bg);
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__row[data-bob-interactive="true"] {
+    cursor: pointer;
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__row[data-bob-interactive="true"]:focus-visible {
+    outline: var(--bob-highlight-outline);
+    outline-offset: var(--bob-highlight-outline-offset);
+}
+
+/* Aggregate footer — semantic separation from the data rows. */
+[data-bob-component="data-grid"] .bob-datagrid__footer--aggregate {
+    background: var(--_dc-header-bg);
+    font-weight: 600;
+    border-top: 2px solid var(--palette-border);
+}
+
+/* Sort priority badge — multi-column sort indicator. */
+[data-bob-component="data-grid"] .bob-datagrid__sort-priority {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.1rem;
+    height: 1.1rem;
+    padding: 0 0.25rem;
+    margin-inline-start: 0.25rem;
+    border-radius: 999px;
+    background: var(--palette-primary);
+    color: var(--palette-primary-contrast);
+    font-size: 0.65rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* Master-detail expansion row. */
+[data-bob-component="data-grid"] .bob-datagrid__detail-row {
+    background: color-mix(in oklab, var(--palette-primary) 4%, var(--_dc-background));
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__detail-cell {
+    padding: 1rem 1.25rem;
+    border-top: 1px dashed var(--palette-border);
+}
+
+/* Per-row action strip. */
+[data-bob-component="data-grid"] .bob-dc__row-actions {
+    display: inline-flex;
+    gap: 0.25rem;
+    align-items: center;
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__actions-cell,
+[data-bob-component="data-grid"] .bob-datagrid__expand-cell {
+    width: 1%;
+    white-space: nowrap;
+    text-align: center;
+}
+
+/* Skeleton loading — pulse-animated placeholders matching the row layout. */
+[data-bob-component="data-grid"] .bob-dc__skeleton {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.75rem;
+}
+
+[data-bob-component="data-grid"] .bob-dc__skeleton-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+    gap: 0.5rem;
+}
+
+[data-bob-component="data-grid"] .bob-dc__skeleton-cell {
+    height: 1.2rem;
+    border-radius: 4px;
+    background: linear-gradient(90deg, color-mix(in oklab, var(--palette-surface-contrast) 6%, transparent) 0%, color-mix(in oklab, var(--palette-surface-contrast) 14%, transparent) 50%, color-mix(in oklab, var(--palette-surface-contrast) 6%, transparent) 100%);
+    background-size: 200% 100%;
+    /* Animation duration sourced from the family-shared
+       --bob-dc-anim-duration token so reduced-motion handling stays
+       centralised in the family bundle (per CSS-MEDIA-01: scoped CSS
+       must not host viewport breakpoints; layout-only exceptions). */
+    animation: bob-dc-skeleton-pulse var(--bob-dc-anim-duration, 1.4s) ease-in-out infinite;
+}
+
+@keyframes bob-dc-skeleton-pulse {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+/* Spinner fallback for LoadingMode.Spinner without LoadingContent. */
+[data-bob-component="data-grid"] .bob-dc__loading--spinner {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+[data-bob-component="data-grid"] .bob-dc__spinner {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    border: 3px solid var(--palette-border);
+    border-top-color: var(--palette-primary);
+    animation: bob-dc-spinner var(--bob-dc-spinner-duration, 0.9s) linear infinite;
+}
+
+@keyframes bob-dc-spinner {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Error state. */
+[data-bob-component="data-grid"] .bob-dc__error {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 2rem;
+    color: var(--palette-error);
+    text-align: center;
+}
+
+[data-bob-component="data-grid"] .bob-dc__error-icon {
+    font-size: 2rem;
+    line-height: 1;
+}
+
+[data-bob-component="data-grid"] .bob-dc__error-text {
+    margin: 0;
+    font-size: 1rem;
+}
+
+/* Bare cell hook + aggregate-specific tweaks. The center / right modifiers
+   already exist above; this base rule makes sure the audit recognises
+   `.bob-datagrid__cell` as styled (it inherits padding from the
+   :is(th, td) family rule but is also explicitly tagged here). */
+[data-bob-component="data-grid"] .bob-datagrid__cell {
+    vertical-align: middle;
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__aggregate-cell {
+    font-variant-numeric: tabular-nums;
+}
+
+/* Empty-state CTA slot. */
+[data-bob-component="data-grid"] .bob-dc__empty-actions {
+    margin-top: 0.75rem;
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+/* Per-column filter wrap pairs the operator <select> with the typed input. Flex with
+   gap so the two children sit on a single line under wide columns and wrap under
+   narrow ones. */
+[data-bob-component="data-grid"] .bob-datagrid__column-filter-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-block-start: 0.375rem;
+}
+
+/* Operator + typed filter render inside internal primitives (_BOBInSelect / _BOBInText /
+_BOBInDate) so the actual <select>/<input> live outside the grid's scope attribute.
+::deep punches through to them and the layout-only overrides win on specificity
+thanks to the [data-bob-component] prefix. */
+[data-bob-component="data-grid"] .bob-datagrid__column-filter-wrap ::deep .bob-datagrid__column-filter-op {
+    flex: 0 0 auto;
+    padding: 0.25rem 0.375rem;
+    min-width: 0;
+    font-size: 0.75rem;
+    line-height: 1.1;
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__column-filter-wrap ::deep .bob-datagrid__column-filter {
+    flex: 1 1 6rem;
+    min-width: 0;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8125rem;
+    text-align: start;
+}
+
+/* Frozen / sticky columns. Cells are pinned via position:sticky on the inline-start
+   (Start) or inline-end (End) edge of the scroll container. The grid emits the
+   cumulative left/right offset inline so adjacent frozen peers stack naturally. The
+   surface needs an opaque background so non-frozen cells from the same row scroll
+   underneath cleanly — palette-surface keeps the look consistent with the row stripes. */
+[data-bob-component="data-grid"] .bob-datagrid__cell--frozen {
+    position: sticky;
+    background: var(--palette-surface);
+    z-index: 1;
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__header-cell.bob-datagrid__cell--frozen {
+    /* Header frozen cells need to stack above body frozen cells — and above the row
+       above when both axes are sticky (FixedHeader + Frozen). */
+    z-index: 3;
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__cell--frozen-start {
+    /* Subtle shadow on the trailing edge to signal the pinned boundary. */
+    box-shadow: 4px 0 6px -4px var(--palette-shadow);
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__cell--frozen-end {
+    box-shadow: -4px 0 6px -4px var(--palette-shadow);
+}
+
+/* Resize handle anchored to the trailing edge of a header cell. The header cell needs
+   position:relative so the absolutely-positioned resizer is bound to it; the existing
+   header rule already declares it implicitly via the sticky offsets, but we set it
+   explicitly here so unfrozen headers also anchor the resizer. */
+[data-bob-component="data-grid"] .bob-datagrid__header-cell {
+    position: relative;
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__col-resizer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 6px;
+    cursor: col-resize;
+    user-select: none;
+    touch-action: none;
+    /* The resizer is invisible until hovered/active — keeps the header chrome quiet for
+       columns that aren't being adjusted. */
+    background: transparent;
+    z-index: 4;
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__col-resizer:hover,
+[data-bob-component="data-grid"] .bob-datagrid__col-resizer:active {
+    background: var(--palette-primary, currentColor);
+    opacity: 0.4;
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__resize-overlay {
+    /* Full-grid overlay activates while a resize drag is in progress so pointermove /
+       pointerup keep firing even when the cursor leaves the resizer rectangle. Mirrors
+       the BOBSplitter overlay pattern. */
+    position: absolute;
+    inset: 0;
+    cursor: col-resize;
+    user-select: none;
+    touch-action: none;
+    z-index: 100;
+}
+
+/* The header being dragged for reorder dims slightly so the user can see which column
+   is "in flight". Drop targets are not pre-highlighted — the native browser drop cursor
+   already signals eligibility on `@ondragover:preventDefault`. */
+[data-bob-component="data-grid"] .bob-datagrid__header-cell[data-bob-drag-source="true"] {
+    opacity: 0.5;
+    cursor: grabbing;
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__header-cell[draggable="true"] {
+    cursor: grab;
+}
+
+/* Inline-edit affordances. The --editing modifier rings the active cell so the user
+   can see which input is in scope while typing; the --invalid modifier surfaces a
+   validator rejection with a contrasting border + tooltip set via the title attr. */
+[data-bob-component="data-grid"] .bob-datagrid__cell--editing {
+    background: color-mix(in oklab, var(--palette-surface) 90%, var(--palette-primary) 10%);
+    outline: 2px solid var(--palette-primary);
+    outline-offset: -2px;
+    padding: 0;
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__cell--invalid {
+    outline: 2px solid var(--palette-error);
+    outline-offset: -2px;
+    background: color-mix(in oklab, var(--palette-surface) 92%, var(--palette-error) 8%);
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__cell-input {
+    width: 100%;
+    height: 100%;
+    padding: 0.25rem 0.5rem;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    color: inherit;
+    outline: none;
+    box-sizing: border-box;
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__cell-input--checkbox {
+    width: auto;
+    height: auto;
+    cursor: pointer;
+}
+
+/* Virtualize ItemsProvider placeholder rows render while a slice is being fetched from
+   the data source. The shimmer gradient gives a "loading" hint without locking out
+   interactions on neighbouring rendered rows. */
+[data-bob-component="data-grid"] .bob-datagrid__row--loading,
+[data-bob-component="data-grid"] .bob-datagrid__cell--loading {
+    background: linear-gradient(
+        90deg,
+        var(--palette-surface) 0%,
+        color-mix(in oklab, var(--palette-surface) 92%, var(--palette-surface-contrast) 8%) 50%,
+        var(--palette-surface) 100%
+    );
+    background-size: 200% 100%;
+    animation: bob-datagrid-shimmer 1.4s ease-in-out infinite;
+}
+
+[data-bob-component="data-grid"] .bob-datagrid__placeholder {
+    display: block;
+    height: 1em;
+    border-radius: 0.25rem;
+    background: color-mix(in oklab, var(--palette-surface) 85%, var(--palette-surface-contrast) 15%);
+}
+
+@keyframes bob-datagrid-shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}

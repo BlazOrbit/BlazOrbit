@@ -1,4 +1,4 @@
-namespace BlazOrbit.Components.Navigation;
+namespace BlazOrbit.Components;
 
 /// <summary>
 /// Mutable arguments raised by <c>BOBStepper.OnStepChange</c> before applying a step

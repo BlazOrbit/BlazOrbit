@@ -1,9 +1,9 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 
 namespace BlazOrbit.Themes;
 
 /// <summary>
-/// Light theme — Porcelain / Ink Neutral. Editorial, professional palette inspired by high-end
+/// Light theme - Porcelain / Ink Neutral. Editorial, professional palette inspired by high-end
 /// print design: warm porcelain background, near-black ink for text, restrained accent colors.
 /// </summary>
 public sealed class LightTheme : BOBThemePaletteBase

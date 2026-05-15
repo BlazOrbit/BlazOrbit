@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -42,7 +42,7 @@ public class BOBDataCollectionIntegrationTests
             .Add(c => c.Items, Items)
             .Add(c => c.Columns, Columns));
 
-        // Assert — same 2 columns in both components
+        // Assert - same 2 columns in both components
         grid.FindAll("[role='columnheader']").Should().HaveCount(2);
         // Cards show labels per card: 2 items × 2 columns = 4 labels
         cards.FindAll(".bob-datacards__field-label").Should().HaveCount(4);
@@ -76,7 +76,7 @@ public class BOBDataCollectionIntegrationTests
             .Add(c => c.Items, [new Person("Alice", 30)])
             .Add(c => c.Columns, Columns));
 
-        // Assert — card has Name=Alice, Age=30
+        // Assert - card has Name=Alice, Age=30
         IReadOnlyList<IElement> values = cut.FindAll(".bob-datacards__field-value");
         values[0].TextContent.Should().Be("Alice");
         values[1].TextContent.Should().Be("30");

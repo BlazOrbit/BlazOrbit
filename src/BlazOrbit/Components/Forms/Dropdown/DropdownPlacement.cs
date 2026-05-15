@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components.Forms;
+namespace BlazOrbit.Components.Forms;
 
 /// <summary>
 /// Defines the placement of the dropdown menu relative to its trigger.

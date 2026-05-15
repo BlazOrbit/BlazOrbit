@@ -8,7 +8,7 @@ using System.Globalization;
 namespace BlazOrbit.Charts.Components;
 
 /// <summary>
-/// Multi-pane stock chart — extends the candlestick paradigm with stacked indicator
+/// Multi-pane stock chart - extends the candlestick paradigm with stacked indicator
 /// panes (RSI, MACD, Volume) and overlay indicators (Bollinger Bands) on the price
 /// pane. Panes share the X axis so the user can correlate price action with momentum
 /// / volume signals.
@@ -103,12 +103,12 @@ public sealed class BOBStockChart<TX> : BOBChartBase<TX, double>
         double bandWidth = xScale.BandWidth;
         double bodyWidth = bandWidth * 0.7;
 
-        // Price scale — High/Low extents on price pane.
+        // Price scale - High/Low extents on price pane.
         double priceMin = candles.Min(c => c.Low);
         double priceMax = candles.Max(c => c.High);
         if (overlayBollinger)
         {
-            // Expand price scale to fit Bollinger bands when they're enabled — otherwise
+            // Expand price scale to fit Bollinger bands when they're enabled - otherwise
             // the upper / lower band can clip on volatile rallies.
             (double?[] mid, double?[] up, double?[] low) = TechnicalIndicators.BollingerBands(closes, BollingerPeriod, BollingerStdMultiplier);
             foreach (double? v in up) { if (v is double d && d > priceMax) { priceMax = d; } }
@@ -125,7 +125,7 @@ public sealed class BOBStockChart<TX> : BOBChartBase<TX, double>
             RenderBollingerOverlay(builder, ref seq, candles, closes, xScale, yPrice);
         }
 
-        // Stacked indicator panes — Volume / RSI / MACD in order of appearance.
+        // Stacked indicator panes - Volume / RSI / MACD in order of appearance.
         double cursor = priceBottom + paneGap;
         for (int i = 0; i < stacked.Count; i++)
         {
@@ -166,7 +166,7 @@ public sealed class BOBStockChart<TX> : BOBChartBase<TX, double>
             return [];
         }
 
-        // Bollinger overlays on the price pane — it doesn't claim its own pane.
+        // Bollinger overlays on the price pane - it doesn't claim its own pane.
         return Indicators
             .Where(i => i != BOBChartTechnicalIndicator.BollingerBands)
             .Distinct()
@@ -401,7 +401,7 @@ public sealed class BOBStockChart<TX> : BOBChartBase<TX, double>
     }
 
     // Builds an SVG path string from a series of nullable values aligned with the
-    // candle X axis. Null entries break the line — the path resumes with a fresh M on
+    // candle X axis. Null entries break the line - the path resumes with a fresh M on
     // the next defined point.
     private static string? BuildPath(
         double?[] values, BOBChartCandlePoint<TX>[] candles,

@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.SyntaxHighlight;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -63,7 +63,7 @@ public class BOBCodeBlockRenderingTests
             .Add(c => c.Code, "var x = 1;")
             .Add(c => c.Language, SyntaxHighlightLanguage.CSharp));
 
-        // Assert — default title = Language.ToString().ToUpperInvariant()
+        // Assert - default title = Language.ToString().ToUpperInvariant()
         cut.Find(".bob-code-block__title").TextContent.Should().Be("CSHARP");
     }
 
@@ -92,7 +92,7 @@ public class BOBCodeBlockRenderingTests
         IRenderedComponent<BOBCodeBlock> cut = ctx.Render<BOBCodeBlock>(p => p
             .Add(c => c.Code, "var x = 1;"));
 
-        // Assert — _BOBInBtn renders a <button>
+        // Assert - _BOBInBtn renders a <button>
         cut.Find("button").Should().NotBeNull();
     }
 
@@ -121,7 +121,7 @@ public class BOBCodeBlockRenderingTests
         IRenderedComponent<BOBCodeBlock> cut = ctx.Render<BOBCodeBlock>(p => p
             .Add(c => c.Code, "Hello World"));
 
-        // Assert — highlighted content contains the code text
+        // Assert - highlighted content contains the code text
         cut.Find(".bob-code-block__content").InnerHtml.Should().Contain("Hello World");
     }
 }

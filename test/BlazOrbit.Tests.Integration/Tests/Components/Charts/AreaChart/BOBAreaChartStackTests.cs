@@ -100,7 +100,7 @@ public class BOBAreaChartStackTests
                 .Add(c => c.Series, ThreeSeries())
                 .Add(c => c.Stacked, true));
 
-        // First series (A) at the bottom of the stack — its baseline is the
+        // First series (A) at the bottom of the stack - its baseline is the
         // zero line of the cumulative scale. Y of first series at X=1 is 10
         // (cumulative from baseline=0 → 10). Top contour starts at the
         // projection of 10, baseline starts at the projection of 0

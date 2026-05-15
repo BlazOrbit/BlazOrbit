@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Charts.Components.Internal;
+using BlazOrbit.Charts.Components.Internal;
 using BlazOrbit.Charts.Models;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
@@ -7,14 +7,14 @@ using System.Globalization;
 namespace BlazOrbit.Charts.Components;
 
 /// <summary>
-/// Area chart — line chart with the region between the line and the X axis
+/// Area chart - line chart with the region between the line and the X axis
 /// baseline filled. Each series renders as its own filled region (overlapping
 /// when series intersect); a stacked variant is on the v2 roadmap.
 /// <para>
 /// Inherits the full Line-chart pipeline (axes, smooth interpolation, X-axis
 /// auto-detect for numeric / temporal / categorical) and overrides the
 /// per-series shape to add a filled <c>&lt;path&gt;</c> beneath the stroke.
-/// Markers are off by default — area charts emphasise the filled volume,
+/// Markers are off by default - area charts emphasise the filled volume,
 /// not the individual data points.
 /// </para>
 /// </summary>
@@ -31,7 +31,7 @@ public sealed class BOBAreaChart<TX, TY> : BOBLineChart<TX, TY>
 
     /// <summary>
     /// Opacity applied to the area fill (0..1). The line stroke on top stays
-    /// fully opaque so the contour reads cleanly. Default 0.25 — bright
+    /// fully opaque so the contour reads cleanly. Default 0.25 - bright
     /// enough to see the volume, transparent enough that overlapping series
     /// remain distinguishable.
     /// </summary>
@@ -84,7 +84,7 @@ public sealed class BOBAreaChart<TX, TY> : BOBLineChart<TX, TY>
             string baseSegment = Smooth
                 ? BuildSmoothPath(reversedBaseline)
                 : BuildPolylinePath(reversedBaseline);
-            // BuildSmoothPath / BuildPolylinePath both emit a leading "M" —
+            // BuildSmoothPath / BuildPolylinePath both emit a leading "M" -
             // we replace the second segment's "M" with "L" to glue paths.
             string baseGlued = "L " + baseSegment.Substring(2);
             areaPath = $"{topSegment} {baseGlued} Z";

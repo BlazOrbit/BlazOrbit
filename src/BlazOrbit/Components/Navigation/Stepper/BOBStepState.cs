@@ -1,4 +1,4 @@
-namespace BlazOrbit.Components.Navigation;
+namespace BlazOrbit.Components;
 
 /// <summary>Visual state of a single <c>BOBStep</c> as resolved by the parent <c>BOBStepper</c>.</summary>
 public enum BOBStepState

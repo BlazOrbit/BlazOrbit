@@ -1,10 +1,10 @@
-﻿@page "/components/data/datagrid"
+@page "/components/data/datagrid"
 
 @inject IStringLocalizer<DataGridPage> Loc
 
 
 <DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBDataGrid"]"
-         Lede="@Loc["Strongly-typed tabular data with sorting, filtering, pagination, selection, custom templates, and more — declaratively."]"
+         Lede="@Loc["Strongly-typed tabular data with sorting, filtering, pagination, selection, custom templates, and more - declaratively."]"
          PageInstance="this"
          ApiType="@typeof(BOBDataGrid<>)"
          Keywords="@(["data grid", "table", "sorting", "pagination", "filter"])">
@@ -138,7 +138,7 @@
     </DocDemo>
 
     <DocDemo Key="Aggregates" Title="@Loc["Aggregate footer"]"
-             Description="@Loc["Set Aggregate per column (Sum, Average, Count, Min, Max, Custom). Aggregates run on the filtered set, not the visible page — totals reflect the user's filters."]">
+             Description="@Loc["Set Aggregate per column (Sum, Average, Count, Min, Max, Custom). Aggregates run on the filtered set, not the visible page - totals reflect the user's filters."]">
         <BOBDataGrid Items="_orders" Filterable="true">
             <Columns>
                 <BOBDataColumn TItem="Order" Property="@(o => o.Region)" Header="@Loc["Region"]"
@@ -171,7 +171,7 @@
     </DocDemo>
 
     <DocDemo Key="BulkActions" Title="@Loc["Bulk actions on selection"]"
-             Description="@Loc["BulkActions appear in the toolbar when at least one row is selected. Each handler receives the current selection — wire to delete / export / approve workflows."]">
+             Description="@Loc["BulkActions appear in the toolbar when at least one row is selected. Each handler receives the current selection - wire to delete / export / approve workflows."]">
         <BOBDataGrid TItem="Person"
                      Items="_people"
                      SelectionMode="SelectionMode.Multiple"
@@ -199,7 +199,7 @@
             </Columns>
             <RowDetailTemplate>
                 <BOBFlexStack Gap="0.5rem" Direction="FlexStackDirection.Column">
-                    <strong>Order #@context.Id — @context.Region</strong>
+                    <strong>Order #@context.Id - @context.Region</strong>
                     <span>@Loc["Quantity"]: @context.Quantity items</span>
                     <span>@Loc["Average price"]: @((context.Amount / Math.Max(1, context.Quantity)).ToString("C2"))</span>
                 </BOBFlexStack>
@@ -227,7 +227,7 @@
     <DocDemo Key="ErrorState" Title="@Loc["Error state"]"
              Description="@Loc["Set Error to surface a remote-load failure. Override ErrorContent for branded retry UX."]">
         <BOBDataGrid Items="_people"
-                     Error="@Loc["Could not load orders — check your connection and retry."]">
+                     Error="@Loc["Could not load orders - check your connection and retry."]">
             <Columns>
                 <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]"/>
                 <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]"/>
@@ -236,7 +236,7 @@
     </DocDemo>
 
     <DocDemo Key="EmptyCta" Title="@Loc["Empty state with CTA"]"
-             Description="@Loc["EmptyActionTemplate slots a button (or any markup) into the default empty layout — encourages users to create their first record without writing a custom EmptyContent."]">
+             Description="@Loc["EmptyActionTemplate slots a button (or any markup) into the default empty layout - encourages users to create their first record without writing a custom EmptyContent."]">
         <BOBDataGrid Items="_emptyList">
             <Columns>
                 <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]"/>
@@ -344,7 +344,7 @@
         </BOBDataGrid>
     </DocDemo>
 
-    <DocDemo Key="DataSourceInMemory" Title="@Loc["DataSource — InMemoryDataSource"]"
+    <DocDemo Key="DataSourceInMemory" Title="@Loc["DataSource - InMemoryDataSource"]"
              Description="@_dataSourceInMemoryDesc">
         <BOBDataGrid TItem="Person"
                      DataSource="_inMemorySource"
@@ -361,7 +361,7 @@
         </BOBDataGrid>
     </DocDemo>
 
-    <DocDemo Key="DataSourceRemote" Title="@Loc["DataSource — RemoteDataSource"]"
+    <DocDemo Key="DataSourceRemote" Title="@Loc["DataSource - RemoteDataSource"]"
              Description="@_dataSourceRemoteDesc">
         <BOBDataGrid TItem="Person"
                      DataSource="_remoteSource"
@@ -395,7 +395,7 @@
         </BOBDataGrid>
     </DocDemo>
 
-    <DocDemo Key="InlineEditCell" Title="@Loc["Inline editing — Cell mode"]"
+    <DocDemo Key="InlineEditCell" Title="@Loc["Inline editing - Cell mode"]"
              Description="@_inlineEditCellDesc">
         <BOBDataGrid TItem="EditablePerson"
                      Items="_editablePeople"
@@ -417,7 +417,7 @@
         }
     </DocDemo>
 
-    <DocDemo Key="InlineEditBatch" Title="@Loc["Inline editing — Batch mode + validation"]"
+    <DocDemo Key="InlineEditBatch" Title="@Loc["Inline editing - Batch mode + validation"]"
              Description="@_inlineEditBatchDesc">
         <BOBDataGrid TItem="EditablePerson"
                      Items="_editablePeople"
@@ -551,11 +551,11 @@
         return Task.CompletedTask;
     }
 
-    // InMemoryDataSource over the large person seed — exercises the new DataSource path
+    // InMemoryDataSource over the large person seed - exercises the new DataSource path
     // through the same shared pipeline as the legacy Items binding.
     private InMemoryDataSource<Person> _inMemorySource => new(_big);
 
-    // RemoteDataSource — mock async provider that simulates a 200ms server round-trip
+    // RemoteDataSource - mock async provider that simulates a 200ms server round-trip
     // over a 200-row store, applying filter / sort / paging server-side semantics. Real
     // consumers point the provider at their API / database client.
     private RemoteDataSource<Person> _remoteSource => new(async (DataRequest req, CancellationToken ct) =>
@@ -564,7 +564,7 @@
 
         IEnumerable<Person> q = _remoteSeed;
 
-        // Global filter — substring match over Name + Email.
+        // Global filter - substring match over Name + Email.
         if (!string.IsNullOrWhiteSpace(req.GlobalFilter))
         {
             string f = req.GlobalFilter.ToLowerInvariant();
@@ -572,7 +572,7 @@
                           || p.Email.ToLowerInvariant().Contains(f));
         }
 
-        // Sort — resolve the first descriptor by column header (Id / Name / Email / Age).
+        // Sort - resolve the first descriptor by column header (Id / Name / Email / Age).
         if (req.Sorts.Count > 0)
         {
             var sort = req.Sorts[0];
@@ -621,7 +621,7 @@
             Label = "Delete",
             Icon = BOBIconKeys.MaterialIconsOutlined.i_delete,
             Color = PaletteColor.Error,
-            // ReadOnly people don't expose Delete — visible predicate hides it.
+            // ReadOnly people don't expose Delete - visible predicate hides it.
             Visible = p => !p.ReadOnly,
             OnClick = p => LogAction(p, "Delete")
         }
@@ -644,7 +644,7 @@
             Label = "Delete",
             Icon = BOBIconKeys.MaterialIconsOutlined.i_delete,
             Color = PaletteColor.Error,
-            // Disable when more than 3 are selected — defensive bulk-op gate.
+            // Disable when more than 3 are selected - defensive bulk-op gate.
             Enabled = sel => sel.Count <= 3,
             OnClick = sel =>
             {
@@ -671,10 +671,10 @@
         _resizeColumnsDesc = Loc["Resizable on the grid + Resizable on a column adds a small drag handle on the trailing edge of the header. Pointerdown captures the column and a full-grid overlay listens for pointermove / pointerup so the cursor can leave the handle mid-drag without losing the gesture. The new width is written to DataCollectionState.ColumnWidths and persists via PersistenceKey when configured. MinWidth / MaxWidth clamp the drag."];
         _reorderColumnsDesc = Loc["Reorderable enables both interactions on every header: focus + Alt+ArrowLeft / Alt+ArrowRight shifts the column for keyboard users, and HTML5 drag-and-drop on the th lets the user pick a header up and drop it onto a peer to take that peer's slot. Both paths write to DataCollectionState.ColumnOrder, so the drag survives the persistence round-trip alongside the keyboard nudges."];
         _statePersistenceDesc = Loc["Set PersistenceKey to round-trip filter / sort / page / column-order / column-filters through the registered IDataCollectionStatePersistence. Default registration is a no-op; consumers opt in to localStorage with builder.Services.AddBlazOrbitDataCollectionLocalStorage(). Register a custom IDataCollectionStatePersistence implementation for query-string or server-side stores."];
-        _dataSourceInMemoryDesc = Loc["The DataSource parameter routes filter / sort / page through an IDataCollectionDataSource. InMemoryDataSource wraps an IEnumerable and runs the shared pipeline locally — same semantics as the legacy Items path, but the unified abstraction lets you swap to a remote source without touching the column markup."];
+        _dataSourceInMemoryDesc = Loc["The DataSource parameter routes filter / sort / page through an IDataCollectionDataSource. InMemoryDataSource wraps an IEnumerable and runs the shared pipeline locally - same semantics as the legacy Items path, but the unified abstraction lets you swap to a remote source without touching the column markup."];
         _dataSourceRemoteDesc = Loc["RemoteDataSource accepts an async Func<DataRequest, Task<DataResult<T>>> provider. Each filter / sort / page change builds a DataRequest with StartIndex + Count plus the active sort / filter descriptors and awaits the provider. This demo simulates a 200ms server round-trip and counts pages from a 200-row store."];
-        _virtualizeProviderDesc = Loc["When DataSource + EnableVirtualization + Height are all set, the grid hands row materialisation to Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize via ItemsProvider. The traditional pagination footer disappears — Virtualize requests slices on demand as the user scrolls, with a Placeholder row rendered while a chunk loads."];
-        _inlineEditCellDesc = Loc["Mark a column with Editable=\"true\" and set EditMode=\"BOBDataGridEditMode.Cell\" on the grid to activate per-cell editing. Double-click a cell to open the input. Enter or blur saves; Escape cancels. The cell editor auto-resolves the input primitive from the property type — text / number / date / time / checkbox. OnRowSave fires after every successful commit."];
+        _virtualizeProviderDesc = Loc["When DataSource + EnableVirtualization + Height are all set, the grid hands row materialisation to Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize via ItemsProvider. The traditional pagination footer disappears - Virtualize requests slices on demand as the user scrolls, with a Placeholder row rendered while a chunk loads."];
+        _inlineEditCellDesc = Loc["Mark a column with Editable=\"true\" and set EditMode=\"BOBDataGridEditMode.Cell\" on the grid to activate per-cell editing. Double-click a cell to open the input. Enter or blur saves; Escape cancels. The cell editor auto-resolves the input primitive from the property type - text / number / date / time / checkbox. OnRowSave fires after every successful commit."];
         _inlineEditBatchDesc = Loc["EditMode=\"BOBDataGridEditMode.Batch\" stages every cell commit until the user clicks the toolbar Save (applies + fires OnRowSave per row) or Cancel (reverts to pre-edit snapshot + fires OnRowCancel). Column-level Validator delegates return an error message that surfaces as a red cell border + tooltip and keeps the editor open until the input is valid."];
     }
 

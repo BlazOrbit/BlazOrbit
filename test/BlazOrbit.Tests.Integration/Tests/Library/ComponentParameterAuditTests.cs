@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using Microsoft.AspNetCore.Components;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -30,8 +30,8 @@ public class ComponentParameterAuditTests
     /// <c>AdditionalAttributes</c>. Each entry must explain why it is allowed.
     ///
     /// <para>Key format:
-    ///   <c>"AttributeName"</c> — applies to every component.
-    ///   <c>"ComponentName|AttributeName"</c> — applies to one component only.
+    ///   <c>"AttributeName"</c> - applies to every component.
+    ///   <c>"ComponentName|AttributeName"</c> - applies to one component only.
     /// </para>
     /// </summary>
     private static readonly Dictionary<string, string> AttributeAllowlist = new(StringComparer.Ordinal)
@@ -112,7 +112,7 @@ public class ComponentParameterAuditTests
     /// developer typos for an intended parameter. HTML pass-through attributes are kebab-case
     /// (<c>class</c>, <c>style</c>, <c>data-*</c>, <c>aria-*</c>); a stray PascalCase name (e.g.
     /// <c>LeadingIcon</c>, <c>Text</c>, <c>Color</c>) means the value silently falls into
-    /// <c>AdditionalAttributes</c> and renders as inert HTML — the exact failure mode that hid the
+    /// <c>AdditionalAttributes</c> and renders as inert HTML - the exact failure mode that hid the
     /// <c>_BOBInBtn</c> save-button regression in BOBDataGrid/BOBDataCards.
     ///
     /// Companion: <see cref="Stricter_Audit_Should_Flag_Pascal_Typos_Even_When_Component_Captures_Unmatched"/>
@@ -162,8 +162,8 @@ public class ComponentParameterAuditTests
         violations.Should().BeEmpty(
             "PascalCase attrs that silently fall into AdditionalAttributes hide contract drift " +
             "(see COMP-PARAM-02 in AGENTS.md / ARCHITECTURE.md). Either: (a) the attribute is a " +
-            "typo for a real [Parameter] — rename it; (b) the component lacks the [Parameter] — " +
-            "add it; or (c) the attribute is genuinely meant for DOM pass-through — switch it to " +
+            "typo for a real [Parameter] - rename it; (b) the component lacks the [Parameter] - " +
+            "add it; or (c) the attribute is genuinely meant for DOM pass-through - switch it to " +
             "kebab-case so the intent is explicit.\n\n" +
             string.Join("\n", violations));
     }
@@ -172,7 +172,7 @@ public class ComponentParameterAuditTests
     /// Meta-test for COMP-PARAM-02: feeds synthetic Razor content that reproduces the original
     /// <c>_BOBInBtn(LeadingIcon=…, Text=…)</c> misuse pattern into the same extractor + index the
     /// real audit uses, and verifies the unmatched-param detection isolates the typos. Guarantees
-    /// the stricter rule is not vacuous — if a contributor reintroduces the bug pattern, the audit
+    /// the stricter rule is not vacuous - if a contributor reintroduces the bug pattern, the audit
     /// above will flag it because the underlying detector demonstrably catches it here.
     /// </summary>
     [Fact]
@@ -199,7 +199,7 @@ public class ComponentParameterAuditTests
         (Dictionary<string, HashSet<string>> parameterIndex, Dictionary<string, bool> hasCapture) =
             BuildParameterIndex(componentTypes);
 
-        // Sanity: the component does capture unmatched values — otherwise the original audit
+        // Sanity: the component does capture unmatched values - otherwise the original audit
         // would have caught the bug and there'd be no gap to close.
         hasCapture["_BOBInBtn"].Should().BeTrue(
             "the gap exists precisely because _BOBInBtn uses CaptureUnmatchedValues for HTML pass-through");

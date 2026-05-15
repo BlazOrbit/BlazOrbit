@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Core.CodeGeneration.Tests.Infrastructure;
+using BlazOrbit.Core.CodeGeneration.Tests.Infrastructure;
 using FluentAssertions;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;

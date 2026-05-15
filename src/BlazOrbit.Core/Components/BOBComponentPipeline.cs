@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 using System.Diagnostics;
@@ -63,7 +63,7 @@ internal sealed class BOBComponentPipeline
         }
         catch (JSDisconnectedException)
         {
-            // Blazor Server circuit disconnected — behavior already gone.
+            // Blazor Server circuit disconnected - behavior already gone.
         }
         catch (ObjectDisposedException)
         {

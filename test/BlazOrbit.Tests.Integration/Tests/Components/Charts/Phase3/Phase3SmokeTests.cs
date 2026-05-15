@@ -92,7 +92,7 @@ public class Phase3SmokeTests
                         new BOBChartTreemapNode<double> { Label = "B", Value = 30 }
                 ]));
         // 2 roots + 2 children rendered as arcs. Branch nodes without an explicit
-        // Value aggregate their children — Sunburst should treat the branch + leaves
+        // Value aggregate their children - Sunburst should treat the branch + leaves
         // as separate rings.
         cut.FindAll("path.bob-sunburst-chart__arc").Count.Should().BeGreaterThanOrEqualTo(4);
     }
@@ -145,7 +145,7 @@ public class Phase3SmokeTests
                     new BOBChartSankeyLink<double> { Source = "A", Target = "B", Value = 5 },
                         new BOBChartSankeyLink<double> { Source = "B", Target = "C", Value = 5 }
                 ]));
-        // A, B, C — 3 distinct nodes.
+        // A, B, C - 3 distinct nodes.
         cut.FindAll("rect.bob-sankey-chart__node").Should().HaveCount(3);
     }
 

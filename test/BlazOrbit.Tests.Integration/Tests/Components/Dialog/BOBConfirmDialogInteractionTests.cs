@@ -1,4 +1,4 @@
-using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -31,7 +31,7 @@ public class BOBConfirmDialogInteractionTests
             .Add(c => c.YesLabel, "Yes")
             .Add(c => c.NoLabel, "No"));
 
-        // Act — the Yes (accept) button is the second button in the actions row
+        // Act - the Yes (accept) button is the second button in the actions row
         cut.FindAll(".bob-confirm__actions button").Last().Click();
 
         // Assert
@@ -61,7 +61,7 @@ public class BOBConfirmDialogInteractionTests
             .Add(c => c.YesLabel, "Yes")
             .Add(c => c.NoLabel, "No"));
 
-        // Act — the No (cancel) button is the first button in the actions row
+        // Act - the No (cancel) button is the first button in the actions row
         cut.FindAll(".bob-confirm__actions button").First().Click();
 
         // Assert

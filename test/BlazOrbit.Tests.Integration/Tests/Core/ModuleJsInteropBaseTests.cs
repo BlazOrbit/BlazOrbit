@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Abstractions;
+using BlazOrbit.Abstractions;
 using FluentAssertions;
 using Microsoft.JSInterop;
 using NSubstitute;

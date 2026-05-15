@@ -57,11 +57,11 @@ public class BOBDataGridInlineEditTests
 
         cut.WaitForState(() => cut.FindAll("tbody tr").Count >= 2, TimeSpan.FromSeconds(2));
 
-        // Act — double-click the first editable cell (Name column on row 1).
+        // Act - double-click the first editable cell (Name column on row 1).
         AngleSharp.Dom.IElement targetCell = cut.FindAll("tbody tr td")[0];
         await cut.InvokeAsync(() => targetCell.DoubleClick());
 
-        // Assert — the cell now hosts an <input>.
+        // Assert - the cell now hosts an <input>.
         cut.Markup.Should().Contain("bob-datagrid__cell--editing");
         cut.FindAll("tbody tr td input").Should().NotBeEmpty();
     }
@@ -83,7 +83,7 @@ public class BOBDataGridInlineEditTests
         AngleSharp.Dom.IElement targetCell = cut.FindAll("tbody tr td")[0];
         await cut.InvokeAsync(() => targetCell.DoubleClick());
 
-        // Assert — no editor inserted.
+        // Assert - no editor inserted.
         cut.Markup.Should().NotContain("bob-datagrid__cell--editing");
         cut.FindAll("tbody tr td input").Should().BeEmpty();
     }
@@ -104,14 +104,14 @@ public class BOBDataGridInlineEditTests
 
         cut.WaitForState(() => cut.FindAll("tbody tr").Count >= 2, TimeSpan.FromSeconds(2));
 
-        // Act — open editor, type new value, blur.
+        // Act - open editor, type new value, blur.
         AngleSharp.Dom.IElement targetCell = cut.FindAll("tbody tr td")[0];
         await cut.InvokeAsync(() => targetCell.DoubleClick());
         AngleSharp.Dom.IElement input = cut.Find("tbody tr td input");
         await cut.InvokeAsync(() => input.Input("Alicia"));
         await cut.InvokeAsync(() => input.Blur());
 
-        // Assert — value persisted to row item + OnRowSave fired with the mutated row.
+        // Assert - value persisted to row item + OnRowSave fired with the mutated row.
         seed[0].Name.Should().Be("Alicia");
         saved.Should().NotBeNull();
         saved!.Name.Should().Be("Alicia");
@@ -131,14 +131,14 @@ public class BOBDataGridInlineEditTests
 
         cut.WaitForState(() => cut.FindAll("tbody tr").Count >= 2, TimeSpan.FromSeconds(2));
 
-        // Act — open editor, clear value, blur (validator rejects empty string).
+        // Act - open editor, clear value, blur (validator rejects empty string).
         AngleSharp.Dom.IElement targetCell = cut.FindAll("tbody tr td")[0];
         await cut.InvokeAsync(() => targetCell.DoubleClick());
         AngleSharp.Dom.IElement input = cut.Find("tbody tr td input");
         await cut.InvokeAsync(() => input.Input(string.Empty));
         await cut.InvokeAsync(() => input.Blur());
 
-        // Assert — editor stays open + cell flagged invalid + row Name unchanged.
+        // Assert - editor stays open + cell flagged invalid + row Name unchanged.
         cut.Markup.Should().Contain("bob-datagrid__cell--invalid");
         seed[0].Name.Should().Be("Alice");
     }
@@ -159,19 +159,19 @@ public class BOBDataGridInlineEditTests
 
         cut.WaitForState(() => cut.FindAll("tbody tr").Count >= 2, TimeSpan.FromSeconds(2));
 
-        // Act — edit cell on row 1, blur (stages without firing OnRowSave in batch mode).
+        // Act - edit cell on row 1, blur (stages without firing OnRowSave in batch mode).
         AngleSharp.Dom.IElement cellRow1 = cut.FindAll("tbody tr td")[0];
         await cut.InvokeAsync(() => cellRow1.DoubleClick());
         AngleSharp.Dom.IElement input1 = cut.Find("tbody tr td input");
         await cut.InvokeAsync(() => input1.Input("Alicia"));
         await cut.InvokeAsync(() => input1.Blur());
 
-        // Toolbar Save button — located by aria-label (the icon-only render path has no text).
+        // Toolbar Save button - located by aria-label (the icon-only render path has no text).
         AngleSharp.Dom.IElement saveBtn = cut.FindAll("button")
             .First(b => b.GetAttribute("aria-label") == "Save changes");
         await cut.InvokeAsync(() => saveBtn.Click());
 
-        // Assert — OnRowSave fired exactly once for the row touched.
+        // Assert - OnRowSave fired exactly once for the row touched.
         saved.Should().HaveCount(1);
         saved[0].Name.Should().Be("Alicia");
     }
@@ -190,14 +190,14 @@ public class BOBDataGridInlineEditTests
 
         cut.WaitForState(() => cut.FindAll("tbody tr").Count >= 2, TimeSpan.FromSeconds(2));
 
-        // Act — edit + blur (stages).
+        // Act - edit + blur (stages).
         AngleSharp.Dom.IElement cellRow1 = cut.FindAll("tbody tr td")[0];
         await cut.InvokeAsync(() => cellRow1.DoubleClick());
         AngleSharp.Dom.IElement input1 = cut.Find("tbody tr td input");
         await cut.InvokeAsync(() => input1.Input("Alicia"));
         await cut.InvokeAsync(() => input1.Blur());
 
-        // Sanity — the staged change applied to the row item already.
+        // Sanity - the staged change applied to the row item already.
         seed[0].Name.Should().Be("Alicia");
 
         // Cancel via the toolbar button.
@@ -205,7 +205,7 @@ public class BOBDataGridInlineEditTests
             .First(b => b.GetAttribute("aria-label") == "Discard changes");
         await cut.InvokeAsync(() => cancelBtn.Click());
 
-        // Assert — original value restored from snapshot.
+        // Assert - original value restored from snapshot.
         seed[0].Name.Should().Be("Alice");
     }
 
@@ -216,7 +216,7 @@ public class BOBDataGridInlineEditTests
     /// then sets <c>PreventRowKeyDown=true</c>, which Blazor wires to <c>preventDefault()</c> via
     /// the directive on the <c>&lt;tr&gt;</c>. With no <c>stopPropagation</c> on the editor's input,
     /// the keydown bubbled to the row, the row called <c>preventDefault</c>, and the browser never
-    /// inserted the space character — so a name like "Alice Johnson" was impossible to type.
+    /// inserted the space character - so a name like "Alice Johnson" was impossible to type.
     ///
     /// The cell editor's input must <c>stopPropagation</c> on keydown so the row's handler never
     /// sees keystrokes that are bound for the editor.
@@ -247,11 +247,11 @@ public class BOBDataGridInlineEditTests
         // " "-bound HandleRowClick must NOT fire.
         await cut.InvokeAsync(() => input.KeyDown(" "));
         rowClicks.Should().Be(0,
-            "space typed in a cell editor must not bubble to the row's HandleRowKeyDown — the row " +
+            "space typed in a cell editor must not bubble to the row's HandleRowKeyDown - the row " +
             "would otherwise call preventDefault, blocking the character entirely");
 
         // Enter: cell editor uses it to commit. The row's Enter-bound HandleRowClick must also NOT
-        // fire — committing a cell should not also select the row.
+        // fire - committing a cell should not also select the row.
         await cut.InvokeAsync(() => input.KeyDown("Enter"));
         rowClicks.Should().Be(0,
             "Enter typed in a cell editor commits the cell only; it must not double-fire as a row click");
@@ -288,7 +288,7 @@ public class BOBDataGridInlineEditTests
 
         // Force the parent grid to re-render with the same logical params. Production code
         // hits this path whenever a sibling state change triggers grid re-render (sort,
-        // filter, cascading param, etc.) — the editor's [Parameter] EventCallbacks are
+        // filter, cascading param, etc.) - the editor's [Parameter] EventCallbacks are
         // re-created as new struct instances, which Blazor considers parameter changes,
         // which invokes OnParametersSet on the editor.
         cut.Render(p => p
@@ -308,7 +308,7 @@ public class BOBDataGridInlineEditTests
     /// regardless of whether any cell had an unresolved validator error. The cell editor's
     /// <c>OnValidate</c> callback correctly populated <c>_cellErrors</c> and the column's
     /// <c>ValueSetter</c> was blocked (the row item's property stayed unchanged), but the toolbar
-    /// Save still invoked <c>OnRowSave</c> — the consumer's persistence layer believed the row
+    /// Save still invoked <c>OnRowSave</c> - the consumer's persistence layer believed the row
     /// was saved while the on-screen cell was still flagged invalid. The grid must NOT commit a
     /// batch while any cell has a pending validation error.
     /// </summary>
@@ -344,7 +344,7 @@ public class BOBDataGridInlineEditTests
             .First(b => b.GetAttribute("aria-label") == "Save changes");
         await cut.InvokeAsync(() => saveBtn.Click());
 
-        // OnRowSave must NOT have fired — the batch is not in a valid state to commit.
+        // OnRowSave must NOT have fired - the batch is not in a valid state to commit.
         saved.Should().BeEmpty(
             "the grid must refuse to commit a batch while any staged cell has an unresolved validator error");
 
@@ -355,7 +355,7 @@ public class BOBDataGridInlineEditTests
 
     /// <summary>
     /// The toolbar Save button must visually signal that it cannot commit while validation errors
-    /// exist — the <c>disabled</c> attribute on the underlying <c>&lt;button&gt;</c> is the
+    /// exist - the <c>disabled</c> attribute on the underlying <c>&lt;button&gt;</c> is the
     /// accessibility/UI contract. This both prevents click-through races and gives the user a
     /// clear "fix the cell before saving" affordance.
     /// </summary>
@@ -426,7 +426,7 @@ public class BOBDataGridInlineEditTests
 
     /// <summary>
     /// Regression: the batch-mode Save / Cancel buttons used <see cref="_BOBInBtn"/> parameters that
-    /// don't exist (<c>Text</c>, <c>LeadingIcon</c>, <c>Color</c>) — they fell through to
+    /// don't exist (<c>Text</c>, <c>LeadingIcon</c>, <c>Color</c>) - they fell through to
     /// <c>CaptureUnmatchedValues</c> and rendered as inert HTML attributes, producing a button with
     /// no visible label and no icon. The button must render either readable text content or an SVG
     /// icon so users can identify it.
@@ -459,7 +459,7 @@ public class BOBDataGridInlineEditTests
         string visibleText = saveBtn.TextContent.Trim();
         bool hasIcon = saveBtn.QuerySelector("svg") is not null;
         (visibleText.Length > 0 || hasIcon).Should().BeTrue(
-            $"Save button must render text or an icon — got text='{visibleText}', svg={hasIcon}. " +
+            $"Save button must render text or an icon - got text='{visibleText}', svg={hasIcon}. " +
             "Check that _BOBInBtn parameters (Icon, ChildContent) are used instead of the non-existent LeadingIcon/Text.");
     }
 }

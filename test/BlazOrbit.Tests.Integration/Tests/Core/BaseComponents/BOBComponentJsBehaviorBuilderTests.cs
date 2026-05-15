@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Abstractions;
+using BlazOrbit.Abstractions;
 using BlazOrbit.Components;
 using FluentAssertions;
 using Microsoft.AspNetCore.Components;

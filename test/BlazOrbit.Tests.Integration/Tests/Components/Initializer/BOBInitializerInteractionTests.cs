@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -31,7 +31,7 @@ public class BOBInitializerInteractionTests
         // Arrange & Act
         IRenderedComponent<BOBInitializer> cut = ctx.Render<BOBInitializer>();
 
-        // Assert — component subscribed: verify via InitializeAsync being called (lifecycle completed)
+        // Assert - component subscribed: verify via InitializeAsync being called (lifecycle completed)
         await fake.Received(1).InitializeAsync(Arg.Any<string?>());
         fake.Received(1).OnThemeChanged += Arg.Any<Action<string>?>();
     }
@@ -74,11 +74,11 @@ public class BOBInitializerInteractionTests
         int callsBefore = fake.ReceivedCalls()
             .Count(c => c.GetMethodInfo().Name == "GetPaletteAsync");
 
-        // Act — simulate theme change event
+        // Act - simulate theme change event
         registeredHandler?.Invoke("light");
         cut.WaitForState(() => true, TimeSpan.FromMilliseconds(300));
 
-        // Assert — GetPaletteAsync called again
+        // Assert - GetPaletteAsync called again
         int callsAfter = fake.ReceivedCalls()
             .Count(c => c.GetMethodInfo().Name == "GetPaletteAsync");
         callsAfter.Should().BeGreaterThan(callsBefore);

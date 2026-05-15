@@ -8,7 +8,7 @@ namespace BlazOrbit.Tests.Integration.Tests.Localization;
 /// <summary>
 /// The <see cref="BobLocalize"/> static registry is process-wide, so each test clears it
 /// in setup. xUnit instantiates a fresh class per test method, so the constructor runs once
-/// per test — perfect for the cleanup pattern.
+/// per test - perfect for the cleanup pattern.
 /// </summary>
 [Collection("BobLocalize-StaticState")]
 [Trait("Component Integration", "BobLocalize")]

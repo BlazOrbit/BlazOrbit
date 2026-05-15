@@ -6,8 +6,8 @@
 # 2. Mount <BOBHotkeyHost /> once in your app shell (typically inside BOBBlazorLayout).
 2. Monta <BOBHotkeyHost /> una vez en el shell de tu aplicación (típicamente dentro de BOBBlazorLayout).
 
-# 3. Inject IHotkeyService and call Register() — dispose the registration to scope the binding.
-3. Inyecta IHotkeyService y llama a Register() — dispón el registro para limitar el alcance del binding.
+# 3. Inject IHotkeyService and call Register() - dispose the registration to scope the binding.
+3. Inyecta IHotkeyService y llama a Register() - dispón el registro para limitar el alcance del binding.
 
 # anywhere outside an input.
 en cualquier lugar fuera de un input.

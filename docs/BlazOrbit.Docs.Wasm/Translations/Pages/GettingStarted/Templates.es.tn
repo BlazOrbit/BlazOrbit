@@ -10,8 +10,8 @@ Plantillas de proyecto
 
 
 
-# Start a new BlazOrbit project from a `dotnet new` template — Server or WebAssembly, .NET 8 or .NET 10, with optional localization wired up.
-Inicia un proyecto nuevo de BlazOrbit desde una plantilla `dotnet new` — Server o WebAssembly, .NET 8 o .NET 10, con localización opcional conectada.
+# Start a new BlazOrbit project from a `dotnet new` template - Server or WebAssembly, .NET 8 or .NET 10, with optional localization wired up.
+Inicia un proyecto nuevo de BlazOrbit desde una plantilla `dotnet new` - Server o WebAssembly, .NET 8 o .NET 10, con localización opcional conectada.
 
 
 
@@ -280,8 +280,8 @@ Cuando los atajos de teclado están habilitados: <code>BOBHotkeyHost</code> en e
 
 
 
-# For contributors — local feed
-Para colaboradores — feed local
+# For contributors - local feed
+Para colaboradores - feed local
 
 
 

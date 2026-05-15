@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Rendering;
@@ -31,7 +31,7 @@ public abstract class BOBInputComponentBase<TValue> :
     // instead of rebuilding it.
     private Expression<Func<TValue>>? _valueExpressionFallback;
 
-    // Common parameters for all inputs — "force from outside": parent overrides the
+    // Common parameters for all inputs - "force from outside": parent overrides the
     // computed state. The computed truth lives in IsX below.
     /// <summary>When <see langword="true" />, the input is disabled. Combined with internal state via <see cref="IsDisabled"/>.</summary>
     [Parameter]
@@ -49,8 +49,8 @@ public abstract class BOBInputComponentBase<TValue> :
     [Parameter]
     public bool Error { get; set; }
 
-    // Computed states — source of truth for gating, aria-* and the attributes builder.
-    // IsDisabled is virtual so derived inputs can decouple Loading from Disabled — for
+    // Computed states - source of truth for gating, aria-* and the attributes builder.
+    // IsDisabled is virtual so derived inputs can decouple Loading from Disabled - for
     // example, a debounced search input that wants to show a spinner while still
     // accepting keystrokes overrides this to drop the IHasLoading branch.
     public virtual bool IsDisabled => Disabled || (this is IHasLoading loading && loading.Loading);
@@ -64,7 +64,7 @@ public abstract class BOBInputComponentBase<TValue> :
 
     /// <summary>
     /// `true` once <see cref="Dispose(bool)"/> / <see cref="DisposeAsync"/> has started. See
-    /// BOBComponentBase.IsDisposed for the contract — gate post-await continuations in derived
+    /// BOBComponentBase.IsDisposed for the contract - gate post-await continuations in derived
     /// components on this flag.
     /// </summary>
     protected bool IsDisposed { get; set; }
@@ -120,7 +120,7 @@ public abstract class BOBInputComponentBase<TValue> :
     /// JS-side behavior instance via <see cref="BOBComponentPipeline.DisposeBehaviorAsync"/>.
     /// </summary>
     /// <remarks>
-    /// Both this method and <see cref="Dispose(bool)"/> run on disposal — Blazor calls
+    /// Both this method and <see cref="Dispose(bool)"/> run on disposal - Blazor calls
     /// <c>DisposeAsync</c> for the async work and the framework's <see cref="IDisposable"/>
     /// contract still invokes <c>Dispose(true)</c> afterward. The split is intentional:
     /// async work (JS interop teardown) lives here, sync work (event unsubscribe) lives in

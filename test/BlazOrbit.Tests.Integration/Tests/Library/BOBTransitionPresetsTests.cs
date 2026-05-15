@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using FluentAssertions;
 
 namespace BlazOrbit.Tests.Integration.Tests.Library;
@@ -72,7 +72,7 @@ public class BOBTransitionPresetsTests
         // Arrange & Act
         Dictionary<string, string> vars = BOBTransitionPresets.HoverLift.GetCssVariables();
 
-        // Assert — both translate and box-shadow vars present
+        // Assert - both translate and box-shadow vars present
         vars.Keys.Should().Contain(k => k.Contains("translate"),
             "HoverLift includes a translate transition");
         vars.Keys.Should().Contain(k => k.Contains("box-shadow"),
@@ -85,7 +85,7 @@ public class BOBTransitionPresetsTests
         // Arrange & Act
         Dictionary<string, string> vars = BOBTransitionPresets.HoverScale.GetCssVariables();
 
-        // Assert — --bob-t-transition always present
+        // Assert - --bob-t-transition always present
         vars.Should().ContainKey("--bob-t-transition");
         vars["--bob-t-transition"].Should().NotBeNullOrEmpty();
     }
@@ -97,12 +97,12 @@ public class BOBTransitionPresetsTests
         BOBTransitions base_ = BOBTransitionPresets.HoverShadow;
         BOBTransitions override_ = BOBTransitionPresets.HoverGlow;
 
-        // Act — merge; both have hover:box-shadow, override should win
+        // Act - merge; both have hover:box-shadow, override should win
         BOBTransitions merged = base_.MergeWith(override_);
         Dictionary<string, string> mergedVars = merged.GetCssVariables();
         Dictionary<string, string> overrideVars = override_.GetCssVariables();
 
-        // Assert — merged box-shadow value equals the override's value
+        // Assert - merged box-shadow value equals the override's value
         string? mergedShadow = mergedVars.GetValueOrDefault("--bob-t-hover-box-shadow");
         string? overrideShadow = overrideVars.GetValueOrDefault("--bob-t-hover-box-shadow");
         mergedShadow.Should().Be(overrideShadow);

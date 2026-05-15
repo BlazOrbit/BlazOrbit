@@ -1,4 +1,4 @@
-namespace BlazOrbit.Components.Layout;
+namespace BlazOrbit.Components;
 
 /// <summary>Layout direction of a <c>BOBSplitter</c> rail.</summary>
 public enum BOBSplitterOrientation

@@ -6,8 +6,8 @@ using Microsoft.Extensions.Localization;
 namespace BlazOrbit.Localization;
 
 /// <summary>
-/// DI registration for the BOBLocalize runtime. The single entry point —
-/// <see cref="AddBlazOrbitLocalization"/> — wires the <see cref="IStringLocalizer{T}"/>
+/// DI registration for the BOBLocalize runtime. The single entry point -
+/// <see cref="AddBlazOrbitLocalization"/> - wires the <see cref="IStringLocalizer{T}"/>
 /// resolution to <see cref="BobLocalizer{T}"/> and registers the built-in providers.
 /// </summary>
 public static class ServiceCollectionExtensions
@@ -20,7 +20,7 @@ public static class ServiceCollectionExtensions
     /// <see cref="IBobLocalizationBuilder"/>.
     /// </summary>
     /// <remarks>
-    /// Safe to call multiple times — duplicate registrations are idempotent (<c>TryAdd</c>
+    /// Safe to call multiple times - duplicate registrations are idempotent (<c>TryAdd</c>
     /// variants). The actual bundle data comes from each owning assembly's
     /// <c>[ModuleInitializer]</c> emitted by the source generator and registered through
     /// <see cref="BobLocalize.RegisterBundle"/> before any consumer runs.
@@ -36,7 +36,7 @@ public static class ServiceCollectionExtensions
 
         services.TryAddSingleton(options);
 
-        // Built-in providers — must be available before any chain in any bundle resolves.
+        // Built-in providers - must be available before any chain in any bundle resolves.
         services.TryAddSingleton<LiteralProvider>();
         services.TryAddSingleton<BundleProvider>();
 

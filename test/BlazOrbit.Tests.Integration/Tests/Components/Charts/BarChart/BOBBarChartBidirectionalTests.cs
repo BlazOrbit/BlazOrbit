@@ -11,7 +11,7 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Charts.BarChart;
 [Trait("Component Variant", "BOBBarChart.Bidirectional")]
 public class BOBBarChartBidirectionalTests
 {
-    // Mixed-sign series: "Inflow" positive, "Outflow" negative — classic
+    // Mixed-sign series: "Inflow" positive, "Outflow" negative - classic
     // budget variance shape.
     private static IEnumerable<BOBChartSeries<string, decimal>> Mixed() =>
     [
@@ -182,7 +182,7 @@ public class BOBBarChartBidirectionalTests
                 .Add(c => c.StackMode, BOBBarStackMode.Bidirectional));
 
         // Bidirectional uses a single full-width bar per category (like
-        // Stacked/PercentStacked) — confirm all bars share one width.
+        // Stacked/PercentStacked) - confirm all bars share one width.
         IReadOnlyList<AngleSharp.Dom.IElement> bars = cut.FindAll("rect.bob-bar-chart__bar");
         IEnumerable<double> widths = bars.Select(b => double.Parse(
             b.GetAttribute("width")!, System.Globalization.CultureInfo.InvariantCulture));

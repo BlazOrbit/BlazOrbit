@@ -1,4 +1,4 @@
-﻿@page "/getting-started"
+@page "/getting-started"
 
 @inject IStringLocalizer<Index> Loc
 
@@ -22,10 +22,10 @@
             <div>
                 <strong>@Loc["Optional packages."]</strong> @Loc["Install additional packages on demand:"]
                 <ul style="margin: 0.5rem 0 0 1.25rem;">
-                    <li><code>BlazOrbit.Charts</code> — <a href="/components/charts/bar">@Loc["15 SVG chart types"]</a></li>
-                    <li><code>BlazOrbit.Hotkeys</code> — <a href="/components/services/hotkey">@Loc["global keyboard shortcuts"]</a></li>
-                    <li><code>BlazOrbit.Notifications</code> — <a href="/components/services/notifications">@Loc["notification center + bell badge"]</a></li>
-                    <li><code>BlazOrbit.Localization.Server</code> / <code>.Wasm</code> — <a href="/features/localization">@Loc["multi-culture support"]</a></li>
+                    <li><code>BlazOrbit.Charts</code> - <a href="/components/charts/bar">@Loc["15 SVG chart types"]</a></li>
+                    <li><code>BlazOrbit.Hotkeys</code> - <a href="/components/services/hotkey">@Loc["global keyboard shortcuts"]</a></li>
+                    <li><code>BlazOrbit.Notifications</code> - <a href="/components/services/notifications">@Loc["notification center + bell badge"]</a></li>
+                    <li><code>BlazOrbit.Localization.Server</code> / <code>.Wasm</code> - <a href="/features/localization">@Loc["multi-culture support"]</a></li>
                 </ul>
             </div>
         </div>
@@ -56,7 +56,7 @@
         <div class="doc-callout doc-callout--info">
             <span class="doc-callout__icon">ℹ️</span>
             <div>
-                @Loc.Html("Since .NET 8, scoped CSS bundles are included automatically — you do not need to link the <code>.bundle.scp.css</code> file.")
+                @Loc.Html("Since .NET 8, scoped CSS bundles are included automatically - you do not need to link the <code>.bundle.scp.css</code> file.")
             </div>
         </div>
     </section>
@@ -106,7 +106,7 @@
 
     protected override void OnInitialized()
     {
-        _html_8 = Loc.Html("""That's it — you're ready to use <a href="/components/actions/button">Button</a>, <a href="/components/layout/card">Card</a>, <a href="/components/forms/text">InputText</a>, and the rest.""");
+        _html_8 = Loc.Html("""That's it - you're ready to use <a href="/components/actions/button">Button</a>, <a href="/components/layout/card">Card</a>, <a href="/components/forms/text">InputText</a>, and the rest.""");
     }
 
 
@@ -115,7 +115,7 @@
 
     private const string _imports = @"@using BlazOrbit.Components
 @using BlazOrbit.Components.Forms
-@using BlazOrbit.Components.Layout";
+@using BlazOrbit.Components";
 
     private const string _layoutSnippet =
         """

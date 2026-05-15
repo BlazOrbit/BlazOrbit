@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using FluentAssertions;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -7,9 +7,9 @@ namespace BlazOrbit.Tests.Integration.Tests.Library;
 
 /// <summary>
 /// CSS-VAR-01: every <c>var(--name)</c> reference in scoped CSS (<c>*.razor.css</c>) must resolve
-/// to a declaration that exists in the same file, in the global CssBundle, or in
-/// <see cref="FeatureDefinitions"/> constants. Catches typos, stale prefixes from renames,
-/// copy-paste drift, and forgotten private-var updates.
+/// to a declaration that exists in the same file, in the hand-written global bundle
+/// (<c>wwwroot/css/blazorbit.css</c>), or in <see cref="FeatureDefinitions"/> constants. Catches
+/// typos, stale prefixes from renames, copy-paste drift, and forgotten private-var updates.
 /// </summary>
 [Trait("Library", "CssVarAudit")]
 public class CssVarDeclarationAuditTests
@@ -105,7 +105,7 @@ public class CssVarDeclarationAuditTests
         {
             if (globalDecls.Contains(key))
             {
-                stale.Add($"Allowlist[{key}] — now declared in CSS or FeatureDefinitions; remove the entry");
+                stale.Add($"Allowlist[{key}] - now declared in CSS or FeatureDefinitions; remove the entry");
             }
         }
 
@@ -137,17 +137,13 @@ public class CssVarDeclarationAuditTests
     private static HashSet<string> CollectDeclarationsFromCssBundle()
     {
         HashSet<string> result = new(StringComparer.Ordinal);
-        string bundlePath = Path.Combine(SrcBlazOrbit, "CssBundle");
-        if (!Directory.Exists(bundlePath))
+        string bundlePath = Path.Combine(SrcBlazOrbit, "wwwroot", "css", "blazorbit.css");
+        if (!File.Exists(bundlePath))
         {
             return result;
         }
 
-        foreach (string file in Directory.EnumerateFiles(bundlePath, "*.css", SearchOption.TopDirectoryOnly))
-        {
-            result.UnionWith(CollectDeclarations(File.ReadAllText(file)));
-        }
-
+        result.UnionWith(CollectDeclarations(File.ReadAllText(bundlePath)));
         return result;
     }
 

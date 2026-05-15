@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Name: Bar_50,
     Html: <bob-component data-bob-component="progress-bar" data-bob-size="medium" b-<SCOPE>><div class="bob-progress" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" aria-label="Loading" b-<SCOPE>><div class="bob-progress__head" b-<SCOPE>><span class="bob-progress__label" b-<SCOPE>>Loading</span><span class="bob-progress__pct" b-<SCOPE>>50%</span></div><div class="bob-progress__track" b-<SCOPE>><div class="bob-progress__fill" style="width: 50%" b-<SCOPE>></div></div></div></bob-component>

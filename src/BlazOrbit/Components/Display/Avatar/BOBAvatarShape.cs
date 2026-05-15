@@ -1,4 +1,4 @@
-namespace BlazOrbit.Components.Display;
+namespace BlazOrbit.Components;
 
 /// <summary>Shape outline of <see cref="BOBAvatar"/>.</summary>
 public enum BOBAvatarShape

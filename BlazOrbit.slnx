@@ -6,7 +6,6 @@
         <Project Path="docs/BlazOrbit.Docs.Wasm/BlazOrbit.Docs.Wasm.csproj" Id="7a2e7f75-7eda-4b3d-8713-23ea7d782850" />
     </Folder>
     <Folder Name="/test/">
-        <Project Path="test/BlazOrbit.BuildTools.Tests/BlazOrbit.BuildTools.Tests.csproj" Id="f7c8d9e0-1234-5678-9abc-def012345678" />
         <Project Path="test/BlazOrbit.CodeGeneration.Tests/BlazOrbit.CodeGeneration.Tests.csproj" Id="a5aa3c1e-8ee3-4288-8168-703abe7433d0" />
         <Project Path="test/BlazOrbit.Core.CodeGeneration.Tests/BlazOrbit.Core.CodeGeneration.Tests.csproj" Id="4a42929d-fb4f-467e-b175-d220206f122a" />
         <Project Path="test/BlazOrbit.Docs.CodeGeneration.Tests/BlazOrbit.Docs.CodeGeneration.Tests.csproj" Id="bc5dec00-a3ce-4348-b5b0-d7901af29c65" />
@@ -52,14 +51,11 @@
         <File Path=".github/workflows/release-publish.yml" />
         <File Path=".github/workflows/_runner-router.yml" />
     </Folder>
-    <Project Path="src/BlazOrbit.BuildTools/BlazOrbit.BuildTools.csproj" Id="a67069d5-56c2-49fa-adec-656079117b53" />
-    <Project Path="src/BlazOrbit.Charts.BuildTools/BlazOrbit.Charts.BuildTools.csproj" />
     <Project Path="src/BlazOrbit.Charts/BlazOrbit.Charts.csproj" />
     <Project Path="src/BlazOrbit.CodeGeneration/BlazOrbit.CodeGeneration.csproj" Id="96bbc2e4-007e-4f7d-973b-8c83686462df" />
     <Project Path="src/BlazOrbit.Core.CodeGeneration/BlazOrbit.Core.CodeGeneration.csproj" Id="6ba20f9a-6292-42d8-a0d8-b45440bef1ea" />
     <Project Path="src/BlazOrbit.Core/BlazOrbit.Core.csproj" Id="4d42e187-5c5c-441e-a3bf-59ecb330e6e6" />
     <Project Path="src/BlazOrbit.FormsFluentValidation/BlazOrbit.FormsFluentValidation.csproj" Id="928cbff9-8c5b-4315-b75f-ee13ea436e6f" />
-    <Project Path="src/BlazOrbit.Hotkeys.BuildTools/BlazOrbit.Hotkeys.BuildTools.csproj" />
     <Project Path="src/BlazOrbit.Hotkeys/BlazOrbit.Hotkeys.csproj" />
     <Project Path="src/BlazOrbit.Localization.Server/BlazOrbit.Localization.Server.csproj" Id="cc099920-bfe2-4cbb-ad43-85f57c86d3a4" />
     <Project Path="src/BlazOrbit.Localization.Shared/BlazOrbit.Localization.Shared.csproj" />

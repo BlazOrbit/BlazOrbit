@@ -1,4 +1,4 @@
-﻿/* Textarea field adjustments */
+/* Textarea field adjustments */
 [data-bob-component="input-text-area"] .bob-input__field {
     min-height: calc(5rem * var(--bob-size-multiplier, 1));
     line-height: 1.5;

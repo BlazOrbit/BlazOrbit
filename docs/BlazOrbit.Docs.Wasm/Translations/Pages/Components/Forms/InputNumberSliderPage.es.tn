@@ -85,5 +85,5 @@ Volumen
 Zoom
 
 
-# The component accepts any .NET numeric type that implements <code>INumber&lt;T&gt;</code> — <code>int</code>, <code>decimal</code>, <code>double</code>, <code>float</code>, and more. This is enforced at compile time via the generic <code>TValue</code> parameter. All interactive features — stepper buttons, tick marks, value labels, and keyboard arrow navigation — are available regardless of the underlying numeric type.
+# The component accepts any .NET numeric type that implements <code>INumber&lt;T&gt;</code> - <code>int</code>, <code>decimal</code>, <code>double</code>, <code>float</code>, and more. This is enforced at compile time via the generic <code>TValue</code> parameter. All interactive features - stepper buttons, tick marks, value labels, and keyboard arrow navigation - are available regardless of the underlying numeric type.
 El componente acepta cualquier tipo numérico .NET que implemente <code>INumber&lt;T&gt;</code>: <code>int</code>, <code>decimal</code>, <code>double</code>, <code>float</code> y más. Esto se aplica en tiempo de compilación a través del parámetro genérico <code>TValue</code>. Todas las funciones interactivas (botones de paso, marcas de escala, etiquetas de valor y navegación con flechas del teclado) están disponibles independientemente del tipo numérico subyacente.

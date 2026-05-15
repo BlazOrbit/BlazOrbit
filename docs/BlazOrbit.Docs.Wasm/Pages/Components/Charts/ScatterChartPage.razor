@@ -1,4 +1,4 @@
-﻿@page "/components/charts/scatter"
+@page "/components/charts/scatter"
 
 @inject IStringLocalizer<ScatterChartPage> Loc
 
@@ -72,7 +72,7 @@
 
     private void HandleClick(BOBChartClickArgs<double, double> args)
     {
-        _clickMessage = $"Clicked: {args.SeriesLabel} — ({args.X:F2}, {args.Y:F2})";
+        _clickMessage = $"Clicked: {args.SeriesLabel} - ({args.X:F2}, {args.Y:F2})";
     }
 
     private static readonly Random _rng = new(42);

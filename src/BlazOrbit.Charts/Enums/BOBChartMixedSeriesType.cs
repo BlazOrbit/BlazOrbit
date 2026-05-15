@@ -7,12 +7,12 @@ namespace BlazOrbit.Charts.Enums;
 /// </summary>
 public enum BOBChartMixedSeriesType
 {
-    /// <summary>Vertical bar — categorical / discrete distribution.</summary>
+    /// <summary>Vertical bar - categorical / discrete distribution.</summary>
     Bar = 0,
 
-    /// <summary>Line — continuous trend.</summary>
+    /// <summary>Line - continuous trend.</summary>
     Line = 1,
 
-    /// <summary>Area — line + filled region below.</summary>
+    /// <summary>Area - line + filled region below.</summary>
     Area = 2
 }

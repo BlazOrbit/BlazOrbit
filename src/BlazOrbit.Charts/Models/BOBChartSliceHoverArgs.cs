@@ -2,7 +2,7 @@ namespace BlazOrbit.Charts.Models;
 
 /// <summary>
 /// Event args fired when the user hovers a slice on a Pie / Donut chart.
-/// Distinct from <see cref="BOBChartSliceClickArgs{TY}"/> only by intent —
+/// Distinct from <see cref="BOBChartSliceClickArgs{TY}"/> only by intent -
 /// allows callers to drive secondary UI (a side panel, a stat readout) off
 /// the same hover that already raises the native <c>&lt;title&gt;</c> tooltip.
 /// </summary>

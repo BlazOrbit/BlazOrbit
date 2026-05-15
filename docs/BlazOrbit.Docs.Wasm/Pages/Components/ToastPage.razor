@@ -1,4 +1,4 @@
-﻿@page "/components/overlays/toast"
+@page "/components/overlays/toast"
 
 @inject IToastService Toast
 @inject IStringLocalizer<ToastPage> Loc
@@ -47,7 +47,7 @@
         <BOBButton Text="@Loc["Persistent (no dismiss)"]"
                    OnClick="@(() => Toast.ShowAsync(b => b.AddContent(0, Loc["Stays until closed."]), ToastOptions.Persistent))"/>
         <BOBButton Text="@Loc["Not closable"]"
-                   OnClick="@(() => Toast.ShowAsync(b => b.AddContent(0, Loc["No X button — wait it out."]), new ToastOptions { Closable = false }))"/>
+                   OnClick="@(() => Toast.ShowAsync(b => b.AddContent(0, Loc["No X button - wait it out."]), new ToastOptions { Closable = false }))"/>
     </DocDemo>
 
     <DocDemo Key="Animations" Title="@Loc["Animations"]">

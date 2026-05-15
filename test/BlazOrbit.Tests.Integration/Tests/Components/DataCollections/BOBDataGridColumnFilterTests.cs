@@ -72,7 +72,7 @@ public class BOBDataGridColumnFilterTests
             .Add(c => c.Columns, NameAndAgeColumns)
             .Add(c => c.ShowColumnFilters, true));
 
-        // Type "li" into the Name filter — should keep Alice (A-l-i-ce) + Charlie
+        // Type "li" into the Name filter - should keep Alice (A-l-i-ce) + Charlie
         // (Char-li-e) and drop Bob.
         cut.FindAll(".bob-datagrid__column-filter")[0].Input("li");
 

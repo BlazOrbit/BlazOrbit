@@ -1,4 +1,4 @@
-﻿[data-bob-component="flex-stack"] {
+[data-bob-component="flex-stack"] {
     --_flex-stack-background: var(--bob-inline-background, transparent);
     --_flex-stack-color: var(--bob-inline-color, inherit);
     --_flex-stack-border-radius: var(--bob-inline-border-radius, var(--bob-border-radius));

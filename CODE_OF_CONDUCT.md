@@ -1,8 +1,8 @@
-﻿# Code of Conduct
+# Code of Conduct
 
 This project adopts the [Contributor Covenant 2.1](https://www.contributor-covenant.org/version/2/1/code_of_conduct/) as
-its code of conduct. All participants in project spaces — issues, pull requests, discussions, direct communication
-related to the project — are expected to follow it.
+its code of conduct. All participants in project spaces - issues, pull requests, discussions, direct communication
+related to the project - are expected to follow it.
 
 ## Enforcement
 

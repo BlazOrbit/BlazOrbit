@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components.Forms;
+using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -20,7 +20,7 @@ public class BOBInputSwitchInteractionTests
             .Add(c => c.Value, false)
             .Add(c => c.ValueChanged, v => captured = v));
 
-        // Act — click label wrapping the switch
+        // Act - click label wrapping the switch
         cut.Find("label.bob-switch").Click();
 
         // Assert

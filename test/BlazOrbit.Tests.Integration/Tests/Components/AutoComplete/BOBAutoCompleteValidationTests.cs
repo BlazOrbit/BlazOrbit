@@ -57,7 +57,7 @@ public class BOBAutoCompleteValidationTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Resolver accepts any non-empty string verbatim — exercises the "free-text address"
+        // Resolver accepts any non-empty string verbatim - exercises the "free-text address"
         // pattern where the autocomplete suggests known matches but the field still accepts
         // novel entries the consumer wants stored on the bound model.
         IRenderedComponent<TestBOBAutoCompleteConsumer> cut = ctx.Render<TestBOBAutoCompleteConsumer>(p => p
@@ -78,7 +78,7 @@ public class BOBAutoCompleteValidationTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Resolver rejects everything — should land the field in an error state once the
+        // Resolver rejects everything - should land the field in an error state once the
         // user commits via blur. The custom UnresolvedStringError surfaces as the validation
         // message (assertion is on the data-bob-error flag since the message DOM landing
         // is covered elsewhere).

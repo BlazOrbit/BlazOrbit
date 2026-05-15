@@ -1,6 +1,5 @@
-﻿using AngleSharp.Dom;
-using BlazOrbit.Components.Layout;
-using BlazOrbit.Components.Layout.Services;
+using AngleSharp.Dom;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -27,7 +26,7 @@ public class BOBToastHostAccessibilityTests
             b => b.AddContent(0, "Hello"),
             new ToastOptions { AutoDismiss = false });
 
-        // Assert — toasts surface aria-live for screen readers
+        // Assert - toasts surface aria-live for screen readers
         IReadOnlyList<IElement> liveRegions = cut.FindAll("[aria-live]");
         liveRegions.Should().NotBeEmpty();
     }
@@ -47,7 +46,7 @@ public class BOBToastHostAccessibilityTests
             b => b.AddContent(0, "Atomic msg"),
             new ToastOptions { AutoDismiss = false });
 
-        // Assert — aria-atomic ensures the entire toast text is announced together
+        // Assert - aria-atomic ensures the entire toast text is announced together
         IReadOnlyList<IElement> toasts = cut.FindAll("[aria-atomic='true']");
         toasts.Should().NotBeEmpty();
     }

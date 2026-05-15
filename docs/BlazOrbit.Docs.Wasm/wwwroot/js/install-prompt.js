@@ -1,4 +1,4 @@
-﻿const store = window.__bobInstall = window.__bobInstall || {deferred: null, installed: false, listeners: []};
+const store = window.__bobInstall = window.__bobInstall || {deferred: null, installed: false, listeners: []};
 let dotnetRef = null;
 
 function detectPlatform() {

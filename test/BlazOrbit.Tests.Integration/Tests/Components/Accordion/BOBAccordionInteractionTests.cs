@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -46,7 +46,7 @@ public class BOBAccordionInteractionTests
         IRenderedComponent<BOBAccordion> cut = ctx.Render<BOBAccordion>(p => p
             .Add(c => c.ChildContent, BuildThreeItems()));
 
-        // Act — click first header
+        // Act - click first header
         cut.FindAll(".bob-accordion-item__header")[0].Click();
 
         // Assert
@@ -89,7 +89,7 @@ public class BOBAccordionInteractionTests
         cut.FindAll(".bob-accordion-item__header")[0].Click();
         cut.FindAll(".bob-accordion-item__header")[2].Click();
 
-        // Assert — only third is expanded
+        // Assert - only third is expanded
         IReadOnlyList<IElement> items = cut.FindAll("[data-bob-component='accordion-item']");
         items[0].GetAttribute("data-bob-expanded").Should().BeNull();
         items[2].GetAttribute("data-bob-expanded").Should().Be("true");
@@ -106,11 +106,11 @@ public class BOBAccordionInteractionTests
             .Add(c => c.Mode, BOBAccordionMode.Single)
             .Add(c => c.ChildContent, BuildThreeItems()));
 
-        // Act — open then click again to close
+        // Act - open then click again to close
         cut.FindAll(".bob-accordion-item__header")[0].Click();
         cut.FindAll(".bob-accordion-item__header")[0].Click();
 
-        // Assert — none expanded
+        // Assert - none expanded
         foreach (IElement item in cut.FindAll("[data-bob-component='accordion-item']"))
         {
             item.GetAttribute("data-bob-expanded").Should().BeNull();
@@ -123,15 +123,15 @@ public class BOBAccordionInteractionTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — first auto-expands in strict mode
+        // Arrange - first auto-expands in strict mode
         IRenderedComponent<BOBAccordion> cut = ctx.Render<BOBAccordion>(p => p
             .Add(c => c.Mode, BOBAccordionMode.SingleStrict)
             .Add(c => c.ChildContent, BuildThreeItems()));
 
-        // Act — click already-open first item
+        // Act - click already-open first item
         cut.FindAll(".bob-accordion-item__header")[0].Click();
 
-        // Assert — still expanded
+        // Assert - still expanded
         IReadOnlyList<IElement> items = cut.FindAll("[data-bob-component='accordion-item']");
         items[0].GetAttribute("data-bob-expanded").Should().Be("true");
     }
@@ -142,14 +142,14 @@ public class BOBAccordionInteractionTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — middle item disabled
+        // Arrange - middle item disabled
         IRenderedComponent<BOBAccordion> cut = ctx.Render<BOBAccordion>(p => p
             .Add(c => c.ChildContent, BuildThreeItems(true)));
 
-        // Act — click via JS event (browser would block disabled but bUnit may dispatch)
+        // Act - click via JS event (browser would block disabled but bUnit may dispatch)
         cut.FindAll(".bob-accordion-item__header")[1].Click();
 
-        // Assert — still collapsed
+        // Assert - still collapsed
         IReadOnlyList<IElement> items = cut.FindAll("[data-bob-component='accordion-item']");
         items[1].GetAttribute("data-bob-expanded").Should().BeNull();
     }
@@ -206,10 +206,10 @@ public class BOBAccordionInteractionTests
         IRenderedComponent<BOBAccordion> cut = ctx.Render<BOBAccordion>(p => p
             .Add(c => c.ChildContent, BuildThreeItems()));
 
-        // Act — keydown on first header (focus delegation tested via FocusAsync; we just verify no exception)
+        // Act - keydown on first header (focus delegation tested via FocusAsync; we just verify no exception)
         cut.FindAll(".bob-accordion-item__header")[0].KeyDown(new KeyboardEventArgs { Key = "ArrowDown" });
 
-        // Assert — accordion still rendered consistently
+        // Assert - accordion still rendered consistently
         cut.FindAll("[data-bob-component='accordion-item']").Should().HaveCount(3);
     }
 
@@ -219,11 +219,11 @@ public class BOBAccordionInteractionTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — middle disabled
+        // Arrange - middle disabled
         IRenderedComponent<BOBAccordion> cut = ctx.Render<BOBAccordion>(p => p
             .Add(c => c.ChildContent, BuildThreeItems(true)));
 
-        // Act — should skip disabled middle without exception
+        // Act - should skip disabled middle without exception
         cut.FindAll(".bob-accordion-item__header")[0].KeyDown(new KeyboardEventArgs { Key = "ArrowDown" });
 
         // Assert

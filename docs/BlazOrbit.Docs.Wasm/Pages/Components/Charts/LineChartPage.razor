@@ -1,4 +1,4 @@
-﻿@page "/components/charts/line"
+@page "/components/charts/line"
 @implements IDisposable
 
 @inject IStringLocalizer<LineChartPage> Loc
@@ -11,7 +11,7 @@
 
     <section class="doc-section">
         <p class="doc-section__description">
-                        @Loc.Html("The X axis is auto-detected from the data type: numeric, <code>DateTime</code> / <code>DateTimeOffset</code> / <code>TimeSpan</code>, or categorical string labels. Advanced features include smooth Bezier interpolation, zoom + brush, crosshair tracking, annotation lines, and live streaming — all rendered as pure SVG without external chart dependencies.")
+                        @Loc.Html("The X axis is auto-detected from the data type: numeric, <code>DateTime</code> / <code>DateTimeOffset</code> / <code>TimeSpan</code>, or categorical string labels. Advanced features include smooth Bezier interpolation, zoom + brush, crosshair tracking, annotation lines, and live streaming - all rendered as pure SVG without external chart dependencies.")
         </p>
     </section>
 
@@ -82,7 +82,7 @@
     </DocDemo>
 
     <DocDemo Key="Annotations" Title="@Loc["Annotations"]"
-             Description="@Loc["Mix text labels, vertical bands and symbol markers (Circle / Square / Triangle / Star / Diamond) at any data coordinate. Each annotation supports color, CSS class and pixel offsets — ideal for release markers, anomaly callouts and SLA windows."]">
+             Description="@Loc["Mix text labels, vertical bands and symbol markers (Circle / Square / Triangle / Star / Diamond) at any data coordinate. Each annotation supports color, CSS class and pixel offsets - ideal for release markers, anomaly callouts and SLA windows."]">
         <BOBLineChart TX="int" TY="double"
                       Series="_numericSeries"
                       Annotations="_annotations"

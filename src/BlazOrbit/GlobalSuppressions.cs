@@ -1,4 +1,4 @@
-﻿// This file is used by Code Analysis to maintain SuppressMessage
+// This file is used by Code Analysis to maintain SuppressMessage
 // attributes that are applied to this project.
 // Project-level suppressions either have no target or are given
 // a specific target and scoped to a namespace, type, member, etc.
@@ -162,7 +162,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Diagnostics.BOBPerformanceDashboard.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBPerformanceDashboard.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -170,7 +170,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Display.BOBAvatar.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBAvatar.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -178,7 +178,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Display.BOBAvatarGroup.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBAvatarGroup.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -186,7 +186,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Display.BOBBanner.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBBanner.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -194,7 +194,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Display.BOBChip.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBChip.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -202,7 +202,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Navigation.BOBBreadcrumbs.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBBreadcrumbs.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -210,7 +210,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Navigation.BOBTimeline.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBTimeline.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -218,7 +218,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Navigation.BOBStepper.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBStepper.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -226,7 +226,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Navigation.BOBStep.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBStep.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -234,7 +234,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Layout.BOBAspectRatio.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBAspectRatio.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -242,7 +242,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Layout.BOBPageHeader.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBPageHeader.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -250,7 +250,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Layout.BOBContainer.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBContainer.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -258,7 +258,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Layout.BOBSection.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBSection.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -266,7 +266,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Layout.BOBSplitter.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBSplitter.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -274,7 +274,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Layout.BOBSplitterPane.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBSplitterPane.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -282,7 +282,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Layout.BOBConfirmDialog.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBConfirmDialog.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -290,7 +290,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Display.BOBRating.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBRating.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -298,7 +298,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Display.BOBStatCard.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBStatCard.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -306,7 +306,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Display.BOBProgressBar.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBProgressBar.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -314,7 +314,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Display.BOBProgressRing.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBProgressRing.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -514,7 +514,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Internal._BOBInAddon.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components._BOBInAddon.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -522,7 +522,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Internal._BOBInBtn.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components._BOBInBtn.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -530,7 +530,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Internal._BOBInCheckMark.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components._BOBInCheckMark.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -538,7 +538,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Internal._BOBFieldHelper`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components._BOBFieldHelper`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -546,7 +546,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Internal._BOBInNumber.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components._BOBInNumber.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -554,7 +554,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Internal._BOBInSelect.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components._BOBInSelect.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -562,7 +562,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Internal._BOBInDate.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components._BOBInDate.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -578,7 +578,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Display.BOBChipGroup`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBChipGroup`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -586,7 +586,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Internal._BOBInText.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components._BOBInText.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -594,7 +594,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Internal._BOBInPagination.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components._BOBInPagination.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -602,7 +602,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Layout.BOBBlazorLayout.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBBlazorLayout.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -610,7 +610,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Layout.BOBCard.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBCard.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -618,7 +618,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Layout.BOBDialog.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBDialog.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -626,7 +626,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Layout.BOBDrawer.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBDrawer.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -634,7 +634,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Layout.BOBFlexStack.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBFlexStack.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -642,7 +642,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Layout.BOBGrid.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBGrid.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -650,7 +650,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Layout.BOBGridItem.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBGridItem.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -658,7 +658,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Layout.BOBInitializer.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBInitializer.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -666,7 +666,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Layout.BOBModalContainer.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBModalContainer.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -674,7 +674,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Layout.BOBModalHost.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBModalHost.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -682,7 +682,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Layout.BOBSidebarLayout.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBSidebarLayout.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -690,7 +690,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Layout.BOBStackedLayout.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBStackedLayout.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -698,7 +698,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Layout.BOBThemeSelector.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBThemeSelector.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -706,7 +706,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Layout.BOBToast.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBToast.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -714,7 +714,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Layout.BOBToastHost.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBToastHost.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",
@@ -722,7 +722,7 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.Utils.BOBDateTimePattern.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
+        "~M:BlazOrbit.Components.BOBDateTimePattern.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(
     "Microsoft.CodeAnalysis.PublicApiAnalyzers",

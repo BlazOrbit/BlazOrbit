@@ -1,4 +1,4 @@
-﻿using BlazOrbit.SyntaxHighlight;
+using BlazOrbit.SyntaxHighlight;
 using Microsoft.AspNetCore.Components;
 
 namespace BlazOrbit.Docs.Components;

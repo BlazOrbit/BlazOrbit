@@ -1,5 +1,4 @@
-﻿using BlazOrbit.Components.Layout;
-using BlazOrbit.Components.Layout.Services;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -35,14 +34,14 @@ public class BOBToastHostInteractionTests
         IToastService toastService = ctx.Services.GetRequiredService<IToastService>();
         int baseline = CountOnChangeSubscribers(toastService);
 
-        // Arrange — render adds exactly one subscriber
+        // Arrange - render adds exactly one subscriber
         ctx.Render<BOBToastHost>();
         CountOnChangeSubscribers(toastService).Should().Be(baseline + 1);
 
-        // Act — disposing the bUnit context disposes the host
+        // Act - disposing the bUnit context disposes the host
         await ctx.DisposeAsync();
 
-        // Assert — the host removed its handler from OnChange
+        // Assert - the host removed its handler from OnChange
         CountOnChangeSubscribers(toastService).Should().Be(baseline);
     }
 
@@ -61,7 +60,7 @@ public class BOBToastHostInteractionTests
         // Act
         await toastService.CloseAllAsync();
 
-        // Assert — toasts marked IsClosing, host still renders but toast has closing attr
+        // Assert - toasts marked IsClosing, host still renders but toast has closing attr
         // (actual removal happens after animation completes)
         toastService.ActiveToasts.All(t => t.IsClosing).Should().BeTrue();
     }

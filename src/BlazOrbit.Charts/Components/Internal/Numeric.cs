@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 
 namespace BlazOrbit.Charts.Components.Internal;
 
@@ -14,7 +14,7 @@ internal static class Numeric
     /// <summary>
     /// Convert <paramref name="value"/> to <see cref="double"/> using the
     /// invariant culture. Returns <c>0</c> for <c>null</c>. Throws for
-    /// non-convertible types — chart callers should constrain numeric type
+    /// non-convertible types - chart callers should constrain numeric type
     /// parameters to <c>int</c>, <c>long</c>, <c>float</c>, <c>double</c>,
     /// <c>decimal</c>, <see cref="DateTime"/>, <see cref="DateTimeOffset"/>
     /// or <see cref="TimeSpan"/> at the API boundary.

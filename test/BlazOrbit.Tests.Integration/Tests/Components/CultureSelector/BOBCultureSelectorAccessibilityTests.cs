@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -101,7 +101,7 @@ public class BOBCultureSelectorAccessibilityTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — aria-label resolves via IStringLocalizer<BOBCultureSelectorResources>
+        // Arrange - aria-label resolves via IStringLocalizer<BOBCultureSelectorResources>
         CultureInfo previous = CultureInfo.CurrentUICulture;
         try
         {

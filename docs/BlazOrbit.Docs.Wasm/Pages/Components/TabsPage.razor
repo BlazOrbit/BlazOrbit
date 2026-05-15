@@ -1,10 +1,10 @@
-﻿@page "/components/navigation/tabs"
+@page "/components/navigation/tabs"
 
 @inject IStringLocalizer<TabsPage> Loc
 
 
 <DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBTabs"]"
-         Lede="@Loc["Tab panels with three visual variants. Declare tabs as children — the active one renders automatically."]"
+         Lede="@Loc["Tab panels with three visual variants. Declare tabs as children - the active one renders automatically."]"
          PageInstance="this"
          ApiType="@typeof(BOBTabs)"
          Keywords="@(["tabs", "tab panel", "navigation", "sections"])">
@@ -12,7 +12,7 @@
     <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
         <BOBTabs @bind-ActiveTab="_basic">
             <BOBTab Id="overview" Label="@Loc["Overview"]">
-                @Loc["Overview content — the first tab is active by default."]
+                @Loc["Overview content - the first tab is active by default."]
             </BOBTab>
             <BOBTab Id="details" Label="@Loc["Details"]">
                 @Loc["Details content."]

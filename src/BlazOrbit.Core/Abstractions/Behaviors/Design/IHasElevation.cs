@@ -1,7 +1,7 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 /// <summary>
-/// Indicates the component supports an <see cref="Elevation" /> parameter — a Material Design
+/// Indicates the component supports an <see cref="Elevation" /> parameter - a Material Design
 /// elevation level (0–24) that resolves at render to (a) a derived <c>box-shadow</c> via
 /// <see cref="BOBShadowPresets.Elevation(int, string?)"/> and (b) a surface-tint percentage
 /// that consuming components can apply to lift the surface in dark mode.

@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -101,7 +101,7 @@ public class BOBTreeMenuAccessibilityTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — declarative mode required; imperative mode has no DisabledSelector
+        // Arrange - declarative mode required; imperative mode has no DisabledSelector
         IRenderedComponent<BOBTreeMenu<object>> cut = ctx.Render<BOBTreeMenu<object>>(p => p
             .Add(c => c.ChildContent, b =>
             {

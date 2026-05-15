@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 /// <summary>
 /// Resolves an integer elevation level (0–24) to the Material Design 3 surface-tint percentage

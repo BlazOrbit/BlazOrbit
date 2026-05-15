@@ -1,5 +1,5 @@
-﻿using AngleSharp.Dom;
-using BlazOrbit.Components.Layout;
+using AngleSharp.Dom;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -22,7 +22,7 @@ public class BOBSidebarLayoutAccessibilityTests
             .Add(c => c.Sidebar, b => b.AddContent(0, "s"))
             .Add(c => c.ChildContent, b => b.AddContent(0, "m")));
 
-        // Assert — header/aside/main are semantic landmarks
+        // Assert - header/aside/main are semantic landmarks
         cut.Find("header.bob-sidebar-layout__header").Should().NotBeNull();
         cut.Find("aside.bob-sidebar-layout__sidebar").Should().NotBeNull();
         cut.Find("main.bob-sidebar-layout__main").Should().NotBeNull();
@@ -69,12 +69,12 @@ public class BOBSidebarLayoutAccessibilityTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — scrim appears only while sidebar open
+        // Arrange - scrim appears only while sidebar open
         IRenderedComponent<BOBSidebarLayout> cut = ctx.Render<BOBSidebarLayout>(p => p
             .Add(c => c.ShowToggle, true));
         cut.Find(".bob-sidebar-layout__toggle").Click();
 
-        // Assert — scrim is purely decorative
+        // Assert - scrim is purely decorative
         cut.Find(".bob-sidebar-layout__scrim").GetAttribute("aria-hidden").Should().Be("true");
     }
 
@@ -88,7 +88,7 @@ public class BOBSidebarLayoutAccessibilityTests
         IRenderedComponent<BOBSidebarLayout> cut = ctx.Render<BOBSidebarLayout>(p => p
             .Add(c => c.ShowToggle, false));
 
-        // Assert — no orphan toggle semantics when feature disabled
+        // Assert - no orphan toggle semantics when feature disabled
         cut.FindAll(".bob-sidebar-layout__toggle").Should().BeEmpty();
     }
 
@@ -102,7 +102,7 @@ public class BOBSidebarLayoutAccessibilityTests
         IRenderedComponent<BOBSidebarLayout> cut = ctx.Render<BOBSidebarLayout>(p => p
             .Add(c => c.Header, b => b.AddMarkupContent(0, "<h1 class='app-title'>App</h1>")));
 
-        // Assert — heading lands inside header landmark
+        // Assert - heading lands inside header landmark
         cut.Find("header .bob-sidebar-layout__header-content h1.app-title").TextContent.Should().Be("App");
     }
 
@@ -112,7 +112,7 @@ public class BOBSidebarLayoutAccessibilityTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — consumer owns <nav> inside sidebar slot
+        // Arrange & Act - consumer owns <nav> inside sidebar slot
         IRenderedComponent<BOBSidebarLayout> cut = ctx.Render<BOBSidebarLayout>(p => p
             .Add(c => c.Sidebar, b => b.AddMarkupContent(0,
                 "<nav aria-label='Primary'><a href='/'>Home</a></nav>")));

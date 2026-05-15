@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
@@ -9,8 +9,8 @@ namespace BlazOrbit.Tests.Integration.Tests.Library;
 /// selector in any .css or .razor.css file under src/BlazOrbit.
 ///
 /// The audit distinguishes two cases per CSS-OPT-05:
-///   (a) Intentional public override / test hooks — allowed via <see cref="GhostClassAllowlist"/>.
-///   (b) Residuals from refactor — must be removed from markup.
+///   (a) Intentional public override / test hooks - allowed via <see cref="GhostClassAllowlist"/>.
+///   (b) Residuals from refactor - must be removed from markup.
 /// </summary>
 [Trait("Library", "CssAudit")]
 public class CssClassAuditTests
@@ -84,11 +84,11 @@ public class CssClassAuditTests
         {
             if (!markup.Contains(key))
             {
-                stale.Add($"GhostClassAllowlist[\"{key}\"] — code no longer emits .{key}");
+                stale.Add($"GhostClassAllowlist[\"{key}\"] - code no longer emits .{key}");
             }
             else if (css.Contains(key))
             {
-                stale.Add($"GhostClassAllowlist[\"{key}\"] — CSS now selects on .{key}; remove the entry");
+                stale.Add($"GhostClassAllowlist[\"{key}\"] - CSS now selects on .{key}; remove the entry");
             }
         }
 
@@ -109,8 +109,7 @@ public class CssClassAuditTests
         {
             if (file.Contains($"{Path.DirectorySeparatorChar}obj{Path.DirectorySeparatorChar}")
                 || file.Contains($"{Path.DirectorySeparatorChar}bin{Path.DirectorySeparatorChar}")
-                || file.Contains($"{Path.DirectorySeparatorChar}node_modules{Path.DirectorySeparatorChar}")
-                || file.Contains($"{Path.DirectorySeparatorChar}wwwroot{Path.DirectorySeparatorChar}"))
+                || file.Contains($"{Path.DirectorySeparatorChar}node_modules{Path.DirectorySeparatorChar}"))
             {
                 continue;
             }
@@ -133,7 +132,7 @@ public class CssClassAuditTests
             return result;
         }
 
-        // .razor files — literal class attributes
+        // .razor files - literal class attributes
         foreach (string file in Directory.EnumerateFiles(SrcBlazOrbit, "*.razor", SearchOption.AllDirectories))
         {
             if (file.Contains($"{Path.DirectorySeparatorChar}obj{Path.DirectorySeparatorChar}")
@@ -163,7 +162,7 @@ public class CssClassAuditTests
             }
         }
 
-        // .razor.cs and .cs files — string literals that look like CSS classes
+        // .razor.cs and .cs files - string literals that look like CSS classes
         foreach (string ext in new[] { "*.razor.cs", "*.cs" })
         {
             foreach (string file in Directory.EnumerateFiles(SrcBlazOrbit, ext, SearchOption.AllDirectories))

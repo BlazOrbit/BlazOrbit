@@ -1,7 +1,7 @@
 namespace BlazOrbit.Notifications;
 
 /// <summary>
-/// Default <see cref="INotificationStore"/> implementation — purely in-memory, scoped per
+/// Default <see cref="INotificationStore"/> implementation - purely in-memory, scoped per
 /// circuit / page. State evaporates on full page reload; consumers wanting persistence
 /// supply their own implementation.
 /// </summary>

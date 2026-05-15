@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Name: Closed_Start,
     Html:

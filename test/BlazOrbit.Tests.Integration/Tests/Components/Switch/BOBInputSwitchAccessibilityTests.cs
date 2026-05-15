@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -57,7 +57,7 @@ public class BOBInputSwitchAccessibilityTests
         IRenderedComponent<BOBInputSwitch> cut = ctx.Render<BOBInputSwitch>(p => p
             .Add(c => c.Label, "Dark mode"));
 
-        // Label acts as accessible name via `for` association — aria-label should be null
+        // Label acts as accessible name via `for` association - aria-label should be null
         cut.Find("input.bob-switch__input").GetAttribute("aria-label").Should().BeNull();
     }
 

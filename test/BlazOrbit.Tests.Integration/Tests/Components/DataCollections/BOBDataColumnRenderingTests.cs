@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -30,7 +30,7 @@ public class BOBDataColumnRenderingTests
                 b.CloseComponent();
             }));
 
-        // Assert — header cell rendered with column name
+        // Assert - header cell rendered with column name
         cut.Find("[role='columnheader']").TextContent.Trim().Should().Be("Full Name");
     }
 
@@ -75,7 +75,7 @@ public class BOBDataColumnRenderingTests
                 b.CloseComponent();
             }));
 
-        // Assert — template rendered in cell
+        // Assert - template rendered in cell
         cut.Find("[role='gridcell']").TextContent.Should().Be("[Alice]");
     }
 }

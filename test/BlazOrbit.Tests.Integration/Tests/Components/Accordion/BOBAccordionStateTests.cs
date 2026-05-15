@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -69,7 +69,7 @@ public class BOBAccordionStateTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — controlled (empty list) + InitiallyExpanded should be ignored
+        // Arrange - controlled (empty list) + InitiallyExpanded should be ignored
         static void frag(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder b)
         {
             b.OpenComponent<BOBAccordionItem>(0);

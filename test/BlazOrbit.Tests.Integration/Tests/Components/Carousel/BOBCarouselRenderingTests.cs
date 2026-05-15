@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -140,7 +140,7 @@ public class BOBCarouselRenderingTests
             .Add(c => c.IndicatorIcon, BOBIconKeys.UI.Plus)
             .Add(c => c.ChildContent, ThreeSlides));
 
-        // Assert — no dots, three svg icons inside indicators
+        // Assert - no dots, three svg icons inside indicators
         cut.FindAll(".bob-carousel__indicator-dot").Should().BeEmpty();
         cut.FindAll(".bob-carousel__indicator bob-component[data-bob-component='svg-icon']").Should().HaveCount(3);
     }

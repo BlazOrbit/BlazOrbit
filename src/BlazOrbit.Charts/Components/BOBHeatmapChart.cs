@@ -7,7 +7,7 @@ using System.Globalization;
 namespace BlazOrbit.Charts.Components;
 
 /// <summary>
-/// Heatmap — 2D matrix where each cell's intensity maps to a color in a
+/// Heatmap - 2D matrix where each cell's intensity maps to a color in a
 /// sequential ramp between <see cref="LowColor"/> and <see cref="HighColor"/>.
 /// Useful for correlation matrices, calendar heatmaps (GitHub-style),
 /// hourly traffic, retention cohorts.
@@ -175,7 +175,7 @@ public sealed class BOBHeatmapChart<TX, TY> : BOBChartBase<TX, TY>
                 Convert.ToInt32(color.Substring(5, 2), 16));
         }
 
-        // CSS variable — runtime evaluation isn't available server-side;
+        // CSS variable - runtime evaluation isn't available server-side;
         // pick a neutral pivot so the gradient still renders.
         return (200, 200, 200);
     }

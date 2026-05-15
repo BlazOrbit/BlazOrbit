@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
+using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 
 namespace BlazOrbit.Tests.Integration.Infrastructure;
 

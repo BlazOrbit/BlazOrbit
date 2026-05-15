@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Utilities;
+using BlazOrbit.Utilities;
 using FluentAssertions;
 using Microsoft.Extensions.Time.Testing;
 

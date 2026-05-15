@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using FluentAssertions;
 
 namespace BlazOrbit.Tests.Integration.Tests.Library;
@@ -15,7 +15,7 @@ public class BOBShadowPresetsTests
         // Arrange & Act
         ShadowStyle shadow = BOBShadowPresets.Elevation(0);
 
-        // Assert — level 0 → no visible shadow (0px 0px 0px 0px)
+        // Assert - level 0 → no visible shadow (0px 0px 0px 0px)
         string css = shadow.ToCss();
         css.Should().Contain("0px 0px 0px 0px");
     }
@@ -32,7 +32,7 @@ public class BOBShadowPresetsTests
         ShadowStyle shadow = BOBShadowPresets.Elevation(level);
         string css = shadow.ToCss();
 
-        // Assert — two shadow layers separated by ", "
+        // Assert - two shadow layers separated by ", "
         css.Should().Contain(", ", $"elevation {level} should produce key + ambient layers");
         css.Should().Contain("px", "shadow values must have pixel units");
         css.Should().Contain("color-mix", "opacity is expressed via color-mix");
@@ -44,7 +44,7 @@ public class BOBShadowPresetsTests
     [InlineData(100)]
     public void Elevation_Clamps_Level_To_0_24(int level)
     {
-        // Arrange & Act — should not throw
+        // Arrange & Act - should not throw
         Action act = () => BOBShadowPresets.Elevation(level);
 
         // Assert
@@ -69,7 +69,7 @@ public class BOBShadowPresetsTests
         ShadowStyle shadow = BOBShadowPresets.Elevation(4);
         string css = shadow.ToCss();
 
-        // Assert — default color is PaletteColor.Shadow → var(--palette-shadow)
+        // Assert - default color is PaletteColor.Shadow → var(--palette-shadow)
         css.Should().Contain("--palette-shadow");
     }
 
@@ -82,7 +82,7 @@ public class BOBShadowPresetsTests
         // Act
         string css = shadow.ToCss();
 
-        // Assert — format: [x]px [y]px [blur]px [spread]px color-mix(...)
+        // Assert - format: [x]px [y]px [blur]px [spread]px color-mix(...)
         css.Should().MatchRegex(@"\d+px \d+px \d+px \d+px color-mix\(");
     }
 }

@@ -1,4 +1,4 @@
-﻿@page "/components/charts/bar"
+@page "/components/charts/bar"
 
 @inject IStringLocalizer<BarChartPage> Loc
 
@@ -50,7 +50,7 @@
     </DocDemo>
 
     <DocDemo Key="Waterfall" Title="@Loc["Waterfall (P&L bridge)"]"
-             Description="@Loc["StackMode = Waterfall — single series where each bar represents a delta from the running cumulative of all previous bars. Standard format for P&L bridges (start → adjustments → end), budget vs actuals and cash-flow waterfalls."]">
+             Description="@Loc["StackMode = Waterfall - single series where each bar represents a delta from the running cumulative of all previous bars. Standard format for P&L bridges (start → adjustments → end), budget vs actuals and cash-flow waterfalls."]">
         <BOBBarChart TX="string" TY="decimal"
                      Series="_waterfallSeries"
                      Width="600" Height="340"
@@ -119,7 +119,7 @@
 
     private void HandleBarClick(BOBChartClickArgs<string, decimal> args)
     {
-        _clickMessage = $"Clicked: {args.SeriesLabel} — {args.X} = {args.Y}";
+        _clickMessage = $"Clicked: {args.SeriesLabel} - {args.X} = {args.Y}";
     }
 
     private static readonly IEnumerable<BOBChartSeries<string, decimal>> _singleSeries =
@@ -174,7 +174,7 @@
             }
     ];
 
-    // P&L by segment — mixed positive (Revenue, Bonus) and negative (Refunds,
+    // P&L by segment - mixed positive (Revenue, Bonus) and negative (Refunds,
     // Discounts) flows demonstrate Bidirectional stacking.
     private static readonly IEnumerable<BOBChartSeries<string, decimal>> _pnlSeries =
     [

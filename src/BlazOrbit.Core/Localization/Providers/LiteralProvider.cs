@@ -4,7 +4,7 @@ namespace BlazOrbit.Localization.Providers;
 
 /// <summary>
 /// Marker provider that declares the literal-fallback position in a bundle's chain. Always
-/// returns <see langword="false"/> — the source literal is carried by the caller (either the
+/// returns <see langword="false"/> - the source literal is carried by the caller (either the
 /// generator-emitted accessor method or <see cref="BobLocalizer{T}"/>) and surfaced as
 /// <see cref="Microsoft.Extensions.Localization.LocalizedString.ResourceNotFound"/> when no
 /// real provider matched.
@@ -18,7 +18,7 @@ namespace BlazOrbit.Localization.Providers;
 public sealed class LiteralProvider : IBobLocalizationProvider
 {
     /// <inheritdoc />
-    public bool TryGet(ulong hash, CultureInfo culture, out string? value)
+    public bool TryGet(BobLocalizationBundleSpec spec, ulong hash, CultureInfo culture, out string? value)
     {
         value = null;
         return false;

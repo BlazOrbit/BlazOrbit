@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components.Forms;
+namespace BlazOrbit.Components.Forms;
 
 /// <summary>
 /// Defines how the textarea can be resized by the user.

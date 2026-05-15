@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
         <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
@@ -27,7 +27,7 @@
 
     <!-- Per-TFM PublicAPI sidecars: net8 surfaces traditional `static (this T)` extension
          methods; net10 surfaces C# 14 `extension(T)` extension members. Same logical method,
-         different declared symbol — analyzer reports each form on its respective build. -->
+         different declared symbol - analyzer reports each form on its respective build. -->
     <ItemGroup>
         <AdditionalFiles Include="PublicAPI.Shipped.txt"/>
         <AdditionalFiles Include="PublicAPI.Unshipped.net8.txt" Condition="'$(TargetFramework)' == 'net8.0'"/>

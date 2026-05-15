@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -999,7 +999,7 @@ public class BOBInputDateTimeInteractionTests
     public async Task Should_Show_Required_Indicator_When_Required(BlazorScenario scenario)
     {
         // CSS-OPT-02 block B.5: required asterisk is rendered by CSS via
-        // [data-bob-required="true"] .bob-input__label::after — assert host attr.
+        // [data-bob-required="true"] .bob-input__label::after - assert host attr.
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         // Arrange & Act

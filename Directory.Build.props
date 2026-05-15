@@ -1,10 +1,10 @@
-﻿<Project>
+<Project>
 
     <!--
       Shared metadata and defaults for every project in the repository. Individual projects
       override values as needed.`VersionPrefix` lives here and CI workflows inject 
       `-p:Version=X.Y.Z[-suffix]` to override. Individual csproj
-      files must NOT pin `<Version>` — it would shadow the CI override and ship a misaligned
+      files must NOT pin `<Version>` - it would shadow the CI override and ship a misaligned
       package. Local `dotnet pack` produces `1.0.0.nupkg` by default; pass
       `-p:VersionSuffix=dev.<timestamp>` to avoid clashing with a published release.
     -->
@@ -94,7 +94,7 @@
     </ItemGroup>
 
     <!--
-      SourceLink provider — only attached to packable projects so non-shipping
+      SourceLink provider - only attached to packable projects so non-shipping
       code (tests, samples, docs) doesn't pull the analyzer needlessly.
       PrivateAssets="all" keeps it out of the consumer's transitive graph.
     -->

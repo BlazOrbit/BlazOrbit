@@ -1,4 +1,4 @@
-﻿.demo__preview {
+.demo__preview {
     padding: 2.25rem;
     background: linear-gradient(135deg,
     color-mix(in oklab, var(--palette-primary) 15%, var(--palette-surface)) 0%,

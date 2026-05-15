@@ -15,7 +15,7 @@ Paquete adicional requerido
 # Monthly distribution
 Distribución mensual
 
-# Polar-area / Coxcomb / Rose chart — pie variant where every slice has the same angular width and the radius encodes the magnitude. Ideal for cyclic data (months, hours-of-day) or when you want uniform angular slots.
+# Polar-area / Coxcomb / Rose chart - pie variant where every slice has the same angular width and the radius encodes the magnitude. Ideal for cyclic data (months, hours-of-day) or when you want uniform angular slots.
 Gráfico de área polar / Coxcomb / Rosa: variante de pastel donde cada porción tiene el mismo ancho angular y el radio codifica la magnitud. Ideal para datos cíclicos (meses, horas del día) o cuando deseas ranuras angulares uniformes.
 
 # This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs.

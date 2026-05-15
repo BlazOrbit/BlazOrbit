@@ -8,7 +8,7 @@ Localización
 
 
 
-# BOBLocalize — compile-time bundles, .tn translation files, pluggable providers, and a culture selector that ships with the integration packages.
+# BOBLocalize - compile-time bundles, .tn translation files, pluggable providers, and a culture selector that ships with the integration packages.
 BOBLocalize: paquetes en tiempo de compilación, archivos de traducción .tn, proveedores conectables y un selector de cultura que se incluye con los paquetes de integración.
 
 
@@ -18,17 +18,17 @@ Qué paquete instalar
 
 
 
-# <code>BlazOrbit.Localization.Wasm</code> — for Blazor WebAssembly apps. Persists the chosen culture in <code>localStorage</code>.
-<code>BlazOrbit.Localization.Wasm</code> — para aplicaciones Blazor WebAssembly. Persiste la cultura elegida en <code>localStorage</code>.
+# <code>BlazOrbit.Localization.Wasm</code> - for Blazor WebAssembly apps. Persists the chosen culture in <code>localStorage</code>.
+<code>BlazOrbit.Localization.Wasm</code> - para aplicaciones Blazor WebAssembly. Persiste la cultura elegida en <code>localStorage</code>.
 
 
 
-# <code>BlazOrbit.Localization.Server</code> — for Blazor Server apps. Persists via an HTTP cookie and wires up <code>RequestLocalizationOptions</code>.
+# <code>BlazOrbit.Localization.Server</code> - for Blazor Server apps. Persists via an HTTP cookie and wires up <code>RequestLocalizationOptions</code>.
 <code>BlazOrbit.Localization.Server</code>: para aplicaciones de Blazor Server. Persiste a través de una cookie HTTP y conecta <code>RequestLocalizationOptions</code>.
 
 
 
-# Both packages register <code>BobLocalizer&lt;T&gt;</code> as the <code>IStringLocalizer&lt;T&gt;</code> implementation — components keep injecting the standard ASP.NET interface and resolve through BOBLocalize. No <code>.resx</code> files, no satellite assemblies.
+# Both packages register <code>BobLocalizer&lt;T&gt;</code> as the <code>IStringLocalizer&lt;T&gt;</code> implementation - components keep injecting the standard ASP.NET interface and resolve through BOBLocalize. No <code>.resx</code> files, no satellite assemblies.
 Ambos paquetes registran <code>BobLocalizer<T></code> como la implementación de <code>IStringLocalizer<T></code>: los componentes siguen inyectando la interfaz ASP.NET estándar y se resuelven a través de BOBLocalize. Sin archivos <code>.resx</code> ni ensamblajes satélite.
 
 
@@ -63,12 +63,12 @@ Se envía con <code>BlazOrbit.Localization.Shared</code> (una dependencia transi
 
 
 
-# <code>BOBCultureSelectorVariant.Dropdown</code> — a styled dropdown with flags and culture names.
+# <code>BOBCultureSelectorVariant.Dropdown</code> - a styled dropdown with flags and culture names.
 <code>BOBCultureSelectorVariant.Dropdown</code>: un menú desplegable con estilos, banderas y nombres culturales.
 
 
 
-# <code>BOBCultureSelectorVariant.Flags</code> — one flag button per supported culture.
+# <code>BOBCultureSelectorVariant.Flags</code> - one flag button per supported culture.
 <code>BOBCultureSelectorVariant.Flags</code>: un botón de bandera por cultura admitida.
 
 
@@ -78,7 +78,7 @@ Creando tus propias cadenas
 
 
 
-# Translations live in <code>.tn</code> files — a tiny escape-minimal text format — and are packaged into <em>bundles</em>. A bundle is announced with an assembly-level attribute that names a <em>marker type</em>; the source generator picks up the marker and bakes every <code>.tn</code> file under <code>Translations/</code> into a compile-time <code>FrozenDictionary</code>.
+# Translations live in <code>.tn</code> files - a tiny escape-minimal text format - and are packaged into <em>bundles</em>. A bundle is announced with an assembly-level attribute that names a <em>marker type</em>; the source generator picks up the marker and bakes every <code>.tn</code> file under <code>Translations/</code> into a compile-time <code>FrozenDictionary</code>.
 Las traducciones se guardan en archivos <code>.tn</code> (un pequeño formato de texto con escape mínimo) y se empaquetan en <em>paquetes</em>. Un paquete se anuncia con un atributo de nivel de ensamblaje que nombra un <em>tipo de marcador</em>; el generador de código fuente recoge el marcador y hornea cada archivo <code>.tn</code> bajo <code>Translations/</code> en un <code>FrozenDictionary</code> en tiempo de compilación.
 
 
@@ -88,7 +88,7 @@ Las traducciones se guardan en archivos <code>.tn</code> (un pequeño formato de
 
 
 
-# typeof(...) is the marker — it can be an empty class or any existing type. The <code>DefaultCulture</code> property is the terminal fallback for the bundle's provider chain; <code>TranslationsFolder</code> (defaults to <code>"Translations"</code>) controls where the generator looks for matching <code>.tn</code> files.
+# typeof(...) is the marker - it can be an empty class or any existing type. The <code>DefaultCulture</code> property is the terminal fallback for the bundle's provider chain; <code>TranslationsFolder</code> (defaults to <code>"Translations"</code>) controls where the generator looks for matching <code>.tn</code> files.
 typeof(...) es el marcador; puede ser una clase vacía o cualquier tipo existente. La propiedad <code>DefaultCulture</code> es el terminal alternativo para la cadena de proveedores del paquete; <code>TranslationsFolder</code> (por defecto <code>"Translations"</code>) controla dónde busca el generador los archivos <code>.tn</code> coincidentes.
 
 
@@ -108,7 +108,7 @@ Las líneas <code>#</code> introducen claves, la siguiente línea no vacía es e
 
 
 
-# The generator runs as an analyzer reference and reads the <code>.tn</code> files declared as <code>AdditionalFiles</code>. It emits a <code>[ModuleInitializer]</code> that registers every bundle with <code>BobLocalize</code> at assembly load — no startup code required.
+# The generator runs as an analyzer reference and reads the <code>.tn</code> files declared as <code>AdditionalFiles</code>. It emits a <code>[ModuleInitializer]</code> that registers every bundle with <code>BobLocalize</code> at assembly load - no startup code required.
 El generador se ejecuta como referencia del analizador y lee los archivos <code>.tn</code> declarados como <code>AdditionalFiles</code>. Emite un <code>[ModuleInitializer]</code> que registra cada paquete con <code>BobLocalize</code> durante la carga del ensamblado; no se requiere código de inicio.
 
 
@@ -138,7 +138,7 @@ Proveedores personalizados
 
 
 
-# BOBLocalize resolves a lookup by running a <em>chain</em> of <code>IBobLocalizationProvider</code> implementations. The default chain is <code>[BundleProvider, LiteralProvider]</code> — <code>BundleProvider</code> hits the compile-time table, <code>LiteralProvider</code> is the sentinel that surfaces <code>ResourceNotFound = true</code>. Custom providers plug in for scenarios like database-backed translations or CMS strings.
+# BOBLocalize resolves a lookup by running a <em>chain</em> of <code>IBobLocalizationProvider</code> implementations. The default chain is <code>[BundleProvider, LiteralProvider]</code> - <code>BundleProvider</code> hits the compile-time table, <code>LiteralProvider</code> is the sentinel that surfaces <code>ResourceNotFound = true</code>. Custom providers plug in for scenarios like database-backed translations or CMS strings.
 BOBLocalize resuelve una búsqueda ejecutando una <em>cadena</em> de implementaciones de <code>IBobLocalizationProvider</code>. La cadena predeterminada es <code>[BundleProvider, LiteralProvider]</code>: <code>BundleProvider</code> llega a la tabla de tiempo de compilación, <code>LiteralProvider</code> es el centinela que muestra <code>ResourceNotFound = true</code>. Los proveedores personalizados se conectan para escenarios como traducciones respaldadas por bases de datos o cadenas CMS.
 
 
@@ -158,7 +158,7 @@ Cuando una traducción incluye marcado (<code><strong></code>, <code><br /></cod
 
 
 
-# <strong>Threat model.</strong> The pattern is safe while two invariants hold: translations live in source-controlled <code>.tn</code> files (audited the same way as inline Razor markup), and dynamic values reach the template only as format arguments — never concatenated into the key string. If a custom provider sources translations from user-editable storage (CMS, DB column), run an HTML sanitiser <em>before</em> wrapping in <code>MarkupString</code>; the helper only encodes arguments, not the template.
+# <strong>Threat model.</strong> The pattern is safe while two invariants hold: translations live in source-controlled <code>.tn</code> files (audited the same way as inline Razor markup), and dynamic values reach the template only as format arguments - never concatenated into the key string. If a custom provider sources translations from user-editable storage (CMS, DB column), run an HTML sanitiser <em>before</em> wrapping in <code>MarkupString</code>; the helper only encodes arguments, not the template.
 <strong>Modelo de amenaza.</strong> El patrón es seguro mientras se mantengan dos invariantes: las traducciones se encuentran en archivos <code>.tn</code> controlados por el código fuente (auditados de la misma manera que el marcado Razor en línea) y los valores dinámicos llegan a la plantilla solo como argumentos de formato, nunca concatenados en la cadena de clave. Si un proveedor personalizado obtiene traducciones del almacenamiento editable por el usuario (CMS, columna de base de datos), ejecute un desinfectante HTML <em>antes</em> de empaquetar en <code>MarkupString</code>; el ayudante sólo codifica argumentos, no la plantilla.
 
 
@@ -178,22 +178,22 @@ Por qué BOBLocalize en lugar de resx nativo
 
 
 
-# <strong>Compile-time bundles</strong> — every <code>.tn</code> hashes to a baked <code>FrozenDictionary&lt;ulong, string&gt;</code>. No <code>ResourceManager</code> reflection, no satellite-assembly probing.
+# <strong>Compile-time bundles</strong> - every <code>.tn</code> hashes to a baked <code>FrozenDictionary&lt;ulong, string&gt;</code>. No <code>ResourceManager</code> reflection, no satellite-assembly probing.
 <strong>Paquetes en tiempo de compilación</strong>: cada <code>.tn</code> se convierte en un <code>FrozenDictionary<ulong, string></code> integrado. No hay reflexión <code>ResourceManager</code>, ni sondeo del ensamblaje del satélite.
 
 
 
-# <strong>No null returns</strong> — when no provider answers, the literal key (formatted with supplied arguments) is the value and <code>ResourceNotFound = true</code> surfaces the diagnostic.
+# <strong>No null returns</strong> - when no provider answers, the literal key (formatted with supplied arguments) is the value and <code>ResourceNotFound = true</code> surfaces the diagnostic.
 <strong>No hay devoluciones nulas</strong>: cuando ningún proveedor responde, la clave literal (formateada con los argumentos proporcionados) es el valor y <code>ResourceNotFound = true</code> muestra el diagnóstico.
 
 
 
-# <strong>Pluggable providers</strong> — register a <code>DbProvider</code> ahead of <code>BundleProvider</code> to overlay CMS edits on top of shipped translations.
+# <strong>Pluggable providers</strong> - register a <code>DbProvider</code> ahead of <code>BundleProvider</code> to overlay CMS edits on top of shipped translations.
 <strong>Proveedores conectables</strong>: registre un <code>DbProvider</code> antes de <code>BundleProvider</code> para superponer las ediciones de CMS sobre las traducciones enviadas.
 
 
 
-# <strong>Compatible with <code>IStringLocalizer&lt;T&gt;</code></strong> — components keep the familiar Microsoft contract; only the implementation changes.
+# <strong>Compatible with <code>IStringLocalizer&lt;T&gt;</code></strong> - components keep the familiar Microsoft contract; only the implementation changes.
 <strong>Compatible con <code>IStringLocalizer<T></code></strong>: los componentes mantienen el contrato familiar de Microsoft; sólo cambia la implementación.
 
 

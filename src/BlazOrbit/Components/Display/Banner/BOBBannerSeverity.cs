@@ -1,4 +1,4 @@
-namespace BlazOrbit.Components.Display;
+namespace BlazOrbit.Components;
 
 /// <summary>
 /// Tone of a <see cref="BOBBanner"/>. Drives the icon, palette accent and screen-reader role.

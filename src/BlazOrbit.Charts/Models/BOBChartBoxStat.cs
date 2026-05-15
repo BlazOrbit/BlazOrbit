@@ -28,7 +28,7 @@ public sealed class BOBChartBoxStat<TX>
     /// <summary>Whisker maximum (often <c>Q3 + 1.5·IQR</c>).</summary>
     public double Max { get; init; }
 
-    /// <summary>Outliers — observations beyond the whiskers, drawn as dots.</summary>
+    /// <summary>Outliers - observations beyond the whiskers, drawn as dots.</summary>
     public IEnumerable<double> Outliers { get; init; } = [];
 
     /// <summary>Optional explicit color for this box.</summary>
