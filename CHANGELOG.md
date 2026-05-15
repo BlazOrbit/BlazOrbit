@@ -1,15 +1,13 @@
-# Changelog
+﻿# Changelog
 
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.0] - 2026-05-15
 
-## [1.0.0-preview1] - 2026-05-01
-
-First public preview of BlazOrbit - a modern, accessible component library for Blazor.
+First stable release of BlazOrbit — a modern, accessible component library for Blazor Server and WebAssembly.
 
 ### What's Included
 
@@ -35,14 +33,16 @@ First public preview of BlazOrbit - a modern, accessible component library for B
 - **InputNumberSlider** - Single-thumb numeric slider with min, max, step, ticks, and value label. Supports vertical orientation.
 - **InputRangeSlider** - Two-thumb range slider for selecting minimum and maximum values. Supports validation and ticks.
 
-#### Display
+#### Display & Media
 - **Avatar / AvatarGroup** - Image avatar with initials fallback (deterministic gradient), shape and status variants. Group stacking with max-overflow.
 - **Banner** - Persistent severity message with auto-icon, dismiss affordance and an action slot.
 - **Badge / NotificationBadge** - Compact label for status, counts, or tags. Circular, dot-only, or with content variants.
+- **Carousel** - Slideshow with autoplay, looping, swipe gestures, indicators, and custom transitions.
 - **Chip / ChipGroup** - Compact tag for filters, selections and removable inline items. Group with overflow and input for free-text chips.
 - **ProgressBar / ProgressRing / ProgressIcon** - Linear and circular progress indicators with determinate, indeterminate, and segmented modes.
 - **Rating** - Star rating with optional half-step, hover preview, and full keyboard navigation.
 - **StatCard** - Compact KPI card with value, delta, trend arrow, optional sparkline slot and footer text.
+- **SvgIcon** - Render SVG icons from bundled Material or UI sets, or provide your own custom vector paths.
 
 #### Layout & Containers
 - **Accordion / AccordionItem** - Vertically stacked, expandable panels. Choose between multi-open, single-open, or controlled modes.
@@ -68,7 +68,7 @@ First public preview of BlazOrbit - a modern, accessible component library for B
 - **DataCards** - Responsive card grid with sorting, filtering, pagination, selection, and custom templates.
 - **DataGrid / DataColumn** - Strongly-typed tabular data with sorting, filtering, pagination, selection, custom cell editors, and inline editing.
 
-#### Charts (15 SVG chart types)
+#### Charts (22 SVG chart types)
 - **BarChart** - Vertical bar chart with multi-series support. Categorical X axis.
 - **LineChart / Sparkline** - Continuous line chart with smooth curves, per-point markers, tooltips, zoom, annotations and area fill. Sparkline variant hides axes for inline KPI use.
 - **AreaChart** - Area chart with filled regions between the line and the baseline. Supports overlapping series and smooth curves.
@@ -83,24 +83,27 @@ First public preview of BlazOrbit - a modern, accessible component library for B
 - **CandlestickChart** - Candlestick chart for financial time series.
 - **FunnelChart** - Multi-stage drop-off visualization.
 - **GaugeChart** - KPI gauge - single value rendered as an arc fill against a track.
+- **TreemapChart** - Hierarchical rectangles, squarified layout, optional drilldown.
+- **SunburstChart** - Radial hierarchy with concentric arcs and drilldown.
+- **SankeyChart** - Flow diagram with ribbon links between node columns.
+- **StockChart** - Candlestick + technical-analysis overlays (RSI, MACD, Bollinger, volume).
+- **MixedChart** - Combined bar / line / area on shared and secondary axes.
+- **FilterContextChart** - Cross-filter coordination layer for dashboards.
 
-#### Feedback
-- **Dialog / Drawer** - Accessible modal dialogs and edge-anchored drawers. Use declaratively in markup or imperatively via `IDialogService`.
+#### Services & Overlays
+- **Dialog / Drawer** - Accessible modal dialogs and edge-anchored drawers. Use declaratively in markup or imperatively via `IModalService`.
 - **ModalContainer / ModalHost** - Global modal host that renders dialogs and drawers at the app root.
 - **Toast / ToastHost** - Transient toast notifications with six positions, configurable duration, animations, and severity levels.
-- **ConfirmDialog** - Themed replacement for `window.confirm()` - async, severity-aware, modal-stack-aware.
+- **ConfirmDialog / ConfirmService** - Themed replacement for `window.confirm()` - async, severity-aware, modal-stack-aware.
 - **Tooltip** - Context popups with 12 placements, five triggers, interactive content, delays, and arrow indicator.
-
-#### Utils
-- **Draggable** - Make any element mouse-draggable with fine-grained events.
-- **SvgIcon** - Render SVG icons from bundled Material or UI sets, or provide your own custom vector paths.
-- **ThemeSelector** - Theme toggle switch between light, dark, and custom themes. Automatically persists selection and applies `data-bob-theme` to `<html>`.
-- **Initializer** - App-shell initializer that mounts theme management, modal host, and toast host.
-
-#### Services
-- **ConfirmService** - Imperative confirmation dialogs via `IConfirmService` with severity-aware defaults.
 - **HotkeyService** - Global keyboard shortcut registry with auto-cleanup, modifier-aware combos, and scoped contexts.
 - **NotificationCenter** - Persistent inbox-style notifications with a paired bell badge.
+
+#### Utilities
+- **Draggable** - Make any element mouse-draggable with fine-grained events.
+- **ThemeSelector** - Theme toggle switch between light, dark, and custom themes. Automatically persists selection and applies `data-bob-theme` to `<html>`.
+- **DateTimePattern** - Reusable masked input pattern for date/time fields.
+- **Initializer** - App-shell initializer that mounts theme management, modal host, and toast host.
 
 ### Architecture Highlights
 
@@ -112,13 +115,15 @@ First public preview of BlazOrbit - a modern, accessible component library for B
   `--bob-inline-*`. The shipped Theme Generator tool exposes both palette and tokens as a live editor with JSON/CSS/C#
   export.
 - **Component variants** - register custom render templates per component type through `AddBlazOrbitVariants(...)`.
-- **JS interop modules** - minimal, tree-shaken TypeScript bundles for ripple, dropdowns, modals, color-picker,
-  clipboard, draggable, theme switching, and local-storage.
+- **JS interop modules** - hand-written, JSDoc-typed ESM bundles for ripple, dropdowns, modals, color-picker,
+  clipboard, draggable, theme switching, and local-storage. No build-time JS toolchain — `dotnet build` is the
+  only step a consumer needs.
 - **Accessibility first** - WCAG 2.2 AA compliant focus states, `aria-*` attributes, reduced-motion support, and
   keyboard navigation built in.
 - **Localization (BOBLocalize)** - compile-time translation bundles from `.tn` text files via Roslyn source generator;
   zero runtime reflection, no `.resx` or satellite assemblies. Pluggable provider chain (`IBobLocalizationProvider`)
-  supports database or CMS overlays. Ships with `BlazOrbit.Localization.Server` (cookie-based) and
+  supports database or CMS overlays. Translation lookup is strictly bundle-scoped — two bundles that share a source
+  literal never leak translations across each other. Ships with `BlazOrbit.Localization.Server` (cookie-based) and
   `BlazOrbit.Localization.Wasm` (`localStorage`-based) packages, both providing `BOBCultureSelector` with Dropdown
   and Flags variants. Components consume the standard `IStringLocalizer<T>` interface via `BobLocalizer<T>`.
 - **Optional integrations** - `BlazOrbit.FormsFluentValidation` for FluentValidation-powered form validation, and
@@ -127,4 +132,4 @@ First public preview of BlazOrbit - a modern, accessible component library for B
 
 ---
 
-[Unreleased]: https://github.com/BlazOrbit/BlazOrbit
+[1.0.0]: https://github.com/BlazOrbit/BlazOrbit/releases/tag/v1.0.0

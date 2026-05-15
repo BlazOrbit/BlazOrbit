@@ -73,14 +73,17 @@ builder.Services.AddBlazOrbit();          // required: services, JS interop, IMo
 @using BlazOrbit
 @using BlazOrbit.Components
 @using BlazOrbit.Components.Forms
-@using BlazOrbit.Components.Layout
-@using BlazOrbit.Components.Layout.Services   @* IToastService, IModalService *@
 @using BlazOrbit.Core.Css                     @* PaletteColor *@
 ```
 
-For Blazor WebAssembly hosts, also `@using BlazOrbit.Components.Wasm`. Add
-`@using BlazOrbit.Components.Utils` only when you reference `BOBDateTimePattern`
-(everything else under `Utils/` declares `@namespace BlazOrbit.Components`).
+`IToastService`, `IModalService`, `BOBDialog`, `BOBDrawer`, `BOBCard`,
+`BOBPerformanceDashboard`, `BOBDateTimePattern`, etc. all live in
+`BlazOrbit.Components` — the single import covers them. Forms inputs keep
+their own `BlazOrbit.Components.Forms` namespace; dropdown internals live
+in `BlazOrbit.Components.Forms.Dropdown` (rarely imported directly).
+
+For Blazor WebAssembly hosts, add `@using BlazOrbit.Components.Wasm` for
+`BOBCultureSelector` (ships with `BlazOrbit.Localization.Wasm`).
 
 ### 3. Layout (`MainLayout.razor` or `App.razor`)
 
@@ -197,31 +200,34 @@ overrides, link them **after** `blazorbit.css`.
 
 ## Component catalog
 
-Full per-component parameter tables → `references/components.md`. High-level grouping:
+Full per-component parameter tables → `references/components.md`. The
+catalog is now flat: every component lives in `BlazOrbit.Components`
+except form inputs (`BlazOrbit.Components.Forms`) and the dropdown
+internals (`BlazOrbit.Components.Forms.Dropdown`). The grouping below is
+functional, not namespace-based.
 
-- **Generic** (`BlazOrbit.Components`)
-  Buttons & feedback: `BOBButton`, `BOBBadge`, `BOBNotificationBadge`, `BOBTooltip`, `BOBDraggable`, `BOBSvgIcon`, `BOBCodeBlock`.
-  Containers: `BOBTabs` + `BOBTab`, `BOBAccordion` + `BOBAccordionItem`, `BOBCarousel` + `BOBCarouselItem`.
-  Selection / data: `BOBSelect<T>` (native `<select>` — feed plain `<option>` children via `ChildContent`), `BOBDataGrid<TItem>` + `BOBDataColumn<TItem>`, `BOBDataCards<TItem>`, `BOBTreeMenu<TItem>` + `BOBTreeMenuItem`, `BOBTreeSelector<TItem>` + `BOBTreeSelectorItem`.
+- **Actions & feedback**: `BOBButton`, `BOBBadge`, `BOBNotificationBadge`, `BOBTooltip`, `BOBDraggable`, `BOBSvgIcon`, `BOBCodeBlock`.
 
-- **Forms** (`BlazOrbit.Components.Forms`)
+- **Containers & navigation**: `BOBTabs` + `BOBTab`, `BOBAccordion` + `BOBAccordionItem`, `BOBCarousel` + `BOBCarouselItem`, `BOBBreadcrumbs`, `BOBStepper` + `BOBStep`, `BOBTimeline`.
+
+- **Selection & data**: `BOBSelect<T>` (native `<select>` — feed plain `<option>` children via `ChildContent`), `BOBDataGrid<TItem>` + `BOBDataColumn<TItem>`, `BOBDataCards<TItem>`, `BOBTreeMenu<TItem>` + `BOBTreeMenuItem`, `BOBTreeSelector<TItem>` + `BOBTreeSelectorItem`.
+
+- **Forms** (`BlazOrbit.Components.Forms`):
   `BOBInputText`, `BOBInputTextArea`, `BOBInputNumber<T>`, `BOBInputCheckbox<T>`, `BOBInputRadio<T>`, `BOBInputSwitch`, `BOBInputDateTime<T>`, `BOBInputColor`, `BOBInputDropdown<T>`, `BOBInputDropdownTree<TItem,TValue>`, `BOBInputNumberSlider<T>`, `BOBInputRangeSlider<T>`, `BOBInputPassword`, `BOBInputOtp`, `BOBInputFile`, `BOBInputDateRange`, `BOBAutoComplete<TItem>`. Presentation switch: `BOBSwitch<T>` (no validation; for non-form on/off UI). Standalone pickers: `BOBDatePicker`, `BOBTimePicker`, `BOBColorPicker`.
 
-- **Display** (`BlazOrbit.Components.Display`)
-  Feedback / progress: `BOBProgressIcon` (variant-driven Spinner/Ring/Dots/Bars), `BOBProgressBar`, `BOBProgressRing`, `BOBBanner`.
-  Identity / status: `BOBAvatar` + `BOBAvatarGroup`, `BOBChip`, `BOBRating`, `BOBStatCard`.
+- **Display & media**: `BOBAvatar` + `BOBAvatarGroup`, `BOBBanner`, `BOBChip` + `BOBChipGroup<TValue>`, `BOBProgressIcon` (variant-driven Spinner/Ring/Dots/Bars), `BOBProgressBar`, `BOBProgressRing`, `BOBRating`, `BOBStatCard`.
 
 > **`BOBSwitch<T>` vs `BOBInputSwitch`** — both render the same on/off control but `BOBInputSwitch` derives from `BOBInputComponentBase<bool,…>` and integrates with `EditForm` (`@bind-Value`, validation, `aria-invalid`); `BOBSwitch<T>` is a presentation component for free-floating on/off UI (settings toggles, header dark-mode flips). Use `BOBInputSwitch` whenever the value is part of an `EditForm` model.
 
-- **Layout** (`BlazOrbit.Components.Layout`)
-  Hosts: `BOBBlazorLayout`, `BOBInitializer`, `BOBModalHost`, `BOBToastHost`.
-  Surfaces: `BOBCard`, `BOBGrid` + `BOBGridItem`, `BOBFlexStack`, `BOBSidebarLayout`, `BOBStackedLayout`.
-  Overlays: `BOBDialog`, `BOBDrawer`. (Both can also be invoked imperatively via `IModalService`.)
-  Theme: `BOBThemeSelector`.
+- **Layout & shells**: `BOBBlazorLayout`, `BOBInitializer`, `BOBModalHost`, `BOBToastHost`, `BOBCard`, `BOBGrid` + `BOBGridItem`, `BOBFlexStack`, `BOBSidebarLayout`, `BOBStackedLayout`, `BOBAspectRatio`, `BOBContainer`, `BOBPageHeader`, `BOBSplitter`.
 
-- **Utils** (`BlazOrbit.Components.Utils`): `BOBDateTimePattern` (custom date/time mask).
+- **Overlays**: `BOBDialog`, `BOBDrawer` (declarative; also invokable via `IModalService`), `BOBConfirmDialog`.
 
-- **Diagnostics** (`BlazOrbit.Components.Diagnostics`, `DEBUG`-only): `BOBPerformanceDashboard`.
+- **Utilities**: `BOBThemeSelector`, `BOBDateTimePattern` (custom date/time mask).
+
+- **Developer** (`DEBUG`-only): `BOBPerformanceDashboard`.
+
+- **WebAssembly extras** (`BlazOrbit.Components.Wasm`): `BOBCultureSelector` — ships with `BlazOrbit.Localization.Wasm`.
 
 > Toasts and modals are service-driven. Consumers do not place `BOBToast` directly; they call `IToastService.ShowAsync<TBody>(…)` and let `BOBToastHost` (mounted by `BOBBlazorLayout`) render it. Same pattern for dialogs/drawers via `IModalService`.
 
@@ -684,7 +690,7 @@ its close handle. Use `DialogOptions` / `DrawerOptions` for size, position
 #### `IModalContent` + `ModalReference` — full contract
 
 ```csharp
-namespace BlazOrbit.Components.Layout;
+namespace BlazOrbit.Components;
 
 public interface IModalContent
 {

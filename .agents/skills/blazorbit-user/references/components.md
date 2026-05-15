@@ -51,7 +51,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBAspectRatio`
 
-- **Namespace**: `BlazOrbit.Components.Layout`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 
 ### Parameters
@@ -104,6 +104,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `SuffixColor` | `string` | `BOBAutoComplete` |
 | `SuffixIcon` | `IconKey?` | `BOBAutoComplete` |
 | `SuffixText` | `string` | `BOBAutoComplete` |
+| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `UnresolvedStringError` | `string` | `BOBAutoComplete` |
 | `Value` | `TItem` | `InputBase` |
 | `ValueChanged` | `EventCallback<TItem>` | `InputBase` |
@@ -112,7 +113,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBAvatar`
 
-- **Namespace**: `BlazOrbit.Components.Display`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 - **Implements**: `IHasBackgroundColor`, `IHasSize`
 
@@ -132,7 +133,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBAvatarGroup`
 
-- **Namespace**: `BlazOrbit.Components.Display`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 - **Implements**: `IHasSize`
 
@@ -169,7 +170,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBBanner`
 
-- **Namespace**: `BlazOrbit.Components.Display`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 - **Implements**: `IHasSize`
 
@@ -192,7 +193,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBBlazorLayout`
 
-- **Namespace**: `BlazOrbit.Components.Layout`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `LayoutComponentBase`
 
 ### Parameters
@@ -203,7 +204,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBBreadcrumbs`
 
-- **Namespace**: `BlazOrbit.Components.Navigation`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 - **Implements**: `IHasSize`
 
@@ -254,7 +255,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBCard`
 
-- **Namespace**: `BlazOrbit.Components.Layout`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBVariantComponentBase<BOBCard, BOBCardVariant>`
 - **Implements**: `IHasBackgroundColor`, `IHasBorder`, `IHasColor`, `IHasElevation`, `IHasShadow`
 
@@ -326,7 +327,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBChip`
 
-- **Namespace**: `BlazOrbit.Components.Display`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 - **Implements**: `IHasActive`, `IHasColor`, `IHasDisabled`, `IHasSize`
 
@@ -355,7 +356,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBChipGroup<TValue>`
 
-- **Namespace**: `BlazOrbit.Components.Display`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 - **Implements**: `IHasColor`, `IHasDisabled`, `IHasSize`
 
@@ -414,7 +415,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBConfirmDialog`
 
-- **Namespace**: `BlazOrbit.Components.Layout`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 
 ### Parameters
@@ -431,7 +432,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBContainer`
 
-- **Namespace**: `BlazOrbit.Components.Layout`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 
 ### Parameters
@@ -653,7 +654,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBDateTimePattern`
 
-- **Namespace**: `BlazOrbit.Components.Utils`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBBasePattern`
 
 ### Parameters
@@ -674,7 +675,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBDialog`
 
-- **Namespace**: `BlazOrbit.Components.Layout`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 - **Implements**: `IHasElevation`
 
@@ -718,7 +719,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBDrawer`
 
-- **Namespace**: `BlazOrbit.Components.Layout`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 - **Implements**: `IHasElevation`
 
@@ -783,6 +784,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `SuffixColor` | `string` | `BOBDropdownContainer` |
 | `SuffixIcon` | `IconKey?` | `BOBDropdownContainer` |
 | `SuffixText` | `string` | `BOBDropdownContainer` |
+| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `Value` | `TValue` | `InputBase` |
 | `ValueChanged` | `EventCallback<TValue>` | `InputBase` |
 | `ValueExpression` | `Expression<Func<TValue>>` | `InputBase` |
@@ -790,7 +792,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBFlexStack`
 
-- **Namespace**: `BlazOrbit.Components.Layout`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 - **Implements**: `IHasBackgroundColor`, `IHasBorder`, `IHasColor`, `IHasFullWidth`, `IHasShadow`
 
@@ -830,7 +832,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBGrid`
 
-- **Namespace**: `BlazOrbit.Components.Layout`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 
 ### Parameters
@@ -875,7 +877,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBGridItem`
 
-- **Namespace**: `BlazOrbit.Components.Layout`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 
 ### Parameters
@@ -931,7 +933,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBInitializer`
 
-- **Namespace**: `BlazOrbit.Components.Layout`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `ComponentBase`
 
 ### Parameters
@@ -965,6 +967,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `ReadOnly` | `bool` | `BOBInputComponentBase` |
 | `Required` | `bool` | `BOBInputComponentBase` |
 | `Size` | `BOBSize` | `BOBInputCheckbox` |
+| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `UncheckedIcon` | `IconKey?` | `BOBInputCheckbox` |
 | `Value` | `TValue` | `InputBase` |
 | `ValueChanged` | `EventCallback<TValue>` | `InputBase` |
@@ -1009,6 +1012,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `SuffixColor` | `string` | `BOBInputColor` |
 | `SuffixIcon` | `IconKey?` | `BOBInputColor` |
 | `SuffixText` | `string` | `BOBInputColor` |
+| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `Value` | `CssColor` | `InputBase` |
 | `ValueChanged` | `EventCallback<CssColor>` | `InputBase` |
 | `ValueExpression` | `Expression<Func<CssColor>>` | `InputBase` |
@@ -1050,6 +1054,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `SuffixColor` | `string` | `BOBInputDateRange` |
 | `SuffixIcon` | `IconKey?` | `BOBInputDateRange` |
 | `SuffixText` | `string` | `BOBInputDateRange` |
+| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `Value` | `DateRange` | `InputBase` |
 | `ValueChanged` | `EventCallback<DateRange>` | `InputBase` |
 | `ValueExpression` | `Expression<Func<DateRange>>` | `InputBase` |
@@ -1088,6 +1093,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `SuffixColor` | `string` | `BOBInputDateTime` |
 | `SuffixIcon` | `IconKey?` | `BOBInputDateTime` |
 | `SuffixText` | `string` | `BOBInputDateTime` |
+| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `Value` | `TValue` | `InputBase` |
 | `ValueChanged` | `EventCallback<TValue>` | `InputBase` |
 | `ValueExpression` | `Expression<Func<TValue>>` | `InputBase` |
@@ -1274,6 +1280,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `SuffixColor` | `string` | `BOBInputNumber` |
 | `SuffixIcon` | `IconKey?` | `BOBInputNumber` |
 | `SuffixText` | `string` | `BOBInputNumber` |
+| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `UseThousandsSeparator` | `bool` | `BOBInputNumber` |
 | `Value` | `TValue` | `InputBase` |
 | `ValueChanged` | `EventCallback<TValue>` | `InputBase` |
@@ -1313,6 +1320,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `Size` | `BOBSize` | `BOBInputNumberSlider` |
 | `Step` | `TValue` | `BOBInputNumberSlider` |
 | `TickInterval` | `TValue?` | `BOBInputNumberSlider` |
+| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `Value` | `TValue` | `InputBase` |
 | `ValueChanged` | `EventCallback<TValue>` | `InputBase` |
 | `ValueExpression` | `Expression<Func<TValue>>` | `InputBase` |
@@ -1344,6 +1352,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `ReadOnly` | `bool` | `BOBInputComponentBase` |
 | `Required` | `bool` | `BOBInputComponentBase` |
 | `Size` | `BOBSize` | `BOBInputOtp` |
+| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `Value` | `string` | `InputBase` |
 | `ValueChanged` | `EventCallback<string>` | `InputBase` |
 | `ValueExpression` | `Expression<Func<string>>` | `InputBase` |
@@ -1403,6 +1412,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `SuffixColor` | `string` | `BOBInputPassword` |
 | `SuffixIcon` | `IconKey?` | `BOBInputPassword` |
 | `SuffixText` | `string` | `BOBInputPassword` |
+| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `UpdateOnInput` | `bool` | `BOBInputPassword` |
 | `Value` | `string` | `InputBase` |
 | `ValueChanged` | `EventCallback<string>` | `InputBase` |
@@ -1447,6 +1457,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `ReadOnly` | `bool` | `BOBInputComponentBase` |
 | `Required` | `bool` | `BOBInputComponentBase` |
 | `Size` | `BOBSize` | `BOBInputRadio` |
+| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `UncheckedIcon` | `IconKey?` | `BOBInputRadio` |
 | `Value` | `TValue` | `InputBase` |
 | `ValueChanged` | `EventCallback<TValue>` | `InputBase` |
@@ -1487,6 +1498,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `Size` | `BOBSize` | `BOBInputRangeSlider` |
 | `Step` | `TValue` | `BOBInputRangeSlider` |
 | `TickInterval` | `TValue?` | `BOBInputRangeSlider` |
+| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `Value` | `BOBNumericRange<TValue>` | `InputBase` |
 | `ValueChanged` | `EventCallback<BOBNumericRange<TValue>>` | `InputBase` |
 | `ValueExpression` | `Expression<Func<BOBNumericRange<TValue>>>` | `InputBase` |
@@ -1530,6 +1542,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `Size` | `BOBSize` | `BOBInputSwitch` |
 | `TrackColorActive` | `string` | `BOBInputSwitch` |
 | `TrackColorInactive` | `string` | `BOBInputSwitch` |
+| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `Value` | `bool` | `InputBase` |
 | `ValueChanged` | `EventCallback<bool>` | `InputBase` |
 | `ValueExpression` | `Expression<Func<bool>>` | `InputBase` |
@@ -1571,6 +1584,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `SuffixColor` | `string` | `BOBInputText` |
 | `SuffixIcon` | `IconKey?` | `BOBInputText` |
 | `SuffixText` | `string` | `BOBInputText` |
+| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `UpdateOnInput` | `bool` | `BOBInputText` |
 | `Value` | `string` | `InputBase` |
 | `ValueChanged` | `EventCallback<string>` | `InputBase` |
@@ -1617,6 +1631,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 | `SuffixColor` | `string` | `BOBInputTextArea` |
 | `SuffixIcon` | `IconKey?` | `BOBInputTextArea` |
 | `SuffixText` | `string` | `BOBInputTextArea` |
+| `TrackPerformanceEnabled` | `bool` | `BOBInputComponentBase` |
 | `UpdateOnInput` | `bool` | `BOBInputTextArea` |
 | `Value` | `string` | `InputBase` |
 | `ValueChanged` | `EventCallback<string>` | `InputBase` |
@@ -1625,7 +1640,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBModalContainer`
 
-- **Namespace**: `BlazOrbit.Components.Layout`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `ComponentBase`
 
 ### Parameters
@@ -1636,7 +1651,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBModalHost`
 
-- **Namespace**: `BlazOrbit.Components.Layout`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `ComponentBase`
 
 ## `BOBNotificationBadge`
@@ -1663,7 +1678,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBPageHeader`
 
-- **Namespace**: `BlazOrbit.Components.Layout`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 
 ### Parameters
@@ -1680,12 +1695,12 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBPerformanceDashboard`
 
-- **Namespace**: `BlazOrbit.Components.Diagnostics`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `ComponentBase`
 
 ## `BOBProgressBar`
 
-- **Namespace**: `BlazOrbit.Components.Display`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 - **Implements**: `IHasColor`, `IHasSize`
 
@@ -1723,7 +1738,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBProgressRing`
 
-- **Namespace**: `BlazOrbit.Components.Display`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 - **Implements**: `IHasColor`, `IHasSize`
 
@@ -1744,7 +1759,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBRating`
 
-- **Namespace**: `BlazOrbit.Components.Display`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 - **Implements**: `IHasColor`, `IHasDisabled`, `IHasReadOnly`, `IHasSize`
 
@@ -1770,7 +1785,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBSection`
 
-- **Namespace**: `BlazOrbit.Components.Layout`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 
 ### Parameters
@@ -1810,7 +1825,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBSidebarLayout`
 
-- **Namespace**: `BlazOrbit.Components.Layout`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 
 ### Parameters
@@ -1834,7 +1849,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBSplitter`
 
-- **Namespace**: `BlazOrbit.Components.Layout`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 
 ### Parameters
@@ -1848,7 +1863,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBSplitterPane`
 
-- **Namespace**: `BlazOrbit.Components.Layout`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `ComponentBase`
 
 ### Parameters
@@ -1863,7 +1878,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBStackedLayout`
 
-- **Namespace**: `BlazOrbit.Components.Layout`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 
 ### Parameters
@@ -1887,7 +1902,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBStatCard`
 
-- **Namespace**: `BlazOrbit.Components.Display`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 - **Implements**: `IHasSize`
 
@@ -1910,7 +1925,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBStep`
 
-- **Namespace**: `BlazOrbit.Components.Navigation`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `ComponentBase`
 
 ### Parameters
@@ -1926,7 +1941,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBStepper`
 
-- **Namespace**: `BlazOrbit.Components.Navigation`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 - **Implements**: `IHasSize`
 
@@ -2028,7 +2043,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBThemeSelector`
 
-- **Namespace**: `BlazOrbit.Components.Layout`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBVariantComponentBase<BOBThemeSelector, BOBThemeSelectorVariant>`
 
 ### Parameters
@@ -2044,7 +2059,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBTimeline`
 
-- **Namespace**: `BlazOrbit.Components.Navigation`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 - **Implements**: `IHasSize`
 
@@ -2080,7 +2095,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBToast`
 
-- **Namespace**: `BlazOrbit.Components.Layout`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBVariantComponentBase<BOBToast, BOBToastVariant>`
 - **Implements**: `IHasElevation`
 
@@ -2096,7 +2111,7 @@ from `Microsoft.AspNetCore.Components.ComponentBase` and **all** of its
 
 ## `BOBToastHost`
 
-- **Namespace**: `BlazOrbit.Components.Layout`
+- **Namespace**: `BlazOrbit.Components`
 - **Base**: `BOBComponentBase`
 
 ### Parameters

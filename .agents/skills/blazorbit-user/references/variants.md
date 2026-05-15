@@ -34,7 +34,7 @@ BOBButtonVariant.Custom(string name)
 
 ## `BOBCardVariant`
 
-- **Namespace**: `BlazOrbit.Components.Layout`
+- **Namespace**: `BlazOrbit.Components`
 
 ### Built-in values
 
@@ -178,7 +178,7 @@ BOBTabsVariant.Custom(string name)
 
 ## `BOBThemeSelectorVariant`
 
-- **Namespace**: `BlazOrbit.Components.Layout`
+- **Namespace**: `BlazOrbit.Components`
 
 ### Built-in values
 
@@ -193,7 +193,7 @@ BOBThemeSelectorVariant.Custom(string name)
 
 ## `BOBToastVariant`
 
-- **Namespace**: `BlazOrbit.Components.Layout`
+- **Namespace**: `BlazOrbit.Components`
 
 ### Built-in values
 

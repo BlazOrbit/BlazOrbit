@@ -23,7 +23,14 @@
 
 .EXAMPLE
     ./admin-tools.ps1 release 1.0.0
-    Publishes stable release (merge to master + tag)
+    Publishes stable release (merge to master + tag). VersionPrefix on
+    develop is left untouched — bump it manually afterwards.
+
+.EXAMPLE
+    ./admin-tools.ps1 release 1.0.0 -NextVersion 2.0.0
+    Same as above, plus bumps VersionPrefix on develop to 2.0.0 and pushes.
+    Use this to keep develop tracking the next major / minor lane while
+    master continues to receive patches on the released line.
 
 .NOTES
     Author: Samuel Maícas (@cdcsharp)
@@ -40,10 +47,10 @@ param(
     [string]$Name,
 
     [Parameter()]
-    [switch]$Force,
+    [string]$NextVersion,
 
     [Parameter()]
-    [switch]$DryRun
+    [switch]$Force
 )
 
 Set-StrictMode -Version Latest
@@ -241,6 +248,31 @@ function Test-BranchMergedViaPR {
     catch {
         return $false
     }
+}
+
+function Set-VersionPrefix {
+    param([string]$NewVersion)
+
+    $propsPath = "Directory.Build.props"
+    if (-not (Test-Path $propsPath)) {
+        Write-Warning "Directory.Build.props not found; skipping VersionPrefix update."
+        return $false
+    }
+
+    $content = [System.IO.File]::ReadAllText($propsPath)
+    $pattern = '<VersionPrefix>[^<]+</VersionPrefix>'
+    if ($content -notmatch $pattern) {
+        Write-Warning "<VersionPrefix> tag not found in $propsPath; skipping update."
+        return $false
+    }
+
+    $replacement = "<VersionPrefix>$NewVersion</VersionPrefix>"
+    $updated = [regex]::Replace($content, $pattern, $replacement)
+
+    $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
+    [System.IO.File]::WriteAllText($propsPath, $updated, $utf8NoBom)
+    Write-Success "VersionPrefix set to $NewVersion in $propsPath"
+    return $true
 }
 
 function Get-NextVersion {
@@ -480,8 +512,12 @@ function Move-PublicApiToShipped {
                 $unshippedContent | Set-Content -Path $shippedPath -Encoding UTF8 -NoNewline
             }
 
-            # Clear Unshipped
-            "" | Set-Content -Path $unshippedPath -Encoding UTF8
+            # Clear Unshipped to a true 0-byte file. `Set-Content -Encoding UTF8`
+            # would still emit a trailing line terminator (1-2 bytes), which CI
+            # diff jobs flag as a content change even though the file is
+            # semantically empty.
+            $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
+            [System.IO.File]::WriteAllText($unshippedPath, "", $utf8NoBom)
 
             Write-Info "Moved API: $($unshippedFile.Directory.Name)"
             $movedCount++
@@ -543,6 +579,13 @@ function Publish-Release {
         if (-not $result) { exit 1 }
     }
 
+    # Validate next-version format if supplied (used to bump VersionPrefix on develop
+    # after the release lands — keeps develop tracking the next major / minor lane).
+    if ($NextVersion -and $NextVersion -notmatch '^\d+\.\d+\.\d+$') {
+        Write-Error "Invalid -NextVersion format. Use: X.Y.Z (e.g.: 2.0.0)"
+        exit 1
+    }
+
     # Confirmation
     if (-not $Force) {
         Write-Warning "This will:"
@@ -551,6 +594,12 @@ function Publish-Release {
         Write-Host "  3. Create tag $tag"
         Write-Host "  4. Push to $($Config.Remote)"
         Write-Host "  5. Merge $($Config.MainBranch) into $($Config.DevelopBranch)"
+        if ($NextVersion) {
+            Write-Host "  6. Bump VersionPrefix on $($Config.DevelopBranch) to $NextVersion"
+        }
+        else {
+            Write-Host "  6. (skipped) Bump VersionPrefix on $($Config.DevelopBranch) — pass -NextVersion X.Y.Z to automate"
+        }
         $confirm = Read-Host "`nContinue? (type 'yes' to confirm)"
         if ($confirm -ne "yes") {
             Write-Info "Cancelled"
@@ -619,13 +668,38 @@ function Publish-Release {
     $result = Invoke-GitCommand -Command "merge" -Arguments @("$($Config.MainBranch)", "--no-edit")
     if (-not $result) { exit 1 }
 
-    # ---- STEP 7/8: Push develop ----
-    Write-Info "[STEP 7/8] Pushing $($Config.DevelopBranch)"
+    # ---- STEP 7/9: Push develop ----
+    Write-Info "[STEP 7/9] Pushing $($Config.DevelopBranch)"
     $result = Invoke-GitCommand -Command "push" -Arguments @("$($Config.Remote)", "$($Config.DevelopBranch)")
     if (-not $result) { exit 1 }
 
-    # ---- STEP 8/8: Cleanup release branch ----
-    Write-Info "[STEP 8/8] Deleting $releaseBranch (local + remote)"
+    # ---- STEP 8/9: Bump VersionPrefix on develop (optional) ----
+    # Develop tracks the next major / minor lane; patches on the released line
+    # stay on master and propagate to develop via cherry-pick (see Hotfix flow).
+    if ($NextVersion) {
+        Write-Info "[STEP 8/9] Bumping VersionPrefix on $($Config.DevelopBranch) to $NextVersion"
+        if (Set-VersionPrefix -NewVersion $NextVersion) {
+            $result = Invoke-GitCommand -Command "add" -Arguments @("Directory.Build.props")
+            if ($result) {
+                $result = Invoke-GitCommand -Command "commit" -Arguments @("-m", "chore: bump VersionPrefix to $NextVersion")
+                if ($result) {
+                    $result = Invoke-GitCommand -Command "push" -Arguments @("$($Config.Remote)", "$($Config.DevelopBranch)")
+                    if (-not $result) {
+                        Write-Warning "Could not push VersionPrefix bump, continuing..."
+                    }
+                }
+                else {
+                    Write-Warning "Could not commit VersionPrefix bump, continuing..."
+                }
+            }
+        }
+    }
+    else {
+        Write-Info "[STEP 8/9] (skipped) VersionPrefix bump — edit Directory.Build.props manually on $($Config.DevelopBranch), commit, push"
+    }
+
+    # ---- STEP 9/9: Cleanup release branch ----
+    Write-Info "[STEP 9/9] Deleting $releaseBranch (local + remote)"
     Invoke-GitCommand -Command "branch" -Arguments @("-d", "$releaseBranch") -IgnoreError | Out-Null
     Invoke-GitCommand -Command "push" -Arguments @("$($Config.Remote)", "--delete", "$releaseBranch") -IgnoreError | Out-Null
 
@@ -664,7 +738,15 @@ function New-Hotfix {
     if (-not $result) { exit 1 }
     
     Write-Success "Hotfix branch $hotfixBranch created"
-    Write-Info "Make the fix, commit, and then: git tag v$Version && git push origin v$Version"
+    Write-Info "Next steps:"
+    Write-Host "  1. Make the fix on $hotfixBranch and commit. Record the fix commit SHA."
+    Write-Host "  2. Tag and push: git tag v$Version && git push origin v$Version"
+    Write-Host "  3. Push the branch: git push $($Config.Remote) $hotfixBranch"
+    Write-Host "  4. Open a PR $hotfixBranch -> $($Config.MainBranch), squash-merge."
+    Write-Host "  5. Propagate to $($Config.DevelopBranch) via cherry-pick (NOT merge — master and develop diverge by VersionPrefix):"
+    Write-Host "       git checkout $($Config.DevelopBranch) && git pull"
+    Write-Host "       git cherry-pick <fix-commit-sha>"
+    Write-Host "       git push $($Config.Remote) $($Config.DevelopBranch)"
 }
 
 function Show-Changelog {
