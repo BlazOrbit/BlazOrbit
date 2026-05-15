@@ -1,6 +1,6 @@
 @page "/components/display/chip"
 
-@using BlazOrbit.Components.Display
+@using BlazOrbit.Components
 
 @inject IStringLocalizer<ChipPage> Loc
 
@@ -47,7 +47,7 @@
         <BOBChip Label="@Loc["Active"]" Selectable="true" Selected="true"/>
     </DocDemo>
 
-    <DocDemo Key="GroupSingle" Title="@Loc["Group — single select"]"
+    <DocDemo Key="GroupSingle" Title="@Loc["Group - single select"]"
              Description="@Loc["BOBChipGroup<TValue> cascades selection across nested chips. Single mode keeps at most one Value selected; tapping the active chip again clears it."]">
         <BOBChipGroup TValue="string"
                       @bind-SelectedValues="_priority"
@@ -60,7 +60,7 @@
         <p class="doc-demo__caption">@Loc["Selected:"] <code>@(_priority.FirstOrDefault() ?? "(none)")</code></p>
     </DocDemo>
 
-    <DocDemo Key="GroupMultiple" Title="@Loc["Group — multi select"]"
+    <DocDemo Key="GroupMultiple" Title="@Loc["Group - multi select"]"
              Description="@Loc["Multiple mode accumulates selections; tapping a selected chip removes it."]">
         <BOBChipGroup TValue="string"
                       @bind-SelectedValues="_languages"

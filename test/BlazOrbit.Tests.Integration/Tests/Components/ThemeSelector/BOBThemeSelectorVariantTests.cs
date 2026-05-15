@@ -1,4 +1,4 @@
-using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -46,7 +46,7 @@ public class BOBThemeSelectorVariantTests
         IRenderedComponent<BOBThemeSelector> cut = ctx.Render<BOBThemeSelector>(p => p
             .Add(c => c.Variant, BOBThemeSelectorVariant.SunMoon));
 
-        // Assert — SunMoon renders BOBSwitch (which has a bob-component)
+        // Assert - SunMoon renders BOBSwitch (which has a bob-component)
         cut.Find("bob-component").Should().NotBeNull();
     }
 }

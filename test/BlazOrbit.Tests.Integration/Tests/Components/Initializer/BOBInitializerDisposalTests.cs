@@ -1,4 +1,4 @@
-using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -83,7 +83,7 @@ public class BOBInitializerDisposalTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
         TrackedThemeInterop fake = RegisterFake(ctx);
 
-        // Arrange — simulate multiple mounts + one dispose in between
+        // Arrange - simulate multiple mounts + one dispose in between
         IRenderedComponent<BOBInitializer> first = ctx.Render<BOBInitializer>();
         IRenderedComponent<BOBInitializer> second = ctx.Render<BOBInitializer>();
         fake.SubscriberCount.Should().Be(2);
@@ -134,11 +134,11 @@ public class BOBInitializerDisposalTests
             ValueTask.FromException<Dictionary<string, string>>(
                 new JSDisconnectedException("circuit disposed"));
 
-        // Act — async void handler catches JSDisconnectedException
+        // Act - async void handler catches JSDisconnectedException
         fake.RaiseThemeChanged("light");
         await cut.InvokeAsync(() => Task.CompletedTask);
 
-        // Assert — no exception escaped; component still alive
+        // Assert - no exception escaped; component still alive
         cut.FindAll(".child").Should().HaveCount(1);
     }
 
@@ -161,7 +161,7 @@ public class BOBInitializerDisposalTests
         fake.RaiseThemeChanged("light");
         await cut.InvokeAsync(() => Task.CompletedTask);
 
-        // Assert — no exception escaped
+        // Assert - no exception escaped
         cut.FindAll(".child").Should().HaveCount(1);
     }
 }

@@ -17,7 +17,7 @@ namespace BlazOrbit.Localization;
 /// <para>
 /// Culture changes are signalled via <see cref="CultureChanged"/> so consumer caches (e.g.
 /// rendered output) can invalidate. The culture itself is read from
-/// <see cref="CultureInfo.CurrentUICulture"/> — this type does not own the active culture.
+/// <see cref="CultureInfo.CurrentUICulture"/> - this type does not own the active culture.
 /// </para>
 /// </remarks>
 public static class BobLocalize
@@ -25,8 +25,8 @@ public static class BobLocalize
     private static readonly ConcurrentDictionary<Type, BobLocalizationBundleSpec> _bundles = new();
 
     /// <summary>
-    /// Raised after the active culture changes. Consumers — typically components rendering
-    /// localized strings — subscribe to re-render on switch.
+    /// Raised after the active culture changes. Consumers - typically components rendering
+    /// localized strings - subscribe to re-render on switch.
     /// </summary>
     public static event Action<CultureInfo>? CultureChanged;
 

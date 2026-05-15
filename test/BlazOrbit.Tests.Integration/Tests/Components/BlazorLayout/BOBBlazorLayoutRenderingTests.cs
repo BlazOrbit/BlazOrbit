@@ -1,5 +1,4 @@
-using BlazOrbit.Components.Layout;
-using BlazOrbit.Components.Layout.Services;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using BlazOrbit.Tests.Integration.Tests.Components.Initializer;
@@ -48,7 +47,7 @@ public class BOBBlazorLayoutRenderingTests
         // Arrange & Act
         IRenderedComponent<BOBBlazorLayout> cut = ctx.Render<BOBBlazorLayout>();
 
-        // Assert — BOBToastHost is mounted (no toast visible by default)
+        // Assert - BOBToastHost is mounted (no toast visible by default)
         IToastService toastService = ctx.Services.GetRequiredService<IToastService>();
         toastService.ActiveToasts.Should().BeEmpty();
     }
@@ -63,7 +62,7 @@ public class BOBBlazorLayoutRenderingTests
         // Arrange & Act
         IRenderedComponent<BOBBlazorLayout> cut = ctx.Render<BOBBlazorLayout>();
 
-        // Assert — modal service available (no modals by default)
+        // Assert - modal service available (no modals by default)
         IModalService modalService = ctx.Services.GetRequiredService<IModalService>();
         modalService.Should().NotBeNull();
     }

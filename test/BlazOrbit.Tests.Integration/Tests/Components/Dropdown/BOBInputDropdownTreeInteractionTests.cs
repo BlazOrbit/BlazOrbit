@@ -92,7 +92,7 @@ public class BOBInputDropdownTreeInteractionTests
         // Act
         cut.Find("button.bob-dropdown__trigger").Click();
 
-        // Assert — tree node text should be in markup
+        // Assert - tree node text should be in markup
         cut.Markup.Should().Contain("Node 1");
         cut.Markup.Should().Contain("Node 2");
     }
@@ -115,7 +115,7 @@ public class BOBInputDropdownTreeInteractionTests
         // Act
         cut.Find("button.bob-dropdown__trigger").Click();
 
-        // Assert — tree nodes are rendered with correct content structure
+        // Assert - tree nodes are rendered with correct content structure
         IReadOnlyList<IElement> nodeContents = cut.FindAll(".bob-tree-selector__node-content");
         nodeContents.Should().NotBeEmpty();
         cut.Find(".bob-dropdown__tree-content").Should().NotBeNull();

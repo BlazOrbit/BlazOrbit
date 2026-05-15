@@ -11,9 +11,9 @@ namespace BlazOrbit.Charts.Components;
 /// Scatter / bubble chart. Each data point renders as an independent marker
 /// with no inter-point connection.
 /// <list type="bullet">
-/// <item><description><see cref="Series"/> — XY scatter with a constant
+/// <item><description><see cref="Series"/> - XY scatter with a constant
 ///     <see cref="MarkerRadius"/> per point.</description></item>
-/// <item><description><see cref="BubbleSeries"/> — bubble mode where the
+/// <item><description><see cref="BubbleSeries"/> - bubble mode where the
 ///     marker radius encodes a third dimension. Per-point sizes are auto-
 ///     scaled into <see cref="BubbleMinRadius"/>..<see cref="BubbleMaxRadius"/>
 ///     across all bubble series in the chart.</description></item>
@@ -157,7 +157,7 @@ public class BOBScatterChart<TX, TY> :
         double svgHeight = EffectiveHeight;
         ChartLayout layout = ChartLayout.Default(svgWidth, svgHeight);
 
-        // Y domain — union of all visible point Ys across both series sets.
+        // Y domain - union of all visible point Ys across both series sets.
         List<double> allY = scatterList.SelectMany(s => s.Points.Select(p => Numeric.ToDouble(p.Y)))
             .Concat(bubbleList.SelectMany(b => b.Points.Select(p => Numeric.ToDouble(p.Y))))
             .ToList();
@@ -168,7 +168,7 @@ public class BOBScatterChart<TX, TY> :
 
         LinearScale yScale = new(allY, layout.PlotBottom, layout.PlotTop, YAxis.Min, YAxis.Max);
 
-        // X scale — continuous (numeric / temporal) or categorical fallback.
+        // X scale - continuous (numeric / temporal) or categorical fallback.
         bool xContinuous = Numeric.IsContinuous<TX>();
         LinearScale? xLinear = null;
         CategoricalScale<TX>? xCat = null;
@@ -187,7 +187,7 @@ public class BOBScatterChart<TX, TY> :
             xCat = new CategoricalScale<TX>(categories, layout.PlotLeft, layout.PlotRight);
         }
 
-        // Bubble radius scale — auto from min/max of all bubble sizes.
+        // Bubble radius scale - auto from min/max of all bubble sizes.
         (double sMin, double sMax) = bubbleList.Count == 0
             ? (0, 1)
             : (bubbleList.SelectMany(b => b.Points).Min(p => p.Size),
@@ -205,7 +205,7 @@ public class BOBScatterChart<TX, TY> :
         RenderScatterSeries(builder, ref seq, scatterList, scatterOrig, layout, yScale, xLinear, xCat);
         RenderBubbleSeries(builder, ref seq, bubbleList, bubbleOrig, layout, yScale, xLinear, xCat, sMin, sMax);
 
-        // Reference lines on top of the data — thresholds need to stay legible.
+        // Reference lines on top of the data - thresholds need to stay legible.
         ReferenceLineRenderer.Render(builder, ref seq, layout, yScale, ReferenceLines);
 
         if (Annotations is not null)
@@ -432,7 +432,7 @@ public class BOBScatterChart<TX, TY> :
         {
             // Reuse the same lightweight rendering as BOBLineChart for
             // consistency. Only a subset is supported here (no text-anchor
-            // tweaking) — extend if scatter-specific layouts are needed.
+            // tweaking) - extend if scatter-specific layouts are needed.
             switch (ann)
             {
                 case BOBChartTextAnnotation<TX, TY> text:

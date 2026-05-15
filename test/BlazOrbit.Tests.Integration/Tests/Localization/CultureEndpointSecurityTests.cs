@@ -96,8 +96,8 @@ public class CultureEndpointSecurityTests
     [Theory]
     [InlineData("https://evil.com")] // absolute URL
     [InlineData("//evil.com")] // scheme-relative
-    [InlineData("http:evil.com")] // colon trick — parsed as relative by Uri but absolute by browser
-    [InlineData("/\\evil.com")] // backslash trick — IE/Edge quirk
+    [InlineData("http:evil.com")] // colon trick - parsed as relative by Uri but absolute by browser
+    [InlineData("/\\evil.com")] // backslash trick - IE/Edge quirk
     [InlineData("")] // empty
     public async Task Should_Fallback_To_Root_For_Untrusted_RedirectUri(string redirectUri)
     {

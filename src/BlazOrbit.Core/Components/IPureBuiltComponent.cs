@@ -18,7 +18,7 @@ namespace BlazOrbit.Components;
 /// </para>
 ///
 /// <para>
-/// If a component breaks the contract — for example by introducing an internal focus flag —
+/// If a component breaks the contract - for example by introducing an internal focus flag -
 /// drop the marker and revert to plain <see cref="IBuiltComponent"/>. The cache otherwise freezes
 /// the stale value and the component renders out of date.
 /// </para>

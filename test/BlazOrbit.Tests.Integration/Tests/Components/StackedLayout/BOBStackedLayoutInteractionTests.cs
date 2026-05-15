@@ -1,4 +1,4 @@
-using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -25,7 +25,7 @@ public class BOBStackedLayoutInteractionTests
         // Assert
         cut.Find(".bob-stacked-layout__toggle").GetAttribute("aria-expanded").Should().Be("true");
 
-        // Act — second click closes
+        // Act - second click closes
         cut.Find(".bob-stacked-layout__toggle").Click();
 
         // Assert
@@ -58,12 +58,12 @@ public class BOBStackedLayoutInteractionTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — ShowToggle default is true, but Nav == null gates it.
+        // Arrange & Act - ShowToggle default is true, but Nav == null gates it.
         IRenderedComponent<BOBStackedLayout> cut = ctx.Render<BOBStackedLayout>(p => p
             .Add(c => c.ShowToggle, true)
             .Add(c => c.ChildContent, b => b.AddContent(0, "m")));
 
-        // Assert — toggle must not exist if there is no nav to reveal
+        // Assert - toggle must not exist if there is no nav to reveal
         cut.FindAll(".bob-stacked-layout__toggle").Should().BeEmpty();
     }
 

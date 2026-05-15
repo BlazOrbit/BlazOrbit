@@ -1,4 +1,4 @@
-namespace BlazOrbit.Components.Display;
+namespace BlazOrbit.Components;
 
 /// <summary>
 /// Selection cardinality enforced by <see cref="BOBChipGroup{TValue}"/>. Drives whether a

@@ -4,7 +4,7 @@
 Acerca de BOBNotificationCenter
 
 
-# Every color is exposed as a CSS custom property (<code>--palette-*</code>) and every non-color primitive as a design token (<code>--bob-*</code>). Because the component library reads these variables at render time, changing a single token retunes the entire system — typography, sizing, motion, borders, focus outlines, and ripple effects — without recompiling.
+# Every color is exposed as a CSS custom property (<code>--palette-*</code>) and every non-color primitive as a design token (<code>--bob-*</code>). Because the component library reads these variables at render time, changing a single token retunes the entire system - typography, sizing, motion, borders, focus outlines, and ripple effects - without recompiling.
 Cada color se expone como una propiedad personalizada CSS (<code>--palette-*</code>) y cada primitivo no color como un token de diseño (<code>--bob-*</code>). Como la biblioteca de componentes lee estas variables en tiempo de renderizado, cambiar un solo token reajusta todo el sistema (tipografía, tamaño, movimiento, bordes, contornos de foco y efectos ripple) sin necesidad de recompilar.
 
 # Guide
@@ -16,7 +16,7 @@ Temas
 # Customize every color, size, and motion in the UI through CSS variables. Switch themes or override individual tokens to match your brand without touching component code.
 Personaliza cada color, tamaño y movimiento de la interfaz mediante variables CSS. Cambia de tema o sobrescribe tokens individuales para adaptarlos a tu marca sin tocar el código de los componentes.
 
-# <p>You can use <a href="/utils/themegenerator">Theme Generator</a> to create custom themes — both the color palette and the design tokens.</p>
+# <p>You can use <a href="/utils/themegenerator">Theme Generator</a> to create custom themes - both the color palette and the design tokens.</p>
 <p>Puedes usar el <a href="/utils/themegenerator">Generador de Temas</a> para crear temas personalizados, tanto la paleta de colores como los tokens de diseño.</p>
 
 # Two override surfaces
@@ -25,25 +25,25 @@ Dos superficies de sobrescritura
 # BlazOrbit exposes two complementary layers you can override from any consumer stylesheet:
 BlazOrbit expone dos capas complementarias que puedes sobrescribir desde cualquier hoja de estilos del consumidor:
 
-# <strong>Palette</strong> — semantic colors prefixed <code>--palette-*</code>. Drives every component automatically. Re-skin in seconds.
-<strong>Paleta</strong> — colores semánticos con prefijo <code>--palette-*</code>. Controla todos los componentes automáticamente. Cambia la apariencia en segundos.
+# <strong>Palette</strong> - semantic colors prefixed <code>--palette-*</code>. Drives every component automatically. Re-skin in seconds.
+<strong>Paleta</strong> - colores semánticos con prefijo <code>--palette-*</code>. Controla todos los componentes automáticamente. Cambia la apariencia en segundos.
 
-# <strong>Design tokens</strong> — non-color primitives prefixed <code>--bob-*</code>: typography, sizing, density, borders, z-index, opacity, focus outline, ripple, scrollbar, and family defaults (input/picker). Tweak to retune the entire system without touching components.
-<strong>Tokens de diseño</strong> — primitivos no color con prefijo <code>--bob-*</code>: tipografía, tamaño, densidad, bordes, z-index, opacidad, contorno de foco, ripple, scrollbar y valores predeterminados de familia (input/picker). Ajusta para reafinar todo el sistema sin tocar los componentes.
+# <strong>Design tokens</strong> - non-color primitives prefixed <code>--bob-*</code>: typography, sizing, density, borders, z-index, opacity, focus outline, ripple, scrollbar, and family defaults (input/picker). Tweak to retune the entire system without touching components.
+<strong>Tokens de diseño</strong> - primitivos no color con prefijo <code>--bob-*</code>: tipografía, tamaño, densidad, bordes, z-index, opacidad, contorno de foco, ripple, scrollbar y valores predeterminados de familia (input/picker). Ajusta para reafinar todo el sistema sin tocar los componentes.
 
-# Per-instance overrides flow through <code>--bob-inline-*</code> vars set automatically by <code>IHas*</code> parameters — you rarely touch those by hand.
+# Per-instance overrides flow through <code>--bob-inline-*</code> vars set automatically by <code>IHas*</code> parameters - you rarely touch those by hand.
 Las sobrescrituras por instancia fluyen a través de las variables <code>--bob-inline-*</code> establecidas automáticamente por los parámetros <code>IHas*</code>; raramente las tocas a mano.
 
 # Palette tokens
 Tokens de paleta
 
-# The theme exposes a semantic palette: <code>primary</code>, <code>secondary</code>, <code>background</code>, <code>surface</code>, <code>error</code>, <code>success</code>, <code>warning</code>, <code>info</code>, each paired with a <code>*-contrast</code> color for text. Structural extras — <code>border</code>, <code>shadow</code>, <code>highlight</code>, <code>hover-tint</code>, <code>active-tint</code> — control surfaces and states.
-El tema expone una paleta semántica: <code>primary</code>, <code>secondary</code>, <code>background</code>, <code>surface</code>, <code>error</code>, <code>success</code>, <code>warning</code>, <code>info</code>, cada uno emparejado con un color <code>*-contrast</code> para el texto. Extras estructurales — <code>border</code>, <code>shadow</code>, <code>highlight</code>, <code>hover-tint</code>, <code>active-tint</code> — controlan las superficies y los estados.
+# The theme exposes a semantic palette: <code>primary</code>, <code>secondary</code>, <code>background</code>, <code>surface</code>, <code>error</code>, <code>success</code>, <code>warning</code>, <code>info</code>, each paired with a <code>*-contrast</code> color for text. Structural extras - <code>border</code>, <code>shadow</code>, <code>highlight</code>, <code>hover-tint</code>, <code>active-tint</code> - control surfaces and states.
+El tema expone una paleta semántica: <code>primary</code>, <code>secondary</code>, <code>background</code>, <code>surface</code>, <code>error</code>, <code>success</code>, <code>warning</code>, <code>info</code>, cada uno emparejado con un color <code>*-contrast</code> para el texto. Extras estructurales - <code>border</code>, <code>shadow</code>, <code>highlight</code>, <code>hover-tint</code>, <code>active-tint</code> - controlan las superficies y los estados.
 
 # Design tokens
 Tokens de diseño
 
-# Beyond color, BlazOrbit exposes a complete catalog of <code>--bob-*</code> design tokens. Override at <code>:root</code> in your stylesheet to retune the whole system. None of them require a theme switch — they are theme-agnostic unless you scope them under a <code>html[data-bob-theme="&lt;id&gt;"]</code> block on purpose.
+# Beyond color, BlazOrbit exposes a complete catalog of <code>--bob-*</code> design tokens. Override at <code>:root</code> in your stylesheet to retune the whole system. None of them require a theme switch - they are theme-agnostic unless you scope them under a <code>html[data-bob-theme="&lt;id&gt;"]</code> block on purpose.
 Más allá del color, BlazOrbit expone un catálogo completo de tokens de diseño <code>--bob-*</code>. Sobrescribe en <code>:root</code> de tu hoja de estilos para reafinar todo el sistema. Ninguno requiere un cambio de tema; son agnósticos al tema a menos que los acotes deliberadamente bajo un bloque <code>html[data-bob-theme="&lt;id&gt;"]</code>.
 
 # Design tokens (full catalog with shipped defaults)
@@ -52,32 +52,32 @@ Tokens de diseño (catálogo completo con valores predeterminados incluidos)
 # Highlights:
 Destacados:
 
-# <code>--bob-size-multiplier</code> / <code>--bob-density-multiplier</code> — scale every component without breakpoints. The <code>[data-bob-size]</code> and <code>[data-bob-density]</code> data-attributes pick the right anchor automatically.
-<code>--bob-size-multiplier</code> / <code>--bob-density-multiplier</code> — escala todos los componentes sin puntos de ruptura. Los atributos de datos <code>[data-bob-size]</code> y <code>[data-bob-density]</code> seleccionan el ancla correcta automáticamente.
+# <code>--bob-size-multiplier</code> / <code>--bob-density-multiplier</code> - scale every component without breakpoints. The <code>[data-bob-size]</code> and <code>[data-bob-density]</code> data-attributes pick the right anchor automatically.
+<code>--bob-size-multiplier</code> / <code>--bob-density-multiplier</code> - escala todos los componentes sin puntos de ruptura. Los atributos de datos <code>[data-bob-size]</code> y <code>[data-bob-density]</code> seleccionan el ancla correcta automáticamente.
 
-# <code>--bob-font-family</code>, <code>--bob-font-family-heading</code>, <code>--bob-font-mono</code>, <code>--bob-font-size-base</code>, <code>--bob-line-height*</code> — typography stack and fluid base size.
-<code>--bob-font-family</code>, <code>--bob-font-family-heading</code>, <code>--bob-font-mono</code>, <code>--bob-font-size-base</code>, <code>--bob-line-height*</code> — pila tipográfica y tamaño base fluido.
+# <code>--bob-font-family</code>, <code>--bob-font-family-heading</code>, <code>--bob-font-mono</code>, <code>--bob-font-size-base</code>, <code>--bob-line-height*</code> - typography stack and fluid base size.
+<code>--bob-font-family</code>, <code>--bob-font-family-heading</code>, <code>--bob-font-mono</code>, <code>--bob-font-size-base</code>, <code>--bob-line-height*</code> - pila tipográfica y tamaño base fluido.
 
-# <code>--bob-border-width</code>, <code>--bob-border-style</code>, <code>--bob-border-radius</code> — global border defaults consumed by <code>IHasBorder</code>.
-<code>--bob-border-width</code>, <code>--bob-border-style</code>, <code>--bob-border-radius</code> — valores predeterminados de bordes globales consumidos por <code>IHasBorder</code>.
+# <code>--bob-border-width</code>, <code>--bob-border-style</code>, <code>--bob-border-radius</code> - global border defaults consumed by <code>IHasBorder</code>.
+<code>--bob-border-width</code>, <code>--bob-border-style</code>, <code>--bob-border-radius</code> - valores predeterminados de bordes globales consumidos por <code>IHasBorder</code>.
 
-# <code>--bob-input-*</code>, <code>--bob-picker-*</code> — family-wide defaults applied across every input and picker component.
-<code>--bob-input-*</code>, <code>--bob-picker-*</code> — valores predeterminados de toda la familia aplicados en todos los componentes input y picker.
+# <code>--bob-input-*</code>, <code>--bob-picker-*</code> - family-wide defaults applied across every input and picker component.
+<code>--bob-input-*</code>, <code>--bob-picker-*</code> - valores predeterminados de toda la familia aplicados en todos los componentes input y picker.
 
-# <code>--bob-z-*</code> — full z-index scale for dropdown / sticky / modal / tooltip / toast.
-<code>--bob-z-*</code> — escala completa de z-index para dropdown / sticky / modal / tooltip / toast.
+# <code>--bob-z-*</code> - full z-index scale for dropdown / sticky / modal / tooltip / toast.
+<code>--bob-z-*</code> - escala completa de z-index para dropdown / sticky / modal / tooltip / toast.
 
-# <code>--bob-opacity-disabled</code> / <code>--bob-opacity-placeholder</code> — visual state opacity.
-<code>--bob-opacity-disabled</code> / <code>--bob-opacity-placeholder</code> — opacidad del estado visual.
+# <code>--bob-opacity-disabled</code> / <code>--bob-opacity-placeholder</code> - visual state opacity.
+<code>--bob-opacity-disabled</code> / <code>--bob-opacity-placeholder</code> - opacidad del estado visual.
 
-# <code>--bob-highlight-outline</code> / <code>--bob-highlight-outline-offset</code> — focus-visible outline (WCAG 2.4.7).
-<code>--bob-highlight-outline</code> / <code>--bob-highlight-outline-offset</code> — contorno focus-visible (WCAG 2.4.7).
+# <code>--bob-highlight-outline</code> / <code>--bob-highlight-outline-offset</code> - focus-visible outline (WCAG 2.4.7).
+<code>--bob-highlight-outline</code> / <code>--bob-highlight-outline-offset</code> - contorno focus-visible (WCAG 2.4.7).
 
-# <code>--bob-ripple-color</code> / <code>--bob-ripple-duration</code> — ripple defaults; per-instance overrides via <code>IHasRipple</code>.
-<code>--bob-ripple-color</code> / <code>--bob-ripple-duration</code> — valores predeterminados de ripple; sobrescrituras por instancia mediante <code>IHasRipple</code>.
+# <code>--bob-ripple-color</code> / <code>--bob-ripple-duration</code> - ripple defaults; per-instance overrides via <code>IHasRipple</code>.
+<code>--bob-ripple-color</code> / <code>--bob-ripple-duration</code> - valores predeterminados de ripple; sobrescrituras por instancia mediante <code>IHasRipple</code>.
 
-# <code>--bob-scrollbar-*</code> — opt-in scrollbar styling.
-<code>--bob-scrollbar-*</code> — estilizado opt-in de la barra de desplazamiento.
+# <code>--bob-scrollbar-*</code> - opt-in scrollbar styling.
+<code>--bob-scrollbar-*</code> - estilizado opt-in de la barra de desplazamiento.
 
 # Switching light / dark
 Cambiar claro / oscuro
@@ -106,13 +106,13 @@ La forma más sencilla de cambiar la apariencia de la biblioteca es sobrescribir
 # wwwroot/css/my-theme.css
 wwwroot/css/my-theme.css
 
-# <strong>This very site</strong> uses <code>#c41236</code> as its primary color — achieved by overriding <code>--palette-primary</code> and a handful of companion tokens. See <code>wwwroot/css/docs.css</code> in the repository.
+# <strong>This very site</strong> uses <code>#c41236</code> as its primary color - achieved by overriding <code>--palette-primary</code> and a handful of companion tokens. See <code>wwwroot/css/docs.css</code> in the repository.
 <strong>Este mismo sitio</strong> usa <code>#c41236</code> como su color primario, logrado sobrescribiendo <code>--palette-primary</code> y un puñado de tokens complementarios. Consulta <code>wwwroot/css/docs.css</code> en el repositorio.
 
 # Custom design tokens
 Tokens de diseño personalizados
 
-# Tokens override the same way the palette does — at <code>:root</code> for global changes, or scoped under a theme selector if a token genuinely changes per theme (rare; tokens are usually theme-agnostic).
+# Tokens override the same way the palette does - at <code>:root</code> for global changes, or scoped under a theme selector if a token genuinely changes per theme (rare; tokens are usually theme-agnostic).
 Los tokens se sobrescriben de la misma forma que la paleta: en <code>:root</code> para cambios globales, o acotados bajo un selector de tema si un token realmente cambia por tema (raro; los tokens suelen ser agnósticos al tema).
 
 # wwwroot/css/my-tokens.css

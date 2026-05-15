@@ -79,7 +79,7 @@ public sealed class BOBMixedChart<TX> : BOBChartBase<TX, double>
 
         RenderAxes(builder, ref seq, layout, yPrimary, ySecondary, hasSecondary);
 
-        // Bar series share a band — they sit side-by-side within each category. Compute
+        // Bar series share a band - they sit side-by-side within each category. Compute
         // per-bar width and offset based on how many bar series there are.
         int barSeriesCount = series.Count(s => s.Type == BOBChartMixedSeriesType.Bar);
         double groupWidth = bandWidth * BarGroupRatio;

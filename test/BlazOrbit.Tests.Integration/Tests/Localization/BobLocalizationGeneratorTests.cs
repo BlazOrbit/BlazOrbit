@@ -53,7 +53,7 @@ public class BobLocalizationGeneratorTests
         source.Should().Contain("_BobLocalizeBootstrap");
         source.Should().Contain("[ModuleInitializer]");
         // Generator emits the verbatim typeof argument from the consumer's source
-        // — `MyApp.MyAppResources` in this test. Once Razor SDK and other generators
+        // - `MyApp.MyAppResources` in this test. Once Razor SDK and other generators
         // have finished, the C# compiler resolves the reference identically to how it
         // resolved the original attribute application.
         source.Should().Contain("typeof(MyApp.MyAppResources)");
@@ -182,7 +182,7 @@ public class BobLocalizationGeneratorTests
     [Fact]
     public void Should_Match_Hierarchical_Folder_Layout()
     {
-        // Translations/Layout/NavMenu.es-ES.tn — folder hierarchy mirrors namespace.
+        // Translations/Layout/NavMenu.es-ES.tn - folder hierarchy mirrors namespace.
         string consumer = """
                           [assembly: BlazOrbit.Localization.BobLocalizationBundleAttribute(typeof(MyApp.Layout.NavMenu))]
 
@@ -201,7 +201,7 @@ public class BobLocalizationGeneratorTests
     [Fact]
     public void Should_Match_Dot_Separated_Filename_Layout()
     {
-        // Translations/Layout.NavMenu.es-ES.tn — single folder, dotted filename.
+        // Translations/Layout.NavMenu.es-ES.tn - single folder, dotted filename.
         string consumer = """
                           [assembly: BlazOrbit.Localization.BobLocalizationBundleAttribute(typeof(MyApp.Layout.NavMenu))]
 
@@ -242,7 +242,7 @@ public class BobLocalizationGeneratorTests
     [Fact]
     public void Should_Disambiguate_Same_Type_Name_In_Different_Namespaces()
     {
-        // Two NavMenu types in different namespaces — each gets its own .tn file.
+        // Two NavMenu types in different namespaces - each gets its own .tn file.
         string consumer = """
                           [assembly: BlazOrbit.Localization.BobLocalizationBundleAttribute(typeof(MyApp.Layout.NavMenu))]
                           [assembly: BlazOrbit.Localization.BobLocalizationBundleAttribute(typeof(MyApp.Admin.NavMenu))]
@@ -287,11 +287,11 @@ public class BobLocalizationGeneratorTests
         source.Should().Contain("\"ja-JP\"");
         source.Should().Contain("\"Hola\"");
         source.Should().Contain("\"Bonjour\"");
-        // Unicode either passes through literal or escaped — Quote() emits literal for >= U+0020.
+        // Unicode either passes through literal or escaped - Quote() emits literal for >= U+0020.
         source.Should().Contain("こんにちは");
     }
 
-    /// <summary>Concatenates every generated tree's source — useful when the generator splits its
+    /// <summary>Concatenates every generated tree's source - useful when the generator splits its
     /// output across one-file-per-bundle and the test wants a single haystack to search.</summary>
     private static string ConcatAll(GeneratorDriverRunResult result)
         => string.Join("\n", result.GeneratedTrees.Select(t => t.ToString()));

@@ -21,13 +21,13 @@ Paquete adicional requerido
 # Full-circle KPI ring
 Anillo KPI de círculo completo
 
-# KPI gauge — single value rendered as an arc fill against a track. Semi (180°), three-quarter (270°) and full (360°) shapes. Optional zone segments highlight thresholds (green / amber / red).
+# KPI gauge - single value rendered as an arc fill against a track. Semi (180°), three-quarter (270°) and full (360°) shapes. Optional zone segments highlight thresholds (green / amber / red).
 Medidor KPI: un único valor representado como un relleno de arco sobre una pista. Formas semicircular (180°), tres cuartos (270°) y completa (360°). Segmentos de zona opcionales resaltan umbrales (verde / ámbar / rojo).
 
 # Memory
 Memoria
 
-# Min / Max can model any numeric domain — KPIs that aren't 0..100% percentages, currency, latency milliseconds, etc.
+# Min / Max can model any numeric domain - KPIs that aren't 0..100% percentages, currency, latency milliseconds, etc.
 Min / Max pueden modelar cualquier dominio numérico: KPIs que no son porcentajes 0..100%, moneda, latencia en milisegundos, etc.
 
 # p95 latency

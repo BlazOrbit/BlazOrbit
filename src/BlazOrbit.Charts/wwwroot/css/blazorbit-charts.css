@@ -1,5 +1,5 @@
 /*
- * BlazOrbit.Charts — family-shared stylesheet.
+ * BlazOrbit.Charts - family-shared stylesheet.
  *
  * Hand-written, single source of truth. No generator, no bundler.
  *
@@ -24,7 +24,7 @@
     overflow: visible;
 }
 
-/* Family-shared default text fill — SVG <text> ignores `color` and
+/* Family-shared default text fill - SVG <text> ignores `color` and
    defaults to `fill: black`, which renders illegibly on dark themes.
    Anchoring fill at the family level lets every chart's axis labels,
    value readouts and annotation text inherit the active theme's
@@ -56,7 +56,7 @@
     d var(--bob-chart-anim-duration, 400ms) ease-out;
 }
 
-/* prefers-reduced-motion always wins — disable every animation transition. */
+/* prefers-reduced-motion always wins - disable every animation transition. */
 @media (prefers-reduced-motion: reduce) {
     [data-bob-animated][data-bob-data-visualization-base] .bob-bar-chart__bar,
     [data-bob-animated][data-bob-data-visualization-base] .bob-line-chart__marker,

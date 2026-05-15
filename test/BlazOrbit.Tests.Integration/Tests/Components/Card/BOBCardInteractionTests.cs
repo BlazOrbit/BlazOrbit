@@ -1,4 +1,4 @@
-using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -107,14 +107,14 @@ public class BOBCardInteractionTests
         cut.Find(".bob-card").Click();
         clicks.Should().Be(1);
 
-        // Act — flip to non-clickable
+        // Act - flip to non-clickable
         cut.Render(p => p
             .Add(c => c.Clickable, false)
             .Add(c => c.OnClick, EventCallback.Factory.Create<MouseEventArgs>(this, _ => clicks++))
             .Add(c => c.ChildContent, b => b.AddContent(0, "Body")));
         cut.Find(".bob-card").Click();
 
-        // Assert — subsequent click ignored
+        // Assert - subsequent click ignored
         clicks.Should().Be(1);
     }
 }

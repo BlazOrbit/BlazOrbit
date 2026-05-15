@@ -164,8 +164,15 @@ public class ScopedCssLintTests
                 continue;
             }
 
-            string content = StripComments(File.ReadAllText(file));
             string fileName = Path.GetFileName(file);
+
+            // BOBToastHost changes flow (toast positioning) and is allowed @media despite being in overlays/
+            if (fileName.Equals("BOBToastHost.razor.css", StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
+
+            string content = StripComments(File.ReadAllText(file));
 
             foreach (Match m in MediaQuery.Matches(content))
             {

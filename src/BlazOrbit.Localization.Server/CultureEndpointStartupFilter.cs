@@ -35,7 +35,7 @@ public class CultureEndpointStartupFilter : IStartupFilter
                     string redirectUri = context.Request.Query["redirectUri"].ToString();
 
                     // Reject anything that is not a root-relative same-origin path.
-                    // Uri.TryCreate alone is insufficient — browsers treat strings
+                    // Uri.TryCreate alone is insufficient - browsers treat strings
                     // such as "http:evil.com" as absolute even though .NET parses
                     // them as relative URIs.
                     if (string.IsNullOrEmpty(redirectUri)

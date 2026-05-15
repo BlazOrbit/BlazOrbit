@@ -4,7 +4,7 @@
         <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
         <IsPackable>true</IsPackable>
         <PackageId>BlazOrbit.Charts</PackageId>
-        <Description>SVG-native chart components for BlazOrbit. Bar, Line, Pie/Donut and Area charts with linear, categorical and DateTime axes. Pure C# API, no Chart.js or external chart libraries — just SVG, CSS and the BlazOrbit theming system.</Description>
+        <Description>SVG-native chart components for BlazOrbit. Bar, Line, Pie/Donut and Area charts with linear, categorical and DateTime axes. Pure C# API, no Chart.js or external chart libraries - just SVG, CSS and the BlazOrbit theming system.</Description>
         <PackageTags>blazor;charts;svg;data-visualization;blazorbit</PackageTags>
     </PropertyGroup>
 

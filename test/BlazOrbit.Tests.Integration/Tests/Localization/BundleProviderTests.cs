@@ -39,7 +39,7 @@ public class BundleProviderTests : IDisposable
     [Fact]
     public void Should_Walk_Parent_Culture_Chain()
     {
-        // Arrange — es-MX should fall back to es (no es-MX entry).
+        // Arrange - es-MX should fall back to es (no es-MX entry).
         ulong hash = BobLocalizationHash.Compute("Welcome");
         BobLocalizationBundleSpec spec = BuildSpec(
             new Dictionary<string, Dictionary<ulong, string>> { ["es"] = new() { [hash] = "Bienvenido" } });
@@ -55,7 +55,7 @@ public class BundleProviderTests : IDisposable
     [Fact]
     public void Should_Terminate_At_Bundle_Default_Culture()
     {
-        // Arrange — ko-KR resolves nothing along its chain; bundle default en-US wins.
+        // Arrange - ko-KR resolves nothing along its chain; bundle default en-US wins.
         ulong hash = BobLocalizationHash.Compute("Goodbye");
         BobLocalizationBundleSpec spec = BuildSpec(
             defaultCulture: "en-US",

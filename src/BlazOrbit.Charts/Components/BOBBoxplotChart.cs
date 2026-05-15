@@ -7,7 +7,7 @@ using System.Globalization;
 namespace BlazOrbit.Charts.Components;
 
 /// <summary>
-/// Box-and-whisker plot — distribution comparison across categorical
+/// Box-and-whisker plot - distribution comparison across categorical
 /// groups. Each box renders the IQR (Q1..Q3), median line, whiskers
 /// (typically <c>±1.5·IQR</c>) and individual outlier dots.
 /// </summary>

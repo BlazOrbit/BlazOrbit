@@ -29,7 +29,7 @@ public class BOBInputDropdownAccessibilityTests
         IRenderedComponent<BOBInputDropdown<string>> cut = ctx.Render<BOBInputDropdown<string>>(p => p
             .Add(c => c.ValueExpression, _expr));
 
-        // Assert — aria-haspopup indicates the type of popup (listbox)
+        // Assert - aria-haspopup indicates the type of popup (listbox)
         cut.Find("button.bob-dropdown__trigger").GetAttribute("aria-haspopup").Should().Be("listbox");
     }
 
@@ -81,7 +81,7 @@ public class BOBInputDropdownAccessibilityTests
             .Add(c => c.ValueExpression, _expr)
             .Add(c => c.Label, "Select"));
 
-        // Assert — label's for matches the trigger button's id
+        // Assert - label's for matches the trigger button's id
         IElement label = cut.Find("label");
         string? labelFor = label.GetAttribute("for");
         labelFor.Should().StartWith("bob-dropdown-");
@@ -141,7 +141,7 @@ public class BOBInputDropdownAccessibilityTests
             .Add(c => c.Label, "Select")
             .Add(c => c.Required, true));
 
-        // Assert — CSS-OPT-02 block B.5: visual marker is now CSS-only via
+        // Assert - CSS-OPT-02 block B.5: visual marker is now CSS-only via
         // [data-bob-required="true"] .bob-input__label::after on the host.
         cut.Find("bob-component").GetAttribute("data-bob-required").Should().Be("true");
     }

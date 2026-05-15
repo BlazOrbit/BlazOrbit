@@ -20,7 +20,7 @@ public class LiteralProviderTests : IDisposable
     [Fact]
     public void Should_Always_Return_False_As_Marker_Provider()
     {
-        // LiteralProvider is a chain-position sentinel — the actual literal carry-through is
+        // LiteralProvider is a chain-position sentinel - the actual literal carry-through is
         // handled by BobLocalizer / the generator-emitted accessor. This guarantees the
         // `ResourceNotFound = true` diagnostic when no real provider answered.
         ulong hash = BobLocalizationHash.Compute("Hello, world!");

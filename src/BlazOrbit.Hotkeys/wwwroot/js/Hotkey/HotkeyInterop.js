@@ -1,9 +1,9 @@
-// BlazOrbit.Hotkeys — interop module (hand-written JSDoc-typed ESM).
+// BlazOrbit.Hotkeys - interop module (hand-written JSDoc-typed ESM).
 //
 // Global keyboard listener bridge. The host component on the .NET side calls
 // `attach` once per circuit/runtime; subsequent register/unregister of individual
 // combos pushes through `registerCombo` / `unregisterCombo` so the JS handler can
-// synchronously call `event.preventDefault()` on match — async dispatch alone is
+// synchronously call `event.preventDefault()` on match - async dispatch alone is
 // too late to suppress the browser's default action (e.g. Ctrl+S Save dialog).
 
 /**
@@ -71,11 +71,11 @@ export function attach(hostId, relay) {
         const combo = serializeCombo(e);
         const preventDefault = inst.combos.get(combo);
         if (preventDefault === true) {
-            // Suppress the browser default synchronously — by the time the .NET roundtrip
+            // Suppress the browser default synchronously - by the time the .NET roundtrip
             // resolves the browser has already executed it.
             e.preventDefault();
         }
-        // Always dispatch — the .NET side decides whether any handler matches. Registered
+        // Always dispatch - the .NET side decides whether any handler matches. Registered
         // combos pass through here even if the JS registry hasn't caught up yet (race
         // window during initial mount).
         inst.relay.invokeMethodAsync('OnHotkey', combo).catch(() => {

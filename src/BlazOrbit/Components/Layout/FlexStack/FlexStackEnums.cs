@@ -1,4 +1,4 @@
-namespace BlazOrbit.Components.Layout;
+namespace BlazOrbit.Components;
 
 /// <summary>Maps to CSS <c>flex-direction</c>.</summary>
 public enum FlexStackDirection

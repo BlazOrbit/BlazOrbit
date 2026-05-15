@@ -17,9 +17,9 @@ public class CssArchitectureLintTests
 {
     private static readonly string[] ExcludedFiles =
     [
-        // Internal components — outside public contract
+        // Internal components - outside public contract
         "_BOB",
-        // Hosts — documented exceptions in CSS-SCOPED-04
+        // Hosts - documented exceptions in CSS-SCOPED-04
         "BOBModalHost",
         "BOBModalContainer"
     ];
@@ -48,7 +48,7 @@ public class CssArchitectureLintTests
         //   [data-bob-component="foo"]--selected
         //   bob-component[data-bob-component="foo"]--selected
         // We intentionally do NOT match .bob-block__element--modifier on
-        // descendants — those are permitted by COMP-STATE-CLASS-01 option b.
+        // descendants - those are permitted by COMP-STATE-CLASS-01 option b.
         Regex rootModifierPattern = new(
             @"^\s*(\[data-bob-component=""[^""]+""\]|bob-component\[data-bob-component=""[^""]+""\])--[\w-]+",
             RegexOptions.Multiline | RegexOptions.Compiled);

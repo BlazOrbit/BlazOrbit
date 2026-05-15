@@ -56,7 +56,7 @@ public sealed class HotkeyService : IHotkeyService
             bucket.Add(entry);
         }
 
-        // Notify outside the lock — subscribers (BOBHotkeyHost) push to JS via async
+        // Notify outside the lock - subscribers (BOBHotkeyHost) push to JS via async
         // interop and we don't want their continuation work serialized against further
         // Register calls.
         Registered?.Invoke(new HotkeyDescriptor(normalized, entry.Description, entry.Scope, entry.PreventDefault));
@@ -118,7 +118,7 @@ public sealed class HotkeyService : IHotkeyService
                 }
                 else
                 {
-                    // Other entries still hold this combo — JS bridge should keep the
+                    // Other entries still hold this combo - JS bridge should keep the
                     // sync preventDefault set, so don't notify Unregistered yet.
                     return;
                 }

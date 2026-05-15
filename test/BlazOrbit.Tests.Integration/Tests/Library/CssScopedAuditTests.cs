@@ -26,7 +26,7 @@ public class CssScopedAuditTests
     /// </summary>
     private static readonly HashSet<string> CssFreeAllowlist = new(StringComparer.Ordinal)
     {
-        // Internal helpers — no public visual surface
+        // Internal helpers - no public visual surface
         "_BOBInCheckMark",
         "_BOBFieldHelper",
         "_BOBInputLoading",
@@ -34,14 +34,14 @@ public class CssScopedAuditTests
         "_BOBInputPrefix",
         "_BOBInputSuffix",
 
-        // Hosts / containers — visual surface is rendered by children
+        // Hosts / containers - visual surface is rendered by children
         "BOBModalHost",
         "BOBModalContainer",
         "BOBInitializer",
         "BOBBlazorLayout",
         "BOBHotkeyHost",
 
-        // Input-family helpers — styled by global _input-family.css
+        // Input-family helpers - styled by global _input-family.css
         "BOBInputLoading",
         "BOBInputOutline",
         "BOBInputPrefix",

@@ -131,7 +131,7 @@ public class BOBTreeSelectorRenderingTests
             .Add(c => c.KeySelector, m => m.Key)
             .Add(c => c.ChildrenSelector, m => m.Children));
 
-        // Assert — parent node has expander button
+        // Assert - parent node has expander button
         cut.Find(".bob-tree-selector__expander").Should().NotBeNull();
     }
 }

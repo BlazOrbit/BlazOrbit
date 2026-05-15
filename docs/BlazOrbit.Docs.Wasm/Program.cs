@@ -14,7 +14,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 builder.Services.AddBlazOrbit();
 builder.Services.AddBlazOrbitCharts();
 // Opt every BOBDataGrid / BOBDataCards instance with a PersistenceKey in to
-// localStorage-backed state persistence — the docs site uses it for the State Persistence
+// localStorage-backed state persistence - the docs site uses it for the State Persistence
 // demo so reloading the page restores the user's filter / sort / column order.
 builder.Services.AddBlazOrbitDataCollectionLocalStorage();
 // Hotkeys: per-component registrations (e.g. Ctrl+K for the DocSearch trigger) live

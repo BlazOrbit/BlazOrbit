@@ -88,7 +88,7 @@ public class CrosshairTests
                 .Add(c => c.Series, TwoSeries())
                 .Add(c => c.ShowCrosshair, true));
 
-        // Move mouse near the middle of the plot — the snap should pick the
+        // Move mouse near the middle of the plot - the snap should pick the
         // point closest in pixel space.
         cut.Find("rect.bob-line-chart__crosshair-overlay")
             .MouseMove(new MouseEventArgs { OffsetX = 300, OffsetY = 100 });

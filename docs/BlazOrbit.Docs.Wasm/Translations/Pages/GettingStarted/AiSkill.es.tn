@@ -40,7 +40,7 @@ Elija el componente adecuado para una tarea (botones, entradas, diálogos, cuadr
 
 
 
-# Use the canonical parameter names, types, and presets — no hallucinated APIs.
+# Use the canonical parameter names, types, and presets - no hallucinated APIs.
 Utilice los nombres, tipos y ajustes preestablecidos de los parámetros canónicos, sin API alucinadas.
 
 
@@ -68,7 +68,7 @@ Respeta las normas de accesibilidad incluidas en cada componente.
 
 
 
-# The bundle is regenerated against each release, so its component catalog stays in lock-step with the published library — no drift between the agent's mental model and the actual API surface.
+# The bundle is regenerated against each release, so its component catalog stays in lock-step with the published library - no drift between the agent's mental model and the actual API surface.
 El paquete se regenera en cada versión, por lo que su catálogo de componentes se mantiene en sintonía con la biblioteca publicada, sin desviaciones entre el modelo mental del agente y la superficie real de la API.
 
 
@@ -222,8 +222,8 @@ Extraiga el archivo en algún lugar donde su agente busque habilidades, luego ap
 
 
 
-# Terminal (any host — extract only)
-Terminal (cualquier host — solo extracción)
+# Terminal (any host - extract only)
+Terminal (cualquier host - solo extracción)
 
 
 
@@ -276,8 +276,8 @@ Cada versión de BlazOrbit publica un nuevo paquete de habilidades. Vuelva a des
 
 
 
-# For contributors — build locally
-Para colaboradores — compilar localmente
+# For contributors - build locally
+Para colaboradores - compilar localmente
 
 
 

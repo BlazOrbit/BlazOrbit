@@ -12,7 +12,7 @@ Propiedades de BOBAvatar
 # BOBAvatarGroup Properties
 Propiedades de BOBAvatarGroup
 
-# By default the group counts its registered children — any avatar past MaxVisible is hidden via CSS and the overflow bubble appears with the remaining count.
+# By default the group counts its registered children - any avatar past MaxVisible is hidden via CSS and the overflow bubble appears with the remaining count.
 Por defecto el grupo cuenta sus hijos registrados: cualquier avatar más allá de MaxVisible se oculta mediante CSS y aparece la burbuja de desbordamiento con el conteo restante.
 
 # Component

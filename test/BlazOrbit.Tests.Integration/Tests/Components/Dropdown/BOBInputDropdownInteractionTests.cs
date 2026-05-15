@@ -129,7 +129,7 @@ public class BOBInputDropdownInteractionTests
         cut.Find("button.bob-dropdown__trigger").Click();
         cut.Find(".bob-dropdown__option").Click();
 
-        // Assert — CloseOnSelect=true by default, menu closes
+        // Assert - CloseOnSelect=true by default, menu closes
         cut.FindAll(".bob-dropdown__menu").Should().BeEmpty();
     }
 
@@ -146,7 +146,7 @@ public class BOBInputDropdownInteractionTests
             p.Add(c => c.Disabled, true);
         });
 
-        // Act — trigger is disabled, click won't fire
+        // Act - trigger is disabled, click won't fire
         cut.FindAll(".bob-dropdown__menu").Should().BeEmpty();
         cut.Find("button.bob-dropdown__trigger").HasAttribute("disabled").Should().BeTrue();
     }
@@ -182,7 +182,7 @@ public class BOBInputDropdownInteractionTests
         // Act
         cut.Find("button.bob-dropdown__trigger").Click();
 
-        // Assert — selected option has aria-selected=true
+        // Assert - selected option has aria-selected=true
         IElement selectedOption = cut.FindAll(".bob-dropdown__option")
             .First(o => o.TextContent.Contains("Option 1"));
         selectedOption.GetAttribute("aria-selected").Should().Be("true");

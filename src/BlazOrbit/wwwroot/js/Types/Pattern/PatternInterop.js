@@ -1,4 +1,4 @@
-// BlazOrbit — Pattern interop (hand-written JSDoc-typed ESM).
+// BlazOrbit - Pattern interop (hand-written JSDoc-typed ESM).
 
 /**
  * @typedef {Object} PatternCallbacksRelay

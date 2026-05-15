@@ -58,7 +58,7 @@ public sealed class NotificationCenter : INotificationCenter
 
     private async Task NotifyChangeAsync()
     {
-        // Sequential await of subscribers — matches IModalService.OnChangeAsync conventions.
+        // Sequential await of subscribers - matches IModalService.OnChangeAsync conventions.
         // Subscriber exceptions bubble (caller decides whether to ignore them); the inbox
         // mutation has already been persisted by the time we get here.
         Func<Task>? handler = OnChangeAsync;

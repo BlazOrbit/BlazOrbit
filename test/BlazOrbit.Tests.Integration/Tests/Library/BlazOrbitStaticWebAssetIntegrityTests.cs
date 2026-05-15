@@ -19,14 +19,14 @@ namespace BlazOrbit.Tests.Integration.Tests.Library;
 /// <c>BOBPalette</c>'s constructor throw
 /// <c>KeyNotFoundException("--palette-background")</c> from
 /// <c>BOBInitializer.OnAfterRenderAsync</c> and prevented <c>ChildContent</c>
-/// from ever rendering — i.e. all WASM net10 template E2E tests timed out.
+/// from ever rendering - i.e. all WASM net10 template E2E tests timed out.
 ///
 /// Root cause: the pre-refactor maintainer pipeline (now removed) regenerated
 /// <c>wwwroot/js/**/*.min.js</c> via Vite during both the outer multi-TFM
 /// build and every inner build, racing the integrity capture against the
 /// bytes shipped in the .nupkg. After the build-tools refactor, those JS
-/// modules are committed JSDoc-typed <c>.js</c> source files — no regeneration
-/// step, no race surface — but this test stays as a permanent guard against
+/// modules are committed JSDoc-typed <c>.js</c> source files - no regeneration
+/// step, no race surface - but this test stays as a permanent guard against
 /// any future drift between manifest integrity and asset bytes.
 ///
 /// The test fails fast whenever any future change reintroduces that drift: it
@@ -49,7 +49,7 @@ public class BlazOrbitStaticWebAssetIntegrityTests
     /// <summary>
     /// Libraries that ship JS/CSS under <c>wwwroot/</c> AND target net10.0 (so
     /// the Razor SDK emits a <c>StaticWebAssetEndpoints</c> manifest with
-    /// integrity hashes). Charts/Hotkeys are included defensively — even though
+    /// integrity hashes). Charts/Hotkeys are included defensively - even though
     /// their build pipelines already use MSBuild Inputs/Outputs incrementality,
     /// a future change could introduce the same race pattern.
     /// </summary>

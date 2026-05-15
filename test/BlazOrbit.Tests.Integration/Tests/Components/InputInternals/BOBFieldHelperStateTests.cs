@@ -1,4 +1,4 @@
-using BlazOrbit.Components.Internal;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -68,7 +68,7 @@ public class BOBFieldHelperStateTests
 
         cut.FindAll("div[data-bob-error=\"true\"]").Should().HaveCount(1);
 
-        // Act — toggle ShowValidation off
+        // Act - toggle ShowValidation off
         IRenderedComponent<_BOBFieldHelper<string?>> hiddenCut = ctx.Render<_BOBFieldHelper<string?>>(p => p
             .Add(c => c.ShowValidation, false)
             .Add(c => c.EditContext, editContext)

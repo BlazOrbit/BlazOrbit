@@ -1,4 +1,4 @@
-// BlazOrbit — Draggable interop (hand-written JSDoc-typed ESM).
+// BlazOrbit - Draggable interop (hand-written JSDoc-typed ESM).
 
 /**
  * @typedef {Object} DragCallbacksRelay

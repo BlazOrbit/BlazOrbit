@@ -58,7 +58,7 @@ public class BOBProgressIconAccessibilityTests
         // Arrange & Act
         IRenderedComponent<BOBProgressIcon> cut = ctx.Render<BOBProgressIcon>();
 
-        // Assert — svg is decorative, hidden from screen readers
+        // Assert - svg is decorative, hidden from screen readers
         cut.Find("svg").GetAttribute("aria-hidden").Should().Be("true");
     }
 }

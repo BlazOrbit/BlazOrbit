@@ -366,7 +366,7 @@ html[data-bob-theme="light"] {
 }
 
 /* ================================================================
-   HERO — full-viewport cosmic orbit system (HomeLayout)
+   HERO - full-viewport cosmic orbit system (HomeLayout)
    ================================================================ */
 
 .hero {
@@ -418,7 +418,7 @@ content lives. Warm white-pink hue echoes the brand gradient.
 }
 
 
-/* ── Nebula glow — soft background bloom ────────────────────────*/
+/* ── Nebula glow - soft background bloom ────────────────────────*/
 
 .hero__puzzle::after {
     content: '';
@@ -583,7 +583,7 @@ content lives. Warm white-pink hue echoes the brand gradient.
 
 /* ================================================================
    COSMIC TILES
-   Parallax system preserved — --mx, --my, --sy driven by JS.
+   Parallax system preserved - --mx, --my, --sy driven by JS.
    --d    = parallax depth (higher = more movement)
    --s    = scroll parallax strength
    --tilt = horizontal tilt multiplier
@@ -609,7 +609,7 @@ content lives. Warm white-pink hue echoes the brand gradient.
 }
 
 
-/* ── tile--1 — Primary planet (upper left) ───────────────────────
+/* ── tile--1 - Primary planet (upper left) ───────────────────────
    Orbital halo ring via ::after.
    ─────────────────────────────────────────────────────────────── */
 
@@ -644,7 +644,7 @@ content lives. Warm white-pink hue echoes the brand gradient.
 }
 
 
-/* ── tile--2 — Moon (upper right) ───────────────────────────────*/
+/* ── tile--2 - Moon (upper right) ───────────────────────────────*/
 
 .hero__tile--2 {
     top: 16%;
@@ -660,7 +660,7 @@ content lives. Warm white-pink hue echoes the brand gradient.
 }
 
 
-/* ── tile--3 — Large orbital ring (scene-level) ─────────────────
+/* ── tile--3 - Large orbital ring (scene-level) ─────────────────
    No parallax. Positioned via margin. Rotates via @keyframes.
    Has a travelling node particle on ::before.
    ─────────────────────────────────────────────────────────────── */
@@ -698,7 +698,7 @@ content lives. Warm white-pink hue echoes the brand gradient.
 }
 
 
-/* ── tile--4 — Saturn-style planet (lower right) ────────────────
+/* ── tile--4 - Saturn-style planet (lower right) ────────────────
    Two concentric equatorial rings via ::before and ::after.
    ─────────────────────────────────────────────────────────────── */
 
@@ -746,7 +746,7 @@ content lives. Warm white-pink hue echoes the brand gradient.
 }
 
 
-/* ── tile--5 — Hot star with ping ring ──────────────────────────*/
+/* ── tile--5 - Hot star with ping ring ──────────────────────────*/
 
 .hero__tile--5 {
     top: 40%;
@@ -772,7 +772,7 @@ content lives. Warm white-pink hue echoes the brand gradient.
 }
 
 
-/* ── tile--6 — Micro star ────────────────────────────────────────*/
+/* ── tile--6 - Micro star ────────────────────────────────────────*/
 
 .hero__tile--6 {
     top: 7%;
@@ -789,7 +789,7 @@ content lives. Warm white-pink hue echoes the brand gradient.
 }
 
 
-/* ── tile--7 — Dashed orbital ring (small) ──────────────────────
+/* ── tile--7 - Dashed orbital ring (small) ──────────────────────
    No parallax. Rotates counterclockwise. Node particle on ::after.
    ─────────────────────────────────────────────────────────────── */
 
@@ -825,7 +825,7 @@ content lives. Warm white-pink hue echoes the brand gradient.
 }
 
 
-/* ── tile--icon — Brand isotipo silhouette ───────────────────────
+/* ── tile--icon - Brand isotipo silhouette ───────────────────────
    Large, very transparent. Floats softly behind content.
    ─────────────────────────────────────────────────────────────── */
 
@@ -885,7 +885,7 @@ content lives. Warm white-pink hue echoes the brand gradient.
 }
 
 /* ── Planet glow breathing ──────────────────────────────────────
-   Only box-shadow is animated — parallax transform is untouched.
+   Only box-shadow is animated - parallax transform is untouched.
    ─────────────────────────────────────────────────────────────── */
 
 @keyframes planet-glow-a {
@@ -1017,7 +1017,7 @@ content lives. Warm white-pink hue echoes the brand gradient.
 }
 
 
-/* ── Accessibility — reduced motion ──────────────────────────────*/
+/* ── Accessibility - reduced motion ──────────────────────────────*/
 
 @media (prefers-reduced-motion: reduce) {
     .hero__tile {
@@ -1353,7 +1353,7 @@ content lives. Warm white-pink hue echoes the brand gradient.
 /* ── Sidebar nav layout ───────────────────────────────────────────
    Three-band flex column inside the sidebar-inner: the search box
    stays pinned at the top, the tree menu scrolls in the middle,
-   and the footer stays pinned at the bottom — always visible
+   and the footer stays pinned at the bottom - always visible
    without ever covering tree-menu items. */
 
 .doc-nav {
@@ -1385,7 +1385,7 @@ content lives. Warm white-pink hue echoes the brand gradient.
     overflow-y: auto;
     overflow-x: hidden;
     padding: 0.5rem 0.75rem;
-    /* Allow flex item to shrink below content size — required for
+    /* Allow flex item to shrink below content size - required for
        overflow to actually trigger inside a flex column. */
     min-height: 0;
 }

@@ -3,7 +3,7 @@
 @inject IStringLocalizer<SunburstChartPage> Loc
 
 <DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBSunburstChart"]"
-         Lede="@Loc["Radial variant of the treemap — hierarchical nodes render as concentric arcs. Inner ring shows root nodes, outer rings show their descendants. Shares the dataset with BOBTreemapChart so consumers can swap representations without rebuilding their data."]"
+         Lede="@Loc["Radial variant of the treemap - hierarchical nodes render as concentric arcs. Inner ring shows root nodes, outer rings show their descendants. Shares the dataset with BOBTreemapChart so consumers can swap representations without rebuilding their data."]"
          PageInstance="this"
          ApiType="@typeof(BOBSunburstChart<>)"
          Keywords="@(["sunburst", "radial", "hierarchy", "arcs", "rings", "drilldown"])">
@@ -19,7 +19,7 @@
     </DocDemo>
 
     <DocDemo Key="DonutHole" Title="@Loc["Donut-hole sunburst"]"
-             Description="@Loc["InnerRadius leaves a hollow centre — handy for embedding KPI text inside the chart. Range is [0, 0.9] of the outer radius."]">
+             Description="@Loc["InnerRadius leaves a hollow centre - handy for embedding KPI text inside the chart. Range is [0, 0.9] of the outer radius."]">
         <BOBSunburstChart TY="decimal"
                           Nodes="_taxonomy"
                           InnerRadius="0.35"

@@ -22,7 +22,7 @@ public class Wasm_BOBCultureSelectorIntegrationTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — replace the real persistence with a fake so SetCultureAsync succeeds
+        // Arrange - replace the real persistence with a fake so SetCultureAsync succeeds
         ILocalizationPersistence fakePersistence = Substitute.For<ILocalizationPersistence>();
         fakePersistence.SetStoredCultureAsync(Arg.Any<string>()).Returns(Task.CompletedTask);
         ctx.Services.AddSingleton(fakePersistence);
@@ -53,7 +53,7 @@ public class Wasm_BOBCultureSelectorIntegrationTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — replace the real persistence with a fake so SetCultureAsync succeeds
+        // Arrange - replace the real persistence with a fake so SetCultureAsync succeeds
         ILocalizationPersistence fakePersistence = Substitute.For<ILocalizationPersistence>();
         fakePersistence.SetStoredCultureAsync(Arg.Any<string>()).Returns(Task.CompletedTask);
         ctx.Services.AddSingleton(fakePersistence);

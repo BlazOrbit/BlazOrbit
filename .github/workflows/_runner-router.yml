@@ -15,7 +15,7 @@ on:
     secrets:
       RUNNER_LIST_GITHUB_TOKEN:
         required: false
-        description: 'PAT with administration:read scope for listing self-hosted runners. Optional — falls back to ubuntu-latest when missing, expired, or unauthorized.'
+        description: 'PAT with administration:read scope for listing self-hosted runners. Optional - falls back to ubuntu-latest when missing, expired, or unauthorized.'
   workflow_dispatch:
 
 jobs:

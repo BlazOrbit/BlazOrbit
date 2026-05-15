@@ -82,7 +82,7 @@ public class BOBBarChartStackTests
                 .Add(c => c.StackMode, BOBBarStackMode.Stacked));
 
         // The 3 bars at category Q1 (first across each series) share the
-        // same x and the same width (full groupWidth — not split).
+        // same x and the same width (full groupWidth - not split).
         IReadOnlyList<AngleSharp.Dom.IElement> q1Bars =
         [
             cut.FindAll("rect.bob-bar-chart__bar")[0], // EMEA Q1
@@ -111,7 +111,7 @@ public class BOBBarChartStackTests
                 .Add(c => c.StackMode, BOBBarStackMode.Stacked));
 
         // Bars within Q1 (indices 0, 2, 4): each next series starts where the
-        // previous ended — so previous.y > next.y (in pixel space, smaller y
+        // previous ended - so previous.y > next.y (in pixel space, smaller y
         // = higher up since SVG Y inverts).
         AngleSharp.Dom.IElement first = cut.FindAll("rect.bob-bar-chart__bar")[0];
         AngleSharp.Dom.IElement second = cut.FindAll("rect.bob-bar-chart__bar")[2];

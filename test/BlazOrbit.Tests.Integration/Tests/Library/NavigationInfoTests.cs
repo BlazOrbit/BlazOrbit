@@ -54,6 +54,6 @@ public class NavigationInfoTests
 
     [Fact]
     public void IsSafeHref_Relative_Path_With_Colon_In_Query_Should_Pass()
-        // A scheme-less path that happens to contain `:` after a `/` — e.g. `/search?q=a:b`.
+        // A scheme-less path that happens to contain `:` after a `/` - e.g. `/search?q=a:b`.
         => NavigationInfo.IsSafeHref("/search?q=foo:bar").Should().BeTrue();
 }

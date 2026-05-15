@@ -37,7 +37,7 @@ public class BOBCultureSelectorStateTests
             markup = cut.Markup;
         }
 
-        // Assert — no flag emojis in option text
+        // Assert - no flag emojis in option text
         markup.Should().NotContain("🇺🇸");
     }
 

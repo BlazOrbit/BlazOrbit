@@ -40,7 +40,7 @@ jobs:
           global-json-file: global.json
 
       - name: Install wasm-tools workload
-        # Required even when AOT is disabled — wasm-tools provides icudt
+        # Required even when AOT is disabled - wasm-tools provides icudt
         # generation, wasm-opt and other publish-time tooling.
         run: dotnet workload install wasm-tools
 

@@ -1,7 +1,6 @@
 @page "/components/navigation/timeline"
 
 @using BlazOrbit.Components
-@using BlazOrbit.Components.Navigation
 
 @inject IStringLocalizer<TimelinePage> Loc
 
@@ -34,7 +33,7 @@
                 <strong>@item.Title</strong>
                 @if (!string.IsNullOrEmpty(item.Description))
                 {
-                    <em class="doc-demo__inline">— @item.Description</em>
+                    <em class="doc-demo__inline">- @item.Description</em>
                 }
             </ItemTemplate>
         </BOBTimeline>

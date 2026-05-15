@@ -145,7 +145,7 @@ Variantes
 
 
 
-# Variants always run through <code>BOBComponentAttributesBuilder</code> first — the root <code>&lt;bob-component&gt;</code> gets the usual <code>data-bob-*</code> treatment whether you override the template or not.
+# Variants always run through <code>BOBComponentAttributesBuilder</code> first - the root <code>&lt;bob-component&gt;</code> gets the usual <code>data-bob-*</code> treatment whether you override the template or not.
 Las variantes siempre pasan por <code>BOBComponentAttributesBuilder</code> primero: la raíz <code>&lt; bob-component&gt;</code> recibe el tratamiento habitual <code>de data-bob-*</code>, ya sea que anule la plantilla o no.
 
 

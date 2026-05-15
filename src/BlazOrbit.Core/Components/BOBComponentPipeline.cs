@@ -63,7 +63,7 @@ internal sealed class BOBComponentPipeline
         }
         catch (JSDisconnectedException)
         {
-            // Blazor Server circuit disconnected — behavior already gone.
+            // Blazor Server circuit disconnected - behavior already gone.
         }
         catch (ObjectDisposedException)
         {

@@ -10,7 +10,7 @@
         Node, npm, Vite, esbuild or TypeScript toolchain is required on either side.
 
         The file exists solely so MSBuild's `build/<PackageId>.targets` auto-import
-        convention has a file to find — removing it would not break anything, but
+        convention has a file to find - removing it would not break anything, but
         keeping it preserves the contract in case future shipped MSBuild logic is
         ever added.
     -->

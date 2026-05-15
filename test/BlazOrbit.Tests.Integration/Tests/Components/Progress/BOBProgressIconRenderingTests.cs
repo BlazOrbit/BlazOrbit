@@ -44,7 +44,7 @@ public class BOBProgressIconRenderingTests
         // Arrange & Act
         IRenderedComponent<BOBProgressIcon> cut = ctx.Render<BOBProgressIcon>();
 
-        // Assert — spinner has role="status"
+        // Assert - spinner has role="status"
         cut.Find("bob-component").GetAttribute("role").Should().Be("status");
     }
 

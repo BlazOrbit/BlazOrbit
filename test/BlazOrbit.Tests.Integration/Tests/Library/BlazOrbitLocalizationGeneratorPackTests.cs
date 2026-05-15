@@ -12,13 +12,13 @@ namespace BlazOrbit.Tests.Integration.Tests.Library;
 /// <c>[assembly: BobLocalizationBundle(typeof(TMarker))]</c> declarations and emits a
 /// <c>[ModuleInitializer]</c> that registers each bundle via <c>BobLocalize.RegisterBundle</c>.
 /// Without that initializer, <see cref="BlazOrbit.Localization.BobLocalizer{T}"/> falls back
-/// to literal — consumer translations silently never apply.
+/// to literal - consumer translations silently never apply.
 ///
 /// <para>
 /// Roslyn source generators only run for downstream consumers when they ship under
 /// <c>analyzers/dotnet/cs/</c> inside a nupkg. <c>ProjectReference</c> with
 /// <c>OutputItemType="Analyzer"</c> wires the generator to the *referencing* project's own
-/// compilation but DOES NOT propagate it to consumers of the resulting nupkg — that's the
+/// compilation but DOES NOT propagate it to consumers of the resulting nupkg - that's the
 /// regression we guard against here.
 /// </para>
 ///
@@ -81,7 +81,7 @@ public sealed class BlazOrbitLocalizationGeneratorPackTests : IAsyncLifetime
         }
         catch
         {
-            // Best-effort cleanup — leaving the temp dir behind only costs disk space.
+            // Best-effort cleanup - leaving the temp dir behind only costs disk space.
         }
 
         return ValueTask.CompletedTask;
@@ -106,7 +106,7 @@ public sealed class BlazOrbitLocalizationGeneratorPackTests : IAsyncLifetime
                 StringComparison.Ordinal),
             "the source generator DLL must ship under 'analyzers/dotnet/cs/' inside the nupkg " +
             "so consumer projects automatically run BlazOrbit.Localization.CodeGeneration on their " +
-            "own assemblies — without it, the consumer's [assembly: BobLocalizationBundle(...)] " +
+            "own assemblies - without it, the consumer's [assembly: BobLocalizationBundle(...)] " +
             "declarations never produce the [ModuleInitializer] that registers bundles at runtime, " +
             "and IStringLocalizer<T> silently falls back to literal keys. " +
             "Entries present: " + string.Join(", ", entries.OrderBy(e => e, StringComparer.Ordinal)));

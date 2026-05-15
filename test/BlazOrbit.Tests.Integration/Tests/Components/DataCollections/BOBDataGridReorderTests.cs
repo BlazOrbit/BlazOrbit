@@ -127,7 +127,7 @@ public class BOBDataGridReorderTests
             Key = "ArrowRight", AltKey = false
         });
 
-        // No reorder happened — the bare arrow keys are reserved for future native focus
+        // No reorder happened - the bare arrow keys are reserved for future native focus
         // navigation between headers.
         HeaderTexts(cut).Should().BeEquivalentTo(["Name", "Age", "Country"], o => o.WithStrictOrdering());
     }
@@ -143,7 +143,7 @@ public class BOBDataGridReorderTests
             .Add(c => c.Columns, ThreeColumns)
             .Add(c => c.Reorderable, true));
 
-        // Try to move the first column further left — clamped to index 0.
+        // Try to move the first column further left - clamped to index 0.
         cut.FindAll(".bob-datagrid__header-cell")[0].KeyDown(new KeyboardEventArgs
         {
             Key = "ArrowLeft", AltKey = true

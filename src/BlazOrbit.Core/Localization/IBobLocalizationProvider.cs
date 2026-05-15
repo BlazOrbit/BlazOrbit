@@ -8,20 +8,20 @@ namespace BlazOrbit.Localization;
 /// </summary>
 /// <remarks>
 /// <para>
-/// The contract is intentionally minimal — one method, one lookup. The build-time source
+/// The contract is intentionally minimal - one method, one lookup. The build-time source
 /// generator wires call sites to the provider chain declared on each
 /// <see cref="BobLocalizationBundleAttribute"/>; at runtime the chain is iterated in order
 /// and the first provider that returns <see langword="true"/> wins.
 /// </para>
 /// <para>
 /// Cache key inside the provider is the <c>hash</c> only. Providers that need per-culture
-/// sub-caches MUST select the sub-cache by <c>culture</c> before hashing — the framework
+/// sub-caches MUST select the sub-cache by <c>culture</c> before hashing - the framework
 /// guarantees no two distinct call sites share a hash within a bundle.
 /// </para>
 /// <para>
 /// Built-in implementations: <see cref="Providers.BundleProvider"/> (translations baked at
 /// compile time from <c>.tn</c> files) and <see cref="Providers.LiteralProvider"/> (sentinel
-/// that resolves to the source literal — terminal fallback, never fails).
+/// that resolves to the source literal - terminal fallback, never fails).
 /// </para>
 /// </remarks>
 public interface IBobLocalizationProvider
@@ -31,7 +31,7 @@ public interface IBobLocalizationProvider
     /// requested <paramref name="culture"/>, scoped to <paramref name="spec"/>'s bundle.
     /// </summary>
     /// <param name="spec">
-    /// Calling bundle's spec. Providers MUST scope their lookup to this bundle — querying a
+    /// Calling bundle's spec. Providers MUST scope their lookup to this bundle - querying a
     /// global registry would allow another bundle that happens to share the same source
     /// literal (and therefore the same hash) to leak its translation back to the caller.
     /// </param>

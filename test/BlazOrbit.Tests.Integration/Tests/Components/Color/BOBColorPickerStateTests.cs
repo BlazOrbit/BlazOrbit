@@ -39,10 +39,10 @@ public class BOBColorPickerStateTests
         cut.FindAll("input[type='text'].bob-picker__input").Should().HaveCount(1);
         cut.FindAll("input[type='number'].bob-picker__input").Should().BeEmpty();
 
-        // Click the sync/cycle button — last button inside the single inputs row
+        // Click the sync/cycle button - last button inside the single inputs row
         cut.FindAll(".bob-picker__row button").Last().Click();
 
-        // After cycling from Hex, format switches to Rgb — four numeric inputs (R, G, B, A) appear
+        // After cycling from Hex, format switches to Rgb - four numeric inputs (R, G, B, A) appear
         cut.FindAll("input[type='text'].bob-picker__input").Should().BeEmpty();
         cut.FindAll("input[type='number'].bob-picker__input").Should().HaveCount(4);
     }

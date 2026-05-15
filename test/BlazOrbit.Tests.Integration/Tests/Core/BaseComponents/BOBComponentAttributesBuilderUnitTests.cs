@@ -378,7 +378,7 @@ public class BOBComponentAttributesBuilderUnitTests
         builder.BuildStyles(plain, null);
 
         builder.ComputedAttributes.ContainsKey("style").Should().BeFalse(
-            "second component has no vars — stale style must be cleared");
+            "second component has no vars - stale style must be cleared");
         builder.ComputedAttributes.ContainsKey(FeatureDefinitions.DataAttributes.Size)
             .Should().BeFalse("second component does not implement IHasSize");
     }
@@ -548,7 +548,7 @@ public class BOBComponentAttributesBuilderUnitTests
 
         builder.BuildStyles(component, null);
         builder.LastBuildSkipped.Should().BeFalse(
-            "second call: IBuiltComponent opts out — no cache hit even when inputs match");
+            "second call: IBuiltComponent opts out - no cache hit even when inputs match");
     }
 
     [Fact]
@@ -628,7 +628,7 @@ public class BOBComponentAttributesBuilderUnitTests
     /// Threshold is deliberately loose (2×) to survive Debug-mode CI runs; the real-world
     /// Release-build speedup on representative components is 5–30×. This test is a sanity guard:
     /// if a future refactor erases the cache fast-path silently, this fact fails. It does NOT
-    /// claim a specific perf budget — that lives in dedicated benchmarks if/when they exist.
+    /// claim a specific perf budget - that lives in dedicated benchmarks if/when they exist.
     ///
     /// Tagged Category=Perf so noisy shared-VM CI runners can exclude it via
     /// `dotnet test --filter "Category!=Perf"`. The deterministic counterpart
@@ -641,7 +641,7 @@ public class BOBComponentAttributesBuilderUnitTests
     {
         const int iterations = 10_000;
 
-        // Warmup — JIT both paths.
+        // Warmup - JIT both paths.
         BOBComponentAttributesBuilder warmup = new();
         FullFeaturedStub warmStub = new() { Size = BOBSize.Medium, Density = BOBDensity.Standard };
         for (int i = 0; i < 200; i++)
@@ -660,7 +660,7 @@ public class BOBComponentAttributesBuilderUnitTests
 
         cold.Stop();
 
-        // Warm path: one builder, repeated calls — every call after the first is a cache hit.
+        // Warm path: one builder, repeated calls - every call after the first is a cache hit.
         BOBComponentAttributesBuilder warm = new();
         FullFeaturedStub stub = new() { Size = BOBSize.Medium, Density = BOBDensity.Standard };
         warm.BuildStyles(stub, null); // prime

@@ -11,21 +11,21 @@ namespace BlazOrbit.Tests.Integration.Tests.Library;
 /// Builds three universes from the source tree:
 ///
 ///   <list type="bullet">
-///     <item><description><b>DOM-emitted</b> — every <c>data-bob-*</c> string literal that lives in
+///     <item><description><b>DOM-emitted</b> - every <c>data-bob-*</c> string literal that lives in
 ///     <c>.razor</c>, <c>.razor.cs</c>, or <c>.cs</c> files under <c>src/BlazOrbit</c> and
 ///     <c>src/BlazOrbit.Core</c>. This is what <c>BOBComponentAttributesBuilder</c> (and any
 ///     consumer override of <c>BuildComponentDataAttributes</c>) eventually puts on the
 ///     <c>&lt;bob-component&gt;</c> root.</description></item>
-///     <item><description><b>CSS-declared</b> — every <c>[data-bob-*]</c> attribute selector that
+///     <item><description><b>CSS-declared</b> - every <c>[data-bob-*]</c> attribute selector that
 ///     appears in <c>.css</c> or <c>.razor.css</c> under the same source tree.</description></item>
-///     <item><description><b>Standard-prescribed</b> — every constant in
+///     <item><description><b>Standard-prescribed</b> - every constant in
 ///     <see cref="FeatureDefinitions.InlineVariables"/>; the test asserts each one is referenced
 ///     via <c>var(--bob-inline-*)</c> at least once in CSS.</description></item>
 ///   </list>
 ///
 /// Intentional gaps (purely informational attributes, JS-side data sinks, etc.) are recorded in the
 /// allowlists below with a justification. Anything that escapes both the regex extractors and the
-/// allowlists is treated as a real bug — either dead CSS or DOM that no rule selects on.
+/// allowlists is treated as a real bug - either dead CSS or DOM that no rule selects on.
 /// </summary>
 [Trait("Library", "CssAudit")]
 public class CssAuditTests
@@ -34,7 +34,7 @@ public class CssAuditTests
     private static readonly string SrcBlazOrbit = Path.Combine(RepoRoot, "src", "BlazOrbit");
     private static readonly string SrcCore = Path.Combine(RepoRoot, "src", "BlazOrbit.Core");
 
-    // Names must start with a letter and end with an alphanumeric — this rejects
+    // Names must start with a letter and end with an alphanumeric - this rejects
     // partial captures that hit a placeholder like `--bob-inline-prefix-{...}` in
     // documentation or comments and would otherwise yield a bogus "prefix-" name.
     private const string NamePart = @"(?<name>[a-z](?:[a-z0-9-]*[a-z0-9])?)";
@@ -79,14 +79,14 @@ public class CssAuditTests
     private static readonly Dictionary<string, string> DomOnlyAllowlist = [];
 
     /// <summary>
-    /// Selectors declared in CSS that intentionally have no in-tree code emitter — typically because
+    /// Selectors declared in CSS that intentionally have no in-tree code emitter - typically because
     /// the value is set by JS/3rd parties or is an opt-in surface for consumer apps.
     /// </summary>
     private static readonly Dictionary<string, string> CssOnlyAllowlist = [];
 
     /// <summary>
     /// FeatureDefinitions.InlineVariables entries that intentionally have no <c>var(--bob-inline-*)</c>
-    /// reference in CSS today. Each is a frozen baseline finding from CSS-OPT-02 — clearing the entry
+    /// reference in CSS today. Each is a frozen baseline finding from CSS-OPT-02 - clearing the entry
     /// requires either wiring a CSS reference or removing the constant.
     /// </summary>
     private static readonly Dictionary<string, string> InlineVarOrphanAllowlist = [];
@@ -181,20 +181,20 @@ public class CssAuditTests
         {
             // A DOM-only entry is stale if (a) the code no longer emits it, OR
             // (b) CSS now selects on it (gap closed), OR
-            // (c) JS now references it (auto-detected JS sink — no manual entry needed).
+            // (c) JS now references it (auto-detected JS sink - no manual entry needed).
             if (!dom.Contains(key))
             {
-                stale.Add($"DomOnlyAllowlist[\"{key}\"] — code no longer emits data-bob-{key}");
+                stale.Add($"DomOnlyAllowlist[\"{key}\"] - code no longer emits data-bob-{key}");
             }
             else if (css.Contains(key))
             {
                 stale.Add(
-                    $"DomOnlyAllowlist[\"{key}\"] — CSS now selects on [data-bob-{key}]; remove the allowlist entry");
+                    $"DomOnlyAllowlist[\"{key}\"] - CSS now selects on [data-bob-{key}]; remove the allowlist entry");
             }
             else if (js.Contains(key))
             {
                 stale.Add(
-                    $"DomOnlyAllowlist[\"{key}\"] — JS now references data-bob-{key}; remove the allowlist entry (auto-detected)");
+                    $"DomOnlyAllowlist[\"{key}\"] - JS now references data-bob-{key}; remove the allowlist entry (auto-detected)");
             }
         }
 
@@ -202,11 +202,11 @@ public class CssAuditTests
         {
             if (!css.Contains(key))
             {
-                stale.Add($"CssOnlyAllowlist[\"{key}\"] — CSS no longer references [data-bob-{key}]");
+                stale.Add($"CssOnlyAllowlist[\"{key}\"] - CSS no longer references [data-bob-{key}]");
             }
             else if (dom.Contains(key))
             {
-                stale.Add($"CssOnlyAllowlist[\"{key}\"] — code now emits data-bob-{key}; remove the allowlist entry");
+                stale.Add($"CssOnlyAllowlist[\"{key}\"] - code now emits data-bob-{key}; remove the allowlist entry");
             }
         }
 
@@ -215,17 +215,17 @@ public class CssAuditTests
             if (!declared.Contains(key))
             {
                 stale.Add(
-                    $"InlineVarOrphanAllowlist[\"{key}\"] — FeatureDefinitions no longer declares --bob-inline-{key}");
+                    $"InlineVarOrphanAllowlist[\"{key}\"] - FeatureDefinitions no longer declares --bob-inline-{key}");
             }
             else if (referenced.Contains(key))
             {
                 stale.Add(
-                    $"InlineVarOrphanAllowlist[\"{key}\"] — CSS now references --bob-inline-{key}; remove the allowlist entry");
+                    $"InlineVarOrphanAllowlist[\"{key}\"] - CSS now references --bob-inline-{key}; remove the allowlist entry");
             }
         }
 
         stale.Should().BeEmpty(
-            "stale allowlist entries hide future drift. Remove the entries listed below — " +
+            "stale allowlist entries hide future drift. Remove the entries listed below - " +
             "either the underlying issue was fixed, or the surface no longer exists.\n\n" +
             string.Join("\n", stale));
     }

@@ -1,4 +1,4 @@
-// BlazOrbit — LocalStorage interop (hand-written JSDoc-typed ESM).
+// BlazOrbit - LocalStorage interop (hand-written JSDoc-typed ESM).
 
 /**
  * @param {string} key

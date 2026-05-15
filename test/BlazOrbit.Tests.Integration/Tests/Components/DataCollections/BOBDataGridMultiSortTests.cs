@@ -88,9 +88,9 @@ public class BOBDataGridMultiSortTests
             .Add(c => c.Columns, Columns)
             .Add(c => c.Sortable, true));
 
-        // Click "Department" header — primary sort, ascending.
+        // Click "Department" header - primary sort, ascending.
         cut.FindAll("button.bob-datagrid__sort-btn")[0].Click();
-        // Shift+Click "Name" — append as secondary.
+        // Shift+Click "Name" - append as secondary.
         cut.FindAll("button.bob-datagrid__sort-btn")[1].Click(new MouseEventArgs { ShiftKey = true });
 
         // First column has no priority badge (single sort would be just "1");

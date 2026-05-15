@@ -1,20 +1,20 @@
 @page "/components/services/confirm"
 
-@using BlazOrbit.Components.Layout
+@using BlazOrbit.Components
 
 @inject IStringLocalizer<ConfirmServicePage> Loc
 @inject IConfirmService Confirm
 
 
 <DocPage Eyebrow="@Loc["Service"]" Title="@Loc["BOBConfirmService"]"
-         Lede="@Loc["Themed replacement for window.confirm() — async, severity-aware, modal-stack-aware."]"
+         Lede="@Loc["Themed replacement for window.confirm() - async, severity-aware, modal-stack-aware."]"
          PageInstance="this"
          ApiType="@typeof(IConfirmService)"
          Keywords="@(["confirm", "dialog service", "confirmation", "programmatic"])">
 
     <BOBBanner Severity="BOBBannerSeverity.Info"
                Title="@Loc["Host required"]"
-               Message="@Loc["BOBConfirmService delegates to BOBModalHost — make sure a single <BOBModalHost /> sits in your root layout. IConfirmService and IModalService are auto-registered by AddBlazOrbit()."]"/>
+               Message="@Loc["BOBConfirmService delegates to BOBModalHost - make sure a single <BOBModalHost /> sits in your root layout. IConfirmService and IModalService are auto-registered by AddBlazOrbit()."]"/>
 
     <BOBCodeBlock Title="MainLayout.razor"
                   Language="SyntaxHighlightLanguage.Razor"

@@ -66,8 +66,8 @@ Pestaña de notificaciones.
 # Overview
 Vista general
 
-# Overview content — the first tab is active by default.
-Contenido de vista general — la primera pestaña está activa por defecto.
+# Overview content - the first tab is active by default.
+Contenido de vista general - la primera pestaña está activa por defecto.
 
 # Pro features
 Funciones Pro
@@ -99,8 +99,8 @@ Enviado
 # Sent messages.
 Mensajes enviados.
 
-# Tab panels with three visual variants. Declare tabs as children — the active one renders automatically.
-Paneles de pestañas con tres variantes visuales. Declara las pestañas como hijas — la activa se renderiza automáticamente.
+# Tab panels with three visual variants. Declare tabs as children - the active one renders automatically.
+Paneles de pestañas con tres variantes visuales. Declara las pestañas como hijas - la activa se renderiza automáticamente.
 
 # Team
 Equipo

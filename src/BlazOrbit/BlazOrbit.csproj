@@ -29,7 +29,7 @@
     <!--
         Ship the consumer-facing (no-op) targets file so MSBuild auto-imports it on restore.
         Hand-written CSS (wwwroot/css/blazorbit.css) and JSDoc-typed .js modules under
-        wwwroot/js/Types/** are committed sources — no build-time generation, no Node,
+        wwwroot/js/Types/** are committed sources - no build-time generation, no Node,
         no Vite. The targets file itself is a no-op and exists purely so MSBuild's
         package-import convention has a file to find.
     -->

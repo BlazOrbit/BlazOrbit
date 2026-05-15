@@ -3,7 +3,7 @@
 @inject IStringLocalizer<DonutChartPage> Loc
 
 <DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBDonutChart"]"
-         Lede="@Loc["Annular distribution chart — same shape as the pie but with a hollow centre (default 60% of the outer radius). Useful for embedding a KPI label inside the ring."]"
+         Lede="@Loc["Annular distribution chart - same shape as the pie but with a hollow centre (default 60% of the outer radius). Useful for embedding a KPI label inside the ring."]"
          PageInstance="this"
          ApiType="@typeof(BOBDonutChart<>)"
          Keywords="@(["donut chart", "doughnut", "percentage", "proportion"])">
@@ -77,7 +77,7 @@
 
     private void HandleSliceClick(BOBChartSliceClickArgs<decimal> args)
     {
-        _clickMessage = $"Clicked: {args.SliceLabel} — {args.Value} ({args.Percentage:F1}%)";
+        _clickMessage = $"Clicked: {args.SliceLabel} - {args.Value} ({args.Percentage:F1}%)";
     }
 
     private static readonly IEnumerable<BOBChartSlice<decimal>> _statusSlices =

@@ -11,7 +11,7 @@
 
     <section class="doc-section">
         <p class="doc-section__description">
-            @Loc.Html("DataCards shares the same column-driven data pipeline as <code>BOBDataGrid</code>. You reuse the same <code>BOBDataColumn</code> declarations — sorting, filtering, pagination, selection, and custom templates work identically. The only difference is the visual layer: rows become cards.")
+            @Loc.Html("DataCards shares the same column-driven data pipeline as <code>BOBDataGrid</code>. You reuse the same <code>BOBDataColumn</code> declarations - sorting, filtering, pagination, selection, and custom templates work identically. The only difference is the visual layer: rows become cards.")
         </p>
     </section>
 
@@ -135,7 +135,7 @@
     </DocDemo>
 
     <DocDemo Key="BulkActions" Title="@Loc["Bulk actions on selection"]"
-             Description="@Loc["BulkActions appear in the toolbar when at least one card is selected — the handler receives the selection so you can wire delete / archive / export."]">
+             Description="@Loc["BulkActions appear in the toolbar when at least one card is selected - the handler receives the selection so you can wire delete / archive / export."]">
         <BOBDataCards TItem="Product"
                       Items="_products"
                       SelectionMode="SelectionMode.Multiple"
@@ -153,7 +153,7 @@
     </DocDemo>
 
     <DocDemo Key="RowDetail" Title="@Loc["Card row detail"]"
-             Description="@Loc["RowDetailTemplate adds an expansion section under each card — perfect for catalogs where the card surfaces the highlights and the detail shows specs, history or stock breakdown."]">
+             Description="@Loc["RowDetailTemplate adds an expansion section under each card - perfect for catalogs where the card surfaces the highlights and the detail shows specs, history or stock breakdown."]">
         <BOBDataCards TItem="Product" Items="_products" MinCardWidth="220px">
             <Columns>
                 <BOBDataColumn TItem="Product" Header="@Loc["Name"]" Property="@(p => p.Name)"/>
@@ -201,7 +201,7 @@
     </DocDemo>
 
     <DocDemo Key="EmptyCta" Title="@Loc["Empty state with CTA"]"
-             Description="@Loc["EmptyActionTemplate slots a button into the default empty layout — encourages users to create their first record without writing a custom EmptyContent."]">
+             Description="@Loc["EmptyActionTemplate slots a button into the default empty layout - encourages users to create their first record without writing a custom EmptyContent."]">
         <BOBDataCards TItem="Product" Items="_emptyList" MinCardWidth="240px">
             <Columns>
                 <BOBDataColumn TItem="Product" Header="@Loc["Name"]" Property="@(p => p.Name)"/>
@@ -259,7 +259,7 @@
         {
             Label = "Archive",
             Icon = BOBIconKeys.MaterialIconsOutlined.i_archive,
-            // Archive only available when in stock — predicate gates the button.
+            // Archive only available when in stock - predicate gates the button.
             Enabled = p => p.Stock > 0,
             OnClick = p => LogAction(p, "Archive")
         },
@@ -291,7 +291,7 @@
             Label = "Discontinue",
             Icon = BOBIconKeys.MaterialIconsOutlined.i_block,
             Color = PaletteColor.Error,
-            // Defensive cap — destructive bulk-op limited to 5.
+            // Defensive cap - destructive bulk-op limited to 5.
             Enabled = sel => sel.Count <= 5,
             OnClick = sel =>
             {

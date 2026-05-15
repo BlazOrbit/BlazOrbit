@@ -76,7 +76,7 @@ public class BOBTabsRenderingTests
         IRenderedComponent<BOBTabs> cut = ctx.Render<BOBTabs>(p => p
             .Add(c => c.ChildContent, BuildTwoTabs()));
 
-        // Assert — first tab has data-bob-active="true"
+        // Assert - first tab has data-bob-active="true"
         cut.Find("[role='tab']").GetAttribute("data-bob-active").Should().Be("true");
     }
 
@@ -91,7 +91,7 @@ public class BOBTabsRenderingTests
             .Add(c => c.ChildContent, BuildTwoTabs())
             .Add(c => c.ActiveTab, "tab1"));
 
-        // Assert — active tab content is visible
+        // Assert - active tab content is visible
         cut.Find("[role='tabpanel']").TextContent.Should().Contain("Content One");
     }
 

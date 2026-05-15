@@ -2,7 +2,7 @@ namespace BlazOrbit.Notifications;
 
 /// <summary>
 /// Storage strategy for <see cref="INotificationCenter"/>. Default implementation is
-/// in-memory — consumers wanting localStorage / IndexedDB / server-side persistence
+/// in-memory - consumers wanting localStorage / IndexedDB / server-side persistence
 /// register their own under <c>AddBlazOrbitNotifications()</c>.
 /// </summary>
 public interface INotificationStore

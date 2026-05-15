@@ -1,5 +1,5 @@
 using AngleSharp.Dom;
-using BlazOrbit.Components.Navigation;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;

@@ -15,7 +15,7 @@
     the just-built bits instead of the public NuGet, so this script is the only
     way to validate template changes against unreleased library changes.
 
-    Default matrix (20 combos — accumulative features across both templates):
+    Default matrix (20 combos - accumulative features across both templates):
         | #  | template          | framework | localization | charts | notifications | hotkeys |
         |----|-------------------|-----------|--------------|--------|---------------|---------|
         | 1  | blazorbit-server  | net8.0    | false        | false  | false         | false   |
@@ -43,7 +43,7 @@
     the work-dir root referencing every successfully-generated project. Pair
     with -KeepWorkDir to load it in VS / Rider or run
     `dotnet build artifacts/template-tests/template-tests.slnx` for ad-hoc
-    inspection — the local feed stays configured so package restore works.
+    inspection - the local feed stays configured so package restore works.
 
 .PARAMETER Configuration
     MSBuild configuration for the pack + build steps. Default: Release.
@@ -68,7 +68,7 @@
 .PARAMETER SkipE2E
     Skip the Playwright end-to-end smoke against the generated apps. E2E runs
     by default after every successful build because that is the only stage that
-    catches runtime regressions (asset 404s, JS errors, blank pages) — a
+    catches runtime regressions (asset 404s, JS errors, blank pages) - a
     template can compile clean yet still ship a broken home page if a referenced
     `_content/<pkg>/...` URL is missing from the BlazOrbit nupkg's static
     web asset manifest.
@@ -108,7 +108,7 @@
     gets a `nuget.config` that pins resolution to `https://api.nuget.org/v3/index.json`
     (the local feed is bypassed even if registered globally), every generated
     csproj has `Version="*"` pinned to the resolved version (so prereleases
-    are picked too — `*` only matches stable), and build + E2E run normally.
+    are picked too - `*` only matches stable), and build + E2E run normally.
     Use this as a post-publish smoke against the bits real users will install.
 
 .PARAMETER Version
@@ -213,7 +213,7 @@ $templatesProj = Join-Path $repoRoot "templates\BlazOrbit.Templates.csproj"
 # Eight cases cover all (Loc × Charts) cells across both templates so the
 # `IncludeCharts` opt-in interacts cleanly with the existing Localization
 # wiring (Program.cs / Layout / NavMenu variants). The Loc+Charts cells
-# are the ones most likely to break — both modifiers reach into the
+# are the ones most likely to break - both modifiers reach into the
 # project root and conflicts in `template.json` exclusions surface here.
 if (-not $Matrix -or $Matrix.Count -eq 0) {
     $Matrix = @(
@@ -260,7 +260,7 @@ function Invoke-DotNet {
     Write-Host "    > dotnet $($ArgsList -join ' ')" -ForegroundColor DarkGray
     & dotnet @ArgsList
     if ($LASTEXITCODE -ne 0) {
-        throw "dotnet $($ArgsList -join ' ') failed (exit $LASTEXITCODE) — $Description"
+        throw "dotnet $($ArgsList -join ' ') failed (exit $LASTEXITCODE) - $Description"
     }
 }
 
@@ -435,7 +435,7 @@ Write-Ok "cleared"
 Write-Step "Installing BlazOrbit.Templates"
 $installed = & dotnet new uninstall 2>&1 | Out-String
 if ($installed -match "BlazOrbit\.Templates") {
-    Write-Warn2 "previous BlazOrbit.Templates install detected — uninstalling first"
+    Write-Warn2 "previous BlazOrbit.Templates install detected - uninstalling first"
     Invoke-DotNet @("new", "uninstall", "BlazOrbit.Templates") "uninstall previous"
 }
 if ($PublicFeed) {
@@ -452,7 +452,7 @@ Write-Ok "installed"
 Write-Step "Preparing work dir at $WorkDir"
 if (Test-Path $WorkDir) {
     if ($KeepWorkDir) {
-        Write-Warn2 "WorkDir exists and -KeepWorkDir set — leaving in place; per-test dirs will still be wiped"
+        Write-Warn2 "WorkDir exists and -KeepWorkDir set - leaving in place; per-test dirs will still be wiped"
     } else {
         Remove-Item $WorkDir -Recurse -Force
         Write-Ok "wiped previous work dir"
@@ -542,7 +542,7 @@ foreach ($case in $Matrix) {
     }
 
     # Pin BlazOrbit.* PackageReferences to the resolved version under -PublicFeed.
-    # Templates ship `Version="*"` which only matches stable — without this pin,
+    # Templates ship `Version="*"` which only matches stable - without this pin,
     # `dotnet restore` against a preview would resolve to the latest *stable*
     # (or fail if none exists) instead of the version we're trying to validate.
     if ($PublicFeed) {
@@ -621,10 +621,10 @@ if ($RunE2E) {
             throw "E2E test project not found: $e2eProj"
         }
 
-        # 1. Build E2E project (idempotent — no-op if already built)
+        # 1. Build E2E project (idempotent - no-op if already built)
         Invoke-DotNet @("build", $e2eProj, "-c", $Configuration, "--nologo") "build E2E project"
 
-        # 2. Ensure Playwright browsers are installed (idempotent — skips if present)
+        # 2. Ensure Playwright browsers are installed (idempotent - skips if present)
         $playwrightPs1 = Join-Path $repoRoot "test\BlazOrbit.Templates.E2E\bin\$Configuration\net10.0\playwright.ps1"
         if (-not (Test-Path $playwrightPs1)) {
             throw "playwright.ps1 not found at $playwrightPs1. Ensure the E2E project built successfully."

@@ -1,4 +1,4 @@
-using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -17,7 +17,7 @@ public class BOBThemeSelectorStateTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — GetThemeAsync returns "light"
+        // Arrange - GetThemeAsync returns "light"
         IThemeJsInterop fake = Substitute.For<IThemeJsInterop>();
         fake.GetThemeAsync().Returns(new ValueTask<string>("light"));
         ctx.Services.AddScoped(_ => fake);
@@ -25,7 +25,7 @@ public class BOBThemeSelectorStateTests
         // Act
         IRenderedComponent<BOBThemeSelector> cut = ctx.Render<BOBThemeSelector>();
 
-        // Assert — after firstRender, label = "Light"
+        // Assert - after firstRender, label = "Light"
         cut.Find(".bob-theme-switch__label").TextContent.Should().Be("Light");
     }
 
@@ -35,7 +35,7 @@ public class BOBThemeSelectorStateTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — GetThemeAsync returns "dark"
+        // Arrange - GetThemeAsync returns "dark"
         IThemeJsInterop fake = Substitute.For<IThemeJsInterop>();
         fake.GetThemeAsync().Returns(new ValueTask<string>("dark"));
         ctx.Services.AddScoped(_ => fake);

@@ -59,7 +59,7 @@ public class AxisFormatTests
                         }
                 ]));
 
-        // No label should have more than 4 chars after the decimal point —
+        // No label should have more than 4 chars after the decimal point -
         // protects against the previous "0.20000000000000001" output.
         IEnumerable<string> labels = cut.FindAll("text").Select(t => t.TextContent);
         foreach (string label in labels)

@@ -1,4 +1,4 @@
-namespace BlazOrbit.Components.Navigation;
+namespace BlazOrbit.Components;
 
 /// <summary>Layout direction for the <c>BOBStepper</c> header rail.</summary>
 public enum BOBStepperOrientation

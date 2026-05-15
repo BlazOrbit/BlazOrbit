@@ -68,7 +68,7 @@
     <section class="doc-section">
         <h2 class="doc-section__title">@Loc["Tips"]</h2>
         <ul>
-            <li>@Loc.Html("Variants always run through <code>BOBComponentAttributesBuilder</code> first — the root <code>&lt;bob-component&gt;</code> gets the usual <code>data-bob-*</code> treatment whether you override the template or not.")</li>
+            <li>@Loc.Html("Variants always run through <code>BOBComponentAttributesBuilder</code> first - the root <code>&lt;bob-component&gt;</code> gets the usual <code>data-bob-*</code> treatment whether you override the template or not.")</li>
             <li>@Loc.Html("Variants are <strong>singletons</strong>. Don't close over mutable state; use component parameters instead.")</li>
             <li>@Loc.Html("For one-off layouts you'd rather inline, use the component's slots (e.g. <code>ChildContent</code>, <code>Header</code>) instead of a registered variant.")</li>
             <li>@Loc.Html("Create a custom variant via <code>SomeVariant.Custom(&quot;name&quot;)</code> when the type exposes it, or subclass <code>Variant</code> directly.")</li>

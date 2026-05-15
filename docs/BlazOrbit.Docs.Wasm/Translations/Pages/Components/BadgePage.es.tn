@@ -3,7 +3,7 @@
 # Alerts
 Alertas
 
-# An empty badge renders as a dot — perfect as an unread indicator.
+# An empty badge renders as a dot - perfect as an unread indicator.
 Un badge vacío se representa como un punto, perfecto como indicador de no leído.
 
 # Basic usage
@@ -24,7 +24,7 @@ Circular
 # Colors
 Colores
 
-# Compact label for status, counts, or tags. Circular, dot-only, or with content — use it anywhere.
+# Compact label for status, counts, or tags. Circular, dot-only, or with content - use it anywhere.
 Etiqueta compacta para estado, recuentos o etiquetas. Circular, solo punto o con contenido: úsala en cualquier lugar.
 
 # Component

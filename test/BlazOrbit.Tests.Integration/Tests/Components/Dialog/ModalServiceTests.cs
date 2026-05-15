@@ -1,5 +1,4 @@
-using BlazOrbit.Components.Layout;
-using BlazOrbit.Components.Layout.Services;
+using BlazOrbit.Components;
 using FluentAssertions;
 
 namespace BlazOrbit.Tests.Integration.Tests.Components.Dialog;

@@ -3,7 +3,7 @@
 # A higher InnerRadius (closer to 1) produces a thinner ring. Lower values approach the look of a full pie.
 Un InnerRadius mayor (más cercano a 1) produce un anillo más fino. Valores más bajos se acercan al aspecto de un pastel completo.
 
-# Annular distribution chart — same shape as the pie but with a hollow centre (default 60% of the outer radius). Useful for embedding a KPI label inside the ring.
+# Annular distribution chart - same shape as the pie but with a hollow centre (default 60% of the outer radius). Useful for embedding a KPI label inside the ring.
 Gráfico de distribución anular: misma forma que el pastel pero con un centro hueco (60% del radio externo por defecto). Útil para incrustar una etiqueta KPI dentro del anillo.
 
 # Basic usage

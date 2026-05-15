@@ -12,7 +12,7 @@ public class BOBTreeMenuSplitAffordanceTests
 {
     private static RenderFragment ContainerWithChildrenMarkup => b =>
     {
-        // "Components" — container with both Href + child sub-pages.
+        // "Components" - container with both Href + child sub-pages.
         b.OpenComponent<BOBTreeMenuItem>(0);
         b.AddAttribute(1, "Text", "Components");
         b.AddAttribute(2, "Href", "/components");

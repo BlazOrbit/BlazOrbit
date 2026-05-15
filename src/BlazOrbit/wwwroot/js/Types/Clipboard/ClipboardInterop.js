@@ -1,4 +1,4 @@
-// BlazOrbit — Clipboard interop (hand-written JSDoc-typed ESM).
+// BlazOrbit - Clipboard interop (hand-written JSDoc-typed ESM).
 
 /** @param {string} text */
 export async function copyText(text) {
@@ -17,7 +17,7 @@ export async function copyText(text) {
 /**
  * Writes both text/plain and text/html payloads to the system clipboard so spreadsheet
  * targets (Excel, Sheets, Numbers) consume the HTML envelope while plain editors fall back
- * to the TSV. Requires the async ClipboardItem API — on insecure contexts or older browsers
+ * to the TSV. Requires the async ClipboardItem API - on insecure contexts or older browsers
  * we degrade to writeText with the plain payload.
  * @param {string} text
  * @param {string} html
@@ -42,7 +42,7 @@ export async function copyRich(text, html) {
             window.focus();
             await navigator.clipboard.writeText(text);
         } catch (err) {
-            // Swallow — write failed (no permission, no focus, etc.).
+            // Swallow - write failed (no permission, no focus, etc.).
         }
     }
 }

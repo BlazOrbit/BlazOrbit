@@ -72,7 +72,7 @@ public class BOBTabsAccessibilityTests
             .Add(c => c.ChildContent, TwoTabs)
             .Add(c => c.ActiveTab, "tab1"));
 
-        // Assert — aria-controls matches panel id
+        // Assert - aria-controls matches panel id
         cut.FindAll("[role='tab']")[0].GetAttribute("aria-controls")
             .Should().Be("bob-tabpanel-tab1");
     }
@@ -88,7 +88,7 @@ public class BOBTabsAccessibilityTests
             .Add(c => c.ChildContent, TwoTabs)
             .Add(c => c.ActiveTab, "tab1"));
 
-        // Assert — active tab tabindex=0, inactive=-1 (roving tabindex)
+        // Assert - active tab tabindex=0, inactive=-1 (roving tabindex)
         cut.FindAll("[role='tab']")[0].GetAttribute("tabindex").Should().Be("0");
         cut.FindAll("[role='tab']")[1].GetAttribute("tabindex").Should().Be("-1");
     }
@@ -172,7 +172,7 @@ public class BOBTabsAccessibilityTests
         // BlazOrbit chose wrapping (FindNextEnabled uses modulo arithmetic).
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — start on the last tab
+        // Arrange - start on the last tab
         IRenderedComponent<BOBTabs> cut = ctx.Render<BOBTabs>(p => p
             .Add(c => c.ChildContent, TwoTabs)
             .Add(c => c.ActiveTab, "tab2"));
@@ -180,7 +180,7 @@ public class BOBTabsAccessibilityTests
         // Act
         cut.FindAll("[role='tab']")[1].KeyDown(new KeyboardEventArgs { Key = "ArrowRight" });
 
-        // Assert — wraps to first
+        // Assert - wraps to first
         cut.Instance.ActiveTab.Should().Be("tab1");
     }
 
@@ -190,7 +190,7 @@ public class BOBTabsAccessibilityTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — start on the first tab
+        // Arrange - start on the first tab
         IRenderedComponent<BOBTabs> cut = ctx.Render<BOBTabs>(p => p
             .Add(c => c.ChildContent, TwoTabs)
             .Add(c => c.ActiveTab, "tab1"));
@@ -198,7 +198,7 @@ public class BOBTabsAccessibilityTests
         // Act
         cut.FindAll("[role='tab']")[0].KeyDown(new KeyboardEventArgs { Key = "ArrowLeft" });
 
-        // Assert — wraps to last
+        // Assert - wraps to last
         cut.Instance.ActiveTab.Should().Be("tab2");
     }
 
@@ -208,7 +208,7 @@ public class BOBTabsAccessibilityTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — focus on last tab
+        // Arrange - focus on last tab
         IRenderedComponent<BOBTabs> cut = ctx.Render<BOBTabs>(p => p
             .Add(c => c.ChildContent, TwoTabs)
             .Add(c => c.ActiveTab, "tab2"));
@@ -226,7 +226,7 @@ public class BOBTabsAccessibilityTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — focus on first tab
+        // Arrange - focus on first tab
         IRenderedComponent<BOBTabs> cut = ctx.Render<BOBTabs>(p => p
             .Add(c => c.ChildContent, TwoTabs)
             .Add(c => c.ActiveTab, "tab1"));
@@ -246,7 +246,7 @@ public class BOBTabsAccessibilityTests
         // the user never lands on a non-actionable target.
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — tab2 is disabled, focus starts on tab1
+        // Arrange - tab2 is disabled, focus starts on tab1
         IRenderedComponent<BOBTabs> cut = ctx.Render<BOBTabs>(p => p
             .Add(c => c.ChildContent, ThreeTabs_Middle_Disabled)
             .Add(c => c.ActiveTab, "tab1"));
@@ -254,7 +254,7 @@ public class BOBTabsAccessibilityTests
         // Act
         cut.FindAll("[role='tab']")[0].KeyDown(new KeyboardEventArgs { Key = "ArrowRight" });
 
-        // Assert — jumps over tab2 directly to tab3
+        // Assert - jumps over tab2 directly to tab3
         cut.Instance.ActiveTab.Should().Be("tab3");
     }
 
@@ -262,7 +262,7 @@ public class BOBTabsAccessibilityTests
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
     public async Task Should_Ignore_Unrelated_Keys(BlazorScenario scenario)
     {
-        // Tab navigation must not eat keys outside the spec — Enter/Space/etc.
+        // Tab navigation must not eat keys outside the spec - Enter/Space/etc.
         // belong to the tab's click semantics, not to navigation.
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
@@ -275,7 +275,7 @@ public class BOBTabsAccessibilityTests
         cut.FindAll("[role='tab']")[0].KeyDown(new KeyboardEventArgs { Key = "Tab" });
         cut.FindAll("[role='tab']")[0].KeyDown(new KeyboardEventArgs { Key = "Enter" });
 
-        // Assert — active tab unchanged
+        // Assert - active tab unchanged
         cut.Instance.ActiveTab.Should().Be("tab1");
     }
 }

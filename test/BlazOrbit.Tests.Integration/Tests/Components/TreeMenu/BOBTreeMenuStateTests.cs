@@ -75,7 +75,7 @@ public class BOBTreeMenuStateTests
         // Act
         cut.Find("[role='menuitem']").Click();
 
-        // Assert — submenu rendered with child items
+        // Assert - submenu rendered with child items
         cut.Find("[role='menu']").Should().NotBeNull();
         cut.FindAll("[role='menuitem']").Should().HaveCount(2);
     }

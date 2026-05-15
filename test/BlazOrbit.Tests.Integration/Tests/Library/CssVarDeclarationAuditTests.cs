@@ -105,7 +105,7 @@ public class CssVarDeclarationAuditTests
         {
             if (globalDecls.Contains(key))
             {
-                stale.Add($"Allowlist[{key}] — now declared in CSS or FeatureDefinitions; remove the entry");
+                stale.Add($"Allowlist[{key}] - now declared in CSS or FeatureDefinitions; remove the entry");
             }
         }
 

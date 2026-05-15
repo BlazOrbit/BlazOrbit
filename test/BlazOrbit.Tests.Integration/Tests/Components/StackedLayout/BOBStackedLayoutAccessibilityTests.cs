@@ -1,5 +1,5 @@
 using AngleSharp.Dom;
-using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -22,7 +22,7 @@ public class BOBStackedLayoutAccessibilityTests
             .Add(c => c.Nav, b => b.AddContent(0, "n"))
             .Add(c => c.ChildContent, b => b.AddContent(0, "m")));
 
-        // Assert — header/nav/main are native landmarks
+        // Assert - header/nav/main are native landmarks
         cut.Find("header.bob-stacked-layout__header").Should().NotBeNull();
         cut.Find("nav.bob-stacked-layout__nav").Should().NotBeNull();
         cut.Find("main.bob-stacked-layout__main").Should().NotBeNull();
@@ -83,7 +83,7 @@ public class BOBStackedLayoutAccessibilityTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — consumer enriches the outer <nav> by placing an
+        // Arrange & Act - consumer enriches the outer <nav> by placing an
         // inner labelled <nav> or relying on the existing landmark.
         IRenderedComponent<BOBStackedLayout> cut = ctx.Render<BOBStackedLayout>(p => p
             .Add(c => c.Nav, b => b.AddMarkupContent(0,

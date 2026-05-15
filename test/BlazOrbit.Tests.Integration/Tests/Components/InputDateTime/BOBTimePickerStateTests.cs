@@ -49,7 +49,7 @@ public class BOBTimePickerStateTests
         IRenderedComponent<BOBTimePicker> cut = ctx.Render<BOBTimePicker>(p => p
             .Add(c => c.Value, new TimeOnly(14, 35)));
 
-        // Assert — minute input carries the two-digit minute
+        // Assert - minute input carries the two-digit minute
         IReadOnlyList<IElement> inputs = cut.FindAll("input");
         inputs.Should().Contain(i => i.GetAttribute("value") == "35");
     }
@@ -78,10 +78,10 @@ public class BOBTimePickerStateTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — VerifyConfig locks culture to en-US which uses a 12h ShortTimePattern
+        // Arrange & Act - VerifyConfig locks culture to en-US which uses a 12h ShortTimePattern
         IRenderedComponent<BOBTimePicker> cut = ctx.Render<BOBTimePicker>();
 
-        // Assert — first button is the format toggle; en-US → "12h"
+        // Assert - first button is the format toggle; en-US → "12h"
         cut.FindAll("button").First().TextContent.Trim().Should().Be("12h");
     }
 
@@ -95,7 +95,7 @@ public class BOBTimePickerStateTests
         IRenderedComponent<BOBTimePicker> cut = ctx.Render<BOBTimePicker>(p => p
             .Add(c => c.Value, new TimeOnly(14, 0)));
 
-        // Assert — last action button displays AM or PM label
+        // Assert - last action button displays AM or PM label
         cut.Markup.Should().MatchRegex(">\\s*(AM|PM)\\s*<");
     }
 

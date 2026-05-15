@@ -23,7 +23,7 @@
     <ItemGroup>
         <!--
             Hotkeys reaches into the Core abstractions for ModuleJsInteropBase. No dependency
-            on the main BlazOrbit component library — the host renders nothing visible and
+            on the main BlazOrbit component library - the host renders nothing visible and
             keeps the package surface minimal so consumers can opt in without pulling the
             full design system.
         -->

@@ -19,11 +19,11 @@ public static class WasmLocalizationServiceCollectionExtensions
         // BOBLocalize takes over IStringLocalizer<T> resolution. Built-in providers
         // (Bundle, Literal) plus per-bundle `.tn` data are registered via the
         // `[ModuleInitializer]` emitted by `BlazOrbit.Localization.CodeGeneration` in each
-        // assembly that declares `[BobLocalizationBundle]` — by the time any consumer
+        // assembly that declares `[BobLocalizationBundle]` - by the time any consumer
         // resolves `IStringLocalizer<TResource>`, every bundle is already in place.
         services.AddBlazOrbitLocalization();
 
-        // WASM-specific persistence — culture cookie/localStorage round-trip.
+        // WASM-specific persistence - culture cookie/localStorage round-trip.
         services.AddScoped<ILocalizationPersistence, WasmLocalizationPersistence>();
 
         return services;

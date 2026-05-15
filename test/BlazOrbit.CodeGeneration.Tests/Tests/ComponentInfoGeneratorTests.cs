@@ -67,7 +67,7 @@ public class ComponentInfoGeneratorTests
 
                            @code {
                                /// <summary>
-                               /// Optional CTA template rendered alongside the empty state — pair
+                               /// Optional CTA template rendered alongside the empty state - pair
                                /// with <see cref="EmptyContent"/> for "Create first record" buttons
                                /// without rewriting the entire empty layout.
                                /// </summary>
@@ -308,7 +308,7 @@ public class ComponentInfoGeneratorTests
     {
         // the resolver protects against a → b → a cycles via a
         // `visited` HashSet. Without it, the generator would recurse forever
-        // and stack-overflow the build. We render both sides as authored —
+        // and stack-overflow the build. We render both sides as authored -
         // the cycle just stops collection at the second visit, neither file
         // crashes the generator.
         string razorA = """
@@ -345,7 +345,7 @@ public class ComponentInfoGeneratorTests
     [Fact]
     public void Should_Generate_Identical_Output_When_Run_Twice()
     {
-        // incremental generators must be deterministic — the same
+        // incremental generators must be deterministic - the same
         // inputs must produce the same outputs (byte-identical). Two
         // invocations on a fresh harness lock that contract; if a future
         // change introduced ordering instability (e.g. switching to a

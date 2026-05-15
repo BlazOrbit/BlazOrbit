@@ -1,8 +1,6 @@
 using BlazOrbit.Abstractions;
 using BlazOrbit.Components;
 using BlazOrbit.Components.Forms;
-using BlazOrbit.Components.Layout;
-using BlazOrbit.Components.Layout.Services;
 using BlazOrbit.Localization;
 using BlazOrbit.Services;
 using Microsoft.AspNetCore.Components;
@@ -17,7 +15,7 @@ public static class ServiceCollectionExtensions
         services.AddMemoryCache();
         services.AddSingleton(TimeProvider.System);
 
-        // BOBLocalize runtime — registers IStringLocalizer<T> => BobLocalizer<T> so the ~35
+        // BOBLocalize runtime - registers IStringLocalizer<T> => BobLocalizer<T> so the ~35
         // built-in components that inject IStringLocalizer<BOBFormsResources> /
         // <BOBLayoutResources> / ... resolve without the consumer having to call
         // AddBlazOrbitLocalizationServer/Wasm explicitly. BobLocalizer falls back to literal
@@ -48,11 +46,11 @@ public static class ServiceCollectionExtensions
         // Toast
         services.AddScoped<IToastService, ToastService>();
 
-        // Confirm — themed wrapper over IModalService. Zero JS bundle so it ships with
+        // Confirm - themed wrapper over IModalService. Zero JS bundle so it ships with
         // the core registration; opt-out simply by ignoring the IConfirmService injection.
         services.AddScoped<IConfirmService, ConfirmService>();
 
-        // Data-collection state persistence — default no-op so grids without a
+        // Data-collection state persistence - default no-op so grids without a
         // PersistenceKey behave as before. Consumers opt in to localStorage-backed
         // persistence by registering LocalStorageStatePersistence on top of this entry.
         services.AddScoped<IDataCollectionStatePersistence, NullStatePersistence>();

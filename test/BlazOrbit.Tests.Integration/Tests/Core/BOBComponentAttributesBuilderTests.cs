@@ -21,17 +21,17 @@ public class BOBComponentAttributesBuilderTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — render same type twice
+        // Arrange - render same type twice
         IRenderedComponent<BOBComponentBase_TestStub> cut1 = ctx.Render<BOBComponentBase_TestStub>(p => p
             .Add(c => c.Size, BOBSize.Small));
         IRenderedComponent<BOBComponentBase_TestStub> cut2 = ctx.Render<BOBComponentBase_TestStub>(p => p
             .Add(c => c.Size, BOBSize.Large));
 
-        // Act — read component name attribute (derived from type cache)
+        // Act - read component name attribute (derived from type cache)
         string? name1 = cut1.Find("div").GetAttribute("data-bob-component");
         string? name2 = cut2.Find("div").GetAttribute("data-bob-component");
 
-        // Assert — same type → same kebab name regardless of instance
+        // Assert - same type → same kebab name regardless of instance
         name1.Should().Be(name2);
         name1.Should().NotBeNullOrEmpty();
     }
@@ -45,7 +45,7 @@ public class BOBComponentAttributesBuilderTests
         // Arrange & Act
         IRenderedComponent<BOBComponentBase_TestStub> cut = ctx.Render<BOBComponentBase_TestStub>();
 
-        // Assert — BOB prefix stripped, CamelCase → kebab (underscore preserved as-is)
+        // Assert - BOB prefix stripped, CamelCase → kebab (underscore preserved as-is)
         string? name = cut.Find("div").GetAttribute("data-bob-component");
         name.Should().NotBeNullOrEmpty();
         name.Should().NotStartWith("bob");
@@ -58,11 +58,11 @@ public class BOBComponentAttributesBuilderTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — component implements IHasLoading → flag is in cache
+        // Arrange & Act - component implements IHasLoading → flag is in cache
         IRenderedComponent<BOBComponentBase_TestStub> cut = ctx.Render<BOBComponentBase_TestStub>(p => p
             .Add(c => c.Loading, true));
 
-        // Assert — loading attribute present (cache correctly identified IHasLoading)
+        // Assert - loading attribute present (cache correctly identified IHasLoading)
         cut.Find("div").GetAttribute("data-bob-loading").Should().Be("true");
     }
 
@@ -78,12 +78,12 @@ public class BOBComponentAttributesBuilderTests
             .Add(c => c.AdditionalAttributes, attrs)
             .Add(c => c.Loading, false));
 
-        // Act — patch volatile attribute
+        // Act - patch volatile attribute
         cut.Render(p => p
             .Add(c => c.AdditionalAttributes, attrs)
             .Add(c => c.Loading, true));
 
-        // Assert — user attribute preserved after patch
+        // Assert - user attribute preserved after patch
         cut.Find("div").GetAttribute("data-testid").Should().Be("my-component");
         cut.Find("div").GetAttribute("data-bob-loading").Should().Be("true");
     }

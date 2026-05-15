@@ -28,7 +28,7 @@
                          Width="720" Height="360"/>
         @if (_lastClicked is not null)
         {
-            <p class="doc-callout doc-callout--info"><strong>@Loc["Clicked:"]</strong> @string.Join(" / ", _lastClicked.Path) — @_lastClicked.Node.Value</p>
+            <p class="doc-callout doc-callout--info"><strong>@Loc["Clicked:"]</strong> @string.Join(" / ", _lastClicked.Path) - @_lastClicked.Node.Value</p>
         }
     </DocDemo>
 

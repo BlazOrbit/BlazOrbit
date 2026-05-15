@@ -11,14 +11,14 @@ namespace BlazOrbit.Tests.Integration.Tests.Library;
 /// writes <c>obj/&lt;Config&gt;/&lt;TFM&gt;/staticwebassets.pack.json</c> during the
 /// normal build (no <c>dotnet pack</c> required) listing every file that will end up
 /// under <c>staticwebassets/</c> inside the produced .nupkg. Consumers reference those
-/// entries via <c>_content/&lt;PackageId&gt;/...</c> at runtime — and a missing entry
+/// entries via <c>_content/&lt;PackageId&gt;/...</c> at runtime - and a missing entry
 /// surfaces as a 404 on the consumer's first page load, with no build/test failure.
 ///
 /// Without this guard a regression like the one in commit <c>f57da79</c> can slip
 /// through: <c>wwwroot/css/blazorbit.css</c> + the JS interop modules end up shipped
 /// only under <c>content/</c> (regular NuGet content) and consumer apps hit 404 on
 /// every <c>_content/BlazOrbit/...</c> URL. Build and tests stay green because the
-/// bundled scoped CSS <i>does</i> reach static web assets — only the interop assets
+/// bundled scoped CSS <i>does</i> reach static web assets - only the interop assets
 /// are missing.
 ///
 /// Charts + Hotkeys are covered defensively: today their csprojs don't replicate
@@ -48,17 +48,17 @@ public class BlazOrbitStaticWebAssetsPackTests
     /// </summary>
     public static IEnumerable<object[]> Manifests() => new[]
     {
-        // BlazOrbit — main design system. Loaded via BOBInitializer + every template's
+        // BlazOrbit - main design system. Loaded via BOBInitializer + every template's
         // App.razor / index.html through `_content/BlazOrbit/css/blazorbit.css` and
         // the JSModulesReference constants.
         new object[] { "BlazOrbit", "net8.0",  new[] { "css/blazorbit.css", "js/Types/Theme/ThemeInterop.js" } },
         new object[] { "BlazOrbit", "net10.0", new[] { "css/blazorbit.css", "js/Types/Theme/ThemeInterop.js" } },
 
-        // BlazOrbit.Charts — SVG-native charts. `_content/BlazOrbit.Charts/...` paths.
+        // BlazOrbit.Charts - SVG-native charts. `_content/BlazOrbit.Charts/...` paths.
         new object[] { "BlazOrbit.Charts", "net8.0",  new[] { "css/blazorbit-charts.css", "js/Types/Chart/ChartInterop.js" } },
         new object[] { "BlazOrbit.Charts", "net10.0", new[] { "css/blazorbit-charts.css", "js/Types/Chart/ChartInterop.js" } },
 
-        // BlazOrbit.Hotkeys — keyboard registry. JS-only (no scoped CSS).
+        // BlazOrbit.Hotkeys - keyboard registry. JS-only (no scoped CSS).
         new object[] { "BlazOrbit.Hotkeys", "net8.0",  new[] { "js/Hotkey/HotkeyInterop.js" } },
         new object[] { "BlazOrbit.Hotkeys", "net10.0", new[] { "js/Hotkey/HotkeyInterop.js" } },
     };

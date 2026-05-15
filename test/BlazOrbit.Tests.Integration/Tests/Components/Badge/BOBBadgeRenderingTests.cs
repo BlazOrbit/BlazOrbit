@@ -57,10 +57,10 @@ public class BOBBadgeRenderingTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — no ChildContent = dot mode
+        // Arrange & Act - no ChildContent = dot mode
         IRenderedComponent<BOBBadge> cut = ctx.Render<BOBBadge>();
 
-        // Assert — data-bob-dot emitted when no content
+        // Assert - data-bob-dot emitted when no content
         cut.Find("bob-component").GetAttribute("data-bob-dot").Should().Be("true");
     }
 
@@ -74,7 +74,7 @@ public class BOBBadgeRenderingTests
         IRenderedComponent<BOBBadge> cut = ctx.Render<BOBBadge>(p => p
             .Add(c => c.ChildContent, b => b.AddContent(0, "5")));
 
-        // Assert — no dot when content is present
+        // Assert - no dot when content is present
         cut.Find("bob-component").GetAttribute("data-bob-dot").Should().BeNull();
     }
 

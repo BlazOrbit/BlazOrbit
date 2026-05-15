@@ -38,7 +38,7 @@ public class BOBDataCardsInteractionTests
             .Add(c => c.Columns, SimpleColumns)
             .Add(c => c.OnRowClick, person => clicked = person));
 
-        // Act — click the first card
+        // Act - click the first card
         cut.FindAll(".bob-datacards__card")[0].Click();
 
         // Assert
@@ -80,12 +80,12 @@ public class BOBDataCardsInteractionTests
             .Add(c => c.Columns, SimpleColumns)
             .Add(c => c.SelectionMode, SelectionMode.Multiple));
 
-        // Act — select both, then deselect the first
+        // Act - select both, then deselect the first
         cut.FindAll(".bob-datacards__card")[0].Click();
         cut.FindAll(".bob-datacards__card")[1].Click();
         cut.FindAll(".bob-datacards__card")[0].Click();
 
-        // Assert — only second is selected
+        // Assert - only second is selected
         cut.FindAll(".bob-datacards__card")[0].GetAttribute("data-bob-selected").Should().BeNull();
         cut.FindAll(".bob-datacards__card")[1].GetAttribute("data-bob-selected").Should().Be("true");
     }
@@ -111,7 +111,7 @@ public class BOBDataCardsInteractionTests
                 b.CloseComponent();
             }));
 
-        // Assert — default ascending order: Alice first
+        // Assert - default ascending order: Alice first
         cut.FindAll(".bob-datacards__field-value")[0].TextContent.Should().Be("Alice");
     }
 
@@ -138,10 +138,10 @@ public class BOBDataCardsInteractionTests
         cut.Find("[aria-label='Search...']").Input("Ali");
         cut.FindAll(".bob-datacards__card").Should().HaveCount(1);
 
-        // Act — click the clear-filter button (aria-label="Clear filter")
+        // Act - click the clear-filter button (aria-label="Clear filter")
         cut.Find("[aria-label='Clear filter']").Click();
 
-        // Assert — all cards visible again
+        // Assert - all cards visible again
         cut.FindAll(".bob-datacards__card").Should().HaveCount(2);
     }
 }

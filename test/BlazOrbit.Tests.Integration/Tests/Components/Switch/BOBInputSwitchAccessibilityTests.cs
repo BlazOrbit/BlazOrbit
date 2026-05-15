@@ -57,7 +57,7 @@ public class BOBInputSwitchAccessibilityTests
         IRenderedComponent<BOBInputSwitch> cut = ctx.Render<BOBInputSwitch>(p => p
             .Add(c => c.Label, "Dark mode"));
 
-        // Label acts as accessible name via `for` association — aria-label should be null
+        // Label acts as accessible name via `for` association - aria-label should be null
         cut.Find("input.bob-switch__input").GetAttribute("aria-label").Should().BeNull();
     }
 

@@ -17,7 +17,7 @@ public class BOBInputRadioInteractionTests
 
         IRenderedComponent<TestBOBInputRadioConsumer> cut = ctx.Render<TestBOBInputRadioConsumer>();
 
-        // Act — click second option
+        // Act - click second option
         cut.FindAll(".bob-radio__option")[1].Click();
 
         // Assert
@@ -33,7 +33,7 @@ public class BOBInputRadioInteractionTests
         IRenderedComponent<TestBOBInputRadioConsumer> cut = ctx.Render<TestBOBInputRadioConsumer>(p => p
             .Add(c => c.SelectedValue, "opt1"));
 
-        // Act — click third option
+        // Act - click third option
         cut.FindAll(".bob-radio__option")[2].Click();
 
         // Assert
@@ -54,7 +54,7 @@ public class BOBInputRadioInteractionTests
         // Act
         cut.FindAll(".bob-radio__option")[0].Click();
 
-        // Assert — no selection
+        // Assert - no selection
         cut.Find(".selected-value").TextContent.Should().BeEmpty();
     }
 
@@ -67,7 +67,7 @@ public class BOBInputRadioInteractionTests
         IRenderedComponent<TestBOBInputRadioConsumer> cut = ctx.Render<TestBOBInputRadioConsumer>(p => p
             .Add(c => c.Option3Disabled, true));
 
-        // Act — click disabled option
+        // Act - click disabled option
         cut.FindAll(".bob-radio__option")[2].Click();
 
         // Assert
@@ -114,7 +114,7 @@ public class BOBInputRadioInteractionTests
             .Add(c => c.Clearable, true)
             .Add(c => c.SelectedValue, "opt1"));
 
-        // Assert — clear button visible
+        // Assert - clear button visible
         cut.Markup.Should().Contain("Clear");
     }
 }

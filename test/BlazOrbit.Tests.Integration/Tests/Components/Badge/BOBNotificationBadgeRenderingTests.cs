@@ -46,7 +46,7 @@ public class BOBNotificationBadgeRenderingTests
         IRenderedComponent<BOBNotificationBadge> cut = ctx.Render<BOBNotificationBadge>(p => p
             .Add(c => c.BadgeContent, b => b.AddContent(0, "5")));
 
-        // Assert — inner BOBBadge renders a span.bob-badge
+        // Assert - inner BOBBadge renders a span.bob-badge
         cut.Find("span.bob-badge").TextContent.Should().Contain("5");
     }
 
@@ -80,7 +80,7 @@ public class BOBNotificationBadgeRenderingTests
             })
             .Add(c => c.BadgeContent, b => b.AddContent(0, "3")));
 
-        // Assert — host content renders
+        // Assert - host content renders
         cut.Find("button").TextContent.Should().Contain("Notifications");
     }
 
@@ -90,10 +90,10 @@ public class BOBNotificationBadgeRenderingTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — no BadgeContent = dot mode in inner badge
+        // Arrange & Act - no BadgeContent = dot mode in inner badge
         IRenderedComponent<BOBNotificationBadge> cut = ctx.Render<BOBNotificationBadge>();
 
-        // Assert — inner badge has dot attribute
+        // Assert - inner badge has dot attribute
         IElement innerBadge = cut.Find(".bob-notification-badge__indicator bob-component");
         innerBadge.GetAttribute("data-bob-dot").Should().Be("true");
     }

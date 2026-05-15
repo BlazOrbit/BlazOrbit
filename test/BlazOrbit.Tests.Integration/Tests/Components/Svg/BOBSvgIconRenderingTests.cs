@@ -49,7 +49,7 @@ public class BOBSvgIconRenderingTests
         IRenderedComponent<BOBSvgIcon> cut = ctx.Render<BOBSvgIcon>(p => p
             .Add(c => c.Icon, SimpleIcon));
 
-        // Assert — default viewBox is "0 0 24 24"
+        // Assert - default viewBox is "0 0 24 24"
         cut.Find("svg").GetAttribute("viewBox").Should().Be("0 0 24 24");
     }
 

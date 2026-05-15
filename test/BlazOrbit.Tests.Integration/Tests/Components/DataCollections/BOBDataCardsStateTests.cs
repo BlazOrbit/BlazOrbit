@@ -65,7 +65,7 @@ public class BOBDataCardsStateTests
                 b.CloseComponent();
             }));
 
-        // Act — type in filter
+        // Act - type in filter
         cut.Find("[aria-label='Search...']").Input("Ali");
 
         // Assert

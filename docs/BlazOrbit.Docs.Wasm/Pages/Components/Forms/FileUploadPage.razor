@@ -27,7 +27,7 @@
                       HelperText="@Loc["Drop or click to add"]"/>
     </DocDemo>
 
-    <DocDemo Key="Accept" Title="@Loc["MIME filter — images + PDF"]">
+    <DocDemo Key="Accept" Title="@Loc["MIME filter - images + PDF"]">
         <BOBInputFile Accept="image/*,.pdf"
                       Multiple="true"
                       Label="@Loc["Images or PDF only"]"/>
@@ -45,7 +45,7 @@
     </DocDemo>
 
     <DocDemo Key="Chunked" Title="@Loc["Chunked upload (opt-in helper)"]"
-             Description="@Loc["BOBChunkedUploader is a transport-agnostic helper that streams an IBrowserFile in fixed-size chunks. The SendChunk callback owns the destination — HTTP / SignalR / file-system / mock — and the helper applies back-pressure by awaiting each callback before reading the next chunk. The progress event drives BOBInputFile.SetStatus so the per-entry progress bar lights up in place."]">
+             Description="@Loc["BOBChunkedUploader is a transport-agnostic helper that streams an IBrowserFile in fixed-size chunks. The SendChunk callback owns the destination - HTTP / SignalR / file-system / mock - and the helper applies back-pressure by awaiting each callback before reading the next chunk. The progress event drives BOBInputFile.SetStatus so the per-entry progress bar lights up in place."]">
         <BOBInputFile @ref="_chunkedHost"
                       Multiple="true"
                       MaxFiles="3"
@@ -92,7 +92,7 @@
         {
             // Mock transport: a 25 ms delay per chunk imitates a slow upstream so the per-file
             // progress bar inside BOBInputFile visibly advances. Swap SendChunk for HttpClient
-            // / SignalR in a real consumer — the helper itself is transport-agnostic.
+            // / SignalR in a real consumer - the helper itself is transport-agnostic.
             BOBChunkedUploader uploader = new()
             {
                 ChunkSize = 64 * 1024,

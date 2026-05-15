@@ -101,7 +101,7 @@ public class BOBCultureSelectorAccessibilityTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — aria-label resolves via IStringLocalizer<BOBCultureSelectorResources>
+        // Arrange - aria-label resolves via IStringLocalizer<BOBCultureSelectorResources>
         CultureInfo previous = CultureInfo.CurrentUICulture;
         try
         {

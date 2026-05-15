@@ -1,4 +1,4 @@
-namespace BlazOrbit.Components.Layout;
+namespace BlazOrbit.Components;
 
 /// <summary>Cross-axis alignment for grid items.</summary>
 public enum GridAlignItems

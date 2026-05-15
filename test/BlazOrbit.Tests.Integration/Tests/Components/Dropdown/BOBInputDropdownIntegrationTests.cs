@@ -59,7 +59,7 @@ public class BOBInputDropdownIntegrationTests
         RecordingDropdownJsInterop interop = new();
         ctx.Services.AddScoped<IDropdownJsInterop>(_ => interop);
 
-        // Arrange — render and open the dropdown so the JS side is initialized
+        // Arrange - render and open the dropdown so the JS side is initialized
         IRenderedComponent<BOBInputDropdown<string>> cut = ctx.Render<BOBInputDropdown<string>>(p => p
             .Add(c => c.ValueExpression, _expr)
             .Add(c => c.ChildContent, builder =>
@@ -73,10 +73,10 @@ public class BOBInputDropdownIntegrationTests
         interop.Calls.Should().ContainSingle(c => c.StartsWith("initialize:"),
             "opening the dropdown initializes the JS side once");
 
-        // Act — disposing the bUnit context unmounts the host and its children
+        // Act - disposing the bUnit context unmounts the host and its children
         await ctx.DisposeAsync();
 
-        // Assert — exactly one dispose JS call (Blazor's automatic child disposal),
+        // Assert - exactly one dispose JS call (Blazor's automatic child disposal),
         // not two (which would also include the now-removed manual call from
         // BOBInputDropdown.DisposeAsync).
         interop.Calls.Count(c => c.StartsWith("dispose:")).Should().Be(1);
@@ -139,7 +139,7 @@ public class BOBInputDropdownIntegrationTests
                 builder.CloseComponent();
             }));
 
-        // Assert — display value shows selected option label
+        // Assert - display value shows selected option label
         cut.Find(".bob-dropdown__value").TextContent.Trim().Should().Be("Banana");
     }
 
@@ -165,7 +165,7 @@ public class BOBInputDropdownIntegrationTests
         cut.Find("button.bob-dropdown__trigger").Click();
         cut.Find(".bob-dropdown__option").Click();
 
-        // Assert — menu stays open when CloseOnSelect=false
+        // Assert - menu stays open when CloseOnSelect=false
         cut.Find(".bob-dropdown__menu").Should().NotBeNull();
     }
 
@@ -193,7 +193,7 @@ public class BOBInputDropdownIntegrationTests
         cut.Find("button.bob-dropdown__trigger").Click();
         cut.Find("[data-bob-disabled=\"true\"]").Click();
 
-        // Assert — value stays null, not changed
+        // Assert - value stays null, not changed
         selected.Should().BeNull();
     }
 

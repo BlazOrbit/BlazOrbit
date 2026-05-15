@@ -4,7 +4,7 @@ using System.Text.RegularExpressions;
 namespace BlazOrbit.Tests.Integration.Tests.Library;
 
 /// <summary>
-/// CSS-SCOPED-09 (mecanizado): detecta selectores muertos en archivos .razor.css —
+/// CSS-SCOPED-09 (mecanizado): detecta selectores muertos en archivos .razor.css -
 /// clases CSS declaradas en el CSS scoped cuyo nombre no aparece en el .razor
 /// del mismo componente.
 ///
@@ -49,7 +49,7 @@ public class CssScopedSelectorAuditTests
             string razorFile = Path.ChangeExtension(cssFile, ".razor");
             if (!File.Exists(razorFile))
             {
-                continue; // orphaned CSS without Razor — already caught by other audits
+                continue; // orphaned CSS without Razor - already caught by other audits
             }
 
             string cssContent = File.ReadAllText(cssFile);
@@ -82,7 +82,7 @@ public class CssScopedSelectorAuditTests
                 string prefix = $"bob-{KebabFromPascal(componentName.TrimStart('_'))}";
                 if (!cls.StartsWith(prefix, StringComparison.Ordinal))
                 {
-                    // Family-shared class — may be emitted by base or child component;
+                    // Family-shared class - may be emitted by base or child component;
                     // skip to avoid false positives.
                     continue;
                 }

@@ -3,7 +3,7 @@
 @inject IStringLocalizer<RadarChartPage> Loc
 
 <DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBRadarChart"]"
-         Lede="@Loc["Radar / spider chart — multi-dimensional comparison across N axes (3-12). Each series renders a closed polygon; categories are evenly distributed around the circle."]"
+         Lede="@Loc["Radar / spider chart - multi-dimensional comparison across N axes (3-12). Each series renders a closed polygon; categories are evenly distributed around the circle."]"
          PageInstance="this"
          ApiType="@typeof(BOBRadarChart<,>)"
          Keywords="@(["radar chart", "spider", "multivariate", "comparison"])">
@@ -19,7 +19,7 @@
     </DocDemo>
 
     <DocDemo Key="MultiSeries" Title="@Loc["Multi-series comparison"]"
-             Description="@Loc["Overlap two profiles to compare shapes — ideal for skill matrices, product feature parity, A/B benchmark dashboards."]">
+             Description="@Loc["Overlap two profiles to compare shapes - ideal for skill matrices, product feature parity, A/B benchmark dashboards."]">
         <BOBRadarChart TX="string" TY="double"
                        Series="_skillsMulti"
                        Width="440" Height="440"/>

@@ -5,7 +5,7 @@ namespace BlazOrbit.Utilities;
 /// <summary>
 /// Async-aware leading-edge throttler. The first <see cref="InvokeAsync"/>
 /// call within an idle window runs immediately; subsequent calls inside
-/// the configured interval are coalesced — only the latest argument is
+/// the configured interval are coalesced - only the latest argument is
 /// kept and executed once the interval elapses.
 /// </summary>
 /// <remarks>

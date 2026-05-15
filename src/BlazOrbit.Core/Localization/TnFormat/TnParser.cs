@@ -6,7 +6,7 @@ namespace BlazOrbit.Localization.TnFormat;
 /// <summary>
 /// Parser for the BlazOrbit <c>.tn</c> translation format. Designed for minimal escape:
 /// any line whose first non-whitespace character is not <c>#</c>, <c>@</c>, or <c>//</c> is
-/// treated as literal content. The leading-character constraint is the only thing escaped —
+/// treated as literal content. The leading-character constraint is the only thing escaped -
 /// prefix the line with <c>\</c> to put a literal <c>#</c>, <c>@</c>, or <c>/</c> at column 0.
 /// </summary>
 /// <remarks>
@@ -96,7 +96,7 @@ public static class TnParser
                 string keyText = trimmed[1..].TrimStart();
                 if (pendingKey is not null && pendingValue is not null)
                 {
-                    // Previous (key, value) pair complete — flush and start a new entry.
+                    // Previous (key, value) pair complete - flush and start a new entry.
                     FlushPending();
                 }
 
@@ -133,7 +133,7 @@ public static class TnParser
             pendingValue.Append(content_);
         }
 
-        // Final flush — handles documents that don't end with a blank line.
+        // Final flush - handles documents that don't end with a blank line.
         FlushPending();
 
         FrozenDictionary<string, FrozenDictionary<ulong, string>> frozen = output.ToDictionary(
@@ -202,7 +202,7 @@ public static class TnParser
     }
 
     /// <summary>
-    /// Strips a single leading <c>\</c> when followed by <c>#</c>, <c>@</c>, or <c>/</c> — the
+    /// Strips a single leading <c>\</c> when followed by <c>#</c>, <c>@</c>, or <c>/</c> - the
     /// three characters that would otherwise start a key, culture header, or comment.
     /// </summary>
     private static string UnescapeLeader(string line)

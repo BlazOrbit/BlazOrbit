@@ -5,7 +5,7 @@ namespace BlazOrbit.Charts.Components.Internal;
 /// <summary>
 /// Squarified treemap layout (Bruls / Huijing / van Wijk, "Squarified Treemaps", 2000).
 /// Subdivides a rectangle into proportionally-sized child rectangles while minimising
-/// aspect ratio (rects stay as square as possible — easier to compare visually than
+/// aspect ratio (rects stay as square as possible - easier to compare visually than
 /// long thin strips of the naive slice-and-dice approach).
 /// </summary>
 internal static class Squarified
@@ -28,7 +28,7 @@ internal static class Squarified
             return output;
         }
 
-        // Build a list of (index, weight) pairs sorted by descending weight — the
+        // Build a list of (index, weight) pairs sorted by descending weight - the
         // squarified algorithm processes children largest-first so the early rows fill
         // the dominant area + the later rows handle the residue.
         List<(int Index, double Weight)> sorted = [];
@@ -75,7 +75,7 @@ internal static class Squarified
             double w = ShortSide(rect);
             if (w <= 0)
             {
-                // Out of room — assign zero-area rects to the rest so the indices stay
+                // Out of room - assign zero-area rects to the rest so the indices stay
                 // aligned. Real treemap engines also bail here; visually empty cells.
                 foreach ((int Index, double Weight) entry in remaining)
                 {
@@ -98,7 +98,7 @@ internal static class Squarified
 
             if (row.Count > 1 && withHeadWorst > currentWorst)
             {
-                // Backtrack — head made the row worse. Commit the prior row, recurse
+                // Backtrack - head made the row worse. Commit the prior row, recurse
                 // on the residue rect, and let the outer loop retry head against the
                 // residue.
                 row.RemoveAt(row.Count - 1);
@@ -133,7 +133,7 @@ internal static class Squarified
         double longSide = LongSide(rect);
         double rowThickness = shortSide <= 0 ? 0 : rowSum / shortSide;
 
-        // The row is placed along the shortest edge — that's the whole point of
+        // The row is placed along the shortest edge - that's the whole point of
         // squarified: row width = shortSide of the parent rect, row height = rowSum /
         // shortSide. After commit the parent rect shrinks by rowThickness on the long
         // side so the residue covers the remaining children.
@@ -166,7 +166,7 @@ internal static class Squarified
     }
 
     // Worst aspect ratio across the row at given short-side length. The classic
-    // squarified ratio: max(max(width/height, height/width)) — the closer to 1, the
+    // squarified ratio: max(max(width/height, height/width)) - the closer to 1, the
     // more square-like the row.
     private static double Worst(List<(int Index, double Weight)> row, double shortSide)
     {

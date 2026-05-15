@@ -55,7 +55,7 @@ public class BobLocalizerTests : IDisposable
     [Fact]
     public void Should_Fall_Back_To_Literal_When_No_Translation()
     {
-        // Arrange — bundle exists but the requested culture has no entry.
+        // Arrange - bundle exists but the requested culture has no entry.
         RegisterBundle(new Dictionary<string, Dictionary<ulong, string>> { ["es-ES"] = new() });
 
         CultureInfo prev = CultureInfo.CurrentUICulture;
@@ -111,7 +111,7 @@ public class BobLocalizerTests : IDisposable
     [Fact]
     public void Should_Format_Literal_When_No_Translation_With_Args()
     {
-        // Arrange — bundle registered but missing the hash.
+        // Arrange - bundle registered but missing the hash.
         RegisterBundle(new Dictionary<string, Dictionary<ulong, string>> { ["en-US"] = new() });
 
         CultureInfo prev = CultureInfo.CurrentUICulture;
@@ -137,7 +137,7 @@ public class BobLocalizerTests : IDisposable
     [Fact]
     public void Should_Use_Custom_Provider_From_Chain()
     {
-        // Arrange — a fake provider that always wins.
+        // Arrange - a fake provider that always wins.
         ulong hash = BobLocalizationHash.Compute("From custom");
         _snapshot.RegisterFake(new BobLocalizationBundleSpec(
             typeof(TestResources),
@@ -209,10 +209,10 @@ public class BobLocalizerTests : IDisposable
 
         BobLocalizer<TestResources> loc = new(sp);
 
-        // Act — key does NOT start with "cms:"
+        // Act - key does NOT start with "cms:"
         LocalizedString result = loc["other:key"];
 
-        // Assert — falls through to the chain, no provider has it, literal fallback wins.
+        // Assert - falls through to the chain, no provider has it, literal fallback wins.
         result.Value.Should().Be("other:key");
         result.ResourceNotFound.Should().BeTrue();
     }
@@ -220,7 +220,7 @@ public class BobLocalizerTests : IDisposable
     [Fact]
     public void Should_Not_Leak_Translation_Across_Bundles_With_Same_Hash()
     {
-        // Two bundles share a source literal — same hash, divergent translations.
+        // Two bundles share a source literal - same hash, divergent translations.
         // Each BobLocalizer<T> must resolve only against T's own bundle. Regression
         // for non-deterministic cross-bundle leakage produced by iterating the global
         // bundle registry inside BundleProvider.
@@ -269,7 +269,7 @@ public class BobLocalizerTests : IDisposable
     [Fact]
     public void Should_Return_Literal_When_Bundle_Not_Registered()
     {
-        // Arrange — no bundle registered for TestResources.
+        // Arrange - no bundle registered for TestResources.
         IServiceProvider sp = BuildServices();
         BobLocalizer<TestResources> loc = new(sp);
 
@@ -309,7 +309,7 @@ public class BobLocalizerTests : IDisposable
             // Act
             LocalizedString[] all = loc.GetAllStrings(true).ToArray();
 
-            // Assert — Hello translates to Hola, Welcome falls back to literal.
+            // Assert - Hello translates to Hola, Welcome falls back to literal.
             all.Should().HaveCount(2);
             all.Single(s => s.Name == "Hello").Value.Should().Be("Hola");
             LocalizedString welcome = all.Single(s => s.Name == "Welcome");

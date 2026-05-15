@@ -1,4 +1,4 @@
-// BlazOrbit — ColorPicker interop (hand-written JSDoc-typed ESM).
+// BlazOrbit - ColorPicker interop (hand-written JSDoc-typed ESM).
 
 /**
  * @param {HTMLElement} element

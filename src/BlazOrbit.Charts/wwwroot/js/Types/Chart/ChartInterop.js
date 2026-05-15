@@ -1,10 +1,10 @@
-// BlazOrbit.Charts — JS interop module (hand-written JSDoc-typed ESM).
+// BlazOrbit.Charts - JS interop module (hand-written JSDoc-typed ESM).
 //
 // API surface intentionally minimal: three exports matching `IChartJsInterop`.
 //
 // On import, the module also auto-injects the `blazorbit-charts.css` <link>
 // into <head> so consumers don't need to wire it manually in index.html /
-// App.razor — the CSS sibling path is computed from `import.meta.url`.
+// App.razor - the CSS sibling path is computed from `import.meta.url`.
 
 /**
  * @typedef {Object} DotNetObjectRef
@@ -25,7 +25,7 @@ function ensureStylesheet() {
     const head = document.head ?? document.getElementsByTagName('head')[0];
     if (!head) return;
 
-    // Already-linked check — covers manual links + re-imports.
+    // Already-linked check - covers manual links + re-imports.
     const existing = document.querySelectorAll('link[rel="stylesheet"]');
     for (let i = 0; i < existing.length; i++) {
         const href = /** @type {HTMLLinkElement} */ (existing[i]).href;
@@ -89,7 +89,7 @@ export function observeResize(container, dotnetRef) {
 }
 
 /**
- * Detach a previously installed observer. Idempotent — a missing handle is
+ * Detach a previously installed observer. Idempotent - a missing handle is
  * a no-op.
  * @param {string} handle
  */

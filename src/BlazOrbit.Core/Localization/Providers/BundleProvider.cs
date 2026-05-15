@@ -12,13 +12,13 @@ namespace BlazOrbit.Localization.Providers;
 /// <para>
 /// Lookup strategy per call: test the requested culture against the calling bundle's
 /// translation table, then its parent chain, then the bundle's <c>DefaultCulture</c>. The
-/// first matching entry wins. The lookup is strictly scoped to the calling bundle — other
+/// first matching entry wins. The lookup is strictly scoped to the calling bundle - other
 /// registered bundles are never consulted, even when they happen to share the same source
 /// literal (and therefore the same hash).
 /// </para>
 /// <para>
 /// In the fast path (call sites the source generator can resolve at build time) the accessor
-/// method skips this provider entirely — the generator emits a per-bundle static class with a
+/// method skips this provider entirely - the generator emits a per-bundle static class with a
 /// direct <see cref="System.Collections.Frozen.FrozenDictionary{TKey, TValue}"/> lookup. This
 /// runtime provider serves the dynamic-key slow path.
 /// </para>
@@ -47,7 +47,7 @@ public sealed class BundleProvider : IBobLocalizationProvider
         }
 
         // Walk the culture's ancestry. CultureInfo.Parent on the invariant culture returns
-        // the invariant culture itself — break out when we encounter that sentinel.
+        // the invariant culture itself - break out when we encounter that sentinel.
         CultureInfo? c = culture;
         while (c is not null && c.Name.Length > 0)
         {

@@ -1,4 +1,4 @@
-// BlazOrbit — Slider interop (hand-written JSDoc-typed ESM).
+// BlazOrbit - Slider interop (hand-written JSDoc-typed ESM).
 
 /**
  * @typedef {Object} SliderCallbacksRelay

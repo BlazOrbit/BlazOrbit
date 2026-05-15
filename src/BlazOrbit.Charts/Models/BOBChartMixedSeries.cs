@@ -24,7 +24,7 @@ public sealed class BOBChartMixedSeries<TX>
 
     /// <summary>
     /// When <see langword="true"/>, the series is scaled against the chart's secondary
-    /// Y axis (rendered on the right side) — useful for "actual vs target" reports
+    /// Y axis (rendered on the right side) - useful for "actual vs target" reports
     /// where one series is a value and the other a ratio in a different range.
     /// </summary>
     public bool UseSecondaryAxis { get; init; }

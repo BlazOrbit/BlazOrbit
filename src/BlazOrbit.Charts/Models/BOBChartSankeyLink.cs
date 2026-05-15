@@ -3,7 +3,7 @@ namespace BlazOrbit.Charts.Models;
 /// <summary>
 /// Edge in a <see cref="Components.BOBSankeyChart{TY}"/> dataset. Carries flow from
 /// <see cref="Source"/> to <see cref="Target"/> with magnitude <see cref="Value"/>.
-/// The chart auto-derives node positions from the link graph — consumers only need to
+/// The chart auto-derives node positions from the link graph - consumers only need to
 /// describe the edges.
 /// </summary>
 /// <typeparam name="TY">Numeric type of the link value.</typeparam>

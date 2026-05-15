@@ -43,7 +43,7 @@ public class BOBDataGridDataSourceTests
 
         cut.WaitForState(() => cut.FindAll("tbody tr").Count >= 5, TimeSpan.FromSeconds(2));
 
-        // Assert — first page of 5 visible rows.
+        // Assert - first page of 5 visible rows.
         cut.FindAll("tbody tr").Should().HaveCountGreaterThanOrEqualTo(5);
         cut.Markup.Should().Contain("Person 01");
         cut.Markup.Should().Contain("Person 05");
@@ -56,7 +56,7 @@ public class BOBDataGridDataSourceTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — capture the request the grid forwards to the provider.
+        // Arrange - capture the request the grid forwards to the provider.
         DataRequest? captured = null;
         RemoteDataSource<Person> source = new((DataRequest req, CancellationToken _) =>
         {
@@ -87,7 +87,7 @@ public class BOBDataGridDataSourceTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — server reports 100 total rows; only 10 returned per page.
+        // Arrange - server reports 100 total rows; only 10 returned per page.
         RemoteDataSource<Person> source = new((DataRequest req, CancellationToken _) =>
         {
             List<Person> page = Seed.Take(req.Count ?? 10).ToList();
@@ -103,7 +103,7 @@ public class BOBDataGridDataSourceTests
         await Task.Delay(80, Xunit.TestContext.Current.CancellationToken);
         cut.Render();
 
-        // Assert — _BOBInPagination renders when TotalPages > 1; presence of any pagination
+        // Assert - _BOBInPagination renders when TotalPages > 1; presence of any pagination
         // button is the observable surface for "the grid computed multiple pages".
         cut.FindAll("button").Should().NotBeEmpty();
         cut.Markup.Should().Contain("Person 01");
@@ -115,7 +115,7 @@ public class BOBDataGridDataSourceTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Standalone source test — no component wiring; exercises LoadAsync directly.
+        // Standalone source test - no component wiring; exercises LoadAsync directly.
         InMemoryDataSource<Person> source = new(Seed);
         DataRequest req = new(
             StartIndex: 5,

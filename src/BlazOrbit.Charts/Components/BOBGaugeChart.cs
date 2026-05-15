@@ -8,7 +8,7 @@ using System.Globalization;
 namespace BlazOrbit.Charts.Components;
 
 /// <summary>
-/// Gauge chart — single-value KPI display rendered as an arc fill against
+/// Gauge chart - single-value KPI display rendered as an arc fill against
 /// a track. Supports semi (180°), three-quarter (270°) and full (360°)
 /// shapes plus optional zone <see cref="Segments"/> (e.g. green-amber-red
 /// thresholds). The current <see cref="Value"/> drives the fill arc and

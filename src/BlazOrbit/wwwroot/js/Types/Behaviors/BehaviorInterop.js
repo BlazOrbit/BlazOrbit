@@ -1,4 +1,4 @@
-// BlazOrbit — Behaviors interop (hand-written JSDoc-typed ESM).
+// BlazOrbit - Behaviors interop (hand-written JSDoc-typed ESM).
 // Source of truth: this file. No transpile step.
 
 /**

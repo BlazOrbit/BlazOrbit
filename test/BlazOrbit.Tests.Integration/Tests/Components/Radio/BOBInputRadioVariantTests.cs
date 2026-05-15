@@ -39,7 +39,7 @@ public class BOBInputRadioVariantTests
                 builder.CloseElement();
             }));
 
-        // Act — set Variant on consumer; consumer doesn't pass it directly, so render via direct component
+        // Act - set Variant on consumer; consumer doesn't pass it directly, so render via direct component
         IRenderedComponent<BOBInputRadio<string?>> cut = ctx.Render<BOBInputRadio<string?>>(p => p
             .Add(c => c.Variant, custom));
 

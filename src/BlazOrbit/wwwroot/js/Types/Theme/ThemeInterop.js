@@ -1,4 +1,4 @@
-// BlazOrbit — Theme interop (hand-written JSDoc-typed ESM).
+// BlazOrbit - Theme interop (hand-written JSDoc-typed ESM).
 
 const THEME_KEY = 'blazorbit-theme';
 const DEFAULT_THEME = 'dark';
@@ -6,7 +6,7 @@ const DEFAULT_THEME = 'dark';
 // Theme IDs land in `document.documentElement[data-bob-theme="..."]`, which becomes a
 // selector target in CSS. An attacker with write access to localStorage (XSS in
 // the consumer app, extension, same-origin script) could inject a value that
-// doubles as a CSS attribute selector (`x"] { ... } [data-secret="y`) — even if
+// doubles as a CSS attribute selector (`x"] { ... } [data-secret="y`) - even if
 // the immediate impact is limited to CSS, storage-sourced strings must never
 // reach the DOM unvalidated.
 const THEME_ID_PATTERN = /^[a-zA-Z0-9_-]{1,32}$/;
@@ -29,7 +29,7 @@ function getSystemPreference() {
 /** @param {string} [defaultTheme] */
 export function initialize(defaultTheme) {
     // Priority order:
-    // 1. localStorage (user's manual selection) — only if it passes sanitation
+    // 1. localStorage (user's manual selection) - only if it passes sanitation
     // 2. defaultTheme parameter (if provided by the consumer)
     // 3. System preference (prefers-color-scheme)
     // 4. DEFAULT_THEME constant ('dark')

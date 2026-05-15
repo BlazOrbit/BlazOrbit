@@ -1,5 +1,4 @@
-using BlazOrbit.Components.Layout;
-using BlazOrbit.Components.Layout.Services;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -31,7 +30,7 @@ public class BOBToastHostStateTests
             b => b.AddContent(0, "bottom"),
             new ToastOptions { AutoDismiss = false, Position = ToastPosition.BottomLeft });
 
-        // Assert — one position group per active position
+        // Assert - one position group per active position
         cut.FindAll(".bob-toast-host__position").Should().HaveCount(2);
         cut.FindAll("[data-bob-component='toast'][data-bob-position='top-right']").Should().HaveCount(1);
         cut.FindAll("[data-bob-component='toast'][data-bob-position='bottom-left']").Should().HaveCount(1);
@@ -48,7 +47,7 @@ public class BOBToastHostStateTests
             .Add(c => c.MaxVisiblePerPosition, 2));
         IToastService toastService = ctx.Services.GetRequiredService<IToastService>();
 
-        // Act — push 4 toasts to the same position
+        // Act - push 4 toasts to the same position
         for (int i = 0; i < 4; i++)
         {
             await toastService.ShowAsync(
@@ -56,7 +55,7 @@ public class BOBToastHostStateTests
                 new ToastOptions { AutoDismiss = false, Position = ToastPosition.TopRight });
         }
 
-        // Assert — only MaxVisiblePerPosition rendered
+        // Assert - only MaxVisiblePerPosition rendered
         cut.FindAll(".bob-toast-host__position[data-bob-position='top-right'] [data-bob-component='toast']").Should()
             .HaveCount(2);
         toastService.ActiveToasts.Should().HaveCount(4);

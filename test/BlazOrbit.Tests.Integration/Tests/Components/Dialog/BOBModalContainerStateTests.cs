@@ -1,5 +1,5 @@
 using AngleSharp.Dom;
-using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -81,7 +81,7 @@ public class BOBModalContainerStateTests
             .Add(c => c.Modal, CreateDialogState(true)));
         cut.Find(".bob-modal-container[data-bob-visible='true']").Should().NotBeNull();
 
-        // Act — flip to hidden
+        // Act - flip to hidden
         cut = ctx.Render<BOBModalContainer>(p => p
             .Add(c => c.Modal, CreateDialogState(false)));
 

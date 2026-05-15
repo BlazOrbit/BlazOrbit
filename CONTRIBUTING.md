@@ -16,9 +16,9 @@ the right to close threads that derail.
 
 ### Prerequisites
 
-- **.NET SDK** — The repository pins the SDK version in `global.json`. Run `dotnet --version` and ensure it matches the
+- **.NET SDK** - The repository pins the SDK version in `global.json`. Run `dotnet --version` and ensure it matches the
   required version (e.g., `10.0.203`).
-- **PowerShell 7** — The helper scripts under `scripts/` are written in PowerShell.
+- **PowerShell 7** - The helper scripts under `scripts/` are written in PowerShell.
 
 No JavaScript toolchain is required. CSS and JS interop assets ship as committed hand-written source files; there is
 no Node, npm, Vite, esbuild or TypeScript step. `dotnet build` is enough.
@@ -53,15 +53,15 @@ dotnet test test/BlazOrbit.Tests.Integration/BlazOrbit.Tests.Integration.csproj 
 
 The global CSS bundle and JS interop modules are **hand-written source files**:
 
-- `src/BlazOrbit/wwwroot/css/blazorbit.css` — single global bundle, organized in canonical sections (Reset →
+- `src/BlazOrbit/wwwroot/css/blazorbit.css` - single global bundle, organized in canonical sections (Reset →
   Typography → Themes → palette utility classes → Component tokens → Base shell → Scrollbar → Transitions →
   Input / Picker / Data-collection families).
-- `src/BlazOrbit/wwwroot/js/Types/<Feature>/<Feature>Interop.js` — hand-written, JSDoc-typed ESM. No transpile
+- `src/BlazOrbit/wwwroot/js/Types/<Feature>/<Feature>Interop.js` - hand-written, JSDoc-typed ESM. No transpile
   step, no bundler, no Node. Browsers load the file as-is.
 - `src/BlazOrbit.Charts/wwwroot/js/Types/Chart/ChartInterop.js`,
-  `src/BlazOrbit.Hotkeys/wwwroot/js/Hotkey/HotkeyInterop.js` — same pattern in the satellite packages.
+  `src/BlazOrbit.Hotkeys/wwwroot/js/Hotkey/HotkeyInterop.js` - same pattern in the satellite packages.
 
-Edit them directly. `dotnet build` is enough — there is no JS toolchain to install.
+Edit them directly. `dotnet build` is enough - there is no JS toolchain to install.
 
 ---
 
@@ -71,11 +71,11 @@ Use the **Bug report** issue template under `.github/ISSUE_TEMPLATE/`.
 
 A good bug report includes:
 
-1. **Steps to reproduce** — numbered, minimal, and deterministic.
+1. **Steps to reproduce** - numbered, minimal, and deterministic.
 2. **Expected behavior** vs. **actual behavior**.
-3. **Environment** — .NET SDK version, browser (if UI-related), and OS.
-4. **Logs or exceptions** — stack traces, console output, or screenshots.
-5. **Minimal reproduction** — a small Razor snippet or a stripped-down repo.
+3. **Environment** - .NET SDK version, browser (if UI-related), and OS.
+4. **Logs or exceptions** - stack traces, console output, or screenshots.
+5. **Minimal reproduction** - a small Razor snippet or a stripped-down repo.
 
 Search closed issues first. If you cannot find a duplicate, fill in the template completely or ask if you don't know how
 to fill some field.
@@ -151,7 +151,7 @@ Both must be green. The PR is also blocked on:
 
 - **CI gates** (`preview-gate.yml`): build, tests, public API diff.
 - **At least one approving review** from a maintainer.
-- **`PublicAPI.Unshipped.txt` updated** if you changed the public surface (the analyzer's code-fix does this for you —
+- **`PublicAPI.Unshipped.txt` updated** if you changed the public surface (the analyzer's code-fix does this for you -
   just apply the IDE suggestion).
 
 Open the PR against `develop`. CI packs and surfaces `.nupkg` artifacts so reviewers can test-install.
@@ -193,8 +193,8 @@ toggles:
 
 State axes (`Disabled`, `Error`, `ReadOnly`, `Required`, `Active`) expose two members:
 
-- `[Parameter] public bool X { get; set; }` — external override.
-- `public bool IsX { get; }` — computed truth (e.g., `IsDisabled = Disabled || Loading`).
+- `[Parameter] public bool X { get; set; }` - external override.
+- `public bool IsX { get; }` - computed truth (e.g., `IsDisabled = Disabled || Loading`).
 
 `BOBComponentAttributesBuilder` reads `IsX`, never the raw parameter.
 
@@ -213,10 +213,10 @@ State axes (`Disabled`, `Error`, `ReadOnly`, `Required`, `Active`) expose two me
 
 Two layers ship with the library:
 
-1. **Global CSS bundle** — hand-written `src/BlazOrbit/wwwroot/css/blazorbit.css`. Reset, typography, themes,
+1. **Global CSS bundle** - hand-written `src/BlazOrbit/wwwroot/css/blazorbit.css`. Reset, typography, themes,
    tokens, base component styles, family shared styles, and transition classes, in that canonical section order.
    Single source of truth, no minify (consumer override and inspection stay ergonomic).
-2. **Scoped component CSS** (hand-written `.razor.css`) — handles layout and appearance specific to a single component.
+2. **Scoped component CSS** (hand-written `.razor.css`) - handles layout and appearance specific to a single component.
 
 Reference `FeatureDefinitions` constants from C# when reading attribute / variable names. Never invent new
 `data-bob-*` / `--bob-*` / `bob-*` identifiers without adding them to `FeatureDefinitions` first.

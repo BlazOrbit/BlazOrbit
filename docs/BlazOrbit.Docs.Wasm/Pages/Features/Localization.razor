@@ -4,17 +4,17 @@
 
 <DocPage Eyebrow="@Loc["Feature"]"
          Title="@Loc["Localization"]"
-         Lede="@Loc["BOBLocalize — compile-time bundles, .tn translation files, pluggable providers, and a culture selector that ships with the integration packages."]"
+         Lede="@Loc["BOBLocalize - compile-time bundles, .tn translation files, pluggable providers, and a culture selector that ships with the integration packages."]"
          Keywords="@(["localization", "i18n", "culture", "translation", "multi-language", "boblocalize"])">
 
     <section class="doc-section">
         <h2 class="doc-section__title">@Loc["Which package to install"]</h2>
         <ul>
-            <li>@Loc.Html("<code>BlazOrbit.Localization.Wasm</code> — for Blazor WebAssembly apps. Persists the chosen culture in <code>localStorage</code>.")</li>
-            <li>@Loc.Html("<code>BlazOrbit.Localization.Server</code> — for Blazor Server apps. Persists via an HTTP cookie and wires up <code>RequestLocalizationOptions</code>.")</li>
+            <li>@Loc.Html("<code>BlazOrbit.Localization.Wasm</code> - for Blazor WebAssembly apps. Persists the chosen culture in <code>localStorage</code>.")</li>
+            <li>@Loc.Html("<code>BlazOrbit.Localization.Server</code> - for Blazor Server apps. Persists via an HTTP cookie and wires up <code>RequestLocalizationOptions</code>.")</li>
         </ul>
         <p class="doc-section__description">
-            @Loc.Html("Both packages register <code>BobLocalizer&lt;T&gt;</code> as the <code>IStringLocalizer&lt;T&gt;</code> implementation — components keep injecting the standard ASP.NET interface and resolve through BOBLocalize. No <code>.resx</code> files, no satellite assemblies.")
+            @Loc.Html("Both packages register <code>BobLocalizer&lt;T&gt;</code> as the <code>IStringLocalizer&lt;T&gt;</code> implementation - components keep injecting the standard ASP.NET interface and resolve through BOBLocalize. No <code>.resx</code> files, no satellite assemblies.")
         </p>
     </section>
 
@@ -44,8 +44,8 @@
             @Loc.Html("Ships with <code>BlazOrbit.Localization.Shared</code> (a transitive dependency of both <code>.Server</code> and <code>.Wasm</code>). Two built-in variants:")
         </p>
         <ul>
-            <li>@Loc.Html("<code>BOBCultureSelectorVariant.Dropdown</code> — a styled dropdown with flags and culture names.")</li>
-            <li>@Loc.Html("<code>BOBCultureSelectorVariant.Flags</code> — one flag button per supported culture.")</li>
+            <li>@Loc.Html("<code>BOBCultureSelectorVariant.Dropdown</code> - a styled dropdown with flags and culture names.")</li>
+            <li>@Loc.Html("<code>BOBCultureSelectorVariant.Flags</code> - one flag button per supported culture.")</li>
         </ul>
         <BOBCodeBlock Title="MainLayout.razor"
                       Language="SyntaxHighlightLanguage.Razor"
@@ -55,7 +55,7 @@
     <section class="doc-section">
         <h2 class="doc-section__title">@Loc["Authoring your own strings"]</h2>
         <p class="doc-section__description">
-            @Loc.Html("Translations live in <code>.tn</code> files — a tiny escape-minimal text format — and are packaged into <em>bundles</em>. A bundle is announced with an assembly-level attribute that names a <em>marker type</em>; the source generator picks up the marker and bakes every <code>.tn</code> file under <code>Translations/</code> into a compile-time <code>FrozenDictionary</code>.")
+            @Loc.Html("Translations live in <code>.tn</code> files - a tiny escape-minimal text format - and are packaged into <em>bundles</em>. A bundle is announced with an assembly-level attribute that names a <em>marker type</em>; the source generator picks up the marker and bakes every <code>.tn</code> file under <code>Translations/</code> into a compile-time <code>FrozenDictionary</code>.")
         </p>
 
         <h3 class="doc-section__subtitle">@Loc["1. Declare the bundle"]</h3>
@@ -82,7 +82,7 @@
                       Language="SyntaxHighlightLanguage.Razor"
                       Code="@_consumerCsproj"/>
         <p class="doc-section__description" style="margin-top: 1rem;">
-            @Loc.Html("The generator runs as an analyzer reference and reads the <code>.tn</code> files declared as <code>AdditionalFiles</code>. It emits a <code>[ModuleInitializer]</code> that registers every bundle with <code>BobLocalize</code> at assembly load — no startup code required.")
+            @Loc.Html("The generator runs as an analyzer reference and reads the <code>.tn</code> files declared as <code>AdditionalFiles</code>. It emits a <code>[ModuleInitializer]</code> that registers every bundle with <code>BobLocalize</code> at assembly load - no startup code required.")
         </p>
 
         <h3 class="doc-section__subtitle">@Loc["4. Resolve a key in a component"]</h3>
@@ -107,7 +107,7 @@
     <section class="doc-section">
         <h2 class="doc-section__title">@Loc["Custom providers"]</h2>
         <p class="doc-section__description">
-            @Loc.Html("BOBLocalize resolves a lookup by running a <em>chain</em> of <code>IBobLocalizationProvider</code> implementations. The default chain is <code>[BundleProvider, LiteralProvider]</code> — <code>BundleProvider</code> hits the compile-time table, <code>LiteralProvider</code> is the sentinel that surfaces <code>ResourceNotFound = true</code>. Custom providers plug in for scenarios like database-backed translations or CMS strings.")
+            @Loc.Html("BOBLocalize resolves a lookup by running a <em>chain</em> of <code>IBobLocalizationProvider</code> implementations. The default chain is <code>[BundleProvider, LiteralProvider]</code> - <code>BundleProvider</code> hits the compile-time table, <code>LiteralProvider</code> is the sentinel that surfaces <code>ResourceNotFound = true</code>. Custom providers plug in for scenarios like database-backed translations or CMS strings.")
         </p>
         <BOBCodeBlock Title="@Loc["Per-bundle chain override"]"
                       Language="SyntaxHighlightLanguage.CSharp"
@@ -130,7 +130,7 @@
                       Language="SyntaxHighlightLanguage.Razor"
                       Code="@_usageHtml"/>
         <p class="doc-section__description" style="margin-top: 1rem;">
-            @Loc.Html("<strong>Threat model.</strong> The pattern is safe while two invariants hold: translations live in source-controlled <code>.tn</code> files (audited the same way as inline Razor markup), and dynamic values reach the template only as format arguments — never concatenated into the key string. If a custom provider sources translations from user-editable storage (CMS, DB column), run an HTML sanitiser <em>before</em> wrapping in <code>MarkupString</code>; the helper only encodes arguments, not the template.")
+            @Loc.Html("<strong>Threat model.</strong> The pattern is safe while two invariants hold: translations live in source-controlled <code>.tn</code> files (audited the same way as inline Razor markup), and dynamic values reach the template only as format arguments - never concatenated into the key string. If a custom provider sources translations from user-editable storage (CMS, DB column), run an HTML sanitiser <em>before</em> wrapping in <code>MarkupString</code>; the helper only encodes arguments, not the template.")
         </p>
     </section>
 
@@ -144,10 +144,10 @@
     <section class="doc-section">
         <h2 class="doc-section__title">@Loc["Why BOBLocalize over native resx"]</h2>
         <ul>
-            <li>@Loc.Html("<strong>Compile-time bundles</strong> — every <code>.tn</code> hashes to a baked <code>FrozenDictionary&lt;ulong, string&gt;</code>. No <code>ResourceManager</code> reflection, no satellite-assembly probing.")</li>
-            <li>@Loc.Html("<strong>No null returns</strong> — when no provider answers, the literal key (formatted with supplied arguments) is the value and <code>ResourceNotFound = true</code> surfaces the diagnostic.")</li>
-            <li>@Loc.Html("<strong>Pluggable providers</strong> — register a <code>DbProvider</code> ahead of <code>BundleProvider</code> to overlay CMS edits on top of shipped translations.")</li>
-            <li>@Loc.Html("<strong>Compatible with <code>IStringLocalizer&lt;T&gt;</code></strong> — components keep the familiar Microsoft contract; only the implementation changes.")</li>
+            <li>@Loc.Html("<strong>Compile-time bundles</strong> - every <code>.tn</code> hashes to a baked <code>FrozenDictionary&lt;ulong, string&gt;</code>. No <code>ResourceManager</code> reflection, no satellite-assembly probing.")</li>
+            <li>@Loc.Html("<strong>No null returns</strong> - when no provider answers, the literal key (formatted with supplied arguments) is the value and <code>ResourceNotFound = true</code> surfaces the diagnostic.")</li>
+            <li>@Loc.Html("<strong>Pluggable providers</strong> - register a <code>DbProvider</code> ahead of <code>BundleProvider</code> to overlay CMS edits on top of shipped translations.")</li>
+            <li>@Loc.Html("<strong>Compatible with <code>IStringLocalizer&lt;T&gt;</code></strong> - components keep the familiar Microsoft contract; only the implementation changes.")</li>
         </ul>
     </section>
 
@@ -212,7 +212,7 @@ using MyApp.Pages;
 
 namespace MyApp.Pages;
 
-// Marker — never instantiated. Can also be an existing component class.
+// Marker - never instantiated. Can also be an existing component class.
 public sealed class GreetingResources { }";
 
     private const string _tnNeutral = @"# HelloWorld
@@ -271,7 +271,7 @@ services.AddSingleton<DbProvider>();";
 
     private string _declareBundleDesc =
         """
-        typeof(...) is the marker — it can be an empty class or any existing type. The <code>DefaultCulture</code> property is the terminal fallback for the bundle's provider chain; <code>TranslationsFolder</code> (defaults to <code>"Translations"</code>) controls where the generator looks for matching <code>.tn</code> files.
+        typeof(...) is the marker - it can be an empty class or any existing type. The <code>DefaultCulture</code> property is the terminal fallback for the bundle's provider chain; <code>TranslationsFolder</code> (defaults to <code>"Translations"</code>) controls where the generator looks for matching <code>.tn</code> files.
         """;
 
 }

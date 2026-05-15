@@ -128,7 +128,7 @@ public class BOBAccordionRenderingTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — second item starts open
+        // Arrange - second item starts open
         static void frag(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder b)
         {
             b.OpenComponent<BOBAccordionItem>(0);
@@ -163,7 +163,7 @@ public class BOBAccordionRenderingTests
         IRenderedComponent<BOBAccordion> cut = ctx.Render<BOBAccordion>(p => p
             .Add(c => c.ChildContent, BuildTwoItems()));
 
-        // Assert — each item header has an svg-icon child
+        // Assert - each item header has an svg-icon child
         cut.FindAll(".bob-accordion-item__icon bob-component[data-bob-component='svg-icon']")
             .Should().HaveCount(2);
     }

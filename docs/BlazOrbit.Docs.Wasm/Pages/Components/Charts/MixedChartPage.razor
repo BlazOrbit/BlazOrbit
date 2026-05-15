@@ -3,7 +3,7 @@
 @inject IStringLocalizer<MixedChartPage> Loc
 
 <DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBMixedChart"]"
-         Lede="@Loc["Combined-series chart that blends bar + line + area in a single plot. Series share the X axis and can optionally bind to a secondary Y axis on the right edge — handy for actual vs target reports or value vs ratio comparisons."]"
+         Lede="@Loc["Combined-series chart that blends bar + line + area in a single plot. Series share the X axis and can optionally bind to a secondary Y axis on the right edge - handy for actual vs target reports or value vs ratio comparisons."]"
          PageInstance="this"
          ApiType="@typeof(BOBMixedChart<>)"
          Keywords="@(["mixed", "combo", "bar", "line", "area", "secondary axis", "dual axis", "actual vs target"])">
@@ -20,7 +20,7 @@
     </DocDemo>
 
     <DocDemo Key="DualAxis" Title="@Loc["Secondary axis"]"
-             Description="@Loc["Set UseSecondaryAxis on a series to project it against the right-side scale instead of the primary one — required when the series belongs to a different domain (e.g. revenue in $ vs conversion in %)."]">
+             Description="@Loc["Set UseSecondaryAxis on a series to project it against the right-side scale instead of the primary one - required when the series belongs to a different domain (e.g. revenue in $ vs conversion in %)."]">
         <BOBMixedChart TX="string"
                        Series="_revenueAndRatio"
                        SecondaryAxisLabel="%"

@@ -4,7 +4,7 @@ namespace BlazOrbit.Localization;
 
 /// <summary>
 /// Immutable specification of a registered localization bundle. Built either by hand for
-/// runtime-only scenarios or — typically — by the source generator and supplied to
+/// runtime-only scenarios or - typically - by the source generator and supplied to
 /// <see cref="BobLocalize.RegisterBundle"/> from a <c>[ModuleInitializer]</c>-marked method
 /// inside the bundle's owning assembly.
 /// </summary>
@@ -17,7 +17,7 @@ namespace BlazOrbit.Localization;
 /// </param>
 /// <param name="Translations">
 /// Per-culture hash → translation tables baked at compile time. Read by the built-in
-/// <c>BundleProvider</c>. <see langword="null"/> when no <c>.tn</c> files were supplied —
+/// <c>BundleProvider</c>. <see langword="null"/> when no <c>.tn</c> files were supplied -
 /// the bundle still works, but every lookup falls through to the source literal.
 /// </param>
 /// <param name="SourceLiterals">

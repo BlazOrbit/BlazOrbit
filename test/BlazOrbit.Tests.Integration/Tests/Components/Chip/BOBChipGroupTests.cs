@@ -1,4 +1,4 @@
-using BlazOrbit.Components.Display;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -67,7 +67,7 @@ public class BOBChipGroupTests
                 EventCallback.Factory.Create<IReadOnlyList<string>>(p, v => captured = v))
             .Add(c => c.ChildContent, ThreeChips()));
 
-        // Tap chip "b" — single-select replaces the whole list with the new value.
+        // Tap chip "b" - single-select replaces the whole list with the new value.
         cut.FindAll("button.bob-chip")[1].Click();
 
         captured.Should().NotBeNull();
@@ -88,7 +88,7 @@ public class BOBChipGroupTests
                 EventCallback.Factory.Create<IReadOnlyList<string>>(p, v => captured = v))
             .Add(c => c.ChildContent, ThreeChips()));
 
-        // Tap the already-selected chip — toggle-off clears the list to empty.
+        // Tap the already-selected chip - toggle-off clears the list to empty.
         cut.FindAll("button.bob-chip")[0].Click();
 
         captured.Should().NotBeNull();

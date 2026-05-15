@@ -1,4 +1,4 @@
-using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -48,7 +48,7 @@ public class BOBDialogIntegrationTests
         RecordingModalInterop interop = new();
         ctx.Services.AddScoped<IModalJsInterop>(_ => interop);
 
-        // Arrange — outer dialog open, inner dialog closed
+        // Arrange - outer dialog open, inner dialog closed
         IRenderedComponent<BOBDialog> outer = ctx.Render<BOBDialog>(p => p.Add(c => c.Open, true));
         IRenderedComponent<BOBDialog> inner = ctx.Render<BOBDialog>(p => p.Add(c => c.Open, false));
 
@@ -57,7 +57,7 @@ public class BOBDialogIntegrationTests
         outerId.Should().NotBeNullOrEmpty();
         interop.Calls[0].Op.Should().Be("trap");
 
-        // Act — open inner (nested), then close inner, then close outer
+        // Act - open inner (nested), then close inner, then close outer
         inner.Render(p => p.Add(c => c.Open, true));
         interop.Calls.Should().HaveCount(2);
         string innerId = interop.Calls[1].Id;
@@ -67,7 +67,7 @@ public class BOBDialogIntegrationTests
         inner.Render(p => p.Add(c => c.Open, false));
         outer.Render(p => p.Add(c => c.Open, false));
 
-        // Assert — full LIFO sequence with id pairing: open A, open B, close B, close A
+        // Assert - full LIFO sequence with id pairing: open A, open B, close B, close A
         interop.Calls.Should().Equal(
             ("trap", outerId),
             ("trap", innerId),

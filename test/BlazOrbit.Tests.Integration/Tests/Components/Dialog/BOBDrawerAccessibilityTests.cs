@@ -1,5 +1,5 @@
 using AngleSharp.Dom;
-using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -35,7 +35,7 @@ public class BOBDrawerAccessibilityTests
         IRenderedComponent<BOBDrawer> cut = ctx.Render<BOBDrawer>(p => p
             .Add(c => c.Open, true));
 
-        // Assert — host receives tabindex=-1 so JS focus trap can target it
+        // Assert - host receives tabindex=-1 so JS focus trap can target it
         cut.Find("bob-component").GetAttribute("tabindex").Should().Be("-1");
     }
 

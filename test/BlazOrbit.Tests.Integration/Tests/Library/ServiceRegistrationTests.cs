@@ -1,7 +1,6 @@
 using BlazOrbit;
 using BlazOrbit.Abstractions;
 using BlazOrbit.Components;
-using BlazOrbit.Components.Layout;
 using BlazOrbit.Localization.Wasm;
 using BlazOrbit.Tests.Integration.Templates.Components;
 using FluentAssertions;
@@ -102,7 +101,7 @@ public class ServiceRegistrationTests
     /// BOBInputNumber, ~35 in total) inject <c>IStringLocalizer&lt;TMarker&gt;</c> directly. Before
     /// this guard, a consumer who opted into BlazOrbit *without* localization (the
     /// `IncludeLocalization=false` template path) hit a DI resolution exception on the first
-    /// render — the home page rendered blank with `Cannot resolve service for type
+    /// render - the home page rendered blank with `Cannot resolve service for type
     /// 'IStringLocalizer`1[...]'` in the browser console.
     ///
     /// <para>
@@ -115,13 +114,13 @@ public class ServiceRegistrationTests
     [Fact(DisplayName = "AddBlazOrbit_RegistersIStringLocalizer_SoComponentsCanInjectWithoutOptIn")]
     public void AddBlazOrbit_RegistersIStringLocalizer_SoComponentsCanInjectWithoutOptIn()
     {
-        // Arrange — only AddBlazOrbit(), no AddBlazOrbitLocalizationServer/Wasm.
+        // Arrange - only AddBlazOrbit(), no AddBlazOrbitLocalizationServer/Wasm.
         ServiceCollection services = [];
         services.AddScoped<IJSRuntime, FakeJsRuntime>();
         services.AddBlazOrbit();
         using ServiceProvider provider = services.BuildServiceProvider();
 
-        // Act — resolve the same way BOBInputNumber.razor does at line 29.
+        // Act - resolve the same way BOBInputNumber.razor does at line 29.
         IStringLocalizer<BOBFormsResources>? localizer =
             provider.GetService<IStringLocalizer<BOBFormsResources>>();
 

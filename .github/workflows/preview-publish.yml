@@ -1,4 +1,4 @@
-﻿# .github/workflows/preview-publish.yml
+# .github/workflows/preview-publish.yml
 # Publishes preview NuGet packages + matching .skill from develop on demand.
 # Version is read from <VersionPrefix> in Directory.Build.props and suffixed
 # with -preview.<run-number>.
@@ -6,7 +6,7 @@
 # Manual trigger only. Pre-merge quality is enforced by preview-gate.yml
 # (build + test on every PR to develop). Once merged, develop is considered
 # already-validated; this workflow exists to ship a NuGet+skill snapshot
-# whenever the maintainer decides — typically batching several merges into
+# whenever the maintainer decides - typically batching several merges into
 # a single preview to keep the NuGet feed and the GH releases list tidy.
 
 name: '[Release] Preview Publish'
@@ -68,7 +68,7 @@ jobs:
             echo "${parts[0]:-0}.${parts[1]:-0}.${parts[2]:-0}.${parts[3]:-0}"
           }
 
-          # Version is fully derived from VersionPrefix + run number — no manual
+          # Version is fully derived from VersionPrefix + run number - no manual
           # override accepted. Each NuGet version is published exactly once,
           # 1:1 with its skill. To re-test something, push a new commit (run
           # number bumps) instead of forcing a duplicate version.
@@ -151,7 +151,7 @@ jobs:
         shell: bash
         run: |
           # Capture pack output to scan for NU5xxx packaging warnings.
-          # Mirror the audit policy of release-publish.yml — preview is the
+          # Mirror the audit policy of release-publish.yml - preview is the
           # canary that surfaces structural regressions before they reach
           # the stable feed.
           set -o pipefail
@@ -168,7 +168,7 @@ jobs:
 
       - name: Pack templates
         # Mirror the stable release flow so the preview feed exposes the
-        # templates package alongside the libraries — consumers can validate
+        # templates package alongside the libraries - consumers can validate
         # `dotnet new install BlazOrbit.Templates --version <preview>` against
         # unreleased library bits. Templates live in their own slnx, separate
         # from BlazOrbit.slnx, so we restore explicitly.
@@ -197,7 +197,7 @@ jobs:
 
       - name: Install unzip
         # `mcr.microsoft.com/dotnet/sdk:10.0` is Debian-based but ships without
-        # unzip — the next step's `assert_in_pkg` shells out to `unzip -l` to
+        # unzip - the next step's `assert_in_pkg` shells out to `unzip -l` to
         # inspect nupkg contents (a nupkg is a zip). Without this install,
         # every assertion in "Validate package structure" reports "missing"
         # because `unzip` exits with 127 and `grep -Fxq` on empty input fails.
@@ -368,7 +368,7 @@ jobs:
         # 1:1 invariant: every published NuGet version maps to exactly one
         # commit and exactly one skill. Re-publishing would either be blocked
         # by NuGet's immutability (`409`) or silently no-op the .nupkg push
-        # while overwriting the .skill on the GH release — drift. Probe the
+        # while overwriting the .skill on the GH release - drift. Probe the
         # flat-container endpoint and bail out before either side mutates.
         env:
           VERSION: ${{ needs.version.outputs.version }}
@@ -382,7 +382,7 @@ jobs:
               exit 1
               ;;
             404)
-              echo "✅ Version ${VERSION} not on NuGet — safe to publish."
+              echo "✅ Version ${VERSION} not on NuGet - safe to publish."
               ;;
             *)
               echo "::warning::Unexpected status $status from NuGet flat-container probe. Proceeding cautiously."

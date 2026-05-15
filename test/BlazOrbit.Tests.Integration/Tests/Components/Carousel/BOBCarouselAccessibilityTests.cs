@@ -106,12 +106,12 @@ public class BOBCarouselAccessibilityTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — non-autoplay → polite
+        // Arrange - non-autoplay → polite
         IRenderedComponent<BOBCarousel> cut = ctx.Render<BOBCarousel>(p => p
             .Add(c => c.ChildContent, ThreeSlides));
         cut.Find(".bob-carousel__viewport").GetAttribute("aria-live").Should().Be("polite");
 
-        // Act — render autoplay variant
+        // Act - render autoplay variant
         IRenderedComponent<BOBCarousel> cut2 = ctx.Render<BOBCarousel>(p => p
             .Add(c => c.AutoPlay, true)
             .Add(c => c.AutoPlayInterval, TimeSpan.FromHours(1))

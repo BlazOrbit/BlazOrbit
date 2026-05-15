@@ -45,7 +45,7 @@ public class ComponentRootContractLintTests
             Match inheritsMatch = Regex.Match(content, @"@inherits\s+(\S+)");
             if (!inheritsMatch.Success)
             {
-                continue; // Default ComponentBase — not part of BOB design system
+                continue; // Default ComponentBase - not part of BOB design system
             }
 
             string baseClass = inheritsMatch.Groups[1].Value;

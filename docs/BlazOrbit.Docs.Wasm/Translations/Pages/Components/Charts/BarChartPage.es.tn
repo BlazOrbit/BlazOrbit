@@ -66,7 +66,7 @@ StackMode = PercentStacked normaliza cada categoría al 100%. Útil para compara
 # StackMode = Stacked renders series on top of one another so the total bar height shows the cumulative value per category.
 StackMode = Stacked renderiza series una sobre otra para que la altura total de la barra muestre el valor acumulado por categoría.
 
-# StackMode = Waterfall — single series where each bar represents a delta from the running cumulative of all previous bars. Standard format for P&L bridges (start → adjustments → end), budget vs actuals and cash-flow waterfalls.
+# StackMode = Waterfall - single series where each bar represents a delta from the running cumulative of all previous bars. Standard format for P&L bridges (start → adjustments → end), budget vs actuals and cash-flow waterfalls.
 StackMode = Waterfall: serie única donde cada barra representa un delta del acumulado de todas las barras anteriores. Formato estándar para puentes P&L (inicio → ajustes → fin), presupuesto vs reales y cascadas de flujo de caja.
 
 # This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs.

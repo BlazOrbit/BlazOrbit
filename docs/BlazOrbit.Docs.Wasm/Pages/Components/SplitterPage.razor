@@ -1,6 +1,6 @@
 @page "/components/layout/splitter"
 
-@using BlazOrbit.Components.Layout
+@using BlazOrbit.Components
 
 @inject IStringLocalizer<SplitterPage> Loc
 
@@ -18,7 +18,7 @@
                     <div class="doc-demo__placeholder">@Loc["Sidebar"]</div>
                 </BOBSplitterPane>
                 <BOBSplitterPane Flex="true">
-                    <div class="doc-demo__placeholder">@Loc["Main body — drag the gripper to resize."]</div>
+                    <div class="doc-demo__placeholder">@Loc["Main body - drag the gripper to resize."]</div>
                 </BOBSplitterPane>
             </BOBSplitter>
         </div>

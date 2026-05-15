@@ -69,7 +69,7 @@
 
     private void HandleSliceClick(BOBChartSliceClickArgs<decimal> args)
     {
-        _clickMessage = $"Clicked: {args.SliceLabel} — {args.Value} ({args.Percentage:F1}%)";
+        _clickMessage = $"Clicked: {args.SliceLabel} - {args.Value} ({args.Percentage:F1}%)";
     }
 
     private static readonly IEnumerable<BOBChartSlice<decimal>> _revenueSlices =

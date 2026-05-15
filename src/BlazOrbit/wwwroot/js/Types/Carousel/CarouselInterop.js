@@ -1,4 +1,4 @@
-// BlazOrbit — Carousel interop (hand-written JSDoc-typed ESM).
+// BlazOrbit - Carousel interop (hand-written JSDoc-typed ESM).
 
 /**
  * @typedef {Object} CarouselCallbacksRelay

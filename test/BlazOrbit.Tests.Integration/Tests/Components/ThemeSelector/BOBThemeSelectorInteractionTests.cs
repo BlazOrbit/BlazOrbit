@@ -1,4 +1,4 @@
-using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -32,7 +32,7 @@ public class BOBThemeSelectorInteractionTests
         // Act
         cut.Find("button").Click();
 
-        // Assert — advance past the internal delays (50 ms + 300 ms)
+        // Assert - advance past the internal delays (50 ms + 300 ms)
         timeProvider.Advance(TimeSpan.FromMilliseconds(400));
         await cut.InvokeAsync(() => Task.CompletedTask);
         await fake.Received(1).ToggleThemeAsync(Arg.Any<string[]>());

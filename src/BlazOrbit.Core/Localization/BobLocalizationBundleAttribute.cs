@@ -8,14 +8,14 @@ namespace BlazOrbit.Localization;
 /// </summary>
 /// <remarks>
 /// <para>
-/// The marker type itself has no members — it acts as a strongly-typed key for
+/// The marker type itself has no members - it acts as a strongly-typed key for
 /// <c>IStringLocalizer&lt;TResource&gt;</c> injection. Each marker type can have at most one
 /// bundle attribute; a single assembly may declare multiple bundles by repeating the attribute
 /// with different marker types.
 /// </para>
 /// <para>
 /// <see cref="DefaultCulture"/> declares the culture in which the source literals are written
-/// — the source generator hashes those literals, and the runtime fallback chain terminates at
+/// - the source generator hashes those literals, and the runtime fallback chain terminates at
 /// that culture (returning the literal itself when nothing else matches).
 /// </para>
 /// <para>

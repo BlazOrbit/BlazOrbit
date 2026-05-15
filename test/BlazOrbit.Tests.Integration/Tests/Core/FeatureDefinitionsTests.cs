@@ -15,16 +15,16 @@ public class FeatureDefinitionsTests
 {
     [Fact]
     public void DataAttributes_Component_Should_Follow_Bob_Prefix_Convention()
-        // Assert — data-bob-component is the root data attribute
+        // Assert - data-bob-component is the root data attribute
         => FeatureDefinitions.DataAttributes.Component.Should().StartWith("data-bob-");
 
     [Fact]
     public void DataAttributes_All_Should_Start_With_Data_Bob()
     {
-        // Arrange — collect all string constants from DataAttributes nested class
+        // Arrange - collect all string constants from DataAttributes nested class
         IEnumerable<string> constants = GetStringConstants(typeof(FeatureDefinitions.DataAttributes));
 
-        // Assert — every attribute follows the data-bob-* convention
+        // Assert - every attribute follows the data-bob-* convention
         foreach (string constant in constants)
         {
             constant.Should().StartWith("data-bob-",
@@ -35,10 +35,10 @@ public class FeatureDefinitionsTests
     [Fact]
     public void InlineVariables_All_Should_Start_With_Bob_Inline()
     {
-        // Arrange — collect all string constants from InlineVariables nested class
+        // Arrange - collect all string constants from InlineVariables nested class
         IEnumerable<string> constants = GetStringConstants(typeof(FeatureDefinitions.InlineVariables));
 
-        // Assert — every CSS variable follows --bob-inline-* convention
+        // Assert - every CSS variable follows --bob-inline-* convention
         foreach (string constant in constants)
         {
             constant.Should().StartWith("--bob-inline-",

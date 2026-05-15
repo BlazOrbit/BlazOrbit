@@ -1,5 +1,5 @@
 using AngleSharp.Dom;
-using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -16,11 +16,11 @@ public class BOBGridAccessibilityTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — BOBGrid is a pure layout primitive.
+        // Arrange & Act - BOBGrid is a pure layout primitive.
         IRenderedComponent<BOBGrid> cut = ctx.Render<BOBGrid>(p => p
             .Add(c => c.ChildContent, b => b.AddContent(0, "x")));
 
-        // Assert — no role/aria automatically applied
+        // Assert - no role/aria automatically applied
         IElement root = cut.Find("bob-component");
         root.HasAttribute("role").Should().BeFalse();
         root.HasAttribute("aria-label").Should().BeFalse();
@@ -33,7 +33,7 @@ public class BOBGridAccessibilityTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — consumer opts in to role="list" / role="grid" via attributes.
+        // Arrange & Act - consumer opts in to role="list" / role="grid" via attributes.
         IRenderedComponent<BOBGrid> cut = ctx.Render<BOBGrid>(p => p
             .AddUnmatched("role", "list")
             .AddUnmatched("aria-label", "Products")
@@ -66,7 +66,7 @@ public class BOBGridAccessibilityTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — heading inside grid cell preserves document outline.
+        // Arrange & Act - heading inside grid cell preserves document outline.
         IRenderedComponent<BOBGrid> cut = ctx.Render<BOBGrid>(p => p
             .Add(c => c.ChildContent, b => b.AddMarkupContent(0, "<h2 id='section'>Heading</h2>")));
 
@@ -80,7 +80,7 @@ public class BOBGridAccessibilityTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — HideXs is visual-only (CSS media query driven).
+        // Arrange & Act - HideXs is visual-only (CSS media query driven).
         // SR should still reach the content; aria-hidden must not be emitted.
         IRenderedComponent<BOBGridItem> cut = ctx.Render<BOBGridItem>(p => p
             .Add(c => c.HideXs, true)

@@ -5,7 +5,7 @@
 @implements IPickerFamilyComponent
 
 <bob-component @attributes="ComputedAttributes">
-    <BOBDraggable OnDrag="@(EventCallback.Factory.Create<DragEventArgs>(this, HandleSelectionDrag))" OnDragEnd="@(EventCallback.Factory.Create<DragEventArgs>(this, HandleSelectionDragEnd))">
+    <BOBDraggable OnDrag="@(EventCallback.Factory.Create<Microsoft.AspNetCore.Components.Web.DragEventArgs>(this, HandleSelectionDrag))" OnDragEnd="@(EventCallback.Factory.Create<Microsoft.AspNetCore.Components.Web.DragEventArgs>(this, HandleSelectionDragEnd))">
         <div @ref="_selectionRef"
              tabindex="0"
              class="bob-colorpicker__selection"
@@ -161,14 +161,14 @@
         return _hsvColor.ToCssColor(255).ToString(ColorOutputFormats.Rgb);
     }
 
-    private async Task HandleSelectionDrag(DragEventArgs e)
+    private async Task HandleSelectionDrag(Microsoft.AspNetCore.Components.Web.DragEventArgs e)
     {
         var pos = await JsInterop.GetRelativePositionAsync(_selectionRef, e.ClientX, e.ClientY);
         _hsvColor = _hsvColor.WithSaturation(pos[0]).WithValue(1 - pos[1]);
         await _valueThrottler.InvokeAsync(GetCurrentColor(), async color => await ValueChanged.InvokeAsync(color));
     }
 
-    private async Task HandleSelectionDragEnd(DragEventArgs e)
+    private async Task HandleSelectionDragEnd(Microsoft.AspNetCore.Components.Web.DragEventArgs e)
     {
         var pos = await JsInterop.GetRelativePositionAsync(_selectionRef, e.ClientX, e.ClientY);
         _hsvColor = _hsvColor.WithSaturation(pos[0]).WithValue(1 - pos[1]);

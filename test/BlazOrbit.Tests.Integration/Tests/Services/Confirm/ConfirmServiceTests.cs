@@ -1,5 +1,4 @@
-using BlazOrbit.Components.Layout;
-using BlazOrbit.Components.Layout.Services;
+using BlazOrbit.Components;
 using FluentAssertions;
 using NSubstitute;
 
@@ -84,7 +83,7 @@ public class BOBConfirmServiceTests
             "Keep");
 
         capturedParams.Should().NotBeNull();
-        // Anonymous-object property bag — verify via reflection.
+        // Anonymous-object property bag - verify via reflection.
         Type type = capturedParams!.GetType();
         type.GetProperty("Title")!.GetValue(capturedParams).Should().Be("Delete?");
         type.GetProperty("Message")!.GetValue(capturedParams).Should().Be("This cannot be undone.");
@@ -108,7 +107,7 @@ public class BOBConfirmServiceTests
         await svc.AskAsync("t", "m");
 
         capturedOpts.Should().NotBeNull();
-        // Overlay-click dismissal would feel like an accidental "no" — better to force the
+        // Overlay-click dismissal would feel like an accidental "no" - better to force the
         // user to use the explicit Cancel button.
         capturedOpts!.CloseOnOverlayClick.Should().BeFalse();
         capturedOpts.CloseOnEscape.Should().BeTrue();

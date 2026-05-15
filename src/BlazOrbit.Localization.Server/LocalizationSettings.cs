@@ -16,7 +16,7 @@ public class ServerLocalizationSettings : BaseLocalizationSettings
 
     /// <summary>
     /// Path of the BlazOrbit culture-setting endpoint registered by
-    /// <c>CultureEndpointStartupFilter</c>. Default: <c>/BlazOrbit/Culture/Set</c> —
+    /// <c>CultureEndpointStartupFilter</c>. Default: <c>/BlazOrbit/Culture/Set</c> -
     /// prefixed with <c>/BlazOrbit</c> to minimize collisions with consumer routes
     /// (a plain <c>/Culture/Set</c> is a likely controller name).
     /// </summary>

@@ -11,7 +11,7 @@ Security fixes are published for the latest minor of each supported major:
 
 ## Reporting a Vulnerability
 
-Please report security issues privately — do **not** open a public GitHub issue.
+Please report security issues privately - do **not** open a public GitHub issue.
 
 - **Email**: `dev@blazorbit.com`
 - **GitHub**: use the [Security Advisories](https://github.com/BlazOrbit/BlazOrbit/security/advisories/new) form to open
@@ -20,8 +20,8 @@ Please report security issues privately — do **not** open a public GitHub issu
 Include in your report:
 
 1. Affected package and version (`BlazOrbit.X` + `1.y.z-preview.n`).
-2. Reproducer — ideally a minimal project or the smallest snippet that triggers the issue.
-3. Impact — what an attacker could achieve (data exfiltration, XSS, DoS, …).
+2. Reproducer - ideally a minimal project or the smallest snippet that triggers the issue.
+3. Impact - what an attacker could achieve (data exfiltration, XSS, DoS, …).
 4. Whether the issue requires user interaction or a specific host (Server vs. WASM) to manifest.
 
 ## Response Timeline
@@ -45,7 +45,7 @@ Out of scope:
 
 - Vulnerabilities that require the library author's local dev environment (dev-time `.targets` / BuildTools). These are
   development-environment issues, not library-ship issues.
-- Issues in third-party dependencies (`Microsoft.AspNetCore.*`, FluentValidation, etc.) — report upstream.
+- Issues in third-party dependencies (`Microsoft.AspNetCore.*`, FluentValidation, etc.) - report upstream.
 - DoS via pathological component usage in consumer apps (e.g. rendering millions of rows without virtualization).
 
 Thanks for helping keep BlazOrbit and its consumers safe.

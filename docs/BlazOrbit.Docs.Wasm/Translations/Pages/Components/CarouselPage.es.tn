@@ -24,8 +24,8 @@
 # A
 A
 
-# A — try clicking next from the last slide
-A — intenta clicar siguiente desde la última diapositiva
+# A - try clicking next from the last slide
+A - intenta clicar siguiente desde la última diapositiva
 
 # Advances every 3 seconds. Pauses on hover or focus.
 Avanza cada 3 segundos. Pausa al pasar el cursor o enfocar.
@@ -99,7 +99,7 @@ Propiedades
 # Seamless loop
 Bucle sin fisuras
 
-# Several slides visible at once with a fixed inward tilt. Side slides keep their size — the carousel always feels 3D, with depth at the sides instead of behind the active slide.
+# Several slides visible at once with a fixed inward tilt. Side slides keep their size - the carousel always feels 3D, with depth at the sides instead of behind the active slide.
 Varias diapositivas visibles a la vez con una inclinación fija hacia adentro. Las diapositivas laterales mantienen su tamaño: el carrusel siempre se siente 3D, con profundidad en los lados en lugar de detrás de la diapositiva activa.
 
 # Side slides recede with a 3D rotation. The active slide stays in front; neighbours rotate, scale and fade.

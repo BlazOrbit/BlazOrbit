@@ -20,7 +20,7 @@ public class BOBInputDateTimeAccessibilityTests
         IRenderedComponent<BOBInputDateTime<DateOnly?>> cut = ctx.Render<BOBInputDateTime<DateOnly?>>(p => p
             .Add(c => c.Label, "Birth Date"));
 
-        // Assert — label's for attribute matches the generated input id
+        // Assert - label's for attribute matches the generated input id
         IElement label = cut.Find("label");
         string? labelFor = label.GetAttribute("for");
         labelFor.Should().StartWith("bob-datetime-");
@@ -64,7 +64,7 @@ public class BOBInputDateTimeAccessibilityTests
             .Add(c => c.Label, "Date")
             .Add(c => c.Required, true));
 
-        // Assert — CSS-OPT-02 block B.5: visual marker is now CSS-only via
+        // Assert - CSS-OPT-02 block B.5: visual marker is now CSS-only via
         // [data-bob-required="true"] .bob-input__label::after on the host.
         cut.Find("bob-component").GetAttribute("data-bob-required").Should().Be("true");
     }
@@ -95,7 +95,7 @@ public class BOBInputDateTimeAccessibilityTests
         // Act
         cut.Find("button[aria-label='Open picker']").Click();
 
-        // Assert — dialog rendered with .bob-dialog
+        // Assert - dialog rendered with .bob-dialog
         cut.Find(".bob-dialog").Should().NotBeNull();
     }
 
@@ -108,7 +108,7 @@ public class BOBInputDateTimeAccessibilityTests
         // Arrange
         IRenderedComponent<BOBDatePicker> cut = ctx.Render<BOBDatePicker>();
 
-        // Assert — all nav buttons have descriptive aria-labels
+        // Assert - all nav buttons have descriptive aria-labels
         cut.Find("button[aria-label='Previous year']").Should().NotBeNull();
         cut.Find("button[aria-label='Previous month']").Should().NotBeNull();
         cut.Find("button[aria-label='Next month']").Should().NotBeNull();

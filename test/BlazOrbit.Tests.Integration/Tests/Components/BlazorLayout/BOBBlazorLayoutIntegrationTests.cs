@@ -1,5 +1,4 @@
-using BlazOrbit.Components.Layout;
-using BlazOrbit.Components.Layout.Services;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using BlazOrbit.Tests.Integration.Tests.Components.Initializer;
@@ -51,11 +50,11 @@ public class BOBBlazorLayoutIntegrationTests
         IRenderedComponent<BOBBlazorLayout> cut = ctx.Render<BOBBlazorLayout>();
         IToastService toastService = ctx.Services.GetRequiredService<IToastService>();
 
-        // Act — show toast
+        // Act - show toast
         await toastService.ShowAsync(b => b.AddContent(0, "Toast 1"), new ToastOptions { AutoDismiss = false });
         await toastService.ShowAsync(b => b.AddContent(0, "Toast 2"), new ToastOptions { AutoDismiss = false });
 
-        // Assert — both coexist
+        // Assert - both coexist
         toastService.ActiveToasts.Should().HaveCount(2);
     }
 }

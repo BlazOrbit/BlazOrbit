@@ -1,5 +1,5 @@
 using AngleSharp.Dom;
-using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -97,17 +97,17 @@ public class BOBDialogStateTests
 
         cut.Find(".bob-dialog").GetAttribute("data-bob-closing").Should().BeNull();
 
-        // Act — initiate close; animation gate is still open
+        // Act - initiate close; animation gate is still open
         _ = cut.InvokeAsync(async () => await ClickOverlayAsync(cut));
         cut.WaitForState(
             () => cut.FindAll(".bob-dialog[data-bob-closing='true']").Count == 1,
             TimeSpan.FromSeconds(1));
 
-        // Assert — during the animation, the --closing modifier is present
+        // Assert - during the animation, the --closing modifier is present
         cut.Find(".bob-dialog").GetAttribute("data-bob-closing").Should().Be("true");
         cut.Find(".bob-dialog-overlay").GetAttribute("data-bob-closing").Should().Be("true");
 
-        // Finish — release animation, dialog eventually unmounts
+        // Finish - release animation, dialog eventually unmounts
         interop.AnimationGate.SetResult(true);
         cut.WaitForState(
             () => cut.FindAll("[role='dialog']").Count == 0,
@@ -133,7 +133,7 @@ public class BOBDialogStateTests
             () => cut.FindAll(".bob-dialog[data-bob-closing='true']").Count == 1,
             TimeSpan.FromSeconds(1));
 
-        // Still animating — OpenChanged not yet emitted
+        // Still animating - OpenChanged not yet emitted
         emitted.Should().BeNull();
 
         // Release

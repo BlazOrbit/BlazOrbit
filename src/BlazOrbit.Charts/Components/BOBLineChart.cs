@@ -134,7 +134,7 @@ public class BOBLineChart<TX, TY> :
     [Parameter]
     public EventCallback<BOBChartBrushArgs<TX>> OnBrush { get; set; }
 
-    // Active brush drag state — pixels in plot-space (same coord as scale.Range).
+    // Active brush drag state - pixels in plot-space (same coord as scale.Range).
     private bool _brushActive;
     private double _brushStartPxX;
     private double _brushEndPxX;
@@ -157,7 +157,7 @@ public class BOBLineChart<TX, TY> :
     /// When <c>true</c>, a vertical guide line tracks the mouse X across
     /// the plot area on hover. The nearest data point per series is
     /// highlighted simultaneously and an HTML readout pinned to the line
-    /// shows X and per-series Y values. Default <c>false</c> — opt-in
+    /// shows X and per-series Y values. Default <c>false</c> - opt-in
     /// because the overlay competes with per-marker click / hover handlers
     /// (markers above the overlay still receive their own events; bare
     /// plot space drives the crosshair).
@@ -166,7 +166,7 @@ public class BOBLineChart<TX, TY> :
     public bool ShowCrosshair { get; set; }
 
     /// <summary>
-    /// Active crosshair snapshot — set on mousemove over the plot overlay,
+    /// Active crosshair snapshot - set on mousemove over the plot overlay,
     /// cleared on mouseleave. Stays null when off-plot or feature disabled.
     /// </summary>
     private CrosshairState? _crosshair;
@@ -196,7 +196,7 @@ public class BOBLineChart<TX, TY> :
 
     /// <summary>
     /// Fired when the user clicks a point marker. Requires
-    /// <see cref="ShowMarkers"/> = <c>true</c> — when markers are off the
+    /// <see cref="ShowMarkers"/> = <c>true</c> - when markers are off the
     /// line itself has no per-point hit targets.
     /// </summary>
     [Parameter]
@@ -211,7 +211,7 @@ public class BOBLineChart<TX, TY> :
 
     /// <summary>
     /// Sparkline mode: hides axes, grid, tick labels, legend and tooltip
-    /// title — only the line stroke (and optional markers) renders. Pair
+    /// title - only the line stroke (and optional markers) renders. Pair
     /// with a small <c>Width</c> / <c>Height</c> (e.g. 120×32) to embed
     /// inline in tables, KPI cards, or list rows. Default <c>false</c>.
     /// </summary>
@@ -339,7 +339,7 @@ public class BOBLineChart<TX, TY> :
         // Pre-compute cumulative-Y arrays when Stacked: each series' [i] holds
         // the cumulative total at that point's X (own + all previous series').
         // _baselineYBySeries[s][i] holds the previous series' cumulative
-        // at the same X — that's the fill baseline for area subclasses.
+        // at the same X - that's the fill baseline for area subclasses.
         List<double[]>? cumulativeYBySeries = null;
         List<double[]>? baselineYBySeries = null;
         if (Stacked)
@@ -403,7 +403,7 @@ public class BOBLineChart<TX, TY> :
         }
 
         int seq = 100;
-        // <defs><clipPath …> for the plot rect — referenced by the series
+        // <defs><clipPath …> for the plot rect - referenced by the series
         // group so zoomed strokes / markers stay inside the axes.
         builder.OpenElement(seq++, "defs");
         builder.OpenElement(seq++, "clipPath");
@@ -424,7 +424,7 @@ public class BOBLineChart<TX, TY> :
             RenderXAxisLabels(builder, ref seq, layout, xLinear, xCat);
         }
 
-        // Plot interaction overlay <rect> — placed BEFORE series so markers
+        // Plot interaction overlay <rect> - placed BEFORE series so markers
         // (rendered after) keep receiving their own click / hover events on
         // top. Bare plot space drives crosshair tracking and zoom wheel /
         // double-click reset interactions.
@@ -442,14 +442,14 @@ public class BOBLineChart<TX, TY> :
             ReferenceLineRenderer.Render(builder, ref seq, layout, yScale, ReferenceLines);
         }
 
-        // User annotations — rendered after series so labels / shapes /
+        // User annotations - rendered after series so labels / shapes /
         // bands sit on top of the lines but below the crosshair overlay.
         if (Annotations is not null)
         {
             RenderAnnotations(builder, ref seq, layout, yScale, xLinear, xCat);
         }
 
-        // Crosshair line + highlighted markers + HTML tooltip — rendered
+        // Crosshair line + highlighted markers + HTML tooltip - rendered
         // AFTER series so they layer on top.
         if (ShowCrosshair && _crosshair is { } cross)
         {
@@ -508,7 +508,7 @@ public class BOBLineChart<TX, TY> :
 
         // When the caller did not pin an explicit format, derive one from
         // the scale's tick step so zoomed-in axes don't render labels with
-        // 16 trailing decimals (1.1666666666…) — the user-visible result
+        // 16 trailing decimals (1.1666666666…) - the user-visible result
         // of "G" formatting on imprecise floating-point ticks.
         string format = YAxis.Format ?? yScale.SuggestedFormat();
 
@@ -545,7 +545,7 @@ public class BOBLineChart<TX, TY> :
         {
             // Continuous: use the linear scale's ticks (already nice-rounded
             // in domain space; for time domains they'll be on tick boundaries
-            // but not aligned to year/month boundaries — that's a v2 polish).
+            // but not aligned to year/month boundaries - that's a v2 polish).
             foreach (double tick in xLinear.Ticks())
             {
                 double x = xLinear.Project(tick);
@@ -607,7 +607,7 @@ public class BOBLineChart<TX, TY> :
 
             // Project all points to pixel space once. When stacked, the Y
             // domain value comes from the precomputed cumulative array
-            // instead of the raw point — so the line stroke / markers sit at
+            // instead of the raw point - so the line stroke / markers sit at
             // the cumulative total, not the raw value.
             double[]? cumulativeForSeries = _stackedCumulative is not null && s < _stackedCumulative.Count
                 ? _stackedCumulative[s]
@@ -1085,7 +1085,7 @@ public class BOBLineChart<TX, TY> :
         double pxDelta = cursorPxX - _panStartPxX;
         double domainDelta = -pxDelta * (startRange / pxRange);
         // Pan: shift both ends by the same delta so the visible width stays
-        // constant — only the viewport translates.
+        // constant - only the viewport translates.
         _zoomXMin = _panStartDomainMin + domainDelta;
         _zoomXMax = _panStartDomainMax + domainDelta;
         StateHasChanged();
@@ -1122,7 +1122,7 @@ public class BOBLineChart<TX, TY> :
 
         // Clamp against the original (data-driven) domain so we never zoom
         // out past the data extent (use the underlying xScale's domain as
-        // proxy — it was built without the zoom override the first render,
+        // proxy - it was built without the zoom override the first render,
         // but here it includes the zoom; OK either way for the upper bound).
         if (newRange < 1e-9)
         {
@@ -1211,7 +1211,7 @@ public class BOBLineChart<TX, TY> :
         CrosshairState newState = new(cursorX, entries);
         if (_crosshair is { } prev && Math.Abs(prev.PixelX - cursorX) < 0.5)
         {
-            // Sub-pixel jitter — skip re-render.
+            // Sub-pixel jitter - skip re-render.
             return;
         }
 
@@ -1498,7 +1498,7 @@ public class BOBLineChart<TX, TY> :
                 }
             case BOBChartAnnotationShape.Star:
                 {
-                    // 5-point star — alternating outer / inner radii on 36° steps.
+                    // 5-point star - alternating outer / inner radii on 36° steps.
                     double inner = r * 0.45;
                     StringBuilder sb = new();
                     for (int i = 0; i < 10; i++)
@@ -1668,7 +1668,7 @@ public class BOBLineChart<TX, TY> :
             return;
         }
 
-        // Debounce — every append cancels the prior pending render and
+        // Debounce - every append cancels the prior pending render and
         // schedules a new one. The fence between cancellation and a fresh
         // CTS is racy by design (we WANT the latest append's timer to win).
         _throttleCts?.Cancel();

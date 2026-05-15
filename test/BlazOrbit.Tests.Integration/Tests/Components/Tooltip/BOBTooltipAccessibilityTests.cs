@@ -19,17 +19,17 @@ public class BOBTooltipAccessibilityTests
         // lands on the trigger.
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — Permanent trigger keeps the tooltip mounted from first render
+        // Arrange - Permanent trigger keeps the tooltip mounted from first render
         IRenderedComponent<BOBTooltip> cut = ctx.Render<BOBTooltip>(p => p
             .Add(c => c.Trigger, TooltipTrigger.Permanent)
             .Add(c => c.Text, "Helpful hint")
             .Add(c => c.ChildContent, b => b.AddContent(0, "Trigger")));
 
-        // Act — capture the rendered ids
+        // Act - capture the rendered ids
         IElement wrapper = cut.Find("[data-bob-component=\"tooltip\"]");
         IElement tooltip = cut.Find("[role='tooltip']");
 
-        // Assert — the wrapper's aria-describedby points at the tooltip's id
+        // Assert - the wrapper's aria-describedby points at the tooltip's id
         string? descId = wrapper.GetAttribute("aria-describedby");
         string? tooltipId = tooltip.GetAttribute("id");
 
@@ -46,13 +46,13 @@ public class BOBTooltipAccessibilityTests
         // dangling aria-describedby pointing at a non-existent id.
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — Hover trigger, no interaction yet → tooltip hidden
+        // Arrange - Hover trigger, no interaction yet → tooltip hidden
         IRenderedComponent<BOBTooltip> cut = ctx.Render<BOBTooltip>(p => p
             .Add(c => c.Trigger, TooltipTrigger.Hover)
             .Add(c => c.Text, "Helpful hint")
             .Add(c => c.ChildContent, b => b.AddContent(0, "Trigger")));
 
-        // Assert — no tooltip in DOM, no aria-describedby on wrapper
+        // Assert - no tooltip in DOM, no aria-describedby on wrapper
         cut.FindAll("[role='tooltip']").Should().BeEmpty();
         cut.Find("[data-bob-component=\"tooltip\"]").HasAttribute("aria-describedby").Should().BeFalse();
     }

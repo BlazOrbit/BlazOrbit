@@ -30,7 +30,7 @@ BOBDataGrid
 # Bulk actions on selection
 Acciones masivas en selección
 
-# BulkActions appear in the toolbar when at least one row is selected. Each handler receives the current selection — wire to delete / export / approve workflows.
+# BulkActions appear in the toolbar when at least one row is selected. Each handler receives the current selection - wire to delete / export / approve workflows.
 BulkActions aparecen en la barra de herramientas cuando al menos una fila está seleccionada. Cada controlador recibe la selección actual para conectar flujos de eliminar / exportar / aprobar.
 
 # Click a header to sort. Multi-Sort behavior can be set using SortAppendBehavior parameter (None, Always, ShiftKey, CtrlKey, ShiftOrCtrlKey).
@@ -48,8 +48,8 @@ Redimensionamiento de columna
 # Component
 Componente
 
-# Could not load orders — check your connection and retry.
-No se pudieron cargar pedidos — verifica tu conexión e inténtalo de nuevo.
+# Could not load orders - check your connection and retry.
+No se pudieron cargar pedidos - verifica tu conexión e inténtalo de nuevo.
 
 # Create first contact
 Crear primer contacto
@@ -66,7 +66,7 @@ Correo (centro)
 # Empty state with CTA
 Estado vacío con llamada a la acción
 
-# EmptyActionTemplate slots a button (or any markup) into the default empty layout — encourages users to create their first record without writing a custom EmptyContent.
+# EmptyActionTemplate slots a button (or any markup) into the default empty layout - encourages users to create their first record without writing a custom EmptyContent.
 EmptyActionTemplate inserta un botón (o cualquier marcado) en el diseño vacío predeterminado, animando a los usuarios a crear su primer registro sin escribir un EmptyContent personalizado.
 
 # Enable Sortable on the grid and on the columns you want clickable.
@@ -141,7 +141,7 @@ Salario
 # Search...
 Buscar...
 
-# Set Aggregate per column (Sum, Average, Count, Min, Max, Custom). Aggregates run on the filtered set, not the visible page — totals reflect the user's filters.
+# Set Aggregate per column (Sum, Average, Count, Min, Max, Custom). Aggregates run on the filtered set, not the visible page - totals reflect the user's filters.
 Establece Aggregate por columna (Suma, Promedio, Conteo, Mín., Máx., Personalizado). Los agregados se ejecutan en el conjunto filtrado, no en la página visible: los totales reflejan los filtros del usuario.
 
 # Set Error to surface a remote-load failure. Override ErrorContent for branded retry UX.
@@ -165,7 +165,7 @@ Persistencia de estado
 # Status
 Estado
 
-# Strongly-typed tabular data with sorting, filtering, pagination, selection, custom templates, and more — declaratively.
+# Strongly-typed tabular data with sorting, filtering, pagination, selection, custom templates, and more - declaratively.
 Datos tabulares fuertemente tipados con ordenación, filtrado, paginación, selección, plantillas personalizadas y más, de forma declarativa.
 
 # Themed surface

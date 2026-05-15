@@ -1,4 +1,4 @@
-namespace BlazOrbit.Components.Internal;
+namespace BlazOrbit.Components;
 
 /// <summary>
 /// Visual modes for the internal <c>_BOBInBtn</c> primitive. Drives the

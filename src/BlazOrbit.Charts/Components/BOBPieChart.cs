@@ -1,7 +1,7 @@
 namespace BlazOrbit.Charts.Components;
 
 /// <summary>
-/// Pie chart — full circular distribution. Each <c>BOBChartSlice</c>'s value
+/// Pie chart - full circular distribution. Each <c>BOBChartSlice</c>'s value
 /// is normalised to 100% across the slice set; slice order goes clockwise
 /// from 12 o'clock following declaration order.
 /// <para>

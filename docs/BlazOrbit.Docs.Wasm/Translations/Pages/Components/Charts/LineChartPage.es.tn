@@ -39,7 +39,7 @@ Líneas de umbral horizontales dibujadas sobre la cuadrícula pero debajo de los
 # Live streaming
 Transmisión en vivo
 
-# Mix text labels, vertical bands and symbol markers (Circle / Square / Triangle / Star / Diamond) at any data coordinate. Each annotation supports color, CSS class and pixel offsets — ideal for release markers, anomaly callouts and SLA windows.
+# Mix text labels, vertical bands and symbol markers (Circle / Square / Triangle / Star / Diamond) at any data coordinate. Each annotation supports color, CSS class and pixel offsets - ideal for release markers, anomaly callouts and SLA windows.
 Mezcla etiquetas de texto, bandas verticales y marcadores de símbolo (Círculo / Cuadrado / Triángulo / Estrella / Diamante) en cualquier coordenada de datos. Cada anotación soporta color, clase CSS y desplazamientos en píxeles: ideal para marcadores de lanzamiento, llamadas de anomalías y ventanas SLA.
 
 # Multi-series with markers off
@@ -82,5 +82,5 @@ Zoom y pincel
 ZoomEnabled añade zoom con rueda y doble clic para restablecer. BrushEnabled añade arrastrar para seleccionar con un callback OnBrush opcional. Ambos requieren un eje X continuo.
 
 
-# The X axis is auto-detected from the data type: numeric, <code>DateTime</code> / <code>DateTimeOffset</code> / <code>TimeSpan</code>, or categorical string labels. Advanced features include smooth Bezier interpolation, zoom + brush, crosshair tracking, annotation lines, and live streaming — all rendered as pure SVG without external chart dependencies.
+# The X axis is auto-detected from the data type: numeric, <code>DateTime</code> / <code>DateTimeOffset</code> / <code>TimeSpan</code>, or categorical string labels. Advanced features include smooth Bezier interpolation, zoom + brush, crosshair tracking, annotation lines, and live streaming - all rendered as pure SVG without external chart dependencies.
 El eje X se detecta automáticamente a partir del tipo de datos: numérico, <code>DateTime</code> / <code>DateTimeOffset</code> / <code>TimeSpan</code>, o etiquetas de cadena categóricas. Las funciones avanzadas incluyen interpolación Bezier suave, zoom + brush, seguimiento de crosshair, líneas de anotación y streaming en vivo, todo renderizado como SVG puro sin dependencias de gráficos externas.

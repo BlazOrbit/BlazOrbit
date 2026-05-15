@@ -85,7 +85,7 @@ public class DataCollectionStatePersistenceTests
         string json = state.ToJson();
 
         // Selection references live data so we deliberately omit it from the persisted
-        // payload — round-tripping the selection across reloads would resurrect items
+        // payload - round-tripping the selection across reloads would resurrect items
         // that may have been deleted on the server.
         json.Should().NotContain("Alice");
     }

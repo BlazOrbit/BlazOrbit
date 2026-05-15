@@ -7,7 +7,7 @@ public enum HotkeyScope
     Global = 0,
 
     /// <summary>
-    /// Active until the registration is disposed. Page or feature handlers fall here —
+    /// Active until the registration is disposed. Page or feature handlers fall here -
     /// the consumer disposes the registration in <c>IDisposable.Dispose</c> /
     /// <c>IAsyncDisposable.DisposeAsync</c> when the page navigates away.
     /// </summary>

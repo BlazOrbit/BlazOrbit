@@ -79,7 +79,7 @@ public class ZoomTests
                 OffsetY = 100
             });
 
-        // After zoom, the rendered marker spread expands — points push out to
+        // After zoom, the rendered marker spread expands - points push out to
         // the new (narrower) axis edges. Compare the X delta of the same data
         // points before and after.
         IReadOnlyList<AngleSharp.Dom.IElement> markers1 = cut.FindAll("circle.bob-line-chart__marker");
@@ -309,13 +309,13 @@ public class ZoomTests
         cut.FindAll("line.bob-chart__crosshair").Should().HaveCount(1);
         string crossXBefore = cut.Find("line.bob-chart__crosshair").GetAttribute("x1") ?? string.Empty;
 
-        // Begin drag and move — pan takes priority, crosshair stays at last pos.
+        // Begin drag and move - pan takes priority, crosshair stays at last pos.
         overlay.MouseDown(new MouseEventArgs { OffsetX = 200, OffsetY = 100 });
         overlay.MouseMove(new MouseEventArgs { OffsetX = 300, OffsetY = 100 });
 
         // Crosshair line is still rendered but its X did not chase the cursor.
         cut.Find("line.bob-chart__crosshair").GetAttribute("x1").Should().Be(crossXBefore,
-            "during a drag the crosshair freezes — pan owns the mousemove");
+            "during a drag the crosshair freezes - pan owns the mousemove");
     }
 
     [Theory]

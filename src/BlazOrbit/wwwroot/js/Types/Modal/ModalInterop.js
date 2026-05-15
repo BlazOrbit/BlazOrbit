@@ -1,4 +1,4 @@
-// BlazOrbit — Modal interop (hand-written JSDoc-typed ESM).
+// BlazOrbit - Modal interop (hand-written JSDoc-typed ESM).
 
 /**
  * @typedef {Object} FocusTrapState
@@ -15,7 +15,7 @@ let scrollLockCount = 0;
 // independent focus traps. The stack stores one entry per active trap,
 // keyed by an `id` that the C# side owns (per-component Guid). The top
 // entry is the innermost trap and receives all Tab handling. Releasing
-// looks up by id and removes that specific entry — only restoring focus
+// looks up by id and removes that specific entry - only restoring focus
 // to its previousActiveElement when it was the top, so an outer trap
 // being torn down out-of-order (e.g. parent component disposes while an
 // inner modal is still open) doesn't steal focus from the inner one.
@@ -172,7 +172,7 @@ export function releaseFocus(id) {
 
     // Only restore focus when releasing the topmost trap. If an outer trap
     // is being torn down while an inner one is still active (e.g. parent
-    // component unmounted), the inner trap must keep focus — restoring an
+    // component unmounted), the inner trap must keep focus - restoring an
     // older `previousActiveElement` here would steal it.
     if (wasTop && released.previousActiveElement) {
         released.previousActiveElement.focus();

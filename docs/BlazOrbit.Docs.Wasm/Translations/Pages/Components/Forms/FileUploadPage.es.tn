@@ -3,8 +3,8 @@
 # Basic single-file
 Archivo único básico
 
-# BOBChunkedUploader is a transport-agnostic helper that streams an IBrowserFile in fixed-size chunks. The SendChunk callback owns the destination — HTTP / SignalR / file-system / mock — and the helper applies back-pressure by awaiting each callback before reading the next chunk. The progress event drives BOBInputFile.SetStatus so the per-entry progress bar lights up in place.
-BOBChunkedUploader es un helper agnóstico de transporte que transmite un IBrowserFile en fragmentos de tamaño fijo. El callback SendChunk posee el destino — HTTP / SignalR / sistema de archivos / mock — y el helper aplica contrapresión esperando cada callback antes de leer el siguiente. El evento de progreso impulsa BOBInputFile.SetStatus para que la barra de progreso por entrada se ilumine en su lugar.
+# BOBChunkedUploader is a transport-agnostic helper that streams an IBrowserFile in fixed-size chunks. The SendChunk callback owns the destination - HTTP / SignalR / file-system / mock - and the helper applies back-pressure by awaiting each callback before reading the next chunk. The progress event drives BOBInputFile.SetStatus so the per-entry progress bar lights up in place.
+BOBChunkedUploader es un helper agnóstico de transporte que transmite un IBrowserFile en fragmentos de tamaño fijo. El callback SendChunk posee el destino - HTTP / SignalR / sistema de archivos / mock - y el helper aplica contrapresión esperando cada callback antes de leer el siguiente. El evento de progreso impulsa BOBInputFile.SetStatus para que la barra de progreso por entrada se ilumine en su lugar.
 
 # BOBInputFile
 BOBInputFile
@@ -36,8 +36,8 @@ Solo imágenes o PDF
 # Last selected:
 Último seleccionado:
 
-# MIME filter — images + PDF
-Filtro MIME — imágenes + PDF
+# MIME filter - images + PDF
+Filtro MIME - imágenes + PDF
 
 # Multiple files
 Múltiples archivos

@@ -1,4 +1,4 @@
-using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using BlazOrbit.Tests.Integration.Tests.Components.Initializer;
@@ -62,7 +62,7 @@ public class BOBBlazorLayoutStateTests
         // Arrange & Act
         IRenderedComponent<BOBBlazorLayout> cut = ctx.Render<BOBBlazorLayout>();
 
-        // Assert — layout hard-codes DefaultTheme="dark"
+        // Assert - layout hard-codes DefaultTheme="dark"
         await fake.Received(1).InitializeAsync("dark");
     }
 
@@ -86,7 +86,7 @@ public class BOBBlazorLayoutStateTests
         handler!.Invoke("light");
         cut.WaitForState(() => true, TimeSpan.FromMilliseconds(300));
 
-        // Assert — palette reload triggered
+        // Assert - palette reload triggered
         int after = fake.ReceivedCalls().Count(c => c.GetMethodInfo().Name == "GetPaletteAsync");
         after.Should().BeGreaterThan(before);
     }
@@ -112,7 +112,7 @@ public class BOBBlazorLayoutStateTests
 
         cut.WaitForState(() => capturedFromBody is not null, TimeSpan.FromSeconds(1));
 
-        // Assert — cascading palette reaches Body
+        // Assert - cascading palette reaches Body
         capturedFromBody.Should().NotBeNull();
         capturedFromBody!.Primary.ToString().Should().NotBeNullOrWhiteSpace();
     }

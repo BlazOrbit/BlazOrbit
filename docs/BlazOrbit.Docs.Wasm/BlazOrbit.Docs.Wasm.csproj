@@ -32,7 +32,7 @@
                `mcr.microsoft.com/dotnet/sdk:10.0` container image does not ship.
                CI gates (preview-gate / release-gate / preview-publish /
                release-publish) run inside that container and only need to verify
-               the docs site compiles — they do not need optimized output.
+               the docs site compiles - they do not need optimized output.
 
             How to enable (opt-in):
             - Pass `-p:EnableDocsAot=true` on the command line.

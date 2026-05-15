@@ -1,4 +1,4 @@
-using BlazOrbit.Components.Internal;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -23,7 +23,7 @@ public class BOBFieldHelperAccessibilityTests
         // WCAG 4.1.3 + 3.3.1: validation errors must interrupt the screen
         // reader so users notice the form failed before navigating away.
         // role="alert" implies aria-live="assertive" + aria-atomic="true" per
-        // the ARIA spec — that is what we assert.
+        // the ARIA spec - that is what we assert.
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         // Arrange

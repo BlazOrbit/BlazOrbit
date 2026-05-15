@@ -1,5 +1,5 @@
 using AngleSharp.Dom;
-using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -35,7 +35,7 @@ public class BOBModalContainerAccessibilityTests
         IRenderedComponent<BOBModalContainer> cut = ctx.Render<BOBModalContainer>(p => p
             .Add(c => c.Modal, modal));
 
-        // Assert — h2 carries the title for screen readers
+        // Assert - h2 carries the title for screen readers
         IElement h2 = cut.Find("h2.bob-modal-dialog__title");
         h2.TextContent.Should().Be("My Dialog");
     }

@@ -1,4 +1,4 @@
-using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -55,7 +55,7 @@ public class BOBModalContainerInteractionTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — when Closable is false, no close button should exist
+        // Arrange - when Closable is false, no close button should exist
         ModalState modal = new()
         {
             Id = "no-close",
@@ -69,7 +69,7 @@ public class BOBModalContainerInteractionTests
         IRenderedComponent<BOBModalContainer> cut = ctx.Render<BOBModalContainer>(p => p
             .Add(c => c.Modal, modal));
 
-        // Assert — no close button rendered when Closable=false (header only renders for title)
+        // Assert - no close button rendered when Closable=false (header only renders for title)
         cut.FindAll("button[aria-label='Close']").Should().BeEmpty();
     }
 
@@ -110,10 +110,10 @@ public class BOBModalContainerInteractionTests
         IRenderedComponent<BOBModalContainer> cut = ctx.Render<BOBModalContainer>(p => p
             .Add(c => c.Modal, modal));
 
-        // Act — click the Yes (accept) button rendered inside BOBConfirmDialog
+        // Act - click the Yes (accept) button rendered inside BOBConfirmDialog
         cut.FindAll(".bob-confirm__actions button").Last().Click();
 
-        // Assert — ModalReference was correctly bound and CloseAsync(true) resolved
+        // Assert - ModalReference was correctly bound and CloseAsync(true) resolved
         closed.Should().BeTrue();
         closedResult.Should().Be(true);
     }

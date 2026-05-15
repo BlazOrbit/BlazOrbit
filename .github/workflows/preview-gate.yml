@@ -1,4 +1,4 @@
-﻿# .github/workflows/preview-gate.yml
+# .github/workflows/preview-gate.yml
 # Quality gates for previews - runs on PRs to develop
 # Verifies build, test and public API before merging to develop
 
@@ -40,7 +40,7 @@ jobs:
     #   - Any text file with byte sequences that aren't valid UTF-8
     #     (Latin-1 / CP1252 saved by editors with the wrong default,
     #     mojibake from copy-paste through Windows-1252 tools).
-    # Runs outside a container — pwsh is preinstalled on ubuntu-latest and
+    # Runs outside a container - pwsh is preinstalled on ubuntu-latest and
     # the script doesn't need .NET. Fix locally with:
     #   pwsh ./scripts/fix-encoding-bom.ps1
     name: Encoding Check

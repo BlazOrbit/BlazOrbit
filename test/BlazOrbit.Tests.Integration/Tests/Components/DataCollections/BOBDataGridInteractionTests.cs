@@ -61,7 +61,7 @@ public class BOBDataGridInteractionTests
         // Act
         cut.FindAll("[role='row']")[1].Click();
 
-        // Assert — first data row selected
+        // Assert - first data row selected
         cut.FindAll("[role='row']")[1].GetAttribute("data-bob-selected").Should().Be("true");
     }
 
@@ -85,11 +85,11 @@ public class BOBDataGridInteractionTests
                 b.CloseComponent();
             }));
 
-        // Act — first click: ascending
+        // Act - first click: ascending
         cut.Find(".bob-datagrid__sort-btn").Click();
         cut.FindAll("[role='gridcell']")[0].TextContent.Should().Be("Alice");
 
-        // Act — second click: descending
+        // Act - second click: descending
         cut.Find(".bob-datagrid__sort-btn").Click();
 
         // Assert

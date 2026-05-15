@@ -40,7 +40,7 @@
             // cookie set by `CookieRequestCultureProvider`; that cookie only takes
             // effect on the *next* request through the localization middleware, so
             // the current SPA frame must be replaced by a full navigation. Wasm has
-            // a `ForceReload=false` opt-out (in-place CultureInfo update) — Server
+            // a `ForceReload=false` opt-out (in-place CultureInfo update) - Server
             // does not, by design.
             var endpoint = ServerSettings.CultureEndpointPath.TrimStart('/');
             Navigation.NavigateTo(

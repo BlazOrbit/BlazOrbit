@@ -22,7 +22,7 @@ public enum BOBChartAnnotationShape
 }
 
 /// <summary>
-/// Base class for chart annotations. Closed hierarchy — derive only the
+/// Base class for chart annotations. Closed hierarchy - derive only the
 /// specialized types provided by the framework. All concrete subclasses
 /// share the optional <see cref="Color"/> override (when null, falls back
 /// to the chart theme's accent color).
@@ -67,7 +67,7 @@ public sealed class BOBChartTextAnnotation<TX, TY> : BOBChartAnnotation
 
 /// <summary>
 /// Vertical band spanning the full plot height between two X domain
-/// values (highlights an interval — outage window, market hours,
+/// values (highlights an interval - outage window, market hours,
 /// experiment phase). Set <see cref="ToX"/> equal to <see cref="FromX"/>
 /// for a single vertical guide line.
 /// </summary>

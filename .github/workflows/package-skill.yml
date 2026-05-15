@@ -1,4 +1,4 @@
-﻿# .github/workflows/package-skill.yml
+# .github/workflows/package-skill.yml
 # Reusable workflow that regenerates the blazorbit-user skill, packs it as a
 # downloadable .skill, and attaches it to the GitHub release that the calling
 # workflow already created (or, for preview, creates fresh).
@@ -75,7 +75,7 @@ jobs:
       # The regenerator only needs BlazOrbit.dll + BlazOrbit.Core.dll on disk
       # (it loads them via Assembly.LoadFrom and reflects). Building the full
       # solution would also build docs/BlazOrbit.Docs.Wasm which requires the
-      # `wasm-tools` workload — a slow, network-bound install we don't need.
+      # `wasm-tools` workload - a slow, network-bound install we don't need.
       - name: Restore dependencies
         run: dotnet restore src/BlazOrbit/BlazOrbit.csproj
 
@@ -101,7 +101,7 @@ jobs:
 
       - name: Package skill
         # Tooling lives under scripts/skills/<skill-name>/ so the skill payload
-        # under .agents/skills/<skill-name>/ is naturally clean — no excludes
+        # under .agents/skills/<skill-name>/ is naturally clean - no excludes
         # needed in the zip. Use absolute paths to avoid `../` arithmetic that
         # depends on $SKILL_DIR's depth.
         run: |

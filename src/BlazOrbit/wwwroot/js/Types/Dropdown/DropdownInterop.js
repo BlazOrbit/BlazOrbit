@@ -1,4 +1,4 @@
-// BlazOrbit — Dropdown interop (hand-written JSDoc-typed ESM).
+// BlazOrbit - Dropdown interop (hand-written JSDoc-typed ESM).
 //
 //  ARIA APG Combobox Pattern
 //  Tecla Comportamiento
@@ -43,7 +43,7 @@ const dropdownInstances = new Map();
 // A single pair of document-level listeners is shared by every active
 // dropdown instead of one pair per instance. Installed when the first
 // dropdown initializes, removed when the last one disposes. The handlers
-// dispatch to every registered instance — each one decides whether the
+// dispatch to every registered instance - each one decides whether the
 // event is its own by walking the trigger's `dropdown-container` ancestor.
 const RELEVANT_KEYS = new Set(['Escape', 'ArrowDown', 'ArrowUp', 'Enter', 'Tab', 'Home', 'End']);
 
@@ -69,7 +69,7 @@ function handleKeyDown(e) {
         const trigger = instance.triggerElement.querySelector('.bob-dropdown__trigger');
         const isMenuButton = isOpen && active?.tagName === 'BUTTON' && active !== trigger;
 
-        // Enter / Space on menu-internal buttons (Select All, Deselect All, action cells) —
+        // Enter / Space on menu-internal buttons (Select All, Deselect All, action cells) -
         // let the native button activation fire instead of routing through OnKeyDown.
         if (isMenuButton && (e.key === 'Enter' || e.key === ' ')) {
             return;

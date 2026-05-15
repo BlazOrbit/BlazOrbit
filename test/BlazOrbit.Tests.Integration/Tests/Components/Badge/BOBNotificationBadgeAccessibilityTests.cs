@@ -15,7 +15,7 @@ public class BOBNotificationBadgeAccessibilityTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — consumers project role="status" on the host so AT
+        // Arrange & Act - consumers project role="status" on the host so AT
         // announces count changes without overriding library-emitted data-bob-*.
         IRenderedComponent<BOBNotificationBadge> cut = ctx.Render<BOBNotificationBadge>(p => p
             .Add(c => c.BadgeContent, b => b.AddContent(0, "3"))
@@ -65,7 +65,7 @@ public class BOBNotificationBadgeAccessibilityTests
         IRenderedComponent<BOBNotificationBadge> cut = ctx.Render<BOBNotificationBadge>(p => p
             .Add(c => c.BadgeContent, b => b.AddContent(0, "5")));
 
-        // Assert — indicator wrapper is a plain div and inner badge is a span,
+        // Assert - indicator wrapper is a plain div and inner badge is a span,
         // so the badge itself does not steal keyboard focus from the host child.
         cut.Find(".bob-notification-badge__indicator").TagName.Should().Be("DIV");
         cut.FindAll(".bob-notification-badge__indicator button").Should().BeEmpty();
@@ -77,7 +77,7 @@ public class BOBNotificationBadgeAccessibilityTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — if the host is a button, it remains focusable alongside the badge.
+        // Arrange & Act - if the host is a button, it remains focusable alongside the badge.
         IRenderedComponent<BOBNotificationBadge> cut = ctx.Render<BOBNotificationBadge>(p => p
             .Add(c => c.ChildContent, b =>
             {

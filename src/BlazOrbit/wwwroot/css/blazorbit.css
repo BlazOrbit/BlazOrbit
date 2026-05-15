@@ -1,5 +1,5 @@
 /* =====================================================================
-   BlazOrbit — global CSS bundle (hand-written, single source of truth).
+   BlazOrbit - global CSS bundle (hand-written, single source of truth).
 
    Sections in canonical order:
      1. Minimal CSS Reset
@@ -18,7 +18,7 @@
    on top of these globals by the per-component pipeline.
 
    Consumers override via CSS custom properties (`--palette-*`,
-   `--bob-*`). Do not minify here — keeps consumer-side override and
+   `--bob-*`). Do not minify here - keeps consumer-side override and
    inspection ergonomic.
    ===================================================================== */
 
@@ -150,7 +150,7 @@ hr {
 }
 
 /* ========================================
-   3. Themes — palette tokens
+   3. Themes - palette tokens
    Override per theme via `html[data-bob-theme="<id>"] { --palette-*: ...; }`.
    ======================================== */
 
@@ -759,7 +759,7 @@ bob-component[data-bob-input-base] .bob-input__wrapper {
     border-radius: var(--_wrapper-radius);
 }
 
-/* Local stacking inside the input wrapper — children sit above the
+/* Local stacking inside the input wrapper - children sit above the
    absolutely-positioned outline pseudo-element within this stacking
    context. Not part of the global z-index scale. */
 bob-component[data-bob-input-base] .bob-input__wrapper > *:not(.bob-input__outline) {
@@ -1248,7 +1248,7 @@ bob-component[data-bob-picker-base] .bob-picker__input:focus-visible {
     outline-offset: var(--bob-highlight-outline-offset);
 }
 
-/* Slider focus — box-shadow instead of outline because of overflow:hidden */
+/* Slider focus - box-shadow instead of outline because of overflow:hidden */
 bob-component[data-bob-picker-base] .bob-picker__slider:focus-within {
     box-shadow: 0 0 0 2px var(--palette-surface), 0 0 0 4px var(--palette-highlight);
 }
@@ -1391,7 +1391,7 @@ bob-component[data-bob-data-collection][data-bob-density="comfortable"] {
     --_dc-padding-y: 1rem;
 }
 
-/* Batch-edit toolbar — Save / Cancel surface only when the grid is in
+/* Batch-edit toolbar - Save / Cancel surface only when the grid is in
    EditMode=Batch with at least one staged row. The counter sits inline
    with the buttons so the user sees how many rows are pending before
    they commit. */
@@ -1407,7 +1407,7 @@ bob-component[data-bob-data-collection] .bob-dc__batch-count {
     white-space: nowrap;
 }
 
-/* Validation error count — surfaces beside the pending-rows counter so the user
+/* Validation error count - surfaces beside the pending-rows counter so the user
    knows why Save is disabled. Uses the palette's error token for affordance
    consistency with the invalid-cell border. */
 bob-component[data-bob-data-collection] .bob-dc__batch-errors {
@@ -1417,7 +1417,7 @@ bob-component[data-bob-data-collection] .bob-dc__batch-errors {
     white-space: nowrap;
 }
 
-/* Copy-to-clipboard action — rendered as the right-most slot of the toolbar
+/* Copy-to-clipboard action - rendered as the right-most slot of the toolbar
    when Copyable=true. Wrapper exists so future additions (export menu, share,
    etc.) can collect under one flex item without disturbing surrounding
    spacing. */

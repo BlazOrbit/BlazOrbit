@@ -26,7 +26,7 @@
     z-index: 0;
 }
 
-/* ── Starfield — same box-shadow technique as the hero ───────────*/
+/* ── Starfield - same box-shadow technique as the hero ───────────*/
 
 .docs-splash::after {
     content: '';
@@ -46,7 +46,7 @@
     animation: star-breathe-splash 16s ease-in-out infinite alternate;
 }
 
-/* ── Logo — planet sphere with orbital ring ──────────────────────
+/* ── Logo - planet sphere with orbital ring ──────────────────────
    The ::before becomes the ring; ::after the specular highlight.
    ─────────────────────────────────────────────────────────────── */
 
@@ -98,7 +98,7 @@
     pointer-events: none;
 }
 
-/* ── Spark — hot-star core inside the planet ─────────────────────*/
+/* ── Spark - hot-star core inside the planet ─────────────────────*/
 
 .docs-splash__spark {
     width: 28px;
@@ -152,7 +152,7 @@
     color: rgba(255, 220, 205, 0.50);
 }
 
-/* ── Loading bar — orbital trail ─────────────────────────────────*/
+/* ── Loading bar - orbital trail ─────────────────────────────────*/
 
 .docs-splash__text::after {
     content: '';

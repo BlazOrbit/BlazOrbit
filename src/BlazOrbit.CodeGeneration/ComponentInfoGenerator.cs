@@ -64,7 +64,7 @@ public sealed record RazorFileData(
     bool GenerateInfo); // true si @attribute [GenerateComponentInfo]
 
 // ─────────────────────────────────────────────────────────────
-//  Shared sources — se inyectan en la compilación de BlazOrbit
+//  Shared sources - se inyectan en la compilación de BlazOrbit
 // ─────────────────────────────────────────────────────────────
 
 internal static class SharedSources
@@ -125,7 +125,7 @@ internal static class Diagnostics
 }
 
 // ─────────────────────────────────────────────────────────────
-//  RazorIndex — multi-map of .razor files keyed by simple name
+//  RazorIndex - multi-map of .razor files keyed by simple name
 //  with collision detection. Built once per generation pass.
 // ─────────────────────────────────────────────────────────────
 
@@ -323,7 +323,7 @@ public sealed class ComponentInfoGenerator : IIncrementalGenerator
 }
 
 // ─────────────────────────────────────────────────────────────
-//  RazorParser — extrae datos de un archivo .razor
+//  RazorParser - extrae datos de un archivo .razor
 // ─────────────────────────────────────────────────────────────
 
 /// <summary>
@@ -549,7 +549,7 @@ public static class RazorParser
 }
 
 // ─────────────────────────────────────────────────────────────
-//  InheritanceResolver — recorre la cadena de herencia completa
+//  InheritanceResolver - recorre la cadena de herencia completa
 // ─────────────────────────────────────────────────────────────
 
 internal static class InheritanceResolver
@@ -705,7 +705,7 @@ internal static class InheritanceResolver
     ///
     /// Estrategia:
     ///   1. Si el texto crudo está totalmente cualificado (<c>Ns.Sub.Type</c>),
-    ///      usar <see cref="Compilation.GetTypeByMetadataName"/> directo —
+    ///      usar <see cref="Compilation.GetTypeByMetadataName"/> directo -
     ///      es O(1) en la tabla de metadatos de Roslyn y determinista.
     ///   2. Si el texto es un nombre simple, escanear la compilación con
     ///      <c>GetSymbolsWithName</c>. Si hay más de un candidato, emitir
@@ -718,7 +718,7 @@ internal static class InheritanceResolver
         Action<Diagnostic> reportDiagnostic)
     {
         // Quitar genéricos para el lookup; aceptamos `Ns.Type<T1,T2>` y devolvemos
-        // el tipo no construido — Roslyn nos da la definición igualmente.
+        // el tipo no construido - Roslyn nos da la definición igualmente.
         string nameNoGenerics = inheritsRaw.Trim();
         int genericIdx = nameNoGenerics.IndexOf('<');
         if (genericIdx > 0)
@@ -800,7 +800,7 @@ internal static class InheritanceResolver
 
     private static string? XmlSummaryFromSymbol(IPropertySymbol prop)
     {
-        // Primary source: Roslyn's built-in extraction. Works across assemblies — if the referenced
+        // Primary source: Roslyn's built-in extraction. Works across assemblies - if the referenced
         // assembly ships its .xml alongside the DLL, the summary comes through without syntax refs.
         string? documentationXml = prop.GetDocumentationCommentXml();
         if (!string.IsNullOrWhiteSpace(documentationXml))
@@ -925,7 +925,7 @@ internal static class InheritanceResolver
 }
 
 // ─────────────────────────────────────────────────────────────
-//  Emitter — genera el string C# del archivo *ComponentInfo.g.cs
+//  Emitter - genera el string C# del archivo *ComponentInfo.g.cs
 // ─────────────────────────────────────────────────────────────
 
 internal static class Emitter

@@ -6,7 +6,7 @@
 @inject IHotkeyJsInterop HotkeyJsInterop
 @implements IAsyncDisposable
 
-@* Pure host — renders nothing visible. Mount it once in the app shell (e.g. inside
+@* Pure host - renders nothing visible. Mount it once in the app shell (e.g. inside
    BOBBlazorLayout) to wire the document-level keydown listener that drives
    IHotkeyService. Inherits the default ComponentBase rather than BOBComponentBase
    because there is no design-system surface to participate in. *@
@@ -41,7 +41,7 @@
         }
         catch (JSDisconnectedException)
         {
-            // Server circuit gone before we could attach — nothing to do.
+            // Server circuit gone before we could attach - nothing to do.
         }
         catch (ObjectDisposedException)
         {
@@ -56,7 +56,7 @@
         }
         catch (JSException)
         {
-            // Module load failure is non-fatal — hotkeys silently degrade.
+            // Module load failure is non-fatal - hotkeys silently degrade.
         }
     }
 

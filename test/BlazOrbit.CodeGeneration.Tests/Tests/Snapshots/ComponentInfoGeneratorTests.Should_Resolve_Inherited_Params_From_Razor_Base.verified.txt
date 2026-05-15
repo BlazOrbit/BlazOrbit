@@ -34,7 +34,7 @@ public static partial class DerivedComponentInfo
             ParameterName:        "Size",
             ParameterType:        "string?",
             ParameterDefault:     null,
-            ParameterDescription: "Optional CTA template rendered alongside the empty state — pair with EmptyContent for 'Create first record' buttons without rewriting the entire empty layout."
+            ParameterDescription: "Optional CTA template rendered alongside the empty state - pair with EmptyContent for 'Create first record' buttons without rewriting the entire empty layout."
         ),
     ];
 }

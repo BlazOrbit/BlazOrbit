@@ -9,7 +9,7 @@
         bundle via `BobLocalize.RegisterBundle(...)`.
 
         Without this auto-include the generator runs but sees zero translations, so
-        every key resolves to its literal fallback — translations look wired up but
+        every key resolves to its literal fallback - translations look wired up but
         never apply at runtime.
 
         Consumers can opt out by setting `<BlazOrbitLocalizationAutoIncludeTn>false`

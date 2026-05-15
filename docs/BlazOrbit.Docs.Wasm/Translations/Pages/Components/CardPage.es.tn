@@ -1,6 +1,6 @@
 // Auto-migrated from CardPage.es.resx. Edit freely from now on.
 
-# A flexible container for content — header, media, body, and actions in a single component.
+# A flexible container for content - header, media, body, and actions in a single component.
 Un contenedor flexible para contenido: encabezado, medios, cuerpo y acciones en un solo componente.
 
 # A simple card with only body content.
@@ -48,13 +48,13 @@ Elevado
 # Elevation
 Elevación
 
-# Elevation 1 — low emphasis.
+# Elevation 1 - low emphasis.
 Elevación 1: bajo énfasis.
 
-# Elevation 4 — medium emphasis.
+# Elevation 4 - medium emphasis.
 Elevación 4: medio énfasis.
 
-# Elevation 8 — high emphasis.
+# Elevation 8 - high emphasis.
 Elevación 8: alto énfasis.
 
 # Featured
@@ -66,7 +66,7 @@ Factura #4213
 # Material Design elevation level (0–24). Derives shadow and dark-mode surface tint automatically.
 Nivel de elevación Material Design (0–24). Deriva sombra y tinte de superficie para modo oscuro automáticamente.
 
-# Media area can contain any RenderFragment — image, gradient, or video.
+# Media area can contain any RenderFragment - image, gradient, or video.
 El área de medios puede contener cualquier RenderFragment: imagen, degradado o video.
 
 # Media can be placed at Top (default), AfterHeader, BeforeActions, or Bottom.
@@ -93,8 +93,8 @@ Acciones con espacio entre ellas.
 # time(s).
 vez/veces.
 
-# Total: $240.00 — due April 30.
-Total: $240,00 — vence el 30 de abril.
+# Total: $240.00 - due April 30.
+Total: $240,00 - vence el 30 de abril.
 
 # With header & actions
 Con encabezado y acciones

@@ -3,7 +3,7 @@
 @inject IStringLocalizer<GaugeChartPage> Loc
 
 <DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBGaugeChart"]"
-         Lede="@Loc["KPI gauge — single value rendered as an arc fill against a track. Semi (180°), three-quarter (270°) and full (360°) shapes. Optional zone segments highlight thresholds (green / amber / red)."]"
+         Lede="@Loc["KPI gauge - single value rendered as an arc fill against a track. Semi (180°), three-quarter (270°) and full (360°) shapes. Optional zone segments highlight thresholds (green / amber / red)."]"
          PageInstance="this"
          ApiType="@typeof(BOBGaugeChart)"
          Keywords="@(["gauge", "meter", "dashboard", "KPI"])">
@@ -36,7 +36,7 @@
     </DocDemo>
 
     <DocDemo Key="CustomDomain" Title="@Loc["Custom domain (latency ms)"]"
-             Description="@Loc["Min / Max can model any numeric domain — KPIs that aren't 0..100% percentages, currency, latency milliseconds, etc."]">
+             Description="@Loc["Min / Max can model any numeric domain - KPIs that aren't 0..100% percentages, currency, latency milliseconds, etc."]">
         <BOBGaugeChart Value="135"
                        Min="0" Max="500"
                        Caption="@Loc["p95 latency"]" Unit=" ms"

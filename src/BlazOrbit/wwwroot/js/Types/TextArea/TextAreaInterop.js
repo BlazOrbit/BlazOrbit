@@ -1,4 +1,4 @@
-// BlazOrbit — TextArea interop (hand-written JSDoc-typed ESM).
+// BlazOrbit - TextArea interop (hand-written JSDoc-typed ESM).
 // Handles auto-resize functionality.
 
 /**

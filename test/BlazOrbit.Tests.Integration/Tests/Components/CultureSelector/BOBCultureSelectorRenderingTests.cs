@@ -42,7 +42,7 @@ public class BOBCultureSelectorRenderingTests
             ? ctx.Services.GetRequiredService<ServerSettings>().SupportedCultures.Count
             : ctx.Services.GetRequiredService<WasmSettings>().SupportedCultures.Count;
 
-        // BOBInputDropdown only emits option DOM when the menu is open — open it first.
+        // BOBInputDropdown only emits option DOM when the menu is open - open it first.
         IReadOnlyList<IElement> options;
         if (scenario.Name == "Server")
         {

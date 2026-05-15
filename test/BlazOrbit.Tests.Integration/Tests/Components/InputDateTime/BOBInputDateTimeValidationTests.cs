@@ -82,7 +82,7 @@ public class BOBInputDateTimeValidationTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — render with initial valid date so validation passes
+        // Arrange - render with initial valid date so validation passes
         IRenderedComponent<TestBOBInputDateTimeValidationConsumer> cut =
             ctx.Render<TestBOBInputDateTimeValidationConsumer>(p => p
                 .Add(c => c.InitialDate, new DateOnly(2024, 6, 15)));

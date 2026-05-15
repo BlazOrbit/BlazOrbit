@@ -4,7 +4,7 @@
 
 
 <DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBDraggable"]"
-         Lede="@Loc["Make any element mouse-draggable with fine-grained events. Renders its child content untouched — positioning is up to you."]"
+         Lede="@Loc["Make any element mouse-draggable with fine-grained events. Renders its child content untouched - positioning is up to you."]"
          PageInstance="this"
          ApiType="@typeof(BOBDraggable)"
          Keywords="@(["draggable", "drag and drop", "reorder", "sort"])">
@@ -13,7 +13,7 @@
              Description="@Loc["Wrap anything in BOBDraggable and listen to OnDrag. Client coordinates are reported in DragEventArgs."]">
         <div
             style="position: relative; height: 180px; border: 1px dashed var(--palette-border); border-radius: .5rem; overflow: hidden;">
-            <BOBDraggable OnDragStart="@(EventCallback.Factory.Create<DragEventArgs>(this, HandleBasicStart))" OnDrag="@(EventCallback.Factory.Create<DragEventArgs>(this, HandleBasicDrag))">
+            <BOBDraggable OnDragStart="@(EventCallback.Factory.Create<Microsoft.AspNetCore.Components.Web.DragEventArgs>(this, HandleBasicStart))" OnDrag="@(EventCallback.Factory.Create<Microsoft.AspNetCore.Components.Web.DragEventArgs>(this, HandleBasicDrag))">
                 <div style="@BasicBoxStyle">
                     @Loc["Drag me"]
                 </div>
@@ -41,7 +41,7 @@
 
     <DocDemo Key="Disabled" Title="@Loc["Disabled"]">
         <BOBDraggable Disabled="true">
-            <BOBButton Text="@Loc["Locked — can't drag"]"/>
+            <BOBButton Text="@Loc["Locked - can't drag"]"/>
         </BOBDraggable>
     </DocDemo>
 
@@ -66,7 +66,7 @@
         "background: var(--palette-primary); color: var(--palette-primary-contrast); " +
         "box-shadow: 0 4px 14px rgba(0,0,0,.15);";
 
-    private void HandleBasicStart(DragEventArgs e)
+    private void HandleBasicStart(Microsoft.AspNetCore.Components.Web.DragEventArgs e)
     {
         _startX = e.ClientX;
         _startY = e.ClientY;
@@ -74,7 +74,7 @@
         _originY = _y;
     }
 
-    private void HandleBasicDrag(DragEventArgs e)
+    private void HandleBasicDrag(Microsoft.AspNetCore.Components.Web.DragEventArgs e)
     {
         _x = _originX + (e.ClientX - _startX);
         _y = _originY + (e.ClientY - _startY);

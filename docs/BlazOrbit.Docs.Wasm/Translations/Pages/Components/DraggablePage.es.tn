@@ -27,10 +27,10 @@ Dispara OnDragStart en mousedown, OnDrag continuamente y OnDragEnd al soltar.
 # Lifecycle events
 Eventos del ciclo de vida
 
-# Locked — can't drag
-Bloqueado — no se puede arrastrar
+# Locked - can't drag
+Bloqueado - no se puede arrastrar
 
-# Make any element mouse-draggable with fine-grained events. Renders its child content untouched — positioning is up to you.
+# Make any element mouse-draggable with fine-grained events. Renders its child content untouched - positioning is up to you.
 Hace cualquier elemento arrastrable con el ratón con eventos de grano fino. Renderiza su contenido hijo intacto: el posicionamiento depende de ti.
 
 # Properties

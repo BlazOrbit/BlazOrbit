@@ -22,7 +22,7 @@ public class BOBSvgIconAccessibilityTests
         IRenderedComponent<BOBSvgIcon> cut = ctx.Render<BOBSvgIcon>(p => p
             .Add(c => c.Icon, SimpleIcon));
 
-        // Assert — decorative by default
+        // Assert - decorative by default
         cut.Find("svg").GetAttribute("aria-hidden").Should().Be("true");
     }
 

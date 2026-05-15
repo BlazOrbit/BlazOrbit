@@ -193,19 +193,26 @@ public sealed class DocSearchService
             new DocSearchItem(_loc["Button"], "/components/actions/button", [_loc["Components"], _loc["Actions"]],
                 "button click action submit icon loading color"),
 
-            // Display
-            new DocSearchItem(_loc["Avatar"], "/components/display/avatar", [_loc["Components"], _loc["Display"]],
+            // Display & Media
+            new DocSearchItem(_loc["Avatar"], "/components/display/avatar", [_loc["Components"], _loc["Display & Media"]],
                 "avatar profile photo initials gradient image fallback group stack overflow"),
-            new DocSearchItem(_loc["Banner"], "/components/display/banner", [_loc["Components"], _loc["Display"]],
+            new DocSearchItem(_loc["Badge"], "/components/display/badge", [_loc["Components"], _loc["Display & Media"]],
+                "badge chip pill status indicator count label"),
+            new DocSearchItem(_loc["Banner"], "/components/display/banner", [_loc["Components"], _loc["Display & Media"]],
                 "banner alert notice message severity inline persistent dismissible callout"),
-            new DocSearchItem(_loc["Chip"], "/components/display/chip", [_loc["Components"], _loc["Display"]],
+            new DocSearchItem(_loc["Carousel"], "/components/display/carousel",
+                [_loc["Components"], _loc["Display & Media"]],
+                "carousel slideshow slide gallery image rotator coverflow wheel autoplay loop swipe"),
+            new DocSearchItem(_loc["Chip"], "/components/display/chip", [_loc["Components"], _loc["Display & Media"]],
                 "chip tag filter selectable removable badge label pill"),
-            new DocSearchItem(_loc["Progress"], "/components/display/progress", [_loc["Components"], _loc["Display"]],
+            new DocSearchItem(_loc["Progress"], "/components/display/progress", [_loc["Components"], _loc["Display & Media"]],
                 "progress bar ring linear circular indeterminate determinate segments percentage loading"),
-            new DocSearchItem(_loc["Rating"], "/components/display/rating", [_loc["Components"], _loc["Display"]],
+            new DocSearchItem(_loc["Rating"], "/components/display/rating", [_loc["Components"], _loc["Display & Media"]],
                 "rating stars review feedback half score keyboard"),
-            new DocSearchItem(_loc["Stat Card"], "/components/display/stat-card", [_loc["Components"], _loc["Display"]],
+            new DocSearchItem(_loc["Stat Card"], "/components/display/stat-card", [_loc["Components"], _loc["Display & Media"]],
                 "stat card kpi metric dashboard delta trend sparkline value indicator"),
+            new DocSearchItem(_loc["Svg Icon"], "/components/display/svgicon",
+                [_loc["Components"], _loc["Display & Media"]], "svg icon material iconography image vector"),
 
             // Layout & Containers
             new DocSearchItem(_loc["Accordion"], "/components/layout/accordion",
@@ -231,8 +238,7 @@ public sealed class DocSearchService
                 [_loc["Components"], _loc["Layout & Containers"]],
                 "splitter resize panes drag gripper sidebar split horizontal vertical multi-pane"),
 
-            // Services — top-level group spanning the in-main Confirm + Dialog/Drawer/Toast/Tooltip
-            // hosts plus the opt-in Hotkeys / Notifications NuGet packages.
+            // Services
             new DocSearchItem(_loc["Confirm"], "/components/services/confirm", [_loc["Services"]],
                 "confirm dialog ask service async severity danger warning info modal replacement"),
             new DocSearchItem(_loc["Dialog & Drawer"], "/components/overlays/modal", [_loc["Services"]],
@@ -318,17 +324,6 @@ public sealed class DocSearchService
                 "mixed combo combined bar line area secondary axis dual axis actual vs target"),
             new DocSearchItem(_loc["Filter Context"], "/components/charts/filter-context", [_loc["Components"], _loc["Charts"]],
                 "cross filter context cascading dashboard interactive drill down click coordinated"),
-
-            // Display & Media
-            new DocSearchItem(_loc["Badge"], "/components/display/badge", [_loc["Components"], _loc["Display & Media"]],
-                "badge chip pill status indicator count label"),
-            new DocSearchItem(_loc["Carousel"], "/components/display/carousel",
-                [_loc["Components"], _loc["Display & Media"]],
-                "carousel slideshow slide gallery image rotator coverflow wheel autoplay loop swipe"),
-            new DocSearchItem(_loc["Svg Icon"], "/components/display/svgicon",
-                [_loc["Components"], _loc["Display & Media"]], "svg icon material iconography image vector"),
-
-            // (Dialog & Drawer / Toast / Tooltip moved into the Services top-level group above.)
 
             // Utilities
             new DocSearchItem(_loc["Draggable"], "/components/utilities/draggable",

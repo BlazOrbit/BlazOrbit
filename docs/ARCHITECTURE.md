@@ -1,6 +1,6 @@
 # BlazOrbit Architecture Guide
 
-> **Living document** — last verified against `src/` and `test/` on 2026-05-05.  
+> **Living document** - last verified against `src/` and `test/` on 2026-05-05.  
 > When you change a public contract, a DOM convention, or a lifecycle rule, update this file in the same PR.
 
 This guide captures the cross-cutting standards that every contributor must follow when adding or modifying components,
@@ -16,7 +16,7 @@ styles, tests, or public API surface. It is the public counterpart to the agent-
     - [Interface-Driven Styling (`IHas*`)](#interface-driven-styling-ihas)
     - [State Axes: `X` vs `IsX`](#state-axes-x-vs-isx)
     - [`IBuiltComponent` Hooks](#ibuiltcomponent-hooks)
-        - [`IPureBuiltComponent` — cache-friendly variant](#ipurebuiltcomponent--cache-friendly-variant)
+        - [`IPureBuiltComponent` - cache-friendly variant](#ipurebuiltcomponent--cache-friendly-variant)
     - [JS Behavior Lifecycle](#js-behavior-lifecycle)
     - [Variants](#variants)
 2. [CSS Architecture](#css-architecture)
@@ -54,19 +54,19 @@ All library components derive from one of three bases under `BlazOrbit.Core/Comp
 
 `BOBInputComponentBase<TValue>` cannot inherit `BOBComponentBase` because it must derive from Blazor's
 `InputBase<TValue>` to participate in `EditContext`. The shared lifecycle logic lives in **`BOBComponentPipeline`** (
-composed into both bases). **When extending the lifecycle, edit the pipeline once** — not the two bases independently.
+composed into both bases). **When extending the lifecycle, edit the pipeline once** - not the two bases independently.
 
 #### Lifecycle Hooks
 
 | Hook                              | Pipeline Action                                                                                       |
 |-----------------------------------|-------------------------------------------------------------------------------------------------------|
-| `OnInitialized`                   | `BeginInit()` — DEBUG stopwatch only                                                                  |
+| `OnInitialized`                   | `BeginInit()` - DEBUG stopwatch only                                                                  |
 | `OnParametersSet`                 | `BeginParametersSet()` → `base` → `BuildStyles(this, AdditionalAttributes)` (see ordering note below) |
 | `BuildRenderTree`                 | `BeginRenderTree()` → `PatchVolatileAttributes(this)` → `base`                                        |
 | `OnAfterRenderAsync(firstRender)` | `AttachBehaviorAsync(this, BehaviorJsInterop)`                                                        |
 | `DisposeAsync`                    | `IsDisposed = true` → `DisposeBehaviorAsync()`                                                        |
 
-> **Ordering note — `OnParametersSet`**:
+> **Ordering note - `OnParametersSet`**:
 > - `BOBComponentBase` calls `base.OnParametersSet()` **before** `BuildStyles`.
 > - `BOBInputComponentBase<TValue>` calls `BuildStyles` **first**, then performs `EditContext` subscription /
     validation-state bookkeeping, and finally calls `base.OnParametersSet()`.
@@ -116,7 +116,7 @@ further wiring. To add a new family:
 
 #### Volatile vs. Stable Axes
 
-An axis is **volatile** when its value can change *between renders without flowing through `OnParametersSet`* —
+An axis is **volatile** when its value can change *between renders without flowing through `OnParametersSet`* -
 typically because it reflects internal component state (timers, counters, focus, JS-driven flags) rather than
 caller-supplied parameters. The current `VolatileMask` covers six high-frequency state attributes: `Active`, `Disabled`,
 `Loading`, `Error`, `ReadOnly`, `Required`. Volatile axes are re-emitted in `PatchVolatileAttributes` on every
@@ -126,7 +126,7 @@ caller-supplied parameters. The current `VolatileMask` covers six high-frequency
 is already folded into `ComputeStyleFingerprint`, so a change triggers a full `BuildStyles` rebuild via
 `OnParametersSet`.
 
-If your new axis reads a `[Parameter]` only — and that parameter is the sole source of truth — it is **stable**: fold it
+If your new axis reads a `[Parameter]` only - and that parameter is the sole source of truth - it is **stable**: fold it
 into `ComputeStyleFingerprint` and emit once in `BuildStyles`. If the value can shift mid-render or is computed from
 non-parameter state, mark it volatile.
 
@@ -151,8 +151,8 @@ non-parameter state, mark it volatile.
 Six state interfaces expose the `[Parameter] bool X { get; set; }` pattern. Five of them also expose a computed
 `bool IsX { get; }` property:
 
-- `[Parameter] bool X { get; set; }` — caller override.
-- `bool IsX { get; }` — **computed truth** (where present).
+- `[Parameter] bool X { get; set; }` - caller override.
+- `bool IsX { get; }` - **computed truth** (where present).
 
 Contract: `IsX = X || <internal>`. The caller override **cannot negate** an internal condition; it can only force it to
 `true`.
@@ -164,13 +164,13 @@ Contract: `IsX = X || <internal>`. The caller override **cannot negate** an inte
 | `IHasReadOnly` | `ReadOnly` | `IsReadOnly`     | passthrough (reserved for evolution)               |
 | `IHasRequired` | `Required` | `IsRequired`     | passthrough                                        |
 | `IHasActive`   | `Active`   | `IsActive`       | component-specific (e.g. tab selected, toast open) |
-| `IHasLoading`  | `Loading`  | —                | externally driven; feeds into `IsDisabled`         |
+| `IHasLoading`  | `Loading`  | -                | externally driven; feeds into `IsDisabled`         |
 
 `IHasLoading` is special: it does not define its own `IsLoading` because `Loading` is set from the outside and its only
 internal effect is to drive `IsDisabled` (see `BOBInputComponentBase.IsDisabled`). Components that implement
 `IHasLoading` show a loading indicator when the parameter is `true`.
 
-**Always read `IsX` in render decisions, event handlers, and tests.** Never read the raw parameter — it silently breaks
+**Always read `IsX` in render decisions, event handlers, and tests.** Never read the raw parameter - it silently breaks
 layered conditions such as *loading implies disabled*.
 
 ### `IBuiltComponent` Hooks
@@ -198,7 +198,7 @@ Rules:
 - Implementing `IBuiltComponent` **opts the component out of the fingerprint cache** because the hooks may read opaque
   state (timers, counters, etc.).
 
-#### `IPureBuiltComponent` — cache-friendly variant
+#### `IPureBuiltComponent` - cache-friendly variant
 
 When the hooks read **only** `[Parameter]` properties or computed `IsX` getters (no internal fields like `_isFocused`,
 no service state), declare `IPureBuiltComponent` instead of `IBuiltComponent`. The marker promises the hooks are a pure
@@ -218,9 +218,9 @@ public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
 ```
 
 `IPureBuiltComponent : IBuiltComponent`, so the hook signatures are the same. Switching back to plain `IBuiltComponent`
-re-opts out of the cache — do that the moment a hook starts touching internal state. The audit
+re-opts out of the cache - do that the moment a hook starts touching internal state. The audit
 `Pure_Built_Components_Should_Not_Read_Instance_Fields_In_Hooks` (CACHE-PURE-01) catches the most common drift mode (a
-`_x` field reference inside a hook), but any non-parameter source — a service, a counter, a captured event arg — will
+`_x` field reference inside a hook), but any non-parameter source - a service, a counter, a captured event arg - will
 silently freeze the cached value if you forget.
 
 ### JS Behavior Lifecycle
@@ -238,11 +238,11 @@ catch (TaskCanceledException) { }
 These map to non-actionable teardown paths (circuit gone, runtime disposed, prerender without circuit, await cancelled).
 
 **Ordering constraint**: `ObjectDisposedException` derives from `InvalidOperationException`, so it must precede
-`InvalidOperationException` in the catch chain — otherwise the inherited type swallows the disposed exception and the
+`InvalidOperationException` in the catch chain - otherwise the inherited type swallows the disposed exception and the
 `catch (ObjectDisposedException)` arm is unreachable. The other three may appear in any relative order. The example
 above (JSDisconnected → ObjectDisposed → InvalidOperation → TaskCanceled) is the conventional shape; `BOBModalHost` puts
 `ObjectDisposedException` first because that path disposes a JS module reference whose disposed state is the dominant
-teardown signal — both orders are valid as long as the inheritance constraint holds.
+teardown signal - both orders are valid as long as the inheritance constraint holds.
 
 **`IsDisposed` guard**: both bases expose `protected bool IsDisposed { get; }`. Any post-`await` continuation that
 touches component state must gate on it:
@@ -291,11 +291,11 @@ Rationale:
 2. **Lambda wrapping.** Razor only treats `@(…)`-wrapped lambdas as C# expressions; otherwise the parser may emit the
    literal string. Wrap every lambda.
 3. **Forwarding.** When forwarding a parameter to a child component verbatim (same name, same type), `Attr="@Attr"` is
-   allowed — no factory wrap needed; the receiver was set by whoever constructed the source callback.
+   allowed - no factory wrap needed; the receiver was set by whoever constructed the source callback.
 
 Audited by `ComponentArchitectureLintTests.RazorSrc_Should_Bind_EventCallback_Parameters_Via_Factory_Create`. The lint
 reflects every `[Parameter] EventCallback` / `EventCallback<T>` in the BlazOrbit assembly and validates every binding
-to those parameters across `src/BlazOrbit/**/*.razor` — false positives on `Func<>` / `Action` parameters are
+to those parameters across `src/BlazOrbit/**/*.razor` - false positives on `Func<>` / `Action` parameters are
 impossible because the rule only fires on properties whose reflected type is `EventCallback` or `EventCallback<>`.
 
 ---
@@ -306,9 +306,9 @@ impossible because the rule only fires on properties whose reflected type is `Ev
 
 Two layers ship with the library:
 
-1. **Global bundle** — hand-written `src/BlazOrbit/wwwroot/css/blazorbit.css`. Single source of truth, no minify,
+1. **Global bundle** - hand-written `src/BlazOrbit/wwwroot/css/blazorbit.css`. Single source of truth, no minify,
    no transpile, no generator. Edit the file directly in the matching section.
-2. **Scoped component CSS** (hand-written `.razor.css` next to the `.razor`) — scoped per-component by Blazor CSS
+2. **Scoped component CSS** (hand-written `.razor.css` next to the `.razor`) - scoped per-component by Blazor CSS
    isolation.
 
 The bundle's canonical section order:
@@ -327,7 +327,7 @@ The bundle's canonical section order:
 11. Data collection family
 ```
 
-Order matters — later sections depend on tokens / variables emitted by earlier ones. When adding a new rule, place
+Order matters - later sections depend on tokens / variables emitted by earlier ones. When adding a new rule, place
 it in the matching section; introduce a new section only when the existing ones genuinely don't fit.
 
 > See ADR-0004 for the trade-off analysis that led to the global + scoped CSS split.
@@ -352,7 +352,7 @@ is the grouping that drives style selectors today; add a row whenever a new cons
 | **Opt-in styling**     | `data-bob-scrollbars`                                                                                                                                                                                                                                                                                                                                                                                     | Consumer-applied marker for branded global scrollbars                                                                     |
 
 State / Design / Transitions / Family markers are emitted by the framework (`BOBComponentAttributesBuilder`) when the
-corresponding `IHas*` interface is implemented — components do not write them by hand. Component-specific attributes are
+corresponding `IHas*` interface is implemented - components do not write them by hand. Component-specific attributes are
 emitted directly by the component (typically via `IBuiltComponent`) and do not flow through the standard pipeline.
 
 **Boolean axes use presence-as-truth**: when the value is `true`, the attribute is `="true"`; when `false`, the
@@ -371,19 +371,19 @@ attribute is **absent** rather than `="false"`. CSS selectors must match `[data-
 
 Three shapes appear across the codebase, each with a clear domicile:
 
-1. **Inside scoped `.razor.css`** — prefer the qualified form `[data-bob-component="<name>"]` (or
+1. **Inside scoped `.razor.css`** - prefer the qualified form `[data-bob-component="<name>"]` (or
    `bob-component[data-bob-component="<name>"]`) as a self-documenting prefix. Blazor CSS isolation appends a `[b-xxx]`
-   attribute automatically, which is what actually scopes the rule to the file — the qualifier is for grepability when
+   attribute automatically, which is what actually scopes the rule to the file - the qualifier is for grepability when
    reading a rule out of context, not for correctness. Bare `bob-component { … }` is reserved for declarations targeting
    the host root tag (root-level layout / size / box-model).
-2. **Inside global `CssBundle/*.css` and generators** — must qualify, since there is no isolation attribute to fall back
+2. **Inside global `CssBundle/*.css` and generators** - must qualify, since there is no isolation attribute to fall back
    on. Use:
     - `bob-component[data-bob-component="<name>"]` for one specific component, or
     - `bob-component[data-bob-<family>-base]` (e.g. `data-bob-input-base`, `data-bob-picker-base`) for a whole family,
       or
     - bare `bob-component { … }` only for cross-component baseline rules in `_base.css` / `_typography.css` where the
       rule is *meant* to match every component.
-3. **Avoid** bare `bob-component` inside scoped files for descendant selectors — it works, but the qualified form keeps
+3. **Avoid** bare `bob-component` inside scoped files for descendant selectors - it works, but the qualified form keeps
    every scoped rule self-identifying.
 
 ### Private-Variable Pattern
@@ -457,7 +457,7 @@ lets consumers edit both surfaces live and export JSON / CSS / C#.
 ### Behavior Module Pattern
 
 JavaScript-backed enhancements ship as hand-written JSDoc-typed ESM modules at
-`src/BlazOrbit/wwwroot/js/Types/<Feature>/<Feature>Interop.js`. No transpile step, no bundler — the file on disk is
+`src/BlazOrbit/wwwroot/js/Types/<Feature>/<Feature>Interop.js`. No transpile step, no bundler - the file on disk is
 the file the browser loads. Conventions:
 
 - **Source location**: one folder per feature under `wwwroot/js/Types/`. Filename is always `<Feature>Interop.js`.
@@ -498,7 +498,7 @@ One folder per component at `Tests/Components/<ComponentName>/`:
 | `<C>VariantTests`       | If the component uses `IVariantRegistry` or has a `Variant` parameter   |
 | `<C>AccessibilityTests` | If WCAG 2.2 AA applies (roles, `aria-*`, tab order, contrast)           |
 | `<C>ValidationTests`    | If the component is form-bound (`EditContext`)                          |
-| `<C>IntegrationTests`   | Optional — for multi-component compositions                             |
+| `<C>IntegrationTests`   | Optional - for multi-component compositions                             |
 
 **Class naming**: `<Component><Context>Tests`  
 **Trait**: `[Trait("Component <Context>", "<ComponentName>")]`  
@@ -541,12 +541,12 @@ root.GetAttribute("data-bob-disabled").Should().Be("true");
 `test/BlazOrbit.Tests.Integration/Infrastructure/VerifyConfig.cs` strips non-deterministic tokens before snapshot
 comparison:
 
-- `ElementReferenceRegex` — `_bl_<guid>` references emitted by `@ref`.
-- `OnClickRegex` — Blazor's per-render `blazor:onclick="N"` event-id counter.
-- `BuiGeneratedIdRegex` — component-local GUID-suffixed ids (`bob-input-<32 hex>`, `bob-helper-…`, etc.). **Extend the
-  regex's alternation when a new component emits a GUID-suffixed id with a fresh prefix** — it does not auto-detect.
-- `PatternIdRegex`, `DropdownIdRegex`, `DialogTitleIdRegex` — feature-specific id formats.
-- `CssIsolationScopeRegex` — Razor SDK's `b-[a-z0-9]{10}` per-file scope marker.
+- `ElementReferenceRegex` - `_bl_<guid>` references emitted by `@ref`.
+- `OnClickRegex` - Blazor's per-render `blazor:onclick="N"` event-id counter.
+- `BuiGeneratedIdRegex` - component-local GUID-suffixed ids (`bob-input-<32 hex>`, `bob-helper-…`, etc.). **Extend the
+  regex's alternation when a new component emits a GUID-suffixed id with a fresh prefix** - it does not auto-detect.
+- `PatternIdRegex`, `DropdownIdRegex`, `DialogTitleIdRegex` - feature-specific id formats.
+- `CssIsolationScopeRegex` - Razor SDK's `b-[a-z0-9]{10}` per-file scope marker.
 
 **Known footgun**: `CssIsolationScopeRegex` matches *any* `b-` followed by ten alphanum chars, including kebab-cased
 data attributes whose value happens to be ten characters (`b-transition`, `b-comfortabl`, `b-component`). When
@@ -559,8 +559,8 @@ and either rename or tighten the regex.
 
 Every publishable project enables `Microsoft.CodeAnalysis.PublicApiAnalyzers` with two sidecar files:
 
-- `PublicAPI.Shipped.txt` — surface already released to NuGet. Do not hand-edit mid-release.
-- `PublicAPI.Unshipped.txt` — additions/removals staged for the next release.
+- `PublicAPI.Shipped.txt` - surface already released to NuGet. Do not hand-edit mid-release.
+- `PublicAPI.Unshipped.txt` - additions/removals staged for the next release.
 
 Workflow on public-surface change: build → analyzer raises `RS0016` (missing) / `RS0017` (stale) → apply the Roslyn
 code-fix → review `PublicAPI.Unshipped.txt` as the contract diff.
@@ -569,7 +569,7 @@ Rules:
 
 - Types that must stay `public` for Razor SDK / reflection / DI but should not appear in IntelliSense get
   `[EditorBrowsable(EditorBrowsableState.Never)]`.
-- Nested `public` types inside an `internal` parent still count as surface — collapse to `internal`.
+- Nested `public` types inside an `internal` parent still count as surface - collapse to `internal`.
 - `InternalsVisibleTo` does **not** affect the analyzer.
 
 #### Renaming or moving public surface
@@ -608,8 +608,8 @@ oddly.
 Static assets are **hand-written source files**, committed to the repo and shipped as `staticwebassets/` in each
 nupkg:
 
-- `src/BlazOrbit/wwwroot/css/blazorbit.css` — single global bundle.
-- `src/BlazOrbit/wwwroot/js/Types/<Feature>/<Feature>Interop.js` — JSDoc-typed ESM modules, one per feature.
+- `src/BlazOrbit/wwwroot/css/blazorbit.css` - single global bundle.
+- `src/BlazOrbit/wwwroot/js/Types/<Feature>/<Feature>Interop.js` - JSDoc-typed ESM modules, one per feature.
 - Same pattern in `src/BlazOrbit.Charts/wwwroot/` and `src/BlazOrbit.Hotkeys/wwwroot/`.
 
 No transpile step, no bundler, no Node, no Vite. `dotnet build` is all consumers and contributors need.
@@ -628,7 +628,7 @@ component), use `[AssetGenerator]`. If the output is fixed boilerplate, use `[Bu
 
 ## Localization (BOBLocalize)
 
-BlazOrbit ships its own localization runtime — **BOBLocalize** — instead of relying on satellite-assembly resx. Goal:
+BlazOrbit ships its own localization runtime - **BOBLocalize** - instead of relying on satellite-assembly resx. Goal:
 compile-time bundles, predictable per-call resolution, pluggable providers, and a literal-text fallback that never
 returns `null`.
 
@@ -664,11 +664,11 @@ the type name and `.tn` is optional; files without one use the bundle's `Default
 
 `BobLocalizer<T>.Lookup(name, args)` runs in three stages:
 
-1. **KeyRoutes** — bundle-declared `(prefix, providerType)` pairs run first. The first matching route is consulted
+1. **KeyRoutes** - bundle-declared `(prefix, providerType)` pairs run first. The first matching route is consulted
    before the chain; if it answers, the chain is skipped.
-2. **Chain** — providers from `BobLocalizationBundleSpec.Chain` run in order. Default chain is
+2. **Chain** - providers from `BobLocalizationBundleSpec.Chain` run in order. Default chain is
    `[BundleProvider, LiteralProvider]`.
-3. **Literal fallback** — if every provider returns false, `LocalizedString.ResourceNotFound = true` and the value is
+3. **Literal fallback** - if every provider returns false, `LocalizedString.ResourceNotFound = true` and the value is
    `string.Format(literalKey, args)`. The localizer never returns `null`.
 
 Custom providers register through DI (`services.AddSingleton<MyDbProvider>()`) and are picked up by
@@ -680,7 +680,7 @@ Custom providers register through DI (`services.AddSingleton<MyDbProvider>()`) a
 `MarkupString` rendering the template verbatim while HTML-encoding every format argument through `HtmlEncoder.Default`.
 Use it whenever a translation ships markup (`<strong>`, `<br />`, inline icons). The pattern stays safe as long as
 templates live in source-controlled `.tn` files (audited like inline Razor) and dynamic values reach the template only
-as format arguments — concatenating untrusted text into the key string defeats the encoder. Custom providers sourcing
+as format arguments - concatenating untrusted text into the key string defeats the encoder. Custom providers sourcing
 translations from user-editable storage must run an HTML sanitiser before the helper wraps the value.
 
 ### Generator inputs
@@ -701,7 +701,7 @@ boilerplate. Opt out of the auto `AdditionalFiles` glob with `<BlazOrbitLocaliza
 > only apply to the *referencing* project's own compilation; they do **not** propagate via NuGet. Without the explicit
 > `analyzers/dotnet/cs/` ship, a consumer's `[assembly: BobLocalizationBundle(...)]` declarations produce no
 > `[ModuleInitializer]`, `BobLocalize.RegisterBundle` never runs for their markers, and `IStringLocalizer<T>` silently
-> falls back to literal — translations look wired up but never apply at runtime.
+> falls back to literal - translations look wired up but never apply at runtime.
 
 **Consuming via ProjectReference (monorepo / fork).** NuGet `buildTransitive` imports don't run for ProjectReferences,
 so the consumer csproj must wire both ends manually:
@@ -717,22 +717,22 @@ so the consumer csproj must wire both ends manually:
 </ItemGroup>
 ```
 
-This is the path BlazOrbit's own assemblies, the docs site, and the test apps use — they all live in the monorepo and
+This is the path BlazOrbit's own assemblies, the docs site, and the test apps use - they all live in the monorepo and
 project-reference the generator directly.
 
-Do **not** set `<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>` permanently — the generator emits in
+Do **not** set `<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>` permanently - the generator emits in
 memory and disk-dumping causes duplicate-symbol errors on the next build.
 
 ### Service registration
 
 `AddBlazOrbit()` calls `services.AddBlazOrbitLocalization()` internally. That registration is what replaces the open
-generic `IStringLocalizer<>` with `BobLocalizer<>` — so the ~35 built-in components (`BOBChip`, `BOBBanner`,
+generic `IStringLocalizer<>` with `BobLocalizer<>` - so the ~35 built-in components (`BOBChip`, `BOBBanner`,
 `BOBInputDateTime`, `BOBInputNumber`, …) that inject `IStringLocalizer<TMarker>` resolve cleanly even when the consumer
 hasn't opted in to localization explicitly. `BobLocalizer<T>` returns a literal-fallback `LocalizedString` (with
 `ResourceNotFound = true`) when no `[BobLocalizationBundle]` spec is registered for `T`, so the no-loc path stays
 functional and the localizer never returns `null`.
 
-`AddBlazOrbitLocalizationServer/Wasm()` also call `AddBlazOrbitLocalization()` to layer host-specific wiring on top —
+`AddBlazOrbitLocalizationServer/Wasm()` also call `AddBlazOrbitLocalization()` to layer host-specific wiring on top -
 both calls compose because the inner registrations use `TryAdd`/`Replace`.
 
 ### Testing
@@ -757,7 +757,7 @@ public class MyBundleTests : IDisposable
 ```
 
 `RegisterFake` records the prior entry (or absence) per `ResourceType` and restores it on `Dispose`. Never call
-`BobLocalize.ClearAllBundles()` in tests — clearing races against component tests in parallel collections that depend on
+`BobLocalize.ClearAllBundles()` in tests - clearing races against component tests in parallel collections that depend on
 production bundles, and lazy-loaded module initialisers can register new bundles mid-run.
 
 ---
@@ -771,7 +771,7 @@ with a corresponding test; failing builds beat doc drift.
 |------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `Library/ArchitectureAuditTests`         | ASYNC-01 (no `_ = AsyncCall`), ASYNC-02 (no `ConfigureAwait`), ASYNC-03 (4-tuple catch consistency), TEST-TRAIT-01 (`Component <Context>` traits), CSS-MEDIA-01 (`@media` only in layout exceptions), CACHE-PURE-01 (`IPureBuiltComponent` hooks must not read instance fields), INPUT-BG-01, INPUT-COLOR-01 (input-family inline CSS consumption) |
 | `Library/ComponentMarkupLintTests`       | No native `onX="…"` inline handlers, no `<script>` tags, no hardcoded `style=""` in `.razor`                                                                                                                                                                                                                                                       |
-| `Library/ComponentParameterAuditTests`   | COMP-PARAM-01: PascalCase attributes on components without `CaptureUnmatchedValues` must match a declared `[Parameter]` (would compile-fail otherwise). COMP-PARAM-02: same rule extends even when the component **does** capture unmatched — PascalCase attrs that silently fall into `AdditionalAttributes` are typos (HTML pass-through attrs are kebab-case)                                                |
+| `Library/ComponentParameterAuditTests`   | COMP-PARAM-01: PascalCase attributes on components without `CaptureUnmatchedValues` must match a declared `[Parameter]` (would compile-fail otherwise). COMP-PARAM-02: same rule extends even when the component **does** capture unmatched - PascalCase attrs that silently fall into `AdditionalAttributes` are typos (HTML pass-through attrs are kebab-case)                                                |
 | `Library/ComponentRootContractLintTests` | Components deriving from the `BOBComponentBase` family must root in `<bob-component>`                                                                                                                                                                                                                                                              |
 | `Library/CssAuditTests`                  | DOM-emitted `data-bob-*` ↔ CSS selector ↔ TS consumer parity; every `FeatureDefinitions.InlineVariables` referenced in CSS                                                                                                                                                                                                                         |
 | `Library/CssClassAuditTests`             | No CSS classes applied in markup without a matching declaration                                                                                                                                                                                                                                                                                    |
@@ -780,7 +780,7 @@ with a corresponding test; failing builds beat doc drift.
 | `Library/CssVarDeclarationAuditTests`    | `var(--name)` references in scoped CSS must resolve to a declared variable                                                                                                                                                                                                                                                                         |
 | `Library/ScopedCssLintTests`             | Residual scoped-CSS hygiene rules not covered above                                                                                                                                                                                                                                                                                                |
 | `Core/CssArchitectureLintTests`          | CSS-SCOPED-LINT-01 (no BEM modifiers on root), A11Y-02 (`prefers-reduced-motion` override in `_base.css`)                                                                                                                                                                                                                                          |
-| `Core/ComponentArchitectureLintTests`    | COMP-ARCH-01 (`EventCallback` bindings in Razor must use `@(EventCallback.Factory.Create…)`, a `@(lambda)`, or same-name forwarding — reflected param-set per component, no naming-convention heuristics)                                                                                                                                          |
+| `Core/ComponentArchitectureLintTests`    | COMP-ARCH-01 (`EventCallback` bindings in Razor must use `@(EventCallback.Factory.Create…)`, a `@(lambda)`, or same-name forwarding - reflected param-set per component, no naming-convention heuristics)                                                                                                                                          |
 
 Allowlists in these tests freeze a controlled exception. Each entry must include a one-line justification; remove it
 once the underlying issue is fixed.

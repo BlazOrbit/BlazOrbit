@@ -19,7 +19,7 @@
     </DocDemo>
 
     <DocDemo Key="FreedmanDiaconis" Title="@Loc["Freedman-Diaconis (outlier-robust)"]"
-             Description="@Loc["FD scales bin width by the IQR — the histogram resolution stays stable when a few extreme values would otherwise compress the bulk of the data into a single bar."]">
+             Description="@Loc["FD scales bin width by the IQR - the histogram resolution stays stable when a few extreme values would otherwise compress the bulk of the data into a single bar."]">
         <BOBHistogramChart T="double"
                            Values="_latencies"
                            BinRule="BOBHistogramBinRule.FreedmanDiaconis"
@@ -36,7 +36,7 @@
     </DocDemo>
 
     <DocDemo Key="Quantiles" Title="@Loc["With quantile guide lines"]"
-             Description="@Loc["ShowQuantileLines overlays vertical guides at the median and p95 — useful for SLO discussions where the long tail matters more than the average."]">
+             Description="@Loc["ShowQuantileLines overlays vertical guides at the median and p95 - useful for SLO discussions where the long tail matters more than the average."]">
         <BOBHistogramChart T="double"
                            Values="_latencies"
                            ShowQuantileLines="true"
@@ -48,7 +48,7 @@
 
 @code {
 
-    // Synthetic latency sample (ms) — left-skewed with a fat right tail.
+    // Synthetic latency sample (ms) - left-skewed with a fat right tail.
     private static readonly double[] _latencies = GenerateSample();
 
     private static double[] GenerateSample()

@@ -48,7 +48,7 @@ internal static class FeatureDefinitions
         public const string SrOnly = "sr-only";
 
         /// <summary>
-        /// Utility class variant of <see cref="DataAttributes.Scrollbars"/> — place on any wrapper to scope
+        /// Utility class variant of <see cref="DataAttributes.Scrollbars"/> - place on any wrapper to scope
         /// branded scrollbar styling.
         /// </summary>
         public const string Scrollbars = "bob-scrollbars";
@@ -535,7 +535,7 @@ internal static class FeatureDefinitions
 
         /// <summary>
         /// Scrollbar dimensions. Styles are opt-in via <see cref="DataAttributes.Scrollbars"/> or the
-        /// <see cref="CssClasses.Scrollbars"/> utility class — the library does not touch consumer scrollbars by default.
+        /// <see cref="CssClasses.Scrollbars"/> utility class - the library does not touch consumer scrollbars by default.
         /// </summary>
         public static class Scrollbar
         {
@@ -552,7 +552,7 @@ internal static class FeatureDefinitions
         /// </summary>
         public static class Input
         {
-            // Border family for input components — mirrors the global Border tokens but
+            // Border family for input components - mirrors the global Border tokens but
             // scoped so a consumer can dial input chrome independently of every other
             // border in the system.
             public const string BorderWidth = "--bob-input-border-width";
@@ -589,7 +589,7 @@ internal static class FeatureDefinitions
         /// <summary>
         /// Transition system (consumed by <see cref="DataAttributes.Transitions"/>).
         /// Variables follow <c>--bob-t-{trigger}-{property}</c>; <see cref="VariableFor"/> builds them.
-        /// Vars are intentionally emitted without a default — transitions are opt-in per component and
+        /// Vars are intentionally emitted without a default - transitions are opt-in per component and
         /// undefined <c>var()</c> resolves to "unset", so the CSS declaration silently no-ops.
         /// </summary>
         public static class Transitions

@@ -201,7 +201,7 @@ public class BOBDataGridAccessibilityTests
         // Assert initial
         cut.Find("[role='status'][aria-live='polite']").TextContent.Should().Contain("Page 1 of 2");
 
-        // Act — go to page 2 via public API
+        // Act - go to page 2 via public API
         await cut.InvokeAsync(() => cut.Instance.GoToPage(2));
 
         // Assert

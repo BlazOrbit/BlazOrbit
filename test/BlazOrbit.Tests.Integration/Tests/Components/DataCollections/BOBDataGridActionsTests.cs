@@ -162,7 +162,7 @@ public class BOBDataGridActionsTests
         // Now toolbar shows: "Clear" + the bulk action button = 2.
         cut.FindAll(".bob-dc__selection-info button").Count.Should().BeGreaterThanOrEqualTo(2);
 
-        // Click "Delete selected" — last button in the selection info.
+        // Click "Delete selected" - last button in the selection info.
         cut.FindAll(".bob-dc__selection-info button").Last().Click();
 
         captured.Should().NotBeNull();

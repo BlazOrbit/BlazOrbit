@@ -1,4 +1,4 @@
-namespace BlazOrbit.Components.Layout;
+namespace BlazOrbit.Components;
 
 /// <summary>Pre-defined max-width tier for <c>BOBContainer</c> and <c>BOBSection</c>.</summary>
 public enum BOBContainerSize

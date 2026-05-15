@@ -1,4 +1,4 @@
-﻿# .github/workflows/release-publish.yml
+# .github/workflows/release-publish.yml
 # Publishes stable releases on tags v*
 # Creates GitHub release and publishes to NuGet
 
@@ -47,7 +47,7 @@ jobs:
         run: |
           # Tag-driven only. Tag must match the `v[0-9]+.[0-9]+.[0-9]+` filter
           # in `on.push.tags`, so REF_NAME is guaranteed to start with `v`.
-          # `local` is only valid inside a function, hence the wrapper — top-level
+          # `local` is only valid inside a function, hence the wrapper - top-level
           # `local parts=...` aborts under `set -e` (default GH Actions bash flags).
           extract_assembly_version() {
             local v="$1"
@@ -166,7 +166,7 @@ jobs:
 
       - name: Install unzip
         # `mcr.microsoft.com/dotnet/sdk:10.0` is Debian-based but ships without
-        # unzip — the next step's `assert_in_pkg` shells out to `unzip -l` to
+        # unzip - the next step's `assert_in_pkg` shells out to `unzip -l` to
         # inspect nupkg contents (a nupkg is a zip). Without this install,
         # every assertion in "Validate package structure" reports "missing"
         # because `unzip` exits with 127 and `grep -Fxq` on empty input fails.
@@ -288,7 +288,7 @@ jobs:
           # Cross-cutting check: every produced .nupkg under ./artifacts must
           # match a known PackageId. Catches the inverse failure where a new
           # packable project lands in src/ without an entry in this validation
-          # block — the release would otherwise publish it un-checked.
+          # block - the release would otherwise publish it un-checked.
           KNOWN_IDS=(
             BlazOrbit
             BlazOrbit.Charts
@@ -321,7 +321,7 @@ jobs:
           done
           [ "$unknown" -eq 0 ] || exit 1
 
-          # Templates package — content-only (no lib/), so we just confirm the
+          # Templates package - content-only (no lib/), so we just confirm the
           # package shipped and that both template trees survived packing.
           # Specific filenames are intentionally not asserted because the
           # template content is iterated frequently; tighten only after the
@@ -371,7 +371,7 @@ jobs:
         # 1:1 invariant: every published NuGet version maps to exactly one
         # commit and exactly one skill. Re-publishing would either be blocked
         # by NuGet's immutability (`409`) or silently no-op the .nupkg push
-        # while overwriting the .skill on the GH release — drift. Probe the
+        # while overwriting the .skill on the GH release - drift. Probe the
         # flat-container endpoint and bail out before either side mutates.
         env:
           VERSION: ${{ needs.version.outputs.version }}
@@ -385,7 +385,7 @@ jobs:
               exit 1
               ;;
             404)
-              echo "✅ Version ${VERSION} not on NuGet — safe to publish."
+              echo "✅ Version ${VERSION} not on NuGet - safe to publish."
               ;;
             *)
               echo "::warning::Unexpected status $status from NuGet flat-container probe. Proceeding cautiously."
@@ -420,7 +420,7 @@ jobs:
           # Enumerate the packages we just packed (REL-09: no hardcoded list).
           # The `.nupkg` filenames are `<PackageId>.<Version>.nupkg`; strip the
           # version suffix to recover each id. `.snupkg` files are attached but
-          # not listed — symbol packages are not user-installable.
+          # not listed - symbol packages are not user-installable.
           {
             echo ''
             echo '### Packages'

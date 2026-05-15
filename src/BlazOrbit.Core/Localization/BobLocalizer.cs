@@ -8,7 +8,7 @@ namespace BlazOrbit.Localization;
 /// <summary>
 /// Adapter that exposes the BOBLocalize runtime as a Microsoft
 /// <see cref="IStringLocalizer{T}"/>. Components and services continue to inject
-/// <c>IStringLocalizer&lt;TResource&gt;</c> exactly as they did with the resx-based stack —
+/// <c>IStringLocalizer&lt;TResource&gt;</c> exactly as they did with the resx-based stack -
 /// the registration in <see cref="ServiceCollectionExtensions.AddBlazOrbitLocalization"/>
 /// reroutes that resolution to this adapter.
 /// </summary>
@@ -21,11 +21,11 @@ namespace BlazOrbit.Localization;
 /// <para>
 /// When the generator is active for the consumer assembly, call sites of the form
 /// <c>Loc["literal"]</c> are intercepted into direct accessor methods that bypass this
-/// adapter entirely — measured in single-digit nanoseconds. This adapter is the dynamic
+/// adapter entirely - measured in single-digit nanoseconds. This adapter is the dynamic
 /// fallback for runtime-supplied names.
 /// </para>
 /// </remarks>
-/// <typeparam name="T">Bundle marker type — see <see cref="BobLocalizationBundleAttribute"/>.</typeparam>
+/// <typeparam name="T">Bundle marker type - see <see cref="BobLocalizationBundleAttribute"/>.</typeparam>
 public sealed class BobLocalizer<T> : IStringLocalizer<T>
 {
     private readonly IServiceProvider _services;
@@ -131,7 +131,7 @@ public sealed class BobLocalizer<T> : IStringLocalizer<T>
     /// <inheritdoc />
     public IEnumerable<LocalizedString> GetAllStrings(bool includeParentCultures)
     {
-        // The BOBLocalize design discourages enumerating all strings — the surface is intentionally
+        // The BOBLocalize design discourages enumerating all strings - the surface is intentionally
         // hash-keyed and the source literals live as code. Return what the SourceLiterals table
         // exposes (generator emits one entry per call site) so tooling that depends on this method
         // (e.g. Microsoft.AspNetCore.Mvc localization providers) still gets a meaningful answer.

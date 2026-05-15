@@ -9,7 +9,7 @@
         recomendado" en UTF-8 (existe para desambiguar endianness UTF-16/32;
         UTF-8 no tiene endianness).
       - Cross-platform: shebangs `#!/usr/bin/env pwsh|bash` no resuelven si
-        byte 0 es BOM — `./script.ps1` falla ENOEXEC en Linux/macOS.
+        byte 0 es BOM - `./script.ps1` falla ENOEXEC en Linux/macOS.
       - Runtime parsers byte-sensibles: `JSON.parse`, BlazOrbit `TnParser`,
         Node module loaders fallan o misparsean con BOM.
       - `.editorconfig` declara `charset = utf-8` global, así que IDEs (VS,
@@ -111,7 +111,7 @@ $fixed = 0
 $skippedBinary = 0
 $skippedNoChange = 0
 $drifts = New-Object System.Collections.Generic.List[string]
-# Explicit no-BOM encoder. DO NOT use [System.Text.Encoding]::UTF8 — that
+# Explicit no-BOM encoder. DO NOT use [System.Text.Encoding]::UTF8 - that
 # static instance has `encoderShouldEmitUTF8Identifier = true` and
 # File.WriteAllText emits the BOM via its preamble, silently re-adding the
 # very thing this script exists to remove.
@@ -132,7 +132,7 @@ foreach ($file in $files) {
             # Gate scope: blocks anything that breaks tooling at runtime.
             #   1. BOM at byte 0 (repo-wide no-BOM policy).
             #   2. Double BOM (corruption signal).
-            #   3. BOM embedded mid-content — happens when an editor merges or
+            #   3. BOM embedded mid-content - happens when an editor merges or
             #      auto-formats a previously BOM'd file: the leading BOM gets
             #      pushed mid-file by an inserted line. Invisible in IDEs and
             #      undetectable by leading-byte checks but the C# parser
@@ -142,7 +142,7 @@ foreach ($file in $files) {
             #      Wasm Program.cs after the no-BOM flip).
             #   4. Invalid UTF-8 byte sequences (mojibake, Latin-1/CP1252
             #      from editors with wrong defaults).
-            # Empty / BOM-only files trivially valid — skip the payload
+            # Empty / BOM-only files trivially valid - skip the payload
             # decode (PowerShell array-slice on len<=3 produces a reversed
             # range and the strict UTF-8 check throws on the resulting bytes).
             if ($bytes.Length -gt 3) {
