@@ -6,8 +6,10 @@ using Microsoft.AspNetCore.Localization;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
+/// <summary>Registers BlazOrbit localization services for Blazor Server / interactive hosts.</summary>
 public static class ServerLocalizationServiceCollectionExtensions
 {
+    /// <summary>Registers the BlazOrbit localization pipeline, request-localization middleware, and culture-switch endpoint.</summary>
     public static IServiceCollection AddBlazOrbitLocalizationServer(
         this IServiceCollection services,
         Action<ServerLocalizationSettings>? configure = null)

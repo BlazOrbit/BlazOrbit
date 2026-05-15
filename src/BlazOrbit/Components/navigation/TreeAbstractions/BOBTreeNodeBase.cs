@@ -53,8 +53,10 @@ public abstract class BOBTreeNodeBase<TRegistration> : ComponentBase
     [CascadingParameter(Name = "TreeNodeRegistry")]
     internal ITreeNodeRegistry<TRegistration>? Registry { get; set; }
 
+    /// <summary>Stable key for this node — either the <see cref="Key"/> parameter or a derived default.</summary>
     protected string ResolvedKey { get; private set; } = string.Empty;
 
+    /// <inheritdoc />
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         if (Registry != null && ChildContent != null)
@@ -67,12 +69,16 @@ public abstract class BOBTreeNodeBase<TRegistration> : ComponentBase
         }
     }
 
+    /// <summary>Builds the registration record handed to the enclosing tree container.</summary>
     protected abstract TRegistration CreateRegistration();
 
+    /// <summary>Generates the fallback key used when <see cref="Key"/> is not supplied.</summary>
     protected abstract string GenerateDefaultKey();
 
+    /// <inheritdoc />
     protected override void OnInitialized() => ResolvedKey = Key ?? GenerateDefaultKey();
 
+    /// <inheritdoc />
     protected override void OnParametersSet()
     {
         if (Registry != null && !_registered)

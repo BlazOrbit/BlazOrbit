@@ -25,6 +25,7 @@ public sealed class SortDescriptor
     }
 }
 
+/// <summary>Multi-column sort append policy when the user clicks a header.</summary>
 public enum SortAppendBehavior
 {
     /// <summary>Never append when sorting => single column sorting</summary>

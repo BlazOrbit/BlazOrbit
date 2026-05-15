@@ -37,6 +37,7 @@ public sealed class BobLocalizationGenerator : IIncrementalGenerator
 {
     private const string BundleAttributeFullName = "BlazOrbit.Localization.BobLocalizationBundleAttribute";
 
+    /// <inheritdoc />
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         // Discover [assembly: BobLocalizationBundle(typeof(TResource))] declarations.

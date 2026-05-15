@@ -2,10 +2,13 @@ using Microsoft.JSInterop;
 
 namespace BlazOrbit.Localization.Wasm;
 
+/// <summary>Persists the user's chosen culture between WebAssembly app loads.</summary>
 public interface ILocalizationPersistence
 {
+    /// <summary>Returns the previously stored culture name, or null when none has been persisted.</summary>
     Task<string?> GetStoredCultureAsync();
 
+    /// <summary>Persists the supplied culture name (e.g. <c>es-ES</c>).</summary>
     Task SetStoredCultureAsync(string culture);
 }
 

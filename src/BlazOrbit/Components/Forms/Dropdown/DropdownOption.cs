@@ -68,6 +68,7 @@ public class DropdownOption<TOption> : ComponentBase, ISelectionOption, IDisposa
     /// </summary>
     public void Dispose() => Container?.UnregisterOption(this);
 
+    /// <inheritdoc />
     protected override void OnInitialized()
     {
         if (Container == null)

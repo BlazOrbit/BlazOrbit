@@ -1,3 +1,5 @@
+#pragma warning disable CS1591 // Icon catalog: per-glyph XML docs add no signal.
+
 namespace BlazOrbit.Components;
 
 public sealed partial class BOBIcons

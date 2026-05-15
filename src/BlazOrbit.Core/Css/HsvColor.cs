@@ -6,6 +6,7 @@ namespace BlazOrbit.Components;
 /// </summary>
 public readonly struct HsvColor : IEquatable<HsvColor>
 {
+    /// <summary>Creates an HSV color, clamping each component to its valid range.</summary>
     public HsvColor(int hue, double saturation, double value)
     {
         Hue = Math.Clamp(hue, 0, 360);
@@ -13,10 +14,16 @@ public readonly struct HsvColor : IEquatable<HsvColor>
         Value = Math.Clamp(value, 0.0, 1.0);
     }
 
+    /// <summary>Hue in degrees (0–360).</summary>
     public int Hue { get; }
+
+    /// <summary>Saturation (0–1).</summary>
     public double Saturation { get; }
+
+    /// <summary>Value / brightness (0–1).</summary>
     public double Value { get; }
 
+    /// <summary>Converts an RGB <see cref="CssColor"/> to HSV.</summary>
     public static HsvColor FromCssColor(CssColor color)
     {
         double r = color.R / 255.0;
@@ -48,25 +55,31 @@ public readonly struct HsvColor : IEquatable<HsvColor>
         return new HsvColor((int)Math.Round(h), Math.Round(s, 4), Math.Round(v, 4));
     }
 
+    /// <summary>Inequality operator.</summary>
     public static bool operator !=(HsvColor left, HsvColor right)
     {
         return !left.Equals(right);
     }
 
+    /// <summary>Equality operator with a small tolerance on saturation/value.</summary>
     public static bool operator ==(HsvColor left, HsvColor right)
     {
         return left.Equals(right);
     }
 
+    /// <inheritdoc />
     public bool Equals(HsvColor other)
         => Hue == other.Hue &&
            Math.Abs(Saturation - other.Saturation) < 0.0001 &&
            Math.Abs(Value - other.Value) < 0.0001;
 
+    /// <inheritdoc />
     public override bool Equals(object? obj) => obj is HsvColor other && Equals(other);
 
+    /// <inheritdoc />
     public override int GetHashCode() => HashCode.Combine(Hue, Saturation, Value);
 
+    /// <summary>Converts this HSV color back to a <see cref="CssColor"/> with the given alpha.</summary>
     public CssColor ToCssColor(byte alpha = 255)
     {
         double c = Value * Saturation;
@@ -92,9 +105,12 @@ public readonly struct HsvColor : IEquatable<HsvColor>
         );
     }
 
+    /// <summary>Returns a copy with the supplied hue.</summary>
     public HsvColor WithHue(int hue) => new(hue, Saturation, Value);
 
+    /// <summary>Returns a copy with the supplied saturation.</summary>
     public HsvColor WithSaturation(double saturation) => new(Hue, saturation, Value);
 
+    /// <summary>Returns a copy with the supplied value/brightness.</summary>
     public HsvColor WithValue(double value) => new(Hue, Saturation, value);
 }

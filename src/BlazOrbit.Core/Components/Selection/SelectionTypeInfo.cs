@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace BlazOrbit.Abstractions;
 
+/// <summary>Reflective shape descriptor for a selection value type. Detects single vs. multi-select mode and builds the materialize/extract pair used by <see cref="SelectionState{TValue}"/>.</summary>
 public sealed class SelectionTypeInfo
 {
     private readonly Func<IEnumerable<object>, object?> _createValue;
@@ -41,22 +42,31 @@ public sealed class SelectionTypeInfo
         _createValue = BuildCreateValueFunc();
     }
 
+    /// <summary>Element type carried by the selection (the inner T for collections).</summary>
     public Type ElementType { get; }
+
+    /// <summary>True when <see cref="ValueType"/> is a collection / array type.</summary>
     public bool IsMultiple { get; }
+
+    /// <summary>The original CLR type that was inspected.</summary>
     public Type ValueType { get; }
 
+    /// <summary>Returns whether <paramref name="collection"/> contains <paramref name="value"/>.</summary>
     public bool ContainsValue(object? collection, object? value) => collection != null && value != null &&
                                                                     (!IsMultiple
                                                                         ? ValuesEqual(collection, value)
                                                                         : ExtractValues(collection)
                                                                             .Any(v => ValuesEqual(v, value)));
 
+    /// <summary>Builds a value of <typeparamref name="TValue"/> from the supplied items.</summary>
     public TValue CreateValue<TValue>(IEnumerable<object> values)
         => (TValue)_createValue(values)!;
 
+    /// <summary>Unpacks a value into its constituent items (single-element sequence for scalars).</summary>
     public IEnumerable<object> ExtractValues(object? value)
         => _extractValues(value);
 
+    /// <summary>Default value-equality used across selection comparisons.</summary>
     public bool ValuesEqual(object? a, object? b) =>
         (a == null && b == null) || (a != null && b != null && a.Equals(b));
 

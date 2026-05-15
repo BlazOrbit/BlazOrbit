@@ -8,6 +8,7 @@ namespace BlazOrbit.Themes;
 /// </summary>
 public sealed class LightTheme : BOBThemePaletteBase
 {
+    /// <summary>Builds the default light palette values.</summary>
     public LightTheme()
     {
         Id = "light";

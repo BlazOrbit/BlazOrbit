@@ -541,11 +541,13 @@ public sealed class CssColor : IEquatable<CssColor>
         }
     }
 
+    /// <summary>Inequality operator.</summary>
     public static bool operator !=(CssColor? lhs, CssColor? rhs)
     {
         return !(lhs == rhs);
     }
 
+    /// <summary>Equality operator — compares the four RGBA channels.</summary>
     public static bool operator ==(CssColor? lhs, CssColor? rhs)
     {
         bool lhsIsNull = lhs is null;
@@ -553,8 +555,10 @@ public sealed class CssColor : IEquatable<CssColor>
         return (lhsIsNull && rhsIsNull) || (!lhsIsNull && !rhsIsNull && lhs!.Equals(rhs!));
     }
 
+    /// <inheritdoc />
     public override bool Equals(object? obj) => obj is CssColor color && Equals(color);
 
+    /// <inheritdoc />
     public bool Equals(CssColor? other)
     {
         return other is not null && _valuesAsByte is not null && other._valuesAsByte is not null &&
@@ -564,6 +568,7 @@ public sealed class CssColor : IEquatable<CssColor>
                _valuesAsByte[3] == other._valuesAsByte[3];
     }
 
+    /// <inheritdoc />
     public override int GetHashCode()
     {
         return _valuesAsByte is null
@@ -576,8 +581,10 @@ public sealed class CssColor : IEquatable<CssColor>
             );
     }
 
+    /// <inheritdoc />
     public override string ToString() => ToString(ColorOutputFormats.Rgba);
 
+    /// <summary>Renders the color using the requested <see cref="ColorOutputFormats"/>.</summary>
     public string ToString(ColorOutputFormats format)
     {
         return format switch
@@ -610,27 +617,38 @@ public sealed class CssColor : IEquatable<CssColor>
     #endregion operators and object members
 }
 
+/// <summary>Describes a per-step lightening or darkening transformation applied to a <see cref="CssColor"/>.</summary>
 public sealed class CssColorVariant
 {
     private const double VariantModifier = 0.030; // 5% per alteration step
 
+    /// <summary>Creates a variant with the given mode and alteration amount.</summary>
     public CssColorVariant(Modifier modifier, double alteration)
     {
         Mode = modifier;
         Alteration = alteration;
     }
 
+    /// <summary>Lightening / darkening direction.</summary>
     public enum Modifier
     {
+        /// <summary>Reduce lightness.</summary>
         Darken,
+
+        /// <summary>Increase lightness.</summary>
         Lighten
     }
 
+    /// <summary>Lightness adjustment magnitude (0..1).</summary>
     public double Alteration { get; set; }
+
+    /// <summary>Adjustment direction.</summary>
     public Modifier Mode { get; set; }
 
+    /// <summary>Returns a darken variant of <paramref name="alteration"/> steps.</summary>
     public static CssColorVariant Darken(int alteration) => new(Modifier.Darken, VariantModifier * alteration);
 
+    /// <summary>Returns a lighten variant of <paramref name="alteration"/> steps.</summary>
     public static CssColorVariant Lighten(int alteration) => new(Modifier.Lighten, VariantModifier * alteration);
 }
 

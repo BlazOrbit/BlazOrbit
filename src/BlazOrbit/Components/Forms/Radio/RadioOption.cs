@@ -54,6 +54,7 @@ public class RadioOption<TOption> : ComponentBase, IRadioOption, IDisposable
     /// </summary>
     public void Dispose() => Container?.UnregisterOption(this);
 
+    /// <inheritdoc />
     protected override void OnInitialized()
     {
         if (Container == null)

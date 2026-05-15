@@ -8,6 +8,7 @@ namespace BlazOrbit.Themes;
 /// </summary>
 public sealed class DarkTheme : BOBThemePaletteBase
 {
+    /// <summary>Builds the default dark palette values.</summary>
     public DarkTheme()
     {
         Id = "dark";

@@ -9,10 +9,13 @@ namespace BlazOrbit.Components.Forms;
 [EditorBrowsable(EditorBrowsableState.Never)]
 public interface IDropdownJsCallback
 {
+    /// <summary>JS fires this when the user clicks outside the dropdown popup.</summary>
     Task OnClickOutside();
 
+    /// <summary>JS forwards keystrokes that reach the open popup.</summary>
     Task OnKeyDown(string key, bool shiftKey, bool ctrlKey);
 
+    /// <summary>JS asks for the current trigger/viewport geometry so it can place the popup.</summary>
     Task<DropdownPosition> OnRequestPosition();
 }
 

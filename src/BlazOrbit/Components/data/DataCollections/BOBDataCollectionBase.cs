@@ -27,17 +27,40 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
     where TComponent : BOBDataCollectionBase<TItem, TComponent, TVariant>
     where TVariant : Variant
 {
+    /// <summary>Column registration registry populated by child <c>BOBDataColumn</c> components during render.</summary>
     protected readonly DataColumnRegistry<TItem> ColumnRegistry = new();
+
+    /// <summary>Persistent state (filter / sort / page / column order) for this collection instance.</summary>
     protected readonly DataCollectionState<TItem> State = new();
+
+    /// <summary>Registered columns frozen after the first render.</summary>
     protected List<DataColumnRegistration<TItem>> RegisteredColumns = [];
+
+    /// <summary>Subset of <see cref="RegisteredColumns"/> currently visible, in display order.</summary>
     protected List<DataColumnRegistration<TItem>> VisibleColumns = [];
+
+    /// <summary>Items remaining after filter+sort (full result set).</summary>
     protected List<TItem> FilteredItems = [];
+
+    /// <summary>Items rendered after pagination (visible page).</summary>
     protected List<TItem> ProcessedItems = [];
+
+    /// <summary>True once columns have been captured from the <see cref="Columns"/> render fragment.</summary>
     protected bool ColumnsBuilt;
+
+    /// <summary>Suppresses the next row keydown's default browser action (used by Enter/Space row selection).</summary>
     protected bool PreventRowKeyDown;
+
+    /// <summary>Total number of pages for the current filtered set.</summary>
     protected int TotalPages;
+
+    /// <summary>1-based index of the first visible row on the current page.</summary>
     protected int PaginationStart;
+
+    /// <summary>1-based index of the last visible row on the current page.</summary>
     protected int PaginationEnd;
+
+    /// <summary>Message announced via the live-region after filter/sort/page mutations.</summary>
     protected string? LiveRegionMessage;
 
     // Row count returned by the most recent <c>DataSource.LoadAsync</c> call. Drives the
@@ -335,12 +358,15 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
     [Parameter]
     public EventCallback<DataCollectionPageChangeEventArgs> OnPageChange { get; set; }
 
+    /// <summary>True when rows respond to clicks (either selection or <see cref="OnRowClick"/>).</summary>
     protected bool IsInteractiveRow => OnRowClick.HasDelegate || SelectionMode != SelectionMode.None;
 
+    /// <summary>True when the row pattern must be applied per-item (inline) rather than via container CSS.</summary>
     protected bool UsePerItemPatternStyles
         => ItemPattern != null &&
            (!ItemPattern.IsCssExpressible || (EnableVirtualization && !string.IsNullOrEmpty(Height)));
 
+    /// <summary>Contributes data-* attributes on the root <c>&lt;bob-component&gt;</c> (hover, row-pattern).</summary>
     public virtual void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
     {
         if (Hoverable)
@@ -358,6 +384,7 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         }
     }
 
+    /// <summary>Contributes CSS custom properties on the root <c>&lt;bob-component&gt;</c> for the active row pattern.</summary>
     public virtual void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
     {
         if (ItemPattern != null && !UsePerItemPatternStyles)
@@ -369,6 +396,7 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         }
     }
 
+    /// <inheritdoc />
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -385,6 +413,7 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         }
     }
 
+    /// <inheritdoc />
     protected override void OnParametersSet()
     {
         base.OnParametersSet();
@@ -401,6 +430,7 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         ProcessData();
     }
 
+    /// <inheritdoc />
     protected override void OnAfterRender(bool firstRender)
     {
         base.OnAfterRender(firstRender);
@@ -452,6 +482,7 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         BOBAsyncHelper.SafeFireAndForget(() => StatePersistence.SaveAsync(PersistenceKey, payload).AsTask());
     }
 
+    /// <summary>Re-runs filter/sort/pagination and refreshes <see cref="ProcessedItems"/> from the current state.</summary>
     protected void ProcessData()
     {
         if (!ColumnsBuilt)
@@ -727,6 +758,7 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         _loadCts = null;
     }
 
+    /// <summary>Rebuilds the localized live-region announcement (sort/filter/page summary) for screen readers.</summary>
     protected void UpdateLiveRegionMessage()
     {
         // Remote mode: trust the server's total over the page slice — FilteredItems only
@@ -807,6 +839,7 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
             ? DataCollectionPipeline.ApplyPagination(items, State.CurrentPage, State.PageSize)
             : items;
 
+    /// <summary>Recomputes <see cref="TotalPages"/>, <see cref="PaginationStart"/>, and <see cref="PaginationEnd"/> from the current filtered set.</summary>
     protected void CalculatePaginationInfo()
     {
         // Remote mode uses the server-reported total — FilteredItems only holds the page
@@ -833,6 +866,7 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         PaginationEnd = Math.Min(State.CurrentPage * State.PageSize, total);
     }
 
+    /// <summary>Single-column sort handler (no append).</summary>
     protected Task HandleSort(DataColumnRegistration<TItem> column) => HandleSort(column, false);
 
     /// <summary>
@@ -923,6 +957,7 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         return SortDirection.None;
     }
 
+    /// <summary>Handler bound to the sort-column <c>&lt;select&gt;</c> in mobile / compact toolbars.</summary>
     protected async Task HandleSortSelectChange(string? value)
     {
         if (string.IsNullOrEmpty(value))
@@ -951,6 +986,7 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         }
     }
 
+    /// <summary>Flips the active sort direction (asc ⇄ desc) for the current sort column.</summary>
     protected async Task ToggleSortDirectionClicked()
     {
         State.SortDirection = State.SortDirection == SortDirection.Ascending
@@ -967,6 +1003,7 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         }
     }
 
+    /// <summary>Handler bound to the global filter input. Resets pagination and re-runs the pipeline.</summary>
     protected async Task HandleFilterChange(ChangeEventArgs e)
     {
         State.FilterText = e.Value?.ToString() ?? string.Empty;
@@ -979,6 +1016,7 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         }
     }
 
+    /// <summary>String-valued adapter wired to the internal text input primitive's <see cref="EventCallback{T}"/> contract.</summary>
     protected async Task HandleFilterInputChange(string? value) =>
         await HandleFilterChange(new ChangeEventArgs { Value = value });
 
@@ -1333,8 +1371,10 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
             System.Globalization.CultureInfo.InvariantCulture, out result);
     }
 
+    /// <summary>Toolbar click handler that delegates to <see cref="ClearFilter"/>.</summary>
     protected async Task ClearFilterClicked() => ClearFilter();
 
+    /// <summary>Clears the global filter text and resets pagination.</summary>
     protected void ClearFilter()
     {
         State.FilterText = string.Empty;
@@ -1342,6 +1382,7 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         ProcessData();
     }
 
+    /// <summary>String-valued adapter for the page-size <c>&lt;select&gt;</c>.</summary>
     protected async Task HandlePageSizeSelectChange(string? value)
     {
         if (int.TryParse(value, out int size))
@@ -1350,12 +1391,14 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         }
     }
 
+    /// <summary>Selects the given row and raises <see cref="SelectedItemsChanged"/>.</summary>
     protected async Task HandleSelectRow(TItem item)
     {
         State.SelectItem(item, SelectionMode);
         await NotifySelectionChanged();
     }
 
+    /// <summary>Select-all checkbox handler: selects every visible row when checked, clears otherwise.</summary>
     protected async Task HandleSelectAll(ChangeEventArgs e)
     {
         if (e.Value is bool isChecked && isChecked)
@@ -1370,16 +1413,20 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         await NotifySelectionChanged();
     }
 
+    /// <summary>Toolbar click handler that delegates to <see cref="ClearSelection"/>.</summary>
     protected async Task ClearSelectionClicked() => await ClearSelection();
 
+    /// <summary>Clears every selected row and raises <see cref="SelectedItemsChanged"/>.</summary>
     protected async Task ClearSelection()
     {
         State.ClearSelection();
         await NotifySelectionChanged();
     }
 
+    /// <summary>True when every row on the current page is selected.</summary>
     protected bool IsAllSelected() => ProcessedItems.Any() && ProcessedItems.All(State.IsSelected);
 
+    /// <summary>Raises <see cref="SelectedItemsChanged"/> with the latest selection snapshot.</summary>
     protected async Task NotifySelectionChanged()
     {
         if (SelectedItemsChanged.HasDelegate)
@@ -1388,6 +1435,7 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         }
     }
 
+    /// <summary>Row click handler that combines selection (when active) and the user's <see cref="OnRowClick"/>.</summary>
     protected async Task HandleRowClick(TItem item)
     {
         if (SelectionMode != SelectionMode.None)
@@ -1401,6 +1449,7 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         }
     }
 
+    /// <summary>Keyboard activation handler: Enter / Space behave like a row click.</summary>
     protected async Task HandleRowKeyDown(KeyboardEventArgs e, TItem item)
     {
         PreventRowKeyDown = false;
@@ -1412,6 +1461,7 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         }
     }
 
+    /// <summary>Navigates to the given 1-based page and raises <see cref="OnPageChange"/>.</summary>
     protected async Task ChangePage(int page)
     {
         if (page < 1 || page > TotalPages)
@@ -1431,6 +1481,7 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         }
     }
 
+    /// <summary>Page-size change handler. Resets pagination and raises <see cref="OnPageChange"/>.</summary>
     protected async Task HandlePageSizeChange(ChangeEventArgs e)
     {
         if (int.TryParse(e.Value?.ToString(), out int newSize))
@@ -1449,9 +1500,11 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         }
     }
 
+    /// <summary>Per-item inline style for row patterns that cannot be expressed purely in CSS.</summary>
     protected string? GetItemPatternStyle(int index) =>
         !UsePerItemPatternStyles ? null : ItemPattern?.GetItemInlineStyle(index);
 
+    /// <summary>Returns the windowed range of page numbers to render in the pager.</summary>
     protected IEnumerable<int> GetVisiblePages()
     {
         const int maxVisible = 5;
@@ -1466,6 +1519,7 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         return Enumerable.Range(start, end - start + 1);
     }
 
+    /// <summary>Returns the BEM alignment modifier class for the given <see cref="ColumnAlign"/>.</summary>
     protected static string GetAlignClass(ColumnAlign align, string prefix) => align switch
     {
         ColumnAlign.Center => $"{prefix}--center",
@@ -1473,6 +1527,7 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         _ => string.Empty
     };
 
+    /// <summary>Formats a cell value using <paramref name="format"/> when supported, falling back to <c>ToString()</c>.</summary>
     protected static string FormatValue(object? value, string? format)
     {
         return value == null
@@ -1643,6 +1698,7 @@ public abstract class BOBDataCollectionBase<TItem, TComponent, TVariant>
         }
     }
 
+    /// <summary>Returns the <c>aria-sort</c> value for a header cell, or null when the column is not currently sorted.</summary>
     protected string? GetAriaSort(DataColumnRegistration<TItem> col)
     {
         if (!col.Sortable)

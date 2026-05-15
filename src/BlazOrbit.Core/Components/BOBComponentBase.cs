@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Components.Rendering;
 
 namespace BlazOrbit.Abstractions;
 
+/// <summary>Common base for every BlazOrbit component. Wires the shared attribute/style pipeline and JS behavior lifecycle.</summary>
 public abstract class BOBComponentBase : ComponentBase, IAsyncDisposable
 {
     private readonly BOBComponentPipeline _pipeline = new();
@@ -12,13 +13,11 @@ public abstract class BOBComponentBase : ComponentBase, IAsyncDisposable
     [Inject] private IBOBPerformanceService? PerformanceService { get; set; }
 #endif
 
+    /// <summary>Catch-all parameter forwarded onto the <c>&lt;bob-component&gt;</c> root.</summary>
     [Parameter(CaptureUnmatchedValues = true)]
     public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
-    // Exposed as `public`: variant templates are `RenderFragment`s authored *outside* the
-    // component's own .razor, so they need cross-assembly access to spread `@attributes` onto the
-    // `<bob-component>` root. Protected would block the custom-variant pattern that is part of the
-    // framework contract.
+    /// <summary>Attribute bag spread on the <c>&lt;bob-component&gt;</c> root by render templates.</summary>
     public Dictionary<string, object> ComputedAttributes => _pipeline.ComputedAttributes;
 
     /// <summary>
@@ -33,12 +32,14 @@ public abstract class BOBComponentBase : ComponentBase, IAsyncDisposable
 
     [Inject] private IBehaviorJsInterop BehaviorJsInterop { get; set; } = default!;
 
+    /// <inheritdoc />
     protected override void OnInitialized()
     {
         _pipeline.BeginInit();
         base.OnInitialized();
     }
 
+    /// <inheritdoc />
     protected override void OnParametersSet()
     {
         _pipeline.BeginParametersSet();
@@ -60,6 +61,7 @@ public abstract class BOBComponentBase : ComponentBase, IAsyncDisposable
 #endif
     }
 
+    /// <inheritdoc />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -95,6 +97,7 @@ public abstract class BOBComponentBase : ComponentBase, IAsyncDisposable
         await base.OnAfterRenderAsync(firstRender);
     }
 
+    /// <inheritdoc />
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         _pipeline.BeginRenderTree();
@@ -116,6 +119,7 @@ public abstract class BOBComponentBase : ComponentBase, IAsyncDisposable
 #endif
     }
 
+    /// <summary>Tears down the JS-side behavior associated with this component.</summary>
     public virtual ValueTask DisposeAsync()
     {
         IsDisposed = true;

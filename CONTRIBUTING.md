@@ -17,11 +17,52 @@ the right to close threads that derail.
 ### Prerequisites
 
 - **.NET SDK** - The repository pins the SDK version in `global.json`. Run `dotnet --version` and ensure it matches the
-  required version (e.g., `10.0.203`).
+  required version (e.g., `10.0.300`).
 - **PowerShell 7** - The helper scripts under `scripts/` are written in PowerShell.
+- **`wasm-tools` workload** - Required for the WASM projects (`docs/BlazOrbit.Docs.Wasm`, WASM templates,
+  E2E template tests). Needed even when AOT is disabled because the workload provides `icudt` globalization data.
 
-No JavaScript toolchain is required. CSS and JS interop assets ship as committed hand-written source files; there is
-no Node, npm, Vite, esbuild or TypeScript step. `dotnet build` is enough.
+### Install Commands
+
+**.NET SDK** (download installers: <https://dotnet.microsoft.com/download>):
+
+```powershell
+# Windows (winget)
+winget install Microsoft.DotNet.SDK.10
+
+# Windows (Chocolatey)
+choco install dotnet-sdk
+
+# macOS (Homebrew)
+brew install --cask dotnet-sdk
+
+# Linux (official install script - pin to global.json version)
+curl -sSL https://dot.net/v1/dotnet-install.sh | bash /dev/stdin --version 10.0.300
+```
+
+**PowerShell 7** (docs: <https://learn.microsoft.com/powershell/scripting/install/installing-powershell>):
+
+```powershell
+# Windows (winget)
+winget install Microsoft.PowerShell
+
+# Windows (Chocolatey)
+choco install powershell-core
+
+# macOS (Homebrew)
+brew install --cask powershell
+
+# Linux (Debian/Ubuntu via snap)
+sudo snap install powershell --classic
+```
+
+**`wasm-tools` workload** (runs on any OS once the .NET SDK is installed):
+
+```powershell
+dotnet workload install wasm-tools
+```
+
+Verify: `dotnet --version`, `pwsh --version`, and `dotnet workload list` (should list `wasm-tools`).
 
 ### File Encoding
 
@@ -88,7 +129,7 @@ to fill some field.
 
 | Prefix      | When to use                                      | Example                           |
 |-------------|--------------------------------------------------|-----------------------------------|
-| `feature/`  | New component, behavior, or public API           | `feature/datagrid-virtualization` |
+| `feat/`  | New component, behavior, or public API              | `feat/datagrid-virtualization` |
 | `fix/`      | Bug fix or behavior correction                   | `fix/dropdown-double-dispose`     |
 | `chore/`    | Dependency bumps, scripts, infrastructure, docs  | `chore/bump-aspnetcore-10.0.7`    |
 | `docs/`     | Documentation-only changes                       | `docs/api-samples`                |
@@ -110,9 +151,19 @@ The `scripts/dev-tools.ps1` script wraps common operations:
 ./scripts/dev-tools.ps1 ready                   # Prepare PR: squash + rebase + push
 ./scripts/dev-tools.ps1 fix-conflict            # After resolving conflicts
 ./scripts/dev-tools.ps1 push                    # Safe push (force-with-lease)
-./scripts/dev-tools.ps1 pr "Title" "Desc"       # Open PR page on GitHub
+./scripts/dev-tools.ps1 pr						# Open PR page on GitHub
 ./scripts/dev-tools.ps1 cleanup                 # Clean merged branches
 ./scripts/dev-tools.ps1 status                  # Show repository status
+```
+
+Workflow example:
+```powershell
+./scripts/dev-tools.ps1 feat feature-name
+```
+DO WORK, COMMIT OFTEN WITH `./scripts/dev-tools.ps1 commit "message"`, THEN:
+```powershell
+./scripts/dev-tools.ps1 ready
+./scripts/dev-tools.ps1 pr
 ```
 
 ---
@@ -202,7 +253,6 @@ State axes (`Disabled`, `Error`, `ReadOnly`, `Required`, `Active`) expose two me
 
 - JS interop is split into topic-specific interfaces in `Services/JsInterop/` (`IThemeJsInterop`, `IBehaviorJsInterop`,
   etc.).
-- Corresponding TypeScript lives under `Types/<Feature>/` and is bundled by Vite.
 - Every `IJSObjectReference` invocation is wrapped in the canonical 4-tuple catch: `JSDisconnectedException`,
   `OperationCanceledException`, `TaskCanceledException`, `ObjectDisposedException`.
 - `InvokeVoidAsync` is preferred when no return value is needed.

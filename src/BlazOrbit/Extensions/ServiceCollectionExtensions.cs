@@ -8,8 +8,10 @@ using System.ComponentModel;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
+/// <summary>BlazOrbit dependency-injection registration helpers.</summary>
 public static class ServiceCollectionExtensions
 {
+    /// <summary>Registers every BlazOrbit core service (theme, JS interop, modals, toasts, localization, variants).</summary>
     public static IServiceCollection AddBlazOrbit(this IServiceCollection services)
     {
         services.AddMemoryCache();
@@ -74,6 +76,7 @@ public static class ServiceCollectionExtensions
         return services;
     }
 
+    /// <summary>Registers custom component variants. The <paramref name="configure"/> delegate runs against the global <see cref="IVariantRegistry"/>.</summary>
     public static IServiceCollection AddBlazOrbitVariants(
         this IServiceCollection services,
         Action<VariantBuilder> configure)

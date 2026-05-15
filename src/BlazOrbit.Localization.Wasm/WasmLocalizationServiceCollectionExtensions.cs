@@ -5,8 +5,10 @@ using System.Globalization;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
+/// <summary>Registers BlazOrbit localization services for Blazor WebAssembly hosts.</summary>
 public static class WasmLocalizationServiceCollectionExtensions
 {
+    /// <summary>Registers the BlazOrbit localization pipeline and the WASM-side culture persistence service.</summary>
     public static IServiceCollection AddBlazOrbitLocalizationWasm(
         this IServiceCollection services,
         Action<WasmLocalizationSettings>? configure = null)
@@ -30,8 +32,10 @@ public static class WasmLocalizationServiceCollectionExtensions
     }
 }
 
+/// <summary>WebAssembly host extensions that apply the persisted culture before the app starts.</summary>
 public static class WasmLocalizationHostExtensions
 {
+    /// <summary>Resolves the persisted culture (or <paramref name="defaultCulture"/>) and assigns it to the current thread.</summary>
     public static async Task<WebAssemblyHost> UseBlazOrbitLocalizationWasm(
         this WebAssemblyHost host,
         string defaultCulture = "en-US")

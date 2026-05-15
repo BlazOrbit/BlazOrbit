@@ -78,13 +78,6 @@
         <EmbedUntrackedSources>true</EmbedUntrackedSources>
         <ContinuousIntegrationBuild Condition="'$(GITHUB_ACTIONS)' == 'true'">true</ContinuousIntegrationBuild>
 
-        <!--
-          CS1591 is raised for every undocumented public member. 
-          ~12k CS1591s remain on non-Parameter public
-          members (theme palettes, services, helpers). Tracked separately; the
-          suppression stays until those are documented.
-        -->
-        <NoWarn>$(NoWarn);CS1591</NoWarn>
     </PropertyGroup>
 
     <!-- README + icon are attached to every packable project from the repo root. -->

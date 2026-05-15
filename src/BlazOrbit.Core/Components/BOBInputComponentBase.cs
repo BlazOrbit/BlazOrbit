@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace BlazOrbit.Abstractions;
 
-// Base class without variants
+/// <summary>Base class for inputs that participate in <see cref="EditContext"/> validation and the BlazOrbit attribute pipeline. Variant-aware inputs derive from <see cref="BOBInputComponentBase{TValue,TComponent,TVariant}"/>.</summary>
 public abstract class BOBInputComponentBase<TValue> :
     InputBase<TValue>,
     IAsyncDisposable,
@@ -53,13 +53,19 @@ public abstract class BOBInputComponentBase<TValue> :
     // IsDisabled is virtual so derived inputs can decouple Loading from Disabled - for
     // example, a debounced search input that wants to show a spinner while still
     // accepting keystrokes overrides this to drop the IHasLoading branch.
+    /// <summary>Computed disabled state. Combines <see cref="Disabled"/> with optional <see cref="IHasLoading"/>.</summary>
     public virtual bool IsDisabled => Disabled || (this is IHasLoading loading && loading.Loading);
+
+    /// <summary>Computed error state. Combines <see cref="Error"/> with the latest <see cref="EditContext"/> validation result.</summary>
     public bool IsError => Error || _lastValidationError;
+
+    /// <summary>Computed read-only state.</summary>
     public bool IsReadOnly => ReadOnly;
+
+    /// <summary>Computed required state.</summary>
     public bool IsRequired => Required;
 
-    // See BOBComponentBase.ComputedAttributes for why this is `public`: variant templates live
-    // cross-assembly and need to spread this dictionary onto the `<bob-component>` root.
+    /// <summary>Attribute bag spread on the <c>&lt;bob-component&gt;</c> root by render templates.</summary>
     public Dictionary<string, object> ComputedAttributes => _pipeline.ComputedAttributes;
 
     /// <summary>
@@ -81,6 +87,7 @@ public abstract class BOBInputComponentBase<TValue> :
 #pragma warning restore RS0016 // Add public types and members to the declared API
 #endif
 
+    /// <inheritdoc />
     public override Task SetParametersAsync(ParameterView parameters)
     {
         bool hasValueExpression = false;
@@ -149,6 +156,7 @@ public abstract class BOBInputComponentBase<TValue> :
         base.Dispose(disposing);
     }
 
+    /// <inheritdoc />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -172,6 +180,7 @@ public abstract class BOBInputComponentBase<TValue> :
         await base.OnAfterRenderAsync(firstRender);
     }
 
+    /// <inheritdoc />
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         _pipeline.BeginRenderTree();
@@ -182,6 +191,7 @@ public abstract class BOBInputComponentBase<TValue> :
 #endif
     }
 
+    /// <inheritdoc />
     protected override void OnInitialized()
     {
         _pipeline.BeginInit();
@@ -193,6 +203,7 @@ public abstract class BOBInputComponentBase<TValue> :
         }
     }
 
+    /// <inheritdoc />
     protected override void OnParametersSet()
     {
         _pipeline.BeginParametersSet();
@@ -247,7 +258,7 @@ public abstract class BOBInputComponentBase<TValue> :
     }
 }
 
-// Base class with variants
+/// <summary>Variant-aware input component base. Pairs <see cref="BOBInputComponentBase{TValue}"/> with the <see cref="IVariantComponent{TVariant}"/> template-resolution pipeline.</summary>
 public abstract class BOBInputComponentBase<TValue, TComponent, TVariant>
     : BOBInputComponentBase<TValue>, IVariantComponent<TVariant>
     where TComponent : BOBInputComponentBase<TValue, TComponent, TVariant>
@@ -256,10 +267,12 @@ public abstract class BOBInputComponentBase<TValue, TComponent, TVariant>
     private RenderFragment? _resolvedTemplate;
     private VariantHelper<TComponent, TVariant>? _variantHelper;
 
-    // Implementation of IVariantComponent interfaces
     Variant IVariantComponent.CurrentVariant => CurrentVariant;
 
+    /// <summary>Effective variant for this render (parameter or <see cref="DefaultVariant"/>).</summary>
     public TVariant CurrentVariant => Variant ?? DefaultVariant;
+
+    /// <summary>Variant used when no <see cref="Variant"/> is supplied.</summary>
     public abstract TVariant DefaultVariant { get; }
 
     /// <summary>Selected variant. <see langword="null"/> falls back to <see cref="DefaultVariant"/>.</summary>
@@ -267,9 +280,12 @@ public abstract class BOBInputComponentBase<TValue, TComponent, TVariant>
     public TVariant? Variant { get; set; }
 
     Type IVariantComponent.VariantType => typeof(TVariant);
+
+    /// <summary>Compile-time map of variants to their built-in render templates.</summary>
     protected abstract IReadOnlyDictionary<TVariant, Func<TComponent, RenderFragment>> BuiltInTemplates { get; }
     [Inject] private IVariantRegistry? VariantRegistry { get; set; }
 
+    /// <inheritdoc />
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         // Let the base class handle its render logic first
@@ -282,6 +298,7 @@ public abstract class BOBInputComponentBase<TValue, TComponent, TVariant>
         }
     }
 
+    /// <inheritdoc />
     protected override void OnParametersSet()
     {
         // First let the base class handle its parameter setting

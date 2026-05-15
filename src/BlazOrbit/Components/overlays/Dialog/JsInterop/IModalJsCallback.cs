@@ -9,7 +9,9 @@ namespace BlazOrbit.Components;
 [EditorBrowsable(EditorBrowsableState.Never)]
 public interface IModalJsCallback
 {
+    /// <summary>JS fires this when the user presses Escape while the modal is open.</summary>
     Task OnEscapePressed();
 
+    /// <summary>JS fires this when the user clicks the modal overlay (outside the dialog box).</summary>
     Task OnOverlayClick();
 }

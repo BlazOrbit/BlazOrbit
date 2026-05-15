@@ -2,8 +2,10 @@ using System.Text;
 
 namespace BlazOrbit.Core.Utilities;
 
+/// <summary>String helpers used by BlazOrbit internals.</summary>
 public static class StringExtensions
 {
+    /// <summary>Converts a PascalCase / camelCase identifier to <c>kebab-case</c>.</summary>
     public static string ToKebabCase(this string propertyName)
     {
         if (string.IsNullOrEmpty(propertyName))

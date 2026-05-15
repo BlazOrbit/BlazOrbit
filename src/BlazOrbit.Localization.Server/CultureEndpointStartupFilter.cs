@@ -6,8 +6,10 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BlazOrbit.Localization.Server;
 
+/// <summary>Startup filter that wires the request-localization middleware and the culture-switch endpoint used by the server localization package.</summary>
 public class CultureEndpointStartupFilter : IStartupFilter
 {
+    /// <inheritdoc />
     public Action<IApplicationBuilder> Configure(Action<IApplicationBuilder> next)
     {
         return app =>

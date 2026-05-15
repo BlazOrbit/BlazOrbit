@@ -1,7 +1,9 @@
 namespace BlazOrbit.Components;
 
+/// <summary>Reusable search algorithms backing dropdowns, autocompletes and selectors.</summary>
 public static class SearchAlgorithms
 {
+    /// <summary>Searches <paramref name="items"/> for matches against <paramref name="query"/> using the requested <paramref name="mode"/>.</summary>
     public static IEnumerable<SearchResult<T>> Search<T>(
         IEnumerable<T> items,
         string query,
