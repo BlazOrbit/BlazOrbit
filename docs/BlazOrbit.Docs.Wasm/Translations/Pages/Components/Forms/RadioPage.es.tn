@@ -87,6 +87,5 @@ Vertical
 # Warning
 Advertencia
 
-
-#             Options are declared as child <code>RadioOption</code> elements, which makes the component strongly typed at compile time. The selected value is bound directly to the generic <code>TValue</code> parameter, so there is no boxing or string conversion involved.
+# Options are declared as child <code>RadioOption</code> elements, which makes the component strongly typed at compile time. The selected value is bound directly to the generic <code>TValue</code> parameter, so there is no boxing or string conversion involved.
 Las opciones se declaran como elementos hijos <code>RadioOption</code>, lo que hace que el componente tenga tipado fuerte en tiempo de compilación. El valor seleccionado se vincula directamente al parámetro genérico <code>TValue</code>, por lo que no hay boxing ni conversión de cadenas involucrada.

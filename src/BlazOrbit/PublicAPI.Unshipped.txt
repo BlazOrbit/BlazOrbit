@@ -131,21 +131,6 @@ BlazOrbit.Components.BOBButton.Transitions.set -> void
 BlazOrbit.Components.BOBButtonComponentInfo
 BlazOrbit.Components.BOBButtonVariant
 BlazOrbit.Components.BOBButtonVariant.BOBButtonVariant(string! name) -> void
-BlazOrbit.Components.BOBCodeBlock
-BlazOrbit.Components.BOBCodeBlock.BOBCodeBlock() -> void
-BlazOrbit.Components.BOBCodeBlock.BackgroundColor.get -> string?
-BlazOrbit.Components.BOBCodeBlock.BackgroundColor.set -> void
-BlazOrbit.Components.BOBCodeBlock.Border.get -> BlazOrbit.Components.BorderStyle?
-BlazOrbit.Components.BOBCodeBlock.Border.set -> void
-BlazOrbit.Components.BOBCodeBlock.Code.get -> string!
-BlazOrbit.Components.BOBCodeBlock.Code.set -> void
-BlazOrbit.Components.BOBCodeBlock.Language.get -> BlazOrbit.SyntaxHighlight.SyntaxHighlightLanguage
-BlazOrbit.Components.BOBCodeBlock.Language.set -> void
-BlazOrbit.Components.BOBCodeBlock.Size.get -> BlazOrbit.Components.BOBSize
-BlazOrbit.Components.BOBCodeBlock.Size.set -> void
-BlazOrbit.Components.BOBCodeBlock.Title.get -> string?
-BlazOrbit.Components.BOBCodeBlock.Title.set -> void
-BlazOrbit.Components.BOBCodeBlockComponentInfo
 BlazOrbit.Components.BOBDataCards<TItem>
 BlazOrbit.Components.BOBDataCards<TItem>.BOBDataCards() -> void
 BlazOrbit.Components.BOBDataCards<TItem>.CardBackground.get -> string?
@@ -3176,8 +3161,6 @@ override BlazOrbit.Components.BOBBadge.DefaultVariant.get -> BlazOrbit.Component
 override BlazOrbit.Components.BOBButton.BuiltInTemplates.get -> System.Collections.Generic.Dictionary<BlazOrbit.Components.BOBButtonVariant!, System.Func<BlazOrbit.Components.BOBButton!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
 override BlazOrbit.Components.BOBButton.DefaultVariant.get -> BlazOrbit.Components.BOBButtonVariant!
 override BlazOrbit.Components.BOBButton.OnParametersSet() -> void
-override BlazOrbit.Components.BOBCodeBlock.DisposeAsync() -> System.Threading.Tasks.ValueTask
-override BlazOrbit.Components.BOBCodeBlock.OnParametersSet() -> void
 override BlazOrbit.Components.BOBDataCards<TItem>.BuildComponentCssVariables(System.Collections.Generic.Dictionary<string!, string!>! cssVariables) -> void
 override BlazOrbit.Components.BOBDataCards<TItem>.BuiltInTemplates.get -> System.Collections.Generic.IReadOnlyDictionary<BlazOrbit.Components.DataCardsVariant!, System.Func<BlazOrbit.Components.BOBDataCards<TItem>!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
 override BlazOrbit.Components.BOBDataCards<TItem>.DefaultVariant.get -> BlazOrbit.Components.DataCardsVariant!
@@ -3418,7 +3401,6 @@ static readonly BlazOrbit.Components.BOBBadgeComponentInfo.Parameters -> BlazOrb
 static readonly BlazOrbit.Components.BOBBadgeVariant.Default -> BlazOrbit.Components.BOBBadgeVariant!
 static readonly BlazOrbit.Components.BOBButtonComponentInfo.Parameters -> BlazOrbit.ComponentParameterInfo![]!
 static readonly BlazOrbit.Components.BOBButtonVariant.Default -> BlazOrbit.Components.BOBButtonVariant!
-static readonly BlazOrbit.Components.BOBCodeBlockComponentInfo.Parameters -> BlazOrbit.ComponentParameterInfo![]!
 static readonly BlazOrbit.Components.BOBDataCardsComponentInfo.Parameters -> BlazOrbit.ComponentParameterInfo![]!
 static readonly BlazOrbit.Components.BOBDataGridComponentInfo.Parameters -> BlazOrbit.ComponentParameterInfo![]!
 static readonly BlazOrbit.Components.BOBDraggableComponentInfo.Parameters -> BlazOrbit.ComponentParameterInfo![]!
@@ -3499,7 +3481,6 @@ virtual BlazOrbit.Components.BOBBasePattern.NormalizeSeparators(string! text) ->
 virtual BlazOrbit.Components.BOBBasePattern.ToggleValue(string! currentValue, string! placeholder) -> string!
 ~override BlazOrbit.Components.BOBBadge.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
 ~override BlazOrbit.Components.BOBButton.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
-~override BlazOrbit.Components.BOBCodeBlock.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
 ~override BlazOrbit.Components.BOBDataCards<TItem>.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
 ~override BlazOrbit.Components.BOBDataColumn<TItem>.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
 ~override BlazOrbit.Components.BOBDataGrid<TItem>.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void

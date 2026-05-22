@@ -57,6 +57,5 @@ Span 6
 # Use integer Span (out of Columns, default 12) to size each item.
 Usa Span entero (de Columns, predeterminado 12) para dimensionar cada elemento.
 
-
-#             The layout system is built from two types: <code>BOBGrid</code> (the container) and <code>BOBGridItem</code> (the cell). Breakpoints, spans, gaps, directions, and offsets are all declared as parameters rather than CSS classes, so the grid remains strongly typed and refactor-safe.
+# The layout system is built from two types: <code>BOBGrid</code> (the container) and <code>BOBGridItem</code> (the cell). Breakpoints, spans, gaps, directions, and offsets are all declared as parameters rather than CSS classes, so the grid remains strongly typed and refactor-safe.
 El sistema de diseño se construye a partir de dos tipos: <code>BOBGrid</code> (el contenedor) y <code>BOBGridItem</code> (la celda). Los puntos de interrupción, spans, gaps, direcciones y offsets se declaran como parámetros en lugar de clases CSS, por lo que la cuadrícula permanece con tipado fuerte y segura para refactorizar.

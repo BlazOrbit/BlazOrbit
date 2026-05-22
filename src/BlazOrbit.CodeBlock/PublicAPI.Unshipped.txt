@@ -1,0 +1,23 @@
+#nullable enable
+BlazOrbit.CodeBlock.Components.BOBCodeBlock
+BlazOrbit.CodeBlock.Components.BOBCodeBlock.BOBCodeBlock() -> void
+BlazOrbit.CodeBlock.Components.BOBCodeBlock.BackgroundColor.get -> string?
+BlazOrbit.CodeBlock.Components.BOBCodeBlock.BackgroundColor.set -> void
+BlazOrbit.CodeBlock.Components.BOBCodeBlock.Border.get -> BlazOrbit.Components.BorderStyle?
+BlazOrbit.CodeBlock.Components.BOBCodeBlock.Border.set -> void
+BlazOrbit.CodeBlock.Components.BOBCodeBlock.Code.get -> string!
+BlazOrbit.CodeBlock.Components.BOBCodeBlock.Code.set -> void
+BlazOrbit.CodeBlock.Components.BOBCodeBlock.Language.get -> BlazOrbit.SyntaxHighlight.SyntaxHighlightLanguage
+BlazOrbit.CodeBlock.Components.BOBCodeBlock.Language.set -> void
+BlazOrbit.CodeBlock.Components.BOBCodeBlock.Size.get -> BlazOrbit.Components.BOBSize
+BlazOrbit.CodeBlock.Components.BOBCodeBlock.Size.set -> void
+BlazOrbit.CodeBlock.Components.BOBCodeBlock.Title.get -> string?
+BlazOrbit.CodeBlock.Components.BOBCodeBlock.Title.set -> void
+BlazOrbit.CodeBlock.Components._Imports
+BlazOrbit.CodeBlock.Components._Imports.Execute() -> void
+BlazOrbit.CodeBlock.Components._Imports._Imports() -> void
+Microsoft.Extensions.DependencyInjection.CodeBlockServiceCollectionExtensions
+override BlazOrbit.CodeBlock.Components.BOBCodeBlock.DisposeAsync() -> System.Threading.Tasks.ValueTask
+override BlazOrbit.CodeBlock.Components.BOBCodeBlock.OnParametersSet() -> void
+static Microsoft.Extensions.DependencyInjection.CodeBlockServiceCollectionExtensions.AddBlazOrbitCodeBlock(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services) -> Microsoft.Extensions.DependencyInjection.IServiceCollection!
+~override BlazOrbit.CodeBlock.Components.BOBCodeBlock.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void

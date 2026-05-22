@@ -8,7 +8,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\BlazOrbit\BlazOrbit.csproj"/>
+        <ProjectReference Include="..\..\src\BlazOrbit.CodeBlock\BlazOrbit.CodeBlock.csproj" />
+        <ProjectReference Include="..\..\src\BlazOrbit\BlazOrbit.csproj" />
     </ItemGroup>
 
 </Project>
