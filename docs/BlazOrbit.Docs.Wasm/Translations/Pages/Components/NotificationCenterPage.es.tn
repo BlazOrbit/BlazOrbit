@@ -64,5 +64,5 @@ Este servicio requiere el paquete NuGet BlazOrbit.Notifications. Instálalo con 
 No leídas:
 
 
-#             The service is paired with the <code>BOBNotificationBell</code> badge component, which displays the unread count and opens the inbox panel. Both components read from the same <code>INotificationCenter</code> store, so the UI stays synchronized regardless of how notifications are added or dismissed.
+# The service is paired with the <code>BOBNotificationBell</code> badge component, which displays the unread count and opens the inbox panel. Both components read from the same <code>INotificationCenter</code> store, so the UI stays synchronized regardless of how notifications are added or dismissed.
 El servicio se empareja con el componente de insignia <code>BOBNotificationBell</code>, que muestra el recuento de no leídos y abre el panel de bandeja de entrada. Ambos componentes leen del mismo almacén <code>INotificationCenter</code>, por lo que la interfaz permanece sincronizada independientemente de cómo se agreguen o descarten las notificaciones.

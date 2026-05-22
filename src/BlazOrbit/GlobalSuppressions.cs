@@ -34,14 +34,6 @@ using System.Diagnostics.CodeAnalysis;
     Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
     Scope = "member",
     Target =
-        "~M:BlazOrbit.Components.BOBCodeBlock.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
-
-[assembly: SuppressMessage(
-    "Microsoft.CodeAnalysis.PublicApiAnalyzers",
-    "RS0041:PublicApiFilesInvalid",
-    Justification = "BuildRenderTree uses RenderTreeBuilder from pre-nullable Microsoft.AspNetCore.Components",
-    Scope = "member",
-    Target =
         "~M:BlazOrbit.Components.BOBDataCards`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)")]
 
 [assembly: SuppressMessage(

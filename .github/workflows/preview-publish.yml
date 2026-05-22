@@ -255,6 +255,13 @@ jobs:
               "README.md" \
               "icon.png"
 
+            PKG=./artifacts/BlazOrbit.CodeBlock.${VERSION}.nupkg
+            assert_in_pkg "$PKG" \
+              "lib/$tfm/BlazOrbit.CodeBlock.dll" \
+              "lib/$tfm/BlazOrbit.CodeBlock.xml" \
+              "README.md" \
+              "icon.png"
+
             PKG=./artifacts/BlazOrbit.Core.${VERSION}.nupkg
             assert_in_pkg "$PKG" \
               "lib/$tfm/BlazOrbit.Core.dll" \
@@ -311,6 +318,7 @@ jobs:
           KNOWN_IDS=(
             BlazOrbit
             BlazOrbit.Charts
+            BlazOrbit.CodeBlock
             BlazOrbit.Core
             BlazOrbit.SyntaxHighlight
             BlazOrbit.FormsFluentValidation

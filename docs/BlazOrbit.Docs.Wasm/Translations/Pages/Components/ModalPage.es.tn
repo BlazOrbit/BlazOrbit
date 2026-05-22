@@ -144,6 +144,5 @@ Usa MinWidth, MaxWidth, MinHeight, MaxHeight o FullScreen.
 # With header + footer
 Con encabezado + pie
 
-
-#             Modals can be used either declaratively in Razor markup or imperatively via the <code>IModalService</code> injected into your code. The service supports stacking, typed return values, and automatic focus trapping for accessibility.
+# Modals can be used either declaratively in Razor markup or imperatively via the <code>IModalService</code> injected into your code. The service supports stacking, typed return values, and automatic focus trapping for accessibility.
 Los modales pueden usarse de forma declarativa en el marcado Razor o de forma imperativa a través del <code>IModalService</code> inyectado en tu código. El servicio admite apilamiento, valores de retorno tipados y captura automática de foco para accesibilidad.
