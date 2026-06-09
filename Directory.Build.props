@@ -39,7 +39,7 @@
     <PropertyGroup>
 
         <!-- Default version baseline. CI overrides with `-p:Version=X.Y.Z[-preview.N|-rc.N]`. -->
-        <VersionPrefix>1.0.0</VersionPrefix>
+        <VersionPrefix>2.0.0</VersionPrefix>
 
         <!-- Ownership / legal -->
         <Authors>Samuel Maícas (@cdcsharp) and Contributors</Authors>
