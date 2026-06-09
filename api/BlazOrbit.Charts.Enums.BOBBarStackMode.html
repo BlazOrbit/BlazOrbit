@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Enum BOBBarStackMode | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Enum BOBBarStackMode | BlazOrbit API ">
+      
+      <meta name="description" content="Layout strategy for multi-series bar charts.">
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Charts.Enums.BOBBarStackMode">
+
+
+
+
+  <h1 id="BlazOrbit_Charts_Enums_BOBBarStackMode" data-uid="BlazOrbit.Charts.Enums.BOBBarStackMode" class="text-break">
+Enum BOBBarStackMode  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Enums/BOBBarStackMode.cs"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Charts.html">Charts</a>.<a class="xref" href="BlazOrbit.Charts.Enums.html">Enums</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.Charts.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Layout strategy for multi-series bar charts.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public enum BOBBarStackMode</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+  <h2 id="fields">Fields
+</h2>
+  <dl class="parameters">
+    <dt id="BlazOrbit_Charts_Enums_BOBBarStackMode_Bidirectional"><code>Bidirectional = 3</code></dt>
+  
+  <dd><p>Bidirectional stacked - positive series values stack upward from the
+zero baseline, negative values stack downward, each side keeps its
+own running cumulative. Y domain auto-fits both extremes so the
+largest positive total and the largest (most negative) negative
+total both fit. Useful for budget variance, P&amp;L by segment,
+inflow vs outflow visualisations.</p>
+</dd>
+    <dt id="BlazOrbit_Charts_Enums_BOBBarStackMode_None"><code>None = 0</code></dt>
+  
+  <dd><p>Default - each series renders its own bar within the category band,
+side-by-side. Bar width = <code>BarGroupRatio × bandWidth / seriesCount</code>.
+Series independent; no Y accumulation across series.</p>
+</dd>
+    <dt id="BlazOrbit_Charts_Enums_BOBBarStackMode_PercentStacked"><code>PercentStacked = 2</code></dt>
+  
+  <dd><p>100% stacked - same as <a class="xref" href="BlazOrbit.Charts.Enums.BOBBarStackMode.html#BlazOrbit_Charts_Enums_BOBBarStackMode_Stacked">Stacked</a> but every category is
+normalised to <code>100%</code>. The Y axis is fixed at <code>[0, 100]</code>.
+Useful for &quot;share-of&quot; comparisons where absolute totals differ
+across categories but the proportional split is the message.</p>
+</dd>
+    <dt id="BlazOrbit_Charts_Enums_BOBBarStackMode_Stacked"><code>Stacked = 1</code></dt>
+  
+  <dd><p>Stacked - series render on top of each other within a single bar per
+category. Each series segment starts at the cumulative Y of the
+previous series and extends by its own value. Y axis auto-scales to
+the largest cumulative total. Useful for &quot;total broken down by
+dimension&quot; stories (revenue by region, traffic by channel).</p>
+</dd>
+    <dt id="BlazOrbit_Charts_Enums_BOBBarStackMode_Waterfall"><code>Waterfall = 4</code></dt>
+  
+  <dd><p>Waterfall - single-series mode where each bar represents a delta
+from the running cumulative of all previous bars. Positive deltas
+step the running total up; negative deltas step it down. Useful for
+&quot;starting balance → adjustments → ending balance&quot; stories
+(P&amp;L bridges, budget actuals vs plan, fund flow). Multi-series
+input is rejected - only the first series is rendered.</p>
+</dd>
+  </dl>
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Enums/BOBBarStackMode.cs" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

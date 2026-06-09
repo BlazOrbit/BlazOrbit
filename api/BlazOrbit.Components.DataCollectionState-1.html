@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class DataCollectionState&lt;TItem&gt; | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class DataCollectionState&lt;TItem&gt; | BlazOrbit API ">
+      
+      <meta name="description" content="Maintains the state for data collection components including pagination, filtering, sorting, and selection.">
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Components.DataCollectionState`1">
+
+
+
+  <h1 id="BlazOrbit_Components_DataCollectionState_1" data-uid="BlazOrbit.Components.DataCollectionState`1" class="text-break">
+Class DataCollectionState&lt;TItem&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Components.html">Components</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Maintains the state for data collection components including pagination, filtering, sorting, and selection.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class DataCollectionState&lt;TItem&gt;</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TItem</code></dt>
+    <dd><p>The type of the items in the collection.</p>
+</dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">DataCollectionState&lt;TItem&gt;</span></div>
+    </dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1__ctor_" data-uid="BlazOrbit.Components.DataCollectionState`1.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1__ctor" data-uid="BlazOrbit.Components.DataCollectionState`1.#ctor">
+  DataCollectionState()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DataCollectionState()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_ColumnFilters_" data-uid="BlazOrbit.Components.DataCollectionState`1.ColumnFilters*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_ColumnFilters" data-uid="BlazOrbit.Components.DataCollectionState`1.ColumnFilters">
+  ColumnFilters
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Active per-column filter entries keyed by column header. Combined with
+<a class="xref" href="BlazOrbit.Components.DataCollectionState-1.html#BlazOrbit_Components_DataCollectionState_1_FilterText">FilterText</a> using AND semantics — a row must match the global filter
+AND every column-scoped filter to remain visible. Mutate via
+<a class="xref" href="BlazOrbit.Components.DataCollectionState-1.html#BlazOrbit_Components_DataCollectionState_1_SetColumnFilter_System_String_System_String_">SetColumnFilter(string, string)</a> /
+<a class="xref" href="BlazOrbit.Components.DataCollectionState-1.html#BlazOrbit_Components_DataCollectionState_1_SetColumnFilter_System_String_BlazOrbit_Components_ColumnFilterEntry_">SetColumnFilter(string, ColumnFilterEntry)</a> /
+<a class="xref" href="BlazOrbit.Components.DataCollectionState-1.html#BlazOrbit_Components_DataCollectionState_1_ClearColumnFilter_System_String_">ClearColumnFilter(string)</a> / <a class="xref" href="BlazOrbit.Components.DataCollectionState-1.html#BlazOrbit_Components_DataCollectionState_1_ClearAllColumnFilters">ClearAllColumnFilters()</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyDictionary&lt;string, ColumnFilterEntry&gt; ColumnFilters { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IReadOnlyDictionary</span>&lt;<span class="xref">string</span>, <a class="xref" href="BlazOrbit.Components.ColumnFilterEntry.html">ColumnFilterEntry</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_ColumnOrder_" data-uid="BlazOrbit.Components.DataCollectionState`1.ColumnOrder*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_ColumnOrder" data-uid="BlazOrbit.Components.DataCollectionState`1.ColumnOrder">
+  ColumnOrder
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Active column ordering by header name. Empty means &quot;use the registration order&quot;.
+Mutate via <a class="xref" href="BlazOrbit.Components.DataCollectionState-1.html#BlazOrbit_Components_DataCollectionState_1_MoveColumn_System_String_System_Int32_System_Collections_Generic_IEnumerable_System_String__">MoveColumn(string, int, IEnumerable&lt;string&gt;)</a> / <a class="xref" href="BlazOrbit.Components.DataCollectionState-1.html#BlazOrbit_Components_DataCollectionState_1_SetColumnOrder_System_Collections_Generic_IEnumerable_System_String__">SetColumnOrder(IEnumerable&lt;string&gt;)</a> /
+<a class="xref" href="BlazOrbit.Components.DataCollectionState-1.html#BlazOrbit_Components_DataCollectionState_1_ClearColumnOrder">ClearColumnOrder()</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyList&lt;string&gt; ColumnOrder { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IReadOnlyList</span>&lt;<span class="xref">string</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_ColumnWidths_" data-uid="BlazOrbit.Components.DataCollectionState`1.ColumnWidths*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_ColumnWidths" data-uid="BlazOrbit.Components.DataCollectionState`1.ColumnWidths">
+  ColumnWidths
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Live column widths in pixels, keyed by header name. Empty by default — populated
+when the user drags the resize handle in <code>BOBDataGrid</code>. Mutate via
+<a class="xref" href="BlazOrbit.Components.DataCollectionState-1.html#BlazOrbit_Components_DataCollectionState_1_SetColumnWidth_System_String_System_Double_">SetColumnWidth(string, double)</a> / <a class="xref" href="BlazOrbit.Components.DataCollectionState-1.html#BlazOrbit_Components_DataCollectionState_1_ClearColumnWidth_System_String_">ClearColumnWidth(string)</a> /
+<a class="xref" href="BlazOrbit.Components.DataCollectionState-1.html#BlazOrbit_Components_DataCollectionState_1_ClearAllColumnWidths">ClearAllColumnWidths()</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyDictionary&lt;string, double&gt; ColumnWidths { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IReadOnlyDictionary</span>&lt;<span class="xref">string</span>, <span class="xref">double</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_CurrentPage_" data-uid="BlazOrbit.Components.DataCollectionState`1.CurrentPage*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_CurrentPage" data-uid="BlazOrbit.Components.DataCollectionState`1.CurrentPage">
+  CurrentPage
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The current page number.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int CurrentPage { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_FilterText_" data-uid="BlazOrbit.Components.DataCollectionState`1.FilterText*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_FilterText" data-uid="BlazOrbit.Components.DataCollectionState`1.FilterText">
+  FilterText
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The current filter text.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string FilterText { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_PageSize_" data-uid="BlazOrbit.Components.DataCollectionState`1.PageSize*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_PageSize" data-uid="BlazOrbit.Components.DataCollectionState`1.PageSize">
+  PageSize
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The number of items displayed per page.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int PageSize { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_SelectedItems_" data-uid="BlazOrbit.Components.DataCollectionState`1.SelectedItems*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_SelectedItems" data-uid="BlazOrbit.Components.DataCollectionState`1.SelectedItems">
+  SelectedItems
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The set of currently selected items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlySet&lt;TItem&gt; SelectedItems { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IReadOnlySet</span>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_SortColumn_" data-uid="BlazOrbit.Components.DataCollectionState`1.SortColumn*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_SortColumn" data-uid="BlazOrbit.Components.DataCollectionState`1.SortColumn">
+  SortColumn
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The name of the primary sort column (first descriptor in
+<a class="xref" href="BlazOrbit.Components.DataCollectionState-1.html#BlazOrbit_Components_DataCollectionState_1_SortDescriptors">SortDescriptors</a>). Kept as a writeable shortcut for
+backward compatibility with existing single-sort code.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? SortColumn { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_SortDescriptors_" data-uid="BlazOrbit.Components.DataCollectionState`1.SortDescriptors*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_SortDescriptors" data-uid="BlazOrbit.Components.DataCollectionState`1.SortDescriptors">
+  SortDescriptors
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Active sort descriptors in priority order (primary first). When
+empty, no sort is applied. Use <a class="xref" href="BlazOrbit.Components.DataCollectionState-1.html#BlazOrbit_Components_DataCollectionState_1_ToggleSort_System_String_System_Boolean_">ToggleSort(string, bool)</a>
+from the component layer to manipulate this list — direct mutation
+is allowed for advanced scenarios but the renderer expects the
+indices to stay 1-based contiguous.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyList&lt;SortDescriptor&gt; SortDescriptors { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IReadOnlyList</span>&lt;<a class="xref" href="BlazOrbit.Components.SortDescriptor.html">SortDescriptor</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_SortDirection_" data-uid="BlazOrbit.Components.DataCollectionState`1.SortDirection*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_SortDirection" data-uid="BlazOrbit.Components.DataCollectionState`1.SortDirection">
+  SortDirection
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>The current direction of the primary sort. Maps to the first
+descriptor in <a class="xref" href="BlazOrbit.Components.DataCollectionState-1.html#BlazOrbit_Components_DataCollectionState_1_SortDescriptors">SortDescriptors</a>; setting it updates
+that descriptor in place.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SortDirection SortDirection { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.SortDirection.html">SortDirection</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_ClearAllColumnFilters_" data-uid="BlazOrbit.Components.DataCollectionState`1.ClearAllColumnFilters*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_ClearAllColumnFilters" data-uid="BlazOrbit.Components.DataCollectionState`1.ClearAllColumnFilters">
+  ClearAllColumnFilters()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Drops every per-column filter while preserving <a class="xref" href="BlazOrbit.Components.DataCollectionState-1.html#BlazOrbit_Components_DataCollectionState_1_FilterText">FilterText</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClearAllColumnFilters()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_ClearAllColumnWidths_" data-uid="BlazOrbit.Components.DataCollectionState`1.ClearAllColumnWidths*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_ClearAllColumnWidths" data-uid="BlazOrbit.Components.DataCollectionState`1.ClearAllColumnWidths">
+  ClearAllColumnWidths()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Drops every runtime width override.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClearAllColumnWidths()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_ClearColumnFilter_" data-uid="BlazOrbit.Components.DataCollectionState`1.ClearColumnFilter*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_ClearColumnFilter_System_String_" data-uid="BlazOrbit.Components.DataCollectionState`1.ClearColumnFilter(System.String)">
+  ClearColumnFilter(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes the per-column filter for the given column header.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClearColumnFilter(string columnName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>columnName</code> <span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_ClearColumnOrder_" data-uid="BlazOrbit.Components.DataCollectionState`1.ClearColumnOrder*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_ClearColumnOrder" data-uid="BlazOrbit.Components.DataCollectionState`1.ClearColumnOrder">
+  ClearColumnOrder()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Drops the custom column order and reverts to the registry's natural order.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClearColumnOrder()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_ClearColumnWidth_" data-uid="BlazOrbit.Components.DataCollectionState`1.ClearColumnWidth*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_ClearColumnWidth_System_String_" data-uid="BlazOrbit.Components.DataCollectionState`1.ClearColumnWidth(System.String)">
+  ClearColumnWidth(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Drops the runtime width override for a single column.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClearColumnWidth(string columnName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>columnName</code> <span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_ClearSelection_" data-uid="BlazOrbit.Components.DataCollectionState`1.ClearSelection*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_ClearSelection" data-uid="BlazOrbit.Components.DataCollectionState`1.ClearSelection">
+  ClearSelection()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Clears all selected items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClearSelection()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_ClearSort_" data-uid="BlazOrbit.Components.DataCollectionState`1.ClearSort*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_ClearSort" data-uid="BlazOrbit.Components.DataCollectionState`1.ClearSort">
+  ClearSort()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Drops every active sort descriptor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ClearSort()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_IsSelected_" data-uid="BlazOrbit.Components.DataCollectionState`1.IsSelected*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_IsSelected__0_" data-uid="BlazOrbit.Components.DataCollectionState`1.IsSelected(`0)">
+  IsSelected(TItem)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Determines whether the specified item is selected.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsSelected(TItem item)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>item</code> <span class="xref">TItem</span></dt>
+    <dd><p>The item to check.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> if the item is selected; otherwise, <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_LoadFromJson_" data-uid="BlazOrbit.Components.DataCollectionState`1.LoadFromJson*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_LoadFromJson_System_String_" data-uid="BlazOrbit.Components.DataCollectionState`1.LoadFromJson(System.String)">
+  LoadFromJson(string?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Restores state from a JSON payload produced by <a class="xref" href="BlazOrbit.Components.DataCollectionState-1.html#BlazOrbit_Components_DataCollectionState_1_ToJson">ToJson()</a>. Malformed
+input is silently dropped so a corrupted localStorage entry does not block the
+grid from rendering.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void LoadFromJson(string? json)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>json</code> <span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_MoveColumn_" data-uid="BlazOrbit.Components.DataCollectionState`1.MoveColumn*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_MoveColumn_System_String_System_Int32_System_Collections_Generic_IEnumerable_System_String__" data-uid="BlazOrbit.Components.DataCollectionState`1.MoveColumn(System.String,System.Int32,System.Collections.Generic.IEnumerable{System.String})">
+  MoveColumn(string, int, IEnumerable&lt;string&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Shifts a column by <code class="paramref">delta</code> positions in the visible order. The
+state lazily seeds itself from <code class="paramref">referenceOrder</code> on the first move
+so consumers don't have to call <a class="xref" href="BlazOrbit.Components.DataCollectionState-1.html#BlazOrbit_Components_DataCollectionState_1_SetColumnOrder_System_Collections_Generic_IEnumerable_System_String__">SetColumnOrder(IEnumerable&lt;string&gt;)</a> first.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void MoveColumn(string columnName, int delta, IEnumerable&lt;string&gt; referenceOrder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>columnName</code> <span class="xref">string</span></dt>
+    <dd><p>Header of the column being moved (case-insensitive).</p>
+</dd>
+    <dt><code>delta</code> <span class="xref">int</span></dt>
+    <dd><p>Positive moves toward the end, negative toward the start. Out-of-bounds is silently clamped.</p>
+</dd>
+    <dt><code>referenceOrder</code> <span class="xref">IEnumerable</span>&lt;<span class="xref">string</span>&gt;</dt>
+    <dd><p>Source-of-truth ordering used when <a class="xref" href="BlazOrbit.Components.DataCollectionState-1.html#BlazOrbit_Components_DataCollectionState_1_ColumnOrder">ColumnOrder</a> is empty.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_ResetPagination_" data-uid="BlazOrbit.Components.DataCollectionState`1.ResetPagination*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_ResetPagination" data-uid="BlazOrbit.Components.DataCollectionState`1.ResetPagination">
+  ResetPagination()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Resets the current page to the first page.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ResetPagination()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_SelectAll_" data-uid="BlazOrbit.Components.DataCollectionState`1.SelectAll*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_SelectAll_System_Collections_Generic_IEnumerable__0__" data-uid="BlazOrbit.Components.DataCollectionState`1.SelectAll(System.Collections.Generic.IEnumerable{`0})">
+  SelectAll(IEnumerable&lt;TItem&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Selects all items in the specified collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SelectAll(IEnumerable&lt;TItem&gt; items)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>items</code> <span class="xref">IEnumerable</span>&lt;TItem&gt;</dt>
+    <dd><p>The items to select.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_SelectItem_" data-uid="BlazOrbit.Components.DataCollectionState`1.SelectItem*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_SelectItem__0_BlazOrbit_Components_SelectionMode_" data-uid="BlazOrbit.Components.DataCollectionState`1.SelectItem(`0,BlazOrbit.Components.SelectionMode)">
+  SelectItem(TItem, SelectionMode)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Toggles the selection state of the specified item.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SelectItem(TItem item, SelectionMode mode)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>item</code> <span class="xref">TItem</span></dt>
+    <dd><p>The item to toggle.</p>
+</dd>
+    <dt><code>mode</code> <a class="xref" href="BlazOrbit.Components.SelectionMode.html">SelectionMode</a></dt>
+    <dd><p>The selection mode.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_SetColumnFilter_" data-uid="BlazOrbit.Components.DataCollectionState`1.SetColumnFilter*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_SetColumnFilter_System_String_BlazOrbit_Components_ColumnFilterEntry_" data-uid="BlazOrbit.Components.DataCollectionState`1.SetColumnFilter(System.String,BlazOrbit.Components.ColumnFilterEntry)">
+  SetColumnFilter(string, ColumnFilterEntry)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets the full filter entry (text + operator + mode) for a column.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetColumnFilter(string columnName, ColumnFilterEntry entry)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>columnName</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>entry</code> <a class="xref" href="BlazOrbit.Components.ColumnFilterEntry.html">ColumnFilterEntry</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_SetColumnFilter_" data-uid="BlazOrbit.Components.DataCollectionState`1.SetColumnFilter*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_SetColumnFilter_System_String_System_String_" data-uid="BlazOrbit.Components.DataCollectionState`1.SetColumnFilter(System.String,System.String)">
+  SetColumnFilter(string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets the filter text for a specific column with default <a class="xref" href="BlazOrbit.Components.ColumnFilterOperator.html#BlazOrbit_Components_ColumnFilterOperator_Contains">Contains</a></p>
+<ul>
+<li><a class="xref" href="BlazOrbit.Components.ColumnFilterMode.html#BlazOrbit_Components_ColumnFilterMode_Text">Text</a> semantics. Whitespace / empty clears the
+entry. Column lookup is case-insensitive against the column header.</li>
+</ul>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetColumnFilter(string columnName, string filter)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>columnName</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>filter</code> <span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_SetColumnFilterOperator_" data-uid="BlazOrbit.Components.DataCollectionState`1.SetColumnFilterOperator*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_SetColumnFilterOperator_System_String_BlazOrbit_Components_ColumnFilterOperator_" data-uid="BlazOrbit.Components.DataCollectionState`1.SetColumnFilterOperator(System.String,BlazOrbit.Components.ColumnFilterOperator)">
+  SetColumnFilterOperator(string, ColumnFilterOperator)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Updates only the operator for an existing column-filter entry. No-op when the
+column has no active filter — typing the text comes first.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetColumnFilterOperator(string columnName, ColumnFilterOperator op)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>columnName</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>op</code> <a class="xref" href="BlazOrbit.Components.ColumnFilterOperator.html">ColumnFilterOperator</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_SetColumnOrder_" data-uid="BlazOrbit.Components.DataCollectionState`1.SetColumnOrder*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_SetColumnOrder_System_Collections_Generic_IEnumerable_System_String__" data-uid="BlazOrbit.Components.DataCollectionState`1.SetColumnOrder(System.Collections.Generic.IEnumerable{System.String})">
+  SetColumnOrder(IEnumerable&lt;string&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Replaces the column order with the supplied sequence. Pass an empty enumerable to
+revert to the registration order.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetColumnOrder(IEnumerable&lt;string&gt; headers)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>headers</code> <span class="xref">IEnumerable</span>&lt;<span class="xref">string</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_SetColumnWidth_" data-uid="BlazOrbit.Components.DataCollectionState`1.SetColumnWidth*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_SetColumnWidth_System_String_System_Double_" data-uid="BlazOrbit.Components.DataCollectionState`1.SetColumnWidth(System.String,System.Double)">
+  SetColumnWidth(string, double)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sets a runtime width (in pixels) for the named column.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetColumnWidth(string columnName, double widthPx)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>columnName</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>widthPx</code> <span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_ToJson_" data-uid="BlazOrbit.Components.DataCollectionState`1.ToJson*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_ToJson" data-uid="BlazOrbit.Components.DataCollectionState`1.ToJson">
+  ToJson()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Serialises the persistable slice of state (filter / sort / page / column order
+/ column filters) to a JSON payload suitable for round-tripping through
+<a class="xref" href="BlazOrbit.Components.IDataCollectionStatePersistence.html">IDataCollectionStatePersistence</a>. Selection is intentionally excluded
+— selected items reference live data that may not be present after a reload.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ToJson()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_ToggleSort_" data-uid="BlazOrbit.Components.DataCollectionState`1.ToggleSort*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_ToggleSort_System_String_" data-uid="BlazOrbit.Components.DataCollectionState`1.ToggleSort(System.String)">
+  ToggleSort(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Toggle the sort state for a column. Single-sort semantics: cycles
+the column through Asc → Desc → None and replaces any existing
+sort. Use <a class="xref" href="BlazOrbit.Components.DataCollectionState-1.html#BlazOrbit_Components_DataCollectionState_1_ToggleSort_System_String_System_Boolean_">ToggleSort(string, bool)</a> with
+<code>append=true</code> to add a tie-breaker without dropping prior
+sort levels (multi-column sort).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ToggleSort(string columnName)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>columnName</code> <span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataCollectionState_1_ToggleSort_" data-uid="BlazOrbit.Components.DataCollectionState`1.ToggleSort*"></a>
+
+  <h3 id="BlazOrbit_Components_DataCollectionState_1_ToggleSort_System_String_System_Boolean_" data-uid="BlazOrbit.Components.DataCollectionState`1.ToggleSort(System.String,System.Boolean)">
+  ToggleSort(string, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Toggle the sort state for a column. When <code class="paramref">append</code>
+is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the column joins (or cycles within)
+the existing descriptor list as the next priority instead of
+replacing it — wires Shift+Click for multi-column sort.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ToggleSort(string columnName, bool append)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>columnName</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>append</code> <span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataCollectionState.cs" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

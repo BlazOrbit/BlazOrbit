@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Interface IChartJsInterop | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Interface IChartJsInterop | BlazOrbit API ">
+      
+      <meta name="description" content="Minimal JS interop surface required by BOBCharts. Concrete implementations live in the same package and lazy-load _content/BlazOrbit.Charts/js/Types/Chart/ChartInterop.js.  The chart components themselves never call  directly; everything goes through this interface so JS-less hosts (static SSR, prerender) can plug in a no-op implementation.">
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Charts.Services.JsInterop.IChartJsInterop">
+
+
+
+  <h1 id="BlazOrbit_Charts_Services_JsInterop_IChartJsInterop" data-uid="BlazOrbit.Charts.Services.JsInterop.IChartJsInterop" class="text-break">
+Interface IChartJsInterop  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Services/JsInterop/IChartJsInterop.cs"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Charts.html">Charts</a>.<a class="xref" href="BlazOrbit.Charts.Services.html">Services</a>.<a class="xref" href="BlazOrbit.Charts.Services.JsInterop.html">JsInterop</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.Charts.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Minimal JS interop surface required by BOBCharts. Concrete implementations
+live in the same package and lazy-load
+<code>_content/BlazOrbit.Charts/js/Types/Chart/ChartInterop.js</code>.</p>
+<p>
+The chart components themselves never call <span class="xref">Microsoft.JSInterop.IJSRuntime</span>
+directly; everything goes through this interface so JS-less hosts (static
+SSR, prerender) can plug in a no-op implementation.
+</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IChartJsInterop</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="BlazOrbit_Charts_Services_JsInterop_IChartJsInterop_ExportSvgAsPngAsync_" data-uid="BlazOrbit.Charts.Services.JsInterop.IChartJsInterop.ExportSvgAsPngAsync*"></a>
+
+  <h3 id="BlazOrbit_Charts_Services_JsInterop_IChartJsInterop_ExportSvgAsPngAsync_Microsoft_AspNetCore_Components_ElementReference_System_String_System_Nullable_System_Int32__System_Nullable_System_Int32__" data-uid="BlazOrbit.Charts.Services.JsInterop.IChartJsInterop.ExportSvgAsPngAsync(Microsoft.AspNetCore.Components.ElementReference,System.String,System.Nullable{System.Int32},System.Nullable{System.Int32})">
+  ExportSvgAsPngAsync(ElementReference, string, int?, int?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Services/JsInterop/IChartJsInterop.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Serializes the supplied <code>&lt;svg&gt;</code> element to a PNG image and
+triggers a browser download. Runs entirely client-side; the server
+never sees the image bytes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ValueTask ExportSvgAsPngAsync(ElementReference svg, string fileName, int? width = null, int? height = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>svg</code> <span class="xref">ElementReference</span></dt>
+    <dd><p>Element reference of the chart's <code>&lt;svg&gt;</code> root.</p>
+</dd>
+    <dt><code>fileName</code> <span class="xref">string</span></dt>
+    <dd><p>Suggested file name (without extension).</p>
+</dd>
+    <dt><code>width</code> <span class="xref">int</span>?</dt>
+    <dd><p>Optional explicit pixel width for the rasterized image.</p>
+</dd>
+    <dt><code>height</code> <span class="xref">int</span>?</dt>
+    <dd><p>Optional explicit pixel height for the rasterized image.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">ValueTask</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Services_JsInterop_IChartJsInterop_ObserveResizeAsync_" data-uid="BlazOrbit.Charts.Services.JsInterop.IChartJsInterop.ObserveResizeAsync*"></a>
+
+  <h3 id="BlazOrbit_Charts_Services_JsInterop_IChartJsInterop_ObserveResizeAsync_Microsoft_AspNetCore_Components_ElementReference_Microsoft_JSInterop_DotNetObjectReference_System_Object__" data-uid="BlazOrbit.Charts.Services.JsInterop.IChartJsInterop.ObserveResizeAsync(Microsoft.AspNetCore.Components.ElementReference,Microsoft.JSInterop.DotNetObjectReference{System.Object})">
+  ObserveResizeAsync(ElementReference, DotNetObjectReference&lt;object&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Services/JsInterop/IChartJsInterop.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Installs a <code>ResizeObserver</code> on the supplied container element.
+Each observed resize re-invokes <code>OnResize(width, height)</code> on the
+caller's <span class="xref">Microsoft.JSInterop.DotNetObjectReference&lt;TValue&gt;</span>. Returns an opaque
+handle that must be passed to <a class="xref" href="BlazOrbit.Charts.Services.JsInterop.IChartJsInterop.html#BlazOrbit_Charts_Services_JsInterop_IChartJsInterop_UnobserveResizeAsync_System_String_">UnobserveResizeAsync(string)</a> to
+detach the observer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ValueTask&lt;string&gt; ObserveResizeAsync(ElementReference container, DotNetObjectReference&lt;object&gt; callbackTarget)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>container</code> <span class="xref">ElementReference</span></dt>
+    <dd><p>Element reference of the chart's host.</p>
+</dd>
+    <dt><code>callbackTarget</code> <span class="xref">DotNetObjectReference</span>&lt;<span class="xref">object</span>&gt;</dt>
+    <dd><p>.NET object exposing <code>OnResize</code>.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">ValueTask</span>&lt;<span class="xref">string</span>&gt;</dt>
+    <dd><p>Handle that identifies this observer registration.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Services_JsInterop_IChartJsInterop_UnobserveResizeAsync_" data-uid="BlazOrbit.Charts.Services.JsInterop.IChartJsInterop.UnobserveResizeAsync*"></a>
+
+  <h3 id="BlazOrbit_Charts_Services_JsInterop_IChartJsInterop_UnobserveResizeAsync_System_String_" data-uid="BlazOrbit.Charts.Services.JsInterop.IChartJsInterop.UnobserveResizeAsync(System.String)">
+  UnobserveResizeAsync(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Services/JsInterop/IChartJsInterop.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Removes a previously installed <code>ResizeObserver</code>. Idempotent: a
+missing handle is a no-op.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ValueTask UnobserveResizeAsync(string handle)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>handle</code> <span class="xref">string</span></dt>
+    <dd><p>Handle previously returned by <a class="xref" href="BlazOrbit.Charts.Services.JsInterop.IChartJsInterop.html#BlazOrbit_Charts_Services_JsInterop_IChartJsInterop_ObserveResizeAsync_Microsoft_AspNetCore_Components_ElementReference_Microsoft_JSInterop_DotNetObjectReference_System_Object__">ObserveResizeAsync(ElementReference, DotNetObjectReference&lt;object&gt;)</a>.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">ValueTask</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Services/JsInterop/IChartJsInterop.cs" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

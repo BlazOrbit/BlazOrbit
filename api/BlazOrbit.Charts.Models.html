@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Namespace BlazOrbit.Charts.Models | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Namespace BlazOrbit.Charts.Models | BlazOrbit API ">
+      
+      
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Charts.Models">
+
+  <h1 id="BlazOrbit_Charts_Models" data-uid="BlazOrbit.Charts.Models" class="text-break">Namespace BlazOrbit.Charts.Models</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+
+    <h3 id="classes">
+Classes
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartAnnotation.html">BOBChartAnnotation</a></dt>
+      <dd><p>Base class for chart annotations. Closed hierarchy - derive only the
+specialized types provided by the framework. All concrete subclasses
+share the optional <a class="xref" href="BlazOrbit.Charts.Models.BOBChartAnnotation.html#BlazOrbit_Charts_Models_BOBChartAnnotation_Color">Color</a> override (when null, falls back
+to the chart theme's accent color).</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartAxis.html">BOBChartAxis</a></dt>
+      <dd><p>Per-axis configuration. Both X and Y axes share the same shape; chart
+types ignore the irrelevant fields (e.g. <a class="xref" href="BlazOrbit.Charts.Models.BOBChartAxis.html#BlazOrbit_Charts_Models_BOBChartAxis_Format">Format</a> on a
+categorical axis is a no-op).</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartBandAnnotation-1.html">BOBChartBandAnnotation&lt;TX&gt;</a></dt>
+      <dd><p>Vertical band spanning the full plot height between two X domain
+values (highlights an interval - outage window, market hours,
+experiment phase). Set <a class="xref" href="BlazOrbit.Charts.Models.BOBChartBandAnnotation-1.html#BlazOrbit_Charts_Models_BOBChartBandAnnotation_1_ToX">ToX</a> equal to <a class="xref" href="BlazOrbit.Charts.Models.BOBChartBandAnnotation-1.html#BlazOrbit_Charts_Models_BOBChartBandAnnotation_1_FromX">FromX</a>
+for a single vertical guide line.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartBoxStat-1.html">BOBChartBoxStat&lt;TX&gt;</a></dt>
+      <dd><p>Pre-computed five-number summary plus optional outliers for one
+box on a <a class="xref" href="BlazOrbit.Charts.Components.BOBBoxplotChart-1.html">BOBBoxplotChart&lt;TX&gt;</a>. Provide either
+these directly, or use <a class="xref" href="BlazOrbit.Charts.Models.BOBChartBoxStat-1.html#BlazOrbit_Charts_Models_BOBChartBoxStat_1_FromValues__0_System_Collections_Generic_IEnumerable_System_Double__System_String_">FromValues(TX, IEnumerable&lt;double&gt;, string?)</a>
+to compute from raw data.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartBrushArgs-1.html">BOBChartBrushArgs&lt;TX&gt;</a></dt>
+      <dd><p>Event args fired when the user finishes a brush drag on the chart's plot
+area. <a class="xref" href="BlazOrbit.Charts.Models.BOBChartBrushArgs-1.html#BlazOrbit_Charts_Models_BOBChartBrushArgs_1_MinX">MinX</a> / <a class="xref" href="BlazOrbit.Charts.Models.BOBChartBrushArgs-1.html#BlazOrbit_Charts_Models_BOBChartBrushArgs_1_MaxX">MaxX</a> bracket the selected range
+in the original X-axis domain (a <span class="xref">System.DateTime</span> when
+<code class="typeparamref">TX</code> is temporal, an <span class="xref">int</span> when numeric,
+etc.).</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartBubbleSeries-2.html">BOBChartBubbleSeries&lt;TX, TY&gt;</a></dt>
+      <dd><p>A named, typed sequence of <a class="xref" href="BlazOrbit.Charts.Models.BOBChartBubblePoint-2.html">BOBChartBubblePoint&lt;TX, TY&gt;</a> data
+for <a class="xref" href="BlazOrbit.Charts.Components.BOBScatterChart-2.html">BOBScatterChart&lt;TX, TY&gt;</a> in bubble mode.
+Pass via the chart's <code>BubbleSeries</code> parameter; the chart auto-scales
+the per-point <a class="xref" href="BlazOrbit.Charts.Models.BOBChartBubblePoint-2.html#BlazOrbit_Charts_Models_BOBChartBubblePoint_2_Size">Size</a> across the
+series into pixel radii bounded by <code>BubbleMinRadius</code> /
+<code>BubbleMaxRadius</code>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartClickArgs-2.html">BOBChartClickArgs&lt;TX, TY&gt;</a></dt>
+      <dd><p>Event args fired when the user clicks a data point, bar, slice or other
+interactive primitive on a chart.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartFunnelStep-1.html">BOBChartFunnelStep&lt;TY&gt;</a></dt>
+      <dd><p>A single stage of a <a class="xref" href="BlazOrbit.Charts.Components.BOBFunnelChart-1.html">BOBFunnelChart&lt;TY&gt;</a>:
+label + numeric value. Steps are listed top → bottom in declaration
+order; the rendered funnel auto-scales each row's width by the
+largest value.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartGaugeSegment.html">BOBChartGaugeSegment</a></dt>
+      <dd><p>Colored segment of a <a class="xref" href="BlazOrbit.Charts.Components.BOBGaugeChart.html">BOBGaugeChart</a> arc track.
+Defines a fixed sub-range [<a class="xref" href="BlazOrbit.Charts.Models.BOBChartGaugeSegment.html#BlazOrbit_Charts_Models_BOBChartGaugeSegment_From">From</a>, <a class="xref" href="BlazOrbit.Charts.Models.BOBChartGaugeSegment.html#BlazOrbit_Charts_Models_BOBChartGaugeSegment_To">To</a>] inside
+the gauge's [<code>Min</code>, <code>Max</code>] domain. Useful to indicate
+thresholds visually (green / amber / red zones).</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartHoverArgs-2.html">BOBChartHoverArgs&lt;TX, TY&gt;</a></dt>
+      <dd><p>Event args fired when the user hovers a data point. Charts emit this
+alongside (not instead of) their internal tooltip rendering, so callers
+can drive secondary UI (status bars, linked highlighting) off the same
+signal.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartMixedSeries-1.html">BOBChartMixedSeries&lt;TX&gt;</a></dt>
+      <dd><p>Single series inside a <a class="xref" href="BlazOrbit.Charts.Components.BOBMixedChart-1.html">BOBMixedChart&lt;TX&gt;</a>. Carries the
+visual type (bar / line / area), the data points and an optional flag to bind the
+series to the chart's secondary Y axis instead of the primary one.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartOptions.html">BOBChartOptions</a></dt>
+      <dd><p>Aggregate configuration object that bundles together the most common
+chart-wide options. Every field is also surfaced as a top-level parameter
+on the chart components themselves; this class exists for callers who
+prefer to compose a single options bag and reuse it across charts.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartReferenceLine.html">BOBChartReferenceLine</a></dt>
+      <dd><p>Horizontal reference / threshold line drawn across the plot area at a
+fixed Y value. Common uses: SLO targets (&quot;99.9%&quot;), budget thresholds,
+year-over-year baselines, regulatory caps.</p>
+<p>
+Reference lines are rendered <em>over</em> the chart geometry but <em>under</em>
+data-point hover targets, so they remain visible without intercepting
+click / hover interactions.
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartSankeyLink-1.html">BOBChartSankeyLink&lt;TY&gt;</a></dt>
+      <dd><p>Edge in a <a class="xref" href="BlazOrbit.Charts.Components.BOBSankeyChart-1.html">BOBSankeyChart&lt;TY&gt;</a> dataset. Carries flow from
+<a class="xref" href="BlazOrbit.Charts.Models.BOBChartSankeyLink-1.html#BlazOrbit_Charts_Models_BOBChartSankeyLink_1_Source">Source</a> to <a class="xref" href="BlazOrbit.Charts.Models.BOBChartSankeyLink-1.html#BlazOrbit_Charts_Models_BOBChartSankeyLink_1_Target">Target</a> with magnitude <a class="xref" href="BlazOrbit.Charts.Models.BOBChartSankeyLink-1.html#BlazOrbit_Charts_Models_BOBChartSankeyLink_1_Value">Value</a>.
+The chart auto-derives node positions from the link graph - consumers only need to
+describe the edges.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartSeries-2.html">BOBChartSeries&lt;TX, TY&gt;</a></dt>
+      <dd><p>A named, typed sequence of data points rendered as a single visual series
+(a bar group, a line, an area). Multiple series share the same axes and
+legend.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartShapeAnnotation-2.html">BOBChartShapeAnnotation&lt;TX, TY&gt;</a></dt>
+      <dd><p>Symbol marker placed at a data coordinate. Useful for flagging
+individual events (release marker, anomaly, peak) without writing a
+text label.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartSliceClickArgs-1.html">BOBChartSliceClickArgs&lt;TY&gt;</a></dt>
+      <dd><p>Event args fired when the user clicks a slice on a Pie / Donut chart.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartSliceHoverArgs-1.html">BOBChartSliceHoverArgs&lt;TY&gt;</a></dt>
+      <dd><p>Event args fired when the user hovers a slice on a Pie / Donut chart.
+Distinct from <a class="xref" href="BlazOrbit.Charts.Models.BOBChartSliceClickArgs-1.html">BOBChartSliceClickArgs&lt;TY&gt;</a> only by intent -
+allows callers to drive secondary UI (a side panel, a stat readout) off
+the same hover that already raises the native <code>&lt;title&gt;</code> tooltip.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartSlice-1.html">BOBChartSlice&lt;TY&gt;</a></dt>
+      <dd><p>A single slice of a Pie / Donut chart. Pie / Donut charts do not have an
+X axis, so they consume <a class="xref" href="BlazOrbit.Charts.Models.BOBChartSlice-1.html">BOBChartSlice&lt;TY&gt;</a> instead of
+<a class="xref" href="BlazOrbit.Charts.Models.BOBChartSeries-2.html">BOBChartSeries&lt;TX, TY&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartStreamArgs-2.html">BOBChartStreamArgs&lt;TX, TY&gt;</a></dt>
+      <dd><p>Snapshot fired by the chart whenever a streaming append (or window
+trim) settles. Useful for status banners (&quot;12k points buffered&quot;) or
+downstream observability.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartTextAnnotation-2.html">BOBChartTextAnnotation&lt;TX, TY&gt;</a></dt>
+      <dd><p>Text label anchored at a data coordinate, optionally offset by a
+pixel delta (so the label can sit beside its anchor without
+overlapping the data point).</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartTooltipContext-2.html">BOBChartTooltipContext&lt;TX, TY&gt;</a></dt>
+      <dd><p>State passed to a custom <code>TooltipTemplate</code> render fragment. Captures
+the active series, the active point (X / Y values) and the resolved color.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartTreemapClickArgs-1.html">BOBChartTreemapClickArgs&lt;TY&gt;</a></dt>
+      <dd><p>Event payload raised when the user clicks a treemap / sunburst node. Carries the
+hierarchical path (root-to-node labels) so consumers can drill into the underlying
+dataset without having to walk the tree themselves.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartTreemapNode-1.html">BOBChartTreemapNode&lt;TY&gt;</a></dt>
+      <dd><p>Hierarchical leaf or branch in a <a class="xref" href="BlazOrbit.Charts.Components.BOBTreemapChart-1.html">BOBTreemapChart&lt;TY&gt;</a> /
+<a class="xref" href="BlazOrbit.Charts.Components.BOBSunburstChart-1.html">BOBSunburstChart&lt;TY&gt;</a> dataset. Branch nodes (those with a
+non-empty <a class="xref" href="BlazOrbit.Charts.Models.BOBChartTreemapNode-1.html#BlazOrbit_Charts_Models_BOBChartTreemapNode_1_Children">Children</a>) take their magnitude from the descendant sum;
+leaves (Children null/empty) use <a class="xref" href="BlazOrbit.Charts.Models.BOBChartTreemapNode-1.html#BlazOrbit_Charts_Models_BOBChartTreemapNode_1_Value">Value</a> directly.</p>
+</dd>
+    </dl>
+    <h3 id="structs">
+Structs
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartBubblePoint-2.html">BOBChartBubblePoint&lt;TX, TY&gt;</a></dt>
+      <dd><p>A single (X, Y, Size) data point for <a class="xref" href="BlazOrbit.Charts.Components.BOBScatterChart-2.html">BOBScatterChart&lt;TX, TY&gt;</a>
+in bubble mode. The third dimension <a class="xref" href="BlazOrbit.Charts.Models.BOBChartBubblePoint-2.html#BlazOrbit_Charts_Models_BOBChartBubblePoint_2_Size">Size</a> is rendered as
+the marker radius after auto-scaling against the rest of the series.
+Use <a class="xref" href="BlazOrbit.Charts.Models.BOBChartPoint-2.html">BOBChartPoint&lt;TX, TY&gt;</a> when only X / Y matter.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartCandlePoint-1.html">BOBChartCandlePoint&lt;TX&gt;</a></dt>
+      <dd><p>OHLC (open / high / low / close) data point for
+<a class="xref" href="BlazOrbit.Charts.Components.BOBCandlestickChart-1.html">BOBCandlestickChart&lt;TX&gt;</a>. Optional
+<a class="xref" href="BlazOrbit.Charts.Models.BOBChartCandlePoint-1.html#BlazOrbit_Charts_Models_BOBChartCandlePoint_1_Volume">Volume</a> drives a paired volume bar pane when the
+chart is configured with <code>ShowVolumePane=true</code>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartHeatmapCell-2.html">BOBChartHeatmapCell&lt;TX, TY&gt;</a></dt>
+      <dd><p>Cell in a <a class="xref" href="BlazOrbit.Charts.Components.BOBHeatmapChart-2.html">BOBHeatmapChart&lt;TX, TY&gt;</a> grid:
+(X-bucket, Y-bucket, intensity Value).</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartPoint-2.html">BOBChartPoint&lt;TX, TY&gt;</a></dt>
+      <dd><p>A single (X, Y) data point in a chart series.</p>
+</dd>
+    </dl>
+    <h3 id="enums">
+Enums
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartAnnotationShape.html">BOBChartAnnotationShape</a></dt>
+      <dd><p>Symbol shape for <a class="xref" href="BlazOrbit.Charts.Models.BOBChartShapeAnnotation-2.html">BOBChartShapeAnnotation&lt;TX, TY&gt;</a>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Models.BOBChartReferenceLineStyle.html">BOBChartReferenceLineStyle</a></dt>
+      <dd><p>Stroke style of a <a class="xref" href="BlazOrbit.Charts.Models.BOBChartReferenceLine.html">BOBChartReferenceLine</a>.</p>
+</dd>
+    </dl>
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

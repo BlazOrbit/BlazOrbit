@@ -1,0 +1,4438 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class BOBDataCollectionBase&lt;TItem, TComponent, TVariant&gt; | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class BOBDataCollectionBase&lt;TItem, TComponent, TVariant&gt; | BlazOrbit API ">
+      
+      <meta name="description" content="Shared base for data-collection components (grid, cards) that own column registration, sorting, filtering, paging and selection state.">
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Components.BOBDataCollectionBase`3">
+
+
+
+  <h1 id="BlazOrbit_Components_BOBDataCollectionBase_3" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3" class="text-break">
+Class BOBDataCollectionBase&lt;TItem, TComponent, TVariant&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Components.html">Components</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Shared base for data-collection components (grid, cards) that own column registration,
+sorting, filtering, paging and selection state.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class BOBDataCollectionBase&lt;TItem, TComponent, TVariant&gt; : BOBVariantComponentBase&lt;TComponent, TVariant&gt;, IVariantComponent&lt;TVariant&gt;, IVariantComponent, IPureBuiltComponent, IBuiltComponent, IHasDensity, IHasSize, IHasShadow, IHasBorder, IHasBackgroundColor, IDataCollectionFamilyComponent where TComponent : BOBDataCollectionBase&lt;TItem, TComponent, TVariant&gt; where TVariant : Variant</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TItem</code></dt>
+    <dd><p>Row item type.</p>
+</dd>
+    <dt><code>TComponent</code></dt>
+    <dd><p>Concrete derived component type (CRTP).</p>
+</dd>
+    <dt><code>TVariant</code></dt>
+    <dd><p>Variant type owned by the derived component.</p>
+</dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">ComponentBase</span></div>
+      <div><a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html">BOBComponentBase</a></div>
+      <div><a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBVariantComponentBase.cs">BOBVariantComponentBase</a>&lt;TComponent, TVariant&gt;</div>
+      <div><span class="xref">BOBDataCollectionBase&lt;TItem, TComponent, TVariant&gt;</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="BlazOrbit.Components.IVariantComponent-1.html">IVariantComponent</a>&lt;TVariant&gt;</div>
+      <div><a class="xref" href="BlazOrbit.Components.IVariantComponent.html">IVariantComponent</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IPureBuiltComponent.html">IPureBuiltComponent</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IBuiltComponent.html">IBuiltComponent</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasDensity.html">IHasDensity</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasSize.html">IHasSize</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasShadow.html">IHasShadow</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasBorder.html">IHasBorder</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasBackgroundColor.html">IHasBackgroundColor</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IDataCollectionFamilyComponent.html">IDataCollectionFamilyComponent</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist derived">
+    <dt>Derived</dt>
+    <dd>
+      <div><a class="xref" href="BlazOrbit.Components.BOBDataCards-1.html">BOBDataCards&lt;TItem&gt;</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.BOBDataGrid-1.html">BOBDataGrid&lt;TItem&gt;</a></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_BuildRenderTree_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder_">BOBVariantComponentBase&lt;TComponent, TVariant&gt;.BuildRenderTree(RenderTreeBuilder)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_OnParametersSet">BOBVariantComponentBase&lt;TComponent, TVariant&gt;.OnParametersSet()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_CurrentVariant">BOBVariantComponentBase&lt;TComponent, TVariant&gt;.CurrentVariant</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_DefaultVariant">BOBVariantComponentBase&lt;TComponent, TVariant&gt;.DefaultVariant</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_Variant">BOBVariantComponentBase&lt;TComponent, TVariant&gt;.Variant</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBVariantComponentBase-2.html#BlazOrbit_Abstractions_BOBVariantComponentBase_2_BuiltInTemplates">BOBVariantComponentBase&lt;TComponent, TVariant&gt;.BuiltInTemplates</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_OnAfterRenderAsync_System_Boolean_">BOBComponentBase.OnAfterRenderAsync(bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_BuildRenderTree_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder_">BOBComponentBase.BuildRenderTree(RenderTreeBuilder)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_DisposeAsync">BOBComponentBase.DisposeAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_AdditionalAttributes">BOBComponentBase.AdditionalAttributes</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_ComputedAttributes">BOBComponentBase.ComputedAttributes</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_IsDisposed">BOBComponentBase.IsDisposed</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3__ctor_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3__ctor" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.#ctor">
+  BOBDataCollectionBase()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected BOBDataCollectionBase()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="fields">Fields
+</h2>
+
+
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_ColumnRegistry" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ColumnRegistry">
+  ColumnRegistry
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Column registration registry populated by child <code>BOBDataColumn</code> components during render.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected readonly DataColumnRegistry&lt;TItem&gt; ColumnRegistry</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.DataColumnRegistry-1.html">DataColumnRegistry</a>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_ColumnsBuilt" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ColumnsBuilt">
+  ColumnsBuilt
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>True once columns have been captured from the <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_Columns">Columns</a> render fragment.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool ColumnsBuilt</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_FilteredItems" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.FilteredItems">
+  FilteredItems
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Items remaining after filter+sort (full result set).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected List&lt;TItem&gt; FilteredItems</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">List</span>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_LiveRegionMessage" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.LiveRegionMessage">
+  LiveRegionMessage
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Message announced via the live-region after filter/sort/page mutations.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected string? LiveRegionMessage</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_PaginationEnd" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.PaginationEnd">
+  PaginationEnd
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>1-based index of the last visible row on the current page.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected int PaginationEnd</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_PaginationStart" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.PaginationStart">
+  PaginationStart
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>1-based index of the first visible row on the current page.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected int PaginationStart</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_PreventRowKeyDown" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.PreventRowKeyDown">
+  PreventRowKeyDown
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Suppresses the next row keydown's default browser action (used by Enter/Space row selection).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool PreventRowKeyDown</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_ProcessedItems" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ProcessedItems">
+  ProcessedItems
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Items rendered after pagination (visible page).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected List&lt;TItem&gt; ProcessedItems</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">List</span>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_RegisteredColumns" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.RegisteredColumns">
+  RegisteredColumns
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Registered columns frozen after the first render.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected List&lt;DataColumnRegistration&lt;TItem&gt;&gt; RegisteredColumns</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">List</span>&lt;<a class="xref" href="BlazOrbit.Components.DataColumnRegistration-1.html">DataColumnRegistration</a>&lt;TItem&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_State" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.State">
+  State
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Persistent state (filter / sort / page / column order) for this collection instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected readonly DataCollectionState&lt;TItem&gt; State</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.DataCollectionState-1.html">DataCollectionState</a>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_TotalPages" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.TotalPages">
+  TotalPages
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Total number of pages for the current filtered set.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected int TotalPages</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_VisibleColumns" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.VisibleColumns">
+  VisibleColumns
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Subset of <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_RegisteredColumns">RegisteredColumns</a> currently visible, in display order.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected List&lt;DataColumnRegistration&lt;TItem&gt;&gt; VisibleColumns</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">List</span>&lt;<a class="xref" href="BlazOrbit.Components.DataColumnRegistration-1.html">DataColumnRegistration</a>&lt;TItem&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3__preventHeaderKeyDefault" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3._preventHeaderKeyDefault">
+  _preventHeaderKeyDefault
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Backs the conditional <code>@onkeydown:preventDefault</code> binding on header cells.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool _preventHeaderKeyDefault</code></pre>
+  </div>
+
+
+
+
+  <h4 class="section">Field Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_BackgroundColor_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.BackgroundColor*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_BackgroundColor" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.BackgroundColor">
+  BackgroundColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Background color of the container. Accepts any valid CSS color value, <a class="xref" href="BlazOrbit.Components.PaletteColor.html">PaletteColor</a> or <a class="xref" href="BlazOrbit.Components.BOBColor.html">BOBColor</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? BackgroundColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_Border_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Border*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_Border" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Border">
+  Border
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Border style applied to the container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public BorderStyle? Border { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.BorderStyle.html">BorderStyle</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_BulkActions_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.BulkActions*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_BulkActions" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.BulkActions">
+  BulkActions
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Bulk actions rendered in the toolbar when at least one row is
+selected. Pair with <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_SelectionMode">SelectionMode</a> = Multiple to
+expose mass-edit / delete / export workflows.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public IReadOnlyList&lt;DataCollectionBulkAction&lt;TItem&gt;&gt;? BulkActions { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IReadOnlyList</span>&lt;<a class="xref" href="BlazOrbit.Components.DataCollectionBulkAction-1.html">DataCollectionBulkAction</a>&lt;TItem&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_Columns_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Columns*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_Columns" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Columns">
+  Columns
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Column definitions rendered inside the data collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public RenderFragment? Columns { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">RenderFragment</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_CustomFilter_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.CustomFilter*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_CustomFilter" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.CustomFilter">
+  CustomFilter
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Custom predicate used to filter items. Receives the item and the search text.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public Func&lt;TItem, string, bool&gt;? CustomFilter { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Func</span>&lt;TItem, <span class="xref">string</span>, <span class="xref">bool</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_DataSource_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.DataSource*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_DataSource" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.DataSource">
+  DataSource
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Strategy that materialises rows. When set, drives the visible page via
+<a class="xref" href="BlazOrbit.Components.IDataCollectionDataSource-1.html#BlazOrbit_Components_IDataCollectionDataSource_1_LoadAsync_BlazOrbit_Components_DataRequest_System_Threading_CancellationToken_">LoadAsync(DataRequest, CancellationToken)</a> — the host component
+translates its sort / filter / page state into a <a class="xref" href="BlazOrbit.Components.DataRequest.html">DataRequest</a> and
+renders the returned <a class="xref" href="BlazOrbit.Components.DataResult-1.html#BlazOrbit_Components_DataResult_1_Items">Items</a>. Takes precedence
+over <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_Items">Items</a> when both are supplied.</p>
+<p>
+Default <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> preserves the legacy <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_Items">Items</a> path.
+Use <a class="xref" href="BlazOrbit.Components.InMemoryDataSource-1.html">InMemoryDataSource&lt;TItem&gt;</a> for in-process collections you want
+to route through the new contract (e.g. for testing parity), and
+<a class="xref" href="BlazOrbit.Components.RemoteDataSource-1.html">RemoteDataSource&lt;TItem&gt;</a> for server-side paging.
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public IDataCollectionDataSource&lt;TItem&gt;? DataSource { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.IDataCollectionDataSource-1.html">IDataCollectionDataSource</a>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_DefaultSortColumn_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.DefaultSortColumn*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_DefaultSortColumn" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.DefaultSortColumn">
+  DefaultSortColumn
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Name of the column to sort by on initial render.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? DefaultSortColumn { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_DefaultSortDirection_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.DefaultSortDirection*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_DefaultSortDirection" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.DefaultSortDirection">
+  DefaultSortDirection
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Initial sort direction. Defaults to <a class="xref" href="BlazOrbit.Components.SortDirection.html#BlazOrbit_Components_SortDirection_Ascending">Ascending</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public SortDirection DefaultSortDirection { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.SortDirection.html">SortDirection</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_Density_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Density*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_Density" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Density">
+  Density
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Vertical density (gap) of rows.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public BOBDensity Density { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.BOBDensity.html">BOBDensity</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_DraggingColumnHeader_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.DraggingColumnHeader*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_DraggingColumnHeader" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.DraggingColumnHeader">
+  DraggingColumnHeader
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Header currently being dragged for reorder, or <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> when idle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected string? DraggingColumnHeader { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_EmptyActionTemplate_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.EmptyActionTemplate*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_EmptyActionTemplate" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.EmptyActionTemplate">
+  EmptyActionTemplate
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Optional CTA template rendered alongside the empty state — pair
+with <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_EmptyContent">EmptyContent</a> for &quot;Create first record&quot; buttons
+without rewriting the entire empty layout.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public RenderFragment? EmptyActionTemplate { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">RenderFragment</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_EmptyContent_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.EmptyContent*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_EmptyContent" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.EmptyContent">
+  EmptyContent
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Custom template rendered when there are no items to display.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public RenderFragment? EmptyContent { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">RenderFragment</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_EnableVirtualization_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.EnableVirtualization*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_EnableVirtualization" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.EnableVirtualization">
+  EnableVirtualization
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, only visible rows are rendered (improves performance for large lists).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool EnableVirtualization { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_Error_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Error*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_Error" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Error">
+  Error
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Error message. When non-empty (and <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_Loading">Loading</a> is off)
+the data area renders <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_ErrorContent">ErrorContent</a> or a default
+error state instead of the rows.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Error { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_ErrorContent_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ErrorContent*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_ErrorContent" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ErrorContent">
+  ErrorContent
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Optional error template rendered in place of the data when
+<a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_Error">Error</a> is non-empty. Useful for surfacing remote-load
+failures without leaving an empty grid.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public RenderFragment? ErrorContent { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">RenderFragment</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_FilterPlaceholder_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.FilterPlaceholder*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_FilterPlaceholder" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.FilterPlaceholder">
+  FilterPlaceholder
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Placeholder text for the filter search box.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string FilterPlaceholder { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_Filterable_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Filterable*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_Filterable" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Filterable">
+  Filterable
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, a search box filters the displayed items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool Filterable { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_Height_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Height*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_Height" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Height">
+  Height
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Fixed height of the container. Required for virtualization and fixed header.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Height { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_Hoverable_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Hoverable*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_Hoverable" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Hoverable">
+  Hoverable
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> (default), rows highlight on hover.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool Hoverable { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_IsInteractiveRow_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.IsInteractiveRow*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_IsInteractiveRow" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.IsInteractiveRow">
+  IsInteractiveRow
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>True when rows respond to clicks (either selection or <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_OnRowClick">OnRowClick</a>).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool IsInteractiveRow { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_IsResizing_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.IsResizing*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_IsResizing" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.IsResizing">
+  IsResizing
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> while the user holds the resize handle on a column. Drives
+rendering of the full-grid drag overlay that captures pointermove / pointerup.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool IsResizing { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_ItemPattern_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ItemPattern*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_ItemPattern" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ItemPattern">
+  ItemPattern
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Alternating row style pattern (e.g. zebra striping).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public RowStylePattern? ItemPattern { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.RowStylePattern.html">RowStylePattern</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_Items_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Items*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_Items" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Items">
+  Items
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Data items to display. Used by the legacy in-memory pipeline; ignored when
+<a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_DataSource">DataSource</a> is non-<a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public IEnumerable&lt;TItem&gt;? Items { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IEnumerable</span>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_Loading_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Loading*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_Loading" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Loading">
+  Loading
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the loading template is shown.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool Loading { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_LoadingContent_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.LoadingContent*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_LoadingContent" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.LoadingContent">
+  LoadingContent
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Custom template rendered while <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_Loading">Loading</a> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public RenderFragment? LoadingContent { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">RenderFragment</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_LoadingMode_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.LoadingMode*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_LoadingMode" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.LoadingMode">
+  LoadingMode
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Visual mode used while <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_Loading">Loading</a> is on. Default
+<a class="xref" href="BlazOrbit.Components.LoadingMode.html#BlazOrbit_Components_LoadingMode_Spinner">Spinner</a> — switch to
+<a class="xref" href="BlazOrbit.Components.LoadingMode.html#BlazOrbit_Components_LoadingMode_Skeleton">Skeleton</a> for animated row placeholders.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public LoadingMode LoadingMode { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.LoadingMode.html">LoadingMode</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_Localizer_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Localizer*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_Localizer" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Localizer">
+  Localizer
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Localized strings for data-collection UI text (filter placeholders, aria-labels, live-region messages).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Inject]
+protected IStringLocalizer&lt;BOBDataResources&gt; Localizer { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IStringLocalizer</span>&lt;<a class="xref" href="BlazOrbit.BOBDataResources.html">BOBDataResources</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_OnFilter_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.OnFilter*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_OnFilter" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.OnFilter">
+  OnFilter
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when the filter text changes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public EventCallback&lt;DataCollectionFilterEventArgs&gt; OnFilter { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">EventCallback</span>&lt;<a class="xref" href="BlazOrbit.Components.DataCollectionFilterEventArgs.html">DataCollectionFilterEventArgs</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_OnPageChange_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.OnPageChange*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_OnPageChange" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.OnPageChange">
+  OnPageChange
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when the current page changes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public EventCallback&lt;DataCollectionPageChangeEventArgs&gt; OnPageChange { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">EventCallback</span>&lt;<a class="xref" href="BlazOrbit.Components.DataCollectionPageChangeEventArgs.html">DataCollectionPageChangeEventArgs</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_OnRowClick_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.OnRowClick*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_OnRowClick" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.OnRowClick">
+  OnRowClick
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when a row is clicked and <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_SelectionMode">SelectionMode</a> is not active.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public EventCallback&lt;TItem&gt; OnRowClick { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">EventCallback</span>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_OnSort_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.OnSort*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_OnSort" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.OnSort">
+  OnSort
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when the sort column or direction changes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public EventCallback&lt;DataCollectionSortEventArgs&gt; OnSort { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">EventCallback</span>&lt;<a class="xref" href="BlazOrbit.Components.DataCollectionSortEventArgs.html">DataCollectionSortEventArgs</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_PageSize_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.PageSize*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_PageSize" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.PageSize">
+  PageSize
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Number of items per page. When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>, pagination is disabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int? PageSize { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_PageSizeOptions_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.PageSizeOptions*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_PageSizeOptions" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.PageSizeOptions">
+  PageSizeOptions
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Available page sizes shown in the page-size selector.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int[] PageSizeOptions { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span>[]</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_PersistenceKey_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.PersistenceKey*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_PersistenceKey" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.PersistenceKey">
+  PersistenceKey
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Optional storage key for the registered <a class="xref" href="BlazOrbit.Components.IDataCollectionStatePersistence.html">IDataCollectionStatePersistence</a>.
+When set, the persistable slice of <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_State">State</a> (filter / sort / page /
+column order / column filters) is loaded on first render and saved after every
+state mutation. Default <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> = no persistence (the registered
+service is only consulted when this is non-empty).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? PersistenceKey { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_Reorderable_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Reorderable*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_Reorderable" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Reorderable">
+  Reorderable
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, headers receive <code>tabindex=&quot;0&quot;</code> + an
+<code>Alt+ArrowLeft</code> / <code>Alt+ArrowRight</code> keyboard shortcut that shifts the
+focused column toward the start or end of the row. Default <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>
+for backwards-compat. Drag-based reorder is a separate slice (I1.S4 follow-up).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool Reorderable { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_Resizable_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Resizable*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_Resizable" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Resizable">
+  Resizable
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, columns whose <code>Resizable</code> parameter is on render
+a drag handle on their trailing edge so the user can resize them via pointer
+events. The drag clamps to each column's <code>MinWidth</code> / <code>MaxWidth</code> and
+writes the new width to <a class="xref" href="BlazOrbit.Components.DataCollectionState-1.html#BlazOrbit_Components_DataCollectionState_1_ColumnWidths">ColumnWidths</a>;
+the value participates in the persistence round-trip.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool Resizable { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_ResolvedFilterPlaceholder_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ResolvedFilterPlaceholder*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_ResolvedFilterPlaceholder" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ResolvedFilterPlaceholder">
+  ResolvedFilterPlaceholder
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Localized placeholder when the caller does not override <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_FilterPlaceholder">FilterPlaceholder</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected string ResolvedFilterPlaceholder { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_RowActions_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.RowActions*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_RowActions" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.RowActions">
+  RowActions
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Per-row action buttons rendered in a sticky-right action column
+(grid) or as an icon strip on each card. Clicks on action buttons
+stop propagation, so the row click only fires for non-action
+targets.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public IReadOnlyList&lt;DataCollectionRowAction&lt;TItem&gt;&gt;? RowActions { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IReadOnlyList</span>&lt;<a class="xref" href="BlazOrbit.Components.DataCollectionRowAction-1.html">DataCollectionRowAction</a>&lt;TItem&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_RowDetailTemplate_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.RowDetailTemplate*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_RowDetailTemplate" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.RowDetailTemplate">
+  RowDetailTemplate
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Optional master-detail template. When non-null, every row gets a
+chevron toggle that expands a sub-row containing the rendered
+fragment. Useful for showing related data (order lines, audit
+trail) without navigation.</p>
+<p>
+With <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_EnableVirtualization">EnableVirtualization</a> the variable row height
+breaks scroll-position math; pin a fixed <code>ItemSize</code> on
+<code>&lt;Virtualize&gt;</code> when expansion is on.
+</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public RenderFragment&lt;TItem&gt;? RowDetailTemplate { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">RenderFragment</span>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_SelectedItems_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.SelectedItems*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_SelectedItems" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.SelectedItems">
+  SelectedItems
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Currently selected items. Use with two-way binding.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public HashSet&lt;TItem&gt;? SelectedItems { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">HashSet</span>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_SelectedItemsChanged_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.SelectedItemsChanged*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_SelectedItemsChanged" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.SelectedItemsChanged">
+  SelectedItemsChanged
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when the selection changes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public EventCallback&lt;HashSet&lt;TItem&gt;&gt; SelectedItemsChanged { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">EventCallback</span>&lt;<span class="xref">HashSet</span>&lt;TItem&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_SelectionMode_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.SelectionMode*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_SelectionMode" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.SelectionMode">
+  SelectionMode
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Row selection mode.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public SelectionMode SelectionMode { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.SelectionMode.html">SelectionMode</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_Shadow_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Shadow*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_Shadow" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Shadow">
+  Shadow
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Shadow style applied to the container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public ShadowStyle? Shadow { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.ShadowStyle.html">ShadowStyle</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_ShowColumnFilters_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ShowColumnFilters*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_ShowColumnFilters" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ShowColumnFilters">
+  ShowColumnFilters
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, render a per-column text filter input below the
+header label for every <a class="xref" href="BlazOrbit.Components.BOBDataColumn-1.html">BOBDataColumn&lt;TItem&gt;</a> with
+<code>Filterable=true</code>. Per-column filters AND-combine with the toolbar
+<a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_Filterable">Filterable</a> search box. Default <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a> for
+backwards-compat.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool ShowColumnFilters { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_ShowPageSizeSelector_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ShowPageSizeSelector*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_ShowPageSizeSelector" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ShowPageSizeSelector">
+  ShowPageSizeSelector
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, a dropdown lets the user change the page size.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool ShowPageSizeSelector { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_Size_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Size*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_Size" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Size">
+  Size
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Visual size of the data collection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public BOBSize Size { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.BOBSize.html">BOBSize</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_SortAppendBehavior_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.SortAppendBehavior*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_SortAppendBehavior" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.SortAppendBehavior">
+  SortAppendBehavior
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sort Append Behavior for multi-column sorting. Defaults to <a class="xref" href="BlazOrbit.Components.SortAppendBehavior.html#BlazOrbit_Components_SortAppendBehavior_Always">Always</a>.
+Values are <a class="xref" href="BlazOrbit.Components.SortAppendBehavior.html#BlazOrbit_Components_SortAppendBehavior_None">None</a>, <a class="xref" href="BlazOrbit.Components.SortAppendBehavior.html#BlazOrbit_Components_SortAppendBehavior_Always">Always</a>, <a class="xref" href="BlazOrbit.Components.SortAppendBehavior.html#BlazOrbit_Components_SortAppendBehavior_CtrlKey">CtrlKey</a>, <a class="xref" href="BlazOrbit.Components.SortAppendBehavior.html#BlazOrbit_Components_SortAppendBehavior_ShiftKey">ShiftKey</a>,
+<a class="xref" href="BlazOrbit.Components.SortAppendBehavior.html#BlazOrbit_Components_SortAppendBehavior_CtrlOrShiftKey">CtrlOrShiftKey</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public SortAppendBehavior SortAppendBehavior { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.SortAppendBehavior.html">SortAppendBehavior</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_Sortable_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Sortable*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_Sortable" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Sortable">
+  Sortable
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, column headers are clickable for sorting.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool Sortable { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_UsePerItemPatternStyles_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.UsePerItemPatternStyles*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_UsePerItemPatternStyles" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.UsePerItemPatternStyles">
+  UsePerItemPatternStyles
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>True when the row pattern must be applied per-item (inline) rather than via container CSS.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool UsePerItemPatternStyles { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_UsesItemsProvider_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.UsesItemsProvider*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_UsesItemsProvider" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.UsesItemsProvider">
+  UsesItemsProvider
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> when the host should hand row materialisation to a
+<span class="xref">Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize&lt;TItem&gt;</span> ItemsProvider (lazy infinite scroll) instead of
+the explicit pagination footer. Triggered by <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_DataSource">DataSource</a> +
+<a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_EnableVirtualization">EnableVirtualization</a> + a non-empty <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_Height">Height</a> — the height
+is required for Virtualize to compute the scroll viewport.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool UsesItemsProvider { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_VirtualizeRef_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.VirtualizeRef*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_VirtualizeRef" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.VirtualizeRef">
+  VirtualizeRef
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Reference to the Virtualize component when running in ItemsProvider mode — derived
+components wire it via <code>@ref</code> so the base can call
+<code>RefreshDataAsync()</code> after filter / sort / column-filter mutations.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Virtualize&lt;TItem&gt;? VirtualizeRef { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Virtualize</span>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_ApplyFilter_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ApplyFilter*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_ApplyFilter_System_Collections_Generic_IEnumerable__0__" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ApplyFilter(System.Collections.Generic.IEnumerable{`0})">
+  ApplyFilter(IEnumerable&lt;TItem&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Applies global + per-column filters using the shared pipeline. Delegates to
+<span class="xref">BlazOrbit.Components.DataCollectionPipeline</span> so the legacy <code>Items</code> path and the
+<a class="xref" href="BlazOrbit.Components.InMemoryDataSource-1.html">InMemoryDataSource&lt;TItem&gt;</a> wrapper agree on filter semantics.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected IEnumerable&lt;TItem&gt; ApplyFilter(IEnumerable&lt;TItem&gt; items)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>items</code> <span class="xref">IEnumerable</span>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IEnumerable</span>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_ApplyPagination_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ApplyPagination*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_ApplyPagination_System_Collections_Generic_IEnumerable__0__" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ApplyPagination(System.Collections.Generic.IEnumerable{`0})">
+  ApplyPagination(IEnumerable&lt;TItem&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the slice for the current page using the shared pipeline. No-op when
+pagination is disabled (<a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_PageSize">PageSize</a> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected IEnumerable&lt;TItem&gt; ApplyPagination(IEnumerable&lt;TItem&gt; items)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>items</code> <span class="xref">IEnumerable</span>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IEnumerable</span>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_ApplySort_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ApplySort*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_ApplySort_System_Collections_Generic_IEnumerable__0__" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ApplySort(System.Collections.Generic.IEnumerable{`0})">
+  ApplySort(IEnumerable&lt;TItem&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Multi-column sort using the shared pipeline. Honours per-column custom comparers
+then falls back to <code>ValueSelector</code>. Returns the input unchanged when no
+descriptors are active.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected IEnumerable&lt;TItem&gt; ApplySort(IEnumerable&lt;TItem&gt; items)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>items</code> <span class="xref">IEnumerable</span>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IEnumerable</span>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_BuildComponentCssVariables_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.BuildComponentCssVariables*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_BuildComponentCssVariables_System_Collections_Generic_Dictionary_System_String_System_String__" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.BuildComponentCssVariables(System.Collections.Generic.Dictionary{System.String,System.String})">
+  BuildComponentCssVariables(Dictionary&lt;string, string&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Contributes CSS custom properties on the root <code>&lt;bob-component&gt;</code> for the active row pattern.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void BuildComponentCssVariables(Dictionary&lt;string, string&gt; cssVariables)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>cssVariables</code> <span class="xref">Dictionary</span>&lt;<span class="xref">string</span>, <span class="xref">string</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_BuildComponentDataAttributes_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.BuildComponentDataAttributes*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_BuildComponentDataAttributes_System_Collections_Generic_Dictionary_System_String_System_Object__" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.BuildComponentDataAttributes(System.Collections.Generic.Dictionary{System.String,System.Object})">
+  BuildComponentDataAttributes(Dictionary&lt;string, object&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Contributes data-* attributes on the root <code>&lt;bob-component&gt;</code> (hover, row-pattern).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void BuildComponentDataAttributes(Dictionary&lt;string, object&gt; dataAttributes)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>dataAttributes</code> <span class="xref">Dictionary</span>&lt;<span class="xref">string</span>, <span class="xref">object</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_CalculatePaginationInfo_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.CalculatePaginationInfo*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_CalculatePaginationInfo" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.CalculatePaginationInfo">
+  CalculatePaginationInfo()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Recomputes <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_TotalPages">TotalPages</a>, <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_PaginationStart">PaginationStart</a>, and <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_PaginationEnd">PaginationEnd</a> from the current filtered set.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void CalculatePaginationInfo()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_ChangePage_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ChangePage*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_ChangePage_System_Int32_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ChangePage(System.Int32)">
+  ChangePage(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Navigates to the given 1-based page and raises <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_OnPageChange">OnPageChange</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task ChangePage(int page)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>page</code> <span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_ClearFilter_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ClearFilter*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_ClearFilter" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ClearFilter">
+  ClearFilter()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Clears the global filter text and resets pagination.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void ClearFilter()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_ClearFilterClicked_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ClearFilterClicked*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_ClearFilterClicked" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ClearFilterClicked">
+  ClearFilterClicked()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Toolbar click handler that delegates to <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_ClearFilter">ClearFilter()</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task ClearFilterClicked()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_ClearSelection_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ClearSelection*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_ClearSelection" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ClearSelection">
+  ClearSelection()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Clears every selected row and raises <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_SelectedItemsChanged">SelectedItemsChanged</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task ClearSelection()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_ClearSelectionClicked_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ClearSelectionClicked*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_ClearSelectionClicked" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ClearSelectionClicked">
+  ClearSelectionClicked()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Toolbar click handler that delegates to <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_ClearSelection">ClearSelection()</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task ClearSelectionClicked()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_Dispose_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Dispose*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_Dispose" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Dispose">
+  Dispose()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Cancels and disposes the pending data-source load. Derived components that need
+their own teardown should override <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_Dispose_System_Boolean_">Dispose(bool)</a> and chain
+<code>base.Dispose(disposing)</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_Dispose_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Dispose*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_Dispose_System_Boolean_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Dispose(System.Boolean)">
+  Dispose(bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Disposal hook for derived components. The base implementation cancels and disposes
+the in-flight <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_DataSource">DataSource</a> load token.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>disposing</code> <span class="xref">bool</span></dt>
+    <dd><p><a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> when called from <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_Dispose">Dispose()</a>; <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a> from a finaliser.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_EndColumnResize_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.EndColumnResize*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_EndColumnResize_Microsoft_AspNetCore_Components_Web_PointerEventArgs_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.EndColumnResize(Microsoft.AspNetCore.Components.Web.PointerEventArgs)">
+  EndColumnResize(PointerEventArgs)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Pointerup / pointercancel handler that ends the drag. Triggers a persistence save
+so the resized width survives across reloads when <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_PersistenceKey">PersistenceKey</a>
+is configured.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void EndColumnResize(PointerEventArgs e)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>e</code> <span class="xref">PointerEventArgs</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_Filter_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Filter*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_Filter_System_String_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.Filter(System.String)">
+  Filter(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Applies a free-text filter and resets pagination to page 1.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Filter(string filterText)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>filterText</code> <span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_FormatValue_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.FormatValue*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_FormatValue_System_Object_System_String_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.FormatValue(System.Object,System.String)">
+  FormatValue(object?, string?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Formats a cell value using <code class="paramref">format</code> when supported, falling back to <code>ToString()</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected static string FormatValue(object? value, string? format)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">object</span></dt>
+    <dd></dd>
+    <dt><code>format</code> <span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_GetAggregateLabel_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.GetAggregateLabel*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_GetAggregateLabel_BlazOrbit_Components_AggregateFunction_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.GetAggregateLabel(BlazOrbit.Components.AggregateFunction)">
+  GetAggregateLabel(AggregateFunction)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the localized lower-case label for an aggregate function (e.g. &quot;sum&quot;, &quot;average&quot;).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected string GetAggregateLabel(AggregateFunction function)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>function</code> <a class="xref" href="BlazOrbit.Components.AggregateFunction.html">AggregateFunction</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_GetAlignClass_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.GetAlignClass*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_GetAlignClass_BlazOrbit_Components_ColumnAlign_System_String_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.GetAlignClass(BlazOrbit.Components.ColumnAlign,System.String)">
+  GetAlignClass(ColumnAlign, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the BEM alignment modifier class for the given <a class="xref" href="BlazOrbit.Components.ColumnAlign.html">ColumnAlign</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected static string GetAlignClass(ColumnAlign align, string prefix)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>align</code> <a class="xref" href="BlazOrbit.Components.ColumnAlign.html">ColumnAlign</a></dt>
+    <dd></dd>
+    <dt><code>prefix</code> <span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_GetAriaSort_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.GetAriaSort*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_GetAriaSort_BlazOrbit_Components_DataColumnRegistration__0__" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.GetAriaSort(BlazOrbit.Components.DataColumnRegistration{`0})">
+  GetAriaSort(DataColumnRegistration&lt;TItem&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the <code>aria-sort</code> value for a header cell, or null when the column is not currently sorted.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected string? GetAriaSort(DataColumnRegistration&lt;TItem&gt; col)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>col</code> <a class="xref" href="BlazOrbit.Components.DataColumnRegistration-1.html">DataColumnRegistration</a>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_GetItemPatternStyle_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.GetItemPatternStyle*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_GetItemPatternStyle_System_Int32_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.GetItemPatternStyle(System.Int32)">
+  GetItemPatternStyle(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Per-item inline style for row patterns that cannot be expressed purely in CSS.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected string? GetItemPatternStyle(int index)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>index</code> <span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_GetOperatorsFor_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.GetOperatorsFor*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_GetOperatorsFor_BlazOrbit_Components_ColumnFilterMode_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.GetOperatorsFor(BlazOrbit.Components.ColumnFilterMode)">
+  GetOperatorsFor(ColumnFilterMode)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the operator labels relevant to the column's <a class="xref" href="BlazOrbit.Components.ColumnFilterMode.html">ColumnFilterMode</a>.
+Drives the operator <code>&lt;select&gt;</code> options rendered next to the filter input.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected static IEnumerable&lt;ColumnFilterOperator&gt; GetOperatorsFor(ColumnFilterMode mode)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>mode</code> <a class="xref" href="BlazOrbit.Components.ColumnFilterMode.html">ColumnFilterMode</a></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IEnumerable</span>&lt;<a class="xref" href="BlazOrbit.Components.ColumnFilterOperator.html">ColumnFilterOperator</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_GetSelectedItems_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.GetSelectedItems*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_GetSelectedItems" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.GetSelectedItems">
+  GetSelectedItems()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the set of currently selected items.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlySet&lt;TItem&gt; GetSelectedItems()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IReadOnlySet</span>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_GetVisiblePages_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.GetVisiblePages*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_GetVisiblePages" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.GetVisiblePages">
+  GetVisiblePages()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Returns the windowed range of page numbers to render in the pager.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected IEnumerable&lt;int&gt; GetVisiblePages()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IEnumerable</span>&lt;<span class="xref">int</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_GoToPage_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.GoToPage*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_GoToPage_System_Int32_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.GoToPage(System.Int32)">
+  GoToPage(int)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Navigates to the given 1-based page index. Out-of-range values are ignored.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GoToPage(int page)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>page</code> <span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleColumnFilterInput_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleColumnFilterInput*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleColumnFilterInput_System_String_Microsoft_AspNetCore_Components_ChangeEventArgs_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleColumnFilterInput(System.String,Microsoft.AspNetCore.Components.ChangeEventArgs)">
+  HandleColumnFilterInput(string, ChangeEventArgs)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Handler wired to the per-column filter input rendered in the data grid header
+when <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_ShowColumnFilters">ShowColumnFilters</a> is on. Updates <a class="xref" href="BlazOrbit.Components.DataCollectionState-1.html#BlazOrbit_Components_DataCollectionState_1_ColumnFilters">ColumnFilters</a>,
+resets pagination, and re-runs the filter pipeline.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task HandleColumnFilterInput(string columnName, ChangeEventArgs e)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>columnName</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>e</code> <span class="xref">ChangeEventArgs</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleColumnFilterInputText_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleColumnFilterInputText*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleColumnFilterInputText_System_String_System_String_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleColumnFilterInputText(System.String,System.String)">
+  HandleColumnFilterInputText(string, string?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>String-valued adapter wired to the internal text / date input primitives'
+<span class="xref">Microsoft.AspNetCore.Components.EventCallback&lt;TValue&gt;</span> contract — converts the bare value into a
+<span class="xref">Microsoft.AspNetCore.Components.ChangeEventArgs</span> and delegates to
+<a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_HandleColumnFilterInput_System_String_Microsoft_AspNetCore_Components_ChangeEventArgs_">HandleColumnFilterInput(string, ChangeEventArgs)</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task HandleColumnFilterInputText(string columnName, string? value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>columnName</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>value</code> <span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleColumnFilterOperator_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleColumnFilterOperator*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleColumnFilterOperator_System_String_Microsoft_AspNetCore_Components_ChangeEventArgs_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleColumnFilterOperator(System.String,Microsoft.AspNetCore.Components.ChangeEventArgs)">
+  HandleColumnFilterOperator(string, ChangeEventArgs)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Handler wired to the per-column operator <code>&lt;select&gt;</code> rendered in the
+header next to the filter input. Updates the operator on the existing entry and
+re-runs the pipeline; no-op when the column has no active text yet.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void HandleColumnFilterOperator(string columnName, ChangeEventArgs e)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>columnName</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>e</code> <span class="xref">ChangeEventArgs</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleColumnFilterOperatorString_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleColumnFilterOperatorString*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleColumnFilterOperatorString_System_String_System_String_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleColumnFilterOperatorString(System.String,System.String)">
+  HandleColumnFilterOperatorString(string, string?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>String-valued adapter wired to the internal select primitive's
+<span class="xref">Microsoft.AspNetCore.Components.EventCallback&lt;TValue&gt;</span> contract — converts the bare value into a
+<span class="xref">Microsoft.AspNetCore.Components.ChangeEventArgs</span> and delegates to
+<a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_HandleColumnFilterOperator_System_String_Microsoft_AspNetCore_Components_ChangeEventArgs_">HandleColumnFilterOperator(string, ChangeEventArgs)</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void HandleColumnFilterOperatorString(string columnName, string? value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>columnName</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>value</code> <span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleFilterChange_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleFilterChange*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleFilterChange_Microsoft_AspNetCore_Components_ChangeEventArgs_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleFilterChange(Microsoft.AspNetCore.Components.ChangeEventArgs)">
+  HandleFilterChange(ChangeEventArgs)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Handler bound to the global filter input. Resets pagination and re-runs the pipeline.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task HandleFilterChange(ChangeEventArgs e)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>e</code> <span class="xref">ChangeEventArgs</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleFilterInputChange_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleFilterInputChange*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleFilterInputChange_System_String_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleFilterInputChange(System.String)">
+  HandleFilterInputChange(string?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>String-valued adapter wired to the internal text input primitive's <span class="xref">Microsoft.AspNetCore.Components.EventCallback&lt;TValue&gt;</span> contract.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task HandleFilterInputChange(string? value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleHeaderDragEnd_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleHeaderDragEnd*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleHeaderDragEnd_Microsoft_AspNetCore_Components_Web_DragEventArgs_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleHeaderDragEnd(Microsoft.AspNetCore.Components.Web.DragEventArgs)">
+  HandleHeaderDragEnd(DragEventArgs)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Dragend handler clears the in-flight drag when the user releases outside any header.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void HandleHeaderDragEnd(DragEventArgs e)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>e</code> <span class="xref">DragEventArgs</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleHeaderDragOver_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleHeaderDragOver*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleHeaderDragOver_System_String_Microsoft_AspNetCore_Components_Web_DragEventArgs_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleHeaderDragOver(System.String,Microsoft.AspNetCore.Components.Web.DragEventArgs)">
+  HandleHeaderDragOver(string, DragEventArgs)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>HTML5 dragover handler. Returning <code>preventDefault</code> via the matching
+<code>@ondragover:preventDefault</code> attribute is what makes a target eligible for
+drop; this handler is a no-op data hook so the grid can highlight the target.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void HandleHeaderDragOver(string columnName, DragEventArgs e)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>columnName</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>e</code> <span class="xref">DragEventArgs</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleHeaderDragStart_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleHeaderDragStart*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleHeaderDragStart_System_String_Microsoft_AspNetCore_Components_Web_DragEventArgs_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleHeaderDragStart(System.String,Microsoft.AspNetCore.Components.Web.DragEventArgs)">
+  HandleHeaderDragStart(string, DragEventArgs)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>HTML5 dragstart handler for a reorder-enabled column header. Captures the source
+column so the matching drop handler knows which header to move. No-op when
+<a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_Reorderable">Reorderable</a> is off so the gesture is opt-in.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void HandleHeaderDragStart(string columnName, DragEventArgs e)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>columnName</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>e</code> <span class="xref">DragEventArgs</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleHeaderDrop_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleHeaderDrop*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleHeaderDrop_System_String_Microsoft_AspNetCore_Components_Web_DragEventArgs_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleHeaderDrop(System.String,Microsoft.AspNetCore.Components.Web.DragEventArgs)">
+  HandleHeaderDrop(string, DragEventArgs)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Drop handler that translates the drag pair (source / target headers) into a
+<a class="xref" href="BlazOrbit.Components.DataCollectionState-1.html#BlazOrbit_Components_DataCollectionState_1_MoveColumn_System_String_System_Int32_System_Collections_Generic_IEnumerable_System_String__">MoveColumn(string, int, IEnumerable&lt;string&gt;)</a> call by computing the index
+delta between the two columns in the current visible order.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void HandleHeaderDrop(string targetHeader, DragEventArgs e)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>targetHeader</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>e</code> <span class="xref">DragEventArgs</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleHeaderKeyDown_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleHeaderKeyDown*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleHeaderKeyDown_System_String_Microsoft_AspNetCore_Components_Web_KeyboardEventArgs_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleHeaderKeyDown(System.String,Microsoft.AspNetCore.Components.Web.KeyboardEventArgs)">
+  HandleHeaderKeyDown(string, KeyboardEventArgs)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Header keydown handler invoked when <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_Reorderable">Reorderable</a> is on.
+<code>Alt+ArrowLeft</code> shifts the column one position toward the start, <code>Alt+ArrowRight</code>
+toward the end. Other keys fall through so existing keyboard handling (sort cycling
+via <code>Enter</code>) keeps working.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void HandleHeaderKeyDown(string columnName, KeyboardEventArgs e)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>columnName</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>e</code> <span class="xref">KeyboardEventArgs</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_HandlePageSizeChange_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandlePageSizeChange*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_HandlePageSizeChange_Microsoft_AspNetCore_Components_ChangeEventArgs_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandlePageSizeChange(Microsoft.AspNetCore.Components.ChangeEventArgs)">
+  HandlePageSizeChange(ChangeEventArgs)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Page-size change handler. Resets pagination and raises <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_OnPageChange">OnPageChange</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task HandlePageSizeChange(ChangeEventArgs e)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>e</code> <span class="xref">ChangeEventArgs</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_HandlePageSizeSelectChange_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandlePageSizeSelectChange*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_HandlePageSizeSelectChange_System_String_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandlePageSizeSelectChange(System.String)">
+  HandlePageSizeSelectChange(string?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>String-valued adapter for the page-size <code>&lt;select&gt;</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task HandlePageSizeSelectChange(string? value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleRowClick_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleRowClick*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleRowClick__0_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleRowClick(`0)">
+  HandleRowClick(TItem)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Row click handler that combines selection (when active) and the user's <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_OnRowClick">OnRowClick</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task HandleRowClick(TItem item)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>item</code> <span class="xref">TItem</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleRowKeyDown_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleRowKeyDown*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleRowKeyDown_Microsoft_AspNetCore_Components_Web_KeyboardEventArgs__0_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleRowKeyDown(Microsoft.AspNetCore.Components.Web.KeyboardEventArgs,`0)">
+  HandleRowKeyDown(KeyboardEventArgs, TItem)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Keyboard activation handler: Enter / Space behave like a row click.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task HandleRowKeyDown(KeyboardEventArgs e, TItem item)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>e</code> <span class="xref">KeyboardEventArgs</span></dt>
+    <dd></dd>
+    <dt><code>item</code> <span class="xref">TItem</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleSelectAll_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleSelectAll*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleSelectAll_Microsoft_AspNetCore_Components_ChangeEventArgs_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleSelectAll(Microsoft.AspNetCore.Components.ChangeEventArgs)">
+  HandleSelectAll(ChangeEventArgs)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Select-all checkbox handler: selects every visible row when checked, clears otherwise.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task HandleSelectAll(ChangeEventArgs e)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>e</code> <span class="xref">ChangeEventArgs</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleSelectRow_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleSelectRow*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleSelectRow__0_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleSelectRow(`0)">
+  HandleSelectRow(TItem)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Selects the given row and raises <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_SelectedItemsChanged">SelectedItemsChanged</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task HandleSelectRow(TItem item)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>item</code> <span class="xref">TItem</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleSort_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleSort*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleSort_BlazOrbit_Components_DataColumnRegistration__0__" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleSort(BlazOrbit.Components.DataColumnRegistration{`0})">
+  HandleSort(DataColumnRegistration&lt;TItem&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Single-column sort handler (no append).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task HandleSort(DataColumnRegistration&lt;TItem&gt; column)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>column</code> <a class="xref" href="BlazOrbit.Components.DataColumnRegistration-1.html">DataColumnRegistration</a>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleSort_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleSort*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleSort_BlazOrbit_Components_DataColumnRegistration__0__System_Boolean_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleSort(BlazOrbit.Components.DataColumnRegistration{`0},System.Boolean)">
+  HandleSort(DataColumnRegistration&lt;TItem&gt;, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Toggle the sort state for the given column. <code class="paramref">append</code>
+= <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> stacks the sort instead of replacing it
+(Shift+Click on the header). The notification fires with the new
+primary sort.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task HandleSort(DataColumnRegistration&lt;TItem&gt; column, bool append)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>column</code> <a class="xref" href="BlazOrbit.Components.DataColumnRegistration-1.html">DataColumnRegistration</a>&lt;TItem&gt;</dt>
+    <dd></dd>
+    <dt><code>append</code> <span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleSortClick_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleSortClick*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleSortClick_BlazOrbit_Components_DataColumnRegistration__0__Microsoft_AspNetCore_Components_Web_MouseEventArgs_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleSortClick(BlazOrbit.Components.DataColumnRegistration{`0},Microsoft.AspNetCore.Components.Web.MouseEventArgs)">
+  HandleSortClick(DataColumnRegistration&lt;TItem&gt;, MouseEventArgs)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Wrapper invoked from sort buttons that exposes the click args so
+<code>shiftKey</code> can drive multi-column sort. Falls back to the
+single-column toggle when Shift is not pressed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task HandleSortClick(DataColumnRegistration&lt;TItem&gt; column, MouseEventArgs e)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>column</code> <a class="xref" href="BlazOrbit.Components.DataColumnRegistration-1.html">DataColumnRegistration</a>&lt;TItem&gt;</dt>
+    <dd></dd>
+    <dt><code>e</code> <span class="xref">MouseEventArgs</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleSortSelectChange_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleSortSelectChange*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_HandleSortSelectChange_System_String_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.HandleSortSelectChange(System.String)">
+  HandleSortSelectChange(string?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Handler bound to the sort-column <code>&lt;select&gt;</code> in mobile / compact toolbars.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task HandleSortSelectChange(string? value)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_IsAllSelected_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.IsAllSelected*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_IsAllSelected" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.IsAllSelected">
+  IsAllSelected()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>True when every row on the current page is selected.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool IsAllSelected()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_NotifySelectionChanged_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.NotifySelectionChanged*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_NotifySelectionChanged" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.NotifySelectionChanged">
+  NotifySelectionChanged()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raises <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_SelectedItemsChanged">SelectedItemsChanged</a> with the latest selection snapshot.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task NotifySelectionChanged()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_OnAfterRender_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.OnAfterRender*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_OnAfterRender_System_Boolean_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.OnAfterRender(System.Boolean)">
+  OnAfterRender(bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Method invoked after each time the component has rendered interactively and the UI has finished
+updating (for example, after elements have been added to the browser DOM). Any <span class="xref">Microsoft.AspNetCore.Components.ElementReference</span>
+fields will be populated by the time this runs.</p>
+<p>This method is not invoked during prerendering or server-side rendering, because those processes
+are not attached to any live browser DOM and are already complete before the DOM is updated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnAfterRender(bool firstRender)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>firstRender</code> <span class="xref">bool</span></dt>
+    <dd><p>Set to <code>true</code> if this is the first time <span class="xref">Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender(bool)</span> has been invoked
+on this component instance; otherwise <code>false</code>.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h4 class="section" id="BlazOrbit_Components_BOBDataCollectionBase_3_OnAfterRender_System_Boolean__remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>The <span class="xref">Microsoft.AspNetCore.Components.ComponentBase.OnAfterRender(bool)</span> and <span class="xref">Microsoft.AspNetCore.Components.ComponentBase.OnAfterRenderAsync(bool)</span> lifecycle methods
+are useful for performing interop, or interacting with values received from <code>@ref</code>.
+Use the <code class="paramref">firstRender</code> parameter to ensure that initialization work is only performed
+once.</p>
+</div>
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_OnInitialized_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.OnInitialized*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_OnInitialized" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.OnInitialized">
+  OnInitialized()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Method invoked when the component is ready to start, having received its
+initial parameters from its parent in the render tree.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnInitialized()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_OnParametersSet_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.OnParametersSet*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_OnParametersSet" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.OnParametersSet">
+  OnParametersSet()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Method invoked when the component has received parameters from its parent in
+the render tree, and the incoming values have been assigned to properties.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnParametersSet()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_OnResizePointerMove_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.OnResizePointerMove*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_OnResizePointerMove_Microsoft_AspNetCore_Components_Web_PointerEventArgs_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.OnResizePointerMove(Microsoft.AspNetCore.Components.Web.PointerEventArgs)">
+  OnResizePointerMove(PointerEventArgs)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Pointermove handler bound to the drag overlay; updates the column width on every
+frame the user moves the cursor while the resize handle is held.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void OnResizePointerMove(PointerEventArgs e)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>e</code> <span class="xref">PointerEventArgs</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_PersistState_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.PersistState*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_PersistState" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.PersistState">
+  PersistState()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Fires the persistence pipeline. Wired into every state mutation handler — filter /
+sort / pagination / reorder / column filter — so the next reload restores the
+user's view. No-op when <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_PersistenceKey">PersistenceKey</a> is unset.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void PersistState()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_ProcessData_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ProcessData*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_ProcessData" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ProcessData">
+  ProcessData()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Re-runs filter/sort/pagination and refreshes <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_ProcessedItems">ProcessedItems</a> from the current state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void ProcessData()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_ProvideVirtualizedItemsAsync_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ProvideVirtualizedItemsAsync*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_ProvideVirtualizedItemsAsync_Microsoft_AspNetCore_Components_Web_Virtualization_ItemsProviderRequest_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ProvideVirtualizedItemsAsync(Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderRequest)">
+  ProvideVirtualizedItemsAsync(ItemsProviderRequest)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>ItemsProvider callback wired to <span class="xref">Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize&lt;TItem&gt;.ItemsProvider</span>
+when <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_UsesItemsProvider">UsesItemsProvider</a> is on. Translates the viewport-driven
+request (<code class="paramref">request</code>) into a <a class="xref" href="BlazOrbit.Components.DataRequest.html">DataRequest</a> and forwards
+to <a class="xref" href="BlazOrbit.Components.BOBDataCollectionBase-3.html#BlazOrbit_Components_BOBDataCollectionBase_3_DataSource">DataSource</a>. The pagination footer is hidden in this mode —
+Virtualize owns slicing.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ValueTask&lt;ItemsProviderResult&lt;TItem&gt;&gt; ProvideVirtualizedItemsAsync(ItemsProviderRequest request)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>request</code> <span class="xref">ItemsProviderRequest</span></dt>
+    <dd><p>Range + cancellation token supplied by Virtualize.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">ValueTask</span>&lt;<span class="xref">ItemsProviderResult</span>&lt;TItem&gt;&gt;</dt>
+    <dd><p>Materialised slice plus total filtered row count for scroll-height math.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_SortBy_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.SortBy*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_SortBy_System_String_BlazOrbit_Components_SortDirection_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.SortBy(System.String,BlazOrbit.Components.SortDirection)">
+  SortBy(string, SortDirection)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Sorts the collection by the given column header in the requested direction.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SortBy(string columnName, SortDirection direction)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>columnName</code> <span class="xref">string</span></dt>
+    <dd></dd>
+    <dt><code>direction</code> <a class="xref" href="BlazOrbit.Components.SortDirection.html">SortDirection</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_StartColumnResize_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.StartColumnResize*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_StartColumnResize_BlazOrbit_Components_DataColumnRegistration__0__Microsoft_AspNetCore_Components_Web_PointerEventArgs_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.StartColumnResize(BlazOrbit.Components.DataColumnRegistration{`0},Microsoft.AspNetCore.Components.Web.PointerEventArgs)">
+  StartColumnResize(DataColumnRegistration&lt;TItem&gt;, PointerEventArgs)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Pointerdown handler for the per-column resize handle. Seeds the drag state with
+the column's current effective width (state override &gt; parameter &gt; default 120).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void StartColumnResize(DataColumnRegistration&lt;TItem&gt; col, PointerEventArgs e)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>col</code> <a class="xref" href="BlazOrbit.Components.DataColumnRegistration-1.html">DataColumnRegistration</a>&lt;TItem&gt;</dt>
+    <dd></dd>
+    <dt><code>e</code> <span class="xref">PointerEventArgs</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_ToggleSortDirectionClicked_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ToggleSortDirectionClicked*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_ToggleSortDirectionClicked" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.ToggleSortDirectionClicked">
+  ToggleSortDirectionClicked()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Flips the active sort direction (asc ⇄ desc) for the current sort column.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Task ToggleSortDirectionClicked()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_BOBDataCollectionBase_3_UpdateLiveRegionMessage_" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.UpdateLiveRegionMessage*"></a>
+
+  <h3 id="BlazOrbit_Components_BOBDataCollectionBase_3_UpdateLiveRegionMessage" data-uid="BlazOrbit.Components.BOBDataCollectionBase`3.UpdateLiveRegionMessage">
+  UpdateLiveRegionMessage()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Rebuilds the localized live-region announcement (sort/filter/page summary) for screen readers.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void UpdateLiveRegionMessage()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/BOBDataCollectionBase.cs" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Namespace BlazOrbit.Charts.Components | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Namespace BlazOrbit.Charts.Components | BlazOrbit API ">
+      
+      
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Charts.Components">
+
+  <h1 id="BlazOrbit_Charts_Components" data-uid="BlazOrbit.Charts.Components" class="text-break">Namespace BlazOrbit.Charts.Components</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+
+    <h3 id="classes">
+Classes
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Components.BOBAreaChart-2.html">BOBAreaChart&lt;TX, TY&gt;</a></dt>
+      <dd><p>Area chart - line chart with the region between the line and the X axis
+baseline filled. Each series renders as its own filled region (overlapping
+when series intersect); a stacked variant is on the v2 roadmap.</p>
+<p>
+Inherits the full Line-chart pipeline (axes, smooth interpolation, X-axis
+auto-detect for numeric / temporal / categorical) and overrides the
+per-series shape to add a filled <code>&lt;path&gt;</code> beneath the stroke.
+Markers are off by default - area charts emphasise the filled volume,
+not the individual data points.
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Components.BOBBarChart-2.html">BOBBarChart&lt;TX, TY&gt;</a></dt>
+      <dd><p>Vertical bar chart with multi-series support. X axis is categorical
+(typically <span class="xref">string</span> labels), Y axis is a linear numeric scale.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Components.BOBBoxplotChart-1.html">BOBBoxplotChart&lt;TX&gt;</a></dt>
+      <dd><p>Box-and-whisker plot - distribution comparison across categorical
+groups. Each box renders the IQR (Q1..Q3), median line, whiskers
+(typically <code>±1.5·IQR</code>) and individual outlier dots.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Components.BOBCandlestickChart-1.html">BOBCandlestickChart&lt;TX&gt;</a></dt>
+      <dd><p>Candlestick / OHLC chart for financial time series. Each
+<a class="xref" href="BlazOrbit.Charts.Models.BOBChartCandlePoint-1.html">BOBChartCandlePoint&lt;TX&gt;</a> renders as a vertical wick from
+<code>Low</code> to <code>High</code> with a body spanning <code>Open</code> to
+<code>Close</code>. Bullish bars (<code>Close ≥ Open</code>) use
+<a class="xref" href="BlazOrbit.Charts.Components.BOBCandlestickChart-1.html#BlazOrbit_Charts_Components_BOBCandlestickChart_1_UpColor">UpColor</a>; bearish bars use <a class="xref" href="BlazOrbit.Charts.Components.BOBCandlestickChart-1.html#BlazOrbit_Charts_Components_BOBCandlestickChart_1_DownColor">DownColor</a>. Set
+<a class="xref" href="BlazOrbit.Charts.Components.BOBCandlestickChart-1.html#BlazOrbit_Charts_Components_BOBCandlestickChart_1_ShowVolumePane">ShowVolumePane</a> to overlay a volume bar pane on the
+bottom 20% of the plot, sharing the X axis.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html">BOBChartBase&lt;TX, TY&gt;</a></dt>
+      <dd><p>Abstract base for every BOBCharts component (Bar, Line, Pie / Donut, Area).
+Provides:</p>
+<ul><li>The <code>&lt;bob-component data-bob-component="…" data-bob-data-visualization-base&gt;</code>
+      host element shared by the family.</li><li>A child <code>&lt;svg&gt;</code> root sized by <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_Width">Width</a> /
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_Height">Height</a> (or 100% when both are <code>null</code>).</li><li>The <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_RenderSvg_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder_">RenderSvg(RenderTreeBuilder)</a> hook concrete charts override to emit
+      their geometry inside the SVG.</li><li>Optional Export-as-PNG button wired through <a class="xref" href="BlazOrbit.Charts.Services.JsInterop.IChartJsInterop.html">IChartJsInterop</a>.</li></ul>
+<p>
+Concrete subclasses are <code>sealed</code> and live in the same namespace.
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Components.BOBChartFilterContext.html">BOBChartFilterContext</a></dt>
+      <dd></dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Components.BOBDonutChart-1.html">BOBDonutChart&lt;TY&gt;</a></dt>
+      <dd><p>Donut chart - annular distribution. Identical to <a class="xref" href="BlazOrbit.Charts.Components.BOBPieChart-1.html">BOBPieChart&lt;TY&gt;</a>
+but with a non-zero inner radius (default 0.6 of the outer radius) so the
+centre is hollow. Useful for embedding a KPI label inside the ring.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Components.BOBFunnelChart-1.html">BOBFunnelChart&lt;TY&gt;</a></dt>
+      <dd><p>Funnel chart - visualizes a multi-stage drop-off pipeline. Each step's
+row width auto-scales to the largest value in the funnel; the row
+height is uniform. Useful for sales pipelines, ad attribution funnels
+and onboarding completion analyses.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Components.BOBGaugeChart.html">BOBGaugeChart</a></dt>
+      <dd><p>Gauge chart - single-value KPI display rendered as an arc fill against
+a track. Supports semi (180°), three-quarter (270°) and full (360°)
+shapes plus optional zone <a class="xref" href="BlazOrbit.Charts.Components.BOBGaugeChart.html#BlazOrbit_Charts_Components_BOBGaugeChart_Segments">Segments</a> (e.g. green-amber-red
+thresholds). The current <a class="xref" href="BlazOrbit.Charts.Components.BOBGaugeChart.html#BlazOrbit_Charts_Components_BOBGaugeChart_Value">Value</a> drives the fill arc and
+the centered numeric readout.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Components.BOBHeatmapChart-2.html">BOBHeatmapChart&lt;TX, TY&gt;</a></dt>
+      <dd><p>Heatmap - 2D matrix where each cell's intensity maps to a color in a
+sequential ramp between <a class="xref" href="BlazOrbit.Charts.Components.BOBHeatmapChart-2.html#BlazOrbit_Charts_Components_BOBHeatmapChart_2_LowColor">LowColor</a> and <a class="xref" href="BlazOrbit.Charts.Components.BOBHeatmapChart-2.html#BlazOrbit_Charts_Components_BOBHeatmapChart_2_HighColor">HighColor</a>.
+Useful for correlation matrices, calendar heatmaps (GitHub-style),
+hourly traffic, retention cohorts.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Components.BOBHistogramChart-1.html">BOBHistogramChart&lt;T&gt;</a></dt>
+      <dd><p>Histogram - distribution of a single numeric variable. Auto-bins the
+raw <a class="xref" href="BlazOrbit.Charts.Components.BOBHistogramChart-1.html#BlazOrbit_Charts_Components_BOBHistogramChart_1_Values">Values</a> using <a class="xref" href="BlazOrbit.Charts.Components.BOBHistogramChart-1.html#BlazOrbit_Charts_Components_BOBHistogramChart_1_BinRule">BinRule</a> and renders each
+bin as a vertical bar. Includes a quantile readout (<code>Median</code>,
+<code>P95</code>) optionally shown via the <a class="xref" href="BlazOrbit.Charts.Components.BOBHistogramChart-1.html#BlazOrbit_Charts_Components_BOBHistogramChart_1_ShowQuantileLines">ShowQuantileLines</a>
+flag.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Components.BOBLineChart-2.html">BOBLineChart&lt;TX, TY&gt;</a></dt>
+      <dd><p>Continuous line chart with multi-series support. Auto-detects the X axis
+type from <code class="typeparamref">TX</code>:</p>
+<ul><li>Numeric (<span class="xref">int</span>, <span class="xref">double</span>,
+    <span class="xref">decimal</span>, …) → linear scale.</li><li><span class="xref">System.DateTime</span>, <span class="xref">System.DateTimeOffset</span>,
+    <span class="xref">System.TimeSpan</span> → temporal linear scale (projected via
+    <code>Ticks</code>; format string controls the tick label rendering).</li><li>Anything else → falls back to a categorical scale,
+    equally spaced by category index in declaration order.</li></ul>
+Y axis is always linear-numeric.
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Components.BOBMixedChart-1.html">BOBMixedChart&lt;TX&gt;</a></dt>
+      <dd><p>Combined-series chart: bar + line + area in the same plot, sharing the X axis and
+optionally a secondary Y axis (right side, distinct range). Useful for
+&quot;actual vs target&quot; / &quot;value vs ratio&quot; / &quot;stock vs index&quot; comparisons where one
+series belongs to a different domain than the others.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Components.BOBPieChartBase-1.html">BOBPieChartBase&lt;TY&gt;</a></dt>
+      <dd><p>Shared rendering pipeline for circular distribution charts. Subclassed by
+<a class="xref" href="BlazOrbit.Charts.Components.BOBPieChart-1.html">BOBPieChart&lt;TY&gt;</a> (full disc, <a class="xref" href="BlazOrbit.Charts.Components.BOBPieChartBase-1.html#BlazOrbit_Charts_Components_BOBPieChartBase_1_InnerRadius">InnerRadius</a> = 0)
+and <a class="xref" href="BlazOrbit.Charts.Components.BOBDonutChart-1.html">BOBDonutChart&lt;TY&gt;</a> (annulus, <a class="xref" href="BlazOrbit.Charts.Components.BOBPieChartBase-1.html#BlazOrbit_Charts_Components_BOBPieChartBase_1_InnerRadius">InnerRadius</a> ≈ 0.6).</p>
+<p>
+Pie / donut do not have X / Y axes, so this base derives from
+<code>BOBChartBase&lt;object, TY&gt;</code> with TX bound to the dummy
+<span class="xref">object</span> type.
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Components.BOBPieChart-1.html">BOBPieChart&lt;TY&gt;</a></dt>
+      <dd><p>Pie chart - full circular distribution. Each <code>BOBChartSlice</code>'s value
+is normalised to 100% across the slice set; slice order goes clockwise
+from 12 o'clock following declaration order.</p>
+<p>
+For an annular variant (donut), see <a class="xref" href="BlazOrbit.Charts.Components.BOBDonutChart-1.html">BOBDonutChart&lt;TY&gt;</a>.
+</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Components.BOBPolarAreaChart-1.html">BOBPolarAreaChart&lt;TY&gt;</a></dt>
+      <dd><p>Polar-area / Coxcomb / Rose chart - variant of pie where every slice
+has the same angular width but the radius encodes the magnitude.
+Useful for cyclic data (months, hours-of-day) where you want to
+preserve uniform angular slots and let the radii do the talking.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Components.BOBRadarChart-2.html">BOBRadarChart&lt;TX, TY&gt;</a></dt>
+      <dd><p>Radar / spider chart - multi-dimensional comparison across N axes.
+Each <a class="xref" href="BlazOrbit.Charts.Models.BOBChartSeries-2.html">BOBChartSeries&lt;TX, TY&gt;</a> contributes one closed
+polygon, with one vertex per <code class="typeparamref">TX</code> category.
+Best for 3-12 axes; more becomes hard to read.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Components.BOBSankeyChart-1.html">BOBSankeyChart&lt;TY&gt;</a></dt>
+      <dd><p>Sankey flow diagram - visualises mass / energy / monetary movement between named
+nodes as variable-thickness ribbons. The chart auto-derives node columns from the
+edge graph (topological rank by reachability from sources) so consumers only
+describe the links; positions are computed.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Components.BOBScatterChart-2.html">BOBScatterChart&lt;TX, TY&gt;</a></dt>
+      <dd><p>Scatter / bubble chart. Each data point renders as an independent marker
+with no inter-point connection.</p>
+<ul><li><a class="xref" href="BlazOrbit.Charts.Components.BOBScatterChart-2.html#BlazOrbit_Charts_Components_BOBScatterChart_2_Series">Series</a> - XY scatter with a constant
+    <a class="xref" href="BlazOrbit.Charts.Components.BOBScatterChart-2.html#BlazOrbit_Charts_Components_BOBScatterChart_2_MarkerRadius">MarkerRadius</a> per point.</li><li><a class="xref" href="BlazOrbit.Charts.Components.BOBScatterChart-2.html#BlazOrbit_Charts_Components_BOBScatterChart_2_BubbleSeries">BubbleSeries</a> - bubble mode where the
+    marker radius encodes a third dimension. Per-point sizes are auto-
+    scaled into <a class="xref" href="BlazOrbit.Charts.Components.BOBScatterChart-2.html#BlazOrbit_Charts_Components_BOBScatterChart_2_BubbleMinRadius">BubbleMinRadius</a>..<a class="xref" href="BlazOrbit.Charts.Components.BOBScatterChart-2.html#BlazOrbit_Charts_Components_BOBScatterChart_2_BubbleMaxRadius">BubbleMaxRadius</a>
+    across all bubble series in the chart.</li></ul>
+Both parameter sets can coexist (mixed scatter + bubble overlays).
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Components.BOBStockChart-1.html">BOBStockChart&lt;TX&gt;</a></dt>
+      <dd><p>Multi-pane stock chart - extends the candlestick paradigm with stacked indicator
+panes (RSI, MACD, Volume) and overlay indicators (Bollinger Bands) on the price
+pane. Panes share the X axis so the user can correlate price action with momentum
+/ volume signals.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Components.BOBSunburstChart-1.html">BOBSunburstChart&lt;TY&gt;</a></dt>
+      <dd><p>Radial variant of <a class="xref" href="BlazOrbit.Charts.Components.BOBTreemapChart-1.html">BOBTreemapChart&lt;TY&gt;</a>. Hierarchical nodes render as
+concentric arcs - innermost ring for root nodes, outer rings for their descendants.
+Shares <a class="xref" href="BlazOrbit.Charts.Models.BOBChartTreemapNode-1.html">BOBChartTreemapNode&lt;TY&gt;</a> with the treemap so consumers can swap
+representations without rebuilding their dataset.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Charts.Components.BOBTreemapChart-1.html">BOBTreemapChart&lt;TY&gt;</a></dt>
+      <dd><p>Hierarchical treemap - subdivides the chart area into nested rectangles whose size
+is proportional to each node's value. Uses the squarified algorithm
+(Bruls / Huijing / van Wijk, 2000) so rectangles stay close to square, making
+adjacent magnitudes easier to compare than the long thin strips of the classic
+slice-and-dice approach.</p>
+</dd>
+    </dl>
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

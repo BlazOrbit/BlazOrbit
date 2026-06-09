@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class BOBChartMixedSeries&lt;TX&gt; | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class BOBChartMixedSeries&lt;TX&gt; | BlazOrbit API ">
+      
+      <meta name="description" content="Single series inside a . Carries the visual type (bar / line / area), the data points and an optional flag to bind the series to the chart&#39;s secondary Y axis instead of the primary one.">
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Charts.Models.BOBChartMixedSeries`1">
+
+
+
+  <h1 id="BlazOrbit_Charts_Models_BOBChartMixedSeries_1" data-uid="BlazOrbit.Charts.Models.BOBChartMixedSeries`1" class="text-break">
+Class BOBChartMixedSeries&lt;TX&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Models/BOBChartMixedSeries.cs"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Charts.html">Charts</a>.<a class="xref" href="BlazOrbit.Charts.Models.html">Models</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.Charts.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Single series inside a <a class="xref" href="BlazOrbit.Charts.Components.BOBMixedChart-1.html">BOBMixedChart&lt;TX&gt;</a>. Carries the
+visual type (bar / line / area), the data points and an optional flag to bind the
+series to the chart's secondary Y axis instead of the primary one.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class BOBChartMixedSeries&lt;TX&gt;</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TX</code></dt>
+    <dd><p>X-axis domain type.</p>
+</dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">BOBChartMixedSeries&lt;TX&gt;</span></div>
+    </dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="BlazOrbit_Charts_Models_BOBChartMixedSeries_1__ctor_" data-uid="BlazOrbit.Charts.Models.BOBChartMixedSeries`1.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Charts_Models_BOBChartMixedSeries_1__ctor" data-uid="BlazOrbit.Charts.Models.BOBChartMixedSeries`1.#ctor">
+  BOBChartMixedSeries()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Models/BOBChartMixedSeries.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BOBChartMixedSeries()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="BlazOrbit_Charts_Models_BOBChartMixedSeries_1_BorderWidth_" data-uid="BlazOrbit.Charts.Models.BOBChartMixedSeries`1.BorderWidth*"></a>
+
+  <h3 id="BlazOrbit_Charts_Models_BOBChartMixedSeries_1_BorderWidth" data-uid="BlazOrbit.Charts.Models.BOBChartMixedSeries`1.BorderWidth">
+  BorderWidth
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Models/BOBChartMixedSeries.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Stroke width for line / area series. Ignored by bar series. Default 2.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int BorderWidth { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Models_BOBChartMixedSeries_1_Color_" data-uid="BlazOrbit.Charts.Models.BOBChartMixedSeries`1.Color*"></a>
+
+  <h3 id="BlazOrbit_Charts_Models_BOBChartMixedSeries_1_Color" data-uid="BlazOrbit.Charts.Models.BOBChartMixedSeries`1.Color">
+  Color
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Models/BOBChartMixedSeries.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Optional explicit colour (any valid CSS colour).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? Color { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Models_BOBChartMixedSeries_1_Label_" data-uid="BlazOrbit.Charts.Models.BOBChartMixedSeries`1.Label*"></a>
+
+  <h3 id="BlazOrbit_Charts_Models_BOBChartMixedSeries_1_Label" data-uid="BlazOrbit.Charts.Models.BOBChartMixedSeries`1.Label">
+  Label
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Models/BOBChartMixedSeries.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Display label used by the legend and tooltips.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Label { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Models_BOBChartMixedSeries_1_Points_" data-uid="BlazOrbit.Charts.Models.BOBChartMixedSeries`1.Points*"></a>
+
+  <h3 id="BlazOrbit_Charts_Models_BOBChartMixedSeries_1_Points" data-uid="BlazOrbit.Charts.Models.BOBChartMixedSeries`1.Points">
+  Points
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Models/BOBChartMixedSeries.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Data points in plot order (typically left-to-right).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;BOBChartPoint&lt;TX, double&gt;&gt; Points { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IEnumerable</span>&lt;<a class="xref" href="BlazOrbit.Charts.Models.BOBChartPoint-2.html">BOBChartPoint</a>&lt;TX, <span class="xref">double</span>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Models_BOBChartMixedSeries_1_Type_" data-uid="BlazOrbit.Charts.Models.BOBChartMixedSeries`1.Type*"></a>
+
+  <h3 id="BlazOrbit_Charts_Models_BOBChartMixedSeries_1_Type" data-uid="BlazOrbit.Charts.Models.BOBChartMixedSeries`1.Type">
+  Type
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Models/BOBChartMixedSeries.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Visual representation for this series.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BOBChartMixedSeriesType Type { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Charts.Enums.BOBChartMixedSeriesType.html">BOBChartMixedSeriesType</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Models_BOBChartMixedSeries_1_UseSecondaryAxis_" data-uid="BlazOrbit.Charts.Models.BOBChartMixedSeries`1.UseSecondaryAxis*"></a>
+
+  <h3 id="BlazOrbit_Charts_Models_BOBChartMixedSeries_1_UseSecondaryAxis" data-uid="BlazOrbit.Charts.Models.BOBChartMixedSeries`1.UseSecondaryAxis">
+  UseSecondaryAxis
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Models/BOBChartMixedSeries.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the series is scaled against the chart's secondary
+Y axis (rendered on the right side) - useful for &quot;actual vs target&quot; reports
+where one series is a value and the other a ratio in a different range.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool UseSecondaryAxis { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Models/BOBChartMixedSeries.cs" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

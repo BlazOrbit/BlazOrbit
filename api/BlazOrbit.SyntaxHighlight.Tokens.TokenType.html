@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Enum TokenType | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Enum TokenType | BlazOrbit API ">
+      
+      <meta name="description" content="Defines the types of tokens that can be produced by the syntax highlighter.">
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.SyntaxHighlight.Tokens.TokenType">
+
+
+
+
+  <h1 id="BlazOrbit_SyntaxHighlight_Tokens_TokenType" data-uid="BlazOrbit.SyntaxHighlight.Tokens.TokenType" class="text-break">
+Enum TokenType  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.SyntaxHighlight/Tokens/TokenType.cs"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.SyntaxHighlight.html">SyntaxHighlight</a>.<a class="xref" href="BlazOrbit.SyntaxHighlight.Tokens.html">Tokens</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.SyntaxHighlight.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Defines the types of tokens that can be produced by the syntax highlighter.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public enum TokenType</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+  <h2 id="fields">Fields
+</h2>
+  <dl class="parameters">
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_Attribute"><code>Attribute = 20</code></dt>
+  
+  <dd><p>An attribute or annotation.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_AttributeName"><code>AttributeName = 23</code></dt>
+  
+  <dd><p>A markup attribute name.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_AttributeValue"><code>AttributeValue = 24</code></dt>
+  
+  <dd><p>A markup attribute value.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_Char"><code>Char = 7</code></dt>
+  
+  <dd><p>A character literal.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_Comment"><code>Comment = 9</code></dt>
+  
+  <dd><p>A comment.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_ControlKeyword"><code>ControlKeyword = 2</code></dt>
+  
+  <dd><p>A control-flow keyword.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_CssProperty"><code>CssProperty = 26</code></dt>
+  
+  <dd><p>A CSS property name.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_CssPseudo"><code>CssPseudo = 29</code></dt>
+  
+  <dd><p>A CSS pseudo-element or pseudo-class.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_CssSelector"><code>CssSelector = 25</code></dt>
+  
+  <dd><p>A CSS selector.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_CssUnit"><code>CssUnit = 28</code></dt>
+  
+  <dd><p>A CSS unit.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_CssValue"><code>CssValue = 27</code></dt>
+  
+  <dd><p>A CSS value.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_Directive"><code>Directive = 18</code></dt>
+  
+  <dd><p>A directive.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_Field"><code>Field = 14</code></dt>
+  
+  <dd><p>A field name.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_InterpolatedString"><code>InterpolatedString = 6</code></dt>
+  
+  <dd><p>An interpolated string literal.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_Keyword"><code>Keyword = 1</code></dt>
+  
+  <dd><p>A language keyword.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_Method"><code>Method = 12</code></dt>
+  
+  <dd><p>A method name.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_Namespace"><code>Namespace = 17</code></dt>
+  
+  <dd><p>A namespace name.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_Number"><code>Number = 8</code></dt>
+  
+  <dd><p>A numeric literal.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_Operator"><code>Operator = 10</code></dt>
+  
+  <dd><p>An operator.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_Parameter"><code>Parameter = 15</code></dt>
+  
+  <dd><p>A parameter name.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_PreprocessorDirective"><code>PreprocessorDirective = 19</code></dt>
+  
+  <dd><p>A preprocessor directive.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_Property"><code>Property = 13</code></dt>
+  
+  <dd><p>A property name.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_Punctuation"><code>Punctuation = 11</code></dt>
+  
+  <dd><p>Punctuation.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_RazorCodeBlock"><code>RazorCodeBlock = 32</code></dt>
+  
+  <dd><p>A Razor code block.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_RazorDelimiter"><code>RazorDelimiter = 30</code></dt>
+  
+  <dd><p>A Razor delimiter.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_RazorExpression"><code>RazorExpression = 31</code></dt>
+  
+  <dd><p>A Razor expression.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_String"><code>String = 4</code></dt>
+  
+  <dd><p>A string literal.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_Tag"><code>Tag = 21</code></dt>
+  
+  <dd><p>A markup tag and its contents.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_TagName"><code>TagName = 22</code></dt>
+  
+  <dd><p>A markup tag name.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_Text"><code>Text = 0</code></dt>
+  
+  <dd><p>Plain text without special meaning.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_Type"><code>Type = 3</code></dt>
+  
+  <dd><p>A built-in or user-defined type name.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_Variable"><code>Variable = 16</code></dt>
+  
+  <dd><p>A variable name.</p>
+</dd>
+    <dt id="BlazOrbit_SyntaxHighlight_Tokens_TokenType_VerbatimString"><code>VerbatimString = 5</code></dt>
+  
+  <dd><p>A verbatim string literal.</p>
+</dd>
+  </dl>
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.SyntaxHighlight/Tokens/TokenType.cs" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

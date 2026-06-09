@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class BOBChunkedUploader | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class BOBChunkedUploader | BlazOrbit API ">
+      
+      <meta name="description" content="Streams an  to a consumer-supplied transport in fixed-size chunks. Opt-in helper used alongside  when a single InputFileChangeEventArgs.GetMultipleFiles round-trip is too large to buffer.">
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Components.Forms.BOBChunkedUploader">
+
+
+
+  <h1 id="BlazOrbit_Components_Forms_BOBChunkedUploader" data-uid="BlazOrbit.Components.Forms.BOBChunkedUploader" class="text-break">
+Class BOBChunkedUploader  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBChunkedUploader.cs"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Components.html">Components</a>.<a class="xref" href="BlazOrbit.Components.Forms.html">Forms</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Streams an <span class="xref">Microsoft.AspNetCore.Components.Forms.IBrowserFile</span> to a consumer-supplied transport in fixed-size
+chunks. Opt-in helper used alongside <a class="xref" href="BlazOrbit.Components.Forms.BOBInputFile.html">BOBInputFile</a> when a single
+<code>InputFileChangeEventArgs.GetMultipleFiles</code> round-trip is too large to buffer.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class BOBChunkedUploader</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">BOBChunkedUploader</span></div>
+    </dd>
+  </dl>
+
+
+
+
+
+
+
+  <h2 id="BlazOrbit_Components_Forms_BOBChunkedUploader_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>The helper is transport-agnostic — the consumer provides <a class="xref" href="BlazOrbit.Components.Forms.BOBChunkedUploader.html#BlazOrbit_Components_Forms_BOBChunkedUploader_SendChunk">SendChunk</a> and
+decides whether the destination is HTTP, SignalR, the file system, or something else.
+Chunks are emitted sequentially in index order; the helper awaits each
+<a class="xref" href="BlazOrbit.Components.Forms.BOBChunkedUploader.html#BlazOrbit_Components_Forms_BOBChunkedUploader_SendChunk">SendChunk</a> invocation before reading the next chunk, so a slow transport
+applies back-pressure on the read stream automatically.</p>
+</div>
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="BlazOrbit_Components_Forms_BOBChunkedUploader__ctor_" data-uid="BlazOrbit.Components.Forms.BOBChunkedUploader.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBChunkedUploader__ctor" data-uid="BlazOrbit.Components.Forms.BOBChunkedUploader.#ctor">
+  BOBChunkedUploader()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBChunkedUploader.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BOBChunkedUploader()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="BlazOrbit_Components_Forms_BOBChunkedUploader_ChunkSize_" data-uid="BlazOrbit.Components.Forms.BOBChunkedUploader.ChunkSize*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBChunkedUploader_ChunkSize" data-uid="BlazOrbit.Components.Forms.BOBChunkedUploader.ChunkSize">
+  ChunkSize
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBChunkedUploader.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Chunk size in bytes. Defaults to <code>1 MB</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ChunkSize { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBChunkedUploader_MaxAllowedSize_" data-uid="BlazOrbit.Components.Forms.BOBChunkedUploader.MaxAllowedSize*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBChunkedUploader_MaxAllowedSize" data-uid="BlazOrbit.Components.Forms.BOBChunkedUploader.MaxAllowedSize">
+  MaxAllowedSize
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBChunkedUploader.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Hard ceiling for <span class="xref">Microsoft.AspNetCore.Components.Forms.IBrowserFile.Size</span> in bytes. Files larger than this
+fail before any chunk is read. Also forwarded as the <code>maxAllowedSize</code> argument
+to <span class="xref">Microsoft.AspNetCore.Components.Forms.IBrowserFile.OpenReadStream(long, System.Threading.CancellationToken)</span>. Defaults to <code>100 MB</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public long MaxAllowedSize { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">long</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBChunkedUploader_Progress_" data-uid="BlazOrbit.Components.Forms.BOBChunkedUploader.Progress*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBChunkedUploader_Progress" data-uid="BlazOrbit.Components.Forms.BOBChunkedUploader.Progress">
+  Progress
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBChunkedUploader.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Optional progress sink invoked after each chunk is delivered.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IProgress&lt;BOBChunkedUploadProgress&gt;? Progress { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IProgress</span>&lt;<a class="xref" href="BlazOrbit.Components.Forms.BOBChunkedUploadProgress.html">BOBChunkedUploadProgress</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBChunkedUploader_SendChunk_" data-uid="BlazOrbit.Components.Forms.BOBChunkedUploader.SendChunk*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBChunkedUploader_SendChunk" data-uid="BlazOrbit.Components.Forms.BOBChunkedUploader.SendChunk">
+  SendChunk
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBChunkedUploader.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Callback invoked for every chunk in index order. Awaited before the next chunk is
+read, so a slow consumer back-pressures the upload.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public required Func&lt;BOBChunkContext, CancellationToken, Task&gt; SendChunk { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Func</span>&lt;<a class="xref" href="BlazOrbit.Components.Forms.BOBChunkContext.html">BOBChunkContext</a>, <span class="xref">CancellationToken</span>, <span class="xref">Task</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="BlazOrbit_Components_Forms_BOBChunkedUploader_UploadAsync_" data-uid="BlazOrbit.Components.Forms.BOBChunkedUploader.UploadAsync*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBChunkedUploader_UploadAsync_Microsoft_AspNetCore_Components_Forms_IBrowserFile_System_Threading_CancellationToken_" data-uid="BlazOrbit.Components.Forms.BOBChunkedUploader.UploadAsync(Microsoft.AspNetCore.Components.Forms.IBrowserFile,System.Threading.CancellationToken)">
+  UploadAsync(IBrowserFile, CancellationToken)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBChunkedUploader.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Reads <code class="paramref">file</code> chunk by chunk and forwards each to
+<a class="xref" href="BlazOrbit.Components.Forms.BOBChunkedUploader.html#BlazOrbit_Components_Forms_BOBChunkedUploader_SendChunk">SendChunk</a>. Zero-byte files emit no chunks and return a successful
+result with <code>TotalChunks = 0</code>. Errors thrown by the read stream, the callback,
+or cancellation are captured in <a class="xref" href="BlazOrbit.Components.Forms.BOBChunkedUploadResult.html#BlazOrbit_Components_Forms_BOBChunkedUploadResult_Error">Error</a> — the
+method itself does not rethrow.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;BOBChunkedUploadResult&gt; UploadAsync(IBrowserFile file, CancellationToken ct = default)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>file</code> <span class="xref">IBrowserFile</span></dt>
+    <dd><p>The browser file to stream.</p>
+</dd>
+    <dt><code>ct</code> <span class="xref">CancellationToken</span></dt>
+    <dd><p>Cancellation token honoured between chunks and inside reads.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span>&lt;<a class="xref" href="BlazOrbit.Components.Forms.BOBChunkedUploadResult.html">BOBChunkedUploadResult</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBChunkedUploader.cs" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

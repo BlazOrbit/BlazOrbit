@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class BOBInputFile | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class BOBInputFile | BlazOrbit API ">
+      
+      
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Components.Forms.BOBInputFile">
+
+
+
+  <h1 id="BlazOrbit_Components_Forms_BOBInputFile" data-uid="BlazOrbit.Components.Forms.BOBInputFile" class="text-break">
+Class BOBInputFile  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Components.html">Components</a>.<a class="xref" href="BlazOrbit.Components.Forms.html">Forms</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[GenerateComponentInfo]
+public class BOBInputFile : BOBComponentBase, IHasSize, IHasDensity</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">ComponentBase</span></div>
+      <div><a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html">BOBComponentBase</a></div>
+      <div><span class="xref">BOBInputFile</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="BlazOrbit.Components.IHasSize.html">IHasSize</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasDensity.html">IHasDensity</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_OnInitialized">BOBComponentBase.OnInitialized()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_OnParametersSet">BOBComponentBase.OnParametersSet()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_OnAfterRenderAsync_System_Boolean_">BOBComponentBase.OnAfterRenderAsync(bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_DisposeAsync">BOBComponentBase.DisposeAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_AdditionalAttributes">BOBComponentBase.AdditionalAttributes</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_ComputedAttributes">BOBComponentBase.ComputedAttributes</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_IsDisposed">BOBComponentBase.IsDisposed</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile__ctor_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile__ctor" data-uid="BlazOrbit.Components.Forms.BOBInputFile.#ctor">
+  BOBInputFile()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BOBInputFile()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile_Accept_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.Accept*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile_Accept" data-uid="BlazOrbit.Components.Forms.BOBInputFile.Accept">
+  Accept
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Native <code>accept</code> filter passed to <span class="xref">Microsoft.AspNetCore.Components.Forms.InputFile</span> (e.g. <code>&quot;image/*,.pdf&quot;</code>).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Accept { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile_ChildContent_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.ChildContent*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile_ChildContent" data-uid="BlazOrbit.Components.Forms.BOBInputFile.ChildContent">
+  ChildContent
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Custom drop-zone content. When omitted, a default icon + title + hint is rendered.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public RenderFragment? ChildContent { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">RenderFragment</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile_Density_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.Density*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile_Density" data-uid="BlazOrbit.Components.Forms.BOBInputFile.Density">
+  Density
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Vertical density of the file list.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public BOBDensity Density { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.BOBDensity.html">BOBDensity</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile_Disabled_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.Disabled*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile_Disabled" data-uid="BlazOrbit.Components.Forms.BOBInputFile.Disabled">
+  Disabled
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the entire control is disabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool Disabled { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile_DisallowedTypeText_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.DisallowedTypeText*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile_DisallowedTypeText" data-uid="BlazOrbit.Components.Forms.BOBInputFile.DisallowedTypeText">
+  DisallowedTypeText
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Localised label rendered for the <code>DisallowedType</code> error kind.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? DisallowedTypeText { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile_DropZoneHint_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.DropZoneHint*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile_DropZoneHint" data-uid="BlazOrbit.Components.Forms.BOBInputFile.DropZoneHint">
+  DropZoneHint
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Hint rendered below the drop-zone title.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string DropZoneHint { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile_DropZoneText_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.DropZoneText*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile_DropZoneText" data-uid="BlazOrbit.Components.Forms.BOBInputFile.DropZoneText">
+  DropZoneText
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Text rendered as the drop-zone title when no <a class="xref" href="BlazOrbit.Components.Forms.BOBInputFile.html#BlazOrbit_Components_Forms_BOBInputFile_ChildContent">ChildContent</a> is provided.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? DropZoneText { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile_FailedText_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.FailedText*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile_FailedText" data-uid="BlazOrbit.Components.Forms.BOBInputFile.FailedText">
+  FailedText
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Aria-label rendered on the failure indicator after an upload fails.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? FailedText { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile_GeneratePreviews_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.GeneratePreviews*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile_GeneratePreviews" data-uid="BlazOrbit.Components.Forms.BOBInputFile.GeneratePreviews">
+  GeneratePreviews
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> (default), generate base64 image thumbnails for image/* files.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool GeneratePreviews { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile_HelperText_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.HelperText*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile_HelperText" data-uid="BlazOrbit.Components.Forms.BOBInputFile.HelperText">
+  HelperText
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Helper text rendered below the drop zone (above the file list).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? HelperText { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile_Label_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.Label*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile_Label" data-uid="BlazOrbit.Components.Forms.BOBInputFile.Label">
+  Label
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Optional label rendered above the drop zone.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Label { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile_MaxFiles_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.MaxFiles*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile_MaxFiles" data-uid="BlazOrbit.Components.Forms.BOBInputFile.MaxFiles">
+  MaxFiles
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Maximum number of accepted files. Defaults to <code>10</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int MaxFiles { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile_MaxSize_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.MaxSize*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile_MaxSize" data-uid="BlazOrbit.Components.Forms.BOBInputFile.MaxSize">
+  MaxSize
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Maximum allowed size per file in bytes. Defaults to <code>10 MB</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public long MaxSize { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">long</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile_Multiple_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.Multiple*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile_Multiple" data-uid="BlazOrbit.Components.Forms.BOBInputFile.Multiple">
+  Multiple
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> (default <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>), multiple files can be picked.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool Multiple { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile_OnFilesSelected_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.OnFilesSelected*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile_OnFilesSelected" data-uid="BlazOrbit.Components.Forms.BOBInputFile.OnFilesSelected">
+  OnFilesSelected
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised after a selection completes, with the validated files.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public EventCallback&lt;IReadOnlyList&lt;IBrowserFile&gt;&gt; OnFilesSelected { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">EventCallback</span>&lt;<span class="xref">IReadOnlyList</span>&lt;<span class="xref">IBrowserFile</span>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile_OnInvalid_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.OnInvalid*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile_OnInvalid" data-uid="BlazOrbit.Components.Forms.BOBInputFile.OnInvalid">
+  OnInvalid
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when one or more files are rejected by the client-side validators.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public EventCallback&lt;IReadOnlyList&lt;BOBFileValidationError&gt;&gt; OnInvalid { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">EventCallback</span>&lt;<span class="xref">IReadOnlyList</span>&lt;<a class="xref" href="BlazOrbit.Components.Forms.BOBFileValidationError.html">BOBFileValidationError</a>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile_OnRemoved_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.OnRemoved*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile_OnRemoved" data-uid="BlazOrbit.Components.Forms.BOBInputFile.OnRemoved">
+  OnRemoved
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when the user removes a file from the list.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public EventCallback&lt;IBrowserFile&gt; OnRemoved { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">EventCallback</span>&lt;<span class="xref">IBrowserFile</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile_PreviewMaxBytes_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.PreviewMaxBytes*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile_PreviewMaxBytes" data-uid="BlazOrbit.Components.Forms.BOBInputFile.PreviewMaxBytes">
+  PreviewMaxBytes
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Maximum bytes streamed for preview generation. Defaults to <code>5 MB</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public long PreviewMaxBytes { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">long</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile_RemoveText_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.RemoveText*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile_RemoveText" data-uid="BlazOrbit.Components.Forms.BOBInputFile.RemoveText">
+  RemoveText
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Aria label for the per-row remove button.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? RemoveText { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile_Size_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.Size*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile_Size" data-uid="BlazOrbit.Components.Forms.BOBInputFile.Size">
+  Size
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Visual size of the drop-zone and previews.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public BOBSize Size { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.BOBSize.html">BOBSize</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile_TooLargeText_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.TooLargeText*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile_TooLargeText" data-uid="BlazOrbit.Components.Forms.BOBInputFile.TooLargeText">
+  TooLargeText
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Localised label rendered for the <code>TooLarge</code> error kind.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? TooLargeText { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile_TooManyFilesText_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.TooManyFilesText*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile_TooManyFilesText" data-uid="BlazOrbit.Components.Forms.BOBInputFile.TooManyFilesText">
+  TooManyFilesText
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Localised label rendered for the <code>TooManyFiles</code> error kind.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? TooManyFilesText { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile_UploadedText_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.UploadedText*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile_UploadedText" data-uid="BlazOrbit.Components.Forms.BOBInputFile.UploadedText">
+  UploadedText
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Aria-label rendered on the success indicator after an upload completes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? UploadedText { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile_BuildRenderTree_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.BuildRenderTree*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile_BuildRenderTree_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+  BuildRenderTree(RenderTreeBuilder)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Renders the component to the supplied <span class="xref">Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void BuildRenderTree(RenderTreeBuilder __builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>__builder</code> <span class="xref">RenderTreeBuilder</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBInputFile_SetStatus_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.SetStatus*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBInputFile_SetStatus_Microsoft_AspNetCore_Components_Forms_IBrowserFile_BlazOrbit_Components_Forms_BOBFileStatus_System_Double_System_String_" data-uid="BlazOrbit.Components.Forms.BOBInputFile.SetStatus(Microsoft.AspNetCore.Components.Forms.IBrowserFile,BlazOrbit.Components.Forms.BOBFileStatus,System.Double,System.String)">
+  SetStatus(IBrowserFile, BOBFileStatus, double, string?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Reports upload progress for a previously selected file. The consumer drives the
+upload (typically via <a class="xref" href="BlazOrbit.Components.Forms.BOBChunkedUploader.html">BOBChunkedUploader</a>) and calls this method on
+every chunk to advance the per-entry progress bar. The lookup is by reference
+against the original <span class="xref">Microsoft.AspNetCore.Components.Forms.IBrowserFile</span> returned by
+<a class="xref" href="BlazOrbit.Components.Forms.BOBInputFile.html#BlazOrbit_Components_Forms_BOBInputFile_OnFilesSelected">OnFilesSelected</a>. No-op when the file is no longer in the list.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetStatus(IBrowserFile file, BOBFileStatus status, double progressPercent = 0, string? statusMessage = null)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>file</code> <span class="xref">IBrowserFile</span></dt>
+    <dd><p>The browser file whose entry should update.</p>
+</dd>
+    <dt><code>status</code> <a class="xref" href="BlazOrbit.Components.Forms.BOBFileStatus.html">BOBFileStatus</a></dt>
+    <dd><p>New terminal or in-flight status.</p>
+</dd>
+    <dt><code>progressPercent</code> <span class="xref">double</span></dt>
+    <dd><p>0–100 progress for <a class="xref" href="BlazOrbit.Components.Forms.BOBFileStatus.html#BlazOrbit_Components_Forms_BOBFileStatus_Uploading">Uploading</a>; ignored otherwise.</p>
+</dd>
+    <dt><code>statusMessage</code> <span class="xref">string</span></dt>
+    <dd><p>Optional message — surfaced as a tooltip on the status glyph (typically used for <a class="xref" href="BlazOrbit.Components.Forms.BOBFileStatus.html#BlazOrbit_Components_Forms_BOBFileStatus_Failed">Failed</a>).</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/FileUpload/BOBInputFile.razor" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

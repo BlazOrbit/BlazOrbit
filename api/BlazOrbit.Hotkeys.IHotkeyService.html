@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Interface IHotkeyService | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Interface IHotkeyService | BlazOrbit API ">
+      
+      <meta name="description" content="Registry of keyboard shortcuts. The matching BOBHotkeyHost component installs a document keydown listener via JS interop and forwards the canonical combo to every registered handler.">
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Hotkeys.IHotkeyService">
+
+
+
+  <h1 id="BlazOrbit_Hotkeys_IHotkeyService" data-uid="BlazOrbit.Hotkeys.IHotkeyService" class="text-break">
+Interface IHotkeyService  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Hotkeys/Services/IHotkeyService.cs"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Hotkeys.html">Hotkeys</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.Hotkeys.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Registry of keyboard shortcuts. The matching <code>BOBHotkeyHost</code> component installs
+a <code>document</code> keydown listener via JS interop and forwards the canonical combo to
+every registered handler.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IHotkeyService</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+  <h2 id="BlazOrbit_Hotkeys_IHotkeyService_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>Combo grammar (case-insensitive, modifiers before the key, fixed order):
+<code>&quot;ctrl+shift+s&quot;</code>, <code>&quot;meta+k&quot;</code>, <code>&quot;?&quot;</code>, <code>&quot;escape&quot;</code>. The bridge skips
+keystrokes that originate inside <code>&lt;input&gt;</code>, <code>&lt;textarea&gt;</code>,
+<code>&lt;select&gt;</code> or <code>contentEditable</code> targets - typed text never collides
+with shortcuts.</p>
+</div>
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="BlazOrbit_Hotkeys_IHotkeyService_RegisteredHotkeys_" data-uid="BlazOrbit.Hotkeys.IHotkeyService.RegisteredHotkeys*"></a>
+
+  <h3 id="BlazOrbit_Hotkeys_IHotkeyService_RegisteredHotkeys" data-uid="BlazOrbit.Hotkeys.IHotkeyService.RegisteredHotkeys">
+  RegisteredHotkeys
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Hotkeys/Services/IHotkeyService.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Currently registered hotkeys, useful for a cheat-sheet UI.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IReadOnlyList&lt;HotkeyDescriptor&gt; RegisteredHotkeys { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IReadOnlyList</span>&lt;<a class="xref" href="BlazOrbit.Hotkeys.HotkeyDescriptor.html">HotkeyDescriptor</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="BlazOrbit_Hotkeys_IHotkeyService_DispatchAsync_" data-uid="BlazOrbit.Hotkeys.IHotkeyService.DispatchAsync*"></a>
+
+  <h3 id="BlazOrbit_Hotkeys_IHotkeyService_DispatchAsync_System_String_" data-uid="BlazOrbit.Hotkeys.IHotkeyService.DispatchAsync(System.String)">
+  DispatchAsync(string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Hotkeys/Services/IHotkeyService.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Internal hook called by <code>BOBHotkeyHost</code> when JS dispatches a keydown. Returns
+<a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> when at least one handler matched and requested preventDefault</p>
+<ul>
+<li>retained as a fallback signal, but the synchronous suppression now lives in JS via
+the <a class="xref" href="BlazOrbit.Hotkeys.IHotkeyService.html#BlazOrbit_Hotkeys_IHotkeyService_Registered">Registered</a> / <a class="xref" href="BlazOrbit.Hotkeys.IHotkeyService.html#BlazOrbit_Hotkeys_IHotkeyService_Unregistered">Unregistered</a> events.</li>
+</ul>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Task&lt;bool&gt; DispatchAsync(string combo)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>combo</code> <span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Task</span>&lt;<span class="xref">bool</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Hotkeys_IHotkeyService_Register_" data-uid="BlazOrbit.Hotkeys.IHotkeyService.Register*"></a>
+
+  <h3 id="BlazOrbit_Hotkeys_IHotkeyService_Register_System_String_System_String_System_Func_System_Threading_Tasks_Task__BlazOrbit_Hotkeys_HotkeyScope_System_Boolean_" data-uid="BlazOrbit.Hotkeys.IHotkeyService.Register(System.String,System.String,System.Func{System.Threading.Tasks.Task},BlazOrbit.Hotkeys.HotkeyScope,System.Boolean)">
+  Register(string, string, Func&lt;Task&gt;, HotkeyScope, bool)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Hotkeys/Services/IHotkeyService.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Registers <code class="paramref">handler</code> against <code class="paramref">combo</code>. The returned
+<span class="xref">System.IDisposable</span> removes the entry - call it from <code>IDisposable.Dispose</code>
+to scope the shortcut to a page / component lifetime.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IDisposable Register(string combo, string description, Func&lt;Task&gt; handler, HotkeyScope scope = HotkeyScope.Global, bool preventDefault = true)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>combo</code> <span class="xref">string</span></dt>
+    <dd><p>Canonical combo string. Case-insensitive; whitespace around <code>+</code> is OK.</p>
+</dd>
+    <dt><code>description</code> <span class="xref">string</span></dt>
+    <dd><p>Short human label used by the cheat-sheet.</p>
+</dd>
+    <dt><code>handler</code> <span class="xref">Func</span>&lt;<span class="xref">Task</span>&gt;</dt>
+    <dd><p>Async callback invoked when the combo fires.</p>
+</dd>
+    <dt><code>scope</code> <a class="xref" href="BlazOrbit.Hotkeys.HotkeyScope.html">HotkeyScope</a></dt>
+    <dd><p>Scope tag; surfaced via <a class="xref" href="BlazOrbit.Hotkeys.IHotkeyService.html#BlazOrbit_Hotkeys_IHotkeyService_RegisteredHotkeys">RegisteredHotkeys</a>.</p>
+</dd>
+    <dt><code>preventDefault</code> <span class="xref">bool</span></dt>
+    <dd><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the JS bridge calls <code>event.preventDefault()</code> synchronously on match so the browser's default action never fires.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IDisposable</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="events">Events
+</h2>
+
+
+
+  <h3 id="BlazOrbit_Hotkeys_IHotkeyService_Registered" data-uid="BlazOrbit.Hotkeys.IHotkeyService.Registered">
+  Registered
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Hotkeys/Services/IHotkeyService.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when a new hotkey is registered. <code>BOBHotkeyHost</code> subscribes so it can
+push the descriptor to the JS bridge, which is what enables <em>synchronous</em>
+<code>preventDefault()</code> on match - async dispatch alone is too late to suppress
+the browser's default action (e.g. <code>Ctrl+S</code> Save dialog).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event Action&lt;HotkeyDescriptor&gt;? Registered</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Action</span>&lt;<a class="xref" href="BlazOrbit.Hotkeys.HotkeyDescriptor.html">HotkeyDescriptor</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h3 id="BlazOrbit_Hotkeys_IHotkeyService_Unregistered" data-uid="BlazOrbit.Hotkeys.IHotkeyService.Unregistered">
+  Unregistered
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Hotkeys/Services/IHotkeyService.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when a previously-registered hotkey is removed (via the returned <span class="xref">System.IDisposable</span>).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event Action&lt;HotkeyDescriptor&gt;? Unregistered</code></pre>
+  </div>
+
+
+
+
+
+
+  <h4 class="section">Event Type</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Action</span>&lt;<a class="xref" href="BlazOrbit.Hotkeys.HotkeyDescriptor.html">HotkeyDescriptor</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Hotkeys/Services/IHotkeyService.cs" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

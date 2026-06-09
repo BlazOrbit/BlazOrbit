@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class DataRequest | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class DataRequest | BlazOrbit API ">
+      
+      <meta name="description" content="Describes the slice of rows a data-collection component wants the  to materialise. The primary pair is  +  — they map naturally to IQueryable.Skip(StartIndex).Take(Count) on server-side queries and to Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderRequest on the client side. Sources that prefer page-based semantics derive the page index via .">
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Components.DataRequest">
+
+
+
+  <h1 id="BlazOrbit_Components_DataRequest" data-uid="BlazOrbit.Components.DataRequest" class="text-break">
+Class DataRequest  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataRequest.cs"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Components.html">Components</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Describes the slice of rows a data-collection component wants the
+<a class="xref" href="BlazOrbit.Components.IDataCollectionDataSource-1.html">IDataCollectionDataSource&lt;TItem&gt;</a> to materialise. The primary pair is
+<a class="xref" href="BlazOrbit.Components.DataRequest.html#BlazOrbit_Components_DataRequest_StartIndex">StartIndex</a> + <a class="xref" href="BlazOrbit.Components.DataRequest.html#BlazOrbit_Components_DataRequest_Count">Count</a> — they map naturally to
+<code>IQueryable.Skip(StartIndex).Take(Count)</code> on server-side queries and to
+<code>Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderRequest</code>
+on the client side. Sources that prefer page-based semantics derive the page index
+via <a class="xref" href="BlazOrbit.Components.DataRequest.html#BlazOrbit_Components_DataRequest_Page">Page</a>.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed record DataRequest</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">DataRequest</span></div>
+    </dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="BlazOrbit_Components_DataRequest__ctor_" data-uid="BlazOrbit.Components.DataRequest.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Components_DataRequest__ctor_System_Int32_System_Nullable_System_Int32__System_String_System_Collections_Generic_IReadOnlyList_BlazOrbit_Components_SortDescriptor__System_Collections_Generic_IReadOnlyDictionary_System_String_BlazOrbit_Components_ColumnFilterEntry__" data-uid="BlazOrbit.Components.DataRequest.#ctor(System.Int32,System.Nullable{System.Int32},System.String,System.Collections.Generic.IReadOnlyList{BlazOrbit.Components.SortDescriptor},System.Collections.Generic.IReadOnlyDictionary{System.String,BlazOrbit.Components.ColumnFilterEntry})">
+  DataRequest(int, int?, string?, IReadOnlyList&lt;SortDescriptor&gt;, IReadOnlyDictionary&lt;string, ColumnFilterEntry&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataRequest.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Describes the slice of rows a data-collection component wants the
+<a class="xref" href="BlazOrbit.Components.IDataCollectionDataSource-1.html">IDataCollectionDataSource&lt;TItem&gt;</a> to materialise. The primary pair is
+<a class="xref" href="BlazOrbit.Components.DataRequest.html#BlazOrbit_Components_DataRequest_StartIndex">StartIndex</a> + <a class="xref" href="BlazOrbit.Components.DataRequest.html#BlazOrbit_Components_DataRequest_Count">Count</a> — they map naturally to
+<code>IQueryable.Skip(StartIndex).Take(Count)</code> on server-side queries and to
+<code>Microsoft.AspNetCore.Components.Web.Virtualization.ItemsProviderRequest</code>
+on the client side. Sources that prefer page-based semantics derive the page index
+via <a class="xref" href="BlazOrbit.Components.DataRequest.html#BlazOrbit_Components_DataRequest_Page">Page</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DataRequest(int StartIndex, int? Count, string? GlobalFilter, IReadOnlyList&lt;SortDescriptor&gt; Sorts, IReadOnlyDictionary&lt;string, ColumnFilterEntry&gt; ColumnFilters)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>StartIndex</code> <span class="xref">int</span></dt>
+    <dd><p>0-based row offset within the filtered/sorted result set. Always <code>0</code> when the
+consumer has not enabled pagination on the host component.</p>
+</dd>
+    <dt><code>Count</code> <span class="xref">int</span>?</dt>
+    <dd><p>Maximum number of rows to return starting at <a class="xref" href="BlazOrbit.Components.DataRequest.html#BlazOrbit_Components_DataRequest_StartIndex">StartIndex</a>.
+<a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> means &quot;no upper bound&quot; — typically used when pagination is
+disabled and the source should return the full filtered/sorted set in a single call.</p>
+</dd>
+    <dt><code>GlobalFilter</code> <span class="xref">string</span></dt>
+    <dd><p>Free-text search entered in the toolbar filter box. Empty / <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>
+when the consumer has not enabled global filtering or the user cleared the box.</p>
+</dd>
+    <dt><code>Sorts</code> <span class="xref">IReadOnlyList</span>&lt;<a class="xref" href="BlazOrbit.Components.SortDescriptor.html">SortDescriptor</a>&gt;</dt>
+    <dd><p>Active sort descriptors in priority order (primary first). Empty when no sort is
+applied. Each entry carries the column header (resolved against
+<code>BOBDataColumn{TItem}.Header</code>) and the direction.</p>
+</dd>
+    <dt><code>ColumnFilters</code> <span class="xref">IReadOnlyDictionary</span>&lt;<span class="xref">string</span>, <a class="xref" href="BlazOrbit.Components.ColumnFilterEntry.html">ColumnFilterEntry</a>&gt;</dt>
+    <dd><p>Per-column filter entries keyed by column header (case-insensitive). Combined with
+<a class="xref" href="BlazOrbit.Components.DataRequest.html#BlazOrbit_Components_DataRequest_GlobalFilter">GlobalFilter</a> using AND semantics — a row must satisfy every entry.
+Empty when the consumer has not enabled per-column filtering.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="BlazOrbit_Components_DataRequest_ColumnFilters_" data-uid="BlazOrbit.Components.DataRequest.ColumnFilters*"></a>
+
+  <h3 id="BlazOrbit_Components_DataRequest_ColumnFilters" data-uid="BlazOrbit.Components.DataRequest.ColumnFilters">
+  ColumnFilters
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataRequest.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Per-column filter entries keyed by column header (case-insensitive). Combined with
+<a class="xref" href="BlazOrbit.Components.DataRequest.html#BlazOrbit_Components_DataRequest_GlobalFilter">GlobalFilter</a> using AND semantics — a row must satisfy every entry.
+Empty when the consumer has not enabled per-column filtering.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyDictionary&lt;string, ColumnFilterEntry&gt; ColumnFilters { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IReadOnlyDictionary</span>&lt;<span class="xref">string</span>, <a class="xref" href="BlazOrbit.Components.ColumnFilterEntry.html">ColumnFilterEntry</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataRequest_Count_" data-uid="BlazOrbit.Components.DataRequest.Count*"></a>
+
+  <h3 id="BlazOrbit_Components_DataRequest_Count" data-uid="BlazOrbit.Components.DataRequest.Count">
+  Count
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataRequest.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Maximum number of rows to return starting at <a class="xref" href="BlazOrbit.Components.DataRequest.html#BlazOrbit_Components_DataRequest_StartIndex">StartIndex</a>.
+<a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> means &quot;no upper bound&quot; — typically used when pagination is
+disabled and the source should return the full filtered/sorted set in a single call.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int? Count { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataRequest_GlobalFilter_" data-uid="BlazOrbit.Components.DataRequest.GlobalFilter*"></a>
+
+  <h3 id="BlazOrbit_Components_DataRequest_GlobalFilter" data-uid="BlazOrbit.Components.DataRequest.GlobalFilter">
+  GlobalFilter
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataRequest.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Free-text search entered in the toolbar filter box. Empty / <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>
+when the consumer has not enabled global filtering or the user cleared the box.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? GlobalFilter { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataRequest_Page_" data-uid="BlazOrbit.Components.DataRequest.Page*"></a>
+
+  <h3 id="BlazOrbit_Components_DataRequest_Page" data-uid="BlazOrbit.Components.DataRequest.Page">
+  Page
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataRequest.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>1-based page index derived from <a class="xref" href="BlazOrbit.Components.DataRequest.html#BlazOrbit_Components_DataRequest_StartIndex">StartIndex</a> and <a class="xref" href="BlazOrbit.Components.DataRequest.html#BlazOrbit_Components_DataRequest_Count">Count</a>.
+Useful for sources whose backend exposes page-based pagination (REST APIs with
+<code>?page=N</code>, Cosmos DB continuation tokens, etc.). Returns <code>1</code> when
+<a class="xref" href="BlazOrbit.Components.DataRequest.html#BlazOrbit_Components_DataRequest_Count">Count</a> is <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> or zero (no pagination enabled).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Page { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataRequest_Sorts_" data-uid="BlazOrbit.Components.DataRequest.Sorts*"></a>
+
+  <h3 id="BlazOrbit_Components_DataRequest_Sorts" data-uid="BlazOrbit.Components.DataRequest.Sorts">
+  Sorts
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataRequest.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Active sort descriptors in priority order (primary first). Empty when no sort is
+applied. Each entry carries the column header (resolved against
+<code>BOBDataColumn{TItem}.Header</code>) and the direction.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyList&lt;SortDescriptor&gt; Sorts { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IReadOnlyList</span>&lt;<a class="xref" href="BlazOrbit.Components.SortDescriptor.html">SortDescriptor</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataRequest_StartIndex_" data-uid="BlazOrbit.Components.DataRequest.StartIndex*"></a>
+
+  <h3 id="BlazOrbit_Components_DataRequest_StartIndex" data-uid="BlazOrbit.Components.DataRequest.StartIndex">
+  StartIndex
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataRequest.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>0-based row offset within the filtered/sorted result set. Always <code>0</code> when the
+consumer has not enabled pagination on the host component.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int StartIndex { get; init; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataRequest.cs" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

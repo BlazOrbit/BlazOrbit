@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class TnParser | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class TnParser | BlazOrbit API ">
+      
+      <meta name="description" content="Parser for the BlazOrbit .tn translation format. Designed for minimal escape: any line whose first non-whitespace character is not #, @, or // is treated as literal content. The leading-character constraint is the only thing escaped - prefix the line with &amp;lt;/code&amp;gt; to put a literal #, @, or / at column 0.">
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Localization.TnFormat.TnParser">
+
+
+
+  <h1 id="BlazOrbit_Localization_TnFormat_TnParser" data-uid="BlazOrbit.Localization.TnFormat.TnParser" class="text-break">
+Class TnParser  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Localization/TnFormat/TnParser.cs"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Localization.html">Localization</a>.<a class="xref" href="BlazOrbit.Localization.TnFormat.html">TnFormat</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.Core.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Parser for the BlazOrbit <code>.tn</code> translation format. Designed for minimal escape:
+any line whose first non-whitespace character is not <code>#</code>, <code>@</code>, or <code>//</code> is
+treated as literal content. The leading-character constraint is the only thing escaped -
+prefix the line with <code>&lt;/code&gt; to put a literal <code>#</code>, <code>@</code>, or <code>/</code> at column 0.</code></p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class TnParser</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">TnParser</span></div>
+    </dd>
+  </dl>
+
+
+
+
+
+
+
+  <h2 id="BlazOrbit_Localization_TnFormat_TnParser_remarks">Remarks</h2>
+  <div class="markdown level0 remarks"><p>
+Grammar (informal):
+<pre><code class="lang-csharp">document     := (blank | comment | culture_header | entry)*
+culture_header := "@" SPACE+ CULTURE_NAME EOL
+entry        := key_line+ value_line*
+key_line     := "#" SPACE+ TEXT EOL
+value_line   := TEXT EOL                  (* line that does not start a new key/header *)
+comment      := "//" TEXT EOL
+blank        := EOL</code></pre>
+
+<p>
+Multi-line keys: consecutive <code>#</code>-prefixed lines concatenate with a single newline.
+Multi-line values: any non-special lines after the key until the next <code>#</code>/<code>@</code>/EOF
+join the previous newline-separated value.
+</p>
+<p>
+Hashing uses <a class="xref" href="BlazOrbit.Localization.BobLocalizationHash.html">BobLocalizationHash</a> so output is consistent with the source-gen
+build-time call sites without coupling the parser to specific call sites.
+</p>
+</div>
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="BlazOrbit_Localization_TnFormat_TnParser_Parse_" data-uid="BlazOrbit.Localization.TnFormat.TnParser.Parse*"></a>
+
+  <h3 id="BlazOrbit_Localization_TnFormat_TnParser_Parse_System_String_System_String_" data-uid="BlazOrbit.Localization.TnFormat.TnParser.Parse(System.String,System.String)">
+  Parse(string, string)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Localization/TnFormat/TnParser.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Parses a <code>.tn</code> file contents. Returns a document with translations + diagnostics.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static TnDocument Parse(string content, string defaultCulture = &quot;&quot;)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>content</code> <span class="xref">string</span></dt>
+    <dd><p>Raw file content. Mixed line endings (<code>\r\n</code> / <code>\n</code>) supported.</p>
+</dd>
+    <dt><code>defaultCulture</code> <span class="xref">string</span></dt>
+    <dd><p>Culture to assign entries that appear before any <code>@ culture</code> header. Typical caller
+(the source generator) supplies the filename-derived culture here.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Localization.TnFormat.TnDocument.html">TnDocument</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Localization/TnFormat/TnParser.cs" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

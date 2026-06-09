@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class DataColumnRegistration&lt;TItem&gt; | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class DataColumnRegistration&lt;TItem&gt; | BlazOrbit API ">
+      
+      <meta name="description" content="Describes how a single column is rendered and behaves inside a data collection.">
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Components.DataColumnRegistration`1">
+
+
+
+  <h1 id="BlazOrbit_Components_DataColumnRegistration_1" data-uid="BlazOrbit.Components.DataColumnRegistration`1" class="text-break">
+Class DataColumnRegistration&lt;TItem&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Components.html">Components</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Describes how a single column is rendered and behaves inside a data collection.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class DataColumnRegistration&lt;TItem&gt;</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TItem</code></dt>
+    <dd></dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">DataColumnRegistration&lt;TItem&gt;</span></div>
+    </dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1__ctor_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1__ctor" data-uid="BlazOrbit.Components.DataColumnRegistration`1.#ctor">
+  DataColumnRegistration()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DataColumnRegistration()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_Aggregate_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Aggregate*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_Aggregate" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Aggregate">
+  Aggregate
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Aggregate function rendered in the footer cell of this column. The
+aggregate runs against the full filtered set (not just the visible
+page) so the total reflects the result of the user's filters.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AggregateFunction Aggregate { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.AggregateFunction.html">AggregateFunction</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_AggregateFormat_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.AggregateFormat*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_AggregateFormat" data-uid="BlazOrbit.Components.DataColumnRegistration`1.AggregateFormat">
+  AggregateFormat
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Optional <span class="xref">System.IFormattable</span> format applied to the aggregate
+value. Falls back to <a class="xref" href="BlazOrbit.Components.DataColumnRegistration-1.html#BlazOrbit_Components_DataColumnRegistration_1_Format">Format</a> when not set so consumers
+don't have to repeat their currency / percentage format strings.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? AggregateFormat { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_AggregateLabel_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.AggregateLabel*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_AggregateLabel" data-uid="BlazOrbit.Components.DataColumnRegistration`1.AggregateLabel">
+  AggregateLabel
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Prefix label shown next to the aggregate value (e.g. <code>&quot;Total: &quot;</code>,
+<code>&quot;Avg: &quot;</code>). When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> the column renders the
+aggregate value alone.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? AggregateLabel { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_Align_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Align*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_Align" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Align">
+  Align
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Horizontal alignment for the column's header and cells.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ColumnAlign Align { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.ColumnAlign.html">ColumnAlign</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_CellClass_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.CellClass*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_CellClass" data-uid="BlazOrbit.Components.DataColumnRegistration`1.CellClass">
+  CellClass
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Extra CSS class applied to every cell in the column.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? CellClass { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_CustomAggregate_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.CustomAggregate*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_CustomAggregate" data-uid="BlazOrbit.Components.DataColumnRegistration`1.CustomAggregate">
+  CustomAggregate
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Custom aggregate delegate invoked when <a class="xref" href="BlazOrbit.Components.DataColumnRegistration-1.html#BlazOrbit_Components_DataColumnRegistration_1_Aggregate">Aggregate</a> is
+<a class="xref" href="BlazOrbit.Components.AggregateFunction.html#BlazOrbit_Components_AggregateFunction_Custom">Custom</a>. Receives the filtered items
+and returns the value to render (formatted via
+<a class="xref" href="BlazOrbit.Components.DataColumnRegistration-1.html#BlazOrbit_Components_DataColumnRegistration_1_AggregateFormat">AggregateFormat</a> when applicable).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Func&lt;IEnumerable&lt;TItem&gt;, object?&gt;? CustomAggregate { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Func</span>&lt;<span class="xref">IEnumerable</span>&lt;TItem&gt;, <span class="xref">object</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_CustomComparer_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.CustomComparer*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_CustomComparer" data-uid="BlazOrbit.Components.DataColumnRegistration`1.CustomComparer">
+  CustomComparer
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Optional comparer used when sorting by this column.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Func&lt;TItem, TItem, int&gt;? CustomComparer { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Func</span>&lt;TItem, TItem, <span class="xref">int</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_CustomFilter_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.CustomFilter*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_CustomFilter" data-uid="BlazOrbit.Components.DataColumnRegistration`1.CustomFilter">
+  CustomFilter
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Optional predicate used to evaluate filter matches for the column.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Func&lt;TItem, string, bool&gt;? CustomFilter { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Func</span>&lt;TItem, <span class="xref">string</span>, <span class="xref">bool</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_EditTemplate_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.EditTemplate*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_EditTemplate" data-uid="BlazOrbit.Components.DataColumnRegistration`1.EditTemplate">
+  EditTemplate
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Optional custom editor fragment rendered while a cell is in edit mode. Receives the
+row item. When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>, the grid picks a default input primitive
+based on the value type (string → text, numeric → number, date → date, bool →
+checkbox). Override for cases the auto-resolver can't handle (enum dropdowns,
+lookup pickers, etc.).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RenderFragment&lt;TItem&gt;? EditTemplate { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">RenderFragment</span>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_Editable_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Editable*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_Editable" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Editable">
+  Editable
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a> and the parent grid is in an inline-edit mode, the
+column participates in editing — cells render an input on activation instead of
+the static template. Requires <a class="xref" href="BlazOrbit.Components.DataColumnRegistration-1.html#BlazOrbit_Components_DataColumnRegistration_1_ValueSetter">ValueSetter</a> to be non-null (auto-derived
+from a writable <code>Property</code>) or a custom <a class="xref" href="BlazOrbit.Components.DataColumnRegistration-1.html#BlazOrbit_Components_DataColumnRegistration_1_EditTemplate">EditTemplate</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Editable { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_FilterMode_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.FilterMode*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_FilterMode" data-uid="BlazOrbit.Components.DataColumnRegistration`1.FilterMode">
+  FilterMode
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Filter category for the column. Drives which input type (<code>type=text</code> /
+<code>type=number</code> / <code>type=date</code>) and which operator dropdown the grid
+renders when <code>ShowColumnFilters=true</code>. Defaults to
+<a class="xref" href="BlazOrbit.Components.ColumnFilterMode.html#BlazOrbit_Components_ColumnFilterMode_Text">Text</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ColumnFilterMode FilterMode { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.ColumnFilterMode.html">ColumnFilterMode</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_Filterable_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Filterable*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_Filterable" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Filterable">
+  Filterable
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the column participates in free-text filtering.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Filterable { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_Format_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Format*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_Format" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Format">
+  Format
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Optional format string applied to <span class="xref">System.IFormattable</span> values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? Format { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_Freeze_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Freeze*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_Freeze" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Freeze">
+  Freeze
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Pin side for the column. Defaults to <a class="xref" href="BlazOrbit.Components.ColumnFreeze.html#BlazOrbit_Components_ColumnFreeze_None">None</a>. Frozen
+columns require an explicit <a class="xref" href="BlazOrbit.Components.DataColumnRegistration-1.html#BlazOrbit_Components_DataColumnRegistration_1_Width">Width</a> in pixels so the grid can
+compute cumulative <code>left</code> / <code>right</code> offsets for adjacent frozen peers.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ColumnFreeze Freeze { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.ColumnFreeze.html">ColumnFreeze</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_Header_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Header*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_Header" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Header">
+  Header
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Header label rendered when no <a class="xref" href="BlazOrbit.Components.DataColumnRegistration-1.html#BlazOrbit_Components_DataColumnRegistration_1_HeaderTemplate">HeaderTemplate</a> is provided.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? Header { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_HeaderClass_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.HeaderClass*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_HeaderClass" data-uid="BlazOrbit.Components.DataColumnRegistration`1.HeaderClass">
+  HeaderClass
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Extra CSS class applied to the header cell.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? HeaderClass { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_HeaderTemplate_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.HeaderTemplate*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_HeaderTemplate" data-uid="BlazOrbit.Components.DataColumnRegistration`1.HeaderTemplate">
+  HeaderTemplate
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Custom render fragment used in place of <a class="xref" href="BlazOrbit.Components.DataColumnRegistration-1.html#BlazOrbit_Components_DataColumnRegistration_1_Header">Header</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RenderFragment? HeaderTemplate { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">RenderFragment</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_MaxWidth_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.MaxWidth*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_MaxWidth" data-uid="BlazOrbit.Components.DataColumnRegistration`1.MaxWidth">
+  MaxWidth
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Upper bound (in pixels) the resize drag will clamp to. <code>0</code> (default) means
+no upper limit — the column grows freely.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double MaxWidth { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_MinWidth_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.MinWidth*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_MinWidth" data-uid="BlazOrbit.Components.DataColumnRegistration`1.MinWidth">
+  MinWidth
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Lower bound (in pixels) the resize drag will clamp to. Defaults to <code>48</code> so a
+user can't shrink a column below the typical icon + padding minimum.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double MinWidth { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_Resizable_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Resizable*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_Resizable" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Resizable">
+  Resizable
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the grid renders a drag handle at the trailing edge
+of this column's header so the user can resize the column with pointer events.
+Requires <code>BOBDataGrid.Resizable</code> to also be on.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Resizable { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_Sortable_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Sortable*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_Sortable" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Sortable">
+  Sortable
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, the column header acts as a sort affordance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Sortable { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_Template_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Template*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_Template" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Template">
+  Template
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Cell render template receiving the row item.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RenderFragment&lt;TItem&gt;? Template { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">RenderFragment</span>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_Validator_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Validator*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_Validator" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Validator">
+  Validator
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Optional validator invoked on every cell commit when the column is editable.
+Receives the row item and the proposed value (already coerced to the property type
+via the column's setter pipeline). Returns the error message to surface in the
+cell's tooltip when validation fails, or <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> to allow the
+commit. The grid prevents the commit and keeps the editor open on failure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Func&lt;TItem, object?, string?&gt;? Validator { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Func</span>&lt;TItem, <span class="xref">object</span>, <span class="xref">string</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_ValueSelector_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.ValueSelector*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_ValueSelector" data-uid="BlazOrbit.Components.DataColumnRegistration`1.ValueSelector">
+  ValueSelector
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Selector used to project the cell value from the row item.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Func&lt;TItem, object?&gt;? ValueSelector { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Func</span>&lt;TItem, <span class="xref">object</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_ValueSetter_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.ValueSetter*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_ValueSetter" data-uid="BlazOrbit.Components.DataColumnRegistration`1.ValueSetter">
+  ValueSetter
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Setter used by inline-edit mode to write the user's input back to the row item.
+Derived from the column's <code>Property</code> expression when the body is a member
+access against a writable property. <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> when the column has
+no settable property (e.g. computed columns or read-only projections) — the grid
+renders such columns as non-editable even if <a class="xref" href="BlazOrbit.Components.DataColumnRegistration-1.html#BlazOrbit_Components_DataColumnRegistration_1_Editable">Editable</a> is on.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Action&lt;TItem, object?&gt;? ValueSetter { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Action</span>&lt;TItem, <span class="xref">object</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_Visible_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Visible*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_Visible" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Visible">
+  Visible
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">false</a>, the column is registered but not rendered.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Visible { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_DataColumnRegistration_1_Width_" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Width*"></a>
+
+  <h3 id="BlazOrbit_Components_DataColumnRegistration_1_Width" data-uid="BlazOrbit.Components.DataColumnRegistration`1.Width">
+  Width
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Optional explicit column width (any valid CSS length).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string? Width { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/data/DataCollections/DataColumnRegistration.cs" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

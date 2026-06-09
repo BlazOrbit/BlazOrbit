@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class BOBStockChart&lt;TX&gt; | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class BOBStockChart&lt;TX&gt; | BlazOrbit API ">
+      
+      <meta name="description" content="Multi-pane stock chart - extends the candlestick paradigm with stacked indicator panes (RSI, MACD, Volume) and overlay indicators (Bollinger Bands) on the price pane. Panes share the X axis so the user can correlate price action with momentum / volume signals.">
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Charts.Components.BOBStockChart`1">
+
+
+
+  <h1 id="BlazOrbit_Charts_Components_BOBStockChart_1" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1" class="text-break">
+Class BOBStockChart&lt;TX&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBStockChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Charts.html">Charts</a>.<a class="xref" href="BlazOrbit.Charts.Components.html">Components</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.Charts.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Multi-pane stock chart - extends the candlestick paradigm with stacked indicator
+panes (RSI, MACD, Volume) and overlay indicators (Bollinger Bands) on the price
+pane. Panes share the X axis so the user can correlate price action with momentum
+/ volume signals.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class BOBStockChart&lt;TX&gt; : BOBChartBase&lt;TX, double&gt;, IDataVisualizationFamilyComponent where TX : notnull</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TX</code></dt>
+    <dd><p>X-axis type (DateTime / int / etc).</p>
+</dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">ComponentBase</span></div>
+      <div><a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html">BOBComponentBase</a></div>
+      <div><a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html">BOBChartBase</a>&lt;TX, <span class="xref">double</span>&gt;</div>
+      <div><span class="xref">BOBStockChart&lt;TX&gt;</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="BlazOrbit.Charts.Abstractions.IDataVisualizationFamilyComponent.html">IDataVisualizationFamilyComponent</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_ToggleSeriesAsync_System_String_">BOBChartBase&lt;TX, double&gt;.ToggleSeriesAsync(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_OnResize_System_Double_System_Double_">BOBChartBase&lt;TX, double&gt;.OnResize(double, double)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_DisposeAsync">BOBChartBase&lt;TX, double&gt;.DisposeAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_ExportAsPngAsync">BOBChartBase&lt;TX, double&gt;.ExportAsPngAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_Width">BOBChartBase&lt;TX, double&gt;.Width</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_Height">BOBChartBase&lt;TX, double&gt;.Height</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_AspectRatio">BOBChartBase&lt;TX, double&gt;.AspectRatio</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_ShowExportButton">BOBChartBase&lt;TX, double&gt;.ShowExportButton</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_ExportFileName">BOBChartBase&lt;TX, double&gt;.ExportFileName</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_ShowLegend">BOBChartBase&lt;TX, double&gt;.ShowLegend</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_LegendPosition">BOBChartBase&lt;TX, double&gt;.LegendPosition</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_OnLegendToggle">BOBChartBase&lt;TX, double&gt;.OnLegendToggle</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_OnChartReady">BOBChartBase&lt;TX, double&gt;.OnChartReady</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_Theme">BOBChartBase&lt;TX, double&gt;.Theme</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_TooltipTemplate">BOBChartBase&lt;TX, double&gt;.TooltipTemplate</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_TooltipFormat">BOBChartBase&lt;TX, double&gt;.TooltipFormat</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_Animated">BOBChartBase&lt;TX, double&gt;.Animated</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_AnimationDuration">BOBChartBase&lt;TX, double&gt;.AnimationDuration</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_DisposeAsync">BOBComponentBase.DisposeAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_AdditionalAttributes">BOBComponentBase.AdditionalAttributes</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_ComputedAttributes">BOBComponentBase.ComputedAttributes</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="BlazOrbit_Charts_Components_BOBStockChart_1__ctor_" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBStockChart_1__ctor" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.#ctor">
+  BOBStockChart()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBStockChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BOBStockChart()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="BlazOrbit_Charts_Components_BOBStockChart_1_BollingerPeriod_" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.BollingerPeriod*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBStockChart_1_BollingerPeriod" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.BollingerPeriod">
+  BollingerPeriod
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBStockChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Bollinger band period. Default 20.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int BollingerPeriod { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBStockChart_1_BollingerStdMultiplier_" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.BollingerStdMultiplier*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBStockChart_1_BollingerStdMultiplier" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.BollingerStdMultiplier">
+  BollingerStdMultiplier
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBStockChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Bollinger band standard-deviation multiplier. Default 2.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public double BollingerStdMultiplier { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBStockChart_1_Candles_" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.Candles*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBStockChart_1_Candles" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.Candles">
+  Candles
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBStockChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>OHLC + volume series rendered in the main price pane.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public IEnumerable&lt;BOBChartCandlePoint&lt;TX&gt;&gt;? Candles { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IEnumerable</span>&lt;<a class="xref" href="BlazOrbit.Charts.Models.BOBChartCandlePoint-1.html">BOBChartCandlePoint</a>&lt;TX&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBStockChart_1_DownColor_" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.DownColor*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBStockChart_1_DownColor" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.DownColor">
+  DownColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBStockChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Bearish (Close &lt; Open) candle color. Default red.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string DownColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBStockChart_1_Indicators_" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.Indicators*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBStockChart_1_Indicators" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.Indicators">
+  Indicators
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBStockChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Indicators to render below the main pane (or overlaid for Bollinger). Each
+indicator owns one pane in this order; Volume + RSI + MACD stack vertically.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public IReadOnlyList&lt;BOBChartTechnicalIndicator&gt;? Indicators { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IReadOnlyList</span>&lt;<a class="xref" href="BlazOrbit.Charts.Enums.BOBChartTechnicalIndicator.html">BOBChartTechnicalIndicator</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBStockChart_1_MacdFast_" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.MacdFast*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBStockChart_1_MacdFast" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.MacdFast">
+  MacdFast
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBStockChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>MACD fast EMA period. Default 12.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int MacdFast { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBStockChart_1_MacdSignal_" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.MacdSignal*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBStockChart_1_MacdSignal" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.MacdSignal">
+  MacdSignal
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBStockChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>MACD signal-line smoothing period. Default 9.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int MacdSignal { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBStockChart_1_MacdSlow_" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.MacdSlow*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBStockChart_1_MacdSlow" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.MacdSlow">
+  MacdSlow
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBStockChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>MACD slow EMA period. Default 26.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int MacdSlow { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBStockChart_1_RsiPeriod_" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.RsiPeriod*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBStockChart_1_RsiPeriod" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.RsiPeriod">
+  RsiPeriod
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBStockChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>RSI period. Default 14 (the canonical Wilder choice).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int RsiPeriod { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBStockChart_1_UpColor_" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.UpColor*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBStockChart_1_UpColor" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.UpColor">
+  UpColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBStockChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Bullish (Close ≥ Open) candle color. Default green.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string UpColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="BlazOrbit_Charts_Components_BOBStockChart_1_BuildAriaLabel_" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.BuildAriaLabel*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBStockChart_1_BuildAriaLabel" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.BuildAriaLabel">
+  BuildAriaLabel()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBStockChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Default ARIA label for the chart's <code>&lt;svg&gt;</code> root. Subclasses
+override to inject series / value summaries (improves screen-reader
+experience).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override string BuildAriaLabel()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBStockChart_1_RenderSvg_" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.RenderSvg*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBStockChart_1_RenderSvg_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder_" data-uid="BlazOrbit.Charts.Components.BOBStockChart`1.RenderSvg(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+  RenderSvg(RenderTreeBuilder)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBStockChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Concrete charts override this to emit SVG content. The supplied
+builder is positioned <em>inside</em> the <code>&lt;svg&gt;</code> root, so
+implementations only need to add geometry primitives (lines, paths,
+rects, text). Sequence numbers must remain unique within the override.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void RenderSvg(RenderTreeBuilder builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <span class="xref">RenderTreeBuilder</span></dt>
+    <dd><p>Render tree builder positioned inside the SVG root.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBStockChart.cs" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

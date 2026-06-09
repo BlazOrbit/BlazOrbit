@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class BOBGaugeChart | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class BOBGaugeChart | BlazOrbit API ">
+      
+      <meta name="description" content="Gauge chart - single-value KPI display rendered as an arc fill against a track. Supports semi (180&#176;), three-quarter (270&#176;) and full (360&#176;) shapes plus optional zone  (e.g. green-amber-red thresholds). The current  drives the fill arc and the centered numeric readout.">
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Charts.Components.BOBGaugeChart">
+
+
+
+  <h1 id="BlazOrbit_Charts_Components_BOBGaugeChart" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart" class="text-break">
+Class BOBGaugeChart  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBGaugeChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Charts.html">Charts</a>.<a class="xref" href="BlazOrbit.Charts.Components.html">Components</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.Charts.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Gauge chart - single-value KPI display rendered as an arc fill against
+a track. Supports semi (180°), three-quarter (270°) and full (360°)
+shapes plus optional zone <a class="xref" href="BlazOrbit.Charts.Components.BOBGaugeChart.html#BlazOrbit_Charts_Components_BOBGaugeChart_Segments">Segments</a> (e.g. green-amber-red
+thresholds). The current <a class="xref" href="BlazOrbit.Charts.Components.BOBGaugeChart.html#BlazOrbit_Charts_Components_BOBGaugeChart_Value">Value</a> drives the fill arc and
+the centered numeric readout.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class BOBGaugeChart : BOBChartBase&lt;int, double&gt;, IDataVisualizationFamilyComponent</code></pre>
+  </div>
+
+
+
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">ComponentBase</span></div>
+      <div><a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html">BOBComponentBase</a></div>
+      <div><a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html">BOBChartBase</a>&lt;<span class="xref">int</span>, <span class="xref">double</span>&gt;</div>
+      <div><span class="xref">BOBGaugeChart</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="BlazOrbit.Charts.Abstractions.IDataVisualizationFamilyComponent.html">IDataVisualizationFamilyComponent</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_ToggleSeriesAsync_System_String_">BOBChartBase&lt;int, double&gt;.ToggleSeriesAsync(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_OnResize_System_Double_System_Double_">BOBChartBase&lt;int, double&gt;.OnResize(double, double)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_DisposeAsync">BOBChartBase&lt;int, double&gt;.DisposeAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_ExportAsPngAsync">BOBChartBase&lt;int, double&gt;.ExportAsPngAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_Width">BOBChartBase&lt;int, double&gt;.Width</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_Height">BOBChartBase&lt;int, double&gt;.Height</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_AspectRatio">BOBChartBase&lt;int, double&gt;.AspectRatio</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_ShowExportButton">BOBChartBase&lt;int, double&gt;.ShowExportButton</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_ExportFileName">BOBChartBase&lt;int, double&gt;.ExportFileName</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_ShowLegend">BOBChartBase&lt;int, double&gt;.ShowLegend</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_LegendPosition">BOBChartBase&lt;int, double&gt;.LegendPosition</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_OnLegendToggle">BOBChartBase&lt;int, double&gt;.OnLegendToggle</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_OnChartReady">BOBChartBase&lt;int, double&gt;.OnChartReady</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_Theme">BOBChartBase&lt;int, double&gt;.Theme</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_TooltipTemplate">BOBChartBase&lt;int, double&gt;.TooltipTemplate</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_TooltipFormat">BOBChartBase&lt;int, double&gt;.TooltipFormat</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_Animated">BOBChartBase&lt;int, double&gt;.Animated</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_AnimationDuration">BOBChartBase&lt;int, double&gt;.AnimationDuration</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_DisposeAsync">BOBComponentBase.DisposeAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_AdditionalAttributes">BOBComponentBase.AdditionalAttributes</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_ComputedAttributes">BOBComponentBase.ComputedAttributes</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="BlazOrbit_Charts_Components_BOBGaugeChart__ctor_" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBGaugeChart__ctor" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.#ctor">
+  BOBGaugeChart()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBGaugeChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BOBGaugeChart()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="BlazOrbit_Charts_Components_BOBGaugeChart_Caption_" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.Caption*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBGaugeChart_Caption" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.Caption">
+  Caption
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBGaugeChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Optional caption rendered below the value (e.g. metric name).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Caption { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBGaugeChart_Max_" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.Max*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBGaugeChart_Max" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.Max">
+  Max
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBGaugeChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Upper bound of the gauge domain. Default 100.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public double Max { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBGaugeChart_Min_" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.Min*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBGaugeChart_Min" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.Min">
+  Min
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBGaugeChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Lower bound of the gauge domain. Default 0.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public double Min { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBGaugeChart_Segments_" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.Segments*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBGaugeChart_Segments" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.Segments">
+  Segments
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBGaugeChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Optional zone segments (color bands across the domain).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public IEnumerable&lt;BOBChartGaugeSegment&gt;? Segments { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IEnumerable</span>&lt;<a class="xref" href="BlazOrbit.Charts.Models.BOBChartGaugeSegment.html">BOBChartGaugeSegment</a>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBGaugeChart_Shape_" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.Shape*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBGaugeChart_Shape" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.Shape">
+  Shape
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBGaugeChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Arc layout shape. Default <a class="xref" href="BlazOrbit.Charts.Enums.BOBGaugeShape.html#BlazOrbit_Charts_Enums_BOBGaugeShape_Semi">Semi</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public BOBGaugeShape Shape { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Charts.Enums.BOBGaugeShape.html">BOBGaugeShape</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBGaugeChart_Thickness_" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.Thickness*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBGaugeChart_Thickness" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.Thickness">
+  Thickness
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBGaugeChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Track + value-arc thickness (px). Default 16.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public double Thickness { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBGaugeChart_TrackColor_" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.TrackColor*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBGaugeChart_TrackColor" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.TrackColor">
+  TrackColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBGaugeChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Color of the track behind the value arc. Default surface-variant.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string TrackColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBGaugeChart_Unit_" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.Unit*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBGaugeChart_Unit" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.Unit">
+  Unit
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBGaugeChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Optional unit suffix appended after the value (e.g. <code>&quot;%&quot;</code>, <code>&quot;ms&quot;</code>).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Unit { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBGaugeChart_Value_" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.Value*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBGaugeChart_Value" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.Value">
+  Value
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBGaugeChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Current value to display.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public double Value { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBGaugeChart_ValueColor_" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.ValueColor*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBGaugeChart_ValueColor" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.ValueColor">
+  ValueColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBGaugeChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Color of the value arc (when no <a class="xref" href="BlazOrbit.Charts.Components.BOBGaugeChart.html#BlazOrbit_Charts_Components_BOBGaugeChart_Segments">Segments</a>). Default palette[0].</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? ValueColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBGaugeChart_ValueFormat_" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.ValueFormat*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBGaugeChart_ValueFormat" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.ValueFormat">
+  ValueFormat
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBGaugeChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Format string for the centered value readout. Default <code>&quot;0.#&quot;</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? ValueFormat { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="BlazOrbit_Charts_Components_BOBGaugeChart_BuildAriaLabel_" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.BuildAriaLabel*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBGaugeChart_BuildAriaLabel" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.BuildAriaLabel">
+  BuildAriaLabel()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBGaugeChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Default ARIA label for the chart's <code>&lt;svg&gt;</code> root. Subclasses
+override to inject series / value summaries (improves screen-reader
+experience).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override string BuildAriaLabel()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBGaugeChart_RenderSvg_" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.RenderSvg*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBGaugeChart_RenderSvg_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder_" data-uid="BlazOrbit.Charts.Components.BOBGaugeChart.RenderSvg(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+  RenderSvg(RenderTreeBuilder)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBGaugeChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Concrete charts override this to emit SVG content. The supplied
+builder is positioned <em>inside</em> the <code>&lt;svg&gt;</code> root, so
+implementations only need to add geometry primitives (lines, paths,
+rects, text). Sequence numbers must remain unique within the override.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void RenderSvg(RenderTreeBuilder builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <span class="xref">RenderTreeBuilder</span></dt>
+    <dd><p>Render tree builder positioned inside the SVG root.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBGaugeChart.cs" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

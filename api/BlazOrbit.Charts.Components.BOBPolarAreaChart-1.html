@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class BOBPolarAreaChart&lt;TY&gt; | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class BOBPolarAreaChart&lt;TY&gt; | BlazOrbit API ">
+      
+      <meta name="description" content="Polar-area / Coxcomb / Rose chart - variant of pie where every slice has the same angular width but the radius encodes the magnitude. Useful for cyclic data (months, hours-of-day) where you want to preserve uniform angular slots and let the radii do the talking.">
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Charts.Components.BOBPolarAreaChart`1">
+
+
+
+  <h1 id="BlazOrbit_Charts_Components_BOBPolarAreaChart_1" data-uid="BlazOrbit.Charts.Components.BOBPolarAreaChart`1" class="text-break">
+Class BOBPolarAreaChart&lt;TY&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBPolarAreaChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Charts.html">Charts</a>.<a class="xref" href="BlazOrbit.Charts.Components.html">Components</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.Charts.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"><p>Polar-area / Coxcomb / Rose chart - variant of pie where every slice
+has the same angular width but the radius encodes the magnitude.
+Useful for cyclic data (months, hours-of-day) where you want to
+preserve uniform angular slots and let the radii do the talking.</p>
+</div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public sealed class BOBPolarAreaChart&lt;TY&gt; : BOBChartBase&lt;int, TY&gt;, IDataVisualizationFamilyComponent where TY : struct</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TY</code></dt>
+    <dd><p>Numeric value type.</p>
+</dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">ComponentBase</span></div>
+      <div><a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html">BOBComponentBase</a></div>
+      <div><a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html">BOBChartBase</a>&lt;<span class="xref">int</span>, TY&gt;</div>
+      <div><span class="xref">BOBPolarAreaChart&lt;TY&gt;</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="BlazOrbit.Charts.Abstractions.IDataVisualizationFamilyComponent.html">IDataVisualizationFamilyComponent</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_ToggleSeriesAsync_System_String_">BOBChartBase&lt;int, TY&gt;.ToggleSeriesAsync(string)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_OnResize_System_Double_System_Double_">BOBChartBase&lt;int, TY&gt;.OnResize(double, double)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_DisposeAsync">BOBChartBase&lt;int, TY&gt;.DisposeAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_ExportAsPngAsync">BOBChartBase&lt;int, TY&gt;.ExportAsPngAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_Width">BOBChartBase&lt;int, TY&gt;.Width</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_Height">BOBChartBase&lt;int, TY&gt;.Height</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_AspectRatio">BOBChartBase&lt;int, TY&gt;.AspectRatio</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_ShowExportButton">BOBChartBase&lt;int, TY&gt;.ShowExportButton</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_ExportFileName">BOBChartBase&lt;int, TY&gt;.ExportFileName</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_ShowLegend">BOBChartBase&lt;int, TY&gt;.ShowLegend</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_LegendPosition">BOBChartBase&lt;int, TY&gt;.LegendPosition</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_OnLegendToggle">BOBChartBase&lt;int, TY&gt;.OnLegendToggle</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_OnChartReady">BOBChartBase&lt;int, TY&gt;.OnChartReady</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_Theme">BOBChartBase&lt;int, TY&gt;.Theme</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_TooltipTemplate">BOBChartBase&lt;int, TY&gt;.TooltipTemplate</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_TooltipFormat">BOBChartBase&lt;int, TY&gt;.TooltipFormat</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_Animated">BOBChartBase&lt;int, TY&gt;.Animated</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Charts.Components.BOBChartBase-2.html#BlazOrbit_Charts_Components_BOBChartBase_2_AnimationDuration">BOBChartBase&lt;int, TY&gt;.AnimationDuration</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_DisposeAsync">BOBComponentBase.DisposeAsync()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_AdditionalAttributes">BOBComponentBase.AdditionalAttributes</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBComponentBase.html#BlazOrbit_Abstractions_BOBComponentBase_ComputedAttributes">BOBComponentBase.ComputedAttributes</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="BlazOrbit_Charts_Components_BOBPolarAreaChart_1__ctor_" data-uid="BlazOrbit.Charts.Components.BOBPolarAreaChart`1.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBPolarAreaChart_1__ctor" data-uid="BlazOrbit.Charts.Components.BOBPolarAreaChart`1.#ctor">
+  BOBPolarAreaChart()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBPolarAreaChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BOBPolarAreaChart()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="BlazOrbit_Charts_Components_BOBPolarAreaChart_1_FillOpacity_" data-uid="BlazOrbit.Charts.Components.BOBPolarAreaChart`1.FillOpacity*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBPolarAreaChart_1_FillOpacity" data-uid="BlazOrbit.Charts.Components.BOBPolarAreaChart`1.FillOpacity">
+  FillOpacity
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBPolarAreaChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Slice fill opacity (0..1). Default 0.7.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public double FillOpacity { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBPolarAreaChart_1_Padding_" data-uid="BlazOrbit.Charts.Components.BOBPolarAreaChart`1.Padding*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBPolarAreaChart_1_Padding" data-uid="BlazOrbit.Charts.Components.BOBPolarAreaChart`1.Padding">
+  Padding
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBPolarAreaChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Pixel padding from SVG edge to the outer radius. Default 32.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public double Padding { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">double</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBPolarAreaChart_1_RingCount_" data-uid="BlazOrbit.Charts.Components.BOBPolarAreaChart`1.RingCount*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBPolarAreaChart_1_RingCount" data-uid="BlazOrbit.Charts.Components.BOBPolarAreaChart`1.RingCount">
+  RingCount
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBPolarAreaChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Number of concentric grid rings drawn for reference.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int RingCount { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBPolarAreaChart_1_ShowValues_" data-uid="BlazOrbit.Charts.Components.BOBPolarAreaChart`1.ShowValues*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBPolarAreaChart_1_ShowValues" data-uid="BlazOrbit.Charts.Components.BOBPolarAreaChart`1.ShowValues">
+  ShowValues
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBPolarAreaChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Render the slice value at its centroid. Default <code>true</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool ShowValues { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBPolarAreaChart_1_Slices_" data-uid="BlazOrbit.Charts.Components.BOBPolarAreaChart`1.Slices*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBPolarAreaChart_1_Slices" data-uid="BlazOrbit.Charts.Components.BOBPolarAreaChart`1.Slices">
+  Slices
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBPolarAreaChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Slice values (one wedge per item, equal angular width).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public IEnumerable&lt;BOBChartSlice&lt;TY&gt;&gt;? Slices { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IEnumerable</span>&lt;<a class="xref" href="BlazOrbit.Charts.Models.BOBChartSlice-1.html">BOBChartSlice</a>&lt;TY&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="BlazOrbit_Charts_Components_BOBPolarAreaChart_1_BuildAriaLabel_" data-uid="BlazOrbit.Charts.Components.BOBPolarAreaChart`1.BuildAriaLabel*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBPolarAreaChart_1_BuildAriaLabel" data-uid="BlazOrbit.Charts.Components.BOBPolarAreaChart`1.BuildAriaLabel">
+  BuildAriaLabel()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBPolarAreaChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Default ARIA label for the chart's <code>&lt;svg&gt;</code> root. Subclasses
+override to inject series / value summaries (improves screen-reader
+experience).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override string BuildAriaLabel()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Charts_Components_BOBPolarAreaChart_1_RenderSvg_" data-uid="BlazOrbit.Charts.Components.BOBPolarAreaChart`1.RenderSvg*"></a>
+
+  <h3 id="BlazOrbit_Charts_Components_BOBPolarAreaChart_1_RenderSvg_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder_" data-uid="BlazOrbit.Charts.Components.BOBPolarAreaChart`1.RenderSvg(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+  RenderSvg(RenderTreeBuilder)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBPolarAreaChart.cs"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Concrete charts override this to emit SVG content. The supplied
+builder is positioned <em>inside</em> the <code>&lt;svg&gt;</code> root, so
+implementations only need to add geometry primitives (lines, paths,
+rects, text). Sequence numbers must remain unique within the override.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void RenderSvg(RenderTreeBuilder builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>builder</code> <span class="xref">RenderTreeBuilder</span></dt>
+    <dd><p>Render tree builder positioned inside the SVG root.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Charts/Components/BOBPolarAreaChart.cs" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Class BOBAutoComplete&lt;TItem&gt; | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Class BOBAutoComplete&lt;TItem&gt; | BlazOrbit API ">
+      
+      
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1">
+
+
+
+  <h1 id="BlazOrbit_Components_Forms_BOBAutoComplete_1" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1" class="text-break">
+Class BOBAutoComplete&lt;TItem&gt;  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h1>
+
+  <div class="facts text-secondary">
+    <dl><dt>Namespace</dt><dd><a class="xref" href="BlazOrbit.html">BlazOrbit</a>.<a class="xref" href="BlazOrbit.Components.html">Components</a>.<a class="xref" href="BlazOrbit.Components.Forms.html">Forms</a></dd></dl>
+  <dl><dt>Assembly</dt><dd>BlazOrbit.dll</dd></dl>
+  </div>
+
+  <div class="markdown summary"></div>
+  <div class="markdown conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[GenerateComponentInfo]
+public class BOBAutoComplete&lt;TItem&gt; : BOBInputComponentBase&lt;TItem, BOBAutoComplete&lt;TItem&gt;, BOBInputVariant&gt;, IHasReadOnly, IHasDisabled, IHasRequired, IHasError, IVariantComponent&lt;BOBInputVariant&gt;, IVariantComponent, IBuiltComponent, IHasSize, IHasLoading, IHasDensity, IHasShadow, IHasColor, IHasBackgroundColor, IHasPrefix, IHasSuffix, IInputFamilyComponent</code></pre>
+  </div>
+
+
+
+  <h4 class="section">Type Parameters</h4>
+  <dl class="parameters">
+    <dt><code>TItem</code></dt>
+    <dd></dd>
+  </dl>
+
+  <dl class="typelist inheritance">
+    <dt>Inheritance</dt>
+    <dd>
+      <div><span class="xref">object</span></div>
+      <div><span class="xref">ComponentBase</span></div>
+      <div><span class="xref">InputBase</span>&lt;TItem&gt;</div>
+      <div><a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs">BOBInputComponentBase</a>&lt;TItem&gt;</div>
+      <div><a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/BOBInputComponentBase.cs">BOBInputComponentBase</a>&lt;TItem, <a class="xref" href="BlazOrbit.Components.Forms.BOBAutoComplete-1.html">BOBAutoComplete</a>&lt;TItem&gt;, <a class="xref" href="BlazOrbit.Components.Forms.BOBInputVariant.html">BOBInputVariant</a>&gt;</div>
+      <div><span class="xref">BOBAutoComplete&lt;TItem&gt;</span></div>
+    </dd>
+  </dl>
+
+  <dl class="typelist implements">
+    <dt>Implements</dt>
+    <dd>
+      <div><a class="xref" href="BlazOrbit.Components.IHasReadOnly.html">IHasReadOnly</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasDisabled.html">IHasDisabled</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasRequired.html">IHasRequired</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasError.html">IHasError</a></div>
+      <div><a class="xref" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit.Core/Components/Variants/IVariantComponent.cs">IVariantComponent</a>&lt;<a class="xref" href="BlazOrbit.Components.Forms.BOBInputVariant.html">BOBInputVariant</a>&gt;</div>
+      <div><a class="xref" href="BlazOrbit.Components.IVariantComponent.html">IVariantComponent</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IBuiltComponent.html">IBuiltComponent</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasSize.html">IHasSize</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasLoading.html">IHasLoading</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasDensity.html">IHasDensity</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasShadow.html">IHasShadow</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasColor.html">IHasColor</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasBackgroundColor.html">IHasBackgroundColor</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasPrefix.html">IHasPrefix</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IHasSuffix.html">IHasSuffix</a></div>
+      <div><a class="xref" href="BlazOrbit.Components.IInputFamilyComponent.html">IInputFamilyComponent</a></div>
+    </dd>
+  </dl>
+
+
+  <dl class="typelist inheritedMembers">
+    <dt>Inherited Members</dt>
+    <dd>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-3.html#BlazOrbit_Abstractions_BOBInputComponentBase_3_BuildRenderTree_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder_">BOBInputComponentBase&lt;TItem, BOBAutoComplete&lt;TItem&gt;, BOBInputVariant&gt;.BuildRenderTree(RenderTreeBuilder)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-3.html#BlazOrbit_Abstractions_BOBInputComponentBase_3_OnParametersSet">BOBInputComponentBase&lt;TItem, BOBAutoComplete&lt;TItem&gt;, BOBInputVariant&gt;.OnParametersSet()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-3.html#BlazOrbit_Abstractions_BOBInputComponentBase_3_CurrentVariant">BOBInputComponentBase&lt;TItem, BOBAutoComplete&lt;TItem&gt;, BOBInputVariant&gt;.CurrentVariant</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-3.html#BlazOrbit_Abstractions_BOBInputComponentBase_3_DefaultVariant">BOBInputComponentBase&lt;TItem, BOBAutoComplete&lt;TItem&gt;, BOBInputVariant&gt;.DefaultVariant</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-3.html#BlazOrbit_Abstractions_BOBInputComponentBase_3_Variant">BOBInputComponentBase&lt;TItem, BOBAutoComplete&lt;TItem&gt;, BOBInputVariant&gt;.Variant</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-3.html#BlazOrbit_Abstractions_BOBInputComponentBase_3_BuiltInTemplates">BOBInputComponentBase&lt;TItem, BOBAutoComplete&lt;TItem&gt;, BOBInputVariant&gt;.BuiltInTemplates</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_SetParametersAsync_Microsoft_AspNetCore_Components_ParameterView_">BOBInputComponentBase&lt;TItem&gt;.SetParametersAsync(ParameterView)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_Dispose_System_Boolean_">BOBInputComponentBase&lt;TItem&gt;.Dispose(bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_OnAfterRenderAsync_System_Boolean_">BOBInputComponentBase&lt;TItem&gt;.OnAfterRenderAsync(bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_OnInitialized">BOBInputComponentBase&lt;TItem&gt;.OnInitialized()</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_Disabled">BOBInputComponentBase&lt;TItem&gt;.Disabled</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_ReadOnly">BOBInputComponentBase&lt;TItem&gt;.ReadOnly</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_Required">BOBInputComponentBase&lt;TItem&gt;.Required</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_Error">BOBInputComponentBase&lt;TItem&gt;.Error</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_IsDisabled">BOBInputComponentBase&lt;TItem&gt;.IsDisabled</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_IsError">BOBInputComponentBase&lt;TItem&gt;.IsError</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_IsReadOnly">BOBInputComponentBase&lt;TItem&gt;.IsReadOnly</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_IsRequired">BOBInputComponentBase&lt;TItem&gt;.IsRequired</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_ComputedAttributes">BOBInputComponentBase&lt;TItem&gt;.ComputedAttributes</a>
+    </div>
+    <div>
+      <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_IsDisposed">BOBInputComponentBase&lt;TItem&gt;.IsDisposed</a>
+    </div>
+  </dd></dl>
+
+
+
+
+
+
+  <h2 class="section" id="constructors">Constructors
+</h2>
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1__ctor_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.#ctor*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1__ctor" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.#ctor">
+  BOBAutoComplete()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BOBAutoComplete()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <h2 class="section" id="properties">Properties
+</h2>
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_BackgroundColor_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.BackgroundColor*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_BackgroundColor" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.BackgroundColor">
+  BackgroundColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Background color of the input.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? BackgroundColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_BuiltInTemplates_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.BuiltInTemplates*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_BuiltInTemplates" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.BuiltInTemplates">
+  BuiltInTemplates
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Compile-time map of variants to their built-in render templates.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override IReadOnlyDictionary&lt;BOBInputVariant, Func&lt;BOBAutoComplete&lt;TItem&gt;, RenderFragment&gt;&gt; BuiltInTemplates { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">IReadOnlyDictionary</span>&lt;<a class="xref" href="BlazOrbit.Components.Forms.BOBInputVariant.html">BOBInputVariant</a>, <span class="xref">Func</span>&lt;<a class="xref" href="BlazOrbit.Components.Forms.BOBAutoComplete-1.html">BOBAutoComplete</a>&lt;TItem&gt;, <span class="xref">RenderFragment</span>&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_Color_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.Color*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_Color" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.Color">
+  Color
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Text color of the input.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Color { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_DebounceMs_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.DebounceMs*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_DebounceMs" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.DebounceMs">
+  DebounceMs
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Trailing-edge debounce delay for keystroke-driven searches. <code>0</code> disables debouncing.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int DebounceMs { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_DefaultVariant_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.DefaultVariant*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_DefaultVariant" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.DefaultVariant">
+  DefaultVariant
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Variant used when no <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-3.html#BlazOrbit_Abstractions_BOBInputComponentBase_3_Variant">Variant</a> is supplied.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override BOBInputVariant DefaultVariant { get; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.Forms.BOBInputVariant.html">BOBInputVariant</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_Density_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.Density*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_Density" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.Density">
+  Density
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Vertical density of the input.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public BOBDensity Density { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.BOBDensity.html">BOBDensity</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_HelperText_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.HelperText*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_HelperText" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.HelperText">
+  HelperText
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Helper text displayed below the input.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? HelperText { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_ItemTemplate_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.ItemTemplate*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_ItemTemplate" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.ItemTemplate">
+  ItemTemplate
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Optional template for rendering each suggestion. Falls back to <code>ItemText</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public RenderFragment&lt;TItem&gt;? ItemTemplate { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">RenderFragment</span>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_ItemText_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.ItemText*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_ItemText" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.ItemText">
+  ItemText
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Projects an item to its display string. Required.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+[EditorRequired]
+public Func&lt;TItem, string&gt;? ItemText { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Func</span>&lt;TItem, <span class="xref">string</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_Label_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.Label*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_Label" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.Label">
+  Label
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Floating label displayed above the input.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Label { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_Loading_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.Loading*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_Loading" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.Loading">
+  Loading
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/builtin-types/bool">true</a>, force the loading indicator. Async searches drive this automatically too.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public bool Loading { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_LoadingIndicatorVariant_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.LoadingIndicatorVariant*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_LoadingIndicatorVariant" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.LoadingIndicatorVariant">
+  LoadingIndicatorVariant
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Variant of the loading indicator shown while a search is in flight.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public BOBProgressIconVariant LoadingIndicatorVariant { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.BOBProgressIconVariant.html">BOBProgressIconVariant</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_MinSearchLength_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.MinSearchLength*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_MinSearchLength" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.MinSearchLength">
+  MinSearchLength
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Minimum length before a search fires. Defaults to <code>1</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public int MinSearchLength { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">int</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_NoResultsTemplate_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.NoResultsTemplate*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_NoResultsTemplate" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.NoResultsTemplate">
+  NoResultsTemplate
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Optional template rendered when the search returns zero results.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public RenderFragment&lt;string&gt;? NoResultsTemplate { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">RenderFragment</span>&lt;<span class="xref">string</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_OnSelected_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.OnSelected*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_OnSelected" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.OnSelected">
+  OnSelected
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Raised when the user picks a suggestion.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public EventCallback&lt;TItem&gt; OnSelected { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">EventCallback</span>&lt;TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_Placeholder_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.Placeholder*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_Placeholder" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.Placeholder">
+  Placeholder
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Placeholder text shown when the input is empty.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? Placeholder { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_PrefixBackgroundColor_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.PrefixBackgroundColor*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_PrefixBackgroundColor" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.PrefixBackgroundColor">
+  PrefixBackgroundColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Background color of the prefix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? PrefixBackgroundColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_PrefixColor_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.PrefixColor*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_PrefixColor" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.PrefixColor">
+  PrefixColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Color of the prefix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? PrefixColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_PrefixIcon_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.PrefixIcon*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_PrefixIcon" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.PrefixIcon">
+  PrefixIcon
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Material icon name displayed before the input value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public IconKey? PrefixIcon { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.IconKey.html">IconKey</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_PrefixText_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.PrefixText*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_PrefixText" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.PrefixText">
+  PrefixText
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Text displayed before the input value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? PrefixText { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_SearchAsync_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.SearchAsync*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_SearchAsync" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.SearchAsync">
+  SearchAsync
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Async source for completion suggestions. Receives the current search text and a cancellation
+token that fires when a newer keystroke arrives or the component disposes. Required.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+[EditorRequired]
+public Func&lt;string, CancellationToken, Task&lt;IEnumerable&lt;TItem&gt;&gt;&gt;? SearchAsync { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Func</span>&lt;<span class="xref">string</span>, <span class="xref">CancellationToken</span>, <span class="xref">Task</span>&lt;<span class="xref">IEnumerable</span>&lt;TItem&gt;&gt;&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_Shadow_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.Shadow*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_Shadow" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.Shadow">
+  Shadow
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Shadow style applied to the input container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public ShadowStyle? Shadow { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.ShadowStyle.html">ShadowStyle</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_Size_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.Size*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_Size" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.Size">
+  Size
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Visual size of the input.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public BOBSize Size { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.BOBSize.html">BOBSize</a></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_StringToItem_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.StringToItem*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_StringToItem" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.StringToItem">
+  StringToItem
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Optional resolver lifting a raw search string back to a <code class="typeparamref">TItem</code>.
+Wires the EditContext path so the bound model can round-trip values that the user
+committed via Enter / blur without picking a suggestion (e.g. free-text addresses
+where the autocomplete suggests known matches but the field still accepts novel
+entries). Return <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> to reject the string with a validation error.
+When <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a> the component keeps its historical SelectAsync-only contract.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public Func&lt;string, TItem?&gt;? StringToItem { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">Func</span>&lt;<span class="xref">string</span>, TItem&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_SuffixBackgroundColor_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.SuffixBackgroundColor*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_SuffixBackgroundColor" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.SuffixBackgroundColor">
+  SuffixBackgroundColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Background color of the suffix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? SuffixBackgroundColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_SuffixColor_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.SuffixColor*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_SuffixColor" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.SuffixColor">
+  SuffixColor
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Color of the suffix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? SuffixColor { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_SuffixIcon_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.SuffixIcon*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_SuffixIcon" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.SuffixIcon">
+  SuffixIcon
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Material icon name displayed after the input value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public IconKey? SuffixIcon { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><a class="xref" href="BlazOrbit.Components.IconKey.html">IconKey</a>?</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_SuffixText_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.SuffixText*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_SuffixText" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.SuffixText">
+  SuffixText
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Text displayed after the input value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? SuffixText { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_UnresolvedStringError_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.UnresolvedStringError*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_UnresolvedStringError" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.UnresolvedStringError">
+  UnresolvedStringError
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Validation message surfaced when <a class="xref" href="BlazOrbit.Components.Forms.BOBAutoComplete-1.html#BlazOrbit_Components_Forms_BOBAutoComplete_1_StringToItem">StringToItem</a> returns <a href="https://learn.microsoft.com/dotnet/csharp/language-reference/keywords/null">null</a>
+for a non-empty input. Defaults to a generic &quot;value not recognised&quot; string.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[Parameter]
+public string? UnresolvedStringError { get; set; }</code></pre>
+  </div>
+
+
+
+
+
+  <h4 class="section">Property Value</h4>
+  <dl class="parameters">
+    <dt><span class="xref">string</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+  <h2 class="section" id="methods">Methods
+</h2>
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_BuildComponentCssVariables_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.BuildComponentCssVariables*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_BuildComponentCssVariables_System_Collections_Generic_Dictionary_System_String_System_String__" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.BuildComponentCssVariables(System.Collections.Generic.Dictionary{System.String,System.String})">
+  BuildComponentCssVariables(Dictionary&lt;string, string&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Contributes additional CSS custom properties to the inline <code>style</code> attribute. Keys
+that collide with framework-owned <code>--bob-inline-*</code> variables will be overwritten.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void BuildComponentCssVariables(Dictionary&lt;string, string&gt; cssVariables)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>cssVariables</code> <span class="xref">Dictionary</span>&lt;<span class="xref">string</span>, <span class="xref">string</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_BuildComponentDataAttributes_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.BuildComponentDataAttributes*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_BuildComponentDataAttributes_System_Collections_Generic_Dictionary_System_String_System_Object__" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.BuildComponentDataAttributes(System.Collections.Generic.Dictionary{System.String,System.Object})">
+  BuildComponentDataAttributes(Dictionary&lt;string, object&gt;)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Contributes additional <code>data-<em></em></code> attributes to the root element. Keys that collide
+with framework-owned <code>data-bob-</code> attributes will be overwritten.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void BuildComponentDataAttributes(Dictionary&lt;string, object&gt; dataAttributes)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>dataAttributes</code> <span class="xref">Dictionary</span>&lt;<span class="xref">string</span>, <span class="xref">object</span>&gt;</dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_BuildRenderTree_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.BuildRenderTree*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_BuildRenderTree_Microsoft_AspNetCore_Components_Rendering_RenderTreeBuilder_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder)">
+  BuildRenderTree(RenderTreeBuilder)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Renders the component to the supplied <span class="xref">Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void BuildRenderTree(RenderTreeBuilder __builder)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>__builder</code> <span class="xref">RenderTreeBuilder</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_DisposeAsync_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.DisposeAsync*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_DisposeAsync" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.DisposeAsync">
+  DisposeAsync()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Async disposal path. Blazor invokes this first when the component is unmounted
+because the type implements <span class="xref">System.IAsyncDisposable</span>; it tears down the
+JS-side behavior instance via <span class="xref">BlazOrbit.Abstractions.BOBComponentPipeline.DisposeBehaviorAsync()</span>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override ValueTask DisposeAsync()</code></pre>
+  </div>
+
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">ValueTask</span></dt>
+    <dd></dd>
+  </dl>
+
+
+
+
+
+
+
+  <h4 class="section" id="BlazOrbit_Components_Forms_BOBAutoComplete_1_DisposeAsync_remarks">Remarks</h4>
+  <div class="markdown level1 remarks"><p>Both this method and <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_Dispose_System_Boolean_">Dispose(bool)</a> run on disposal - Blazor calls
+<code>DisposeAsync</code> for the async work and the framework's <span class="xref">System.IDisposable</span>
+contract still invokes <code>Dispose(true)</code> afterward. The split is intentional:
+async work (JS interop teardown) lives here, sync work (event unsubscribe) lives in
+<code>Dispose(true)</code>. Both set <a class="xref" href="BlazOrbit.Abstractions.BOBInputComponentBase-1.html#BlazOrbit_Abstractions_BOBInputComponentBase_1_IsDisposed">IsDisposed</a> so derived components can
+guard post-await continuations regardless of which path runs first.</p>
+</div>
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_OnParametersSet_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.OnParametersSet*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_OnParametersSet" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.OnParametersSet">
+  OnParametersSet()
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Method invoked when the component has received parameters from its parent in
+the render tree, and the incoming values have been assigned to properties.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnParametersSet()</code></pre>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <a id="BlazOrbit_Components_Forms_BOBAutoComplete_1_TryParseValueFromString_" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.TryParseValueFromString*"></a>
+
+  <h3 id="BlazOrbit_Components_Forms_BOBAutoComplete_1_TryParseValueFromString_System_String__0__System_String__" data-uid="BlazOrbit.Components.Forms.BOBAutoComplete`1.TryParseValueFromString(System.String,`0@,System.String@)">
+  TryParseValueFromString(string?, out TItem, out string?)
+  <a class="header-action link-secondary" title="View source" href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor"><i class="bi bi-code-slash"></i></a>
+  </h3>
+
+  <div class="markdown level1 summary"><p>Parses a string to create an instance of <code class="typeparamref">TValue</code>. Derived classes can override this to change how
+<span class="xref">Microsoft.AspNetCore.Components.Forms.InputBase&lt;TValue&gt;.CurrentValueAsString</span> interprets incoming values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool TryParseValueFromString(string? value, out TItem result, out string? validationErrorMessage)</code></pre>
+  </div>
+
+  <h4 class="section">Parameters</h4>
+  <dl class="parameters">
+    <dt><code>value</code> <span class="xref">string</span></dt>
+    <dd><p>The string value to be parsed.</p>
+</dd>
+    <dt><code>result</code> <span class="xref">TItem</span></dt>
+    <dd><p>An instance of <code class="typeparamref">TValue</code>.</p>
+</dd>
+    <dt><code>validationErrorMessage</code> <span class="xref">string</span></dt>
+    <dd><p>If the value could not be parsed, provides a validation error message.</p>
+</dd>
+  </dl>
+
+  <h4 class="section">Returns</h4>
+  <dl class="parameters">
+    <dt><span class="xref">bool</span></dt>
+    <dd><p>True if the value could be parsed; otherwise false.</p>
+</dd>
+  </dl>
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/BlazOrbit/BlazOrbit/blob/master/src/BlazOrbit/Components/Forms/AutoComplete/BOBAutoComplete.razor" class="edit-link">Edit this page</a>
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

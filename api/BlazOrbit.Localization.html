@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Namespace BlazOrbit.Localization | BlazOrbit API </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Namespace BlazOrbit.Localization | BlazOrbit API ">
+      
+      
+      <link rel="icon" href="../images/favicon.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      <meta name="docfx:rel" content="../">
+      
+      
+      
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="ManagedReference">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/logo.png" alt="BlazOrbit API reference">
+            BlazOrbit API reference
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+              <form class="search" role="search" id="search">
+                <i class="bi bi-search"></i>
+                <input class="form-control" id="search-query" type="search" disabled placeholder="Search" autocomplete="off" aria-label="Search">
+              </form>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="BlazOrbit.Localization">
+
+  <h1 id="BlazOrbit_Localization" data-uid="BlazOrbit.Localization" class="text-break">Namespace BlazOrbit.Localization</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="markdown level0 remarks"></div>
+
+    <h3 id="classes">
+Classes
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Localization.BobLocalizationBundleAttribute.html">BobLocalizationBundleAttribute</a></dt>
+      <dd><p>Declares a localization bundle anchored to a marker <code>TResource</code> type. Applied at the
+assembly level (typically on the <code>AssemblyInfo</code> of a package that ships translations)
+so the source generator and runtime registry both discover the bundle without reflection
+in consumer code.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Localization.BobLocalizationBundleSpec.html">BobLocalizationBundleSpec</a></dt>
+      <dd><p>Immutable specification of a registered localization bundle. Built either by hand for
+runtime-only scenarios or - typically - by the source generator and supplied to
+<a class="xref" href="BlazOrbit.Localization.BobLocalize.html#BlazOrbit_Localization_BobLocalize_RegisterBundle_BlazOrbit_Localization_BobLocalizationBundleSpec_">RegisterBundle(BobLocalizationBundleSpec)</a> from a <code>[ModuleInitializer]</code>-marked method
+inside the bundle's owning assembly.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Localization.BobLocalizationHash.html">BobLocalizationHash</a></dt>
+      <dd><p>FNV-1a 64-bit hash used to convert source literal strings to stable lookup keys at both
+build time (source generator) and runtime (dynamic-key slow path). The constants are the
+canonical reference values - do not &quot;optimize&quot; or change them or hashes computed in
+different builds will diverge.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Localization.BobLocalizationKeyRoute.html">BobLocalizationKeyRoute</a></dt>
+      <dd><p>Single key-routing rule: keys with <a class="xref" href="BlazOrbit.Localization.BobLocalizationKeyRoute.html#BlazOrbit_Localization_BobLocalizationKeyRoute_Prefix">Prefix</a> consult <a class="xref" href="BlazOrbit.Localization.BobLocalizationKeyRoute.html#BlazOrbit_Localization_BobLocalizationKeyRoute_ProviderType">ProviderType</a>
+before the chain.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Localization.BobLocalizationKeyRouteAttribute.html">BobLocalizationKeyRouteAttribute</a></dt>
+      <dd><p>Routes any localization key starting with <a class="xref" href="BlazOrbit.Localization.BobLocalizationKeyRouteAttribute.html#BlazOrbit_Localization_BobLocalizationKeyRouteAttribute_Prefix">Prefix</a> to a specific provider type
+before the rest of the bundle's <a class="xref" href="BlazOrbit.Localization.BobLocalizationBundleAttribute.html#BlazOrbit_Localization_BobLocalizationBundleAttribute_Chain">Chain</a>. Stacks
+on the same assembly as the bundle declaration; one attribute per prefix.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Localization.BobLocalizationOptions.html">BobLocalizationOptions</a></dt>
+      <dd><p>Configuration knobs for the BOBLocalize runtime. Passed to the registration extension via
+the standard <span class="xref">System.Action&lt;T&gt;</span> pattern; immutable after build.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Localization.BobLocalize.html">BobLocalize</a></dt>
+      <dd><p>Global registry of localization bundles. Each bundle's owning assembly registers itself via
+a <code>[ModuleInitializer]</code>-marked method emitted by the source generator; consumer code
+rarely touches this type directly.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Localization.BobLocalizerHtmlExtensions.html">BobLocalizerHtmlExtensions</a></dt>
+      <dd><p>HTML-aware helpers over <span class="xref">Microsoft.Extensions.Localization.IStringLocalizer&lt;T&gt;</span>. Use when a translation contains
+markup (e.g. <code>&lt;strong&gt;</code>, <code>&lt;br /&gt;</code>) and the value must reach the DOM
+without Blazor's default HTML escaping.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Localization.BobLocalizer-1.html">BobLocalizer&lt;T&gt;</a></dt>
+      <dd><p>Adapter that exposes the BOBLocalize runtime as a Microsoft
+<span class="xref">Microsoft.Extensions.Localization.IStringLocalizer&lt;T&gt;</span>. Components and services continue to inject
+<code>IStringLocalizer&lt;TResource&gt;</code> exactly as they did with the resx-based stack -
+the registration in <a class="xref" href="BlazOrbit.Localization.ServiceCollectionExtensions.html#BlazOrbit_Localization_ServiceCollectionExtensions_AddBlazOrbitLocalization_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Action_BlazOrbit_Localization_BobLocalizationOptions__">AddBlazOrbitLocalization(IServiceCollection, Action&lt;BobLocalizationOptions&gt;?)</a>
+reroutes that resolution to this adapter.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Localization.CultureFlags.html">CultureFlags</a></dt>
+      <dd><p>Default emoji flag lookup for the cultures most commonly used in BlazOrbit
+localization. The <code>BOBCultureSelector</code> components in
+<code>BlazOrbit.Localization.Server</code> / <code>.Wasm</code> call into this
+when the consumer does not supply a custom <code>FlagResolver</code>.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Localization.LocalizationSettings.html">LocalizationSettings</a></dt>
+      <dd><p>Common host-side localization settings shared by the Server and WASM integrations.
+Concrete packages derive their host-specific subclass - <code>ServerLocalizationSettings</code>
+adds cookie configuration, <code>WasmLocalizationSettings</code> is a marker for symmetry -
+so that consumers referencing both packages can disambiguate without <code>using</code> aliases.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Localization.ServiceCollectionExtensions.html">ServiceCollectionExtensions</a></dt>
+      <dd><p>DI registration for the BOBLocalize runtime. The single entry point -
+<a class="xref" href="BlazOrbit.Localization.ServiceCollectionExtensions.html#BlazOrbit_Localization_ServiceCollectionExtensions_AddBlazOrbitLocalization_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Action_BlazOrbit_Localization_BobLocalizationOptions__">AddBlazOrbitLocalization(IServiceCollection, Action&lt;BobLocalizationOptions&gt;?)</a> - wires the <span class="xref">Microsoft.Extensions.Localization.IStringLocalizer&lt;T&gt;</span>
+resolution to <a class="xref" href="BlazOrbit.Localization.BobLocalizer-1.html">BobLocalizer&lt;T&gt;</a> and registers the built-in providers.</p>
+</dd>
+    </dl>
+    <h3 id="interfaces">
+Interfaces
+</h3>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Localization.IBobLocalizationBuilder.html">IBobLocalizationBuilder</a></dt>
+      <dd><p>Fluent builder returned by
+<a class="xref" href="BlazOrbit.Localization.ServiceCollectionExtensions.html#BlazOrbit_Localization_ServiceCollectionExtensions_AddBlazOrbitLocalization_Microsoft_Extensions_DependencyInjection_IServiceCollection_System_Action_BlazOrbit_Localization_BobLocalizationOptions__">AddBlazOrbitLocalization(IServiceCollection, Action&lt;BobLocalizationOptions&gt;?)</a> so consumers can chain
+custom provider registrations without re-typing the service collection.</p>
+</dd>
+    </dl>
+    <dl class="jumplist">
+      <dt><a class="xref" href="BlazOrbit.Localization.IBobLocalizationProvider.html">IBobLocalizationProvider</a></dt>
+      <dd><p>Pluggable backend that resolves a translation for a precomputed key hash. Implementations
+hold their own per-culture cache; the framework never wraps them in an external cache layer.</p>
+</dd>
+    </dl>
+
+
+</article>
+
+        <div class="contribution d-print-none">
+        </div>
+
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+    <div class="container-xxl search-results" id="search-results"></div>
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Generated with <a href="https://dotnet.github.io/docfx">DocFX</a> from <a href="https://github.com/BlazOrbit/BlazOrbit">BlazOrbit/BlazOrbit</a>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
