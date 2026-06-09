@@ -158,17 +158,31 @@ jobs:
         run: |
           echo "=== Verifying PublicAPI.Shipped.txt integrity ==="
 
-          # PublicAPI.Shipped.txt should only be modified during release.
-          SHIPPED_CHANGES=$(git diff --diff-filter=M --name-only origin/master...HEAD | grep -i "PublicAPI.Shipped.txt" || true)
+          # PublicAPI.Shipped.txt should only be modified during release - a real
+          # entry change here means someone shipped API surface outside the release
+          # flow. A BOM-only delta is NOT that: it is a one-time encoding-normalization
+          # artifact (repo policy is UTF-8 without BOM) and never a surface change, so
+          # it must not block the gate. Compare content with the leading BOM stripped
+          # and only fail on a genuine difference.
+          CANDIDATES=$(git diff --diff-filter=M --name-only origin/master...HEAD | grep -i "PublicAPI.Shipped.txt" || true)
 
-          if [ -n "$SHIPPED_CHANGES" ]; then
+          REAL_CHANGES=""
+          for f in $CANDIDATES; do
+            base=$(git show "origin/master:$f" | sed '1s/^\xEF\xBB\xBF//')
+            head=$(sed '1s/^\xEF\xBB\xBF//' "$f")
+            if [ "$base" != "$head" ]; then
+              REAL_CHANGES="${REAL_CHANGES}${f}"$'\n'
+            fi
+          done
+
+          if [ -n "$REAL_CHANGES" ]; then
             echo "❌ ERROR: PublicAPI.Shipped.txt was modified"
             echo "This file must only be updated during the release process."
             echo "Modified files:"
-            echo "$SHIPPED_CHANGES"
+            echo "$REAL_CHANGES"
             exit 1
           else
-            echo "✅ No changes to PublicAPI.Shipped.txt"
+            echo "✅ No meaningful changes to PublicAPI.Shipped.txt (BOM-only deltas ignored)"
           fi
 
   summary:
