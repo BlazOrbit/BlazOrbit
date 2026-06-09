@@ -504,9 +504,21 @@ function Move-PublicApiToShipped {
                 # of Shipped fuses with the first line of Unshipped (PublicAPI
                 # tooling then sees a single garbled entry).
                 $existing = [System.IO.File]::ReadAllText($shippedPath)
+
+                # Both Shipped and Unshipped carry a leading `#nullable enable`
+                # marker. RS0024 requires it to appear ONLY as the first line of
+                # the Shipped file. When Shipped already has it, strip the
+                # duplicate marker (and a stray BOM) from the Unshipped content
+                # before appending - otherwise the merged Shipped gets a second
+                # `#nullable enable` on line 2 and the release build fails.
+                $toAppend = $unshippedContent -replace '^\xEF\xBB\xBF', ''
+                if ($existing -match '(?m)^#nullable enable\s*$') {
+                    $toAppend = $toAppend -replace '^\s*#nullable enable\r?\n', ''
+                }
+
                 $separator = if ($existing -and -not $existing.EndsWith("`n")) { "`n" } else { "" }
                 $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
-                [System.IO.File]::AppendAllText($shippedPath, "$separator$unshippedContent", $utf8NoBom)
+                [System.IO.File]::AppendAllText($shippedPath, "$separator$toAppend", $utf8NoBom)
             }
             else {
                 $unshippedContent | Set-Content -Path $shippedPath -Encoding UTF8 -NoNewline
