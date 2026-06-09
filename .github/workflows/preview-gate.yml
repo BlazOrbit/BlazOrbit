@@ -6,8 +6,8 @@ name: '[Quality] Preview Gate'
 
 on:
   pull_request:
-    branches: [develop]
-    types: [opened, synchronize, reopened]
+    branches: [ develop ]
+    types: [ opened, synchronize, reopened ]
 
   workflow_dispatch:
 
@@ -19,32 +19,59 @@ env:
 permissions:
   contents: read
   pull-requests: write  # Needed to add labels
+  actions: read
 
 concurrency:
   group: preview-gate-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+  router:
+    uses: ./.github/workflows/_runner-router.yml
+    secrets: inherit
+
+  encoding-check:
+    # Audit gate that fast-fails on file-encoding drift 
+    # Specifically catches:
+    #   - `.tn` files committed with a UTF-8 BOM (would mis-parse silently
+    #     at runtime: U+FEFF survives `TrimStart()` and breaks the culture
+    #     header check on the first line).
+    #   - `.json` files with BOM (some Node tools read JSON as raw bytes).
+    #   - Any text file with byte sequences that aren't valid UTF-8
+    #     (Latin-1 / CP1252 saved by editors with the wrong default,
+    #     mojibake from copy-paste through Windows-1252 tools).
+    # Runs outside a container - pwsh is preinstalled on ubuntu-latest and
+    # the script doesn't need .NET. Fix locally with:
+    #   pwsh ./scripts/fix-encoding-bom.ps1
+    name: Encoding Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
+
+      - name: Verify file encoding
+        shell: pwsh
+        run: ./scripts/fix-encoding-bom.ps1 -Check
+
   build-linux:
     name: Build Linux
-    runs-on: ubuntu-latest
+    needs: router
+    runs-on: ${{ needs.router.outputs.runner }}
+    # Fresh container
+    container:
+      image: mcr.microsoft.com/dotnet/sdk:10.0
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@c2fa09f4bde5ebb9d1777cf28262a3eb3db3ced7  # v5
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           global-json-file: global.json
           cache: true
           cache-dependency-path: '**/*.csproj'
-
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version: '20'
 
       - name: Install WASM workload
         run: dotnet workload install wasm-tools
@@ -61,20 +88,15 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@c2fa09f4bde5ebb9d1777cf28262a3eb3db3ced7  # v5
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           global-json-file: global.json
           cache: true
           cache-dependency-path: '**/*.csproj'
-
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version: '20'
 
       - name: Install WASM workload
         run: dotnet workload install wasm-tools
@@ -87,24 +109,22 @@ jobs:
 
   tests:
     name: Tests
-    runs-on: ubuntu-latest
+    needs: router
+    runs-on: ${{ needs.router.outputs.runner }}
+    container:
+      image: mcr.microsoft.com/dotnet/sdk:10.0
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@c2fa09f4bde5ebb9d1777cf28262a3eb3db3ced7  # v5
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           global-json-file: global.json
           cache: true
           cache-dependency-path: '**/*.csproj'
-
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version: '20'
 
       - name: Install WASM workload
         run: dotnet workload install wasm-tools
@@ -116,76 +136,53 @@ jobs:
         run: dotnet build BlazOrbit.slnx -c Release --no-restore -p:TreatWarningsAsErrors=true
 
       - name: Test
-        run: dotnet test BlazOrbit.slnx -c Release --no-build --verbosity normal
+        # Category!=Perf excludes timing-based perf guards that flake
+        # on shared/self-hosted CI runners due to JIT/GC noise.
+        run: dotnet test BlazOrbit.slnx -c Release --no-build --verbosity normal --filter "Category!=Perf"
 
-  public-api-check:
-    name: Check Public API
+  public-api-shipped-check:
+    name: Check Public API Shipped
     runs-on: ubuntu-latest
-    continue-on-error: true  # Warning only, not blocking
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
         with:
           fetch-depth: 0
 
-      - name: Check PublicAPI changes
-        id: check
+      - name: Verify PublicAPI.Shipped.txt was not modified
         run: |
-          echo "=== Checking PublicAPI changes ==="
+          echo "=== Verifying PublicAPI.Shipped.txt integrity ==="
 
-          # Check for changes in PublicAPI.Unshipped.txt (new API additions)
-          UNSHIPPED_CHANGES=$(git diff --name-only origin/develop...HEAD | grep -i "PublicAPI.Unshipped.txt" || true)
+          # PublicAPI.Shipped.txt should only be modified during release.
+          SHIPPED_CHANGES=$(git diff --diff-filter=M --name-only origin/develop...HEAD | grep -i "PublicAPI.Shipped.txt" || true)
 
-          if [ -n "$UNSHIPPED_CHANGES" ]; then
-            echo "changes_detected=true" >> $GITHUB_OUTPUT
-            echo "⚠️  Public API changes detected"
-            echo "Files modified:"
-            echo "$UNSHIPPED_CHANGES"
+          if [ -n "$SHIPPED_CHANGES" ]; then
+            echo "❌ ERROR: PublicAPI.Shipped.txt was modified"
+            echo "This file must only be updated during the release process."
+            echo "Modified files:"
+            echo "$SHIPPED_CHANGES"
+            exit 1
           else
-            echo "changes_detected=false" >> $GITHUB_OUTPUT
-            echo "✅ No Public API changes"
+            echo "✅ No changes to PublicAPI.Shipped.txt"
           fi
-
-      - name: Add label to PR
-        if: steps.check.outputs.changes_detected == 'true' && github.event_name == 'pull_request'
-        uses: actions/github-script@v9
-        with:
-          script: |
-            github.rest.issues.addLabels({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              labels: ['changes/public-api']
-            });
-            console.log('Added label: changes/public-api');
-
-      - name: Public API Summary
-        if: steps.check.outputs.changes_detected == 'true'
-        run: |
-          echo "## ⚠️ Public API Changes Detected" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "This PR modifies the public API surface." >> $GITHUB_STEP_SUMMARY
-          echo "The 'changes/public-api' label has been added." >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          echo "This may trigger a MINOR version bump on next release if merged." >> $GITHUB_STEP_SUMMARY
 
   summary:
     name: Preview Gate Summary
     runs-on: ubuntu-latest
-    needs: [build-linux, build-windows, tests, public-api-check]
+    needs: [ build-linux, build-windows, tests, public-api-shipped-check ]
     if: always()
 
     steps:
       - name: Generate summary
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9
         with:
           script: |
             const jobs = {
               buildLinux: '${{ needs.build-linux.result }}',
               buildWindows: '${{ needs.build-windows.result }}',
               tests: '${{ needs.tests.result }}',
-              publicApi: '${{ needs.public-api-check.result }}'
+              publicApiShipped: '${{ needs.public-api-shipped-check.result }}'
             };
 
             let allPassed = true;
@@ -194,8 +191,7 @@ jobs:
             for (const [name, result] of Object.entries(jobs)) {
               const icon = result === 'success' ? '✅' : result === 'skipped' ? '⏭️' : '⚠️';
               report += `- ${icon} **${name}**: ${result}\n`;
-              // public-api-check is advisory only (continue-on-error)
-              if (name !== 'publicApi' && result !== 'success' && result !== 'skipped') {
+              if (result !== 'success' && result !== 'skipped') {
                 allPassed = false;
               }
             }

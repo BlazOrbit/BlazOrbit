@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -48,7 +48,7 @@ public class BOBGridItemSnapshotTests
                     .Add(c => c.P, "1rem")
                     .Add(c => c.AlignSelf, GridAlignSelf.Center)
                     .Add(c => c.ChildContent, b => b.AddContent(0, "With spacing"))).GetNormalizedMarkup()
-            },
+            }
         };
 
         await Verify(testCases).UseParameters(scenario.Name);

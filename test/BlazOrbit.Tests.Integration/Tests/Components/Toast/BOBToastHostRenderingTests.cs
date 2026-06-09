@@ -1,5 +1,4 @@
-﻿using BlazOrbit.Components.Layout;
-using BlazOrbit.Components.Layout.Services;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -20,7 +19,7 @@ public class BOBToastHostRenderingTests
         // Arrange & Act
         IRenderedComponent<BOBToastHost> cut = ctx.Render<BOBToastHost>();
 
-        // Assert — single root always present; no position wrappers when empty
+        // Assert - single root always present; no position wrappers when empty
         cut.FindAll("[data-bob-component='toast-host']").Should().HaveCount(1);
         cut.FindAll(".bob-toast-host__position").Should().BeEmpty();
     }
@@ -38,7 +37,7 @@ public class BOBToastHostRenderingTests
         // Act
         await toastService.ShowAsync(b => b.AddContent(0, "Hello"), new ToastOptions { AutoDismiss = false });
 
-        // Assert — single root, one position wrapper populated
+        // Assert - single root, one position wrapper populated
         cut.FindAll("[data-bob-component='toast-host']").Should().HaveCount(1);
         cut.FindAll(".bob-toast-host__position").Should().HaveCount(1);
     }
@@ -53,11 +52,13 @@ public class BOBToastHostRenderingTests
         IRenderedComponent<BOBToastHost> cut = ctx.Render<BOBToastHost>();
         IToastService toastService = ctx.Services.GetRequiredService<IToastService>();
 
-        // Act — show toasts in multiple positions
-        await toastService.ShowAsync(b => b.AddContent(0, "tl"), new ToastOptions { AutoDismiss = false, Position = ToastPosition.TopLeft });
-        await toastService.ShowAsync(b => b.AddContent(0, "br"), new ToastOptions { AutoDismiss = false, Position = ToastPosition.BottomRight });
+        // Act - show toasts in multiple positions
+        await toastService.ShowAsync(b => b.AddContent(0, "tl"),
+            new ToastOptions { AutoDismiss = false, Position = ToastPosition.TopLeft });
+        await toastService.ShowAsync(b => b.AddContent(0, "br"),
+            new ToastOptions { AutoDismiss = false, Position = ToastPosition.BottomRight });
 
-        // Assert — only one <bob-component> root (not one per position)
+        // Assert - only one <bob-component> root (not one per position)
         cut.FindAll("[data-bob-component='toast-host']").Should().HaveCount(1);
         cut.FindAll(".bob-toast-host__position").Should().HaveCount(2);
     }
@@ -68,10 +69,10 @@ public class BOBToastHostRenderingTests
     {
         // COMP-TOASTHOST-03: SSR boot path can fire toasts during DI/init,
         // before the host mounts. The host must surface those preexisting
-        // toasts on its first render — not wait for the next OnChange tick.
+        // toasts on its first render - not wait for the next OnChange tick.
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — queue a toast before the host renders
+        // Arrange - queue a toast before the host renders
         IToastService toastService = ctx.Services.GetRequiredService<IToastService>();
         await toastService.ShowAsync(b => b.AddContent(0, "Preexisting"),
             new ToastOptions { AutoDismiss = false, Position = ToastPosition.TopRight });
@@ -79,7 +80,7 @@ public class BOBToastHostRenderingTests
         // Act
         IRenderedComponent<BOBToastHost> cut = ctx.Render<BOBToastHost>();
 
-        // Assert — the toast is visible on the very first render
+        // Assert - the toast is visible on the very first render
         cut.FindAll(".bob-toast-host__position").Should().HaveCount(1);
         cut.Find("[data-bob-position='top-right']").Should().NotBeNull();
     }

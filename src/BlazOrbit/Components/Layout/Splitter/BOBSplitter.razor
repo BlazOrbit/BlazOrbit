@@ -1,0 +1,255 @@
+@using Microsoft.AspNetCore.Components.Web
+
+@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+
+@inherits BOBComponentBase
+
+<bob-component @attributes="ComputedAttributes"
+               data-bob-orientation="@OrientationToken">
+    <CascadingValue Value="this" IsFixed="true">
+        @* The sink renders pane definitions purely so they can register with the parent.
+           The actual pane DOM is emitted below using the captured snapshot. *@
+        <div class="bob-splitter__sink">@ChildContent</div>
+
+        @{ var snapshot = SnapshotPanes(); }
+
+        @for (var i = 0; i < snapshot.Count; i++)
+        {
+            var pane = snapshot[i];
+            var captured = i;
+
+            <div class="bob-splitter__pane"
+                 style="@PaneStyle(pane)">
+                @pane.ChildContent
+            </div>
+
+            if (i < snapshot.Count - 1)
+            {
+                <div class="bob-splitter__gripper"
+                     role="separator"
+                     aria-orientation="@AriaOrientation"
+                     tabindex="0"
+                     @onpointerdown="e => StartDrag(e, captured)"
+                     @onkeydown="e => OnGripperKeyDown(e, captured)"></div>
+            }
+        }
+
+        @if (_dragging)
+        {
+            @* Full-viewport overlay activates only while a drag is in progress. It
+               captures pointermove / pointerup so the cursor cannot escape the splitter
+               root mid-drag. Pure-Blazor alternative to setPointerCapture. *@
+            <div class="bob-splitter__drag-overlay"
+                 data-bob-orientation="@OrientationToken"
+                 @onpointermove="OnPointerMove"
+                 @onpointerup="OnPointerUp"
+                 @onpointercancel="OnPointerUp"></div>
+        }
+    </CascadingValue>
+</bob-component>
+
+@code {
+
+    /// <summary>Markup that emits the <c>&lt;BOBSplitterPane&gt;</c> children.</summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>Orientation of the rail. Defaults to <see cref="BOBSplitterOrientation.Horizontal"/>.</summary>
+    [Parameter]
+    public BOBSplitterOrientation Orientation { get; set; } = BOBSplitterOrientation.Horizontal;
+
+    /// <summary>Increment in pixels applied when a focused gripper is moved with arrow keys.</summary>
+    [Parameter]
+    public double KeyboardStep { get; set; } = 16;
+
+    private string OrientationToken => Orientation == BOBSplitterOrientation.Vertical ? "vertical" : "horizontal";
+    private string AriaOrientation => Orientation == BOBSplitterOrientation.Vertical ? "horizontal" : "vertical";
+
+    private readonly List<BOBSplitterPane> _panes = [];
+
+    private readonly object _panesLock = new();
+
+    // Live size per registered pane keyed by reference so we can adjust during drag without
+    // losing the user-provided initial Size parameter.
+    private readonly Dictionary<BOBSplitterPane, double> _liveSizes = new();
+
+    private bool _dragging;
+    private int _dragGripperIndex = -1;
+    private double _dragStart;
+    private double _startSizeBefore;
+    private double _startSizeAfter;
+
+    internal void RegisterPane(BOBSplitterPane pane)
+    {
+        if (IsDisposed) return;
+
+        bool added;
+        lock (_panesLock)
+        {
+            if (_panes.Contains(pane)) return;
+            _panes.Add(pane);
+            added = true;
+            // Seed live size from the pane's initial Size unless the pane is flexible.
+            if (!pane.Flex && pane.Size > 0)
+            {
+                _liveSizes[pane] = pane.Size;
+            }
+        }
+
+        if (added)
+        {
+            StateHasChanged();
+        }
+    }
+
+    internal void UnregisterPane(BOBSplitterPane pane)
+    {
+        if (IsDisposed) return;
+
+        bool removed;
+        lock (_panesLock)
+        {
+            removed = _panes.Remove(pane);
+            _liveSizes.Remove(pane);
+        }
+
+        if (removed)
+        {
+            StateHasChanged();
+        }
+    }
+
+    private List<BOBSplitterPane> SnapshotPanes()
+    {
+        lock (_panesLock)
+        {
+            return [.._panes];
+        }
+    }
+
+    private string PaneStyle(BOBSplitterPane pane)
+    {
+        // Flex pane absorbs leftover space; sized panes use a fixed flex-basis. We avoid
+        // setting flex-grow on sized panes so the splitter stays predictable when one pane
+        // is configured as Flex.
+        if (pane.Flex)
+        {
+            return "flex:1 1 0;min-width:0;min-height:0;";
+        }
+
+        var size = _liveSizes.TryGetValue(pane, out var s) ? s : pane.Size > 0 ? pane.Size : pane.MinSize;
+        var axis = Orientation == BOBSplitterOrientation.Vertical ? "height" : "width";
+        return $"flex:0 0 {size}px;{axis}:{size}px;min-width:0;min-height:0;";
+    }
+
+    private void StartDrag(PointerEventArgs e, int gripperIndex)
+    {
+        var snap = SnapshotPanes();
+        if (gripperIndex < 0 || gripperIndex + 1 >= snap.Count) return;
+
+        var before = snap[gripperIndex];
+        var after = snap[gripperIndex + 1];
+
+        // The drag adjusts the pair adjacent to the gripper. Either side can be Flex; in
+        // that case we still let the user resize by treating the flex pane's current
+        // rendered size as a free-floating baseline (we only update the sized pane).
+        _startSizeBefore = before.Flex ? 0 : _liveSizes.TryGetValue(before, out var sb) ? sb : before.Size;
+        _startSizeAfter = after.Flex ? 0 : _liveSizes.TryGetValue(after, out var sa) ? sa : after.Size;
+        _dragStart = Orientation == BOBSplitterOrientation.Vertical ? e.ClientY : e.ClientX;
+        _dragGripperIndex = gripperIndex;
+        _dragging = true;
+        StateHasChanged();
+    }
+
+    private void OnPointerMove(PointerEventArgs e)
+    {
+        if (!_dragging || _dragGripperIndex < 0) return;
+
+        var snap = SnapshotPanes();
+        if (_dragGripperIndex + 1 >= snap.Count) return;
+
+        var before = snap[_dragGripperIndex];
+        var after = snap[_dragGripperIndex + 1];
+
+        var current = Orientation == BOBSplitterOrientation.Vertical ? e.ClientY : e.ClientX;
+        var delta = current - _dragStart;
+
+        if (!before.Flex)
+        {
+            var target = _startSizeBefore + delta;
+            target = Math.Max(target, before.MinSize);
+            if (before.MaxSize > 0) target = Math.Min(target, before.MaxSize);
+            _liveSizes[before] = target;
+        }
+
+        if (!after.Flex)
+        {
+            var target = _startSizeAfter - delta;
+            target = Math.Max(target, after.MinSize);
+            if (after.MaxSize > 0) target = Math.Min(target, after.MaxSize);
+            _liveSizes[after] = target;
+        }
+
+        StateHasChanged();
+    }
+
+    private void OnPointerUp(PointerEventArgs e)
+    {
+        _dragging = false;
+        _dragGripperIndex = -1;
+        StateHasChanged();
+    }
+
+    private void OnGripperKeyDown(KeyboardEventArgs e, int gripperIndex)
+    {
+        // Keyboard nudges resize without going through the drag overlay. ArrowLeft/Up
+        // shrinks the leading pane, ArrowRight/Down grows it. Step size is the parameter.
+        var grow = Orientation == BOBSplitterOrientation.Horizontal
+            ? e.Key is "ArrowRight"
+            : e.Key is "ArrowDown";
+        var shrink = Orientation == BOBSplitterOrientation.Horizontal
+            ? e.Key is "ArrowLeft"
+            : e.Key is "ArrowUp";
+        if (!grow && !shrink) return;
+
+        var snap = SnapshotPanes();
+        if (gripperIndex < 0 || gripperIndex + 1 >= snap.Count) return;
+
+        var before = snap[gripperIndex];
+        var after = snap[gripperIndex + 1];
+        var delta = (grow ? 1 : -1) * KeyboardStep;
+
+        if (!before.Flex)
+        {
+            var currentBefore = _liveSizes.TryGetValue(before, out var sb) ? sb : before.Size;
+            var target = currentBefore + delta;
+            target = Math.Max(target, before.MinSize);
+            if (before.MaxSize > 0) target = Math.Min(target, before.MaxSize);
+            _liveSizes[before] = target;
+        }
+
+        if (!after.Flex)
+        {
+            var currentAfter = _liveSizes.TryGetValue(after, out var sa) ? sa : after.Size;
+            var target = currentAfter - delta;
+            target = Math.Max(target, after.MinSize);
+            if (after.MaxSize > 0) target = Math.Min(target, after.MaxSize);
+            _liveSizes[after] = target;
+        }
+
+        StateHasChanged();
+    }
+
+    public override async ValueTask DisposeAsync()
+    {
+        lock (_panesLock)
+        {
+            _panes.Clear();
+            _liveSizes.Clear();
+        }
+
+        await base.DisposeAsync();
+    }
+
+}

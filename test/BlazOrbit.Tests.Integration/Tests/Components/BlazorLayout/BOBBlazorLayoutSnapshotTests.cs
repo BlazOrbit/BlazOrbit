@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using BlazOrbit.Tests.Integration.Tests.Components.Initializer;
@@ -38,7 +38,7 @@ public class BOBBlazorLayoutSnapshotTests
                 .Add(c => c.Body, (RenderFragment)(b => b.AddMarkupContent(0,
                     "<header class=\"app-header\">H</header>"
                     + "<aside class=\"app-sidebar\">S</aside>"
-                    + "<main class=\"app-main\">M</main>")))),
+                    + "<main class=\"app-main\">M</main>"))))
         ];
 
         var results = testCases.Select(tc =>

@@ -1,7 +1,8 @@
-﻿@using System.Globalization
+@using System.Globalization
 @using System.Text
 @using System.Diagnostics.CodeAnalysis
 @using BlazOrbit.Abstractions
+@using Microsoft.Extensions.Localization
 
 @namespace BlazOrbit.Components.Forms
 @attribute [GenerateComponentInfo]
@@ -9,6 +10,7 @@
 @typeparam TValue
 
 @inherits BOBInputComponentBase<TValue, BOBInputNumber<TValue>, BOBInputVariant>
+@implements IBuiltComponent
 @implements IHasSize
 @implements IHasLoading
 @implements IHasDensity
@@ -24,6 +26,8 @@
 }
 
 @code {
+    [Inject] internal IStringLocalizer<BOBFormsResources> Localizer { get; set; } = default!;
+
     private ElementReference _inputRef;
     private string _inputId = $"bob-number-{Guid.NewGuid():N}";
     private string _helperTextId = $"bob-helper-{Guid.NewGuid():N}";
@@ -38,104 +42,157 @@
 
     // IHasSize
     /// <summary>Visual size of the input.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
 
     // IHasLoading
     /// <summary>When <see langword="true" />, the input shows a loading indicator.</summary>
-    [Parameter] public bool Loading { get; set; }
+    [Parameter]
+    public bool Loading { get; set; }
+
     /// <summary>Variant of the loading indicator shown when <see cref="Loading"/> is <see langword="true"/>.</summary>
-    [Parameter] public BOBLoadingIndicatorVariant LoadingIndicatorVariant { get; set; } = BOBLoadingIndicatorVariant.CircularProgress;
+    [Parameter]
+    public BOBProgressIconVariant LoadingIndicatorVariant { get; set; } = BOBProgressIconVariant.Ring;
 
     // IHasDensity
     /// <summary>Vertical density (gap) of the input.</summary>
-    [Parameter] public BOBDensity Density { get; set; } = BOBDensity.Standard;
+    [Parameter]
+    public BOBDensity Density { get; set; } = BOBDensity.Standard;
 
     // IHasShadow
     /// <summary>Shadow style applied to the input container.</summary>
-    [Parameter] public ShadowStyle? Shadow { get; set; }
+    [Parameter]
+    public ShadowStyle? Shadow { get; set; }
 
     // IHasBackgroundColor
-    /// <summary>Background color of the input. Accepts any valid CSS color value.</summary>
-    [Parameter] public string? BackgroundColor { get; set; }
+    /// <summary>Background color of the input. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
+    [Parameter]
+    public string? BackgroundColor { get; set; }
 
     // IHasColor
-    /// <summary>Text color of the input. Accepts any valid CSS color value.</summary>
-    [Parameter] public string? Color { get; set; }
+    /// <summary>Text color of the input. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
+    [Parameter]
+    public string? Color { get; set; }
 
     // IHasPrefix
     /// <summary>Text displayed before the input value.</summary>
-    [Parameter] public string? PrefixText { get; set; }
+    [Parameter]
+    public string? PrefixText { get; set; }
+
     /// <summary>Material icon name for the Prefix.</summary>
-    [Parameter] public IconKey? PrefixIcon { get; set; }
-    /// <summary>Prefix color. Accepts any valid CSS color value.</summary>
-    [Parameter] public string? PrefixColor { get; set; }
-    /// <summary>PrefixBackground color. Accepts any valid CSS color value.</summary>
-    [Parameter] public string? PrefixBackgroundColor { get; set; }
+    [Parameter]
+    public IconKey? PrefixIcon { get; set; }
+
+    /// <summary>Prefix color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
+    [Parameter]
+    public string? PrefixColor { get; set; }
+
+    /// <summary>PrefixBackground color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
+    [Parameter]
+    public string? PrefixBackgroundColor { get; set; }
 
     // IHasSuffix
     /// <summary>Text displayed after the input value.</summary>
-    [Parameter] public string? SuffixText { get; set; }
+    [Parameter]
+    public string? SuffixText { get; set; }
+
     /// <summary>Material icon name for the Suffix.</summary>
-    [Parameter] public IconKey? SuffixIcon { get; set; }
-    /// <summary>Suffix color. Accepts any valid CSS color value.</summary>
-    [Parameter] public string? SuffixColor { get; set; }
-    /// <summary>SuffixBackground color. Accepts any valid CSS color value.</summary>
-    [Parameter] public string? SuffixBackgroundColor { get; set; }
+    [Parameter]
+    public IconKey? SuffixIcon { get; set; }
+
+    /// <summary>Suffix color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
+    [Parameter]
+    public string? SuffixColor { get; set; }
+
+    /// <summary>SuffixBackground color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
+    [Parameter]
+    public string? SuffixBackgroundColor { get; set; }
 
     // Number-specific parameters
     /// <summary>Floating label displayed above the input when it has a value or focus.</summary>
-    [Parameter] public string? Label { get; set; }
+    [Parameter]
+    public string? Label { get; set; }
+
     /// <summary>Helper text displayed below the component for additional context.</summary>
-    [Parameter] public string? HelperText { get; set; }
+    [Parameter]
+    public string? HelperText { get; set; }
+
     /// <summary>Placeholder text shown when the component is empty.</summary>
-    [Parameter] public string? Placeholder { get; set; }
+    [Parameter]
+    public string? Placeholder { get; set; }
 
     /// <summary>
     /// Lower bound for the input, emitted as the <c>min</c> HTML attribute and
     /// enforced by the step buttons. UI hint only — re-validate on the server.
     /// </summary>
-    [Parameter] public TValue? Min { get; set; }
+    [Parameter]
+    public decimal? Min { get; set; }
+
     /// <summary>
     /// Upper bound for the input, emitted as the <c>max</c> HTML attribute and
     /// enforced by the step buttons. UI hint only — re-validate on the server.
     /// </summary>
-    [Parameter] public TValue? Max { get; set; }
+    [Parameter]
+    public decimal? Max { get; set; }
+
     /// <summary>
     /// Step size for the increment/decrement buttons and the <c>step</c> HTML
     /// attribute. UI hint only — re-validate on the server.
     /// </summary>
-    [Parameter] public decimal Step { get; set; } = 1m;
+    [Parameter]
+    public decimal Step { get; set; } = 1m;
 
     /// <summary>Number of decimal places to display. <see langword="null"/> defers to the value type's default formatting.</summary>
-    [Parameter] public int? DecimalPlaces { get; set; }
+    [Parameter]
+    public int? DecimalPlaces { get; set; }
+
     /// <summary>When <see langword="true" />, negative values are accepted; otherwise the input clamps at zero.</summary>
-    [Parameter] public bool AllowNegative { get; set; } = true;
+    [Parameter]
+    public bool AllowNegative { get; set; } = true;
+
     /// <summary>When <see langword="true" />, the StepButtons is shown.</summary>
-    [Parameter] public bool ShowStepButtons { get; set; } = true;
+    [Parameter]
+    public bool ShowStepButtons { get; set; } = true;
+
     /// <summary>Placement of the increment/decrement buttons relative to the input field.</summary>
-    [Parameter] public StepButtonPlacement ButtonPlacement { get; set; } = StepButtonPlacement.Right;
+    [Parameter]
+    public StepButtonPlacement ButtonPlacement { get; set; } = StepButtonPlacement.Right;
 
     /// <summary>When <see langword="true" />, the displayed value is grouped with the culture's thousands separator.</summary>
-    [Parameter] public bool UseThousandsSeparator { get; set; }
+    [Parameter]
+    public bool UseThousandsSeparator { get; set; }
+
     /// <summary>Culture used for number formatting and parsing. Defaults to <see cref="CultureInfo.CurrentCulture"/>.</summary>
-    [Parameter] public CultureInfo? Culture { get; set; }
+    [Parameter]
+    public CultureInfo? Culture { get; set; }
 
     /// <summary>When <see langword="true" />, MouseWheel is enabled.</summary>
-    [Parameter] public bool EnableMouseWheel { get; set; }
+    [Parameter]
+    public bool EnableMouseWheel { get; set; }
+
     /// <summary>When <see langword="true" />, Acceleration is enabled.</summary>
-    [Parameter] public bool EnableAcceleration { get; set; } = true;
+    [Parameter]
+    public bool EnableAcceleration { get; set; } = true;
 
     /// <summary>Initial delay (ms) before holding a step button starts accelerating.</summary>
-    [Parameter] public int AccelerationInitialDelay { get; set; } = 400;
+    [Parameter]
+    public int AccelerationInitialDelay { get; set; } = 400;
+
     /// <summary>Minimum delay (ms) between repeats once acceleration has ramped up.</summary>
-    [Parameter] public int AccelerationMinDelay { get; set; } = 50;
+    [Parameter]
+    public int AccelerationMinDelay { get; set; } = 50;
+
     /// <summary>Decrement (ms) applied to the repeat delay each acceleration tick until <see cref="AccelerationMinDelay"/>.</summary>
-    [Parameter] public int AccelerationStepReduction { get; set; } = 50;
+    [Parameter]
+    public int AccelerationStepReduction { get; set; } = 50;
 
     /// <summary>Raised when the Increment event occurs.</summary>
-    [Parameter] public EventCallback<TValue?> OnIncrement { get; set; }
+    [Parameter]
+    public EventCallback<TValue?> OnIncrement { get; set; }
+
     /// <summary>Raised when the Decrement event occurs.</summary>
-    [Parameter] public EventCallback<TValue?> OnDecrement { get; set; }
+    [Parameter]
+    public EventCallback<TValue?> OnDecrement { get; set; }
 
     public override BOBInputVariant DefaultVariant => BOBInputVariant.Outlined;
 
@@ -144,14 +201,20 @@
     private char DecimalSeparator => NumberFormat.NumberDecimalSeparator[0];
     private char GroupSeparator => NumberFormat.NumberGroupSeparator[0];
     private string NegativeSign => NumberFormat.NegativeSign;
-    private bool HasValue => CurrentValue != null && !EqualityComparer<TValue>.Default.Equals(CurrentValue, default);
+    private bool HasValue => CurrentValue != null;
     private bool IsFloated => _isFocused || HasValue || _isDirty;
 
-    public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
     {
-        base.BuildComponentDataAttributes(dataAttributes);
         dataAttributes[FeatureDefinitions.DataAttributes.ButtonPlacement] = ButtonPlacement.ToString().ToLowerInvariant();
-        dataAttributes[FeatureDefinitions.DataAttributes.Floated] = IsFloated.ToString().ToLowerInvariant();
+        if (IsFloated)
+            dataAttributes[FeatureDefinitions.DataAttributes.Floated] = "true";
+        else
+            dataAttributes.Remove(FeatureDefinitions.DataAttributes.Floated);
+    }
+
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    {
     }
 
     public BOBInputNumber()
@@ -193,86 +256,87 @@
     }
 
     private RenderFragment RenderInput() => __builder =>
-{
-    <bob-component @attributes="ComputedAttributes">
+    {
+        <bob-component @attributes="ComputedAttributes">
 
-        <div class="bob-input__wrapper">
+            <div class="bob-input__wrapper">
 
-            <BOBInputOutline Label="@Label"
-                             For="@_inputId"
-                             Required="@IsRequired" />
+                <BOBInputOutline Label="@Label"
+                                 For="@_inputId"
+                                 Required="@IsRequired"/>
 
-            @if (ShowStepButtons && ButtonPlacement == StepButtonPlacement.Left)
-            {
-                @RenderStepButtons()
-            }
+                @if (ShowStepButtons && ButtonPlacement == StepButtonPlacement.Left)
+                {
+                    @RenderStepButtons()
+                }
 
-            <BOBInputPrefix PrefixText="@PrefixText" PrefixIcon="@PrefixIcon" Size="@Size" />
+                <BOBInputPrefix PrefixText="@PrefixText" PrefixIcon="@PrefixIcon" Size="@Size"/>
 
-            <input @ref="_inputRef"
-                   id="@_inputId"
-                   type="text"
-                   inputmode="decimal"
-                   class="bob-input__field"
-                   value="@_displayText"
-                   @oninput="HandleInput"
-                   @onkeydown="HandleKeyDown"
-                   @onkeydown:preventDefault="_preventKeyDown"
-                   @onwheel="HandleWheel"
-                   @onfocus="HandleFocus"
-                   @onblur="HandleBlur"
-                   aria-label="@(string.IsNullOrWhiteSpace(Label) ? Placeholder : null)"
-                   aria-describedby="@_helperTextId"
-                   aria-invalid="@IsError.ToString().ToLower()"
-                   aria-required="@IsRequired.ToString().ToLower()"
-                   placeholder="@(IsFloated? Placeholder : null)"
-                   disabled="@IsDisabled"
-                   readonly="@IsReadOnly"
-                   required="@IsRequired" />
+                <input @ref="_inputRef"
+                       id="@_inputId"
+                       type="text"
+                       inputmode="decimal"
+                       class="bob-input__field"
+                       value="@_displayText"
+                       @oninput="HandleInput"
+                       @onkeydown="HandleKeyDown"
+                       @onkeydown:preventDefault="_preventKeyDown"
+                       @onwheel="HandleWheel"
+                       @onfocus="HandleFocus"
+                       @onblur="HandleBlur"
+                       aria-label="@(string.IsNullOrWhiteSpace(Label) ? Placeholder : null)"
+                       aria-describedby="@_helperTextId"
+                       aria-invalid="@IsError.ToString().ToLower()"
+                       aria-required="@IsRequired.ToString().ToLower()"
+                       placeholder="@(IsFloated ? Placeholder : null)"
+                       disabled="@IsDisabled"
+                       readonly="@IsReadOnly"
+                       required="@IsRequired"/>
 
-            @if (ShowStepButtons && ButtonPlacement == StepButtonPlacement.Right)
-            {
-                @RenderStepButtons()
-            }
+                @if (ShowStepButtons && ButtonPlacement == StepButtonPlacement.Right)
+                {
+                    @RenderStepButtons()
+                }
 
-            <BOBInputSuffix SuffixText="@SuffixText" SuffixIcon="@SuffixIcon" Size="@Size" />
-            <BOBInputLoading Loading="@Loading" LoadingIndicatorVariant="@LoadingIndicatorVariant" Size="@Size" />
+                <BOBInputSuffix SuffixText="@SuffixText" SuffixIcon="@SuffixIcon" Size="@Size"/>
+                <BOBInputLoading Loading="@Loading" LoadingIndicatorVariant="@LoadingIndicatorVariant" Size="@Size"/>
 
-        </div>
+            </div>
 
-        <_BOBFieldHelper TValue="TValue"
-                         Id="@_helperTextId"
-                         HelperText="@HelperText"
-                         ShowValidation="@IsError"
-                         EditContext="@EditContext"
-                         For="@ValueExpression" />
+            <_BOBFieldHelper TValue="TValue"
+                             Id="@_helperTextId"
+                             HelperText="@HelperText"
+                             ShowValidation="@IsError"
+                             EditContext="@EditContext"
+                             For="@ValueExpression"/>
 
-    </bob-component>
-};
+        </bob-component>
+    };
 
     private RenderFragment RenderStepButtons() => __builder =>
     {
         <div class="bob-input__step-buttons">
-            <_BOBBtn Icon="@BOBIconKeys.UI.ChevronUp"
-                        Disabled="@(Disabled || IsAtMax())"
-                        AriaLabel="Increment"
-                        @onmousedown="StartIncrement"
-                        @onmouseup="StopIncrement"
-                        @onmouseleave="StopIncrement" />
-            <_BOBBtn Icon="@BOBIconKeys.UI.ChevronDown"
-                        Disabled="@(Disabled || IsAtMin())"
-                        AriaLabel="Decrement"
-                        @onmousedown="StartDecrement"
-                        @onmouseup="StopDecrement"
-                        @onmouseleave="StopDecrement" />
+            <_BOBInBtn Icon="@BOBIconKeys.UI.ChevronUp"
+                       Disabled="@(Disabled || IsAtMax())"
+                       AriaLabel="@Localizer["Increment"]"
+                       @onmousedown="StartIncrement"
+                       @onmouseup="StopIncrement"
+                       @onmouseleave="StopIncrement"/>
+            <_BOBInBtn Icon="@BOBIconKeys.UI.ChevronDown"
+                       Disabled="@(Disabled || IsAtMin())"
+                       AriaLabel="@Localizer["Decrement"]"
+                       @onmousedown="StartDecrement"
+                       @onmouseup="StopDecrement"
+                       @onmouseleave="StopDecrement"/>
         </div>
     };
+
     private string FormatValueForDisplay(TValue? value)
     {
-        if (value == null || EqualityComparer<TValue>.Default.Equals(value, default))
+        if (value == null)
             return string.Empty;
 
-        decimal decimalValue = ConvertToDecimal(value);
+        var decimalValue = ConvertToDecimal(value);
 
         string format;
         if (DecimalPlaces.HasValue)
@@ -293,7 +357,7 @@
     {
         if (Disabled || ReadOnly) return;
 
-        string? inputValue = e.Value?.ToString() ?? string.Empty;
+        var inputValue = e.Value?.ToString() ?? string.Empty;
         _isDirty = !string.IsNullOrEmpty(inputValue);
         _displayText = inputValue;
 
@@ -303,9 +367,9 @@
             return;
         }
 
-        if (TryParseInput(inputValue, out TValue? parsed))
+        if (TryParseInput(inputValue, out var parsed))
         {
-            TValue? clamped = ClampValue(parsed);
+            var clamped = ClampValue(parsed);
             if (!EqualityComparer<TValue>.Default.Equals(CurrentValue, clamped))
             {
                 CurrentValue = clamped;
@@ -322,7 +386,7 @@
             return true;
         }
 
-        if (AllowNegative && (c == '-'))
+        if (AllowNegative && c == '-')
         {
             return string.IsNullOrEmpty(currentText) || !currentText.Contains('-');
         }
@@ -365,7 +429,7 @@
 
         if (e.Key.Length == 1)
         {
-            char key = e.Key[0];
+            var key = e.Key[0];
 
             if (!IsValidInputChar(key, _displayText))
             {
@@ -388,11 +452,11 @@
     {
         _isFocused = true;
 
-        if (CurrentValue != null && !EqualityComparer<TValue>.Default.Equals(CurrentValue, default))
+        if (CurrentValue != null)
         {
-            decimal decimalValue = ConvertToDecimal(CurrentValue);
+            var decimalValue = ConvertToDecimal(CurrentValue);
 
-            string format = DecimalPlaces.HasValue
+            var format = DecimalPlaces.HasValue
                 ? $"F{DecimalPlaces.Value}"
                 : "G";
 
@@ -409,9 +473,9 @@
 
         if (!string.IsNullOrWhiteSpace(_displayText))
         {
-            if (TryParseInput(_displayText, out TValue? parsed))
+            if (TryParseInput(_displayText, out var parsed))
             {
-                TValue? clamped = ClampValue(parsed);
+                var clamped = ClampValue(parsed);
                 CurrentValue = clamped;
                 _displayText = FormatValueForDisplay(CurrentValue);
             }
@@ -433,7 +497,7 @@
     {
         if (Disabled || IsAtMax()) return;
 
-        _ = IncrementValue();
+        BOBAsyncHelper.SafeFireAndForget(() => IncrementValue());
 
         if (EnableAcceleration) BeginAcceleration(IncrementValue);
     }
@@ -444,7 +508,7 @@
     {
         if (Disabled || IsAtMin()) return;
 
-        _ = DecrementValue();
+        BOBAsyncHelper.SafeFireAndForget(() => DecrementValue());
 
         if (EnableAcceleration) BeginAcceleration(DecrementValue);
     }
@@ -459,7 +523,7 @@
 
         if (Disabled || IsAtMax()) return;
 
-        _ = IncrementValue();
+        BOBAsyncHelper.SafeFireAndForget(() => IncrementValue());
 
         if (EnableAcceleration) BeginAcceleration(IncrementValue);
     }
@@ -479,7 +543,7 @@
 
         if (Disabled || IsAtMin()) return;
 
-        _ = DecrementValue();
+        BOBAsyncHelper.SafeFireAndForget(() => DecrementValue());
 
         if (EnableAcceleration) BeginAcceleration(DecrementValue);
     }
@@ -496,21 +560,28 @@
         EndAcceleration();
         CancellationTokenSource cts = new();
         _accelerationCts = cts;
-        _ = RunAcceleratedAction(action, cts.Token);
+        BOBAsyncHelper.SafeFireAndForget(() => RunAcceleratedAction(action, cts.Token));
     }
 
     private void EndAcceleration()
     {
-        CancellationTokenSource? previous = _accelerationCts;
+        var previous = _accelerationCts;
         _accelerationCts = null;
         if (previous is null) return;
-        try { previous.Cancel(); } catch (ObjectDisposedException) { }
+        try
+        {
+            previous.Cancel();
+        }
+        catch (ObjectDisposedException)
+        {
+        }
+
         previous.Dispose();
     }
 
     private async Task RunAcceleratedAction(Func<Task> action, CancellationToken cancellationToken)
     {
-        int currentDelay = AccelerationInitialDelay;
+        var currentDelay = AccelerationInitialDelay;
 
         try
         {
@@ -542,13 +613,13 @@
     {
         if (Disabled || IsAtMax()) return;
 
-        decimal current = CurrentValue != null
+        var current = CurrentValue != null
             ? ConvertToDecimal(CurrentValue)
             : 0m;
 
-        decimal newValue = current + Step;
-        TValue? converted = ConvertFromDecimal(newValue);
-        TValue? clamped = ClampValue(converted);
+        var newValue = current + Step;
+        var converted = ConvertFromDecimal(newValue);
+        var clamped = ClampValue(converted);
 
         CurrentValue = clamped;
         _displayText = FormatValueForDisplay(CurrentValue);
@@ -563,13 +634,13 @@
     {
         if (Disabled || IsAtMin()) return;
 
-        decimal current = CurrentValue != null
+        var current = CurrentValue != null
             ? ConvertToDecimal(CurrentValue)
             : 0m;
 
-        decimal newValue = current - Step;
-        TValue? converted = ConvertFromDecimal(newValue);
-        TValue? clamped = ClampValue(converted);
+        var newValue = current - Step;
+        var converted = ConvertFromDecimal(newValue);
+        var clamped = ClampValue(converted);
 
         CurrentValue = clamped;
         _displayText = FormatValueForDisplay(CurrentValue);
@@ -582,35 +653,27 @@
 
     private bool IsAtMin()
     {
-        if (CurrentValue == null || Min == null) return false;
-        return ConvertToDecimal(CurrentValue) <= ConvertToDecimal(Min);
+        if (CurrentValue == null || !Min.HasValue) return false;
+        return ConvertToDecimal(CurrentValue) <= Min.Value;
     }
 
     private bool IsAtMax()
     {
-        if (CurrentValue == null || Max == null) return false;
-        return ConvertToDecimal(CurrentValue) >= ConvertToDecimal(Max);
+        if (CurrentValue == null || !Max.HasValue) return false;
+        return ConvertToDecimal(CurrentValue) >= Max.Value;
     }
 
     private TValue? ClampValue(TValue? value)
     {
         if (value == null) return value;
 
-        decimal decimalValue = ConvertToDecimal(value);
+        var decimalValue = ConvertToDecimal(value);
 
-        if (Min != null)
-        {
-            decimal minValue = ConvertToDecimal(Min);
-            if (decimalValue < minValue)
-                return Min;
-        }
+        if (Min.HasValue && decimalValue < Min.Value)
+            return ConvertFromDecimal(Min.Value);
 
-        if (Max != null)
-        {
-            decimal maxValue = ConvertToDecimal(Max);
-            if (decimalValue > maxValue)
-                return Max;
-        }
+        if (Max.HasValue && decimalValue > Max.Value)
+            return ConvertFromDecimal(Max.Value);
 
         return value;
     }
@@ -662,11 +725,11 @@
         if (string.IsNullOrWhiteSpace(input))
             return false;
 
-        string normalized = NormalizeNumericInput(input);
+        var normalized = NormalizeNumericInput(input);
 
         try
         {
-            if (!decimal.TryParse(normalized, NumberStyles.Number, CultureInfo.InvariantCulture, out decimal decimalValue))
+            if (!decimal.TryParse(normalized, NumberStyles.Number, CultureInfo.InvariantCulture, out var decimalValue))
                 return false;
 
             if (!AllowNegative && decimalValue < 0)
@@ -686,12 +749,12 @@
         if (string.IsNullOrWhiteSpace(input))
             return string.Empty;
 
-        StringBuilder result = new StringBuilder();
-        List<int> separatorPositions = new List<int>();
+        var result = new StringBuilder();
+        var separatorPositions = new List<int>();
 
-        for (int i = 0; i < input.Length; i++)
+        for (var i = 0; i < input.Length; i++)
         {
-            char c = input[i];
+            var c = input[i];
 
             if (char.IsDigit(c))
             {
@@ -713,13 +776,13 @@
             return result.ToString();
         }
 
-        string temp = result.ToString();
+        var temp = result.ToString();
         result.Clear();
 
-        int lastSeparatorIndex = separatorPositions[separatorPositions.Count - 1];
-        int dotCount = 0;
+        var lastSeparatorIndex = separatorPositions[separatorPositions.Count - 1];
+        var dotCount = 0;
 
-        for (int i = 0; i < temp.Length; i++)
+        for (var i = 0; i < temp.Length; i++)
         {
             if (temp[i] == '.')
             {
@@ -748,7 +811,7 @@
             return true;
         }
 
-        if (TryParseInput(value, out TValue? parsed))
+        if (TryParseInput(value, out var parsed))
         {
             result = parsed!;
             return true;
@@ -765,4 +828,5 @@
         _accelerationCts?.Dispose();
         base.Dispose(disposing);
     }
+
 }

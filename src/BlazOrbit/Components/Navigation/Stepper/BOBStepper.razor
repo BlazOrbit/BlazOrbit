@@ -1,0 +1,237 @@
+@using BlazOrbit.Abstractions
+
+@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+
+@inherits BOBComponentBase
+@implements IHasSize
+
+<bob-component @attributes="ComputedAttributes"
+               data-bob-orientation="@OrientationToken">
+    <CascadingValue Value="this" IsFixed="true">
+        @* Steps register themselves into the parent on first render, so the children
+           must be evaluated before the snapshot we use for the header rail. We render
+           ChildContent into a hidden slot purely for the side effect of registering. *@
+        <div class="bob-stepper__sink">@ChildContent</div>
+
+        @{ var snapshot = SnapshotSteps(); }
+
+        <ol class="bob-stepper__rail" role="list">
+            @for (var i = 0; i < snapshot.Count; i++)
+            {
+                var step = snapshot[i];
+                var state = ResolveState(i, step);
+                var clickable = !step.Disabled && CanJumpTo(i);
+                var captured = i;
+
+                <li class="bob-stepper__entry"
+                    data-bob-state="@state.ToString().ToLowerInvariant()"
+                    data-bob-clickable="@(clickable ? "true" : null)">
+                    <button type="button"
+                            class="bob-stepper__header"
+                            disabled="@(!clickable)"
+                            aria-current="@(state == BOBStepState.Active ? "step" : null)"
+                            @onclick="() => MoveToAsync(captured)">
+                        <span class="bob-stepper__marker" aria-hidden="true">
+                            @if (state == BOBStepState.Error)
+                            {
+                                <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_priority_high" Size="@Size"/>
+                            }
+                            else if (state == BOBStepState.Complete)
+                            {
+                                <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_check" Size="@Size"/>
+                            }
+                            else if (step.Icon.HasValue)
+                            {
+                                <BOBSvgIcon Icon="@step.Icon.Value" Size="@Size"/>
+                            }
+                            else
+                            {
+                                @(captured + 1)
+                            }
+                        </span>
+                        <span class="bob-stepper__labels">
+                            <span class="bob-stepper__title">@step.Title</span>
+                            @if (!string.IsNullOrEmpty(step.Description))
+                            {
+                                <span class="bob-stepper__description">@step.Description</span>
+                            }
+                        </span>
+                    </button>
+                    @if (i < snapshot.Count - 1)
+                    {
+                        <span class="bob-stepper__connector"
+                              aria-hidden="true"
+                              data-bob-completed="@(state == BOBStepState.Complete ? "true" : null)"></span>
+                    }
+                </li>
+            }
+        </ol>
+
+        @{ var active = CurrentStep >= 0 && CurrentStep < snapshot.Count ? snapshot[CurrentStep] : null; }
+        @if (active is not null)
+        {
+            <section class="bob-stepper__body" aria-live="polite">
+                @active.ChildContent
+            </section>
+        }
+    </CascadingValue>
+</bob-component>
+
+@code {
+
+    /// <summary>Markup that emits the <c>&lt;BOBStep&gt;</c> children describing each step.</summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>Index of the active step (zero-based). Two-way bound.</summary>
+    [Parameter]
+    public int CurrentStep { get; set; }
+
+    /// <summary>Companion event for <see cref="CurrentStep"/>.</summary>
+    [Parameter]
+    public EventCallback<int> CurrentStepChanged { get; set; }
+
+    /// <summary>Layout direction. Defaults to <see cref="BOBStepperOrientation.Horizontal"/>.</summary>
+    [Parameter]
+    public BOBStepperOrientation Orientation { get; set; } = BOBStepperOrientation.Horizontal;
+
+    /// <summary>
+    /// When <see langword="true"/>, clicking any step jumps to it. When <see langword="false"/>
+    /// (default), only completed steps are reachable; pending steps are non-interactive until
+    /// the user advances through <see cref="NextAsync"/> or <see cref="MoveToAsync"/>.
+    /// </summary>
+    [Parameter]
+    public bool AllowSkip { get; set; }
+
+    /// <summary>
+    /// Cancellable hook invoked before applying a step transition. Set
+    /// <see cref="BOBStepChangeEventArgs.Cancel"/> to keep the active step at
+    /// <see cref="BOBStepChangeEventArgs.From"/>.
+    /// </summary>
+    [Parameter]
+    public EventCallback<BOBStepChangeEventArgs> OnStepChange { get; set; }
+
+    /// <summary>Visual size of step markers + icons.</summary>
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
+
+    private string OrientationToken => Orientation == BOBStepperOrientation.Vertical ? "vertical" : "horizontal";
+
+    private readonly List<BOBStep> _steps = [];
+    private readonly object _stepsLock = new();
+
+    /// <summary>Total number of registered steps.</summary>
+    public int StepCount
+    {
+        get
+        {
+            lock (_stepsLock)
+            {
+                return _steps.Count;
+            }
+        }
+    }
+
+    /// <summary>Move to the next step (clamped to the last index).</summary>
+    public Task NextAsync()
+    {
+        return MoveToAsync(Math.Min(CurrentStep + 1, StepCount - 1));
+    }
+
+    /// <summary>Move to the previous step (clamped to <c>0</c>).</summary>
+    public Task PreviousAsync()
+    {
+        return MoveToAsync(Math.Max(CurrentStep - 1, 0));
+    }
+
+    /// <summary>Move to an arbitrary step index. Honours <see cref="OnStepChange"/> cancellation.</summary>
+    public async Task MoveToAsync(int target)
+    {
+        if (target == CurrentStep) return;
+        if (target < 0 || target >= StepCount) return;
+
+        if (OnStepChange.HasDelegate)
+        {
+            BOBStepChangeEventArgs args = new(CurrentStep, target);
+            await OnStepChange.InvokeAsync(args);
+            if (args.Cancel) return;
+        }
+
+        CurrentStep = target;
+        if (CurrentStepChanged.HasDelegate)
+        {
+            await CurrentStepChanged.InvokeAsync(target);
+        }
+
+        StateHasChanged();
+    }
+
+    internal void RegisterStep(BOBStep step)
+    {
+        if (IsDisposed) return;
+
+        bool added;
+        lock (_stepsLock)
+        {
+            if (_steps.Contains(step)) return;
+            _steps.Add(step);
+            added = true;
+        }
+
+        if (added)
+        {
+            StateHasChanged();
+        }
+    }
+
+    internal void UnregisterStep(BOBStep step)
+    {
+        if (IsDisposed) return;
+
+        bool removed;
+        lock (_stepsLock)
+        {
+            removed = _steps.Remove(step);
+        }
+
+        if (removed)
+        {
+            StateHasChanged();
+        }
+    }
+
+    private List<BOBStep> SnapshotSteps()
+    {
+        lock (_stepsLock)
+        {
+            return [.._steps];
+        }
+    }
+
+    private BOBStepState ResolveState(int index, BOBStep step)
+    {
+        if (step.Error) return BOBStepState.Error;
+        if (index < CurrentStep) return BOBStepState.Complete;
+        if (index == CurrentStep) return BOBStepState.Active;
+        return BOBStepState.Pending;
+    }
+
+    // Forward navigation always allowed via API, but click-driven jumps obey AllowSkip.
+    // Without skip, only already-completed steps + the active one are reachable from the rail.
+    private bool CanJumpTo(int index)
+    {
+        return AllowSkip || index <= CurrentStep;
+    }
+
+    public override async ValueTask DisposeAsync()
+    {
+        lock (_stepsLock)
+        {
+            _steps.Clear();
+        }
+
+        await base.DisposeAsync();
+    }
+
+}

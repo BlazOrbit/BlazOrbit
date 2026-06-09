@@ -1,59 +1,70 @@
-﻿@page "/components/svgicon"
+@page "/components/display/svgicon"
 
 @inject IStringLocalizer<SvgIconPage> Loc
 
-<PageTitle>BlazOrbit - BOBSvgIcon</PageTitle>
 
 <DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBSvgIcon"]"
-         Lede="@Loc["Render SVGs from the bundled Material or UI icon sets (or any path/string). Inherits color and scales with size."]"
+         Lede="@Loc["Render SVG icons from bundled Material or UI sets, or provide your own custom vector path. Inherits theme color and scales with size."]"
          PageInstance="this"
-         ApiType="@typeof(BOBSvgIcon)">
+         ApiType="@typeof(BOBSvgIcon)"
+         Keywords="@(["SVG icon", "icon", "vector", "symbol"])">
+
+    <section class="doc-section">
+        <p class="doc-section__description">
+            @Loc.Html("You can reference icons from the bundled Material or UI sets by key, or provide any raw SVG path string via the <code>Icon</code> parameter. The component inherits the current CSS color and scales according to the <code>Size</code> parameter, so it behaves like a native font icon without the font overhead.")
+        </p>
+    </section>
+
+    <p>
+        <a href="/features/icons">@Loc["See Icon Gallery Here"]</a>
+    </p>
 
     <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
-        <BOBSvgIcon Icon="@BOBIconKeys.UI.Home" />
+        <BOBSvgIcon Icon="@BOBIconKeys.UI.Home"/>
     </DocDemo>
 
-    <DocDemo Key="Material" Title="@Loc["Material Icons"]" Description="@Loc["Use BOBIconKeys.MaterialIconsOutlined, .MaterialIconsRound, .MaterialIconsSharp, or .MaterialIconsFilled."]">
-            <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_favorite" />
-            <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_star" />
-            <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_settings" />
-            <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_search" />
-            <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_shopping_cart" />
+    <DocDemo Key="Material" Title="@Loc["Material Icons"]"
+             Description="@Loc["Use BOBIconKeys.MaterialIconsOutlined, .MaterialIconsRound, .MaterialIconsSharp, or .MaterialIconsFilled."]">
+        <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_favorite"/>
+        <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_star"/>
+        <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_settings"/>
+        <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_search"/>
+        <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_shopping_cart"/>
     </DocDemo>
 
     <DocDemo Key="UI" Title="@Loc["UI Icons"]" Description="@Loc["A curated set for UI chrome: BOBIconKeys.UI.*."]">
-            <BOBSvgIcon Icon="@BOBIconKeys.UI.Home" />
-            <BOBSvgIcon Icon="@BOBIconKeys.UI.Search" />
-            <BOBSvgIcon Icon="@BOBIconKeys.UI.Settings" />
-            <BOBSvgIcon Icon="@BOBIconKeys.UI.Notifications" />
-            <BOBSvgIcon Icon="@BOBIconKeys.UI.Email" />
+        <BOBSvgIcon Icon="@BOBIconKeys.UI.Home"/>
+        <BOBSvgIcon Icon="@BOBIconKeys.UI.Search"/>
+        <BOBSvgIcon Icon="@BOBIconKeys.UI.Settings"/>
+        <BOBSvgIcon Icon="@BOBIconKeys.UI.Notifications"/>
+        <BOBSvgIcon Icon="@BOBIconKeys.UI.Email"/>
     </DocDemo>
 
     <DocDemo Key="Sizes" Title="@Loc["Sizes"]">
-            <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_star" Size="BOBSize.Small" />
-            <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_star" Size="BOBSize.Medium" />
-            <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_star" Size="BOBSize.Large" />
+        <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_star" Size="BOBSize.Small"/>
+        <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_star" Size="BOBSize.Medium"/>
+        <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_star" Size="BOBSize.Large"/>
     </DocDemo>
 
     <DocDemo Key="Colors" Title="@Loc["Colors"]">
-            <BOBSvgIcon Icon="@BOBIconKeys.UI.Favorite" Color="@PaletteColor.Primary" />
-            <BOBSvgIcon Icon="@BOBIconKeys.UI.Favorite" Color="@PaletteColor.Secondary" />
-            <BOBSvgIcon Icon="@BOBIconKeys.UI.Favorite" Color="@PaletteColor.Error" />
-            <BOBSvgIcon Icon="@BOBIconKeys.UI.Favorite" Color="@PaletteColor.Success" />
-            <BOBSvgIcon Icon="@BOBIconKeys.UI.Favorite" Color="@PaletteColor.Warning" />
+        <BOBSvgIcon Icon="@BOBIconKeys.UI.Favorite" Color="@PaletteColor.Primary"/>
+        <BOBSvgIcon Icon="@BOBIconKeys.UI.Favorite" Color="@PaletteColor.Secondary"/>
+        <BOBSvgIcon Icon="@BOBIconKeys.UI.Favorite" Color="@PaletteColor.Error"/>
+        <BOBSvgIcon Icon="@BOBIconKeys.UI.Favorite" Color="@PaletteColor.Success"/>
+        <BOBSvgIcon Icon="@BOBIconKeys.UI.Favorite" Color="@PaletteColor.Warning"/>
     </DocDemo>
 
     <DocDemo Key="Clickable" Title="@Loc["Clickable"]">
-            <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsSharp.i_thumb_up"
-                        Color="@PaletteColor.Primary"
-                        Size="BOBSize.Large"
-                        OnClick="@(() => _clickCount++)" />
-            <span>@Loc["Clicked"] @_clickCount @Loc["times"]</span>
+        <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsSharp.i_thumb_up"
+                    Color="@PaletteColor.Primary"
+                    Size="BOBSize.Large"
+                    OnClick="@(() => _clickCount++)"/>
+        <span>@Loc["Clicked"] @_clickCount @Loc["times"]</span>
     </DocDemo>
 
     <section class="doc-section">
         <h2 class="doc-section__title">@Loc["Properties"]</h2>
-        <PropertyTable Properties="@BOBSvgIconComponentInfo.Parameters" />
+        <PropertyTable Properties="@BOBSvgIconComponentInfo.Parameters"/>
     </section>
 
 </DocPage>

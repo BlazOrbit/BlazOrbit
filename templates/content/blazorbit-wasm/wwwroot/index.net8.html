@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BlazorApp</title>
+    <base href="/" />
+    <link rel="icon" type="image/png" sizes="48x48" href="icon-48.png" />
+    <link rel="icon" type="image/svg+xml" href="icon.svg" />
+    <link href="_content/BlazOrbit/css/blazorbit.css" rel="stylesheet" />
+    <!--#if (IncludeCharts)-->
+    <!-- BlazOrbit.Charts CSS bundle. The chart-interop JS module also auto-
+         injects this link on first import as a safety net, but loading it
+         here removes the brief flash before charts repaint with their
+         stylesheet. -->
+    <link href="_content/BlazOrbit.Charts/css/blazorbit-charts.css" rel="stylesheet" />
+    <!--#endif-->
+    <link rel="stylesheet" href="css/app.css" />
+    <!--#if (Theme != 'None')-->
+    <link rel="stylesheet" href="css/theme.css" />
+    <!--#endif-->
+    <!-- Scoped CSS bundle — emitted by the Blazor build for every *.razor.css
+         file in the project (Home.razor.css, NavMenu.razor.css …). Without
+         this link the per-component scoped rules don't apply at all. -->
+    <link href="BlazorApp.styles.css" rel="stylesheet" />
+    <link href="manifest.webmanifest" rel="manifest" />
+    <link rel="apple-touch-icon" sizes="512x512" href="icon-512.png" />
+    <link rel="apple-touch-icon" sizes="192x192" href="icon-192.png" />
+</head>
+
+<body>
+    <div id="app">
+        <div class="bob-app__loader" aria-hidden="true">
+            <img src="icon.svg" alt="" class="bob-app__loader-logo" />
+            <div class="bob-app__loader-text">Loading…</div>
+        </div>
+    </div>
+
+    <div id="blazor-error-ui">
+        An unhandled error has occurred.
+        <a href="" class="reload">Reload</a>
+        <a class="dismiss">🗙</a>
+    </div>
+    <script src="_framework/blazor.webassembly.js"></script>
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
+</body>
+
+</html>

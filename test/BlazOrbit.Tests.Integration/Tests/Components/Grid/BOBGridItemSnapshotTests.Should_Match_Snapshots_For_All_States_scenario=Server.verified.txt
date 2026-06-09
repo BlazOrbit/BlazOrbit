@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Name: Default_Auto,
     Html: <bob-component data-auto="true" data-bob-component="grid-item" b-<SCOPE>>Auto</bob-component>

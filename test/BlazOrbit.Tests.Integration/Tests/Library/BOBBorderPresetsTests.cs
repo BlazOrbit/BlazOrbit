@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using FluentAssertions;
 
 namespace BlazOrbit.Tests.Integration.Tests.Library;
@@ -197,7 +197,7 @@ public class BOBBorderPresetsTests
     public void Radius_Per_Corner_Should_Emit_Four_Value_Css()
     {
         BorderStyle style = BorderStyle.Create()
-            .Radius(topLeft: 1, topRight: 2, bottomRight: 3, bottomLeft: 4);
+            .Radius(1, 2, 3, 4);
 
         style.GetRadiusCss().Should().Be("1px 2px 3px 4px");
     }

@@ -1,4 +1,4 @@
-﻿using BlazOrbit.SyntaxHighlight.Rules;
+using BlazOrbit.SyntaxHighlight.Rules;
 using BlazOrbit.SyntaxHighlight.Tokens;
 
 namespace BlazOrbit.SyntaxHighlight.Builder;
@@ -41,11 +41,7 @@ public sealed class LanguageDefinition
     /// <returns>A read-only list of tokens.</returns>
     public IReadOnlyList<Token> Tokenize(string input)
     {
-        TokenizerContext context = new()
-        {
-            LanguageName = Name,
-            CaseSensitive = CaseSensitive
-        };
+        TokenizerContext context = new() { LanguageName = Name, CaseSensitive = CaseSensitive };
         Tokenizer.Tokenizer tokenizer = new(Rules, context);
         return tokenizer.Tokenize(input);
     }

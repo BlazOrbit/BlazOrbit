@@ -1,0 +1,23 @@
+# Search
+Búsqueda
+
+# {0} result(s) found.
+{0} resultado(s) encontrado(s).
+
+# No results found for <strong>{0}</strong>. Try a different term or browse the <a href="/getting-started">documentation</a>.
+No se encontraron resultados para <strong>{0}</strong>. Prueba con otro término o consulta la <a href="/getting-started">documentación</a>.
+
+# Enter a search term in the search bar (or press <kbd>Ctrl K</kbd>) to find documentation.
+Introduce un término de búsqueda en la barra (o pulsa <kbd>Ctrl K</kbd>) para encontrar documentación.
+
+# Results for
+Resultados para
+
+# Search across all BlazOrbit documentation, components and concepts.
+Busca en toda la documentación, componentes y conceptos de BlazOrbit.
+
+# Found {0} result(s) for "{1}" in BlazOrbit documentation.
+Se encontraron {0} resultado(s) para "{1}" en la documentación de BlazOrbit.
+
+# Search the BlazOrbit documentation.
+Busca en la documentación de BlazOrbit.

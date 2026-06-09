@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.SyntaxHighlight.Tokens;
+namespace BlazOrbit.SyntaxHighlight.Tokens;
 
 /// <summary>
 /// Represents the result of a token rule match attempt.

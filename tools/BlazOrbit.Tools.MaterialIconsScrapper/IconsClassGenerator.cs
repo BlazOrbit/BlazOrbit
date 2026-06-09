@@ -1,4 +1,4 @@
-﻿using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using System.Text.Json;
@@ -57,9 +57,11 @@ public static class IconsClassGenerator
 
     private static string GenerateIcons(string iconsMetaJson)
     {
-        IconsMeta? iconsMeta = JsonSerializer.Deserialize<IconsMeta>(iconsMetaJson) ?? throw new ArgumentException($"Unable to parse json: {iconsMetaJson}");
+        IconsMeta? iconsMeta = JsonSerializer.Deserialize<IconsMeta>(iconsMetaJson) ??
+                               throw new ArgumentException($"Unable to parse json: {iconsMetaJson}");
 
-        FileScopedNamespaceDeclarationSyntax namespaceDeclaration = SyntaxFactory.FileScopedNamespaceDeclaration(SyntaxFactory.ParseName(_classNamespace));
+        FileScopedNamespaceDeclarationSyntax namespaceDeclaration =
+            SyntaxFactory.FileScopedNamespaceDeclaration(SyntaxFactory.ParseName(_classNamespace));
 
         ClassDeclarationSyntax classDeclaration = SyntaxFactory.ClassDeclaration(_className)
             .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.PartialKeyword))
@@ -83,8 +85,10 @@ public static class IconsClassGenerator
                 iconString = Regex.Replace(iconString, "<title>.+?</title>", "");
                 iconString = Regex.Match(iconString, "<svg[^>]*>(.*?)</svg>").Groups[1].Value;
 
-                PropertyDeclarationSyntax propertyDeclaration = SyntaxFactory.PropertyDeclaration(SyntaxFactory.ParseTypeName("string"), $"{_iconNamePrefix}{icon.name}")
-                    .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword), SyntaxFactory.Token(SyntaxKind.ConstKeyword))
+                PropertyDeclarationSyntax propertyDeclaration = SyntaxFactory
+                    .PropertyDeclaration(SyntaxFactory.ParseTypeName("string"), $"{_iconNamePrefix}{icon.name}")
+                    .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword),
+                        SyntaxFactory.Token(SyntaxKind.ConstKeyword))
                     .WithInitializer(
                         SyntaxFactory.EqualsValueClause(
                             SyntaxFactory.LiteralExpression(
@@ -105,7 +109,7 @@ public static class IconsClassGenerator
         SyntaxList<MemberDeclarationSyntax> membersList = SyntaxFactory.List<MemberDeclarationSyntax>(members);
 
         ClassDeclarationSyntax materialsClass = SyntaxFactory.ClassDeclaration("Materials")
-                .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
+            .AddModifiers(SyntaxFactory.Token(SyntaxKind.PublicKeyword));
 
         materialsClass = materialsClass.WithMembers(membersList);
         classDeclaration = classDeclaration.WithMembers([materialsClass]);

@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -7,6 +7,7 @@ using Bunit.Rendering;
 using FluentAssertions;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Components.Web;
 using System.Globalization;
 
 namespace BlazOrbit.Tests.Integration.Tests.Components.Forms;
@@ -27,11 +28,11 @@ public class BOBInputDateTimeInteractionTests
             .Add(c => c.Label, "Test DateTime"));
 
         IElement container = cut.Find("bob-component");
-        container.GetAttribute("data-bob-floated").Should().Be("false");
+        container.GetAttribute("data-bob-floated").Should().BeNull();
 
         // Act
         IElement pattern = cut.Find(".bob-pattern");
-        await pattern.FocusAsync(new());
+        await pattern.FocusAsync(new FocusEventArgs());
 
         // Assert - Label should float on focus
         cut.WaitForAssertion(() =>
@@ -54,8 +55,8 @@ public class BOBInputDateTimeInteractionTests
         container.GetAttribute("data-bob-floated").Should().Be("true");
 
         IElement pattern = cut.Find(".bob-pattern");
-        await pattern.FocusAsync(new());
-        await pattern.FocusOutAsync(new());
+        await pattern.FocusAsync(new FocusEventArgs());
+        await pattern.FocusOutAsync(new FocusEventArgs());
 
         // Assert - Label should remain floated because there's a value
         container.GetAttribute("data-bob-floated").Should().Be("true");
@@ -74,16 +75,16 @@ public class BOBInputDateTimeInteractionTests
         IElement container = cut.Find("bob-component");
         IElement pattern = cut.Find(".bob-pattern");
 
-        await pattern.FocusAsync(new());
+        await pattern.FocusAsync(new FocusEventArgs());
         cut.WaitForAssertion(() =>
             container.GetAttribute("data-bob-floated").Should().Be("true"));
 
         // Act
-        await pattern.FocusOutAsync(new());
+        await pattern.FocusOutAsync(new FocusEventArgs());
 
         // Assert - Label should unfloat when empty and no focus
         cut.WaitForAssertion(() =>
-            container.GetAttribute("data-bob-floated").Should().Be("false"));
+            container.GetAttribute("data-bob-floated").Should().BeNull());
     }
 
     [Theory]
@@ -126,8 +127,9 @@ public class BOBInputDateTimeInteractionTests
 
         // Simulate dirty state by typing
         cut.Instance.GetType()
-            .GetMethod("HandleDirtyChanged", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-            ?.Invoke(cut.Instance, new object[] { true });
+            .GetMethod("HandleDirtyChanged",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            ?.Invoke(cut.Instance, [true]);
         cut.Render();
 
         IElement clearButton = cut.Find("button[aria-label='Clear']");
@@ -155,8 +157,9 @@ public class BOBInputDateTimeInteractionTests
 
         // Simulate dirty state (user typed incomplete value like "12")
         cut.Instance.GetType()
-            .GetMethod("HandleDirtyChanged", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-            ?.Invoke(cut.Instance, new object[] { true });
+            .GetMethod("HandleDirtyChanged",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            ?.Invoke(cut.Instance, [true]);
         cut.Render();
 
         IElement clearButton = cut.Find("button[aria-label='Clear']");
@@ -190,8 +193,9 @@ public class BOBInputDateTimeInteractionTests
         cut.Render(p => p.Add(c => c.Value, new TimeOnly(18, 45)));
 
         cut.Instance.GetType()
-            .GetMethod("HandleDirtyChanged", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-            ?.Invoke(cut.Instance, new object[] { true });
+            .GetMethod("HandleDirtyChanged",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            ?.Invoke(cut.Instance, [true]);
         cut.Render();
 
         IElement clearButton = cut.Find("button[aria-label='Clear']");
@@ -231,8 +235,9 @@ public class BOBInputDateTimeInteractionTests
 
         // Simulate dirty state
         cut.Instance.GetType()
-            .GetMethod("HandleDirtyChanged", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-            ?.Invoke(cut.Instance, new object[] { true });
+            .GetMethod("HandleDirtyChanged",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            ?.Invoke(cut.Instance, [true]);
         cut.Render();
 
         // Act & Assert
@@ -553,8 +558,9 @@ public class BOBInputDateTimeInteractionTests
         cut.Render(p => p.Add(c => c.Value, new TimeOnly(14, 30)));
 
         cut.Instance.GetType()
-            .GetMethod("HandleDirtyChanged", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-            ?.Invoke(cut.Instance, new object[] { true });
+            .GetMethod("HandleDirtyChanged",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            ?.Invoke(cut.Instance, [true]);
         cut.Render();
 
         IElement clearButton = cut.Find("button[aria-label='Clear']");
@@ -625,8 +631,9 @@ public class BOBInputDateTimeInteractionTests
 
         // Simulate dirty state (user typed something)
         cut.Instance.GetType()
-            .GetMethod("HandleDirtyChanged", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-            ?.Invoke(cut.Instance, new object[] { true });
+            .GetMethod("HandleDirtyChanged",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            ?.Invoke(cut.Instance, [true]);
         cut.Render();
 
         // Act & Assert
@@ -649,8 +656,9 @@ public class BOBInputDateTimeInteractionTests
 
         // Simulate incomplete input (user typed "12" but didn't complete)
         cut.Instance.GetType()
-            .GetMethod("HandleDirtyChanged", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-            ?.Invoke(cut.Instance, new object[] { true });
+            .GetMethod("HandleDirtyChanged",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            ?.Invoke(cut.Instance, [true]);
         cut.Render();
 
         IElement calendarButton = cut.Find("button[aria-label='Open picker']");
@@ -810,11 +818,16 @@ public class BOBInputDateTimeInteractionTests
 
     #endregion
 
-    #region Picker Title Variations
+    #region Picker Variations
+
+    // The dialog dropped its static "Select Date / Time / Date & Time" title in commit 0ff8...
+    // (charts phase 3); the calendar header itself ("May 2026" + day grid) plus the time
+    // column markers are now the only context cues. These tests assert the *picker shape*
+    // matches TValue rather than a static title string.
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
-    public async Task Should_Show_DateTime_Title_For_DateTime_Picker(BlazorScenario scenario)
+    public async Task Should_Render_Both_Pickers_For_DateTime_Value(BlazorScenario scenario)
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
@@ -827,14 +840,13 @@ public class BOBInputDateTimeInteractionTests
         calendarButton.Click();
 
         // Assert
-        IElement dialog = cut.Find(".bob-dialog");
-        string dialogContent = dialog.TextContent;
-        dialogContent.Should().Contain("Select Date & Time");
+        cut.FindAll(".bob-dialog .bob-picker__grid").Should().NotBeEmpty();
+        cut.FindAll(".bob-dialog .bob-time-picker__fields").Should().NotBeEmpty();
     }
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
-    public async Task Should_Show_Date_Title_For_DateOnly_Picker(BlazorScenario scenario)
+    public async Task Should_Render_Only_Date_Picker_For_DateOnly_Value(BlazorScenario scenario)
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
@@ -847,15 +859,13 @@ public class BOBInputDateTimeInteractionTests
         calendarButton.Click();
 
         // Assert
-        IElement dialog = cut.Find(".bob-dialog");
-        string dialogContent = dialog.TextContent;
-        dialogContent.Should().Contain("Select Date");
-        dialogContent.Should().NotContain("Time");
+        cut.FindAll(".bob-dialog .bob-picker__grid").Should().NotBeEmpty();
+        cut.FindAll(".bob-dialog .bob-time-picker__fields").Should().BeEmpty();
     }
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
-    public async Task Should_Show_Time_Title_For_TimeOnly_Picker(BlazorScenario scenario)
+    public async Task Should_Render_Only_Time_Picker_For_TimeOnly_Value(BlazorScenario scenario)
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
@@ -868,10 +878,8 @@ public class BOBInputDateTimeInteractionTests
         calendarButton.Click();
 
         // Assert
-        IElement dialog = cut.Find(".bob-dialog");
-        string dialogContent = dialog.TextContent;
-        dialogContent.Should().Contain("Select Time");
-        dialogContent.Should().NotContain("Date");
+        cut.FindAll(".bob-dialog .bob-time-picker__fields").Should().NotBeEmpty();
+        cut.FindAll(".bob-dialog .bob-picker__grid").Should().BeEmpty();
     }
 
     #endregion
@@ -991,7 +999,7 @@ public class BOBInputDateTimeInteractionTests
     public async Task Should_Show_Required_Indicator_When_Required(BlazorScenario scenario)
     {
         // CSS-OPT-02 block B.5: required asterisk is rendered by CSS via
-        // [data-bob-required="true"] .bob-input__label::after — assert host attr.
+        // [data-bob-required="true"] .bob-input__label::after - assert host attr.
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         // Arrange & Act
@@ -1044,8 +1052,9 @@ public class BOBInputDateTimeInteractionTests
 
         // Simulate dirty state
         cut.Instance.GetType()
-            .GetMethod("HandleDirtyChanged", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-            ?.Invoke(cut.Instance, new object[] { true });
+            .GetMethod("HandleDirtyChanged",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            ?.Invoke(cut.Instance, [true]);
         cut.Render();
 
         IElement patternBefore = cut.Find(".bob-pattern");
@@ -1079,8 +1088,9 @@ public class BOBInputDateTimeInteractionTests
         cut.Render(p => p.Add(c => c.Value, new DateTime(2024, 6, 20, 10, 15, 0)));
 
         cut.Instance.GetType()
-            .GetMethod("HandleDirtyChanged", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
-            ?.Invoke(cut.Instance, new object[] { true });
+            .GetMethod("HandleDirtyChanged",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+            ?.Invoke(cut.Instance, [true]);
         cut.Render();
 
         // Act - Multiple rapid clears (button may unmount after first clear when no longer dirty)

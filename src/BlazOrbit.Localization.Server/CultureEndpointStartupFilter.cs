@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
@@ -6,13 +6,16 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace BlazOrbit.Localization.Server;
 
+/// <summary>Startup filter that wires the request-localization middleware and the culture-switch endpoint used by the server localization package.</summary>
 public class CultureEndpointStartupFilter : IStartupFilter
 {
+    /// <inheritdoc />
     public Action<IApplicationBuilder> Configure(Action<IApplicationBuilder> next)
     {
         return app =>
         {
-            ServerLocalizationSettings settings = app.ApplicationServices.GetRequiredService<ServerLocalizationSettings>();
+            ServerLocalizationSettings settings =
+                app.ApplicationServices.GetRequiredService<ServerLocalizationSettings>();
 
             app.UseRequestLocalization(o =>
             {
@@ -20,10 +23,10 @@ public class CultureEndpointStartupFilter : IStartupFilter
                 o.SupportedUICultures = settings.SupportedCultures;
                 o.DefaultRequestCulture = new RequestCulture(settings.DefaultCulture);
                 o.ApplyCurrentCultureToResponseHeaders = true;
-                o.RequestCultureProviders = new IRequestCultureProvider[]
-                {
+                o.RequestCultureProviders =
+                [
                     new CookieRequestCultureProvider { CookieName = settings.CultureCookieName }
-                };
+                ];
             });
 
             app.Use(async (context, nextMiddleware) =>
@@ -33,10 +36,12 @@ public class CultureEndpointStartupFilter : IStartupFilter
                     string? culture = context.Request.Query["culture"];
                     string redirectUri = context.Request.Query["redirectUri"].ToString();
 
-                    // Reject absolute / scheme-relative redirects to avoid
-                    // open-redirect: only same-origin paths are allowed.
+                    // Reject anything that is not a root-relative same-origin path.
+                    // Uri.TryCreate alone is insufficient - browsers treat strings
+                    // such as "http:evil.com" as absolute even though .NET parses
+                    // them as relative URIs.
                     if (string.IsNullOrEmpty(redirectUri)
-                        || !Uri.TryCreate(redirectUri, UriKind.Relative, out _)
+                        || !redirectUri.StartsWith("/", StringComparison.Ordinal)
                         || redirectUri.StartsWith("//", StringComparison.Ordinal)
                         || redirectUri.StartsWith("/\\", StringComparison.Ordinal))
                     {
@@ -53,7 +58,8 @@ public class CultureEndpointStartupFilter : IStartupFilter
                                 Expires = DateTimeOffset.UtcNow.AddYears(1),
                                 IsEssential = true,
                                 SameSite = SameSiteMode.Lax,
-                                HttpOnly = true
+                                HttpOnly = true,
+                                Secure = true
                             });
                     }
 

@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Abstractions;
+namespace BlazOrbit.Abstractions;
 
 internal sealed class DelayedActionHandler : IDisposable
 {
@@ -7,7 +7,8 @@ internal sealed class DelayedActionHandler : IDisposable
     private CancellationTokenSource? _cts;
     private bool _disposed;
 
-    public DelayedActionHandler(TimeProvider? timeProvider = null) => _timeProvider = timeProvider ?? TimeProvider.System;
+    public DelayedActionHandler(TimeProvider? timeProvider = null) =>
+        _timeProvider = timeProvider ?? TimeProvider.System;
 
     public void Cancel()
     {

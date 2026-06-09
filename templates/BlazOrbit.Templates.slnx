@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="BlazOrbit.Templates.csproj" />
+  <Project Path="../test/BlazOrbit.Templates.E2E/BlazOrbit.Templates.E2E.csproj" />
+</Solution>

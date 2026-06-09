@@ -1,18 +1,22 @@
-﻿@using BlazOrbit.Docs.Wasm.Models
+@using BlazOrbit.Docs.Wasm.Models
 @using BlazOrbit.Docs.Wasm.Services
+@using BlazOrbit.Hotkeys
 @using System.Net
 @using System.Text.RegularExpressions
 
 @inject DocSearchService SearchService
 @inject NavigationManager NavigationManager
 @inject IJSRuntime JS
+@inject IHotkeyService Hotkeys
+@inject IStringLocalizer<DocSearch> Loc
+@implements IAsyncDisposable
 
 <div class="doc-search">
-    <button type="button" class="doc-search-trigger" @onclick="OpenSearch" aria-label="Open search">
+    <button type="button" class="doc-search-trigger" @onclick="OpenSearchAsync" aria-label="@Loc["Open search"]">
         <span class="doc-search-trigger__icon">
-            <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_search" />
+            <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_search"/>
         </span>
-        <span class="doc-search-trigger__label">Search...</span>
+        <span class="doc-search-trigger__label">@Loc["Search..."]</span>
         <span class="doc-search-trigger__shortcut">Ctrl K</span>
     </button>
 
@@ -23,39 +27,45 @@
                 <div class="doc-search-modal__input-wrap">
                     <BOBInputText @bind-Value="_query"
                                   UpdateOnInput="true"
-                                  OnInput="HandleInput"
-                                  Placeholder="Search..."
+                                  OnInput="@(EventCallback.Factory.Create<string>(this, HandleInput))"
+                                  Placeholder="@Loc["Search..."]"
                                   PrefixIcon="@BOBIconKeys.MaterialIconsOutlined.i_search"
                                   class="doc-search-modal__input"
-                                  @onkeydown="HandleKeyDown" />
+                                  @onkeydown="HandleKeyDown"/>
                 </div>
 
                 @if (_results.Count > 0)
                 {
+                    @if (string.IsNullOrWhiteSpace(_query))
+                    {
+                        <div class="doc-search-modal__suggestions-header">Quick links</div>
+                    }
                     <ul class="doc-search-modal__results" role="listbox">
-                        @for (int i = 0; i < _results.Count; i++)
+                        @for (var i = 0; i < _results.Count; i++)
                         {
-                            int index = i;
-                            DocSearchResult result = _results[i];
+                            var index = i;
+                            var result = _results[i];
                             <li class="doc-search-modal__item @(index == _selectedIndex ? "doc-search-modal__item--selected" : "")"
                                 role="option"
                                 aria-selected="@(index == _selectedIndex)"
                                 @onclick="() => NavigateTo(result.Item.Route)">
-                                <div class="doc-search-modal__item-title">@((MarkupString)DocSearchService.Highlight(result.Item.Title, _query))</div>
-                                <div class="doc-search-modal__item-breadcrumb">@string.Join(" > ", result.Item.Breadcrumb)</div>
+                                <div
+                                    class="doc-search-modal__item-title">@((MarkupString)DocSearchService.Highlight(result.Item.Title, _query))</div>
+                                <div
+                                    class="doc-search-modal__item-breadcrumb">@string.Join(" > ", result.Item.Breadcrumb)</div>
                             </li>
                         }
                     </ul>
                 }
                 else if (!string.IsNullOrWhiteSpace(_query))
                 {
-                    <div class="doc-search-modal__empty">No results found</div>
+                    <div class="doc-search-modal__empty">@Loc["No results found"]</div>
                 }
 
                 <div class="doc-search-modal__footer">
-                    <span><kbd>↑</kbd> <kbd>↓</kbd> to navigate</span>
-                    <span><kbd>↵</kbd> to select</span>
-                    <span><kbd>esc</kbd> to close</span>
+                    <span>@Loc.Html("<kbd>↑</kbd> <kbd>↓</kbd> to navigate")</span>
+                    <span>@Loc.Html("<kbd>↵</kbd> to select")</span>
+                    <span>@Loc.Html("<kbd>esc</kbd> to close")</span>
                 </div>
             </div>
         </div>
@@ -67,24 +77,36 @@
     private bool _isOpen;
     private int _selectedIndex = -1;
     private List<DocSearchResult> _results = [];
-    private DotNetObjectReference<DocSearch>? _dotNetRef;
+    private IDisposable? _ctrlKRegistration;
+    private IDisposable? _slashRegistration;
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
+    protected override void OnInitialized()
     {
-        if (firstRender)
-        {
-            _dotNetRef = DotNetObjectReference.Create(this);
-            await JS.InvokeVoidAsync("DocSearchShortcuts.register", _dotNetRef);
-        }
+        // Ctrl+K (and "/" outside inputs) wire the docs site search via BlazOrbit.Hotkeys.
+        // The previous DocSearchShortcuts.register JS bridge is gone; the hotkey service
+        // already skips inputs / textareas / contentEditable, so the trigger never fires
+        // while the user is typing inside the search input itself.
+        _ctrlKRegistration = Hotkeys.Register(
+            "ctrl+k",
+            Loc["Open documentation search"],
+            () => InvokeAsync(OpenSearchAsync),
+            HotkeyScope.Global,
+            true);
+
+        _slashRegistration = Hotkeys.Register(
+            "/",
+            Loc["Open documentation search"],
+            () => InvokeAsync(OpenSearchAsync),
+            HotkeyScope.Global,
+            true);
     }
 
-    [JSInvokable]
-    public async Task OpenSearch()
+    public async Task OpenSearchAsync()
     {
         _isOpen = true;
         _query = string.Empty;
-        _results = [];
-        _selectedIndex = -1;
+        _results = SearchService.GetDefaultSuggestions().ToList();
+        _selectedIndex = _results.Count > 0 ? 0 : -1;
         StateHasChanged();
         await Task.Yield();
         await JS.InvokeVoidAsync("DocSearchShortcuts.focusInput", ".doc-search-modal__input input");
@@ -107,7 +129,14 @@
     private void HandleInput(string value)
     {
         _query = value;
-        _results = SearchService.Search(_query).ToList();
+        if (string.IsNullOrWhiteSpace(_query))
+        {
+            _results = SearchService.GetDefaultSuggestions().ToList();
+        }
+        else
+        {
+            _results = SearchService.Search(_query).ToList();
+        }
         _selectedIndex = _results.Count > 0 ? 0 : -1;
     }
 
@@ -119,6 +148,7 @@
             {
                 CloseSearch();
             }
+
             return;
         }
 
@@ -137,6 +167,7 @@
                 {
                     NavigateTo(_results[_selectedIndex].Item.Route);
                 }
+
                 break;
             case "Escape":
                 CloseSearch();
@@ -152,8 +183,11 @@
         NavigationManager.NavigateTo(route);
     }
 
-    public async ValueTask DisposeAsync()
+    public ValueTask DisposeAsync()
     {
-        _dotNetRef?.Dispose();
+        _ctrlKRegistration?.Dispose();
+        _slashRegistration?.Dispose();
+        return ValueTask.CompletedTask;
     }
+
 }

@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -11,8 +11,11 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Dropdown;
 [Trait("Component State", "BOBInputDropdown")]
 public class BOBInputDropdownStateTests
 {
+    private class DummyModel
+    {
+        public string? Value { get; set; }
+    }
 
-    private class DummyModel { public string? Value { get; set; } }
     private static readonly DummyModel _dm = new();
     private static readonly Expression<Func<string?>> _expr = () => _dm.Value;
 
@@ -84,7 +87,7 @@ public class BOBInputDropdownStateTests
             .Add(c => c.ValueExpression, _expr));
 
         // Assert
-        cut.Find("bob-component").GetAttribute("data-bob-dropdown-open").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-dropdown-open").Should().BeNull();
     }
 
     [Theory]
@@ -105,10 +108,10 @@ public class BOBInputDropdownStateTests
                 builder.CloseComponent();
             }));
 
-        // Assert initial — not floated
-        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().Be("false");
+        // Assert initial - not floated
+        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().BeNull();
 
-        // Act — set value
+        // Act - set value
         cut.Render(p => p
             .Add(c => c.ValueExpression, _expr)
             .Add(c => c.Value, "opt1")
@@ -180,7 +183,7 @@ public class BOBInputDropdownStateTests
             }));
 
         // Assert initial
-        cut.Find("bob-component").GetAttribute("data-bob-dropdown-open").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-dropdown-open").Should().BeNull();
 
         // Act
         cut.Find("button.bob-dropdown__trigger").Click();

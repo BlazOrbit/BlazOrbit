@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using FluentAssertions;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -7,9 +7,9 @@ namespace BlazOrbit.Tests.Integration.Tests.Library;
 
 /// <summary>
 /// CSS-VAR-01: every <c>var(--name)</c> reference in scoped CSS (<c>*.razor.css</c>) must resolve
-/// to a declaration that exists in the same file, in the global CssBundle, or in
-/// <see cref="FeatureDefinitions"/> constants. Catches typos, stale prefixes from renames,
-/// copy-paste drift, and forgotten private-var updates.
+/// to a declaration that exists in the same file, in the hand-written global bundle
+/// (<c>wwwroot/css/blazorbit.css</c>), or in <see cref="FeatureDefinitions"/> constants. Catches
+/// typos, stale prefixes from renames, copy-paste drift, and forgotten private-var updates.
 /// </summary>
 [Trait("Library", "CssVarAudit")]
 public class CssVarDeclarationAuditTests
@@ -36,7 +36,7 @@ public class CssVarDeclarationAuditTests
     private static readonly Dictionary<string, string> Allowlist = new(StringComparer.Ordinal)
     {
         // Color picker canvas/alpha slider reads the current colour value from inline styles.
-        ["--color"] = "Injected by BOBColorPicker.razor via inline style on the alpha slider element.",
+        ["--color"] = "Injected by BOBColorPicker.razor via inline style on the alpha slider element."
     };
 
     /// <summary>
@@ -60,7 +60,8 @@ public class CssVarDeclarationAuditTests
             string content = File.ReadAllText(file);
             string fileName = Path.GetFileName(file);
             HashSet<string> localDecls = CollectDeclarations(content);
-            bool isLayoutComponent = file.Contains($"{Path.DirectorySeparatorChar}Layout{Path.DirectorySeparatorChar}", StringComparison.OrdinalIgnoreCase);
+            bool isLayoutComponent = file.Contains($"{Path.DirectorySeparatorChar}Layout{Path.DirectorySeparatorChar}",
+                StringComparison.OrdinalIgnoreCase);
 
             foreach (Match m in VarReference.Matches(content))
             {
@@ -81,11 +82,11 @@ public class CssVarDeclarationAuditTests
         }
 
         orphans.Should().BeEmpty(
-            because: "every CSS custom property referenced via var() in scoped CSS must be declared in the same file, " +
-                     "in a global CssBundle file, or as a FeatureDefinitions constant. " +
-                     "Undeclared variables silently fall back to inherited/invalid values, hiding typos " +
-                     "and stale prefixes. See CLAUDE.md §CSS architecture rule 4.\n\n" +
-                     string.Join("\n", orphans));
+            "every CSS custom property referenced via var() in scoped CSS must be declared in the same file, " +
+            "in a global CssBundle file, or as a FeatureDefinitions constant. " +
+            "Undeclared variables silently fall back to inherited/invalid values, hiding typos " +
+            "and stale prefixes.\n\n" +
+            string.Join("\n", orphans));
     }
 
     /// <summary>
@@ -104,13 +105,13 @@ public class CssVarDeclarationAuditTests
         {
             if (globalDecls.Contains(key))
             {
-                stale.Add($"Allowlist[{key}] — now declared in CSS or FeatureDefinitions; remove the entry");
+                stale.Add($"Allowlist[{key}] - now declared in CSS or FeatureDefinitions; remove the entry");
             }
         }
 
         stale.Should().BeEmpty(
-            because: "stale allowlist entries hide future drift. Remove the entries listed below.\n\n" +
-                     string.Join("\n", stale));
+            "stale allowlist entries hide future drift. Remove the entries listed below.\n\n" +
+            string.Join("\n", stale));
     }
 
     private static IEnumerable<string> EnumerateScopedCssFiles()
@@ -136,17 +137,13 @@ public class CssVarDeclarationAuditTests
     private static HashSet<string> CollectDeclarationsFromCssBundle()
     {
         HashSet<string> result = new(StringComparer.Ordinal);
-        string bundlePath = Path.Combine(SrcBlazOrbit, "CssBundle");
-        if (!Directory.Exists(bundlePath))
+        string bundlePath = Path.Combine(SrcBlazOrbit, "wwwroot", "css", "blazorbit.css");
+        if (!File.Exists(bundlePath))
         {
             return result;
         }
 
-        foreach (string file in Directory.EnumerateFiles(bundlePath, "*.css", SearchOption.TopDirectoryOnly))
-        {
-            result.UnionWith(CollectDeclarations(File.ReadAllText(file)));
-        }
-
+        result.UnionWith(CollectDeclarations(File.ReadAllText(bundlePath)));
         return result;
     }
 

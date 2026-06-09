@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components.Forms;
+using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -31,15 +31,15 @@ public class BOBInputSwitchVariantTests
 
         ctx.Services.AddBlazOrbitVariants(builder =>
             builder.ForComponent<BOBInputSwitch>()
-                   .AddVariant(
-                       customVariant,
-                       sw => builder =>
-                       {
-                           builder.OpenElement(0, "bob-component");
-                           builder.AddAttribute(1, "class", "pill-switch");
-                           builder.AddContent(2, sw.Label);
-                           builder.CloseElement();
-                       }));
+                .AddVariant(
+                    customVariant,
+                    sw => builder =>
+                    {
+                        builder.OpenElement(0, "bob-component");
+                        builder.AddAttribute(1, "class", "pill-switch");
+                        builder.AddContent(2, sw.Label);
+                        builder.CloseElement();
+                    }));
 
         // Act
         IRenderedComponent<BOBInputSwitch> cut = ctx.Render<BOBInputSwitch>(p => p

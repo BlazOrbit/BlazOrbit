@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -11,13 +11,14 @@ public class BOBTreeMenuSnapshotTests
     private sealed record MenuItem(string Key, string Label, IEnumerable<MenuItem>? Children = null);
 
     private static IEnumerable<MenuItem> TreeItems
-    => [
-        new MenuItem("file", "File", [
-            new MenuItem("new", "New"),
-            new MenuItem("open", "Open"),
-        ]),
-        new MenuItem("edit", "Edit"),
-    ];
+        =>
+        [
+            new("file", "File", [
+                new MenuItem("new", "New"),
+                new MenuItem("open", "Open")
+            ]),
+            new("edit", "Edit")
+        ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -52,7 +53,7 @@ public class BOBTreeMenuSnapshotTests
                     .Add(c => c.KeySelector, m => m.Key)
                     .Add(c => c.ChildrenSelector, m => m.Children)
                     .Add(c => c.Orientation, TreeMenuOrientation.Horizontal)).GetNormalizedMarkup()
-            },
+            }
         };
 
         await Verify(testCases).UseParameters(scenario.Name);

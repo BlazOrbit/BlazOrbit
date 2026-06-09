@@ -1,16 +1,30 @@
-﻿@page "/components/modal"
+@page "/components/overlays/modal"
 
 @inject IStringLocalizer<ModalPage> Loc
 
-<PageTitle>BlazOrbit - BOBDialog & BOBDrawer</PageTitle>
 
 <DocPage Eyebrow="@Loc["Component"]" Title="@Loc["Dialog & Drawer"]"
-         Lede="@Loc["Accessible modals — centered dialogs and edge-anchored drawers. Both usable declaratively or via IModalService."]"
+         Lede="@Loc["Accessible modal dialogs and edge-anchored drawers. Use declaratively in markup or programmatically via a service."]"
          PageInstance="this"
-         ApiType="@typeof(BOBModalHost)">
+         ApiType="@typeof(BOBModalHost)"
+         Keywords="@(["modal", "dialog", "popup", "overlay"])">
+
+    <BOBBanner Severity="BOBBannerSeverity.Info"
+               Title="@Loc["Host required"]"
+               Message="@Loc["Place a single <BOBModalHost /> in your root layout so programmatic modals (and BOBConfirmService) render globally. IModalService is auto-registered by AddBlazOrbit()."]"/>
+
+    <BOBCodeBlock Title="MainLayout.razor"
+                  Language="SyntaxHighlightLanguage.Razor"
+                  Code="@_hostSetup"/>
+
+    <section class="doc-section">
+        <p class="doc-section__description">
+            @Loc.Html("Modals can be used either declaratively in Razor markup or imperatively via the <code>IModalService</code> injected into your code. The service supports stacking, typed return values, and automatic focus trapping for accessibility.")
+        </p>
+    </section>
 
     <DocDemo Key="BasicDialog" Title="@Loc["Basic dialog"]">
-        <BOBButton Text="@Loc["Open dialog"]" OnClick="@(() => _basic = true)" />
+        <BOBButton Text="@Loc["Open dialog"]" OnClick="@(() => _basic = true)"/>
         <BOBDialog @bind-Open="_basic" Title="@Loc["Hello"]">
             <Content>
                 <p>@Loc["This is a basic dialog. Press Escape or click outside to close."]</p>
@@ -19,23 +33,24 @@
     </DocDemo>
 
     <DocDemo Key="FooterDialog" Title="@Loc["With header + footer"]">
-        <BOBButton Text="@Loc["Open dialog with footer"]" OnClick="@(() => _footer = true)" />
+        <BOBButton Text="@Loc["Open dialog with footer"]" OnClick="@(() => _footer = true)"/>
         <BOBDialog @bind-Open="_footer" Title="@Loc["Confirm action"]">
             <Content>
                 <p>@Loc["Are you sure you want to proceed?"]</p>
             </Content>
             <Footer>
-                    <BOBButton Text="@Loc["Cancel"]" OnClick="@(() => _footer = false)" />
-                    <BOBButton Text="@Loc["Confirm"]"
-                               BackgroundColor="@PaletteColor.Primary"
-                               Color="@PaletteColor.PrimaryContrast"
-                               OnClick="@(() => _footer = false)" />
+                <BOBButton Text="@Loc["Cancel"]" OnClick="@(() => _footer = false)"/>
+                <BOBButton Text="@Loc["Confirm"]"
+                           BackgroundColor="@PaletteColor.Primary"
+                           Color="@PaletteColor.PrimaryContrast"
+                           OnClick="@(() => _footer = false)"/>
             </Footer>
         </BOBDialog>
     </DocDemo>
 
-    <DocDemo Key="Dimensions" Title="@Loc["Dimensions"]" Description="@Loc["Use MinWidth, MaxWidth, MinHeight, MaxHeight, or FullScreen."]">
-        <BOBButton Text="@Loc["Constrained dialog"]" OnClick="@(() => _dims = true)" />
+    <DocDemo Key="Dimensions" Title="@Loc["Dimensions"]"
+             Description="@Loc["Use MinWidth, MaxWidth, MinHeight, MaxHeight, or FullScreen."]">
+        <BOBButton Text="@Loc["Constrained dialog"]" OnClick="@(() => _dims = true)"/>
         <BOBDialog @bind-Open="_dims" Title="@Loc["400 × 300 min, 600 × 500 max"]"
                    MinWidth="400px" MaxWidth="600px"
                    MinHeight="300px" MaxHeight="500px">
@@ -45,8 +60,9 @@
         </BOBDialog>
     </DocDemo>
 
-    <DocDemo Key="CloseOptions" Title="@Loc["Close options"]" Description="@Loc["Toggle Closable, CloseOnOverlayClick, and CloseOnEscape."]">
-        <BOBButton Text="@Loc["Uncloseable dialog"]" OnClick="@(() => _closeOpts = true)" />
+    <DocDemo Key="CloseOptions" Title="@Loc["Close options"]"
+             Description="@Loc["Toggle Closable, CloseOnOverlayClick, and CloseOnEscape."]">
+        <BOBButton Text="@Loc["Uncloseable dialog"]" OnClick="@(() => _closeOpts = true)"/>
         <BOBDialog @bind-Open="_closeOpts"
                    Title="@Loc["Explicit close only"]"
                    Closable="false"
@@ -59,16 +75,16 @@
                 <BOBButton Text="@Loc["Close"]"
                            BackgroundColor="@PaletteColor.Primary"
                            Color="@PaletteColor.PrimaryContrast"
-                           OnClick="@(() => _closeOpts = false)" />
+                           OnClick="@(() => _closeOpts = false)"/>
             </Footer>
         </BOBDialog>
     </DocDemo>
 
     <DocDemo Key="DrawerPositions" Title="@Loc["Drawer positions"]">
-            <BOBButton Text="@Loc["Left"]" OnClick="@(() => _left = true)" />
-            <BOBButton Text="@Loc["Right"]" OnClick="@(() => _right = true)" />
-            <BOBButton Text="@Loc["Top"]" OnClick="@(() => _top = true)" />
-            <BOBButton Text="@Loc["Bottom"]" OnClick="@(() => _bottom = true)" />
+        <BOBButton Text="@Loc["Left"]" OnClick="@(() => _left = true)"/>
+        <BOBButton Text="@Loc["Right"]" OnClick="@(() => _right = true)"/>
+        <BOBButton Text="@Loc["Top"]" OnClick="@(() => _top = true)"/>
+        <BOBButton Text="@Loc["Bottom"]" OnClick="@(() => _bottom = true)"/>
 
         <BOBDrawer @bind-Open="_left" Position="DrawerPosition.Left">
             <ChildContent>
@@ -99,15 +115,16 @@
         </BOBDrawer>
     </DocDemo>
 
-    <DocDemo Key="Elevation" Title="@Loc["Elevation"]" Description="@Loc["Material Design elevation level (0–24). Derives shadow and dark-mode surface tint automatically."]">
-        <BOBButton Text="@Loc["Open elevated dialog"]" OnClick="@(() => _elevationDialog = true)" />
+    <DocDemo Key="Elevation" Title="@Loc["Elevation"]"
+             Description="@Loc["Material Design elevation level (0–24). Derives shadow and dark-mode surface tint automatically."]">
+        <BOBButton Text="@Loc["Open elevated dialog"]" OnClick="@(() => _elevationDialog = true)"/>
         <BOBDialog @bind-Open="_elevationDialog" Title="@Loc["Elevated dialog"]" Elevation="4">
             <Content>
                 <p>@Loc["This dialog uses Elevation=4 for medium emphasis."]</p>
             </Content>
         </BOBDialog>
 
-        <BOBButton Text="@Loc["Open elevated drawer"]" OnClick="@(() => _elevationDrawer = true)" />
+        <BOBButton Text="@Loc["Open elevated drawer"]" OnClick="@(() => _elevationDrawer = true)"/>
         <BOBDrawer @bind-Open="_elevationDrawer" Position="DrawerPosition.Right" Elevation="8">
             <ChildContent>
                 <h3>@Loc["Elevated drawer"]</h3>
@@ -119,17 +136,17 @@
     <section class="doc-section">
         <h2 class="doc-section__title">@Loc["Programmatic API"]</h2>
         <p class="doc-section__description">@Loc["Inject IModalService and call ShowDialogAsync / ShowDrawerAsync."]</p>
-        <BOBCodeBlock Language="SyntaxHighlightLanguage.CSharp" Code="@_serviceCode" Title="Program.cs + usage" />
+        <BOBCodeBlock Language="SyntaxHighlightLanguage.CSharp" Code="@_serviceCode" Title="Program.cs + usage"/>
     </section>
 
     <section class="doc-section">
         <h2 class="doc-section__title">@Loc["Properties"]</h2>
 
         <h3 class="doc-section__subtitle">BOBDialog</h3>
-        <PropertyTable Properties="@BOBDialogComponentInfo.Parameters" />
+        <PropertyTable Properties="@BOBDialogComponentInfo.Parameters"/>
 
         <h3 class="doc-section__subtitle">BOBDrawer</h3>
-        <PropertyTable Properties="@BOBDrawerComponentInfo.Parameters" />
+        <PropertyTable Properties="@BOBDrawerComponentInfo.Parameters"/>
     </section>
 
 </DocPage>
@@ -145,6 +162,11 @@
     private bool _bottom;
     private bool _elevationDialog;
     private bool _elevationDrawer;
+
+    private const string _hostSetup = """
+        <BOBModalHost />
+        @Body
+        """;
 
     private const string _serviceCode = @"// Register in Program.cs
 services.AddBlazOrbit(); // includes IModalService
@@ -165,4 +187,5 @@ private async Task Show()
 
 <BOBButton Text=""Yes"" OnClick=""() => ModalReference.CloseAsync(true)"" />
 <BOBButton Text=""No""  OnClick=""() => ModalReference.CloseAsync(false)"" />";
+
 }

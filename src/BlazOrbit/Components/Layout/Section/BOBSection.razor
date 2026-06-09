@@ -1,0 +1,42 @@
+@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+
+@inherits BOBComponentBase
+
+<bob-component @attributes="ComputedAttributes"
+               data-bob-size="@SizeToken">
+    <section class="bob-section__inner">
+        @if (!string.IsNullOrEmpty(Title))
+        {
+            <h2 class="bob-section__title">@Title</h2>
+        }
+        @if (Lead is not null)
+        {
+            <p class="bob-section__lead">@Lead</p>
+        }
+        <div class="bob-section__body">
+            @ChildContent
+        </div>
+    </section>
+</bob-component>
+
+@code {
+
+    /// <summary>Section title rendered as <c>&lt;h2&gt;</c>.</summary>
+    [Parameter]
+    public string? Title { get; set; }
+
+    /// <summary>Optional lead paragraph below the title.</summary>
+    [Parameter]
+    public RenderFragment? Lead { get; set; }
+
+    /// <summary>Max-width tier. Mirrors <see cref="BOBContainer"/>.</summary>
+    [Parameter]
+    public BOBContainerSize Size { get; set; } = BOBContainerSize.Large;
+
+    /// <summary>Section body markup.</summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string SizeToken => Size.ToString().ToLowerInvariant();
+}

@@ -1,4 +1,4 @@
-﻿using BlazOrbit.SyntaxHighlight.Tokens;
+using BlazOrbit.SyntaxHighlight.Tokens;
 
 namespace BlazOrbit.SyntaxHighlight.Rules;
 
@@ -258,7 +258,8 @@ public sealed class MarkupRule : ITokenRule
                     }
                     else
                     {
-                        while (pos < end - 1 && !char.IsWhiteSpace(input[pos]) && input[pos] != '>' && input[pos] != '/')
+                        while (pos < end - 1 && !char.IsWhiteSpace(input[pos]) && input[pos] != '>' &&
+                               input[pos] != '/')
                         {
                             pos++;
                         }

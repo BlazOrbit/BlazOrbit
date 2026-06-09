@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using System.Text.RegularExpressions;
 
 namespace BlazOrbit.Tests.Integration.Tests.Core;
@@ -17,12 +17,11 @@ public class CssArchitectureLintTests
 {
     private static readonly string[] ExcludedFiles =
     [
-        // Internal components — outside public contract
+        // Internal components - outside public contract
         "_BOB",
-        // Hosts — documented exceptions in CSS-SCOPED-04
+        // Hosts - documented exceptions in CSS-SCOPED-04
         "BOBModalHost",
-        "BOBModalContainer",
-        "BOBThemeGenerator",
+        "BOBModalContainer"
     ];
 
     /// <summary>
@@ -49,7 +48,7 @@ public class CssArchitectureLintTests
         //   [data-bob-component="foo"]--selected
         //   bob-component[data-bob-component="foo"]--selected
         // We intentionally do NOT match .bob-block__element--modifier on
-        // descendants — those are permitted by COMP-STATE-CLASS-01 option b.
+        // descendants - those are permitted by COMP-STATE-CLASS-01 option b.
         Regex rootModifierPattern = new(
             @"^\s*(\[data-bob-component=""[^""]+""\]|bob-component\[data-bob-component=""[^""]+""\])--[\w-]+",
             RegexOptions.Multiline | RegexOptions.Compiled);
@@ -70,8 +69,8 @@ public class CssArchitectureLintTests
         }
 
         violations.Should().BeEmpty(
-            because: "root state must be expressed via data-bob-* attributes, never BEM modifiers. " +
-                     "Decision: COMP-STATE-CLASS-01 option b (BEM modifiers acceptable on children, not on root).");
+            "root state must be expressed via data-bob-* attributes, never BEM modifiers. " +
+            "Decision: COMP-STATE-CLASS-01 option b (BEM modifiers acceptable on children, not on root).");
     }
 
     /// <summary>
@@ -82,15 +81,15 @@ public class CssArchitectureLintTests
     [Fact]
     public void Base_Css_Should_Declare_Prefers_Reduced_Motion_Override()
     {
-        string baseCssPath = Path.GetFullPath(Path.Combine(
+        string bundlePath = Path.GetFullPath(Path.Combine(
             Directory.GetCurrentDirectory(),
             "..", "..", "..", "..", "..",
-            "src", "BlazOrbit", "CssBundle", "_base.css"));
+            "src", "BlazOrbit", "wwwroot", "css", "blazorbit.css"));
 
-        File.Exists(baseCssPath).Should().BeTrue(
-            because: "BaseComponentGenerator must regenerate _base.css before tests run");
+        File.Exists(bundlePath).Should().BeTrue(
+            "the hand-written global bundle wwwroot/css/blazorbit.css must exist");
 
-        string content = File.ReadAllText(baseCssPath);
+        string content = File.ReadAllText(bundlePath);
 
         content.Should().Contain("@media (prefers-reduced-motion: reduce)");
         content.Should().MatchRegex(@"animation-duration:\s*0\.01ms\s*!important");

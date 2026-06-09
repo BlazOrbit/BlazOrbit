@@ -1,4 +1,4 @@
-﻿using BlazOrbit.SyntaxHighlight.Languages;
+using BlazOrbit.SyntaxHighlight.Languages;
 using BlazOrbit.SyntaxHighlight.Tokens;
 
 namespace BlazOrbit.SyntaxHighlight.Tests;
@@ -155,10 +155,10 @@ public class RazorTokenizerTests
     public void Tokenize_MultipleComponentsWithEnumValues_AllRecognized()
     {
         string code = """
-            <Dropdown Placement="Placement.Auto" />
-            <Dropdown Placement="Placement.Top" />
-            <Dropdown Placement="Placement.Bottom" />
-            """;
+                      <Dropdown Placement="Placement.Auto" />
+                      <Dropdown Placement="Placement.Top" />
+                      <Dropdown Placement="Placement.Bottom" />
+                      """;
         IReadOnlyList<Token> tokens = RazorLanguage.Instance.Tokenize(code);
 
         Assert.Equal(3, tokens.Count(t => t.Type == TokenType.TagName && t.Value == "Dropdown"));
@@ -169,13 +169,13 @@ public class RazorTokenizerTests
     public void Tokenize_NestedComponents_AllRecognized()
     {
         string code = """
-            <Card>
-                <CardHeader>Title</CardHeader>
-                <CardBody>
-                    <Button>Click</Button>
-                </CardBody>
-            </Card>
-            """;
+                      <Card>
+                          <CardHeader>Title</CardHeader>
+                          <CardBody>
+                              <Button>Click</Button>
+                          </CardBody>
+                      </Card>
+                      """;
         IReadOnlyList<Token> tokens = RazorLanguage.Instance.Tokenize(code);
 
         Assert.Contains(tokens, t => t.Type == TokenType.TagName && t.Value == "Card");

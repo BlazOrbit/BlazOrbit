@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components.Forms;
+namespace BlazOrbit.Components.Forms;
 
 /// <summary>
 /// Represents a variant definition for the <see cref="BOBInputRadio{TValue}"/> component.

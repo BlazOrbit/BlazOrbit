@@ -1,9 +1,10 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
 namespace BlazOrbit.Abstractions;
 
+/// <summary>Variant-aware <see cref="BOBComponentBase"/>. Resolves the active variant template against <see cref="BuiltInTemplates"/> plus any external registrations.</summary>
 public abstract class BOBVariantComponentBase<TComponent, TVariant> : BOBComponentBase, IVariantComponent<TVariant>
     where TComponent : BOBVariantComponentBase<TComponent, TVariant>
     where TVariant : Variant
@@ -12,15 +13,24 @@ public abstract class BOBVariantComponentBase<TComponent, TVariant> : BOBCompone
     private VariantHelper<TComponent, TVariant>? _variantHelper;
 
     Variant IVariantComponent.CurrentVariant => CurrentVariant;
+
+    /// <summary>Effective variant for this render (parameter or <see cref="DefaultVariant"/>).</summary>
     public TVariant CurrentVariant => Variant ?? DefaultVariant;
+
+    /// <summary>Variant used when no <see cref="Variant"/> is supplied.</summary>
     public abstract TVariant DefaultVariant { get; }
+
     /// <summary>Selected variant. <see langword="null"/> falls back to <see cref="DefaultVariant"/>.</summary>
-    [Parameter] public TVariant? Variant { get; set; }
+    [Parameter]
+    public TVariant? Variant { get; set; }
 
     Type IVariantComponent.VariantType => typeof(TVariant);
+
+    /// <summary>Compile-time map of variants to their built-in render templates.</summary>
     protected abstract IReadOnlyDictionary<TVariant, Func<TComponent, RenderFragment>> BuiltInTemplates { get; }
     [Inject] private IVariantRegistry? VariantRegistry { get; set; }
 
+    /// <inheritdoc />
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         base.BuildRenderTree(builder);
@@ -30,6 +40,7 @@ public abstract class BOBVariantComponentBase<TComponent, TVariant> : BOBCompone
         }
     }
 
+    /// <inheritdoc />
     protected override void OnParametersSet()
     {
         base.OnParametersSet();

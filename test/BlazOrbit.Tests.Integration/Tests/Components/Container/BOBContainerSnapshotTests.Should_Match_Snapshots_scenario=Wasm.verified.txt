@@ -1,0 +1,10 @@
+[
+  {
+    Name: ContainerLarge,
+    Html: <bob-component data-bob-component="container" data-bob-size="large" b-<SCOPE>><p>body</p></bob-component>
+  },
+  {
+    Name: ContainerFull,
+    Html: <bob-component data-bob-component="container" data-bob-size="full" b-<SCOPE>><p>body</p></bob-component>
+  }
+]

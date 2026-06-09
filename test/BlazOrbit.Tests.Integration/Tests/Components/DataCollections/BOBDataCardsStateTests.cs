@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -12,6 +12,7 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.DataCollections;
 public class BOBDataCardsStateTests
 {
     private sealed record Person(string Name, int Age);
+
     private static readonly Expression<Func<Person, object?>> NameExpr = p => (object?)p.Name;
 
     private static RenderFragment Columns => b =>
@@ -64,7 +65,7 @@ public class BOBDataCardsStateTests
                 b.CloseComponent();
             }));
 
-        // Act — type in filter
+        // Act - type in filter
         cut.Find("[aria-label='Search...']").Input("Ali");
 
         // Assert
@@ -87,6 +88,6 @@ public class BOBDataCardsStateTests
         cut.Find(".bob-datacards__card").Click();
 
         // Assert
-        cut.Find(".bob-datacards__card").ClassList.Should().Contain("bob-datacards__card--selected");
+        cut.Find(".bob-datacards__card").GetAttribute("data-bob-selected").Should().Be("true");
     }
 }

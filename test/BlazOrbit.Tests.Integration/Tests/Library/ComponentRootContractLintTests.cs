@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using System.Text.RegularExpressions;
 
 namespace BlazOrbit.Tests.Integration.Tests.Library;
@@ -45,7 +45,7 @@ public class ComponentRootContractLintTests
             Match inheritsMatch = Regex.Match(content, @"@inherits\s+(\S+)");
             if (!inheritsMatch.Success)
             {
-                continue; // Default ComponentBase — not part of BOB design system
+                continue; // Default ComponentBase - not part of BOB design system
             }
 
             string baseClass = inheritsMatch.Groups[1].Value;
@@ -79,8 +79,8 @@ public class ComponentRootContractLintTests
         }
 
         violations.Should().BeEmpty(
-            because: "all components that participate in the BOB design system must render " +
-                     "<bob-component> as their root element. See CLAUDE.md §Component architecture.\n\n" +
-                     string.Join("\n", violations));
+            "all components that participate in the BOB design system must render " +
+            "<bob-component> as their root element.\n\n" +
+            string.Join("\n", violations));
     }
 }

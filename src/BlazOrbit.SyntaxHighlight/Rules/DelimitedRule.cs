@@ -1,4 +1,4 @@
-﻿using BlazOrbit.SyntaxHighlight.Tokens;
+using BlazOrbit.SyntaxHighlight.Tokens;
 
 namespace BlazOrbit.SyntaxHighlight.Rules;
 
@@ -109,7 +109,9 @@ public sealed class DelimitedRule : ITokenRule
                 bool isEscape = true;
                 for (int i = 0; i < _escape.Length && isEscape; i++)
                 {
-                    isEscape = caseSensitive ? input[pos + i] == _escape[i] : char.ToLowerInvariant(input[pos + i]) == char.ToLowerInvariant(_escape[i]);
+                    isEscape = caseSensitive
+                        ? input[pos + i] == _escape[i]
+                        : char.ToLowerInvariant(input[pos + i]) == char.ToLowerInvariant(_escape[i]);
                 }
 
                 if (isEscape)

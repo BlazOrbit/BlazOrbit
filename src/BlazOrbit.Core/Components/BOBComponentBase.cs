@@ -1,10 +1,11 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Rendering;
 
 namespace BlazOrbit.Abstractions;
 
-public abstract class BOBComponentBase : ComponentBase, IAsyncDisposable, IBuiltComponent
+/// <summary>Common base for every BlazOrbit component. Wires the shared attribute/style pipeline and JS behavior lifecycle.</summary>
+public abstract class BOBComponentBase : ComponentBase, IAsyncDisposable
 {
     private readonly BOBComponentPipeline _pipeline = new();
 
@@ -12,13 +13,11 @@ public abstract class BOBComponentBase : ComponentBase, IAsyncDisposable, IBuilt
     [Inject] private IBOBPerformanceService? PerformanceService { get; set; }
 #endif
 
+    /// <summary>Catch-all parameter forwarded onto the <c>&lt;bob-component&gt;</c> root.</summary>
     [Parameter(CaptureUnmatchedValues = true)]
     public IReadOnlyDictionary<string, object>? AdditionalAttributes { get; set; }
 
-    // Exposed as `public`: variant templates are `RenderFragment`s authored *outside* the
-    // component's own .razor, so they need cross-assembly access to spread `@attributes` onto the
-    // `<bob-component>` root. Protected would block the custom-variant pattern that is part of the
-    // framework contract.
+    /// <summary>Attribute bag spread on the <c>&lt;bob-component&gt;</c> root by render templates.</summary>
     public Dictionary<string, object> ComputedAttributes => _pipeline.ComputedAttributes;
 
     /// <summary>
@@ -33,41 +32,22 @@ public abstract class BOBComponentBase : ComponentBase, IAsyncDisposable, IBuilt
 
     [Inject] private IBehaviorJsInterop BehaviorJsInterop { get; set; } = default!;
 
-    /// <summary>
-    /// Override this method in derived components to add custom CSS variables. These will be merged
-    /// with the standard behavior CSS variables. This method is called from
-    /// BOBComponentAttributesBuilder during the style building process.
-    /// </summary>
-    /// <param name="cssVariables">
-    /// Dictionary to add CSS variables to
-    /// </param>
-    public virtual void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
-    {
-        // Default implementation does nothing Derived classes can override to add their custom variables
-    }
-
-    /// <summary>
-    /// Override this method to add component-specific data attributes. Called during attribute
-    /// building process.
-    /// </summary>
-    public virtual void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
-    {
-        // Default: no custom data attributes
-    }
-
+    /// <inheritdoc />
     protected override void OnInitialized()
     {
         _pipeline.BeginInit();
         base.OnInitialized();
     }
 
+    /// <inheritdoc />
     protected override void OnParametersSet()
     {
         _pipeline.BeginParametersSet();
         base.OnParametersSet();
         _pipeline.BuildStyles(this, AdditionalAttributes);
 #if DEBUG
-        if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("TrackPerformanceEnabled", out object? trackPerfAttr))
+        if (AdditionalAttributes != null &&
+            AdditionalAttributes.TryGetValue("TrackPerformanceEnabled", out object? trackPerfAttr))
         {
             bool isEnabled = trackPerfAttr switch
             {
@@ -81,12 +61,14 @@ public abstract class BOBComponentBase : ComponentBase, IAsyncDisposable, IBuilt
 #endif
     }
 
+    /// <inheritdoc />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
         {
 #if DEBUG
-            if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("TrackPerformanceEnabled", out object? trackPerfAttr))
+            if (AdditionalAttributes != null &&
+                AdditionalAttributes.TryGetValue("TrackPerformanceEnabled", out object? trackPerfAttr))
             {
                 bool isEnabled = trackPerfAttr switch
                 {
@@ -115,13 +97,15 @@ public abstract class BOBComponentBase : ComponentBase, IAsyncDisposable, IBuilt
         await base.OnAfterRenderAsync(firstRender);
     }
 
+    /// <inheritdoc />
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         _pipeline.BeginRenderTree();
         _pipeline.PatchVolatileAttributes(this);
         base.BuildRenderTree(builder);
 #if DEBUG
-        if (AdditionalAttributes != null && AdditionalAttributes.TryGetValue("TrackPerformanceEnabled", out object? trackPerfAttr))
+        if (AdditionalAttributes != null &&
+            AdditionalAttributes.TryGetValue("TrackPerformanceEnabled", out object? trackPerfAttr))
         {
             bool isEnabled = trackPerfAttr switch
             {
@@ -135,6 +119,7 @@ public abstract class BOBComponentBase : ComponentBase, IAsyncDisposable, IBuilt
 #endif
     }
 
+    /// <summary>Tears down the JS-side behavior associated with this component.</summary>
     public virtual ValueTask DisposeAsync()
     {
         IsDisposed = true;

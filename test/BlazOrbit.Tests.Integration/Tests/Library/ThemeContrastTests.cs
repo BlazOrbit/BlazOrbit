@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Themes;
 using FluentAssertions;
 
@@ -45,7 +45,7 @@ public class ThemeContrastTests
         double ratio = ContrastRatio(foreground, background);
         ratio.Should().BeGreaterThanOrEqualTo(
             AaNormal,
-            because: $"{theme} {pair} should pass WCAG 2.1 AA for normal text (ratio 4.5:1); actual {ratio:F2}:1");
+            $"{theme} {pair} should pass WCAG 2.1 AA for normal text (ratio 4.5:1); actual {ratio:F2}:1");
     }
 
     [Theory]
@@ -56,7 +56,7 @@ public class ThemeContrastTests
         double ratio = ContrastRatio(foreground, background);
         ratio.Should().BeGreaterThanOrEqualTo(
             AaLargeOrUi,
-            because: $"{theme} {pair} should pass WCAG 2.1 AA for UI graphics (ratio 3:1); actual {ratio:F2}:1");
+            $"{theme} {pair} should pass WCAG 2.1 AA for UI graphics (ratio 3:1); actual {ratio:F2}:1");
     }
 
     private static double ContrastRatio(CssColor a, CssColor b)
@@ -74,7 +74,8 @@ public class ThemeContrastTests
         yield return ("Dark", new DarkTheme());
     }
 
-    private static IEnumerable<(string Pair, CssColor Foreground, CssColor Background)> ExtractTextPairs(BOBThemePaletteBase t)
+    private static IEnumerable<(string Pair, CssColor Foreground, CssColor Background)> ExtractTextPairs(
+        BOBThemePaletteBase t)
     {
         yield return ("Background/BackgroundContrast", t.BackgroundContrast, t.Background);
         yield return ("Surface/SurfaceContrast", t.SurfaceContrast, t.Surface);

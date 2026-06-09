@@ -1,0 +1,126 @@
+// Auto-migrated from DataCardsPage.es.resx. Edit freely from now on.
+
+# Add first product
+Añadir primer producto
+
+# Aggregate summary band
+Banda de resumen agregado
+
+# Avg price
+Precio promedio
+
+# Basic usage
+Uso básico
+
+# BOBDataCards
+BOBDataCards
+
+# Bulk actions on selection
+Acciones masivas en selección
+
+# BulkActions appear in the toolbar when at least one card is selected - the handler receives the selection so you can wire delete / archive / export.
+BulkActions aparecen en la barra de herramientas cuando al menos una tarjeta está seleccionada; el controlador recibe la selección para que puedas conectar eliminar / archivar / exportar.
+
+# Card row detail
+Detalle de fila de tarjeta
+
+# Card styling
+Estilo de tarjeta
+
+# Catalog service is unavailable. Try again in a moment.
+El servicio de catálogo no está disponible. Inténtalo de nuevo en un momento.
+
+# Catalog value
+Valor de catálogo
+
+# Category
+Categoría
+
+# Color and BackgroundColor paint the data-collection root; cards inherit the foreground color, surface color is layered behind the card grid.
+Color y BackgroundColor pintan la raíz de la colección de datos; las tarjetas heredan el color de primer plano, el color de superficie se capa detrás de la cuadrícula de tarjetas.
+
+# Component
+Componente
+
+# Custom card template
+Plantilla de tarjeta personalizada
+
+# Declare BOBDataColumn entries for the fields to surface. Cards lay out automatically via MinCardWidth.
+Declara entradas BOBDataColumn para los campos a mostrar. Las tarjetas se disponen automáticamente vía MinCardWidth.
+
+# Empty state with CTA
+Estado vacío con llamada a la acción
+
+# EmptyActionTemplate slots a button into the default empty layout - encourages users to create their first record without writing a custom EmptyContent.
+EmptyActionTemplate inserta un botón en el diseño vacío predeterminado, animando a los usuarios a crear su primer registro sin escribir un EmptyContent personalizado.
+
+# Enable Filterable and Sortable to get a toolbar with search and sort controls.
+Habilita Filterable y Sortable para obtener una barra de herramientas con controles de búsqueda y ordenación.
+
+# Error state
+Estado de error
+
+# Filtering & sorting
+Filtrado y ordenación
+
+# Inventory value
+Valor de inventario
+
+# Items
+Elementos
+
+# LoadingMode = Skeleton renders animated placeholder cards while the source is fetching. PageSize controls the placeholder count.
+LoadingMode = Skeleton renderiza tarjetas de marcador animadas mientras la fuente se obtiene. PageSize controla el conteo de marcadores.
+
+# Name
+Nombre
+
+# Per-card actions
+Acciones por tarjeta
+
+# Price
+Precio
+
+# Properties
+Propiedades
+
+# Provide a CardTemplate to completely own the card layout per item.
+Proporciona un CardTemplate para controlar completamente el diseño de tarjeta por elemento.
+
+# Responsive card grid with sorting, filtering, pagination, selection, and custom templates. Display data as cards instead of table rows.
+Cuadrícula de tarjetas responsive con ordenación, filtrado, paginación, selección y plantillas personalizadas. Muestra datos como tarjetas en lugar de filas de tabla.
+
+# RowActions render an action strip at the bottom of each card. Per-row Visible / Enabled predicates support read-only flags and stock-aware destructive operations.
+RowActions renderiza una tira de acciones en la parte inferior de cada tarjeta. Los predicados Visible / Enabled por fila soportan banderas de solo lectura y operaciones destructivas conscientes de stock.
+
+# RowDetailTemplate adds an expansion section under each card - perfect for catalogs where the card surfaces the highlights and the detail shows specs, history or stock breakdown.
+RowDetailTemplate añade una sección de expansión debajo de cada tarjeta - perfecto para catálogos donde la tarjeta muestra los puntos destacados y el detalle muestra especificaciones, historial o desglose de stock.
+
+# Selection
+Selección
+
+# SelectionMode.Multiple adds a checkbox per card and exposes the set via @bind-SelectedItems.
+SelectionMode.Multiple añade una casilla por tarjeta y expone el conjunto vía @bind-SelectedItems.
+
+# Set Aggregate per column to render a totals strip below the cards. The summary uses the filtered set so totals adapt to the user's search.
+Establece Aggregate por columna para renderizar una tira de totales debajo de las tarjetas. El resumen usa el conjunto filtrado para que los totales se adapten a la búsqueda del usuario.
+
+# Set Error to surface a remote-load failure with a built-in alert. Override ErrorContent for custom retry UI.
+Establece Error para mostrar un fallo de carga remota con una alerta integrada. Sobrescribe ErrorContent para una UI de reintento personalizada.
+
+# Skeleton loading
+Carga con esqueleto
+
+# Stock
+Stock
+
+# Themed surface
+Superficie temática
+
+# Use CardBorder, CardShadow, and CardBackground for quick tweaks without CSS.
+Usa CardBorder, CardShadow y CardBackground para ajustes rápidos sin CSS.
+
+
+# DataCards shares the same column-driven data pipeline as <code>BOBDataGrid</code>. You reuse the same <code>BOBDataColumn</code> declarations - sorting, filtering, pagination, selection, and custom templates work identically. The only difference is the visual layer: rows become cards.
+DataCards comparte la misma canalización de datos basada en columnas que <code>BOBDataGrid</code>. Reutilizas las mismas declaraciones de <code>BOBDataColumn</code>: ordenación, filtrado, paginación, selección y plantillas personalizadas funcionan de forma idéntica. La única diferencia es la capa visual: las filas se convierten en tarjetas.
+

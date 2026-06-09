@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using FluentAssertions;
 
 namespace BlazOrbit.Tests.Integration.Tests.Library;
@@ -58,7 +58,7 @@ public class PaletteColorTests
     [Fact]
     public void PaletteColor_All_Properties_Should_Start_With_VarPalette()
     {
-        // Arrange — collect all static PaletteColor properties
+        // Arrange - collect all static PaletteColor properties
         IEnumerable<string> values = typeof(PaletteColor)
             .GetProperties(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static)
             .Where(p => p.PropertyType == typeof(PaletteColor))
@@ -68,7 +68,7 @@ public class PaletteColorTests
         foreach (string css in values)
         {
             css.Should().StartWith("var(--palette-",
-                because: $"PaletteColor '{css}' must reference a --palette-* CSS variable");
+                $"PaletteColor '{css}' must reference a --palette-* CSS variable");
         }
     }
 }

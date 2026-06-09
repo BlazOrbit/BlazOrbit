@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
@@ -36,7 +36,7 @@ public class BOBInputPrefixRenderingTests
 
         // Assert
         IElement addon = cut.Find(".bob-input__addon--prefix");
-        addon.ClassList.Should().Contain("bob-addon");
+        addon.ClassList.Should().Contain("_bob-addon");
         addon.QuerySelector("span")!.TextContent.Should().Be("https://");
     }
 

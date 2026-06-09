@@ -1,6 +1,8 @@
-﻿@namespace BlazOrbit.Components.Forms
+@namespace BlazOrbit.Components.Forms
 @attribute [GenerateComponentInfo]
+@using Microsoft.Extensions.Localization
 @inherits BOBInputComponentBase<TValue, BOBInputRadio<TValue>, BOBInputRadioVariant>
+@implements IPureBuiltComponent
 @implements IRadioContainer
 @implements IHasSize
 @implements IHasColor
@@ -15,6 +17,8 @@
 </CascadingValue>
 
 @code {
+    [Inject] internal IStringLocalizer<BOBFormsResources> Localizer { get; set; } = default!;
+
     private readonly List<IRadioOption> _options = [];
     private readonly string _groupName = $"radio-{Guid.NewGuid():N}";
     private string _helperTextId = $"bob-helper-{Guid.NewGuid():N}";
@@ -27,39 +31,74 @@
         !typeof(TValue).IsValueType || Nullable.GetUnderlyingType(typeof(TValue)) != null;
 
     /// <summary>Content rendered inside the component.</summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     /// <summary>Visual size of the component.</summary>
-    [Parameter] public BOBSize Size { get; set; } = BOBSize.Medium;
-    /// <summary>Text or foreground color. Accepts any valid CSS color value.</summary>
-    [Parameter] public string? Color { get; set; }
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
+
+    /// <summary>Text or foreground color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
+    [Parameter]
+    public string? Color { get; set; }
+
     /// <summary>Floating label displayed above the component.</summary>
-    [Parameter] public string? Label { get; set; }
+    [Parameter]
+    public string? Label { get; set; }
+
     /// <summary>Helper text displayed below the component for additional context.</summary>
-    [Parameter] public string? HelperText { get; set; }
+    [Parameter]
+    public string? HelperText { get; set; }
+
     /// <summary>Clearable.</summary>
-    [Parameter] public bool Clearable { get; set; }
+    [Parameter]
+    public bool Clearable { get; set; }
+
     /// <summary>Text displayed as the Clear.</summary>
-    [Parameter] public string ClearText { get; set; } = "Clear";
+    [Parameter]
+    public string? ClearText { get; set; }
+
+    private string ResolvedClearText => ClearText ?? Localizer["Clear"];
+
     /// <summary>Material icon name for the Checked.</summary>
-    [Parameter] public IconKey? CheckedIcon { get; set; }
+    [Parameter]
+    public IconKey? CheckedIcon { get; set; }
+
     /// <summary>Material icon name for the Unchecked.</summary>
-    [Parameter] public IconKey? UncheckedIcon { get; set; }
+    [Parameter]
+    public IconKey? UncheckedIcon { get; set; }
+
     /// <summary>Orientation.</summary>
-    [Parameter] public RadioOrientation Orientation { get; set; } = RadioOrientation.Vertical;
+    [Parameter]
+    public RadioOrientation Orientation { get; set; } = RadioOrientation.Vertical;
 
     void IRadioContainer.RegisterOption(IRadioOption option)
     {
-        if (_options.Contains(option)) { return; }
+        if (_options.Contains(option))
+        {
+            return;
+        }
+
         _options.Add(option);
         StateHasChanged();
     }
+
     void IRadioContainer.UnregisterOption(IRadioOption option)
     {
         _options.Remove(option);
         StateHasChanged();
     }
-    bool IRadioContainer.IsOptionSelected(object? value) => EqualityComparer<object>.Default.Equals(CurrentValue, value);
-    async Task IRadioContainer.SelectOptionAsync(object? value) => await SelectValueAsync(value);
+
+    bool IRadioContainer.IsOptionSelected(object? value)
+    {
+        return EqualityComparer<object>.Default.Equals(CurrentValue, value);
+    }
+
+    async Task IRadioContainer.SelectOptionAsync(object? value)
+    {
+        await SelectValueAsync(value);
+    }
+
     Type IRadioContainer.ElementType => _elementType;
 
     public BOBInputRadio()
@@ -78,7 +117,7 @@
     protected override IReadOnlyDictionary<BOBInputRadioVariant, Func<BOBInputRadio<TValue>, RenderFragment>> BuiltInTemplates { get; } =
         new Dictionary<BOBInputRadioVariant, Func<BOBInputRadio<TValue>, RenderFragment>>
         {
-            [BOBInputRadioVariant.Default] = r => r.RenderDefault(),
+            [BOBInputRadioVariant.Default] = r => r.RenderDefault()
         };
 
     protected override bool TryParseValueFromString(string? value, out TValue result, out string validationErrorMessage)
@@ -108,10 +147,13 @@
 
     private bool ShowClearButton => Clearable && HasValue && !IsDisabled;
 
-    public override void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
+    public void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
     {
-        base.BuildComponentDataAttributes(dataAttributes);
         dataAttributes[FeatureDefinitions.DataAttributes.Orientation] = Orientation.ToString().ToLowerInvariant();
+    }
+
+    public void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
+    {
     }
 
     private RenderFragment RenderDefault() => __builder =>
@@ -128,14 +170,15 @@
                     }
                 </span>
             }
-    
+
             <div class="bob-radio__group" role="radiogroup">
-                @foreach (IRadioOption option in _options)
+                @foreach (var option in _options)
                 {
-                    bool isSelected = ((IRadioContainer)this).IsOptionSelected(option.RawValue);
-                    bool isOptionDisabled = IsDisabled || option.IsDisabled;
-    
-                    <div class="bob-radio__option @(isOptionDisabled ? "bob-radio__option--disabled" : "")"
+                    var isSelected = ((IRadioContainer)this).IsOptionSelected(option.RawValue);
+                    var isOptionDisabled = IsDisabled || option.IsDisabled;
+
+                    <div class="bob-radio__option"
+                         data-bob-disabled="@(isOptionDisabled ? "true" : null)"
                          role="radio"
                          aria-checked="@isSelected.ToString().ToLowerInvariant()"
                          aria-disabled="@isOptionDisabled.ToString().ToLowerInvariant()"
@@ -144,33 +187,33 @@
                          @onclick="() => HandleOptionClick(option, isOptionDisabled)"
                          @onkeydown="e => HandleOptionKeyDown(e, option, isOptionDisabled)"
                          @onkeydown:preventDefault="_preventKeyDefault">
-    
-                        <_BOBCheckMark Checked="@isSelected"
-                                       Mode="_BOBCheckMark.CheckMarkMode.Radio"
-                                       Size="Size"
-                                       Disabled="isOptionDisabled"
-                                       CheckedIcon="@CheckedIcon"
-                                       UncheckedIcon="@UncheckedIcon" />
-    
+
+                        <_BOBInCheckMark Checked="@isSelected"
+                                         Mode="_BOBInCheckMark.CheckMarkMode.Radio"
+                                         Size="Size"
+                                         Disabled="isOptionDisabled"
+                                         CheckedIcon="@CheckedIcon"
+                                         UncheckedIcon="@UncheckedIcon"/>
+
                         <span class="bob-radio__text">@option.Content</span>
                     </div>
                 }
             </div>
-    
+
             @if (ShowClearButton)
             {
-                <_BOBBtn OnClick="ClearClicked">
-                    @ClearText
-                </_BOBBtn>
+                <_BOBInBtn OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, ClearClicked))">
+                    @ResolvedClearText
+                </_BOBInBtn>
             }
-    
+
             <_BOBFieldHelper TValue="TValue"
                              Id="@_helperTextId"
                              HelperText="@HelperText"
                              ShowValidation="@IsError"
                              EditContext="@EditContext"
-                             For="@ValueExpression" />
-    
+                             For="@ValueExpression"/>
+
         </bob-component>
     };
 
@@ -189,5 +232,9 @@
         }
     }
 
-    private async Task ClearClicked(MouseEventArgs e) => await ClearAsync();
+    private async Task ClearClicked(MouseEventArgs e)
+    {
+        await ClearAsync();
+    }
+
 }

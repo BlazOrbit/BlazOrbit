@@ -1,26 +1,18 @@
 # .github/workflows/preview-publish.yml
-# Publishes preview versions automatically on each push to develop
-# Version calculated based on merged PR labels:
-#   - If any PR has 'changes/public-api' label since last tag: X.(Y+1).0-preview.N
-#   - Otherwise: X.Y.(Z+1)-preview.N
-# N = commits since last tag on master
+# Publishes preview NuGet packages + matching .skill from develop on demand.
+# Version is read from <VersionPrefix> in Directory.Build.props and suffixed
+# with -preview.<run-number>.
+#
+# Manual trigger only. Pre-merge quality is enforced by preview-gate.yml
+# (build + test on every PR to develop). Once merged, develop is considered
+# already-validated; this workflow exists to ship a NuGet+skill snapshot
+# whenever the maintainer decides - typically batching several merges into
+# a single preview to keep the NuGet feed and the GH releases list tidy.
 
 name: '[Release] Preview Publish'
 
 on:
-  push:
-    branches: [develop]
-    paths-ignore:
-      - '**.md'
-      - 'docs/**'
-      - '.github/ISSUE_TEMPLATE/**'
-
   workflow_dispatch:
-    inputs:
-      override_version:
-        description: 'Override preview version (e.g. 1.0.0-preview1). Leave empty for auto-calculation from last master tag.'
-        required: false
-        type: string
 
 env:
   DOTNET_VERSION: |
@@ -30,133 +22,95 @@ env:
 
 permissions:
   contents: write
-  pull-requests: read  # Needed to read PR labels for semver calculation
+  actions: read
 
 concurrency:
   group: preview-publish
   cancel-in-progress: false
 
 jobs:
+  router:
+    uses: ./.github/workflows/_runner-router.yml
+    secrets: inherit
+
+  guard:
+    name: Branch Guard
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enforce develop branch
+        run: |
+          if [ "${{ github.ref }}" != "refs/heads/develop" ]; then
+            echo "::error::Preview publish can only run on the develop branch. Current: ${{ github.ref }}"
+            exit 1
+          fi
+          echo "✅ Branch guard passed"
+
   version:
     name: Calculate Version
     runs-on: ubuntu-latest
+    needs: guard
     outputs:
       version: ${{ steps.calc.outputs.version }}
       full_version: ${{ steps.calc.outputs.full_version }}
+      assembly_version: ${{ steps.calc.outputs.assembly_version }}
     steps:
-      - name: Checkout with full history
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-          fetch-tags: true
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
 
       - name: Calculate preview version
         id: calc
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          OVERRIDE_VERSION: ${{ github.event.inputs.override_version }}
         run: |
-          # If a manual override was provided, use it directly
-          if [ -n "$OVERRIDE_VERSION" ]; then
-            echo "Using manually specified version: $OVERRIDE_VERSION"
-            echo "version=$OVERRIDE_VERSION" >> $GITHUB_OUTPUT
-            echo "full_version=${OVERRIDE_VERSION}+${GITHUB_SHA:0:7}" >> $GITHUB_OUTPUT
-            echo "bump_type=MANUAL" >> $GITHUB_OUTPUT
-            exit 0
+          # Helper: extract assembly-friendly version (strip prerelease suffix, ensure 4 parts)
+          extract_assembly_version() {
+            local v="$1"
+            v="${v%%-*}"
+            local parts=(${v//./ })
+            echo "${parts[0]:-0}.${parts[1]:-0}.${parts[2]:-0}.${parts[3]:-0}"
+          }
+
+          # Version is fully derived from VersionPrefix + run number - no manual
+          # override accepted. Each NuGet version is published exactly once,
+          # 1:1 with its skill. To re-test something, push a new commit (run
+          # number bumps) instead of forcing a duplicate version.
+
+          # Read VersionPrefix from Directory.Build.props
+          VERSION_PREFIX=$(grep -oP '<VersionPrefix>\K[^<]+' Directory.Build.props || echo "")
+          if [ -z "$VERSION_PREFIX" ]; then
+            echo "::error::Could not read <VersionPrefix> from Directory.Build.props"
+            exit 1
           fi
 
-          # Get last tag on master (format vX.Y.Z)
-          LAST_TAG=$(git describe --tags --abbrev=0 --match "v[0-9]*.[0-9]*.[0-9]" origin/master 2>/dev/null || echo "")
+          echo "VersionPrefix: $VERSION_PREFIX"
 
-          if [ -z "$LAST_TAG" ]; then
-            echo "::warning::No release tag found on master. Using v0.0.0 as base."
-            echo "::warning::Create an initial tag (e.g., git tag v0.0.0) to establish versioning."
-            LAST_TAG="v0.0.0"
-          fi
-
-          echo "Last tag on master: $LAST_TAG"
-
-          # Parse version
-          MAJOR=$(echo $LAST_TAG | cut -d. -f1 | tr -d 'v')
-          MINOR=$(echo $LAST_TAG | cut -d. -f2)
-          PATCH=$(echo $LAST_TAG | cut -d. -f3)
-
-          # Check for public API changes by examining merged PR labels
-          echo "Checking merged PRs for public API changes..."
-          HAS_PUBLIC_API=false
-
-          if [ "$LAST_TAG" != "v0.0.0" ]; then
-            # Get merge commits since last tag
-            MERGE_COMMITS=$(git log "$LAST_TAG"..HEAD --merges --format="%H" 2>/dev/null || true)
-
-            if [ -n "$MERGE_COMMITS" ]; then
-              for sha in $MERGE_COMMITS; do
-                # Get PRs associated with this merge commit
-                PR_DATA=$(gh api "/repos/${{ github.repository }}/commits/$sha/pulls" --jq '.[] | select(.state == "closed") | {number: .number, labels: [.labels[].name]}' 2>/dev/null || true)
-
-                if [ -n "$PR_DATA" ]; then
-                  # Check if any label is 'changes/public-api'
-                  HAS_LABEL=$(echo "$PR_DATA" | grep -q '"changes/public-api"' && echo "true" || echo "false")
-                  if [ "$HAS_LABEL" = "true" ]; then
-                    HAS_PUBLIC_API=true
-                    echo "  Found PR with changes/public-api label in commit $sha"
-                    break
-                  fi
-                fi
-              done
-            fi
-          fi
-
-          # Calculate next version based on PR labels
-          if [ "$HAS_PUBLIC_API" = "true" ]; then
-            NEXT_MINOR=$((MINOR + 1))
-            NEXT_PATCH=0
-            BUMP_TYPE="MINOR"
-            echo "Public API changes detected → MINOR bump"
-          else
-            NEXT_MINOR=$MINOR
-            NEXT_PATCH=$((PATCH + 1))
-            BUMP_TYPE="PATCH"
-            echo "No public API changes → PATCH bump"
-          fi
-
-          # Count commits since last tag (handle when tag doesn't exist)
-          if git rev-parse "$LAST_TAG" >/dev/null 2>&1; then
-            COMMITS=$(git rev-list --count "$LAST_TAG"..HEAD)
-          else
-            COMMITS=$(git rev-list --count HEAD)
-          fi
-
-          # Build version
-          VERSION="${MAJOR}.${NEXT_MINOR}.${NEXT_PATCH}-preview.${COMMITS}"
-          FULL_VERSION="${MAJOR}.${NEXT_MINOR}.${NEXT_PATCH}-preview.${COMMITS}+${GITHUB_SHA:0:7}"
+          # Use run number as preview counter (always increasing, no collision risk)
+          VERSION="${VERSION_PREFIX}-preview.${GITHUB_RUN_NUMBER}"
+          FULL_VERSION="${VERSION_PREFIX}-preview.${GITHUB_RUN_NUMBER}+${GITHUB_SHA:0:7}"
 
           echo "version=$VERSION" >> $GITHUB_OUTPUT
           echo "full_version=$FULL_VERSION" >> $GITHUB_OUTPUT
-          echo "bump_type=$BUMP_TYPE" >> $GITHUB_OUTPUT
+          echo "bump_type=PREVIEW" >> $GITHUB_OUTPUT
+          echo "assembly_version=$(extract_assembly_version "$VERSION_PREFIX")" >> $GITHUB_OUTPUT
 
-          echo "Calculated version: $VERSION ($BUMP_TYPE bump)"
+          echo "Calculated version: $VERSION"
 
   build-and-test:
     name: Build and Test
-    runs-on: ubuntu-latest
-    needs: version
+    needs: [ router, guard, version ]
+    runs-on: ${{ needs.router.outputs.runner }}
+    # Each job runs inside a fresh container
+    container:
+      image: mcr.microsoft.com/dotnet/sdk:10.0
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@c2fa09f4bde5ebb9d1777cf28262a3eb3db3ced7  # v5
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           global-json-file: global.json
           cache: true
           cache-dependency-path: '**/*.csproj'
-
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version: '20'
 
       - name: Install WASM workload
         run: dotnet workload install wasm-tools
@@ -168,38 +122,234 @@ jobs:
         run: dotnet build BlazOrbit.slnx -c Release --no-restore -p:TreatWarningsAsErrors=true
 
       - name: Test
-        run: dotnet test BlazOrbit.slnx -c Release --no-build --verbosity normal
+        # Category!=Perf excludes timing-based perf guards that flake
+        # on shared/self-hosted CI runners due to JIT/GC noise.
+        run: dotnet test BlazOrbit.slnx -c Release --no-build --verbosity normal --filter "Category!=Perf"
 
   pack:
     name: Pack NuGet Packages
-    runs-on: ubuntu-latest
-    needs: [version, build-and-test]
+    needs: [ router, version, build-and-test ]
+    runs-on: ${{ needs.router.outputs.runner }}
+    container:
+      image: mcr.microsoft.com/dotnet/sdk:10.0
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@c2fa09f4bde5ebb9d1777cf28262a3eb3db3ced7  # v5
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Install WASM workload
+        run: dotnet workload install wasm-tools
 
       - name: Restore dependencies
         run: dotnet restore BlazOrbit.slnx
 
       - name: Pack packages
+        shell: bash
         run: |
+          # Capture pack output to scan for NU5xxx packaging warnings.
+          # Mirror the audit policy of release-publish.yml - preview is the
+          # canary that surfaces structural regressions before they reach
+          # the stable feed.
+          set -o pipefail
           dotnet pack BlazOrbit.slnx \
             -c Release \
             --no-restore \
             -p:Version=${{ needs.version.outputs.version }} \
-            -p:AssemblyVersion=${{ needs.version.outputs.version }} \
-            -p:FileVersion=${{ needs.version.outputs.version }} \
+            -p:AssemblyVersion=${{ needs.version.outputs.assembly_version }} \
+            -p:FileVersion=${{ needs.version.outputs.assembly_version }} \
             -p:InformationalVersion=${{ needs.version.outputs.full_version }} \
             -p:ContinuousIntegrationBuild=true \
-            -o ./artifacts
+            -o ./artifacts \
+            2>&1 | tee pack.log
+
+      - name: Pack templates
+        # Mirror the stable release flow so the preview feed exposes the
+        # templates package alongside the libraries - consumers can validate
+        # `dotnet new install BlazOrbit.Templates --version <preview>` against
+        # unreleased library bits. Templates live in their own slnx, separate
+        # from BlazOrbit.slnx, so we restore explicitly.
+        shell: bash
+        run: |
+          set -o pipefail
+          dotnet restore templates/BlazOrbit.Templates.slnx
+          dotnet pack templates/BlazOrbit.Templates.csproj \
+            -c Release \
+            --no-restore \
+            -p:PackageVersion=${{ needs.version.outputs.version }} \
+            -o ./artifacts \
+            2>&1 | tee -a pack.log
+
+      - name: Audit NU5xxx packaging warnings
+        run: |
+          # Same audit as release-publish.yml. Preview catches structural
+          # regressions (NU5104 prerelease deps, NU5128 framework mismatch,
+          # NU5100 non-standard assembly placement, NU5110/NU5111 naming)
+          # before they ever reach a stable tag.
+          if grep -E "warning NU5[0-9]+" pack.log; then
+            echo "::error::NU5xxx packaging warning detected. Review pack.log."
+            exit 1
+          fi
+          echo "No NU5xxx warnings."
+
+      - name: Install unzip
+        # `mcr.microsoft.com/dotnet/sdk:10.0` is Debian-based but ships without
+        # unzip - the next step's `assert_in_pkg` shells out to `unzip -l` to
+        # inspect nupkg contents (a nupkg is a zip). Without this install,
+        # every assertion in "Validate package structure" reports "missing"
+        # because `unzip` exits with 127 and `grep -Fxq` on empty input fails.
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends unzip
+
+      - name: Validate package structure
+        # `shell: bash` (rather than the GH Actions default `sh -e {0}` → dash)
+        # because the script below uses bash-specific syntax: `KNOWN_IDS=(...)`
+        # arrays, `local` in functions, and `[ "$found" -eq 0 ]` with the bash
+        # arithmetic context expectations. Dash hits `Syntax error: "("
+        # unexpected` on the array declaration.
+        shell: bash
+        run: |
+          # Per-package structural assertions. Mirror of release-publish.yml so
+          # any new packable project landing in BlazOrbit.slnx without an entry
+          # in KNOWN_IDS fails preview before stable. Keep this block in sync
+          # with release-publish.yml's "Validate package structure".
+          set -e
+
+          assert_in_pkg() {
+            local pkg="$1"
+            shift
+            local missing=0
+            for path in "$@"; do
+              if ! unzip -l "$pkg" | awk '{print $4}' | grep -Fxq "$path"; then
+                echo "::error::$pkg is missing $path"
+                missing=1
+              fi
+            done
+            return $missing
+          }
+
+          VERSION="${{ needs.version.outputs.version }}"
+
+          for tfm in net8.0 net10.0; do
+            echo "=== Validating $tfm ==="
+
+            PKG=./artifacts/BlazOrbit.${VERSION}.nupkg
+            assert_in_pkg "$PKG" \
+              "lib/$tfm/BlazOrbit.dll" \
+              "lib/$tfm/BlazOrbit.xml" \
+              "build/BlazOrbit.targets" \
+              "staticwebassets/css/blazorbit.css" \
+              "README.md" \
+              "icon.png"
+
+            PKG=./artifacts/BlazOrbit.Charts.${VERSION}.nupkg
+            assert_in_pkg "$PKG" \
+              "lib/$tfm/BlazOrbit.Charts.dll" \
+              "lib/$tfm/BlazOrbit.Charts.xml" \
+              "staticwebassets/css/blazorbit-charts.css" \
+              "staticwebassets/js/Types/Chart/ChartInterop.js" \
+              "README.md" \
+              "icon.png"
+
+            PKG=./artifacts/BlazOrbit.CodeBlock.${VERSION}.nupkg
+            assert_in_pkg "$PKG" \
+              "lib/$tfm/BlazOrbit.CodeBlock.dll" \
+              "lib/$tfm/BlazOrbit.CodeBlock.xml" \
+              "README.md" \
+              "icon.png"
+
+            PKG=./artifacts/BlazOrbit.Core.${VERSION}.nupkg
+            assert_in_pkg "$PKG" \
+              "lib/$tfm/BlazOrbit.Core.dll" \
+              "lib/$tfm/BlazOrbit.Core.xml" \
+              "README.md" \
+              "icon.png"
+
+            PKG=./artifacts/BlazOrbit.SyntaxHighlight.${VERSION}.nupkg
+            assert_in_pkg "$PKG" \
+              "lib/$tfm/BlazOrbit.SyntaxHighlight.dll" \
+              "README.md" \
+              "icon.png"
+
+            PKG=./artifacts/BlazOrbit.FormsFluentValidation.${VERSION}.nupkg
+            assert_in_pkg "$PKG" \
+              "lib/$tfm/BlazOrbit.FormsFluentValidation.dll" \
+              "README.md" \
+              "icon.png"
+
+            PKG=./artifacts/BlazOrbit.Localization.Server.${VERSION}.nupkg
+            assert_in_pkg "$PKG" \
+              "lib/$tfm/BlazOrbit.Localization.Server.dll" \
+              "README.md" \
+              "icon.png"
+
+            PKG=./artifacts/BlazOrbit.Localization.Shared.${VERSION}.nupkg
+            assert_in_pkg "$PKG" \
+              "lib/$tfm/BlazOrbit.Localization.Shared.dll" \
+              "README.md" \
+              "icon.png"
+
+            PKG=./artifacts/BlazOrbit.Localization.Wasm.${VERSION}.nupkg
+            assert_in_pkg "$PKG" \
+              "lib/$tfm/BlazOrbit.Localization.Wasm.dll" \
+              "README.md" \
+              "icon.png"
+
+            PKG=./artifacts/BlazOrbit.Notifications.${VERSION}.nupkg
+            assert_in_pkg "$PKG" \
+              "lib/$tfm/BlazOrbit.Notifications.dll" \
+              "lib/$tfm/BlazOrbit.Notifications.xml" \
+              "README.md" \
+              "icon.png"
+
+            PKG=./artifacts/BlazOrbit.Hotkeys.${VERSION}.nupkg
+            assert_in_pkg "$PKG" \
+              "lib/$tfm/BlazOrbit.Hotkeys.dll" \
+              "lib/$tfm/BlazOrbit.Hotkeys.xml" \
+              "staticwebassets/js/Hotkey/HotkeyInterop.js" \
+              "README.md" \
+              "icon.png"
+          done
+
+          KNOWN_IDS=(
+            BlazOrbit
+            BlazOrbit.Charts
+            BlazOrbit.CodeBlock
+            BlazOrbit.Core
+            BlazOrbit.SyntaxHighlight
+            BlazOrbit.FormsFluentValidation
+            BlazOrbit.Localization.Server
+            BlazOrbit.Localization.Shared
+            BlazOrbit.Localization.Wasm
+            BlazOrbit.Notifications
+            BlazOrbit.Hotkeys
+            BlazOrbit.Templates
+          )
+          unknown=0
+          for nupkg in ./artifacts/*.nupkg; do
+            [ -e "$nupkg" ] || continue
+            filename=$(basename "$nupkg" .nupkg)
+            package_id=${filename%."$VERSION"}
+            found=0
+            for known in "${KNOWN_IDS[@]}"; do
+              if [ "$package_id" = "$known" ]; then
+                found=1
+                break
+              fi
+            done
+            if [ "$found" -eq 0 ]; then
+              echo "::error::Unknown PackageId in artifacts: $package_id ($nupkg). Add it to KNOWN_IDS and to the per-package assertion block above (and mirror in release-publish.yml)."
+              unknown=1
+            fi
+          done
+          [ "$unknown" -eq 0 ] || exit 1
 
       - name: Upload packages
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7
         with:
           name: packages-${{ needs.version.outputs.version }}
           path: ./artifacts/*.nupkg
@@ -208,43 +358,64 @@ jobs:
   publish:
     name: Publish to NuGet
     runs-on: ubuntu-latest
-    needs: [version, pack]
+    needs: [ version, pack ]
     environment: preview
     steps:
       - name: Download packages
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c  # v8
         with:
           name: packages-${{ needs.version.outputs.version }}
           path: ./artifacts
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@c2fa09f4bde5ebb9d1777cf28262a3eb3db3ced7  # v5
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
 
+      - name: Refuse to publish if version already on NuGet
+        # 1:1 invariant: every published NuGet version maps to exactly one
+        # commit and exactly one skill. Re-publishing would either be blocked
+        # by NuGet's immutability (`409`) or silently no-op the .nupkg push
+        # while overwriting the .skill on the GH release - drift. Probe the
+        # flat-container endpoint and bail out before either side mutates.
+        env:
+          VERSION: ${{ needs.version.outputs.version }}
+        run: |
+          set -e
+          url="https://api.nuget.org/v3-flatcontainer/blazorbit/${VERSION,,}/blazorbit.${VERSION,,}.nupkg"
+          status=$(curl -sS -o /dev/null -w "%{http_code}" -I "$url")
+          case "$status" in
+            200)
+              echo "::error::BlazOrbit ${VERSION} already published on NuGet. Bump the version (typically by pushing a new commit so GITHUB_RUN_NUMBER advances) and re-dispatch."
+              exit 1
+              ;;
+            404)
+              echo "✅ Version ${VERSION} not on NuGet - safe to publish."
+              ;;
+            *)
+              echo "::warning::Unexpected status $status from NuGet flat-container probe. Proceeding cautiously."
+              ;;
+          esac
+
       - name: Push to NuGet
+        # `--skip-duplicate` intentionally NOT set: the upstream guard already
+        # vetted version uniqueness. If a 409 reaches us anyway (concurrent
+        # dispatch, NuGet race), failing loudly is the correct response.
         run: |
           dotnet nuget push ./artifacts/*.nupkg \
             --source ${{ env.NUGET_SOURCE }} \
-            --api-key ${{ secrets.NUGET_API_KEY }} \
-            --skip-duplicate
+            --api-key ${{ secrets.NUGET_API_KEY }}
 
-      - name: Create GitHub Release (Preview)
-        uses: softprops/action-gh-release@v3
-        with:
-          tag_name: v${{ needs.version.outputs.version }}
-          name: Preview ${{ needs.version.outputs.version }}
-          body: |
-            ## Preview Release ${{ needs.version.outputs.version }}
-            
-            Development version automatically built from `develop`.
-            
-            ```bash
-            dotnet add package BlazOrbit --version ${{ needs.version.outputs.version }}
-            ```
-            
-            ⚠️ **Unstable - do not use in production**
-          prerelease: true
-          files: ./artifacts/*.nupkg
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  package-skill:
+    name: Package BlazOrbit User Skill
+    needs: [ version, publish ]
+    # Each preview NuGet that ships gets a matching .skill attached to a
+    # prerelease GH release tagged v<version>. The reusable workflow creates
+    # the release on first call (preview-publish doesn't otherwise create GH
+    # releases).
+    uses: ./.github/workflows/package-skill.yml
+    with:
+      version: ${{ needs.version.outputs.version }}
+      tag_name: v${{ needs.version.outputs.version }}
+      prerelease: true
+    secrets: inherit

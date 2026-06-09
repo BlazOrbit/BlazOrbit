@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components.Internal;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -10,7 +10,10 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.InputInternals;
 [Trait("Component Snapshots", "_BOBFieldHelper")]
 public class BOBFieldHelperSnapshotTests
 {
-    private class Model { public string? Value { get; set; } }
+    private class Model
+    {
+        public string? Value { get; set; }
+    }
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -24,39 +27,48 @@ public class BOBFieldHelperSnapshotTests
 
         var testCases = new[]
         {
-            new { Name = "Empty", Builder = (Action<ComponentParameterCollectionBuilder<_BOBFieldHelper<string?>>>)(p => p
-                .Add(c => c.EditContext, editContext)
-                .AddCascadingValue(editContext)) },
-
-            new { Name = "HelperOnly", Builder = (Action<ComponentParameterCollectionBuilder<_BOBFieldHelper<string?>>>)(p => p
-                .Add(c => c.EditContext, editContext)
-                .Add(c => c.HelperText, "As it appears on your ID.")
-                .Add(c => c.Id, "helper-1")
-                .AddCascadingValue(editContext)) },
-
-            new { Name = "ValidationOnly", Builder = (Action<ComponentParameterCollectionBuilder<_BOBFieldHelper<string?>>>)(p => p
-                .Add(c => c.EditContext, editContext)
-                .Add(c => c.ShowValidation, true)
-                .Add(c => c.For, expr)
-                .AddCascadingValue(editContext)) },
-
-            new { Name = "HelperAndValidation", Builder = (Action<ComponentParameterCollectionBuilder<_BOBFieldHelper<string?>>>)(p => p
-                .Add(c => c.EditContext, editContext)
-                .Add(c => c.HelperText, "Required field")
-                .Add(c => c.ShowValidation, true)
-                .Add(c => c.For, expr)
-                .AddCascadingValue(editContext)) }
+            new
+            {
+                Name = "Empty",
+                Builder = (Action<ComponentParameterCollectionBuilder<_BOBFieldHelper<string?>>>)(p => p
+                    .Add(c => c.EditContext, editContext)
+                    .AddCascadingValue(editContext))
+            },
+            new
+            {
+                Name = "HelperOnly",
+                Builder = (Action<ComponentParameterCollectionBuilder<_BOBFieldHelper<string?>>>)(p => p
+                    .Add(c => c.EditContext, editContext)
+                    .Add(c => c.HelperText, "As it appears on your ID.")
+                    .Add(c => c.Id, "helper-1")
+                    .AddCascadingValue(editContext))
+            },
+            new
+            {
+                Name = "ValidationOnly",
+                Builder = (Action<ComponentParameterCollectionBuilder<_BOBFieldHelper<string?>>>)(p => p
+                    .Add(c => c.EditContext, editContext)
+                    .Add(c => c.ShowValidation, true)
+                    .Add(c => c.For, expr)
+                    .AddCascadingValue(editContext))
+            },
+            new
+            {
+                Name = "HelperAndValidation",
+                Builder = (Action<ComponentParameterCollectionBuilder<_BOBFieldHelper<string?>>>)(p => p
+                    .Add(c => c.EditContext, editContext)
+                    .Add(c => c.HelperText, "Required field")
+                    .Add(c => c.ShowValidation, true)
+                    .Add(c => c.For, expr)
+                    .AddCascadingValue(editContext))
+            }
         };
 
         var results = testCases.Select(testCase =>
         {
             IRenderedComponent<_BOBFieldHelper<string?>> cut = ctx.Render<_BOBFieldHelper<string?>>(testCase.Builder);
-            return new
-            {
-                testCase.Name,
-                Html = cut.GetNormalizedMarkup()
-            };
-        });
+            return new { testCase.Name, Html = cut.GetNormalizedMarkup() };
+        }).ToList();
 
         await Verify(results).UseParameters(scenario.Name);
     }

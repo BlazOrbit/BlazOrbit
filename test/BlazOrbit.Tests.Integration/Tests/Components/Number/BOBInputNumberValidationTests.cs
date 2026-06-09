@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using BlazOrbit.Tests.Integration.Templates.Components.Consumers;
@@ -16,10 +16,11 @@ public class BOBInputNumberValidationTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut = ctx.Render<TestBOBInputNumberValidationConsumer>();
+        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut =
+            ctx.Render<TestBOBInputNumberValidationConsumer>();
 
-        cut.Find("bob-component").GetAttribute("data-bob-error").Should().Be("false");
-        cut.FindAll(".bob-field-helper--error").Should().BeEmpty();
+        cut.Find("bob-component").GetAttribute("data-bob-error").Should().BeNull();
+        cut.FindAll("[data-bob-error=\"true\"]").Should().BeEmpty();
     }
 
     [Theory]
@@ -28,14 +29,15 @@ public class BOBInputNumberValidationTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut = ctx.Render<TestBOBInputNumberValidationConsumer>();
+        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut =
+            ctx.Render<TestBOBInputNumberValidationConsumer>();
 
         // Trigger validation on empty required field
         cut.Find("button.submit-btn").Click();
 
         cut.Find("bob-component").GetAttribute("data-bob-error").Should().Be("true");
         cut.Find("input.bob-input__field").GetAttribute("aria-invalid").Should().Be("true");
-        cut.Find(".bob-field-helper--error").Should().NotBeNull();
+        cut.Find("[data-bob-error=\"true\"]").Should().NotBeNull();
     }
 
     [Theory]
@@ -44,11 +46,12 @@ public class BOBInputNumberValidationTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut = ctx.Render<TestBOBInputNumberValidationConsumer>();
+        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut =
+            ctx.Render<TestBOBInputNumberValidationConsumer>();
 
         cut.Find("button.submit-btn").Click();
 
-        IElement errorHelper = cut.Find(".bob-field-helper--error");
+        IElement errorHelper = cut.Find("[data-bob-error=\"true\"]");
         errorHelper.TextContent.Should().Contain("Qty is required");
     }
 
@@ -58,12 +61,13 @@ public class BOBInputNumberValidationTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut = ctx.Render<TestBOBInputNumberValidationConsumer>();
+        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut =
+            ctx.Render<TestBOBInputNumberValidationConsumer>();
 
         cut.Find("input.bob-input__field").Input("99");
         cut.Find("button.submit-btn").Click();
 
-        IElement errorHelper = cut.Find(".bob-field-helper--error");
+        IElement errorHelper = cut.Find("[data-bob-error=\"true\"]");
         errorHelper.TextContent.Should().Contain("Qty must be between 1 and 10");
     }
 
@@ -73,7 +77,8 @@ public class BOBInputNumberValidationTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut = ctx.Render<TestBOBInputNumberValidationConsumer>();
+        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut =
+            ctx.Render<TestBOBInputNumberValidationConsumer>();
 
         // Provoke failure
         cut.Find("button.submit-btn").Click();
@@ -83,9 +88,9 @@ public class BOBInputNumberValidationTests
         cut.Find("input.bob-input__field").Input("5");
         cut.Find("button.submit-btn").Click();
 
-        cut.Find("bob-component").GetAttribute("data-bob-error").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-error").Should().BeNull();
         cut.Find("input.bob-input__field").GetAttribute("aria-invalid").Should().Be("false");
-        cut.FindAll(".bob-field-helper--error").Should().BeEmpty();
+        cut.FindAll("[data-bob-error=\"true\"]").Should().BeEmpty();
     }
 
     [Theory]
@@ -94,7 +99,8 @@ public class BOBInputNumberValidationTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut = ctx.Render<TestBOBInputNumberValidationConsumer>();
+        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut =
+            ctx.Render<TestBOBInputNumberValidationConsumer>();
 
         cut.Find("input.bob-input__field").Input("7");
 
@@ -107,7 +113,8 @@ public class BOBInputNumberValidationTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut = ctx.Render<TestBOBInputNumberValidationConsumer>();
+        IRenderedComponent<TestBOBInputNumberValidationConsumer> cut =
+            ctx.Render<TestBOBInputNumberValidationConsumer>();
 
         cut.Find("input.bob-input__field").Input("5");
         cut.Find("button.submit-btn").Click();

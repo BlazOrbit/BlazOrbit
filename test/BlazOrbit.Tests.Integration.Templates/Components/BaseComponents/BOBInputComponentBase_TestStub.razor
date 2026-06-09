@@ -1,4 +1,4 @@
-﻿@using BlazOrbit.Components
+@using BlazOrbit.Components
 @using BlazOrbit.Abstractions
 @using System.Diagnostics.CodeAnalysis
 @inherits BOBInputComponentBase<string>
@@ -13,15 +13,21 @@
 @implements IHasBorder
 @implements IJsBehavior
 
+@if (!string.IsNullOrEmpty(Label))
+{
+    <span class="stub-label">@Label</span>
+}
+
 <input @ref="_elementRef"
        @attributes="ComputedAttributes"
        value="@CurrentValueAsString"
        disabled="@IsDisabled"
        readonly="@IsReadOnly"
-       @onchange="@(e => CurrentValueAsString = e.Value?.ToString())" />
+       @onchange="@(e => CurrentValueAsString = e.Value?.ToString())"/>
 
 @code {
     [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public string? Label { get; set; }
     [Parameter] public BOBSize Size { get; set; }
     [Parameter] public BOBDensity Density { get; set; }
     [Parameter] public string? Color { get; set; }
@@ -35,7 +41,10 @@
     [Parameter] public BorderStyle? Border { get; set; }
 
     private ElementReference _elementRef;
-    public ElementReference GetRippleContainer() => _elementRef;
+    public ElementReference? GetRippleContainer()
+    {
+        return _elementRef;
+    }
 
     protected override bool TryParseValueFromString(string? value, [MaybeNullWhen(false)] out string result, [NotNullWhen(false)] out string? validationErrorMessage)
     {
@@ -43,4 +52,5 @@
         validationErrorMessage = null;
         return true;
     }
+
 }

@@ -1,0 +1,41 @@
+// Auto-migrated from ThemeSelectorPage.es.resx. Edit freely from now on.
+
+# A labeled button with an icon that reflects the current theme.
+Un botón etiquetado con un icono que refleja el tema actual.
+
+# BOBThemeSelector
+BOBThemeSelector
+
+# Component
+Componente
+
+# Custom themes list
+Lista de temas personalizados
+
+# Cycle through a custom list - not limited to light / dark.
+Cicla a través de una lista personalizada - no limitado a claro / oscuro.
+
+# Default variant
+Variante predeterminada
+
+# Hook onto change events
+Enganchar eventos de cambio
+
+# Last change
+Último cambio
+
+# Properties
+Propiedades
+
+# Sun / Moon variant
+Variante Sol / Luna
+
+# The compact switch used in the docs header: a BOBSwitch with sun and moon icons.
+El interruptor compacto usado en el encabezado de la documentación: un BOBSwitch con iconos de sol y luna.
+
+# Theme toggle switch between light, dark, and custom themes. Automatically persists the user choice and applies it to the entire application.
+Interruptor de alternancia de tema entre claro, oscuro y temas personalizados. Persiste automáticamente la elección del usuario y la aplica a toda la aplicación.
+
+
+# The selector writes the active theme id to <code>localStorage</code> and toggles the <code>data-theme</code> attribute on the <code>&lt;html&gt;</code> element. This attribute drives the CSS custom-property cascade, so every component on the page updates instantly without re-rendering.
+El selector escribe el id del tema activo en <code>localStorage</code> y alterna el atributo <code>data-theme</code> en el elemento <code>&lt;html&gt;</code>. Este atributo impulsa la cascada de propiedades personalizadas CSS, por lo que cada componente de la página se actualiza al instante sin necesidad de volver a renderizar.

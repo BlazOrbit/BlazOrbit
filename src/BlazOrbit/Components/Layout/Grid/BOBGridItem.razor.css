@@ -1,4 +1,4 @@
-﻿/*
+/*
  * Three modes:
  * 1. Default (no span, no auto): flex: 0 0 auto - fits content naturally
  * 2. Sized (has span): flex: 0 0 calc(...) - fixed column-based width
@@ -23,45 +23,45 @@
     margin-left: var(--ml, var(--m, 0));
 }
 
-    /* ========================================
-   AUTO - Expand to fill space
-   ======================================== */
-    [data-bob-component="grid-item"][data-auto] {
-        flex: 1 1 0%;
-    }
+/* ========================================
+AUTO - Expand to fill space
+======================================== */
+[data-bob-component="grid-item"][data-auto] {
+    flex: 1 1 0%;
+}
 
-    /* ========================================
-   SIZED - Column-based width
-   ======================================== */
-    [data-bob-component="grid-item"][data-sized] {
-        --_span: var(--span, 12);
-        --_cols: var(--columns, 12);
-        --_gap: var(--col-gap, var(--gap, 1rem));
-        --_offset: var(--offset, 0);
-        flex: 0 0 calc((100% + var(--_gap)) / var(--_cols) * var(--_span) - var(--_gap));
-        margin-left: calc((100% + var(--_gap)) / var(--_cols) * var(--_offset) + var(--ml, var(--m, 0)));
-    }
+/* ========================================
+SIZED - Column-based width
+======================================== */
+[data-bob-component="grid-item"][data-sized] {
+    --_span: var(--span, 12);
+    --_cols: var(--columns, 12);
+    --_gap: var(--col-gap, var(--gap, 1rem));
+    --_offset: var(--offset, 0);
+    flex: 0 0 calc((100% + var(--_gap)) / var(--_cols) * var(--_span) - var(--_gap));
+    margin-left: calc((100% + var(--_gap)) / var(--_cols) * var(--_offset) + var(--ml, var(--m, 0)));
+}
 
-    /* Align Self */
-    [data-bob-component="grid-item"][data-align-self="start"] {
-        align-self: flex-start;
-    }
+/* Align Self */
+[data-bob-component="grid-item"][data-align-self="start"] {
+    align-self: flex-start;
+}
 
-    [data-bob-component="grid-item"][data-align-self="end"] {
-        align-self: flex-end;
-    }
+[data-bob-component="grid-item"][data-align-self="end"] {
+    align-self: flex-end;
+}
 
-    [data-bob-component="grid-item"][data-align-self="center"] {
-        align-self: center;
-    }
+[data-bob-component="grid-item"][data-align-self="center"] {
+    align-self: center;
+}
 
-    [data-bob-component="grid-item"][data-align-self="stretch"] {
-        align-self: stretch;
-    }
+[data-bob-component="grid-item"][data-align-self="stretch"] {
+    align-self: stretch;
+}
 
-    [data-bob-component="grid-item"][data-align-self="baseline"] {
-        align-self: baseline;
-    }
+[data-bob-component="grid-item"][data-align-self="baseline"] {
+    align-self: baseline;
+}
 
 /*
  * Hide / show responsive utilities below use `!important` for `display`.

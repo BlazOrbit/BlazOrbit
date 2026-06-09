@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -23,7 +23,11 @@ public class BOBTreeMenuDisposalTests
             .Add(c => c.KeySelector, m => m.Key));
 
         // Act + Assert
-        Func<Task> act = () => { cut.Instance.Dispose(); return Task.CompletedTask; };
+        Func<Task> act = () =>
+        {
+            cut.Instance.Dispose();
+            return Task.CompletedTask;
+        };
         await act.Should().NotThrowAsync();
     }
 
@@ -33,7 +37,7 @@ public class BOBTreeMenuDisposalTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — render with nested items so nav subscription + expand are tested
+        // Arrange - render with nested items so nav subscription + expand are tested
         IRenderedComponent<BOBTreeMenu<MenuItem>> cut = ctx.Render<BOBTreeMenu<MenuItem>>(p => p
             .Add(c => c.Items, [
                 new MenuItem("parent", "Parent", [new MenuItem("child", "Child")])
@@ -43,8 +47,12 @@ public class BOBTreeMenuDisposalTests
 
         cut.Find("[role='menuitem']").Click(); // expand
 
-        // Act + Assert — dispose unsubscribes LocationChanged, no exception
-        Func<Task> act = () => { cut.Instance.Dispose(); return Task.CompletedTask; };
+        // Act + Assert - dispose unsubscribes LocationChanged, no exception
+        Func<Task> act = () =>
+        {
+            cut.Instance.Dispose();
+            return Task.CompletedTask;
+        };
         await act.Should().NotThrowAsync();
     }
 }

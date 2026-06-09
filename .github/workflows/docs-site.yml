@@ -31,36 +31,44 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@c2fa09f4bde5ebb9d1777cf28262a3eb3db3ced7  # v5
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           global-json-file: global.json
 
-      - name: Setup Node.js (required for BuildTools/Vite)
-        uses: actions/setup-node@v6
-        with:
-          node-version: '20'
-
-      - name: Install wasm-tools workload (required for AOT)
+      - name: Install wasm-tools workload
+        # Required even when AOT is disabled - wasm-tools provides icudt
+        # generation, wasm-opt and other publish-time tooling.
         run: dotnet workload install wasm-tools
-
-      - name: Restore BuildTools
-        run: dotnet restore src/BlazOrbit.BuildTools/BlazOrbit.BuildTools.csproj
 
       - name: Restore Docs.Wasm
         run: dotnet restore docs/BlazOrbit.Docs.Wasm/BlazOrbit.Docs.Wasm.csproj
 
       - name: Publish Docs.Wasm
+        # AOT must be OFF if size > 25MB
+        # for Cloudflare Pages deployments because Cloudflare enforces
+        # a 25 MB per-file limit on publish, and AOT-compiled `dotnet.native.wasm`
+        # lands at ~30-40 MB. To re-enable AOT, flip the flag below to `true`:
+        # the csproj wires `EnableDocsAot=true` to both `RunAOTCompilation=true`
+        # and `WasmStripILAfterAOT=true` in a single switch, so the resulting
+        # native asset stays under Cloudflare's per-file budget. The runner
+        # (`ubuntu-latest`) already ships with Python on PATH, which emcc needs.
         run: >
           dotnet publish
           docs/BlazOrbit.Docs.Wasm/BlazOrbit.Docs.Wasm.csproj
           -c Release
           -o ./publish
           --no-restore
-          -p:RunAOTCompilation=false
+          -p:EnableDocsAot=false
+
+      - name: Stamp service-worker cache version
+        run: |
+          CACHE_VERSION="${{ github.sha }}-${{ github.run_id }}"
+          sed -i "s/const CACHE_VERSION = 'blazorbit-docs-v1';/const CACHE_VERSION = 'blazorbit-docs-${CACHE_VERSION}';/" ./publish/wwwroot/service-worker.js
+          echo "Service Worker cache version set to: ${CACHE_VERSION}"
 
       - name: List static assets for debug
         run: |
@@ -68,7 +76,7 @@ jobs:
           find ./publish/wwwroot -type f | sort
 
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v3
+        uses: cloudflare/wrangler-action@ebbaa1584979971c8614a24965b4405ff95890e0  # v4.0.0
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

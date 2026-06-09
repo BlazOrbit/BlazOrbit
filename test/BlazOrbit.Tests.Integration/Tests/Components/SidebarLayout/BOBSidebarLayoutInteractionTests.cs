@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -20,7 +20,7 @@ public class BOBSidebarLayoutInteractionTests
             .Add(c => c.SidebarOpen, false)
             .Add(c => c.ShowToggle, true));
 
-        cut.Find("bob-component").GetAttribute("data-bob-sidebar-open").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-sidebar-open").Should().BeNull();
 
         // Act
         cut.Find(".bob-sidebar-layout__toggle").Click();
@@ -64,7 +64,7 @@ public class BOBSidebarLayoutInteractionTests
         cut.Find(".bob-sidebar-layout__scrim").Click();
 
         // Assert
-        cut.Find("bob-component").GetAttribute("data-bob-sidebar-open").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-sidebar-open").Should().BeNull();
         captured.Should().BeFalse();
     }
 

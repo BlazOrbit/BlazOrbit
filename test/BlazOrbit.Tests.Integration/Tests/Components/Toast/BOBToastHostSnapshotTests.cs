@@ -1,5 +1,4 @@
-﻿using BlazOrbit.Components.Layout;
-using BlazOrbit.Components.Layout.Services;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -33,9 +32,8 @@ public class BOBToastHostSnapshotTests
 
         var testCases = new[]
         {
-            new { Name = "Empty", Html = emptyMarkup },
-            new { Name = "Single_TopRight", Html = singleTopRight },
-            new { Name = "Two_Positions", Html = twoPositions },
+            new { Name = "Empty", Html = emptyMarkup }, new { Name = "Single_TopRight", Html = singleTopRight },
+            new { Name = "Two_Positions", Html = twoPositions }
         };
 
         await Verify(testCases).UseParameters(scenario.Name);

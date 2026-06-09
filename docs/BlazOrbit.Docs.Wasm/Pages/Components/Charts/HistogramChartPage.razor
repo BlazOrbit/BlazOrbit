@@ -1,0 +1,74 @@
+@page "/components/charts/histogram"
+
+@inject IStringLocalizer<HistogramChartPage> Loc
+
+<DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBHistogramChart"]"
+         Lede="@Loc["Distribution of a single numeric variable. Auto-bins raw observations using Sturges / Scott / Freedman-Diaconis rules and renders each bin as a vertical bar. Optional median + p95 quantile guide lines."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBHistogramChart<>)"
+         Keywords="@(["histogram", "distribution", "frequency", "bins"])">
+
+    <BOBBanner Severity="BOBBannerSeverity.Warning"
+               Title="@Loc["Extra package required"]"
+               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]"/>
+
+    <DocDemo Key="Sturges" Title="@Loc["Sturges (default)"]">
+        <BOBHistogramChart T="double"
+                           Values="_latencies"
+                           Width="600" Height="320"/>
+    </DocDemo>
+
+    <DocDemo Key="FreedmanDiaconis" Title="@Loc["Freedman-Diaconis (outlier-robust)"]"
+             Description="@Loc["FD scales bin width by the IQR - the histogram resolution stays stable when a few extreme values would otherwise compress the bulk of the data into a single bar."]">
+        <BOBHistogramChart T="double"
+                           Values="_latencies"
+                           BinRule="BOBHistogramBinRule.FreedmanDiaconis"
+                           Width="600" Height="320"/>
+    </DocDemo>
+
+    <DocDemo Key="FixedCount" Title="@Loc["Fixed bin count"]">
+        <BOBHistogramChart T="double"
+                           Values="_latencies"
+                           BinRule="BOBHistogramBinRule.FixedCount"
+                           BinCount="20"
+                           Color="var(--palette-primary)"
+                           Width="600" Height="320"/>
+    </DocDemo>
+
+    <DocDemo Key="Quantiles" Title="@Loc["With quantile guide lines"]"
+             Description="@Loc["ShowQuantileLines overlays vertical guides at the median and p95 - useful for SLO discussions where the long tail matters more than the average."]">
+        <BOBHistogramChart T="double"
+                           Values="_latencies"
+                           ShowQuantileLines="true"
+                           BinLabelFormat="0.0"
+                           Width="600" Height="320"/>
+    </DocDemo>
+
+</DocPage>
+
+@code {
+
+    // Synthetic latency sample (ms) - left-skewed with a fat right tail.
+    private static readonly double[] _latencies = GenerateSample();
+
+    private static double[] GenerateSample()
+    {
+        Random rng = new(123);
+        var values = new double[400];
+        for (var i = 0; i < 380; i++)
+        {
+            // Log-normal-like via two-step uniform composition.
+            var u = rng.NextDouble();
+            values[i] = 8 + Math.Pow(u, 4) * 90;
+        }
+
+        for (var i = 380; i < 400; i++)
+        {
+            // Tail outliers between 100..220 ms.
+            values[i] = 100 + rng.NextDouble() * 120;
+        }
+
+        return values;
+    }
+
+}

@@ -1,0 +1,98 @@
+// Auto-migrated from ChipPage.es.resx. Edit freely from now on.
+
+# Action chips
+Chips de acción
+
+# Active
+Activo
+
+# All removed
+Todo eliminado
+
+# BOBChip
+BOBChip
+
+# BOBChip Properties
+Propiedades de BOBChip
+
+# BOBChipGroup Properties
+Propiedades de BOBChipGroup
+
+# BOBChipGroup<TValue> cascades selection across nested chips. Single mode keeps at most one Value selected; tapping the active chip again clears it.
+BOBChipGroup<TValue> propaga la selección entre chips anidados. El modo Single mantiene como máximo un Value seleccionado; tocar el chip activo de nuevo lo deselecciona.
+
+# C#
+C#
+
+# Clicks:
+Clics:
+
+# Compact tag for filters, selections and removable inline items.
+Etiqueta compacta para filtros, selecciones y elementos en línea removibles.
+
+# Component
+Componente
+
+# Default
+Predeterminado
+
+# Disabled
+Deshabilitado
+
+# Filter chips
+Chips de filtro
+
+# Group - multi select
+Grupo - multi-selección
+
+# Group - single select
+Grupo - selección única
+
+# High
+Alto
+
+# Increment
+Incremento
+
+# JavaScript
+JavaScript
+
+# Languages
+Idiomas
+
+# Low
+Bajo
+
+# Medium
+Mediano
+
+# Multiple mode accumulates selections; tapping a selected chip removes it.
+El modo múltiple acumula selecciones; al tocar una etiqueta seleccionada se elimina.
+
+# Pick any combination.
+Elige cualquier combinación.
+
+# Priority
+Prioridad
+
+# Removable
+Removible
+
+# Selected:
+Seleccionado:
+
+# States
+Estados
+
+# Static label
+Etiqueta estática
+
+# TypeScript
+TypeScript
+
+# With count
+Con conteo
+
+# With icon
+Con icono
+

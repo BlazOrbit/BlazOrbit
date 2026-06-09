@@ -1,0 +1,391 @@
+@page "/components/charts"
+
+@inject IStringLocalizer<ChartsPage> Loc
+
+<DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["Charts"]"
+         Lede="@Loc["Rich SVG charting library for Blazor. 15 chart types from bar and line to gauge and heatmap, with zero external dependencies."]"
+         Keywords="@(["charts", "dashboard", "data visualization", "BlazOrbit.Charts", "installation", "SVG"])">
+
+    <BOBBanner Severity="BOBBannerSeverity.Warning"
+               Title="@Loc["Extra package required"]"
+               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]"/>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Installation"]</h2>
+        <p class="doc-section__description">
+            @Loc["The chart components ship in a separate BlazOrbit.Charts NuGet package. Install it, register the services, and add the chart-specific stylesheet:"]
+        </p>
+
+        <BOBCodeBlock Title="Terminal"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="dotnet add package BlazOrbit.Charts"/>
+
+        <BOBCodeBlock Title="Program.cs"
+                      Language="SyntaxHighlightLanguage.CSharp"
+                      Code="@_programCs"/>
+
+        <BOBCodeBlock Title="wwwroot/index.html (WASM) or App.razor (Server)"
+                      Language="SyntaxHighlightLanguage.Razor"
+                      Code="@_cssLink"/>
+
+        <div class="doc-callout doc-callout--info">
+            <span class="doc-callout__icon">ℹ️</span>
+            <div>
+                @Loc["The Charts package depends on BlazOrbit.Core and BlazOrbit, so you still need AddBlazOrbit() in your service registration. The stylesheet must be added after the main blazorbit.css link."]
+            </div>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Dashboard overview"]</h2>
+        <p class="doc-section__description">
+            @Loc["All charts are rendered as pure SVG with no external JavaScript dependencies. They support responsive sizing, tooltips, export to PNG, and full keyboard accessibility."]
+        </p>
+    </section>
+
+    @* KPI row - auto-fit grid keeps tiles equal-width and reflows to one column on narrow viewports. *@
+    <section class="charts-preview__kpi-row">
+        <BOBStatCard Label="@Loc["Revenue"]"
+                     Value="$124K"
+                     Delta="+12.5%"
+                     DeltaTrend="BOBStatTrend.Up"
+                     DeltaCaption="@Loc["vs last month"]"
+                     Icon="@BOBIconKeys.MaterialIconsOutlined.i_paid">
+            <Sparkline>
+                <BOBLineChart TX="int" TY="double"
+                              Series="_sparkRevenue"
+                              Sparkline="true"
+                              ShowMarkers="false"
+                              Width="120" Height="32"/>
+            </Sparkline>
+        </BOBStatCard>
+        <BOBStatCard Label="@Loc["Active users"]"
+                     Value="8,420"
+                     Delta="+5.2%"
+                     DeltaTrend="BOBStatTrend.Up"
+                     DeltaCaption="@Loc["vs last week"]"
+                     Icon="@BOBIconKeys.MaterialIconsOutlined.i_group">
+            <Sparkline>
+                <BOBLineChart TX="int" TY="double"
+                              Series="_sparkUsers"
+                              Sparkline="true"
+                              ShowMarkers="false"
+                              Smooth="true"
+                              Width="120" Height="32"/>
+            </Sparkline>
+        </BOBStatCard>
+        <BOBStatCard Label="@Loc["Conversion"]"
+                     Value="3.8%"
+                     Delta="-0.4%"
+                     DeltaTrend="BOBStatTrend.Down"
+                     DeltaCaption="@Loc["vs last week"]"
+                     Icon="@BOBIconKeys.MaterialIconsOutlined.i_trending_down">
+            <Sparkline>
+                <BOBLineChart TX="int" TY="double"
+                              Series="_sparkConversion"
+                              Sparkline="true"
+                              ShowMarkers="false"
+                              Width="120" Height="32"/>
+            </Sparkline>
+        </BOBStatCard>
+        <BOBStatCard Label="@Loc["Server load"]"
+                     Value="72%"
+                     Delta="0%"
+                     DeltaTrend="BOBStatTrend.Flat"
+                     DeltaCaption="@Loc["stable"]"
+                     Icon="@BOBIconKeys.MaterialIconsOutlined.i_memory">
+            <Sparkline>
+                <BOBLineChart TX="int" TY="double"
+                              Series="_sparkServer"
+                              Sparkline="true"
+                              ShowMarkers="false"
+                              Width="120" Height="32"/>
+            </Sparkline>
+        </BOBStatCard>
+    </section>
+
+    @* Main row - 2fr / 1fr keeps the trend chart wide and the donut compact.
+       Reflows to a single column under 960px. *@
+    <section class="charts-preview__grid">
+        <BOBCard>
+            <Header><h3 class="charts-preview__card-title">@Loc["Quarterly revenue"]</h3></Header>
+            <ChildContent>
+                <BOBBarChart TX="string" TY="decimal"
+                             Series="_barSeries"
+                             Height="300"/>
+            </ChildContent>
+        </BOBCard>
+        <BOBCard>
+            <Header><h3 class="charts-preview__card-title">@Loc["Market share"]</h3></Header>
+            <ChildContent>
+                <div class="charts-preview__center">
+                    <BOBDonutChart TY="decimal"
+                                   Slices="_donutSlices"
+                                   Width="240" Height="240"/>
+                </div>
+            </ChildContent>
+        </BOBCard>
+    </section>
+
+    <section class="charts-preview__grid">
+        <BOBCard>
+            <Header><h3 class="charts-preview__card-title">@Loc["Traffic trend"]</h3></Header>
+            <ChildContent>
+                <BOBLineChart TX="string" TY="decimal"
+                              Series="_lineSeries"
+                              Smooth="true"
+                              Height="300"/>
+            </ChildContent>
+        </BOBCard>
+        <BOBCard>
+            <Header><h3 class="charts-preview__card-title">@Loc["Server health"]</h3></Header>
+            <ChildContent>
+                <div class="charts-preview__center">
+                    <BOBGaugeChart Value="72"
+                                   Caption="@Loc["CPU usage"]" Unit="%"
+                                   Segments="_cpuZones"
+                                   Width="240" Height="220"/>
+                </div>
+            </ChildContent>
+        </BOBCard>
+    </section>
+
+    @* Phase 3 row - hierarchical Treemap + Sankey flow. 1fr / 1fr because both
+       benefit from equal width to keep their interior cells legible. *@
+    <section class="charts-preview__grid charts-preview__grid--even">
+        <BOBCard>
+            <Header><h3 class="charts-preview__card-title">@Loc["Portfolio breakdown"]</h3></Header>
+            <ChildContent>
+                <BOBTreemapChart TY="decimal"
+                                 Nodes="_treemapNodes"
+                                 Padding="3"
+                                 Height="320"/>
+            </ChildContent>
+        </BOBCard>
+    </section>
+
+</DocPage>
+
+<style>
+    /* Mirrors the layout `blazorbit-server -IncludeCharts` ships in
+       `Pages/Home.charts.razor.css` so the docs preview matches the
+       experience a template user gets after `dotnet new blazorbit-server`. */
+
+    .charts-preview__kpi-row {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1rem;
+        margin: 1.5rem 0 0;
+    }
+
+    .charts-preview__grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 1rem;
+        margin: 1.5rem 0 0;
+    }
+
+    .charts-preview__grid--even {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    /* Each card stretches to the row's tallest peer; the SVG inside fills the
+       remaining width without exceeding the explicit Height parameter.
+       BOBCard / BOBStatCard render as bob-component roots, so target the
+       grid's direct children rather than a class name. */
+    .charts-preview__grid > *,
+    .charts-preview__kpi-row > * {
+        height: 100%;
+    }
+
+    .charts-preview__grid [data-bob-component$="-chart"] {
+        width: 100%;
+    }
+
+    .charts-preview__center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .charts-preview__card-title {
+        margin: 0;
+        font-size: 1.05rem;
+        font-weight: 600;
+        color: var(--palette-surface-contrast);
+    }
+
+    @@media (max-width: 960px) {
+        .charts-preview__grid,
+        .charts-preview__grid--even {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+@code {
+
+    private const string _programCs = """
+builder.Services.AddBlazOrbit();
+builder.Services.AddBlazOrbitCharts();
+""";
+
+    private const string _cssLink = """
+<link href="_content/BlazOrbit/css/blazorbit.css" rel="stylesheet" />
+<link href="_content/BlazOrbit.Charts/css/blazorbit-charts.css" rel="stylesheet" />
+""";
+
+    // Sparkline data
+    private static readonly IEnumerable<BOBChartSeries<int, double>> _sparkRevenue =
+    [
+        new BOBChartSeries<int, double>
+        {
+            Label = "Revenue",
+            Points =
+            [
+                new BOBChartPoint<int, double>(0, 95),
+                new BOBChartPoint<int, double>(1, 102),
+                new BOBChartPoint<int, double>(2, 98),
+                new BOBChartPoint<int, double>(3, 110),
+                new BOBChartPoint<int, double>(4, 115),
+                new BOBChartPoint<int, double>(5, 108),
+                new BOBChartPoint<int, double>(6, 124)
+            ]
+        }
+    ];
+
+    private static readonly IEnumerable<BOBChartSeries<int, double>> _sparkUsers =
+    [
+        new BOBChartSeries<int, double>
+        {
+            Label = "Users",
+            Points =
+            [
+                new BOBChartPoint<int, double>(0, 72),
+                new BOBChartPoint<int, double>(1, 75),
+                new BOBChartPoint<int, double>(2, 74),
+                new BOBChartPoint<int, double>(3, 78),
+                new BOBChartPoint<int, double>(4, 80),
+                new BOBChartPoint<int, double>(5, 82),
+                new BOBChartPoint<int, double>(6, 84)
+            ]
+        }
+    ];
+
+    private static readonly IEnumerable<BOBChartSeries<int, double>> _sparkConversion =
+    [
+        new BOBChartSeries<int, double>
+        {
+            Label = "Conversion",
+            Points =
+            [
+                new BOBChartPoint<int, double>(0, 4.2),
+                new BOBChartPoint<int, double>(1, 4.0),
+                new BOBChartPoint<int, double>(2, 3.9),
+                new BOBChartPoint<int, double>(3, 3.8),
+                new BOBChartPoint<int, double>(4, 3.7),
+                new BOBChartPoint<int, double>(5, 3.8),
+                new BOBChartPoint<int, double>(6, 3.8)
+            ]
+        }
+    ];
+
+    private static readonly IEnumerable<BOBChartSeries<int, double>> _sparkServer =
+    [
+        new BOBChartSeries<int, double>
+        {
+            Label = "Load",
+            Points =
+            [
+                new BOBChartPoint<int, double>(0, 65),
+                new BOBChartPoint<int, double>(1, 68),
+                new BOBChartPoint<int, double>(2, 70),
+                new BOBChartPoint<int, double>(3, 72),
+                new BOBChartPoint<int, double>(4, 71),
+                new BOBChartPoint<int, double>(5, 73),
+                new BOBChartPoint<int, double>(6, 72)
+            ]
+        }
+    ];
+
+    // Main chart data
+    private static readonly IEnumerable<BOBChartSeries<string, decimal>> _barSeries =
+    [
+        new BOBChartSeries<string, decimal>
+        {
+            Label = "Revenue",
+            Points =
+            [
+                new BOBChartPoint<string, decimal>("Q1", 120m),
+                new BOBChartPoint<string, decimal>("Q2", 150m),
+                new BOBChartPoint<string, decimal>("Q3", 180m),
+                new BOBChartPoint<string, decimal>("Q4", 210m)
+            ]
+        }
+    ];
+
+    private static readonly IEnumerable<BOBChartSeries<string, decimal>> _lineSeries =
+    [
+        new BOBChartSeries<string, decimal>
+        {
+            Label = "Visitors",
+            Points =
+            [
+                new BOBChartPoint<string, decimal>("Jan", 1200m),
+                new BOBChartPoint<string, decimal>("Feb", 1450m),
+                new BOBChartPoint<string, decimal>("Mar", 1380m),
+                new BOBChartPoint<string, decimal>("Apr", 1680m),
+                new BOBChartPoint<string, decimal>("May", 1920m),
+                new BOBChartPoint<string, decimal>("Jun", 2150m)
+            ]
+        }
+    ];
+
+    private static readonly IEnumerable<BOBChartSlice<decimal>> _donutSlices =
+    [
+        new BOBChartSlice<decimal> { Label = "EMEA", Value = 45m },
+        new BOBChartSlice<decimal> { Label = "Americas", Value = 35m },
+        new BOBChartSlice<decimal> { Label = "APAC", Value = 20m }
+    ];
+
+    private static readonly IEnumerable<BOBChartGaugeSegment> _cpuZones =
+    [
+        new BOBChartGaugeSegment { From = 0, To = 60, Color = "var(--palette-success)" },
+        new BOBChartGaugeSegment { From = 60, To = 85, Color = "var(--palette-warning)" },
+        new BOBChartGaugeSegment { From = 85, To = 100, Color = "var(--palette-error)" }
+    ];
+
+    // Phase 3 dashboard data - portfolio Treemap + conversion-funnel Sankey.
+    private static readonly BOBChartTreemapNode<decimal>[] _treemapNodes =
+    [
+        new BOBChartTreemapNode<decimal>
+        {
+            Label = "Tech",
+            Children =
+            [
+                new BOBChartTreemapNode<decimal> { Label = "AAPL", Value = 320m },
+                new BOBChartTreemapNode<decimal> { Label = "MSFT", Value = 280m },
+                new BOBChartTreemapNode<decimal> { Label = "NVDA", Value = 240m }
+            ]
+        },
+        new BOBChartTreemapNode<decimal>
+        {
+            Label = "Finance",
+            Children =
+            [
+                new BOBChartTreemapNode<decimal> { Label = "JPM", Value = 140m },
+                new BOBChartTreemapNode<decimal> { Label = "BAC", Value = 95m }
+            ]
+        },
+        new BOBChartTreemapNode<decimal>
+        {
+            Label = "Energy",
+            Children =
+            [
+                new BOBChartTreemapNode<decimal> { Label = "XOM", Value = 110m },
+                new BOBChartTreemapNode<decimal> { Label = "CVX", Value = 80m }
+            ]
+        }
+    ];
+
+}

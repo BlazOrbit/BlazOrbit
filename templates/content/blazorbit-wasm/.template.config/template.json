@@ -1,0 +1,112 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "BlazOrbit",
+  "classifications": ["Web", "Blazor", "BlazOrbit"],
+  "identity": "BlazOrbit.Wasm",
+  "name": "BlazOrbit WebAssembly App",
+  "shortName": "blazorbit-wasm",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "BlazorApp",
+  "preferNameDirectory": true,
+  "symbols": {
+    "Framework": {
+      "type": "parameter",
+      "description": "The target framework for the project.",
+      "datatype": "choice",
+      "choices": [
+        { "choice": "net8.0", "description": "Target .NET 8.0" },
+        { "choice": "net10.0", "description": "Target .NET 10.0" }
+      ],
+      "defaultValue": "net8.0",
+      "replaces": "net8.0"
+    },
+    "IncludeLocalization": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Whether to include BlazOrbit localization support."
+    },
+    "IncludeCharts": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Whether to include the BlazOrbit.Charts package and replace Home with a dashboard sample."
+    },
+    "UseNotificationsCenter": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Whether to include BlazOrbit.Notifications package, register AddBlazOrbitNotifications(), and add BOBNotificationBell demo."
+    },
+    "UseHotKeys": {
+      "type": "parameter",
+      "datatype": "bool",
+      "defaultValue": "false",
+      "description": "Whether to include BlazOrbit.Hotkeys package, register AddBlazOrbitHotkeys(), mount BOBHotkeyHost in layout, and add hotkey demo."
+    },
+    "Theme": {
+      "type": "parameter",
+      "datatype": "choice",
+      "defaultValue": "None",
+      "description": "Pre-built visual theme that overrides palette and design tokens.",
+      "choices": [
+        { "choice": "None", "description": "No theme override (default BlazOrbit styling)." },
+        { "choice": "NeoBrutalism", "description": "Ultra-saturated colors, thick black borders, hard shadows, zero radius." },
+        { "choice": "BentoGrid", "description": "Soft pastels, large radius, diffused shadows, airy spacing." },
+        { "choice": "Glassmorphism", "description": "Transparency, blur, subtle borders, gradient backgrounds." },
+        { "choice": "FlatDesign", "description": "Flat vivid colors, no borders or shadows, moderate radius." },
+        { "choice": "MaterialDesign", "description": "Elevated shadows, vivid colors, 4px radius, pronounced ripple." },
+        { "choice": "Neomorphism", "description": "Dual soft shadows, monochrome, wide radius." },
+        { "choice": "Claymorphism", "description": "Warm colors, multiple diffused shadows, very wide radius." },
+        { "choice": "RetroWeb", "description": "Phosphor green/amber on black, monospace font, pixelated, zero radius." }
+      ]
+    }
+  },
+  "sources": [
+    {
+      "source": "./",
+      "target": "./",
+      "modifiers": [
+        { "condition": "(Framework != 'net8.0')", "exclude": ["**/*.net8.*"] },
+        { "condition": "(Framework != 'net10.0')", "exclude": ["**/*.net10.*"] },
+        { "condition": "(Framework != 'net10.0')", "exclude": ["Pages/NotFound.razor"] },
+        { "condition": "(!IncludeLocalization)", "exclude": ["localized/**"] },
+        { "condition": "(IncludeLocalization)", "exclude": ["Program.cs", "Layout/MainLayout.razor", "Layout/NavMenu.razor", "localized/**"] },
+        { "condition": "(Theme == 'None')", "exclude": ["wwwroot/css/theme.css"] },
+        { "exclude": ["Pages/Home.razor", "Pages/Home.razor.css", "Pages/Home.charts.razor", "Pages/Home.charts.razor.css"] }
+      ],
+      "rename": {
+        "App.net8.razor": "App.razor",
+        "App.net10.razor": "App.razor",
+        "wwwroot/index.net8.html": "wwwroot/index.html",
+        "wwwroot/index.net10.html": "wwwroot/index.html",
+        "BlazorApp.net8.csproj": "BlazorApp.csproj",
+        "BlazorApp.net10.csproj": "BlazorApp.csproj"
+      }
+    },
+    {
+      "condition": "(!IncludeCharts)",
+      "source": "./",
+      "target": "./",
+      "include": ["Pages/Home.razor", "Pages/Home.razor.css"]
+    },
+    {
+      "condition": "(IncludeCharts)",
+      "source": "./",
+      "target": "./",
+      "include": ["Pages/Home.charts.razor", "Pages/Home.charts.razor.css"],
+      "rename": {
+        "Pages/Home.charts.razor": "Pages/Home.razor",
+        "Pages/Home.charts.razor.css": "Pages/Home.razor.css"
+      }
+    },
+    {
+      "condition": "(IncludeLocalization)",
+      "source": "localized/",
+      "target": "./"
+    }
+  ]
+}

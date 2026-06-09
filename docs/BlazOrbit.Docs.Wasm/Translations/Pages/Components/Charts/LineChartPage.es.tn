@@ -1,0 +1,86 @@
+// Auto-migrated from LineChartPage.es.resx. Edit freely from now on.
+
+# Add one point
+Agregar un punto
+
+# Annotations
+Anotaciones
+
+# AppendPointsAsync pushes new points at runtime. StreamingWindow caps the FIFO buffer, StreamingFollow slides the zoom window forward and StreamingPaused freezes the visible state without dropping incoming data. Press Start to watch a live latency feed.
+AppendPointsAsync envía nuevos puntos en tiempo de ejecución. StreamingWindow limita el búfer FIFO, StreamingFollow desliza la ventana de zoom hacia adelante y StreamingPaused congela el estado visible sin descartar datos entrantes. Presiona Iniciar para ver una transmisión de latencia en vivo.
+
+# Basic usage (numeric X)
+Uso básico (X numérico)
+
+# BOBLineChart
+BOBLineChart
+
+# Chart
+Gráfico
+
+# Continuous line chart with smooth curves, per-point markers, tooltips, zoom, annotations, and live streaming. Supports numeric, temporal, or categorical axes.
+Gráfico de líneas continuo con curvas suaves, marcadores por punto, tooltips, zoom, anotaciones y transmisión en vivo. Soporta ejes numéricos, temporales o categóricos.
+
+# Crosshair
+Cursor cruzado
+
+# Custom tooltip
+Información sobre herramienta personalizada
+
+# DateTime / DateTimeOffset / TimeSpan TX is auto-detected. Use BOBChartAxis.Format to control the tick label format.
+DateTime / DateTimeOffset / TimeSpan TX se detectan automáticamente. Usa BOBChartAxis.Format para controlar el formato de las etiquetas de las marcas.
+
+# Extra package required
+Paquete adicional requerido
+
+# Horizontal threshold lines rendered over the grid but under the markers.
+Líneas de umbral horizontales dibujadas sobre la cuadrícula pero debajo de los marcadores.
+
+# Live streaming
+Transmisión en vivo
+
+# Mix text labels, vertical bands and symbol markers (Circle / Square / Triangle / Star / Diamond) at any data coordinate. Each annotation supports color, CSS class and pixel offsets - ideal for release markers, anomaly callouts and SLA windows.
+Mezcla etiquetas de texto, bandas verticales y marcadores de símbolo (Círculo / Cuadrado / Triángulo / Estrella / Diamante) en cualquier coordenada de datos. Cada anotación soporta color, clase CSS y desplazamientos en píxeles: ideal para marcadores de lanzamiento, llamadas de anomalías y ventanas SLA.
+
+# Multi-series with markers off
+Multi-serie con marcadores desactivados
+
+# Reference lines
+Líneas de referencia
+
+# Reset
+Restablecer
+
+# ShowCrosshair tracks the mouse X and highlights the nearest point per series, rendering an HTML readout with the current values.
+ShowCrosshair sigue el ratón X y resalta el punto más cercano por serie, renderizando una lectura HTML con los valores actuales.
+
+# Smooth interpolation
+Interpolación suave
+
+# Smooth=true draws a Catmull-Rom-style cubic bezier curve through the points instead of straight segments.
+Smooth=true dibuja una curva de bezier cúbica estilo Catmull-Rom a través de los puntos en lugar de segmentos rectos.
+
+# Stacked lines
+Líneas apiladas
+
+# Stacked=true cumulates Y values so each series follows the running total. Useful for decomposition charts (e.g. revenue by region over time).
+Stacked=true acumula valores Y para que cada serie siga el total acumulado. Útil para gráficos de descomposición (por ejemplo, ingresos por región a lo largo del tiempo).
+
+# Supply a TooltipTemplate to replace the default tooltip with your own markup.
+Proporciona un TooltipTemplate para reemplazar el tooltip predeterminado con tu propio marcado.
+
+# Temporal X axis
+Eje X temporal
+
+# This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs.
+Este gráfico requiere el paquete NuGet BlazOrbit.Charts. Instálalo con dotnet add package BlazOrbit.Charts y registra AddBlazOrbitCharts() en Program.cs.
+
+# Zoom and brush
+Zoom y pincel
+
+# ZoomEnabled adds wheel-to-zoom and double-click-to-reset. BrushEnabled adds drag-to-select with an optional OnBrush callback. Both require a continuous X axis.
+ZoomEnabled añade zoom con rueda y doble clic para restablecer. BrushEnabled añade arrastrar para seleccionar con un callback OnBrush opcional. Ambos requieren un eje X continuo.
+
+
+# The X axis is auto-detected from the data type: numeric, <code>DateTime</code> / <code>DateTimeOffset</code> / <code>TimeSpan</code>, or categorical string labels. Advanced features include smooth Bezier interpolation, zoom + brush, crosshair tracking, annotation lines, and live streaming - all rendered as pure SVG without external chart dependencies.
+El eje X se detecta automáticamente a partir del tipo de datos: numérico, <code>DateTime</code> / <code>DateTimeOffset</code> / <code>TimeSpan</code>, o etiquetas de cadena categóricas. Las funciones avanzadas incluyen interpolación Bezier suave, zoom + brush, seguimiento de crosshair, líneas de anotación y streaming en vivo, todo renderizado como SVG puro sin dependencias de gráficos externas.

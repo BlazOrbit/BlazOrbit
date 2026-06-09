@@ -1,4 +1,5 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
+using BlazOrbit.CodeBlock.Components;
 using BlazOrbit.SyntaxHighlight;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -34,7 +35,7 @@ public class BOBCodeBlockAccessibilityTests
         IRenderedComponent<BOBCodeBlock> cut = ctx.Render<BOBCodeBlock>(p => p
             .Add(c => c.Code, "var x = 1;"));
 
-        // Assert — type=button prevents accidental form submission
+        // Assert - type=button prevents accidental form submission
         cut.Find("button").GetAttribute("type").Should().Be("button");
     }
 
@@ -64,7 +65,7 @@ public class BOBCodeBlockAccessibilityTests
             .Add(c => c.Code, "{}")
             .Add(c => c.Language, SyntaxHighlightLanguage.Json));
 
-        // Assert — visible title helps screen reader context
+        // Assert - visible title helps screen reader context
         cut.Find(".bob-code-block__title").TextContent.Should().Be("JSON");
     }
 }

@@ -1,0 +1,134 @@
+@using System.Globalization
+@using BlazOrbit.Abstractions
+
+@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+
+@inherits BOBComponentBase
+@implements IHasSize
+
+<bob-component @attributes="ComputedAttributes"
+               data-bob-orientation="@OrientationToken"
+               data-bob-alternating="@(IsAlternating ? "true" : null)">
+    @if (Items is { Count: > 0 })
+    {
+        @if (GroupByDate && Orientation == BOBTimelineOrientation.Vertical)
+        {
+            var index = 0;
+            @foreach (var group in GroupedItems)
+            {
+                <div class="bob-timeline__group">
+                    <div class="bob-timeline__group-header">
+                        @group.Key.ToString(DateFormat, CultureInfo.CurrentCulture)
+                    </div>
+                    <ol class="bob-timeline__list" role="list">
+                        @foreach (var item in group)
+                        {
+                            @RenderEntry(item, index++)
+                        }
+                    </ol>
+                </div>
+            }
+        }
+        else
+        {
+            <ol class="bob-timeline__list" role="list">
+                @{ var index = 0; }
+                @foreach (var item in Items)
+                {
+                    @RenderEntry(item, index++)
+                }
+            </ol>
+        }
+    }
+</bob-component>
+
+@code {
+
+    /// <summary>Sequence of events rendered along the timeline rail.</summary>
+    [Parameter]
+    public IReadOnlyList<TimelineItem>? Items { get; set; }
+
+    /// <summary>Layout direction. Defaults to <see cref="BOBTimelineOrientation.Vertical"/>.</summary>
+    [Parameter]
+    public BOBTimelineOrientation Orientation { get; set; } = BOBTimelineOrientation.Vertical;
+
+    /// <summary>
+    /// When <see langword="true"/> and <see cref="Orientation"/> is vertical, alternate
+    /// odd/even entries to opposite sides of the rail. Ignored for horizontal layouts.
+    /// </summary>
+    [Parameter]
+    public bool Alternating { get; set; }
+
+    /// <summary>Custom rendering for the body of an entry. Defaults to title + description.</summary>
+    [Parameter]
+    public RenderFragment<TimelineItem>? ItemTemplate { get; set; }
+
+    /// <summary>
+    /// When <see langword="true"/> and the orientation is vertical, group entries under a
+    /// per-day header derived from <see cref="TimelineItem.Timestamp"/>.
+    /// </summary>
+    [Parameter]
+    public bool GroupByDate { get; set; }
+
+    /// <summary>Custom format for the per-day header. Defaults to <c>yyyy-MM-dd</c>.</summary>
+    [Parameter]
+    public string DateFormat { get; set; } = "yyyy-MM-dd";
+
+    /// <summary>Custom format for each entry's timestamp label. Defaults to <c>HH:mm</c>.</summary>
+    [Parameter]
+    public string TimeFormat { get; set; } = "HH:mm";
+
+    /// <summary>Visual size of the marker dots and inner icons.</summary>
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
+
+    private bool IsAlternating => Alternating && Orientation == BOBTimelineOrientation.Vertical;
+
+    private string OrientationToken => Orientation == BOBTimelineOrientation.Horizontal ? "horizontal" : "vertical";
+
+    private IEnumerable<IGrouping<DateOnly, TimelineItem>> GroupedItems =>
+        (Items ?? [])
+        .GroupBy(item => DateOnly.FromDateTime(item.Timestamp.LocalDateTime))
+        .OrderBy(g => g.Key);
+
+    private RenderFragment RenderEntry(TimelineItem item, int index) => __builder =>
+    {
+        // Side calculation only matters when alternating; otherwise the CSS just keeps the
+        // standard rail-on-the-left shape.
+        var side = IsAlternating ? index % 2 == 0 ? "start" : "end" : null;
+
+        <li class="bob-timeline__entry"
+            data-bob-side="@side"
+            style="@MarkerStyle(item)">
+            <div class="bob-timeline__marker" aria-hidden="true">
+                @if (item.Icon.HasValue)
+                {
+                    <BOBSvgIcon Icon="@item.Icon.Value" Size="@Size"/>
+                }
+            </div>
+            <div class="bob-timeline__content">
+                @if (ItemTemplate is not null)
+                {
+                    @ItemTemplate(item)
+                }
+                else
+                {
+                    <time class="bob-timeline__time"
+                          datetime="@item.Timestamp.ToString("o", CultureInfo.InvariantCulture)">
+                        @item.Timestamp.ToString(TimeFormat, CultureInfo.CurrentCulture)
+                    </time>
+                    <div class="bob-timeline__title">@item.Title</div>
+                    @if (!string.IsNullOrEmpty(item.Description))
+                    {
+                        <p class="bob-timeline__description">@item.Description</p>
+                    }
+                }
+            </div>
+        </li>
+    };
+
+    private static string? MarkerStyle(TimelineItem item) =>
+        string.IsNullOrEmpty(item.Color) ? null : $"{FeatureDefinitions.InlineVariables.Color}:{item.Color};";
+
+}

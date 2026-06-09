@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using Microsoft.AspNetCore.Components;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -30,21 +30,22 @@ public class ComponentParameterAuditTests
     /// <c>AdditionalAttributes</c>. Each entry must explain why it is allowed.
     ///
     /// <para>Key format:
-    ///   <c>"AttributeName"</c> — applies to every component.
-    ///   <c>"ComponentName|AttributeName"</c> — applies to one component only.
+    ///   <c>"AttributeName"</c> - applies to every component.
+    ///   <c>"ComponentName|AttributeName"</c> - applies to one component only.
     /// </para>
     /// </summary>
     private static readonly Dictionary<string, string> AttributeAllowlist = new(StringComparer.Ordinal)
     {
         ["TrackPerformanceEnabled"] =
-            "Debug-only flag read from AdditionalAttributes by BOBComponentBase pipeline; not a [Parameter].",
+            "Debug-only flag read from AdditionalAttributes by BOBComponentBase pipeline; not a [Parameter]."
     };
 
     [Fact]
     public void Should_Only_Pass_Declared_Parameters_To_Components()
     {
         Dictionary<string, Type> componentTypes = LoadComponentTypesByName();
-        (Dictionary<string, HashSet<string>> parameterIndex, Dictionary<string, bool> hasCaptureUnmatchedValues) = BuildParameterIndex(componentTypes);
+        (Dictionary<string, HashSet<string>> parameterIndex, Dictionary<string, bool> hasCaptureUnmatchedValues) =
+            BuildParameterIndex(componentTypes);
         List<string> violations = [];
 
         foreach (string file in EnumerateRazorFiles())
@@ -62,7 +63,8 @@ public class ComponentParameterAuditTests
                     continue;
                 }
 
-                bool componentSupportsAdditionalAttributes = hasCaptureUnmatchedValues.GetValueOrDefault(tagName, false);
+                bool componentSupportsAdditionalAttributes =
+                    hasCaptureUnmatchedValues.GetValueOrDefault(tagName, false);
 
                 foreach (string attr in attrs)
                 {
@@ -88,19 +90,128 @@ public class ComponentParameterAuditTests
                     }
 
                     string relativePath = file.Replace(RepoRoot + Path.DirectorySeparatorChar, "");
-                    violations.Add($"{relativePath}({lineNumber}): <{tagName}> attribute '" + attr + "' is not a known parameter or type parameter, and the component does not support AdditionalAttributes (no CaptureUnmatchedValues).");
+                    violations.Add($"{relativePath}({lineNumber}): <{tagName}> attribute '" + attr +
+                                   "' is not a known parameter or type parameter, and the component does not support AdditionalAttributes (no CaptureUnmatchedValues).");
                 }
             }
         }
 
         violations.Should().BeEmpty(
-            because: "every PascalCase attribute passed to a BlazOrbit component that does NOT support " +
-                     "AdditionalAttributes must be a declared [Parameter] (or a generic type parameter). " +
-                     "If the component has CaptureUnmatchedValues=true (directly or via inheritance), " +
-                     "unknown attributes are forwarded to the DOM and are therefore allowed. " +
-                     "Components without CaptureUnmatchedValues will cause a runtime/compile-time error " +
-                     "when passed unknown attributes.\n\n" +
-                     string.Join("\n", violations));
+            "every PascalCase attribute passed to a BlazOrbit component that does NOT support " +
+            "AdditionalAttributes must be a declared [Parameter] (or a generic type parameter). " +
+            "If the component has CaptureUnmatchedValues=true (directly or via inheritance), " +
+            "unknown attributes are forwarded to the DOM and are therefore allowed. " +
+            "Components without CaptureUnmatchedValues will cause a runtime/compile-time error " +
+            "when passed unknown attributes.\n\n" +
+            string.Join("\n", violations));
+    }
+
+    /// <summary>
+    /// Stricter audit (COMP-PARAM-02): even when a component HAS CaptureUnmatchedValues=true,
+    /// PascalCase attribute names that don't match a declared <c>[Parameter]</c> are almost always
+    /// developer typos for an intended parameter. HTML pass-through attributes are kebab-case
+    /// (<c>class</c>, <c>style</c>, <c>data-*</c>, <c>aria-*</c>); a stray PascalCase name (e.g.
+    /// <c>LeadingIcon</c>, <c>Text</c>, <c>Color</c>) means the value silently falls into
+    /// <c>AdditionalAttributes</c> and renders as inert HTML - the exact failure mode that hid the
+    /// <c>_BOBInBtn</c> save-button regression in BOBDataGrid/BOBDataCards.
+    ///
+    /// Companion: <see cref="Stricter_Audit_Should_Flag_Pascal_Typos_Even_When_Component_Captures_Unmatched"/>
+    /// proves this rule's parser+index correctly identifies the bug pattern on synthetic input.
+    /// </summary>
+    [Fact]
+    public void Should_Reject_Unknown_PascalCase_Attributes_Even_On_Components_With_CaptureUnmatchedValues()
+    {
+        Dictionary<string, Type> componentTypes = LoadComponentTypesByName();
+        (Dictionary<string, HashSet<string>> parameterIndex, _) = BuildParameterIndex(componentTypes);
+        List<string> violations = [];
+
+        foreach (string file in EnumerateRazorFiles())
+        {
+            string content = File.ReadAllText(file);
+            foreach ((string tagName, List<string> attrs, int lineNumber) in ExtractComponentUsages(content))
+            {
+                if (!parameterIndex.TryGetValue(tagName, out HashSet<string>? validParams))
+                {
+                    continue;
+                }
+
+                foreach (string attr in attrs)
+                {
+                    if (validParams.Contains(attr))
+                    {
+                        continue;
+                    }
+
+                    string genericKey = attr;
+                    string specificKey = $"{tagName}|{attr}";
+                    if (AttributeAllowlist.ContainsKey(genericKey) || AttributeAllowlist.ContainsKey(specificKey))
+                    {
+                        continue;
+                    }
+
+                    string relativePath = file.Replace(RepoRoot + Path.DirectorySeparatorChar, "");
+                    violations.Add(
+                        $"{relativePath}({lineNumber}): <{tagName}> attribute '{attr}' is not a declared " +
+                        "[Parameter]. PascalCase attributes are reserved for component parameters; " +
+                        "HTML pass-through attributes are kebab-case (class, style, data-*, aria-*). " +
+                        "A PascalCase name that falls into AdditionalAttributes is almost always a typo.");
+                }
+            }
+        }
+
+        violations.Should().BeEmpty(
+            "PascalCase attrs that silently fall into AdditionalAttributes hide contract drift " +
+            "(see COMP-PARAM-02 in AGENTS.md / ARCHITECTURE.md). Either: (a) the attribute is a " +
+            "typo for a real [Parameter] - rename it; (b) the component lacks the [Parameter] - " +
+            "add it; or (c) the attribute is genuinely meant for DOM pass-through - switch it to " +
+            "kebab-case so the intent is explicit.\n\n" +
+            string.Join("\n", violations));
+    }
+
+    /// <summary>
+    /// Meta-test for COMP-PARAM-02: feeds synthetic Razor content that reproduces the original
+    /// <c>_BOBInBtn(LeadingIcon=…, Text=…)</c> misuse pattern into the same extractor + index the
+    /// real audit uses, and verifies the unmatched-param detection isolates the typos. Guarantees
+    /// the stricter rule is not vacuous - if a contributor reintroduces the bug pattern, the audit
+    /// above will flag it because the underlying detector demonstrably catches it here.
+    /// </summary>
+    [Fact]
+    public void Stricter_Audit_Should_Flag_Pascal_Typos_Even_When_Component_Captures_Unmatched()
+    {
+        const string SyntheticMarkup = """
+            <div>
+                <_BOBInBtn Icon="@Foo" LeadingIcon="@Bar" Text="@Baz"
+                           Color="@Qux" OnClick="@Click" />
+            </div>
+            """;
+
+        List<(string TagName, List<string> Attributes, int LineNumber)> usages =
+            ExtractComponentUsages(SyntheticMarkup).ToList();
+
+        usages.Should().HaveCount(1, "synthetic markup contains exactly one component tag");
+        (string tagName, List<string> attrs, int _) = usages[0];
+        tagName.Should().Be("_BOBInBtn");
+        attrs.Should().Contain(["Icon", "LeadingIcon", "Text", "Color", "OnClick"]);
+
+        Dictionary<string, Type> componentTypes = LoadComponentTypesByName();
+        componentTypes.Should().ContainKey("_BOBInBtn",
+            "the meta-test depends on _BOBInBtn being discoverable in loaded BlazOrbit assemblies");
+        (Dictionary<string, HashSet<string>> parameterIndex, Dictionary<string, bool> hasCapture) =
+            BuildParameterIndex(componentTypes);
+
+        // Sanity: the component does capture unmatched values - otherwise the original audit
+        // would have caught the bug and there'd be no gap to close.
+        hasCapture["_BOBInBtn"].Should().BeTrue(
+            "the gap exists precisely because _BOBInBtn uses CaptureUnmatchedValues for HTML pass-through");
+
+        HashSet<string> validParams = parameterIndex["_BOBInBtn"];
+        validParams.Should().Contain("Icon").And.Contain("OnClick");
+        validParams.Should().NotContain("LeadingIcon").And.NotContain("Text").And.NotContain("Color");
+
+        // The exact typos the original misuse used, all of which the stricter audit must flag.
+        IEnumerable<string> unmatched = attrs.Where(a => !validParams.Contains(a));
+        unmatched.Should().BeEquivalentTo(["LeadingIcon", "Text", "Color"],
+            "the stricter audit must isolate the PascalCase typos that fell into AdditionalAttributes");
     }
 
     /// <summary>
@@ -132,14 +243,15 @@ public class ComponentParameterAuditTests
             {
                 if (parameters.Contains(attrName))
                 {
-                    stale.Add($"AttributeAllowlist[{key}] - {tagName} now declares '{attrName}' as a [Parameter]; remove the entry.");
+                    stale.Add(
+                        $"AttributeAllowlist[{key}] - {tagName} now declares '{attrName}' as a [Parameter]; remove the entry.");
                 }
             }
         }
 
         stale.Should().BeEmpty(
-            because: "stale allowlist entries hide future drift. Remove the entries listed below.\n\n" +
-                     string.Join("\n", stale));
+            "stale allowlist entries hide future drift. Remove the entries listed below.\n\n" +
+            string.Join("\n", stale));
     }
 
     // =====================================================================
@@ -155,7 +267,7 @@ public class ComponentParameterAuditTests
         string[] assemblyPaths =
         [
             Path.Combine(testAssemblyDir, "BlazOrbit.dll"),
-            Path.Combine(testAssemblyDir, "BlazOrbit.Core.dll"),
+            Path.Combine(testAssemblyDir, "BlazOrbit.Core.dll")
         ];
 
         foreach (string path in assemblyPaths)
@@ -222,9 +334,9 @@ public class ComponentParameterAuditTests
             while (current is not null && current != typeof(object))
             {
                 foreach (PropertyInfo prop in current.GetProperties(
-                    BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly))
+                             BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly))
                 {
-                    ParameterAttribute? paramAttr = prop.GetCustomAttributes(parameterAttrType, inherit: false)
+                    ParameterAttribute? paramAttr = prop.GetCustomAttributes(parameterAttrType, false)
                         .Cast<ParameterAttribute>()
                         .FirstOrDefault();
                     if (paramAttr is not null)
@@ -269,7 +381,8 @@ public class ComponentParameterAuditTests
         }
     }
 
-    private static IEnumerable<(string TagName, List<string> Attributes, int LineNumber)> ExtractComponentUsages(string content)
+    private static IEnumerable<(string TagName, List<string> Attributes, int LineNumber)> ExtractComponentUsages(
+        string content)
     {
         List<(string, List<string>, int)> results = [];
 
@@ -472,4 +585,3 @@ public class ComponentParameterAuditTests
         return dir!.FullName;
     }
 }
-

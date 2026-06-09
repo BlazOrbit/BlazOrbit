@@ -1,4 +1,4 @@
-﻿/* Chess pattern for transparency - used inside addon button */
+/* Chess pattern for transparency - used inside addon button */
 [data-bob-component="input-color"] .bob-input-color__preview-chess {
     width: 100%;
     height: 100%;
@@ -11,6 +11,30 @@
 [data-bob-component="input-color"] .bob-input-color__preview-color {
     width: 100%;
     height: 100%;
+}
+
+/* Color Sample */
+
+[data-bob-component="input-color"][data-bob-variant="outlined"] .bob-input-color__preview-color {
+    border-top-right-radius: var(--bob-input-border-radius);
+    border-bottom-right-radius: var(--bob-input-border-radius);
+}
+
+[data-bob-component="input-color"][data-bob-variant="standard"] .bob-input-color__preview-color,
+[data-bob-component="input-color"][data-bob-variant="filled"] .bob-input-color__preview-color {
+    border-top-right-radius: var(--bob-input-border-radius);
+}
+
+[data-bob-component="input-color"][data-bob-variant="outlined"] .bob-input-color__preview-chess {
+    /* Fix render issue: the browser keeps showing a bit from the back element border when having same shape */
+    border-top-right-radius: calc(var(--bob-input-border-radius) + 0.3px);
+    border-bottom-right-radius: calc(var(--bob-input-border-radius) + 0.3px);
+}
+
+[data-bob-component="input-color"][data-bob-variant="standard"] .bob-input-color__preview-chess,
+[data-bob-component="input-color"][data-bob-variant="filled"] .bob-input-color__preview-chess {
+    /* Fix render issue: the browser keeps showing a bit from the back element border when having same shape */
+    border-top-right-radius: calc(var(--bob-input-border-radius) + 0.3px);
 }
 
 /* Dropdown */

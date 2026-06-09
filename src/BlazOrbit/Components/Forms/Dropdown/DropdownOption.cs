@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Abstractions;
+using BlazOrbit.Abstractions;
 using BlazOrbit.Components.Forms.Dropdown;
 using Microsoft.AspNetCore.Components;
 
@@ -14,22 +14,26 @@ public class DropdownOption<TOption> : ComponentBase, ISelectionOption, IDisposa
     /// <summary>
     /// The content to render for this option.
     /// </summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
     /// <summary>
     /// The parent dropdown container this option is registered with.
     /// </summary>
-    [CascadingParameter] public IDropdownContainer? Container { get; set; }
+    [CascadingParameter]
+    public IDropdownContainer? Container { get; set; }
 
     /// <summary>
     /// The rendered content for this option.
     /// </summary>
-    RenderFragment? ISelectionOption.Content => ChildContent ?? (builder => builder.AddContent(0, Text ?? Value?.ToString()));
+    RenderFragment? ISelectionOption.Content =>
+        ChildContent ?? (builder => builder.AddContent(0, Text ?? Value?.ToString()));
 
     /// <summary>
     /// When <see langword="true"/>, forces the option to be disabled.
     /// </summary>
-    [Parameter] public bool Disabled { get; set; }
+    [Parameter]
+    public bool Disabled { get; set; }
 
     /// <summary>
     /// The display text for this option.
@@ -44,12 +48,15 @@ public class DropdownOption<TOption> : ComponentBase, ISelectionOption, IDisposa
     /// <summary>
     /// The display text for this option.
     /// </summary>
-    [Parameter] public string? Text { get; set; }
+    [Parameter]
+    public string? Text { get; set; }
 
     /// <summary>
     /// The value associated with this option.
     /// </summary>
-    [Parameter, EditorRequired] public TOption? Value { get; set; }
+    [Parameter]
+    [EditorRequired]
+    public TOption? Value { get; set; }
 
     /// <summary>
     /// The raw value of this option.
@@ -61,11 +68,13 @@ public class DropdownOption<TOption> : ComponentBase, ISelectionOption, IDisposa
     /// </summary>
     public void Dispose() => Container?.UnregisterOption(this);
 
+    /// <inheritdoc />
     protected override void OnInitialized()
     {
         if (Container == null)
         {
-            throw new InvalidOperationException($"{nameof(DropdownOption<TOption>)} must be used inside a BOBInputDropdown.");
+            throw new InvalidOperationException(
+                $"{nameof(DropdownOption<TOption>)} must be used inside a BOBInputDropdown.");
         }
 
         ValidateOptionType();

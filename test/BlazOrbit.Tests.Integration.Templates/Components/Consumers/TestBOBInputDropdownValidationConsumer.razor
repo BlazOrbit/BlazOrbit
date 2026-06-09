@@ -1,13 +1,13 @@
-﻿@using BlazOrbit.Components.Forms
+@using BlazOrbit.Components.Forms
 @using Microsoft.AspNetCore.Components.Forms
 @using System.ComponentModel.DataAnnotations
 
 <div class="test-dropdown-consumer">
     <EditForm EditContext="_editContext" OnValidSubmit="HandleValid" OnInvalidSubmit="HandleInvalid">
-        <DataAnnotationsValidator />
+        <DataAnnotationsValidator/>
         <BOBInputDropdown TValue="string" @bind-Value="_model.Selected" Label="Option">
-            <DropdownOption TOption="string" Value="@("opt1")" Text="Option 1" />
-            <DropdownOption TOption="string" Value="@("opt2")" Text="Option 2" />
+            <DropdownOption TOption="string" Value="@("opt1")" Text="Option 1"/>
+            <DropdownOption TOption="string" Value="@("opt2")" Text="Option 2"/>
         </BOBInputDropdown>
         <button type="submit" class="submit-btn">Submit</button>
     </EditForm>
@@ -28,12 +28,20 @@
     public Model BoundModel => _model;
     public bool WasSubmitted => _submitResult == "valid";
 
-    private void HandleValid() => _submitResult = "valid";
-    private void HandleInvalid() => _submitResult = "invalid";
+    private void HandleValid()
+    {
+        _submitResult = "valid";
+    }
+
+    private void HandleInvalid()
+    {
+        _submitResult = "invalid";
+    }
 
     public class Model
     {
         [Required(ErrorMessage = "Please select an option")]
         public string? Selected { get; set; }
     }
+
 }

@@ -1,0 +1,47 @@
+// Auto-migrated from AvatarPage.es.resx. Edit freely from now on.
+
+# Background
+Fondo
+
+# BOBAvatar
+BOBAvatar
+
+# BOBAvatar Properties
+Propiedades de BOBAvatar
+
+# BOBAvatarGroup Properties
+Propiedades de BOBAvatarGroup
+
+# By default the group counts its registered children - any avatar past MaxVisible is hidden via CSS and the overflow bubble appears with the remaining count.
+Por defecto el grupo cuenta sus hijos registrados: cualquier avatar más allá de MaxVisible se oculta mediante CSS y aparece la burbuja de desbordamiento con el conteo restante.
+
+# Component
+Componente
+
+# Group with overflow (auto count)
+Grupo con desbordamiento (conteo automático)
+
+# Group with overflow (manual total)
+Grupo con desbordamiento (total manual)
+
+# Image avatar
+Avatar de imagen
+
+# Image avatar with initials fallback (deterministic gradient), shape and status variants. Group with overlap and overflow.
+Avatar de imagen con fallback de iniciales (degradado determinista), variantes de forma y estado. Agrupación con superposición y desbordamiento.
+
+# Initials fallback
+Fallback de iniciales
+
+# Shapes
+Formas
+
+# Sizes
+Tamaños
+
+# Status indicator
+Indicador de estado
+
+# TotalOverride pins the count when the trailing avatars aren't rendered at all (e.g. virtualised lists).
+TotalOverride fija el conteo cuando los avatares finales no se renderizan en absoluto (p. ej., listas virtualizadas).
+

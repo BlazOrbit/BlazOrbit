@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using FluentAssertions;
 using System.Reflection;
 
@@ -15,34 +15,34 @@ public class FeatureDefinitionsTests
 {
     [Fact]
     public void DataAttributes_Component_Should_Follow_Bob_Prefix_Convention()
-        // Assert — data-bob-component is the root data attribute
+        // Assert - data-bob-component is the root data attribute
         => FeatureDefinitions.DataAttributes.Component.Should().StartWith("data-bob-");
 
     [Fact]
     public void DataAttributes_All_Should_Start_With_Data_Bob()
     {
-        // Arrange — collect all string constants from DataAttributes nested class
+        // Arrange - collect all string constants from DataAttributes nested class
         IEnumerable<string> constants = GetStringConstants(typeof(FeatureDefinitions.DataAttributes));
 
-        // Assert — every attribute follows the data-bob-* convention
+        // Assert - every attribute follows the data-bob-* convention
         foreach (string constant in constants)
         {
             constant.Should().StartWith("data-bob-",
-                because: $"DataAttributes constant '{constant}' must follow data-bob-* convention");
+                $"DataAttributes constant '{constant}' must follow data-bob-* convention");
         }
     }
 
     [Fact]
     public void InlineVariables_All_Should_Start_With_Bob_Inline()
     {
-        // Arrange — collect all string constants from InlineVariables nested class
+        // Arrange - collect all string constants from InlineVariables nested class
         IEnumerable<string> constants = GetStringConstants(typeof(FeatureDefinitions.InlineVariables));
 
-        // Assert — every CSS variable follows --bob-inline-* convention
+        // Assert - every CSS variable follows --bob-inline-* convention
         foreach (string constant in constants)
         {
             constant.Should().StartWith("--bob-inline-",
-                because: $"InlineVariables constant '{constant}' must follow --bob-inline-* convention");
+                $"InlineVariables constant '{constant}' must follow --bob-inline-* convention");
         }
     }
 
@@ -54,7 +54,7 @@ public class FeatureDefinitionsTests
         foreach (string constant in constants)
         {
             constant.Should().StartWith("bob-input__",
-                because: $"Input CSS class '{constant}' must use bob-input__ BEM prefix");
+                $"Input CSS class '{constant}' must use bob-input__ BEM prefix");
         }
     }
 
@@ -66,7 +66,7 @@ public class FeatureDefinitionsTests
         foreach (string constant in constants)
         {
             constant.Should().StartWith("bob-picker__",
-                because: $"Picker CSS class '{constant}' must use bob-picker__ BEM prefix");
+                $"Picker CSS class '{constant}' must use bob-picker__ BEM prefix");
         }
     }
 
@@ -79,7 +79,8 @@ public class FeatureDefinitionsTests
     }
 
     [Fact]
-    public void Tags_Component_Should_Be_Bob_Component() => FeatureDefinitions.Tags.Component.Should().Be("bob-component");
+    public void Tags_Component_Should_Be_Bob_Component() =>
+        FeatureDefinitions.Tags.Component.Should().Be("bob-component");
 
     private static IEnumerable<string> GetStringConstants(Type type)
     {

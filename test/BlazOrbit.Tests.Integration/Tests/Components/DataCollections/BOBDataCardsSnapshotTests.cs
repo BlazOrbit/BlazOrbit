@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -11,7 +11,7 @@ public class BOBDataCardsSnapshotTests
 {
     private sealed record Person(string Name, int Age);
 
-    private static IEnumerable<Person> Items => [new Person("Alice", 30), new Person("Bob", 25)];
+    private static IEnumerable<Person> Items => [new("Alice", 30), new("Bob", 25)];
 
     private static RenderFragment Columns => b =>
     {
@@ -52,7 +52,7 @@ public class BOBDataCardsSnapshotTests
                     .Add(c => c.Items, Items)
                     .Add(c => c.Columns, Columns)
                     .Add(c => c.SelectionMode, SelectionMode.Multiple)).GetNormalizedMarkup()
-            },
+            }
         };
 
         await Verify(testCases).UseParameters(scenario.Name);

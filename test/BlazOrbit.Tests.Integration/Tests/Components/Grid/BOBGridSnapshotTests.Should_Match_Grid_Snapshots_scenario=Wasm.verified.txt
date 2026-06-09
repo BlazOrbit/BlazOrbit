@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Name: Default,
     Html: <bob-component data-bob-component="grid" b-<SCOPE>>content</bob-component>

@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -30,7 +30,7 @@ public class BOBSidebarLayoutSnapshotTests
             ("Closed_End", p => p
                 .Add(c => c.SidebarOpen, false)
                 .Add(c => c.SidebarSide, SidebarSide.End)
-                .Add(c => c.ChildContent, b => b.AddContent(0, "Content"))),
+                .Add(c => c.ChildContent, b => b.AddContent(0, "Content")))
         ];
 
         var results = testCases.Select(tc =>
@@ -39,6 +39,6 @@ public class BOBSidebarLayoutSnapshotTests
             return new { tc.Name, Html = cut.GetNormalizedMarkup() };
         }).ToArray();
 
-        await Verifier.Verify(results).UseParameters(scenario.Name);
+        await Verify(results).UseParameters(scenario.Name);
     }
 }

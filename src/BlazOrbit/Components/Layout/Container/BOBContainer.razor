@@ -1,0 +1,22 @@
+@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+
+@inherits BOBComponentBase
+
+<bob-component @attributes="ComputedAttributes"
+               data-bob-size="@SizeToken">
+    @ChildContent
+</bob-component>
+
+@code {
+
+    /// <summary>Max-width tier. Use <see cref="BOBContainerSize.Full"/> to opt out.</summary>
+    [Parameter]
+    public BOBContainerSize Size { get; set; } = BOBContainerSize.Large;
+
+    /// <summary>Inner content of the container.</summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    private string SizeToken => Size.ToString().ToLowerInvariant();
+}

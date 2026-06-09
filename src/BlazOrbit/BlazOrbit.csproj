@@ -1,69 +1,50 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
-	<PropertyGroup>
-		<TargetFrameworks>net8.0;net10.0</TargetFrameworks>
-		<IsPackable>true</IsPackable>
-		<PackageType>Dependency</PackageType>
-		<PackageId>BlazOrbit</PackageId>
-		<Description>A dual-host (Blazor Server and Blazor WebAssembly) component library for .NET 10. Ships styled, themeable, accessible components driven by a reflective `data-bob-*` + CSS-custom-property pipeline, with variants, design tokens, and JS-behavior interop for features like ripples, transitions, and dropdowns.</Description>
-		<PackageTags>blazor;blazor-server;blazor-wasm;components;ui;design-system;material;theming</PackageTags>
-	</PropertyGroup>
-	<!--
-		Exclude build-time scaffolding from the generated .nupkg. These files are created
-		by BuildTools at the project root during maintainer build and are only relevant
-		to the maintainer pipeline — consumers never need them.
-	-->
-	<ItemGroup>
-		<Content Remove="package.json" />
-		<Content Remove="package-lock.json" />
-		<Content Remove="tsconfig.json" />
-		<Content Remove="vite.config.js" />
-		<Content Remove="vite.config.css.js" />
-		<Content Remove=".npmrc" />
-	</ItemGroup>
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+    <PropertyGroup>
+        <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+        <IsPackable>true</IsPackable>
+        <PackageType>Dependency</PackageType>
+        <PackageId>BlazOrbit</PackageId>
+        <Description>A dual-host (Blazor Server and Blazor WebAssembly) component library. C# first, high-performance, and accessible UI design. Lightweight, customizable, open source.</Description>
+        <PackageTags>blazor;blazor-server;blazor-wasm;components;ui;design-system;material;theming</PackageTags>
+    </PropertyGroup>
+    <ItemGroup>
+        <InternalsVisibleTo Include="BlazOrbit.Tests.Integration"/>
+        <InternalsVisibleTo Include="DynamicProxyGenAssembly2"/>
+    </ItemGroup>
 
-	<ItemGroup>
-		<InternalsVisibleTo Include="BlazOrbit.Tests.Integration" />
-		<InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(BlazOrbitAspNetCoreVersion)"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="4.14.0" PrivateAssets="all"/>
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="$(BlazOrbitAspNetCoreVersion)"/>
+    </ItemGroup>
+    <ItemGroup>
+        <AdditionalFiles Include="PublicAPI.Shipped.txt"/>
+        <AdditionalFiles Include="PublicAPI.Unshipped.txt"/>
+    </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(BlazOrbitAspNetCoreVersion)" />
-		<PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="4.14.0" PrivateAssets="all" />
-	</ItemGroup>
-	<ItemGroup>
-		<AdditionalFiles Include="PublicAPI.Shipped.txt" />
-		<AdditionalFiles Include="PublicAPI.Unshipped.txt" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\BlazOrbit.Core\BlazOrbit.Core.csproj"/>
+    </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\BlazOrbit.Core\BlazOrbit.Core.csproj" />
-	</ItemGroup>
+    <!--
+        Ship the consumer-facing (no-op) targets file so MSBuild auto-imports it on restore.
+        Hand-written CSS (wwwroot/css/blazorbit.css) and JSDoc-typed .js modules under
+        wwwroot/js/Types/** are committed sources - no build-time generation, no Node,
+        no Vite. The targets file itself is a no-op and exists purely so MSBuild's
+        package-import convention has a file to find.
+    -->
+    <ItemGroup>
+        <None Include="_build/BlazOrbit.targets" Pack="true" PackagePath="build/"/>
+    </ItemGroup>
 
-	<!--
-		Ship the consumer-facing (no-op) targets file so MSBuild auto-imports it on restore.
-		The real build pipeline lives in BlazOrbit.Dev.targets, which is NOT packed
-		and is only imported for monorepo builds below.
-	-->
-	<ItemGroup>
-		<None Include="_build\BlazOrbit.targets" Pack="true" PackagePath="build\" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\BlazOrbit.CodeGeneration\BlazOrbit.CodeGeneration.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
+        <ProjectReference Include="..\BlazOrbit.Localization.CodeGeneration\BlazOrbit.Localization.CodeGeneration.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
+    </ItemGroup>
 
-	<!-- Dev-only import: regenerates CSS + JS assets for the maintainer build. -->
-	<Import Project="_build\BlazOrbit.Dev.targets" Condition="Exists('_build\BlazOrbit.Dev.targets')" />
-
-	<ItemGroup>
-		<!-- Feed every .razor to the incremental generator -->
-		<AdditionalFiles Include="$(MSBuildProjectDirectory)\**\*.razor" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<AdditionalFiles Include="PublicAPI.Shipped.txt" />
-		<AdditionalFiles Include="PublicAPI.Unshipped.txt" />
-	</ItemGroup>
-
-	<ItemGroup>
-		<ProjectReference Include="..\BlazOrbit.CodeGeneration\BlazOrbit.CodeGeneration.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-		<ProjectReference Include="..\BlazOrbit.SyntaxHighlight\BlazOrbit.SyntaxHighlight.csproj" />
-	</ItemGroup>
+    <!-- BOBLocalize: feed all .tn translation files to the generator. -->
+    <ItemGroup>
+        <AdditionalFiles Include="Translations\**\*.tn"/>
+    </ItemGroup>
 
 </Project>

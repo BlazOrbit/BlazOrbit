@@ -1,0 +1,49 @@
+[data-bob-component="date-range-picker"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+[data-bob-component="date-range-picker"] .bob-daterange-picker__label {
+    font-size: 0.875rem;
+    color: var(--palette-surface-contrast);
+    opacity: 0.85;
+}
+
+[data-bob-component="date-range-picker"] .bob-daterange-picker__row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+[data-bob-component="date-range-picker"] .bob-daterange-picker__pane {
+    flex: 1 1 18rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+[data-bob-component="date-range-picker"] .bob-daterange-picker__pane-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: color-mix(in oklab, var(--palette-surface-contrast) 70%, transparent);
+}
+
+[data-bob-component="date-range-picker"] .bob-daterange-picker__presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+[data-bob-component="date-range-picker"] .bob-daterange-picker__summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--palette-surface-contrast);
+}
+
+[data-bob-component="date-range-picker"] .bob-daterange-picker__summary-count {
+    color: color-mix(in oklab, var(--palette-surface-contrast) 60%, transparent);
+}

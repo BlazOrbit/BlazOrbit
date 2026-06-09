@@ -1,0 +1,32 @@
+// Auto-migrated from HeatmapChartPage.es.resx. Edit freely from now on.
+
+# 2D matrix where each cell's intensity maps to a color along a sequential ramp. Use for correlation matrices, calendar heatmaps, hourly traffic patterns and retention cohorts.
+Matriz 2D donde la intensidad de cada celda se asigna a un color a lo largo de una rampa secuencial. Útil para matrices de correlación, mapas de calor de calendario, patrones de tráfico por hora y cohortes de retención.
+
+# BOBHeatmapChart
+BOBHeatmapChart
+
+# Cell values overlaid
+Valores de celda superpuestos
+
+# Chart
+Gráfico
+
+# Custom color ramp
+Rampa de color personalizada
+
+# Extra package required
+Paquete adicional requerido
+
+# Hourly activity heatmap
+Mapa de calor de actividad por hora
+
+# Override LowColor + HighColor for diverging ramps (e.g. cool → warm) or brand-colored heatmaps.
+Sobrescribe LowColor + HighColor para rampas divergentes (por ejemplo, frío → cálido) o mapas de calor con color de marca.
+
+# ShowValues prints the cell value inside each rect. Text color auto-flips between dark and white depending on cell intensity for legible contrast.
+ShowValues imprime el valor de la celda dentro de cada rectángulo. El color del texto cambia automáticamente entre oscuro y blanco según la intensidad de la celda para un contraste legible.
+
+# This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs.
+Este gráfico requiere el paquete NuGet BlazOrbit.Charts. Instálalo con dotnet add package BlazOrbit.Charts y registra AddBlazOrbitCharts() en Program.cs.
+

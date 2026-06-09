@@ -1,0 +1,77 @@
+// Auto-migrated from InputRangeSliderPage.es.resx. Edit freely from now on.
+
+# Age
+Edad
+
+# Basic usage
+Uso básico
+
+# BOBInputRangeSlider
+BOBInputRangeSlider
+
+# Color & Background
+Color y fondo
+
+# Component
+Componente
+
+# Custom Color
+Color personalizado
+
+# Disabled
+Deshabilitado
+
+# Error
+Error
+
+# Large
+Grande
+
+# Medium (Default)
+Mediano (predeterminado)
+
+# Price filter
+Filtro de precio
+
+# Price range
+Rango de precio
+
+# Properties
+Propiedades
+
+# Range
+Rango
+
+# ReadOnly
+Solo lectura
+
+# Required
+Requerido
+
+# Sizes
+Tamaños
+
+# Small
+Pequeño
+
+# States
+Estados
+
+# Ticks
+Marcas
+
+# Two-thumb range slider for selecting minimum and maximum values. Supports validation, ticks, keyboard navigation, and horizontal or vertical orientation.
+Deslizador de rango de dos pulgares para seleccionar valores mínimo y máximo. Soporta validación, marcas, navegación por teclado y orientación horizontal o vertical.
+
+# Validation message goes here.
+El mensaje de validación va aquí.
+
+# Vertical orientation
+Orientación vertical
+
+# Working hours
+Horas de trabajo
+
+
+# The slider is bound to a <code>BOBNumericRange&lt;T&gt;</code> value that exposes <code>Min</code> and <code>Max</code> properties. Because it inherits from <code>InputBase</code>, it participates automatically in <code>EditContext</code> validation. You can apply granular <code>FluentValidation</code> rules against <code>Range.Min</code> and <code>Range.Max</code> independently, and the component will display inline errors just like any other form input.
+El slider está vinculado a un valor <code>BOBNumericRange&lt;T&gt;</code> que expone las propiedades <code>Min</code> y <code>Max</code>. Como hereda de <code>InputBase</code>, participa automáticamente en la validación del <code>EditContext</code>. Puedes aplicar reglas granulares de <code>FluentValidation</code> contra <code>Range.Min</code> y <code>Range.Max</code> de forma independiente, y el componente mostrará errores en línea como cualquier otro campo de formulario.

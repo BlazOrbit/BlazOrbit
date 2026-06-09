@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Tests.Integration.Infrastructure;
+using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using BlazOrbit.Tests.Integration.Templates.Components.Consumers;
 using Bunit;
@@ -54,8 +54,8 @@ public class BOBInputDateTimeValidationTests
         cut.Find("button.submit-btn").Click();
 
         // Assert
-        cut.Find(".bob-field-helper--error").Should().NotBeNull();
-        cut.Find(".bob-field-helper--error").TextContent.Should().Contain("Date is required");
+        cut.Find("[data-bob-error=\"true\"]").Should().NotBeNull();
+        cut.Find("[data-bob-error=\"true\"]").TextContent.Should().Contain("Date is required");
     }
 
     [Theory]
@@ -82,7 +82,7 @@ public class BOBInputDateTimeValidationTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — render with initial valid date so validation passes
+        // Arrange - render with initial valid date so validation passes
         IRenderedComponent<TestBOBInputDateTimeValidationConsumer> cut =
             ctx.Render<TestBOBInputDateTimeValidationConsumer>(p => p
                 .Add(c => c.InitialDate, new DateOnly(2024, 6, 15)));
@@ -91,7 +91,7 @@ public class BOBInputDateTimeValidationTests
         cut.Find("button.submit-btn").Click();
 
         // Assert
-        cut.FindAll(".bob-field-helper--error").Should().BeEmpty();
+        cut.FindAll("[data-bob-error=\"true\"]").Should().BeEmpty();
         cut.Instance.WasSubmitted.Should().BeTrue();
     }
 }

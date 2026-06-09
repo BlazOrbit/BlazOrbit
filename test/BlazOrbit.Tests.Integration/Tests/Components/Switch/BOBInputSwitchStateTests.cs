@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -36,7 +36,7 @@ public class BOBInputSwitchStateTests
             .Add(c => c.Disabled, false));
 
         IElement root = cut.Find("bob-component");
-        root.GetAttribute("data-bob-disabled").Should().Be("false");
+        root.GetAttribute("data-bob-disabled").Should().BeNull();
         cut.Find("input.bob-switch__input").HasAttribute("disabled").Should().BeFalse();
 
         cut.Render(p => p.Add(c => c.Disabled, true));
@@ -55,7 +55,7 @@ public class BOBInputSwitchStateTests
             .Add(c => c.ReadOnly, false));
 
         IElement root = cut.Find("bob-component");
-        root.GetAttribute("data-bob-readonly").Should().Be("false");
+        root.GetAttribute("data-bob-readonly").Should().BeNull();
 
         cut.Render(p => p.Add(c => c.ReadOnly, true));
 
@@ -72,7 +72,7 @@ public class BOBInputSwitchStateTests
             .Add(c => c.Error, false));
 
         IElement root = cut.Find("bob-component");
-        root.GetAttribute("data-bob-error").Should().Be("false");
+        root.GetAttribute("data-bob-error").Should().BeNull();
 
         cut.Render(p => p.Add(c => c.Error, true));
 
@@ -108,9 +108,7 @@ public class BOBInputSwitchStateTests
 
         Dictionary<string, object> extra = new()
         {
-            { "data-testid", "toggle-switch" },
-            { "class", "my-switch" },
-            { "style", "margin: 4px;" }
+            { "data-testid", "toggle-switch" }, { "class", "my-switch" }, { "style", "margin: 4px;" }
         };
 
         IRenderedComponent<BOBInputSwitch> cut = ctx.Render<BOBInputSwitch>(p => p

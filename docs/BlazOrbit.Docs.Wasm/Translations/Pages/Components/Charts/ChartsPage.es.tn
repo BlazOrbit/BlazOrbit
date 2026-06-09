@@ -1,0 +1,69 @@
+# Active users
+Usuarios activos
+
+# All charts are rendered as pure SVG with no external JavaScript dependencies. They support responsive sizing, tooltips, export to PNG, and full keyboard accessibility.
+Todos los gráficos se renderizan como SVG puro sin dependencias de JavaScript externas. Soportan dimensionamiento responsive, información sobre herramienta, exportación a PNG y accesibilidad completa por teclado.
+
+# Chart
+Gráfico
+
+# Charts
+Gráficos
+
+# Conversion
+Conversión
+
+# CPU usage
+Uso de CPU
+
+# Dashboard overview
+Vista general del panel
+
+# Extra package required
+Paquete adicional requerido
+
+# Installation
+Instalación
+
+# Market share
+Cuota de mercado
+
+# Portfolio breakdown
+Desglose de cartera
+
+# Quarterly revenue
+Ingresos trimestrales
+
+# Revenue
+Ingresos
+
+# Rich SVG charting library for Blazor. 15 chart types from bar and line to gauge and heatmap, with zero external dependencies.
+Librería de gráficos SVG enriquecida para Blazor. 15 tipos de gráfico desde barras y líneas hasta indicadores y mapas de calor, sin dependencias externas.
+
+# Server health
+Salud del servidor
+
+# Server load
+Carga del servidor
+
+# stable
+estable
+
+# The chart components ship in a separate BlazOrbit.Charts NuGet package. Install it, register the services, and add the chart-specific stylesheet:
+Los componentes de gráficos se distribuyen en un paquete NuGet BlazOrbit.Charts separado. Instálalo, registra los servicios y añade la hoja de estilos específica de gráficos:
+
+# The Charts package depends on BlazOrbit.Core and BlazOrbit, so you still need AddBlazOrbit() in your service registration. The stylesheet must be added after the main blazorbit.css link.
+El paquete Charts depende de BlazOrbit.Core y BlazOrbit, así que aún necesitas AddBlazOrbit() en tu registro de servicios. La hoja de estilos debe añadirse después del enlace principal de blazorbit.css.
+
+# This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs.
+Este gráfico requiere el paquete NuGet BlazOrbit.Charts. Instálalo con dotnet add package BlazOrbit.Charts y registra AddBlazOrbitCharts() en Program.cs.
+
+# Traffic trend
+Tendencia de tráfico
+
+# vs last month
+vs mes pasado
+
+# vs last week
+vs semana pasada
+

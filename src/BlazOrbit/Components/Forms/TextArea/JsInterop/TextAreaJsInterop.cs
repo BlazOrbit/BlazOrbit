@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Abstractions;
+using BlazOrbit.Abstractions;
 using BlazOrbit.Types;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -24,6 +24,7 @@ internal sealed class TextAreaJsInterop : ModuleJsInteropBase, ITextAreaJsIntero
 
     public async ValueTask DisposeAutoResizeAsync(string textareaId)
     {
+        // Dispose path: 4-tuple only.
         IJSObjectReference module = await ModuleTask.Value;
 
         await module.InvokeVoidAsync("dispose", textareaId);
@@ -31,7 +32,11 @@ internal sealed class TextAreaJsInterop : ModuleJsInteropBase, ITextAreaJsIntero
 
     public async ValueTask InitializeAutoResizeAsync(ElementReference textarea, string textareaId)
     {
-        IJSObjectReference module = await ModuleTask.Value;
+        IJSObjectReference? module = await TryGetModuleAsync();
+        if (module is null)
+        {
+            return;
+        }
 
         await module.InvokeVoidAsync("initialize", textarea, textareaId);
     }

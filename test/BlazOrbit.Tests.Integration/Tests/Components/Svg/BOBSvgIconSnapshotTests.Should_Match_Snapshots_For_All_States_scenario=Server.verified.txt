@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Name: Default_Triangle,
     Html: <bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M12 2L2 22h20L12 2z"/></svg></bob-component>

@@ -1,0 +1,105 @@
+@page "/components/charts/treemap"
+
+@inject IStringLocalizer<TreemapChartPage> Loc
+
+<DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBTreemapChart"]"
+         Lede="@Loc["Hierarchical layout that fills a rectangle with proportionally sized cells. The squarified algorithm keeps each cell close to square so adjacent magnitudes are easy to compare. Use for portfolio breakdowns, storage usage, organisation charts and budget allocation."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBTreemapChart<>)"
+         Keywords="@(["treemap", "hierarchy", "tree", "portfolio", "squarified", "drilldown"])">
+
+    <BOBBanner Severity="BOBBannerSeverity.Warning"
+               Title="@Loc["Extra package required"]"
+               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]"/>
+
+    <DocDemo Key="FlatPortfolio" Title="@Loc["Flat portfolio breakdown"]">
+        <BOBTreemapChart TY="decimal"
+                         Nodes="_portfolio"
+                         Width="640" Height="320"/>
+    </DocDemo>
+
+    <DocDemo Key="Hierarchical" Title="@Loc["Hierarchical drill-down"]"
+             Description="@Loc["Branch nodes recurse into nested rects so the chart reads as a tree. Padding leaves a frame around each parent so the hierarchy stays visible."]">
+        <BOBTreemapChart TY="decimal"
+                         Nodes="_hierarchy"
+                         Padding="3"
+                         MinLabelSize="40"
+                         OnNodeClick="@(EventCallback.Factory.Create<BOBChartTreemapClickArgs<decimal>>(this, HandleNodeClick))"
+                         Width="720" Height="360"/>
+        @if (_lastClicked is not null)
+        {
+            <p class="doc-callout doc-callout--info"><strong>@Loc["Clicked:"]</strong> @string.Join(" / ", _lastClicked.Path) - @_lastClicked.Node.Value</p>
+        }
+    </DocDemo>
+
+    <DocDemo Key="CustomColors" Title="@Loc["Explicit per-node colors"]"
+             Description="@Loc["Node Color overrides the auto-palette. Useful when categories already have brand colours assigned upstream."]">
+        <BOBTreemapChart TY="decimal"
+                         Nodes="_branded"
+                         Width="640" Height="280"/>
+    </DocDemo>
+
+</DocPage>
+
+@code {
+
+    private BOBChartTreemapClickArgs<decimal>? _lastClicked;
+
+    private void HandleNodeClick(BOBChartTreemapClickArgs<decimal> args)
+    {
+        _lastClicked = args;
+    }
+
+    private static readonly BOBChartTreemapNode<decimal>[] _portfolio =
+    [
+        new BOBChartTreemapNode<decimal> { Label = "Equities", Value = 540m },
+        new BOBChartTreemapNode<decimal> { Label = "Bonds", Value = 280m },
+        new BOBChartTreemapNode<decimal> { Label = "Cash", Value = 90m },
+        new BOBChartTreemapNode<decimal> { Label = "Real Estate", Value = 160m },
+        new BOBChartTreemapNode<decimal> { Label = "Crypto", Value = 45m }
+    ];
+
+    private static readonly BOBChartTreemapNode<decimal>[] _hierarchy =
+    [
+        new BOBChartTreemapNode<decimal>
+        {
+            Label = "Tech",
+            Children =
+            [
+                new BOBChartTreemapNode<decimal> { Label = "AAPL", Value = 320m },
+                new BOBChartTreemapNode<decimal> { Label = "MSFT", Value = 280m },
+                new BOBChartTreemapNode<decimal> { Label = "GOOG", Value = 180m },
+                new BOBChartTreemapNode<decimal> { Label = "NVDA", Value = 240m }
+            ]
+        },
+        new BOBChartTreemapNode<decimal>
+        {
+            Label = "Finance",
+            Children =
+            [
+                new BOBChartTreemapNode<decimal> { Label = "JPM", Value = 140m },
+                new BOBChartTreemapNode<decimal> { Label = "BAC", Value = 95m },
+                new BOBChartTreemapNode<decimal> { Label = "GS", Value = 70m }
+            ]
+        },
+        new BOBChartTreemapNode<decimal>
+        {
+            Label = "Energy",
+            Children =
+            [
+                new BOBChartTreemapNode<decimal> { Label = "XOM", Value = 110m },
+                new BOBChartTreemapNode<decimal> { Label = "CVX", Value = 80m }
+            ]
+        }
+    ];
+
+    private static readonly BOBChartTreemapNode<decimal>[] _branded =
+    [
+        new BOBChartTreemapNode<decimal> { Label = "Search", Value = 320m, Color = "#4285F4" },
+        new BOBChartTreemapNode<decimal> { Label = "YouTube", Value = 180m, Color = "#FF0000" },
+        new BOBChartTreemapNode<decimal> { Label = "Cloud", Value = 110m, Color = "#34A853" },
+        new BOBChartTreemapNode<decimal> { Label = "Hardware", Value = 60m, Color = "#FBBC05" },
+        new BOBChartTreemapNode<decimal> { Label = "Other", Value = 45m, Color = "#888888" }
+    ];
+
+}

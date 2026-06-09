@@ -2,11 +2,11 @@ name: '[Security] CodeQL Analysis'
 
 on:
   push:
-    branches: [master, develop]
+    branches: [ master, develop ]
   pull_request:
-    branches: [master, develop]
+    branches: [ master, develop ]
   schedule:
-    # Weekly Monday 06:00 UTC — drift check independent of PR traffic.
+    # Weekly Monday 06:00 UTC - drift check independent of PR traffic.
     - cron: '0 6 * * 1'
 
 permissions:
@@ -27,15 +27,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [csharp, javascript-typescript]
+        language: [ csharp, javascript-typescript ]
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
 
       - name: Setup .NET
         if: matrix.language == 'csharp'
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@c2fa09f4bde5ebb9d1777cf28262a3eb3db3ced7  # v5
         with:
           dotnet-version: |
             8.0.x
@@ -43,23 +43,24 @@ jobs:
           global-json-file: global.json
 
       - name: Restore workloads
+        # Explicit slnx
         if: matrix.language == 'csharp'
-        run: dotnet workload restore
+        run: dotnet workload restore BlazOrbit.slnx
 
       - name: Restore NuGet packages
         if: matrix.language == 'csharp'
-        run: dotnet restore
+        run: dotnet restore BlazOrbit.slnx
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@v4
+        uses: github/codeql-action/init@68bde559dea0fdcac2102bfdf6230c5f70eb485e  # v4
         with:
           languages: ${{ matrix.language }}
           queries: security-extended
 
       - name: Autobuild
-        uses: github/codeql-action/autobuild@v4
+        uses: github/codeql-action/autobuild@68bde559dea0fdcac2102bfdf6230c5f70eb485e  # v4
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v4
+        uses: github/codeql-action/analyze@68bde559dea0fdcac2102bfdf6230c5f70eb485e  # v4
         with:
           category: "/language:${{ matrix.language }}"

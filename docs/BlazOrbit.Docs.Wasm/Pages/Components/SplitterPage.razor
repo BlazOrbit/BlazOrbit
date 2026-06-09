@@ -1,0 +1,61 @@
+@page "/components/layout/splitter"
+
+@using BlazOrbit.Components
+
+@inject IStringLocalizer<SplitterPage> Loc
+
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBSplitter"]"
+         Lede="@Loc["Resizable multi-pane layout with horizontal or vertical grippers."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBSplitter)"
+         Keywords="@(["splitter", "resize", "pane", "divider"])">
+
+    <DocDemo Key="Horizontal" Title="@Loc["Horizontal sidebar + body"]">
+        <div style="height:240px;border:1px solid var(--palette-border);">
+            <BOBSplitter Orientation="BOBSplitterOrientation.Horizontal">
+                <BOBSplitterPane Size="220" MinSize="120" MaxSize="360">
+                    <div class="doc-demo__placeholder">@Loc["Sidebar"]</div>
+                </BOBSplitterPane>
+                <BOBSplitterPane Flex="true">
+                    <div class="doc-demo__placeholder">@Loc["Main body - drag the gripper to resize."]</div>
+                </BOBSplitterPane>
+            </BOBSplitter>
+        </div>
+    </DocDemo>
+
+    <DocDemo Key="Vertical" Title="@Loc["Vertical top/bottom"]">
+        <div style="height:280px;border:1px solid var(--palette-border);">
+            <BOBSplitter Orientation="BOBSplitterOrientation.Vertical">
+                <BOBSplitterPane Size="120" MinSize="60">
+                    <div class="doc-demo__placeholder">@Loc["Top"]</div>
+                </BOBSplitterPane>
+                <BOBSplitterPane Flex="true">
+                    <div class="doc-demo__placeholder">@Loc["Bottom"]</div>
+                </BOBSplitterPane>
+            </BOBSplitter>
+        </div>
+    </DocDemo>
+
+    <DocDemo Key="ThreePanes" Title="@Loc["Three panes"]">
+        <div style="height:220px;border:1px solid var(--palette-border);">
+            <BOBSplitter>
+                <BOBSplitterPane Size="160" MinSize="100">
+                    <div class="doc-demo__placeholder">@Loc["Left"]</div>
+                </BOBSplitterPane>
+                <BOBSplitterPane Flex="true">
+                    <div class="doc-demo__placeholder">@Loc["Center"]</div>
+                </BOBSplitterPane>
+                <BOBSplitterPane Size="200" MinSize="120">
+                    <div class="doc-demo__placeholder">@Loc["Right"]</div>
+                </BOBSplitterPane>
+            </BOBSplitter>
+        </div>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBSplitterComponentInfo.Parameters"/>
+    </section>
+
+</DocPage>

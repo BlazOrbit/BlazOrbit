@@ -1,0 +1,30 @@
+[
+  {
+    Name: Plain,
+    Html:
+<bob-component data-bob-component="stat-card" data-bob-size="medium" b-<SCOPE>><div class="bob-statcard" b-<SCOPE>><div class="bob-statcard__head" b-<SCOPE>><span class="bob-statcard__label" b-<SCOPE>>Users</span></div>
+
+        <div class="bob-statcard__value" b-<SCOPE>>2,481</div></div></bob-component>
+  },
+  {
+    Name: Up_Trend,
+    Html:
+<bob-component data-bob-component="stat-card" data-bob-size="medium" b-<SCOPE>><div class="bob-statcard" b-<SCOPE>><div class="bob-statcard__head" b-<SCOPE>><span class="bob-statcard__label" b-<SCOPE>>Revenue</span></div>
+
+        <div class="bob-statcard__value" b-<SCOPE>>$24,800</div><div class="bob-statcard__delta" data-bob-trend="up" b-<SCOPE>><span class="bob-statcard__delta-arrow" aria-hidden="true" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M0 0h24v24H0V0z" fill="none"/><path d="M4 12l1.41 1.41L11 7.83V20h2V7.83l5.58 5.59L20 12l-8-8-8 8z"/></svg></bob-component></span><span class="bob-statcard__delta-value" b-<SCOPE>>+12.4%</span><span class="bob-statcard__delta-caption" b-<SCOPE>>vs last week</span></div></div></bob-component>
+  },
+  {
+    Name: Down_Trend,
+    Html:
+<bob-component data-bob-component="stat-card" data-bob-size="medium" b-<SCOPE>><div class="bob-statcard" b-<SCOPE>><div class="bob-statcard__head" b-<SCOPE>><span class="bob-statcard__label" b-<SCOPE>>Errors</span></div>
+
+        <div class="bob-statcard__value" b-<SCOPE>>3</div><div class="bob-statcard__delta" data-bob-trend="down" b-<SCOPE>><span class="bob-statcard__delta-arrow" aria-hidden="true" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M0 0h24v24H0V0z" fill="none"/><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg></bob-component></span><span class="bob-statcard__delta-value" b-<SCOPE>>-2</span></div></div></bob-component>
+  },
+  {
+    Name: With_Footnote,
+    Html:
+<bob-component data-bob-component="stat-card" data-bob-size="medium" b-<SCOPE>><div class="bob-statcard" b-<SCOPE>><div class="bob-statcard__head" b-<SCOPE>><span class="bob-statcard__label" b-<SCOPE>>Sessions</span></div>
+
+        <div class="bob-statcard__value" b-<SCOPE>>9,128</div><div class="bob-statcard__footnote" b-<SCOPE>>Updated 5 min ago</div></div></bob-component>
+  }
+]

@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -12,9 +12,10 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.DataCollections;
 public class BOBDataColumnStateTests
 {
     private sealed record Person(string Name, int Age);
+
     private static readonly Expression<Func<Person, object?>> NameExpr = p => (object?)p.Name;
 
-    private static IEnumerable<Person> Items => [new Person("Alice", 30)];
+    private static IEnumerable<Person> Items => [new("Alice", 30)];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -22,7 +23,7 @@ public class BOBDataColumnStateTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — column is Sortable, grid is Sortable
+        // Arrange & Act - column is Sortable, grid is Sortable
         IRenderedComponent<BOBDataGrid<Person>> cut = ctx.Render<BOBDataGrid<Person>>(p => p
             .Add(c => c.Items, Items)
             .Add(c => c.Sortable, true)
@@ -35,7 +36,7 @@ public class BOBDataColumnStateTests
                 b.CloseComponent();
             }));
 
-        // Assert — sort button emitted inside the header cell
+        // Assert - sort button emitted inside the header cell
         cut.FindAll(".bob-datagrid__sort-btn").Should().HaveCount(1);
     }
 
@@ -45,7 +46,7 @@ public class BOBDataColumnStateTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — grid Sortable, column NOT Sortable
+        // Arrange & Act - grid Sortable, column NOT Sortable
         IRenderedComponent<BOBDataGrid<Person>> cut = ctx.Render<BOBDataGrid<Person>>(p => p
             .Add(c => c.Items, Items)
             .Add(c => c.Sortable, true)
@@ -80,7 +81,7 @@ public class BOBDataColumnStateTests
                 b.CloseComponent();
             }));
 
-        // Assert — only one column header rendered
+        // Assert - only one column header rendered
         cut.FindAll("[role='columnheader']").Should().HaveCount(1);
         cut.Find("[role='columnheader']").TextContent.Trim().Should().Be("Name");
     }
@@ -155,7 +156,7 @@ public class BOBDataColumnStateTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — no Header param, only Property
+        // Arrange & Act - no Header param, only Property
         IRenderedComponent<BOBDataGrid<Person>> cut = ctx.Render<BOBDataGrid<Person>>(p => p
             .Add(c => c.Items, Items)
             .Add(c => c.Columns, b =>
@@ -165,7 +166,7 @@ public class BOBDataColumnStateTests
                 b.CloseComponent();
             }));
 
-        // Assert — Property member name "Name" used as header
+        // Assert - Property member name "Name" used as header
         cut.Find("[role='columnheader']").TextContent.Trim().Should().Be("Name");
     }
 
@@ -175,7 +176,7 @@ public class BOBDataColumnStateTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — use Age with format and no template so grid formats it
+        // Arrange & Act - use Age with format and no template so grid formats it
         Expression<Func<Person, object?>> ageExpr = p => (object?)p.Age;
 
         IRenderedComponent<BOBDataGrid<Person>> cut = ctx.Render<BOBDataGrid<Person>>(p => p
@@ -189,7 +190,7 @@ public class BOBDataColumnStateTests
                 b.CloseComponent();
             }));
 
-        // Assert — "30" formatted as D3 → "030"
+        // Assert - "30" formatted as D3 → "030"
         cut.Find("[role='gridcell']").TextContent.Trim().Should().Be("030");
     }
 }

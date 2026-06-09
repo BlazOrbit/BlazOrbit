@@ -1,0 +1,12 @@
+    <Project>
+    <!--
+      Inherits root Directory.Build.props. Docs projects are internal (IsPackable=false)
+      and do not ship XML docs, so disable doc generation to avoid CS1591 noise on
+      sample-only pages, services and models.
+    -->
+    <Import Project="$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)../'))"/>
+
+    <PropertyGroup>
+        <GenerateDocumentationFile>false</GenerateDocumentationFile>
+    </PropertyGroup>
+</Project>

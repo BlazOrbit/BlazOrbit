@@ -1,0 +1,118 @@
+@using System.Globalization
+@using BlazOrbit.Abstractions
+@using Microsoft.Extensions.Localization
+
+@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+
+@inherits BOBComponentBase
+@implements IHasSize
+@implements IHasColor
+
+<bob-component @attributes="ComputedAttributes">
+    <div class="bob-progress"
+         role="progressbar"
+         aria-valuenow="@(Indeterminate ? null : Math.Round(NormalisedValue * 100, 0).ToString(CultureInfo.InvariantCulture))"
+         aria-valuemin="0"
+         aria-valuemax="100"
+         aria-label="@(string.IsNullOrWhiteSpace(Label) ? ResolvedAriaLabel : Label)"
+         data-bob-indeterminate="@(Indeterminate ? "true" : null)">
+
+        @if (!string.IsNullOrWhiteSpace(Label) || ShowPercentage)
+        {
+            <div class="bob-progress__head">
+                @if (!string.IsNullOrWhiteSpace(Label))
+                {
+                    <span class="bob-progress__label">@Label</span>
+                }
+                @if (ShowPercentage && !Indeterminate)
+                {
+                    <span class="bob-progress__pct">@($"{Math.Round(NormalisedValue * 100):0}%")</span>
+                }
+            </div>
+        }
+
+        @if (Segments > 1 && !Indeterminate)
+        {
+            <div class="bob-progress__segments" aria-hidden="true">
+                @for (var i = 0; i < Segments; i++)
+                {
+                    var idx = i;
+                    var filled = idx + 1 <= NormalisedValue * Segments + 0.001;
+                    <span class="bob-progress__segment" data-bob-filled="@(filled ? "true" : "false")"></span>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="bob-progress__track">
+                <div class="bob-progress__fill"
+                     style="@(Indeterminate ? null : $"width: {Math.Round(NormalisedValue * 100, 2)}%")"></div>
+            </div>
+        }
+    </div>
+</bob-component>
+
+@code {
+    [Inject] internal IStringLocalizer<BOBDisplayResources> Localizer { get; set; } = default!;
+
+    /// <summary>Current progress value, in <see cref="Min"/>–<see cref="Max"/>. Ignored when <see cref="Indeterminate"/>.</summary>
+    [Parameter]
+    public double Value { get; set; }
+
+    /// <summary>Minimum value (default <c>0</c>).</summary>
+    [Parameter]
+    public double Min { get; set; }
+
+    /// <summary>Maximum value (default <c>100</c>).</summary>
+    [Parameter]
+    public double Max { get; set; } = 100;
+
+    /// <summary>When <see langword="true"/>, render an indeterminate animation instead of the value bar.</summary>
+    [Parameter]
+    public bool Indeterminate { get; set; }
+
+    /// <summary>Number of equal-width segments. <c>1</c> = continuous bar (default). Ignored in indeterminate mode.</summary>
+    [Parameter]
+    public int Segments { get; set; } = 1;
+
+    /// <summary>Optional label shown above the bar.</summary>
+    [Parameter]
+    public string? Label { get; set; }
+
+    /// <summary>When <see langword="true"/>, render a "<c>NN%</c>" label on the right of the head row.</summary>
+    [Parameter]
+    public bool ShowPercentage { get; set; }
+
+    /// <summary>Aria-label fallback when <see cref="Label"/> is empty.</summary>
+    [Parameter]
+    public string? AriaLabel { get; set; }
+
+    private string ResolvedAriaLabel => AriaLabel ?? Localizer["Progress"];
+
+    /// <summary>Visual size of the bar.</summary>
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
+
+    /// <summary>Fill color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
+    [Parameter]
+    public string? Color { get; set; }
+
+    private double NormalisedValue
+    {
+        get
+        {
+            if (Max <= Min) return 0;
+            var clamped = Math.Clamp(Value, Min, Max);
+            return (clamped - Min) / (Max - Min);
+        }
+    }
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        if (Segments < 1) Segments = 1;
+        if (Segments > 20) Segments = 20;
+    }
+
+}

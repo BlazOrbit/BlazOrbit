@@ -1,0 +1,68 @@
+// Auto-migrated from NotificationCenterPage.es.resx. Edit freely from now on.
+
+# About BOBNotificationCenter
+Acerca de BOBNotificationCenter
+
+# BOBNotificationCenter
+BOBNotificationCenter
+
+# Clear
+Limpiar
+
+# Custom persistence
+Persistencia personalizada
+
+# Extra package required
+Paquete adicional requerido
+
+# Inbox
+Bandeja de entrada
+
+# Mark all read
+Marcar todo como leído
+
+# No notifications yet.
+Sin notificaciones aún.
+
+# Persistence is managed by INotificationStore. The default implementation stores notifications in memory, but you can implement your own (e.g. using local storage or server-side database) and register it via builder.Services.AddBlazOrbitNotifications<TStore>().
+La persistencia se gestiona mediante INotificationStore. La implementación predeterminada almacena notificaciones en memoria, pero puedes implementar la tuya propia (p. ej., usando local storage o base de datos del servidor) y registrarla mediante builder.Services.AddBlazOrbitNotifications<TStore>().
+
+# Persistent inbox-style notifications with a paired bell badge. View, dismiss, and manage alerts in a centralized panel.
+Notificaciones persistentes estilo bandeja de entrada con insignia de campana emparejada. Ver, descartar y gestionar alertas en un panel centralizado.
+
+# Push error
+Enviar error
+
+# Push info
+Enviar info
+
+# Push notifications
+Enviar notificaciones
+
+# Push success
+Enviar éxito
+
+# Push warning
+Enviar advertencia
+
+# Read
+Leído
+
+# Remove
+Eliminar
+
+# Service
+Servicio
+
+# The BOBNotificationCenter service manages notifications in a persistent inbox-style manner. It works in tandem with the BOBNotificationBell component, which displays a badge with the count of unread notifications.
+El servicio BOBNotificationCenter gestiona notificaciones de manera persistente estilo bandeja de entrada. Funciona junto con el componente BOBNotificationBell, que muestra una insignia con el conteo de notificaciones no leídas.
+
+# This service requires the BlazOrbit.Notifications NuGet package. Install it with dotnet add package BlazOrbit.Notifications and register AddBlazOrbitNotifications() in Program.cs.
+Este servicio requiere el paquete NuGet BlazOrbit.Notifications. Instálalo con dotnet add package BlazOrbit.Notifications y registra AddBlazOrbitNotifications() en Program.cs.
+
+# Unread:
+No leídas:
+
+
+# The service is paired with the <code>BOBNotificationBell</code> badge component, which displays the unread count and opens the inbox panel. Both components read from the same <code>INotificationCenter</code> store, so the UI stays synchronized regardless of how notifications are added or dismissed.
+El servicio se empareja con el componente de insignia <code>BOBNotificationBell</code>, que muestra el recuento de no leídos y abre el panel de bandeja de entrada. Ambos componentes leen del mismo almacén <code>INotificationCenter</code>, por lo que la interfaz permanece sincronizada independientemente de cómo se agreguen o descarten las notificaciones.

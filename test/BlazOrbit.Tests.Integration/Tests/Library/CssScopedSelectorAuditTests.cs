@@ -1,10 +1,10 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using System.Text.RegularExpressions;
 
 namespace BlazOrbit.Tests.Integration.Tests.Library;
 
 /// <summary>
-/// CSS-SCOPED-09 (mecanizado): detecta selectores muertos en archivos .razor.css —
+/// CSS-SCOPED-09 (mecanizado): detecta selectores muertos en archivos .razor.css -
 /// clases CSS declaradas en el CSS scoped cuyo nombre no aparece en el .razor
 /// del mismo componente.
 ///
@@ -26,7 +26,7 @@ public class CssScopedSelectorAuditTests
         // JS-driven transition classes
         "transition-target",
         // Classes added by Blazor event handling infrastructure
-        "blazor-error-boundary",
+        "blazor-error-boundary"
     };
 
     /// <summary>
@@ -49,7 +49,7 @@ public class CssScopedSelectorAuditTests
             string razorFile = Path.ChangeExtension(cssFile, ".razor");
             if (!File.Exists(razorFile))
             {
-                continue; // orphaned CSS without Razor — already caught by other audits
+                continue; // orphaned CSS without Razor - already caught by other audits
             }
 
             string cssContent = File.ReadAllText(cssFile);
@@ -82,7 +82,7 @@ public class CssScopedSelectorAuditTests
                 string prefix = $"bob-{KebabFromPascal(componentName.TrimStart('_'))}";
                 if (!cls.StartsWith(prefix, StringComparison.Ordinal))
                 {
-                    // Family-shared class — may be emitted by base or child component;
+                    // Family-shared class - may be emitted by base or child component;
                     // skip to avoid false positives.
                     continue;
                 }
@@ -92,10 +92,10 @@ public class CssScopedSelectorAuditTests
         }
 
         violations.Should().BeEmpty(
-            because: "every class selector in a .razor.css must reference a class that is " +
-                     "literally applied in the corresponding .razor file. Dead selectors bloat " +
-                     "the bundle and hide refactoring drift. See CSS-SCOPED-09.\n\n" +
-                     string.Join("\n", violations));
+            "every class selector in a .razor.css must reference a class that is " +
+            "literally applied in the corresponding .razor file. Dead selectors bloat " +
+            "the bundle and hide refactoring drift. See CSS-SCOPED-09.\n\n" +
+            string.Join("\n", violations));
     }
 
     private static HashSet<string> ExtractClassNamesFromCss(string content)
@@ -144,7 +144,8 @@ public class CssScopedSelectorAuditTests
         }
 
         // C# string literals that look like CSS classes (e.g. inside .razor.cs inline)
-        foreach (Match m in Regex.Matches(content, "\"(bob-[a-zA-Z0-9_-]+(?:__[a-zA-Z0-9_-]+)?(?:--[a-zA-Z0-9_-]+)?)\""))
+        foreach (Match m in Regex.Matches(content,
+                     "\"(bob-[a-zA-Z0-9_-]+(?:__[a-zA-Z0-9_-]+)?(?:--[a-zA-Z0-9_-]+)?)\""))
         {
             result.Add(m.Groups[1].Value);
         }

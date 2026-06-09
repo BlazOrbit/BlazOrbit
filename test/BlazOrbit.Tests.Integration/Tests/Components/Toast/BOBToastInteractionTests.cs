@@ -1,5 +1,4 @@
-﻿using BlazOrbit.Components.Layout;
-using BlazOrbit.Components.Layout.Services;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -31,10 +30,10 @@ public class BOBToastInteractionTests
         IRenderedComponent<BOBToast> cut = ctx.Render<BOBToast>(p => p
             .Add(c => c.State, state));
 
-        // Act — click close button
+        // Act - click close button
         cut.Find("[aria-label='Close']").Click();
 
-        // Assert — IsClosing should be set on state (ToastService.Close marks it)
+        // Assert - IsClosing should be set on state (ToastService.Close marks it)
         // Since BOBToast calls ToastService?.Close(State.Id) via CascadingParameter,
         // and no cascade is provided, just verify close button exists and click works without exception
         // (no cascade = ToastService is null = HandleClose is no-op)
@@ -55,14 +54,17 @@ public class BOBToastInteractionTests
         ToastState state = new()
         {
             Content = b => b.AddContent(0, "msg"),
-            Options = new ToastOptions { AutoDismiss = false, Animation = new ToastAnimation { Duration = TimeSpan.FromMilliseconds(10) } }
+            Options = new ToastOptions
+            {
+                AutoDismiss = false, Animation = new ToastAnimation { Duration = TimeSpan.FromMilliseconds(10) }
+            }
         };
 
         IRenderedComponent<BOBToast> cut = ctx.Render<BOBToast>(p => p
             .Add(c => c.State, state)
             .Add(c => c.OnCloseAnimationComplete, id => capturedId = id));
 
-        // Act — trigger closing via re-render with IsClosing=true
+        // Act - trigger closing via re-render with IsClosing=true
         state.IsClosing = true;
         cut.Render(p => p
             .Add(c => c.State, state)

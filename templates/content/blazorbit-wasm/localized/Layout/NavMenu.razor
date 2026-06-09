@@ -1,0 +1,26 @@
+@using BlazOrbit.Components.Wasm
+@*#if (UseNotificationsCenter)*@
+@using BlazOrbit.Notifications
+@*#endif*@
+@inject IStringLocalizer<NavMenu> Loc
+
+<nav class="bob-app__nav">
+    <a class="bob-app__brand" href="">
+        <img src="icon.svg" alt="" class="bob-app__brand-icon" />
+        <span>@Loc["Brand"]</span>
+    </a>
+    <div class="bob-app__nav-actions">
+        <a class="bob-app__nav-link" href="localization-demo">@Loc["Localization Demo"]</a>
+        @*#if (UseNotificationsCenter)*@
+        <BOBNotificationBell />
+        @*#endif*@
+        @* WASM culture switching defaults to in-place (`ForceReload=false`), which only
+           re-renders the selector itself — the rest of the page picks up the new culture
+           on the next render trigger. `ForceReload="true"` matches the docs site UX:
+           every culture change hard-reloads the page so every component re-renders
+           immediately. Trade-off is loss of in-place state (scroll, open modals);
+           opt out by removing the parameter if your app preserves transient state. *@
+        <BOBCultureSelector ForceReload="true" />
+        <BOBThemeSelector />
+    </div>
+</nav>

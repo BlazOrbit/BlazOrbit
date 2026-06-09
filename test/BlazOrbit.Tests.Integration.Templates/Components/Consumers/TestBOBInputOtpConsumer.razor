@@ -1,0 +1,49 @@
+@using BlazOrbit.Components.Forms
+@using Microsoft.AspNetCore.Components.Forms
+@using System.ComponentModel.DataAnnotations
+
+<div class="test-otp-consumer">
+    <EditForm EditContext="_editContext" OnValidSubmit="HandleValid" OnInvalidSubmit="HandleInvalid">
+        <DataAnnotationsValidator/>
+
+        <BOBInputOtp @bind-Value="_model.Code"
+                     Length="6"
+                     Label="Verification code"
+                     HelperText="Enter the 6-digit code."/>
+
+        <button type="submit" class="submit-btn">Submit</button>
+    </EditForm>
+    <div class="submit-result">@_submitResult</div>
+</div>
+
+@code {
+
+    public class OtpModel
+    {
+        [Required(ErrorMessage = "Code is required")]
+        [StringLength(6, MinimumLength = 6, ErrorMessage = "Code must be 6 digits")]
+        public string? Code { get; set; }
+    }
+
+    private OtpModel _model = new();
+    private EditContext? _editContext;
+    private string _submitResult = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        _editContext = new EditContext(_model);
+    }
+
+    public OtpModel BoundModel => _model;
+
+    private void HandleValid()
+    {
+        _submitResult = "valid";
+    }
+
+    private void HandleInvalid()
+    {
+        _submitResult = "invalid";
+    }
+
+}

@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -67,9 +67,9 @@ public class BOBTabsStateTests
             .Add(c => c.ChildContent, TwoTabs)
             .Add(c => c.ActiveTab, "tab2"));
 
-        // Assert — second tab button has active
+        // Assert - second tab button has active
         IReadOnlyList<IElement> tabs = cut.FindAll("[role='tab']");
-        tabs[0].GetAttribute("data-bob-active").Should().Be("false");
+        tabs[0].GetAttribute("data-bob-active").Should().BeNull();
         tabs[1].GetAttribute("data-bob-active").Should().Be("true");
     }
 
@@ -79,16 +79,16 @@ public class BOBTabsStateTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — start with one tab
+        // Arrange - start with one tab
         IRenderedComponent<BOBTabs> cut = ctx.Render<BOBTabs>(p => p
             .Add(c => c.ChildContent, OneTab));
 
         cut.FindAll("[role='tab']").Should().HaveCount(1);
 
-        // Act — add a second tab via parameter change
+        // Act - add a second tab via parameter change
         cut.Render(p => p.Add(c => c.ChildContent, TwoTabs));
 
-        // Assert — header re-rendered with both tabs (RegisterTab → StateHasChanged)
+        // Assert - header re-rendered with both tabs (RegisterTab → StateHasChanged)
         cut.FindAll("[role='tab']").Should().HaveCount(2);
     }
 
@@ -98,16 +98,16 @@ public class BOBTabsStateTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — start with two tabs
+        // Arrange - start with two tabs
         IRenderedComponent<BOBTabs> cut = ctx.Render<BOBTabs>(p => p
             .Add(c => c.ChildContent, TwoTabs));
 
         cut.FindAll("[role='tab']").Should().HaveCount(2);
 
-        // Act — remove the second tab via parameter change
+        // Act - remove the second tab via parameter change
         cut.Render(p => p.Add(c => c.ChildContent, OneTab));
 
-        // Assert — header re-rendered with one tab (UnregisterTab → StateHasChanged)
+        // Assert - header re-rendered with one tab (UnregisterTab → StateHasChanged)
         cut.FindAll("[role='tab']").Should().HaveCount(1);
     }
 

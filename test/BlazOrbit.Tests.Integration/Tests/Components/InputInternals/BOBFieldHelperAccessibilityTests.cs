@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components.Internal;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -11,7 +11,10 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.InputInternals;
 [Trait("Component Accessibility", "_BOBFieldHelper")]
 public class BOBFieldHelperAccessibilityTests
 {
-    private class Model { public string? Value { get; set; } }
+    private class Model
+    {
+        public string? Value { get; set; }
+    }
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -20,7 +23,7 @@ public class BOBFieldHelperAccessibilityTests
         // WCAG 4.1.3 + 3.3.1: validation errors must interrupt the screen
         // reader so users notice the form failed before navigating away.
         // role="alert" implies aria-live="assertive" + aria-atomic="true" per
-        // the ARIA spec — that is what we assert.
+        // the ARIA spec - that is what we assert.
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         // Arrange
@@ -36,7 +39,7 @@ public class BOBFieldHelperAccessibilityTests
             .AddCascadingValue(editContext));
 
         // Assert
-        cut.Find("div.bob-field-helper--error").GetAttribute("role").Should().Be("alert");
+        cut.Find("div[data-bob-error=\"true\"]").GetAttribute("role").Should().Be("alert");
     }
 
     [Theory]

@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.SyntaxHighlight;
+namespace BlazOrbit.SyntaxHighlight;
 
 /// <summary>
 /// Defines the languages supported by the syntax highlighter.
@@ -7,12 +7,16 @@ public enum SyntaxHighlightLanguage
 {
     /// <summary>C# programming language.</summary>
     CSharp,
+
     /// <summary>Razor markup syntax.</summary>
     Razor,
+
     /// <summary>TypeScript programming language.</summary>
     TypeScript,
+
     /// <summary>CSS stylesheet language.</summary>
     Css,
+
     /// <summary>JSON data format.</summary>
     Json
 }

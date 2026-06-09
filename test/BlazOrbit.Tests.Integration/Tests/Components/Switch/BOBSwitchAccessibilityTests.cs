@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components.Forms;
+using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -50,7 +50,7 @@ public class BOBSwitchAccessibilityTests
             .Add(c => c.OptionInactive, false)
             .Add(c => c.OptionActive, true));
 
-        // Assert — fallback aria-label is "Toggle"
+        // Assert - fallback aria-label is "Toggle"
         cut.Find("input").GetAttribute("aria-label").Should().Be("Toggle");
     }
 
@@ -82,7 +82,7 @@ public class BOBSwitchAccessibilityTests
             .Add(c => c.OptionActive, true)
             .Add(c => c.InputId, "my-switch"));
 
-        // Assert — label for= matches input id=
+        // Assert - label for= matches input id=
         string? inputId = cut.Find("input").GetAttribute("id");
         string? labelFor = cut.Find("label").GetAttribute("for");
         inputId.Should().Be("my-switch");

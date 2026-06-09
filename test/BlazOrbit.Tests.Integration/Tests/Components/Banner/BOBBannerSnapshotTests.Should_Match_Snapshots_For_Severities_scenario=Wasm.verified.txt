@@ -1,0 +1,18 @@
+[
+  {
+    Name: Info,
+    Html: <bob-component data-bob-component="banner" data-bob-size="medium" b-<SCOPE>><div class="bob-banner" role="status" aria-live="polite" data-bob-severity="info" b-<SCOPE>><span class="bob-banner__icon" aria-hidden="true" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M0 0h24v24H0V0z" fill="none"/><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg></bob-component></span><div class="bob-banner__body" b-<SCOPE>><strong class="bob-banner__title" b-<SCOPE>>Heads up</strong><span class="bob-banner__message" b-<SCOPE>>Sample message.</span></div></div></bob-component>
+  },
+  {
+    Name: Success,
+    Html: <bob-component data-bob-component="banner" data-bob-size="medium" b-<SCOPE>><div class="bob-banner" role="status" aria-live="polite" data-bob-severity="success" b-<SCOPE>><span class="bob-banner__icon" aria-hidden="true" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M0 0h24v24H0V0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm4.59-12.42L10 14.17l-2.59-2.58L6 13l4 4 8-8z"/></svg></bob-component></span><div class="bob-banner__body" b-<SCOPE>><strong class="bob-banner__title" b-<SCOPE>>Heads up</strong><span class="bob-banner__message" b-<SCOPE>>Sample message.</span></div></div></bob-component>
+  },
+  {
+    Name: Warning,
+    Html: <bob-component data-bob-component="banner" data-bob-size="medium" b-<SCOPE>><div class="bob-banner" role="status" aria-live="polite" data-bob-severity="warning" b-<SCOPE>><span class="bob-banner__icon" aria-hidden="true" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg></bob-component></span><div class="bob-banner__body" b-<SCOPE>><strong class="bob-banner__title" b-<SCOPE>>Heads up</strong><span class="bob-banner__message" b-<SCOPE>>Sample message.</span></div></div></bob-component>
+  },
+  {
+    Name: Error,
+    Html: <bob-component data-bob-component="banner" data-bob-size="medium" b-<SCOPE>><div class="bob-banner" role="alert" aria-live="assertive" data-bob-severity="error" b-<SCOPE>><span class="bob-banner__icon" aria-hidden="true" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg></bob-component></span><div class="bob-banner__body" b-<SCOPE>><strong class="bob-banner__title" b-<SCOPE>>Heads up</strong><span class="bob-banner__message" b-<SCOPE>>Sample message.</span></div></div></bob-component>
+  }
+]

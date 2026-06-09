@@ -1,0 +1,88 @@
+[data-bob-component="chip"] {
+    --_chip-h: calc(1.75rem * var(--bob-size-multiplier, 1));
+    --_chip-px: 0.625rem;
+    --_chip-radius: 999px;
+    --_chip-bg: color-mix(in oklab, var(--palette-surface-contrast) 8%, transparent);
+    --_chip-bg-hover: color-mix(in oklab, var(--palette-surface-contrast) 12%, transparent);
+    --_chip-bg-selected: color-mix(in oklab, var(--bob-inline-color, var(--palette-highlight)) 18%, transparent);
+    --_chip-color: var(--palette-surface-contrast);
+    --_chip-color-selected: var(--bob-inline-color, var(--palette-highlight));
+    --_chip-gap: 0.375rem;
+
+    display: inline-flex;
+}
+
+[data-bob-component="chip"] .bob-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--_chip-gap);
+    height: var(--_chip-h);
+    padding-inline: var(--_chip-px);
+    background: var(--_chip-bg);
+    color: var(--_chip-color);
+    border: none;
+    border-radius: var(--_chip-radius);
+    font: inherit;
+    font-size: 0.8125rem;
+    cursor: default;
+    transition: background 100ms ease, color 100ms ease;
+}
+
+[data-bob-component="chip"] .bob-chip[data-bob-clickable="true"] {
+    cursor: pointer;
+}
+
+[data-bob-component="chip"] .bob-chip[data-bob-clickable="true"]:hover {
+    background: var(--_chip-bg-hover);
+}
+
+[data-bob-component="chip"] .bob-chip[data-bob-selected="true"] {
+    background: var(--_chip-bg-selected);
+    color: var(--_chip-color-selected);
+}
+
+[data-bob-component="chip"] .bob-chip:disabled {
+    opacity: var(--bob-opacity-disabled, 0.5);
+    cursor: not-allowed;
+}
+
+[data-bob-component="chip"] .bob-chip__leading {
+    display: inline-flex;
+    align-items: center;
+    color: currentColor;
+    margin-inline-start: -0.125rem;
+}
+
+[data-bob-component="chip"] .bob-chip__label {
+    /* Marker hook for the inner text node so consumers can target it for ellipsis,
+       max-width, or weight overrides without leaking onto the chip wrapper. */
+    display: inline;
+    white-space: nowrap;
+}
+
+[data-bob-component="chip"] .bob-chip__count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.25rem;
+    height: 1.25rem;
+    padding: 0 0.375rem;
+    background: color-mix(in oklab, currentColor 20%, transparent);
+    color: currentColor;
+    border-radius: 999px;
+    font-size: 0.6875rem;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Chip remove affordance: appearance + opacity/hover state flow through the
+   internal _BOBInBtn Ghost variant. The overrides below shape it as a tiny round
+   pip nested at the trailing edge — width/height/border-radius/margin tighter
+   than the Ghost defaults. ::deep reaches the button rendered inside _BOBInBtn. */
+[data-bob-component="chip"] ::deep .bob-chip__remove {
+    min-width: 0;
+    width: 1rem;
+    height: 100%;
+    padding: 0;
+    border-radius: 50%;
+    margin-inline-end: -0.25rem;
+}

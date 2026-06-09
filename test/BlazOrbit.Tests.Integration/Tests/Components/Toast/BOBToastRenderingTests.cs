@@ -1,5 +1,4 @@
-﻿using BlazOrbit.Components.Layout;
-using BlazOrbit.Components.Layout.Services;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -18,12 +17,7 @@ public class BOBToastRenderingTests
         => new()
         {
             Content = b => b.AddContent(0, content),
-            Options = new ToastOptions
-            {
-                Closable = closable,
-                AutoDismiss = autoDismiss,
-                Position = position,
-            }
+            Options = new ToastOptions { Closable = closable, AutoDismiss = autoDismiss, Position = position }
         };
 
     [Theory]

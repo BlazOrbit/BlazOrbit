@@ -1,0 +1,20 @@
+@using BlazOrbit.Components.Server
+@*#if (UseNotificationsCenter)*@
+@using BlazOrbit.Notifications
+@*#endif*@
+@inject IStringLocalizer<NavMenu> Loc
+
+<nav class="bob-app__nav">
+    <a class="bob-app__brand" href="">
+        <img src="icon.svg" alt="" class="bob-app__brand-icon" />
+        <span>@Loc["Brand"]</span>
+    </a>
+    <div class="bob-app__nav-actions">
+        <a class="bob-app__nav-link" href="localization-demo">@Loc["Localization Demo"]</a>
+        @*#if (UseNotificationsCenter)*@
+        <BOBNotificationBell />
+        @*#endif*@
+        <BOBCultureSelector />
+        <BOBThemeSelector />
+    </div>
+</nav>

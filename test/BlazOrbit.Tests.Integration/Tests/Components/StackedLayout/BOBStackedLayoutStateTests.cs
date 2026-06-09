@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -24,7 +24,7 @@ public class BOBStackedLayoutStateTests
         cut.Render(p => p.Add(c => c.StickyHeader, false));
 
         // Assert
-        cut.Find("bob-component").GetAttribute("data-bob-sticky-header").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-sticky-header").Should().BeNull();
     }
 
     [Theory]
@@ -51,7 +51,7 @@ public class BOBStackedLayoutStateTests
         IRenderedComponent<BOBStackedLayout> cut = ctx.Render<BOBStackedLayout>(p => p
             .Add(c => c.Nav, b => b.AddContent(0, "n"))
             .Add(c => c.ShowToggle, true));
-        cut.Find("bob-component").GetAttribute("data-bob-nav-open").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-nav-open").Should().BeNull();
 
         // Act
         cut.Find(".bob-stacked-layout__toggle").Click();
@@ -66,7 +66,7 @@ public class BOBStackedLayoutStateTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — parameter two-way binding: pre-open the nav.
+        // Arrange & Act - parameter two-way binding: pre-open the nav.
         IRenderedComponent<BOBStackedLayout> cut = ctx.Render<BOBStackedLayout>(p => p
             .Add(c => c.Nav, b => b.AddContent(0, "n"))
             .Add(c => c.NavOpen, true));

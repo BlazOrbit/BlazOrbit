@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components.Forms;
+using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -10,7 +10,11 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Dropdown;
 [Trait("Component Variants", "BOBInputDropdownTree")]
 public class BOBInputDropdownTreeVariantTests
 {
-    private class DummyModel { public string? Value { get; set; } }
+    private class DummyModel
+    {
+        public string? Value { get; set; }
+    }
+
     private static readonly DummyModel _dm = new();
     private static readonly Expression<Func<string?>> _expr = () => _dm.Value;
 
@@ -21,10 +25,11 @@ public class BOBInputDropdownTreeVariantTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         // Arrange & Act
-        IRenderedComponent<BOBInputDropdownTree<string, string?>> cut = ctx.Render<BOBInputDropdownTree<string, string?>>(p => p
-            .Add(c => c.ValueExpression, _expr)
-            .Add(c => c.Items, new[] { "A", "B" })
-            .Add(c => c.KeySelector, x => x!));
+        IRenderedComponent<BOBInputDropdownTree<string, string?>> cut =
+            ctx.Render<BOBInputDropdownTree<string, string?>>(p => p
+                .Add(c => c.ValueExpression, _expr)
+                .Add(c => c.Items, ["A", "B"])
+                .Add(c => c.KeySelector, x => x!));
 
         // Assert
         cut.Find("bob-component").GetAttribute("data-bob-variant").Should().Be("outlined");
@@ -37,11 +42,12 @@ public class BOBInputDropdownTreeVariantTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         // Arrange & Act
-        IRenderedComponent<BOBInputDropdownTree<string, string?>> cut = ctx.Render<BOBInputDropdownTree<string, string?>>(p => p
-            .Add(c => c.ValueExpression, _expr)
-            .Add(c => c.Items, new[] { "A", "B" })
-            .Add(c => c.KeySelector, x => x!)
-            .Add(c => c.Variant, BOBInputVariant.Filled));
+        IRenderedComponent<BOBInputDropdownTree<string, string?>> cut =
+            ctx.Render<BOBInputDropdownTree<string, string?>>(p => p
+                .Add(c => c.ValueExpression, _expr)
+                .Add(c => c.Items, ["A", "B"])
+                .Add(c => c.KeySelector, x => x!)
+                .Add(c => c.Variant, BOBInputVariant.Filled));
 
         // Assert
         cut.Find("bob-component").GetAttribute("data-bob-variant").Should().Be("filled");
@@ -54,11 +60,12 @@ public class BOBInputDropdownTreeVariantTests
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
         // Arrange & Act
-        IRenderedComponent<BOBInputDropdownTree<string, string?>> cut = ctx.Render<BOBInputDropdownTree<string, string?>>(p => p
-            .Add(c => c.ValueExpression, _expr)
-            .Add(c => c.Items, new[] { "A", "B" })
-            .Add(c => c.KeySelector, x => x!)
-            .Add(c => c.Variant, BOBInputVariant.Standard));
+        IRenderedComponent<BOBInputDropdownTree<string, string?>> cut =
+            ctx.Render<BOBInputDropdownTree<string, string?>>(p => p
+                .Add(c => c.ValueExpression, _expr)
+                .Add(c => c.Items, ["A", "B"])
+                .Add(c => c.KeySelector, x => x!)
+                .Add(c => c.Variant, BOBInputVariant.Standard));
 
         // Assert
         cut.Find("bob-component").GetAttribute("data-bob-variant").Should().Be("standard");

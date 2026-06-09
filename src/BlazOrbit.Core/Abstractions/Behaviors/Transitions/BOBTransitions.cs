@@ -1,29 +1,48 @@
-﻿using System.Globalization;
+using System.Globalization;
 
 namespace BlazOrbit.Components;
 
+/// <summary>Interaction states that trigger a transition entry.</summary>
 public enum TransitionTrigger
 {
+    /// <summary>Pointer hover (<c>:hover</c>).</summary>
     Hover,
+
+    /// <summary>Keyboard or programmatic focus (<c>:focus</c>).</summary>
     Focus,
+
+    /// <summary>Active / pressed (<c>:active</c>).</summary>
     Active
 }
 
+/// <summary>Single CSS property entry within a transition set.</summary>
 public class TransitionEntry
 {
+    /// <summary>Target CSS property name.</summary>
     public string CssProperty { get; init; } = default!;
+
+    /// <summary>Target CSS value for the property under the trigger.</summary>
     public string Value { get; init; } = default!;
+
+    /// <summary>Optional transition duration.</summary>
     public TimeSpan? Duration { get; init; }
+
+    /// <summary>Optional CSS easing function.</summary>
     public string? Easing { get; init; }
+
+    /// <summary>Optional delay before the transition starts.</summary>
     public TimeSpan? Delay { get; init; }
 }
 
+/// <summary>Aggregates transition entries keyed by <see cref="TransitionTrigger"/> and emits CSS variables / shorthand.</summary>
 public class BOBTransitions
 {
     private readonly Dictionary<TransitionTrigger, List<TransitionEntry>> _entries = [];
 
+    /// <summary>True when at least one entry has been added.</summary>
     public bool HasTransitions => _entries.Count > 0;
 
+    /// <summary>Emits the CSS custom-property map for the configured transitions plus the shorthand variable.</summary>
     public Dictionary<string, string> GetCssVariables()
     {
         Dictionary<string, string> variables = [];
@@ -34,7 +53,8 @@ public class BOBTransitions
 
             foreach (TransitionEntry entry in entries)
             {
-                variables[FeatureDefinitions.Tokens.Transitions.VariableFor(triggerName, entry.CssProperty)] = entry.Value;
+                variables[FeatureDefinitions.Tokens.Transitions.VariableFor(triggerName, entry.CssProperty)] =
+                    entry.Value;
             }
         }
 
@@ -43,6 +63,7 @@ public class BOBTransitions
         return variables;
     }
 
+    /// <summary>Builds the space-separated <c>trigger:property</c> token list used in the data attribute.</summary>
     public string GetDataAttributeValue()
     {
         return string.Join(" ",
@@ -52,6 +73,7 @@ public class BOBTransitions
                 )).Distinct());
     }
 
+    /// <summary>Returns a new <see cref="BOBTransitions"/> with this instance overlaid by <paramref name="overrides"/>.</summary>
     public BOBTransitions MergeWith(BOBTransitions overrides)
     {
         BOBTransitions merged = new();

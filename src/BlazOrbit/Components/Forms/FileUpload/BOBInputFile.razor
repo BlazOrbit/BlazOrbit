@@ -1,0 +1,388 @@
+@using BlazOrbit.Abstractions
+@using BlazOrbit.Components
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.Extensions.Localization
+
+@namespace BlazOrbit.Components.Forms
+@attribute [GenerateComponentInfo]
+
+@inherits BOBComponentBase
+@implements IHasSize
+@implements IHasDensity
+
+<bob-component @attributes="ComputedAttributes">
+
+    @if (!string.IsNullOrWhiteSpace(Label))
+    {
+        <span class="bob-file-upload__label">@Label</span>
+    }
+
+    <label class="bob-file-upload__zone"
+           data-bob-disabled="@(Disabled ? "true" : null)"
+           tabindex="@(Disabled ? -1 : 0)">
+        <InputFile multiple="@Multiple"
+                   accept="@Accept"
+                   disabled="@Disabled"
+                   OnChange="@(EventCallback.Factory.Create<InputFileChangeEventArgs>(this, HandleSelectionAsync))"
+                   class="bob-file-upload__native"/>
+
+        @if (ChildContent is not null)
+        {
+            @ChildContent
+        }
+        else
+        {
+            <span class="bob-file-upload__icon" aria-hidden="true">
+                <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_cloud_upload" Size="@Size"/>
+            </span>
+            <span class="bob-file-upload__title">@ResolvedDropZoneText</span>
+            <span class="bob-file-upload__hint">@DropZoneHint</span>
+        }
+    </label>
+
+    @if (HelperText is not null)
+    {
+        <span class="bob-file-upload__helper">@HelperText</span>
+    }
+
+    @if (_files.Count > 0)
+    {
+        <ul class="bob-file-upload__list" role="list">
+            @foreach (var entry in _files)
+            {
+                <li class="bob-file-upload__entry" data-bob-status="@entry.Status.ToString().ToLowerInvariant()">
+                    <span class="bob-file-upload__entry-thumb">
+                        @if (!string.IsNullOrEmpty(entry.PreviewUrl))
+                        {
+                            <img src="@entry.PreviewUrl" alt="@entry.File.Name"/>
+                        }
+                        else
+                        {
+                            <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_insert_drive_file" Size="@Size"/>
+                        }
+                    </span>
+                    <span class="bob-file-upload__entry-meta">
+                        <span class="bob-file-upload__entry-name">@entry.File.Name</span>
+                        <span class="bob-file-upload__entry-size">@FormatBytes(entry.File.Size)</span>
+                        @if (entry.Status == BOBFileStatus.Uploading)
+                        {
+                            <BOBProgressBar Value="@entry.ProgressPercent" Max="100" Size="@Size"/>
+                        }
+                    </span>
+                    @* Per-entry status glyph — fades in when status is terminal.
+                       Reflects consumer-side calls to SetStatus() during/after upload. *@
+                    @if (entry.Status == BOBFileStatus.Uploaded)
+                    {
+                        <span class="bob-file-upload__entry-status" aria-label="@ResolvedUploadedText">
+                            <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_check_circle" Size="@Size"/>
+                        </span>
+                    }
+                    else if (entry.Status == BOBFileStatus.Failed)
+                    {
+                        <span class="bob-file-upload__entry-status" aria-label="@ResolvedFailedText"
+                              title="@entry.StatusMessage">
+                            <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_error" Size="@Size"/>
+                        </span>
+                    }
+                    @* Per-entry remove affordance — Ghost variant matches the dismiss pattern
+                       used in Banner + Chip. No extra class — parent flex pushes it to the
+                       trailing edge of the entry row. *@
+                    <_BOBInBtn Icon="@BOBIconKeys.MaterialIconsOutlined.i_close"
+                               Variant="BOBInBtnVariant.Ghost"
+                               Size="@Size"
+                               AriaLabel="@ResolvedRemoveText"
+                               Disabled="@(Disabled || entry.Status == BOBFileStatus.Uploading)"
+                               OnClick="@(_ => RemoveAsync(entry))"/>
+                </li>
+            }
+        </ul>
+    }
+
+    @if (_errors.Count > 0)
+    {
+        <ul class="bob-file-upload__errors" role="alert">
+            @foreach (var err in _errors)
+            {
+                <li>
+                    <strong>@err.FileName</strong> — @ErrorText(err)
+                </li>
+            }
+        </ul>
+    }
+
+</bob-component>
+
+@code {
+    [Inject] internal IStringLocalizer<BOBFormsResources> Localizer { get; set; } = default!;
+
+    private readonly List<BOBFileEntry> _files = [];
+    private readonly List<BOBFileValidationError> _errors = [];
+
+    /// <summary>Visual size of the drop-zone and previews.</summary>
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
+
+    /// <summary>Vertical density of the file list.</summary>
+    [Parameter]
+    public BOBDensity Density { get; set; } = BOBDensity.Standard;
+
+    /// <summary>Optional label rendered above the drop zone.</summary>
+    [Parameter]
+    public string? Label { get; set; }
+
+    /// <summary>Helper text rendered below the drop zone (above the file list).</summary>
+    [Parameter]
+    public string? HelperText { get; set; }
+
+    /// <summary>Custom drop-zone content. When omitted, a default icon + title + hint is rendered.</summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>When <see langword="true" /> (default <see langword="false"/>), multiple files can be picked.</summary>
+    [Parameter]
+    public bool Multiple { get; set; }
+
+    /// <summary>Native <c>accept</c> filter passed to <see cref="InputFile"/> (e.g. <c>"image/*,.pdf"</c>).</summary>
+    [Parameter]
+    public string? Accept { get; set; }
+
+    /// <summary>Maximum allowed size per file in bytes. Defaults to <c>10 MB</c>.</summary>
+    [Parameter]
+    public long MaxSize { get; set; } = 10 * 1024 * 1024;
+
+    /// <summary>Maximum number of accepted files. Defaults to <c>10</c>.</summary>
+    [Parameter]
+    public int MaxFiles { get; set; } = 10;
+
+    /// <summary>When <see langword="true"/>, the entire control is disabled.</summary>
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    /// <summary>When <see langword="true"/> (default), generate base64 image thumbnails for image/* files.</summary>
+    [Parameter]
+    public bool GeneratePreviews { get; set; } = true;
+
+    /// <summary>Maximum bytes streamed for preview generation. Defaults to <c>5 MB</c>.</summary>
+    [Parameter]
+    public long PreviewMaxBytes { get; set; } = 5 * 1024 * 1024;
+
+    /// <summary>Text rendered as the drop-zone title when no <see cref="ChildContent"/> is provided.</summary>
+    [Parameter]
+    public string? DropZoneText { get; set; }
+
+    private string ResolvedDropZoneText => DropZoneText ?? Localizer["Drag files here or click to browse"];
+
+    /// <summary>Hint rendered below the drop-zone title.</summary>
+    [Parameter]
+    public string DropZoneHint { get; set; } = "";
+
+    /// <summary>Aria label for the per-row remove button.</summary>
+    [Parameter]
+    public string? RemoveText { get; set; }
+
+    private string ResolvedRemoveText => RemoveText ?? Localizer["Remove file"];
+
+    /// <summary>Localised label rendered for the <c>TooLarge</c> error kind.</summary>
+    [Parameter]
+    public string? TooLargeText { get; set; }
+
+    private string ResolvedTooLargeText => TooLargeText ?? Localizer["exceeds maximum size"];
+
+    /// <summary>Localised label rendered for the <c>DisallowedType</c> error kind.</summary>
+    [Parameter]
+    public string? DisallowedTypeText { get; set; }
+
+    private string ResolvedDisallowedTypeText => DisallowedTypeText ?? Localizer["file type not allowed"];
+
+    /// <summary>Localised label rendered for the <c>TooManyFiles</c> error kind.</summary>
+    [Parameter]
+    public string? TooManyFilesText { get; set; }
+
+    private string ResolvedTooManyFilesText => TooManyFilesText ?? Localizer["too many files"];
+
+    /// <summary>Aria-label rendered on the success indicator after an upload completes.</summary>
+    [Parameter]
+    public string? UploadedText { get; set; }
+
+    private string ResolvedUploadedText => UploadedText ?? Localizer["Uploaded"];
+
+    /// <summary>Aria-label rendered on the failure indicator after an upload fails.</summary>
+    [Parameter]
+    public string? FailedText { get; set; }
+
+    private string ResolvedFailedText => FailedText ?? Localizer["Failed"];
+
+    /// <summary>Raised after a selection completes, with the validated files.</summary>
+    [Parameter]
+    public EventCallback<IReadOnlyList<IBrowserFile>> OnFilesSelected { get; set; }
+
+    /// <summary>Raised when one or more files are rejected by the client-side validators.</summary>
+    [Parameter]
+    public EventCallback<IReadOnlyList<BOBFileValidationError>> OnInvalid { get; set; }
+
+    /// <summary>Raised when the user removes a file from the list.</summary>
+    [Parameter]
+    public EventCallback<IBrowserFile> OnRemoved { get; set; }
+
+    private async Task HandleSelectionAsync(InputFileChangeEventArgs e)
+    {
+        _errors.Clear();
+
+        var incoming = Multiple ? e.GetMultipleFiles(MaxFiles) : [e.File];
+        // GetMultipleFiles throws beyond MaxFiles by design; if Multiple is false the array
+        // collapses to a single element. Treat the cap as a soft validation error too so the
+        // consumer sees consistent feedback regardless of which path tripped first.
+
+        foreach (var file in incoming)
+        {
+            if (file.Size > MaxSize)
+            {
+                _errors.Add(new BOBFileValidationError(file.Name, file.Size, BOBFileValidationErrorKind.TooLarge));
+                continue;
+            }
+
+            if (!IsAccepted(file))
+            {
+                _errors.Add(new BOBFileValidationError(file.Name, file.Size, BOBFileValidationErrorKind.DisallowedType));
+                continue;
+            }
+
+            if (_files.Count + 1 > MaxFiles)
+            {
+                _errors.Add(new BOBFileValidationError(file.Name, file.Size, BOBFileValidationErrorKind.TooManyFiles));
+                continue;
+            }
+
+            BOBFileEntry entry = new() { File = file, Status = BOBFileStatus.Accepted };
+            _files.Add(entry);
+
+            if (GeneratePreviews && file.ContentType.StartsWith("image/", StringComparison.OrdinalIgnoreCase))
+            {
+                await GeneratePreviewAsync(entry);
+            }
+        }
+
+        if (_errors.Count > 0 && OnInvalid.HasDelegate)
+        {
+            await OnInvalid.InvokeAsync(_errors.AsReadOnly());
+        }
+
+        if (OnFilesSelected.HasDelegate)
+        {
+            await OnFilesSelected.InvokeAsync(_files.Select(f => f.File).ToList());
+        }
+    }
+
+    private async Task GeneratePreviewAsync(BOBFileEntry entry)
+    {
+        try
+        {
+            using var stream = entry.File.OpenReadStream(PreviewMaxBytes);
+            using MemoryStream ms = new();
+            await stream.CopyToAsync(ms);
+            var base64 = Convert.ToBase64String(ms.ToArray());
+            entry.PreviewUrl = $"data:{entry.File.ContentType};base64,{base64}";
+        }
+        catch
+        {
+            // Preview failure is non-fatal; fall back to the generic file icon.
+            entry.PreviewUrl = null;
+        }
+    }
+
+    private bool IsAccepted(IBrowserFile file)
+    {
+        if (string.IsNullOrWhiteSpace(Accept)) return true;
+
+        var tokens = Accept.Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
+        foreach (var token in tokens)
+        {
+            // Three accept-token shapes per HTML spec: ".ext", "type/*", "type/subtype".
+            if (token.StartsWith('.'))
+            {
+                if (file.Name.EndsWith(token, StringComparison.OrdinalIgnoreCase)) return true;
+            }
+            else if (token.EndsWith("/*", StringComparison.Ordinal))
+            {
+                var prefix = token[..^1];
+                if (file.ContentType.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)) return true;
+            }
+            else
+            {
+                if (string.Equals(file.ContentType, token, StringComparison.OrdinalIgnoreCase)) return true;
+            }
+        }
+
+        return false;
+    }
+
+    private async Task RemoveAsync(BOBFileEntry entry)
+    {
+        if (Disabled) return;
+        _files.Remove(entry);
+        if (OnRemoved.HasDelegate)
+        {
+            await OnRemoved.InvokeAsync(entry.File);
+        }
+
+        if (OnFilesSelected.HasDelegate)
+        {
+            await OnFilesSelected.InvokeAsync(_files.Select(f => f.File).ToList());
+        }
+    }
+
+    /// <summary>
+    /// Reports upload progress for a previously selected file. The consumer drives the
+    /// upload (typically via <see cref="BOBChunkedUploader"/>) and calls this method on
+    /// every chunk to advance the per-entry progress bar. The lookup is by reference
+    /// against the original <see cref="IBrowserFile"/> returned by
+    /// <see cref="OnFilesSelected"/>. No-op when the file is no longer in the list.
+    /// </summary>
+    /// <param name="file">The browser file whose entry should update.</param>
+    /// <param name="status">New terminal or in-flight status.</param>
+    /// <param name="progressPercent">0–100 progress for <see cref="BOBFileStatus.Uploading"/>; ignored otherwise.</param>
+    /// <param name="statusMessage">Optional message — surfaced as a tooltip on the status glyph (typically used for <see cref="BOBFileStatus.Failed"/>).</param>
+    public void SetStatus(IBrowserFile file, BOBFileStatus status, double progressPercent = 0, string? statusMessage = null)
+    {
+        var entry = _files.FirstOrDefault(e => ReferenceEquals(e.File, file));
+        if (entry is null) return;
+
+        entry.Status = status;
+        entry.ProgressPercent = status == BOBFileStatus.Uploading ? Math.Clamp(progressPercent, 0, 100) : 0;
+        entry.StatusMessage = statusMessage;
+        StateHasChanged();
+    }
+
+    private string ErrorText(BOBFileValidationError err)
+    {
+        return err.Kind switch
+        {
+            BOBFileValidationErrorKind.TooLarge => $"{ResolvedTooLargeText} ({FormatBytes(err.Size)} > {FormatBytes(MaxSize)})",
+            BOBFileValidationErrorKind.DisallowedType => ResolvedDisallowedTypeText,
+            BOBFileValidationErrorKind.TooManyFiles => ResolvedTooManyFilesText,
+            _ => string.Empty
+        };
+    }
+
+    private static string FormatBytes(long bytes)
+    {
+        const double Kb = 1024d, Mb = Kb * 1024d, Gb = Mb * 1024d;
+        return bytes switch
+        {
+            >= (long)Gb => $"{bytes / Gb:F2} GB",
+            >= (long)Mb => $"{bytes / Mb:F2} MB",
+            >= (long)Kb => $"{bytes / Kb:F1} KB",
+            _ => $"{bytes} B"
+        };
+    }
+
+    private sealed class BOBFileEntry
+    {
+        public IBrowserFile File { get; set; } = default!;
+        public BOBFileStatus Status { get; set; } = BOBFileStatus.Accepted;
+        public string? PreviewUrl { get; set; }
+        public double ProgressPercent { get; set; }
+        public string? StatusMessage { get; set; }
+    }
+
+}

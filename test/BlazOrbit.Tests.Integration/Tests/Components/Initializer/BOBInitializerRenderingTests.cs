@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -29,7 +29,7 @@ public class BOBInitializerRenderingTests
         ["--palette-surface"] = "#1E1E1E",
         ["--palette-surface-contrast"] = "#FFFFFF",
         ["--palette-warning"] = "#FFD54F",
-        ["--palette-warning-contrast"] = "#000000",
+        ["--palette-warning-contrast"] = "#000000"
     };
 
     internal static IThemeJsInterop RegisterFakeTheme(BlazorTestContextBase ctx)
@@ -66,7 +66,7 @@ public class BOBInitializerRenderingTests
         // Arrange & Act
         IRenderedComponent<BOBInitializer> cut = ctx.Render<BOBInitializer>();
 
-        // Assert — no child divs (only HeadContent + CascadingValue shell)
+        // Assert - no child divs (only HeadContent + CascadingValue shell)
         cut.FindAll("div").Should().BeEmpty();
     }
 

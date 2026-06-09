@@ -1,0 +1,176 @@
+// Auto-migrated from DataGridPage.es.resx. Edit freely from now on.
+
+# Age
+Edad
+
+# Age (right)
+Edad (derecha)
+
+# Aggregate footer
+Pie agregado
+
+# Alignment & width
+Alineación y ancho
+
+# Amount
+Cantidad
+
+# Average price
+Precio promedio
+
+# Basic usage
+Uso básico
+
+# Bind Items and declare BOBDataColumn elements inside Columns.
+Vincula Items y declara elementos BOBDataColumn dentro de Columns.
+
+# BOBDataGrid
+BOBDataGrid
+
+# Bulk actions on selection
+Acciones masivas en selección
+
+# BulkActions appear in the toolbar when at least one row is selected. Each handler receives the current selection - wire to delete / export / approve workflows.
+BulkActions aparecen en la barra de herramientas cuando al menos una fila está seleccionada. Cada controlador recibe la selección actual para conectar flujos de eliminar / exportar / aprobar.
+
+# Click a header to sort. Multi-Sort behavior can be set using SortAppendBehavior parameter (None, Always, ShiftKey, CtrlKey, ShiftOrCtrlKey).
+Haz clic en un encabezado para ordenar. El comportamiento de ordenación múltiple se puede configurar con el parámetro SortAppendBehavior (None, Always, ShiftKey, CtrlKey, ShiftOrCtrlKey).
+
+# Color paints the foreground (cell text inherits), BackgroundColor paints the grid surface.
+Color pinta el primer plano (el texto de la celda lo hereda), BackgroundColor pinta la superficie de la cuadrícula.
+
+# Column reorder (keyboard + drag)
+Reordenación de columnas (teclado + arrastre)
+
+# Column resize
+Redimensionamiento de columna
+
+# Component
+Componente
+
+# Could not load orders - check your connection and retry.
+No se pudieron cargar pedidos - verifica tu conexión e inténtalo de nuevo.
+
+# Create first contact
+Crear primer contacto
+
+# Custom templates
+Plantillas personalizadas
+
+# Email
+Correo electrónico
+
+# Email (center)
+Correo (centro)
+
+# Empty state with CTA
+Estado vacío con llamada a la acción
+
+# EmptyActionTemplate slots a button (or any markup) into the default empty layout - encourages users to create their first record without writing a custom EmptyContent.
+EmptyActionTemplate inserta un botón (o cualquier marcado) en el diseño vacío predeterminado, animando a los usuarios a crear su primer registro sin escribir un EmptyContent personalizado.
+
+# Enable Sortable on the grid and on the columns you want clickable.
+Habilita Sortable en la cuadrícula y en las columnas que quieras clicables.
+
+# Error state
+Estado de error
+
+# Filter + pagination
+Filtro + paginación
+
+# Filter operators (text / numeric / date)
+Operadores de filtro (texto / numérico / fecha)
+
+# Freeze pins a column to the inline-start (Start) or inline-end (End) edge via position:sticky. Frozen columns require an explicit pixel Width so the grid can compute cumulative offsets for adjacent peers.
+Freeze fija una columna al borde inline-start (Start) o inline-end (End) vía position:sticky. Las columnas congeladas requieren un ancho en píxeles explícito para que la cuadrícula pueda calcular desplazamientos acumulados para columnas adyacentes.
+
+# Frozen columns
+Columnas congeladas
+
+# Hired
+Contratado
+
+# LoadingMode = Skeleton renders animated placeholder rows while data is fetching. Pair with PageSize to control the row count. Reduced-motion users get static placeholders.
+LoadingMode = Skeleton renderiza filas de marcador animadas mientras se obtienen datos. Combina con PageSize para controlar el conteo de filas. Los usuarios con reduced-motion obtienen marcadores estáticos.
+
+# Master-detail / row expansion
+Maestro-detalle / expansión de fila
+
+# Multi-column sort
+Ordenación multi-columna
+
+# Multiple selection
+Selección múltiple
+
+# Name
+Nombre
+
+# Name (left)
+Nombre (izquierda)
+
+# Order
+Pedido
+
+# Per-column filter
+Filtro por columna
+
+# Per-row actions
+Acciones por fila
+
+# Person
+Persona
+
+# Properties
+Propiedades
+
+# Quantity
+Cantidad
+
+# Region
+Región
+
+# RowActions renders icon buttons in a sticky-right column. Per-row Visible / Enabled predicates support read-only flags, role-gated workflows, etc.
+RowActions renderiza botones de icono en una columna fija a la derecha. Los predicados Visible / Enabled por fila soportan banderas de solo lectura, flujos de trabajo restringidos por rol, etc.
+
+# RowDetailTemplate adds a chevron toggle to each row that expands a sub-row with related data. Combine with sticky headers for analytics-style drill-downs.
+RowDetailTemplate añade un toggle de chevrón a cada fila que expande una subfila con datos relacionados. Combina con encabezados pegajosos para drill-downs estilo análisis.
+
+# Salary
+Salario
+
+# Search...
+Buscar...
+
+# Set Aggregate per column (Sum, Average, Count, Min, Max, Custom). Aggregates run on the filtered set, not the visible page - totals reflect the user's filters.
+Establece Aggregate por columna (Suma, Promedio, Conteo, Mín., Máx., Personalizado). Los agregados se ejecutan en el conjunto filtrado, no en la página visible: los totales reflejan los filtros del usuario.
+
+# Set Error to surface a remote-load failure. Override ErrorContent for branded retry UX.
+Establece Error para mostrar un fallo de carga remota. Sobrescribe ErrorContent para una experiencia de reintento con marca.
+
+# Shadow & Border
+Sombra y borde
+
+# ShowColumnFilters renders a small text input below each Filterable header. Filters AND-combine across columns and with the toolbar Filterable search box.
+ShowColumnFilters renderiza una pequeña entrada de texto debajo de cada encabezado Filterable. Los filtros se combinan con AND entre columnas y con el cuadro de búsqueda Filterable de la barra de herramientas.
+
+# Skeleton loading
+Carga con esqueleto
+
+# Sortable
+Ordenable
+
+# State persistence
+Persistencia de estado
+
+# Status
+Estado
+
+# Strongly-typed tabular data with sorting, filtering, pagination, selection, custom templates, and more - declaratively.
+Datos tabulares fuertemente tipados con ordenación, filtrado, paginación, selección, plantillas personalizadas y más, de forma declarativa.
+
+# Themed surface
+Superficie temática
+
+# Use Template with context to render any markup inside a cell.
+Usa Template con contexto para renderizar cualquier marcado dentro de una celda.
+

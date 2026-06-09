@@ -1,0 +1,26 @@
+// Auto-migrated from BoxplotChartPage.es.resx. Edit freely from now on.
+
+# BOBBoxplotChart
+BOBBoxplotChart
+
+# BOBChartBoxStat<TX>.FromValues runs the five-number summary + outlier extraction (1.5·IQR rule) for you. Pass pre-computed stats directly when the data lives server-side.
+BOBChartBoxStat<TX>.FromValues ejecuta el resumen de cinco números + extracción de valores atípicos (regla de 1,5·IQR) por ti. Pasa estadísticas precomputadas directamente cuando los datos residen en el servidor.
+
+# Box-and-whisker plot for comparing distributions across groups. Displays median, quartiles, whiskers, and outlier dots.
+Diagrama de caja y bigotes para comparar distribuciones entre grupos. Muestra mediana, cuartiles, bigotes y puntos atípicos.
+
+# Chart
+Gráfico
+
+# Compute from raw data
+Calcular desde datos en bruto
+
+# Extra package required
+Paquete adicional requerido
+
+# This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs.
+Este gráfico requiere el paquete NuGet BlazOrbit.Charts. Instálalo con dotnet add package BlazOrbit.Charts y registra AddBlazOrbitCharts() en Program.cs.
+
+
+# Each box is computed from the five-number summary: minimum, first quartile (Q1), median, third quartile (Q3), and maximum. Whiskers extend to the most extreme data point within 1.5× the inter-quartile range (IQR); values beyond that are rendered as individual outlier dots. You can pass raw observations and let <code>BOBChartBoxStat&lt;TX&gt;.FromValues</code> compute the statistics, or supply pre-computed stats server-side.
+Cada caja se calcula a partir del resumen de cinco números: mínimo, primer cuartil (Q1), mediana, tercer cuartil (Q3) y máximo. Los bigotes se extienden hasta el punto de datos más extremo dentro de 1,5 veces el rango intercuartílico (IQR); los valores más allá de eso se representan como puntos atípicos individuales. Puedes pasar observaciones raw y dejar que <code>BOBChartBoxStat&lt;TX&gt;.FromValues</code> calcule las estadísticas, o proporcionar estadísticas precomputadas del lado del servidor.

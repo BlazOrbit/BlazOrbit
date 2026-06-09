@@ -1,0 +1,112 @@
+// Auto-migrated from FormsPage.es.resx. Edit freely from now on.
+
+# A valid email address is required.
+Se requiere una dirección de correo válida.
+
+# Accept terms and conditions
+Aceptar términos y condiciones
+
+# Age
+Edad
+
+# Birth date
+Fecha de nacimiento
+
+# Canada
+Canadá
+
+# Complete form example
+Ejemplo de formulario completo
+
+# Complete form example with validation, text inputs, dropdowns, checkboxes, and submit handling.
+Ejemplo de formulario completo con validación, campos de texto, desplegables, casillas de verificación y manejo de envío.
+
+# Components
+Componentes
+
+# Country
+País
+
+# Email
+Correo electrónico
+
+# Enter your first and last name.
+Introduce tu nombre y apellido.
+
+# Female
+Femenino
+
+# Forms
+Formularios
+
+# France
+Francia
+
+# Full name
+Nombre completo
+
+# Gender
+Género
+
+# Germany
+Alemania
+
+# Japan
+Japón
+
+# Male
+Masculino
+
+# Mexico
+México
+
+# Must be between 18 and 120.
+Debe estar entre 18 y 120.
+
+# Other
+Otro
+
+# Prefer not to say
+Prefiero no decirlo
+
+# Receive product updates and news.
+Recibe actualizaciones de productos y noticias.
+
+# Reset
+Restablecer
+
+# Search country...
+Buscar país...
+
+# See Complete Validation Feature Here
+Ver la función completa de validación aquí
+
+# Select your country of residence.
+Selecciona tu país de residencia.
+
+# Select your date of birth.
+Selecciona tu fecha de nacimiento.
+
+# Select your gender.
+Selecciona tu género.
+
+# Spain
+España
+
+# Submit
+Enviar
+
+# Subscribe to newsletter
+Suscribirse al boletín
+
+# United Kingdom
+Reino Unido
+
+# United States
+Estados Unidos
+
+# You must accept to continue.
+Debes aceptar para continuar.
+
+# The example uses Blazor's native <code>EditForm</code> together with data-annotation attributes (<code>[Required]</code>, <code>[MinLength]</code>, <code>[EmailAddress]</code>, etc.). BlazOrbit input components inherit from <code>InputBase</code>, so they participate in validation state automatically without extra wiring.
+El ejemplo utiliza el <code>EditForm</code> nativo de Blazor junto con atributos de anotación de datos (<code>[Required]</code>, <code>[MinLength]</code>, <code>[EmailAddress]</code>, etc.). Los componentes de entrada de BlazOrbit heredan de <code>InputBase</code>, por lo que participan en el estado de validación automáticamente sin cableado adicional.

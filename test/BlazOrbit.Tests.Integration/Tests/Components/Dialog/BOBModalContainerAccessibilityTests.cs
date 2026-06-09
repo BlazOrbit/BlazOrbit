@@ -1,5 +1,5 @@
-﻿using AngleSharp.Dom;
-using BlazOrbit.Components.Layout;
+using AngleSharp.Dom;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -13,13 +13,7 @@ public class BOBModalContainerAccessibilityTests
     private sealed class DummyModalContent : Microsoft.AspNetCore.Components.ComponentBase, IModalContent
     {
         [Microsoft.AspNetCore.Components.Parameter]
-        public ModalReference ModalRef { get; set; } = default!;
-
-        ModalReference IModalContent.ModalReference
-        {
-            get => ModalRef;
-            set => ModalRef = value;
-        }
+        public ModalReference ModalReference { get; set; } = default!;
     }
 
     [Theory]
@@ -36,12 +30,12 @@ public class BOBModalContainerAccessibilityTests
             ComponentType = typeof(DummyModalContent),
             Reference = new ModalReference("a11y-1", _ => Task.CompletedTask),
             Options = new DialogOptions { Title = "My Dialog" },
-            IsVisible = true,
+            IsVisible = true
         };
         IRenderedComponent<BOBModalContainer> cut = ctx.Render<BOBModalContainer>(p => p
             .Add(c => c.Modal, modal));
 
-        // Assert — h2 carries the title for screen readers
+        // Assert - h2 carries the title for screen readers
         IElement h2 = cut.Find("h2.bob-modal-dialog__title");
         h2.TextContent.Should().Be("My Dialog");
     }
@@ -60,7 +54,7 @@ public class BOBModalContainerAccessibilityTests
             ComponentType = typeof(DummyModalContent),
             Reference = new ModalReference("a11y-close", _ => Task.CompletedTask),
             Options = new DialogOptions { Title = "Closable", Closable = true },
-            IsVisible = true,
+            IsVisible = true
         };
         IRenderedComponent<BOBModalContainer> cut = ctx.Render<BOBModalContainer>(p => p
             .Add(c => c.Modal, modal));

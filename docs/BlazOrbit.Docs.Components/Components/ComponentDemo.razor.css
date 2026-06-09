@@ -1,9 +1,8 @@
-﻿.demo__preview {
+.demo__preview {
     padding: 2.25rem;
-    background:
-        linear-gradient(135deg,
-            color-mix(in oklab, var(--palette-primary) 4%, var(--palette-surface)) 0%,
-            var(--palette-surface) 100%);
+    background: linear-gradient(135deg,
+    color-mix(in oklab, var(--palette-primary) 15%, var(--palette-surface)) 0%,
+    color-mix(in oklab, var(--palette-secondary) 15%, var(--palette-surface)) 100%);
     display: flex;
     flex-wrap: wrap;
     gap: 0.75rem;
@@ -16,4 +15,3 @@
 .demo__code {
     padding-top: 1em;
 }
-

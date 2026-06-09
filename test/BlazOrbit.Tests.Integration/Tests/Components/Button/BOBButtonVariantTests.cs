@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -21,15 +21,15 @@ public class BOBButtonVariantTests
 
         ctx.Services.AddBlazOrbitVariants(builder =>
             builder.ForComponent<BOBButton>()
-                   .AddVariant(
-                       customVariant,
-                       button => builder =>
-                       {
-                           builder.OpenElement(0, "bob-component");
-                           builder.AddAttribute(1, "class", "glass-button");
-                           builder.AddContent(2, button.Text);
-                           builder.CloseElement();
-                       }));
+                .AddVariant(
+                    customVariant,
+                    button => builder =>
+                    {
+                        builder.OpenElement(0, "bob-component");
+                        builder.AddAttribute(1, "class", "glass-button");
+                        builder.AddContent(2, button.Text);
+                        builder.CloseElement();
+                    }));
 
         // Act
         IRenderedComponent<BOBButton> cut = ctx.Render<BOBButton>(p => p

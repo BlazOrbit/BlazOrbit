@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Abstractions;
+using BlazOrbit.Abstractions;
 
 namespace BlazOrbit.Components.Forms.Dropdown;
 
@@ -11,6 +11,7 @@ public interface IDropdownContainer
 {
     /// <summary>Underlying value type the container binds to (e.g. <c>typeof(string)</c>).</summary>
     Type ElementType { get; }
+
     /// <summary><see langword="true"/> when the container allows multiple simultaneous selections.</summary>
     bool IsMultiple { get; }
 

@@ -1,0 +1,121 @@
+@page "/components/charts/sunburst"
+
+@inject IStringLocalizer<SunburstChartPage> Loc
+
+<DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBSunburstChart"]"
+         Lede="@Loc["Radial variant of the treemap - hierarchical nodes render as concentric arcs. Inner ring shows root nodes, outer rings show their descendants. Shares the dataset with BOBTreemapChart so consumers can swap representations without rebuilding their data."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBSunburstChart<>)"
+         Keywords="@(["sunburst", "radial", "hierarchy", "arcs", "rings", "drilldown"])">
+
+    <BOBBanner Severity="BOBBannerSeverity.Warning"
+               Title="@Loc["Extra package required"]"
+               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]"/>
+
+    <DocDemo Key="SolidCenter" Title="@Loc["Solid-center sunburst"]">
+        <BOBSunburstChart TY="decimal"
+                          Nodes="_taxonomy"
+                          Width="420" Height="420"/>
+    </DocDemo>
+
+    <DocDemo Key="DonutHole" Title="@Loc["Donut-hole sunburst"]"
+             Description="@Loc["InnerRadius leaves a hollow centre - handy for embedding KPI text inside the chart. Range is [0, 0.9] of the outer radius."]">
+        <BOBSunburstChart TY="decimal"
+                          Nodes="_taxonomy"
+                          InnerRadius="0.35"
+                          Width="420" Height="420"/>
+    </DocDemo>
+
+    <DocDemo Key="ClickToDrill" Title="@Loc["Click-to-drill"]"
+             Description="@Loc["OnNodeClick carries the node, its root-to-self path and its depth so the consumer can drive a drill-down view or update a side panel."]">
+        <BOBSunburstChart TY="decimal"
+                          Nodes="_org"
+                          InnerRadius="0.2"
+                          MinLabelArc="8"
+                          OnNodeClick="@(EventCallback.Factory.Create<BOBChartTreemapClickArgs<decimal>>(this, HandleNodeClick))"
+                          Width="480" Height="480"/>
+        @if (_lastClicked is not null)
+        {
+            <p class="doc-callout doc-callout--info"><strong>@Loc["Clicked:"]</strong> @string.Join(" / ", _lastClicked.Path) (depth @_lastClicked.Depth)</p>
+        }
+    </DocDemo>
+
+</DocPage>
+
+@code {
+
+    private BOBChartTreemapClickArgs<decimal>? _lastClicked;
+
+    private void HandleNodeClick(BOBChartTreemapClickArgs<decimal> args)
+    {
+        _lastClicked = args;
+    }
+
+    private static readonly BOBChartTreemapNode<decimal>[] _taxonomy =
+    [
+        new BOBChartTreemapNode<decimal>
+        {
+            Label = "Animals",
+            Children =
+            [
+                new BOBChartTreemapNode<decimal> { Label = "Mammals", Value = 200m },
+                new BOBChartTreemapNode<decimal> { Label = "Birds", Value = 110m },
+                new BOBChartTreemapNode<decimal> { Label = "Reptiles", Value = 70m }
+            ]
+        },
+        new BOBChartTreemapNode<decimal>
+        {
+            Label = "Plants",
+            Children =
+            [
+                new BOBChartTreemapNode<decimal> { Label = "Trees", Value = 140m },
+                new BOBChartTreemapNode<decimal> { Label = "Flowers", Value = 90m }
+            ]
+        },
+        new BOBChartTreemapNode<decimal>
+        {
+            Label = "Fungi",
+            Children =
+            [
+                new BOBChartTreemapNode<decimal> { Label = "Mushrooms", Value = 60m },
+                new BOBChartTreemapNode<decimal> { Label = "Molds", Value = 30m }
+            ]
+        }
+    ];
+
+    private static readonly BOBChartTreemapNode<decimal>[] _org =
+    [
+        new BOBChartTreemapNode<decimal>
+        {
+            Label = "Engineering",
+            Children =
+            [
+                new BOBChartTreemapNode<decimal> { Label = "Frontend", Value = 24m },
+                new BOBChartTreemapNode<decimal> { Label = "Backend", Value = 28m },
+                new BOBChartTreemapNode<decimal> { Label = "Platform", Value = 18m },
+                new BOBChartTreemapNode<decimal> { Label = "QA", Value = 12m }
+            ]
+        },
+        new BOBChartTreemapNode<decimal>
+        {
+            Label = "Product",
+            Children =
+            [
+                new BOBChartTreemapNode<decimal> { Label = "Design", Value = 14m },
+                new BOBChartTreemapNode<decimal> { Label = "PM", Value = 10m },
+                new BOBChartTreemapNode<decimal> { Label = "Research", Value = 8m }
+            ]
+        },
+        new BOBChartTreemapNode<decimal>
+        {
+            Label = "Operations",
+            Children =
+            [
+                new BOBChartTreemapNode<decimal> { Label = "Sales", Value = 22m },
+                new BOBChartTreemapNode<decimal> { Label = "Support", Value = 16m },
+                new BOBChartTreemapNode<decimal> { Label = "HR", Value = 6m }
+            ]
+        }
+    ];
+
+}

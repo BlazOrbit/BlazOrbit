@@ -1,0 +1,83 @@
+// Auto-migrated from BadgePage.es.resx. Edit freely from now on.
+
+# Alerts
+Alertas
+
+# An empty badge renders as a dot - perfect as an unread indicator.
+Un badge vacío se representa como un punto, perfecto como indicador de no leído.
+
+# Basic usage
+Uso básico
+
+# BOBBadge
+BOBBadge
+
+# BOBNotificationBadge overlays a badge onto any child content.
+BOBNotificationBadge superpone un badge sobre cualquier contenido hijo.
+
+# Bordered
+Con borde
+
+# Circular
+Circular
+
+# Colors
+Colores
+
+# Compact label for status, counts, or tags. Circular, dot-only, or with content - use it anywhere.
+Etiqueta compacta para estado, recuentos o etiquetas. Circular, solo punto o con contenido: úsala en cualquier lugar.
+
+# Component
+Componente
+
+# Dot badge
+Badge de punto
+
+# Elevated
+Elevado
+
+# Error
+Error
+
+# Featured
+Destacado
+
+# Inbox
+Bandeja de entrada
+
+# Info
+Información
+
+# Messages
+Mensajes
+
+# New
+Nuevo
+
+# Notification badge
+Badge de notificación
+
+# Pill
+Píldora
+
+# Primary
+Primario
+
+# Properties
+Propiedades
+
+# Rounded
+Redondeado
+
+# Shadow & Border
+Sombra y borde
+
+# Success
+Éxito
+
+# Use Circular for single-digit or icon badges.
+Usa Circular para badges de un solo dígito o de icono.
+
+# Warning
+Advertencia
+

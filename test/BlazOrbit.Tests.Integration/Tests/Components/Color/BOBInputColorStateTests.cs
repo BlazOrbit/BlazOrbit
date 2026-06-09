@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
@@ -11,7 +11,10 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Color;
 [Trait("Component State", "BOBInputColor")]
 public class BOBInputColorStateTests
 {
-    private class Model { public CssColor? Value { get; set; } }
+    private class Model
+    {
+        public CssColor? Value { get; set; }
+    }
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -25,7 +28,7 @@ public class BOBInputColorStateTests
             .Add(c => c.Disabled, false));
 
         IElement root = cut.Find("bob-component");
-        root.GetAttribute("data-bob-disabled").Should().Be("false");
+        root.GetAttribute("data-bob-disabled").Should().BeNull();
 
         cut.Render(p => p
             .Add(c => c.ValueExpression, () => model.Value)
@@ -54,7 +57,7 @@ public class BOBInputColorStateTests
             .Add(c => c.ValueExpression, () => model.Value)
             .Add(c => c.ReadOnly, false));
 
-        root.GetAttribute("data-bob-readonly").Should().Be("false");
+        root.GetAttribute("data-bob-readonly").Should().BeNull();
     }
 
     [Theory]
@@ -69,7 +72,7 @@ public class BOBInputColorStateTests
             .Add(c => c.Loading, false));
 
         IElement root = cut.Find("bob-component");
-        root.GetAttribute("data-bob-loading").Should().Be("false");
+        root.GetAttribute("data-bob-loading").Should().BeNull();
 
         cut.Render(p => p
             .Add(c => c.ValueExpression, () => model.Value)
@@ -90,7 +93,7 @@ public class BOBInputColorStateTests
             .Add(c => c.Error, false));
 
         IElement root = cut.Find("bob-component");
-        root.GetAttribute("data-bob-error").Should().Be("false");
+        root.GetAttribute("data-bob-error").Should().BeNull();
 
         cut.Render(p => p
             .Add(c => c.ValueExpression, () => model.Value)
@@ -110,7 +113,7 @@ public class BOBInputColorStateTests
         IRenderedComponent<BOBInputColor> cut = ctx.Render<BOBInputColor>(p => p
             .Add(c => c.ValueExpression, () => model.Value));
 
-        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().BeNull();
 
         cut.Render(p => p
             .Add(c => c.Value, new CssColor("#0000ff"))

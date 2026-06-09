@@ -1,0 +1,26 @@
+[
+  {
+    Name: Bar_50,
+    Html: <bob-component data-bob-component="progress-bar" data-bob-size="medium" b-<SCOPE>><div class="bob-progress" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" aria-label="Loading" b-<SCOPE>><div class="bob-progress__head" b-<SCOPE>><span class="bob-progress__label" b-<SCOPE>>Loading</span><span class="bob-progress__pct" b-<SCOPE>>50%</span></div><div class="bob-progress__track" b-<SCOPE>><div class="bob-progress__fill" style="width: 50%" b-<SCOPE>></div></div></div></bob-component>
+  },
+  {
+    Name: Bar_Indeterminate,
+    Html: <bob-component data-bob-component="progress-bar" data-bob-size="medium" b-<SCOPE>><div class="bob-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Progress" data-bob-indeterminate="true" b-<SCOPE>><div class="bob-progress__track" b-<SCOPE>><div class="bob-progress__fill" b-<SCOPE>></div></div></div></bob-component>
+  },
+  {
+    Name: Bar_Segments,
+    Html: <bob-component data-bob-component="progress-bar" data-bob-size="medium" b-<SCOPE>><div class="bob-progress" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" aria-label="Progress" b-<SCOPE>><div class="bob-progress__segments" aria-hidden="true" b-<SCOPE>><span class="bob-progress__segment" data-bob-filled="true" b-<SCOPE>></span><span class="bob-progress__segment" data-bob-filled="true" b-<SCOPE>></span><span class="bob-progress__segment" data-bob-filled="false" b-<SCOPE>></span><span class="bob-progress__segment" data-bob-filled="false" b-<SCOPE>></span></div></div></bob-component>
+  },
+  {
+    Name: Ring_30,
+    Html:
+<bob-component data-bob-component="progress-ring" data-bob-size="medium" b-<SCOPE>><div class="bob-progress-ring" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" aria-label="Progress" b-<SCOPE>><svg class="bob-progress-ring__svg" viewBox="0 0 40 40" b-<SCOPE>><circle class="bob-progress-ring__track" cx="20" cy="20" r="17" fill="none" stroke-width="4" b-<SCOPE>></circle>
+            <circle class="bob-progress-ring__fill" cx="20" cy="20" r="17" fill="none" stroke-width="4" stroke-linecap="round" stroke-dasharray="106.8" stroke-dashoffset="74.8" transform="rotate(-90 20 20)" b-<SCOPE>></circle></svg><span class="bob-progress-ring__label" b-<SCOPE>>30%</span></div></bob-component>
+  },
+  {
+    Name: Ring_Indeterminate,
+    Html:
+<bob-component data-bob-component="progress-ring" data-bob-size="medium" b-<SCOPE>><div class="bob-progress-ring" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-label="Progress" data-bob-indeterminate="true" b-<SCOPE>><svg class="bob-progress-ring__svg" viewBox="0 0 40 40" b-<SCOPE>><circle class="bob-progress-ring__track" cx="20" cy="20" r="17" fill="none" stroke-width="4" b-<SCOPE>></circle>
+            <circle class="bob-progress-ring__fill" cx="20" cy="20" r="17" fill="none" stroke-width="4" stroke-linecap="round" stroke-dasharray="106.8" stroke-dashoffset="106.8" transform="rotate(-90 20 20)" b-<SCOPE>></circle></svg></div></bob-component>
+  }
+]

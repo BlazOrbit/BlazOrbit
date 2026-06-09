@@ -1,0 +1,17 @@
+/* Pure layout primitive — sits next to inputs/buttons as an icon or loading slot.
+   No interactive state of its own; sizing rides the multiplier so it scales with
+   the surrounding family. */
+._bob-addon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: stretch;
+    flex-shrink: 0;
+    gap: 0.25rem;
+    min-width: calc(2.5rem * var(--bob-size-multiplier, 1));
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    overflow: hidden;
+}

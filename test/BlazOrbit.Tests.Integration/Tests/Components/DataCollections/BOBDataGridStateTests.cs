@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -54,7 +54,7 @@ public class BOBDataGridStateTests
 
         cut.FindAll("[role='gridcell']").Should().HaveCount(1);
 
-        // Act — add another item
+        // Act - add another item
         cut.Render(p => p
             .Add(c => c.Items, [new Person("Alice", 30), new Person("Bob", 25)])
             .Add(c => c.Columns, b =>
@@ -83,7 +83,7 @@ public class BOBDataGridStateTests
 
         cut.FindAll("[role='gridcell']").Should().HaveCount(2);
 
-        // Act — filter
+        // Act - filter
         cut.Find("[aria-label='Search...']").Input("Ali");
 
         // Assert
@@ -106,7 +106,7 @@ public class BOBDataGridStateTests
         // Act
         cut.Find(".bob-datagrid__sort-btn").Click();
 
-        // Assert — sorted ascending
+        // Assert - sorted ascending
         cut.FindAll("[role='gridcell']")[0].TextContent.Should().Be("Alice");
     }
 
@@ -116,8 +116,8 @@ public class BOBDataGridStateTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — 3 items, page size 2
-        IEnumerable<Person> items = [new Person("A", 1), new Person("B", 2), new Person("C", 3)];
+        // Arrange - 3 items, page size 2
+        IEnumerable<Person> items = [new("A", 1), new("B", 2), new("C", 3)];
 
         // Act
         IRenderedComponent<BOBDataGrid<Person>> cut = ctx.Render<BOBDataGrid<Person>>(p => p
@@ -131,7 +131,7 @@ public class BOBDataGridStateTests
                 b.CloseComponent();
             }));
 
-        // Assert — only 2 items shown on first page
+        // Assert - only 2 items shown on first page
         cut.FindAll("[role='gridcell']").Should().HaveCount(2);
     }
 }

@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components.Forms;
+using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -9,8 +9,11 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Dropdown;
 [Trait("Component Snapshots", "BOBInputDropdown")]
 public class BOBInputDropdownSnapshotTests
 {
+    private class DummyModel
+    {
+        public string? Value { get; set; }
+    }
 
-    private class DummyModel { public string? Value { get; set; } }
     private static readonly DummyModel _dm = new();
     private static readonly Expression<Func<string?>> _expr = () => _dm.Value;
 
@@ -68,7 +71,7 @@ public class BOBInputDropdownSnapshotTests
         var testCases = new[]
         {
             new { Name = "Default_Closed", Builder = BuildWithOptions(label: "Select") },
-            new { Name = "With_Value", Builder = BuildWithOptions(value: "opt1", label: "Select") },
+            new { Name = "With_Value", Builder = BuildWithOptions("opt1", label: "Select") },
             new { Name = "Disabled", Builder = BuildWithOptions(disabled: true, label: "Select") },
             new { Name = "Required", Builder = BuildWithOptions(required: true, label: "Select") },
             new { Name = "With_Helper", Builder = BuildWithOptions(label: "Select", helper: "Pick one") }
@@ -78,12 +81,8 @@ public class BOBInputDropdownSnapshotTests
         {
             IRenderedComponent<BOBInputDropdown<string>> cut =
                 ctx.Render<BOBInputDropdown<string>>(testCase.Builder);
-            return new
-            {
-                testCase.Name,
-                Html = cut.GetNormalizedMarkup()
-            };
-        });
+            return new { testCase.Name, Html = cut.GetNormalizedMarkup() };
+        }).ToList();
 
         await Verify(results).UseParameters(scenario.Name);
     }

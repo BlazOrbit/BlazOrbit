@@ -1,0 +1,143 @@
+// Auto-migrated from ColorPage.es.resx. Edit freely from now on.
+
+# Basic usage
+Uso básico
+
+# BOBInputColor
+BOBInputColor
+
+# Canvas adapts to its container width via CSS aspect-ratio.
+El lienzo se adapta al ancho de su contenedor mediante CSS aspect-ratio.
+
+# Clear reverts to initial value (not nullable)
+Limpiar revierte al valor inicial (no anulable)
+
+# Clear reverts to initial value (nullable)
+Limpiar revierte al valor inicial (anulable)
+
+# Clearable
+Borrable
+
+# Clearable NotNullable
+Limpiable NoAnulable
+
+# Clearable Nullable
+Limpiable Anulable
+
+# Color
+Color
+
+# Color & Background
+Color y fondo
+
+# Component
+Componente
+
+# Custom Color & Background
+Color y fondo personalizado
+
+# Custom Shadow
+Sombra personalizada
+
+# Disabled
+Deshabilitado
+
+# Display modes
+Modos de visualización
+
+# Dropdown
+Desplegable
+
+# Elevation Shadow
+Sombra de elevación
+
+# Filled
+Relleno
+
+# Full-featured color input with HSL/RGB/Hex output, an inline or dropdown picker, copy and revert actions.
+Entrada de color completa con salida HSL/RGB/Hex, selector en línea o desplegable, acciones de copiar y revertir.
+
+# HEX
+HEX
+
+# HEXA
+HEXA
+
+# Large
+Grande
+
+# Medium (Default)
+Mediano (predeterminado)
+
+# Modal
+Modal
+
+# Optimized
+Optimizado
+
+# Outlined
+Contorno
+
+# Output formats
+Formatos de salida
+
+# Pick anything, or paste a hex/rgb value.
+Selecciona cualquier cosa o pega un valor hex/rgb.
+
+# Pick the serialization format that matches your back-end.
+Elige el formato de serialización que coincida con tu backend.
+
+# Prefix & Suffix
+Prefijo y sufijo
+
+# Properties
+Propiedades
+
+# Read Only
+Solo lectura
+
+# ReadOnly
+Solo lectura
+
+# Required
+Requerido
+
+# Responsive Picker
+Selector responsive
+
+# RGB
+RGB
+
+# RGBA
+RGBA
+
+# Shadow
+Sombra
+
+# Sizes
+Tamaños
+
+# Small
+Pequeño
+
+# Standalone picker
+Selector independiente
+
+# Standard
+Estándar
+
+# States
+Estados
+
+# Use BOBColorPicker directly - no input field, just the picker.
+Usa BOBColorPicker directamente: sin campo de entrada, solo el selector.
+
+# Variants
+Variantes
+
+# With Prefix Icon
+Con icono de prefijo
+
+# With Suffix Icon
+Con icono de sufijo
+

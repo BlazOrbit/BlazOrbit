@@ -1,0 +1,18 @@
+[
+  {
+    Name: Default,
+    Html: <bob-component data-bob-component="section" data-bob-size="large" b-<SCOPE>><section class="bob-section__inner" b-<SCOPE>><div class="bob-section__body" b-<SCOPE>>Body</div></section></bob-component>
+  },
+  {
+    Name: With_Title,
+    Html: <bob-component data-bob-component="section" data-bob-size="large" b-<SCOPE>><section class="bob-section__inner" b-<SCOPE>><h2 class="bob-section__title" b-<SCOPE>>Features</h2><div class="bob-section__body" b-<SCOPE>>Body</div></section></bob-component>
+  },
+  {
+    Name: With_Title_And_Lead,
+    Html: <bob-component data-bob-component="section" data-bob-size="large" b-<SCOPE>><section class="bob-section__inner" b-<SCOPE>><h2 class="bob-section__title" b-<SCOPE>>Features</h2><p class="bob-section__lead" b-<SCOPE>>Learn more about our product</p><div class="bob-section__body" b-<SCOPE>>Body</div></section></bob-component>
+  },
+  {
+    Name: Small_Size,
+    Html: <bob-component data-bob-component="section" data-bob-size="small" b-<SCOPE>><section class="bob-section__inner" b-<SCOPE>><div class="bob-section__body" b-<SCOPE>>Body</div></section></bob-component>
+  }
+]

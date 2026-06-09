@@ -1,7 +1,9 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
+/// <summary>Reusable search algorithms backing dropdowns, autocompletes and selectors.</summary>
 public static class SearchAlgorithms
 {
+    /// <summary>Searches <paramref name="items"/> for matches against <paramref name="query"/> using the requested <paramref name="mode"/>.</summary>
     public static IEnumerable<SearchResult<T>> Search<T>(
         IEnumerable<T> items,
         string query,
@@ -70,7 +72,7 @@ public static class SearchAlgorithms
 
     private static bool MatchesAcronym(string text, string query)
     {
-        string[] words = text.Split(new[] { ' ', '-', '_', '.' }, StringSplitOptions.RemoveEmptyEntries);
+        string[] words = text.Split([' ', '-', '_', '.'], StringSplitOptions.RemoveEmptyEntries);
 
         if (words.Length < query.Length)
         {
@@ -99,7 +101,7 @@ public static class SearchAlgorithms
 
     private static bool MatchesWordStart(string text, string query)
     {
-        string[] words = text.Split(new[] { ' ', '-', '_', '.' }, StringSplitOptions.RemoveEmptyEntries);
+        string[] words = text.Split([' ', '-', '_', '.'], StringSplitOptions.RemoveEmptyEntries);
         int queryIndex = 0;
 
         foreach (string word in words)
@@ -152,7 +154,7 @@ public static class SearchAlgorithms
 
         if (text.Contains(query))
         {
-            int index = text.IndexOf(query);
+            int index = text.IndexOf(query, StringComparison.Ordinal);
             double score = 0.5 + (0.1 * (1.0 - ((double)index / text.Length)));
             return new SearchResult<T>(item, score, SearchMatchType.Contains);
         }
@@ -200,7 +202,7 @@ public static class SearchAlgorithms
     }
 
     private static IEnumerable<SearchResult<T>> SearchSmart<T>(
-                                IEnumerable<T> items,
+        IEnumerable<T> items,
         string query,
         Func<T, string> textSelector)
     {

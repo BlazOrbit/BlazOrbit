@@ -1,0 +1,29 @@
+// Auto-migrated from RadarChartPage.es.resx. Edit freely from now on.
+
+# BOBRadarChart
+BOBRadarChart
+
+# Chart
+Gráfico
+
+# Custom ring count + max
+Conteo y máximo de anillos personalizados
+
+# Extra package required
+Paquete adicional requerido
+
+# Multi-series comparison
+Comparación multi-serie
+
+# Overlap two profiles to compare shapes - ideal for skill matrices, product feature parity, A/B benchmark dashboards.
+Superponer dos perfiles para comparar formas: ideal para matrices de habilidades, paridad de características de producto, paneles de referencia A/B.
+
+# Radar / spider chart - multi-dimensional comparison across N axes (3-12). Each series renders a closed polygon; categories are evenly distributed around the circle.
+Gráfico de radar / araña: comparación multidimensional en N ejes (3-12). Cada serie dibuja un polígono cerrado; las categorías se distribuyen uniformemente alrededor del círculo.
+
+# Single-series profile
+Perfil de serie única
+
+# This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs.
+Este gráfico requiere el paquete NuGet BlazOrbit.Charts. Instálalo con dotnet add package BlazOrbit.Charts y registra AddBlazOrbitCharts() en Program.cs.
+

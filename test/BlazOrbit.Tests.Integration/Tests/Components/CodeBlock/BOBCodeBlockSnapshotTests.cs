@@ -1,4 +1,5 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
+using BlazOrbit.CodeBlock.Components;
 using BlazOrbit.SyntaxHighlight;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -45,7 +46,7 @@ public class BOBCodeBlockSnapshotTests
                 Html = ctx.Render<BOBCodeBlock>(p => p
                     .Add(c => c.Code, "const x: number = 1;")
                     .Add(c => c.Language, SyntaxHighlightLanguage.TypeScript)).GetNormalizedMarkup()
-            },
+            }
         };
 
         await Verify(testCases).UseParameters(scenario.Name);

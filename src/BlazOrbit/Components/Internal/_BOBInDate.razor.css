@@ -1,0 +1,48 @@
+/* Simple date input primitive. Wider min-width than text/number because the native
+   YYYY-MM-DD layout plus the calendar indicator never fits inside 3rem. color-scheme
+   so the native picker icon picks up dark theme automatically. */
+._bob-simple-date {
+    min-width: calc(7rem * var(--bob-size-multiplier, 1));
+    min-height: calc(2rem * var(--bob-size-multiplier, 1));
+    padding: 0.25rem;
+    border: var(--bob-input-border-width) var(--bob-input-border-style) var(--bob-input-border-color);
+    border-radius: var(--bob-border-radius);
+    background: var(--palette-surface);
+    color: var(--palette-surface-contrast);
+    font: inherit;
+    font-size: 0.875rem;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    text-align: center;
+    outline: none;
+    transition: border-color var(--bob-input-transition-duration) var(--bob-input-transition-easing);
+    color-scheme: light dark;
+}
+
+._bob-simple-date:focus {
+    border-color: var(--palette-highlight);
+}
+
+._bob-simple-date:focus-visible {
+    outline: var(--bob-highlight-outline);
+    outline-offset: var(--bob-highlight-outline-offset);
+}
+
+._bob-simple-date:disabled {
+    cursor: not-allowed;
+    opacity: var(--bob-opacity-disabled);
+}
+
+._bob-simple-date::placeholder {
+    opacity: var(--bob-opacity-placeholder);
+}
+
+._bob-simple-date::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    opacity: var(--bob-opacity-placeholder);
+    transition: opacity var(--bob-input-transition-duration) var(--bob-input-transition-easing);
+}
+
+._bob-simple-date::-webkit-calendar-picker-indicator:hover {
+    opacity: 1;
+}

@@ -1,0 +1,38 @@
+// Auto-migrated from CandlestickChartPage.es.resx. Edit freely from now on.
+
+# Basic OHLC
+OHLC básico
+
+# BOBCandlestickChart
+BOBCandlestickChart
+
+# Candlestick chart for financial time series. Visualize open, high, low, and close prices with bullish and bearish coloring. Optional volume pane.
+Gráfico de velas para series temporales financieras. Visualiza precios de apertura, máximo, mínimo y cierre con colores alcistas y bajistas. Panel de volumen opcional.
+
+# Chart
+Gráfico
+
+# Custom up / down colors
+Colores de subida/bajada personalizados
+
+# Extra package required
+Paquete adicional requerido
+
+# ReferenceLines map onto the price pane. Useful for SMA / EMA bands or fixed support / resistance levels.
+ReferenceLines se mapean en el panel de precios. Útiles para bandas SMA / EMA o niveles fijos de soporte / resistencia.
+
+# ShowVolumePane reserves the bottom 20% for volume bars colored by the candle direction. Use the same dataset to spot price/volume divergences.
+ShowVolumePane reserva el 20% inferior para barras de volumen coloreadas según la dirección de la vela. Usa el mismo conjunto de datos para detectar divergencias de precio/volumen.
+
+# This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs.
+Este gráfico requiere el paquete NuGet BlazOrbit.Charts. Instálalo con dotnet add package BlazOrbit.Charts y registra AddBlazOrbitCharts() en Program.cs.
+
+# With moving-average reference
+Con referencia de media móvil
+
+# With volume pane
+Con panel de volumen
+
+
+# Each candle encodes four price points: the wick spans from Low to High, while the body covers the Open-to-Close range. When Close ≥ Open the body is colored bullish; when Close &lt; Open it is colored bearish. The optional volume pane occupies the bottom 20% of the canvas and shares the same X axis, making price/volume divergence easy to spot.
+Cada vela codifica cuatro puntos de precio: la mecha abarca desde Low hasta High, mientras que el cuerpo cubre el rango Open-to-Close. Cuando Close ≥ Open el cuerpo se colorea alcista; cuando Close &lt; Open se colorea bajista. El panel de volumen opcional ocupa el 20% inferior del canvas y comparte el mismo eje X, haciendo que la divergencia precio/volumen sea fácil de detectar.

@@ -1,0 +1,301 @@
+# Guide
+Guía
+
+
+
+
+# Project Templates
+Plantillas de proyecto
+
+
+
+
+# Start a new BlazOrbit project from a `dotnet new` template - Server or WebAssembly, .NET 8 or .NET 10, with optional localization wired up.
+Inicia un proyecto nuevo de BlazOrbit desde una plantilla `dotnet new` - Server o WebAssembly, .NET 8 o .NET 10, con localización opcional conectada.
+
+
+
+
+# 1. Install the templates
+1. Instalar las plantillas
+
+
+
+
+# The templates ship as a single NuGet package. Install once and the <code>dotnet new</code> CLI picks them up globally.
+Las plantillas se distribuyen como un único paquete NuGet. Instálalas una vez y la CLI <code>dotnet new</code> las recoge globalmente.
+
+
+
+
+# Terminal
+Terminal
+
+
+
+
+# Update to a newer release at any time:
+Actualiza a una versión más reciente en cualquier momento:
+
+
+
+
+# Uninstall when you no longer need them:
+Desinstálalas cuando ya no las necesites:
+
+
+
+
+# 2. Available templates
+2. Plantillas disponibles
+
+
+
+
+# Both templates ship the same component surface and theming pipeline. Pick the hosting model that fits your app.
+Ambas plantillas incluyen la misma superficie de componentes y pipeline de temas. Elige el modelo de hospedaje que se ajuste a tu aplicación.
+
+
+
+
+# Short name
+Nombre corto
+
+
+
+
+# Hosting
+Hospedaje
+
+
+
+
+# Description
+Descripción
+
+
+
+
+# Blazor Server
+Servidor Blazor
+
+
+
+
+# Interactive Server render mode + cookie-friendly auth integration points.
+Modo de renderizado Interactive Server + puntos de integración de autenticación compatibles con cookies.
+
+
+
+
+# Blazor WebAssembly
+Asamblea web de Blazor
+
+
+
+
+# Standalone WASM with PWA manifest, service worker, and BlazOrbit bundles preconfigured.
+WASM independiente con manifiesto PWA, service worker y paquetes de BlazOrbit preconfigurados.
+
+
+
+
+# 3. Parameters
+3. Parámetros
+
+
+
+
+# Parameter
+Parámetro
+
+
+
+
+# Values
+Valores
+
+
+
+
+# Default
+Predeterminado
+
+
+
+
+# Effect
+Efecto
+
+
+
+
+# Targets the chosen TFM and switches per-version host plumbing (e.g. <code>MapStaticAssets</code>, <code>ImportMap</code>, <code>NotFoundPage</code>).
+Apunta al TFM elegido y cambia la plomería del host por versión (p. ej. <code>MapStaticAssets</code>, <code>ImportMap</code>, <code>NotFoundPage</code>).
+
+
+
+
+# Adds <code>BlazOrbit.Localization.Server</code> / <code>.Wasm</code>, registers <code>RequestLocalization</code> / <code>localStorage</code> bridge, and exposes <code>BOBCultureSelector</code> in the navbar.
+Agrega <code>BlazOrbit.Localization.Server</code> / <code>.Wasm</code>, registra <code>RequestLocalization</code> / puente <code>localStorage</code>, y expone <code>BOBCultureSelector</code> en la barra de navegación.
+
+
+
+
+# Adds <code>BlazOrbit.Charts</code>, registers <code>AddBlazOrbitCharts()</code>, and replaces Home with a dashboard sample.
+Agrega <code>BlazOrbit.Charts</code>, registra <code>AddBlazOrbitCharts()</code>, y reemplaza Home con un ejemplo de panel de control.
+
+
+
+
+# Adds <code>BlazOrbit.Notifications</code>, registers <code>AddBlazOrbitNotifications()</code>, adds <code>BOBNotificationBell</code> in the navbar, and includes a notification inbox demo in Home.
+Agrega <code>BlazOrbit.Notifications</code>, registra <code>AddBlazOrbitNotifications()</code>, añade <code>BOBNotificationBell</code> en la barra de navegación, e incluye una demo de bandeja de notificaciones en Home.
+
+
+
+
+# Adds <code>BlazOrbit.Hotkeys</code>, registers <code>AddBlazOrbitHotkeys()</code>, mounts <code>BOBHotkeyHost</code> in the app shell, and includes a keyboard-shortcuts demo in Home.
+Agrega <code>BlazOrbit.Hotkeys</code>, registra <code>AddBlazOrbitHotkeys()</code>, monta <code>BOBHotkeyHost</code> en el shell de la aplicación, e incluye una demo de atajos de teclado en Home.
+
+
+
+
+# Pre-built visual theme that overrides the default palette and design tokens (border radius, border width, input radius, font family, etc.).
+Tema visual preconstruido que sobrescribe la paleta predeterminada y los tokens de diseño (radio de borde, ancho de borde, radio de entrada, familia de fuentes, etc.).
+
+
+
+
+# 4. Generate a project
+4. Generar un proyecto
+
+
+
+
+# Blazor Server, .NET 10, no localization:
+Blazor Server, .NET 10, sin localización:
+
+
+
+
+# Blazor Server, .NET 10, with localization:
+Blazor Server, .NET 10, con localización:
+
+
+
+
+# Blazor WebAssembly, .NET 8, no localization:
+Blazor WebAssembly, .NET 8, sin localización:
+
+
+
+
+# Blazor WebAssembly, .NET 10, with localization:
+Blazor WebAssembly, .NET 10, con localización:
+
+
+
+
+# Blazor Server, .NET 10, with Neo-Brutalism theme:
+Blazor Server, .NET 10, con tema Neo-Brutalism:
+
+
+
+
+# Blazor Server, .NET 10, with everything:
+Blazor Server, .NET 10, con todo:
+
+
+
+
+# Run <code>cd MyApp &amp;&amp; dotnet run</code> to launch. The default Home page is a live showcase of the component library you can edit at <code>Components/Pages/Home.razor</code> (Server) or <code>Pages/Home.razor</code> (WASM).
+Ejecuta <code>cd MyApp &amp;&amp; dotnet run</code> para lanzar. La página Home predeterminada es una vitrina en vivo de la librería de componentes que puedes editar en <code>Components/Pages/Home.razor</code> (Server) o <code>Pages/Home.razor</code> (WASM).
+
+
+
+
+# 5. What the template ships
+5. Qué incluye la plantilla
+
+
+
+
+# Out of the box, every generated project includes:
+De fábrica, cada proyecto generado incluye:
+
+
+
+
+# A pre-wired <code>BOBInitializer</code> in <code>MainLayout.razor</code> with theme switching and the modal/toast hosts.
+Un <code>BOBInitializer</code> preconfigurado en <code>MainLayout.razor</code> con cambio de tema y los hosts de modal/toast.
+
+
+
+
+# A branded loading screen using the BlazOrbit icon, replaced once the interactive shell mounts.
+Una pantalla de carga con marca usando el icono de BlazOrbit, reemplazada una vez que se monta el shell interactivo.
+
+
+
+
+# The CSS bundle linked from <code>_content/BlazOrbit/css/blazorbit.css</code> and the anti-flash bootstrap script.
+El paquete CSS vinculado desde <code>_content/BlazOrbit/css/blazorbit.css</code> y el script bootstrap anti-flash.
+
+
+
+
+# A favicon set (SVG + 48/192/512 PNG) and, on WASM, a PWA manifest.
+Un conjunto de favicon (SVG + 48/192/512 PNG) y, en WASM, un manifiesto PWA.
+
+
+
+
+# A showcase Home page demonstrating buttons, inputs, cards, and accordion with palette-driven styling.
+Una página Home de demostración que muestra botones, entradas, tarjetas y acordeón con estilo impulsado por la paleta.
+
+
+
+
+# When localization is enabled: <code>BOBCultureSelector</code> in the navbar, <code>en-US</code> / <code>es-ES</code> / <code>fr-FR</code> sample cultures, and the request-localization wiring.
+Cuando la localización está habilitada: <code>BOBCultureSelector</code> en la barra de navegación, culturas de ejemplo <code>en-US</code> / <code>es-ES</code> / <code>fr-FR</code>, y el cableado de localización de peticiones.
+
+
+
+
+# When charts are enabled: <code>BlazOrbit.Charts</code> package, <code>AddBlazOrbitCharts()</code> registration, and a dashboard Home page with sample KPIs and data visualizations.
+Cuando los gráficos están habilitados: paquete <code>BlazOrbit.Charts</code>, registro de <code>AddBlazOrbitCharts()</code>, y una página Home de panel de control con KPIs de ejemplo y visualizaciones de datos.
+
+
+
+
+# When notifications are enabled: <code>BOBNotificationBell</code> in the navbar and a sample inbox with push / mark-read / remove demo.
+Cuando las notificaciones están habilitadas: <code>BOBNotificationBell</code> en la barra de navegación y una bandeja de entrada de ejemplo con demo de push / marcar como leído / eliminar.
+
+
+
+
+# When hotkeys are enabled: <code>BOBHotkeyHost</code> in the layout shell and a sample shortcuts table with <code>Ctrl+K</code> / <code>Ctrl+F1</code> handlers.
+Cuando los atajos de teclado están habilitados: <code>BOBHotkeyHost</code> en el shell del layout y una tabla de atajos de ejemplo con manejadores <code>Ctrl+K</code> / <code>Ctrl+F1</code>.
+
+
+
+
+# For contributors - local feed
+Para colaboradores - feed local
+
+
+
+
+# Validating template changes against unreleased library bits requires a local NuGet feed. The repo ships a script that packs the libraries plus the templates package, installs them, generates a matrix of sample projects, and builds each combo end-to-end.
+Validar cambios de plantilla contra bits de biblioteca no publicados requiere un feed NuGet local. El repositorio incluye un script que empaqueta las bibliotecas más el paquete de plantillas, los instala, genera una matriz de proyectos de ejemplo, y construye cada combinación de extremo a extremo.
+
+
+
+
+
+
+
+
+# See <code>scripts/test-templates.ps1 -Help</code> for flags (<code>-SkipBlazOrbitPack</code>, <code>-KeepWorkDir</code>, custom <code>-Matrix</code>, …).
+Consulta <code>scripts/test-templates.ps1 -Help</code> para ver las banderas (<code>-SkipBlazOrbitPack</code>, <code>-KeepWorkDir</code>, <code>-Matrix</code> personalizado, …).
+

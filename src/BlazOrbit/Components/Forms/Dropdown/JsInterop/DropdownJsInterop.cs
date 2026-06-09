@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Abstractions;
+using BlazOrbit.Abstractions;
 using BlazOrbit.Types;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
@@ -14,7 +14,7 @@ internal interface IDropdownJsInterop
     ValueTask<DropdownPosition> GetPositionAsync(string componentId);
 
     ValueTask InitializeAsync(
-                    ElementReference triggerElement,
+        ElementReference triggerElement,
         ElementReference menuElement,
         DotNetObjectReference<DropdownCallbacksRelay> dotnetReference,
         string componentId);
@@ -29,6 +29,7 @@ internal sealed class DropdownJsInterop : ModuleJsInteropBase, IDropdownJsIntero
 
     public async ValueTask DisposeAsync(string componentId)
     {
+        // Dispose path: 4-tuple only — JSException surfaces installation bugs.
         IJSObjectReference module = await ModuleTask.Value;
 
         await module.InvokeVoidAsync("dispose", componentId);
@@ -36,25 +37,37 @@ internal sealed class DropdownJsInterop : ModuleJsInteropBase, IDropdownJsIntero
 
     public async ValueTask FocusSearchInputAsync(string componentId)
     {
-        IJSObjectReference module = await ModuleTask.Value;
+        IJSObjectReference? module = await TryGetModuleAsync();
+        if (module is null)
+        {
+            return;
+        }
 
         await module.InvokeVoidAsync("focusSearchInput", componentId);
     }
 
     public async ValueTask<DropdownPosition> GetPositionAsync(string componentId)
     {
-        IJSObjectReference module = await ModuleTask.Value;
+        IJSObjectReference? module = await TryGetModuleAsync();
+        if (module is null)
+        {
+            return default;
+        }
 
         return await module.InvokeAsync<DropdownPosition>("getPosition", componentId);
     }
 
     public async ValueTask InitializeAsync(
-                    ElementReference triggerElement,
+        ElementReference triggerElement,
         ElementReference menuElement,
         DotNetObjectReference<DropdownCallbacksRelay> dotnetReference,
         string componentId)
     {
-        IJSObjectReference module = await ModuleTask.Value;
+        IJSObjectReference? module = await TryGetModuleAsync();
+        if (module is null)
+        {
+            return;
+        }
 
         await module.InvokeVoidAsync(
             "initialize",

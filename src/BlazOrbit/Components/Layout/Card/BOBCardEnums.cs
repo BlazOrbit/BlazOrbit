@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components.Layout;
+namespace BlazOrbit.Components;
 
 /// <summary>
 /// Defines the position of media content within a card.

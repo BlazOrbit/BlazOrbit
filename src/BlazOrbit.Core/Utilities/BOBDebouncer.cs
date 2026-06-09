@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+using System.Diagnostics.CodeAnalysis;
 
 namespace BlazOrbit.Utilities;
 
@@ -8,7 +8,7 @@ namespace BlazOrbit.Utilities;
 /// when the specified interval elapses without further invocations.
 /// </summary>
 /// <remarks>
-/// Designed for Blazor input scenarios — search-as-you-type, server-side
+/// Designed for Blazor input scenarios - search-as-you-type, server-side
 /// validation, expensive callbacks per keystroke. Pairs with
 /// <see cref="Microsoft.AspNetCore.Components.EventCallback{T}"/>: pass the
 /// callback's <c>InvokeAsync</c> as the action.
@@ -50,11 +50,12 @@ public sealed class BOBDebouncer<T> : IDisposable
     /// <returns>
     /// A task that completes either when the action runs or when a subsequent
     /// invocation cancels this one. Catches <see cref="TaskCanceledException"/>
-    /// and <see cref="OperationCanceledException"/> internally — the returned
+    /// and <see cref="OperationCanceledException"/> internally - the returned
     /// task always completes successfully.
     /// </returns>
     [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope",
-        Justification = "CancellationTokenSource ownership transfers to the awaiter; disposed in Dispose() or on next InvokeAsync.")]
+        Justification =
+            "CancellationTokenSource ownership transfers to the awaiter; disposed in Dispose() or on next InvokeAsync.")]
     public async Task InvokeAsync(T arg, Func<T, Task> action)
     {
         ArgumentNullException.ThrowIfNull(action);

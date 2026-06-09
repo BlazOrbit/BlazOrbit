@@ -1,4 +1,4 @@
-﻿using System.Runtime.CompilerServices;
+using System.Runtime.CompilerServices;
 
 namespace BlazOrbit.CodeGeneration.Tests.Infrastructure;
 
@@ -9,10 +9,10 @@ public static class ModuleInit
     {
         VerifierSettings.DontScrubGuids();
         VerifierSettings.DontScrubDateTimes();
-        Verifier.DerivePathInfo((sourceFile, projectDirectory, type, method) =>
+        DerivePathInfo((sourceFile, projectDirectory, type, method) =>
             new PathInfo(
-                directory: System.IO.Path.Combine(System.IO.Path.GetDirectoryName(sourceFile)!, "Snapshots"),
-                typeName: type.Name,
-                methodName: method.Name));
+                Path.Combine(Path.GetDirectoryName(sourceFile)!, "Snapshots"),
+                type.Name,
+                method.Name));
     }
 }

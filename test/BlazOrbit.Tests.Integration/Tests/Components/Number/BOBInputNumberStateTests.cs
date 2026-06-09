@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -39,7 +39,7 @@ public class BOBInputNumberStateTests
             .Add(c => c.Disabled, false));
 
         IElement root = cut.Find("bob-component");
-        root.GetAttribute("data-bob-disabled").Should().Be("false");
+        root.GetAttribute("data-bob-disabled").Should().BeNull();
 
         cut.Render(p => p.Add(c => c.Disabled, true));
 
@@ -57,7 +57,7 @@ public class BOBInputNumberStateTests
             .Add(c => c.Loading, false));
 
         IElement root = cut.Find("bob-component");
-        root.GetAttribute("data-bob-loading").Should().Be("false");
+        root.GetAttribute("data-bob-loading").Should().BeNull();
 
         cut.Render(p => p.Add(c => c.Loading, true));
 
@@ -75,7 +75,7 @@ public class BOBInputNumberStateTests
             .Add(c => c.Error, false));
 
         IElement root = cut.Find("bob-component");
-        root.GetAttribute("data-bob-error").Should().Be("false");
+        root.GetAttribute("data-bob-error").Should().BeNull();
 
         cut.Render(p => p.Add(c => c.Error, true));
 
@@ -91,7 +91,7 @@ public class BOBInputNumberStateTests
         IRenderedComponent<BOBInputNumber<int>> cut = ctx.Render<BOBInputNumber<int>>(p => p
             .Add(c => c.ReadOnly, false));
 
-        cut.Find("bob-component").GetAttribute("data-bob-readonly").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-readonly").Should().BeNull();
 
         cut.Render(p => p.Add(c => c.ReadOnly, true));
 
@@ -105,11 +105,7 @@ public class BOBInputNumberStateTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        Dictionary<string, object> extra = new()
-        {
-            { "data-testid", "qty-input" },
-            { "class", "my-num" }
-        };
+        Dictionary<string, object> extra = new() { { "data-testid", "qty-input" }, { "class", "my-num" } };
 
         IRenderedComponent<BOBInputNumber<int>> cut = ctx.Render<BOBInputNumber<int>>(p => p
             .Add(c => c.AdditionalAttributes, extra));

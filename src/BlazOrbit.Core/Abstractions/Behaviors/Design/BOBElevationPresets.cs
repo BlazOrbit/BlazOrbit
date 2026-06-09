@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 /// <summary>
 /// Resolves an integer elevation level (0–24) to the Material Design 3 surface-tint percentage
@@ -41,7 +41,7 @@ public static class BOBElevationPresets
             2 => 8,
             3 => 11,
             4 => 12,
-            _ => 14,
+            _ => 14
         };
     }
 }

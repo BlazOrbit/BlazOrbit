@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -98,7 +98,7 @@ public class BOBDatePickerInteractionTests
         IRenderedComponent<BOBDatePicker> cut = ctx.Render<BOBDatePicker>(p => p
             .Add(c => c.ValueChanged, v => captured = v));
 
-        // Act — click first non-muted day cell
+        // Act - click first non-muted day cell
         IReadOnlyList<IElement> dayCells = cut.FindAll(".bob-picker__grid button.bob-picker__cell");
         dayCells.First().Click();
 
@@ -118,7 +118,7 @@ public class BOBDatePickerInteractionTests
             .Add(c => c.Value, new DateOnly(DateTime.Today.Year, DateTime.Today.Month, 1))
             .Add(c => c.ValueChanged, v => selected = v));
 
-        // Act — click a day that contains "15"
+        // Act - click a day that contains "15"
         IElement day15 = cut.FindAll(".bob-picker__grid button.bob-picker__cell")
             .First(b => b.TextContent.Trim() == "15");
         day15.Click();

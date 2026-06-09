@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using FluentAssertions;
 
 namespace BlazOrbit.Tests.Integration.Tests.Library;
@@ -176,8 +176,8 @@ public class BOBTransitionBuilderTests
     {
         BOBTransitions transitions = new BOBTransitionsBuilder()
             .OnHover()
-                .Color("red")
-                .BackgroundColor("blue")
+            .Color("red")
+            .BackgroundColor("blue")
             .Build();
 
         Dictionary<string, string> vars = transitions.GetCssVariables();

@@ -1,5 +1,5 @@
-﻿using AngleSharp.Dom;
-using BlazOrbit.Components.Layout;
+using AngleSharp.Dom;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -24,7 +24,7 @@ public class BOBCardAccessibilityTests
             .Add(c => c.OnClick, EventCallback.Factory.Create<MouseEventArgs>(this, () => { }))
             .Add(c => c.ChildContent, b => b.AddContent(0, "Body")));
 
-        // Assert — SR/CSS can key off this attribute
+        // Assert - SR/CSS can key off this attribute
         cut.Find("bob-component").GetAttribute("data-bob-clickable").Should().Be("true");
     }
 
@@ -39,7 +39,7 @@ public class BOBCardAccessibilityTests
             .Add(c => c.ChildContent, b => b.AddContent(0, "Body")));
 
         // Assert
-        cut.Find("bob-component").GetAttribute("data-bob-clickable").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-clickable").Should().BeNull();
     }
 
     [Theory]
@@ -48,7 +48,7 @@ public class BOBCardAccessibilityTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — BOBCard is semantically-neutral; consumers opt in via
+        // Arrange & Act - BOBCard is semantically-neutral; consumers opt in via
         // AdditionalAttributes. Verify they reach the root element.
         IRenderedComponent<BOBCard> cut = ctx.Render<BOBCard>(p => p
             .Add(c => c.Clickable, true)
@@ -75,7 +75,7 @@ public class BOBCardAccessibilityTests
         IRenderedComponent<BOBCard> cut = ctx.Render<BOBCard>(p => p
             .Add(c => c.ChildContent, b => b.AddContent(0, "Body")));
 
-        // Assert — framework emits none by default; presentational by default
+        // Assert - framework emits none by default; presentational by default
         IElement root = cut.Find("bob-component");
         root.HasAttribute("role").Should().BeFalse();
         root.HasAttribute("tabindex").Should().BeFalse();
@@ -92,7 +92,7 @@ public class BOBCardAccessibilityTests
             .Add(c => c.Header, b => b.AddMarkupContent(0, "<h3 class='card-title'>Title</h3>"))
             .Add(c => c.ChildContent, b => b.AddContent(0, "Body")));
 
-        // Assert — heading lives inside the card header slot (document outline preserved)
+        // Assert - heading lives inside the card header slot (document outline preserved)
         cut.Find(".bob-card__header h3.card-title").TextContent.Should().Be("Title");
     }
 }

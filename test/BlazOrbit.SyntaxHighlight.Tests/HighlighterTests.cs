@@ -1,4 +1,4 @@
-﻿using BlazOrbit.SyntaxHighlight.Builder;
+using BlazOrbit.SyntaxHighlight.Builder;
 using BlazOrbit.SyntaxHighlight.Rendering;
 using BlazOrbit.SyntaxHighlight.Tokens;
 
@@ -154,10 +154,7 @@ public class HighlighterTests
     [Fact]
     public void Options_CanBeChanged()
     {
-        Highlighter highlighter = new()
-        {
-            Options = HtmlRenderOptions.LightTheme
-        };
+        Highlighter highlighter = new() { Options = HtmlRenderOptions.LightTheme };
         string result = highlighter.Highlight("csharp", "class Foo { }");
 
         Assert.Contains("#ffffff", result);

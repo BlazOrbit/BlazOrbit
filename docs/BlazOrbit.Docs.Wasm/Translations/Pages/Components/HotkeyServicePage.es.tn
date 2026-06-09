@@ -1,0 +1,59 @@
+// Auto-migrated from HotkeyServicePage.es.resx. Edit freely from now on.
+
+# 1. Call AddBlazOrbitHotkeys() in Program.cs.
+1. Llama a AddBlazOrbitHotkeys() en Program.cs.
+
+# 2. Mount <BOBHotkeyHost /> once in your app shell (typically inside BOBBlazorLayout).
+2. Monta <BOBHotkeyHost /> una vez en el shell de tu aplicación (típicamente dentro de BOBBlazorLayout).
+
+# 3. Inject IHotkeyService and call Register() - dispose the registration to scope the binding.
+3. Inyecta IHotkeyService y llama a Register() - dispón el registro para limitar el alcance del binding.
+
+# anywhere outside an input.
+en cualquier lugar fuera de un input.
+
+# BOBHotkeyService
+BOBHotkeyService
+
+# Cheat-sheet
+Hoja de referencia
+
+# Combo
+Combo
+
+# Description
+Descripción
+
+# Extra package required
+Paquete adicional requerido
+
+# Global keyboard shortcut registry with auto-cleanup, modifier-aware combos, and an opt-in cheat-sheet.
+Registro global de atajos de teclado con limpieza automática, combos conscientes de modificadores y hoja de referencia opt-in.
+
+# Hits:
+Pulsaciones:
+
+# Last combo:
+Último combo:
+
+# Live demo
+Demostración en vivo
+
+# or
+o
+
+# Press
+Presiona
+
+# Scope
+Ámbito
+
+# Service
+Servicio
+
+# Setup
+Configuración
+
+# This service requires the BlazOrbit.Hotkeys NuGet package. Install it with dotnet add package BlazOrbit.Hotkeys and register AddBlazOrbitHotkeys() in Program.cs.
+Este servicio requiere el paquete NuGet BlazOrbit.Hotkeys. Instálalo con dotnet add package BlazOrbit.Hotkeys y registra AddBlazOrbitHotkeys() en Program.cs.
+

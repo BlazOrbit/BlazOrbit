@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using System.Runtime.CompilerServices;
 using System.Text.RegularExpressions;
 
@@ -9,8 +9,8 @@ namespace BlazOrbit.Tests.Integration.Tests.Library;
 /// selector in any .css or .razor.css file under src/BlazOrbit.
 ///
 /// The audit distinguishes two cases per CSS-OPT-05:
-///   (a) Intentional public override / test hooks — allowed via <see cref="GhostClassAllowlist"/>.
-///   (b) Residuals from refactor — must be removed from markup.
+///   (a) Intentional public override / test hooks - allowed via <see cref="GhostClassAllowlist"/>.
+///   (b) Residuals from refactor - must be removed from markup.
 /// </summary>
 [Trait("Library", "CssAudit")]
 public class CssClassAuditTests
@@ -46,15 +46,10 @@ public class CssClassAuditTests
         ["bob-button__icon--leading"] = "Modifier for leading icon; verified by BOBButtonStateTests.",
         ["bob-button__icon--trailing"] = "Modifier for trailing icon; verified by BOBButtonStateTests.",
         ["bob-tabs__tab-label"] = "Structural/test hook for tab label text; verified by BOBTabsRenderingTests.",
-        ["bob-theme-editor"] = "Root hook for theme editor container; verified by BOBThemeEditorRenderingTests.",
-        ["bob-theme-editor__category"] = "Structural hook for category group; verified by BOBThemeEditorStateTests.",
-        ["bob-theme-editor__category-title"] = "Structural hook for category heading; verified by BOBThemeEditorAccessibilityTests.",
-        ["bob-theme-preview"] = "Root hook for theme preview; verified by BOBThemePreviewRenderingTests.",
-        ["bob-theme-preview__row"] = "Structural hook for preview row; verified by BOBThemePreviewRenderingTests.",
-        ["bob-theme-preview__section"] = "Structural hook for preview section; verified by BOBThemePreviewRenderingTests.",
-        ["bob-tree-menu__submenu"] = "Structural/test hook for submenu container; verified by BOBTreeMenuInteractionTests.",
-        ["bob-tree-selector__container"] = "Structural/test hook for tree root; verified by BOBTreeSelectorAccessibilityTests.",
-        ["bob-tree-selector__expander"] = "Structural/test hook for expand button; verified by BOBTreeSelectorStateTests.",
+        ["bob-tree-menu__submenu"] =
+            "Structural/test hook for submenu container; verified by BOBTreeMenuInteractionTests.",
+        ["bob-tree-selector__expander"] =
+            "Structural/test hook for expand button; verified by BOBTreeSelectorStateTests."
     };
 
     [Fact]
@@ -69,12 +64,12 @@ public class CssClassAuditTests
             .OrderBy(s => s, StringComparer.Ordinal);
 
         ghosts.Should().BeEmpty(
-            because: "every CSS class written onto the DOM must be selected by at least one " +
-                     "CSS rule, otherwise the class is dead weight or styling is missing. " +
-                     "If the class is an intentional public hook or test anchor, add it to " +
-                     "GhostClassAllowlist with a justification and a test reference.\n\n" +
-                     "Ghost classes:\n  " +
-                     string.Join("\n  ", ghosts.Select(o => $".{o}")));
+            "every CSS class written onto the DOM must be selected by at least one " +
+            "CSS rule, otherwise the class is dead weight or styling is missing. " +
+            "If the class is an intentional public hook or test anchor, add it to " +
+            "GhostClassAllowlist with a justification and a test reference.\n\n" +
+            "Ghost classes:\n  " +
+            string.Join("\n  ", ghosts.Select(o => $".{o}")));
     }
 
     [Fact]
@@ -89,17 +84,17 @@ public class CssClassAuditTests
         {
             if (!markup.Contains(key))
             {
-                stale.Add($"GhostClassAllowlist[\"{key}\"] — code no longer emits .{key}");
+                stale.Add($"GhostClassAllowlist[\"{key}\"] - code no longer emits .{key}");
             }
             else if (css.Contains(key))
             {
-                stale.Add($"GhostClassAllowlist[\"{key}\"] — CSS now selects on .{key}; remove the entry");
+                stale.Add($"GhostClassAllowlist[\"{key}\"] - CSS now selects on .{key}; remove the entry");
             }
         }
 
         stale.Should().BeEmpty(
-            because: "stale allowlist entries hide future drift. Remove the entries listed below.\n\n" +
-                     string.Join("\n", stale));
+            "stale allowlist entries hide future drift. Remove the entries listed below.\n\n" +
+            string.Join("\n", stale));
     }
 
     private static HashSet<string> ExtractClassesFromCss()
@@ -114,8 +109,7 @@ public class CssClassAuditTests
         {
             if (file.Contains($"{Path.DirectorySeparatorChar}obj{Path.DirectorySeparatorChar}")
                 || file.Contains($"{Path.DirectorySeparatorChar}bin{Path.DirectorySeparatorChar}")
-                || file.Contains($"{Path.DirectorySeparatorChar}node_modules{Path.DirectorySeparatorChar}")
-                || file.Contains($"{Path.DirectorySeparatorChar}wwwroot{Path.DirectorySeparatorChar}"))
+                || file.Contains($"{Path.DirectorySeparatorChar}node_modules{Path.DirectorySeparatorChar}"))
             {
                 continue;
             }
@@ -138,7 +132,7 @@ public class CssClassAuditTests
             return result;
         }
 
-        // .razor files — literal class attributes
+        // .razor files - literal class attributes
         foreach (string file in Directory.EnumerateFiles(SrcBlazOrbit, "*.razor", SearchOption.AllDirectories))
         {
             if (file.Contains($"{Path.DirectorySeparatorChar}obj{Path.DirectorySeparatorChar}")
@@ -168,7 +162,7 @@ public class CssClassAuditTests
             }
         }
 
-        // .razor.cs and .cs files — string literals that look like CSS classes
+        // .razor.cs and .cs files - string literals that look like CSS classes
         foreach (string ext in new[] { "*.razor.cs", "*.cs" })
         {
             foreach (string file in Directory.EnumerateFiles(SrcBlazOrbit, ext, SearchOption.AllDirectories))

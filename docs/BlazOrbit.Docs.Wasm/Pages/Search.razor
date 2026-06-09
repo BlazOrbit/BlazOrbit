@@ -1,0 +1,83 @@
+@page "/search"
+@using BlazOrbit.Docs.Wasm.Models
+@using BlazOrbit.Docs.Wasm.Services
+
+@inject DocSearchService SearchService
+@inject NavigationManager NavigationManager
+@inject IStringLocalizer<Search> Loc
+
+<PageTitle>@PageTitle</PageTitle>
+
+<DocPage Eyebrow="@Loc["Search"]"
+         Title="@DocPageTitle"
+         Lede="@DocPageLede"
+         Robots="noindex, follow"
+         Keywords="@(["search", "find", "documentation"])">
+
+    <section class="doc-section">
+
+        @if (_results.Count > 0)
+        {
+            <p class="doc-section__description">@Loc["{0} result(s) found.", _results.Count]</p>
+            <ul class="search-page__results">
+                @foreach (var result in _results)
+                {
+                    <li class="search-page__result">
+                        <a href="@result.Item.Route" class="search-page__result-title">
+                            @((MarkupString)DocSearchService.Highlight(result.Item.Title, _query))
+                        </a>
+                        <div class="search-page__result-breadcrumb">
+                            @string.Join(" > ", result.Item.Breadcrumb)
+                        </div>
+                    </li>
+                }
+            </ul>
+        }
+        else if (!string.IsNullOrWhiteSpace(_query))
+        {
+            <p class="doc-section__description">
+                @Loc.Html("No results found for <strong>{0}</strong>. Try a different term or browse the <a href=\"/getting-started\">documentation</a>.", _query)
+            </p>
+        }
+        else
+        {
+            <p class="doc-section__description">
+                @Loc.Html("Enter a search term in the search bar (or press <kbd>Ctrl K</kbd>) to find documentation.")
+            </p>
+        }
+
+    </section>
+
+</DocPage>
+
+@code {
+    [SupplyParameterFromQuery(Name = "q")] public string? Q { get; set; }
+
+    private string _query = string.Empty;
+    private List<DocSearchResult> _results = [];
+
+    private string PageTitle => string.IsNullOrWhiteSpace(_query)
+        ? $"{Loc["Search"]} | BlazOrbit"
+        : $"{Loc["Results for"]}{_query} | BlazOrbit";
+
+    private string DocPageTitle => string.IsNullOrWhiteSpace(_query)
+        ? Loc["Search"]
+        : $"{Loc["Results for"]} \"{_query}\"";
+
+    private string DocPageLede => string.IsNullOrWhiteSpace(_query)
+        ? Loc["Search across all BlazOrbit documentation, components and concepts."]
+        : Loc["{0} result(s) found across components and concepts.", _results.Count];
+
+    private string MetaDescription => string.IsNullOrWhiteSpace(_query)
+        ? Loc["Search the BlazOrbit documentation."]
+        : Loc["Found {0} result(s) for \"{1}\" in BlazOrbit documentation.", _results.Count, _query];
+
+    protected override void OnParametersSet()
+    {
+        _query = Q ?? string.Empty;
+        _results = string.IsNullOrWhiteSpace(_query)
+            ? []
+            : SearchService.Search(_query).ToList();
+    }
+
+}

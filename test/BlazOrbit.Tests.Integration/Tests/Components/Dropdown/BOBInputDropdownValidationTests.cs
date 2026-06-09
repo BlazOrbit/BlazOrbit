@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Tests.Integration.Infrastructure;
+using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using BlazOrbit.Tests.Integration.Templates.Components.Consumers;
 using Bunit;
@@ -54,7 +54,7 @@ public class BOBInputDropdownValidationTests
         cut.Find("button.submit-btn").Click();
 
         // Assert
-        cut.Find(".bob-field-helper--error").TextContent.Should().Contain("Please select an option");
+        cut.Find("[data-bob-error=\"true\"]").TextContent.Should().Contain("Please select an option");
     }
 
     [Theory]

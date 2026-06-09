@@ -1,0 +1,60 @@
+@page "/components/navigation/timeline"
+
+@using BlazOrbit.Components
+
+@inject IStringLocalizer<TimelinePage> Loc
+
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBTimeline"]"
+         Lede="@Loc["Vertical or horizontal trail of dated events with optional grouping and alternating layout."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBTimeline)"
+         Keywords="@(["timeline", "history", "events", "chronological"])">
+
+    <DocDemo Key="Vertical" Title="@Loc["Vertical (default)"]">
+        <BOBTimeline Items="@_events"/>
+    </DocDemo>
+
+    <DocDemo Key="Alternating" Title="@Loc["Alternating sides"]">
+        <BOBTimeline Items="@_events" Alternating="true"/>
+    </DocDemo>
+
+    <DocDemo Key="GroupByDate" Title="@Loc["Grouped by date"]">
+        <BOBTimeline Items="@_events" GroupByDate="true"/>
+    </DocDemo>
+
+    <DocDemo Key="Horizontal" Title="@Loc["Horizontal"]">
+        <BOBTimeline Items="@_events" Orientation="BOBTimelineOrientation.Horizontal"/>
+    </DocDemo>
+
+    <DocDemo Key="ItemTemplate" Title="@Loc["Custom item template"]">
+        <BOBTimeline Items="@_events">
+            <ItemTemplate Context="item">
+                <strong>@item.Title</strong>
+                @if (!string.IsNullOrEmpty(item.Description))
+                {
+                    <em class="doc-demo__inline">- @item.Description</em>
+                }
+            </ItemTemplate>
+        </BOBTimeline>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBTimelineComponentInfo.Parameters"/>
+    </section>
+
+</DocPage>
+
+@code {
+    private static readonly DateTimeOffset Today = DateTimeOffset.Now.Date;
+
+    private readonly IReadOnlyList<TimelineItem> _events =
+    [
+        new(Today.AddDays(-2).AddHours(9), "Project kickoff", "Initial scope agreed.", BOBIconKeys.MaterialIconsOutlined.i_flag),
+        new(Today.AddDays(-1).AddHours(11), "Design review", "Wireframes approved.", BOBIconKeys.MaterialIconsOutlined.i_design_services, "var(--palette-success)"),
+        new(Today.AddHours(8), "Build started", "CI deployment kicked off.", BOBIconKeys.MaterialIconsOutlined.i_build),
+        new(Today.AddHours(13), "Smoke tests", "All endpoints OK.", BOBIconKeys.MaterialIconsOutlined.i_check_circle, "var(--palette-success)")
+    ];
+
+}

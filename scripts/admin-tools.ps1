@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env pwsh
+#!/usr/bin/env pwsh
 #requires -Version 7.0
 <#
 .SYNOPSIS
@@ -23,7 +23,14 @@
 
 .EXAMPLE
     ./admin-tools.ps1 release 1.0.0
-    Publishes stable release (merge to master + tag)
+    Publishes stable release (merge to master + tag). VersionPrefix on
+    develop is left untouched — bump it manually afterwards.
+
+.EXAMPLE
+    ./admin-tools.ps1 release 1.0.0 -NextVersion 2.0.0
+    Same as above, plus bumps VersionPrefix on develop to 2.0.0 and pushes.
+    Use this to keep develop tracking the next major / minor lane while
+    master continues to receive patches on the released line.
 
 .NOTES
     Author: Samuel Maícas (@cdcsharp)
@@ -40,11 +47,14 @@ param(
     [string]$Name,
 
     [Parameter()]
-    [switch]$Force,
+    [string]$NextVersion,
 
     [Parameter()]
-    [switch]$DryRun
+    [switch]$Force
 )
+
+Set-StrictMode -Version Latest
+$ErrorActionPreference = 'Stop'
 
 # Configuration
 $Config = @{
@@ -201,6 +211,13 @@ function Invoke-GitCommand {
             Write-Error "git $Command failed: $output"
             return $false
         }
+        # Some git commands succeed with empty output (fetch with no new refs,
+        # rebase already up-to-date, etc). Empty output is success here, not failure.
+        # Callers checking truthiness via `if (-not $result)` would otherwise exit
+        # silently because $LASTEXITCODE was 0 so no Write-Error fired.
+        if ([string]::IsNullOrEmpty([string]$output)) {
+            return $true
+        }
         return $output
     }
     catch {
@@ -209,6 +226,53 @@ function Invoke-GitCommand {
         }
         return $false
     }
+}
+
+function Test-BranchMergedViaPR {
+    <#
+    .SYNOPSIS
+    Returns $true if the branch was merged via a closed-merged GitHub PR.
+    Used as a fallback for `git branch --merged`, which cannot detect
+    squash-merges because the squash commit on develop has a different SHA
+    than the branch's commits. Best-effort: requires `gh` CLI and returns
+    $false silently if unavailable.
+    #>
+    param([string]$Branch)
+    try {
+        $jsonResult = & gh pr list --state merged --head $Branch --json number 2>$null
+        if ($LASTEXITCODE -ne 0) { return $false }
+        if (-not $jsonResult) { return $false }
+        $parsed = $jsonResult | ConvertFrom-Json
+        return @($parsed).Count -gt 0
+    }
+    catch {
+        return $false
+    }
+}
+
+function Set-VersionPrefix {
+    param([string]$NewVersion)
+
+    $propsPath = "Directory.Build.props"
+    if (-not (Test-Path $propsPath)) {
+        Write-Warning "Directory.Build.props not found; skipping VersionPrefix update."
+        return $false
+    }
+
+    $content = [System.IO.File]::ReadAllText($propsPath)
+    $pattern = '<VersionPrefix>[^<]+</VersionPrefix>'
+    if ($content -notmatch $pattern) {
+        Write-Warning "<VersionPrefix> tag not found in $propsPath; skipping update."
+        return $false
+    }
+
+    $replacement = "<VersionPrefix>$NewVersion</VersionPrefix>"
+    $updated = [regex]::Replace($content, $pattern, $replacement)
+
+    $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
+    [System.IO.File]::WriteAllText($propsPath, $updated, $utf8NoBom)
+    Write-Success "VersionPrefix set to $NewVersion in $propsPath"
+    return $true
 }
 
 function Get-NextVersion {
@@ -221,76 +285,13 @@ function Get-NextVersion {
     $minor = [int]$parts[1]
     $patch = [int]$parts[2]
 
-    $hasPublicApiChanges = $false
-
-    # Try to detect public API changes via GitHub PR labels
-    $repo = Get-RepositoryInfo
-    if ($repo -and (Get-GitHubToken)) {
-        Write-Info "Querying GitHub API for merged PR labels..."
-
-        # Get merge commits since last tag on develop
-        $mergeCommits = git log "$LastTag..$($Config.Remote)/$($Config.DevelopBranch)" --merges --format="%H" 2>$null
-
-        if ($mergeCommits) {
-            foreach ($commit in $mergeCommits) {
-                $commit = $commit.Trim()
-                if (-not $commit) { continue }
-
-                # Get PRs associated with this merge commit
-                $prs = Invoke-GitHubApi -Endpoint "/repos/$($repo.Owner)/$($repo.Repo)/commits/$commit/pulls"
-
-                if ($prs) {
-                    foreach ($pr in $prs) {
-                        if ($pr.state -eq "closed" -and $pr.merged_at) {
-                            # Check labels
-                            $labels = Invoke-GitHubApi -Endpoint "/repos/$($repo.Owner)/$($repo.Repo)/issues/$($pr.number)/labels"
-                            if ($labels) {
-                                $labelNames = $labels | ForEach-Object { $_.name }
-                                if ($labelNames -contains "changes/public-api") {
-                                    $hasPublicApiChanges = $true
-                                    Write-Info "  Found PR #$($pr.number) with 'changes/public-api' label"
-                                    break
-                                }
-                            }
-                        }
-                    }
-                }
-
-                if ($hasPublicApiChanges) { break }
-            }
-        }
-
-        if (-not $hasPublicApiChanges) {
-            Write-Info "No public API changes detected in merged PRs"
-        }
-    }
-    else {
-        Write-Warning "GitHub API not available. Falling back to commit message heuristics."
-        $commits = git log "$LastTag..$($Config.Remote)/$($Config.DevelopBranch)" --format="%H" 2>$null
-        foreach ($commit in $commits) {
-            $message = git log -1 --format="%B" $commit 2>$null
-            if ($message -match "public.api|PublicAPI|breaking.change") {
-                $hasPublicApiChanges = $true
-                break
-            }
-        }
-    }
-
-    # Version bump logic
-    if ($hasPublicApiChanges) {
-        $minor++
-        $patch = 0
-        $bumpType = "MINOR"
-    }
-    else {
-        $patch++
-        $bumpType = "PATCH"
-    }
+    # Simple PATCH bump for status display. Actual bump (MINOR/MAJOR) is decided
+    # manually by editing VersionPrefix in Directory.Build.props.
+    $patch++
 
     return @{
         Version = "$major.$minor.$patch"
-        BumpType = $bumpType
-        HasPublicApiChanges = $hasPublicApiChanges
+        BumpType = "PATCH"
     }
 }
 
@@ -298,14 +299,19 @@ function Show-Status {
     Write-Header "Repository Status"
     
     # Version info
+    $versionPrefix = ""
+    if (Test-Path "Directory.Build.props") {
+        $versionPrefix = [regex]::Match((Get-Content "Directory.Build.props" -Raw), '<VersionPrefix>([^<]+)</VersionPrefix>').Groups[1].Value
+    }
+    if ($versionPrefix) {
+        Write-Info "VersionPrefix (develop target): $versionPrefix"
+    }
+    
     $lastTag = Get-LastTag
     Write-Info "Last tag on master: $lastTag"
     
     $nextVersion = Get-NextVersion -LastTag $lastTag
-    Write-Info "Next version: $($nextVersion.Version) ($($nextVersion.BumpType) bump)"
-    if ($nextVersion.HasPublicApiChanges) {
-        Write-Warning "Public API changes detected - will trigger MINOR bump"
-    }
+    Write-Info "Suggested next for master hotfix: $($nextVersion.Version) ($($nextVersion.BumpType) bump)"
     
     $commitsSince = Get-CommitsSinceTag -Tag $lastTag
     Write-Info "Commits since $lastTag`: $commitsSince"
@@ -491,17 +497,28 @@ function Move-PublicApiToShipped {
         $unshippedContent = Get-Content $unshippedPath -Raw -ErrorAction SilentlyContinue
         
         if ($unshippedContent -and $unshippedContent.Trim()) {
-            # Append to Shipped
+            # Append to Shipped (with newline separator if needed)
             if (Test-Path $shippedPath) {
-                Add-Content -Path $shippedPath -Value $unshippedContent -Encoding UTF8 -NoNewline
+                # Ensure a separator newline between the existing Shipped content
+                # and the appended Unshipped content. Without this, the last line
+                # of Shipped fuses with the first line of Unshipped (PublicAPI
+                # tooling then sees a single garbled entry).
+                $existing = [System.IO.File]::ReadAllText($shippedPath)
+                $separator = if ($existing -and -not $existing.EndsWith("`n")) { "`n" } else { "" }
+                $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
+                [System.IO.File]::AppendAllText($shippedPath, "$separator$unshippedContent", $utf8NoBom)
             }
             else {
                 $unshippedContent | Set-Content -Path $shippedPath -Encoding UTF8 -NoNewline
             }
-            
-            # Clear Unshipped
-            "" | Set-Content -Path $unshippedPath -Encoding UTF8
-            
+
+            # Clear Unshipped to a true 0-byte file. `Set-Content -Encoding UTF8`
+            # would still emit a trailing line terminator (1-2 bytes), which CI
+            # diff jobs flag as a content change even though the file is
+            # semantically empty.
+            $utf8NoBom = [System.Text.UTF8Encoding]::new($false)
+            [System.IO.File]::WriteAllText($unshippedPath, "", $utf8NoBom)
+
             Write-Info "Moved API: $($unshippedFile.Directory.Name)"
             $movedCount++
         }
@@ -525,24 +542,50 @@ function Move-PublicApiToShipped {
 
 function Publish-Release {
     param([string]$Version)
-    
+
     Write-Header "Publishing Release $Version"
-    
+
     if ($Version -notmatch '^\d+\.\d+\.\d+$') {
         Write-Error "Invalid format. Use: X.Y.Z"
         exit 1
     }
-    
+
     $releaseBranch = "release/$Version"
     $tag = "v$Version"
-    
-    # Check if release branch exists
-    $exists = git branch --list $releaseBranch 2>$null
-    if (-not $exists) {
-        Write-Error "Branch $releaseBranch doesn't exist. Create RC first."
+
+    # ---- STEP 1/8: Pre-flight checks ----
+    Write-Info "[STEP 1/8] Pre-flight checks"
+
+    # Working directory must be clean. Publish-Release does multiple checkouts
+    # and merges, any of which would fail or silently carry stale state if the
+    # tree is dirty. Matches the precondition in New-ReleaseCandidate.
+    $status = git status --porcelain 2>$null
+    if ($status) {
+        Write-Error "Working directory not clean. Commit or stash changes before publishing."
         exit 1
     }
-    
+
+    # Resolve release branch from local OR remote (admin may run on a fresh
+    # clone where the RC was created elsewhere and only exists on origin).
+    $existsLocal = git branch --list $releaseBranch 2>$null
+    $existsRemote = git ls-remote --heads $Config.Remote $releaseBranch 2>$null
+    if (-not $existsLocal -and -not $existsRemote) {
+        Write-Error "Branch $releaseBranch doesn't exist locally or on $($Config.Remote). Create RC first."
+        exit 1
+    }
+    if (-not $existsLocal -and $existsRemote) {
+        Write-Info "Release branch only on $($Config.Remote); fetching..."
+        $result = Invoke-GitCommand -Command "fetch" -Arguments @($Config.Remote, $releaseBranch)
+        if (-not $result) { exit 1 }
+    }
+
+    # Validate next-version format if supplied (used to bump VersionPrefix on develop
+    # after the release lands — keeps develop tracking the next major / minor lane).
+    if ($NextVersion -and $NextVersion -notmatch '^\d+\.\d+\.\d+$') {
+        Write-Error "Invalid -NextVersion format. Use: X.Y.Z (e.g.: 2.0.0)"
+        exit 1
+    }
+
     # Confirmation
     if (-not $Force) {
         Write-Warning "This will:"
@@ -551,88 +594,115 @@ function Publish-Release {
         Write-Host "  3. Create tag $tag"
         Write-Host "  4. Push to $($Config.Remote)"
         Write-Host "  5. Merge $($Config.MainBranch) into $($Config.DevelopBranch)"
+        if ($NextVersion) {
+            Write-Host "  6. Bump VersionPrefix on $($Config.DevelopBranch) to $NextVersion"
+        }
+        else {
+            Write-Host "  6. (skipped) Bump VersionPrefix on $($Config.DevelopBranch) — pass -NextVersion X.Y.Z to automate"
+        }
         $confirm = Read-Host "`nContinue? (type 'yes' to confirm)"
         if ($confirm -ne "yes") {
             Write-Info "Cancelled"
             exit 0
         }
     }
-    
-    # Checkout release
-    Write-Info "Checkout $releaseBranch..."
+
+    # ---- STEP 2/8: Update release branch and ship Public API ----
+    Write-Info "[STEP 2/8] Updating release branch and shipping Public API"
     $result = Invoke-GitCommand -Command "checkout" -Arguments $releaseBranch
     if (-not $result) { exit 1 }
-    
+
     $result = Invoke-GitCommand -Command "pull" -Arguments @("$($Config.Remote)", "$releaseBranch")
     if (-not $result) { exit 1 }
-    
-    # Move Public API to Shipped
+
     $apiMoved = Move-PublicApiToShipped
-    
+
     if ($apiMoved) {
-        # Commit the API move
         $result = Invoke-GitCommand -Command "commit" -Arguments @("-m", "chore: ship public API for release $Version")
-        if (-not $result) { 
+        if (-not $result) {
             Write-Warning "Could not commit API changes, continuing..."
         }
         else {
-            # Push API changes to release branch
             $result = Invoke-GitCommand -Command "push" -Arguments @("$($Config.Remote)", "$releaseBranch")
             if (-not $result) {
                 Write-Warning "Could not push API changes, continuing..."
             }
         }
     }
-    
-    # Checkout master
-    Write-Info "Checkout $($Config.MainBranch)..."
+
+    # ---- STEP 3/8: Squash-merge release into master ----
+    Write-Info "[STEP 3/8] Squash-merging $releaseBranch into $($Config.MainBranch)"
     $result = Invoke-GitCommand -Command "checkout" -Arguments $Config.MainBranch
     if (-not $result) { exit 1 }
-    
+
     $result = Invoke-GitCommand -Command "pull" -Arguments @("$($Config.Remote)", "$($Config.MainBranch)")
     if (-not $result) { exit 1 }
-    
-    # Squash merge from release
-    Write-Info "Squash merge from $releaseBranch..."
+
     $result = Invoke-GitCommand -Command "merge" -Arguments @("--squash", "$releaseBranch")
     if (-not $result) { exit 1 }
-    
-    # Commit
+
+    # ---- STEP 4/8: Commit release and create tag ----
+    Write-Info "[STEP 4/8] Committing release and creating tag $tag"
     $result = Invoke-GitCommand -Command "commit" -Arguments @("-m", "Release $Version")
     if (-not $result) { exit 1 }
-    
-    # Tag
-    Write-Info "Creating tag $tag..."
+
     $result = Invoke-GitCommand -Command "tag" -Arguments @("-a", "$tag", "-m", "Release $Version")
     if (-not $result) { exit 1 }
-    
-    # Push
-    Write-Info "Pushing $($Config.MainBranch) and tag..."
+
+    # ---- STEP 5/8: Push master and tag ----
+    Write-Info "[STEP 5/8] Pushing $($Config.MainBranch) and $tag to $($Config.Remote)"
     $result = Invoke-GitCommand -Command "push" -Arguments @("$($Config.Remote)", "$($Config.MainBranch)")
     if (-not $result) { exit 1 }
-    
+
     $result = Invoke-GitCommand -Command "push" -Arguments @("$($Config.Remote)", "$tag")
     if (-not $result) { exit 1 }
-    
-    # Merge back to develop
-    Write-Info "Merging $($Config.MainBranch) into $($Config.DevelopBranch)..."
+
+    # ---- STEP 6/8: Merge master back into develop ----
+    Write-Info "[STEP 6/8] Merging $($Config.MainBranch) into $($Config.DevelopBranch)"
     $result = Invoke-GitCommand -Command "checkout" -Arguments $Config.DevelopBranch
     if (-not $result) { exit 1 }
-    
+
     $result = Invoke-GitCommand -Command "pull" -Arguments @("$($Config.Remote)", "$($Config.DevelopBranch)")
     if (-not $result) { exit 1 }
-    
+
     $result = Invoke-GitCommand -Command "merge" -Arguments @("$($Config.MainBranch)", "--no-edit")
     if (-not $result) { exit 1 }
-    
+
+    # ---- STEP 7/9: Push develop ----
+    Write-Info "[STEP 7/9] Pushing $($Config.DevelopBranch)"
     $result = Invoke-GitCommand -Command "push" -Arguments @("$($Config.Remote)", "$($Config.DevelopBranch)")
     if (-not $result) { exit 1 }
-    
-    # Cleanup
-    Write-Info "Cleaning up..."
+
+    # ---- STEP 8/9: Bump VersionPrefix on develop (optional) ----
+    # Develop tracks the next major / minor lane; patches on the released line
+    # stay on master and propagate to develop via cherry-pick (see Hotfix flow).
+    if ($NextVersion) {
+        Write-Info "[STEP 8/9] Bumping VersionPrefix on $($Config.DevelopBranch) to $NextVersion"
+        if (Set-VersionPrefix -NewVersion $NextVersion) {
+            $result = Invoke-GitCommand -Command "add" -Arguments @("Directory.Build.props")
+            if ($result) {
+                $result = Invoke-GitCommand -Command "commit" -Arguments @("-m", "chore: bump VersionPrefix to $NextVersion")
+                if ($result) {
+                    $result = Invoke-GitCommand -Command "push" -Arguments @("$($Config.Remote)", "$($Config.DevelopBranch)")
+                    if (-not $result) {
+                        Write-Warning "Could not push VersionPrefix bump, continuing..."
+                    }
+                }
+                else {
+                    Write-Warning "Could not commit VersionPrefix bump, continuing..."
+                }
+            }
+        }
+    }
+    else {
+        Write-Info "[STEP 8/9] (skipped) VersionPrefix bump — edit Directory.Build.props manually on $($Config.DevelopBranch), commit, push"
+    }
+
+    # ---- STEP 9/9: Cleanup release branch ----
+    Write-Info "[STEP 9/9] Deleting $releaseBranch (local + remote)"
     Invoke-GitCommand -Command "branch" -Arguments @("-d", "$releaseBranch") -IgnoreError | Out-Null
     Invoke-GitCommand -Command "push" -Arguments @("$($Config.Remote)", "--delete", "$releaseBranch") -IgnoreError | Out-Null
-    
+
     Write-Success "Release $Version published"
     Write-Info "CI should publish package to NuGet"
 }
@@ -668,7 +738,15 @@ function New-Hotfix {
     if (-not $result) { exit 1 }
     
     Write-Success "Hotfix branch $hotfixBranch created"
-    Write-Info "Make the fix, commit, and then: git tag v$Version && git push origin v$Version"
+    Write-Info "Next steps:"
+    Write-Host "  1. Make the fix on $hotfixBranch and commit. Record the fix commit SHA."
+    Write-Host "  2. Tag and push: git tag v$Version && git push origin v$Version"
+    Write-Host "  3. Push the branch: git push $($Config.Remote) $hotfixBranch"
+    Write-Host "  4. Open a PR $hotfixBranch -> $($Config.MainBranch), squash-merge."
+    Write-Host "  5. Propagate to $($Config.DevelopBranch) via cherry-pick (NOT merge — master and develop diverge by VersionPrefix):"
+    Write-Host "       git checkout $($Config.DevelopBranch) && git pull"
+    Write-Host "       git cherry-pick <fix-commit-sha>"
+    Write-Host "       git push $($Config.Remote) $($Config.DevelopBranch)"
 }
 
 function Show-Changelog {
@@ -676,17 +754,7 @@ function Show-Changelog {
     
     $lastTag = Get-LastTag
     Write-Info "Last tag: $lastTag"
-    
-    # Show API changes first
-    Write-Host "`n### Public API Changes" -ForegroundColor $Colors.Emphasis
-    $apiScript = Join-Path $PSScriptRoot "api-report.ps1"
-    if (Test-Path $apiScript) {
-        & $apiScript -Tag $lastTag -OutputFormat console
-    }
-    else {
-        Write-Info "api-report.ps1 not found. Run from scripts directory."
-    }
-    
+
     $commits = git log "$lastTag..$($Config.Remote)/$($Config.DevelopBranch)" --pretty=format:"%h %s" --no-merges 2>$null
     
     if (-not $commits) {
@@ -744,30 +812,55 @@ function Show-Changelog {
 
 function Invoke-Cleanup {
     Write-Header "Cleaning Branches"
-    
+
     # Checkout develop
     $result = Invoke-GitCommand -Command "checkout" -Arguments $Config.DevelopBranch
     if (-not $result) { exit 1 }
-    
+
     $result = Invoke-GitCommand -Command "pull" -Arguments @("$($Config.Remote)", "$($Config.DevelopBranch)")
     if (-not $result) { exit 1 }
-    
-    # Delete merged branches
-    $merged = git branch --merged $Config.DevelopBranch --format="%(refname:short)" | Where-Object { 
+
+    # Standard merge detection: catches non-squash merges via SHA reachability.
+    $standardMerged = git branch --merged $Config.DevelopBranch --format="%(refname:short)" | Where-Object {
         $_ -notin @($Config.MainBranch, $Config.DevelopBranch) -and $_ -notmatch "^\*"
     }
-    
-    if ($merged) {
-        Write-Info "Deleting merged branches:"
-        $merged | ForEach-Object {
-            Write-Host "  - $_"
-            Invoke-GitCommand -Command "branch" -Arguments @("-d", "$_") -IgnoreError | Out-Null
+
+    # Squash-merge detection via GitHub PR state. `git branch --merged` cannot
+    # see squash-merged branches because the squash commit on develop has a
+    # different SHA than the branch's tip; without this fallback, cleanup
+    # never deletes anything in a squash+rebase workflow.
+    $allLocal = git branch --format="%(refname:short)" | Where-Object {
+        $_ -notin @($Config.MainBranch, $Config.DevelopBranch) -and $_ -notmatch "^\*"
+    }
+    $prMerged = @()
+    foreach ($branch in $allLocal) {
+        if ($standardMerged -contains $branch) { continue }
+        if (Test-BranchMergedViaPR -Branch $branch) {
+            $prMerged += $branch
         }
     }
-    
+
+    if ($standardMerged) {
+        Write-Info "Deleting merged branches:"
+        foreach ($b in $standardMerged) {
+            Write-Host "  - $b"
+            Invoke-GitCommand -Command "branch" -Arguments @("-d", "$b") -IgnoreError | Out-Null
+        }
+    }
+    if ($prMerged) {
+        Write-Info "Deleting squash-merged branches (verified via gh PR state):"
+        foreach ($b in $prMerged) {
+            Write-Host "  - $b"
+            Invoke-GitCommand -Command "branch" -Arguments @("-D", "$b") -IgnoreError | Out-Null
+        }
+    }
+    if (-not $standardMerged -and -not $prMerged) {
+        Write-Info "No merged branches to delete"
+    }
+
     # Prune
     Invoke-GitCommand -Command "remote" -Arguments @("prune", "$($Config.Remote)") -IgnoreError | Out-Null
-    
+
     Write-Success "Cleanup completed"
 }
 

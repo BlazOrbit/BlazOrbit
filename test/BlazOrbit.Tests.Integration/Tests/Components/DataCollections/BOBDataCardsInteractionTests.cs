@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -12,9 +12,10 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.DataCollections;
 public class BOBDataCardsInteractionTests
 {
     private sealed record Person(string Name, int Age);
+
     private static readonly Expression<Func<Person, object?>> NameExpr = p => (object?)p.Name;
 
-    private static IEnumerable<Person> TwoItems => [new Person("Alice", 30), new Person("Bob", 25)];
+    private static IEnumerable<Person> TwoItems => [new("Alice", 30), new("Bob", 25)];
 
     private static RenderFragment SimpleColumns => b =>
     {
@@ -37,7 +38,7 @@ public class BOBDataCardsInteractionTests
             .Add(c => c.Columns, SimpleColumns)
             .Add(c => c.OnRowClick, person => clicked = person));
 
-        // Act — click the first card
+        // Act - click the first card
         cut.FindAll(".bob-datacards__card")[0].Click();
 
         // Assert
@@ -79,14 +80,14 @@ public class BOBDataCardsInteractionTests
             .Add(c => c.Columns, SimpleColumns)
             .Add(c => c.SelectionMode, SelectionMode.Multiple));
 
-        // Act — select both, then deselect the first
+        // Act - select both, then deselect the first
         cut.FindAll(".bob-datacards__card")[0].Click();
         cut.FindAll(".bob-datacards__card")[1].Click();
         cut.FindAll(".bob-datacards__card")[0].Click();
 
-        // Assert — only second is selected
-        cut.FindAll(".bob-datacards__card")[0].ClassList.Should().NotContain("bob-datacards__card--selected");
-        cut.FindAll(".bob-datacards__card")[1].ClassList.Should().Contain("bob-datacards__card--selected");
+        // Assert - only second is selected
+        cut.FindAll(".bob-datacards__card")[0].GetAttribute("data-bob-selected").Should().BeNull();
+        cut.FindAll(".bob-datacards__card")[1].GetAttribute("data-bob-selected").Should().Be("true");
     }
 
     [Theory]
@@ -110,7 +111,7 @@ public class BOBDataCardsInteractionTests
                 b.CloseComponent();
             }));
 
-        // Assert — default ascending order: Alice first
+        // Assert - default ascending order: Alice first
         cut.FindAll(".bob-datacards__field-value")[0].TextContent.Should().Be("Alice");
     }
 
@@ -137,10 +138,10 @@ public class BOBDataCardsInteractionTests
         cut.Find("[aria-label='Search...']").Input("Ali");
         cut.FindAll(".bob-datacards__card").Should().HaveCount(1);
 
-        // Act — click the clear-filter button (aria-label="Clear filter")
+        // Act - click the clear-filter button (aria-label="Clear filter")
         cut.Find("[aria-label='Clear filter']").Click();
 
-        // Assert — all cards visible again
+        // Assert - all cards visible again
         cut.FindAll(".bob-datacards__card").Should().HaveCount(2);
     }
 }

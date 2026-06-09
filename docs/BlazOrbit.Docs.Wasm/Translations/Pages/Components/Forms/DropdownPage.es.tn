@@ -1,0 +1,164 @@
+// Auto-migrated from DropdownPage.es.resx. Edit freely from now on.
+
+# Argentina
+Argentina
+
+# Auto Placement
+Colocación automática
+
+# Basic usage
+Uso básico
+
+# BOBInputDropdown
+BOBInputDropdown
+
+# Bottom Placement (Default)
+Colocación inferior (predeterminada)
+
+# Box Placement
+Colocación en caja
+
+# Brazil
+Brasil
+
+# Canada
+Canadá
+
+# Color & Background
+Color y fondo
+
+# Component
+Componente
+
+# Country
+País
+
+# Custom Color & Background
+Color y fondo personalizado
+
+# Custom Shadow
+Sombra personalizada
+
+# Custom template when there are not items.
+Plantilla personalizada cuando no hay elementos.
+
+# Disabled
+Deshabilitado
+
+# Disabled options
+Opciones deshabilitadas
+
+# Elevation Shadow
+Sombra de elevación
+
+# Empty Dropdown
+Desplegable vacío
+
+# Filled
+Relleno
+
+# France
+Francia
+
+# Germany
+Alemania
+
+# Japan
+Japón
+
+# Large
+Grande
+
+# Medium (Default)
+Mediano (predeterminado)
+
+# Mexico
+México
+
+# Multi
+Múltiple
+
+# Multiple selection
+Selección múltiple
+
+# No items available
+No hay elementos disponibles
+
+# Option 1
+Opción 1
+
+# Option 2
+Opción 2
+
+# Option 3
+Opción 3
+
+# Option 4
+Opción 4
+
+# Outlined
+Contorno
+
+# Properties
+Propiedades
+
+# Read Only
+Solo lectura
+
+# ReadOnly
+Solo lectura
+
+# Required
+Requerido
+
+# Searchable
+Buscable
+
+# Shadow
+Sombra
+
+# Single
+Único
+
+# Single and multiple select list with keyboard navigation, search, and typed values. Declare options as child elements.
+Lista de selección única y múltiple con navegación por teclado, búsqueda y valores escritos. Declara las opciones como elementos hijos.
+
+# Single selection
+Selección única
+
+# Sizes
+Tamaños
+
+# Small
+Pequeño
+
+# Spain
+España
+
+# Standard
+Estándar
+
+# States
+Estados
+
+# Top Placement
+Colocación superior
+
+# Type a country...
+Escribe un país...
+
+# United Kingdom
+Reino Unido
+
+# United States
+Estados Unidos
+
+# Variants
+Variantes
+
+# With disabled options
+Con opciones deshabilitadas
+
+
+# The component is generic over <code>TValue</code>, which means selected values are strongly typed at compile time rather than being boxed objects or strings. Options are declared as child elements inside the <code>ChildContent</code> fragment, giving you full control over templating and grouping.
+El componente es genérico sobre <code>TValue</code>, lo que significa que los valores seleccionados tienen tipado fuerte en tiempo de compilación en lugar de ser objetos boxed o cadenas. Las opciones se declaran como elementos hijos dentro del fragmento <code>ChildContent</code>, dándote control total sobre la plantilla y la agrupación.

@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -12,11 +12,12 @@ public class BOBTreeMenuStateTests
     private sealed record MenuItem(string Key, string Label, IEnumerable<MenuItem>? Children = null);
 
     private static IEnumerable<MenuItem> NestedItems
-    => [
-        new MenuItem("parent", "Parent", [
-            new MenuItem("child1", "Child 1"),
-        ]),
-    ];
+        =>
+        [
+            new("parent", "Parent", [
+                new MenuItem("child1", "Child 1")
+            ])
+        ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -74,7 +75,7 @@ public class BOBTreeMenuStateTests
         // Act
         cut.Find("[role='menuitem']").Click();
 
-        // Assert — submenu rendered with child items
+        // Assert - submenu rendered with child items
         cut.Find("[role='menu']").Should().NotBeNull();
         cut.FindAll("[role='menuitem']").Should().HaveCount(2);
     }

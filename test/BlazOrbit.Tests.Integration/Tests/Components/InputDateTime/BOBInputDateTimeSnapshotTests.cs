@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components.Forms;
+using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -25,47 +25,62 @@ public class BOBInputDateTimeSnapshotTests
 
         var testCases = new[]
         {
-            new { Name = "Default_Empty_DateOnly", Builder = (Action<ComponentParameterCollectionBuilder<BOBInputDateTime<DateOnly?>>>)(p => p
-                .Add(c => c.Label, "Date")
-                .Add(c => c.ValueExpression, () => model.Date)) },
-
-            new { Name = "With_DateOnly_Value", Builder = (Action<ComponentParameterCollectionBuilder<BOBInputDateTime<DateOnly?>>>)(p => p
-                .Add(c => c.Label, "Date")
-                .Add(c => c.Value, new DateOnly(2024, 6, 15))
-                .Add(c => c.ValueExpression, () => model.Date)) },
-
-            new { Name = "Disabled", Builder = (Action<ComponentParameterCollectionBuilder<BOBInputDateTime<DateOnly?>>>)(p => p
-                .Add(c => c.Label, "Date")
-                .Add(c => c.Disabled, true)
-                .Add(c => c.ValueExpression, () => model.Date)) },
-
-            new { Name = "ReadOnly", Builder = (Action<ComponentParameterCollectionBuilder<BOBInputDateTime<DateOnly?>>>)(p => p
-                .Add(c => c.Label, "Date")
-                .Add(c => c.ReadOnly, true)
-                .Add(c => c.Value, new DateOnly(2024, 6, 15))
-                .Add(c => c.ValueExpression, () => model.Date)) },
-
-            new { Name = "Error_State", Builder = (Action<ComponentParameterCollectionBuilder<BOBInputDateTime<DateOnly?>>>)(p => p
-                .Add(c => c.Label, "Date")
-                .Add(c => c.Error, true)
-                .Add(c => c.ValueExpression, () => model.Date)) },
-
-            new { Name = "With_Helper_Text", Builder = (Action<ComponentParameterCollectionBuilder<BOBInputDateTime<DateOnly?>>>)(p => p
-                .Add(c => c.Label, "Date")
-                .Add(c => c.HelperText, "Select a date")
-                .Add(c => c.ValueExpression, () => model.Date)) }
+            new
+            {
+                Name = "Default_Empty_DateOnly",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBInputDateTime<DateOnly?>>>)(p => p
+                    .Add(c => c.Label, "Date")
+                    .Add(c => c.ValueExpression, () => model.Date))
+            },
+            new
+            {
+                Name = "With_DateOnly_Value",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBInputDateTime<DateOnly?>>>)(p => p
+                    .Add(c => c.Label, "Date")
+                    .Add(c => c.Value, new DateOnly(2024, 6, 15))
+                    .Add(c => c.ValueExpression, () => model.Date))
+            },
+            new
+            {
+                Name = "Disabled",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBInputDateTime<DateOnly?>>>)(p => p
+                    .Add(c => c.Label, "Date")
+                    .Add(c => c.Disabled, true)
+                    .Add(c => c.ValueExpression, () => model.Date))
+            },
+            new
+            {
+                Name = "ReadOnly",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBInputDateTime<DateOnly?>>>)(p => p
+                    .Add(c => c.Label, "Date")
+                    .Add(c => c.ReadOnly, true)
+                    .Add(c => c.Value, new DateOnly(2024, 6, 15))
+                    .Add(c => c.ValueExpression, () => model.Date))
+            },
+            new
+            {
+                Name = "Error_State",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBInputDateTime<DateOnly?>>>)(p => p
+                    .Add(c => c.Label, "Date")
+                    .Add(c => c.Error, true)
+                    .Add(c => c.ValueExpression, () => model.Date))
+            },
+            new
+            {
+                Name = "With_Helper_Text",
+                Builder = (Action<ComponentParameterCollectionBuilder<BOBInputDateTime<DateOnly?>>>)(p => p
+                    .Add(c => c.Label, "Date")
+                    .Add(c => c.HelperText, "Select a date")
+                    .Add(c => c.ValueExpression, () => model.Date))
+            }
         };
 
         var results = testCases.Select(testCase =>
         {
             IRenderedComponent<BOBInputDateTime<DateOnly?>> cut =
                 ctx.Render<BOBInputDateTime<DateOnly?>>(testCase.Builder);
-            return new
-            {
-                testCase.Name,
-                Html = cut.GetNormalizedMarkup()
-            };
-        });
+            return new { testCase.Name, Html = cut.GetNormalizedMarkup() };
+        }).ToList();
 
         await Verify(results).UseParameters(scenario.Name);
     }

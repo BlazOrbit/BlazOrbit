@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 #region Public API
 
@@ -39,7 +39,7 @@ public sealed class BorderStyle
     }
 
     /// <summary>
-    /// CssColor-typed overload — <see cref="BOBBorderPresets"/> and consumer fluent code can pass
+    /// CssColor-typed overload - <see cref="BOBBorderPresets"/> and consumer fluent code can pass
     /// <see cref="BOBColor.Gray.Default"/> / <see cref="PaletteColor.Primary"/> directly without an
     /// explicit cast to string.
     /// </summary>
@@ -119,10 +119,7 @@ public sealed class BorderStyle
     {
         _radius = new BorderRadius
         {
-            TopLeft = topLeft,
-            TopRight = topRight,
-            BottomRight = bottomRight,
-            BottomLeft = bottomLeft
+            TopLeft = topLeft, TopRight = topRight, BottomRight = bottomRight, BottomLeft = bottomLeft
         };
         return this;
     }
@@ -181,14 +178,19 @@ public sealed class BorderCssValues
 {
     /// <summary>CSS value for all sides, or <see langword="null"/> if not set.</summary>
     public string? All { get; init; }
+
     /// <summary>CSS value for the top side, or <see langword="null"/> if not set.</summary>
     public string? Top { get; init; }
+
     /// <summary>CSS value for the right side, or <see langword="null"/> if not set.</summary>
     public string? Right { get; init; }
+
     /// <summary>CSS value for the bottom side, or <see langword="null"/> if not set.</summary>
     public string? Bottom { get; init; }
+
     /// <summary>CSS value for the left side, or <see langword="null"/> if not set.</summary>
     public string? Left { get; init; }
+
     /// <summary>CSS border-radius value, or <see langword="null"/> if not set.</summary>
     public string? Radius { get; init; }
 }
@@ -236,13 +238,7 @@ internal sealed class BorderRadius
     {
         value = Math.Max(0, value);
 
-        return new()
-        {
-            TopLeft = value,
-            TopRight = value,
-            BottomRight = value,
-            BottomLeft = value
-        };
+        return new BorderRadius { TopLeft = value, TopRight = value, BottomRight = value, BottomLeft = value };
     }
 
     public string ToCss()
@@ -267,20 +263,28 @@ public enum BorderStyleType
 {
     /// <summary>No border.</summary>
     None,
+
     /// <summary>Solid border.</summary>
     Solid,
+
     /// <summary>Dashed border.</summary>
     Dashed,
+
     /// <summary>Dotted border.</summary>
     Dotted,
+
     /// <summary>Double border.</summary>
     Double,
+
     /// <summary>Groove border.</summary>
     Groove,
+
     /// <summary>Ridge border.</summary>
     Ridge,
+
     /// <summary>Inset border.</summary>
     Inset,
+
     /// <summary>Outset border.</summary>
     Outset
 }

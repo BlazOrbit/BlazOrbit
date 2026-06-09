@@ -1,4 +1,4 @@
-﻿using BlazOrbit.SyntaxHighlight.Builder;
+using BlazOrbit.SyntaxHighlight.Builder;
 using BlazOrbit.SyntaxHighlight.Languages;
 using BlazOrbit.SyntaxHighlight.Rendering;
 using BlazOrbit.SyntaxHighlight.Tokens;
@@ -38,7 +38,7 @@ public sealed class Highlighter
             ["cshtml"] = RazorLanguage.Instance,
             ["typescript"] = TypeScriptLanguage.Instance,
             ["ts"] = TypeScriptLanguage.Instance,
-            ["css"] = CssLanguage.Instance,
+            ["css"] = CssLanguage.Instance
         };
     }
 
@@ -119,6 +119,8 @@ public sealed class Highlighter
     {
         return _languages.TryGetValue(name, out LanguageDefinition? definition)
             ? definition
-            : throw new ArgumentException($"Language '{name}' is not registered. Available: {string.Join(", ", GetRegisteredLanguages())}", nameof(name));
+            : throw new ArgumentException(
+                $"Language '{name}' is not registered. Available: {string.Join(", ", GetRegisteredLanguages())}",
+                nameof(name));
     }
 }

@@ -1,4 +1,4 @@
-﻿using BlazOrbit.SyntaxHighlight.Rules;
+using BlazOrbit.SyntaxHighlight.Rules;
 using BlazOrbit.SyntaxHighlight.Tokens;
 
 namespace BlazOrbit.SyntaxHighlight.Builder;
@@ -27,23 +27,25 @@ public sealed class LanguageDefinitionBuilder
         int? priority = null,
         int maxDepth = 100)
     {
-        _rules.Add(new BalancedRule(tokenType, prefix, open, close, innerTokenizer, priority ?? _nextPriority--, maxDepth));
+        _rules.Add(new BalancedRule(tokenType, prefix, open, close, innerTokenizer, priority ?? _nextPriority--,
+            maxDepth));
         return this;
     }
 
     /// <summary>
     /// Adds a block comment rule.
     /// </summary>
-    public LanguageDefinitionBuilder AddBlockComment(string start, string end, int? priority = null) => AddDelimited(TokenType.Comment, start, end, multiline: true, priority: priority);
+    public LanguageDefinitionBuilder AddBlockComment(string start, string end, int? priority = null) =>
+        AddDelimited(TokenType.Comment, start, end, multiline: true, priority: priority);
 
     /// <summary>
     /// Adds contextual keywords that match only when the specified predicate is satisfied.
     /// </summary>
     public LanguageDefinitionBuilder AddContextualKeywords(
-    TokenType tokenType,
-    IEnumerable<string> keywords,
-    Func<string, int, bool> contextPredicate,
-    int? priority = null)
+        TokenType tokenType,
+        IEnumerable<string> keywords,
+        Func<string, int, bool> contextPredicate,
+        int? priority = null)
     {
         _rules.Add(new ContextualKeywordRule(tokenType, keywords, contextPredicate, priority ?? _nextPriority--));
         return this;
@@ -53,13 +55,14 @@ public sealed class LanguageDefinitionBuilder
     /// Adds a contextual regex pattern that matches only when the specified predicate is satisfied.
     /// </summary>
     public LanguageDefinitionBuilder AddContextualPattern(
-    TokenType tokenType,
-    string pattern,
-    Func<string, int, bool> contextPredicate,
-    bool requireWordBoundary = false,
-    int? priority = null)
+        TokenType tokenType,
+        string pattern,
+        Func<string, int, bool> contextPredicate,
+        bool requireWordBoundary = false,
+        int? priority = null)
     {
-        _rules.Add(new ContextualRegexRule(tokenType, pattern, contextPredicate, requireWordBoundary, priority ?? _nextPriority--));
+        _rules.Add(new ContextualRegexRule(tokenType, pattern, contextPredicate, requireWordBoundary,
+            priority ?? _nextPriority--));
         return this;
     }
 
@@ -81,7 +84,8 @@ public sealed class LanguageDefinitionBuilder
     /// <summary>
     /// Adds keyword tokens.
     /// </summary>
-    public LanguageDefinitionBuilder AddKeywords(TokenType tokenType, IEnumerable<string> keywords, int? priority = null)
+    public LanguageDefinitionBuilder AddKeywords(TokenType tokenType, IEnumerable<string> keywords,
+        int? priority = null)
     {
         _rules.Add(new KeywordRule(tokenType, keywords, priority ?? _nextPriority--));
         return this;
@@ -90,7 +94,8 @@ public sealed class LanguageDefinitionBuilder
     /// <summary>
     /// Adds a line comment rule.
     /// </summary>
-    public LanguageDefinitionBuilder AddLineComment(string start, int? priority = null) => AddDelimited(TokenType.Comment, start, "\n", multiline: false, priority: priority);
+    public LanguageDefinitionBuilder AddLineComment(string start, int? priority = null) =>
+        AddDelimited(TokenType.Comment, start, "\n", multiline: false, priority: priority);
 
     /// <summary>
     /// Adds a markup rule for HTML-like tags.
@@ -184,7 +189,8 @@ public sealed class LanguageDefinitionBuilder
     /// <summary>
     /// Adds multiple sequence token rules.
     /// </summary>
-    public LanguageDefinitionBuilder AddSequences(TokenType tokenType, IEnumerable<string> sequences, int? priority = null)
+    public LanguageDefinitionBuilder AddSequences(TokenType tokenType, IEnumerable<string> sequences,
+        int? priority = null)
     {
         foreach (string seq in sequences.OrderByDescending(s => s.Length))
         {
@@ -202,7 +208,7 @@ public sealed class LanguageDefinitionBuilder
         string end,
         string? escape = "\\",
         TokenType tokenType = TokenType.String,
-        int? priority = null) => AddDelimited(tokenType, start, end, escape, multiline: true, priority: priority);
+        int? priority = null) => AddDelimited(tokenType, start, end, escape, true, priority);
 
     /// <summary>
     /// Builds the <see cref="LanguageDefinition"/>.

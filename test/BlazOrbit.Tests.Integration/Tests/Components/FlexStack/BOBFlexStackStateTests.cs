@@ -1,5 +1,4 @@
-﻿using BlazOrbit.Components;
-using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -97,7 +96,7 @@ public class BOBFlexStackStateTests
         IRenderedComponent<BOBFlexStack> cut = ctx.Render<BOBFlexStack>(p => p
             .Add(c => c.FullWidth, false));
 
-        cut.Find("bob-component").GetAttribute("data-bob-fullwidth").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-fullwidth").Should().BeNull();
 
         // Act
         cut.Render(p => p.Add(c => c.FullWidth, true));

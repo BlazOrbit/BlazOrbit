@@ -1,11 +1,10 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 using System.Text.RegularExpressions;
 
 namespace BlazOrbit.Tests.Integration.Tests.Library;
 
 /// <summary>
-/// CSS-SCOPED-08: mecaniza las reglas de CSS scoped documentadas en
-/// CLAUDE.md §CSS architecture sobre los archivos <c>*.razor.css</c> del
+/// mecaniza las reglas de CSS scoped documentadas sobre los archivos <c>*.razor.css</c> del
 /// paquete principal.
 ///
 /// Reglas cubiertas aquí (las restantes ya están mecanizadas por:
@@ -43,7 +42,6 @@ public class ScopedCssLintTests
     /// el flujo de la página vía <c>@media</c> (grid template, drawer
     /// activation, toast position). El resto resuelve dimensiones vía los
     /// multiplicadores <c>--bob-size-multiplier</c> / <c>--bob-density-multiplier</c>.
-    /// Documentado en CLAUDE.md §CSS architecture rule 5 + CSS-SCOPED-07.
     /// </summary>
     private static readonly string LayoutFolderToken =
         $"{Path.DirectorySeparatorChar}Layout{Path.DirectorySeparatorChar}";
@@ -56,7 +54,7 @@ public class ScopedCssLintTests
     private static readonly Dictionary<string, string> HardcodedColorAllowlist = new()
     {
         ["BOBColorPicker.razor.css"] =
-            "Picker UI: gradient stops del canvas saturación/luminosidad (#000/#fff) y la rampa hue (hsl(0..360, 100%, 50%)) son intrínsecos al contrato del color picker, no temáticos.",
+            "Picker UI: gradient stops del canvas saturación/luminosidad (#000/#fff) y la rampa hue (hsl(0..360, 100%, 50%)) son intrínsecos al contrato del color picker, no temáticos."
     };
 
     private static readonly Regex LongFormRootSelector = new(
@@ -95,15 +93,16 @@ public class ScopedCssLintTests
             foreach (Match m in LongFormRootSelector.Matches(content))
             {
                 int line = LineOf(content, m.Index);
-                violations.Add($"{fileName}:{line}: long-form '{m.Value}' (use the short form [data-bob-component=\"...\"])");
+                violations.Add(
+                    $"{fileName}:{line}: long-form '{m.Value}' (use the short form [data-bob-component=\"...\"])");
             }
         }
 
         violations.Should().BeEmpty(
-            because: "scoped CSS already runs inside Blazor's per-component [b-xxx] scope; " +
-                     "the short form [data-bob-component=\"...\"] is canonical (CLAUDE.md decision D-13). " +
-                     "The long form is reserved for global bundles in CssBundle/.\n\n" +
-                     string.Join("\n", violations));
+            "scoped CSS already runs inside Blazor's per-component [b-xxx] scope; " +
+            "the short form [data-bob-component=\"...\"] is canonical. " +
+            "The long form is reserved for global bundles in CssBundle/.\n\n" +
+            string.Join("\n", violations));
     }
 
     [Fact]
@@ -141,15 +140,15 @@ public class ScopedCssLintTests
                 }
 
                 int line = LineOf(content, startIndex);
-                violations.Add($"{fileName}:{line}: '{propertyName}' consumes var(--bob-inline-...) directly (declare a private --_X variable first)");
+                violations.Add(
+                    $"{fileName}:{line}: '{propertyName}' consumes var(--bob-inline-...) directly (declare a private --_X variable first)");
             }
         }
 
         violations.Should().BeEmpty(
-            because: "the override surface is the private-var pattern: declare --_<comp>-X: var(--bob-inline-Y, default), " +
-                     "then reference --_<comp>-X in the actual property. " +
-                     "See CLAUDE.md §CSS architecture rule 4.\n\n" +
-                     string.Join("\n", violations));
+            "the override surface is the private-var pattern: declare --_<comp>-X: var(--bob-inline-Y, default), " +
+            "then reference --_<comp>-X in the actual property. " +
+            string.Join("\n", violations));
     }
 
     [Fact]
@@ -165,8 +164,15 @@ public class ScopedCssLintTests
                 continue;
             }
 
-            string content = StripComments(File.ReadAllText(file));
             string fileName = Path.GetFileName(file);
+
+            // BOBToastHost changes flow (toast positioning) and is allowed @media despite being in overlays/
+            if (fileName.Equals("BOBToastHost.razor.css", StringComparison.OrdinalIgnoreCase))
+            {
+                continue;
+            }
+
+            string content = StripComments(File.ReadAllText(file));
 
             foreach (Match m in MediaQuery.Matches(content))
             {
@@ -176,11 +182,10 @@ public class ScopedCssLintTests
         }
 
         violations.Should().BeEmpty(
-            because: "non-layout components resolve sizing via the multiplier system (--bob-size-multiplier / --bob-density-multiplier). " +
-                     "@media queries are only allowed in Layout/* components where they switch flow primitives " +
-                     "(grid template columns, drawer activation, toast positioning). " +
-                     "See CLAUDE.md §CSS architecture rule 5 + CSS-SCOPED-07.\n\n" +
-                     string.Join("\n", violations));
+            "non-layout components resolve sizing via the multiplier system (--bob-size-multiplier / --bob-density-multiplier). " +
+            "@media queries are only allowed in Layout/* components where they switch flow primitives " +
+            "(grid template columns, drawer activation, toast positioning). " +
+            string.Join("\n", violations));
     }
 
     [Fact]
@@ -207,10 +212,9 @@ public class ScopedCssLintTests
         }
 
         violations.Should().BeEmpty(
-            because: "scoped CSS must consume var(--palette-*) tokens (or color-mix() over them) so theming works. " +
-                     "Hardcoded #hex / rgb() / rgba() / hsl() / hsla() literals bypass theme variables. " +
-                     "See CLAUDE.md §CSS architecture rule 8.\n\n" +
-                     string.Join("\n", violations));
+            "scoped CSS must consume var(--palette-*) tokens (or color-mix() over them) so theming works. " +
+            "Hardcoded #hex / rgb() / rgba() / hsl() / hsla() literals bypass theme variables. " +
+            string.Join("\n", violations));
     }
 
     private static string StripComments(string content)

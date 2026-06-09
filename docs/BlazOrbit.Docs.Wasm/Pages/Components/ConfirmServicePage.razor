@@ -1,0 +1,107 @@
+@page "/components/services/confirm"
+
+@using BlazOrbit.Components
+
+@inject IStringLocalizer<ConfirmServicePage> Loc
+@inject IConfirmService Confirm
+
+
+<DocPage Eyebrow="@Loc["Service"]" Title="@Loc["BOBConfirmService"]"
+         Lede="@Loc["Themed replacement for window.confirm() - async, severity-aware, modal-stack-aware."]"
+         PageInstance="this"
+         ApiType="@typeof(IConfirmService)"
+         Keywords="@(["confirm", "dialog service", "confirmation", "programmatic"])">
+
+    <BOBBanner Severity="BOBBannerSeverity.Info"
+               Title="@Loc["Host required"]"
+               Message="@Loc["BOBConfirmService delegates to BOBModalHost - make sure a single <BOBModalHost /> sits in your root layout. IConfirmService and IModalService are auto-registered by AddBlazOrbit()."]"/>
+
+    <BOBCodeBlock Title="MainLayout.razor"
+                  Language="SyntaxHighlightLanguage.Razor"
+                  Code="@_hostSetup"/>
+
+    <DocDemo Key="Basic" Title="@Loc["Basic confirm"]">
+        <BOBButton Text="@Loc["Ask"]" OnClick="@AskBasicAsync"/>
+        @if (_basicResult is not null)
+        {
+            <p class="doc-demo__caption">@Loc["Result:"] @_basicResult</p>
+        }
+    </DocDemo>
+
+    <DocDemo Key="Danger" Title="@Loc["Danger severity"]">
+        <BOBButton Text="@Loc["Delete user"]" OnClick="@AskDangerAsync"/>
+        @if (_dangerResult is not null)
+        {
+            <p class="doc-demo__caption">@Loc["Result:"] @_dangerResult</p>
+        }
+    </DocDemo>
+
+    <DocDemo Key="Warning" Title="@Loc["Warning severity + custom labels"]">
+        <BOBButton Text="@Loc["Discard changes"]" OnClick="@AskWarningAsync"/>
+        @if (_warningResult is not null)
+        {
+            <p class="doc-demo__caption">@Loc["Result:"] @_warningResult</p>
+        }
+    </DocDemo>
+
+    <DocDemo Key="Timeout" Title="@Loc["With auto-cancel timeout"]">
+        <BOBButton Text="@Loc["Ask (3s timeout)"]" OnClick="@AskTimeoutAsync"/>
+        @if (_timeoutResult is not null)
+        {
+            <p class="doc-demo__caption">@Loc["Result:"] @_timeoutResult</p>
+        }
+    </DocDemo>
+
+</DocPage>
+
+@code {
+    private const string _hostSetup = """
+        <BOBModalHost />
+        @Body
+        """;
+
+    private string? _basicResult;
+    private string? _dangerResult;
+    private string? _warningResult;
+    private string? _timeoutResult;
+
+    private async Task AskBasicAsync()
+    {
+        var ok = await Confirm.AskAsync(
+            Loc["Confirm"],
+            Loc["Are you sure?"]);
+        _basicResult = ok ? Loc["accepted"] : Loc["cancelled"];
+    }
+
+    private async Task AskDangerAsync()
+    {
+        var ok = await Confirm.AskAsync(
+            Loc["Delete user?"],
+            Loc["This action cannot be undone."],
+            ConfirmSeverity.Danger,
+            Loc["Delete"],
+            Loc["Keep"]);
+        _dangerResult = ok ? Loc["accepted"] : Loc["cancelled"];
+    }
+
+    private async Task AskWarningAsync()
+    {
+        var ok = await Confirm.AskAsync(
+            Loc["Discard changes?"],
+            Loc["Unsaved edits will be lost."],
+            ConfirmSeverity.Warning,
+            Loc["Discard"],
+            Loc["Keep editing"]);
+        _warningResult = ok ? Loc["accepted"] : Loc["cancelled"];
+    }
+
+    private async Task AskTimeoutAsync()
+    {
+        var ok = await Confirm.AskAsync(
+            Loc["Quick decision"],
+            Loc["Auto-cancels in 3 seconds."],
+            timeout: TimeSpan.FromSeconds(3));
+        _timeoutResult = ok ? Loc["accepted"] : Loc["cancelled or timed out"];
+    }
+
+}

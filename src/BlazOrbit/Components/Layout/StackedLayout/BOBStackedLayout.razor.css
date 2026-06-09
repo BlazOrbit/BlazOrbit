@@ -1,4 +1,4 @@
-﻿[data-bob-component="stacked-layout"] {
+[data-bob-component="stacked-layout"] {
     --_stacked-layout-header-height: var(--bob-inline-header-height, 64px);
     --_stacked-layout-nav-col-min: var(--bob-inline-nav-col-min, 200px);
     --_stacked-layout-nav-gap: var(--bob-inline-nav-gap, 1.5rem);

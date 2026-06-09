@@ -1,0 +1,111 @@
+@using Microsoft.AspNetCore.Components.Web
+@inject NavigationManager Nav
+@inject IStringLocalizer<DocSeo> Loc
+
+@if (!string.IsNullOrEmpty(Title))
+{
+    <PageTitle>@(GetPageTitle())</PageTitle>
+}
+<HeadContent>
+    @if (!string.IsNullOrEmpty(Robots))
+    {
+        <meta name="robots" content="@Robots"/>
+    }
+    else
+    {
+        <meta name="robots" content="index, follow">
+        <meta name="googlebot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+        <meta name="bingbot" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
+    }
+
+    <meta name="description" content="@GetDescription()"/>
+    @{
+        var keywords = GetKeywords();
+    }
+    @if (!string.IsNullOrEmpty(keywords))
+    {
+        <meta name="keywords" content="@keywords"/>
+    }
+
+    <link rel="canonical" href="@GetCanonicalUrl()"/>
+
+    @* Open Graph: type + title + description + url are per-page. og:site_name / og:image* / og:locale stay in index.html. *@
+    <meta property="og:type" content="@OgType"/>
+    <meta property="og:title" content="@GetPageTitle()"/>
+    <meta property="og:description" content="@GetDescription()"/>
+    <meta property="og:url" content="@GetCanonicalUrl()"/>
+
+    @* Twitter: title + description are per-page. twitter:card / twitter:site / twitter:image* stay in index.html. *@
+    <meta name="twitter:title" content="@GetPageTitle()"/>
+    <meta name="twitter:description" content="@GetDescription()"/>
+</HeadContent>
+
+@code {
+
+    /// <summary>Page-level title fragment. Composed with the site name as <c>"{Title} - BlazOrbit"</c>.</summary>
+    [Parameter]
+    public string? Title { get; set; }
+
+    /// <summary>Description tag content. Falls back to the site-wide description when empty.</summary>
+    [Parameter]
+    public string? Description { get; set; }
+
+    /// <summary>
+    /// Explicit keywords for the page. These are merged with site-base keywords and the
+    /// URL-derived segments. Pass meaningful search terms (e.g. <c>["table", "sorting", "pagination"]</c>),
+    /// not the component type name - the page title is intentionally not duplicated here.
+    /// </summary>
+    [Parameter]
+    public IEnumerable<string> Keywords { get; set; } = [];
+
+    /// <summary>
+    /// Open Graph object type. Defaults to <c>"article"</c> - semantically correct for docs
+    /// pages. Override to <c>"website"</c> for landing pages (Home) or other top-level entries.
+    /// </summary>
+    [Parameter]
+    public string OgType { get; set; } = "article";
+
+    [Parameter] public string? Robots { get; set; }
+
+    private const string SiteName = "BlazOrbit";
+
+    private string DefaultDescription =>
+        Loc["Blazor Component Library. C# first, high-performance, and accessible UI design. Lightweight, customizable, open source, and 100% free."];
+
+    private string GetPageTitle()
+    {
+        return string.IsNullOrEmpty(Title) ? SiteName : $"BlazOrbit | {Title}";
+    }
+
+    private string GetDescription()
+    {
+        return string.IsNullOrEmpty(Description)
+            ? DefaultDescription
+            : $"{Loc["Blazor Component Library."]} {Description.TrimEnd('.', ' ')}";
+    }
+
+    private string GetKeywords()
+    {
+        List<string> keywords = ["BlazOrbit", "Blazor", ".NET", "WebAssembly"];
+
+        // URL path segments - skip empties, the leading `/`, and very short segments.
+        Uri uri = new(Nav.Uri);
+        foreach (var segment in uri.AbsolutePath.Split('/', StringSplitOptions.RemoveEmptyEntries))
+        {
+            if (segment.Length <= 2) continue;
+            keywords.Add(segment.Replace('-', ' '));
+        }
+
+        keywords.AddRange(Keywords);
+
+        return string.Join(", ", keywords.Distinct(StringComparer.OrdinalIgnoreCase));
+    }
+
+    private string GetCanonicalUrl()
+    {
+        // NavigationManager.Uri includes the origin; strip any query/hash for canonical.
+        Uri uri = new(Nav.Uri);
+        return $"{uri.Scheme}://{uri.Host}{uri.AbsolutePath}";
+    }
+
+}

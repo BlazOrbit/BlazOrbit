@@ -1,0 +1,267 @@
+@page "/components/charts/bar"
+
+@inject IStringLocalizer<BarChartPage> Loc
+
+<DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBBarChart"]"
+         Lede="@Loc["Vertical bar chart with multi-series support. Categorical X axis (typically string labels), linear numeric Y axis. Bars within a category render side-by-side."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBBarChart<,>)"
+         Keywords="@(["bar chart", "column", "comparison", "data visualization"])">
+
+    <BOBBanner Severity="BOBBannerSeverity.Warning"
+               Title="@Loc["Extra package required"]"
+               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]"/>
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+        <BOBBarChart TX="string" TY="decimal"
+                     Series="_singleSeries"
+                     Width="600" Height="320"/>
+    </DocDemo>
+
+    <DocDemo Key="MultiSeries" Title="@Loc["Multi-series"]"
+             Description="@Loc["Each category gets its own band; series within a band are grouped side-by-side."]">
+        <BOBBarChart TX="string" TY="decimal"
+                     Series="_multiSeries"
+                     Width="600" Height="320"/>
+    </DocDemo>
+
+    <DocDemo Key="Stacked" Title="@Loc["Stacked bars"]"
+             Description="@Loc["StackMode = Stacked renders series on top of one another so the total bar height shows the cumulative value per category."]">
+        <BOBBarChart TX="string" TY="decimal"
+                     Series="_multiSeries"
+                     Width="600" Height="320"
+                     StackMode="BOBBarStackMode.Stacked"/>
+    </DocDemo>
+
+    <DocDemo Key="PercentStacked" Title="@Loc["Percent stacked"]"
+             Description="@Loc["StackMode = PercentStacked normalises every category to 100%. Useful for comparing proportional contribution across categories."]">
+        <BOBBarChart TX="string" TY="decimal"
+                     Series="_multiSeries"
+                     Width="600" Height="320"
+                     StackMode="BOBBarStackMode.PercentStacked"/>
+    </DocDemo>
+
+    <DocDemo Key="Bidirectional" Title="@Loc["Bidirectional stacked"]"
+             Description="@Loc["StackMode = Bidirectional stacks positive values upward from the zero baseline and negative values downward, each side keeping its own running cumulative. Ideal for budget variance, P&L by segment and cash inflow / outflow visualisations."]">
+        <BOBBarChart TX="string" TY="decimal"
+                     Series="_pnlSeries"
+                     Width="600" Height="320"
+                     StackMode="BOBBarStackMode.Bidirectional"/>
+    </DocDemo>
+
+    <DocDemo Key="Waterfall" Title="@Loc["Waterfall (P&L bridge)"]"
+             Description="@Loc["StackMode = Waterfall - single series where each bar represents a delta from the running cumulative of all previous bars. Standard format for P&L bridges (start → adjustments → end), budget vs actuals and cash-flow waterfalls."]">
+        <BOBBarChart TX="string" TY="decimal"
+                     Series="_waterfallSeries"
+                     Width="600" Height="340"
+                     StackMode="BOBBarStackMode.Waterfall"/>
+    </DocDemo>
+
+    <DocDemo Key="ExportButton" Title="@Loc["With export button"]"
+             Description="@Loc["Set ShowExportButton to true to render a download icon in the top-right corner. Clicking it rasterizes the SVG to a PNG client-side and triggers a browser download."]">
+        <BOBBarChart TX="string" TY="decimal"
+                     Series="_singleSeries"
+                     Width="600" Height="320"
+                     ShowExportButton="true"
+                     ExportFileName="quarterly-sales"/>
+    </DocDemo>
+
+    <DocDemo Key="GroupRatio" Title="@Loc["Bar group ratio"]"
+             Description="@Loc["BarGroupRatio (0..1) controls how much of each category band the bars fill. 1.0 = touching, 0.5 = half-padded."]">
+        <BOBBarChart TX="string" TY="decimal"
+                     Series="_multiSeries"
+                     Width="600" Height="320"
+                     BarGroupRatio="0.5"/>
+    </DocDemo>
+
+    <DocDemo Key="ReferenceLines" Title="@Loc["Reference lines"]"
+             Description="@Loc["Reference lines draw horizontal thresholds across the plot area. They render over the grid but under the bars so hover and click still work."]">
+        <BOBBarChart TX="string" TY="decimal"
+                     Series="_singleSeries"
+                     Width="600" Height="320"
+                     ReferenceLines="_referenceLines"/>
+    </DocDemo>
+
+    <DocDemo Key="LegendPosition" Title="@Loc["Legend on top"]"
+             Description="@Loc["LegendPosition moves the legend block. Bottom is the default; here it is placed at the top."]">
+        <BOBBarChart TX="string" TY="decimal"
+                     Series="_multiSeries"
+                     Width="600" Height="320"
+                     LegendPosition="BOBChartLegendPosition.Top"/>
+    </DocDemo>
+
+    <DocDemo Key="ClickHandler" Title="@Loc["Click handler"]"
+             Description="@Loc["OnPointClick fires when a bar is clicked, carrying the series label, X / Y values and point index."]">
+        <BOBBarChart TX="string" TY="decimal"
+                     Series="_singleSeries"
+                     Width="600" Height="320"
+                     OnPointClick="@(EventCallback.Factory.Create<BOBChartClickArgs<string, decimal>>(this, HandleBarClick))"/>
+        @if (!string.IsNullOrEmpty(_clickMessage))
+        {
+            <p class="doc-helper-text">@_clickMessage</p>
+        }
+    </DocDemo>
+
+    <DocDemo Key="CustomTooltip" Title="@Loc["Custom tooltip"]"
+             Description="@Loc["TooltipTemplate replaces the native SVG tooltip with your own HTML fragment. The context exposes SeriesLabel, X, Y and Color."]">
+        <BOBBarChart TX="string" TY="decimal"
+                     Series="_singleSeries"
+                     Width="600" Height="320"
+                     TooltipFormat="{0}: {1} = {2:N1}">
+        </BOBBarChart>
+    </DocDemo>
+
+</DocPage>
+
+@code {
+
+    private string? _clickMessage;
+
+    private void HandleBarClick(BOBChartClickArgs<string, decimal> args)
+    {
+        _clickMessage = $"Clicked: {args.SeriesLabel} - {args.X} = {args.Y}";
+    }
+
+    private static readonly IEnumerable<BOBChartSeries<string, decimal>> _singleSeries =
+    [
+        new BOBChartSeries<string, decimal>
+            {
+                Label = "Sales",
+                Points =
+                [
+                    new BOBChartPoint<string, decimal>("Q1", 120m),
+                    new BOBChartPoint<string, decimal>("Q2", 95m),
+                    new BOBChartPoint<string, decimal>("Q3", 140m),
+                    new BOBChartPoint<string, decimal>("Q4", 175m)
+                ]
+            }
+    ];
+
+    private static readonly IEnumerable<BOBChartSeries<string, decimal>> _multiSeries =
+    [
+        new BOBChartSeries<string, decimal>
+            {
+                Label = "EMEA",
+                Points =
+                [
+                    new BOBChartPoint<string, decimal>("Q1", 120m),
+                    new BOBChartPoint<string, decimal>("Q2", 95m),
+                    new BOBChartPoint<string, decimal>("Q3", 140m),
+                    new BOBChartPoint<string, decimal>("Q4", 175m)
+                ]
+            },
+            new BOBChartSeries<string, decimal>
+            {
+                Label = "Americas",
+                Points =
+                [
+                    new BOBChartPoint<string, decimal>("Q1", 80m),
+                    new BOBChartPoint<string, decimal>("Q2", 130m),
+                    new BOBChartPoint<string, decimal>("Q3", 110m),
+                    new BOBChartPoint<string, decimal>("Q4", 200m)
+                ]
+            },
+            new BOBChartSeries<string, decimal>
+            {
+                Label = "APAC",
+                Points =
+                [
+                    new BOBChartPoint<string, decimal>("Q1", 60m),
+                    new BOBChartPoint<string, decimal>("Q2", 75m),
+                    new BOBChartPoint<string, decimal>("Q3", 90m),
+                    new BOBChartPoint<string, decimal>("Q4", 120m)
+                ]
+            }
+    ];
+
+    // P&L by segment - mixed positive (Revenue, Bonus) and negative (Refunds,
+    // Discounts) flows demonstrate Bidirectional stacking.
+    private static readonly IEnumerable<BOBChartSeries<string, decimal>> _pnlSeries =
+    [
+        new BOBChartSeries<string, decimal>
+            {
+                Label = "Revenue",
+                Points =
+                [
+                    new BOBChartPoint<string, decimal>("Q1", 120m),
+                    new BOBChartPoint<string, decimal>("Q2", 150m),
+                    new BOBChartPoint<string, decimal>("Q3", 135m),
+                    new BOBChartPoint<string, decimal>("Q4", 180m)
+                ]
+            },
+            new BOBChartSeries<string, decimal>
+            {
+                Label = "Bonus",
+                Points =
+                [
+                    new BOBChartPoint<string, decimal>("Q1", 15m),
+                    new BOBChartPoint<string, decimal>("Q2", 20m),
+                    new BOBChartPoint<string, decimal>("Q3", 18m),
+                    new BOBChartPoint<string, decimal>("Q4", 28m)
+                ]
+            },
+            new BOBChartSeries<string, decimal>
+            {
+                Label = "Refunds",
+                Points =
+                [
+                    new BOBChartPoint<string, decimal>("Q1", -25m),
+                    new BOBChartPoint<string, decimal>("Q2", -32m),
+                    new BOBChartPoint<string, decimal>("Q3", -18m),
+                    new BOBChartPoint<string, decimal>("Q4", -40m)
+                ]
+            },
+            new BOBChartSeries<string, decimal>
+            {
+                Label = "Discounts",
+                Points =
+                [
+                    new BOBChartPoint<string, decimal>("Q1", -10m),
+                    new BOBChartPoint<string, decimal>("Q2", -8m),
+                    new BOBChartPoint<string, decimal>("Q3", -22m),
+                    new BOBChartPoint<string, decimal>("Q4", -15m)
+                ]
+            }
+    ];
+
+    // Waterfall: one series, each point a delta. Start with +100, then a
+    // sequence of positive / negative adjustments leading to the end.
+    private static readonly IEnumerable<BOBChartSeries<string, decimal>> _waterfallSeries =
+    [
+        new BOBChartSeries<string, decimal>
+            {
+                Label = "P&L bridge",
+                Points =
+                [
+                    new BOBChartPoint<string, decimal>("Plan", 200m),
+                    new BOBChartPoint<string, decimal>("Volume", 35m),
+                    new BOBChartPoint<string, decimal>("Mix", -18m),
+                    new BOBChartPoint<string, decimal>("Pricing", 42m),
+                    new BOBChartPoint<string, decimal>("Costs", -28m),
+                    new BOBChartPoint<string, decimal>("FX", -12m),
+                    new BOBChartPoint<string, decimal>("One-offs", 15m)
+                ]
+            }
+    ];
+
+    private static readonly IEnumerable<BOBChartReferenceLine> _referenceLines =
+    [
+        new BOBChartReferenceLine
+            {
+                Value = 100,
+                Label = "Target",
+                Color = "var(--palette-warning)",
+                Style = BOBChartReferenceLineStyle.Dashed,
+                StrokeWidth = 2
+            },
+            new BOBChartReferenceLine
+            {
+                Value = 150,
+                Label = "Stretch",
+                Color = "var(--palette-success)",
+                Style = BOBChartReferenceLineStyle.Dotted,
+                StrokeWidth = 1.5
+            }
+    ];
+
+}

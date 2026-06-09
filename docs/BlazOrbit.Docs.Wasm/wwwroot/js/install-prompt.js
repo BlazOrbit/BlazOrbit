@@ -1,4 +1,4 @@
-﻿const store = window.__bobInstall = window.__bobInstall || { deferred: null, installed: false, listeners: [] };
+const store = window.__bobInstall = window.__bobInstall || {deferred: null, installed: false, listeners: []};
 let dotnetRef = null;
 
 function detectPlatform() {
@@ -28,7 +28,8 @@ function snapshot() {
 
 function notify() {
     if (!dotnetRef) return;
-    dotnetRef.invokeMethodAsync('OnStateChanged', snapshot()).catch(() => { });
+    dotnetRef.invokeMethodAsync('OnStateChanged', snapshot()).catch(() => {
+    });
 }
 
 store.listeners.push(notify);
@@ -62,9 +63,16 @@ export function getState() {
 }
 
 export function getDismissed(key) {
-    try { return localStorage.getItem(key) === '1'; } catch { return false; }
+    try {
+        return localStorage.getItem(key) === '1';
+    } catch {
+        return false;
+    }
 }
 
 export function setDismissed(key) {
-    try { localStorage.setItem(key, '1'); } catch { }
+    try {
+        localStorage.setItem(key, '1');
+    } catch {
+    }
 }

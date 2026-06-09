@@ -1,4 +1,4 @@
-﻿using BlazOrbit.SyntaxHighlight.Builder;
+using BlazOrbit.SyntaxHighlight.Builder;
 using BlazOrbit.SyntaxHighlight.Tokens;
 
 namespace BlazOrbit.SyntaxHighlight.Languages;
@@ -19,24 +19,24 @@ public static class CSharpLanguage
             .CaseSensitive()
 
             // Comments (highest priority)
-            .AddLineComment("//", priority: 1000)
-            .AddBlockComment("/*", "*/", priority: 999)
+            .AddLineComment("//", 1000)
+            .AddBlockComment("/*", "*/", 999)
 
             // Strings
-            .AddString("@\"", "\"", escape: "\"\"", tokenType: TokenType.VerbatimString, priority: 998)
-            .AddString("$@\"", "\"", escape: "\"\"", tokenType: TokenType.InterpolatedString, priority: 997)
-            .AddString("@$\"", "\"", escape: "\"\"", tokenType: TokenType.InterpolatedString, priority: 996)
-            .AddString("$\"", "\"", escape: "\\", tokenType: TokenType.InterpolatedString, priority: 995)
-            .AddString("\"\"\"", "\"\"\"", escape: null, tokenType: TokenType.VerbatimString, priority: 994)
-            .AddString("\"", "\"", escape: "\\", priority: 993)
-            .AddDelimited(TokenType.Char, "'", "'", escape: "\\", priority: 992)
+            .AddString("@\"", "\"", "\"\"", TokenType.VerbatimString, 998)
+            .AddString("$@\"", "\"", "\"\"", TokenType.InterpolatedString, 997)
+            .AddString("@$\"", "\"", "\"\"", TokenType.InterpolatedString, 996)
+            .AddString("$\"", "\"", "\\", TokenType.InterpolatedString, 995)
+            .AddString("\"\"\"", "\"\"\"", null, TokenType.VerbatimString, 994)
+            .AddString("\"", "\"", "\\", priority: 993)
+            .AddDelimited(TokenType.Char, "'", "'", "\\", priority: 992)
 
             // Preprocessor directives
             .AddSequences(TokenType.PreprocessorDirective, [
                 "#if", "#else", "#elif", "#endif", "#define", "#undef",
                 "#warning", "#error", "#line", "#region", "#endregion",
                 "#pragma", "#nullable"
-            ], priority: 900)
+            ], 900)
 
             // Control keywords
             .AddKeywords(TokenType.ControlKeyword, [
@@ -45,7 +45,7 @@ public static class CSharpLanguage
                 "break", "continue", "goto", "return",
                 "try", "catch", "finally", "throw",
                 "yield", "await", "when", "where"
-            ], priority: 800)
+            ], 800)
 
             // Keywords
             .AddKeywords(TokenType.Keyword, [
@@ -60,7 +60,7 @@ public static class CSharpLanguage
                 "volatile", "async", "record", "with", "init",
                 "required", "file", "scoped", "var", "get", "set",
                 "add", "remove", "value", "nameof", "global"
-            ], priority: 799)
+            ], 799)
 
             // Built-in types
             .AddKeywords(TokenType.Type, [
@@ -68,12 +68,12 @@ public static class CSharpLanguage
                 "float", "int", "uint", "long", "ulong", "short",
                 "ushort", "object", "string", "void", "dynamic",
                 "nint", "nuint"
-            ], priority: 798)
+            ], 798)
 
             // Literals
             .AddKeywords(TokenType.Keyword, [
                 "true", "false", "null", "default"
-            ], priority: 797)
+            ], 797)
 
             // Numbers
             .AddPattern(TokenType.Number, @"0[xX][0-9a-fA-F_]+[uUlL]*", priority: 700)
@@ -82,23 +82,22 @@ public static class CSharpLanguage
             .AddPattern(TokenType.Number, @"\.[\d_]+([eE][+-]?[\d_]+)?[fFdDmM]?", priority: 697)
             .AddPattern(TokenType.Number, @"\d[\d_]*([eE][+-]?[\d_]+)[fFdDmM]?", priority: 696)
             .AddPattern(TokenType.Number, @"\d[\d_]*[fFdDmM]", priority: 695)
-            .AddPattern(TokenType.Number, @"\d[\d_]*[uUlL]*", requireWordBoundary: true, priority: 694)
+            .AddPattern(TokenType.Number, @"\d[\d_]*[uUlL]*", true, 694)
 
             // Operator keywords (need word boundaries)
-            .AddKeywords(TokenType.Operator, ["is", "as"], priority: 501)
+            .AddKeywords(TokenType.Operator, ["is", "as"], 501)
 
             // Operators
             .AddOperators([
-                "??=", "??", "?.","?[", "=>", "&&", "||", "++", "--",
+                "??=", "??", "?.", "?[", "=>", "&&", "||", "++", "--",
                 "<<", ">>", ">>>", "<=", ">=", "==", "!=",
                 "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=",
                 "<<=", ">>=", ">>>="
-            ], priority: 500)
-            .AddOperators("+-*/%&|^~!<>=?:", priority: 499)
+            ], 500)
+            .AddOperators("+-*/%&|^~!<>=?:", 499)
 
             // Punctuation
-            .AddPunctuation("{}[]();,.", priority: 400)
-
+            .AddPunctuation("{}[]();,.", 400)
             .Build();
     }
 }

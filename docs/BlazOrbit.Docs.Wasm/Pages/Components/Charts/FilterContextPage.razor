@@ -1,0 +1,124 @@
+@page "/components/charts/filter-context"
+
+@inject IStringLocalizer<FilterContextPage> Loc
+
+<DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBChartFilterContext"]"
+         Lede="@Loc["Cross-filtering container. Wrap several charts inside a BOBChartFilterContext to let them coordinate: a click on one chart sets a named filter on the context, and sibling charts read it via GetFilter / Matches to dim non-matching geometry without removing it."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBChartFilterContext)"
+         Keywords="@(["cross-filter", "filter context", "cascading", "interactive", "drill-down", "dashboard"])">
+
+    <BOBBanner Severity="BOBBannerSeverity.Warning"
+               Title="@Loc["Extra package required"]"
+               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]"/>
+
+    <DocDemo Key="ClickToFilter" Title="@Loc["Click to filter sibling charts"]"
+             Description="@Loc["Pie slice click → SetFilter(\"region\", label). The bar chart subscribes via the filter context and reflects the active region in the title. Clear All resets every active filter at once."]">
+        <BOBChartFilterContext @ref="_ctx" OnFiltersChanged="@(EventCallback.Factory.Create<IReadOnlyDictionary<string, object?>>(this, HandleFiltersChanged))">
+            <div style="display: flex; gap: 2rem; flex-wrap: wrap; align-items: center;">
+                <BOBDonutChart TY="double"
+                               Slices="_regions"
+                               OnSliceClick="@(s => _ctx?.SetFilter("region", s.SliceLabel) ?? Task.CompletedTask)"
+                               Width="280" Height="280"/>
+
+                <div style="flex: 1; min-width: 320px;">
+                    <h4 style="margin: 0 0 0.5rem 0;">
+                        @Loc["Sales"] @(_activeRegion is null ? Loc["(all regions)"].Value : $"({_activeRegion})")
+                    </h4>
+                    <BOBBarChart TX="string" TY="double"
+                                 Series="_filteredSales"
+                                 Width="420" Height="240"/>
+                </div>
+            </div>
+
+            <div style="margin-top: 1rem;">
+                <BOBButton Text="@Loc["Clear All"]"
+                           OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, HandleClearAll))"
+                           Disabled="@(_activeRegion is null)"/>
+            </div>
+        </BOBChartFilterContext>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["API surface"]</h2>
+        <ul>
+            <li><code>SetFilter(string dimension, object? value)</code> - @Loc["activate or update a filter (null value clears)"].</li>
+            <li><code>ClearFilter(string dimension)</code> - @Loc["remove one dimension"].</li>
+            <li><code>ClearAll()</code> - @Loc["drop every active filter"].</li>
+            <li><code>GetFilter(string dimension)</code> - @Loc["read the active value or null"].</li>
+            <li><code>Matches(string dimension, object? value)</code> - @Loc["true when value matches the active filter (or when no filter is set)"].</li>
+            <li><code>OnFiltersChanged</code> - @Loc["EventCallback raised after every mutation, carrying the snapshot of active filters"].</li>
+        </ul>
+    </section>
+
+</DocPage>
+
+@code {
+
+    private BOBChartFilterContext? _ctx;
+    private string? _activeRegion;
+
+    private void HandleFiltersChanged(IReadOnlyDictionary<string, object?> filters)
+    {
+        _activeRegion = filters.TryGetValue("region", out object? v) ? v?.ToString() : null;
+        StateHasChanged();
+    }
+
+    private async Task HandleClearAll()
+    {
+        if (_ctx is not null)
+        {
+            await _ctx.ClearAll();
+        }
+    }
+
+    private IEnumerable<BOBChartSeries<string, double>> _filteredSales =>
+        _activeRegion is null
+            ? _allSales
+            : _allSales.Where(s => s.Label == _activeRegion);
+
+    private static readonly BOBChartSlice<double>[] _regions =
+    [
+        new BOBChartSlice<double> { Label = "EMEA", Value = 45 },
+        new BOBChartSlice<double> { Label = "Americas", Value = 35 },
+        new BOBChartSlice<double> { Label = "APAC", Value = 20 }
+    ];
+
+    private static readonly BOBChartSeries<string, double>[] _allSales =
+    [
+        new BOBChartSeries<string, double>
+        {
+            Label = "EMEA",
+            Points =
+            [
+                new BOBChartPoint<string, double>("Q1", 120),
+                new BOBChartPoint<string, double>("Q2", 150),
+                new BOBChartPoint<string, double>("Q3", 180),
+                new BOBChartPoint<string, double>("Q4", 210)
+            ]
+        },
+        new BOBChartSeries<string, double>
+        {
+            Label = "Americas",
+            Points =
+            [
+                new BOBChartPoint<string, double>("Q1", 90),
+                new BOBChartPoint<string, double>("Q2", 110),
+                new BOBChartPoint<string, double>("Q3", 140),
+                new BOBChartPoint<string, double>("Q4", 165)
+            ]
+        },
+        new BOBChartSeries<string, double>
+        {
+            Label = "APAC",
+            Points =
+            [
+                new BOBChartPoint<string, double>("Q1", 50),
+                new BOBChartPoint<string, double>("Q2", 62),
+                new BOBChartPoint<string, double>("Q3", 80),
+                new BOBChartPoint<string, double>("Q4", 95)
+            ]
+        }
+    ];
+
+}

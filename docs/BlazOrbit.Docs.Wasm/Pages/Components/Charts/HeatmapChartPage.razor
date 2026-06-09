@@ -1,0 +1,92 @@
+@page "/components/charts/heatmap"
+
+@inject IStringLocalizer<HeatmapChartPage> Loc
+
+<DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBHeatmapChart"]"
+         Lede="@Loc["2D matrix where each cell's intensity maps to a color along a sequential ramp. Use for correlation matrices, calendar heatmaps, hourly traffic patterns and retention cohorts."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBHeatmapChart<,>)"
+         Keywords="@(["heatmap", "matrix", "density", "correlation"])">
+
+    <BOBBanner Severity="BOBBannerSeverity.Warning"
+               Title="@Loc["Extra package required"]"
+               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]"/>
+
+    <DocDemo Key="Hourly" Title="@Loc["Hourly activity heatmap"]">
+        <BOBHeatmapChart TX="string" TY="string"
+                         Cells="_hourly"
+                         Columns="_hours"
+                         Rows="_days"
+                         Width="700" Height="280"/>
+    </DocDemo>
+
+    <DocDemo Key="WithValues" Title="@Loc["Cell values overlaid"]"
+             Description="@Loc["ShowValues prints the cell value inside each rect. Text color auto-flips between dark and white depending on cell intensity for legible contrast."]">
+        <BOBHeatmapChart TX="string" TY="string"
+                         Cells="_correlation"
+                         ShowValues="true"
+                         ValueFormat="0.0"
+                         Width="500" Height="380"/>
+    </DocDemo>
+
+    <DocDemo Key="DivergingRamp" Title="@Loc["Custom color ramp"]"
+             Description="@Loc["Override LowColor + HighColor for diverging ramps (e.g. cool → warm) or brand-colored heatmaps."]">
+        <BOBHeatmapChart TX="string" TY="string"
+                         Cells="_hourly"
+                         Columns="_hours"
+                         Rows="_days"
+                         LowColor="#fef3c7"
+                         HighColor="#9a3412"
+                         Width="700" Height="280"/>
+    </DocDemo>
+
+</DocPage>
+
+@code {
+
+    private static readonly string[] _hours = Enumerable.Range(0, 24).Select(h => h.ToString("00")).ToArray();
+    private static readonly string[] _days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+
+    private static readonly BOBChartHeatmapCell<string, string>[] _hourly = GenerateHourly();
+
+    private static BOBChartHeatmapCell<string, string>[] GenerateHourly()
+    {
+        Random rng = new(7);
+        var cells = new List<BOBChartHeatmapCell<string, string>>();
+        foreach (var day in _days)
+        {
+            foreach (var hour in _hours)
+            {
+                var hr = int.Parse(hour);
+                // Working hours 9-18 weighted heavier; weekends quieter.
+                var weekend = day == "Sat" || day == "Sun";
+                var bias = (hr is >= 9 and <= 18 ? 4 : 1) * (weekend ? 0.4 : 1.0);
+                var v = bias + rng.NextDouble() * 4;
+                cells.Add(new BOBChartHeatmapCell<string, string>(hour, day, v));
+            }
+        }
+
+        return cells.ToArray();
+    }
+
+    private static readonly BOBChartHeatmapCell<string, string>[] _correlation =
+    [
+        new BOBChartHeatmapCell<string, string>("Price", "Price", 1.0),
+        new BOBChartHeatmapCell<string, string>("Volume", "Price", 0.6),
+        new BOBChartHeatmapCell<string, string>("RSI", "Price", -0.3),
+        new BOBChartHeatmapCell<string, string>("VIX", "Price", -0.7),
+        new BOBChartHeatmapCell<string, string>("Price", "Volume", 0.6),
+        new BOBChartHeatmapCell<string, string>("Volume", "Volume", 1.0),
+        new BOBChartHeatmapCell<string, string>("RSI", "Volume", 0.1),
+        new BOBChartHeatmapCell<string, string>("VIX", "Volume", 0.4),
+        new BOBChartHeatmapCell<string, string>("Price", "RSI", -0.3),
+        new BOBChartHeatmapCell<string, string>("Volume", "RSI", 0.1),
+        new BOBChartHeatmapCell<string, string>("RSI", "RSI", 1.0),
+        new BOBChartHeatmapCell<string, string>("VIX", "RSI", 0.5),
+        new BOBChartHeatmapCell<string, string>("Price", "VIX", -0.7),
+        new BOBChartHeatmapCell<string, string>("Volume", "VIX", 0.4),
+        new BOBChartHeatmapCell<string, string>("RSI", "VIX", 0.5),
+        new BOBChartHeatmapCell<string, string>("VIX", "VIX", 1.0)
+    ];
+
+}

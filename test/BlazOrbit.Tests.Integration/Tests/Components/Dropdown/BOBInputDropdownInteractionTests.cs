@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -11,12 +11,16 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Dropdown;
 [Trait("Component Interaction", "BOBInputDropdown")]
 public class BOBInputDropdownInteractionTests
 {
+    private class DummyModel
+    {
+        public string? Value { get; set; }
+    }
 
-    private class DummyModel { public string? Value { get; set; } }
     private static readonly DummyModel _dm = new();
     private static readonly Expression<Func<string?>> _expr = () => _dm.Value;
 
-    private static Action<ComponentParameterCollectionBuilder<BOBInputDropdown<string>>> WithOptions(string? value = null)
+    private static Action<ComponentParameterCollectionBuilder<BOBInputDropdown<string>>> WithOptions(
+        string? value = null)
         => p =>
         {
             p.Add(c => c.ValueExpression, _expr);
@@ -70,7 +74,7 @@ public class BOBInputDropdownInteractionTests
 
         // Assert
         cut.FindAll(".bob-dropdown__menu").Should().BeEmpty();
-        cut.Find("bob-component").GetAttribute("data-bob-dropdown-open").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-dropdown-open").Should().BeNull();
     }
 
     [Theory]
@@ -125,7 +129,7 @@ public class BOBInputDropdownInteractionTests
         cut.Find("button.bob-dropdown__trigger").Click();
         cut.Find(".bob-dropdown__option").Click();
 
-        // Assert — CloseOnSelect=true by default, menu closes
+        // Assert - CloseOnSelect=true by default, menu closes
         cut.FindAll(".bob-dropdown__menu").Should().BeEmpty();
     }
 
@@ -142,7 +146,7 @@ public class BOBInputDropdownInteractionTests
             p.Add(c => c.Disabled, true);
         });
 
-        // Act — trigger is disabled, click won't fire
+        // Act - trigger is disabled, click won't fire
         cut.FindAll(".bob-dropdown__menu").Should().BeEmpty();
         cut.Find("button.bob-dropdown__trigger").HasAttribute("disabled").Should().BeTrue();
     }
@@ -178,7 +182,7 @@ public class BOBInputDropdownInteractionTests
         // Act
         cut.Find("button.bob-dropdown__trigger").Click();
 
-        // Assert — selected option has aria-selected=true
+        // Assert - selected option has aria-selected=true
         IElement selectedOption = cut.FindAll(".bob-dropdown__option")
             .First(o => o.TextContent.Contains("Option 1"));
         selectedOption.GetAttribute("aria-selected").Should().Be("true");

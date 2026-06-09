@@ -1,5 +1,4 @@
-﻿using BlazOrbit.Components.Layout;
-using BlazOrbit.Components.Layout.Services;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -24,7 +23,7 @@ public class BOBToastAccessibilityTests
 
         // Arrange & Act
         IRenderedComponent<BOBToast> cut = ctx.Render<BOBToast>(p => p
-            .Add(c => c.State, CreateState(closable: true)));
+            .Add(c => c.State, CreateState(true)));
 
         // Assert
         cut.Find("[aria-label='Close']").Should().NotBeNull();

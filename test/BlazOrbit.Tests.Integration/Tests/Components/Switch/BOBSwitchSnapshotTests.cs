@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components.Forms;
+using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -60,7 +60,7 @@ public class BOBSwitchSnapshotTests
                     .Add(c => c.TrackColorActive, "#00aa00")
                     .Add(c => c.TrackColorInactive, "#aaaaaa")
                     .Add(c => c.InputId, "snap-colors")).GetNormalizedMarkup()
-            },
+            }
         };
 
         await Verify(testCases).UseParameters(scenario.Name);

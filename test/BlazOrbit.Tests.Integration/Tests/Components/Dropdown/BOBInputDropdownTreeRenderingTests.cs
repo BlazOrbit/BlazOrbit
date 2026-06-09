@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -13,15 +13,20 @@ public class BOBInputDropdownTreeRenderingTests
 {
     private record TreeNode(string Key, string Name, List<TreeNode>? Children = null);
 
-    private class DummyModel { public string? Value { get; set; } }
+    private class DummyModel
+    {
+        public string? Value { get; set; }
+    }
+
     private static readonly DummyModel _dm = new();
     private static readonly Expression<Func<string?>> _expr = () => _dm.Value;
 
     private static List<TreeNode> SampleItems
-    => [
-        new("1", "Node 1", [new("1.1", "Child 1.1"), new("1.2", "Child 1.2")]),
-        new("2", "Node 2")
-    ];
+        =>
+        [
+            new("1", "Node 1", [new TreeNode("1.1", "Child 1.1"), new TreeNode("1.2", "Child 1.2")]),
+            new("2", "Node 2")
+        ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -105,7 +110,7 @@ public class BOBInputDropdownTreeRenderingTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — no items provided
+        // Arrange & Act - no items provided
         IRenderedComponent<BOBInputDropdownTree<TreeNode, string>> cut =
             ctx.Render<BOBInputDropdownTree<TreeNode, string>>(p => p
                 .Add(c => c.ValueExpression, _expr)
@@ -139,7 +144,7 @@ public class BOBInputDropdownTreeRenderingTests
         // Act
         cut.Find("button.bob-dropdown__trigger").Click();
 
-        // Assert — tree dropdown uses role="tree" instead of "listbox"
+        // Assert - tree dropdown uses role="tree" instead of "listbox"
         cut.Find(".bob-dropdown__menu").GetAttribute("role").Should().Be("tree");
     }
 }

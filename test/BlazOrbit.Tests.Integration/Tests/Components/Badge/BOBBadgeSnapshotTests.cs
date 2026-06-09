@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -16,12 +16,7 @@ public class BOBBadgeSnapshotTests
 
         var testCases = new[]
         {
-            new
-            {
-                Name = "Dot_Mode",
-                Html = ctx.Render<BOBBadge>().GetNormalizedMarkup()
-            },
-            new
+            new { Name = "Dot_Mode", Html = ctx.Render<BOBBadge>().GetNormalizedMarkup() }, new
             {
                 Name = "With_Content",
                 Html = ctx.Render<BOBBadge>(p => p
@@ -47,7 +42,7 @@ public class BOBBadgeSnapshotTests
                 Html = ctx.Render<BOBNotificationBadge>(p => p
                     .Add(c => c.Position, BadgePosition.TopRight)
                     .Add(c => c.BadgeContent, b => b.AddContent(0, "3"))).GetNormalizedMarkup()
-            },
+            }
         };
 
         await Verify(testCases).UseParameters(scenario.Name);

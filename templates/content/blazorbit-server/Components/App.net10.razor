@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <base href="/" />
+    <ResourcePreloader />
+    <link rel="icon" type="image/png" sizes="48x48" href="@Assets["icon-48.png"]" />
+    <link rel="icon" type="image/svg+xml" href="@Assets["icon.svg"]" />
+    <link rel="apple-touch-icon" sizes="192x192" href="@Assets["icon-192.png"]" />
+    <link rel="apple-touch-icon" sizes="512x512" href="@Assets["icon-512.png"]" />
+    <link href="_content/BlazOrbit/css/blazorbit.css" rel="stylesheet" />
+        <link rel="stylesheet" href="@Assets["app.css"]" />
+@*#if (Theme != 'None')
+    <link rel="stylesheet" href="@Assets["theme.css"]" />
+#endif*@
+    <link rel="stylesheet" href="@Assets["BlazorApp.styles.css"]" />
+    <ImportMap />
+    <HeadOutlet @rendermode="InteractiveServer" />
+</head>
+
+<body>
+    <div class="bob-app__loader" aria-hidden="true">
+        <img src="@Assets["icon.svg"]" alt="" class="bob-app__loader-logo" />
+        <div class="bob-app__loader-text">Loading…</div>
+    </div>
+    <Routes @rendermode="InteractiveServer" />
+    <ReconnectModal />
+    <script src="@Assets["_framework/blazor.web.js"]"></script>
+</body>
+
+</html>

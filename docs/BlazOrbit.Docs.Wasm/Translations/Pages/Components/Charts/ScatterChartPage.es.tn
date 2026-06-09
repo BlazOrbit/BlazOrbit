@@ -1,0 +1,50 @@
+// Auto-migrated from ScatterChartPage.es.resx. Edit freely from now on.
+
+# Basic scatter
+Dispersión básica
+
+# BOBScatterChart
+BOBScatterChart
+
+# Bubble chart
+Gráfico de burbujas
+
+# BubbleSeries renders a third dimension via the marker radius. Sizes are auto-scaled into BubbleMinRadius..BubbleMaxRadius across the union of all bubble points.
+BubbleSeries representa una tercera dimensión mediante el radio del marcador. Los tamaños se escalan automáticamente en BubbleMinRadius..BubbleMaxRadius a través de la unión de todos los puntos de burbuja.
+
+# Cartesian scatter / bubble chart. Plots disconnected XY points to expose distributions, clusters and correlations. Bubble mode encodes a third dimension via the marker radius (auto-scaled across the series).
+Gráfico de dispersión / burbuja cartesiano. Traza puntos XY desconectados para exponer distribuciones, grupos y correlaciones. El modo burbuja codifica una tercera dimensión mediante el radio del marcador (escalado automáticamente en toda la serie).
+
+# Chart
+Gráfico
+
+# Click handler
+Manejador de clic
+
+# Extra package required
+Paquete adicional requerido
+
+# Marker radius
+Radio de marcador
+
+# MarkerRadius (px) controls the constant size of every scatter marker. Combine with MarkerOpacity to keep dense overlaps readable.
+MarkerRadius (px) controla el tamaño constante de cada marcador de dispersión. Combínalo con MarkerOpacity para mantener legibles las superposiciones densas.
+
+# OnPointClick fires when a marker is clicked, carrying the series label, X / Y values and point index.
+OnPointClick se dispara al hacer clic en un marcador, llevando la etiqueta de la serie, valores X / Y e índice del punto.
+
+# Reference lines
+Líneas de referencia
+
+# Reference lines work the same way as in BOBLineChart and BOBBarChart, drawing horizontal thresholds across the plot.
+Las líneas de referencia funcionan de la misma manera que en BOBLineChart y BOBBarChart, dibujando umbrales horizontales a través del gráfico.
+
+# Scatter + bubble overlay
+Dispersión + superposición de burbujas
+
+# Series and BubbleSeries can coexist on the same chart, sharing axes and palette indices. Useful for highlighting outliers (large bubbles) over a dense scatter cloud.
+Series y BubbleSeries pueden coexistir en el mismo gráfico, compartiendo ejes e índices de paleta. Útil para resaltar valores atípicos (burbujas grandes) sobre una nube densa de dispersión.
+
+# This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs.
+Este gráfico requiere el paquete NuGet BlazOrbit.Charts. Instálalo con dotnet add package BlazOrbit.Charts y registra AddBlazOrbitCharts() en Program.cs.
+

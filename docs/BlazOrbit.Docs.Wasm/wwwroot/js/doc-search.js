@@ -1,22 +1,8 @@
+// Tiny utility kept around for the imperative "focus the search input" call. The Ctrl+K
+// and "/" shortcut wiring previously lived in this file; the docs site now drives them
+// through the BlazOrbit.Hotkeys service, so the keydown handler here is intentionally
+// gone.
 window.DocSearchShortcuts = {
-    register: function (dotnetRef) {
-        var handler = function (e) {
-            if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-                e.preventDefault();
-                dotnetRef.invokeMethodAsync('OpenSearch');
-            }
-            if (e.key === '/' && !['INPUT', 'TEXTAREA', 'SELECT'].includes(e.target.tagName)) {
-                e.preventDefault();
-                dotnetRef.invokeMethodAsync('OpenSearch');
-            }
-        };
-        document.addEventListener('keydown', handler);
-        return {
-            dispose: function () {
-                document.removeEventListener('keydown', handler);
-            }
-        };
-    },
     focusInput: function (selector) {
         var el = document.querySelector(selector);
         if (el) {

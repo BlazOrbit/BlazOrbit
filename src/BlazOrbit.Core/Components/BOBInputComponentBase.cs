@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Components.Rendering;
@@ -6,11 +6,10 @@ using System.Linq.Expressions;
 
 namespace BlazOrbit.Abstractions;
 
-// Base class without variants
+/// <summary>Base class for inputs that participate in <see cref="EditContext"/> validation and the BlazOrbit attribute pipeline. Variant-aware inputs derive from <see cref="BOBInputComponentBase{TValue,TComponent,TVariant}"/>.</summary>
 public abstract class BOBInputComponentBase<TValue> :
     InputBase<TValue>,
     IAsyncDisposable,
-    IBuiltComponent,
     IHasReadOnly,
     IHasDisabled,
     IHasRequired,
@@ -23,52 +22,55 @@ public abstract class BOBInputComponentBase<TValue> :
     private readonly BOBComponentPipeline _pipeline = new();
     private FieldIdentifier _fieldIdentifier;
     private EditContext? _previousEditContext;
+
     private bool _lastValidationError;
+
     // Cache the synthetic ValueExpression for the no-EditContext path. The expression
     // captures `this`, so a single instance is valid for the component's lifetime and
     // re-uses the same Expression<Func<TValue>> across every SetParametersAsync call
     // instead of rebuilding it.
     private Expression<Func<TValue>>? _valueExpressionFallback;
 
-    // Echo-guard. After a parent receives ValueChanged and re-renders, it pushes the
-    // same Value back down. Without intervention every keystroke triggers a redundant
-    // BuildRenderTree on this component (and cascades through the parent tree). The
-    // guard distinguishes parameter-change paths (SetParametersAsync) from explicit
-    // StateHasChanged paths (focus/blur, validation flips, derived-component private
-    // state), and on the parameter path suppresses the render when both the bound
-    // Value matches what was last rendered AND the style fingerprint cache hit (i.e.
-    // no style-affecting parameter changed either).
-    private TValue? _lastRenderedValue;
-    private bool _hasRenderedOnce;
-    private bool _isFromParameterChange;
-
-    // Common parameters for all inputs — "force from outside": parent overrides the
+    // Common parameters for all inputs - "force from outside": parent overrides the
     // computed state. The computed truth lives in IsX below.
     /// <summary>When <see langword="true" />, the input is disabled. Combined with internal state via <see cref="IsDisabled"/>.</summary>
-    [Parameter] public bool Disabled { get; set; }
-    /// <summary>When <see langword="true" />, the input is read-only. Combined with internal state via <see cref="IsReadOnly"/>.</summary>
-    [Parameter] public bool ReadOnly { get; set; }
-    /// <summary>When <see langword="true" />, the input is marked required for validation. Combined with internal state via <see cref="IsRequired"/>.</summary>
-    [Parameter] public bool Required { get; set; }
-    /// <summary>When <see langword="true" />, the input is forced into the error state. Combined with <c>EditContext</c> validation via <see cref="IsError"/>.</summary>
-    [Parameter] public bool Error { get; set; }
+    [Parameter]
+    public bool Disabled { get; set; }
 
-    // Computed states — source of truth for gating, aria-* and the attributes builder.
-    // IsDisabled is virtual so derived inputs can decouple Loading from Disabled — for
+    /// <summary>When <see langword="true" />, the input is read-only. Combined with internal state via <see cref="IsReadOnly"/>.</summary>
+    [Parameter]
+    public bool ReadOnly { get; set; }
+
+    /// <summary>When <see langword="true" />, the input is marked required for validation. Combined with internal state via <see cref="IsRequired"/>.</summary>
+    [Parameter]
+    public bool Required { get; set; }
+
+    /// <summary>When <see langword="true" />, the input is forced into the error state. Combined with <c>EditContext</c> validation via <see cref="IsError"/>.</summary>
+    [Parameter]
+    public bool Error { get; set; }
+
+    // Computed states - source of truth for gating, aria-* and the attributes builder.
+    // IsDisabled is virtual so derived inputs can decouple Loading from Disabled - for
     // example, a debounced search input that wants to show a spinner while still
     // accepting keystrokes overrides this to drop the IHasLoading branch.
+    /// <summary>Computed disabled state. Combines <see cref="Disabled"/> with optional <see cref="IHasLoading"/>.</summary>
     public virtual bool IsDisabled => Disabled || (this is IHasLoading loading && loading.Loading);
+
+    /// <summary>Computed error state. Combines <see cref="Error"/> with the latest <see cref="EditContext"/> validation result.</summary>
     public bool IsError => Error || _lastValidationError;
+
+    /// <summary>Computed read-only state.</summary>
     public bool IsReadOnly => ReadOnly;
+
+    /// <summary>Computed required state.</summary>
     public bool IsRequired => Required;
 
-    // See BOBComponentBase.ComputedAttributes for why this is `public`: variant templates live
-    // cross-assembly and need to spread this dictionary onto the `<bob-component>` root.
+    /// <summary>Attribute bag spread on the <c>&lt;bob-component&gt;</c> root by render templates.</summary>
     public Dictionary<string, object> ComputedAttributes => _pipeline.ComputedAttributes;
 
     /// <summary>
     /// `true` once <see cref="Dispose(bool)"/> / <see cref="DisposeAsync"/> has started. See
-    /// BOBComponentBase.IsDisposed for the contract — gate post-await continuations in derived
+    /// BOBComponentBase.IsDisposed for the contract - gate post-await continuations in derived
     /// components on this flag.
     /// </summary>
     protected bool IsDisposed { get; set; }
@@ -85,13 +87,9 @@ public abstract class BOBInputComponentBase<TValue> :
 #pragma warning restore RS0016 // Add public types and members to the declared API
 #endif
 
+    /// <inheritdoc />
     public override Task SetParametersAsync(ParameterView parameters)
     {
-        // Flag the parameter-change path so ShouldRender can distinguish it from
-        // explicit StateHasChanged calls (focus/blur, validation flip, derived
-        // component private state). Cleared inside ShouldRender after consumption.
-        _isFromParameterChange = true;
-
         bool hasValueExpression = false;
         bool hasEditContext = false;
         foreach (ParameterValue p in parameters)
@@ -124,41 +122,12 @@ public abstract class BOBInputComponentBase<TValue> :
     }
 
     /// <summary>
-    /// Echo-guard. Suppresses redundant render-tree rebuilds triggered by the
-    /// <c>ValueChanged → parent → SetParametersAsync</c> round-trip when nothing
-    /// observable changed. Fires only on the parameter-change path; explicit
-    /// <c>StateHasChanged</c> calls (focus/blur, validation flips, derived-component
-    /// private state, JS-driven updates) always render.
-    /// </summary>
-    protected override bool ShouldRender()
-    {
-        bool wasParameterChange = _isFromParameterChange;
-        _isFromParameterChange = false;
-
-        if (!wasParameterChange || !_hasRenderedOnce)
-        {
-            return true;
-        }
-
-        bool valueUnchanged = EqualityComparer<TValue?>.Default.Equals(CurrentValue, _lastRenderedValue);
-        bool stylesUnchanged = _pipeline.LastBuildSkipped;
-
-        return !(valueUnchanged && stylesUnchanged);
-    }
-
-    public virtual void BuildComponentCssVariables(Dictionary<string, string> cssVariables)
-    { }
-
-    public virtual void BuildComponentDataAttributes(Dictionary<string, object> dataAttributes)
-    { }
-
-    /// <summary>
     /// Async disposal path. Blazor invokes this first when the component is unmounted
     /// because the type implements <see cref="IAsyncDisposable"/>; it tears down the
     /// JS-side behavior instance via <see cref="BOBComponentPipeline.DisposeBehaviorAsync"/>.
     /// </summary>
     /// <remarks>
-    /// Both this method and <see cref="Dispose(bool)"/> run on disposal — Blazor calls
+    /// Both this method and <see cref="Dispose(bool)"/> run on disposal - Blazor calls
     /// <c>DisposeAsync</c> for the async work and the framework's <see cref="IDisposable"/>
     /// contract still invokes <c>Dispose(true)</c> afterward. The split is intentional:
     /// async work (JS interop teardown) lives here, sync work (event unsubscribe) lives in
@@ -187,6 +156,7 @@ public abstract class BOBInputComponentBase<TValue> :
         base.Dispose(disposing);
     }
 
+    /// <inheritdoc />
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender)
@@ -210,23 +180,18 @@ public abstract class BOBInputComponentBase<TValue> :
         await base.OnAfterRenderAsync(firstRender);
     }
 
+    /// <inheritdoc />
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         _pipeline.BeginRenderTree();
         _pipeline.PatchVolatileAttributes(this);
         base.BuildRenderTree(builder);
-
-        // Snapshot the rendered Value so the next parameter-change can detect a
-        // Value echo. Captured *after* base.BuildRenderTree so derived razors that
-        // read `CurrentValue` during render see the same value the guard will
-        // compare against.
-        _lastRenderedValue = CurrentValue;
-        _hasRenderedOnce = true;
 #if DEBUG
         _pipeline.EndRenderTree(GetType().Name, PerformanceService, TrackPerformanceEnabled);
 #endif
     }
 
+    /// <inheritdoc />
     protected override void OnInitialized()
     {
         _pipeline.BeginInit();
@@ -238,6 +203,7 @@ public abstract class BOBInputComponentBase<TValue> :
         }
     }
 
+    /// <inheritdoc />
     protected override void OnParametersSet()
     {
         _pipeline.BeginParametersSet();
@@ -278,7 +244,7 @@ public abstract class BOBInputComponentBase<TValue> :
         }
 
         bool current = EditContext != null && ValueExpression != null
-            && EditContext.GetValidationMessages(_fieldIdentifier).Any();
+                                           && EditContext.GetValidationMessages(_fieldIdentifier).Any();
         if (current != _lastValidationError)
         {
             _lastValidationError = current;
@@ -292,7 +258,7 @@ public abstract class BOBInputComponentBase<TValue> :
     }
 }
 
-// Base class with variants
+/// <summary>Variant-aware input component base. Pairs <see cref="BOBInputComponentBase{TValue}"/> with the <see cref="IVariantComponent{TVariant}"/> template-resolution pipeline.</summary>
 public abstract class BOBInputComponentBase<TValue, TComponent, TVariant>
     : BOBInputComponentBase<TValue>, IVariantComponent<TVariant>
     where TComponent : BOBInputComponentBase<TValue, TComponent, TVariant>
@@ -301,18 +267,25 @@ public abstract class BOBInputComponentBase<TValue, TComponent, TVariant>
     private RenderFragment? _resolvedTemplate;
     private VariantHelper<TComponent, TVariant>? _variantHelper;
 
-    // Implementation of IVariantComponent interfaces
     Variant IVariantComponent.CurrentVariant => CurrentVariant;
 
+    /// <summary>Effective variant for this render (parameter or <see cref="DefaultVariant"/>).</summary>
     public TVariant CurrentVariant => Variant ?? DefaultVariant;
+
+    /// <summary>Variant used when no <see cref="Variant"/> is supplied.</summary>
     public abstract TVariant DefaultVariant { get; }
+
     /// <summary>Selected variant. <see langword="null"/> falls back to <see cref="DefaultVariant"/>.</summary>
-    [Parameter] public TVariant? Variant { get; set; }
+    [Parameter]
+    public TVariant? Variant { get; set; }
 
     Type IVariantComponent.VariantType => typeof(TVariant);
+
+    /// <summary>Compile-time map of variants to their built-in render templates.</summary>
     protected abstract IReadOnlyDictionary<TVariant, Func<TComponent, RenderFragment>> BuiltInTemplates { get; }
     [Inject] private IVariantRegistry? VariantRegistry { get; set; }
 
+    /// <inheritdoc />
     protected override void BuildRenderTree(RenderTreeBuilder builder)
     {
         // Let the base class handle its render logic first
@@ -325,6 +298,7 @@ public abstract class BOBInputComponentBase<TValue, TComponent, TVariant>
         }
     }
 
+    /// <inheritdoc />
     protected override void OnParametersSet()
     {
         // First let the base class handle its parameter setting

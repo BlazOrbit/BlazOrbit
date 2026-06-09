@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -17,7 +17,7 @@ public class BOBModalContainerRenderingTests
             ComponentType = typeof(DummyModalContent),
             Reference = new ModalReference("test-modal-1", _ => Task.CompletedTask),
             Options = new DialogOptions { Title = title },
-            IsVisible = true,
+            IsVisible = true
         };
 
     private static ModalState CreateDrawerState(DrawerPosition position = DrawerPosition.Right)
@@ -28,20 +28,13 @@ public class BOBModalContainerRenderingTests
             ComponentType = typeof(DummyModalContent),
             Reference = new ModalReference("test-drawer-1", _ => Task.CompletedTask),
             Options = new DrawerOptions { Position = position },
-            IsVisible = true,
+            IsVisible = true
         };
 
     private sealed class DummyModalContent : Microsoft.AspNetCore.Components.ComponentBase, IModalContent
     {
         [Microsoft.AspNetCore.Components.Parameter]
-        public ModalReference ModalRef { get; set; } = default!;
-
-        // IModalContent requires this property — delegated to ModalRef
-        ModalReference IModalContent.ModalReference
-        {
-            get => ModalRef;
-            set => ModalRef = value;
-        }
+        public ModalReference ModalReference { get; set; } = default!;
     }
 
     [Theory]
@@ -97,7 +90,7 @@ public class BOBModalContainerRenderingTests
             .Add(c => c.Modal, CreateDrawerState(DrawerPosition.Left)));
 
         // Assert
-        cut.Find(".bob-modal-drawer--left").Should().NotBeNull();
+        cut.Find("[data-bob-position='left']").Should().NotBeNull();
     }
 
     [Theory]
@@ -111,6 +104,6 @@ public class BOBModalContainerRenderingTests
             .Add(c => c.Modal, CreateDialogState()));
 
         // Assert
-        cut.Find(".bob-modal-container--visible").Should().NotBeNull();
+        cut.Find("[data-bob-visible='true']").Should().NotBeNull();
     }
 }

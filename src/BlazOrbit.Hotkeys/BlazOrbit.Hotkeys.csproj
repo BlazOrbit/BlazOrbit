@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <PropertyGroup>
+        <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+        <IsPackable>true</IsPackable>
+        <PackageType>Dependency</PackageType>
+        <PackageId>BlazOrbit.Hotkeys</PackageId>
+        <Description>Global keyboard shortcut registry for BlazOrbit. Document-level keydown listener.</Description>
+        <PackageTags>blazor;hotkeys;keyboard;shortcuts;keybinding;blazorbit</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="BlazOrbit.Tests.Integration"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components" Version="$(BlazOrbitAspNetCoreVersion)"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(BlazOrbitAspNetCoreVersion)"/>
+        <PackageReference Include="Microsoft.JSInterop" Version="$(BlazOrbitJsInteropVersion)"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(BlazOrbitExtensionsVersion)"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <!--
+            Hotkeys reaches into the Core abstractions for ModuleJsInteropBase. No dependency
+            on the main BlazOrbit component library - the host renders nothing visible and
+            keeps the package surface minimal so consumers can opt in without pulling the
+            full design system.
+        -->
+        <ProjectReference Include="..\BlazOrbit.Core\BlazOrbit.Core.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="4.14.0" PrivateAssets="all"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="PublicAPI.Shipped.txt"/>
+        <AdditionalFiles Include="PublicAPI.Unshipped.txt"/>
+    </ItemGroup>
+
+</Project>

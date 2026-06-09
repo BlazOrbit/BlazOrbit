@@ -1,0 +1,87 @@
+@page "/components/display/avatar"
+
+@using BlazOrbit.Components
+
+@inject IStringLocalizer<AvatarPage> Loc
+
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBAvatar"]"
+         Lede="@Loc["Image avatar with initials fallback (deterministic gradient), shape and status variants. Group with overlap and overflow."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBAvatar)"
+         Keywords="@(["avatar", "profile picture", "user image", "initials"])">
+
+    <DocDemo Key="Image" Title="@Loc["Image avatar"]">
+        <BOBAvatar ImageUrl="https://avatars.githubusercontent.com/u/86880991?v=4" Label="CdCSharp"/>
+        <BOBAvatar ImageUrl="https://avatars.githubusercontent.com/u/280659084?v=4" Label="BlazOrbit"/>
+        <BOBAvatar ImageUrl="https://avatars.githubusercontent.com/u/9141961?s=200&v=4" Label="Dotnet"/>
+    </DocDemo>
+
+    <DocDemo Key="Background" Title="@Loc["Background"]">
+        <BOBAvatar ImageUrl="https://avatars.githubusercontent.com/u/86880991?v=4" Label="CdCSharp"
+                   BackgroundColor="@BOBColor.Beige.Lighten3"/>
+        <BOBAvatar ImageUrl="https://avatars.githubusercontent.com/u/280659084?v=4" Label="BlazOrbit"
+                   BackgroundColor="@PaletteColor.SecondaryContrast"/>
+        <BOBAvatar ImageUrl="https://avatars.githubusercontent.com/u/9141961?s=200&v=4" Label="Dotnet"
+                   BackgroundColor="#DDD"/>
+    </DocDemo>
+
+    <DocDemo Key="Initials" Title="@Loc["Initials fallback"]">
+        <BOBAvatar Label="Ada Lovelace"/>
+        <BOBAvatar Label="Alan Turing"/>
+        <BOBAvatar Label="Grace Hopper"/>
+        <BOBAvatar Label="John Doe"/>
+        <BOBAvatar Label="Jane Smith"/>
+    </DocDemo>
+
+    <DocDemo Key="Shapes" Title="@Loc["Shapes"]">
+        <BOBAvatar Label="JD" Shape="BOBAvatarShape.Circle"/>
+        <BOBAvatar Label="JD" Shape="BOBAvatarShape.Rounded"/>
+        <BOBAvatar Label="JD" Shape="BOBAvatarShape.Square"/>
+    </DocDemo>
+
+    <DocDemo Key="Status" Title="@Loc["Status indicator"]">
+        <BOBAvatar Label="A" Status="BOBAvatarStatus.Online"/>
+        <BOBAvatar Label="B" Status="BOBAvatarStatus.Busy"/>
+        <BOBAvatar Label="C" Status="BOBAvatarStatus.Away"/>
+        <BOBAvatar Label="D" Status="BOBAvatarStatus.Offline"/>
+    </DocDemo>
+
+    <DocDemo Key="Sizes" Title="@Loc["Sizes"]">
+        <BOBAvatar Label="S" Size="BOBSize.Small"/>
+        <BOBAvatar Label="M" Size="BOBSize.Medium"/>
+        <BOBAvatar Label="L" Size="BOBSize.Large"/>
+    </DocDemo>
+
+    <DocDemo Key="Group" Title="@Loc["Group with overflow (manual total)"]"
+             Description="@Loc["TotalOverride pins the count when the trailing avatars aren't rendered at all (e.g. virtualised lists)."]">
+        <BOBAvatarGroup MaxVisible="3" TotalOverride="8">
+            <BOBAvatar Label="Ada Lovelace"/>
+            <BOBAvatar Label="Alan Turing"/>
+            <BOBAvatar Label="Grace Hopper"/>
+        </BOBAvatarGroup>
+    </DocDemo>
+
+    <DocDemo Key="GroupAuto" Title="@Loc["Group with overflow (auto count)"]"
+             Description="@Loc["By default the group counts its registered children - any avatar past MaxVisible is hidden via CSS and the overflow bubble appears with the remaining count."]">
+        <BOBAvatarGroup MaxVisible="3">
+            <BOBAvatar Label="Ada Lovelace"/>
+            <BOBAvatar Label="Alan Turing"/>
+            <BOBAvatar Label="Grace Hopper"/>
+            <BOBAvatar Label="Linus Torvalds"/>
+            <BOBAvatar Label="Margaret Hamilton"/>
+            <BOBAvatar Label="Donald Knuth"/>
+        </BOBAvatarGroup>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["BOBAvatar Properties"]</h2>
+        <PropertyTable Properties="@BOBAvatarComponentInfo.Parameters"/>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["BOBAvatarGroup Properties"]</h2>
+        <PropertyTable Properties="@BOBAvatarGroupComponentInfo.Parameters"/>
+    </section>
+
+</DocPage>

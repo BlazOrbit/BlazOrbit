@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Abstractions;
+using BlazOrbit.Abstractions;
 using BlazOrbit.Types;
 using Microsoft.JSInterop;
 
@@ -11,9 +11,14 @@ internal sealed class BehaviorJsInterop : ModuleJsInteropBase, IBehaviorJsIntero
     {
     }
 
-    public async ValueTask<IJSObjectReference> AttachBehaviorsAsync(BehaviorConfiguration configuration)
+    public async ValueTask<IJSObjectReference?> AttachBehaviorsAsync(BehaviorConfiguration configuration)
     {
-        IJSObjectReference module = await ModuleTask.Value;
+        IJSObjectReference? module = await TryGetModuleAsync();
+        if (module is null)
+        {
+            return null;
+        }
+
         return await module.InvokeAsync<IJSObjectReference>(
             "initialize", configuration);
     }

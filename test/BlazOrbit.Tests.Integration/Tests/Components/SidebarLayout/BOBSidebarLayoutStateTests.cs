@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components.Layout;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -36,7 +36,7 @@ public class BOBSidebarLayoutStateTests
             .Add(c => c.SidebarOpen, false));
 
         // Assert
-        cut.Find("bob-component").GetAttribute("data-bob-sidebar-open").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-sidebar-open").Should().BeNull();
         cut.FindAll(".bob-sidebar-layout__scrim").Should().BeEmpty();
     }
 

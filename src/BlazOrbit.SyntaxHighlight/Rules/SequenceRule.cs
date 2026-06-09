@@ -1,4 +1,4 @@
-﻿using BlazOrbit.SyntaxHighlight.Tokens;
+using BlazOrbit.SyntaxHighlight.Tokens;
 
 namespace BlazOrbit.SyntaxHighlight.Rules;
 
@@ -34,6 +34,8 @@ public sealed class SequenceRule : ITokenRule
             ? StringComparison.Ordinal
             : StringComparison.OrdinalIgnoreCase;
 
-        return input.AsSpan(position).StartsWith(_sequence, comparison) ? new TokenMatch(_tokenType, position, _sequence.Length) : null;
+        return input.AsSpan(position).StartsWith(_sequence, comparison)
+            ? new TokenMatch(_tokenType, position, _sequence.Length)
+            : null;
     }
 }

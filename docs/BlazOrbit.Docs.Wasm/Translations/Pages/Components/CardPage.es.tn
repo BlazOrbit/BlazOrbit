@@ -1,0 +1,104 @@
+// Auto-migrated from CardPage.es.resx. Edit freely from now on.
+
+# A flexible container for content - header, media, body, and actions in a single component.
+Un contenedor flexible para contenido: encabezado, medios, cuerpo y acciones en un solo componente.
+
+# A simple card with only body content.
+Una tarjeta simple con solo contenido de cuerpo.
+
+# Actions alignment
+Alineación de acciones
+
+# Basic usage
+Uso básico
+
+# BOBCard
+BOBCard
+
+# Border only, no shadow.
+Solo borde, sin sombra.
+
+# Cancel
+Cancelar
+
+# Clickable
+Clicable
+
+# Clickable card
+Tarjeta clickeable
+
+# Clicked
+Clicado
+
+# Component
+Componente
+
+# Confirm
+Confirmar
+
+# Dashed
+Discontinuo
+
+# Decline
+Rechazar
+
+# Elevated
+Elevado
+
+# Elevation
+Elevación
+
+# Elevation 1 - low emphasis.
+Elevación 1: bajo énfasis.
+
+# Elevation 4 - medium emphasis.
+Elevación 4: medio énfasis.
+
+# Elevation 8 - high emphasis.
+Elevación 8: alto énfasis.
+
+# Featured
+Destacado
+
+# Invoice #4213
+Factura #4213
+
+# Material Design elevation level (0–24). Derives shadow and dark-mode surface tint automatically.
+Nivel de elevación Material Design (0–24). Deriva sombra y tinte de superficie para modo oscuro automáticamente.
+
+# Media area can contain any RenderFragment - image, gradient, or video.
+El área de medios puede contener cualquier RenderFragment: imagen, degradado o video.
+
+# Media can be placed at Top (default), AfterHeader, BeforeActions, or Bottom.
+Los medios pueden colocarse en la parte superior (predeterminado), después del encabezado, antes de las acciones o en la parte inferior.
+
+# Pay
+Pagar
+
+# Pill shape.
+Forma de píldora.
+
+# Properties
+Propiedades
+
+# Shadow & Border
+Sombra y borde
+
+# Shadow + border combined for a polished look.
+Sombra + borde combinados para un aspecto pulido.
+
+# Space-between actions.
+Acciones con espacio entre ellas.
+
+# time(s).
+vez/veces.
+
+# Total: $240.00 - due April 30.
+Total: $240,00 - vence el 30 de abril.
+
+# With header & actions
+Con encabezado y acciones
+
+# With media
+Con multimedia
+

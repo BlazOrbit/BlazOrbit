@@ -1,5 +1,4 @@
-﻿using BlazOrbit.Components.Layout;
-using BlazOrbit.Components.Layout.Services;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -21,7 +20,7 @@ public class BOBToastStateTests
         {
             Content = b => b.AddContent(0, "msg"),
             Options = ToastOptions.Default,
-            // Act — set IsClosing = true
+            // Act - set IsClosing = true
             IsClosing = true
         };
 
@@ -41,9 +40,7 @@ public class BOBToastStateTests
         // Arrange
         ToastState state = new()
         {
-            Content = b => b.AddContent(0, "msg"),
-            Options = ToastOptions.Default,
-            IsPaused = true
+            Content = b => b.AddContent(0, "msg"), Options = ToastOptions.Default, IsPaused = true
         };
 
         // Act

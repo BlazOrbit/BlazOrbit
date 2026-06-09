@@ -1,0 +1,18 @@
+@inherits LayoutComponentBase
+@using BlazOrbit.Components.Wasm
+@*#if (UseHotKeys)*@
+@using BlazOrbit.Hotkeys
+@*#endif*@
+
+<BOBInitializer DefaultTheme="dark">
+    <NavMenu />
+    <main class="bob-app__main">
+        @Body
+    </main>
+</BOBInitializer>
+
+@*#if (UseHotKeys)*@
+<BOBHotkeyHost />
+@*#endif*@
+<BOBModalHost />
+<BOBToastHost MaxVisiblePerPosition="5" />

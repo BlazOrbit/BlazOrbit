@@ -1,5 +1,5 @@
-﻿using AngleSharp.Dom;
-using BlazOrbit.Components.Layout;
+using AngleSharp.Dom;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -10,7 +10,8 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Dialog;
 [Trait("Component State", "BOBModalContainer")]
 public class BOBModalContainerStateTests
 {
-    private static ModalState CreateDialogState(bool isVisible = true, bool isAnimatingOut = false, int? elevation = null)
+    private static ModalState CreateDialogState(bool isVisible = true, bool isAnimatingOut = false,
+        int? elevation = null)
         => new()
         {
             Id = "test-state-modal",
@@ -19,10 +20,11 @@ public class BOBModalContainerStateTests
             Reference = new ModalReference("test-state-modal", _ => Task.CompletedTask),
             Options = new DialogOptions { Title = "State Test", Elevation = elevation },
             IsVisible = isVisible,
-            IsAnimatingOut = isAnimatingOut,
+            IsAnimatingOut = isAnimatingOut
         };
 
-    private static ModalState CreateDrawerState(bool isVisible = true, bool isAnimatingOut = false, int? elevation = null)
+    private static ModalState CreateDrawerState(bool isVisible = true, bool isAnimatingOut = false,
+        int? elevation = null)
         => new()
         {
             Id = "test-state-drawer",
@@ -31,19 +33,13 @@ public class BOBModalContainerStateTests
             Reference = new ModalReference("test-state-drawer", _ => Task.CompletedTask),
             Options = new DrawerOptions { Position = DrawerPosition.Right, Elevation = elevation },
             IsVisible = isVisible,
-            IsAnimatingOut = isAnimatingOut,
+            IsAnimatingOut = isAnimatingOut
         };
 
     private sealed class DummyModalContent : Microsoft.AspNetCore.Components.ComponentBase, IModalContent
     {
         [Microsoft.AspNetCore.Components.Parameter]
-        public ModalReference ModalRef { get; set; } = default!;
-
-        ModalReference IModalContent.ModalReference
-        {
-            get => ModalRef;
-            set => ModalRef = value;
-        }
+        public ModalReference ModalReference { get; set; } = default!;
     }
 
     [Theory]
@@ -54,10 +50,10 @@ public class BOBModalContainerStateTests
 
         // Arrange & Act
         IRenderedComponent<BOBModalContainer> cut = ctx.Render<BOBModalContainer>(p => p
-            .Add(c => c.Modal, CreateDialogState(isVisible: false)));
+            .Add(c => c.Modal, CreateDialogState(false)));
 
         // Assert
-        cut.Find(".bob-modal-container--hidden").Should().NotBeNull();
+        cut.Find(".bob-modal-container[data-bob-hidden='true']").Should().NotBeNull();
     }
 
     [Theory]
@@ -71,7 +67,7 @@ public class BOBModalContainerStateTests
             .Add(c => c.Modal, CreateDialogState(isAnimatingOut: true)));
 
         // Assert
-        cut.Find(".bob-modal-container--closing").Should().NotBeNull();
+        cut.Find(".bob-modal-container[data-bob-closing='true']").Should().NotBeNull();
     }
 
     [Theory]
@@ -82,15 +78,15 @@ public class BOBModalContainerStateTests
 
         // Arrange
         IRenderedComponent<BOBModalContainer> cut = ctx.Render<BOBModalContainer>(p => p
-            .Add(c => c.Modal, CreateDialogState(isVisible: true)));
-        cut.Find(".bob-modal-container--visible").Should().NotBeNull();
+            .Add(c => c.Modal, CreateDialogState(true)));
+        cut.Find(".bob-modal-container[data-bob-visible='true']").Should().NotBeNull();
 
-        // Act — flip to hidden
+        // Act - flip to hidden
         cut = ctx.Render<BOBModalContainer>(p => p
-            .Add(c => c.Modal, CreateDialogState(isVisible: false)));
+            .Add(c => c.Modal, CreateDialogState(false)));
 
         // Assert
-        cut.Find(".bob-modal-container--hidden").Should().NotBeNull();
+        cut.Find(".bob-modal-container[data-bob-hidden='true']").Should().NotBeNull();
     }
 
     [Theory]

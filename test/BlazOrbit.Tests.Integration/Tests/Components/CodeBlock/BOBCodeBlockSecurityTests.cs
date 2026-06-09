@@ -1,4 +1,5 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
+using BlazOrbit.CodeBlock.Components;
 using BlazOrbit.SyntaxHighlight;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -21,7 +22,7 @@ public class BOBCodeBlockSecurityTests
             .Add(c => c.Code, "</pre><script>alert(1)</script>")
             .Add(c => c.Language, SyntaxHighlightLanguage.CSharp));
 
-        // Assert — raw <script> tag must not appear in rendered markup
+        // Assert - raw <script> tag must not appear in rendered markup
         cut.Find(".bob-code-block__content").InnerHtml.Should().NotContain("<script>alert(1)</script>");
     }
 
@@ -36,7 +37,7 @@ public class BOBCodeBlockSecurityTests
             .Add(c => c.Code, "</pre><b>injected</b>")
             .Add(c => c.Language, SyntaxHighlightLanguage.CSharp));
 
-        // Assert — injected HTML must not break structure
+        // Assert - injected HTML must not break structure
         cut.FindAll("bob-component[data-bob-component=\"code-block\"]").Should().HaveCount(1);
     }
 
@@ -46,11 +47,11 @@ public class BOBCodeBlockSecurityTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — empty code triggers fallback path
+        // Arrange & Act - empty code triggers fallback path
         IRenderedComponent<BOBCodeBlock> cut = ctx.Render<BOBCodeBlock>(p => p
             .Add(c => c.Code, string.Empty));
 
-        // Assert — content area renders without exception
+        // Assert - content area renders without exception
         cut.Find(".bob-code-block__content").Should().NotBeNull();
     }
 }

@@ -1,4 +1,4 @@
-﻿@using BlazOrbit.Abstractions
+@using BlazOrbit.Abstractions
 @using BlazOrbit.Localization
 @using BlazOrbit.Localization.Server
 @using BlazOrbit.Localization.Shared
@@ -17,12 +17,13 @@
 }
 
 @code {
+
     protected override async Task SetCultureAsync(string cultureName)
     {
         if (string.IsNullOrEmpty(cultureName) || cultureName == _currentCulture.Name)
             return;
 
-        CultureInfo? newCulture = ServerSettings.SupportedCultures
+        var newCulture = ServerSettings.SupportedCultures
             .FirstOrDefault(c => c.Name == cultureName);
 
         if (newCulture == null)
@@ -30,21 +31,21 @@
 
         try
         {
-            Uri uri = new Uri(Navigation.Uri);
-            string pathAndQuery = uri.GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
-            string cultureEscaped = Uri.EscapeDataString(cultureName);
-            string uriEscaped = Uri.EscapeDataString(pathAndQuery);
+            var uri = new Uri(Navigation.Uri);
+            var pathAndQuery = uri.GetComponents(UriComponents.PathAndQuery, UriFormat.Unescaped);
+            var cultureEscaped = Uri.EscapeDataString(cultureName);
+            var uriEscaped = Uri.EscapeDataString(pathAndQuery);
 
             // forceLoad: true is required on Server. The culture is persisted in a
             // cookie set by `CookieRequestCultureProvider`; that cookie only takes
             // effect on the *next* request through the localization middleware, so
             // the current SPA frame must be replaced by a full navigation. Wasm has
-            // a `ForceReload=false` opt-out (in-place CultureInfo update) — Server
+            // a `ForceReload=false` opt-out (in-place CultureInfo update) - Server
             // does not, by design.
-            string endpoint = ServerSettings.CultureEndpointPath.TrimStart('/');
+            var endpoint = ServerSettings.CultureEndpointPath.TrimStart('/');
             Navigation.NavigateTo(
                 $"{endpoint}?culture={cultureEscaped}&redirectUri={uriEscaped}",
-                forceLoad: true);
+                true);
 
             if (OnCultureChanged.HasDelegate)
             {
@@ -56,4 +57,5 @@
             Console.Error.WriteLine($"Error setting culture: {ex.Message}");
         }
     }
+
 }

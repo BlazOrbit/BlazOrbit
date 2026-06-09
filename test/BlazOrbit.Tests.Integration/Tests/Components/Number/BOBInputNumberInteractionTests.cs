@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components.Forms;
+using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using BlazOrbit.Tests.Integration.Templates.Components.Consumers;
@@ -35,7 +35,7 @@ public class BOBInputNumberInteractionTests
             .Add(c => c.Value, 5));
 
         // Act
-        cut.Find("input.bob-input__field").KeyDown(key: "ArrowUp");
+        cut.Find("input.bob-input__field").KeyDown("ArrowUp");
 
         // Assert
         cut.Find(".current-value").TextContent.Should().Be("6");
@@ -51,7 +51,7 @@ public class BOBInputNumberInteractionTests
             .Add(c => c.Value, 5));
 
         // Act
-        cut.Find("input.bob-input__field").KeyDown(key: "ArrowDown");
+        cut.Find("input.bob-input__field").KeyDown("ArrowDown");
 
         // Assert
         cut.Find(".current-value").TextContent.Should().Be("4");
@@ -68,7 +68,7 @@ public class BOBInputNumberInteractionTests
             .Add(c => c.Max, 10));
 
         // Act
-        cut.Find("input.bob-input__field").KeyDown(key: "ArrowUp");
+        cut.Find("input.bob-input__field").KeyDown("ArrowUp");
 
         // Assert - stays at 10
         cut.Find(".current-value").TextContent.Should().Be("10");
@@ -85,7 +85,7 @@ public class BOBInputNumberInteractionTests
             .Add(c => c.Min, 0));
 
         // Act
-        cut.Find("input.bob-input__field").KeyDown(key: "ArrowDown");
+        cut.Find("input.bob-input__field").KeyDown("ArrowDown");
 
         // Assert
         cut.Find(".current-value").TextContent.Should().Be("0");
@@ -102,7 +102,7 @@ public class BOBInputNumberInteractionTests
             .Add(c => c.Step, 5m));
 
         // Act
-        cut.Find("input.bob-input__field").KeyDown(key: "ArrowUp");
+        cut.Find("input.bob-input__field").KeyDown("ArrowUp");
 
         // Assert
         cut.Find(".current-value").TextContent.Should().Be("15");
@@ -114,10 +114,10 @@ public class BOBInputNumberInteractionTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        IRenderedComponent<BOBInputNumber<int>> cut = ctx.Render<BOBInputNumber<int>>(p => p
+        IRenderedComponent<BOBInputNumber<int?>> cut = ctx.Render<BOBInputNumber<int?>>(p => p
             .Add(c => c.Label, "Qty"));
 
-        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().BeNull();
 
         // Act
         cut.Find("input.bob-input__field").Focus();
@@ -136,7 +136,7 @@ public class BOBInputNumberInteractionTests
             .Add(c => c.Value, 3));
 
         // Act
-        cut.Find("input.bob-input__field").KeyDown(key: "ArrowUp");
+        cut.Find("input.bob-input__field").KeyDown("ArrowUp");
 
         // Assert
         cut.Find(".last-increment").TextContent.Should().Be("4");
@@ -152,7 +152,7 @@ public class BOBInputNumberInteractionTests
             .Add(c => c.Value, 3));
 
         // Act
-        cut.Find("input.bob-input__field").KeyDown(key: "ArrowDown");
+        cut.Find("input.bob-input__field").KeyDown("ArrowDown");
 
         // Assert
         cut.Find(".last-decrement").TextContent.Should().Be("2");
@@ -169,7 +169,7 @@ public class BOBInputNumberInteractionTests
             .Add(c => c.Disabled, true));
 
         // Act
-        cut.Find("input.bob-input__field").KeyDown(key: "ArrowUp");
+        cut.Find("input.bob-input__field").KeyDown("ArrowUp");
 
         // Assert - unchanged
         cut.Find(".current-value").TextContent.Should().Be("5");
@@ -186,9 +186,38 @@ public class BOBInputNumberInteractionTests
             .Add(c => c.ReadOnly, true));
 
         // Act
-        cut.Find("input.bob-input__field").KeyDown(key: "ArrowUp");
+        cut.Find("input.bob-input__field").KeyDown("ArrowUp");
 
         // Assert
         cut.Find(".current-value").TextContent.Should().Be("5");
+    }
+
+    [Theory]
+    [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
+    public async Task Should_Display_Zero_For_NonNullable_Int(BlazorScenario scenario)
+    {
+        await using BlazorTestContextBase ctx = scenario.CreateContext();
+
+        IRenderedComponent<BOBInputNumber<int>> cut = ctx.Render<BOBInputNumber<int>>(p => p
+            .Add(c => c.Value, 0));
+
+        // Assert
+        cut.Find("input.bob-input__field").GetAttribute("value").Should().Be("0");
+    }
+
+    [Theory]
+    [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
+    public async Task Should_Not_Clear_Value_When_Decrementing_To_Zero(BlazorScenario scenario)
+    {
+        await using BlazorTestContextBase ctx = scenario.CreateContext();
+
+        IRenderedComponent<BOBInputNumber<int>> cut = ctx.Render<BOBInputNumber<int>>(p => p
+            .Add(c => c.Value, 1));
+
+        // Act
+        cut.Find("input.bob-input__field").KeyDown("ArrowDown");
+
+        // Assert
+        cut.Find("input.bob-input__field").GetAttribute("value").Should().Be("0");
     }
 }

@@ -1,30 +1,51 @@
 <#
 .SYNOPSIS
-    Normaliza todos los archivos de texto del repo a UTF-8 con BOM.
-.DESCRIPTION
-    Recorre recursivamente los archivos de texto conocidos, los lee con
-    detección automática de encoding y los re-escribe en UTF-8 con exactamente
-    un BOM al inicio.
+    Normaliza todos los archivos de texto del repo a UTF-8 sin BOM.
 
-    Corrige archivos afectados por doble-BOM (EF BB BF EF BB BF) dejando
-    un único BOM válido.
+.DESCRIPTION
+    Política del repo: UTF-8 sin BOM en TODAS las extensiones (`.cs`, `.razor`,
+    `.json`, `.tn`, `.ps1`, `.md`, `.yml`, etc). Razones:
+      - Unicode consortium recommendation: el BOM no es "ni requerido ni
+        recomendado" en UTF-8 (existe para desambiguar endianness UTF-16/32;
+        UTF-8 no tiene endianness).
+      - Cross-platform: shebangs `#!/usr/bin/env pwsh|bash` no resuelven si
+        byte 0 es BOM - `./script.ps1` falla ENOEXEC en Linux/macOS.
+      - Runtime parsers byte-sensibles: `JSON.parse`, BlazOrbit `TnParser`,
+        Node module loaders fallan o misparsean con BOM.
+      - `.editorconfig` declara `charset = utf-8` global, así que IDEs (VS,
+        Rider, VS Code) guardan sin BOM sin que cada contributor configure
+        encoding a mano.
+
+    Modo normalizar (default):
+      Recorre archivos de texto conocidos, los lee con detección automática
+      de encoding y los re-escribe en UTF-8 sin BOM. Strip de doble-BOM.
+
+    Modo check (`-Check`):
+      No toca disco. Audita cada archivo y reporta drift:
+        - BOM presente (la política global es no-BOM).
+        - Bytes no válidos como UTF-8 (Latin-1/CP1252 accidental, doble-encoding).
+      Exit 1 si hay drift. Wire-in en CI (`preview-gate.yml`).
 
     NO toca:
       - .git/, bin/, obj/, node_modules/, .vs/, artifacts/, coverage-out/
       - Archivos binarios (heurística de bytes nulos)
 
     Uso:
-      .\scripts\fix-encoding-bom.ps1
+      pwsh ./scripts/fix-encoding-bom.ps1            # normaliza (muta)
+      pwsh ./scripts/fix-encoding-bom.ps1 -Check     # audita (exit 1 si drift)
+      pwsh ./scripts/fix-encoding-bom.ps1 -WhatIf    # dry-run del modo normalizar
 #>
 [CmdletBinding(SupportsShouldProcess = $true)]
 param(
-    [string]$Root = (Get-Location)
+    [string]$Root = (Get-Location),
+    [switch]$Check
 )
 
+Set-StrictMode -Version Latest
 $ErrorActionPreference = "Stop"
 
 # ---------------------------------------------------------------------------
-# Configuración (mismas exclusiones/extensiones que rename-to-blazorbit-org.ps1)
+# Configuración
 # ---------------------------------------------------------------------------
 $ExcludeDirs = @(
     '.git', 'node_modules', 'bin', 'obj', '.vs',
@@ -38,7 +59,8 @@ $TextExtensions = @(
     '.resx', '.js', '.ts', '.json', '.html', '.css', '.xml',
     '.config', '.runsettings', '.gitignore', '.gitattributes',
     '.sh', '.bash', '.zsh', '.cmd', '.bat',
-    '.verified.txt', '.received.txt', '.cshtml', '.wasm'
+    '.verified.txt', '.received.txt', '.cshtml', '.wasm',
+    '.tn', '.editorconfig'
 )
 
 function ShouldExclude([string]$Path) {
@@ -52,19 +74,32 @@ function ShouldExclude([string]$Path) {
 }
 
 function IsTextFile([System.IO.FileInfo]$File) {
-    if ($File.Name -like '*.min.js') { return $false }
     if ($File.Name -like '*.min.css') { return $false }
     if ($TextExtensions -contains $File.Extension.ToLowerInvariant()) { return $true }
     if ($File.Extension -eq '' -and ($File.Name -in @('Dockerfile', 'Makefile', 'LICENSE', 'NOTICE'))) { return $true }
     return $false
 }
 
-# Archivos que deben quedar SIN BOM porque herramientas Node.js/Vite los leen
-# como bytes crudos (JSON.parse, require, etc.) y fallan con BOM inicial.
-$NoBomExtensions = @('.json')
+$Bom = [byte[]](0xEF, 0xBB, 0xBF)
 
+function StartsWithBom([byte[]]$Bytes) {
+    return $Bytes.Length -ge 3 -and $Bytes[0] -eq $Bom[0] -and $Bytes[1] -eq $Bom[1] -and $Bytes[2] -eq $Bom[2]
+}
+
+function IsValidUtf8([byte[]]$Bytes) {
+    # Strict UTF-8 decode: throws DecoderFallbackException on any invalid byte sequence.
+    $strict = New-Object System.Text.UTF8Encoding($false, $true)
+    try {
+        [void]$strict.GetString($Bytes)
+        return $true
+    } catch [System.Text.DecoderFallbackException] {
+        return $false
+    }
+}
+
+$mode = if ($Check) { 'Check' } else { 'Normalize' }
 Write-Host "`n========================================"
-Write-Host "Normalizando encoding a UTF-8 con BOM"
+Write-Host "Encoding $mode (UTF-8 without BOM, repo-wide policy)"
 Write-Host "Root: $Root"
 Write-Host "========================================`n"
 
@@ -75,7 +110,12 @@ $files = Get-ChildItem -Path $Root -Recurse -File | Where-Object {
 $fixed = 0
 $skippedBinary = 0
 $skippedNoChange = 0
-$utf8WithBom = New-Object System.Text.UTF8Encoding($true)
+$drifts = New-Object System.Collections.Generic.List[string]
+# Explicit no-BOM encoder. DO NOT use [System.Text.Encoding]::UTF8 - that
+# static instance has `encoderShouldEmitUTF8Identifier = true` and
+# File.WriteAllText emits the BOM via its preamble, silently re-adding the
+# very thing this script exists to remove.
+$utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 
 foreach ($file in $files) {
     if (-not (IsTextFile $file)) { continue }
@@ -85,24 +125,92 @@ foreach ($file in $files) {
         $bytes = [System.IO.File]::ReadAllBytes($file.FullName)
         if ($bytes -contains 0) { $skippedBinary++; continue }
 
-        # Leer descartando cualquier BOM previo (simple o doble)
-        $content = [System.IO.File]::ReadAllText($file.FullName, [System.Text.Encoding]::UTF8)
+        $hasBom = StartsWithBom $bytes
+        $relPath = [System.IO.Path]::GetRelativePath($Root, $file.FullName)
 
-        # Re-escribir: UTF-8 con BOM para la mayoría, SIN BOM para JSON/Node
-        $useBom = $NoBomExtensions -notcontains $file.Extension.ToLowerInvariant()
-        $encoding = if ($useBom) { $utf8WithBom } else { [System.Text.Encoding]::UTF8 }
-        if ($PSCmdlet.ShouldProcess($file.FullName, "Normalizar encoding UTF-8$(if($useBom){' con BOM'}else{' sin BOM'})")) {
-            [System.IO.File]::WriteAllText($file.FullName, $content, $encoding)
+        # Empty / BOM-only files trivially valid - skip the payload
+        # decode (PowerShell array-slice on len<=3 produces a reversed
+        # range and the strict UTF-8 check throws on the resulting bytes).
+        if ($bytes.Length -gt 3) {
+            $payload = if ($hasBom) { $bytes[3..($bytes.Length - 1)] } else { $bytes }
+            if (-not (IsValidUtf8 $payload)) {
+                if ($Check) {
+                    $drifts.Add("$relPath  -> invalid UTF-8 byte sequence (re-save the file as UTF-8 in your editor)")
+                } else {
+                    Write-Warning "Skipping $relPath – invalid UTF-8 byte sequence"
+                }
+                continue
+            }
         }
-        $fixed++
+
+        # Inline BOM scan (independent of leading BOM; a file can have both).
+        $inlineHit = $false
+        $startScan = if ($hasBom) { 3 } else { 0 }
+        for ($i = $startScan; $i -le $bytes.Length - 3; $i++) {
+            if ($bytes[$i] -eq 0xEF -and $bytes[$i + 1] -eq 0xBB -and $bytes[$i + 2] -eq 0xBF) {
+                $inlineHit = $true
+                break
+            }
+        }
+
+        if ($Check) {
+            $driftFound = $false
+            if ($hasBom -and $bytes.Length -ge 6 -and (StartsWithBom $bytes[3..5])) {
+                $drifts.Add("$relPath  -> double BOM detected")
+                $driftFound = $true
+            } elseif ($hasBom) {
+                $drifts.Add("$relPath  -> unexpected BOM (repo policy is UTF-8 without BOM)")
+                $driftFound = $true
+            }
+            if ($inlineHit) {
+                $drifts.Add("$relPath  -> BOM embedded at byte offset $i (likely a leftover from a merge/auto-format on a previously BOM'd file)")
+                $driftFound = $true
+            }
+            if (-not $driftFound) { $skippedNoChange++ }
+            continue
+        }
+
+        # Normalize mode: re-write as UTF-8 without BOM only when needed.
+        # ReadAllText with Encoding.UTF8 strips a leading BOM. To also strip
+        # inline BOMs (mid-content U+FEFF from merge/auto-format mishaps),
+        # remove the U+FEFF code point from the decoded string before writing.
+        $needsWrite = $hasBom -or $inlineHit
+        if ($needsWrite) {
+            $content = [System.IO.File]::ReadAllText($file.FullName, [System.Text.Encoding]::UTF8)
+            $content = $content -replace "\uFEFF", ''
+            if ($PSCmdlet.ShouldProcess($file.FullName, "Normalize UTF-8 without BOM")) {
+                [System.IO.File]::WriteAllText($file.FullName, $content, $utf8NoBom)
+            }
+            $fixed++
+        } else {
+            $skippedNoChange++
+        }
     }
     catch {
         Write-Warning "No se pudo procesar $($file.FullName): $_"
     }
 }
 
-Write-Host "`n  -> $fixed archivos normalizados."
-Write-Host "  -> $skippedBinary archivos binarios omitidos."
-Write-Host "`n========================================"
+Write-Host ""
+if ($Check) {
+    Write-Host "  -> $skippedNoChange archivos OK"
+    Write-Host "  -> $($drifts.Count) archivos con drift"
+    Write-Host "  -> $skippedBinary archivos binarios omitidos"
+    if ($drifts.Count -gt 0) {
+        Write-Host ""
+        Write-Host "Drift detected:" -ForegroundColor Yellow
+        foreach ($d in $drifts) {
+            Write-Host "  $d" -ForegroundColor Yellow
+        }
+        Write-Host ""
+        Write-Host "Fix locally with: pwsh ./scripts/fix-encoding-bom.ps1" -ForegroundColor Yellow
+        Write-Host "========================================"
+        exit 1
+    }
+} else {
+    Write-Host "  -> $fixed archivos normalizados."
+    Write-Host "  -> $skippedBinary archivos binarios omitidos."
+}
+Write-Host "========================================"
 Write-Host "Done."
 Write-Host "========================================"

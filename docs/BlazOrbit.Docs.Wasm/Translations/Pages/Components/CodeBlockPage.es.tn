@@ -1,0 +1,35 @@
+// Auto-migrated from CodeBlockPage.es.resx. Edit freely from now on.
+
+# Basic usage
+Uso básico
+
+# BOBCodeBlock
+BOBCodeBlock
+
+# Border
+Borde
+
+# Component
+Componente
+
+# Custom title
+Título personalizado
+
+# Languages
+Idiomas
+
+# Pick from any SyntaxHighlightLanguage - CSharp, Razor, TypeScript, Css, Json.
+Elige cualquier SyntaxHighlightLanguage: CSharp, Razor, TypeScript, Css, Json.
+
+# Properties
+Propiedades
+
+# Set Title to override the language badge with a filename or custom label.
+Establece Title para sobrescribir la insignia de idioma con un nombre de archivo o etiqueta personalizada.
+
+# Sizes
+Tamaños
+
+# Syntax-highlighted code with a title, language label, and one-click copy. Auto-dedents, auto-formats.
+Código con resaltado de sintaxis, título, etiqueta de idioma y copia con un clic. Sangría automática, formato automático.
+

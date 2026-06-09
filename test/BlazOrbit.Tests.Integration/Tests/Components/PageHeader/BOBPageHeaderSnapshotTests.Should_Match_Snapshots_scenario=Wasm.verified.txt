@@ -1,0 +1,14 @@
+[
+  {
+    Name: TitleOnly,
+    Html: <bob-component data-bob-component="page-header" b-<SCOPE>><div class="bob-page-header__main" b-<SCOPE>><h1 class="bob-page-header__title" b-<SCOPE>>Dashboard</h1></div></bob-component>
+  },
+  {
+    Name: TitleEyebrowLead,
+    Html: <bob-component data-bob-component="page-header" b-<SCOPE>><div class="bob-page-header__main" b-<SCOPE>><div class="bob-page-header__eyebrow" b-<SCOPE>>ops</div><h1 class="bob-page-header__title" b-<SCOPE>>Users</h1><p class="bob-page-header__lead" b-<SCOPE>>lead text</p></div></bob-component>
+  },
+  {
+    Name: TitleAndActions,
+    Html: <bob-component data-bob-component="page-header" b-<SCOPE>><div class="bob-page-header__main" b-<SCOPE>><h1 class="bob-page-header__title" b-<SCOPE>>Orders</h1></div><div class="bob-page-header__actions" role="toolbar" b-<SCOPE>><button>Refresh</button></div></bob-component>
+  }
+]

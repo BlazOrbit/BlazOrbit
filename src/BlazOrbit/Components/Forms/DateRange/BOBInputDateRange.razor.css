@@ -1,0 +1,25 @@
+[data-bob-component="input-date-range"] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+[data-bob-component="input-date-range"] .bob-daterange__label {
+    font-size: 0.875rem;
+    color: var(--palette-surface-contrast);
+    opacity: 0.85;
+}
+
+[data-bob-component="input-date-range"] .bob-daterange__row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+[data-bob-component="input-date-range"] .bob-daterange__separator {
+    color: color-mix(in oklab, var(--palette-surface-contrast) 60%, transparent);
+    font-size: 1rem;
+    line-height: 1;
+    padding-inline: 0.125rem;
+}

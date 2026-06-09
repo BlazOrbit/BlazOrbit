@@ -1,0 +1,148 @@
+// Auto-migrated from ModalPage.es.resx. Edit freely from now on.
+
+# 400 × 300 min, 600 × 500 max
+Mín. 400 × 300, máx. 600 × 500
+
+# Accessible modal dialogs and edge-anchored drawers. Use declaratively in markup or programmatically via a service.
+Diálogos modales accesibles y paneles anclados a los bordes. Úsalos de forma declarativa en el marcado o programáticamente mediante un servicio.
+
+# Are you sure you want to proceed?
+¿Estás seguro de que quieres continuar?
+
+# Basic dialog
+Diálogo básico
+
+# Bottom
+Inferior
+
+# Bottom drawer
+Panel inferior
+
+# Cancel
+Cancelar
+
+# Close
+Cerrar
+
+# Close options
+Opciones de cierre
+
+# Component
+Componente
+
+# Confirm
+Confirmar
+
+# Confirm action
+Confirmar acción
+
+# Constrained dialog
+Diálogo restringido
+
+# Dialog & Drawer
+Diálogo y panel
+
+# Dimensions
+Dimensiones
+
+# Drawer positions
+Posiciones de panel
+
+# Elevated dialog
+Diálogo elevado
+
+# Elevated drawer
+Panel elevado
+
+# Elevation
+Elevación
+
+# Explicit close only
+Solo cierre explícito
+
+# Hello
+Hola
+
+# Inject IModalService and call ShowDialogAsync / ShowDrawerAsync.
+Inyecta IModalService y llama a ShowDialogAsync / ShowDrawerAsync.
+
+# Left
+Izquierda
+
+# Left drawer
+Panel izquierdo
+
+# Material Design elevation level (0–24). Derives shadow and dark-mode surface tint automatically.
+Nivel de elevación Material Design (0–24). Deriva sombra y tinte de superficie para modo oscuro automáticamente.
+
+# Open dialog
+Abrir diálogo
+
+# Open dialog with footer
+Abrir diálogo con pie
+
+# Open elevated dialog
+Abrir diálogo elevado
+
+# Open elevated drawer
+Abrir panel elevado
+
+# Programmatic API
+API programática
+
+# Properties
+Propiedades
+
+# Right
+Derecha
+
+# Right drawer
+Panel derecho
+
+# Slides down from the top.
+Desliza desde arriba.
+
+# Slides in from the left.
+Desliza desde la izquierda.
+
+# Slides in from the right.
+Desliza desde la derecha.
+
+# Slides up from the bottom.
+Desliza desde abajo.
+
+# The header X, overlay click, and Escape are all disabled. The only way out is the button below.
+La X del encabezado, el clic en la superposición y Escape están todos deshabilitados. La única salida es el botón de abajo.
+
+# This dialog has custom min/max width and height constraints.
+Este diálogo tiene restricciones de ancho/alto mín/máx personalizadas.
+
+# This dialog uses Elevation=4 for medium emphasis.
+Este diálogo usa Elevation=4 para énfasis medio.
+
+# This drawer uses Elevation=8 for high emphasis.
+Este panel usa Elevation=8 para énfasis alto.
+
+# This is a basic dialog. Press Escape or click outside to close.
+Este es un diálogo básico. Presiona Escape o clic fuera para cerrar.
+
+# Toggle Closable, CloseOnOverlayClick, and CloseOnEscape.
+Alterna Closable, CloseOnOverlayClick y CloseOnEscape.
+
+# Top
+Arriba
+
+# Top drawer
+Panel superior
+
+# Uncloseable dialog
+Diálogo no cerrable
+
+# Use MinWidth, MaxWidth, MinHeight, MaxHeight, or FullScreen.
+Usa MinWidth, MaxWidth, MinHeight, MaxHeight o FullScreen.
+
+# With header + footer
+Con encabezado + pie
+
+# Modals can be used either declaratively in Razor markup or imperatively via the <code>IModalService</code> injected into your code. The service supports stacking, typed return values, and automatic focus trapping for accessibility.
+Los modales pueden usarse de forma declarativa en el marcado Razor o de forma imperativa a través del <code>IModalService</code> inyectado en tu código. El servicio admite apilamiento, valores de retorno tipados y captura automática de foco para accesibilidad.

@@ -1,0 +1,42 @@
+<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+    <PropertyGroup>
+        <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+        <IsPackable>true</IsPackable>
+        <PackageType>Dependency</PackageType>
+        <PackageId>BlazOrbit.CodeBlock</PackageId>
+        <Description>Syntax-highlighted code block component for BlazOrbit. Ships with copy-to-clipboard, language badges and automatic indentation normalization.</Description>
+        <PackageTags>blazor;code-block;syntax-highlight;clipboard;blazorbit</PackageTags>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <InternalsVisibleTo Include="BlazOrbit.Tests.Integration"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Components" Version="$(BlazOrbitAspNetCoreVersion)"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(BlazOrbitAspNetCoreVersion)"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(BlazOrbitExtensionsVersion)"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <!--
+            CodeBlock consumes BOBTooltip, _BOBInBtn and IClipboardJsInterop from the main
+            design-system library. Pulling BlazOrbit transitively keeps the chrome visually
+            consistent while letting consumers opt-in to the code-block package without
+            pulling the full component surface if they only want the syntax highlighter.
+        -->
+        <ProjectReference Include="..\BlazOrbit\BlazOrbit.csproj"/>
+        <ProjectReference Include="..\BlazOrbit.SyntaxHighlight\BlazOrbit.SyntaxHighlight.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="4.14.0" PrivateAssets="all"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <AdditionalFiles Include="PublicAPI.Shipped.txt"/>
+        <AdditionalFiles Include="PublicAPI.Unshipped.txt"/>
+    </ItemGroup>
+
+</Project>

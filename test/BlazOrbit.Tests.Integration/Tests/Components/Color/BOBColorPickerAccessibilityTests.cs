@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
@@ -62,7 +62,7 @@ public class BOBColorPickerAccessibilityTests
 
         IReadOnlyList<IElement> labelledInputs = cut.FindAll("input[aria-label]");
         labelledInputs.Select(i => i.GetAttribute("aria-label"))
-            .Should().Contain(new[] { "Red", "Green", "Blue", "Alpha" });
+            .Should().Contain(["Red", "Green", "Blue", "Alpha"]);
     }
 
     [Theory]

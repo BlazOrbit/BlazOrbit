@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -11,21 +11,27 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.TreeSelector;
 [Trait("Component Accessibility", "BOBTreeSelector")]
 public class BOBTreeSelectorAccessibilityTests
 {
-    private sealed record SelectItem(string Key, string Label, IEnumerable<SelectItem>? Children = null, bool Disabled = false);
+    private sealed record SelectItem(
+        string Key,
+        string Label,
+        IEnumerable<SelectItem>? Children = null,
+        bool Disabled = false);
 
     private static IEnumerable<SelectItem> FlatItems
-    => [
-        new SelectItem("a", "Alpha"),
-        new SelectItem("b", "Beta"),
-    ];
+        =>
+        [
+            new("a", "Alpha"),
+            new("b", "Beta")
+        ];
 
     private static IEnumerable<SelectItem> NestedItems
-    => [
-        new SelectItem("parent", "Parent", [
-            new SelectItem("child1", "Child 1"),
-            new SelectItem("child2", "Child 2"),
-        ]),
-    ];
+        =>
+        [
+            new("parent", "Parent", [
+                new SelectItem("child1", "Child 1"),
+                new SelectItem("child2", "Child 2")
+            ])
+        ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -48,7 +54,7 @@ public class BOBTreeSelectorAccessibilityTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — Blazor renders bool-true attrs as present-with-empty-value.
+        // Arrange & Act - Blazor renders bool-true attrs as present-with-empty-value.
         IRenderedComponent<BOBTreeSelector<SelectItem>> cut = ctx.Render<BOBTreeSelector<SelectItem>>(p => p
             .Add(c => c.Items, FlatItems)
             .Add(c => c.KeySelector, m => m.Key)
@@ -64,7 +70,7 @@ public class BOBTreeSelectorAccessibilityTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — Blazor omits bool-false attrs entirely.
+        // Arrange & Act - Blazor omits bool-false attrs entirely.
         IRenderedComponent<BOBTreeSelector<SelectItem>> cut = ctx.Render<BOBTreeSelector<SelectItem>>(p => p
             .Add(c => c.Items, FlatItems)
             .Add(c => c.KeySelector, m => m.Key));
@@ -84,7 +90,7 @@ public class BOBTreeSelectorAccessibilityTests
             .Add(c => c.Items, FlatItems)
             .Add(c => c.KeySelector, m => m.Key));
 
-        // Assert — two root items, both treeitem.
+        // Assert - two root items, both treeitem.
         cut.FindAll("[role='treeitem']").Should().HaveCount(2);
     }
 
@@ -127,7 +133,7 @@ public class BOBTreeSelectorAccessibilityTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — leaves shouldn't advertise an expand state (it's null in the source).
+        // Arrange & Act - leaves shouldn't advertise an expand state (it's null in the source).
         IRenderedComponent<BOBTreeSelector<SelectItem>> cut = ctx.Render<BOBTreeSelector<SelectItem>>(p => p
             .Add(c => c.Items, FlatItems)
             .Add(c => c.KeySelector, m => m.Key));
@@ -170,7 +176,7 @@ public class BOBTreeSelectorAccessibilityTests
 
         cut.Find("[data-key='parent']").GetAttribute("aria-expanded").Should().Be("false");
 
-        // Act — ArrowRight on a collapsed parent expands it.
+        // Act - ArrowRight on a collapsed parent expands it.
         cut.Find("[data-key='parent'] .bob-tree-selector__node-content")
             .KeyDown(new KeyboardEventArgs { Key = "ArrowRight" });
 
@@ -250,7 +256,7 @@ public class BOBTreeSelectorAccessibilityTests
             .Add(c => c.Items, FlatItems)
             .Add(c => c.KeySelector, m => m.Key));
 
-        // Assert — each enabled node content row exposes tabindex=0.
+        // Assert - each enabled node content row exposes tabindex=0.
         IReadOnlyList<IElement> contents = cut.FindAll(".bob-tree-selector__node-content");
         contents.Should().OnlyContain(c => c.GetAttribute("tabindex") == "0");
     }
@@ -261,7 +267,7 @@ public class BOBTreeSelectorAccessibilityTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange & Act — collapsed parent => "Expand".
+        // Arrange & Act - collapsed parent => "Expand".
         IRenderedComponent<BOBTreeSelector<SelectItem>> cut = ctx.Render<BOBTreeSelector<SelectItem>>(p => p
             .Add(c => c.Items, NestedItems)
             .Add(c => c.KeySelector, m => m.Key)

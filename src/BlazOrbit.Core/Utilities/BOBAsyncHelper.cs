@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
 using System.Diagnostics;
 
@@ -30,7 +30,7 @@ public static class BOBAsyncHelper
     {
         try
         {
-            await action().ConfigureAwait(false);
+            await action();
         }
         catch (TaskCanceledException)
         {

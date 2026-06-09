@@ -1,0 +1,93 @@
+@page "/components/services/hotkey"
+
+@using BlazOrbit.Hotkeys
+
+@inject IStringLocalizer<HotkeyServicePage> Loc
+@inject IHotkeyService Hotkeys
+@implements IDisposable
+
+
+<DocPage Eyebrow="@Loc["Service"]" Title="@Loc["BOBHotkeyService"]"
+         Lede="@Loc["Global keyboard shortcut registry with auto-cleanup, modifier-aware combos, and an opt-in cheat-sheet."]"
+         PageInstance="this"
+         ApiType="@typeof(IHotkeyService)"
+         Keywords="@(["hotkey", "keyboard shortcut", "key binding", "global"])">
+
+    <BOBBanner Severity="BOBBannerSeverity.Warning"
+               Title="@Loc["Extra package required"]"
+               Message="@Loc["This service requires the BlazOrbit.Hotkeys NuGet package. Install it with dotnet add package BlazOrbit.Hotkeys and register AddBlazOrbitHotkeys() in Program.cs."]"/>
+
+    <DocDemo Key="Setup" Title="@Loc["Setup"]">
+        <p>
+            @Loc["1. Call AddBlazOrbitHotkeys() in Program.cs."]
+            <br/>
+            @Loc["2. Mount <BOBHotkeyHost /> once in your app shell (typically inside BOBBlazorLayout)."]
+            <br/>
+            @Loc["3. Inject IHotkeyService and call Register() - dispose the registration to scope the binding."]
+        </p>
+    </DocDemo>
+
+    <DocDemo Key="Demo" Title="@Loc["Live demo"]">
+        <p class="doc-demo__caption">
+            @Loc["Press"] <kbd>Ctrl</kbd>+<kbd>K</kbd> @Loc["or"] <kbd>ctrl+F1</kbd> @Loc["anywhere outside an input."]
+        </p>
+        <p class="doc-demo__caption">@Loc["Hits:"] @_hits</p>
+        <p class="doc-demo__caption">@Loc["Last combo:"] <code>@_lastCombo</code></p>
+    </DocDemo>
+
+    <DocDemo Key="CheatSheet" Title="@Loc["Cheat-sheet"]">
+        <table>
+            <thead>
+            <tr>
+                <th>@Loc["Combo"]</th>
+                <th>@Loc["Description"]</th>
+                <th>@Loc["Scope"]</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var entry in Hotkeys.RegisteredHotkeys)
+            {
+                <tr>
+                    <td><code>@entry.Combo</code></td>
+                    <td>@entry.Description</td>
+                    <td>@entry.Scope</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </DocDemo>
+
+</DocPage>
+
+@code {
+    private int _hits;
+    private string _lastCombo = "-";
+    private IDisposable? _ctrlK;
+    private IDisposable? _question;
+
+    protected override void OnInitialized()
+    {
+        _ctrlK = Hotkeys.Register("ctrl+k", "Command palette demo", () =>
+        {
+            _hits++;
+            _lastCombo = "ctrl+k";
+            StateHasChanged();
+            return Task.CompletedTask;
+        }, HotkeyScope.Page);
+
+        _question = Hotkeys.Register("ctrl+F1", "Show cheat-sheet", () =>
+        {
+            _hits++;
+            _lastCombo = "ctrl+F1";
+            StateHasChanged();
+            return Task.CompletedTask;
+        }, HotkeyScope.Page);
+    }
+
+    public void Dispose()
+    {
+        _ctrlK?.Dispose();
+        _question?.Dispose();
+    }
+
+}

@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
@@ -11,7 +11,10 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Color;
 [Trait("Component Accessibility", "BOBInputColor")]
 public class BOBInputColorAccessibilityTests
 {
-    private class Model { public CssColor? Value { get; set; } }
+    private class Model
+    {
+        public CssColor? Value { get; set; }
+    }
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]

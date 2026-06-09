@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using Bunit;
 using FluentAssertions;
 using Microsoft.AspNetCore.Components;
@@ -8,7 +8,8 @@ namespace BlazOrbit.Tests.Integration.Infrastructure;
 
 public static class ComponentTestExtensions
 {
-    public static string GetNormalizedMarkup<TComponent>(this IRenderedComponent<TComponent> fragment) where TComponent : IComponent
+    public static string GetNormalizedMarkup<TComponent>(this IRenderedComponent<TComponent> fragment)
+        where TComponent : IComponent
     {
         return fragment.Markup
             .Replace("\r\n", "\n")
@@ -27,7 +28,7 @@ public static class ComponentTestExtensions
     {
         IElement root = cut.Find("bob-component");
         root.GetAttribute("data-bob-component").Should().Be(expectedKebabName,
-            because: $"component root must identify itself as '{expectedKebabName}'");
+            $"component root must identify itself as '{expectedKebabName}'");
         return root;
     }
 
@@ -42,7 +43,7 @@ public static class ComponentTestExtensions
     {
         IElement root = cut.Find("bob-component");
         root.GetAttribute("data-bob-component").Should().Contain(kebabFragment,
-            because: $"component root name must contain '{kebabFragment}'");
+            $"component root name must contain '{kebabFragment}'");
         return root;
     }
 

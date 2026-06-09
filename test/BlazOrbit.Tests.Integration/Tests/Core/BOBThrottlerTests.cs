@@ -10,11 +10,15 @@ public class BOBThrottlerTests
     public async Task Should_Run_Action_Immediately_When_Idle()
     {
         // Arrange
-        using var throttler = new BOBThrottler<string>(TimeSpan.FromMilliseconds(100));
+        using BOBThrottler<string> throttler = new(TimeSpan.FromMilliseconds(100));
         string? captured = null;
 
         // Act
-        await throttler.InvokeAsync("first", v => { captured = v; return Task.CompletedTask; });
+        await throttler.InvokeAsync("first", v =>
+        {
+            captured = v;
+            return Task.CompletedTask;
+        });
 
         // Assert
         captured.Should().Be("first");
@@ -23,21 +27,33 @@ public class BOBThrottlerTests
     [Fact]
     public async Task Should_Coalesce_Subsequent_Calls_During_Cooldown()
     {
-        // Arrange — use a short real interval so the test remains fast.
-        using var throttler = new BOBThrottler<string>(TimeSpan.FromMilliseconds(10));
-        var captured = new List<string>();
+        // Arrange - use a short real interval so the test remains fast.
+        using BOBThrottler<string> throttler = new(TimeSpan.FromMilliseconds(10));
+        List<string> captured = [];
 
-        // Act — first runs immediately and enters cooldown
-        Task t1 = throttler.InvokeAsync("a", v => { captured.Add(v); return Task.CompletedTask; });
+        // Act - first runs immediately and enters cooldown
+        Task t1 = throttler.InvokeAsync("a", v =>
+        {
+            captured.Add(v);
+            return Task.CompletedTask;
+        });
 
         // These two arrive while cooling down; they are coalesced.
-        _ = throttler.InvokeAsync("b", v => { captured.Add(v); return Task.CompletedTask; });
-        _ = throttler.InvokeAsync("c", v => { captured.Add(v); return Task.CompletedTask; });
+        _ = throttler.InvokeAsync("b", v =>
+        {
+            captured.Add(v);
+            return Task.CompletedTask;
+        });
+        _ = throttler.InvokeAsync("c", v =>
+        {
+            captured.Add(v);
+            return Task.CompletedTask;
+        });
 
         // Wait for the first cooldown + trailing cooldown to expire
         await t1;
 
-        // Assert — only the first and the latest coalesced argument executed
+        // Assert - only the first and the latest coalesced argument executed
         captured.Should().Equal("a", "c");
     }
 
@@ -45,14 +61,22 @@ public class BOBThrottlerTests
     public async Task Cancel_Should_Reset_Cooldown_And_Discard_Pending()
     {
         // Arrange
-        using var throttler = new BOBThrottler<int>(TimeSpan.FromMilliseconds(100));
-        var captured = new List<int>();
+        using BOBThrottler<int> throttler = new(TimeSpan.FromMilliseconds(100));
+        List<int> captured = [];
 
-        // Act — start first invocation (enters cooldown)
-        Task t1 = throttler.InvokeAsync(1, v => { captured.Add(v); return Task.CompletedTask; });
+        // Act - start first invocation (enters cooldown)
+        Task t1 = throttler.InvokeAsync(1, v =>
+        {
+            captured.Add(v);
+            return Task.CompletedTask;
+        });
 
         // Queue a second invocation while cooling down
-        _ = throttler.InvokeAsync(2, v => { captured.Add(v); return Task.CompletedTask; });
+        _ = throttler.InvokeAsync(2, v =>
+        {
+            captured.Add(v);
+            return Task.CompletedTask;
+        });
 
         // Cancel discards the pending call and aborts the cooldown
         throttler.Cancel();
@@ -66,12 +90,16 @@ public class BOBThrottlerTests
     public async Task Dispose_Should_Prevent_Future_Invocations()
     {
         // Arrange
-        var throttler = new BOBThrottler<int>(TimeSpan.FromMilliseconds(100));
+        BOBThrottler<int> throttler = new(TimeSpan.FromMilliseconds(100));
         bool executed = false;
 
         // Act
         throttler.Dispose();
-        await throttler.InvokeAsync(1, _ => { executed = true; return Task.CompletedTask; });
+        await throttler.InvokeAsync(1, _ =>
+        {
+            executed = true;
+            return Task.CompletedTask;
+        });
 
         // Assert
         executed.Should().BeFalse();

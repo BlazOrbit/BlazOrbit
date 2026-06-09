@@ -1,4 +1,4 @@
-﻿using BlazOrbit.SyntaxHighlight.Languages;
+using BlazOrbit.SyntaxHighlight.Languages;
 using BlazOrbit.SyntaxHighlight.Tokens;
 
 namespace BlazOrbit.SyntaxHighlight.Tests;
@@ -48,10 +48,10 @@ public class MarkupRuleTests
     public void Tokenize_MultipleTagsOnSeparateLines_AreRecognized()
     {
         string code = """
-            <BOBInputDropdown Placement="DropdownPlacement.Auto" />
-            <BOBInputDropdown Placement="DropdownPlacement.Top" />
-            <BOBInputDropdown Placement="DropdownPlacement.Bottom" />
-            """;
+                      <BOBInputDropdown Placement="DropdownPlacement.Auto" />
+                      <BOBInputDropdown Placement="DropdownPlacement.Top" />
+                      <BOBInputDropdown Placement="DropdownPlacement.Bottom" />
+                      """;
         IReadOnlyList<Token> tokens = RazorLanguage.Instance.Tokenize(code);
 
         Assert.Equal(3, tokens.Count(t => t.Type == TokenType.TagName && t.Value == "BOBInputDropdown"));

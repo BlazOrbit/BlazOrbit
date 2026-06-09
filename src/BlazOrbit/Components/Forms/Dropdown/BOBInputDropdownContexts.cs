@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components.Forms.Dropdown;
+namespace BlazOrbit.Components.Forms.Dropdown;
 
 /// <summary>
 /// Provides context information when no results are found in a dropdown search.

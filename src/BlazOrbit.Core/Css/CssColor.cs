@@ -1,4 +1,4 @@
-﻿using System.Globalization;
+using System.Globalization;
 using System.Text.RegularExpressions;
 
 namespace BlazOrbit.Components;
@@ -159,7 +159,9 @@ public sealed class CssColor : IEquatable<CssColor>
                     T[i] -= 1D;
                 }
 
-                T[i] = T[i] * 6D < 1D ? p + ((q - p) * 6D * T[i]) : T[i] * 2D < 1D ? q : T[i] * 3D < 2D ? p + ((q - p) * ((2D / 3D) - T[i]) * 6D) : p;
+                T[i] = T[i] * 6D < 1D ? p + ((q - p) * 6D * T[i]) :
+                    T[i] * 2D < 1D ? q :
+                    T[i] * 3D < 2D ? p + ((q - p) * ((2D / 3D) - T[i]) * 6D) : p;
             }
 
             _valuesAsByte[0] = ((int)Math.Round(T[0] * 255D)).EnsureRangeToByte();
@@ -178,7 +180,7 @@ public sealed class CssColor : IEquatable<CssColor>
     /// </summary>
     public CssColor(byte r, byte g, byte b, byte a)
     {
-        _valuesAsByte = new[] { r, g, b, a };
+        _valuesAsByte = [r, g, b, a];
         CalculateHsl();
     }
 
@@ -194,7 +196,8 @@ public sealed class CssColor : IEquatable<CssColor>
     /// Constructs a CssColor from RGBA integers and int alpha
     /// </summary>
     public CssColor(int r, int g, int b, int alpha)
-        : this((byte)r.EnsureRange(255), (byte)g.EnsureRange(255), (byte)b.EnsureRange(255), (byte)alpha.EnsureRange(255))
+        : this((byte)r.EnsureRange(255), (byte)g.EnsureRange(255), (byte)b.EnsureRange(255),
+            (byte)alpha.EnsureRange(255))
     {
     }
 
@@ -210,10 +213,10 @@ public sealed class CssColor : IEquatable<CssColor>
             {
                 CssColorVariant.Modifier.Darken => ColorDarken(colorVariant.Alteration),
                 CssColorVariant.Modifier.Lighten => ColorLighten(colorVariant.Alteration),
-                _ => throw new ArgumentOutOfRangeException(nameof(colorVariant), colorVariant, null),
+                _ => throw new ArgumentOutOfRangeException(nameof(colorVariant), colorVariant, null)
             };
 
-            _valuesAsByte = new[] { modifiedColor.R, modifiedColor.G, modifiedColor.B, modifiedColor.A };
+            _valuesAsByte = [modifiedColor.R, modifiedColor.G, modifiedColor.B, modifiedColor.A];
             CalculateHsl();
         }
     }
@@ -247,7 +250,7 @@ public sealed class CssColor : IEquatable<CssColor>
         );
 
     private static bool IsRgb(string value)
-            => Regex.IsMatch(
+        => Regex.IsMatch(
             value,
             @"^rgba?\(\s*\d{1,3}\s*,\s*\d{1,3}\s*,\s*\d{1,3}(\s*,\s*(0(\.\d+)?|1(\.0+)?))?\s*\)$",
             RegexOptions.CultureInvariant
@@ -256,7 +259,7 @@ public sealed class CssColor : IEquatable<CssColor>
     private static byte ParseAlpha(string value)
     {
         return !double.TryParse(value, NumberStyles.Float, CultureInfo.InvariantCulture, out double alpha)
-            || alpha < 0 || alpha > 1
+               || alpha < 0 || alpha > 1
             ? throw new ArgumentOutOfRangeException(nameof(value), "Alpha must be between 0 and 1.")
             : (byte)Math.Round(alpha * 255);
     }
@@ -264,7 +267,7 @@ public sealed class CssColor : IEquatable<CssColor>
     private static byte ParseByte(string value, string channel)
     {
         return !int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out int result)
-            || result < 0 || result > 255
+               || result < 0 || result > 255
             ? throw new ArgumentOutOfRangeException(channel, "RGB values must be between 0 and 255.")
             : (byte)result;
     }
@@ -285,13 +288,11 @@ public sealed class CssColor : IEquatable<CssColor>
             _ => throw new ArgumentException("Invalid hex color format.", nameof(value))
         };
 
-        return new[]
-        {
-        GetByteFromValuePart(value, 0),
-        GetByteFromValuePart(value, 2),
-        GetByteFromValuePart(value, 4),
-        GetByteFromValuePart(value, 6)
-    };
+        return
+        [
+            GetByteFromValuePart(value, 0), GetByteFromValuePart(value, 2), GetByteFromValuePart(value, 4),
+            GetByteFromValuePart(value, 6)
+        ];
     }
 
     private static byte[] ParseRgb(string value)
@@ -309,7 +310,7 @@ public sealed class CssColor : IEquatable<CssColor>
         byte b = ParseByte(parts[2], "B");
         byte a = parts.Length == 4 ? ParseAlpha(parts[3]) : (byte)255;
 
-        return new[] { r, g, b, a };
+        return [r, g, b, a];
     }
 
     #endregion Constructor
@@ -466,7 +467,8 @@ public sealed class CssColor : IEquatable<CssColor>
 
     #region Helper
 
-    private static byte GetByteFromValuePart(string input, int index) => byte.Parse(new string(new[] { input[index], input[index + 1] }), NumberStyles.HexNumber);
+    private static byte GetByteFromValuePart(string input, int index) =>
+        byte.Parse(new string(new[] { input[index], input[index + 1] }), NumberStyles.HexNumber);
 
     private static string[] SplitInputIntoParts(string value)
     {
@@ -493,7 +495,7 @@ public sealed class CssColor : IEquatable<CssColor>
     /// in unexpected contexts. Prefer <see cref="ToString()"/> directly when
     /// the call site is obvious.
     /// </summary>
-    public static explicit operator string(CssColor? color)
+    public static implicit operator string(CssColor? color)
     {
         return color?.ToString() ?? string.Empty;
     }
@@ -507,7 +509,7 @@ public sealed class CssColor : IEquatable<CssColor>
     /// </summary>
     public static explicit operator CssColor(string input)
     {
-        return new(input);
+        return new CssColor(input);
     }
 
     /// <summary>Parses a CSS color string. Throws <see cref="ArgumentException"/> on malformed input.</summary>
@@ -539,11 +541,13 @@ public sealed class CssColor : IEquatable<CssColor>
         }
     }
 
+    /// <summary>Inequality operator.</summary>
     public static bool operator !=(CssColor? lhs, CssColor? rhs)
     {
         return !(lhs == rhs);
     }
 
+    /// <summary>Equality operator — compares the four RGBA channels.</summary>
     public static bool operator ==(CssColor? lhs, CssColor? rhs)
     {
         bool lhsIsNull = lhs is null;
@@ -551,30 +555,36 @@ public sealed class CssColor : IEquatable<CssColor>
         return (lhsIsNull && rhsIsNull) || (!lhsIsNull && !rhsIsNull && lhs!.Equals(rhs!));
     }
 
+    /// <inheritdoc />
     public override bool Equals(object? obj) => obj is CssColor color && Equals(color);
 
+    /// <inheritdoc />
     public bool Equals(CssColor? other)
     {
-        return other is not null && _valuesAsByte is not null && other._valuesAsByte is not null && _valuesAsByte[0] == other._valuesAsByte[0] &&
-            _valuesAsByte[1] == other._valuesAsByte[1] &&
-            _valuesAsByte[2] == other._valuesAsByte[2] &&
-            _valuesAsByte[3] == other._valuesAsByte[3];
+        return other is not null && _valuesAsByte is not null && other._valuesAsByte is not null &&
+               _valuesAsByte[0] == other._valuesAsByte[0] &&
+               _valuesAsByte[1] == other._valuesAsByte[1] &&
+               _valuesAsByte[2] == other._valuesAsByte[2] &&
+               _valuesAsByte[3] == other._valuesAsByte[3];
     }
 
+    /// <inheritdoc />
     public override int GetHashCode()
     {
         return _valuesAsByte is null
             ? 0
             : HashCode.Combine(
-            _valuesAsByte[0],
-            _valuesAsByte[1],
-            _valuesAsByte[2],
-            _valuesAsByte[3]
-        );
+                _valuesAsByte[0],
+                _valuesAsByte[1],
+                _valuesAsByte[2],
+                _valuesAsByte[3]
+            );
     }
 
+    /// <inheritdoc />
     public override string ToString() => ToString(ColorOutputFormats.Rgba);
 
+    /// <summary>Renders the color using the requested <see cref="ColorOutputFormats"/>.</summary>
     public string ToString(ColorOutputFormats format)
     {
         return format switch
@@ -592,40 +602,53 @@ public sealed class CssColor : IEquatable<CssColor>
     {
         return A < 255
             ? $"rgba({R},{G},{B},{APercentage.ToString(CultureInfo.InvariantCulture)})"
-            : CanUseShortHex() ? $"#{R & 0x0F:x}{G & 0x0F:x}{B & 0x0F:x}" : $"#{R:x2}{G:x2}{B:x2}";
+            : CanUseShortHex()
+                ? $"#{R & 0x0F:x}{G & 0x0F:x}{B & 0x0F:x}"
+                : $"#{R:x2}{G:x2}{B:x2}";
     }
 
     private bool CanUseShortHex()
     {
-        return (R >> 4) == (R & 0x0F) &&
-               (G >> 4) == (G & 0x0F) &&
-               (B >> 4) == (B & 0x0F);
+        return R >> 4 == (R & 0x0F) &&
+               G >> 4 == (G & 0x0F) &&
+               B >> 4 == (B & 0x0F);
     }
 
     #endregion operators and object members
 }
 
+/// <summary>Describes a per-step lightening or darkening transformation applied to a <see cref="CssColor"/>.</summary>
 public sealed class CssColorVariant
 {
     private const double VariantModifier = 0.030; // 5% per alteration step
 
+    /// <summary>Creates a variant with the given mode and alteration amount.</summary>
     public CssColorVariant(Modifier modifier, double alteration)
     {
         Mode = modifier;
         Alteration = alteration;
     }
 
+    /// <summary>Lightening / darkening direction.</summary>
     public enum Modifier
     {
+        /// <summary>Reduce lightness.</summary>
         Darken,
+
+        /// <summary>Increase lightness.</summary>
         Lighten
     }
 
+    /// <summary>Lightness adjustment magnitude (0..1).</summary>
     public double Alteration { get; set; }
+
+    /// <summary>Adjustment direction.</summary>
     public Modifier Mode { get; set; }
 
+    /// <summary>Returns a darken variant of <paramref name="alteration"/> steps.</summary>
     public static CssColorVariant Darken(int alteration) => new(Modifier.Darken, VariantModifier * alteration);
 
+    /// <summary>Returns a lighten variant of <paramref name="alteration"/> steps.</summary>
     public static CssColorVariant Lighten(int alteration) => new(Modifier.Lighten, VariantModifier * alteration);
 }
 

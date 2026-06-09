@@ -1,6 +1,5 @@
-﻿using AngleSharp.Dom;
-using BlazOrbit.Components.Layout;
-using BlazOrbit.Components.Layout.Services;
+using AngleSharp.Dom;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using BlazOrbit.Tests.Integration.Templates.Stubs;
@@ -26,7 +25,7 @@ public class BOBModalHostAccessibilityTests
         // Act
         await modalService.ShowDialogAsync<TestModalContent_TestStub>();
 
-        // Assert — host receives tabindex=-1 for focus trap
+        // Assert - host receives tabindex=-1 for focus trap
         IElement host = cut.Find(".bob-modal-host");
         host.GetAttribute("tabindex").Should().Be("-1");
     }
@@ -44,7 +43,7 @@ public class BOBModalHostAccessibilityTests
         // Act
         await modalService.ShowDialogAsync<TestModalContent_TestStub>();
 
-        // Assert — modal-container nests the dialog content
+        // Assert - modal-container nests the dialog content
         cut.Find(".bob-modal-container").Should().NotBeNull();
     }
 }

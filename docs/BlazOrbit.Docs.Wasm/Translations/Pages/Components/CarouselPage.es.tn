@@ -1,0 +1,158 @@
+// Auto-migrated from CarouselPage.es.resx. Edit freely from now on.
+
+# 3D 1
+3D 1
+
+# 3D 2
+3D 2
+
+# 3D 3
+3D 3
+
+# 3D 4
+3D 4
+
+# 3D 5
+3D 5
+
+# 3D 6
+3D 6
+
+# 3D 7
+3D 7
+
+# A
+A
+
+# A - try clicking next from the last slide
+A - intenta clicar siguiente desde la última diapositiva
+
+# Advances every 3 seconds. Pauses on hover or focus.
+Avanza cada 3 segundos. Pausa al pasar el cursor o enfocar.
+
+# Auto 1
+Auto 1
+
+# Auto 2
+Auto 2
+
+# Auto 3
+Auto 3
+
+# Auto-play
+Reproducción automática
+
+# B
+B
+
+# Basic usage
+Uso básico
+
+# BOBCarousel
+BOBCarousel
+
+# C
+C
+
+# Component
+Componente
+
+# Cover 1
+Portada 1
+
+# Cover 2
+Portada 2
+
+# Cover 3
+Portada 3
+
+# Cover 4
+Portada 4
+
+# Cover 5
+Portada 5
+
+# Coverflow 3D
+Coverflow 3D
+
+# Fade A
+Desvanecer A
+
+# Fade B
+Desvanecer B
+
+# Fade C
+Desvanecer C
+
+# Fade transition
+Transición de desvanecimiento
+
+# Inactive indicators use IndicatorIcon; the active one can override via ActiveIndicatorIcon + ActiveIndicatorIconColor.
+Los indicadores inactivos usan IndicatorIcon; el activo puede sobrescribirse mediante ActiveIndicatorIcon + ActiveIndicatorIconColor.
+
+# Indicator icons
+Iconos de indicador
+
+# Properties
+Propiedades
+
+# Seamless loop
+Bucle sin fisuras
+
+# Several slides visible at once with a fixed inward tilt. Side slides keep their size - the carousel always feels 3D, with depth at the sides instead of behind the active slide.
+Varias diapositivas visibles a la vez con una inclinación fija hacia adentro. Las diapositivas laterales mantienen su tamaño: el carrusel siempre se siente 3D, con profundidad en los lados en lugar de detrás de la diapositiva activa.
+
+# Side slides recede with a 3D rotation. The active slide stays in front; neighbours rotate, scale and fade.
+Las diapositivas laterales se retraen con una rotación 3D. La diapositiva activa permanece al frente; las vecinas rotan, escalan y se desvanecen.
+
+# Slide one
+Diapositiva uno
+
+# Slide three
+Diapositiva tres
+
+# Slide two
+Diapositiva dos
+
+# Slides arranged on a vertical cylinder that rotates around the Y axis. Side slides peek in from behind the active one as the wheel spins. Tune WheelRadiusPx to change how deep the back slides sit.
+Diapositivas dispuestas en un cilindro vertical que rota alrededor del eje Y. Las diapositivas laterales asoman desde detrás de la activa mientras la rueda gira. Ajusta WheelRadiusPx para cambiar qué tan profundo se sienten las diapositivas traseras.
+
+# Slideshow with arrows, indicators, keyboard navigation, touch swipe, and optional auto-play. Slide / Fade / None / Coverflow transitions.
+Presentación con flechas, indicadores, navegación por teclado, deslizamiento táctil y reproducción automática opcional. Transiciones Slide / Fade / None / Coverflow.
+
+# Wheel (3D cylinder)
+Rueda (cilindro 3D)
+
+# Wheel 1
+Rueda 1
+
+# Wheel 2
+Rueda 2
+
+# Wheel 3
+Rueda 3
+
+# Wheel 3D (continuous perspective)
+Rueda 3D (perspectiva continua)
+
+# Wheel 4
+Rueda 4
+
+# Wheel 5
+Rueda 5
+
+# Wheel 6
+Rueda 6
+
+# With Loop=true and Slide transition, a clone of the first slide is rendered after the last (and vice versa). Going from the last to the first looks like a continuous wrap rather than a jump back.
+Con Loop=true y transición Slide, un clon de la primera diapositiva se renderiza después de la última (y viceversa). Ir de la última a la primera parece un envoltorio continuo en lugar de un salto hacia atrás.
+
+# Wrap A
+Envolver A
+
+# Wrap B
+Envolver B
+
+# Wrap C
+Envolver C
+

@@ -1,5 +1,4 @@
-﻿using BlazOrbit.Components.Layout;
-using BlazOrbit.Components.Layout.Services;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using BlazOrbit.Tests.Integration.Templates.Stubs;
@@ -30,9 +29,8 @@ public class BOBModalHostSnapshotTests
 
         var testCases = new[]
         {
-            new { Name = "Empty", Html = emptyMarkup },
-            new { Name = "Single_Modal", Html = singleModalMarkup },
-            new { Name = "Stacked_Modals", Html = stackedMarkup },
+            new { Name = "Empty", Html = emptyMarkup }, new { Name = "Single_Modal", Html = singleModalMarkup },
+            new { Name = "Stacked_Modals", Html = stackedMarkup }
         };
 
         await Verify(testCases).UseParameters(scenario.Name);

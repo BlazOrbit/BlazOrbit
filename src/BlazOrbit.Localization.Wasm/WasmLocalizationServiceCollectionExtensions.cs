@@ -1,17 +1,14 @@
-﻿using BlazOrbit.Localization;
-using BlazOrbit.Localization.Shared;
+using BlazOrbit.Localization;
 using BlazOrbit.Localization.Wasm;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.Extensions.DependencyInjection.Extensions;
-using Microsoft.Extensions.Localization;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using System.Globalization;
 
 namespace Microsoft.Extensions.DependencyInjection;
 
+/// <summary>Registers BlazOrbit localization services for Blazor WebAssembly hosts.</summary>
 public static class WasmLocalizationServiceCollectionExtensions
 {
+    /// <summary>Registers the BlazOrbit localization pipeline and the WASM-side culture persistence service.</summary>
     public static IServiceCollection AddBlazOrbitLocalizationWasm(
         this IServiceCollection services,
         Action<WasmLocalizationSettings>? configure = null)
@@ -21,27 +18,24 @@ public static class WasmLocalizationServiceCollectionExtensions
         services.AddSingleton<LocalizationSettings>(options);
         services.AddSingleton(options);
 
-        // Add standard localization
-        services.AddLocalization(opts => opts.ResourcesPath = options.ResourcesPath);
+        // BOBLocalize takes over IStringLocalizer<T> resolution. Built-in providers
+        // (Bundle, Literal) plus per-bundle `.tn` data are registered via the
+        // `[ModuleInitializer]` emitted by `BlazOrbit.Localization.CodeGeneration` in each
+        // assembly that declares `[BobLocalizationBundle]` - by the time any consumer
+        // resolves `IStringLocalizer<TResource>`, every bundle is already in place.
+        services.AddBlazOrbitLocalization();
 
-        // Reroute IStringLocalizer<T> lookups to the configured *.Translations assemblies.
-        services.Replace(ServiceDescriptor.Singleton<IStringLocalizerFactory>(sp =>
-        {
-            IOptions<LocalizationOptions> localOpts = sp.GetRequiredService<IOptions<LocalizationOptions>>();
-            ILoggerFactory loggerFactory = sp.GetRequiredService<ILoggerFactory>();
-            ResourceManagerStringLocalizerFactory inner = new(localOpts, loggerFactory);
-            return new ReroutedStringLocalizerFactory(inner, options.TranslationsAssemblies);
-        }));
-
-        // Add WASM-specific persistence
+        // WASM-specific persistence - culture cookie/localStorage round-trip.
         services.AddScoped<ILocalizationPersistence, WasmLocalizationPersistence>();
 
         return services;
     }
 }
 
+/// <summary>WebAssembly host extensions that apply the persisted culture before the app starts.</summary>
 public static class WasmLocalizationHostExtensions
 {
+    /// <summary>Resolves the persisted culture (or <paramref name="defaultCulture"/>) and assigns it to the current thread.</summary>
     public static async Task<WebAssemblyHost> UseBlazOrbitLocalizationWasm(
         this WebAssemblyHost host,
         string defaultCulture = "en-US")

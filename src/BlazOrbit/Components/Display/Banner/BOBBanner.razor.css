@@ -1,0 +1,77 @@
+[data-bob-component="banner"] {
+    --_banner-radius: var(--bob-input-border-radius, 0.5rem);
+    --_banner-px: 1rem;
+    --_banner-py: 0.75rem;
+    --_banner-rail-w: 4px;
+    --_banner-tint-strength: 12%;
+    --_banner-bg: color-mix(in oklab, var(--_banner-accent) var(--_banner-tint-strength), var(--palette-surface));
+    --_banner-icon-color: var(--_banner-accent);
+    --_banner-text-color: var(--palette-surface-contrast);
+
+    display: block;
+}
+
+[data-bob-component="banner"] .bob-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: var(--_banner-py) var(--_banner-px);
+    background: var(--_banner-bg);
+    border-radius: var(--_banner-radius);
+    border-inline-start: var(--_banner-rail-w) solid var(--_banner-accent);
+    color: var(--_banner-text-color);
+}
+
+[data-bob-component="banner"] .bob-banner[data-bob-severity="info"] {
+    --_banner-accent: var(--palette-info, var(--palette-highlight));
+}
+
+[data-bob-component="banner"] .bob-banner[data-bob-severity="success"] {
+    --_banner-accent: var(--palette-success);
+}
+
+[data-bob-component="banner"] .bob-banner[data-bob-severity="warning"] {
+    --_banner-accent: var(--palette-warning);
+}
+
+[data-bob-component="banner"] .bob-banner[data-bob-severity="error"] {
+    --_banner-accent: var(--palette-error);
+}
+
+[data-bob-component="banner"] .bob-banner__icon {
+    color: var(--_banner-icon-color);
+    flex-shrink: 0;
+    display: inline-flex;
+    align-items: center;
+    margin-block-start: 0.125rem;
+}
+
+[data-bob-component="banner"] .bob-banner__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    font-size: 0.875rem;
+    line-height: 1.4;
+    min-width: 0;
+}
+
+[data-bob-component="banner"] .bob-banner__title {
+    font-weight: 600;
+}
+
+[data-bob-component="banner"] .bob-banner__message {
+    /* Body text track. Width is owned by the flex parent; this rule keeps the marker's
+       hook for theming overrides without imposing layout. */
+    display: inline;
+}
+
+[data-bob-component="banner"] .bob-banner__actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+}
+
+/* Dismiss affordance: appearance + hover/focus state flow through the internal
+   _BOBInBtn Ghost variant. Nothing further to declare here. */

@@ -1,0 +1,101 @@
+// Auto-migrated from InputTextPage.es.resx. Edit freely from now on.
+
+# Add icons or text to either side of the input.
+Agrega iconos o texto a cualquier lado del campo.
+
+# As it appears on your ID.
+Tal como aparece en tu documento de identidad.
+
+# Basic usage
+Uso básico
+
+# BOBInputText
+BOBInputText
+
+# Color & Background
+Color y fondo
+
+# Component
+Componente
+
+# Custom Color & Background
+Color y fondo personalizado
+
+# Custom Shadow
+Sombra personalizada
+
+# Disabled
+Deshabilitado
+
+# Domain
+Dominio
+
+# Elevation Shadow
+Sombra de elevación
+
+# Error
+Error
+
+# Filled
+Relleno
+
+# Invalid email
+Correo inválido
+
+# Large
+Grande
+
+# Loading
+Cargando
+
+# Medium (Default)
+Mediano (predeterminado)
+
+# Outlined
+Contorno
+
+# Prefix & Suffix
+Prefijo y sufijo
+
+# Properties
+Propiedades
+
+# Read-only
+Solo lectura
+
+# Required
+Requerido
+
+# Search
+Buscar
+
+# Shadow
+Sombra
+
+# Single-line text input with outlined, filled, and standard variants. Prefix/suffix slots, validation, and EditForm support built in.
+Entrada de texto de una línea con variantes delineada, rellena y estándar. Ranuras de prefijo/sufijo, validación y soporte de EditForm integrado.
+
+# Sizes
+Tamaños
+
+# Small
+Pequeño
+
+# Standard
+Estándar
+
+# States
+Estados
+
+# Three visual styles for every form aesthetic.
+Tres estilos visuales para cada estética de formulario.
+
+# Variants
+Variantes
+
+# Website
+Sitio web
+
+# Your name
+Tu nombre
+

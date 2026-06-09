@@ -1,0 +1,64 @@
+@page "/components/display/banner"
+
+@using BlazOrbit.Components
+
+@inject IStringLocalizer<BannerPage> Loc
+
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBBanner"]"
+         Lede="@Loc["Persistent severity message with auto-icon, dismiss affordance and an action slot."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBBanner)"
+         Keywords="@(["banner", "alert", "message", "notification"])">
+
+    <DocDemo Key="Severity" Title="@Loc["Severity"]">
+        <BOBBanner Severity="BOBBannerSeverity.Info" Title="@Loc["Heads up"]"
+                   Message="@Loc["This is an informational message."]"/>
+        <br/>
+        <BOBBanner Severity="BOBBannerSeverity.Success" Title="@Loc["Saved"]"
+                   Message="@Loc["Your changes have been saved."]"/>
+        <br/>
+        <BOBBanner Severity="BOBBannerSeverity.Warning" Title="@Loc["Careful"]"
+                   Message="@Loc["This action will be hard to reverse."]"/>
+        <br/>
+        <BOBBanner Severity="BOBBannerSeverity.Error" Title="@Loc["Failed"]" Message="@Loc["Something went wrong."]"/>
+    </DocDemo>
+
+    <DocDemo Key="Dismissible" Title="@Loc["Dismissible"]">
+        <BOBBanner Severity="BOBBannerSeverity.Info"
+                   Title="@Loc["Tip"]"
+                   Message="@Loc["Click the X to close."]"
+                   Dismissible="true"/>
+    </DocDemo>
+
+    <DocDemo Key="Actions" Title="@Loc["With action slot"]">
+        <BOBBanner Severity="BOBBannerSeverity.Warning" Title="@Loc["Update available"]"
+                   Message="@Loc["Version 2 is ready to install."]">
+            <Actions>
+                <BOBButton OnClick="@(() => _retry++)">@Loc["Update now"]</BOBButton>
+            </Actions>
+        </BOBBanner>
+        <p class="doc-demo__caption">@Loc["Clicked:"] @_retry</p>
+    </DocDemo>
+
+    <DocDemo Key="NoIcon" Title="@Loc["Without icon"]">
+        <BOBBanner Severity="BOBBannerSeverity.Info" Message="@Loc["Compact variant for inline notices."]"
+                   ShowIcon="false"/>
+    </DocDemo>
+
+    <DocDemo Key="ChildContent" Title="@Loc["Custom body"]">
+        <BOBBanner Severity="BOBBannerSeverity.Success" Title="@Loc["Done"]">
+            @Loc["You can render"] <strong>@Loc["any markup"]</strong> @Loc["inside the banner."]
+        </BOBBanner>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBBannerComponentInfo.Parameters"/>
+    </section>
+
+</DocPage>
+
+@code {
+    private int _retry;
+}

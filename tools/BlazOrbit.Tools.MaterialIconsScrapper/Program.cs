@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Tools.MaterialIconsScrapper;
+using BlazOrbit.Tools.MaterialIconsScrapper;
 
 //await IconsClassGenerator.BuildIconsFile();
 

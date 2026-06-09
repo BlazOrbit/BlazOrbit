@@ -1,0 +1,63 @@
+// Auto-migrated from ValidationPage.es.resx. Edit freely from now on.
+
+# 1. Configure Services
+1. Configurar servicios
+
+# 2. Use the Validator
+2. Usar el validador
+
+# Add DataAnnotationsValidator with BOBFluentValidator inside your EditForm:
+Agrega DataAnnotationsValidator con BOBFluentValidator dentro de tu EditForm:
+
+# Admin
+Administrador
+
+# Data Annotations
+Anotaciones de datos
+
+# Data Annotations in action
+Anotaciones de datos en acción
+
+# Editor
+Editor
+
+# FluentValidation
+FluentValidation
+
+# FluentValidation in action
+FluentValidation en acción
+
+# Guest
+Invitado
+
+# Name
+Nombre
+
+# or use this to register validators from executing Assembly
+o usa esto para registrar validadores desde el ensamblado en ejecución
+
+# Register FluentValidation validators in your dependency injection container (usually in Program.cs):
+Registra los validadores de FluentValidation en tu contenedor de inyección de dependencias (normalmente en Program.cs):
+
+# Reset
+Restablecer
+
+# Role
+Rol
+
+# Submit
+Enviar
+
+# Utilities
+Utilidades
+
+# Validation
+Validación
+
+# Viewer
+Espectador
+
+#  Learn more in <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/forms/validation" target="_blank">Microsoft Docs - Blazor Form Validation</a>.
+Aprende mas en <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/forms/validation" target="_blank">Microsoft Docs - Blazor Form Validation</a>.
+# BlazOrbit form components inherit from <code>InputBase</code>, so they integrate with <code>EditForm</code> and <code>EditContext</code> exactly like native Blazor inputs. For FluentValidation, add the <code>BlazOrbit.FormsFluentValidation</code> package and place <code>BOBFluentValidator</code> inside your <code>EditForm</code>; validation state flows through the same <code>EditContext</code> without additional wiring.
+Los componentes de formulario de BlazOrbit heredan de <code>InputBase</code>, por lo que se integran con <code>EditForm</code> y <code>EditContext</code> exactamente como las entradas nativas de Blazor. Para FluentValidation, agrega el paquete <code>BlazOrbit.FormsFluentValidation</code> y coloca <code>BOBFluentValidator</code> dentro de tu <code>EditForm</code>; el estado de validación fluye a través del mismo <code>EditContext</code> sin cableado adicional.

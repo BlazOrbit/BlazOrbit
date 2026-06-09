@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -22,7 +22,8 @@ public class BOBNotificationBadgeInteractionTests
             {
                 b.OpenElement(0, "button");
                 b.AddAttribute(1, "type", "button");
-                b.AddAttribute(2, "onclick", Microsoft.AspNetCore.Components.EventCallback.Factory.Create(this, () => clicks++));
+                b.AddAttribute(2, "onclick",
+                    Microsoft.AspNetCore.Components.EventCallback.Factory.Create(this, () => clicks++));
                 b.AddContent(3, "Host");
                 b.CloseElement();
             })
@@ -31,7 +32,7 @@ public class BOBNotificationBadgeInteractionTests
         // Act
         cut.Find("button").Click();
 
-        // Assert — click bubbles through the badge wrapper to the host handler.
+        // Assert - click bubbles through the badge wrapper to the host handler.
         clicks.Should().Be(1);
     }
 
@@ -45,7 +46,7 @@ public class BOBNotificationBadgeInteractionTests
         IRenderedComponent<BOBNotificationBadge> cut = ctx.Render<BOBNotificationBadge>(p => p
             .Add(c => c.BadgeContent, b => b.AddContent(0, "3")));
 
-        // Assert — the badge is a passive indicator; no onclick on root/indicator.
+        // Assert - the badge is a passive indicator; no onclick on root/indicator.
         cut.Find("bob-component").GetAttribute("blazor:onclick").Should().BeNull();
         cut.Find(".bob-notification-badge__indicator").GetAttribute("blazor:onclick").Should().BeNull();
     }
@@ -56,11 +57,12 @@ public class BOBNotificationBadgeInteractionTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — consumer may attach @onclick on the component; it reaches the host element.
+        // Arrange - consumer may attach @onclick on the component; it reaches the host element.
         int clicks = 0;
         IRenderedComponent<BOBNotificationBadge> cut = ctx.Render<BOBNotificationBadge>(p => p
             .Add(c => c.BadgeContent, b => b.AddContent(0, "3"))
-            .AddUnmatched("onclick", Microsoft.AspNetCore.Components.EventCallback.Factory.Create(this, () => clicks++)));
+            .AddUnmatched("onclick",
+                Microsoft.AspNetCore.Components.EventCallback.Factory.Create(this, () => clicks++)));
 
         // Act
         cut.Find("bob-component").Click();

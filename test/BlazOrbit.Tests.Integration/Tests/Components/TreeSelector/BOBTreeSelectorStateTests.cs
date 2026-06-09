@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -12,17 +12,19 @@ public class BOBTreeSelectorStateTests
     private sealed record SelectItem(string Key, string Label, IEnumerable<SelectItem>? Children = null);
 
     private static IEnumerable<SelectItem> FlatItems
-    => [
-        new SelectItem("a", "Alpha"),
-        new SelectItem("b", "Beta"),
-    ];
+        =>
+        [
+            new("a", "Alpha"),
+            new("b", "Beta")
+        ];
 
     private static IEnumerable<SelectItem> NestedItems
-    => [
-        new SelectItem("parent", "Parent", [
-            new SelectItem("child1", "Child 1"),
-        ]),
-    ];
+        =>
+        [
+            new("parent", "Parent", [
+                new SelectItem("child1", "Child 1")
+            ])
+        ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -78,10 +80,10 @@ public class BOBTreeSelectorStateTests
 
         cut.FindAll(".bob-tree-selector__node-content")[0].Click();
 
-        // Act — click second item
+        // Act - click second item
         cut.FindAll(".bob-tree-selector__node-content")[1].Click();
 
-        // Assert — first deselected, second selected
+        // Assert - first deselected, second selected
         cut.FindAll("[role='treeitem']")[0].GetAttribute("aria-selected").Should().Be("false");
         cut.FindAll("[role='treeitem']")[1].GetAttribute("aria-selected").Should().Be("true");
     }
@@ -102,7 +104,7 @@ public class BOBTreeSelectorStateTests
         cut.FindAll(".bob-tree-selector__node-content")[0].Click();
         cut.FindAll(".bob-tree-selector__node-content")[1].Click();
 
-        // Assert — both selected
+        // Assert - both selected
         cut.FindAll("[role='treeitem']")[0].GetAttribute("aria-selected").Should().Be("true");
         cut.FindAll("[role='treeitem']")[1].GetAttribute("aria-selected").Should().Be("true");
     }
@@ -140,7 +142,7 @@ public class BOBTreeSelectorStateTests
             .Add(c => c.KeySelector, m => m.Key)
             .Add(c => c.ChildrenSelector, m => m.Children));
 
-        // Act — click expander button (not the node content)
+        // Act - click expander button (not the node content)
         cut.Find(".bob-tree-selector__expander").Click();
 
         // Assert

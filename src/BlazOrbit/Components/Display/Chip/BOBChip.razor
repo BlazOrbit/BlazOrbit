@@ -1,0 +1,212 @@
+@using BlazOrbit.Abstractions
+@using Microsoft.Extensions.Localization
+
+@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+
+@inherits BOBComponentBase
+@implements IHasSize
+@implements IHasColor
+@implements IHasDisabled
+@implements IHasActive
+
+<bob-component @attributes="ComputedAttributes">
+    <CascadingValue Value="this">
+        @if (IsButton)
+        {
+            <button type="button"
+                    class="bob-chip"
+                    data-bob-selected="@(IsSelected ? "true" : null)"
+                    data-bob-clickable="true"
+                    role="@(Group?.Mode == ChipGroupSelectionMode.Single ? "radio" : Group is not null ? "checkbox" : null)"
+                    aria-pressed="@(Group is null && Selectable ? IsSelected.ToString().ToLowerInvariant() : null)"
+                    aria-checked="@(Group is not null ? IsSelected.ToString().ToLowerInvariant() : null)"
+                    disabled="@IsEffectivelyDisabled"
+                    @onclick="HandleClickAsync">
+                @ChipChildren()
+            </button>
+        }
+        else
+        {
+            <span class="bob-chip">
+                @ChipChildren()
+            </span>
+        }
+    </CascadingValue>
+</bob-component>
+
+@code {
+    [Inject] internal IStringLocalizer<BOBDisplayResources> Localizer { get; set; } = default!;
+
+    private RenderFragment ChipChildren() => __builder =>
+    {
+        if (LeadingIcon is not null)
+        {
+            <span class="bob-chip__leading" aria-hidden="true">
+                <BOBSvgIcon Icon="@LeadingIcon.Value" Size="@Size"/>
+            </span>
+        }
+
+        <span class="bob-chip__label">
+            @if (ChildContent is not null)
+            {
+                @ChildContent
+            }
+            else if (!string.IsNullOrEmpty(Label))
+            {
+                @Label
+            }
+        </span>
+
+        if (Count.HasValue)
+        {
+            <span class="bob-chip__count" aria-label="@string.Format(Localizer["{0} items"], Count)">@Count</span>
+        }
+
+        if (Removable && !IsDisabled)
+        {
+            @* Ghost variant of _BOBInBtn carries the transparent + opacity-hover treatment
+               this remove affordance used to redeclare in scoped CSS. `bob-chip__remove`
+               survives for positioning context only (sits inline at the chip trailing edge). *@
+            <_BOBInBtn Icon="@BOBIconKeys.MaterialIconsOutlined.i_close"
+                       Variant="BOBInBtnVariant.Ghost"
+                       Size="BOBSize.Small"
+                       AriaLabel="@ResolvedRemoveText"
+                       OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, HandleRemoveAsync))"
+                       OnClickStopPropagation="true"
+                       class="bob-chip__remove"/>
+        }
+    };
+
+    /// <summary>Text rendered inside the chip. Ignored when <see cref="ChildContent"/> is set.</summary>
+    [Parameter]
+    public string? Label { get; set; }
+
+    /// <summary>Custom content (overrides <see cref="Label"/>).</summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    /// <summary>Optional leading icon rendered before the label.</summary>
+    [Parameter]
+    public IconKey? LeadingIcon { get; set; }
+
+    /// <summary>Optional badge count rendered after the label.</summary>
+    [Parameter]
+    public int? Count { get; set; }
+
+    /// <summary>When <see langword="true"/>, render an X button that fires <see cref="OnRemoved"/>.</summary>
+    [Parameter]
+    public bool Removable { get; set; }
+
+    /// <summary>Aria-label for the remove button.</summary>
+    [Parameter]
+    public string? RemoveText { get; set; }
+
+    private string ResolvedRemoveText => RemoveText ?? Localizer["Remove"];
+
+    /// <summary>When <see langword="true"/>, the chip behaves like a toggle (filter chip pattern).</summary>
+    [Parameter]
+    public bool Selectable { get; set; }
+
+    /// <summary>Selection state (only meaningful when <see cref="Selectable"/> is set and the chip is NOT inside a <see cref="BOBChipGroup{TValue}"/>).</summary>
+    [Parameter]
+    public bool Selected { get; set; }
+
+    /// <summary>Two-way binding companion for <see cref="Selected"/>.</summary>
+    [Parameter]
+    public EventCallback<bool> SelectedChanged { get; set; }
+
+    /// <summary>When <see langword="true"/>, render the chip as a button without selection semantics (action chip pattern).</summary>
+    [Parameter]
+    public bool Clickable { get; set; }
+
+    /// <summary>Raised when a clickable chip is clicked.</summary>
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
+    /// <summary>Raised when the X button is clicked.</summary>
+    [Parameter]
+    public EventCallback OnRemoved { get; set; }
+
+    /// <summary>
+    /// Identity for the chip when nested inside a <see cref="BOBChipGroup{TValue}"/>. The group
+    /// matches against this value to track selection. Ignored for standalone chips.
+    /// </summary>
+    [Parameter]
+    public object? Value { get; set; }
+
+    /// <summary>
+    /// Cascaded from a parent <see cref="BOBChipGroup{TValue}"/> when present. When set, the
+    /// chip delegates its selection state + click semantics to the group instead of its own
+    /// <see cref="Selected"/> / <see cref="SelectedChanged"/> contract.
+    /// </summary>
+    [CascadingParameter]
+    internal IChipGroupContainer? Group { get; set; }
+
+    /// <summary>When <see langword="true"/>, the chip is dimmed and non-interactive.</summary>
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    /// <summary>Visual size of the chip.</summary>
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
+
+    /// <summary>Foreground / accent color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
+    [Parameter]
+    public string? Color { get; set; }
+
+    public bool IsDisabled => Disabled;
+    private bool IsEffectivelyDisabled => Disabled || (Group?.IsGroupDisabled ?? false);
+
+    /// <summary>When <see langword="true"/>, forces the active state (independent of selection).</summary>
+    [Parameter]
+    public bool Active { get; set; }
+
+    public bool IsActive => Active || IsSelected;
+
+    /// <summary>
+    /// Effective selection state. Reads from the cascaded <see cref="Group"/> when present,
+    /// otherwise falls back to the local <see cref="Selected"/> parameter. Drives the
+    /// <c>data-bob-selected</c> attribute + <c>aria-pressed</c> / <c>aria-checked</c> output.
+    /// </summary>
+    private bool IsSelected => Group is not null && Value is not null
+        ? Group.IsValueSelected(Value)
+        : Selected;
+
+    private bool IsButton => Selectable || Clickable || Group is not null;
+
+    private async Task HandleClickAsync()
+    {
+        if (IsEffectivelyDisabled) return;
+
+        if (Group is not null && Value is not null)
+        {
+            // Group-driven path: the container owns the selection list and broadcasts updates
+            // back through SelectedValuesChanged. The chip stays purely visual.
+            await Group.ToggleAsync(Value);
+        }
+        else if (Selectable)
+        {
+            Selected = !Selected;
+            if (SelectedChanged.HasDelegate)
+            {
+                await SelectedChanged.InvokeAsync(Selected);
+            }
+        }
+
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync();
+        }
+    }
+
+    private async Task HandleRemoveAsync()
+    {
+        if (IsEffectivelyDisabled) return;
+        if (OnRemoved.HasDelegate)
+        {
+            await OnRemoved.InvokeAsync();
+        }
+    }
+
+}

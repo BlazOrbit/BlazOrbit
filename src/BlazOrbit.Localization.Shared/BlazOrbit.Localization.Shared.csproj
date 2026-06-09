@@ -1,40 +1,84 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
-	<PropertyGroup>
-		<TargetFrameworks>net8.0;net10.0</TargetFrameworks>
-		<IsPackable>true</IsPackable>
-		<PackageType>Dependency</PackageType>
-		<Nullable>enable</Nullable>
-		<PackageId>BlazOrbit.Localization.Shared</PackageId>
-		<NoWarn>$(NoWarn);RS0016;RS0017;RS0037</NoWarn>
-		<Description>Shared localization components and resources for BlazOrbit. Contains the common UI markup for BOBCultureSelector used by both Server and WASM hosting integrations.</Description>
-		<PackageTags>blazor;localization;i18n;culture;blazorbit</PackageTags>
-	</PropertyGroup>
+    <PropertyGroup>
+        <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+        <IsPackable>true</IsPackable>
+        <PackageType>Dependency</PackageType>
+        <Nullable>enable</Nullable>
+        <PackageId>BlazOrbit.Localization.Shared</PackageId>
+        <NoWarn>$(NoWarn);RS0016;RS0017;RS0037</NoWarn>
+        <Description>Shared localization components and resources for BlazOrbit.</Description>
+        <PackageTags>blazor;localization;i18n;culture;blazorbit</PackageTags>
+    </PropertyGroup>
 
-	<ItemGroup>
-		<InternalsVisibleTo Include="BlazOrbit.Tests.Integration" />
-	</ItemGroup>
+    <ItemGroup>
+        <InternalsVisibleTo Include="BlazOrbit.Tests.Integration"/>
+    </ItemGroup>
 
-	<ItemGroup>
-		<ProjectReference Include="..\BlazOrbit\BlazOrbit.csproj" />
-	</ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\BlazOrbit\BlazOrbit.csproj"/>
+    </ItemGroup>
 
-	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.Localization" Version="$(BlazOrbitExtensionsVersion)" />
-		<PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="4.14.0" PrivateAssets="all" />
-	</ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Microsoft.Extensions.Localization" Version="$(BlazOrbitExtensionsVersion)"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="4.14.0" PrivateAssets="all"/>
+    </ItemGroup>
 
-	<ItemGroup>
-		<AdditionalFiles Include="PublicAPI.Shipped.txt" />
-		<AdditionalFiles Include="PublicAPI.Unshipped.txt" />
-	</ItemGroup>
+    <ItemGroup>
+        <AdditionalFiles Include="PublicAPI.Shipped.txt"/>
+        <AdditionalFiles Include="PublicAPI.Unshipped.txt"/>
+    </ItemGroup>
 
-	<!--
-		Localized .resx files for `BOBCultureSelectorResources` live in
-		`BlazOrbit.Translations`. `IStringLocalizer<BOBCultureSelectorResources>`
-		is rerouted to that assembly by `ReroutedStringLocalizerFactory`, registered
-		from `AddBlazOrbitLocalizationServer` / `AddBlazOrbitLocalizationWasm`.
-		The empty marker class here remains as the type anchor consumers use.
-	-->
+    <ItemGroup>
+        <ProjectReference Include="..\BlazOrbit.Localization.CodeGeneration\BlazOrbit.Localization.CodeGeneration.csproj"
+                          OutputItemType="Analyzer" ReferenceOutputAssembly="false"/>
+    </ItemGroup>
+
+    <!-- BOBLocalize: feed all .tn translation files to the generator. -->
+    <ItemGroup>
+        <AdditionalFiles Include="Translations\**\*.tn"/>
+    </ItemGroup>
+
+    <!--
+        Ship the source generator inside the nupkg so consumer projects also get it.
+
+        `ProjectReference OutputItemType="Analyzer" ReferenceOutputAssembly="false"` (above)
+        only applies the generator to THIS project's own compilation; it does NOT propagate
+        to downstream consumers when the package is installed. To do that the generator DLL
+        must land under `analyzers/dotnet/cs/` in the nupkg - the standard Roslyn convention
+        the .NET SDK auto-discovers.
+
+        Without this entry, a consumer's `[assembly: BobLocalizationBundle(typeof(T))]`
+        declarations produce no [ModuleInitializer], no `BobLocalize.RegisterBundle(...)`
+        runs at startup, and `IStringLocalizer<T>` silently falls back to literal - i.e.
+        translations are wired up but never apply.
+
+        `BeforeTargets="_GetPackageFiles"` is the safe extension point: by then the
+        generator has been built (the ProjectReference above guarantees it) and the pack
+        pipeline is still gathering files.
+    -->
+    <Target Name="_PackLocalizationGeneratorAnalyzer" BeforeTargets="_GetPackageFiles">
+        <ItemGroup>
+            <None Include="..\BlazOrbit.Localization.CodeGeneration\bin\$(Configuration)\netstandard2.0\BlazOrbit.Localization.CodeGeneration.dll"
+                  Pack="true"
+                  PackagePath="analyzers/dotnet/cs"
+                  Visible="false"/>
+        </ItemGroup>
+    </Target>
+
+    <!--
+        Ship a consumer-facing .targets file that auto-includes every `.tn` translation
+        file under `Translations/**` as an `<AdditionalFiles>` item so the source generator
+        above can read them. Without this, consumers would have to add the AdditionalFiles
+        line manually to every project. Razor SDK already owns
+        `buildTransitive/BlazOrbit.Localization.Shared.props`; using a `.targets` file
+        avoids a collision (NuGet auto-imports both `.props` and `.targets` from
+        buildTransitive/).
+    -->
+    <ItemGroup>
+        <None Include="_build\BlazOrbit.Localization.Shared.targets"
+              Pack="true"
+              PackagePath="buildTransitive/"/>
+    </ItemGroup>
 
 </Project>

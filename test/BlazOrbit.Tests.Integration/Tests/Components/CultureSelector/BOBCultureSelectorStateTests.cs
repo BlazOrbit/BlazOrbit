@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -37,7 +37,7 @@ public class BOBCultureSelectorStateTests
             markup = cut.Markup;
         }
 
-        // Assert — no flag emojis in option text
+        // Assert - no flag emojis in option text
         markup.Should().NotContain("🇺🇸");
     }
 

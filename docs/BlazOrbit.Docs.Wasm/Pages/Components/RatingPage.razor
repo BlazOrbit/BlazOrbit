@@ -1,0 +1,71 @@
+@page "/components/display/rating"
+
+@using BlazOrbit.Components
+
+@inject IStringLocalizer<RatingPage> Loc
+
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBRating"]"
+         Lede="@Loc["Star rating with optional half-step, hover preview, and full keyboard navigation. Accessible out of the box."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBRating)"
+         Keywords="@(["rating", "stars", "score", "review"])">
+
+    <section class="doc-section">
+        <p class="doc-section__description">
+                        @Loc.Html("Under the hood, the rating uses a native <code>radiogroup</code> ARIA role with individual <code>radio</code> buttons for each star. This ensures screen readers announce the current value correctly and keyboard users can navigate with arrow keys just like a standard HTML radio group.")
+        </p>
+    </section>
+
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]">
+        <BOBRating @bind-Value="_basic" Label="@Loc["How was your experience?"]"/>
+        <p class="doc-demo__caption">@Loc["Value:"] <code>@_basic</code></p>
+    </DocDemo>
+
+    <DocDemo Key="Half" Title="@Loc["Half-step"]">
+        <BOBRating @bind-Value="_half" AllowHalf="true" Label="@Loc["Click closer to the left of a star for a half"]"/>
+        <p class="doc-demo__caption">@_half</p>
+    </DocDemo>
+
+    <DocDemo Key="MaxValue" Title="@Loc["Custom max"]">
+        <BOBRating @bind-Value="_max10" MaxValue="10" Label="@Loc["Out of 10"]"/>
+    </DocDemo>
+
+    <DocDemo Key="Sizes" Title="@Loc["Sizes"]">
+        <BOBRating @bind-Value="_small" Size="BOBSize.Small"/>
+        <BOBRating @bind-Value="_medium" Size="BOBSize.Medium"/>
+        <BOBRating @bind-Value="_large" Size="BOBSize.Large"/>
+    </DocDemo>
+
+    <DocDemo Key="ReadOnly" Title="@Loc["Read-only"]">
+        <BOBRating Value="3.5" AllowHalf="true" ReadOnly="true" Label="@Loc["Average rating"]"/>
+    </DocDemo>
+
+    <DocDemo Key="Disabled" Title="@Loc["Disabled"]">
+        <BOBRating Value="2" Disabled="true"/>
+    </DocDemo>
+
+    <DocDemo Key="CustomIcon" Title="@Loc["Custom icons"]">
+        <BOBRating @bind-Value="_hearts"
+                   FullIcon="@BOBIconKeys.MaterialIconsOutlined.i_favorite"
+                   EmptyIcon="@BOBIconKeys.MaterialIconsOutlined.i_favorite_border"
+                   Color="rgb(220,40,80)"
+                   Label="@Loc["Like it?"]"/>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBRatingComponentInfo.Parameters"/>
+    </section>
+
+</DocPage>
+
+@code {
+    private double _basic = 3;
+    private double _half = 2.5;
+    private double _max10 = 7;
+    private double _small = 4;
+    private double _medium = 4;
+    private double _large = 4;
+    private double _hearts = 4;
+}

@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
@@ -43,11 +43,13 @@ internal sealed class BOBComponentJsBehaviorBuilder
             return;
         }
 
+        ElementReference? rippleContainer = hasRipple.GetRippleContainer();
+        //  Uninitialized ElementReference has a null or empty Id
+        if (rippleContainer == null || string.IsNullOrEmpty(rippleContainer.Value.Id)) { return; }
+
         _config.Ripple = new RippleConfiguration
         {
-            Color = hasRipple.RippleColor,
-            Duration = hasRipple.RippleDurationMs,
-            RippleContainer = hasRipple.GetRippleContainer(),
+            Color = hasRipple.RippleColor, Duration = hasRipple.RippleDurationMs, RippleContainer = (ElementReference)rippleContainer
         };
     }
 }

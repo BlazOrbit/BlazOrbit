@@ -1,0 +1,38 @@
+// Auto-migrated from ConfirmServicePage.es.resx. Edit freely from now on.
+
+# Ask
+Preguntar
+
+# Ask (3s timeout)
+Preguntar (timeout 3s)
+
+# Basic confirm
+Confirmación básica
+
+# BOBConfirmService
+BOBConfirmService
+
+# Danger severity
+Severidad peligro
+
+# Delete user
+Eliminar usuario
+
+# Discard changes
+Descartar cambios
+
+# Result:
+Resultado:
+
+# Service
+Servicio
+
+# Themed replacement for window.confirm() - async, severity-aware, modal-stack-aware.
+Reemplazo temático de window.confirm() - asíncrono, consciente de severidad y aware de pila de modales.
+
+# Warning severity + custom labels
+Severidad advertencia + etiquetas personalizadas
+
+# With auto-cancel timeout
+Con timeout de auto-cancelación
+

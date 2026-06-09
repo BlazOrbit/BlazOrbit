@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
@@ -11,7 +11,10 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.TextArea;
 [Trait("Component State", "BOBInputTextArea")]
 public class BOBInputTextAreaStateTests
 {
-    private class Model { public string? Value { get; set; } }
+    private class Model
+    {
+        public string? Value { get; set; }
+    }
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -45,7 +48,7 @@ public class BOBInputTextAreaStateTests
             .Add(c => c.Disabled, false));
 
         IElement root = cut.Find("bob-component");
-        root.GetAttribute("data-bob-disabled").Should().Be("false");
+        root.GetAttribute("data-bob-disabled").Should().BeNull();
         cut.Find("textarea").HasAttribute("disabled").Should().BeFalse();
 
         cut.Render(p => p
@@ -75,7 +78,7 @@ public class BOBInputTextAreaStateTests
             .Add(c => c.ValueExpression, () => model.Value)
             .Add(c => c.ReadOnly, false));
 
-        root.GetAttribute("data-bob-readonly").Should().Be("false");
+        root.GetAttribute("data-bob-readonly").Should().BeNull();
         cut.Find("textarea").HasAttribute("readonly").Should().BeFalse();
     }
 
@@ -91,7 +94,7 @@ public class BOBInputTextAreaStateTests
             .Add(c => c.Error, false));
 
         IElement root = cut.Find("bob-component");
-        root.GetAttribute("data-bob-error").Should().Be("false");
+        root.GetAttribute("data-bob-error").Should().BeNull();
 
         cut.Render(p => p
             .Add(c => c.ValueExpression, () => model.Value)
@@ -113,7 +116,7 @@ public class BOBInputTextAreaStateTests
             .Add(c => c.Loading, false));
 
         IElement root = cut.Find("bob-component");
-        root.GetAttribute("data-bob-loading").Should().Be("false");
+        root.GetAttribute("data-bob-loading").Should().BeNull();
 
         cut.Render(p => p
             .Add(c => c.ValueExpression, () => model.Value)
@@ -134,7 +137,7 @@ public class BOBInputTextAreaStateTests
             .Add(c => c.ValueExpression, () => model.Value)
             .Add(c => c.AutoResize, false));
 
-        cut.Find("bob-component").GetAttribute("data-bob-autoresize").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-autoresize").Should().BeNull();
 
         cut.Render(p => p
             .Add(c => c.ValueExpression, () => model.Value)
@@ -202,9 +205,7 @@ public class BOBInputTextAreaStateTests
         Model model = new();
         Dictionary<string, object> extra = new()
         {
-            { "data-testid", "bio-field" },
-            { "class", "my-class" },
-            { "style", "margin: 4px;" }
+            { "data-testid", "bio-field" }, { "class", "my-class" }, { "style", "margin: 4px;" }
         };
 
         IRenderedComponent<BOBInputTextArea> cut = ctx.Render<BOBInputTextArea>(p => p

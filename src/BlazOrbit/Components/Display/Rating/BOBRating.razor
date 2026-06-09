@@ -1,0 +1,239 @@
+@using BlazOrbit.Abstractions
+@using Microsoft.Extensions.Localization
+
+@namespace BlazOrbit.Components
+@attribute [GenerateComponentInfo]
+
+@inherits BOBComponentBase
+@implements IHasSize
+@implements IHasColor
+@implements IHasReadOnly
+@implements IHasDisabled
+
+<bob-component @attributes="ComputedAttributes">
+    <div class="bob-rating"
+         role="radiogroup"
+         aria-label="@(string.IsNullOrWhiteSpace(Label) ? ResolvedAriaLabel : Label)"
+         @onmouseleave="HandleHoverLeave">
+
+        @if (!string.IsNullOrWhiteSpace(Label))
+        {
+            <span class="bob-rating__label" id="@_labelId">@Label</span>
+        }
+
+        @for (var i = 1; i <= MaxValue; i++)
+        {
+            var slot = i;
+            var display = _hoverValue ?? CurrentValue;
+            var fill = ResolveFill(slot, display);
+            <button type="button"
+                    class="bob-rating__cell"
+                    role="radio"
+                    aria-checked="@(((int)Math.Ceiling(CurrentValue) == slot).ToString().ToLowerInvariant())"
+                    aria-label="@($"{slot} {(slot == 1 ? Localizer["star"] : Localizer["stars"])}")"
+                    data-bob-fill="@fill.ToString().ToLowerInvariant()"
+                    tabindex="@(IsDisabled ? -1 : slot == 1 ? 0 : -1)"
+                    disabled="@IsDisabled"
+                    @onclick="@(e => HandleClickAsync(slot, e))"
+                    @onmouseenter="@(e => HandleHoverEnter(slot, e))"
+                    @onkeydown="@(e => HandleKeyDownAsync(slot, e))">
+                @switch (fill)
+                {
+                    case BOBRatingFill.Full:
+                        <BOBSvgIcon Icon="@FullIcon" Size="@Size"/>
+                        break;
+                    case BOBRatingFill.Half:
+                        <BOBSvgIcon Icon="@HalfIcon" Size="@Size"/>
+                        break;
+                    default:
+                        <BOBSvgIcon Icon="@EmptyIcon" Size="@Size"/>
+                        break;
+                }
+            </button>
+        }
+    </div>
+
+    @if (!string.IsNullOrWhiteSpace(HelperText))
+    {
+        <span class="bob-rating__helper">@HelperText</span>
+    }
+</bob-component>
+
+@code {
+    [Inject] internal IStringLocalizer<BOBDisplayResources> Localizer { get; set; } = default!;
+
+    private readonly string _labelId = $"bob-label-{Guid.NewGuid():N}";
+    private double? _hoverValue;
+
+    /// <summary>Current rating value. <c>0</c> means unrated.</summary>
+    [Parameter]
+    public double Value { get; set; }
+
+    /// <summary>Raised when the user picks a value (click or keyboard).</summary>
+    [Parameter]
+    public EventCallback<double> ValueChanged { get; set; }
+
+    /// <summary>Maximum value (number of stars). Range 1-10. Defaults to <c>5</c>.</summary>
+    [Parameter]
+    public int MaxValue { get; set; } = 5;
+
+    /// <summary>When <see langword="true"/>, allow half-step values (0.5 increments).</summary>
+    [Parameter]
+    public bool AllowHalf { get; set; }
+
+    /// <summary>When <see langword="true"/>, the rating is read-only (still announced to assistive tech).</summary>
+    [Parameter]
+    public bool ReadOnly { get; set; }
+
+    /// <summary>When <see langword="true"/>, the rating is disabled (no interaction, dimmed).</summary>
+    [Parameter]
+    public bool Disabled { get; set; }
+
+    /// <summary>Visual size of each star.</summary>
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
+
+    /// <summary>Foreground color applied to filled stars.</summary>
+    [Parameter]
+    public string? Color { get; set; }
+
+    /// <summary>Optional label rendered above the row.</summary>
+    [Parameter]
+    public string? Label { get; set; }
+
+    /// <summary>Helper text rendered below the row.</summary>
+    [Parameter]
+    public string? HelperText { get; set; }
+
+    /// <summary>Aria-label fallback when <see cref="Label"/> is empty.</summary>
+    [Parameter]
+    public string? AriaLabel { get; set; }
+
+    private string ResolvedAriaLabel => AriaLabel ?? Localizer["Rating"];
+
+    /// <summary>Icon rendered for the "filled" state. Defaults to <c>i_star</c>.</summary>
+    [Parameter]
+    public IconKey FullIcon { get; set; } = BOBIconKeys.MaterialIconsOutlined.i_star;
+
+    /// <summary>Icon rendered for the "half-filled" state. Defaults to <c>i_star_half</c>.</summary>
+    [Parameter]
+    public IconKey HalfIcon { get; set; } = BOBIconKeys.MaterialIconsOutlined.i_star_half;
+
+    /// <summary>Icon rendered for the "empty" state. Defaults to <c>i_star_border</c>.</summary>
+    [Parameter]
+    public IconKey EmptyIcon { get; set; } = BOBIconKeys.MaterialIconsOutlined.i_star_border;
+
+    public bool IsDisabled => Disabled;
+    public bool IsReadOnly => ReadOnly;
+
+    private double CurrentValue => Math.Clamp(Value, 0, MaxValue);
+
+    protected override void OnParametersSet()
+    {
+        base.OnParametersSet();
+        // Keep MaxValue inside a sane window. <1 collapses the radiogroup; >10 spreads past
+        // any sensible visual rating UI and starts hurting screen-reader announcements.
+        if (MaxValue < 1) MaxValue = 1;
+        if (MaxValue > 10) MaxValue = 10;
+    }
+
+    private static BOBRatingFill ResolveFill(int slot, double value)
+    {
+        if (value >= slot) return BOBRatingFill.Full;
+        if (value >= slot - 0.5) return BOBRatingFill.Half;
+        return BOBRatingFill.Empty;
+    }
+
+    private async Task HandleClickAsync(int slot, MouseEventArgs e)
+    {
+        if (IsDisabled || IsReadOnly) return;
+        // When AllowHalf is on, treat clicks on the left half of the cell as 0.5-steps. The
+        // OffsetX/cell-width comparison hits the closest mouse-friendly half a user expects.
+        double next = slot;
+        if (AllowHalf && e.OffsetX > 0)
+        {
+            // Offset is element-relative; the heuristic uses `< clientWidth/2`. We approximate
+            // via OffsetX < OffsetX-bound — practical: any positive X below ~12px leans half.
+            // Browsers report cell width inconsistently in test environments, so we fall back
+            // to the slot value if the offset is missing.
+            next = e.OffsetX < 12 ? slot - 0.5 : slot;
+        }
+
+        // Toggle off when re-clicking the same value (rating libraries expect this UX).
+        if (Math.Abs(next - CurrentValue) < 0.01)
+        {
+            next = 0;
+        }
+
+        await SetValueAsync(next);
+    }
+
+    private void HandleHoverEnter(int slot, MouseEventArgs e)
+    {
+        if (IsDisabled || IsReadOnly) return;
+        _hoverValue = AllowHalf && e.OffsetX > 0 && e.OffsetX < 12 ? slot - 0.5 : slot;
+    }
+
+    private void HandleHoverLeave(MouseEventArgs e)
+    {
+        _hoverValue = null;
+    }
+
+    private async Task HandleKeyDownAsync(int slot, KeyboardEventArgs e)
+    {
+        if (IsDisabled || IsReadOnly) return;
+
+        var step = AllowHalf ? 0.5 : 1;
+        var next = CurrentValue;
+        var handled = true;
+
+        switch (e.Key)
+        {
+            case "ArrowRight":
+            case "ArrowUp":
+                next = Math.Min(MaxValue, CurrentValue + step);
+                break;
+            case "ArrowLeft":
+            case "ArrowDown":
+                next = Math.Max(0, CurrentValue - step);
+                break;
+            case "Home":
+                next = 0;
+                break;
+            case "End":
+                next = MaxValue;
+                break;
+            case "0":
+                next = 0;
+                break;
+            default:
+                if (e.Key.Length == 1 && char.IsDigit(e.Key[0]))
+                {
+                    var picked = e.Key[0] - '0';
+                    if (picked >= 1 && picked <= MaxValue) next = picked;
+                    else handled = false;
+                }
+                else
+                {
+                    handled = false;
+                }
+
+                break;
+        }
+
+        if (handled && Math.Abs(next - CurrentValue) > 0.001)
+        {
+            await SetValueAsync(next);
+        }
+    }
+
+    private async Task SetValueAsync(double next)
+    {
+        Value = next;
+        if (ValueChanged.HasDelegate)
+        {
+            await ValueChanged.InvokeAsync(next);
+        }
+    }
+
+}

@@ -1,32 +1,60 @@
-﻿@namespace BlazOrbit.Components.Internal
+@namespace BlazOrbit.Components
 
-<select class="_bob-simple-select"
+<select class="@ComputedClass"
         value="@Value"
         disabled="@Disabled"
         aria-label="@AriaLabel"
         @onchange="HandleChange"
-        @attributes="AdditionalAttributes">
+        @attributes="FilteredAttributes">
     @ChildContent
 </select>
 
 @code {
+
     /// <summary>Current value of the component.</summary>
-    [Parameter] public string? Value { get; set; }
+    [Parameter]
+    public string? Value { get; set; }
+
     /// <summary>Raised when the value changes.</summary>
-    [Parameter] public EventCallback<string?> ValueChanged { get; set; }
+    [Parameter]
+    public EventCallback<string?> ValueChanged { get; set; }
+
     /// <summary>When <see langword="true" />, the component is non-interactive.</summary>
-    [Parameter] public bool Disabled { get; set; }
+    [Parameter]
+    public bool Disabled { get; set; }
+
     /// <summary>Accessible name for the component.</summary>
-    [Parameter] public string? AriaLabel { get; set; }
+    [Parameter]
+    public string? AriaLabel { get; set; }
+
     /// <summary>Content rendered inside the component.</summary>
-    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
     [Parameter(CaptureUnmatchedValues = true)]
     public Dictionary<string, object>? AdditionalAttributes { get; set; }
 
+    private string ComputedClass
+    {
+        get
+        {
+            if (AdditionalAttributes?.TryGetValue("class", out var extra) == true && extra is string s && !string.IsNullOrWhiteSpace(s))
+            {
+                return $"_bob-simple-select {s}";
+            }
+
+            return "_bob-simple-select";
+        }
+    }
+
+    private Dictionary<string, object>? FilteredAttributes
+        => AdditionalAttributes?.Where(kv => kv.Key != "class").ToDictionary(kv => kv.Key, kv => kv.Value);
+
     private async Task HandleChange(ChangeEventArgs e)
     {
-        string? newValue = e.Value?.ToString();
+        var newValue = e.Value?.ToString();
         Value = newValue;
         await ValueChanged.InvokeAsync(newValue);
     }
+
 }

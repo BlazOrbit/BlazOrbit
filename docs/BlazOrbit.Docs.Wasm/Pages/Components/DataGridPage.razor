@@ -1,32 +1,47 @@
-﻿@page "/components/datagrid"
+@page "/components/data/datagrid"
 
 @inject IStringLocalizer<DataGridPage> Loc
 
-<PageTitle>BlazOrbit - BOBDataGrid</PageTitle>
 
 <DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBDataGrid"]"
-         Lede="@Loc["Strongly-typed tabular data with sorting, filtering, pagination, selection, custom templates, and more — declaratively."]"
+         Lede="@Loc["Strongly-typed tabular data with sorting, filtering, pagination, selection, custom templates, and more - declaratively."]"
          PageInstance="this"
-         ApiType="@typeof(BOBDataGrid<>)">
+         ApiType="@typeof(BOBDataGrid<>)"
+         Keywords="@(["data grid", "table", "sorting", "pagination", "filter"])">
 
-    <DocDemo Key="Basic" Title="@Loc["Basic usage"]" Description="@Loc["Bind Items and declare BOBDataColumn elements inside Columns."]">
+    <DocDemo Key="Basic" Title="@Loc["Basic usage"]"
+             Description="@Loc["Bind Items and declare BOBDataColumn elements inside Columns."]">
         <BOBDataGrid Items="_people">
             <Columns>
-                <BOBDataColumn TItem="Person" Property="@(p => p.Id)" Header="ID" />
-                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]" />
-                <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]" />
-                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]" />
+                <BOBDataColumn TItem="Person" Property="@(p => p.Id)" Header="ID"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]"/>
             </Columns>
         </BOBDataGrid>
     </DocDemo>
 
-    <DocDemo Key="Sortable" Title="@Loc["Sortable"]" Description="@Loc["Enable Sortable on the grid and on the columns you want clickable."]">
-        <BOBDataGrid Items="_people" Sortable="true">
+    <DocDemo Key="Sortable" Title="@Loc["Sortable"]"
+             Description="@Loc["Enable Sortable on the grid and on the columns you want clickable."]">
+        <BOBDataGrid Items="_people" Sortable="true" SortAppendBehavior="SortAppendBehavior.None">
             <Columns>
-                <BOBDataColumn TItem="Person" Property="@(p => p.Id)" Header="ID" Sortable="true" />
-                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]" Sortable="true" />
-                <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]" />
-                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]" Sortable="true" />
+                <BOBDataColumn TItem="Person" Property="@(p => p.Id)" Header="ID" Sortable="true"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]" Sortable="true"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]" Sortable="true"/>
+            </Columns>
+        </BOBDataGrid>
+    </DocDemo>
+
+    <DocDemo Key="MultiSort" Title="@Loc["Multi-column sort"]"
+             Description="@Loc["Click a header to sort. Multi-Sort behavior can be set using SortAppendBehavior parameter (None, Always, ShiftKey, CtrlKey, ShiftOrCtrlKey)."]">
+        <BOBDataGrid Items="_orders" Sortable="true" SortAppendBehavior="SortAppendBehavior.Always">
+            <Columns>
+                <BOBDataColumn TItem="Order" Property="@(o => o.Region)" Header="@Loc["Region"]" Sortable="true"/>
+                <BOBDataColumn TItem="Order" Property="@(o => o.Amount)" Header="@Loc["Amount"]" Sortable="true"
+                               Align="ColumnAlign.Right" Format="C0"/>
+                <BOBDataColumn TItem="Order" Property="@(o => o.Quantity)" Header="@Loc["Quantity"]" Sortable="true"
+                               Align="ColumnAlign.Right"/>
             </Columns>
         </BOBDataGrid>
     </DocDemo>
@@ -37,31 +52,36 @@
                      FilterPlaceholder="@Loc["Search..."]"
                      PageSize="10"
                      ShowPageSizeSelector="true"
-                     PageSizeOptions="@(new[] { 5, 10, 25 })">
+                     PageSizeOptions="@([5, 10, 25])">
             <Columns>
-                <BOBDataColumn TItem="Person" Property="@(p => p.Id)" Header="ID" Filterable="true" />
-                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]" Filterable="true" />
-                <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]" Filterable="true" />
-                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]" Filterable="true" />
+                <BOBDataColumn TItem="Person" Property="@(p => p.Id)" Header="ID" Filterable="true"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]" Filterable="true"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]" Filterable="true"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]" Filterable="true"/>
             </Columns>
         </BOBDataGrid>
     </DocDemo>
 
     <DocDemo Key="Selection" Title="@Loc["Multiple selection"]">
-            <BOBDataGrid TItem="Person"
-                         Items="_people"
-                         SelectionMode="SelectionMode.Multiple"
-                         SelectedItems="_selected"
-                         SelectedItemsChanged="@(s => { _selected = s; StateHasChanged(); })">
-                <Columns>
-                    <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]" />
-                    <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]" />
-                    <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]" />
-                </Columns>
-            </BOBDataGrid>
+        <BOBDataGrid TItem="Person"
+                     Items="_people"
+                     SelectionMode="SelectionMode.Multiple"
+                     SelectedItems="_selected"
+                     SelectedItemsChanged="@(s =>
+                                           {
+                                               _selected = s;
+                                               StateHasChanged();
+                                           })">
+            <Columns>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]"/>
+            </Columns>
+        </BOBDataGrid>
     </DocDemo>
 
-    <DocDemo Key="Template" Title="@Loc["Custom templates"]" Description="@Loc["Use Template with context to render any markup inside a cell."]">
+    <DocDemo Key="Template" Title="@Loc["Custom templates"]"
+             Description="@Loc["Use Template with context to render any markup inside a cell."]">
         <BOBDataGrid Items="_people">
             <Columns>
                 <BOBDataColumn TItem="Person" Header="@Loc["Person"]">
@@ -70,7 +90,7 @@
                         <div style="font-size: 0.85em; opacity: 0.7;">@context.Email</div>
                     </Template>
                 </BOBDataColumn>
-                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]" Align="ColumnAlign.Right" />
+                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]" Align="ColumnAlign.Right"/>
             </Columns>
         </BOBDataGrid>
     </DocDemo>
@@ -78,50 +98,589 @@
     <DocDemo Key="Align" Title="@Loc["Alignment & width"]">
         <BOBDataGrid Items="_people">
             <Columns>
-                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name (left)"]" Align="ColumnAlign.Left" Width="200px" />
-                <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email (center)"]" Align="ColumnAlign.Center" />
-                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age (right)"]" Align="ColumnAlign.Right" Width="80px" />
+                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name (left)"]"
+                               Align="ColumnAlign.Left" Width="200px"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email (center)"]"
+                               Align="ColumnAlign.Center"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age (right)"]"
+                               Align="ColumnAlign.Right" Width="80px"/>
             </Columns>
         </BOBDataGrid>
     </DocDemo>
 
     <DocDemo Key="ShadowAndBorder" Title="@Loc["Shadow & Border"]">
-            <BOBDataGrid Items="_people" Shadow="@BOBShadowPresets.Elevation(3)">
+        <BOBDataGrid Items="_people" Shadow="@BOBShadowPresets.Elevation(3)">
+            <Columns>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]"/>
+            </Columns>
+        </BOBDataGrid>
+        <BOBDataGrid Items="_people" Border="@BOBBorderPresets.RoundedLarge">
+            <Columns>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]"/>
+            </Columns>
+        </BOBDataGrid>
+    </DocDemo>
+
+    <DocDemo Key="Themed" Title="@Loc["Themed surface"]"
+             Description="@Loc["Color paints the foreground (cell text inherits), BackgroundColor paints the grid surface."]">
+        <BOBDataGrid Items="_people"
+                     Color="rgba(255, 255, 255, 1)"
+                     BackgroundColor="rgba(33, 100, 196, 1)"
+                     Border="@BOBBorderPresets.RoundedLarge">
+            <Columns>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]"/>
+            </Columns>
+        </BOBDataGrid>
+    </DocDemo>
+
+    <DocDemo Key="Aggregates" Title="@Loc["Aggregate footer"]"
+             Description="@Loc["Set Aggregate per column (Sum, Average, Count, Min, Max, Custom). Aggregates run on the filtered set, not the visible page - totals reflect the user's filters."]">
+        <BOBDataGrid Items="_orders" Filterable="true">
+            <Columns>
+                <BOBDataColumn TItem="Order" Property="@(o => o.Region)" Header="@Loc["Region"]"
+                               Filterable="true"
+                               Aggregate="AggregateFunction.Count" AggregateLabel="@(Loc["Total:"] + " ")"/>
+                <BOBDataColumn TItem="Order" Property="@(o => o.Amount)" Header="@Loc["Amount"]"
+                               Align="ColumnAlign.Right"
+                               Format="C0" Aggregate="AggregateFunction.Sum" AggregateFormat="C0" AggregateLabel="Σ "/>
+                <BOBDataColumn TItem="Order" Property="@(o => o.Quantity)" Header="@Loc["Quantity"]"
+                               Align="ColumnAlign.Right"
+                               Aggregate="AggregateFunction.Average" AggregateFormat="F1"
+                               AggregateLabel="@(Loc["Avg:"] + " ")"/>
+            </Columns>
+        </BOBDataGrid>
+    </DocDemo>
+
+    <DocDemo Key="RowActions" Title="@Loc["Per-row actions"]"
+             Description="@Loc["RowActions renders icon buttons in a sticky-right column. Per-row Visible / Enabled predicates support read-only flags, role-gated workflows, etc."]">
+        <BOBDataGrid Items="_people" RowActions="_rowActions">
+            <Columns>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]"/>
+            </Columns>
+        </BOBDataGrid>
+        @if (!string.IsNullOrEmpty(_actionLog))
+        {
+            <p class="doc-helper-text">@_actionLog</p>
+        }
+    </DocDemo>
+
+    <DocDemo Key="BulkActions" Title="@Loc["Bulk actions on selection"]"
+             Description="@Loc["BulkActions appear in the toolbar when at least one row is selected. Each handler receives the current selection - wire to delete / export / approve workflows."]">
+        <BOBDataGrid TItem="Person"
+                     Items="_people"
+                     SelectionMode="SelectionMode.Multiple"
+                     BulkActions="_bulkActions">
+            <Columns>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]"/>
+            </Columns>
+        </BOBDataGrid>
+        @if (!string.IsNullOrEmpty(_bulkLog))
+        {
+            <p class="doc-helper-text">@_bulkLog</p>
+        }
+    </DocDemo>
+
+    <DocDemo Key="RowDetail" Title="@Loc["Master-detail / row expansion"]"
+             Description="@Loc["RowDetailTemplate adds a chevron toggle to each row that expands a sub-row with related data. Combine with sticky headers for analytics-style drill-downs."]">
+        <BOBDataGrid Items="_orders">
+            <Columns>
+                <BOBDataColumn TItem="Order" Property="@(o => o.Id)" Header="@Loc["Order"]"/>
+                <BOBDataColumn TItem="Order" Property="@(o => o.Region)" Header="@Loc["Region"]"/>
+                <BOBDataColumn TItem="Order" Property="@(o => o.Amount)" Header="@Loc["Amount"]"
+                               Align="ColumnAlign.Right" Format="C0"/>
+            </Columns>
+            <RowDetailTemplate>
+                <BOBFlexStack Gap="0.5rem" Direction="FlexStackDirection.Column">
+                    <strong>Order #@context.Id - @context.Region</strong>
+                    <span>@Loc["Quantity"]: @context.Quantity items</span>
+                    <span>@Loc["Average price"]: @((context.Amount / Math.Max(1, context.Quantity)).ToString("C2"))</span>
+                </BOBFlexStack>
+            </RowDetailTemplate>
+        </BOBDataGrid>
+    </DocDemo>
+
+    <DocDemo Key="LoadingSkeleton" Title="@Loc["Skeleton loading"]"
+             Description="@Loc["LoadingMode = Skeleton renders animated placeholder rows while data is fetching. Pair with PageSize to control the row count. Reduced-motion users get static placeholders."]">
+        <BOBFlexStack Gap="0.75rem" Direction="FlexStackDirection.Column">
+            <BOBButton Text="@(_demoLoading ? Loc["Stop loading"] : Loc["Show skeleton"])" OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, ToggleLoading))"/>
+            <BOBDataGrid Items="_people"
+                         Loading="_demoLoading"
+                         LoadingMode="LoadingMode.Skeleton"
+                         PageSize="5">
                 <Columns>
-                    <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]" />
-                    <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]" />
+                    <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]"/>
+                    <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]"/>
+                    <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]"/>
                 </Columns>
             </BOBDataGrid>
-            <BOBDataGrid Items="_people" Border="@BOBBorderPresets.RoundedLarge">
+        </BOBFlexStack>
+    </DocDemo>
+
+    <DocDemo Key="ErrorState" Title="@Loc["Error state"]"
+             Description="@Loc["Set Error to surface a remote-load failure. Override ErrorContent for branded retry UX."]">
+        <BOBDataGrid Items="_people"
+                     Error="@Loc["Could not load orders - check your connection and retry."]">
+            <Columns>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]"/>
+            </Columns>
+        </BOBDataGrid>
+    </DocDemo>
+
+    <DocDemo Key="EmptyCta" Title="@Loc["Empty state with CTA"]"
+             Description="@Loc["EmptyActionTemplate slots a button (or any markup) into the default empty layout - encourages users to create their first record without writing a custom EmptyContent."]">
+        <BOBDataGrid Items="_emptyList">
+            <Columns>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]"/>
+            </Columns>
+            <EmptyActionTemplate>
+                <BOBButton Text="@Loc["Create first contact"]"
+                           LeadingIcon="@BOBIconKeys.MaterialIconsOutlined.i_add"/>
+            </EmptyActionTemplate>
+        </BOBDataGrid>
+    </DocDemo>
+
+    <DocDemo Key="ColumnFilters" Title="@Loc["Per-column filter"]"
+             Description="@Loc["ShowColumnFilters renders a small text input below each Filterable header. Filters AND-combine across columns and with the toolbar Filterable search box."]">
+        <BOBDataGrid Items="_people" ShowColumnFilters="true">
+            <Columns>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Id)" Header="ID"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]" Filterable="true"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]" Filterable="true"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]" Filterable="true"/>
+            </Columns>
+        </BOBDataGrid>
+    </DocDemo>
+
+    <DocDemo Key="FilterOperators" Title="@Loc["Filter operators (text / numeric / date)"]"
+             Description="@_filterOperatorsDesc">
+        <BOBDataGrid Items="_employees" ShowColumnFilters="true">
+            <Columns>
+                <BOBDataColumn TItem="Employee" Property="@(p => p.Name)" Header="@Loc["Name"]" Filterable="true"/>
+                <BOBDataColumn TItem="Employee" Property="@(p => p.Salary)" Header="@Loc["Salary"]" Filterable="true"
+                               FilterMode="ColumnFilterMode.Numeric">
+                    <Template Context="p">@p.Salary.ToString("N0")</Template>
+                </BOBDataColumn>
+                <BOBDataColumn TItem="Employee" Property="@(p => p.Hired)" Header="@Loc["Hired"]" Filterable="true"
+                               FilterMode="ColumnFilterMode.Date">
+                    <Template Context="p">@p.Hired.ToString("yyyy-MM-dd")</Template>
+                </BOBDataColumn>
+            </Columns>
+        </BOBDataGrid>
+    </DocDemo>
+
+    <DocDemo Key="FrozenColumns" Title="@Loc["Frozen columns"]"
+             Description="@Loc["Freeze pins a column to the inline-start (Start) or inline-end (End) edge via position:sticky. Frozen columns require an explicit pixel Width so the grid can compute cumulative offsets for adjacent peers."]">
+        <div style="overflow-x: auto;">
+            <BOBDataGrid Items="_people">
                 <Columns>
-                    <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]" />
-                    <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]" />
+                    <BOBDataColumn TItem="Person" Property="@(p => p.Id)" Header="ID" Width="80px"
+                                   Freeze="ColumnFreeze.Start"/>
+                    <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]" Width="200px"
+                                   Freeze="ColumnFreeze.Start"/>
+                    <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]" Width="320px"/>
+                    <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]" Width="320px"/>
+                    <BOBDataColumn TItem="Person" Header="@Loc["Status"]" Width="160px" Freeze="ColumnFreeze.End">
+                        <Template Context="p">@(p.ReadOnly ? Loc["Read-only"] : Loc["Active"])</Template>
+                    </BOBDataColumn>
                 </Columns>
             </BOBDataGrid>
+        </div>
+    </DocDemo>
+
+    <DocDemo Key="ResizeColumns" Title="@Loc["Column resize"]"
+             Description="@_resizeColumnsDesc">
+        <BOBDataGrid Items="_people" Resizable="true">
+            <Columns>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Id)" Header="ID" Width="80px"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]" Width="200px"
+                               Resizable="true" MinWidth="120"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]" Width="280px"
+                               Resizable="true" MinWidth="160"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]" Width="120px"
+                               Resizable="true" MinWidth="80" MaxWidth="240"/>
+            </Columns>
+        </BOBDataGrid>
+    </DocDemo>
+
+    <DocDemo Key="ReorderColumns" Title="@Loc["Column reorder (keyboard + drag)"]"
+             Description="@_reorderColumnsDesc">
+        <BOBDataGrid Items="_people" Reorderable="true">
+            <Columns>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Id)" Header="ID"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]"/>
+            </Columns>
+        </BOBDataGrid>
+    </DocDemo>
+
+    <DocDemo Key="StatePersistence" Title="@Loc["State persistence"]"
+             Description="@_statePersistenceDesc">
+        <BOBDataGrid Items="_people"
+                     PersistenceKey="docs-datagrid-demo"
+                     Filterable="true"
+                     ShowColumnFilters="true"
+                     Reorderable="true"
+                     Sortable="true"
+                     PageSize="3"
+                     ShowPageSizeSelector="true">
+            <Columns>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Id)" Header="ID" Sortable="true"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]" Sortable="true"
+                               Filterable="true"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]" Filterable="true"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]" Sortable="true"
+                               Filterable="true"/>
+            </Columns>
+        </BOBDataGrid>
+    </DocDemo>
+
+    <DocDemo Key="DataSourceInMemory" Title="@Loc["DataSource - InMemoryDataSource"]"
+             Description="@_dataSourceInMemoryDesc">
+        <BOBDataGrid TItem="Person"
+                     DataSource="_inMemorySource"
+                     Sortable="true"
+                     Filterable="true"
+                     PageSize="5">
+            <Columns>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Id)" Header="ID" Sortable="true"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]" Sortable="true"
+                               Filterable="true"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]" Filterable="true"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]" Sortable="true"/>
+            </Columns>
+        </BOBDataGrid>
+    </DocDemo>
+
+    <DocDemo Key="DataSourceRemote" Title="@Loc["DataSource - RemoteDataSource"]"
+             Description="@_dataSourceRemoteDesc">
+        <BOBDataGrid TItem="Person"
+                     DataSource="_remoteSource"
+                     Sortable="true"
+                     Filterable="true"
+                     PageSize="10"
+                     ShowPageSizeSelector="true">
+            <Columns>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Id)" Header="ID" Sortable="true"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]" Sortable="true"
+                               Filterable="true"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]" Filterable="true"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]" Sortable="true"/>
+            </Columns>
+        </BOBDataGrid>
+    </DocDemo>
+
+    <DocDemo Key="VirtualizeItemsProvider" Title="@Loc["Virtualize ItemsProvider (infinite scroll)"]"
+             Description="@_virtualizeProviderDesc">
+        <BOBDataGrid TItem="Person"
+                     DataSource="_remoteSource"
+                     EnableVirtualization="true"
+                     Height="320px"
+                     Sortable="true">
+            <Columns>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Id)" Header="ID" Sortable="true"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]" Sortable="true"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]" Sortable="true"/>
+            </Columns>
+        </BOBDataGrid>
+    </DocDemo>
+
+    <DocDemo Key="InlineEditCell" Title="@Loc["Inline editing - Cell mode"]"
+             Description="@_inlineEditCellDesc">
+        <BOBDataGrid TItem="EditablePerson"
+                     Items="_editablePeople"
+                     EditMode="BOBDataGridEditMode.Cell"
+                     OnRowSave="@(p => { _lastSavedName = p.Name; return Task.CompletedTask; })">
+            <Columns>
+                <BOBDataColumn TItem="EditablePerson" Property="@(p => p.Id)" Header="ID"/>
+                <BOBDataColumn TItem="EditablePerson" Property="@(p => p.Name)" Header="@Loc["Name"]" Editable="true"/>
+                <BOBDataColumn TItem="EditablePerson" Property="@(p => p.Email)" Header="@Loc["Email"]" Editable="true"/>
+                <BOBDataColumn TItem="EditablePerson" Property="@(p => p.Age)" Header="@Loc["Age"]" Editable="true"
+                               Align="ColumnAlign.Right"/>
+                <BOBDataColumn TItem="EditablePerson" Property="@(p => p.Hired)" Header="@Loc["Hired"]" Editable="true"/>
+                <BOBDataColumn TItem="EditablePerson" Property="@(p => p.IsActive)" Header="@Loc["Active"]" Editable="true"/>
+            </Columns>
+        </BOBDataGrid>
+        @if (!string.IsNullOrEmpty(_lastSavedName))
+        {
+            <p style="margin-top: 0.5rem; font-size: 0.85em; opacity: 0.7;">@Loc["Saved: "] @_lastSavedName</p>
+        }
+    </DocDemo>
+
+    <DocDemo Key="InlineEditBatch" Title="@Loc["Inline editing - Batch mode + validation"]"
+             Description="@_inlineEditBatchDesc">
+        <BOBDataGrid TItem="EditablePerson"
+                     Items="_editablePeople"
+                     EditMode="BOBDataGridEditMode.Batch"
+                     OnRowSave="@(p => { _batchSavedCount++; return Task.CompletedTask; })"
+                     OnRowCancel="@(p => { _batchCancelledCount++; return Task.CompletedTask; })">
+            <Columns>
+                <BOBDataColumn TItem="EditablePerson" Property="@(p => p.Id)" Header="ID"/>
+                <BOBDataColumn TItem="EditablePerson" Property="@(p => p.Name)" Header="@Loc["Name"]" Editable="true"
+                               Validator="@((p, v) => string.IsNullOrWhiteSpace(v?.ToString()) ? Loc["Name is required"].Value : null)"/>
+                <BOBDataColumn TItem="EditablePerson" Property="@(p => p.Email)" Header="@Loc["Email"]" Editable="true"
+                               Validator="@((p, v) => (v?.ToString() ?? string.Empty).Contains('@') ? null : Loc["Email must contain @"].Value)"/>
+                <BOBDataColumn TItem="EditablePerson" Property="@(p => p.Age)" Header="@Loc["Age"]" Editable="true"
+                               Align="ColumnAlign.Right"
+                               Validator="@((p, v) => int.TryParse(v?.ToString(), out var n) && n is >= 18 and <= 120 ? null : Loc["Age must be 18–120"].Value)"/>
+            </Columns>
+        </BOBDataGrid>
+        <p style="margin-top: 0.5rem; font-size: 0.85em; opacity: 0.7;">
+            @Loc["Saved batches: "] @_batchSavedCount &nbsp;·&nbsp; @Loc["Cancelled batches: "] @_batchCancelledCount
+        </p>
+    </DocDemo>
+
+    <DocDemo Key="Copyable" Title="@Loc["Copy to clipboard"]"
+             Description="@Loc["Set Copyable=true to surface a toolbar button that copies the current filtered + sorted view as TSV + HTML, pasteable into Excel / Sheets / Numbers. Subscribe to OnCopy for confirmation UX."]">
+        <BOBDataGrid Items="_people"
+                     Filterable="true"
+                     Copyable="true"
+                     OnCopy="@(EventCallback.Factory.Create<BOBDataGridCopyEventArgs<Person>>(this, HandleCopyAsync))">
+            <Columns>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Id)" Header="ID"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Name)" Header="@Loc["Name"]"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Email)" Header="@Loc["Email"]"/>
+                <BOBDataColumn TItem="Person" Property="@(p => p.Age)" Header="@Loc["Age"]"/>
+            </Columns>
+        </BOBDataGrid>
+        @if (_lastCopyCount is int n)
+        {
+            <p style="margin-top: 0.5rem; font-size: 0.85em; opacity: 0.7;">
+                @string.Format(Loc["{0} rows copied to clipboard"].Value, n)
+            </p>
+        }
     </DocDemo>
 
     <section class="doc-section">
         <h2 class="doc-section__title">@Loc["Properties"]</h2>
-        <PropertyTable Properties="@BOBDataGridComponentInfo.Parameters" />
+        <PropertyTable Properties="@BOBDataGridComponentInfo.Parameters"/>
     </section>
 
 </DocPage>
 
 @code {
-    private record Person(int Id, string Name, string Email, int Age);
+
+    private record Person(int Id, string Name, string Email, int Age, bool ReadOnly = false);
+
+    private class EditablePerson
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+        public int Age { get; set; }
+        public DateTime Hired { get; set; }
+        public bool IsActive { get; set; }
+    }
+
+    private record Order(int Id, string Region, decimal Amount, int Quantity);
+
+    private record Employee(string Name, decimal Salary, DateTime Hired);
+
+    private readonly List<Employee> _employees =
+    [
+        new("Alice Johnson", 72_000m, new DateTime(2019, 3, 14)),
+        new("Marcus Chen", 58_500m, new DateTime(2021, 11, 2)),
+        new("Priya Patel", 96_200m, new DateTime(2017, 7, 30)),
+        new("Diego Martinez", 49_300m, new DateTime(2023, 1, 9)),
+        new("Hana Nakamura", 84_750m, new DateTime(2020, 5, 22))
+    ];
 
     private readonly List<Person> _people =
     [
         new(1, "Alice Johnson", "alice@example.com", 29),
-        new(2, "Marcus Chen", "marcus@example.com", 34),
+        new(2, "Marcus Chen", "marcus@example.com", 34, true),
         new(3, "Priya Patel", "priya@example.com", 41),
         new(4, "Diego Martinez", "diego@example.com", 26),
         new(5, "Hana Nakamura", "hana@example.com", 38)
     ];
 
     private readonly List<Person> _big = Enumerable.Range(1, 35)
-        .Select(i => new Person(i, $"Person {i:D2}", $"person{i}@example.com", 20 + (i % 40)))
+        .Select(i => new Person(i, $"Person {i:D2}", $"person{i}@example.com", 20 + i % 40))
         .ToList();
 
-    private HashSet<Person> _selected = new();
+    private readonly List<Order> _orders =
+    [
+        new(1001, "EMEA", 1240m, 18),
+        new(1002, "Americas", 760m, 12),
+        new(1003, "EMEA", 2150m, 25),
+        new(1004, "APAC", 760m, 12),
+        new(1005, "Americas", 760m, 22),
+        new(1006, "APAC", 1340m, 16),
+        new(1007, "EMEA", 540m, 12)
+    ];
+
+    private readonly List<Person> _emptyList = [];
+
+    private HashSet<Person> _selected = [];
+    private string? _actionLog;
+    private string? _bulkLog;
+
+    // Mutable rows for the inline-edit demos. Cloned from _people on first build so the
+    // legacy immutable Person list isn't disturbed by user edits in the editing demos.
+    private readonly List<EditablePerson> _editablePeople =
+    [
+        new() { Id = 1, Name = "Alice Johnson", Email = "alice@example.com", Age = 29, Hired = new DateTime(2019, 3, 14), IsActive = true },
+        new() { Id = 2, Name = "Marcus Chen", Email = "marcus@example.com", Age = 34, Hired = new DateTime(2021, 11, 2), IsActive = true },
+        new() { Id = 3, Name = "Priya Patel", Email = "priya@example.com", Age = 41, Hired = new DateTime(2017, 7, 30), IsActive = false },
+        new() { Id = 4, Name = "Diego Martinez", Email = "diego@example.com", Age = 26, Hired = new DateTime(2023, 1, 9), IsActive = true },
+        new() { Id = 5, Name = "Hana Nakamura", Email = "hana@example.com", Age = 38, Hired = new DateTime(2020, 5, 22), IsActive = true }
+    ];
+
+    private string? _lastSavedName;
+    private int _batchSavedCount;
+    private int _batchCancelledCount;
+
+    // Last-copy feedback for the Copyable demo. The grid itself fires OnCopy after writing
+    // the clipboard payload; the page tracks the row count so the demo can echo confirmation
+    // without coupling the grid to a toast service.
+    private int? _lastCopyCount;
+
+    private Task HandleCopyAsync(BOBDataGridCopyEventArgs<Person> args)
+    {
+        _lastCopyCount = args.Items.Count;
+        return Task.CompletedTask;
+    }
+
+    // InMemoryDataSource over the large person seed - exercises the new DataSource path
+    // through the same shared pipeline as the legacy Items binding.
+    private InMemoryDataSource<Person> _inMemorySource => new(_big);
+
+    // RemoteDataSource - mock async provider that simulates a 200ms server round-trip
+    // over a 200-row store, applying filter / sort / paging server-side semantics. Real
+    // consumers point the provider at their API / database client.
+    private RemoteDataSource<Person> _remoteSource => new(async (DataRequest req, CancellationToken ct) =>
+    {
+        await Task.Delay(200, ct);
+
+        IEnumerable<Person> q = _remoteSeed;
+
+        // Global filter - substring match over Name + Email.
+        if (!string.IsNullOrWhiteSpace(req.GlobalFilter))
+        {
+            string f = req.GlobalFilter.ToLowerInvariant();
+            q = q.Where(p => p.Name.ToLowerInvariant().Contains(f)
+                          || p.Email.ToLowerInvariant().Contains(f));
+        }
+
+        // Sort - resolve the first descriptor by column header (Id / Name / Email / Age).
+        if (req.Sorts.Count > 0)
+        {
+            var sort = req.Sorts[0];
+            bool asc = sort.Direction == SortDirection.Ascending;
+            q = sort.ColumnName switch
+            {
+                "ID" => asc ? q.OrderBy(p => p.Id) : q.OrderByDescending(p => p.Id),
+                _ when sort.ColumnName == Loc["Name"].Value => asc ? q.OrderBy(p => p.Name) : q.OrderByDescending(p => p.Name),
+                _ when sort.ColumnName == Loc["Email"].Value => asc ? q.OrderBy(p => p.Email) : q.OrderByDescending(p => p.Email),
+                _ when sort.ColumnName == Loc["Age"].Value => asc ? q.OrderBy(p => p.Age) : q.OrderByDescending(p => p.Age),
+                _ => q
+            };
+        }
+
+        List<Person> all = q.ToList();
+        int total = all.Count;
+
+        IEnumerable<Person> page = req.Count is int take and > 0
+            ? all.Skip(req.StartIndex).Take(take)
+            : all.Skip(req.StartIndex);
+
+        return new DataResult<Person>(page.ToList(), total);
+    });
+
+    private static readonly List<Person> _remoteSeed = Enumerable.Range(1, 200)
+        .Select(i => new Person(i, $"Person {i:D3}", $"person{i}@example.com", 20 + i * 7 % 40))
+        .ToList();
+    private bool _demoLoading;
+
+    private Task LogAction(Person p, string verb)
+    {
+        _actionLog = $"{verb} {p.Name}";
+        return Task.CompletedTask;
+    }
+
+    private IReadOnlyList<DataCollectionRowAction<Person>> _rowActions =>
+    [
+        new DataCollectionRowAction<Person>
+        {
+            Label = "Edit",
+            Icon = BOBIconKeys.MaterialIconsOutlined.i_edit,
+            OnClick = p => LogAction(p, "Edit")
+        },
+        new DataCollectionRowAction<Person>
+        {
+            Label = "Delete",
+            Icon = BOBIconKeys.MaterialIconsOutlined.i_delete,
+            Color = PaletteColor.Error,
+            // ReadOnly people don't expose Delete - visible predicate hides it.
+            Visible = p => !p.ReadOnly,
+            OnClick = p => LogAction(p, "Delete")
+        }
+    ];
+
+    private IReadOnlyList<DataCollectionBulkAction<Person>> _bulkActions =>
+    [
+        new DataCollectionBulkAction<Person>
+        {
+            Label = "Email selected",
+            Icon = BOBIconKeys.MaterialIconsOutlined.i_mail,
+            OnClick = sel =>
+            {
+                _bulkLog = $"Emailing {sel.Count} person(s)";
+                return Task.CompletedTask;
+            }
+        },
+        new DataCollectionBulkAction<Person>
+        {
+            Label = "Delete",
+            Icon = BOBIconKeys.MaterialIconsOutlined.i_delete,
+            Color = PaletteColor.Error,
+            // Disable when more than 3 are selected - defensive bulk-op gate.
+            Enabled = sel => sel.Count <= 3,
+            OnClick = sel =>
+            {
+                _bulkLog = $"Deleting {sel.Count} person(s)";
+                return Task.CompletedTask;
+            }
+        }
+    ];
+
+    private string _filterOperatorsDesc = string.Empty;
+    private string _resizeColumnsDesc = string.Empty;
+    private string _reorderColumnsDesc = string.Empty;
+    private string _statePersistenceDesc = string.Empty;
+    private string _dataSourceInMemoryDesc = string.Empty;
+    private string _dataSourceRemoteDesc = string.Empty;
+    private string _virtualizeProviderDesc = string.Empty;
+    private string _inlineEditCellDesc = string.Empty;
+    private string _inlineEditBatchDesc = string.Empty;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        _filterOperatorsDesc = Loc["FilterMode picks the operator vocabulary rendered next to the column input. Text columns expose Contains / StartsWith / EndsWith / = / ≠. Numeric and Date columns expose = / ≠ / > / < / ≥ / ≤. The operator <select> sits beside the typed input and AND-combines with global Filterable text and other column filters."];
+        _resizeColumnsDesc = Loc["Resizable on the grid + Resizable on a column adds a small drag handle on the trailing edge of the header. Pointerdown captures the column and a full-grid overlay listens for pointermove / pointerup so the cursor can leave the handle mid-drag without losing the gesture. The new width is written to DataCollectionState.ColumnWidths and persists via PersistenceKey when configured. MinWidth / MaxWidth clamp the drag."];
+        _reorderColumnsDesc = Loc["Reorderable enables both interactions on every header: focus + Alt+ArrowLeft / Alt+ArrowRight shifts the column for keyboard users, and HTML5 drag-and-drop on the th lets the user pick a header up and drop it onto a peer to take that peer's slot. Both paths write to DataCollectionState.ColumnOrder, so the drag survives the persistence round-trip alongside the keyboard nudges."];
+        _statePersistenceDesc = Loc["Set PersistenceKey to round-trip filter / sort / page / column-order / column-filters through the registered IDataCollectionStatePersistence. Default registration is a no-op; consumers opt in to localStorage with builder.Services.AddBlazOrbitDataCollectionLocalStorage(). Register a custom IDataCollectionStatePersistence implementation for query-string or server-side stores."];
+        _dataSourceInMemoryDesc = Loc["The DataSource parameter routes filter / sort / page through an IDataCollectionDataSource. InMemoryDataSource wraps an IEnumerable and runs the shared pipeline locally - same semantics as the legacy Items path, but the unified abstraction lets you swap to a remote source without touching the column markup."];
+        _dataSourceRemoteDesc = Loc["RemoteDataSource accepts an async Func<DataRequest, Task<DataResult<T>>> provider. Each filter / sort / page change builds a DataRequest with StartIndex + Count plus the active sort / filter descriptors and awaits the provider. This demo simulates a 200ms server round-trip and counts pages from a 200-row store."];
+        _virtualizeProviderDesc = Loc["When DataSource + EnableVirtualization + Height are all set, the grid hands row materialisation to Microsoft.AspNetCore.Components.Web.Virtualization.Virtualize via ItemsProvider. The traditional pagination footer disappears - Virtualize requests slices on demand as the user scrolls, with a Placeholder row rendered while a chunk loads."];
+        _inlineEditCellDesc = Loc["Mark a column with Editable=\"true\" and set EditMode=\"BOBDataGridEditMode.Cell\" on the grid to activate per-cell editing. Double-click a cell to open the input. Enter or blur saves; Escape cancels. The cell editor auto-resolves the input primitive from the property type - text / number / date / time / checkbox. OnRowSave fires after every successful commit."];
+        _inlineEditBatchDesc = Loc["EditMode=\"BOBDataGridEditMode.Batch\" stages every cell commit until the user clicks the toolbar Save (applies + fires OnRowSave per row) or Cancel (reverts to pre-edit snapshot + fires OnRowCancel). Column-level Validator delegates return an error message that surfaces as a red cell border + tooltip and keeps the editor open until the input is valid."];
+    }
+
+    private void ToggleLoading()
+    {
+        _demoLoading = !_demoLoading;
+    }
+
 }

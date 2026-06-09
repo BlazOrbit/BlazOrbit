@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 /// <summary>
 /// Indicates the component supports a <see cref="Shadow" /> parameter.
@@ -16,16 +16,22 @@ public readonly struct ShadowLine
 {
     /// <summary>Shadow color.</summary>
     public readonly string Color;
+
     /// <summary>When <see langword="true" />, the shadow is inset.</summary>
     public readonly bool Inset;
+
     /// <summary>Shadow opacity (0–1).</summary>
     public readonly float Opacity;
+
     /// <summary>Horizontal offset in pixels.</summary>
     public readonly int X;
+
     /// <summary>Vertical offset in pixels.</summary>
     public readonly int Y;
+
     /// <summary>Blur radius in pixels.</summary>
     public readonly int Blur;
+
     /// <summary>Spread radius in pixels.</summary>
     public readonly int Spread;
 
@@ -51,7 +57,8 @@ public sealed class ShadowStyle
     private readonly List<ShadowLine> _lines = [];
 
     private ShadowStyle()
-    { }
+    {
+    }
 
     internal IReadOnlyList<ShadowLine> Lines => _lines;
 
@@ -100,7 +107,7 @@ public sealed class ShadowStyle
         return string.Join(", ", _lines.Select(l =>
             $"{(l.Inset ? "inset " : "")}" +
             $"{l.X}px {l.Y}px {l.Blur}px {l.Spread}px " +
-            $"color-mix(in srgb, {l.Color} {l.Opacity * 100}%, transparent)"
+            $"color-mix(in oklab, {l.Color} {l.Opacity * 100}%, transparent)"
         ));
     }
 }

@@ -1,0 +1,11 @@
+# Tool
+Herramienta
+
+# Theme Generator
+Generador de temas
+
+# Live visual editor for color palettes and design tokens. Tweak colors, typography, spacing, borders, and more, then preview changes on real components instantly. Export as CSS, JSON, or C#.
+Editor visual en vivo para paletas de colores y tokens de diseño. Ajusta colores, tipografía, espaciado, bordes y más, luego previsualiza los cambios en componentes reales al instante. Exporta como CSS, JSON o C#.
+
+# The editor exposes every design token the library consumes: palette colors, typography scales, spacing multipliers, border radius, opacity curves, z-index layers, ripple duration, scrollbar styling, and input-family defaults. Changing a token updates the live preview immediately because the components read CSS variables directly.
+El editor expone cada token de diseño que consume la biblioteca: colores de paleta, escalas tipográficas, multiplicadores de espaciado, radio de borde, curvas de opacidad, capas de z-index, duración del efecto ripple, estilo de barras de desplazamiento y valores predeterminados de la familia de entrada. Cambiar un token actualiza la vista previa en vivo inmediatamente porque los componentes leen las variables CSS directamente.

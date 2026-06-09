@@ -1,0 +1,29 @@
+// Auto-migrated from SparklinePage.es.resx. Edit freely from now on.
+
+# Chart
+Gráfico
+
+# Extra package required
+Paquete adicional requerido
+
+# Inline KPI sparklines
+Minigráficos KPI en línea
+
+# Inline mini line chart without axes or legend. Perfect for embedding in tables, KPI cards, and list rows to show trends at a glance.
+Mini gráfico de líneas en línea sin ejes ni leyenda. Perfecto para incrustar en tablas, tarjetas KPI y filas de lista para mostrar tendencias de un vistazo.
+
+# ShowMarkers=true keeps the per-point dots even in sparkline mode for cases where individual reading values matter (e.g. financial last-trade markers).
+ShowMarkers=true mantiene los puntos por punto incluso en modo sparkline para casos donde los valores individuales importan (por ejemplo, marcadores de última operación financiera).
+
+# Sparkline
+Sparkline
+
+# Sparkline with markers
+Sparkline con marcadores
+
+# This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs.
+Este gráfico requiere el paquete NuGet BlazOrbit.Charts. Instálalo con dotnet add package BlazOrbit.Charts y registra AddBlazOrbitCharts() en Program.cs.
+
+
+# Sparkline is exposed as a parameter set on <code>BOBLineChart</code>: setting <code>Variant="BOBLineChartVariant.Sparkline"</code> hides axes, grid, tick labels, and legend so only the stroke remains. Because it is the same component, all data-binding and animation features are preserved. Typical dimensions are around 120×32 pixels for inline embedding.
+Sparkline se expone como un conjunto de parámetros en <code>BOBLineChart</code>: establecer <code>Variant="BOBLineChartVariant.Sparkline"</code> oculta ejes, cuadrícula, etiquetas de ticks y leyenda para que solo permanezca el trazo. Como es el mismo componente, todas las funciones de enlace de datos y animación se preservan. Las dimensiones típicas son alrededor de 120×32 píxeles para incrustación en línea.

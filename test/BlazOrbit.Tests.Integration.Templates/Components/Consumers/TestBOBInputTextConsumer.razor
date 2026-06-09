@@ -1,14 +1,14 @@
-﻿@using BlazOrbit.Components.Forms
+@using BlazOrbit.Components.Forms
 @using Microsoft.AspNetCore.Components.Forms
 @using System.ComponentModel.DataAnnotations
 
 <div class="test-inputtext-consumer">
     <EditForm EditContext="_editContext" OnValidSubmit="HandleValid" OnInvalidSubmit="HandleInvalid">
-        <DataAnnotationsValidator />
+        <DataAnnotationsValidator/>
 
         <BOBInputText @bind-Value="_model.Email"
                       Label="Email"
-                      HelperText="We'll never share it." />
+                      HelperText="We'll never share it."/>
 
         <button type="submit" class="submit-btn">Submit</button>
     </EditForm>
@@ -16,6 +16,7 @@
 </div>
 
 @code {
+
     public class Model
     {
         [Required(ErrorMessage = "Email is required")]
@@ -39,8 +40,19 @@
     public EditContext EditContext => _editContext!;
     public Model BoundModel => _model;
 
-    public void ForceValidate() => _editContext?.Validate();
+    public void ForceValidate()
+    {
+        _editContext?.Validate();
+    }
 
-    private void HandleValid() => _submitResult = "valid";
-    private void HandleInvalid() => _submitResult = "invalid";
+    private void HandleValid()
+    {
+        _submitResult = "valid";
+    }
+
+    private void HandleInvalid()
+    {
+        _submitResult = "invalid";
+    }
+
 }

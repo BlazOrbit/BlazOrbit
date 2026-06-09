@@ -1,4 +1,4 @@
-﻿using BlazOrbit.SyntaxHighlight.Builder;
+using BlazOrbit.SyntaxHighlight.Builder;
 using BlazOrbit.SyntaxHighlight.Tokens;
 
 namespace BlazOrbit.SyntaxHighlight.Tests;
@@ -50,7 +50,7 @@ public class LanguageDefinitionBuilderTests
     public void AddDelimited_HandlesEscapeSequences()
     {
         LanguageDefinition definition = LanguageDefinition.Create("test")
-            .AddDelimited(TokenType.String, "\"", "\"", escape: "\\")
+            .AddDelimited(TokenType.String, "\"", "\"", "\\")
             .Build();
 
         IReadOnlyList<Token> tokens = definition.Tokenize("\"hello \\\"escaped\\\" world\"");
@@ -63,7 +63,7 @@ public class LanguageDefinitionBuilderTests
     public void AddDelimited_TokenizesDelimitedContent()
     {
         LanguageDefinition definition = LanguageDefinition.Create("test")
-            .AddDelimited(TokenType.String, "\"", "\"", escape: "\\")
+            .AddDelimited(TokenType.String, "\"", "\"", "\\")
             .Build();
 
         IReadOnlyList<Token> tokens = definition.Tokenize("\"hello world\"");
@@ -166,7 +166,7 @@ public class LanguageDefinitionBuilderTests
     public void AddPattern_WithWordBoundary_DoesNotMatchPartial()
     {
         LanguageDefinition definition = LanguageDefinition.Create("test")
-            .AddPattern(TokenType.Number, @"\d+", requireWordBoundary: true)
+            .AddPattern(TokenType.Number, @"\d+", true)
             .Build();
 
         IReadOnlyList<Token> tokens = definition.Tokenize("abc123def");
@@ -278,8 +278,8 @@ public class LanguageDefinitionBuilderTests
     public void Priority_HigherPriorityMatchesFirst()
     {
         LanguageDefinition definition = LanguageDefinition.Create("test")
-            .AddKeywords(TokenType.Type, ["string"], priority: 100)
-            .AddKeywords(TokenType.Keyword, ["string"], priority: 50)
+            .AddKeywords(TokenType.Type, ["string"], 100)
+            .AddKeywords(TokenType.Keyword, ["string"], 50)
             .Build();
 
         IReadOnlyList<Token> tokens = definition.Tokenize("string");

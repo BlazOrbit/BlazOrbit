@@ -1,4 +1,4 @@
-﻿[data-bob-component="culture-selector"] {
+[data-bob-component="culture-selector"] {
     display: inline-flex;
     align-items: center;
 }
@@ -46,11 +46,11 @@
 }
 
 [data-bob-component="culture-selector"] .bob-culture-selector__flag-button:hover:not([disabled]) {
-    --_culture-flag-bg: color-mix(in srgb, var(--palette-primary) 10%, transparent);
+    --_culture-flag-bg: color-mix(in oklab, var(--palette-primary) 10%, transparent);
 }
 
 [data-bob-component="culture-selector"] .bob-culture-selector__flag-button.active {
-    --_culture-flag-bg: color-mix(in srgb, var(--palette-primary) 12%, transparent);
+    --_culture-flag-bg: color-mix(in oklab, var(--palette-primary) 12%, transparent);
     --_culture-flag-border: var(--palette-primary);
 }
 

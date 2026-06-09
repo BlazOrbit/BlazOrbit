@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -12,10 +12,11 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.DataCollections;
 public class BOBDataColumnInteractionTests
 {
     private sealed record Person(string Name, int Age);
+
     private static readonly Expression<Func<Person, object?>> NameExpr = p => (object?)p.Name;
     private static readonly Expression<Func<Person, object?>> AgeExpr = p => (object?)p.Age;
 
-    private static IEnumerable<Person> TwoItems => [new Person("Bob", 25), new Person("Alice", 30)];
+    private static IEnumerable<Person> TwoItems => [new("Bob", 25), new("Alice", 30)];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -66,11 +67,11 @@ public class BOBDataColumnInteractionTests
                 b.CloseComponent();
             }));
 
-        // Act — first click ascending
+        // Act - first click ascending
         cut.Find(".bob-datagrid__sort-btn").Click();
         cut.Find("[role='columnheader']").GetAttribute("aria-sort").Should().Be("ascending");
 
-        // Act — second click descending
+        // Act - second click descending
         cut.Find(".bob-datagrid__sort-btn").Click();
 
         // Assert
@@ -83,7 +84,7 @@ public class BOBDataColumnInteractionTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — two sortable columns; click Age sort only
+        // Arrange - two sortable columns; click Age sort only
         IRenderedComponent<BOBDataGrid<Person>> cut = ctx.Render<BOBDataGrid<Person>>(p => p
             .Add(c => c.Items, TwoItems)
             .Add(c => c.Sortable, true)
@@ -99,14 +100,15 @@ public class BOBDataColumnInteractionTests
                 b.AddAttribute(6, "Header", "Age");
                 b.AddAttribute(7, "Sortable", true);
                 b.AddAttribute(8, "Property", AgeExpr);
-                b.AddAttribute(9, "Template", (RenderFragment<Person>)(item => b2 => b2.AddContent(0, item.Age.ToString())));
+                b.AddAttribute(9, "Template",
+                    (RenderFragment<Person>)(item => b2 => b2.AddContent(0, item.Age.ToString())));
                 b.CloseComponent();
             }));
 
-        // Act — click the Age sort button (second)
+        // Act - click the Age sort button (second)
         cut.FindAll(".bob-datagrid__sort-btn")[1].Click();
 
-        // Assert — Bob (25) first, Alice (30) second
+        // Assert - Bob (25) first, Alice (30) second
         cut.FindAll("[role='gridcell']")[1].TextContent.Should().Be("25");
     }
 
@@ -116,7 +118,7 @@ public class BOBDataColumnInteractionTests
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
 
-        // Arrange — reverse-length comparer on Name
+        // Arrange - reverse-length comparer on Name
         Func<Person, Person, int> comparer = (a, b) => a.Name.Length.CompareTo(b.Name.Length);
 
         IRenderedComponent<BOBDataGrid<Person>> cut = ctx.Render<BOBDataGrid<Person>>(p => p
@@ -136,7 +138,7 @@ public class BOBDataColumnInteractionTests
         // Act
         cut.Find(".bob-datagrid__sort-btn").Click();
 
-        // Assert — shortest name first
+        // Assert - shortest name first
         cut.FindAll("[role='gridcell']")[0].TextContent.Should().Be("Bo");
         cut.FindAll("[role='gridcell']")[2].TextContent.Should().Be("Charlie");
     }

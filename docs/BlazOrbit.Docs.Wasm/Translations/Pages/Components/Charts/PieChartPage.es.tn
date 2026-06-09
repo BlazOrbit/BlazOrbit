@@ -1,0 +1,47 @@
+// Auto-migrated from PieChartPage.es.resx. Edit freely from now on.
+
+# Assign explicit Color values to each BOBChartSlice to override the default palette cycle.
+Asigna valores de Color explícitos a cada BOBChartSlice para anular el ciclo de paleta predeterminado.
+
+# Basic usage
+Uso básico
+
+# BOBPieChart
+BOBPieChart
+
+# Chart
+Gráfico
+
+# Custom slice colors
+Colores de porción personalizados
+
+# Extra package required
+Paquete adicional requerido
+
+# Full circular distribution chart. Each slice value is auto-normalized to 100% across the slice set; slice order goes clockwise from 12 o'clock following declaration order.
+Gráfico de distribución circular completo. Cada valor de porción se normaliza automáticamente al 100% en el conjunto de porciones; el orden sigue el sentido de las agujas del reloj desde las 12 en punto según el orden de declaración.
+
+# Legend on the right
+Leyenda a la derecha
+
+# LegendPosition moves the legend block relative to the chart.
+LegendPosition mueve el bloque de leyenda en relación con el gráfico.
+
+# OnSliceClick fires when a slice is clicked, carrying the label, raw value, index and computed percentage.
+OnSliceClick se dispara al hacer clic en una porción, llevando la etiqueta, valor en bruto, índice y porcentaje calculado.
+
+# ShowPercentages=false hides the in-slice labels. Hover still reveals the exact percentage via the native tooltip.
+ShowPercentages=false oculta las etiquetas dentro de las porciones. Pasar el ratón sigue revelando el porcentaje exacto mediante el tooltip nativo.
+
+# Slice click handler
+Manejador de clic en porción
+
+# This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs.
+Este gráfico requiere el paquete NuGet BlazOrbit.Charts. Instálalo con dotnet add package BlazOrbit.Charts y registra AddBlazOrbitCharts() en Program.cs.
+
+# With export button
+Con botón de exportación
+
+# Without percentage labels
+Sin etiquetas de porcentaje
+

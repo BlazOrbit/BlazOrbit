@@ -1,4 +1,4 @@
-﻿[
+[
   {
     Name: Dot_Mode,
     Html: <bob-component data-bob-dot="true" data-bob-component="badge" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><span class="bob-badge" b-<SCOPE>></span></bob-component>
@@ -19,6 +19,6 @@
     Name: Notification_Badge_TopRight,
     Html:
 <bob-component data-bob-position="topright" data-bob-component="notification-badge" data-bob-variant="default" data-bob-size="small" b-<SCOPE>>
-            <div class="bob-<SCOPE>on-badge__indicator" b-<SCOPE>><bob-component data-bob-circular="true" data-bob-component="badge" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><span class="bob-badge" b-<SCOPE>>3</span></bob-component></div></bob-component>
+            <div class="bob-notification-badge__indicator" b-<SCOPE>><bob-component data-bob-circular="true" data-bob-component="badge" data-bob-variant="default" data-bob-size="small" b-<SCOPE>><span class="bob-badge" b-<SCOPE>>3</span></bob-component></div></bob-component>
   }
 ]

@@ -1,4 +1,4 @@
-﻿using BlazOrbit.SyntaxHighlight.Builder;
+using BlazOrbit.SyntaxHighlight.Builder;
 using BlazOrbit.SyntaxHighlight.Tokens;
 
 namespace BlazOrbit.SyntaxHighlight.Languages;
@@ -19,13 +19,13 @@ public static class TypeScriptLanguage
             .CaseSensitive()
 
             // Comments
-            .AddLineComment("//", priority: 1000)
-            .AddBlockComment("/*", "*/", priority: 999)
+            .AddLineComment("//", 1000)
+            .AddBlockComment("/*", "*/", 999)
 
             // Strings
-            .AddString("`", "`", escape: "\\", tokenType: TokenType.InterpolatedString, priority: 998)
-            .AddString("\"", "\"", escape: "\\", priority: 997)
-            .AddString("'", "'", escape: "\\", priority: 996)
+            .AddString("`", "`", "\\", TokenType.InterpolatedString, 998)
+            .AddString("\"", "\"", "\\", priority: 997)
+            .AddString("'", "'", "\\", priority: 996)
 
             // Regular expressions (simplified)
             .AddPattern(TokenType.String, @"/(?!\*)(?:[^/\\]|\\.)+/[gimsuy]*", priority: 950)
@@ -36,7 +36,7 @@ public static class TypeScriptLanguage
                 "for", "while", "do", "break", "continue",
                 "return", "throw", "try", "catch", "finally",
                 "await", "yield", "with"
-            ], priority: 800)
+            ], 800)
 
             // TypeScript specific keywords
             .AddKeywords(TokenType.Keyword, [
@@ -48,7 +48,7 @@ public static class TypeScriptLanguage
                 "override", "private", "protected", "public", "readonly",
                 "require", "set", "static", "super", "this",
                 "type", "typeof", "var", "asserts", "satisfies"
-            ], priority: 799)
+            ], 799)
 
             // Built-in types
             .AddKeywords(TokenType.Type, [
@@ -58,12 +58,12 @@ public static class TypeScriptLanguage
                 "Promise", "Record", "Partial", "Required", "Readonly",
                 "Pick", "Omit", "Exclude", "Extract", "NonNullable",
                 "ReturnType", "InstanceType", "Parameters", "ConstructorParameters"
-            ], priority: 798)
+            ], 798)
 
             // Literals
             .AddKeywords(TokenType.Keyword, [
                 "true", "false", "null", "undefined", "NaN", "Infinity"
-            ], priority: 797)
+            ], 797)
 
             // Numbers
             .AddPattern(TokenType.Number, @"0[xX][0-9a-fA-F_]+n?", priority: 700)
@@ -72,7 +72,7 @@ public static class TypeScriptLanguage
             .AddPattern(TokenType.Number, @"\d[\d_]*\.[\d_]*([eE][+-]?\d+)?", priority: 697)
             .AddPattern(TokenType.Number, @"\.[\d_]+([eE][+-]?\d+)?", priority: 696)
             .AddPattern(TokenType.Number, @"\d[\d_]*([eE][+-]?\d+)", priority: 695)
-            .AddPattern(TokenType.Number, @"\d[\d_]*n?", requireWordBoundary: true, priority: 694)
+            .AddPattern(TokenType.Number, @"\d[\d_]*n?", true, 694)
 
             // Decorators
             .AddPattern(TokenType.Attribute, @"@[\w$]+", priority: 600)
@@ -83,12 +83,11 @@ public static class TypeScriptLanguage
                 "<<", ">>", ">>>", "<=", ">=", "===", "!==", "==", "!=",
                 "+=", "-=", "*=", "/=", "%=", "&=", "|=", "^=",
                 "**=", "&&=", "||=", "??=", "<<=", ">>=", ">>>=", "..."
-            ], priority: 500)
-            .AddOperators("+-*/%&|^~!<>=?:", priority: 499)
+            ], 500)
+            .AddOperators("+-*/%&|^~!<>=?:", 499)
 
             // Punctuation
-            .AddPunctuation("{}[]();,.", priority: 400)
-
+            .AddPunctuation("{}[]();,.", 400)
             .Build();
     }
 }

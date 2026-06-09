@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -42,19 +42,19 @@ public class BOBCultureSelectorRenderingTests
             ? ctx.Services.GetRequiredService<ServerSettings>().SupportedCultures.Count
             : ctx.Services.GetRequiredService<WasmSettings>().SupportedCultures.Count;
 
-        // BOBInputDropdown only emits option DOM when the menu is open — open it first.
+        // BOBInputDropdown only emits option DOM when the menu is open - open it first.
         IReadOnlyList<IElement> options;
         if (scenario.Name == "Server")
         {
-            IRenderedComponent<ServerSelector> cut = ctx.Render<ServerSelector>(
-                p => p.Add(c => c.Variant, SharedVariant.Dropdown));
+            IRenderedComponent<ServerSelector> cut =
+                ctx.Render<ServerSelector>(p => p.Add(c => c.Variant, SharedVariant.Dropdown));
             cut.Find("button.bob-dropdown__trigger").Click();
             options = cut.FindAll(".bob-dropdown__option");
         }
         else
         {
-            IRenderedComponent<WasmSelector> cut = ctx.Render<WasmSelector>(
-                p => p.Add(c => c.Variant, SharedVariant.Dropdown));
+            IRenderedComponent<WasmSelector> cut =
+                ctx.Render<WasmSelector>(p => p.Add(c => c.Variant, SharedVariant.Dropdown));
             cut.Find("button.bob-dropdown__trigger").Click();
             options = cut.FindAll(".bob-dropdown__option");
         }

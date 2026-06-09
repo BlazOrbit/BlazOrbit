@@ -1,4 +1,4 @@
-﻿@using BlazOrbit.Components
+@using BlazOrbit.Components
 @using BlazOrbit.Abstractions
 
 @inherits BOBComponentBase
@@ -44,5 +44,9 @@
     [Parameter] public BorderStyle? Border { get; set; }
 
     private ElementReference _elementRef;
-    public ElementReference GetRippleContainer() => _elementRef;
+    public ElementReference? GetRippleContainer()
+    {
+        return _elementRef;
+    }
+
 }

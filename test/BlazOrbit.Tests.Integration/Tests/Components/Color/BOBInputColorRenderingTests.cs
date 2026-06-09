@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
@@ -11,7 +11,10 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.Color;
 [Trait("Component Rendering", "BOBInputColor")]
 public class BOBInputColorRenderingTests
 {
-    private class Model { public CssColor? Value { get; set; } }
+    private class Model
+    {
+        public CssColor? Value { get; set; }
+    }
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -114,7 +117,7 @@ public class BOBInputColorRenderingTests
             .Add(c => c.Label, "Color")
             .Add(c => c.ValueExpression, () => model.Value));
 
-        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().BeNull();
     }
 
     [Theory]

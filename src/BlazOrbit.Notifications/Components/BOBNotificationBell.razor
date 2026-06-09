@@ -1,0 +1,70 @@
+@namespace BlazOrbit.Notifications
+
+@using BlazOrbit.Abstractions
+@using BlazOrbit.Components
+
+@inherits BOBComponentBase
+@implements IHasSize
+@inject INotificationCenter Center
+@implements IDisposable
+
+<bob-component @attributes="ComputedAttributes"
+               data-bob-unread="@(UnreadCount > 0 ? "true" : null)">
+    <button type="button"
+            class="bob-notification-bell"
+            aria-label="@AriaLabel"
+            @onclick="HandleClickAsync">
+        <BOBSvgIcon Icon="@BOBIconKeys.MaterialIconsOutlined.i_notifications" Size="@Size"/>
+        @if (UnreadCount > 0)
+        {
+            <span class="bob-notification-bell__badge"
+                  aria-label="@($"{UnreadCount} unread")">
+                @(UnreadCount > 99 ? "99+" : UnreadCount.ToString())
+            </span>
+        }
+    </button>
+</bob-component>
+
+@code {
+
+    /// <summary>Visual size of the bell glyph + badge.</summary>
+    [Parameter]
+    public BOBSize Size { get; set; } = BOBSize.Medium;
+
+    /// <summary>Aria label rendered on the button.</summary>
+    [Parameter]
+    public string AriaLabel { get; set; } = "Notifications";
+
+    /// <summary>Raised when the bell is clicked. Consumers typically open a drawer or popover here.</summary>
+    [Parameter]
+    public EventCallback OnClick { get; set; }
+
+    /// <summary>Live unread count, sourced from the injected <see cref="INotificationCenter"/>.</summary>
+    public int UnreadCount => Center.UnreadCount;
+
+    protected override void OnInitialized()
+    {
+        Center.OnChangeAsync += OnCenterChangedAsync;
+    }
+
+    private Task OnCenterChangedAsync()
+    {
+        // Re-render on every inbox mutation so the badge stays in sync without consumers
+        // having to wire StateHasChanged manually.
+        return InvokeAsync(StateHasChanged);
+    }
+
+    private async Task HandleClickAsync()
+    {
+        if (OnClick.HasDelegate)
+        {
+            await OnClick.InvokeAsync();
+        }
+    }
+
+    public void Dispose()
+    {
+        Center.OnChangeAsync -= OnCenterChangedAsync;
+    }
+
+}

@@ -1,4 +1,4 @@
-﻿[data-bob-component="sidebar-layout"] {
+[data-bob-component="sidebar-layout"] {
     --_sidebar-layout-header-height: var(--bob-inline-header-height, 64px);
     --_sidebar-layout-sidebar-width: var(--bob-inline-sidebar-width, 280px);
     --_sidebar-layout-collapse: var(--bob-inline-collapse-breakpoint, 960px);
@@ -15,7 +15,7 @@
     background: var(--_sidebar-layout-bg);
     color: var(--_sidebar-layout-fg);
     box-sizing: border-box;
-    gap:0px;
+    gap: 0px;
 }
 
 [data-bob-component="sidebar-layout"] .bob-sidebar-layout__header {
@@ -29,8 +29,15 @@
     -webkit-backdrop-filter: saturate(180%) blur(12px);
     border-bottom: 1px solid var(--_sidebar-layout-border);
     box-sizing: border-box;
-    /* Header stays above page content (incl. dropdowns) but below modals/tooltips/toasts. */
-    z-index: var(--bob-z-sticky);
+    /* Header stays above page content (incl. dropdowns + the sidebar
+       drawer in mobile) but below modals/tooltips/toasts. The +1 keeps
+       the header reliably above the sidebar (which also uses
+       --bob-z-sticky for its mobile drawer state) so the logo never gets
+       occluded when scrolling. `isolation: isolate` locks a private
+       stacking context so backdrop-filter's compositor flatten doesn't
+       leak children to the page below on Safari / Firefox. */
+    z-index: calc(var(--bob-z-sticky) + 1);
+    isolation: isolate;
 }
 
 [data-bob-component="sidebar-layout"][data-bob-sticky-header="true"] .bob-sidebar-layout__header {
@@ -103,6 +110,7 @@
     border-right: 1px solid var(--_sidebar-layout-border);
     background: var(--_sidebar-layout-surface);
     min-width: 0;
+    z-index: 1100;
 }
 
 [data-bob-component="sidebar-layout"][data-bob-sidebar-side="end"] .bob-sidebar-layout__sidebar {
@@ -129,6 +137,7 @@
     min-width: 0;
     padding: 2rem clamp(1rem, 4vw, 3rem) 4rem;
     box-sizing: border-box;
+    z-index: 1000;
 }
 
 [data-bob-component="sidebar-layout"][data-bob-sidebar-side="end"] .bob-sidebar-layout__main {
@@ -144,15 +153,19 @@
     display: none;
     position: fixed;
     inset: var(--_sidebar-layout-header-height) 0 0 0;
-    background: color-mix(in srgb, var(--palette-shadow) 45%, transparent);
+    background: color-mix(in oklab, var(--palette-shadow) 45%, transparent);
     /* Mobile scrim: below the slide-out sidebar drawer, above page content. */
     z-index: calc(var(--bob-z-sticky) - 10);
     animation: bob-sidebar-layout-fade 0.18s ease-out;
 }
 
 @keyframes bob-sidebar-layout-fade {
-    from { opacity: 0; }
-    to   { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 @media (max-width: 960px) {
@@ -179,7 +192,7 @@
         transform: translateX(-100%);
         transition: transform 0.22s ease;
         border-right: 1px solid var(--_sidebar-layout-border);
-        box-shadow: 0 12px 30px -10px color-mix(in srgb, var(--palette-shadow) 40%, transparent);
+        box-shadow: 0 12px 30px -10px color-mix(in oklab, var(--palette-shadow) 40%, transparent);
     }
 
     [data-bob-component="sidebar-layout"][data-bob-sidebar-side="end"] .bob-sidebar-layout__sidebar {

@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -12,18 +12,20 @@ public class BOBTreeSelectorRenderingTests
     private sealed record SelectItem(string Key, string Label, IEnumerable<SelectItem>? Children = null);
 
     private static IEnumerable<SelectItem> FlatItems
-    => [
-        new SelectItem("a", "Alpha"),
-        new SelectItem("b", "Beta"),
-    ];
+        =>
+        [
+            new("a", "Alpha"),
+            new("b", "Beta")
+        ];
 
     private static IEnumerable<SelectItem> NestedItems
-    => [
-        new SelectItem("parent", "Parent", [
-            new SelectItem("child1", "Child 1"),
-            new SelectItem("child2", "Child 2"),
-        ]),
-    ];
+        =>
+        [
+            new("parent", "Parent", [
+                new SelectItem("child1", "Child 1"),
+                new SelectItem("child2", "Child 2")
+            ])
+        ];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -129,7 +131,7 @@ public class BOBTreeSelectorRenderingTests
             .Add(c => c.KeySelector, m => m.Key)
             .Add(c => c.ChildrenSelector, m => m.Children));
 
-        // Assert — parent node has expander button
+        // Assert - parent node has expander button
         cut.Find(".bob-tree-selector__expander").Should().NotBeNull();
     }
 }

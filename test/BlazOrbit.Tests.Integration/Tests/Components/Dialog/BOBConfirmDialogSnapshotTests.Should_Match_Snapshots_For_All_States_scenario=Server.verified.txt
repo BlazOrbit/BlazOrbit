@@ -1,0 +1,46 @@
+[
+  {
+    Name: Info_Default,
+    Html:
+<bob-component data-bob-component="confirm-dialog" data-bob-severity="info" b-<SCOPE>><div class="bob-confirm__head" b-<SCOPE>><span class="bob-confirm__icon" aria-hidden="true" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="large" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M0 0h24v24H0V0z" fill="none"/><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg></bob-component></span>
+        <h2 class="bob-confirm__title" b-<SCOPE>>Confirm</h2></div>
+
+    <p class="bob-confirm__message" b-<SCOPE>>Are you sure?</p>
+
+    <div class="bob-confirm__actions" b-<SCOPE>><bob-component data-bob-component="button" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><button type="button" blazor:onclick="<EVENT>" class="transition-target" b-<SCOPE> blazor:elementReference="<GUID>"><span class="bob-button__text" b-<SCOPE>>Cancel</span></button></bob-component>
+        <bob-component data-bob-component="button" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><button type="button" blazor:onclick="<EVENT>" class="transition-target" b-<SCOPE> blazor:elementReference="<GUID>"><span class="bob-button__text" b-<SCOPE>>Yes</span></button></bob-component></div></bob-component>
+  },
+  {
+    Name: Warning,
+    Html:
+<bob-component data-bob-component="confirm-dialog" data-bob-severity="warning" b-<SCOPE>><div class="bob-confirm__head" b-<SCOPE>><span class="bob-confirm__icon" aria-hidden="true" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="large" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg></bob-component></span>
+        <h2 class="bob-confirm__title" b-<SCOPE>>Warning</h2></div>
+
+    <p class="bob-confirm__message" b-<SCOPE>>This may break things.</p>
+
+    <div class="bob-confirm__actions" b-<SCOPE>><bob-component data-bob-component="button" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><button type="button" blazor:onclick="<EVENT>" class="transition-target" b-<SCOPE> blazor:elementReference="<GUID>"><span class="bob-button__text" b-<SCOPE>>Cancel</span></button></bob-component>
+        <bob-component data-bob-component="button" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" style="--bob-inline-color: var(--palette-warning)" b-<SCOPE>><button type="button" blazor:onclick="<EVENT>" class="transition-target" b-<SCOPE> blazor:elementReference="<GUID>"><span class="bob-button__text" b-<SCOPE>>Yes</span></button></bob-component></div></bob-component>
+  },
+  {
+    Name: Danger,
+    Html:
+<bob-component data-bob-component="confirm-dialog" data-bob-severity="danger" b-<SCOPE>><div class="bob-confirm__head" b-<SCOPE>><span class="bob-confirm__icon" aria-hidden="true" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="large" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg></bob-component></span>
+        <h2 class="bob-confirm__title" b-<SCOPE>>Danger</h2></div>
+
+    <p class="bob-confirm__message" b-<SCOPE>>This cannot be undone.</p>
+
+    <div class="bob-confirm__actions" b-<SCOPE>><bob-component data-bob-component="button" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><button type="button" blazor:onclick="<EVENT>" class="transition-target" b-<SCOPE> blazor:elementReference="<GUID>"><span class="bob-button__text" b-<SCOPE>>Cancel</span></button></bob-component>
+        <bob-component data-bob-component="button" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" style="--bob-inline-color: var(--palette-error)" b-<SCOPE>><button type="button" blazor:onclick="<EVENT>" class="transition-target" b-<SCOPE> blazor:elementReference="<GUID>"><span class="bob-button__text" b-<SCOPE>>Yes</span></button></bob-component></div></bob-component>
+  },
+  {
+    Name: Custom_Labels,
+    Html:
+<bob-component data-bob-component="confirm-dialog" data-bob-severity="info" b-<SCOPE>><div class="bob-confirm__head" b-<SCOPE>><span class="bob-confirm__icon" aria-hidden="true" b-<SCOPE>><bob-component data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="large" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M0 0h24v24H0V0z" fill="none"/><path d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/></svg></bob-component></span>
+        <h2 class="bob-confirm__title" b-<SCOPE>>Delete</h2></div>
+
+    <p class="bob-confirm__message" b-<SCOPE>>Remove this item?</p>
+
+    <div class="bob-confirm__actions" b-<SCOPE>><bob-component data-bob-component="button" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><button type="button" blazor:onclick="<EVENT>" class="transition-target" b-<SCOPE> blazor:elementReference="<GUID>"><span class="bob-button__text" b-<SCOPE>>Keep</span></button></bob-component>
+        <bob-component data-bob-component="button" data-bob-variant="default" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><button type="button" blazor:onclick="<EVENT>" class="transition-target" b-<SCOPE> blazor:elementReference="<GUID>"><span class="bob-button__text" b-<SCOPE>>Delete</span></button></bob-component></div></bob-component>
+  }
+]

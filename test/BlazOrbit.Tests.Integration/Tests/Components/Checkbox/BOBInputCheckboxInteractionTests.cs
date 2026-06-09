@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -107,7 +107,7 @@ public class BOBInputCheckboxInteractionTests
             .Add(c => c.ValueChanged, v => captured = v));
 
         // Act
-        cut.Find(".bob-checkbox").KeyDown(key: " ");
+        cut.Find(".bob-checkbox").KeyDown(" ");
 
         // Assert
         captured.Should().BeTrue();
@@ -125,7 +125,7 @@ public class BOBInputCheckboxInteractionTests
             .Add(c => c.ValueChanged, v => captured = v));
 
         // Act
-        cut.Find(".bob-checkbox").KeyDown(key: "Enter");
+        cut.Find(".bob-checkbox").KeyDown("Enter");
 
         // Assert
         captured.Should().BeTrue();
@@ -143,7 +143,7 @@ public class BOBInputCheckboxInteractionTests
             .Add(c => c.ValueChanged, v => captured = v));
 
         // Act
-        cut.Find(".bob-checkbox").KeyDown(key: "Tab");
+        cut.Find(".bob-checkbox").KeyDown("Tab");
 
         // Assert
         captured.Should().BeFalse();

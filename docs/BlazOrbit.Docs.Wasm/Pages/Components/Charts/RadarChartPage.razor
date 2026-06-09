@@ -1,0 +1,88 @@
+@page "/components/charts/radar"
+
+@inject IStringLocalizer<RadarChartPage> Loc
+
+<DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBRadarChart"]"
+         Lede="@Loc["Radar / spider chart - multi-dimensional comparison across N axes (3-12). Each series renders a closed polygon; categories are evenly distributed around the circle."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBRadarChart<,>)"
+         Keywords="@(["radar chart", "spider", "multivariate", "comparison"])">
+
+    <BOBBanner Severity="BOBBannerSeverity.Warning"
+               Title="@Loc["Extra package required"]"
+               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]"/>
+
+    <DocDemo Key="Basic" Title="@Loc["Single-series profile"]">
+        <BOBRadarChart TX="string" TY="double"
+                       Series="_skillsSingle"
+                       Width="420" Height="420"/>
+    </DocDemo>
+
+    <DocDemo Key="MultiSeries" Title="@Loc["Multi-series comparison"]"
+             Description="@Loc["Overlap two profiles to compare shapes - ideal for skill matrices, product feature parity, A/B benchmark dashboards."]">
+        <BOBRadarChart TX="string" TY="double"
+                       Series="_skillsMulti"
+                       Width="440" Height="440"/>
+    </DocDemo>
+
+    <DocDemo Key="Rings" Title="@Loc["Custom ring count + max"]">
+        <BOBRadarChart TX="string" TY="double"
+                       Series="_skillsMulti"
+                       RingCount="6"
+                       Max="10"
+                       FillOpacity="0.18"
+                       Width="440" Height="440"/>
+    </DocDemo>
+
+</DocPage>
+
+@code {
+
+    private static readonly IEnumerable<BOBChartSeries<string, double>> _skillsSingle =
+    [
+        new BOBChartSeries<string, double>
+            {
+                Label = "Frontend dev",
+                Points =
+                [
+                    new BOBChartPoint<string, double>("HTML", 9),
+                    new BOBChartPoint<string, double>("CSS", 8),
+                    new BOBChartPoint<string, double>("JavaScript", 9),
+                    new BOBChartPoint<string, double>("Accessibility", 7),
+                    new BOBChartPoint<string, double>("Performance", 6),
+                    new BOBChartPoint<string, double>("Testing", 5)
+                ]
+            }
+    ];
+
+    private static readonly IEnumerable<BOBChartSeries<string, double>> _skillsMulti =
+    [
+        new BOBChartSeries<string, double>
+            {
+                Label = "Alice",
+                Points =
+                [
+                    new BOBChartPoint<string, double>("Design", 8),
+                    new BOBChartPoint<string, double>("Backend", 6),
+                    new BOBChartPoint<string, double>("Frontend", 9),
+                    new BOBChartPoint<string, double>("DevOps", 4),
+                    new BOBChartPoint<string, double>("Testing", 7),
+                    new BOBChartPoint<string, double>("Comms", 8)
+                ]
+            },
+            new BOBChartSeries<string, double>
+            {
+                Label = "Bob",
+                Points =
+                [
+                    new BOBChartPoint<string, double>("Design", 4),
+                    new BOBChartPoint<string, double>("Backend", 9),
+                    new BOBChartPoint<string, double>("Frontend", 5),
+                    new BOBChartPoint<string, double>("DevOps", 8),
+                    new BOBChartPoint<string, double>("Testing", 8),
+                    new BOBChartPoint<string, double>("Comms", 6)
+                ]
+            }
+    ];
+
+}

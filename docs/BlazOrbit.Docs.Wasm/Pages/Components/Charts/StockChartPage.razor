@@ -1,0 +1,92 @@
+@page "/components/charts/stock"
+
+@inject IStringLocalizer<StockChartPage> Loc
+
+<DocPage Eyebrow="@Loc["Chart"]" Title="@Loc["BOBStockChart"]"
+         Lede="@Loc["Multi-pane candlestick chart with technical indicators. Stacks RSI / MACD / Volume panes below the price pane and overlays Bollinger Bands on the price itself. All panes share the X axis so price action and momentum / volume signals line up."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBStockChart<>)"
+         Keywords="@(["stock", "candlestick", "RSI", "MACD", "Bollinger", "Volume", "trading", "technical analysis", "OHLC"])">
+
+    <BOBBanner Severity="BOBBannerSeverity.Warning"
+               Title="@Loc["Extra package required"]"
+               Message="@Loc["This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs."]"/>
+
+    <DocDemo Key="PriceOnly" Title="@Loc["Price-only pane"]"
+             Description="@Loc["With no indicators set, the chart renders a single price pane. Up / down candles use the success / error palette colors by default; override via UpColor / DownColor."]">
+        <BOBStockChart TX="DateTime"
+                       Candles="_candles"
+                       Width="720" Height="320"/>
+    </DocDemo>
+
+    <DocDemo Key="WithBollinger" Title="@Loc["Bollinger Bands overlay"]"
+             Description="@Loc["Bollinger Bands sit on the price pane (they don't claim their own pane). The price scale auto-expands to fit the bands so they never clip on volatile rallies."]">
+        <BOBStockChart TX="DateTime"
+                       Candles="_candles"
+                       Indicators="_bollingerOnly"
+                       BollingerPeriod="20"
+                       BollingerStdMultiplier="2"
+                       Width="720" Height="340"/>
+    </DocDemo>
+
+    <DocDemo Key="MultiPane" Title="@Loc["Multi-pane: Volume + RSI + MACD"]"
+             Description="@Loc["Stacked indicator panes share the X axis with the price pane above. Each pane gets an equal share of the remaining 30% of the vertical space."]">
+        <BOBStockChart TX="DateTime"
+                       Candles="_candles"
+                       Indicators="_allIndicators"
+                       RsiPeriod="14"
+                       MacdFast="12" MacdSlow="26" MacdSignal="9"
+                       Width="720" Height="520"/>
+    </DocDemo>
+
+</DocPage>
+
+@code {
+
+    private static readonly BOBChartCandlePoint<DateTime>[] _candles = GenerateCandles();
+
+    private static readonly BOBChartTechnicalIndicator[] _bollingerOnly =
+    [
+        BOBChartTechnicalIndicator.BollingerBands
+    ];
+
+    private static readonly BOBChartTechnicalIndicator[] _allIndicators =
+    [
+        BOBChartTechnicalIndicator.BollingerBands,
+        BOBChartTechnicalIndicator.Volume,
+        BOBChartTechnicalIndicator.Rsi,
+        BOBChartTechnicalIndicator.Macd
+    ];
+
+    private static BOBChartCandlePoint<DateTime>[] GenerateCandles()
+    {
+        // Synthetic walk so the doc is deterministic across renders.
+        Random rng = new(42);
+        double price = 100;
+        DateTime start = new(2026, 1, 1);
+        BOBChartCandlePoint<DateTime>[] candles = new BOBChartCandlePoint<DateTime>[80];
+
+        for (int i = 0; i < candles.Length; i++)
+        {
+            double open = price;
+            double drift = (rng.NextDouble() - 0.48) * 3.0;
+            double close = Math.Max(20, open + drift);
+            double high = Math.Max(open, close) + rng.NextDouble() * 1.5;
+            double low = Math.Min(open, close) - rng.NextDouble() * 1.5;
+            double volume = 4000 + rng.NextDouble() * 6000;
+
+            candles[i] = new BOBChartCandlePoint<DateTime>(
+                X: start.AddDays(i),
+                Open: open,
+                High: high,
+                Low: Math.Max(1, low),
+                Close: close,
+                Volume: volume);
+
+            price = close;
+        }
+
+        return candles;
+    }
+
+}

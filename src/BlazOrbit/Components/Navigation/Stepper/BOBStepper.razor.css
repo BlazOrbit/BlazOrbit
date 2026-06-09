@@ -1,0 +1,166 @@
+[data-bob-component="stepper"] {
+    --_stepper-marker-size: calc(2rem * var(--bob-size-multiplier, 1));
+    --_stepper-rail-thickness: 2px;
+    --_stepper-pending: color-mix(in oklab, var(--palette-surface-contrast) 25%, transparent);
+    --_stepper-complete: var(--palette-highlight);
+    --_stepper-active: var(--palette-highlight);
+    --_stepper-error: var(--palette-error);
+    --_stepper-text: var(--palette-surface-contrast);
+    --_stepper-muted: color-mix(in oklab, var(--palette-surface-contrast) 60%, transparent);
+    --_stepper-gap: 0.75rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+[data-bob-component="stepper"] .bob-stepper__sink {
+    display: none;
+}
+
+[data-bob-component="stepper"] .bob-stepper__rail {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: stretch;
+}
+
+[data-bob-component="stepper"] .bob-stepper__entry {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    gap: var(--_stepper-gap);
+    min-width: 0;
+}
+
+[data-bob-component="stepper"] .bob-stepper__header {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--_stepper-gap);
+    background: transparent;
+    border: none;
+    padding: 0.25rem 0.5rem;
+    color: var(--_stepper-muted);
+    cursor: not-allowed;
+    border-radius: 0.5rem;
+    text-align: start;
+    transition: color 100ms ease, background 100ms ease;
+    min-width: 0;
+}
+
+[data-bob-component="stepper"] .bob-stepper__entry[data-bob-clickable="true"] .bob-stepper__header {
+    cursor: pointer;
+}
+
+[data-bob-component="stepper"] .bob-stepper__entry[data-bob-clickable="true"] .bob-stepper__header:hover,
+[data-bob-component="stepper"] .bob-stepper__entry[data-bob-clickable="true"] .bob-stepper__header:focus-visible {
+    background: color-mix(in oklab, var(--palette-highlight) 8%, transparent);
+}
+
+[data-bob-component="stepper"] .bob-stepper__marker {
+    width: var(--_stepper-marker-size);
+    height: var(--_stepper-marker-size);
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    background: var(--_stepper-pending);
+    color: var(--palette-surface);
+    flex-shrink: 0;
+    transition: background 100ms ease, color 100ms ease;
+}
+
+[data-bob-component="stepper"] .bob-stepper__entry[data-bob-state="active"] .bob-stepper__marker {
+    background: var(--_stepper-active);
+    color: var(--palette-surface);
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--_stepper-active) 20%, transparent);
+}
+
+[data-bob-component="stepper"] .bob-stepper__entry[data-bob-state="complete"] .bob-stepper__marker {
+    background: var(--_stepper-complete);
+    color: var(--palette-surface);
+}
+
+[data-bob-component="stepper"] .bob-stepper__entry[data-bob-state="error"] .bob-stepper__marker {
+    background: var(--_stepper-error);
+    color: var(--palette-surface);
+}
+
+[data-bob-component="stepper"] .bob-stepper__entry[data-bob-state="active"] .bob-stepper__header,
+[data-bob-component="stepper"] .bob-stepper__entry[data-bob-state="complete"] .bob-stepper__header {
+    color: var(--_stepper-text);
+}
+
+[data-bob-component="stepper"] .bob-stepper__labels {
+    display: inline-flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+[data-bob-component="stepper"] .bob-stepper__title {
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+[data-bob-component="stepper"] .bob-stepper__description {
+    font-size: 0.75rem;
+    color: var(--_stepper-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+[data-bob-component="stepper"] .bob-stepper__connector {
+    flex: 1 1 auto;
+    align-self: center;
+    height: var(--_stepper-rail-thickness);
+    background: var(--_stepper-pending);
+    transition: background 100ms ease;
+    /* The connector lives inside an entry but visually bridges to the next one; flex:1
+       lets it absorb the remaining horizontal space. */
+}
+
+[data-bob-component="stepper"] .bob-stepper__connector[data-bob-completed="true"] {
+    background: var(--_stepper-complete);
+}
+
+[data-bob-component="stepper"] .bob-stepper__body {
+    padding-block-start: 0.5rem;
+}
+
+/* ── Vertical ─────────────────────────────────────────────────────── */
+
+[data-bob-component="stepper"][data-bob-orientation="vertical"] {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.5rem;
+}
+
+[data-bob-component="stepper"][data-bob-orientation="vertical"] .bob-stepper__rail {
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 0 0 auto;
+}
+
+[data-bob-component="stepper"][data-bob-orientation="vertical"] .bob-stepper__entry {
+    flex: 0 0 auto;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+[data-bob-component="stepper"][data-bob-orientation="vertical"] .bob-stepper__connector {
+    width: var(--_stepper-rail-thickness);
+    height: 1.5rem;
+    margin-inline-start: calc(var(--_stepper-marker-size) / 2);
+}
+
+[data-bob-component="stepper"][data-bob-orientation="vertical"] .bob-stepper__body {
+    flex: 1 1 auto;
+    padding-block-start: 0;
+    min-width: 0;
+}

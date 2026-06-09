@@ -1,11 +1,14 @@
-﻿using Microsoft.JSInterop;
+using Microsoft.JSInterop;
 
 namespace BlazOrbit.Localization.Wasm;
 
+/// <summary>Persists the user's chosen culture between WebAssembly app loads.</summary>
 public interface ILocalizationPersistence
 {
+    /// <summary>Returns the previously stored culture name, or null when none has been persisted.</summary>
     Task<string?> GetStoredCultureAsync();
 
+    /// <summary>Persists the supplied culture name (e.g. <c>es-ES</c>).</summary>
     Task SetStoredCultureAsync(string culture);
 }
 
@@ -73,7 +76,7 @@ internal class WasmLocalizationPersistence : ILocalizationPersistence, IAsyncDis
     private async Task<IJSObjectReference> GetModuleAsync()
     {
         _module ??= await _jsRuntime.InvokeAsync<IJSObjectReference>(
-            "import", "./_content/BlazOrbit/js/Types/Storage/LocalStorageInterop.min.js");
+            "import", "./_content/BlazOrbit/js/Types/Storage/LocalStorageInterop.js");
         return _module;
     }
 }

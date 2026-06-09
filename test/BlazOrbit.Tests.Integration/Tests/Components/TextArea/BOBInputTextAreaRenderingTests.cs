@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
@@ -11,7 +11,10 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.TextArea;
 [Trait("Component Rendering", "BOBInputTextArea")]
 public class BOBInputTextAreaRenderingTests
 {
-    private class Model { public string? Value { get; set; } }
+    private class Model
+    {
+        public string? Value { get; set; }
+    }
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -55,7 +58,7 @@ public class BOBInputTextAreaRenderingTests
         IRenderedComponent<BOBInputTextArea> cut = ctx.Render<BOBInputTextArea>(p => p
             .Add(c => c.ValueExpression, () => model.Value));
 
-        cut.Find("bob-component").GetAttribute("data-bob-autoresize").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-autoresize").Should().BeNull();
     }
 
     [Theory]
@@ -104,7 +107,7 @@ public class BOBInputTextAreaRenderingTests
             .Add(c => c.Label, "Empty")
             .Add(c => c.ValueExpression, () => model.Value));
 
-        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().BeNull();
     }
 
     [Theory]

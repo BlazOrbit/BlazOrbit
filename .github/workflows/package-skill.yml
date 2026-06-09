@@ -1,0 +1,141 @@
+# .github/workflows/package-skill.yml
+# Reusable workflow that regenerates the blazorbit-user skill, packs it as a
+# downloadable .skill, and attaches it to the GitHub release that the calling
+# workflow already created (or, for preview, creates fresh).
+#
+# Triggered by:
+#   - workflow_call from release-publish.yml (stable)  → attach to v<version>
+#   - workflow_call from preview-publish.yml (preview) → attach to v<version>
+#
+# 1:1 mapping: every published NuGet version has a corresponding .skill
+# attached to its GitHub release. Consumers download via:
+#   https://github.com/<repo>/releases/tag/v<version>
+#   https://github.com/<repo>/releases/download/v<version>/blazorbit-user.skill
+#
+# This workflow is *not* triggered on pull requests. The committed reference
+# files under `.agents/skills/blazorbit-user/references/` are best-effort
+# snapshots for repo browsers; the shipped .skill always regenerates fresh
+# from compiled assemblies during workflow_call. To refresh the snapshot
+# locally before committing, run:
+#   pwsh scripts/skills/blazorbit-user/regenerate-skill.ps1
+
+name: '[Release] Package BlazOrbit User Skill'
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        description: 'NuGet/skill version (e.g. 1.0.0 or 1.0.0-preview.42)'
+        required: true
+        type: string
+      tag_name:
+        description: 'GitHub release tag to attach to (e.g. v1.0.0)'
+        required: true
+        type: string
+      prerelease:
+        description: 'Mark the release as prerelease (creates one if absent)'
+        required: false
+        type: boolean
+        default: false
+
+env:
+  DOTNET_VERSION: |
+    8.0.x
+    10.0.x
+  SKILL_DIR: .agents/skills/blazorbit-user
+  SKILL_SCRIPTS_DIR: scripts/skills/blazorbit-user
+  SKILL_NAME: blazorbit-user
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  # Per-version so concurrent NuGet releases serialize their skill attachments
+  # and don't race on the same GH release.
+  group: package-skill-${{ inputs.version }}
+  cancel-in-progress: false
+
+jobs:
+  regenerate-and-pack:
+    name: Regenerate and Package Skill
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd  # v6
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@c2fa09f4bde5ebb9d1777cf28262a3eb3db3ced7  # v5
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+          global-json-file: global.json
+          cache: true
+          cache-dependency-path: '**/*.csproj'
+
+      # The regenerator only needs BlazOrbit.dll + BlazOrbit.Core.dll on disk
+      # (it loads them via Assembly.LoadFrom and reflects). Building the full
+      # solution would also build docs/BlazOrbit.Docs.Wasm which requires the
+      # `wasm-tools` workload - a slow, network-bound install we don't need.
+      - name: Restore dependencies
+        run: dotnet restore src/BlazOrbit/BlazOrbit.csproj
+
+      - name: Build (Debug)
+        run: dotnet build src/BlazOrbit/BlazOrbit.csproj -c Debug --no-restore
+
+      - name: Regenerate skill references
+        shell: pwsh
+        run: |
+          $script = Join-Path $env:SKILL_SCRIPTS_DIR "regenerate-skill.ps1"
+          Write-Host "Running regenerator: $script"
+          & $script -Configuration Debug -SkipBuild
+
+      - name: Stamp version into SKILL.md
+        # The committed `version:` in SKILL.md is a placeholder; the canonical
+        # version comes from the NuGet pipeline (Directory.Build.props +
+        # preview run number / release tag), passed in by the caller.
+        run: |
+          set -e
+          echo "Stamping version: ${{ inputs.version }}"
+          sed -i "s/^version:.*/version: ${{ inputs.version }}/" "$SKILL_DIR/SKILL.md"
+          grep '^version:' "$SKILL_DIR/SKILL.md"
+
+      - name: Package skill
+        # Tooling lives under scripts/skills/<skill-name>/ so the skill payload
+        # under .agents/skills/<skill-name>/ is naturally clean - no excludes
+        # needed in the zip. Use absolute paths to avoid `../` arithmetic that
+        # depends on $SKILL_DIR's depth.
+        run: |
+          set -e
+          ARTIFACT_DIR="$GITHUB_WORKSPACE/artifacts"
+          ARTIFACT_PATH="$ARTIFACT_DIR/${SKILL_NAME}.skill"
+          mkdir -p "$ARTIFACT_DIR"
+          ( cd "$SKILL_DIR" && zip -r "$ARTIFACT_PATH" . )
+          echo "=== Packaged contents ==="
+          unzip -l "$ARTIFACT_PATH"
+
+      - name: Attach to GitHub release
+        uses: softprops/action-gh-release@b4309332981a82ec1c5618f44dd2e27cc8bfbfda  # v3
+        # If the release already exists (release-publish creates it before
+        # calling this workflow) the action APPENDS the .skill file. If it
+        # doesn't (preview-publish doesn't create one today) the action
+        # creates a new release at the given tag with the .skill attached.
+        # We don't pass `name` or `body` so the action falls back to its
+        # defaults (preserving any existing release metadata).
+        #
+        # `target_commitish` pins the auto-created tag to the caller's SHA
+        # (`github.sha` propagates from the caller in a reusable workflow):
+        #   - preview-publish → develop HEAD at dispatch time (the state we
+        #     are actually shipping). Without this, GitHub falls back to the
+        #     repo's default branch (master) and the preview tag anchors to
+        #     a stale master commit instead of the develop snapshot.
+        #   - release-publish → the tag's existing commit (already on master
+        #     HEAD post-squash). GitHub ignores `target_commitish` when the
+        #     tag already exists, so this is a no-op in that path but stays
+        #     correct as a defensive default.
+        with:
+          tag_name: ${{ inputs.tag_name }}
+          target_commitish: ${{ github.sha }}
+          prerelease: ${{ inputs.prerelease }}
+          files: ./artifacts/${{ env.SKILL_NAME }}.skill
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

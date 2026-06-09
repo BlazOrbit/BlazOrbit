@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components.Internal;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -11,7 +11,10 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.InputInternals;
 [Trait("Component State", "_BOBFieldHelper")]
 public class BOBFieldHelperStateTests
 {
-    private class Model { public string? Value { get; set; } }
+    private class Model
+    {
+        public string? Value { get; set; }
+    }
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -32,15 +35,15 @@ public class BOBFieldHelperStateTests
             .Add(c => c.HelperText, "Helper")
             .AddCascadingValue(editContext));
 
-        cut.FindAll("div.bob-field-helper--error").Should().HaveCount(1);
-        cut.Find("div.bob-field-helper--error").TextContent.Should().BeEmpty();
+        cut.FindAll("div[data-bob-error=\"true\"]").Should().HaveCount(1);
+        cut.Find("div[data-bob-error=\"true\"]").TextContent.Should().BeEmpty();
 
         // Act
         messageStore.Add(FieldIdentifier.Create(expr), "Required field");
         await cut.InvokeAsync(editContext.NotifyValidationStateChanged);
 
         // Assert
-        cut.Find("div.bob-field-helper--error").TextContent.Should().Contain("Required field");
+        cut.Find("div[data-bob-error=\"true\"]").TextContent.Should().Contain("Required field");
     }
 
     [Theory]
@@ -63,9 +66,9 @@ public class BOBFieldHelperStateTests
             .Add(c => c.HelperText, "Helper text")
             .AddCascadingValue(editContext));
 
-        cut.FindAll("div.bob-field-helper--error").Should().HaveCount(1);
+        cut.FindAll("div[data-bob-error=\"true\"]").Should().HaveCount(1);
 
-        // Act — toggle ShowValidation off
+        // Act - toggle ShowValidation off
         IRenderedComponent<_BOBFieldHelper<string?>> hiddenCut = ctx.Render<_BOBFieldHelper<string?>>(p => p
             .Add(c => c.ShowValidation, false)
             .Add(c => c.EditContext, editContext)
@@ -74,7 +77,7 @@ public class BOBFieldHelperStateTests
             .AddCascadingValue(editContext));
 
         // Assert
-        hiddenCut.FindAll("div.bob-field-helper--error").Should().BeEmpty();
+        hiddenCut.FindAll("div[data-bob-error=\"true\"]").Should().BeEmpty();
         hiddenCut.Find("div.bob-field-helper").TextContent.Should().Be("Helper text");
     }
 }

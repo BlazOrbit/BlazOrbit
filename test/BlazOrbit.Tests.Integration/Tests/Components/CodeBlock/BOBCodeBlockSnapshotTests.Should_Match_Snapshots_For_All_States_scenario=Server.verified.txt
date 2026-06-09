@@ -1,10 +1,10 @@
-﻿[
+[
   {
     Name: CSharp_Default,
     Html:
 <bob-component data-bob-component="code-block" data-bob-size="medium" b-<SCOPE>><div class="bob-code-block__header" b-<SCOPE>><span class="bob-code-block__title" b-<SCOPE>>CSHARP</span>
 
-        <bob-component data-bob-component="tooltip" blazor:onmouseenter="1" blazor:onmouseleave="2" blazor:onfocusin="3" blazor:onfocusout="4" blazor:onclick="<EVENT>" b-<SCOPE>><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Copy code" blazor:onclick="<EVENT>" b-<SCOPE>><span b-<SCOPE>>Copy</span></button></bob-component></div>
+        <bob-component data-bob-component="tooltip" blazor:onmouseenter="1" blazor:onmouseleave="2" blazor:onfocusin="3" blazor:onfocusout="4" blazor:onclick="<EVENT>" b-<SCOPE>><button type="button" data-bob-size="small" data-bob-variant="default" class="_bob-btn" tabindex="0" aria-label="Copy code" blazor:onclick="<EVENT>" b-<SCOPE>><span b-<SCOPE>>Copy code</span></button></bob-component></div>
 
     <div class="bob-code-block__content" b-<SCOPE>><style>
 .SH-container {
@@ -62,7 +62,7 @@
     Html:
 <bob-component data-bob-component="code-block" data-bob-size="medium" b-<SCOPE>><div class="bob-code-block__header" b-<SCOPE>><span class="bob-code-block__title" b-<SCOPE>>Config</span>
 
-        <bob-component data-bob-component="tooltip" blazor:onmouseenter="7" blazor:onmouseleave="8" blazor:onfocusin="9" blazor:onfocusout="10" blazor:onclick="<EVENT>" b-<SCOPE>><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Copy code" blazor:onclick="<EVENT>" b-<SCOPE>><span b-<SCOPE>>Copy</span></button></bob-component></div>
+        <bob-component data-bob-component="tooltip" blazor:onmouseenter="7" blazor:onmouseleave="8" blazor:onfocusin="9" blazor:onfocusout="10" blazor:onclick="<EVENT>" b-<SCOPE>><button type="button" data-bob-size="small" data-bob-variant="default" class="_bob-btn" tabindex="0" aria-label="Copy code" blazor:onclick="<EVENT>" b-<SCOPE>><span b-<SCOPE>>Copy code</span></button></bob-component></div>
 
     <div class="bob-code-block__content" b-<SCOPE>>{ &quot;key&quot;: &quot;value&quot; }</div></bob-component>
   },
@@ -71,7 +71,7 @@
     Html:
 <bob-component data-bob-component="code-block" data-bob-size="large" b-<SCOPE>><div class="bob-code-block__header" b-<SCOPE>><span class="bob-code-block__title" b-<SCOPE>>CSHARP</span>
 
-        <bob-component data-bob-component="tooltip" blazor:onmouseenter="13" blazor:onmouseleave="14" blazor:onfocusin="15" blazor:onfocusout="16" blazor:onclick="<EVENT>" b-<SCOPE>><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Copy code" blazor:onclick="<EVENT>" b-<SCOPE>><span b-<SCOPE>>Copy</span></button></bob-component></div>
+        <bob-component data-bob-component="tooltip" blazor:onmouseenter="13" blazor:onmouseleave="14" blazor:onfocusin="15" blazor:onfocusout="16" blazor:onclick="<EVENT>" b-<SCOPE>><button type="button" data-bob-size="small" data-bob-variant="default" class="_bob-btn" tabindex="0" aria-label="Copy code" blazor:onclick="<EVENT>" b-<SCOPE>><span b-<SCOPE>>Copy code</span></button></bob-component></div>
 
     <div class="bob-code-block__content" b-<SCOPE>><style>
 .SH-container {
@@ -129,7 +129,7 @@
     Html:
 <bob-component data-bob-component="code-block" data-bob-size="medium" b-<SCOPE>><div class="bob-code-block__header" b-<SCOPE>><span class="bob-code-block__title" b-<SCOPE>>TYPESCRIPT</span>
 
-        <bob-component data-bob-component="tooltip" blazor:onmouseenter="19" blazor:onmouseleave="20" blazor:onfocusin="21" blazor:onfocusout="22" blazor:onclick="<EVENT>" b-<SCOPE>><button type="button" data-bob-size="small" class="bob-btn" tabindex="0" aria-label="Copy code" blazor:onclick="<EVENT>" b-<SCOPE>><span b-<SCOPE>>Copy</span></button></bob-component></div>
+        <bob-component data-bob-component="tooltip" blazor:onmouseenter="19" blazor:onmouseleave="20" blazor:onfocusin="21" blazor:onfocusout="22" blazor:onclick="<EVENT>" b-<SCOPE>><button type="button" data-bob-size="small" data-bob-variant="default" class="_bob-btn" tabindex="0" aria-label="Copy code" blazor:onclick="<EVENT>" b-<SCOPE>><span b-<SCOPE>>Copy code</span></button></bob-component></div>
 
     <div class="bob-code-block__content" b-<SCOPE>><style>
 .SH-container {

@@ -1,4 +1,4 @@
-﻿using AngleSharp.Dom;
+using AngleSharp.Dom;
 using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
@@ -10,7 +10,10 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.TextArea;
 [Trait("Component Interaction", "BOBInputTextArea")]
 public class BOBInputTextAreaInteractionTests
 {
-    private class Model { public string? Value { get; set; } }
+    private class Model
+    {
+        public string? Value { get; set; }
+    }
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -94,13 +97,13 @@ public class BOBInputTextAreaInteractionTests
             .Add(c => c.ValueExpression, () => model.Value));
 
         IElement root = cut.Find("bob-component");
-        root.GetAttribute("data-bob-floated").Should().Be("false");
+        root.GetAttribute("data-bob-floated").Should().BeNull();
 
         cut.Find("textarea.bob-input__field").Focus();
         cut.Find("bob-component").GetAttribute("data-bob-floated").Should().Be("true");
 
         cut.Find("textarea.bob-input__field").Blur();
-        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().Be("false");
+        cut.Find("bob-component").GetAttribute("data-bob-floated").Should().BeNull();
     }
 
     [Theory]

@@ -1,6 +1,9 @@
 @using BlazOrbit.Docs.Components
 
 @inject NavigationManager Nav
+@inject IStringLocalizer<DocPage> Loc
+
+<DocSeo Title="@(SeoTitle ?? Title)" Description="@(SeoDescription ?? Lede)" Keywords="@Keywords" Robots="@Robots"/>
 
 <CascadingValue Value="_ctx" IsFixed="true">
     <div class="doc-page">
@@ -20,7 +23,7 @@
                    href="@BuildApiRefUrl(ApiType)"
                    target="_blank"
                    rel="noopener noreferrer">
-                    API reference ↗
+                    @Loc["API reference ↗"]
                 </a>
             }
         </header>
@@ -31,27 +34,33 @@
 
 @if (ShowPerformanceDashboard())
 {
-    <BlazOrbit.Components.Diagnostics.BOBPerformanceDashboard />
+    <BOBPerformanceDashboard/>
 }
 
 @code {
     private const string ApiRefBaseUrl = "https://blazorbit.github.io/BlazOrbit/api/";
 
     [Parameter] public string? Eyebrow { get; set; }
-    [Parameter, EditorRequired] public string Title { get; set; } = default!;
+    [Parameter][EditorRequired] public string Title { get; set; } = default!;
+    [Parameter] public string? SeoTitle { get; set; }
     [Parameter] public string? Lede { get; set; }
+    [Parameter] public string? SeoDescription { get; set; }
     [Parameter] public object? PageInstance { get; set; }
+    [Parameter] public IEnumerable<string> Keywords { get; set; } = [];
     [Parameter] public Type? ApiType { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public string? Robots { get; set; }
 
     private DocDemoContext? _ctx;
 
     protected override void OnParametersSet()
-        => _ctx = PageInstance is null ? null : new DocDemoContext(PageInstance);
+    {
+        _ctx = PageInstance is null ? null : new DocDemoContext(PageInstance);
+    }
 
     private static string BuildApiRefUrl(Type type)
     {
-        string fullName = type.FullName ?? type.Name;
+        var fullName = type.FullName ?? type.Name;
         // DocFX UID: backtick generic-arity marker becomes dash (e.g. Foo`1 → Foo-1).
         return ApiRefBaseUrl + fullName.Replace('`', '-') + ".html";
     }
@@ -59,9 +68,10 @@
     private bool ShowPerformanceDashboard()
     {
 #if DEBUG
-    return true;
+        return true;
 #else
         return false;
 #endif
     }
+
 }

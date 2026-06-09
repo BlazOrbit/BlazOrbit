@@ -1,0 +1,89 @@
+// Auto-migrated from InputNumberSliderPage.es.resx. Edit freely from now on.
+
+# Basic usage
+Uso básico
+
+# Bass
+Graves
+
+# BOBInputNumberSlider
+BOBInputNumberSlider
+
+# Brightness
+Brillo
+
+# Color & Background
+Color y fondo
+
+# Component
+Componente
+
+# Custom Color
+Color personalizado
+
+# Decimal values
+Valores decimales
+
+# Disabled
+Deshabilitado
+
+# Error
+Error
+
+# Large
+Grande
+
+# Medium (Default)
+Mediano (predeterminado)
+
+# Mid
+Medio
+
+# Min, Max & Step
+Mín., máx. y paso
+
+# Properties
+Propiedades
+
+# ReadOnly
+Solo lectura
+
+# Required
+Requerido
+
+# Single-thumb numeric slider with min, max, step, ticks, and value label. Supports horizontal and vertical orientation with full keyboard navigation.
+Deslizador numérico de un solo pulgar con mín., máx., paso, marcas y etiqueta de valor. Soporta orientación horizontal y vertical con navegación completa por teclado.
+
+# Sizes
+Tamaños
+
+# Small
+Pequeño
+
+# States
+Estados
+
+# Temperature
+Temperatura
+
+# Ticks
+Marcas
+
+# Treble
+Agudos
+
+# Validation message goes here.
+El mensaje de validación va aquí.
+
+# Vertical orientation
+Orientación vertical
+
+# Volume
+Volumen
+
+# Zoom
+Zoom
+
+
+# The component accepts any .NET numeric type that implements <code>INumber&lt;T&gt;</code> - <code>int</code>, <code>decimal</code>, <code>double</code>, <code>float</code>, and more. This is enforced at compile time via the generic <code>TValue</code> parameter. All interactive features - stepper buttons, tick marks, value labels, and keyboard arrow navigation - are available regardless of the underlying numeric type.
+El componente acepta cualquier tipo numérico .NET que implemente <code>INumber&lt;T&gt;</code>: <code>int</code>, <code>decimal</code>, <code>double</code>, <code>float</code> y más. Esto se aplica en tiempo de compilación a través del parámetro genérico <code>TValue</code>. Todas las funciones interactivas (botones de paso, marcas de escala, etiquetas de valor y navegación con flechas del teclado) están disponibles independientemente del tipo numérico subyacente.

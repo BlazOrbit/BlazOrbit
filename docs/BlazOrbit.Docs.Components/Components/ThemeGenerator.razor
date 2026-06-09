@@ -1,0 +1,385 @@
+@namespace BlazOrbit.Docs.Components
+
+@using BlazOrbit.Core.Utilities
+@using BlazOrbit.Themes
+@using System.Text.Json
+@using System.Reflection
+@using BlazOrbit.SyntaxHighlight
+
+<BOBTabs @bind-ActiveTab="_activeTab" Variant="BOBTabsVariant.Underline">
+    <BOBTab Id="dark" Label="Palette · Dark">
+        <ThemeEditor Palette="_darkPalette" OnPaletteChanged="p => _darkPalette = p"/>
+    </BOBTab>
+    <BOBTab Id="light" Label="Palette · Light">
+        <ThemeEditor Palette="_lightPalette" OnPaletteChanged="p => _lightPalette = p"/>
+    </BOBTab>
+    <BOBTab Id="tokens" Label="Design tokens">
+        <p style="opacity: 0.8;">
+            Override any non-color primitive: typography, sizing, density, borders,
+            outline, opacity, z-index, ripple, scrollbar, and family defaults. Tokens
+            are theme-agnostic by default - they apply to both themes.
+        </p>
+        <TokensEditor Tokens="_tokens" OnTokensChanged="t => _tokens = t"/>
+    </BOBTab>
+</BOBTabs>
+
+<BOBFlexStack Direction="FlexStackDirection.Row" Wrap="FlexStackWrap.Wrap" Gap="0.75rem"
+              AlignItems="FlexStackAlignItems.Center" My="1rem">
+    <BOBFlexStack Direction="FlexStackDirection.Row" Gap="0.5rem" AlignItems="FlexStackAlignItems.Center">
+        <span>Import</span>
+        <BOBButton Text="JSON" OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, OpenImportDialog))" Size="BOBSize.Small"/>
+    </BOBFlexStack>
+    <BOBFlexStack Direction="FlexStackDirection.Row" Gap="0.5rem" AlignItems="FlexStackAlignItems.Center">
+        <span>Export</span>
+        <BOBButton Text="JSON" OnClick="@(() => ShowExport("JSON", GenerateJson()))" Size="BOBSize.Small"/>
+        <BOBButton Text="CSS" OnClick="@(() => ShowExport("CSS", GenerateCss()))" Size="BOBSize.Small"/>
+        <BOBButton Text="C#" OnClick="@(() => ShowExport("C#", GenerateCSharp()))" Size="BOBSize.Small"/>
+    </BOBFlexStack>
+    <BOBButton Text="Reset" OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, Reset))" Size="BOBSize.Small"/>
+</BOBFlexStack>
+
+<div class="preview" style="@GetPreviewStyles()">
+    <ThemePreview/>
+</div>
+
+<BOBDialog @bind-Open="_importDialogOpen" Title="Import JSON" MaxWidth="600px">
+    <Content>
+        <BOBInputTextArea @bind-Value="_importContent"
+                          Label="Paste JSON"
+                          Rows="12"
+                          Placeholder="@_importPlaceholder"/>
+        @if (!string.IsNullOrEmpty(_importError))
+        {
+            <div class="import-error">@_importError</div>
+        }
+    </Content>
+    <Footer>
+        <BOBButton Text="Cancel" OnClick="() => _importDialogOpen = false"/>
+        <BOBButton Text="Import" OnClick="@(EventCallback.Factory.Create<MouseEventArgs>(this, ImportJson))"/>
+    </Footer>
+</BOBDialog>
+
+<BOBDialog @bind-Open="_exportDialogOpen" Title="@_exportTitle" MaxWidth="800px">
+    <Content>
+        <BOBCodeBlock Language="@_exportLanguage" Code="@_exportContent"/>
+    </Content>
+    <Footer>
+        <BOBButton Text="Close" OnClick="() => _exportDialogOpen = false"/>
+    </Footer>
+</BOBDialog>
+
+@code {
+    private string _activeTab = "dark";
+    private Dictionary<string, CssColor> _darkPalette = new();
+    private Dictionary<string, CssColor> _lightPalette = new();
+    private Dictionary<string, string> _tokens = new();
+
+    private bool _exportDialogOpen = false;
+    private string _exportTitle = "";
+    private string _exportContent = "";
+    private SyntaxHighlightLanguage _exportLanguage = SyntaxHighlightLanguage.Json;
+
+    private bool _importDialogOpen = false;
+    private string _importContent = "";
+    private string _importError = "";
+
+    private const string _importPlaceholder = @"{
+  ""dark"": { ""primary"": ""#8AB4F8"", ... },
+  ""light"": { ""primary"": ""#1A73E8"", ... },
+  ""tokens"": { ""--bob-border-radius"": ""8px"", ... }
+}";
+
+    protected override void OnInitialized()
+    {
+        InitializePalettes();
+        InitializeTokens();
+    }
+
+    private void InitializePalettes()
+    {
+        DarkTheme dark = new();
+        LightTheme light = new();
+
+        _darkPalette = ExtractPaletteColors(dark);
+        _lightPalette = ExtractPaletteColors(light);
+    }
+
+    private void InitializeTokens()
+    {
+        _tokens = TokensEditor.BuildDefaults();
+    }
+
+    private Dictionary<string, CssColor> ExtractPaletteColors(BOBThemePaletteBase palette)
+    {
+        Dictionary<string, CssColor> colors = new();
+        var properties = typeof(BOBThemePaletteBase)
+            .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+            .Where(p => p.PropertyType == typeof(CssColor))
+            .ToArray();
+
+        foreach (var prop in properties)
+        {
+            var color = (CssColor)prop.GetValue(palette)!;
+            colors[prop.Name] = color;
+        }
+
+        return colors;
+    }
+
+    private string GetPreviewStyles()
+    {
+        List<string> vars = [];
+        var palette = _activeTab == "light" ? _lightPalette : _darkPalette;
+
+        foreach (var kvp in palette)
+        {
+            var cssName = kvp.Key.ToKebabCase();
+            vars.Add($"--palette-{cssName}: {kvp.Value.ToString(ColorOutputFormats.Hex)}");
+        }
+
+        // Tokens apply to whichever tab is active so the preview reflects them everywhere.
+        foreach (var kvp in _tokens)
+        {
+            if (!string.IsNullOrWhiteSpace(kvp.Value))
+            {
+                vars.Add($"{kvp.Key}: {kvp.Value}");
+            }
+        }
+
+        return string.Join("; ", vars);
+    }
+
+    private void OpenImportDialog()
+    {
+        _importContent = "";
+        _importError = "";
+        _importDialogOpen = true;
+    }
+
+    private void ImportJson()
+    {
+        _importError = "";
+
+        if (string.IsNullOrWhiteSpace(_importContent))
+        {
+            _importError = "Please paste JSON content.";
+            return;
+        }
+
+        try
+        {
+            var doc = JsonDocument.Parse(_importContent);
+            var root = doc.RootElement;
+
+            List<string> failures = [];
+
+            if (root.TryGetProperty("dark", out var darkElement))
+            {
+                MergePalette(_darkPalette, darkElement, "dark", failures);
+            }
+
+            if (root.TryGetProperty("light", out var lightElement))
+            {
+                MergePalette(_lightPalette, lightElement, "light", failures);
+            }
+
+            if (root.TryGetProperty("tokens", out var tokensElement) && tokensElement.ValueKind == JsonValueKind.Object)
+            {
+                MergeTokens(_tokens, tokensElement);
+            }
+
+            if (failures.Count > 0)
+            {
+                _importError = "Some colors could not be parsed: " + string.Join(", ", failures);
+                return;
+            }
+
+            _importDialogOpen = false;
+        }
+        catch (JsonException ex)
+        {
+            _importError = $"Invalid JSON: {ex.Message}";
+        }
+    }
+
+    private void MergePalette(Dictionary<string, CssColor> target, JsonElement source, string paletteName, List<string> failures)
+    {
+        foreach (var prop in source.EnumerateObject())
+        {
+            var key = FindMatchingKey(target, prop.Name);
+            if (key != null && prop.Value.ValueKind == JsonValueKind.String)
+            {
+                var colorValue = prop.Value.GetString();
+                if (!string.IsNullOrEmpty(colorValue))
+                {
+                    try
+                    {
+                        target[key] = new CssColor(colorValue);
+                    }
+                    catch (Exception ex) when (ex is ArgumentException or FormatException)
+                    {
+                        failures.Add($"{paletteName}.{prop.Name} ('{colorValue}')");
+                    }
+                }
+            }
+        }
+    }
+
+    private void MergeTokens(Dictionary<string, string> target, JsonElement source)
+    {
+        foreach (var prop in source.EnumerateObject())
+        {
+            if (prop.Value.ValueKind != JsonValueKind.String) continue;
+            var cssVar = prop.Name.StartsWith("--", StringComparison.Ordinal) ? prop.Name : "--" + prop.Name;
+            var value = prop.Value.GetString();
+            if (!string.IsNullOrEmpty(value))
+            {
+                target[cssVar] = value;
+            }
+        }
+    }
+
+    private string? FindMatchingKey(Dictionary<string, CssColor> palette, string jsonKey)
+    {
+        foreach (var key in palette.Keys)
+        {
+            if (string.Equals(key, jsonKey, StringComparison.OrdinalIgnoreCase))
+            {
+                return key;
+            }
+        }
+
+        return null;
+    }
+
+    private void ShowExport(string title, string content)
+    {
+        _exportTitle = $"Export {title}";
+        _exportContent = content;
+        _exportLanguage = title switch
+        {
+            "JSON" => SyntaxHighlightLanguage.Json,
+            "CSS" => SyntaxHighlightLanguage.Css,
+            "C#" => SyntaxHighlightLanguage.CSharp,
+            _ => SyntaxHighlightLanguage.Json
+        };
+        _exportDialogOpen = true;
+    }
+
+    private string GenerateJson()
+    {
+        var export = new
+        {
+            dark = _darkPalette.ToDictionary(k => k.Key.ToLowerInvariant(), v => v.Value.ToString(ColorOutputFormats.Hex)),
+            light = _lightPalette.ToDictionary(k => k.Key.ToLowerInvariant(), v => v.Value.ToString(ColorOutputFormats.Hex)),
+            tokens = _tokens.ToDictionary(k => k.Key, v => v.Value)
+        };
+        return JsonSerializer.Serialize(export, new JsonSerializerOptions { WriteIndented = true });
+    }
+
+    private string GenerateCss()
+    {
+        System.Text.StringBuilder sb = new();
+        sb.AppendLine(":root {");
+        sb.AppendLine("  /* Palette (default / dark) */");
+        foreach (var kvp in _darkPalette)
+        {
+            sb.AppendLine($"  --palette-{kvp.Key.ToLowerInvariant()}: {kvp.Value.ToString(ColorOutputFormats.Hex)};");
+        }
+
+        if (_tokens.Count > 0)
+        {
+            sb.AppendLine();
+            sb.AppendLine("  /* Design tokens (theme-agnostic) */");
+            foreach (var category in TokensEditor.Catalog)
+            {
+                sb.AppendLine($"  /* {category.Name} */");
+                foreach (var spec in category.Tokens)
+                {
+                    if (_tokens.TryGetValue(spec.CssVar, out var value) && !string.IsNullOrWhiteSpace(value))
+                    {
+                        sb.AppendLine($"  {spec.CssVar}: {value};");
+                    }
+                }
+            }
+        }
+
+        sb.AppendLine("}");
+        sb.AppendLine();
+        sb.AppendLine("html[data-bob-theme=\"light\"] {");
+        foreach (var kvp in _lightPalette)
+        {
+            sb.AppendLine($"  --palette-{kvp.Key.ToLowerInvariant()}: {kvp.Value.ToString(ColorOutputFormats.Hex)};");
+        }
+
+        sb.AppendLine("}");
+        return sb.ToString();
+    }
+
+    private string GenerateCSharp()
+    {
+        System.Text.StringBuilder sb = new();
+        sb.AppendLine("using BlazOrbit.Components;");
+        sb.AppendLine("using BlazOrbit.Themes;");
+        sb.AppendLine();
+        sb.AppendLine("public class CustomDarkTheme : BOBThemePaletteBase");
+        sb.AppendLine("{");
+        sb.AppendLine("    public CustomDarkTheme()");
+        sb.AppendLine("    {");
+        sb.AppendLine("        Id = \"dark\";");
+        sb.AppendLine("        Name = \"Dark\";");
+        foreach (var kvp in _darkPalette)
+        {
+            sb.AppendLine($"        {kvp.Key} = new CssColor(\"{kvp.Value.ToString(ColorOutputFormats.Hex)}\");");
+        }
+
+        sb.AppendLine("    }");
+        sb.AppendLine("}");
+        sb.AppendLine();
+        sb.AppendLine("public class CustomLightTheme : BOBThemePaletteBase");
+        sb.AppendLine("{");
+        sb.AppendLine("    public CustomLightTheme()");
+        sb.AppendLine("    {");
+        sb.AppendLine("        Id = \"light\";");
+        sb.AppendLine("        Name = \"Light\";");
+        foreach (var kvp in _lightPalette)
+        {
+            sb.AppendLine($"        {kvp.Key} = new CssColor(\"{kvp.Value.ToString(ColorOutputFormats.Hex)}\");");
+        }
+
+        sb.AppendLine("    }");
+        sb.AppendLine("}");
+
+        if (_tokens.Count > 0)
+        {
+            sb.AppendLine();
+            sb.AppendLine("/*");
+            sb.AppendLine(" * Design tokens override the C# palette layer - drop this CSS into your");
+            sb.AppendLine(" * wwwroot/css to apply them globally:");
+            sb.AppendLine(" *");
+            sb.AppendLine(" * :root {");
+            foreach (var category in TokensEditor.Catalog)
+            {
+                foreach (var spec in category.Tokens)
+                {
+                    if (_tokens.TryGetValue(spec.CssVar, out var value) && !string.IsNullOrWhiteSpace(value))
+                    {
+                        sb.AppendLine($" *   {spec.CssVar}: {value};");
+                    }
+                }
+            }
+
+            sb.AppendLine(" * }");
+            sb.AppendLine(" */");
+        }
+
+        return sb.ToString();
+    }
+
+    private void Reset()
+    {
+        InitializePalettes();
+        InitializeTokens();
+    }
+
+}

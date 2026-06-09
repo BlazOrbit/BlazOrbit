@@ -1,4 +1,4 @@
-﻿let hero = null;
+let hero = null;
 let rafId = 0;
 let targetMx = 0, targetMy = 0;
 let curMx = 0, curMy = 0;
@@ -47,9 +47,9 @@ export function attach(el) {
     detach();
     hero = el;
     active = true;
-    window.addEventListener('mousemove', onMove, { passive: true });
+    window.addEventListener('mousemove', onMove, {passive: true});
     hero.addEventListener('mouseleave', onLeave);
-    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('scroll', onScroll, {passive: true});
     onScroll();
     rafId = requestAnimationFrame(tick);
 }

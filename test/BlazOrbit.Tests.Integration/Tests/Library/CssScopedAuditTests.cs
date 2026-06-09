@@ -1,4 +1,4 @@
-﻿using FluentAssertions;
+using FluentAssertions;
 
 namespace BlazOrbit.Tests.Integration.Tests.Library;
 
@@ -26,32 +26,31 @@ public class CssScopedAuditTests
     /// </summary>
     private static readonly HashSet<string> CssFreeAllowlist = new(StringComparer.Ordinal)
     {
-        // Internal helpers — no public visual surface
-        "_BOBCheckMark",
+        // Internal helpers - no public visual surface
+        "_BOBInCheckMark",
         "_BOBFieldHelper",
         "_BOBInputLoading",
         "_BOBInputOutline",
         "_BOBInputPrefix",
         "_BOBInputSuffix",
 
-        // Hosts / containers — visual surface is rendered by children
+        // Hosts / containers - visual surface is rendered by children
         "BOBModalHost",
         "BOBModalContainer",
         "BOBInitializer",
         "BOBBlazorLayout",
+        "BOBHotkeyHost",
 
-        // Input-family helpers — styled by global _input-family.css
+        // Input-family helpers - styled by global _input-family.css
         "BOBInputLoading",
         "BOBInputOutline",
         "BOBInputPrefix",
         "BOBInputSuffix",
 
-        // ThemeGenerator sub-components — styled by parent BOBThemeGenerator.razor.css or have no visual rules
-        "BOBThemeEditor",
-        "BOBThemePreview",
-
         // Components whose styling is fully family-driven or render inside another component
         "BOBTab",
+        "BOBAccordionItem",
+        "BOBCarouselItem",
         "BOBTreeMenuItem",
         "BOBTreeSelectorItem",
         "BOBDataColumn",
@@ -60,6 +59,8 @@ public class CssScopedAuditTests
         "BOBInputDropdownTree",
         "BOBDropdownContainer",
         "BOBDateTimePattern",
+        "BOBSplitterPane",
+        "BOBStep"
     };
 
     [Fact]
@@ -92,9 +93,9 @@ public class CssScopedAuditTests
         }
 
         violations.Should().BeEmpty(
-            because: "every public component with a visual surface must ship a scoped .razor.css file. " +
-                     "If a component intentionally has no CSS, add it to CssFreeAllowlist with a justification. " +
-                     "See CSS-SCOPED-09.\n\nMissing .razor.css files:\n  " +
-                     string.Join("\n  ", violations));
+            "every public component with a visual surface must ship a scoped .razor.css file. " +
+            "If a component intentionally has no CSS, add it to CssFreeAllowlist with a justification. " +
+            "See CSS-SCOPED-09.\n\nMissing .razor.css files:\n  " +
+            string.Join("\n  ", violations));
     }
 }

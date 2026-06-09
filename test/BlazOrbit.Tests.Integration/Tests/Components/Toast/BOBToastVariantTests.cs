@@ -1,5 +1,4 @@
-﻿using BlazOrbit.Components.Layout;
-using BlazOrbit.Components.Layout.Services;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -13,8 +12,7 @@ public class BOBToastVariantTests
 {
     private static ToastState DefaultState() => new()
     {
-        Content = b => b.AddContent(0, "msg"),
-        Options = ToastOptions.Default
+        Content = b => b.AddContent(0, "msg"), Options = ToastOptions.Default
     };
 
     [Theory]

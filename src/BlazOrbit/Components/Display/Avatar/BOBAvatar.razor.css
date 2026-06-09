@@ -1,0 +1,78 @@
+[data-bob-component="avatar"] {
+    --_avatar-size: calc(2.5rem * var(--bob-size-multiplier, 1));
+    --_avatar-radius-circle: 50%;
+    --_avatar-radius-rounded: 0.5rem;
+    --_avatar-bg: var(--bob-inline-background, transparent);
+    --_avatar-text: white;
+    --_avatar-status-size: calc(0.75rem * var(--bob-size-multiplier, 1));
+    --_avatar-border: 2px solid var(--palette-surface);
+    display: inline-block;
+    position: relative;
+}
+
+[data-bob-component="avatar"] .bob-avatar {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--_avatar-size);
+    height: var(--_avatar-size);
+    background: var(--_avatar-bg);
+    color: var(--_avatar-text);
+    font-size: calc(var(--_avatar-size) * 0.4);
+    font-weight: 600;
+    overflow: hidden;
+    user-select: none;
+}
+
+[data-bob-component="avatar"] .bob-avatar[data-bob-shape="circle"] {
+    border-radius: var(--_avatar-radius-circle);
+}
+
+[data-bob-component="avatar"] .bob-avatar[data-bob-shape="rounded"] {
+    border-radius: var(--_avatar-radius-rounded);
+}
+
+[data-bob-component="avatar"] .bob-avatar[data-bob-shape="square"] {
+    border-radius: 0;
+}
+
+[data-bob-component="avatar"] .bob-avatar__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+[data-bob-component="avatar"] .bob-avatar__initials,
+[data-bob-component="avatar"] .bob-avatar__content {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+[data-bob-component="avatar"] .bob-avatar__status {
+    position: absolute;
+    inset-inline-end: 0;
+    inset-block-end: 0;
+    width: var(--_avatar-status-size);
+    height: var(--_avatar-status-size);
+    border-radius: 50%;
+    border: var(--_avatar-border);
+}
+
+[data-bob-component="avatar"] .bob-avatar__status[data-bob-status="online"] {
+    background: var(--palette-success);
+}
+
+[data-bob-component="avatar"] .bob-avatar__status[data-bob-status="offline"] {
+    background: color-mix(in oklab, var(--palette-surface-contrast) 50%, transparent);
+}
+
+[data-bob-component="avatar"] .bob-avatar__status[data-bob-status="busy"] {
+    background: var(--palette-error);
+}
+
+[data-bob-component="avatar"] .bob-avatar__status[data-bob-status="away"] {
+    background: var(--palette-warning);
+}

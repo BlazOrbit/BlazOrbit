@@ -1,0 +1,630 @@
+/*
+ * BlazOrbit.Charts - family-shared stylesheet.
+ *
+ * Hand-written, single source of truth. No generator, no bundler.
+ *
+ * Selector convention:
+ *   - [data-bob-data-visualization-base] scopes everything to the chart family.
+ *   - [data-bob-component="bob-X-chart"] scopes per-chart-type rules.
+ *   - BEM children inside the SVG (`bob-bar-chart__bar`) are addressed bare.
+ */
+
+/* Family-shared root: ensures the host element behaves as a block-level
+   container that the inner <svg> can fill responsively. */
+[data-bob-data-visualization-base] {
+    display: block;
+    position: relative;
+    color: var(--palette-surface-contrast, #1f2937);
+    font-family: var(--bob-font-family, system-ui, -apple-system, "Segoe UI", sans-serif);
+    font-size: calc(0.75rem * var(--bob-size-multiplier, 1));
+}
+
+[data-bob-data-visualization-base] svg {
+    display: block;
+    overflow: visible;
+}
+
+/* Family-shared default text fill - SVG <text> ignores `color` and
+   defaults to `fill: black`, which renders illegibly on dark themes.
+   Anchoring fill at the family level lets every chart's axis labels,
+   value readouts and annotation text inherit the active theme's
+   contrast color without per-chart-type duplication. Individual
+   elements that need a specific color (series-tinted markers, error
+   reference labels) override via the `fill` attribute and win. */
+[data-bob-data-visualization-base] svg text {
+    fill: var(--palette-surface-contrast, #1f2937);
+}
+
+/* ---------- Data-update animations (opt-in via Animated="true") ---------- */
+/* CSS transitions on geometry attributes so re-renders interpolate smoothly.
+   Blazor diffs by sequence number and updates attributes in-place on
+   existing elements, which lets these transitions actually fire. */
+[data-bob-animated][data-bob-data-visualization-base] .bob-bar-chart__bar {
+    transition: y var(--bob-chart-anim-duration, 400ms) ease-out,
+    height var(--bob-chart-anim-duration, 400ms) ease-out;
+}
+
+[data-bob-animated][data-bob-data-visualization-base] .bob-line-chart__marker {
+    transition: cx var(--bob-chart-anim-duration, 400ms) ease-out,
+    cy var(--bob-chart-anim-duration, 400ms) ease-out,
+    r 120ms ease-in-out;
+}
+
+[data-bob-animated][data-bob-data-visualization-base] .bob-pie-chart__arc {
+    transition: opacity 120ms ease-in-out,
+    transform 120ms ease-in-out,
+    d var(--bob-chart-anim-duration, 400ms) ease-out;
+}
+
+/* prefers-reduced-motion always wins - disable every animation transition. */
+@media (prefers-reduced-motion: reduce) {
+    [data-bob-animated][data-bob-data-visualization-base] .bob-bar-chart__bar,
+    [data-bob-animated][data-bob-data-visualization-base] .bob-line-chart__marker,
+    [data-bob-animated][data-bob-data-visualization-base] .bob-pie-chart__arc {
+        transition: none;
+    }
+}
+
+/* ---------- Crosshair (Line / Area when ShowCrosshair=true) ---------- */
+
+.bob-line-chart__crosshair-overlay {
+    cursor: crosshair;
+}
+
+/* Brush selection rectangle painted during an active drag (BrushEnabled). */
+.bob-line-chart__brush {
+    fill: var(--palette-primary, #4f46e5);
+    fill-opacity: 0.12;
+    stroke: var(--palette-primary, #4f46e5);
+    stroke-opacity: 0.5;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+    pointer-events: none;
+}
+
+.bob-chart__crosshair {
+    stroke: var(--palette-surface-contrast, #6b7280);
+    stroke-width: 1;
+    stroke-dasharray: 3, 3;
+    pointer-events: none;
+    opacity: 0.7;
+}
+
+.bob-chart__crosshair-marker {
+    pointer-events: none;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.15));
+}
+
+.bob-chart__crosshair-readout {
+    position: absolute;
+    top: 8px;
+    transform: translateX(-50%);
+    pointer-events: none;
+    z-index: 10;
+    background: var(--palette-surface, #ffffff);
+    color: var(--palette-surface-contrast, #1f2937);
+    border: 1px solid var(--palette-border, rgba(0, 0, 0, 0.1));
+    border-radius: 6px;
+    padding: 6px 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    font-size: inherit;
+    line-height: 1.4;
+    min-width: 120px;
+    white-space: nowrap;
+}
+
+.bob-chart__crosshair-readout-header {
+    font-weight: 600;
+    border-bottom: 1px solid var(--palette-border, rgba(0, 0, 0, 0.08));
+    padding-bottom: 4px;
+    margin-bottom: 4px;
+}
+
+.bob-chart__crosshair-readout-row {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 6px;
+    align-items: center;
+}
+
+.bob-chart__crosshair-readout-marker {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+.bob-chart__crosshair-readout-value {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+}
+
+/* ---------- Reference / threshold lines ---------- */
+.bob-chart__reference-line {
+    shape-rendering: geometricPrecision;
+    pointer-events: none;
+}
+
+.bob-chart__reference-label {
+    font-size: 0.75em;
+    font-weight: 600;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* ---------- Annotations (text / band / shape) ---------- */
+.bob-chart__annotations {
+    pointer-events: none;
+}
+
+.bob-chart__annotation-text {
+    font-size: 0.75em;
+    font-weight: 500;
+    user-select: none;
+}
+
+.bob-chart__annotation-band {
+    /* fill + opacity set inline to allow per-annotation override */
+}
+
+.bob-chart__annotation-band-label {
+    font-size: 0.7em;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    user-select: none;
+}
+
+.bob-chart__annotation-shape {
+    transition: transform 120ms ease-out;
+    transform-origin: center;
+    transform-box: fill-box;
+}
+
+/* ---------- Legend layout via flex direction on the host ---------- */
+[data-bob-data-visualization-base][data-bob-legend-position] {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+[data-bob-data-visualization-base][data-bob-legend-position="top"] {
+    flex-direction: column-reverse;
+}
+
+[data-bob-data-visualization-base][data-bob-legend-position="bottom"] {
+    flex-direction: column;
+}
+
+[data-bob-data-visualization-base][data-bob-legend-position="left"] {
+    flex-direction: row-reverse;
+}
+
+[data-bob-data-visualization-base][data-bob-legend-position="right"] {
+    flex-direction: row;
+}
+
+[data-bob-data-visualization-base][data-bob-legend-position] > svg {
+    flex: 1 1 auto;
+    min-width: 0;
+    min-height: 0;
+}
+
+/* ---------- Legend (interactive toggle) ---------- */
+.bob-chart__legend {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+    font-size: inherit;
+    color: var(--palette-surface-contrast, #1f2937);
+}
+
+[data-bob-legend-position="left"] .bob-chart__legend,
+[data-bob-legend-position="right"] .bob-chart__legend {
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.bob-chart__legend-item[data-bob-hidden] .bob-chart__legend-button {
+    opacity: 0.4;
+    text-decoration: line-through;
+}
+
+.bob-chart__legend-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 6px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 120ms ease-in-out, opacity 120ms ease-in-out;
+}
+
+.bob-chart__legend-button:hover,
+.bob-chart__legend-button:focus-visible {
+    background: var(--palette-border, rgba(0, 0, 0, 0.04));
+}
+
+.bob-chart__legend-button:focus-visible {
+    outline: 2px solid var(--palette-primary, #4f46e5);
+    outline-offset: 2px;
+}
+
+.bob-chart__legend-marker {
+    width: 12px;
+    height: 12px;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+.bob-chart__legend-label {
+    line-height: 1.2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bob-chart__legend-button {
+        transition: none;
+    }
+}
+
+/* ---------- Custom HTML tooltip overlay ---------- */
+/* Renders when TooltipTemplate or TooltipFormat is set on a cartesian chart
+   (Bar / Line / Area). Positioned at the data point's pixel coords on the
+   bob-component (which has position:relative) and translated up + centered
+   so the tip arrow lands on the data point. */
+.bob-chart__tooltip {
+    position: absolute;
+    transform: translate(-50%, calc(-100% - 12px));
+    pointer-events: none;
+    z-index: 10;
+    background: var(--palette-surface, #ffffff);
+    color: var(--palette-surface-contrast, #1f2937);
+    border: 1px solid var(--palette-border, rgba(0, 0, 0, 0.1));
+    border-radius: 6px;
+    padding: 6px 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: inherit;
+    line-height: 1.3;
+    white-space: nowrap;
+    /* Tip arrow */
+}
+
+.bob-chart__tooltip::after {
+    content: "";
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: var(--palette-surface, #ffffff);
+    border-bottom: 0;
+    pointer-events: none;
+}
+
+.bob-chart__tooltip-marker {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+.bob-chart__tooltip-text {
+    color: inherit;
+}
+
+/* Export-PNG button overlay (rendered when ShowExportButton="true"). The
+   bob-component already has position:relative, so the button anchors
+   top-right of the chart frame. */
+.bob-chart__export-button {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    width: 28px;
+    height: 28px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--palette-border, rgba(0, 0, 0, 0.1));
+    border-radius: 4px;
+    background: var(--palette-surface, #ffffff);
+    color: var(--palette-surface-contrast, #6b7280);
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 120ms ease-in-out, background 120ms ease-in-out;
+}
+
+.bob-chart__export-button:hover,
+.bob-chart__export-button:focus-visible {
+    opacity: 1;
+    background: var(--palette-border, #f3f4f6);
+}
+
+.bob-chart__export-button:focus-visible {
+    outline: 2px solid var(--palette-primary, #4f46e5);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bob-chart__export-button {
+        transition: none;
+    }
+}
+
+/* ---------- Bar chart ---------- */
+
+[data-bob-component="bar-chart"] .bob-bar-chart__grid line {
+    stroke: var(--palette-border, rgba(0, 0, 0, 0.08));
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+[data-bob-component="bar-chart"] .bob-bar-chart__axis text {
+    fill: var(--palette-surface-contrast, #6b7280);
+    font-size: inherit;
+}
+
+[data-bob-component="bar-chart"] .bob-bar-chart__bar {
+    transition: opacity 120ms ease-in-out;
+    cursor: pointer;
+}
+
+[data-bob-component="bar-chart"] .bob-bar-chart__bar:hover {
+    opacity: 0.8;
+}
+
+/* Reduced motion: drop the hover transition. */
+@media (prefers-reduced-motion: reduce) {
+    [data-bob-component="bar-chart"] .bob-bar-chart__bar {
+        transition: none;
+    }
+}
+
+/* ---------- Line chart ---------- */
+
+[data-bob-component="line-chart"] .bob-line-chart__grid line {
+    stroke: var(--palette-border, rgba(0, 0, 0, 0.08));
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+[data-bob-component="line-chart"] .bob-line-chart__axis text {
+    fill: var(--palette-surface-contrast, #6b7280);
+    font-size: inherit;
+}
+
+[data-bob-component="line-chart"] .bob-line-chart__line {
+    fill: none;
+}
+
+[data-bob-component="line-chart"] .bob-line-chart__marker {
+    transition: r 120ms ease-in-out;
+    cursor: pointer;
+}
+
+[data-bob-component="line-chart"] .bob-line-chart__marker:hover {
+    r: 5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-bob-component="line-chart"] .bob-line-chart__marker {
+        transition: none;
+    }
+}
+
+/* ---------- Pie / Donut charts ---------- */
+
+[data-bob-component="pie-chart"] .bob-pie-chart__arc,
+[data-bob-component="donut-chart"] .bob-pie-chart__arc {
+    transition: opacity 120ms ease-in-out, transform 120ms ease-in-out;
+    transform-origin: center;
+    transform-box: fill-box;
+    cursor: pointer;
+}
+
+[data-bob-component="pie-chart"] .bob-pie-chart__slice:hover .bob-pie-chart__arc,
+[data-bob-component="donut-chart"] .bob-pie-chart__slice:hover .bob-pie-chart__arc {
+    opacity: 0.9;
+}
+
+[data-bob-component="pie-chart"] .bob-pie-chart__percentage,
+[data-bob-component="donut-chart"] .bob-pie-chart__percentage {
+    fill: var(--palette-primary-contrast, #ffffff);
+    font-size: inherit;
+    font-weight: 600;
+    pointer-events: none;
+    user-select: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-bob-component="pie-chart"] .bob-pie-chart__arc,
+    [data-bob-component="donut-chart"] .bob-pie-chart__arc {
+        transition: none;
+    }
+}
+
+/* ---------- Area chart ---------- */
+/* Inherits the layout / stroke rules from line-chart (the base engine emits
+   `.bob-line-chart__*` classes for grid, axis, line, markers). The
+   area-specific class is the fill below the stroke. */
+
+[data-bob-component="area-chart"] .bob-area-chart__fill {
+    transition: opacity 120ms ease-in-out;
+    pointer-events: none; /* hover hits stay on the line stroke + markers */
+}
+
+[data-bob-component="area-chart"] .bob-line-chart__grid line {
+    stroke: var(--palette-border, rgba(0, 0, 0, 0.08));
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+[data-bob-component="area-chart"] .bob-line-chart__axis text {
+    fill: var(--palette-surface-contrast, #6b7280);
+    font-size: inherit;
+}
+
+[data-bob-component="area-chart"] .bob-line-chart__line {
+    fill: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-bob-component="area-chart"] .bob-area-chart__fill {
+        transition: none;
+    }
+}
+
+/* ---------- Treemap chart (Phase 3) ---------- */
+
+[data-bob-component="treemap-chart"] .bob-treemap-chart__cell {
+    transition: opacity 120ms ease-in-out;
+    cursor: default;
+}
+
+[data-bob-component="treemap-chart"] .bob-treemap-chart__cell:hover {
+    opacity: 0.85;
+}
+
+[data-bob-component="treemap-chart"] .bob-treemap-chart__label {
+    pointer-events: none;
+    user-select: none;
+    font-weight: 500;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-bob-component="treemap-chart"] .bob-treemap-chart__cell {
+        transition: none;
+    }
+}
+
+/* ---------- Sunburst chart (Phase 3) ---------- */
+
+[data-bob-component="sunburst-chart"] .bob-sunburst-chart__arc {
+    transition: opacity 120ms ease-in-out;
+    cursor: default;
+}
+
+[data-bob-component="sunburst-chart"] .bob-sunburst-chart__arc:hover {
+    opacity: 0.85;
+}
+
+[data-bob-component="sunburst-chart"] .bob-sunburst-chart__label {
+    pointer-events: none;
+    user-select: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-bob-component="sunburst-chart"] .bob-sunburst-chart__arc {
+        transition: none;
+    }
+}
+
+/* ---------- Sankey chart (Phase 3) ---------- */
+
+[data-bob-component="sankey-chart"] .bob-sankey-chart__link {
+    transition: stroke-opacity 120ms ease-in-out;
+}
+
+[data-bob-component="sankey-chart"] .bob-sankey-chart__link:hover {
+    stroke-opacity: 0.85;
+}
+
+[data-bob-component="sankey-chart"] .bob-sankey-chart__node {
+    transition: opacity 120ms ease-in-out;
+}
+
+[data-bob-component="sankey-chart"] .bob-sankey-chart__node:hover {
+    opacity: 0.85;
+}
+
+[data-bob-component="sankey-chart"] .bob-sankey-chart__label {
+    pointer-events: none;
+    user-select: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-bob-component="sankey-chart"] .bob-sankey-chart__link,
+    [data-bob-component="sankey-chart"] .bob-sankey-chart__node {
+        transition: none;
+    }
+}
+
+/* ---------- Stock chart (Phase 3) ---------- */
+
+[data-bob-component="stock-chart"] .bob-stock-chart__wick {
+    stroke-width: 1;
+}
+
+[data-bob-component="stock-chart"] .bob-stock-chart__body {
+    transition: opacity 120ms ease-in-out;
+}
+
+[data-bob-component="stock-chart"] .bob-stock-chart__body:hover {
+    opacity: 0.85;
+}
+
+[data-bob-component="stock-chart"] .bob-stock-chart__axis-label {
+    fill: var(--palette-surface-contrast, #6b7280);
+}
+
+[data-bob-component="stock-chart"] .bob-stock-chart__volume {
+    pointer-events: none;
+}
+
+[data-bob-component="stock-chart"] .bob-stock-chart__bb-mid,
+[data-bob-component="stock-chart"] .bob-stock-chart__bb-upper,
+[data-bob-component="stock-chart"] .bob-stock-chart__bb-lower,
+[data-bob-component="stock-chart"] .bob-stock-chart__rsi,
+[data-bob-component="stock-chart"] .bob-stock-chart__macd-line,
+[data-bob-component="stock-chart"] .bob-stock-chart__macd-signal {
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-bob-component="stock-chart"] .bob-stock-chart__body {
+        transition: none;
+    }
+}
+
+/* ---------- Mixed chart (Phase 3) ---------- */
+
+[data-bob-component="mixed-chart"] .bob-mixed-chart__grid {
+    stroke: var(--palette-border, rgba(0, 0, 0, 0.08));
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+[data-bob-component="mixed-chart"] .bob-mixed-chart__axis-label,
+[data-bob-component="mixed-chart"] .bob-mixed-chart__axis-title {
+    fill: var(--palette-surface-contrast, #6b7280);
+    font-size: inherit;
+}
+
+[data-bob-component="mixed-chart"] .bob-mixed-chart__bar {
+    transition: opacity 120ms ease-in-out;
+    cursor: default;
+}
+
+[data-bob-component="mixed-chart"] .bob-mixed-chart__bar:hover {
+    opacity: 0.85;
+}
+
+[data-bob-component="mixed-chart"] .bob-mixed-chart__line,
+[data-bob-component="mixed-chart"] .bob-mixed-chart__area {
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    [data-bob-component="mixed-chart"] .bob-mixed-chart__bar {
+        transition: none;
+    }
+}

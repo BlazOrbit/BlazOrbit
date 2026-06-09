@@ -1,0 +1,122 @@
+// Auto-migrated from FlexStackPage.es.resx. Edit freely from now on.
+
+# A flexible stack container for horizontal or vertical layouts with alignment, wrapping, spacing, background, border, shadow and inherited text color.
+Un contenedor de pila flexible para diseños horizontales o verticales con alineación, ajuste de línea, espaciado, fondo, borde, sombra y color de texto heredado.
+
+# Add elevation with the Shadow parameter.
+Agrega elevación con el parámetro Shadow.
+
+# Alignment
+Alineación
+
+# Apply borders and rounded corners with the Border parameter.
+Aplica bordes y esquinas redondeadas con el parámetro Border.
+
+# Background color
+Color de fondo
+
+# Basic usage
+Uso básico
+
+# BOBFlexStack
+BOBFlexStack
+
+# Border
+Borde
+
+# Border & radius
+Borde y radio
+
+# Center
+Centro
+
+# Combine JustifyContent and AlignItems to position items within the container.
+Combina JustifyContent y AlignItems para posicionar elementos dentro del contenedor.
+
+# Component
+Componente
+
+# Control row and column gaps independently, and add padding or margin.
+Controla los espacios de fila y columna de forma independiente, y añade relleno o margen.
+
+# Control whether items wrap to new lines when they overflow the container.
+Controla si los elementos se ajustan a nuevas líneas cuando desbordan el contenedor.
+
+# Default row direction with items distributed by gap.
+Dirección de fila predeterminada con elementos distribuidos por espacio.
+
+# Elevation 1
+Elevación 1
+
+# Elevation 2
+Elevación 2
+
+# End
+Fin
+
+# First
+Primero
+
+# Gaps & spacing
+Espacios y separación
+
+# Item 1
+Elemento 1
+
+# Item 2
+Elemento 2
+
+# Item 3
+Elemento 3
+
+# Item 4
+Elemento 4
+
+# Item 5
+Elemento 5
+
+# NoWrap
+Sin ajuste
+
+# Primary
+Primario
+
+# Properties
+Propiedades
+
+# Rounded
+Redondeado
+
+# Second
+Segundo
+
+# Secondary
+Secundario
+
+# Set a theme-aware or custom background color using the BackgroundColor parameter.
+Establece un color de fondo adaptable al tema o personalizado usando el parámetro BackgroundColor.
+
+# Set Direction to Column for a vertical layout.
+Establece Direction en Column para un diseño vertical.
+
+# Shadow
+Sombra
+
+# Stack
+Apilado
+
+# Start
+Inicio
+
+# Third
+Tercero
+
+# Top accent
+Acento superior
+
+# Vertical stack
+Pila vertical
+
+# Wrap behavior
+Comportamiento de ajuste
+

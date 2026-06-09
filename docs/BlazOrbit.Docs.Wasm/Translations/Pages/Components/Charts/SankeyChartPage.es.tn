@@ -1,0 +1,35 @@
+# BOBSankeyChart
+BOBSankeyChart
+
+# Chart
+Gráfico
+
+# Click a ribbon to drill into the source data. The chart highlights the path under the cursor and the tooltip shows the formatted value.
+Pulsa una cinta para profundizar en los datos de origen. El gráfico resalta el camino bajo el cursor y el tooltip muestra el valor formateado.
+
+# Clicked:
+Pulsado:
+
+# Conversion funnel
+Embudo de conversión
+
+# Each link's ribbon thickness scales with its Value. Source nodes appear on the left; sinks pin to the rightmost column automatically.
+El grosor de la cinta de cada enlace escala con su Value. Los nodos origen aparecen a la izquierda; los sumideros se anclan automáticamente a la columna más a la derecha.
+
+# Energy flow
+Flujo de energía
+
+# Extra package required
+Paquete adicional requerido
+
+# Flow diagram with variable-thickness ribbons between named nodes. The chart auto-derives node columns from the edge graph (topological rank) so consumers only describe the links. Use for energy flows, budget movements, conversion funnels and migrations between states.
+Diagrama de flujo con cintas de grosor variable entre nodos con nombre. El gráfico deriva automáticamente las columnas de los nodos a partir del grafo de aristas (rango topológico) - el consumidor solo describe los enlaces. Útil para flujos de energía, movimientos presupuestarios, embudos de conversión y migraciones entre estados.
+
+# Multi-column flow
+Flujo multi-columna
+
+# Topological ranking places each node one column right of its deepest source. Branching and merging columns emerge naturally from the graph.
+El ranking topológico coloca cada nodo una columna a la derecha de su origen más profundo. Las columnas que ramifican y convergen emergen del propio grafo.
+
+# This chart requires the BlazOrbit.Charts NuGet package. Install it with dotnet add package BlazOrbit.Charts and register AddBlazOrbitCharts() in Program.cs.
+Este gráfico requiere el paquete NuGet BlazOrbit.Charts. Instálalo con dotnet add package BlazOrbit.Charts y registra AddBlazOrbitCharts() en Program.cs.

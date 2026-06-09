@@ -1,4 +1,4 @@
-﻿namespace BlazOrbit.Components;
+namespace BlazOrbit.Components;
 
 /// <summary>
 /// Central definition of all CSS-related constants used by the BOB component library. Organized by
@@ -48,7 +48,7 @@ internal static class FeatureDefinitions
         public const string SrOnly = "sr-only";
 
         /// <summary>
-        /// Utility class variant of <see cref="DataAttributes.Scrollbars"/> — place on any wrapper to scope
+        /// Utility class variant of <see cref="DataAttributes.Scrollbars"/> - place on any wrapper to scope
         /// branded scrollbar styling.
         /// </summary>
         public const string Scrollbars = "bob-scrollbars";
@@ -104,7 +104,6 @@ internal static class FeatureDefinitions
             public const string Grid = "bob-picker__grid";
             public const string Cell = "bob-picker__cell";
             public const string CellSelected = "bob-picker__cell--selected";
-            public const string CellMuted = "bob-picker__cell--muted";
             public const string Input = "bob-picker__input";
             public const string Separator = "bob-picker__separator";
             public const string Slider = "bob-picker__slider";
@@ -165,6 +164,13 @@ internal static class FeatureDefinitions
         /// Marks component as part of data collection family for shared styles.
         /// </summary>
         public const string DataCollectionBase = "data-bob-data-collection";
+
+        /// <summary>
+        /// Picker-family cell rendered with reduced emphasis (e.g. days outside the current month
+        /// in a date picker, weekday header cells). Used by the picker family CSS to apply the
+        /// muted opacity rule.
+        /// </summary>
+        public const string Muted = "data-bob-muted";
 
         // --- State attributes ---
         /// <summary>
@@ -302,6 +308,11 @@ internal static class FeatureDefinitions
         /// </summary>
         public const string ExpandMode = "data-bob-expand-mode";
 
+        /// <summary>
+        /// Whether expanding a menu node collapses siblings.
+        /// </summary>
+        public const string TextBehavior = "data-bob-text-behavior";
+
         // --- Toast attributes ---
         /// <summary>
         /// Toast is currently running its close animation.
@@ -372,6 +383,9 @@ internal static class FeatureDefinitions
         public const string SwitchThumbActiveBackground = "--bob-inline-thumb-active-bg";
         public const string SwitchThumbInactiveColor = "--bob-inline-thumb-inactive-color";
         public const string SwitchThumbActiveColor = "--bob-inline-thumb-active-color";
+
+        // --- Aspect ratio overrides (BOBAspectRatio) ---
+        public const string AspectRatio = "--bob-inline-aspect-ratio";
 
         // --- Layout overrides ---
         public const string LayoutSidebarWidth = "--bob-inline-sidebar-width";
@@ -453,7 +467,6 @@ internal static class FeatureDefinitions
             public const string ToastValue = "1500";
             public const string Tooltip = "--bob-z-tooltip";
             public const string TooltipValue = "1400";
-
         }
 
         /// <summary>
@@ -522,7 +535,7 @@ internal static class FeatureDefinitions
 
         /// <summary>
         /// Scrollbar dimensions. Styles are opt-in via <see cref="DataAttributes.Scrollbars"/> or the
-        /// <see cref="CssClasses.Scrollbars"/> utility class — the library does not touch consumer scrollbars by default.
+        /// <see cref="CssClasses.Scrollbars"/> utility class - the library does not touch consumer scrollbars by default.
         /// </summary>
         public static class Scrollbar
         {
@@ -539,8 +552,17 @@ internal static class FeatureDefinitions
         /// </summary>
         public static class Input
         {
-            public const string Radius = "--bob-input-radius";
-            public const string RadiusValue = "4px";
+            // Border family for input components - mirrors the global Border tokens but
+            // scoped so a consumer can dial input chrome independently of every other
+            // border in the system.
+            public const string BorderWidth = "--bob-input-border-width";
+            public const string BorderWidthValue = "1px";
+            public const string BorderStyle = "--bob-input-border-style";
+            public const string BorderStyleValue = "solid";
+            public const string BorderColor = "--bob-input-border-color";
+            public const string BorderColorValue = "color-mix(in oklab, var(--palette-border) 40%, transparent)";
+            public const string BorderRadius = "--bob-input-border-radius";
+            public const string BorderRadiusValue = "0";
             public const string TransitionDuration = "--bob-input-transition-duration";
             public const string TransitionDurationValue = "150ms";
             public const string TransitionEasing = "--bob-input-transition-easing";
@@ -556,6 +578,8 @@ internal static class FeatureDefinitions
         {
             public const string Radius = "--bob-picker-radius";
             public const string RadiusValue = "8px";
+            public const string BorderColor = "--bob-picker-border-color";
+            public const string BorderColorValue = "color-mix(in oklab, var(--palette-border) 40%, transparent)";
             public const string CellSize = "--bob-picker-cell-size";
             public const string CellSizeValue = "36px";
             public const string Padding = "--bob-picker-padding";
@@ -565,7 +589,7 @@ internal static class FeatureDefinitions
         /// <summary>
         /// Transition system (consumed by <see cref="DataAttributes.Transitions"/>).
         /// Variables follow <c>--bob-t-{trigger}-{property}</c>; <see cref="VariableFor"/> builds them.
-        /// Vars are intentionally emitted without a default — transitions are opt-in per component and
+        /// Vars are intentionally emitted without a default - transitions are opt-in per component and
         /// undefined <c>var()</c> resolves to "unset", so the CSS declaration silently no-ops.
         /// </summary>
         public static class Transitions
@@ -593,7 +617,8 @@ internal static class FeatureDefinitions
                 "padding", "gap"
             ];
 
-            public static string VariableFor(string trigger, string property) => $"{VariablePrefix}{trigger}-{property}";
+            public static string VariableFor(string trigger, string property) =>
+                $"{VariablePrefix}{trigger}-{property}";
         }
     }
 
@@ -602,12 +627,17 @@ internal static class FeatureDefinitions
         public const string FontFamily = "--bob-font-family";
         public const string FontFamilyHeading = "--bob-font-family-heading";
         public const string FontFamilyHeadingValue = "var(--bob-font-family)";
-        public const string FontFamilyValue = "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif";
+
+        public const string FontFamilyValue =
+            "system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, sans-serif";
+
         public const string FontMono = "--bob-font-mono";
         public const string FontMonoValue = "ui-monospace, \"Cascadia Mono\", \"SF Mono\", Consolas, monospace";
         public const string FontSizeBase = "--bob-font-size-base";
+
         /// <summary>Fluid typography: scales from 0.875rem (≈640px viewport) to 1.125rem (≈1536px viewport).</summary>
         public const string FontSizeBaseValue = "clamp(0.875rem, 0.75rem + 0.25vw, 1.125rem)";
+
         public const string LineHeight = "--bob-line-height";
         public const string LineHeightHeading = "--bob-line-height-heading";
         public const string LineHeightHeadingValue = "1.2";
@@ -615,6 +645,7 @@ internal static class FeatureDefinitions
 
         /// <summary>Heading scale based on 1.25 ratio (Major Third).</summary>
         public const string H1FontSize = "2.441em";
+
         public const string H2FontSize = "1.953em";
         public const string H3FontSize = "1.563em";
         public const string H4FontSize = "1.25em";
@@ -624,10 +655,12 @@ internal static class FeatureDefinitions
 
         /// <summary>Shared small/secondary text font-size (small, code, kbd, samp, pre).</summary>
         public const string SmallFontSize = "0.875em";
+
         public const string BoldFontWeight = "700";
 
         /// <summary>Inline/preformatted code style tokens.</summary>
         public const string CodeFontWeight = "500";
+
         public const string PreLineHeight = "1.6";
 
         /// <summary>Anchor/link color transition.</summary>

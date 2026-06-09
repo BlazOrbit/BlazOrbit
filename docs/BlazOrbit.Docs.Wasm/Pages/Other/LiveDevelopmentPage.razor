@@ -1,16 +1,21 @@
-﻿@page "/live-development"
+@page "/live-development"
 
 @inject IStringLocalizer<LiveDevelopmentPage> Loc
 
-<DocPage Eyebrow="Live"
-         Title="Live Development"
-         Lede="@(Loc["""You can follow live development of BlazOrbit in @cdcsharp twitch channel."""])">
+<DocPage Eyebrow="@Loc["Live"]"
+         Title="@Loc["Live Development"]"
+         Lede="@(Loc["""You can follow live development of BlazOrbit in @cdcsharp twitch channel."""])"
+         Keywords="@(["live development", "streaming", "Twitch", "community"])">
 
 
     <p>
-        @((MarkupString)Loc[_introText].ToString())
+        @Loc.Html(_introText)
     </p>
-    <hr />
+
+    <p>
+        @Loc.Html(_introText2)
+    </p>
+    <hr/>
 
     <div class="twitch-container">
         <iframe src="@GetPlayerSource()"
@@ -18,7 +23,7 @@
                 width="720"
                 allowfullscreen>
         </iframe>
-    
+
         <iframe src="@GetChatSource()"
                 height="500"
                 width="350">
@@ -26,16 +31,23 @@
     </div>
 
 </DocPage>
+
 @code {
+
     private string _introText =
-    """
-    BlazOrbit originated from another library we developed on streamings in <a href="https://www.twitch.tv/cdcsharp">@cdcsharp's Twitch channel</a> and was later revised, refactored, and optimized to become what it is today. Live development continues from time to time, and you're welcome to join in.
-    """;
+        """
+        BlazOrbit originated from another library we developed on streamings in <a href="https://www.twitch.tv/cdcsharp">@cdcsharp's Twitch channel</a> and was later revised, refactored, and optimized to become what it is today. Live development continues from time to time, and you're welcome to join in.
+        """;
+
+    private string _introText2 =
+        """
+        Contributors who want to do live video streaming of the library's development can contact the administrator to add their network here. Or submit a pull request-this site is built alongside the code.
+        """;
 
     private string GetPlayerSource()
     {
 #if DEBUG
-            return "https://player.twitch.tv/?channel=cdcsharp&parent=localhost";
+        return "https://player.twitch.tv/?channel=cdcsharp&parent=localhost";
 #else
         return "https://player.twitch.tv/?channel=cdcsharp&parent=blazorbit.com";
 #endif
@@ -44,9 +56,10 @@
     private string GetChatSource()
     {
 #if DEBUG
-            return "https://www.twitch.tv/embed/cdcsharp/chat?parent=localhost.com";
+        return "https://www.twitch.tv/embed/cdcsharp/chat?parent=localhost.com";
 #else
         return "https://www.twitch.tv/embed/cdcsharp/chat?parent=blazorbit.com";
 #endif
     }
+
 }

@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components;
 
 namespace BlazOrbit.Components;
 
@@ -10,12 +10,12 @@ public interface IHasRipple : IJsBehavior
     /// <summary>When <see langword="true" />, disables the ripple effect.</summary>
     bool DisableRipple { get; set; }
 
-    /// <summary>Custom ripple color. Accepts any valid CSS color value.</summary>
+    /// <summary>Custom ripple color. Accepts any valid CSS color value, <see cref="PaletteColor"/> or <see cref="BOBColor"/>.</summary>
     string? RippleColor { get; set; }
 
     /// <summary>Duration of the ripple animation in milliseconds.</summary>
     int? RippleDurationMs { get; set; }
 
     /// <summary>Gets the <see cref="ElementReference" /> that hosts the ripple effect.</summary>
-    ElementReference GetRippleContainer();
+    ElementReference? GetRippleContainer();
 }

@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components.Forms;
+using BlazOrbit.Components.Forms;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -10,7 +10,10 @@ namespace BlazOrbit.Tests.Integration.Tests.Components.TextArea;
 [Trait("Component Variants", "BOBInputTextArea")]
 public class BOBInputTextAreaVariantTests
 {
-    private class Model { public string? Value { get; set; } }
+    private class Model
+    {
+        public string? Value { get; set; }
+    }
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -63,15 +66,15 @@ public class BOBInputTextAreaVariantTests
 
         ctx.Services.AddBlazOrbitVariants(builder =>
             builder.ForComponent<BOBInputTextArea>()
-                   .AddVariant(
-                       customVariant,
-                       input => builder =>
-                       {
-                           builder.OpenElement(0, "bob-component");
-                           builder.AddAttribute(1, "class", "neon-area");
-                           builder.AddContent(2, input.Label);
-                           builder.CloseElement();
-                       }));
+                .AddVariant(
+                    customVariant,
+                    input => builder =>
+                    {
+                        builder.OpenElement(0, "bob-component");
+                        builder.AddAttribute(1, "class", "neon-area");
+                        builder.AddContent(2, input.Label);
+                        builder.CloseElement();
+                    }));
 
         Model model = new();
 

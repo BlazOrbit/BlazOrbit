@@ -1,4 +1,4 @@
-﻿using BlazOrbit.Components;
+using BlazOrbit.Components;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
@@ -12,7 +12,7 @@ public class BOBDataColumnRenderingTests
 {
     private sealed record Person(string Name, int Age);
 
-    private static IEnumerable<Person> Items => [new Person("Alice", 30), new Person("Bob", 25)];
+    private static IEnumerable<Person> Items => [new("Alice", 30), new("Bob", 25)];
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
@@ -30,7 +30,7 @@ public class BOBDataColumnRenderingTests
                 b.CloseComponent();
             }));
 
-        // Assert — header cell rendered with column name
+        // Assert - header cell rendered with column name
         cut.Find("[role='columnheader']").TextContent.Trim().Should().Be("Full Name");
     }
 
@@ -75,7 +75,7 @@ public class BOBDataColumnRenderingTests
                 b.CloseComponent();
             }));
 
-        // Assert — template rendered in cell
+        // Assert - template rendered in cell
         cut.Find("[role='gridcell']").TextContent.Should().Be("[Alice]");
     }
 }

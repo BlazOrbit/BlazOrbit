@@ -1,4 +1,6 @@
-﻿using System.Diagnostics.CodeAnalysis;
+#pragma warning disable CS1591 // Icon catalog: per-glyph XML docs add no signal.
+
+using System.Diagnostics.CodeAnalysis;
 
 namespace BlazOrbit.Components;
 
