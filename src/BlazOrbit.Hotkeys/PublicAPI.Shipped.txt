@@ -1,1 +1,48 @@
 #nullable enable
+BlazOrbit.Hotkeys.BOBHotkeyHost
+BlazOrbit.Hotkeys.BOBHotkeyHost.BOBHotkeyHost() -> void
+BlazOrbit.Hotkeys.BOBHotkeyHost.DisposeAsync() -> System.Threading.Tasks.ValueTask
+BlazOrbit.Hotkeys.HotkeyDescriptor
+BlazOrbit.Hotkeys.HotkeyDescriptor.Combo.get -> string!
+BlazOrbit.Hotkeys.HotkeyDescriptor.Combo.init -> void
+BlazOrbit.Hotkeys.HotkeyDescriptor.Deconstruct(out string! Combo, out string! Description, out BlazOrbit.Hotkeys.HotkeyScope Scope, out bool PreventDefault) -> void
+BlazOrbit.Hotkeys.HotkeyDescriptor.Description.get -> string!
+BlazOrbit.Hotkeys.HotkeyDescriptor.Description.init -> void
+BlazOrbit.Hotkeys.HotkeyDescriptor.Equals(BlazOrbit.Hotkeys.HotkeyDescriptor other) -> bool
+BlazOrbit.Hotkeys.HotkeyDescriptor.HotkeyDescriptor() -> void
+BlazOrbit.Hotkeys.HotkeyDescriptor.HotkeyDescriptor(string! Combo, string! Description, BlazOrbit.Hotkeys.HotkeyScope Scope, bool PreventDefault = true) -> void
+BlazOrbit.Hotkeys.HotkeyDescriptor.PreventDefault.get -> bool
+BlazOrbit.Hotkeys.HotkeyDescriptor.PreventDefault.init -> void
+BlazOrbit.Hotkeys.HotkeyDescriptor.Scope.get -> BlazOrbit.Hotkeys.HotkeyScope
+BlazOrbit.Hotkeys.HotkeyDescriptor.Scope.init -> void
+BlazOrbit.Hotkeys.HotkeyHostRelay
+BlazOrbit.Hotkeys.HotkeyHostRelay.HotkeyHostRelay(BlazOrbit.Hotkeys.IHotkeyService! service) -> void
+BlazOrbit.Hotkeys.HotkeyHostRelay.OnHotkey(string! combo) -> System.Threading.Tasks.Task<bool>!
+BlazOrbit.Hotkeys.HotkeyOptions
+BlazOrbit.Hotkeys.HotkeyOptions.HotkeyOptions() -> void
+BlazOrbit.Hotkeys.HotkeyOptions.Register(string! combo, string! description, System.Func<System.IServiceProvider!, System.Threading.Tasks.Task!>! handler, BlazOrbit.Hotkeys.HotkeyScope scope = BlazOrbit.Hotkeys.HotkeyScope.Global, bool preventDefault = true) -> BlazOrbit.Hotkeys.HotkeyOptions!
+BlazOrbit.Hotkeys.HotkeyScope
+BlazOrbit.Hotkeys.HotkeyScope.Global = 0 -> BlazOrbit.Hotkeys.HotkeyScope
+BlazOrbit.Hotkeys.HotkeyScope.Page = 1 -> BlazOrbit.Hotkeys.HotkeyScope
+BlazOrbit.Hotkeys.HotkeyService
+BlazOrbit.Hotkeys.HotkeyService.DispatchAsync(string! combo) -> System.Threading.Tasks.Task<bool>!
+BlazOrbit.Hotkeys.HotkeyService.HotkeyService() -> void
+BlazOrbit.Hotkeys.HotkeyService.Register(string! combo, string! description, System.Func<System.Threading.Tasks.Task!>! handler, BlazOrbit.Hotkeys.HotkeyScope scope = BlazOrbit.Hotkeys.HotkeyScope.Global, bool preventDefault = true) -> System.IDisposable!
+BlazOrbit.Hotkeys.HotkeyService.Registered -> System.Action<BlazOrbit.Hotkeys.HotkeyDescriptor>?
+BlazOrbit.Hotkeys.HotkeyService.RegisteredHotkeys.get -> System.Collections.Generic.IReadOnlyList<BlazOrbit.Hotkeys.HotkeyDescriptor>!
+BlazOrbit.Hotkeys.HotkeyService.Unregistered -> System.Action<BlazOrbit.Hotkeys.HotkeyDescriptor>?
+BlazOrbit.Hotkeys.IHotkeyService
+BlazOrbit.Hotkeys.IHotkeyService.DispatchAsync(string! combo) -> System.Threading.Tasks.Task<bool>!
+BlazOrbit.Hotkeys.IHotkeyService.Register(string! combo, string! description, System.Func<System.Threading.Tasks.Task!>! handler, BlazOrbit.Hotkeys.HotkeyScope scope = BlazOrbit.Hotkeys.HotkeyScope.Global, bool preventDefault = true) -> System.IDisposable!
+BlazOrbit.Hotkeys.IHotkeyService.Registered -> System.Action<BlazOrbit.Hotkeys.HotkeyDescriptor>?
+BlazOrbit.Hotkeys.IHotkeyService.RegisteredHotkeys.get -> System.Collections.Generic.IReadOnlyList<BlazOrbit.Hotkeys.HotkeyDescriptor>!
+BlazOrbit.Hotkeys.IHotkeyService.Unregistered -> System.Action<BlazOrbit.Hotkeys.HotkeyDescriptor>?
+Microsoft.Extensions.DependencyInjection.HotkeyServiceCollectionExtensions
+override BlazOrbit.Hotkeys.BOBHotkeyHost.OnAfterRenderAsync(bool firstRender) -> System.Threading.Tasks.Task!
+override BlazOrbit.Hotkeys.HotkeyDescriptor.GetHashCode() -> int
+static BlazOrbit.Hotkeys.HotkeyDescriptor.operator !=(BlazOrbit.Hotkeys.HotkeyDescriptor left, BlazOrbit.Hotkeys.HotkeyDescriptor right) -> bool
+static BlazOrbit.Hotkeys.HotkeyDescriptor.operator ==(BlazOrbit.Hotkeys.HotkeyDescriptor left, BlazOrbit.Hotkeys.HotkeyDescriptor right) -> bool
+static Microsoft.Extensions.DependencyInjection.HotkeyServiceCollectionExtensions.AddBlazOrbitHotkeys(this Microsoft.Extensions.DependencyInjection.IServiceCollection! services, System.Action<BlazOrbit.Hotkeys.HotkeyOptions!>? configure = null) -> Microsoft.Extensions.DependencyInjection.IServiceCollection!
+~override BlazOrbit.Hotkeys.BOBHotkeyHost.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void
+~override BlazOrbit.Hotkeys.HotkeyDescriptor.Equals(object obj) -> bool
+~override BlazOrbit.Hotkeys.HotkeyDescriptor.ToString() -> string
