@@ -1,5 +1,4 @@
 #nullable enable
-#nullable enable
 BlazOrbit.CodeBlock.Components.BOBCodeBlock
 BlazOrbit.CodeBlock.Components.BOBCodeBlock.BOBCodeBlock() -> void
 BlazOrbit.CodeBlock.Components.BOBCodeBlock.BackgroundColor.get -> string?

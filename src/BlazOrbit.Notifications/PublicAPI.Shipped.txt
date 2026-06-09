@@ -1,5 +1,4 @@
 #nullable enable
-#nullable enable
 BlazOrbit.Notifications.BOBNotification
 BlazOrbit.Notifications.BOBNotification.ActionUrl.get -> string?
 BlazOrbit.Notifications.BOBNotification.ActionUrl.init -> void

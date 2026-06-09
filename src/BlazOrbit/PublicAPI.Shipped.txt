@@ -1,5 +1,4 @@
 #nullable enable
-#nullable enable
 BlazOrbit.ComponentParameterInfo
 BlazOrbit.ComponentParameterInfo.<Clone>$() -> BlazOrbit.ComponentParameterInfo!
 BlazOrbit.ComponentParameterInfo.ComponentParameterInfo(string! ParameterName, string! ParameterType, string? ParameterDefault, string? ParameterDescription) -> void
