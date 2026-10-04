@@ -19,10 +19,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="$(BlazOrbitAspNetCoreVersion)"/>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(BlazOrbitExtensionsVersion)"/>
-        <PackageReference Include="Microsoft.Extensions.Localization" Version="$(BlazOrbitExtensionsVersion)"/>
-        <PackageReference Include="Microsoft.JSInterop" Version="$(BlazOrbitJsInteropVersion)"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions"/>
+        <PackageReference Include="Microsoft.Extensions.Localization"/>
+        <PackageReference Include="Microsoft.JSInterop"/>
     </ItemGroup>
 
     <ItemGroup>
@@ -31,7 +31,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="4.14.0" PrivateAssets="all"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" PrivateAssets="all"/>
     </ItemGroup>
 
     <ItemGroup>

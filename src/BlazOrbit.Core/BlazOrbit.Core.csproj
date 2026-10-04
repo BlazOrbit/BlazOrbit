@@ -16,14 +16,14 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.Components" Version="$(BlazOrbitAspNetCoreVersion)"/>
-        <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="$(BlazOrbitAspNetCoreVersion)"/>
-        <PackageReference Include="Microsoft.AspNetCore.Components.Forms" Version="$(BlazOrbitAspNetCoreVersion)"/>
-        <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="$(BlazOrbitExtensionsVersion)"/>
-        <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="$(BlazOrbitExtensionsVersion)"/>
-        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(BlazOrbitExtensionsVersion)"/>
-        <PackageReference Include="Microsoft.JSInterop" Version="$(BlazOrbitAspNetCoreVersion)"/>
-        <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="4.14.0" PrivateAssets="all"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Web"/>
+        <PackageReference Include="Microsoft.AspNetCore.Components.Forms"/>
+        <PackageReference Include="Microsoft.Extensions.Caching.Memory"/>
+        <PackageReference Include="Microsoft.Extensions.Localization.Abstractions"/>
+        <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions"/>
+        <PackageReference Include="Microsoft.JSInterop"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" PrivateAssets="all"/>
     </ItemGroup>
 
     <ItemGroup>

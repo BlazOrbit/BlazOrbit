@@ -359,11 +359,10 @@ if ($PublicFeed) {
     }
 }
 
-# ---------- Ensure feed directory + nuget source ----------
-# Skipped under -PublicFeed: we don't need the local feed at all, and the
-# workspace nuget.config written later forces resolution to api.nuget.org
-# regardless of any source registered globally.
-$feedSourceName = "blazorbit-local-test"
+# ---------- Ensure feed directory ----------
+# Skipped under -PublicFeed: we don't need the local feed at all. The feed is
+# wired into restore by the workspace nuget.config written in step 5b (no
+# user-level source registration).
 if (-not $PublicFeed) {
     Write-Step "Preparing local feed at $FeedDir"
     if (-not (Test-Path $FeedDir)) {
@@ -371,14 +370,6 @@ if (-not $PublicFeed) {
         Write-Ok "created"
     } else {
         Write-Ok "exists"
-    }
-
-    $existingSource = & dotnet nuget list source 2>&1 | Select-String -Pattern $feedSourceName
-    if (-not $existingSource) {
-        Invoke-DotNet @("nuget", "add", "source", $FeedDir, "-n", $feedSourceName) "register local feed"
-        Write-Ok "registered NuGet source '$feedSourceName'"
-    } else {
-        Write-Ok "NuGet source '$feedSourceName' already registered"
     }
 } else {
     Write-Step "Skipping local feed prep (-PublicFeed → resolving from nuget.org)"
@@ -460,14 +451,14 @@ if (Test-Path $WorkDir) {
 }
 New-Item -ItemType Directory -Path $WorkDir -Force | Out-Null
 
-# ---------- 5b. Workspace nuget.config when -PublicFeed ----------
-# Forces every `dotnet restore` under $WorkDir to resolve packages only from
-# nuget.org. `<clear/>` discards any source inherited from the user-level
-# nuget.config (where the local-feed source typically lives), guaranteeing
-# the matrix consumes the LIVE published bits rather than whatever was last
-# packed locally.
+# ---------- 5b. Workspace nuget.config ----------
+# Pins every `dotnet restore` under $WorkDir, overriding the repository
+# nuget.config. `<clear/>` discards inherited sources and source mappings.
+#   - default:     BlazOrbit packages from $FeedDir, everything else from nuget.org.
+#   - -PublicFeed: nuget.org only, so the matrix consumes the LIVE published bits
+#                  rather than whatever was last packed locally.
+$workspaceNuGetConfig = Join-Path $WorkDir "nuget.config"
 if ($PublicFeed) {
-    $workspaceNuGetConfig = Join-Path $WorkDir "nuget.config"
     @"
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
@@ -475,9 +466,38 @@ if ($PublicFeed) {
     <clear />
     <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
   </packageSources>
+  <packageSourceMapping>
+    <clear />
+    <packageSource key="nuget.org">
+      <package pattern="*" />
+    </packageSource>
+  </packageSourceMapping>
 </configuration>
 "@ | Set-Content -Path $workspaceNuGetConfig -Encoding UTF8
     Write-Ok "wrote nuget.config pinning resolution to nuget.org → $workspaceNuGetConfig"
+} else {
+    $feedFullPath = (Resolve-Path $FeedDir).Path
+    @"
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <packageSources>
+    <clear />
+    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" protocolVersion="3" />
+    <add key="blazorbit-local-test" value="$feedFullPath" />
+  </packageSources>
+  <packageSourceMapping>
+    <clear />
+    <packageSource key="nuget.org">
+      <package pattern="*" />
+    </packageSource>
+    <packageSource key="blazorbit-local-test">
+      <package pattern="BlazOrbit" />
+      <package pattern="BlazOrbit.*" />
+    </packageSource>
+  </packageSourceMapping>
+</configuration>
+"@ | Set-Content -Path $workspaceNuGetConfig -Encoding UTF8
+    Write-Ok "wrote nuget.config resolving BlazOrbit packages from $feedFullPath → $workspaceNuGetConfig"
 }
 
 # ---------- 6. Run matrix ----------
@@ -639,13 +659,18 @@ if ($RunE2E) {
         # 3. Pass the work directory to the fixture so it reuses generated projects
         $env:BLAZORBIT_TEMPLATE_TEST_DIR = $WorkDir
 
+        # dotnet test picks the Microsoft.Testing.Platform runner from the
+        # repository global.json, which is resolved from the working directory.
+        Push-Location $repoRoot
         try {
-            Invoke-DotNet @("test", $e2eProj, "-c", $Configuration, "--no-build", "--verbosity", "normal", "--nologo") "run E2E tests"
+            Invoke-DotNet @("test", "--project", $e2eProj, "-c", $Configuration, "--no-build", "--output", "Detailed") "run E2E tests"
             $e2eResults = "ok"
             Write-Ok "E2E tests passed"
         } catch {
             $e2eResults = "fail"
             Write-Err "E2E tests failed: $($_.Exception.Message)"
+        } finally {
+            Pop-Location
         }
     }
 }

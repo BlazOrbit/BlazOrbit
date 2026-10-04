@@ -5,21 +5,23 @@
     Run all tests in Release configuration.
 
 .DESCRIPTION
-    Executes dotnet test against the solution (BlazOrbit.slnx) using the Release
-    build configuration. Supports optional test filtering and code coverage.
+    Executes dotnet test (Microsoft.Testing.Platform runner, see global.json)
+    against the solution (BlazOrbit.slnx) using the Release build configuration.
+    Supports optional test filtering and code coverage.
 
 .EXAMPLE
     ./tests-release.ps1
     Run all tests in Release.
 
 .EXAMPLE
-    ./tests-release.ps1 -Filter "FullyQualifiedName~Button"
-    Run only tests whose fully qualified name contains "Button".
+    ./tests-release.ps1 -Filter "*Button*"
+    Run only tests whose display name (fully qualified method name) matches the
+    pattern. Wildcard '*' is supported at the beginning and/or end.
 
 .EXAMPLE
     ./tests-release.ps1 -Coverage
-    Run all tests in Release and collect code coverage (Cobertura) using
-    coverage.runsettings at the repository root.
+    Run all tests in Release and collect code coverage (Cobertura) with coverlet.
+    Reports land in TestResults/ at the repository root.
 #>
 
 [CmdletBinding()]
@@ -43,28 +45,49 @@ $Colors = @{
 
 $RepoRoot = Split-Path -Parent $PSScriptRoot
 $Solution = Join-Path $RepoRoot "BlazOrbit.slnx"
-$Settings = Join-Path $RepoRoot "coverage.runsettings"
+$ResultsDir = Join-Path $RepoRoot "TestResults"
 
-$Arguments = @("test", $Solution, "--configuration", "Release")
+# Coverage scope: every shipped library plus the build-time generator assemblies.
+$CoverageArguments = @(
+    "--coverlet",
+    "--coverlet-output-format", "cobertura",
+    "--results-directory", $ResultsDir,
+    "--coverlet-include",
+        "[BlazOrbit]*", "[BlazOrbit.Core]*", "[BlazOrbit.CodeBlock]*",
+        "[BlazOrbit.CodeGeneration]*", "[BlazOrbit.Core.CodeGeneration]*", "[BlazOrbit.Docs.CodeGeneration]*",
+        "[BlazOrbit.SyntaxHighlight]*",
+        "[BlazOrbit.Localization.Server]*", "[BlazOrbit.Localization.Shared]*", "[BlazOrbit.Localization.Wasm]*",
+        "[BlazOrbit.Charts]*", "[BlazOrbit.Hotkeys]*", "[BlazOrbit.Notifications]*", "[BlazOrbit.FormsFluentValidation]*",
+    "--coverlet-exclude-by-file",
+        "**/*.g.cs", "**/*.designer.cs", "**/*.razor.g.cs", "**/Migrations/*.cs",
+    "--coverlet-exclude-by-attribute",
+        "Obsolete", "GeneratedCodeAttribute", "CompilerGeneratedAttribute"
+)
+
+$Arguments = @("test", "--solution", $Solution, "--configuration", "Release")
 
 if ($Coverage) {
-    if (-not (Test-Path $Settings)) {
-        Write-Host "❌ Coverage settings not found: $Settings" -ForegroundColor $Colors.Error
-        exit 1
-    }
-    $Arguments += @("--settings", $Settings)
+    $Arguments += $CoverageArguments
 }
 
 if ($Filter) {
-    $Arguments += @("--filter", $Filter)
+    # Exit code 8 = zero tests ran; expected for test projects with no match.
+    $Arguments += @("--filter-display-name", $Filter, "--ignore-exit-code", "8")
 }
 
 Write-Host "`n=== Running tests (Release) ===" -ForegroundColor $Colors.Info
 if ($Filter) { Write-Host "Filter: $Filter" -ForegroundColor $Colors.Warning }
-if ($Coverage) { Write-Host "Coverage: enabled ($Settings)" -ForegroundColor $Colors.Warning }
+if ($Coverage) { Write-Host "Coverage: enabled (cobertura -> $ResultsDir)" -ForegroundColor $Colors.Warning }
 Write-Host ""
 
-& dotnet @Arguments
+# dotnet test picks the Microsoft.Testing.Platform runner from the repository
+# global.json, which is resolved from the working directory.
+Push-Location $RepoRoot
+try {
+    & dotnet @Arguments
+} finally {
+    Pop-Location
+}
 
 if ($LASTEXITCODE -ne 0) {
     Write-Host "`n❌ Tests failed (exit code: $LASTEXITCODE)" -ForegroundColor $Colors.Error
