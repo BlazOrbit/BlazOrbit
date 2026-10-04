@@ -1,36 +1,39 @@
 version: 2
 updates:
-  # NuGet dependencies across every csproj under the repo root.
+  # NuGet versions live in Directory.Packages.props (Central Package Management).
+  # One grouped PR per month with minor/patch bumps only. Major upgrades are done by
+  # hand: they need migration work and, for framework packages, the net8.0 pins in
+  # Directory.Packages.props must stay on the 8.0 servicing line.
+  # Security updates (repository setting) are not affected by this schedule.
   - package-ecosystem: "nuget"
     directory: "/"
     schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 5
+      interval: "monthly"
+    open-pull-requests-limit: 1
     labels:
       - "dependencies"
       - "nuget"
+    ignore:
+      - dependency-name: "*"
+        update-types: [ "version-update:semver-major" ]
+      # Source generators pin Roslyn to the minimum compiler consumers must run;
+      # bump together with the supported SDK floor.
+      - dependency-name: "Microsoft.CodeAnalysis.CSharp"
+      - dependency-name: "Microsoft.CodeAnalysis.Analyzers"
+      # Verify 33+ requires a SponsorCheck license property.
+      - dependency-name: "Verify*"
+        versions: [ ">= 33.0.0" ]
     groups:
-      microsoft-aspnet:
+      nuget:
         patterns:
-          - "Microsoft.AspNetCore.*"
-          - "Microsoft.Extensions.*"
-      microsoft-codeanalysis:
-        patterns:
-          - "Microsoft.CodeAnalysis.*"
-      test-stack:
-        patterns:
-          - "xunit*"
-          - "bUnit*"
-          - "Verify*"
-          - "FluentAssertions*"
-          - "NSubstitute*"
+          - "*"
 
-  # GitHub Actions pinned in .github/workflows/*.yml.
+  # GitHub Actions pinned by SHA in .github/workflows/*.yml.
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "weekly"
-    open-pull-requests-limit: 3
+      interval: "monthly"
+    open-pull-requests-limit: 1
     labels:
       - "dependencies"
       - "ci"

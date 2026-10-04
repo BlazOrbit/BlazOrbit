@@ -61,3 +61,8 @@
 #*.PDF   diff=astextplain
 #*.rtf   diff=astextplain
 #*.RTF   diff=astextplain
+
+###############################################################################
+# Verify snapshots: Verify requires LF line endings in verified files.
+###############################################################################
+*.verified.txt text eol=lf

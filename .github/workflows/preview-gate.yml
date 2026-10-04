@@ -136,9 +136,9 @@ jobs:
         run: dotnet build BlazOrbit.slnx -c Release --no-restore -p:TreatWarningsAsErrors=true
 
       - name: Test
-        # Category!=Perf excludes timing-based perf guards that flake
+        # Skipping the Category=Perf trait excludes timing-based perf guards that flake
         # on shared/self-hosted CI runners due to JIT/GC noise.
-        run: dotnet test BlazOrbit.slnx -c Release --no-build --verbosity normal --filter "Category!=Perf"
+        run: dotnet test --solution BlazOrbit.slnx -c Release --no-build --filter-not-trait "Category=Perf"
 
   public-api-shipped-check:
     name: Check Public API Shipped

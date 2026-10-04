@@ -87,7 +87,7 @@ dotnet build BlazOrbit.slnx -c Debug
 dotnet test
 
 # Run a single test project or filter
-dotnet test test/BlazOrbit.Tests.Integration/BlazOrbit.Tests.Integration.csproj --filter "DisplayName~Button"
+dotnet test --project test/BlazOrbit.Tests.Integration --filter-display-name "*Button*"
 ```
 
 ### Static Assets
