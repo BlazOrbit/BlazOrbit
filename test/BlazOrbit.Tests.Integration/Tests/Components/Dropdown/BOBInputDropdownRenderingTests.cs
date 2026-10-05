@@ -35,6 +35,21 @@ public class BOBInputDropdownRenderingTests
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
+    public async Task Should_Render_When_Used_With_Value_And_ValueChanged_Without_Bind(BlazorScenario scenario)
+    {
+        await using BlazorTestContextBase ctx = scenario.CreateContext();
+        string? selected = null;
+
+        // Act & Assert - one-way Value + ValueChanged, no @bind-Value and no EditForm
+        ctx.Invoking(x => x.Render<BOBInputDropdown<string>>(p => p
+                .Add(c => c.Value, "a")
+                .Add(c => c.ValueChanged, (string v) => selected = v)))
+            .Should().NotThrow();
+        selected.Should().BeNull();
+    }
+
+    [Theory]
+    [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
     public async Task Should_Render_Input_Family_Attribute(BlazorScenario scenario)
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();
