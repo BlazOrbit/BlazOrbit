@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Changed
+- **BOBInitializer** renders `ChildContent` immediately instead of waiting for the palette to resolve through JS
+  interop. Static SSR and prerendered HTML now contain the page markup. The cascaded `BOBPalette` is `null` until it
+  resolves; consumers of `[CascadingParameter] BOBPalette?` must handle `null`.
+
+### Fixed
+- **BOBInitializer** `DefaultTheme` is now honoured by the anti-flash bootstrap (`data-default-theme` on the script
+  tag), which follows the same resolution order as `ThemeInterop.initialize()`. Previously it always fell back to
+  `dark`, so a light default flashed dark before Blazor started.
+- **BOBInitializer** no longer faults the render loop when the palette snapshot is empty or contains an unparsable
+  color (for example when the theme JS module fails to load); the previous palette is kept.
+
 ## [1.0.0] - 2026-05-15
 
 First stable release of BlazOrbit — a modern, accessible component library for Blazor Server and WebAssembly.
