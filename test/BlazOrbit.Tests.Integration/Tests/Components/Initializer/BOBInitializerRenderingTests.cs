@@ -1,8 +1,12 @@
 using BlazOrbit.Components;
+using BlazOrbit.Themes;
 using BlazOrbit.Tests.Integration.Infrastructure;
 using BlazOrbit.Tests.Integration.Infrastructure.Contexts;
 using Bunit;
 using FluentAssertions;
+using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Rendering;
+using Microsoft.AspNetCore.Components.Web;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 
@@ -97,5 +101,100 @@ public class BOBInitializerRenderingTests
 
         // Assert
         await fake.Received(1).GetPaletteAsync();
+    }
+
+    [Theory]
+    [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
+    public async Task Should_Render_ChildContent_When_Palette_Has_Not_Resolved(BlazorScenario scenario)
+    {
+        await using BlazorTestContextBase ctx = scenario.CreateContext();
+        RegisterPendingTheme(ctx);
+
+        // Arrange & Act - palette never resolves, as under static SSR / prerender
+        IRenderedComponent<BOBInitializer> cut = ctx.Render<BOBInitializer>(p => p
+            .AddChildContent("<div class='test-child'>Hello</div>"));
+
+        // Assert
+        cut.FindAll(".test-child").Should().HaveCount(1);
+    }
+
+    [Theory]
+    [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
+    public async Task Should_Cascade_Null_Palette_Until_Resolved(BlazorScenario scenario)
+    {
+        await using BlazorTestContextBase ctx = scenario.CreateContext();
+        TaskCompletionSource<Dictionary<string, string>> pending = RegisterPendingTheme(ctx);
+
+        // Arrange
+        IRenderedComponent<BOBInitializer> cut = ctx.Render<BOBInitializer>(p => p
+            .AddChildContent<PaletteProbe>());
+
+        IRenderedComponent<PaletteProbe> probe = cut.FindComponent<PaletteProbe>();
+        probe.Instance.Palette.Should().BeNull();
+
+        // Act
+        pending.SetResult(FullPalette);
+
+        // Assert
+        probe.WaitForState(() => probe.Instance.Palette is not null, TimeSpan.FromSeconds(1));
+        probe.Instance.Palette!.Primary.ToString().Should().NotBeNullOrWhiteSpace();
+    }
+
+    [Theory]
+    [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
+    public async Task Should_Render_ChildContent_When_Palette_Is_Incomplete(BlazorScenario scenario)
+    {
+        await using BlazorTestContextBase ctx = scenario.CreateContext();
+        IThemeJsInterop fake = Substitute.For<IThemeJsInterop>();
+        // ThemeJsInterop returns an empty dictionary when the JS module fails to load.
+        fake.GetPaletteAsync().Returns(new ValueTask<Dictionary<string, string>>([]));
+        fake.InitializeAsync(Arg.Any<string?>()).Returns(ValueTask.CompletedTask);
+        ctx.Services.AddScoped(_ => fake);
+
+        // Arrange & Act
+        IRenderedComponent<BOBInitializer> cut = ctx.Render<BOBInitializer>(p => p
+            .AddChildContent<PaletteProbe>());
+
+        // Assert
+        cut.FindComponent<PaletteProbe>().Instance.Palette.Should().BeNull();
+    }
+
+    [Theory]
+    [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
+    public async Task Should_Pass_DefaultTheme_To_AntiFlash_Script(BlazorScenario scenario)
+    {
+        await using BlazorTestContextBase ctx = scenario.CreateContext();
+        RegisterFakeTheme(ctx);
+
+        // Arrange & Act
+        IRenderedComponent<BOBInitializer> cut = ctx.Render<BOBInitializer>(p => p
+            .Add(c => c.DefaultTheme, "light"));
+
+        // Assert
+        IRenderedComponent<HeadOutlet> head = ctx.Render<HeadOutlet>();
+        head.Find("script[src='_content/BlazOrbit/anti-flash.js']")
+            .GetAttribute("data-default-theme").Should().Be("light");
+    }
+
+    private static TaskCompletionSource<Dictionary<string, string>> RegisterPendingTheme(BlazorTestContextBase ctx)
+    {
+        TaskCompletionSource<Dictionary<string, string>> pending = new(TaskCreationOptions.RunContinuationsAsynchronously);
+        IThemeJsInterop fake = Substitute.For<IThemeJsInterop>();
+        fake.GetPaletteAsync().Returns(_ => new ValueTask<Dictionary<string, string>>(pending.Task));
+        fake.InitializeAsync(Arg.Any<string?>()).Returns(ValueTask.CompletedTask);
+        ctx.Services.AddScoped(_ => fake);
+        return pending;
+    }
+
+    private sealed class PaletteProbe : ComponentBase
+    {
+        [CascadingParameter] public BOBPalette? Palette { get; set; }
+
+        protected override void BuildRenderTree(RenderTreeBuilder builder)
+        {
+            builder.OpenElement(0, "span");
+            builder.AddAttribute(1, "class", "palette-probe");
+            builder.CloseElement();
+        }
     }
 }

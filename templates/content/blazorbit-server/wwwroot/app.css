@@ -88,10 +88,10 @@ h1:focus {
     .bob-app__loader-logo { animation: none; }
 }
 
-/* Hide the loader once the interactive Routes render the app shell.
-   `main.bob-app__main` is emitted by MainLayout when BOBInitializer's
-   palette has resolved. Falls back to JS-controlled hide for browsers
-   without :has() support (Firefox <121). */
+/* Hide the loader once the app shell is in the DOM. `main.bob-app__main`
+   is emitted by MainLayout, including in the prerendered HTML, so the
+   loader only shows when prerendering is disabled. Falls back to
+   JS-controlled hide for browsers without :has() support (Firefox <121). */
 body:has(main.bob-app__main) .bob-app__loader {
     opacity: 0;
     visibility: hidden;

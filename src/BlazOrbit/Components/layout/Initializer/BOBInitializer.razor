@@ -11,15 +11,14 @@
        <head> blocks body parse so `data-theme` is set before any element renders.
        External-file form is CSP-safe under `script-src 'self'`, avoiding the
        inline-script exception that the previous implementation required. *@
-    <script src="_content/BlazOrbit/anti-flash.js"></script>
+    <script src="_content/BlazOrbit/anti-flash.js" data-default-theme="@DefaultTheme"></script>
 </HeadContent>
 
-@if (_palette is not null)
-{
-    <CascadingValue Value="_palette" IsFixed="false">
-        @ChildContent
-    </CascadingValue>
-}
+@* Content renders immediately so static SSR and prerender emit real markup. Theme colors
+   come from CSS custom properties; the cascaded palette is null until JS resolves it. *@
+<CascadingValue Value="_palette" IsFixed="false">
+    @ChildContent
+</CascadingValue>
 
 @code{
 
@@ -76,7 +75,16 @@
     private async Task LoadPaletteAsync()
     {
         var colors = await ThemeInterop.GetPaletteAsync();
-        _palette = new BOBPalette(colors);
+
+        // An empty or partial snapshot (JS module failed to load, stylesheet not applied yet)
+        // keeps the previous palette instead of faulting the render loop.
+        try
+        {
+            _palette = new BOBPalette(colors);
+        }
+        catch (Exception ex) when (ex is KeyNotFoundException or ArgumentException)
+        {
+        }
     }
 
     public void Dispose()
