@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project adheres
 to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+### Added
+- **Link** (`BOBLink`) - Navigation anchor with `Text` and `Button` appearances. The button appearance mirrors
+  `BOBButton` visuals while keeping link semantics, so it works under static SSR. `Target="_blank"` adds
+  `rel="noopener noreferrer"` and a screen-reader hint that the link opens in a new tab.
+
 ## [1.0.0] - 2026-05-15
 
 First stable release of BlazOrbit — a modern, accessible component library for Blazor Server and WebAssembly.

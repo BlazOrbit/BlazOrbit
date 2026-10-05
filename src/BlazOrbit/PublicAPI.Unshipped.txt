@@ -1,0 +1,45 @@
+BlazOrbit.Components.BOBLink
+BlazOrbit.Components.BOBLink.AriaLabel.get -> string?
+BlazOrbit.Components.BOBLink.AriaLabel.set -> void
+BlazOrbit.Components.BOBLink.BOBLink() -> void
+BlazOrbit.Components.BOBLink.BackgroundColor.get -> string?
+BlazOrbit.Components.BOBLink.BackgroundColor.set -> void
+BlazOrbit.Components.BOBLink.Border.get -> BlazOrbit.Components.BorderStyle?
+BlazOrbit.Components.BOBLink.Border.set -> void
+BlazOrbit.Components.BOBLink.ChildContent.get -> Microsoft.AspNetCore.Components.RenderFragment?
+BlazOrbit.Components.BOBLink.ChildContent.set -> void
+BlazOrbit.Components.BOBLink.Color.get -> string?
+BlazOrbit.Components.BOBLink.Color.set -> void
+BlazOrbit.Components.BOBLink.Density.get -> BlazOrbit.Components.BOBDensity
+BlazOrbit.Components.BOBLink.Density.set -> void
+BlazOrbit.Components.BOBLink.FullWidth.get -> bool
+BlazOrbit.Components.BOBLink.FullWidth.set -> void
+BlazOrbit.Components.BOBLink.Href.get -> string?
+BlazOrbit.Components.BOBLink.Href.set -> void
+BlazOrbit.Components.BOBLink.LeadingIcon.get -> BlazOrbit.Components.IconKey?
+BlazOrbit.Components.BOBLink.LeadingIcon.set -> void
+BlazOrbit.Components.BOBLink.Rel.get -> string?
+BlazOrbit.Components.BOBLink.Rel.set -> void
+BlazOrbit.Components.BOBLink.Shadow.get -> BlazOrbit.Components.ShadowStyle?
+BlazOrbit.Components.BOBLink.Shadow.set -> void
+BlazOrbit.Components.BOBLink.Size.get -> BlazOrbit.Components.BOBSize
+BlazOrbit.Components.BOBLink.Size.set -> void
+BlazOrbit.Components.BOBLink.Target.get -> string?
+BlazOrbit.Components.BOBLink.Target.set -> void
+BlazOrbit.Components.BOBLink.Text.get -> string?
+BlazOrbit.Components.BOBLink.Text.set -> void
+BlazOrbit.Components.BOBLink.TrailingIcon.get -> BlazOrbit.Components.IconKey?
+BlazOrbit.Components.BOBLink.TrailingIcon.set -> void
+BlazOrbit.Components.BOBLink.Transitions.get -> BlazOrbit.Components.BOBTransitions?
+BlazOrbit.Components.BOBLink.Transitions.set -> void
+BlazOrbit.Components.BOBLinkComponentInfo
+BlazOrbit.Components.BOBLinkVariant
+BlazOrbit.Components.BOBLinkVariant.BOBLinkVariant(string! name) -> void
+override BlazOrbit.Components.BOBLink.BuiltInTemplates.get -> System.Collections.Generic.Dictionary<BlazOrbit.Components.BOBLinkVariant!, System.Func<BlazOrbit.Components.BOBLink!, Microsoft.AspNetCore.Components.RenderFragment!>!>!
+override BlazOrbit.Components.BOBLink.DefaultVariant.get -> BlazOrbit.Components.BOBLinkVariant!
+override BlazOrbit.Components.BOBLink.OnParametersSet() -> void
+static BlazOrbit.Components.BOBLinkVariant.Custom(string! name) -> BlazOrbit.Components.BOBLinkVariant!
+static readonly BlazOrbit.Components.BOBLinkComponentInfo.Parameters -> BlazOrbit.ComponentParameterInfo![]!
+static readonly BlazOrbit.Components.BOBLinkVariant.Button -> BlazOrbit.Components.BOBLinkVariant!
+static readonly BlazOrbit.Components.BOBLinkVariant.Text -> BlazOrbit.Components.BOBLinkVariant!
+~override BlazOrbit.Components.BOBLink.BuildRenderTree(Microsoft.AspNetCore.Components.Rendering.RenderTreeBuilder __builder) -> void

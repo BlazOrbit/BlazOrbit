@@ -1,0 +1,51 @@
+@page "/components/navigation/link"
+
+@using BlazOrbit.Components
+
+@inject IStringLocalizer<LinkPage> Loc
+
+
+<DocPage Eyebrow="@Loc["Component"]" Title="@Loc["BOBLink"]"
+         Lede="@Loc["Navigates to another page or resource. Use BOBLink to go somewhere and BOBButton to do something."]"
+         PageInstance="this"
+         ApiType="@typeof(BOBLink)"
+         Keywords="@(["link", "anchor", "href", "navigation", "call to action"])">
+
+    <DocDemo Key="Basic" Title="@Loc["Basic"]">
+        <p>
+            @Loc["Read the"] <BOBLink Href="/getting-started" Text="@Loc["getting started guide"]"/>.
+        </p>
+    </DocDemo>
+
+    <DocDemo Key="ButtonVariant" Title="@Loc["Button appearance"]">
+        <BOBLink Href="/getting-started"
+                 Text="@Loc["Get started"]"
+                 Variant="BOBLinkVariant.Button"
+                 TrailingIcon="@BOBIconKeys.MaterialIconsOutlined.i_arrow_forward"/>
+        <p class="doc-demo__caption">@Loc["Looks like a button but renders an anchor, so it works without interactivity and keeps link semantics."]</p>
+    </DocDemo>
+
+    <DocDemo Key="External" Title="@Loc["External link"]">
+        <BOBLink Href="https://github.com/BlazOrbit/BlazOrbit"
+                 Text="GitHub"
+                 Target="_blank"
+                 TrailingIcon="@BOBIconKeys.MaterialIconsOutlined.i_open_in_new"/>
+        <p class="doc-demo__caption">@Loc["Target=\"_blank\" adds rel=\"noopener noreferrer\" and tells screen readers the link opens in a new tab."]</p>
+    </DocDemo>
+
+    <DocDemo Key="Colors" Title="@Loc["Colors and sizes"]">
+        <BOBFlexStack Direction="FlexStackDirection.Row" Gap="1rem" AlignItems="FlexStackAlignItems.Center">
+            <BOBLink Href="#" Text="@Loc["Small"]" Variant="BOBLinkVariant.Button" Size="BOBSize.Small"
+                     BackgroundColor="@PaletteColor.Secondary" Color="@PaletteColor.SecondaryContrast"/>
+            <BOBLink Href="#" Text="@Loc["Medium"]" Variant="BOBLinkVariant.Button"/>
+            <BOBLink Href="#" Text="@Loc["Large"]" Variant="BOBLinkVariant.Button" Size="BOBSize.Large"
+                     Shadow="@BOBShadowPresets.Elevation(4)"/>
+        </BOBFlexStack>
+    </DocDemo>
+
+    <section class="doc-section">
+        <h2 class="doc-section__title">@Loc["Properties"]</h2>
+        <PropertyTable Properties="@BOBLinkComponentInfo.Parameters"/>
+    </section>
+
+</DocPage>

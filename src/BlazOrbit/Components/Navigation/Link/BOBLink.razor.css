@@ -1,0 +1,79 @@
+/* ===== Text variant (default) ===== */
+[data-bob-component="link"] {
+    --_link-color: var(--bob-inline-color, var(--palette-primary));
+    --_link-background: var(--bob-inline-background, transparent);
+    --_link-border-radius: var(--bob-inline-border-radius, var(--bob-border-radius));
+    --_link-border: var(--bob-inline-border, none);
+    --_link-border-top: var(--bob-inline-border-top, var(--_link-border));
+    --_link-border-right: var(--bob-inline-border-right, var(--_link-border));
+    --_link-border-bottom: var(--bob-inline-border-bottom, var(--_link-border));
+    --_link-border-left: var(--bob-inline-border-left, var(--_link-border));
+    display: inline-block;
+}
+
+[data-bob-component="link"] .bob-link__anchor {
+    display: inline-flex;
+    align-items: center;
+    gap: calc(0.35rem * var(--bob-density-multiplier, 1));
+    color: var(--_link-color);
+    background-color: var(--_link-background);
+    border-radius: var(--_link-border-radius);
+    border-top: var(--_link-border-top);
+    border-right: var(--_link-border-right);
+    border-bottom: var(--_link-border-bottom);
+    border-left: var(--_link-border-left);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+    cursor: pointer;
+}
+
+[data-bob-component="link"] .bob-link__anchor:hover {
+    text-decoration-thickness: 2px;
+}
+
+[data-bob-component="link"] .bob-link__anchor:focus-visible {
+    outline: var(--bob-highlight-outline);
+    outline-offset: var(--bob-highlight-outline-offset);
+}
+
+/* ===== Button variant: mirrors BOBButton visuals, keeps anchor semantics ===== */
+[data-bob-component="link"][data-bob-variant="button"] {
+    --_link-height: calc(2.5rem * var(--bob-size-multiplier, 1));
+    --_link-padding-x: 1rem;
+    --_link-padding-y: 0.5rem;
+    --_link-color: var(--bob-inline-color, var(--palette-primary-contrast));
+    --_link-background: var(--bob-inline-background, var(--palette-primary));
+    --_link-border: var(--bob-inline-border, var(--bob-border-width) var(--bob-border-style) var(--palette-border));
+}
+
+[data-bob-component="link"][data-bob-variant="button"] .bob-link__anchor {
+    justify-content: center;
+    gap: calc(0.5rem * var(--bob-density-multiplier, 1));
+    min-height: var(--_link-height);
+    padding: var(--_link-padding-y) var(--_link-padding-x);
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+}
+
+[data-bob-component="link"][data-bob-variant="button"] .bob-link__anchor:hover:not(:active) {
+    background: color-mix(in oklab, var(--_link-background) 90%, var(--palette-hover-tint) 10%);
+}
+
+[data-bob-component="link"][data-bob-variant="button"] .bob-link__anchor:active {
+    background: color-mix(in oklab, var(--_link-background) 80%, var(--palette-active-tint) 20%);
+}
+
+.bob-link__text {
+    white-space: nowrap;
+}
+
+/* ===== Full width ===== */
+[data-bob-component="link"][data-bob-fullwidth="true"] {
+    display: block;
+}
+
+[data-bob-component="link"][data-bob-fullwidth="true"] .bob-link__anchor {
+    width: 100%;
+}

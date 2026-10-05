@@ -1,0 +1,18 @@
+[
+  {
+    Name: Text,
+    Html: <bob-component data-bob-component="link" data-bob-variant="text" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><a href="/docs" class="bob-link__anchor transition-target" b-<SCOPE>><span class="bob-link__text" b-<SCOPE>>Read the docs</span></a></bob-component>
+  },
+  {
+    Name: Button,
+    Html: <bob-component data-bob-component="link" data-bob-variant="button" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><a href="/signup" class="bob-link__anchor transition-target" b-<SCOPE>><bob-component class="bob-link__icon bob-link__icon--leading" data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M0 0h24v24H0V0z" fill="none"/><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/></svg></bob-component><span class="bob-link__text" b-<SCOPE>>Sign up</span></a></bob-component>
+  },
+  {
+    Name: External,
+    Html: <bob-component data-bob-component="link" data-bob-variant="text" data-bob-size="medium" data-bob-density="standard" b-<SCOPE>><a href="https://example.com" target="_blank" rel="noopener noreferrer" class="bob-link__anchor transition-target" b-<SCOPE>><span class="bob-link__text" b-<SCOPE>>Example</span><bob-component class="bob-link__icon bob-link__icon--trailing" data-bob-component="svg-icon" data-bob-variant="default" data-bob-size="medium" b-<SCOPE>><svg focusable="false" viewBox="0 0 24 24" aria-hidden="true" b-<SCOPE>><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 19H5V5h7V3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2v-7h-2v7zM14 3v2h3.59l-9.83 9.83 1.41 1.41L19 6.41V10h2V3h-7z"/></svg></bob-component><span class="sr-only" b-<SCOPE>>(opens in a new tab)</span></a></bob-component>
+  },
+  {
+    Name: Elevated,
+    Html: <bob-component data-bob-component="link" data-bob-variant="button" data-bob-size="medium" data-bob-density="standard" data-bob-shadow="true" data-bob-transitions="hover:translate hover:box-shadow" style="--bob-inline-shadow: 0px 8px 10px 0px color-mix(in oklab, var(--palette-shadow) 22%, transparent), 0px 6px 12px 0px color-mix(in oklab, var(--palette-shadow) 14%, transparent); --bob-t-hover-translate: 0 -4px; --bob-t-hover-box-shadow: 0px 4px 6px 0px color-mix(in oklab, var(--palette-shadow) 20%, transparent), 0px 4px 5px 0px color-mix(in oklab, var(--palette-shadow) 12%, transparent); --bob-t-transition: translate 200ms ease-in-out, box-shadow 200ms ease-in-out" b-<SCOPE>><a href="/pricing" class="bob-link__anchor transition-target" b-<SCOPE>><span class="bob-link__text" b-<SCOPE>>Pricing</span></a></bob-component>
+  }
+]
