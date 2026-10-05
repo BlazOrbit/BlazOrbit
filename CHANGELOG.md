@@ -11,6 +11,17 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **Link** (`BOBLink`) - Navigation anchor with `Text` and `Button` appearances. The button appearance mirrors
   `BOBButton` visuals while keeping link semantics, so it works under static SSR. `Target="_blank"` adds
   `rel="noopener noreferrer"` and a screen-reader hint that the link opens in a new tab.
+### Changed
+- **BOBInitializer** renders `ChildContent` immediately instead of waiting for the palette to resolve through JS
+  interop. Static SSR and prerendered HTML now contain the page markup. The cascaded `BOBPalette` is `null` until it
+  resolves; consumers of `[CascadingParameter] BOBPalette?` must handle `null`.
+
+### Fixed
+- **BOBInitializer** `DefaultTheme` is now honoured by the anti-flash bootstrap (`data-default-theme` on the script
+  tag), which follows the same resolution order as `ThemeInterop.initialize()`. Previously it always fell back to
+  `dark`, so a light default flashed dark before Blazor started.
+- **BOBInitializer** no longer faults the render loop when the palette snapshot is empty or contains an unparsable
+  color (for example when the theme JS module fails to load); the previous palette is kept.
 
 ## [1.0.0] - 2026-05-15
 
