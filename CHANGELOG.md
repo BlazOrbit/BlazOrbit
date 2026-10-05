@@ -26,6 +26,8 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - **BOBInitializer** emits the anti-flash bootstrap in place instead of through `<HeadContent>`. `HeadOutlet` only
   renders the last `<HeadContent>`, so any page declaring its own (meta description, canonical link...) silently
   dropped the script and the stored theme was not applied before first paint.
+- **Inputs** used with one-way `Value` + `ValueChanged` (no `@bind-Value`, no `EditForm`) no longer throw when a
+  wrapper forwards a null `ValueExpression` to its inner input. `BOBInputDropdown` crashed the circuit this way.
 
 ## [1.0.0] - 2026-05-15
 

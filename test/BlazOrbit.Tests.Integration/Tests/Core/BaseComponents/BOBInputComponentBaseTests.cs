@@ -141,6 +141,22 @@ public class BOBInputComponentBaseTests
 
     [Theory]
     [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
+    public async Task Should_Render_When_ValueExpression_Is_Passed_As_Null(BlazorScenario scenario)
+    {
+        // Wrappers forward `ValueExpression="@ValueExpression"` to an inner input; when the
+        // wrapper itself is not bound, the parameter arrives present but null and must be
+        // treated as missing.
+        await using BlazorTestContextBase ctx = scenario.CreateContext();
+
+        // Act & Assert
+        ctx.Invoking(x => x.Render<BOBInputComponentBase_TestStub>(p => p
+                .Add(c => c.Value, "Null Expression")
+                .Add(c => c.ValueExpression, null)))
+            .Should().NotThrow();
+    }
+
+    [Theory]
+    [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
     public async Task Should_Update_CurrentValue_When_Input_Changes(BlazorScenario scenario)
     {
         await using BlazorTestContextBase ctx = scenario.CreateContext();

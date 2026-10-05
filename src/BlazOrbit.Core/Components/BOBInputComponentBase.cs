@@ -94,9 +94,11 @@ public abstract class BOBInputComponentBase<TValue> :
         bool hasEditContext = false;
         foreach (ParameterValue p in parameters)
         {
+            // Wrappers forward `ValueExpression="@ValueExpression"` to an inner input, so the
+            // parameter can be present but null when the wrapper is not bound: treat it as missing.
             if (p.Name == nameof(ValueExpression))
             {
-                hasValueExpression = true;
+                hasValueExpression = p.Value is not null;
             }
             else if (p.Cascading && p.Value is EditContext)
             {
