@@ -7,6 +7,10 @@ to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+### Added
+- **Link** (`BOBLink`) - Navigation anchor with `Text` and `Button` appearances. The button appearance mirrors
+  `BOBButton` visuals while keeping link semantics, so it works under static SSR. `Target="_blank"` adds
+  `rel="noopener noreferrer"` and a screen-reader hint that the link opens in a new tab.
 ### Changed
 - **BOBInitializer** renders `ChildContent` immediately instead of waiting for the palette to resolve through JS
   interop. Static SSR and prerendered HTML now contain the page markup. The cascaded `BOBPalette` is `null` until it

@@ -31,6 +31,8 @@ using BlazOrbit.Localization;
 [assembly:
     BobLocalizationBundle(typeof(BlazOrbit.Docs.Wasm.Pages.Components.CardPage), DefaultCulture = "en-US")]
 [assembly:
+    BobLocalizationBundle(typeof(BlazOrbit.Docs.Wasm.Pages.Components.LinkPage), DefaultCulture = "en-US")]
+[assembly:
     BobLocalizationBundle(typeof(BlazOrbit.Docs.Wasm.Pages.Components.CarouselPage), DefaultCulture = "en-US")]
 [assembly:
     BobLocalizationBundle(typeof(BlazOrbit.Docs.Wasm.Pages.Components.Charts.AreaChartPage), DefaultCulture = "en-US")]

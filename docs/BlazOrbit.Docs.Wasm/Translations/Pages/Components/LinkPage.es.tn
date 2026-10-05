@@ -1,0 +1,47 @@
+# Basic
+Básico
+
+# BOBLink
+BOBLink
+
+# Button appearance
+Apariencia de botón
+
+# Colors and sizes
+Colores y tamaños
+
+# Component
+Componente
+
+# External link
+Enlace externo
+
+# Get started
+Empezar
+
+# getting started guide
+guía de inicio
+
+# Large
+Grande
+
+# Looks like a button but renders an anchor, so it works without interactivity and keeps link semantics.
+Parece un botón pero genera un enlace, así que funciona sin interactividad y conserva la semántica de enlace.
+
+# Medium
+Mediano
+
+# Navigates to another page or resource. Use BOBLink to go somewhere and BOBButton to do something.
+Navega a otra página o recurso. Usa BOBLink para ir a algún sitio y BOBButton para hacer algo.
+
+# Properties
+Propiedades
+
+# Read the
+Lee la
+
+# Small
+Pequeño
+
+# Target="_blank" adds rel="noopener noreferrer" and tells screen readers the link opens in a new tab.
+Target="_blank" añade rel="noopener noreferrer" e indica a los lectores de pantalla que el enlace se abre en una pestaña nueva.

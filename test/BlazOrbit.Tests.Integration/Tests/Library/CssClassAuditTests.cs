@@ -45,6 +45,9 @@ public class CssClassAuditTests
         ["bob-button__icon"] = "Public hook for button icon styling; verified by BOBButtonStateTests.",
         ["bob-button__icon--leading"] = "Modifier for leading icon; verified by BOBButtonStateTests.",
         ["bob-button__icon--trailing"] = "Modifier for trailing icon; verified by BOBButtonStateTests.",
+        ["bob-link__icon"] = "Public hook for link icon styling; verified by BOBLinkRenderingTests.",
+        ["bob-link__icon--leading"] = "Modifier for leading icon; verified by BOBLinkRenderingTests.",
+        ["bob-link__icon--trailing"] = "Modifier for trailing icon; verified by BOBLinkRenderingTests.",
         ["bob-tabs__tab-label"] = "Structural/test hook for tab label text; verified by BOBTabsRenderingTests.",
         ["bob-tree-menu__submenu"] =
             "Structural/test hook for submenu container; verified by BOBTreeMenuInteractionTests.",
