@@ -1,11 +1,19 @@
 [
   {
     Name: EmptyBody,
-    Html: <bob-component data-bob-component="toast-host" b-<SCOPE>></bob-component>
+    Html:
+<script src="_content/BlazOrbit/anti-flash.js" data-default-theme="dark"></script>
+
+
+
+
+<bob-component data-bob-component="toast-host" b-<SCOPE>></bob-component>
   },
   {
     Name: SimpleBody,
     Html:
+<script src="_content/BlazOrbit/anti-flash.js" data-default-theme="dark"></script>
+
 <main class="app-main">Hello</main>
 
 
@@ -14,6 +22,8 @@
   {
     Name: StructuredBody,
     Html:
+<script src="_content/BlazOrbit/anti-flash.js" data-default-theme="dark"></script>
+
 <header class="app-header">H</header><aside class="app-sidebar">S</aside><main class="app-main">M</main>
 
 

@@ -171,9 +171,48 @@ public class BOBInitializerRenderingTests
             .Add(c => c.DefaultTheme, "light"));
 
         // Assert
+        AntiFlashScripts(ctx, cut).Should().ContainSingle()
+            .Which.GetAttribute("data-default-theme").Should().Be("light");
+    }
+
+    [Theory]
+    [MemberData(nameof(TestScenarios.All), MemberType = typeof(TestScenarios))]
+    public async Task Should_Emit_AntiFlash_Script_When_Page_Declares_HeadContent(BlazorScenario scenario)
+    {
+        await using BlazorTestContextBase ctx = scenario.CreateContext();
+        RegisterFakeTheme(ctx);
+
+        // Arrange & Act - HeadOutlet only renders the last <HeadContent>; a page's own
+        // <HeadContent> (title, meta description...) must not drop the theme bootstrap.
+        IRenderedComponent<BOBInitializer> cut = ctx.Render<BOBInitializer>(p => p
+            .AddChildContent<PageWithHeadContent>());
+
+        // Assert
+        AntiFlashScripts(ctx, cut).Should().ContainSingle();
+    }
+
+    private static IReadOnlyList<AngleSharp.Dom.IElement> AntiFlashScripts(
+        BlazorTestContextBase ctx, IRenderedComponent<BOBInitializer> cut)
+    {
+        const string selector = "script[src='_content/BlazOrbit/anti-flash.js']";
         IRenderedComponent<HeadOutlet> head = ctx.Render<HeadOutlet>();
-        head.Find("script[src='_content/BlazOrbit/anti-flash.js']")
-            .GetAttribute("data-default-theme").Should().Be("light");
+        return [.. head.FindAll(selector), .. cut.FindAll(selector)];
+    }
+
+    private sealed class PageWithHeadContent : ComponentBase
+    {
+        protected override void BuildRenderTree(RenderTreeBuilder builder)
+        {
+            builder.OpenComponent<HeadContent>(0);
+            builder.AddComponentParameter(1, nameof(HeadContent.ChildContent), (RenderFragment)(b =>
+            {
+                b.OpenElement(0, "meta");
+                b.AddAttribute(1, "name", "description");
+                b.AddAttribute(2, "content", "page");
+                b.CloseElement();
+            }));
+            builder.CloseComponent();
+        }
     }
 
     private static TaskCompletionSource<Dictionary<string, string>> RegisterPendingTheme(BlazorTestContextBase ctx)

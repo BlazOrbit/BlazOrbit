@@ -6,13 +6,12 @@
 
 @inject IThemeJsInterop ThemeInterop
 
-<HeadContent>
-    @* Anti-flash bootstrap shipped as a StaticWebAsset. Synchronous <script src> in
-       <head> blocks body parse so `data-theme` is set before any element renders.
-       External-file form is CSP-safe under `script-src 'self'`, avoiding the
-       inline-script exception that the previous implementation required. *@
-    <script src="_content/BlazOrbit/anti-flash.js" data-default-theme="@DefaultTheme"></script>
-</HeadContent>
+@* Anti-flash bootstrap shipped as a StaticWebAsset. Emitted in place (not via <HeadContent>):
+   HeadOutlet only renders the last <HeadContent>, so a page declaring its own title/meta
+   would drop the script. A synchronous <script src> placed before ChildContent still runs
+   before any following element is parsed, so `data-bob-theme` is set before content paints.
+   External-file form is CSP-safe under `script-src 'self'`. *@
+<script src="_content/BlazOrbit/anti-flash.js" data-default-theme="@DefaultTheme"></script>
 
 @* Content renders immediately so static SSR and prerender emit real markup. Theme colors
    come from CSS custom properties; the cascaded palette is null until JS resolves it. *@
