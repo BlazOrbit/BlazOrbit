@@ -23,7 +23,7 @@
         <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" Version="$(BlazOrbitExtensionsVersion)"/>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="$(BlazOrbitExtensionsVersion)"/>
         <PackageReference Include="Microsoft.JSInterop" Version="$(BlazOrbitAspNetCoreVersion)"/>
-        <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="4.14.0" PrivateAssets="all"/>
+        <PackageReference Include="Microsoft.CodeAnalysis.PublicApiAnalyzers" Version="5.6.0" PrivateAssets="all"/>
     </ItemGroup>
 
     <ItemGroup>
