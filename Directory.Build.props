@@ -31,8 +31,8 @@
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(TargetFramework)' == 'net8.0'">
-        <BlazOrbitAspNetCoreVersion>8.0.*</BlazOrbitAspNetCoreVersion>
-        <BlazOrbitExtensionsVersion>8.0.*</BlazOrbitExtensionsVersion>
+        <BlazOrbitAspNetCoreVersion>11.0.*</BlazOrbitAspNetCoreVersion>
+        <BlazOrbitExtensionsVersion>11.0.*</BlazOrbitExtensionsVersion>
         <BlazOrbitJsInteropVersion>8.0.*</BlazOrbitJsInteropVersion>
     </PropertyGroup>
 
